@@ -16,16 +16,85 @@
 
 namespace Ironjawz {
 
-    enum Warclan {
+    enum class Warclan : int {
+        None,
         Ironsunz,
         Bloodtoofs,
-        DaChoppas
+        Da_Choppas
     };
 
-    const std::array<int, 3> g_warclan = {
-            Ironsunz,
-            Bloodtoofs,
-            DaChoppas
+    enum class CommandTrait : int {
+        None,
+
+        // Megaboss
+        Hulking_Muscle_Bound_Brute,
+        Live_to_Fight,
+        Brutish_Cunning,
+        Ironclad,
+        Bestial_Charisma,
+        Mighty_Waaagh,
+
+        // Shaman
+        Dead_Kunnin,
+        Master_of_the_Weird,
+        Bursting_with_Power,
+
+        // Clan specific
+        Right_Fist_of_Dakkbad, // Ironsunz
+        Get_Da_Realmgate, // Bloodtoof
+        Checked_Out, // Da Choppas
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Megaboss
+        Armour_of_Gork,
+        Destroyer,
+        Daubing_of_Mork,
+        The_Golden_Toof,
+        Metalrippas_Klaw,
+        The_Boss_Skewer,
+
+        // Shaman
+        Great_Green_Visions,
+        Amberbone_Hoard,
+        Shamanic_Skullcape,
+
+        // Clan specific
+        Sunzblessed_Armour, // Ironsunz
+        Quickduff_Amulet, // Bloodtoof
+        Megaskull_Staff, // Da Choppas
+    };
+
+    enum class MountTrait : int {
+        None,
+
+        Big_Un,
+        Fast_Un,
+        Mean_Un,
+        Heavy_Un,
+        Loud_Un,
+        Weird_Un,
+    };
+
+    enum class Warbeat : int {
+        None,
+
+        Get_Em_Beat,
+        Fixin_Beat,
+        Killa_Beat,
+    };
+
+    enum class Lore : int {
+        None,
+
+        Brain_Bursta,
+        Mighty_Eadbutt,
+        Da_Blazin_Eyes,
+        Da_Great_Big_Green_Hand_of_Gork,
+        Bash_Em_Ladz,
+        Wrath_of_Gork
     };
 
     class Ironjawz : public Unit {
@@ -39,6 +108,8 @@ namespace Ironjawz {
         static int EnumStringToInt(const std::string &enumString);
 
         void setWarclan(Warclan warclan);
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
 
     protected:
         Ironjawz(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -54,8 +125,9 @@ namespace Ironjawz {
 
     protected:
 
-        Warclan m_warclan = Ironsunz;
-
+        Warclan m_warclan = Warclan::Ironsunz;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
 //

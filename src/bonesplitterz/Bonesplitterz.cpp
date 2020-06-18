@@ -8,6 +8,7 @@
 
 #include <bonesplitterz/Bonesplitterz.h>
 #include <Board.h>
+#include <magic_enum.hpp>
 
 #include "bonesplitterz/BoarboyManiaks.h"
 #include "bonesplitterz/ManiakWeirdnob.h"
@@ -30,13 +31,13 @@ namespace Bonesplitterz {
 
         m_warclan = warclan;
         switch (warclan) {
-            case Bonegrinz:
+            case Warclan::Bonegrinz:
                 addKeyword(BONEGRINZ);
                 break;
-            case Drakkfoot:
+            case Warclan::Drakkfoot:
                 addKeyword(DRAKKFOOT);
                 break;
-            case Icebone:
+            case Warclan::Icebone:
                 addKeyword(ICEBONE);
                 break;
             default:
@@ -46,17 +47,38 @@ namespace Bonesplitterz {
 
     std::string Bonesplitterz::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Warclan") {
-            if (parameter.intValue == Bonegrinz) { return "Bonegrinz"; }
-            else if (parameter.intValue == Drakkfoot) { return "Drakkfoot"; }
-            else if (parameter.intValue == Icebone) { return "Icebone"; }
+            auto clanName = magic_enum::enum_name((Warclan)parameter.intValue);
+            return std::string(clanName);
         }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int Bonesplitterz::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Bonegrinz") { return Bonegrinz; }
-        else if (enumString == "Drakkfoot") { return Drakkfoot; }
-        else if (enumString == "Icebone") { return Icebone; }
+        auto clan = magic_enum::enum_cast<Warclan>(enumString);
+        if (clan.has_value()) return (int)clan.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
         return 0;
     }
 
@@ -124,8 +146,16 @@ namespace Bonesplitterz {
     int Bonesplitterz::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
         // Freezing Strike
-        if ((m_warclan == Icebone) && (woundRoll == 6)) rend--;
+        if ((m_warclan == Warclan::Icebone) && (woundRoll == 6)) rend--;
         return rend;
+    }
+
+    void Bonesplitterz::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void Bonesplitterz::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

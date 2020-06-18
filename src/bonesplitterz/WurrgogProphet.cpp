@@ -9,6 +9,7 @@
 #include <Roster.h>
 #include <spells/MysticShield.h>
 #include "bonesplitterz/WurrgogProphet.h"
+#include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
     static const int BASESIZE = 32;
@@ -20,10 +21,18 @@ namespace Bonesplitterz {
     Unit *WurrgogProphet::Create(const ParameterList &parameters) {
         auto unit = new WurrgogProphet();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_prophetBossCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -40,6 +49,9 @@ namespace Bonesplitterz {
                     ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                            EnumParameter("Command Trait", g_prophetBossCommandTraits[0], g_prophetBossCommandTraits),
+                            EnumParameter("Artefact", g_wizardArtefacts[0], g_wizardArtefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}
@@ -58,7 +70,7 @@ namespace Bonesplitterz {
         m_totalSpells = 2;
     }
 
-    bool WurrgogProphet::configure() {
+    bool WurrgogProphet::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staffAndShiv);
         model->addMeleeWeapon(&m_fangedMaw);

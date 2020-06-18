@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "ironjawz/WeirdnobShaman.h"
+#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int BASESIZE = 40;
@@ -18,10 +19,18 @@ namespace Ironjawz {
     Unit *OrrukWeirdnobShaman::Create(const ParameterList &parameters) {
         auto unit = new OrrukWeirdnobShaman();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_shamanCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_shamanArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -42,6 +51,9 @@ namespace Ironjawz {
                     OrrukWeirdnobShaman::ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                            EnumParameter("Command Trait", g_shamanCommandTraits[0], g_shamanCommandTraits),
+                            EnumParameter("Artefact", g_shamanArtefacts[0], g_shamanArtefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore)
                     },
                     DESTRUCTION,
                     {IRONJAWZ}
@@ -57,7 +69,7 @@ namespace Ironjawz {
         m_weapons = {&m_staff};
     }
 
-    bool OrrukWeirdnobShaman::configure() {
+    bool OrrukWeirdnobShaman::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

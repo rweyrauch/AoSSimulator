@@ -35,7 +35,7 @@ namespace Ironjawz {
 
         ~MegabossOnMawKrusha() override = default;
 
-        bool configure(WeaponOption weapons);
+        bool configure(WeaponOption weapons, MountTrait trait);
 
     protected:
 
@@ -62,6 +62,8 @@ namespace Ironjawz {
                 m_hackaAndChoppa,
                 m_ripToofFist,
                 m_fistsAndTail;
+
+        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };

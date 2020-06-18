@@ -8,6 +8,7 @@
 
 #include <Roster.h>
 #include <ironjawz/Ironjawz.h>
+#include <magic_enum.hpp>
 
 #include "ironjawz/OrrukArdboys.h"
 #include "ironjawz/OrrukBrutes.h"
@@ -28,7 +29,7 @@ namespace Ironjawz {
         mod++;
 
         // Hunt and Crush
-        if (m_warclan == Bloodtoofs) {
+        if (m_warclan == Warclan::Bloodtoofs) {
             mod++;
         }
         return mod;
@@ -38,7 +39,7 @@ namespace Ironjawz {
         int mod = Unit::runModifier();
 
         // Hunt and Crush
-        if (m_warclan == Bloodtoofs) {
+        if (m_warclan == Warclan::Bloodtoofs) {
             mod++;
         }
         return mod;
@@ -51,13 +52,13 @@ namespace Ironjawz {
 
         m_warclan = warclan;
         switch (warclan) {
-            case Ironsunz:
+            case Warclan::Ironsunz:
                 addKeyword(IRONSUNZ);
                 break;
-            case Bloodtoofs:
+            case Warclan::Bloodtoofs:
                 addKeyword(BLOODTOOFS);
                 break;
-            case DaChoppas:
+            case Warclan::Da_Choppas:
                 addKeyword(CHOPPAS);
                 break;
             default:
@@ -67,17 +68,52 @@ namespace Ironjawz {
 
     std::string Ironjawz::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Warclan") {
-            if (parameter.intValue == Ironsunz) { return "Ironsunz"; }
-            else if (parameter.intValue == Bloodtoofs) { return "Bloodtoofs"; }
-            else if (parameter.intValue == DaChoppas) { return "Da Choppas"; }
+            auto clanName = magic_enum::enum_name((Warclan)parameter.intValue);
+            return std::string(clanName);
         }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
+        }
+        if (std::string(parameter.name) == "Mount Trait") {
+            auto traitName = magic_enum::enum_name((MountTrait) parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Warbeat") {
+            auto beatName = magic_enum::enum_name((Warbeat) parameter.intValue);
+            return std::string(beatName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int Ironjawz::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Ironsunz") { return Ironsunz; }
-        else if (enumString == "Bloodtoofs") { return Bloodtoofs; }
-        else if (enumString == "Da Choppas") { return DaChoppas; }
+        auto clan = magic_enum::enum_cast<Warclan>(enumString);
+        if (clan.has_value()) return (int)clan.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto mount = magic_enum::enum_cast<MountTrait>(enumString);
+        if (mount.has_value()) return (int)mount.value();
+
+        auto beat = magic_enum::enum_cast<Warbeat>(enumString);
+        if (beat.has_value()) return (int)beat.value();
+
         return 0;
     }
 
@@ -85,8 +121,16 @@ namespace Ironjawz {
         Unit::onBeginRound(battleRound);
 
         // Right First of Dakkbad
-        if ((battleRound == 1) && (m_warclan == Ironsunz))
+        if ((battleRound == 1) && (m_warclan == Warclan::Ironsunz))
             m_roster->addCommandPoints(1);
+    }
+
+    void Ironjawz::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void Ironjawz::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

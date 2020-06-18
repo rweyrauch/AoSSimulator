@@ -9,6 +9,7 @@
 #include <ironjawz/MegabossOnMawKrusha.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int BASESIZE = 160;
@@ -44,7 +45,7 @@ namespace Ironjawz {
         m_weapons = {&m_bellow, &m_hackaAndChoppa, &m_ripToofFist, &m_fistsAndTail};
     }
 
-    bool MegabossOnMawKrusha::configure(WeaponOption weapons) {
+    bool MegabossOnMawKrusha::configure(WeaponOption weapons, MountTrait trait) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_bellow);
 
@@ -58,6 +59,7 @@ namespace Ironjawz {
         addModel(model);
 
         m_weaponOption = weapons;
+        m_mountTrait = trait;
 
         m_points = POINTS_PER_UNIT;
 
@@ -68,10 +70,18 @@ namespace Ironjawz {
         auto unit = new MegabossOnMawKrusha();
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HackaAndChoppa);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
-        bool ok = unit->configure(weapons);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_bossCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_bossArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
+
+        bool ok = unit->configure(weapons, mount);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -90,6 +100,9 @@ namespace Ironjawz {
                     {
                             EnumParameter("Weapons", HackaAndChoppa, weapons),
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                            EnumParameter("Command Trait", g_bossCommandTraits[0], g_bossCommandTraits),
+                            EnumParameter("Artefact", g_bossArtefacts[0], g_bossArtefacts),
+                            EnumParameter("Mount Trait", g_mountTrait[0], g_mountTrait)
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "bonesplitterz/SavageBigBoss.h"
+#include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
     static const int BASESIZE = 40;
@@ -18,8 +19,14 @@ namespace Bonesplitterz {
     Unit *SavageBigBoss::Create(const ParameterList &parameters) {
         auto unit = new SavageBigBoss();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_prophetBossCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heroArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -38,6 +45,8 @@ namespace Bonesplitterz {
                     ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                            EnumParameter("Command Trait", g_prophetBossCommandTraits[0], g_prophetBossCommandTraits),
+                            EnumParameter("Artefact", g_heroArtefacts[0], g_heroArtefacts)
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}

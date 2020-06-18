@@ -25,7 +25,7 @@ namespace Bonesplitterz {
 
         ~ManiakWeirdnob() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

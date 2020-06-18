@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "bonesplitterz/BoarboyManiaks.h"
+#include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
     static const int BASESIZE = 32;
@@ -24,7 +25,7 @@ namespace Bonesplitterz {
         bool thumper = GetBoolParam("Boar Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels, thumper, totem);

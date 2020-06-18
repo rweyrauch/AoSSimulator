@@ -9,6 +9,7 @@
 #include <ironjawz/OrrukWarchanter.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int BASESIZE = 40;
@@ -24,11 +25,12 @@ namespace Ironjawz {
         m_weapons = {&m_stikks};
     }
 
-    bool OrrukWarchanter::configure() {
+    bool OrrukWarchanter::configure(Warbeat warbeat) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_stikks);
         addModel(model);
 
+        m_warbeat = warbeat;
         m_points = POINTS_PER_UNIT;
 
         return true;
@@ -37,10 +39,12 @@ namespace Ironjawz {
     Unit *OrrukWarchanter::Create(const ParameterList &parameters) {
         auto unit = new OrrukWarchanter();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
-        bool ok = unit->configure();
+        auto beat = (Warbeat) GetEnumParam("Warbeat", parameters, g_warbeats[0]);
+
+        bool ok = unit->configure(beat);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -57,6 +61,7 @@ namespace Ironjawz {
                     OrrukWarchanter::ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                             EnumParameter("Warbeat", g_warbeats[0], g_warbeats)
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

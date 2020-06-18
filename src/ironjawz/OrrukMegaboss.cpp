@@ -8,6 +8,7 @@
 
 #include <ironjawz/OrrukMegaboss.h>
 #include <UnitFactory.h>
+#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int BASESIZE = 60;
@@ -36,8 +37,14 @@ namespace Ironjawz {
     Unit *OrrukMegaboss::Create(const ParameterList &parameters) {
         auto unit = new OrrukMegaboss();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_bossCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_bossArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -56,6 +63,8 @@ namespace Ironjawz {
                     OrrukMegaboss::ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                            EnumParameter("Command Trait", g_bossCommandTraits[0], g_bossCommandTraits),
+                            EnumParameter("Artefact", g_bossArtefacts[0], g_bossArtefacts),
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

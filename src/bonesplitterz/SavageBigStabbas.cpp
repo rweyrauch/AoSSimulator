@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "bonesplitterz/SavageBigStabbas.h"
+#include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
     static const int BASESIZE = 32;
@@ -23,7 +24,7 @@ namespace Bonesplitterz {
         auto unit = new SavageBigStabbas();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Bonegrinz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels);

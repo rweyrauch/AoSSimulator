@@ -9,6 +9,7 @@
 #include <ironjawz/Gordrakk.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int BASESIZE = 160;
@@ -60,7 +61,7 @@ namespace Ironjawz {
     Unit *GordrakkTheFistOfGork::Create(const ParameterList &parameters) {
         auto unit = new GordrakkTheFistOfGork();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure();

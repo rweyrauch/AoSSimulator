@@ -25,7 +25,7 @@ namespace Bonesplitterz {
 
         ~WurrgogProphet() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

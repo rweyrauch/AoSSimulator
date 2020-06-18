@@ -8,6 +8,7 @@
 
 #include <ironjawz/IronskullsBoyz.h>
 #include <UnitFactory.h>
+#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int BASESIZE = 32;
@@ -47,7 +48,7 @@ namespace Ironjawz {
     Unit *IronskullsBoyz::Create(const ParameterList &parameters) {
         auto unit = new IronskullsBoyz();
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure();

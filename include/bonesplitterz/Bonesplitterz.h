@@ -16,14 +16,66 @@
 
 namespace Bonesplitterz {
 
-    enum Warclan {
+    enum class Warclan : int {
+        None = 0,
         Bonegrinz,
         Drakkfoot,
         Icebone
     };
 
-    const std::array<int, 3> g_warclan = {
-            Bonegrinz, Drakkfoot, Icebone
+    enum class CommandTrait : int {
+        None,
+
+        // Prophet and Big Boss
+        Killa_Instinkt,
+        Waaagh_Monger,
+        Great_Hunter,
+        Power_of_the_Beast,
+        Voice_of_Da_Gods,
+        Monsta_Killa,
+
+        // Wizard
+        Dead_Kunnin,
+        Master_of_the_Weird,
+        Fuelled_by_the_Spirits,
+
+        // Clan specific
+        A_Right_Monster, // Bonegrinz
+        Purebred_War_Boar, // Icebone
+        Fireball, // Drakkfoot
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Hero
+        Dokk_Juice,
+        Savage_Trophy,
+        Lucky_Bone,
+        Glowin_Tattooz,
+        Greatdrake_Toof,
+        Weepwood_Big_Shiv,
+
+        // Wizard
+        Big_Wurrgog_Mask,
+        Morks_Boney_Bitz,
+        Mystic_Waaagh_Paint,
+
+        // Clan specific
+        Maw_Krusha_Beast_Totem, // Bonegrinz
+        Kattanak_Pelt, // Icebone
+        Burnin_Tattooz, // Drakkfoot
+    };
+
+    enum class Lore : int {
+        None,
+
+        Squiggly_Curse,
+        Breath_of_Gorkamorka,
+        Brutal_Beast_Spirits,
+        Bone_Krusha,
+        Kunnin_Beast_Spirits,
+        Gorkamorkas_War_Cry,
     };
 
     class Bonesplitterz : public Unit {
@@ -37,6 +89,9 @@ namespace Bonesplitterz {
         static int EnumStringToInt(const std::string &enumString);
 
         void setWarclan(Warclan warclan);
+
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
 
     protected:
         Bonesplitterz(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -58,7 +113,9 @@ namespace Bonesplitterz {
 
     protected:
 
-        Warclan m_warclan = Bonegrinz;
+        Warclan m_warclan = Warclan::None;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
 
         bool m_stabStabStab = false;
         bool m_berserkStrength = false;

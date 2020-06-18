@@ -27,13 +27,14 @@ namespace Ironjawz {
 
         ~OrrukWarchanter() override = default;
 
-        bool configure();
+        bool configure(Warbeat warbeat);
 
     protected:
 
     private:
 
         Weapon m_stikks;
+        Warbeat m_warbeat = Warbeat::None;
 
         static bool s_registered;
     };

@@ -27,7 +27,7 @@ namespace Ironjawz {
 
         ~OrrukWeirdnobShaman() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

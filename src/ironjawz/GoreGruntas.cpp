@@ -8,6 +8,7 @@
 
 #include <ironjawz/GoreGruntas.h>
 #include <UnitFactory.h>
+#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int BASESIZE = 90;  // x52 oval
@@ -69,7 +70,7 @@ namespace Ironjawz {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, PigIronChoppa);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, Ironsunz);
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
         bool ok = unit->configure(numModels, weapons);
