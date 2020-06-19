@@ -8,6 +8,7 @@
 
 #include <death/CorpseCartLodestone.h>
 #include <UnitFactory.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 105; // x70 oval
@@ -19,7 +20,7 @@ namespace Death {
     Unit *CorpseCartWithUnholyLodestone::Create(const ParameterList &parameters) {
         auto unit = new CorpseCartWithUnholyLodestone();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -42,7 +43,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
                     {DEADWALKERS}

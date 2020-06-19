@@ -8,6 +8,7 @@
 
 #include <death/GraveGuard.h>
 #include <UnitFactory.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 25;
@@ -75,7 +76,7 @@ namespace Death {
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons, standardBearers, hornblowers);
@@ -99,7 +100,7 @@ namespace Death {
                             EnumParameter("Weapons", WightBlade, weapons),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Hornblowers"),
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
                     {DEATHRATTLE}

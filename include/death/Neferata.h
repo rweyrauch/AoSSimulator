@@ -27,7 +27,7 @@ namespace Death {
 
         ~NeferataMortarchOfBlood() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

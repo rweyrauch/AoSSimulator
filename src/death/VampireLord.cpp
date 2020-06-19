@@ -8,6 +8,7 @@
 
 #include <death/VampireLord.h>
 #include <UnitFactory.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 32;
@@ -24,10 +25,18 @@ namespace Death {
         bool withWings = GetBoolParam("Wings", parameters, false);
         bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
-        bool ok = unit->configure(withSteed, withWings, chalice);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
+
+        bool ok = unit->configure(withSteed, withWings, chalice, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -50,7 +59,10 @@ namespace Death {
                             BoolParameter("Steed"),
                             BoolParameter("Wings"),
                             BoolParameter("Chalice of Blood"),
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -67,7 +79,7 @@ namespace Death {
         m_weapons = {&m_blades, &m_hoovesAndTeeth};
     }
 
-    bool VampireLord::configure(bool withSteed, bool withWings, bool chalice) {
+    bool VampireLord::configure(bool withSteed, bool withWings, bool chalice, Lore lore) {
         auto model = new Model(withSteed ? BASESIZE_WITH_STEED : BASESIZE, wounds());
 
         if (withSteed) {

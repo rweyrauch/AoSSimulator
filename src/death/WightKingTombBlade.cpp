@@ -8,6 +8,7 @@
 
 #include <death/WightKingTombBlade.h>
 #include <UnitFactory.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 32;
@@ -29,8 +30,14 @@ namespace Death {
         auto unit = new WightKingWithBalefulTombBlade();
         bool steed = GetBoolParam("Steed", parameters, false);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(steed);
         if (!ok) {
@@ -49,7 +56,9 @@ namespace Death {
                     ComputePoints,
                     {
                             BoolParameter("Steed"),
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts)
                     },
                     DEATH,
                     {DEATHRATTLE}

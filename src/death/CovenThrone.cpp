@@ -8,6 +8,7 @@
 
 #include <death/CovenThrone.h>
 #include <UnitFactory.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 120; // x92 oval
@@ -36,10 +37,18 @@ namespace Death {
     Unit *CovenThrone::Create(const ParameterList &parameters) {
         auto unit = new CovenThrone();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -59,7 +68,10 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -78,7 +90,7 @@ namespace Death {
         m_weapons = {&m_bite, &m_stiletto, &m_poniards, &m_etherealWeapons};
     }
 
-    bool CovenThrone::configure() {
+    bool CovenThrone::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_bite);
         model->addMeleeWeapon(&m_stiletto);

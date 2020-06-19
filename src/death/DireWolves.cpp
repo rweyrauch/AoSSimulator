@@ -9,6 +9,7 @@
 #include <death/DireWolves.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 60; // x35 oval
@@ -53,7 +54,7 @@ namespace Death {
         auto unit = new DireWolves();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels);
@@ -73,7 +74,7 @@ namespace Death {
                     ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
                     {DEADWALKERS}

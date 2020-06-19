@@ -9,6 +9,7 @@
 #include <death/Nagash.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 100;
@@ -52,7 +53,7 @@ namespace Death {
     Unit *Nagash::Create(const ParameterList &parameters) {
         auto unit = new Nagash();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -71,7 +72,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
                     {DEATHLORDS, OSSIARCH_BONEREAPERS}

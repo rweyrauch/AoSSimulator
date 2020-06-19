@@ -8,6 +8,7 @@
 
 #include <death/WightKingBlackAxe.h>
 #include <UnitFactory.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 32;
@@ -36,8 +37,14 @@ namespace Death {
     Unit *WightKingWithBlackAxe::Create(const ParameterList &parameters) {
         auto unit = new WightKingWithBlackAxe();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -55,7 +62,9 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts)
                     },
                     DEATH,
                     {DEATHRATTLE}

@@ -9,6 +9,7 @@
 #include <death/PrinceVhordrai.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 130;
@@ -37,10 +38,12 @@ namespace Death {
     Unit *PrinceVhordrai::Create(const ParameterList &parameters) {
         auto unit = new PrinceVhordrai();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -60,7 +63,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore)
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -78,7 +82,7 @@ namespace Death {
         m_weapons = {&m_bloodlance, &m_maw, &m_claws};
     }
 
-    bool PrinceVhordrai::configure() {
+    bool PrinceVhordrai::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_bloodlance);
         model->addMeleeWeapon(&m_maw);

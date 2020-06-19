@@ -9,6 +9,7 @@
 #include <death/CorpseCartBrazier.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 105; // x70 oval
@@ -20,7 +21,7 @@ namespace Death {
     Unit *CorpseCartWithBalefireBrazier::Create(const ParameterList &parameters) {
         auto unit = new CorpseCartWithBalefireBrazier();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -43,7 +44,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
                     {DEADWALKERS}

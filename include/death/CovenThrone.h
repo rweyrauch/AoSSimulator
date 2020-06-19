@@ -27,7 +27,7 @@ namespace Death {
 
         ~CovenThrone() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

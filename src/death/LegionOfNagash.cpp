@@ -8,6 +8,7 @@
 
 #include <death/LegionOfNagash.h>
 #include <Board.h>
+#include <magic_enum.hpp>
 
 #include "death/Nagash.h"
 #include "death/BlackKnights.h"
@@ -37,19 +38,37 @@ namespace Death {
 
     std::string LegionOfNagashBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Legion") {
-            if (parameter.intValue == GrandHostOfNagash) { return "Grand Host of Nagash"; }
-            else if (parameter.intValue == LegionOfSacrament) { return "Legion of Sacrament"; }
-            else if (parameter.intValue == LegionOfNight) { return "Legion of Night"; }
-            else if (parameter.intValue == LegionOfBlood) { return "Legion of Blood"; }
+            auto legionName = magic_enum::enum_name((Legion)parameter.intValue);
+            return std::string(legionName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
         }
         return ParameterValueToString(parameter);
     }
 
     int LegionOfNagashBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Grand Host of Nagash") return GrandHostOfNagash;
-        else if (enumString == "Legion of Sacrament") return LegionOfSacrament;
-        else if (enumString == "Legion of Night") return LegionOfNight;
-        else if (enumString == "Legion of Blood") return LegionOfBlood;
+        auto legion = magic_enum::enum_cast<Legion>(enumString);
+        if (legion.has_value()) return (int)legion.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+        
         return 0;
     }
 
@@ -61,16 +80,16 @@ namespace Death {
 
         m_legion = legion;
         switch (legion) {
-            case GrandHostOfNagash:
+            case Legion::Grand_Host_of_Nagash:
                 addKeyword(GRAND_HOST_OF_NAGASH);
                 break;
-            case LegionOfSacrament:
+            case Legion::Legion_of_Sacrament:
                 addKeyword(LEGION_OF_SACRAMENT);
                 break;
-            case LegionOfNight:
+            case Legion::Legion_of_Night:
                 addKeyword(LEGION_OF_NIGHT);
                 break;
-            case LegionOfBlood:
+            case Legion::Legion_of_Blood:
                 addKeyword(LEGION_OF_BLOOD);
                 break;
         }
@@ -95,6 +114,14 @@ namespace Death {
 
             if (unitsHealed >= numUnits) break;
         }
+    }
+
+    void LegionOfNagashBase::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+    }
+
+    void LegionOfNagashBase::setArtefact(Artefact artefact) {
+        m_artefact = artefact;
     }
 
     void Init() {

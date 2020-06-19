@@ -8,6 +8,7 @@
 
 #include <death/Mannfred.h>
 #include <UnitFactory.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 120; // x92 oval
@@ -36,7 +37,7 @@ namespace Death {
     Unit *MannfredMortarchOfNight::Create(const ParameterList &parameters) {
         auto unit = new MannfredMortarchOfNight();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -59,7 +60,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore)
                     },
                     DEATH,
                     {SOULBLIGHT, DEATHLORDS}

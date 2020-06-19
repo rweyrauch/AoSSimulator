@@ -9,6 +9,7 @@
 #include <death/BloodseekerPalangquin.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 120; // x92 oval
@@ -37,10 +38,18 @@ namespace Death {
     Unit *BloodseekerPalanquin::Create(const ParameterList &parameters) {
         auto unit = new BloodseekerPalanquin();
 
-        auto legion = (Legion) GetEnumParam("Legion", parameters, GrandHostOfNagash);
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -60,7 +69,10 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legion[0], g_legion)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
                     },
                     DEATH,
                     {SOULBLIGHT}
@@ -78,7 +90,7 @@ namespace Death {
         m_weapons = {&m_wail, &m_blade, &m_etherealWeapons};
     }
 
-    bool BloodseekerPalanquin::configure() {
+    bool BloodseekerPalanquin::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_blade);

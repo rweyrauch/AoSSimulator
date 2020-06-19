@@ -32,7 +32,7 @@ namespace Death {
 
         ~VampireLordOnZombieDragon() override = default;
 
-        bool configure(WeaponOption option, bool shield, bool chalice);
+        bool configure(WeaponOption option, bool shield, bool chalice, Lore lore);
 
     protected:
 
