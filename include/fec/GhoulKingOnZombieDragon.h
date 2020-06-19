@@ -27,7 +27,7 @@ namespace FleshEaterCourt {
 
         ~AbhorrantGhoulKingOnZombieDragon() override = default;
 
-        bool configure();
+        bool configure(Lore lore, MountTrait trait);
 
     protected:
 

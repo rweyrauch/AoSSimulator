@@ -27,7 +27,7 @@ namespace FleshEaterCourt {
 
         ~AbhorrantGhoulKingOnTerrorgheist() override = default;
 
-        bool configure();
+        bool configure(Lore lore, MountTrait trait);
 
         void onSlain() override;
 

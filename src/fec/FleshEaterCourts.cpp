@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
+#include <magic_enum.hpp>
 #include <fec/FleshEaterCourts.h>
 #include <Board.h>
 
@@ -26,15 +27,15 @@
 namespace FleshEaterCourt {
 
     Rerolls FleshEaterCourts::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        if (m_delusion == TheRoyalHunt) {
+        if (m_delusion == Delusion::The_Royal_Hunt) {
             if (target->hasKeyword(MONSTER)) {
                 return RerollOnes;
             }
-        } else if (m_delusion == AMatterOfHonour) {
+        } else if (m_delusion == Delusion::A_Matter_of_Honour) {
             if (target->hasKeyword(HERO)) {
                 return RerollOnes;
             }
-        } else if (m_delusion == TheGrandTournament) {
+        } else if (m_delusion == Delusion::The_Grand_Tournament) {
             if (!isGeneral()) {
                 return RerollOnes;
             }
@@ -53,11 +54,11 @@ namespace FleshEaterCourt {
     }
 
     Rerolls FleshEaterCourts::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
-        if (m_delusion == TheRoyalHunt) {
+        if (m_delusion == Delusion::The_Royal_Hunt) {
             if (target->hasKeyword(MONSTER)) {
                 return RerollOnes;
             }
-        } else if (m_delusion == AMatterOfHonour) {
+        } else if (m_delusion == Delusion::A_Matter_of_Honour) {
             if (target->isGeneral()) {
                 return RerollOnes;
             }
@@ -93,7 +94,7 @@ namespace FleshEaterCourt {
 
     int FleshEaterCourts::runModifier() const {
         int modifier = Unit::runModifier();
-        if (m_delusion == CrusadingArmy) {
+        if (m_delusion == Delusion::Crusading_Army) {
             modifier += 1;
         }
         return modifier;
@@ -101,7 +102,7 @@ namespace FleshEaterCourt {
 
     int FleshEaterCourts::chargeModifier() const {
         int modifier = Unit::chargeModifier();
-        if (m_delusion == CrusadingArmy) {
+        if (m_delusion == Delusion::Crusading_Army) {
             modifier += 1;
         }
         return modifier;
@@ -131,36 +132,48 @@ namespace FleshEaterCourt {
 
     std::string FleshEaterCourts::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Grand Court") {
-            if (parameter.intValue == Morgaunt) { return "Morgaunt"; }
-            else if (parameter.intValue == Hollowmourne) { return "Hollowmourne"; }
-            else if (parameter.intValue == Blisterskin) { return "Blisterskin"; }
-            else if (parameter.intValue == Gristlegore) { return "Gristlegore"; }
-            else if (parameter.intValue == NoCourt) { return "No Court"; }
-        } else if (std::string(parameter.name) == "Delusion") {
-            if (parameter.intValue == CrusadingArmy) { return "Crusading Army"; }
-            else if (parameter.intValue == TheRoyalHunt) { return "The Royal Hunt"; }
-            else if (parameter.intValue == TheFeastDay) { return "The Feast Day"; }
-            else if (parameter.intValue == AMatterOfHonour) { return "A Matter of Honour"; }
-            else if (parameter.intValue == TheGrandTournament) { return "The Grand Tournament"; }
-            else if (parameter.intValue == DefendersOfTheRealm) { return "Defenders of the Realm"; }
-            else if (parameter.intValue == None) { return "None"; }
+            auto courtName = magic_enum::enum_name((GrandCourt)parameter.intValue);
+            return std::string(courtName);
         }
+        if (std::string(parameter.name) == "Delusion") {
+            auto delusionName = magic_enum::enum_name((Delusion)parameter.intValue);
+            return std::string(delusionName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+        if (std::string(parameter.name) == "Lore") {
+            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(loreName);
+        }
+        if (std::string(parameter.name) == "Mount Trait") {
+            auto traitName = magic_enum::enum_name((MountTrait) parameter.intValue);
+            return std::string(traitName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int FleshEaterCourts::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Morgaunt") { return Morgaunt; }
-        else if (enumString == "Hollowmourne") { return Hollowmourne; }
-        else if (enumString == "Blisterskin") { return Blisterskin; }
-        else if (enumString == "Gristlegore") { return Gristlegore; }
-        else if (enumString == "No Court") { return NoCourt; }
-        else if (enumString == "Crusading Army") { return CrusadingArmy; }
-        else if (enumString == "The Royal Hunt") { return TheRoyalHunt; }
-        else if (enumString == "The Feast Day") { return TheFeastDay; }
-        else if (enumString == "A Matter of Honour") { return AMatterOfHonour; }
-        else if (enumString == "The Grand Tournament") { return TheGrandTournament; }
-        else if (enumString == "Defenders of the Realm") { return DefendersOfTheRealm; }
-        else if (enumString == "None") { return None; }
+        auto court = magic_enum::enum_cast<GrandCourt>(enumString);
+        if (court.has_value()) return (int)court.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto mount = magic_enum::enum_cast<MountTrait>(enumString);
+        if (mount.has_value()) return (int)mount.value();
 
         return 0;
     }
@@ -173,16 +186,16 @@ namespace FleshEaterCourt {
 
         m_grandCourt = court;
         switch (m_grandCourt) {
-            case Morgaunt:
+            case GrandCourt::Morgaunt:
                 addKeyword(MORGAUNT);
                 break;
-            case Hollowmourne:
+            case GrandCourt::Hollowmourne:
                 addKeyword(HOLLOWMOURNE);
                 break;
-            case Blisterskin:
+            case GrandCourt::Blisterskin:
                 addKeyword(BLISTERSKIN);
                 break;
-            case Gristlegore:
+            case GrandCourt::Gristlegore:
                 addKeyword(GRISTLEGORE);
                 break;
             default:

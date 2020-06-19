@@ -16,37 +16,106 @@
 
 namespace FleshEaterCourt {
 
-    enum GrandCourt {
-        NoCourt = 0,
+    enum class GrandCourt : int {
+        None = 0,
         Morgaunt,
         Hollowmourne,
         Blisterskin,
         Gristlegore,
     };
-    enum Delusion {
-        CrusadingArmy = 0,
-        TheRoyalHunt,
-        TheFeastDay,
-        AMatterOfHonour,
-        TheGrandTournament,
-        DefendersOfTheRealm
+
+    enum class Delusion : int {
+        Crusading_Army = 0,
+        The_Royal_Hunt,
+        The_Feast_Day,
+        A_Matter_of_Honour,
+        The_Grand_Tournament,
+        Defenders_of_the_Realm
     };
 
-    const std::array<int, 5> g_grandCourt = {
-            NoCourt,
-            Morgaunt,
-            Hollowmourne,
-            Blisterskin,
-            Gristlegore,
+    enum class CommandTrait : int {
+        None,
+
+        // Abhorrant
+        Bringer_of_Death,
+        Frenzied_Flesheater,
+        Savage_Beyond_Reason,
+        Majestic_Horror,
+        Dark_Wizardry,
+        Completely_Delusional,
+
+        // Courtier
+        //Bringer_of_Death,
+        //Frenzied_Flesheater,
+        //Savage_Beyond_Reason,
+        Hulking_Brute,
+        Cruel_Taskmaster,
+        Dark_Acolyte,
+
+        // Grand Court specific
+        Savage_Chivalry,  // Morgaunt
+        Grave_Robber, // Hollowmourne
+        Hellish_Orator, // Blisterskin
+        Savage_Strike, // Gristlegore
     };
 
-    const std::array<int, 6> g_delusion = {
-            CrusadingArmy,
-            TheRoyalHunt,
-            TheFeastDay,
-            AMatterOfHonour,
-            TheGrandTournament,
-            DefendersOfTheRealm
+    enum class Artefact : int {
+        None,
+
+        // Abhorrant
+        Signet_of_the_First_Court,
+        Splintervane_Brooch,
+        Blood_River_Chalice,
+        The_Grim_Garland,
+        The_Dermal_Robe,
+        Heart_of_the_Gargant,
+
+        // Courtier
+        Keening_Bone,
+        Medal_of_Madness,
+        The_Flayed_Pennant,
+        Carrion_Wand,
+        The_Fleshform_Raiment,
+        The_Bilious_Decanter,
+
+        // Grand Court specific
+        Decrepit_Coronet, // Morgaunt
+        Corpsefane_Gauntlet, // Hollowmourne
+        Eye_of_Hysh, // Blisterskin
+        Ghurish_Mawshard, // Gristlegore
+    };
+
+    enum class Lore : int {
+        None,
+
+        Bonestorm,
+        Spectral_Host,
+        Monstrous_Vigour,
+        Miasmal_Shroud,
+        Deranged_Transformation,
+        Blood_Feast,
+
+    };
+
+    enum class MountTrait : int {
+        None,
+
+        // Terrorgheist
+        Deathly_Fast,
+        Razor_Clawed,
+        Horribly_Infested,
+        Horribly_Resilient,
+        Gruesome_Bite,
+        Devastating_Scream,
+
+        // Dragon
+        //Deathly_Fast,
+        //Razor_Clawed,
+        Baneful_Breath,
+        //Horribly_Resilient,
+        Necrotic_Fangs,
+        Death_From_the_Skies,
+
     };
 
     class FleshEaterCourts : public Unit {
@@ -64,6 +133,14 @@ namespace FleshEaterCourt {
 
         void setCourtsOfDelusion(Delusion delusion) {
             m_delusion = delusion;
+        }
+
+        void setCommandTrait(CommandTrait trait) {
+            m_commandTrait = trait;
+        }
+
+        void setArtefact(Artefact artefact) {
+            m_artefact = artefact;
         }
 
     protected:
@@ -86,8 +163,10 @@ namespace FleshEaterCourt {
 
     protected:
 
-        GrandCourt m_grandCourt = NoCourt;
-        Delusion m_delusion = CrusadingArmy;
+        GrandCourt m_grandCourt = GrandCourt::None;
+        Delusion m_delusion = Delusion::Crusading_Army;
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
     void Init();

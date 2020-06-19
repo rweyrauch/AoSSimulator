@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <spells/MysticShield.h>
+#include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
     static const int BASESIZE = 130;
@@ -48,7 +49,7 @@ namespace FleshEaterCourt {
         m_totalSpells = 1;
     }
 
-    bool AbhorrantGhoulKingOnTerrorgheist::configure() {
+    bool AbhorrantGhoulKingOnTerrorgheist::configure(Lore lore, MountTrait trait) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_deathShriek);
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
@@ -67,14 +68,24 @@ namespace FleshEaterCourt {
     Unit *AbhorrantGhoulKingOnTerrorgheist::Create(const ParameterList &parameters) {
         auto unit = new AbhorrantGhoulKingOnTerrorgheist();
 
-        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
-        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
+        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
+        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
+
         // Can only select delusion if GrandCourt is NoCourt.
         unit->setGrandCourt(court);
-        if (court == NoCourt)
+        if (court == GrandCourt::None)
             unit->setCourtsOfDelusion(delusion);
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_abhorrantCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+        auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_terrorgheistMountTraits[0]);
+
+        bool ok = unit->configure(lore, mount);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -92,6 +103,10 @@ namespace FleshEaterCourt {
                     {
                             EnumParameter("Grand Court", g_grandCourt[0], g_grandCourt),
                             EnumParameter("Delusion", g_delusion[0], g_delusion),
+                            EnumParameter("Command Trait", g_abhorrantCommandTraits[0], g_abhorrantCommandTraits),
+                            EnumParameter("Artefact", g_abhorrantArtefacts[0], g_abhorrantArtefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            EnumParameter("Mount Trait", g_terrorgheistMountTraits[0], g_terrorgheistMountTraits)
                     },
                     DEATH,
                     {FLESH_EATER_COURTS}

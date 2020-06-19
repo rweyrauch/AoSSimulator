@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <iostream>
+#include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
     static const int BASESIZE = 32;
@@ -40,12 +41,18 @@ namespace FleshEaterCourt {
     Unit *CryptGhastCourtier::Create(const ParameterList &parameters) {
         auto unit = new CryptGhastCourtier();
 
-        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
-        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
+        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
+        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
         // Can only select delusion if GrandCourt is NoCourt.
         unit->setGrandCourt(court);
-        if (court == NoCourt)
+        if (court == GrandCourt::None)
             unit->setCourtsOfDelusion(delusion);
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_courtierCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_courtierArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -65,7 +72,9 @@ namespace FleshEaterCourt {
                     {
                             EnumParameter("Grand Court", g_grandCourt[0], g_grandCourt),
                             EnumParameter("Delusion", g_delusion[0], g_delusion),
-                    },
+                            EnumParameter("Command Trait", g_courtierCommandTraits[0], g_courtierCommandTraits),
+                            EnumParameter("Artefact", g_courtierArtefacts[0], g_courtierArtefacts),
+                     },
                     DEATH,
                     {FLESH_EATER_COURTS}
             };

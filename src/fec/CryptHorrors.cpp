@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <iostream>
+#include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
     static const int BASESIZE = 50;
@@ -53,11 +54,12 @@ namespace FleshEaterCourt {
         auto unit = new CryptHorrors();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
-        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, NoCourt);
-        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, None);
+        auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
+        auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
+
         // Can only select delusion if GrandCourt is NoCourt.
         unit->setGrandCourt(court);
-        if (court == NoCourt)
+        if (court == GrandCourt::None)
             unit->setCourtsOfDelusion(delusion);
 
         bool ok = unit->configure(numModels);
