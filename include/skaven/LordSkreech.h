@@ -27,7 +27,7 @@ namespace Skaven {
 
         ~LordSkreechVerminking() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

@@ -27,7 +27,7 @@ namespace Skaven {
 
         ~ThanquolOnBoneripper() override = default;
 
-        bool configure(int numProjectors);
+        bool configure(int numProjectors, Lore lore);
 
     protected:
 

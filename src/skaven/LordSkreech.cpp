@@ -8,6 +8,7 @@
 
 #include <skaven/LordSkreech.h>
 #include <UnitFactory.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 120; // x92 oval
@@ -37,7 +38,9 @@ namespace Skaven {
     Unit *LordSkreechVerminking::Create(const ParameterList &parameters) {
         auto unit = new LordSkreechVerminking();
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_skryreLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -53,6 +56,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                        EnumParameter("Lore", g_skryreLore[0], g_skryreLore)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -81,7 +85,7 @@ namespace Skaven {
         m_connection.disconnect();
     }
 
-    bool LordSkreechVerminking::configure() {
+    bool LordSkreechVerminking::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_glaive);

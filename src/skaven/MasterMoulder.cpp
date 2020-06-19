@@ -9,6 +9,7 @@
 #include <skaven/MasterMoulder.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 32;
@@ -21,6 +22,11 @@ namespace Skaven {
         auto unit = new MasterMoulder();
 
         WeaponOption option = Lash;
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_moulderCommandTraits[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_moulderArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(option);
         if (!ok) {
@@ -38,6 +44,8 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_moulderCommandTraits[0], g_moulderCommandTraits),
+                            EnumParameter("Artefact", g_moulderArtefacts[0], g_moulderArtefacts),
                     },
                     CHAOS,
                     {SKAVEN}

@@ -27,7 +27,7 @@ namespace Skaven {
 
         ~GreySeerOnScreamingBell() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

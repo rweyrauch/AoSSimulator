@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Roster.h>
 #include <Board.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 120; // x92 oval
@@ -39,6 +40,11 @@ namespace Skaven {
     Unit *VerminlordWarpseer::Create(const ParameterList &parameters) {
         auto unit = new VerminlordWarpseer();
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterClanCommandTraits[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_masterClanArtefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -55,6 +61,8 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_masterClanCommandTraits[0], g_masterClanCommandTraits),
+                            EnumParameter("Artefact", g_masterClanArtefacts[0], g_masterClanArtefacts),
                     },
                     CHAOS,
                     {SKAVEN}

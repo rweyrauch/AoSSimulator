@@ -8,6 +8,7 @@
 
 #include <skaven/Deathmaster.h>
 #include <UnitFactory.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 32;
@@ -19,6 +20,11 @@ namespace Skaven {
     Unit *Deathmaster::Create(const ParameterList &parameters) {
         auto unit = new Deathmaster();
         WeaponOption option = WeepingBlades;
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_eshinClanCommandTraits[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_eshinArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure(option);
         if (!ok) {
@@ -36,6 +42,8 @@ namespace Skaven {
                     EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_eshinClanCommandTraits[0], g_eshinClanCommandTraits),
+                            EnumParameter("Artefact", g_eshinArtefacts[0], g_eshinArtefacts),
                     },
                     CHAOS,
                     {SKAVEN}

@@ -8,6 +8,7 @@
 
 #include <skaven/VerminlordDeceiver.h>
 #include <UnitFactory.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 120; // x92 oval
@@ -37,6 +38,11 @@ namespace Skaven {
     Unit *VerminlordDeceiver::Create(const ParameterList &parameters) {
         auto unit = new VerminlordDeceiver();
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_eshinClanCommandTraits[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_eshinArtefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -53,6 +59,8 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_eshinClanCommandTraits[0], g_eshinClanCommandTraits),
+                            EnumParameter("Artefact", g_eshinArtefacts[0], g_eshinArtefacts),
                     },
                     CHAOS,
                     {SKAVEN}

@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include <skaven/SkavenSpells.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 32;
@@ -21,7 +22,14 @@ namespace Skaven {
     Unit *WarlockEngineer::Create(const ParameterList &parameters) {
         auto unit = new WarlockEngineer();
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skryreCommandTraits[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_skryreArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_skryreLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -37,6 +45,9 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_skryreCommandTraits[0], g_skryreCommandTraits),
+                            EnumParameter("Artefact", g_skryreArtefacts[0], g_skryreArtefacts),
+                            EnumParameter("Lore", g_skryreLore[0], g_skryreLore)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -57,7 +68,7 @@ namespace Skaven {
         m_totalUnbinds = 1;
     }
 
-    bool WarlockEngineer::configure() {
+    bool WarlockEngineer::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_pistol);
         model->addMeleeWeapon(&m_blade);

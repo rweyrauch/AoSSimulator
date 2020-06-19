@@ -8,6 +8,7 @@
 
 #include <skaven/Clawlord.h>
 #include <UnitFactory.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 32;
@@ -18,6 +19,11 @@ namespace Skaven {
 
     Unit *Clawlord::Create(const ParameterList &parameters) {
         auto unit = new Clawlord();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_verminousCommandTraits[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_verminousArtefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -35,6 +41,8 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_verminousCommandTraits[0], g_verminousCommandTraits),
+                            EnumParameter("Artefact", g_verminousArtefacts[0], g_verminousArtefacts),
                     },
                     CHAOS,
                     {SKAVEN}

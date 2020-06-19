@@ -8,6 +8,7 @@
 
 #include <skaven/GreySeer.h>
 #include <UnitFactory.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 32;
@@ -19,7 +20,14 @@ namespace Skaven {
     Unit *GreySeer::Create(const ParameterList &parameters) {
         auto unit = new GreySeer();
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterClanCommandTraits[0]);
+        unit->setCommandTrait(trait);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_masterClanArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_greySeerLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -35,6 +43,9 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_masterClanCommandTraits[0], g_masterClanCommandTraits),
+                            EnumParameter("Artefact", g_masterClanArtefacts[0], g_masterClanArtefacts),
+                            EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -54,7 +65,7 @@ namespace Skaven {
         m_totalUnbinds = 2;
     }
 
-    bool GreySeer::configure() {
+    bool GreySeer::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

@@ -8,6 +8,7 @@
 
 #include <skaven/ThanquolBoneripper.h>
 #include <UnitFactory.h>
+#include "SkavenPrivate.h"
 
 namespace Skaven {
     static const int BASESIZE = 90; // x52 oval
@@ -38,7 +39,9 @@ namespace Skaven {
         auto unit = new ThanquolOnBoneripper();
         int numProjectors = 0;
 
-        bool ok = unit->configure(numProjectors);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_greySeerLore[0]);
+
+        bool ok = unit->configure(numProjectors, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -54,6 +57,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                        EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -76,7 +80,7 @@ namespace Skaven {
         m_totalUnbinds = 2;
     }
 
-    bool ThanquolOnBoneripper::configure(int numProjectors) {
+    bool ThanquolOnBoneripper::configure(int numProjectors, Lore lore) {
         auto model = new Model(BASESIZE, wounds());
 
         for (auto i = 0; i < numProjectors; i++)
