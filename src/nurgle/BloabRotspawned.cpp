@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "nurgle/BloabRotspawned.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 100;
@@ -19,7 +20,10 @@ namespace Nurgle {
 
     Unit *BloabRotspawned::Create(const ParameterList &parameters) {
         auto unit = new BloabRotspawned();
-        bool ok = unit->configure();
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -35,6 +39,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     BloabRotspawned::ComputePoints,
                     {
+                        EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore)
                     },
                     CHAOS,
                     {NURGLE}
@@ -61,7 +66,7 @@ namespace Nurgle {
         m_windspeakerSlot.disconnect();
     }
 
-    bool BloabRotspawned::configure() {
+    bool BloabRotspawned::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_bile);
         model->addMeleeWeapon(&m_scythe);

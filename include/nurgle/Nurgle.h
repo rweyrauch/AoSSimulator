@@ -15,6 +15,82 @@
 
 namespace Nurgle {
 
+    enum class CommandTrait : int {
+        None,
+
+        // Rotbringer
+        Grandfathers_Blessing,
+        Living_Plague,
+        Hulking_Physique,
+        Bloated_with_Corruption,
+        Avalanch_of_Rotten_Flesh,
+        Resilient,
+
+        // Daemon
+        //Grandfathers_Blessing,
+        //Living_Plague,
+        //Hulking_Physique,
+        Tainted_Corruptor,
+        Nurgling_Infestation,
+        Pestilent_Breath,
+
+        // Mortal
+        //Grandfathers_Blessing,
+        //Living_Plague,
+        //Hulking_Physique,
+        Hideous_Visage,
+        Overpowering_Stench,
+        Virulent_Contagion,
+
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Rotbringer
+        The_Splithorn_Helm,
+        Muttergrub,
+        Rustfang,
+        Flesh_Pealer,
+        The_Bileheart,
+        The_Fecund_Flask,
+
+        // Daemon
+        Noxious_Nexus,
+        Nurgles_Nail,
+        The_Bountiful_Swarm,
+        The_Witherstave,
+        Tome_of_a_Thousand_Poxes,
+        The_Endless_Gift,
+
+        // Mortal
+        The_Virulent_Blade,
+        The_Foetid_Shroud,
+        Sublucus_Stenchplate,
+        The_Eye_of_Nurgle,
+        The_Carrion_Dirge,
+        The_Shield_of_Growths,
+    };
+
+    enum class Lore : int {
+        None,
+
+        // Rotbringer
+        Blades_of_Putrification,
+        Rancid_Visitations,
+        Gift_of_Contagion,
+
+        // Daemon
+        Favoured_Poxes,
+        Glorious_Afflictions,
+        Sumptuous_Pestilence,
+
+        // Mortal
+        Magnificent_Buboes,
+        Plague_Squall,
+        Cloying_Quagmire,
+    };
+
     class NurgleBase : public Unit {
     public:
 
@@ -26,10 +102,16 @@ namespace Nurgle {
 
         ~NurgleBase() override = default;
 
+        void setCommandTrait(CommandTrait trait) { m_commandTrait = trait; }
+        void setArtefact(Artefact artefact) { m_artefact = artefact; }
+
     protected:
 
         NurgleBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
+
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
 //

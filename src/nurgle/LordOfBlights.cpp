@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "nurgle/LordOfBlights.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 40;
@@ -18,6 +19,13 @@ namespace Nurgle {
 
     Unit *LordOfBlights::Create(const ParameterList &parameters) {
         auto unit = new LordOfBlights();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -34,6 +42,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     LordOfBlights::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_mortalRotbringerCommandTraits[0], g_mortalRotbringerCommandTraits),
+                            EnumParameter("Artefact", g_mortalRotbringerArtefacts[0], g_mortalRotbringerArtefacts),
                     },
                     CHAOS,
                     {NURGLE}

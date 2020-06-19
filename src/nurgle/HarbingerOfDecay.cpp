@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "nurgle/HarbingerOfDecay.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 75; // x42 oval
@@ -18,6 +19,13 @@ namespace Nurgle {
 
     Unit *HarbingerOfDecay::Create(const ParameterList &parameters) {
         auto unit = new HarbingerOfDecay();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -34,6 +42,9 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     HarbingerOfDecay::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
                     },
                     CHAOS,
                     {NURGLE}

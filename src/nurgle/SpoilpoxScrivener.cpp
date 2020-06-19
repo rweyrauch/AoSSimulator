@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "nurgle/SpoilpoxScrivener.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 40;
@@ -18,6 +19,13 @@ namespace Nurgle {
 
     Unit *SpoilpoxScrivenerHeraldOfNurgle::Create(const ParameterList &parameters) {
         auto unit = new SpoilpoxScrivenerHeraldOfNurgle();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -34,6 +42,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     SpoilpoxScrivenerHeraldOfNurgle::ComputePoints,
                     {
+                        EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                        EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
                     },
                     CHAOS,
                     {NURGLE}

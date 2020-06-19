@@ -41,7 +41,7 @@ namespace Nurgle {
 
         ~GreatUncleanOne() override = default;
 
-        bool configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo);
+        bool configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore);
 
     protected:
 

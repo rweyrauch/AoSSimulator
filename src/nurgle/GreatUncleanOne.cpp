@@ -11,6 +11,7 @@
 #include <Board.h>
 #include <spells/MysticShield.h>
 #include <array>
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 130;
@@ -51,7 +52,7 @@ namespace Nurgle {
         m_totalSpells = 2;
     }
 
-    bool GreatUncleanOne::configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo) {
+    bool GreatUncleanOne::configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_bile);
         if (optionOne == PlagueFlail)
@@ -79,7 +80,15 @@ namespace Nurgle {
         auto weaponOne = (WeaponOptionOne) GetEnumParam("Weapon One", parameters, PlagueFlail);
         auto weaponTwo = (WeaponOptionTwo) GetEnumParam("Weapon Two", parameters, DoomsdayBell);
 
-        bool ok = unit->configure(weaponOne, weaponTwo);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
+
+        bool ok = unit->configure(weaponOne, weaponTwo, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -99,6 +108,9 @@ namespace Nurgle {
                     {
                             EnumParameter("Weapon One", PlagueFlail, weapons1),
                             EnumParameter("Weapon Two", MassiveBilesword, weapons2),
+                            EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
                     },
                     CHAOS,
                     {NURGLE}

@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <spells/MysticShield.h>
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 130;
@@ -48,7 +49,7 @@ namespace Nurgle {
         m_totalSpells = 2;
     }
 
-    bool TheGlottkin::configure() {
+    bool TheGlottkin::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMissileWeapon(&m_pestilentTorrent);
         model->addMeleeWeapon(&m_flailingTentacle);
@@ -66,7 +67,10 @@ namespace Nurgle {
 
     Unit *TheGlottkin::Create(const ParameterList &parameters) {
         auto unit = new TheGlottkin();
-        bool ok = unit->configure();
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -82,6 +86,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     TheGlottkin::ComputePoints,
                     {
+                            EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore)
                     },
                     CHAOS,
                     {NURGLE}

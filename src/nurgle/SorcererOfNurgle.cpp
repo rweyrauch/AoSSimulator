@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "nurgle/SorcererOfNurgle.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 32;
@@ -19,7 +20,15 @@ namespace Nurgle {
     Unit *SorcererOfNurgle::Create(const ParameterList &parameters) {
         auto unit = new SorcererOfNurgle();
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -35,6 +44,9 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     SorcererOfNurgle::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_mortalRotbringerCommandTraits[0], g_mortalRotbringerCommandTraits),
+                            EnumParameter("Artefact", g_mortalRotbringerArtefacts[0], g_mortalRotbringerArtefacts),
+                            EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore)
                     },
                     CHAOS,
                     {NURGLE}
@@ -53,7 +65,7 @@ namespace Nurgle {
         m_totalSpells = 1;
     }
 
-    bool SorcererOfNurgle::configure() {
+    bool SorcererOfNurgle::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

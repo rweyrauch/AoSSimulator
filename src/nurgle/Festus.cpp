@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "nurgle/Festus.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 40;
@@ -18,7 +19,10 @@ namespace Nurgle {
 
     Unit *FestusTheLeechlord::Create(const ParameterList &parameters) {
         auto unit = new FestusTheLeechlord();
-        bool ok = unit->configure();
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -34,6 +38,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     FestusTheLeechlord::ComputePoints,
                     {
+                            EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore)
                     },
                     CHAOS,
                     {NURGLE}
@@ -49,7 +54,7 @@ namespace Nurgle {
         m_weapons = {&m_staff};
     }
 
-    bool FestusTheLeechlord::configure() {
+    bool FestusTheLeechlord::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

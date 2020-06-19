@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "nurgle/LordOfAfflictions.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 60;
@@ -19,6 +20,13 @@ namespace Nurgle {
 
     Unit *LordOfAfflictions::Create(const ParameterList &parameters) {
         auto unit = new LordOfAfflictions();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -35,6 +43,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     LordOfAfflictions::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                     },
                     CHAOS,
                     {NURGLE}

@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "nurgle/Poxbringer.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int BASESIZE = 32;
@@ -18,7 +19,16 @@ namespace Nurgle {
 
     Unit *PoxbringerHeraldOfNurgle::Create(const ParameterList &parameters) {
         auto unit = new PoxbringerHeraldOfNurgle();
-        bool ok = unit->configure();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -34,6 +44,9 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     PoxbringerHeraldOfNurgle::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
                     },
                     CHAOS,
                     {NURGLE}
@@ -49,7 +62,7 @@ namespace Nurgle {
         m_weapons = {&m_balesword};
     }
 
-    bool PoxbringerHeraldOfNurgle::configure() {
+    bool PoxbringerHeraldOfNurgle::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_balesword);
         addModel(model);
