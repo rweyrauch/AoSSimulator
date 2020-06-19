@@ -8,6 +8,7 @@
 
 #include <nighthaunt/CairnWraith.h>
 #include <UnitFactory.h>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int BASESIZE = 25;
@@ -18,6 +19,12 @@ namespace Nighthaunt {
 
     Unit *CairnWraith::Create(const ParameterList &parameters) {
         auto unit = new CairnWraith();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -35,10 +42,12 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                     },
                     DEATH,
                     {NIGHTHAUNT}

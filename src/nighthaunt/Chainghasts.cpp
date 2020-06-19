@@ -61,8 +61,8 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Chainghasts::Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     Chainghasts::ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),

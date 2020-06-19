@@ -62,8 +62,8 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     BladegheistRevenants::Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     BladegheistRevenants::ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),

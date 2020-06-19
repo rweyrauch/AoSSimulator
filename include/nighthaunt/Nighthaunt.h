@@ -15,11 +15,69 @@
 
 namespace Nighthaunt {
 
+    enum class CommandTrait : int {
+        None,
+
+        Hatred_of_the_Living,
+        Terrifying_Entity,
+        Lingering_Spirit,
+        Spiteful_Spirit,
+        Cloaked_in_Shadow,
+        Ruler_of_the_Spirit_Hosts,
+
+    };
+
+    enum class Artefact : int {
+        None,
+
+        // Weapons
+        Shadows_Edge,
+        Reaper_of_Sorrows,
+        Balefire_Blade,
+        Slitter,
+        Headsmans_Judgement,
+        Shrieking_Blade,
+
+        // Relics
+        Cloak_of_the_Waxing_Moon,
+        Pendant_of_the_Fell_Wind,
+        Dreadbolt_Ring,
+        Mirror_of_Screaming_Souls,
+        Midnight_Tome,
+        Covetous_Familiar,
+
+        // Lanterns (Guardian of Souls)
+        Lightshard_of_the_Harvest_Moon,
+        Wychlight_Lantern,
+        Beacon_of_Nagashizzar,
+
+    };
+
+    enum class Lore : int {
+        None,
+
+        Soul_Cage,
+        Spirit_Drain,
+        Lifestealer,
+        Reaping_Scythe,
+        Shademist,
+        Spectral_Tether,
+
+    };
+
+
     class Nighthaunt : public Unit {
     public:
         Nighthaunt();
 
         ~Nighthaunt() override;
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
+
+        void setCommandTrait(CommandTrait trait);
+        void setArtefact(Artefact artefact);
 
     protected:
         Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -32,6 +90,8 @@ namespace Nighthaunt {
         int auraOfDread(const Unit *unit);
 
     protected:
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
 
         lsignal::slot m_auraOfDreadSlot;
     };

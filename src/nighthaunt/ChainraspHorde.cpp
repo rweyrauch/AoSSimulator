@@ -63,8 +63,8 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     ChainraspHorde::Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     ChainraspHorde::ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),

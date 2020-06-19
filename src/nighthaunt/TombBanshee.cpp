@@ -8,16 +8,23 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "nighthaunt/TombBanshee.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int BASESIZE = 25;
-    static const int WOUNDS = 4;
     static const int POINTS_PER_UNIT = 80;
+    static const int WOUNDS = 4;
 
     bool TombBanshee::s_registered = false;
 
     Unit *TombBanshee::Create(const ParameterList &parameters) {
         auto unit = new TombBanshee();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -31,10 +38,12 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     TombBanshee::Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     TombBanshee::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                     },
                     DEATH,
                     {NIGHTHAUNT}

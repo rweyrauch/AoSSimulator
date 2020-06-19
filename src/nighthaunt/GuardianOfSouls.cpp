@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "nighthaunt/GuardianOfSouls.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int BASESIZE = 32;
@@ -19,7 +20,15 @@ namespace Nighthaunt {
     Unit *GuardianOfSouls::Create(const ParameterList &parameters) {
         auto unit = new GuardianOfSouls();
 
-        bool ok = unit->configure();
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -31,10 +40,13 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     GuardianOfSouls::Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     GuardianOfSouls::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Lore", g_lore[0], g_lore),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -54,7 +66,7 @@ namespace Nighthaunt {
         m_totalUnbinds = 1;
     }
 
-    bool GuardianOfSouls::configure() {
+    bool GuardianOfSouls::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_maul);

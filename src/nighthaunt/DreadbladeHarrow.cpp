@@ -8,6 +8,7 @@
 #include <Board.h>
 #include <UnitFactory.h>
 #include "nighthaunt/DreadbladeHarrow.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int BASESIZE = 60; // x35 oval
@@ -18,6 +19,12 @@ namespace Nighthaunt {
 
     Unit *DreadbladeHarrow::Create(const ParameterList &parameters) {
         auto unit = new DreadbladeHarrow();
+
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -31,10 +38,12 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     DreadbladeHarrow::Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     DreadbladeHarrow::ComputePoints,
                     {
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                     },
                     DEATH,
                     {NIGHTHAUNT}

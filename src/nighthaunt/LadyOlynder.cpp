@@ -9,6 +9,7 @@
 #include <Board.h>
 #include <spells/MysticShield.h>
 #include "nighthaunt/LadyOlynder.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int BASESIZE = 60;
@@ -20,7 +21,9 @@ namespace Nighthaunt {
     Unit *LadyOlynder::Create(const ParameterList &parameters) {
         auto unit = new LadyOlynder();
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -32,10 +35,11 @@ namespace Nighthaunt {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     LadyOlynder::Create,
-                    nullptr,
-                    nullptr,
+                    Nighthaunt::ValueToString,
+                    Nighthaunt::EnumStringToInt,
                     LadyOlynder::ComputePoints,
                     {
+                        EnumParameter("Lore", g_lore[0], g_lore),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -55,7 +59,7 @@ namespace Nighthaunt {
         m_totalUnbinds = 2;
     }
 
-    bool LadyOlynder::configure() {
+    bool LadyOlynder::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_claws);
