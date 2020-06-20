@@ -178,6 +178,7 @@ add_library(
         gloomspitegitz/Mollog.cpp
         gloomspitegitz/LoonsmashaFanatics.cpp
         gloomspitegitz/SporesplattaFanatics.cpp
+        gloomspitegitz/TroggothHag.cpp
         gloomspitegitz/NikkitNikkit.cpp
         gloomspitegitz/GloomspiteSpells.cpp
 
@@ -237,6 +238,7 @@ add_library(
         nighthaunt/BlackCoach.cpp
         nighthaunt/CairnWraith.cpp
         nighthaunt/MyrmournBanshees.cpp
+        nighthaunt/Mourngul.cpp
 
         beastsofchaos/BeastsOfChaosBase.cpp
         beastsofchaos/Ghorgon.cpp
@@ -677,6 +679,11 @@ add_library(
         kharadron/Skywardens.cpp
         kharadron/BjorgenThundrik.cpp
         kharadron/ThundriksProfiteers.cpp
+
+        lumineth/LuminethRealmLords.cpp
+        lumineth/AuralanWardens.cpp
+        lumineth/Dawnriders.cpp
+        lumineth/Eltharion.cpp
 )
 
 target_include_directories(

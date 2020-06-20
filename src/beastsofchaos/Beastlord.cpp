@@ -40,9 +40,10 @@ namespace BeastsOfChaos {
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
-        // TODO: set command trait
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_brayherdCommandTrait[0]);
+        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_brayherdArtefact[0]);
+        unit->setArtefact(artefact);
 
         bool ok = unit->configure();
         if (!ok) {

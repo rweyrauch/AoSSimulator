@@ -32,8 +32,8 @@
 #include "seraphon/Seraphon.h"
 #include "nurgle/Nurgle.h"
 #include "death/LegionOfNagash.h"
-
 #include "tzeentch/TzeentchBase.h"
+#include "lumineth/LuminethRealmLords.h"
 
 #include "eldritchcouncil/Swordmasters.h"
 #include "eldritchcouncil/Loremaster.h"
@@ -88,6 +88,7 @@ void Initialize(Verbosity verbosity) {
     Seraphon::Init();
     Nurgle::Init();
     Death::Init();
+    LuminethRealmLords::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

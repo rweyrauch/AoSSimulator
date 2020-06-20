@@ -30,6 +30,7 @@
 #include "nighthaunt/BlackCoach.h"
 #include "nighthaunt/CairnWraith.h"
 #include "nighthaunt/MyrmournBanshees.h"
+#include "nighthaunt/Mourngul.h"
 
 namespace Nighthaunt {
 
@@ -137,6 +138,7 @@ namespace Nighthaunt {
         BlackCoach::Init();
         CairnWraith::Init();
         MyrmournBanshees::Init();
+        Mourngul::Init();
     }
 
 } // namespace Nighthaunt

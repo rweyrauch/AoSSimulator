@@ -163,6 +163,7 @@ enum Keyword {
     OGOR_MAWTRIBES,
     GUTBUSTERS,
     OSSIARCH_BONEREAPERS,
+    LUMINETH_REALM_LORDS,
 
     // Common
     MORTAL,
@@ -384,6 +385,7 @@ enum Keyword {
     BOGGLEYE,
     SHROOMANCER,
     MOLLOG,
+    TROGGOTH_HAG,
 
     // Daughters of Khaine
     MELUSAI,
@@ -464,6 +466,7 @@ enum Keyword {
     CAIRN_WRAITH,
     BLACK_COACH,
     MYRMOURN_BANSHEES,
+    MOURNGUL,
 
     // Beasts of Chaos
     BULLGOR,
@@ -1028,6 +1031,12 @@ enum Keyword {
     BARAK_URBAZ,
     BARAK_MHORNAR,
     BARAK_THRYNG,
+
+    // Lumineth Realm-Lords
+    VANARI,
+    AURALAN_WARDENS,
+    DAWNRIDERS,
+    LIGHT_OF_ELTHARION,
 
 };
 

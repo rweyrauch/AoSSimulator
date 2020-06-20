@@ -32,7 +32,7 @@ namespace Tzeentch {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
 
-        bool ok = unit->configure();
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -70,7 +70,7 @@ namespace Tzeentch {
         m_totalUnbinds = 2;
     }
 
-    bool TheChangeling::configure() {
+    bool TheChangeling::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

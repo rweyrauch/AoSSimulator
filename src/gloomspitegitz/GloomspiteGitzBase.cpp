@@ -45,6 +45,7 @@
 #include "gloomspitegitz/SporesplattaFanatics.h"
 #include "gloomspitegitz/Mollog.h"
 #include "gloomspitegitz/Gobbapalooza.h"
+#include "gloomspitegitz/TroggothHag.h"
 #include "../AoSSimPrivate.h"
 
 namespace GloomspiteGitz {
@@ -234,6 +235,7 @@ namespace GloomspiteGitz {
         SporesmashaFanatics::Init();
         Mollog::Init();
         Gobbapalooza::Init();
+        TroggothHag::Init();
     }
 
 } //namespace GloomspiteGitz
