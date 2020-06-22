@@ -40,6 +40,7 @@ namespace Greenskinz {
             m_barbedTail(Weapon::Type::Melee, "Wyvern's Barbed, Venomous Tail", 3, 2, 4, 2, -1, 3) {
         m_keywords = {DESTRUCTION, ORRUK, WYVERN, GREENSKINZ, MONSTER, HERO, ORRUK_WARBOSS};
         m_weapons = {&m_bossChoppa, &m_hornsClawsAndTeeth, &m_barbedTail};
+        m_hasMount = true;
     }
 
     bool OrrukWarbossOnWyvern::configure(bool pairedChoppas) {

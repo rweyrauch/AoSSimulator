@@ -43,6 +43,7 @@ namespace StormcastEternals {
             m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT};
         m_weapons = {&m_celestineHammer, &m_stormboundBlade, &m_greatClaws};
+        m_hasMount = true;
 
         s_globalCastMod.connect(this, &LordCelestantOnStardrake::arcaneLineage, &m_connection);
     }

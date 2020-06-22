@@ -31,6 +31,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, ANGELOS, VANGUARD_PALLADORS};
         m_weapons = {&m_boltstormPistol, &m_starstrikeJavelinMissile, &m_shockHandaxe, &m_starstrikeJavelin,
                      &m_beakAndClaws};
+        m_hasMount = true;
     }
 
     bool VanguardPalladors::configure(int numModels, WeaponOption weapons) {

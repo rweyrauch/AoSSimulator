@@ -99,6 +99,7 @@ namespace CitiesOfSigmar {
             m_hooves(Weapon::Type::Melee, "Steel-shod Hooves", 1, 4, 4, 4, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, CELESTIAL_HURRICANUM};
         m_weapons = {&m_stormOfShemtek, &m_wizardStaff, &m_arcaneTools, &m_hooves};
+        m_hasMount = true;
 
         s_globalCastMod.connect(this, &CelestialHurricanum::locusOfAzyr, &m_locusConnection);
         s_globalToHitMod.connect(this, &CelestialHurricanum::portentsOfBattle, &m_portentsConnection);

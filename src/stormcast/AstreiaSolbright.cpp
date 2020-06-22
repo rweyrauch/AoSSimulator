@@ -27,6 +27,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
                       WIZARD, LORD_ARCANUM, ASTREIA_SOLBRIGHT};
         m_weapons = {&m_aetherstave, &m_monstrousClaws};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &AstreiaSolbright::supernaturalRoar, &m_connection);
 

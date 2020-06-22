@@ -27,6 +27,7 @@ namespace StormcastEternals {
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, DESOLATORS};
         m_weapons = {&m_stormBlast, &m_thunderAxe, &m_clawsAndFangs};
+        m_hasMount = true;
     }
 
     bool Desolators::configure(int numModels) {

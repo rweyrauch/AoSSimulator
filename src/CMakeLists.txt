@@ -681,6 +681,7 @@ add_library(
         kharadron/ThundriksProfiteers.cpp
 
         lumineth/LuminethRealmLords.cpp
+        lumineth/LuminethPrivate.cpp
         lumineth/AuralanWardens.cpp
         lumineth/Dawnriders.cpp
         lumineth/Eltharion.cpp

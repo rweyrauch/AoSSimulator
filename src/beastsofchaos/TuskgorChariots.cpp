@@ -27,6 +27,7 @@ namespace BeastsOfChaos {
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 3, 0, 1) {
         m_keywords = {CHAOS, GORS, BEASTS_OF_CHAOS, BRAYHERD, TUSKGOR_CHARIOTS};
         m_weapons = {&m_despoilerAxe, &m_gnarledSpear, &m_tusksAndHooves};
+        m_hasMount = true;
     }
 
     bool TuskgorChariots::configure(int numModels) {

@@ -59,6 +59,7 @@ namespace Tzeentch {
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, HERO, WIZARD, TZAANGOR_SHAMAN};
         m_weapons = {&m_staff, &m_dagger, &m_teethAndHorns};
+        m_hasMount = true;
 
         s_globalToHitMod.connect(this, &TzaangorShaman::visionsToHitMod, &m_visionsSlot);
 

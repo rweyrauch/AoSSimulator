@@ -72,6 +72,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted,
                      &m_hooves};
+        m_hasMount = true;
     }
 
     bool ChaosChariots::configure(int numModels, WeaponOption weapons) {

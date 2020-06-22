@@ -106,6 +106,7 @@ namespace OgorMawtribes {
             m_hooves(Weapon::Type::Melee, "Crushing Hooves", 1, RAND_D6, 3, 2, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, HUSKARD};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
+        m_hasMount = true;
     }
 
     bool HuskardOnStonehorn::configure(WeaponOption option, MountTrait mountTrait) {

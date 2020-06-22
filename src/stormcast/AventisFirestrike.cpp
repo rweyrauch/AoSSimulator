@@ -28,6 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
                       MONSTER, WIZARD, LORD_ARCANUM, AVENTIS_FIRESTRIKE};
         m_weapons = {&m_staffOfHammerhal, &m_hornsAndHooves};
+        m_hasMount = true;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

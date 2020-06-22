@@ -29,6 +29,9 @@ namespace LuminethRealmLords {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, DAWNRIDERS};
         m_weapons = {&m_guardiansSword, &m_lance, &m_hooves};
         m_battleFieldRole = Role::Battleline;
+        m_hasMount = true;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool Dawnriders::configure(int numModels, bool standardBearer) {
@@ -48,6 +51,8 @@ namespace LuminethRealmLords {
             model->addMeleeWeapon(&m_hooves);
             addModel(model);
         }
+
+        m_knownSpells.push_back(std::make_unique<PowerOfHysh>(this));
 
         m_standardBearer = standardBearer;
         m_points = ComputePoints(numModels);
@@ -93,6 +98,71 @@ namespace LuminethRealmLords {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    void Dawnriders::onRestore() {
+        Unit::onRestore();
+
+        m_powerOfHyshActive = false;
+    }
+
+    void Dawnriders::onCastSpell(const Spell *spell, const Unit *target) {
+        Unit::onCastSpell(spell, target);
+
+        if (spell->name() == "Power of Hysh") {
+            m_powerOfHyshActive = true;
+        }
+    }
+
+    Wounds Dawnriders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Sunmetal weapons
+        auto hitRollThreshold = 6;
+        if (m_powerOfHyshActive) hitRollThreshold = 5;
+
+        if ((hitRoll >= hitRollThreshold) && (weapon->name() == m_lance.name())) {
+            return {0, 1};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    void Dawnriders::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        m_powerOfHyshActive = false;
+    }
+
+    int Dawnriders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Lances of Dawn
+        if (charged() && (weapon->name() == m_lance.name())) {
+            return weapon->rend() - 1;
+        }
+        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+    }
+
+    int Dawnriders::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+        // Lances of Dawn
+        if (charged() && (weapon->name() == m_lance.name())) {
+            mod++;
+        }
+        return mod;
+    }
+
+    Rerolls Dawnriders::battleshockRerolls() const {
+        if (m_standardBearer) return RerollFailed;
+        return Unit::battleshockRerolls();
+    }
+
+    int Dawnriders::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+
+        // Deathly Furrows
+        if (!target->hasMount()) {
+            if (target->wounds() == 2) attacks += 1;
+            else if (target->wounds() == 1) attacks += 2;
+        }
+
+        return attacks;
     }
 
 } // namespace LuminethRealmLords

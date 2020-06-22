@@ -77,6 +77,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDER_HORSEMEN};
         m_weapons = {&m_javelinMissile, &m_axe, &m_flail, &m_javelin, &m_axeMaster, &m_flailMaster, &m_javelinMaster,
                      &m_hooves};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &ChaosMarauderHorsemen::iconBearer, &m_connection);
 

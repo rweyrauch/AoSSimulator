@@ -88,6 +88,7 @@ namespace Death {
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, COVEN_THRONE};
         m_weapons = {&m_bite, &m_stiletto, &m_poniards, &m_etherealWeapons};
+        m_hasMount = true;
     }
 
     bool CovenThrone::configure(Lore lore) {

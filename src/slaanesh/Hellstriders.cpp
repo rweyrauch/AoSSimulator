@@ -29,6 +29,7 @@ namespace Slaanesh {
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HELLSTRIDERS};
         m_weapons = {&m_clawSpear, &m_clawSpearReaver, &m_hellscourge, &m_hellscourgeReaver, &m_poisonedTongue};
+        m_hasMount = true;
 
         s_globalBattleshockReroll.connect(this, &Hellstriders::hornblowerBattleshockReroll, &m_hornblowerSlot);
     }

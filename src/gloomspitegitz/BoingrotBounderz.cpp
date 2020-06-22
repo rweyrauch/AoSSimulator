@@ -27,6 +27,7 @@ namespace GloomspiteGitz {
             m_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 3, 4, -1, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, BOINGROT_BOUNDERZ};
         m_weapons = {&m_fangFilledGob, &m_pokinLance, &m_pokinLanceBoss};
+        m_hasMount = true;
     }
 
     bool BoingrotBounderz::configure(int numModels) {

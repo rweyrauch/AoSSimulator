@@ -23,6 +23,7 @@ namespace Khorne {
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, LORD_OF_KHORNE_ON_JUGGERNAUT};
         m_weapons = {&m_wrathforgedAxe, &m_brazenHooves};
+        m_hasMount = true;
     }
 
     bool LordOfKhorneOnJuggernaut::configure() {

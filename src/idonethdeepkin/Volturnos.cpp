@@ -24,6 +24,7 @@ namespace IdonethDeepkin {
             m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, HERO, AKHELIAN, AKHELIAN_KING, VOLTURNOS};
         m_weapons = {&m_theAstraSolus, &m_deepmareJawsTalons, &m_deepmareTails};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &Volturnos::crestOfTheHighKings, &m_connection);
     }

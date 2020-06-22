@@ -42,6 +42,7 @@ namespace EldritchCouncil {
             m_dragonJaws(Weapon::Type::Melee, "Dragon's Fearsome Jaws", 3, 3, 4, 2, -2, RAND_D6) {
         m_keywords = {ORDER, AELF, DRAGON, ELDRITCH_COUNCIL, HERO, WIZARD, MONSTER, ARCHMAGE};
         m_weapons = {&m_magestaff, &m_sorcerousBlade, &m_dragonClaws, &m_dragonJaws};
+        m_hasMount = true;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

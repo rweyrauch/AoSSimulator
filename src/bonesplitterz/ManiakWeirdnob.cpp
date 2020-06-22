@@ -66,6 +66,7 @@ namespace Bonesplitterz {
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, MANIAK_WEIRDNOB};
         m_weapons = {&m_bonebeastStaff, &m_tusksAndHooves};
+        m_hasMount = true;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

@@ -57,6 +57,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
         m_weapons = {&m_sword, &m_hoovesAndTeeth};
+        m_hasMount = true;
     }
 
     bool KnightOfShroudsOnEtherealSteed::configure() {

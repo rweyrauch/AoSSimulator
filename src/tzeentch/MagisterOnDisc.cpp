@@ -61,6 +61,7 @@ namespace Tzeentch {
         m_weapons = {&m_staff,
                      &m_sword,
                      &m_teethAndHorns};
+        m_hasMount = true;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

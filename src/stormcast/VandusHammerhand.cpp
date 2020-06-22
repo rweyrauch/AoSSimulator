@@ -25,6 +25,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT,
                       VANDUS_HAMMERHAND};
         m_weapons = {&m_heldensen, &m_clawsAndFangs};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &VandusHammerhand::lordOfTheHammerhandsBraveryMod, &m_lordSlot);
     }

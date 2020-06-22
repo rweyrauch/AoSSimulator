@@ -30,6 +30,7 @@ namespace Ironjawz {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, GORE_GRUNTAS};
         m_weapons = {&m_pigironChoppa, &m_jaggedGorehacka, &m_tusksAndHooves, &m_bossPigironChoppa,
                      &m_bossJaggedGorehacka};
+        m_hasMount = true;
     }
 
     bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons) {

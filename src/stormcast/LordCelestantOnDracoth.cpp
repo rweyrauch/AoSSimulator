@@ -28,6 +28,7 @@ namespace StormcastEternals {
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
         m_weapons = {&m_stormstrikeGlaive, &m_lightningHammer, &m_thunderaxe, &m_tempestosHammer, &m_clawsAndFangs};
+        m_hasMount = true;
     }
 
     bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield) {

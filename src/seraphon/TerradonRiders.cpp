@@ -30,6 +30,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Razor-sharp Jaws", 1, 4, 4, 4, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, TERRADON_RIDERS};
         m_weapons = {&m_javelin, &m_javelinLeader, &m_bolas, &m_bolasLeader, &m_jaws};
+        m_hasMount = true;
     }
 
     bool TerradonRiders::configure(int numModels, WeaponOption option) {

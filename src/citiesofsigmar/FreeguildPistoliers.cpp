@@ -88,6 +88,7 @@ namespace CitiesOfSigmar {
             m_sabreAndPistolButtOutrider(Weapon::Type::Melee, "Sabre and Pistol Butt", 1, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_PISTOLIERS};
         m_weapons = {&m_pistols, &m_handgun, &m_sabreAndPistolButt, &m_hooves, &m_sabreAndPistolButtOutrider};
+        m_hasMount = true;
     }
 
     bool FreeguildPistoliers::configure(int numModels, bool trumpeter, WeaponOption outriderWeapon) {

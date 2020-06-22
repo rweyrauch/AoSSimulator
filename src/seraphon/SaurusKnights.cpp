@@ -31,6 +31,7 @@ namespace Seraphon {
         m_keywords = {ORDER, SERAPHON, SAURUS, COLD_ONE, SAURUS_KNIGHTS};
         m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws,
                      &m_coldOneJaws};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &SaurusKnights::stardrakeIcon, &m_connection);
     }

@@ -28,6 +28,16 @@ namespace LuminethRealmLords {
             to_integer(Lore::None),
     };
 
+    class PowerOfHysh : public Spell {
+    public:
+        explicit PowerOfHysh(Unit *caster);
+
+        Result cast(Unit *target, int round) override;
+
+        Result cast(double x, double y, int round) override { return Failed; }
+
+    };
+
 } // namespace LuminethRealmLords
 
 #endif // LUMINETHPRIVATE_H

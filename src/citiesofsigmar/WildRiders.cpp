@@ -73,6 +73,7 @@ namespace CitiesOfSigmar {
             m_spearHunter(Weapon::Type::Melee, "Hunting Spear", 2, 3, 3, 4, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WILD_RIDERS};
         m_weapons = {&m_spear, &m_hooves, &m_spearHunter};
+        m_hasMount = true;
     }
 
     bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower) {

@@ -88,6 +88,7 @@ namespace Death {
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, BLOODSEEKER_PALANQUIN};
         m_weapons = {&m_wail, &m_blade, &m_etherealWeapons};
+        m_hasMount = true;
     }
 
     bool BloodseekerPalanquin::configure(Lore lore) {

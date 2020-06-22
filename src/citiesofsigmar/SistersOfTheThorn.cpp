@@ -75,6 +75,7 @@ namespace CitiesOfSigmar {
             m_staffMaiden(Weapon::Type::Melee, "Deepwood Coven Staff", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WIZARD, SISTERS_OF_THE_THORN};
         m_weapons = {&m_javelin, &m_staff, &m_antlersAndHooves, &m_staffMaiden};
+        m_hasMount = true;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

@@ -97,6 +97,7 @@ namespace Death {
             m_claws(Weapon::Type::Melee, "Zombie Dragon's Sword-like Claws", 2, 7, 4, 3, -1, 2) {
         m_keywords = {DEATH, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, VAMPIRE_LORD, VAMPIRE};
         m_weapons = {&m_breath, &m_deathlance, &m_maw, &m_claws};
+        m_hasMount = true;
     }
 
     bool VampireLordOnZombieDragon::configure(WeaponOption option, bool shield, bool chalice, Lore lore) {

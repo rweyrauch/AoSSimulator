@@ -94,6 +94,7 @@ namespace CitiesOfSigmar {
             m_sabreSharpshooter(Weapon::Type::Melee, "Freeguild Cavalry Sabre", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_OUTRIDERS};
         m_weapons = {&m_blunderbuss, &m_pistols, &m_handgun, &m_sabre, &m_hooves, &m_sabreSharpshooter};
+        m_hasMount = true;
 
         // Skilled Riders
         m_runAndShoot = true;

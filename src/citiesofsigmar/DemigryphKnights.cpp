@@ -91,6 +91,7 @@ namespace CitiesOfSigmar {
             m_beakAndTalons(Weapon::Type::Melee, "Beak and Talons", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, DEMIGRYPH_KNIGHTS};
         m_weapons = {&m_halberd, &m_lance, &m_halberdPreceptor, &m_lancePreceptor, &m_beakAndTalons};
+        m_hasMount = true;
     }
 
     bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons) {

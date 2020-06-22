@@ -27,6 +27,7 @@ namespace Death {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
         m_weapons = {&m_barrowLance, &m_barrowLanceKnight, &m_hoovesAndTeeth};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &BlackKnights::standardBearerBraveryMod, &m_standardSlot);
     }

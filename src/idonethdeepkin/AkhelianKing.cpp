@@ -26,6 +26,7 @@ namespace IdonethDeepkin {
             m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, HERO, AKHELIAN, AKHELIAN_KING};
         m_weapons = {&m_bladedPolearm, &m_greatsword, &m_falchion, &m_deepmareJawsTalons, &m_deepmareTails};
+        m_hasMount = true;
     }
 
     bool AkhelianKing::configure(WeaponOption weapon) {

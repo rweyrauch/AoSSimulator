@@ -43,6 +43,7 @@ namespace Ironjawz {
             m_fistsAndTail(Weapon::Type::Melee, "Mighty Fists and Tail", 1, 9, 3, 3, -2, 2) {
         m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
         m_weapons = {&m_bellow, &m_smasha, &m_kunnin, &m_fistsAndTail};
+        m_hasMount = true;
     }
 
     bool GordrakkTheFistOfGork::configure() {

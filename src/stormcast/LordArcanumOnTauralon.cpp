@@ -28,6 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD,
                       LORD_ARCANUM};
         m_weapons = {&m_aetherstave, &m_hornsAndHooves};
+        m_hasMount = true;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

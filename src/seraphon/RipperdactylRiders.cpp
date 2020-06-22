@@ -28,6 +28,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Tearing Jaws", 1, 3, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, RIPPERDACTYL_RIDERS};
         m_weapons = {&m_spear, &m_spearAlpha, &m_jaws};
+        m_hasMount = true;
     }
 
     bool RipperdactylRiders::configure(int numModels) {

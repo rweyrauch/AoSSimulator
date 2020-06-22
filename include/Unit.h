@@ -48,6 +48,8 @@ public:
 
     bool fly() const { return m_fly; }
 
+    bool hasMount() const { return m_hasMount; }
+
     bool ignoreRend() const { return m_ignoreRend; }
 
     int points() const { return m_points; }
@@ -470,6 +472,7 @@ protected:
     std::vector<Keyword> m_keywords;
 
     bool m_fly = false;
+    bool m_hasMount = false;
     bool m_runAndShoot = false;
     bool m_runAndCharge = false;
     bool m_retreatAndCharge = false;

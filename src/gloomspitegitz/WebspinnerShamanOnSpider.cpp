@@ -46,6 +46,7 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, MONSTER, HERO, WIZARD,
                       WEBSPINNER_SHAMAN};
         m_weapons = {&m_spiderBows, &m_spiderGodStaff, &m_chitinousLegs, &m_monstrousFangs, &m_crookedSpears};
+        m_hasMount = true;
 
         s_globalCastMod.connect(this, &WebspinnerShamanOnArachnarokSpider::catchwebSpidershrine, &m_shrineConnection);
         s_globalBraveryMod.connect(this, &WebspinnerShamanOnArachnarokSpider::prophetOfTheSpiderGod,

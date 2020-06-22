@@ -26,6 +26,7 @@ namespace Slaanesh {
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, EXALTED_CHARIOT};
         m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
+        m_hasMount = true;
     }
 
     bool ExaltedChariot::configure() {

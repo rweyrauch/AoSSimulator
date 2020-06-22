@@ -85,9 +85,11 @@ namespace Death {
         if (withSteed) {
             model->addMeleeWeapon(&m_hoovesAndTeeth);
             m_move = 10;
+            m_hasMount = true;
         } else if (withWings) {
             m_move = 10;
             m_fly = true;
+            m_hasMount = true;
         }
 
         model->addMeleeWeapon(&m_blades);

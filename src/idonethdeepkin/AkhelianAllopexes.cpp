@@ -29,6 +29,7 @@ namespace IdonethDeepkin {
             m_allopexFins(Weapon::Type::Melee, "Allopex's Scythed Fins", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, MONSTER, ALLOPEX};
         m_weapons = {&m_harpoonLauncher, &m_netLauncher, &m_hooksAndBlades, &m_allopexBite, &m_allopexFins};
+        m_hasMount = true;
     }
 
     bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons) {

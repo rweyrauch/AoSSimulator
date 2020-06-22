@@ -70,6 +70,7 @@ namespace CitiesOfSigmar {
             m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 4, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, DRAKESPAWN_CHARIOTS};
         m_weapons = {&m_crossbow, &m_spear, &m_jaws};
+        m_hasMount = true;
     }
 
     bool DrakespawnChariots::configure(int numModels) {

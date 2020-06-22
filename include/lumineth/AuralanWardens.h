@@ -31,11 +31,21 @@ namespace LuminethRealmLords {
 
     protected:
 
+        void onRestore() override;
+        void onStartCombat(PlayerId player) override;
+        void onStartHero(PlayerId player) override;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        void onCastSpell(const Spell *spell, const Unit *target) override;
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
         Weapon m_championsBlade,
             m_wardensPike;
+
+        bool m_usedMoonfireFlask = false;
+        bool m_powerOfHyshActive = false;
 
         static bool s_registered;
     };
@@ -43,10 +53,10 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Moonfire Flask                   TODO
-// Sunmetal Weapons                 TODO
-// Wall of Blades                   TODO
-// Power of Hysh                    TODO
+// Moonfire Flask                   Yes
+// Sunmetal Weapons                 Yes
+// Wall of Blades                   Yes
+// Power of Hysh                    Yes
 //
 
 } // namespace LuminethRealmLords

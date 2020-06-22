@@ -94,6 +94,7 @@ namespace OgorMawtribes {
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER,
                       THUNDERTUSK_BEASTRIDERS};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
+        m_hasMount = true;
     }
 
     bool ThundertuskBeastriders::configure(WeaponOption option) {

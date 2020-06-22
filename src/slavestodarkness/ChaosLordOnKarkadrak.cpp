@@ -60,6 +60,7 @@ namespace SlavesToDarkness {
             m_tail(Weapon::Type::Melee, "Battering Tail", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_battleAxe, &m_blade, &m_hornsAndClaws, &m_tail};
+        m_hasMount = true;
     }
 
     bool ChaosLordOnKarkadrak::configure() {

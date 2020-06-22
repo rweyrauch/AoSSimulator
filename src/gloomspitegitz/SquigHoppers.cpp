@@ -26,6 +26,7 @@ namespace GloomspiteGitz {
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HOPPERS};
         m_weapons = {&m_fangFilledGob, &m_slitta, &m_slittaBoss};
+        m_hasMount = true;
     }
 
     bool SquiqHoppers::configure(int numModels) {

@@ -28,6 +28,7 @@ namespace IdonethDeepkin {
             m_fangmoraLashingTail(Weapon::Type::Melee, "Fangmora's Lashing Tail", 2, RAND_D3, 3, 3, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, AKHELIAN_GUARD, ISHLAEN_GUARD};
         m_weapons = {&m_helsabre, &m_helsabrePrince, &m_fangmoraFangedMaw, &m_fangmoraLashingTail};
+        m_hasMount = true;
     }
 
     bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool musicians) {

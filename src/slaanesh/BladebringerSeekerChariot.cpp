@@ -27,6 +27,7 @@ namespace Slaanesh {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, SEEKER_CHARIOT,
                       BLADEBRINGER};
         m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
+        m_hasMount = true;
 
         // Impossibly Swift
         m_retreatAndCharge = true;

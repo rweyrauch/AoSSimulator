@@ -27,6 +27,7 @@ namespace GloomspiteGitz {
             m_fangs(Weapon::Type::Melee, "Fangs", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SPIDERFANG, GROT, SPIDER_RIDERS};
         m_weapons = {&m_spiderBow, &m_crookedSpear, &m_crookedSpearBoss, &m_fangs};
+        m_hasMount = true;
     }
 
     bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers) {

@@ -47,6 +47,7 @@ namespace Khorne {
                       VORGAROTH_THE_SCARRED_AND_SKALOK_THE_SKULL_HOST_OF_KHORNE};
         m_weapons = {&m_balefire, &m_skullCleaverAxeOfKhorne, &m_evisceratingClaws, &m_cavernousJaws,
                      &m_brassPlatedTail};
+        m_hasMount = true;
     }
 
     bool VorgarothAndSkalok::configure() {

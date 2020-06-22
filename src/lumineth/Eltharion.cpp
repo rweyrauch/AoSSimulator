@@ -9,6 +9,7 @@
 #include <lumineth/Eltharion.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 #include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
@@ -69,6 +70,75 @@ namespace LuminethRealmLords {
 
     int TheLightOfEltharion::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    int TheLightOfEltharion::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+
+        // Fangsword
+        if (charged() && (weapon->name() == m_fangsword.name())) mod++;
+
+        return mod;
+    }
+
+    Wounds TheLightOfEltharion::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+
+        // Fangsword
+        if (charged() && (weapon->name() == m_fangsword.name())) {
+            if (woundRoll == 6) {
+                damage.mortal++;
+            }
+        }
+
+        // Celennari Blade
+        if (m_celennariBladeTarget && (weapon->name() == m_blade.name())) {
+            damage.normal++;
+        }
+        return damage;
+    }
+
+    void TheLightOfEltharion::onStartShooting(PlayerId player) {
+        if (player == owningPlayer()) {
+            // Searing Darts of Light
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) < 18.0f)) {
+                auto roll = Dice::rollD6();
+                if (roll >= 5) {
+                    unit->applyDamage({0, Dice::rollD6()});
+                }
+                else if (roll >= 2) {
+                    unit->applyDamage({0, Dice::rollD3()});
+                }
+            }
+        }
+    }
+
+    int TheLightOfEltharion::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        // Spirit Armour
+        return 0;
+    }
+
+    Wounds TheLightOfEltharion::targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll, int woundRoll) const {
+        // Spirit Armour
+        return {(wounds.normal+1)/2, wounds.mortal};
+    }
+
+    int TheLightOfEltharion::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        // Supreme Swordmaster
+        if (unmodifiedHitRoll == 6) {
+            return 2;
+        }
+        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+    }
+
+    void TheLightOfEltharion::onStartCombat(PlayerId player) {
+        if (meleeTarget() && meleeTarget()->hasKeyword(HERO) && distanceTo(meleeTarget()) <= 3.0f) {
+            m_celennariBladeTarget = meleeTarget();
+        }
+        else {
+            m_celennariBladeTarget = nullptr;
+        }
     }
 
 } // namespace LuminethRealmLords

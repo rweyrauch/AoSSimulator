@@ -80,6 +80,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO,
                       WIZARD, CHAOS_SORCERER_LORD};
         m_weapons = {&m_staff, &m_fangsAndClaws, &m_tail};
+        m_hasMount = true;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

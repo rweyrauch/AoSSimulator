@@ -46,6 +46,7 @@ namespace Fyreslayers {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_javelin, &m_warAxe,
                      &m_javelinMelee};
+        m_hasMount = true;
     }
 
     bool AuricRunesonOnMagmadroth::configure(MountTrait trait) {

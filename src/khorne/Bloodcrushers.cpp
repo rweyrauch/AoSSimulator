@@ -27,6 +27,7 @@ namespace Khorne {
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, BLOODCRUSHERS};
         m_weapons = {&m_hellblade, &m_hellbladeHunter, &m_brazenHooves};
+        m_hasMount = true;
 
         s_globalBattleshockReroll.connect(this, &Bloodcrushers::hornblowerBattleshockReroll, &m_hornblowerSlot);
     }

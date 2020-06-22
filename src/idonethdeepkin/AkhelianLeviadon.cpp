@@ -25,6 +25,7 @@ namespace IdonethDeepkin {
             m_razorshellHarpoons(Weapon::Type::Melee, "Razorshell Harpoons", 1, 4, 3, 3, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, MONSTER, AKHELIAN, LEVIADON};
         m_weapons = {&m_harpoonLauncher, &m_crushingJaws, &m_scythedFins, &m_twinProngedSpear, &m_razorshellHarpoons};
+        m_hasMount = true;
     }
 
     bool AkhelianLeviadon::configure() {

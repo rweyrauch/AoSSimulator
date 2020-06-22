@@ -31,6 +31,14 @@ namespace LuminethRealmLords {
 
     protected:
 
+        void onRestore() override;
+        void onStartHero(PlayerId player) override;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        void onCastSpell(const Spell *spell, const Unit *target) override;
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Rerolls battleshockRerolls() const override;
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
     private:
 
@@ -40,17 +48,19 @@ namespace LuminethRealmLords {
 
         bool m_standardBearer = false;
 
+        bool m_powerOfHyshActive = false;
+
         static bool s_registered;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  TODO
-// Deathly Furrows                  TODO
-// Sunmetal Weapons                 TODO
-// Lances of Dawn                   TODO
-// Power of Hysh                    TODO
+// Standard Bearer                  Yes
+// Deathly Furrows                  Yes
+// Sunmetal Weapons                 Yes
+// Lances of Dawn                   Yes
+// Power of Hysh                    Yes
 //
 
 } // namespace LuminethRealmLords

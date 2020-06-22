@@ -92,6 +92,7 @@ namespace SlavesToDarkness {
             m_fangs(Weapon::Type::Melee, "Tearing Fangs", 1, 3, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, MARK_OF_CHAOS, VARANGUARD};
         m_weapons = {&m_ensorcelledWeapon, &m_fellspear, &m_blade, &m_fangs};
+        m_hasMount = true;
     }
 
     bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon) {

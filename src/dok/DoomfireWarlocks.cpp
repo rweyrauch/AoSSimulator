@@ -31,6 +31,7 @@ namespace DaughtersOfKhaine {
             m_steedsBite(Weapon::Type::Melee, "Dark Steed's Vicious Bite", 1, 2, 4, 5, 0, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WIZARD, DOOMFIRE_WARLOCKS};
         m_weapons = {&m_crossBow, &m_scimitar, &m_crossBowMaster, &m_scimitarMaster, &m_steedsBite};
+        m_hasMount = true;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

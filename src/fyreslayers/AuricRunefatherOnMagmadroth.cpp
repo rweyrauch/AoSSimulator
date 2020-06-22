@@ -43,6 +43,7 @@ namespace Fyreslayers {
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_grandAxe};
+        m_hasMount = true;
     }
 
     bool AuricRunefatherOnMagmadroth::configure(MountTrait trait) {

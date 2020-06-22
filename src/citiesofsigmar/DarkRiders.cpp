@@ -75,6 +75,7 @@ namespace CitiesOfSigmar {
             m_crossbowHerald(Weapon::Type::Missile, "Repeater Crossbow", 16, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, DARK_RIDERS};
         m_weapons = {&m_crossbow, &m_spear, &m_bite, &m_crossbowHerald};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &DarkRiders::sowTerrorAndConfusion, &m_connection);
     }

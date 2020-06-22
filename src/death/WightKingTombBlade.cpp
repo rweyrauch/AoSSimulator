@@ -71,6 +71,7 @@ namespace Death {
         auto model = new Model(hasSteed ? BASESIZE_MOUNT : BASESIZE, wounds());
 
         m_hasSteed = hasSteed;
+        m_hasMount = hasSteed;
 
         model->addMeleeWeapon(&m_balefulTombBlade);
         if (m_hasSteed) {

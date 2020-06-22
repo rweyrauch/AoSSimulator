@@ -28,6 +28,7 @@ namespace Khorne {
             m_gnashingMaw(Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, SKULL_CANNONS};
         m_weapons = {&m_burningSkulls, &m_hellblades, &m_gnashingMaw};
+        m_hasMount = true;
     }
 
     bool SkullCannons::configure(int numModels) {
