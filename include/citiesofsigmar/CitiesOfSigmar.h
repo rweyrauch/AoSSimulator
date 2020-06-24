@@ -176,6 +176,41 @@ namespace CitiesOfSigmar {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Amplified Sorceries              TODO
+// Loyal Shields                    TODO
+// Wise Council                     TODO
+// Hammerhal
+//    Banners Held High             TODO
+//    The Magister of Hammerhal     TODO
+//    The Pride of Hammerhal        TODO
+//    Righteous Purpose             TODO
+// Living City
+//    Hunters of the Hidden Paths   TODO
+//    Attuned to Nature             TODO
+//    Strike then Melt Away         TODO
+// Greywater Fastness
+//    Rune Lore                     TODO
+//    Home of the Great Ironweld Guilds     TODO
+//    Salvo Fire                    TODO
+// The Phoenicium
+//    Vengeful Revenants            TODO
+//    Blood of the Ur-Phoenix       TODO
+//    Living Idols                  TODO
+// Anvilgard
+//    Black Market Bounty           TODO
+//    Dabblings in Sorcery          TODO
+//    Hidden Agents                 TODO
+//    Drakeblood Curses             TODO
+//    Make an Example of the Weak   TODO
+// Hallowheart
+//    Eldritch Attunement           TODO
+//    Mages of the Whitefire Court  TODO
+//    Arcane Channelling            TODO
+// Tempest's Eye
+//    Alert and Forewarned          TODO
+//    Outriders of the Realms       TODO
+//    Standing Contracts            TODO
+//    Rapid Redeploy                TODO
 //
 
     void Init();

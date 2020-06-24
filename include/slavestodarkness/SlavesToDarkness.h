@@ -145,10 +145,21 @@ namespace SlavesToDarkness {
 //    Aura of Slaanesh              TODO
 //    Aura of Chaos Undivided       TODO
 // Eye of the Gods                  TODO
-// Ravagers                         TODO
-// Cabalists                        TODO
-// Despoilers                       TODO
-// Host of the Everchosen           TODO
+// Ravagers
+//    Glory for the Taking          TODO
+//    Rally the Tribes              TODO
+// Cabalists
+//    Ritual of Sorcerous Might     TODO
+//    Ritual of Corruption          TODO
+// Despoilers
+//    Sacrilegious Might            TODO
+//    Blessed by the Unholy         TODO
+//    Twisted Dominion              TODO
+// Host of the Everchosen
+//    Fearless in His Presence      TODO
+//    The Will of the Everchosen    TODO
+//    Dark Prophecy                 TODO
+//
 
 } // SlavesToDarkness
 

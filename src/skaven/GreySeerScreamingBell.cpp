@@ -83,6 +83,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, WAR_MACHINE, HERO, WIZARD, SCREAMING_BELL,
                       GREY_SEER};
         m_weapons = {&m_staff, &m_clawsAndFangs, &m_spikes};
+        m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &GreySeerOnScreamingBell::altarOfTheHornedRat, &m_connection);
         s_globalToHitMod.connect(this, &GreySeerOnScreamingBell::wallOfUnholySound, &m_unholySoundConnection);

@@ -117,7 +117,16 @@ namespace Nurgle {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-//
+// Cycle of Corruption              TODO
+//    Corrupted Regrowth            TODO
+//    Unatural Vitality             TODO
+//    Fecund Vigour                 TODO
+//    The Burgeoning                TODO
+//    Plague of Misery              TODO
+//    Nauseous Revulsion            TODO
+//    Rampant Disease               TODO
+// The Garden of Nurgle             TODO
+// Summon Daemons of Nurgle         TODO
 
     void Init();
 

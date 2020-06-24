@@ -140,10 +140,22 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Locus of Fury                    Yes
-// Devour the Craven                TODO
-// Skull Hunters                    Yes
-// Tireless Conquerors              Yes
-// Slay the Mighty                  Yes
+// Reapers of Vengeance
+//    Devour the Craven             TODO
+//    Leave None Alive              TODO
+//    Mage Eater                    TODO
+// The Bloodlords
+//    Slay the Mighty               Yes
+//    First in His Sight            TODO
+//    Slaughter's Thirst            TODO
+// The Goretide
+//    Tireless Conquerors           Yes
+//    Ever Onwards                  TODO
+//    Hew the Foe                   TODO
+// The Skullfiend Tribe
+//    Skull Hunters                 Yes
+//    For the Brass Citadel         TODO
+//    Master Decapitator            TODO
 // Blood for the Blood God          TODO
 //    Bloody Exemplar               TODO
 //    Spelleater Curse              TODO

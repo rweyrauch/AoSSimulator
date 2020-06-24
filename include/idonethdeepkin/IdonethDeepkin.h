@@ -123,6 +123,33 @@ namespace IdonethDeepkin {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Tide of Death
+//   Low Tide                       TODO
+//   Flood Tide                     TODO
+//   High Tide                      TODO
+//   Ebb Tide                       TODO
+// Isharann Rituals
+//   Ritual of Erosion              TODO
+//   Ritual of Rousing              TODO
+//   Ritual of the Tempest          TODO
+// Ionrach
+//   Strong in Magic                TODO
+//   Emissary of the Deep Places    TODO
+// Dhom-hain
+//   Savage Fighters                TODO
+//   Deep Questors                  TODO
+// Fuethan
+//   Revel in Slaughter             TODO
+//   Fiercest of Creatures          TODO
+// Morphann
+//   Soul-mage Adepts               TODO
+//   Freezing Mists                 TODO
+// Nautilar
+//   Consumate Defenders            TODO
+//   Protective Barrier             TODO
+// Briomdar
+//   Supreme Soulscryers            TODO
+//   Unstoppable Raiders            TODO
 //
 
     void Init();

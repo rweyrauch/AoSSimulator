@@ -117,19 +117,51 @@ namespace OssiarchBonereapers {
                 Unit(name, move, wounds, bravery, save, fly) {}
 
         Wounds applyWoundSave(const Wounds &wounds) override;
+        int toSaveModifier(const Weapon *weapon) const override;
+        void onModelSlain(Wounds::Source source) override;
+        bool battleshockRequired() const override;
+        int theDreadLegion(const Unit *target);
 
     protected:
 
         Legion m_legion = Legion::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+
+        lsignal::slot m_braveryBuffConnection;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
 // Deathless Warriors               Yes
-// Ranks Unbroken by Dissent        TODO
+// Ranks Unbroken by Dissent        Yes
+// Relentless Discipline Points     TODO
+// Unstoppable Advance              TODO
+// Mortis Praetorians
+//   The Dread Legion               Yes
+//   Counter-strike                 TODO
+//   Katakros's Chosen              TODO
+// Petriflex Elite
+//   Unstoppable Juggernauts        Yes
+//   Bludgeon                       TODO
+//   Mighty Archaossian             TODO
+// Stalliarch Lord
+//   Equumortoi                     Yes
+//   Rally Back                     TODO
+//   Twisted Challenge              TODO
+// Ivory Host
+//   Simmering Rage                 TODO
+//   Tempur Fury                    TODO
+//   Scrimshawed Savage             TODO
+// Null Myriad
+//   Eldritch Nulls                 TODO
+//   Holdfast                       TODO
+//   Unsettling and Sinister        TODO
+// Crematorians
+//   Immolation                     Yes
+//   Levellers of Cities            TODO
+//   Wrathful Avenger               TODO
 //
 
     void Init();

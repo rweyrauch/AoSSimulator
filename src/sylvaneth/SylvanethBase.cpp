@@ -74,7 +74,7 @@ namespace Sylvaneth {
         if (hasKeyword(HARVESTBOON) && m_charged) {
             return RerollOnes;
         }
-            // Shield the Arcane
+        // Shield the Arcane
         else if (hasKeyword(GNARLROOT)) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {

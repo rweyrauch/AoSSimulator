@@ -26,6 +26,7 @@ namespace Nighthaunt {
             m_spectralScytheHellwraith(Weapon::Type::Melee, "Spectral Scythe", 1, 3, 4, 3, -1, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, HEXWRAITHS};
         m_weapons = {&m_spectralScythe, &m_spectralScytheHellwraith, &m_hoovesAndTeeth};
+        m_hasMount = true;
     }
 
     bool Hexwraiths::configure(int numModels) {

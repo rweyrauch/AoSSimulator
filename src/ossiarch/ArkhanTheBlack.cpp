@@ -82,6 +82,7 @@ namespace OssiarchBonereapers {
             m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Dagger", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, ARKHAN};
         m_weapons = {&m_zefetKar, &m_khenashAn, &m_claws, &m_clawsAndDaggers};
+        m_hasMount = true;
 
         m_totalSpells = 3;
         m_totalUnbinds = 3;

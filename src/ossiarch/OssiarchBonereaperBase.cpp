@@ -70,15 +70,22 @@ namespace OssiarchBonereapers {
         removeKeyword(NULL_MYRIAD);
         removeKeyword(CREMATORIANS);
 
+        m_braveryBuffConnection.disconnect();
+        m_runAndCharge = false;
+
         m_legion = legion;
         switch (legion) {
             case Legion::Mortis_Praetorians:
                 addKeyword(MORTIS_PRAETORIANS);
+                // The Dread Legion
+                s_globalBraveryMod.connect(this, &OssiarchBonereaperBase::theDreadLegion, &m_braveryBuffConnection);
                 break;
             case Legion::Petrifex_Elite:
                 addKeyword(PETRIFEX_ELITE);
                 break;
             case Legion::Stalliarch_Lords:
+                // Equumortoi
+                m_runAndCharge = true;
                 addKeyword(STALLIARCH_LORDS);
                 break;
             case Legion::Ivory_Host:
@@ -93,6 +100,7 @@ namespace OssiarchBonereapers {
             default:
                 break;
         }
+
     }
 
     Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds) {
@@ -121,6 +129,46 @@ namespace OssiarchBonereapers {
 
     void OssiarchBonereaperBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    int OssiarchBonereaperBase::toSaveModifier(const Weapon *weapon) const {
+        auto mod = Unit::toSaveModifier(weapon);
+
+        // Unstoppable Juggernauts
+        if (m_legion == Legion::Petrifex_Elite) {
+            mod++;
+        }
+
+        return mod;
+    }
+
+    int OssiarchBonereaperBase::theDreadLegion(const Unit *target) {
+        // The Dread Legion
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 12.0)) {
+            return -1;
+        }
+        return 0;
+    }
+
+    void OssiarchBonereaperBase::onModelSlain(Wounds::Source source) {
+        Unit::onModelSlain(source);
+
+        // Immoliate
+        if ((source == Wounds::Source::WeaponMelee) && (m_legion == Legion::Crematorians)) {
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) <= 3.0f)) {
+                auto roll = Dice::rollD6();
+                if (hasKeyword(HERO) || hasKeyword(MONSTER)) roll++;
+                if (roll >= 5) {
+                    unit->applyDamage({0, 1});
+                }
+            }
+        }
+    }
+
+    bool OssiarchBonereaperBase::battleshockRequired() const {
+        // Ranks Unbroken by Dissent
+        return false;
     }
 
     void Init() {

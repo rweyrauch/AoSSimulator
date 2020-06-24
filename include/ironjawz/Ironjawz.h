@@ -137,15 +137,19 @@ namespace Ironjawz {
 // Smashing and Bashing             TODO
 // Eager for Battle                 Yes
 // Mad as Hell                      TODO
-// Ironsunz Kunnin'                 TODO
-// Alright - Get 'Em!               TODO
-// Right Fist of Dakkbad            Yes
-// Hunt and Crush                   Yes
-// Break Through Da Line            TODO
-// Get Da Realmgate                 TODO
-// Vandal Hordes                    TODO
-// Rabble Rouser                    TODO
-// Checked Out                      TODO
+// Ironjawz Waaagh!                 TODO
+// Ironsunz
+//    Ironsunz Kunnin'              TODO
+//    Alright - Get 'Em!            TODO
+//    Right Fist of Dakkbad         Yes
+// Bloodtoofs
+//    Hunt and Crush                Yes
+//    Break Through Da Line         TODO
+//    Get Da Realmgate              TODO
+// Da Choppas
+//    Vandal Hordes                 TODO
+//    Rabble Rouser                 TODO
+//    Checked Out                   TODO
 //
 
     void Init();

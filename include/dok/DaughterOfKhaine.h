@@ -147,9 +147,13 @@ namespace DaughtersOfKhaine {
 //    Slaughter's Strength          Yes
 //    Unquenchable Fervour          Yes
 // Daughters of the First Temple    Yes
+// Devoted Disciple                 TODO
 // Bladed Killers                   Yes
+// The Darksword                    TODO
 // Disciples of Slaughter           TODO
+// Venom of Nagendra                TODO
 // Concealment and Stealth          Yes
+// Mistress of Illusion             TODO
 //
 
     void Init();

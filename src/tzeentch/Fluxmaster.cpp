@@ -63,6 +63,7 @@ namespace Tzeentch {
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, FLUXMASTER};
         m_weapons = {&m_flames, &m_staff, &m_dagger, &m_teethAndHorns};
+        m_hasMount = true;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

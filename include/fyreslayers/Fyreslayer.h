@@ -159,6 +159,34 @@ namespace Fyreslayers {
 
     };
 
+//
+// Abilities                    Implemented
+// -------------------------------------------
+// Ur-Gold Runes
+//    Rune of Fury                  TODO
+//    Rune of Searing Heat          TODO
+//    Rune of Awakened Steel        TODO
+//    Rune of Fiery Determination   TODO
+//    Rune of Relentless Zeal       TODO
+//    Rune of Farsight              TODO
+// Vostarg
+//    Fearsome Surge                Yes
+//    Honour Our Ancestors          TODO
+//    Fiery Endurance               TODO
+// Greyfyrd
+//    Spoils of Victory             TODO
+//    Expert Cohesion               TODO
+//    Battle-scarred Veteran        TODO
+// Hermdar
+//    Seize by Force                TODO
+//    Skull-breakers and Oath-takers    TODO
+//    Warrior Indominate            TODO
+// Lofnir
+//    Venerators of Vulcatrix       TODO
+//    Torrent of Magma              TODO
+//    Explosive Charge              TODO
+//
+
     void Init();
 
 } // namespace Fyreslayers

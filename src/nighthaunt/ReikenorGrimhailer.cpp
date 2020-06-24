@@ -53,6 +53,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, REIKENOR_THE_GRIMHAILER};
         m_weapons = {&m_fellreaper, &m_hoovesAndTeeth};
+        m_hasMount = true;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

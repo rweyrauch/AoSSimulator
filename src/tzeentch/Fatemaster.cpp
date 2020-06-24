@@ -58,6 +58,7 @@ namespace Tzeentch {
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, FATEMASTER};
         m_weapons = {&m_glaive, &m_teethAndHorns};
+        m_hasMount = true;
     }
 
     bool Fatemaster::configure() {

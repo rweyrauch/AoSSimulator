@@ -185,12 +185,33 @@ namespace OgorMawtribes {
 // Grasp of the Everwinter          Yes
 // Might Make Right                 TODO
 // Ravenous Brutes                  Yes
-// Fleshy Stampede (Meatfist)       Yes
-// Heralds of the Gulping God (Bloodgullet) Partial/TODO
-// Gunmasters (Underguts)           Yes
-// Fearsome Breed (Boulderhead)     TODO
-// Swift Outflank (Thunderbellies)  TODO
-// Ghosts in the Blizzard (Winterbite)  TODO
+// Meatfist
+//    Fleshy Stampede               Yes
+//    The Unstoppable Feast         TODO
+//    Food for Thought              TODO
+// Bloodgullet
+//    Heralds of the Gulping God    Partial/TODO
+//    Bloodbath                     TODO
+//    Nice Drop of the Red Stuff    TODO
+// Underguts
+//    Gunmasters                    Yes
+//    Mass of Scars                 TODO
+//    Thunderous Salvo              TODO
+// Boulderhead
+//    Fearsome Breed                TODO
+//    Deadly Hail                   TODO
+//    Dig Deep Your Heels!          TODO
+//    Lord of Beasts                TODO
+// Thunderbellies
+//    Swift Outflank                TODO
+//    Riders of the Hurricane       TODO
+//    Rip and Tear                  TODO
+//    Storm Chaser                  TODO
+// Winterbite
+//    Ghosts in the Blizzard        TODO
+//    Call of the Endless White     TODO
+//    Howl of the Wind              TODO
+//    Wintertouched                 TODO
 //
 
     void Init();

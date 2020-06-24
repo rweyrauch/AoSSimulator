@@ -132,15 +132,18 @@ namespace Bonesplitterz {
 //   Berserk Strength               Yes
 // Spirit of the Beast              TODO
 // Bonesplitterz Waaagh!            TODO
-// Bring It On!                     TODO
-// Feel Da Spirit!                  TODO
-// A Right Monster                  TODO
-// Freezing Strike                  Yes
-// Freeze and Run                   TODO
-// Pure-bred War Boar               TODO
-// Strength of Purpose              TODO
-// Shout Down da Magic!             TODO
-// Fireball                         TODO
+// Bonegrinz
+//    Bring It On!                  TODO
+//    Feel Da Spirit!               TODO
+//    A Right Monster               TODO
+// Icebone
+//    Freezing Strike               Yes
+//    Freeze and Run                TODO
+//    Pure-bred War Boar            TODO
+// Drakkfoot
+//    Strength of Purpose           TODO
+//    Shout Down da Magic!          TODO
+//    Fireball                      TODO
 //
 
     void Init();

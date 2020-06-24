@@ -165,13 +165,27 @@ namespace Death {
 // Abilities                    Implemented
 // -------------------------------------------
 // The Unquiet Dead                 TODO
-// Deathless Thralls                TODO
-// The Bloodlines                   TODO
-//    Dragon Warriors               TODO
-//    Lords of Night                TODO
-//    Necromantic                   TODO
-//    Swift Death                   TODO
 // Deathless Minons                 TODO
+// Endless Legions                  TODO
+// Grand Host of Nagash
+//    Chosen Guardians              TODO
+//    Legions Innumerable           TODO
+// Legion of Sacrament
+//    The Master's Teachings        TODO
+//    The Black Disciples           TODO
+// Legion of Blood
+//    Immortal Majesty              TODO
+//    Favoured Retainers            TODO
+// Legion of Night
+//    The Bait                      TODO
+//    Ageless Cunning               TODO
+// Soulblight
+//    Deathless Thralls             TODO
+//    The Bloodlines                TODO
+//      Dragon Warriors             TODO
+//      Lords of Night              TODO
+//      Necromantic                 TODO
+//      Swift Death                 TODO
 //
 
     void Init();

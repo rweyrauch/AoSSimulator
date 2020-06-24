@@ -135,10 +135,18 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Feast of Depravites              TODO
 // Locus of Diversion               TODO
 // Euphoric Killers                 Yes
-// Heir to the Throne               Yes
-// Thundering Cavalcade             Yes
+// Invaders
+//    Figureheads of the Dark Prince    TODO
+//    Escalating Havoc              TODO
+// Pretenders
+//    Heir to the Throne            Yes
+//    Warlord Supreme               TODO
+// Godseekers
+//    Thundering Cavalcade          Yes
+//    Maniacal Hunters              TODO
 //
 
     void Init();

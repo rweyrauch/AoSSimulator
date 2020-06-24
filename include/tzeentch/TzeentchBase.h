@@ -153,13 +153,39 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Masters of Destiny               TODO
 // Locus of Change                  Yes
-// Twisters of Materiality          Yes
-// Ranks of Mischievous Mirages     TODO
-// Thieves of all Things Arcane     TODO
-// The Change-gift                  TODO
-// Arrows of Tzeentch               Partial
-// Scions of the Exiled             TODO
+// Summon Daemons of Tzeentch       TODO
+// Gifts of Worship
+//    Mass Conjuration              TODO
+//    Ninefold Dismantlement        TODO
+//    Overthrow Leaders             TODO
+//    Reckless Abandon              TODO
+//    Tide of Anarchy               TODO
+// The Eternal Conflagration
+//    Twisters of Materiality       Yes
+//    Infernos of Mutation          TODO
+//    Coruscating Flames            TODO
+// The Hosts Duplicitous
+//    Ranks of Mischievous Mirages  TODO
+//    Impossible to Anticipate      TODO
+//    Will of the Phantom Lord      TODO
+// The Hosts Arcanum
+//    Thieves of all Things Arcane  TODO
+//    Entourage of Sky-sharks       TODO
+//    Spell Hunters                 TODO
+// The Cult of the Transient Form
+//    The Change-gift               TODO
+//    Fate of Transmutation         TODO
+//    Defiant in their Pursuit      TODO
+// The Pyrofane Cult
+//    Arrows of Tzeentch            Partial
+//    Immolate                      TODO
+//    Shrouded in Unnatural Flame   TODO
+// The Guild of Summoners
+//    Scions of the Exiled          TODO
+//    Will of the Arcane Lords      TODO
+//    Prophet of the Ostensible     TODO
 //
 
 } // Tzeentch

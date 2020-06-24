@@ -211,6 +211,34 @@ namespace KharadronOverlords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Aether-Gold                      TODO
+// Stick to the Code
+// Artycle
+//   Honour is Everything           TODO
+//   Master the Skies               TODO
+//   Settle the Grudges             TODO
+//   Respect Your Commanders        TODO
+//   Honour is Everything           TODO
+//   Seek New Prospects             TODO
+//   Chronicle of Grudges           TODO
+// Ammendment
+//   Always Take What You Are Owed  TODO
+//   Prosecute Wars With All Haste  TODO
+//   Trust To Your Guns             TODO
+//   Trust Aethermatics not Superstition    TODO
+//   Dont Argue With the Wind       TODO
+//   Leave No Duardin Behind        TODO
+//   Take Help Where You Can Get It TODO
+// Footnote
+//   There's No Reward Without Risk TODO
+//   There's No Trading With Some People    TODO
+//   Without Our Ships, We Are Naught   TODO
+//   Through Knowledge Power        TODO
+//   Theres Always a Breeze         TODO
+//   Show Them_Your_Steel           TODO
+//   Where Theres War Theres Gold   TODO
+//   Who Strikes First Strikes Hardest  TODO
+//   Honour the Gods Just in Case   TODO
 //
 
     void Init();

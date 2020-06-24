@@ -155,6 +155,45 @@ namespace StormcastEternals {
 
     bool DoSpiritFlasks(Unit *owner);
 
+//
+// Abilities                    Implemented
+// -------------------------------------------
+// Scions of the Storm              TODO
+// Shock and Awe                    TODO
+// Hammers of Sigmar
+//   First to be Forged             Yes
+//   Soul of the Stormhost          TODO
+//   We Cannon Fail                 TODO
+// Hallowed Knights
+//   Only the Faithful              TODO
+//   Holy Crusaders                 TODO
+//   Martyr's Strength              TODO
+// Celestial Vindicators
+//   Driven by Vengeance            Yes
+//   Righteous Hatred               TODO
+//   Single-minded Fury             TODO
+// Anvils of the Heldenhammer
+//   No True Death                  Yes
+//   Heroes of Another Age          TODO
+//   Deathly Aura                   TODO
+// Knights Excelsior
+//   Storm of Annihilation          TODO
+//   No Mercy                       TODO
+//   Divine Executioner             TODO
+// Celestial Warbringers
+//   Fearless Foresight             TODO
+//   Astral Conjunction             TODO
+//   Portents and Omens             TODO
+// Tempest Lords
+//   Grand Strategists              Yes
+//   Rousing Oratory                TODO
+//   Bonds of Noble Duty            TODO
+// Astral Templars
+//   Beast Stalkers                 Yes
+//   Cut off the Head               TODO
+//   Dauntless Hunters              TODO
+//
+
 } // namespace StormcastEternals
 
 #endif //STORMCASTETERNALS_H

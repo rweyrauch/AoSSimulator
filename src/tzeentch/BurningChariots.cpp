@@ -29,6 +29,7 @@ namespace Tzeentch {
             m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 2, 4, 5, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, FLAMER, EXALTED_FLAMERS, HORROR, TZEENTCH, BURNING_CHARIOTS};
         m_weapons = {&m_warpflame, &m_bite, &m_jabs, &m_flamingMaw};
+        m_hasMount = true;
     }
 
     bool BurningChariotsOfTzeentch::configure(int numModels) {

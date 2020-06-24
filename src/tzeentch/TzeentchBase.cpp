@@ -95,7 +95,7 @@ namespace Tzeentch {
     }
 
     int TzeentchBase::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Twiters of Materiality
+        // Twisters of Materiality
         if (hasKeyword(ETERNAL_CONFLAGRATION) &&
             (weapon->name().find("Warpflame") || weapon->name().find("Magical Flames"))) {
             return weapon->rend() - 1;

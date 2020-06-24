@@ -62,6 +62,7 @@ namespace OssiarchBonereapers {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, ARCH_KAVALOS_ZANDTOS};
         m_weapons = {&m_lance, &m_shield, &m_hoovesAndTeeth};
+        m_hasMount = true;
     }
 
     bool ArchKavalosZandtos::configure() {

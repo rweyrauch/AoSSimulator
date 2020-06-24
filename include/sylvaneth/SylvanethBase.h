@@ -151,6 +151,42 @@ namespace Sylvaneth {
 
     void Init();
 
+//
+// Abilities                    Implemented
+// -------------------------------------------
+// Forest Spirits                   TODO
+// Navigate Realmroots              TODO
+// Places of Power                  TODO
+// Oakenbrow
+//   Our Roots Run Deep             TODO
+//   Yield to None                  TODO
+//   Regal Old-growth               TODO
+// Gnarlroot
+//   Shield the Arcane              Yes
+//   The Earth Defends              TODO
+//   Nurtured by Magic              TODO
+// Heartwood
+//   Courage For Kurnoth            Yes
+//   Lord of the Hunt               TODO
+//   Legacy of Valour               TODO
+// Ironbark
+//   Stubborn and Taciturn          Yes
+//   Stand Firm                     TODO
+//   Mere Rainfall                  TODO
+// Winterleaf
+//   Winter's Bite                  Yes
+//   Branch Blizzard                TODO
+//   My Heart is Ice                TODO
+// Dreadwood
+//   Malicious Tormentors           TODO
+//   Sinister Ambush                TODO
+//   Paragon of Terror              TODO
+// Harvestboon
+//   Vibrant Surge                  Yes
+//   Fertile Ground                 TODO
+//   Seek New Fruit                 TODO
+//
+
 } // namespace Sylvaneth
 
 #endif // SYLVANETHBASE_H

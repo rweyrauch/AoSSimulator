@@ -141,15 +141,18 @@ namespace BeastsOfChaos {
 // Creatures of the Storm           TODO
 // Bloodgorge                       Yes
 // Primordial Call                  TODO
-// Bestial Might                    TODO
-// Booming Roar                     TODO
-// Dominator                        TODO
-// Shadowbeasts                     TODO
-// Nomadic Leader                   TODO
-// Savage Encirclement              TODO
-// Gift of Morghur                  TODO
-// Propagator of Devolution         TODO
-// Unravelling Aura                 TODO
+// Allherd
+//    Bestial Might                 TODO
+//    Booming Roar                  TODO
+//    Dominator                     TODO
+// Darkwalkers
+//    Shadowbeasts                  TODO
+//    Nomadic Leader                TODO
+//    Savage Encirclement           TODO
+// Gavespawn
+//    Gift of Morghur               TODO
+//    Propagator of Devolution      TODO
+//    Unravelling Aura              TODO
 //
 
     void Init();

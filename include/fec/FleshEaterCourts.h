@@ -171,6 +171,36 @@ namespace FleshEaterCourt {
 
     void Init();
 
+//
+// Abilities                    Implemented
+// -------------------------------------------
+// Feeding Frenzy                   TODO
+// Deathless Coutiers               TODO
+// Delusion
+//    Crusading Army                TODO
+//    The Royal Hunt                TODO
+//    The Feast Day                 TODO
+//    A Matter of Honour            TODO
+//    The Grand Tournament          TODO
+//    Defenders of the Realm        TODO
+// Mourgaunt
+//    Blood Loyalty                 TODO
+//    Heaving Masses                TODO
+//    Savage Chivalry               TODO
+// Hollowmourne
+//    Shattering Charge             TODO
+//    Ravenous Crusaders            TODO
+//    Grave Robber                  TODO
+// Blisterskin
+//    Blistering Speed              TODO
+//    Lords of the Burning Skies    TODO
+//    Hellish Orator                TODO
+// Gristlegore
+//    Peerless Ferocity             TODO
+//    Call to War                   TODO
+//    Savage Strike                 TODO
+//
+
 } // namespace FleshEaterCourt
 
 #endif // FLESHEATERCOURTS_H
