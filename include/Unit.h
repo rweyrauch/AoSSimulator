@@ -66,6 +66,8 @@ public:
 
     bool isFriendly(const Unit *unit) const;
 
+    void setGeneral(bool general) { m_isGeneral = general; }
+
     void setRoster(Roster *roster);
 
     Roster *getRoster() const { return m_roster; }

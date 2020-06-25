@@ -49,6 +49,9 @@ namespace GloomspiteGitz {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -66,7 +69,8 @@ namespace GloomspiteGitz {
                     ScuttlebossOnGiganticSpider::ComputePoints,
                     {
                             EnumParameter("Command Trait", g_marksOfTheSpiderGodsFavour[0], g_marksOfTheSpiderGodsFavour),
-                            EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables)
+                            EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

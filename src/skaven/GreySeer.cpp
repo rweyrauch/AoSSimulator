@@ -25,6 +25,9 @@ namespace Skaven {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_masterClanArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greySeerLore[0]);
 
         bool ok = unit->configure(lore);
@@ -45,7 +48,8 @@ namespace Skaven {
                     {
                             EnumParameter("Command Trait", g_masterClanCommandTraits[0], g_masterClanCommandTraits),
                             EnumParameter("Artefact", g_masterClanArtefacts[0], g_masterClanArtefacts),
-                            EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore)
+                            EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

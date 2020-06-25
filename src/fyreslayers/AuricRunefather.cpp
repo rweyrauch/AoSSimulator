@@ -48,6 +48,9 @@ namespace Fyreslayers {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -67,6 +70,7 @@ namespace Fyreslayers {
                         EnumParameter("Lodge", g_lodge[0], g_lodge),
                         EnumParameter("Command Trait", g_fatherSonTraits[0], g_fatherSonTraits),
                         EnumParameter("Artefact", g_heirloomArtefacts[0], g_heirloomArtefacts),
+                        BoolParameter("General")
                     },
                     ORDER,
                     {FYRESLAYERS}

@@ -33,6 +33,9 @@ namespace KharadronOverlords {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_khemistArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -54,7 +57,8 @@ namespace KharadronOverlords {
                             EnumParameter("Amendment", g_amendments[0], g_amendments),
                             EnumParameter("Footnote", g_footnotes[0], g_footnotes),
                             EnumParameter("Command Trait", g_khemistCommandTraits[0], g_khemistCommandTraits),
-                            EnumParameter("Artefact", g_khemistArtefacts[0], g_khemistArtefacts)
+                            EnumParameter("Artefact", g_khemistArtefacts[0], g_khemistArtefacts),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

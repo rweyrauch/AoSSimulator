@@ -43,6 +43,9 @@ namespace Greenskinz {
         auto unit = new OrrukGreatShaman();
         bool warboar = GetBoolParam("War Boar", parameters, false);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(warboar);
         if (!ok) {
             delete unit;
@@ -60,6 +63,7 @@ namespace Greenskinz {
                     OrrukGreatShaman::ComputePoints,
                     {
                             BoolParameter("War Boar"),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

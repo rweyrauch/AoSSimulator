@@ -39,6 +39,9 @@ namespace Skaven {
         auto unit = new ThanquolOnBoneripper();
         int numProjectors = 0;
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greySeerLore[0]);
 
         bool ok = unit->configure(numProjectors, lore);
@@ -57,7 +60,8 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore)
+                        EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore),
+                        BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

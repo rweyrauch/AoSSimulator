@@ -26,6 +26,9 @@ namespace Skaven {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_pestilensArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -44,6 +47,7 @@ namespace Skaven {
                     {
                             EnumParameter("Command Trait", g_pestilensCommandTraits[0], g_pestilensCommandTraits),
                             EnumParameter("Artefact", g_pestilensArtefacts[0], g_pestilensArtefacts),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

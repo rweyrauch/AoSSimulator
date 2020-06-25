@@ -56,6 +56,9 @@ namespace Death {
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -72,7 +75,8 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Legion", g_legions[0], g_legions),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {DEATHLORDS, OSSIARCH_BONEREAPERS}

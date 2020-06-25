@@ -60,6 +60,9 @@ namespace Sylvaneth {
         unit->setCommandTrait(trait);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -80,6 +83,7 @@ namespace Sylvaneth {
                             EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood),
                             EnumParameter("Artefact", g_relicsOfNature[0], g_relicsOfNature),
                             EnumParameter("Command Trait", g_aspectsOfRenewal[0], g_aspectsOfRenewal),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SYLVANETH}

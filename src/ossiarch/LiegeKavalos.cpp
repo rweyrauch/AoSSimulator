@@ -28,6 +28,9 @@ namespace OssiarchBonereapers {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_kavaloiArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -55,6 +58,7 @@ namespace OssiarchBonereapers {
                             EnumParameter("Legion", g_legion[0], g_legion),
                             EnumParameter("Command Trait", g_kavalosCommandTraits[0], g_kavalosCommandTraits),
                             EnumParameter("Artefact", g_kavaloiArtefacts[0], g_kavaloiArtefacts),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

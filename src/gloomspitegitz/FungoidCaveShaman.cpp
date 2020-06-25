@@ -55,6 +55,9 @@ namespace GloomspiteGitz {
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
         unit->setCommandTrait(trait);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -72,7 +75,8 @@ namespace GloomspiteGitz {
                     ComputePoints,
                     {
                         EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
-                        EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite)
+                        EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
+                        BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

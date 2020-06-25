@@ -62,6 +62,9 @@ namespace StormcastEternals {
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -80,7 +83,8 @@ namespace StormcastEternals {
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
-                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait)
+                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

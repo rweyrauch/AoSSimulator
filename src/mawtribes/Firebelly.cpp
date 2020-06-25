@@ -24,6 +24,9 @@ namespace OgorMawtribes {
         auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_firebellyLore[0]);
 
         bool ok = unit->configure(lore);
@@ -44,8 +47,8 @@ namespace OgorMawtribes {
                     Firebelly::ComputePoints,
                     {
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
-                            EnumParameter("Lore", g_firebellyLore[0], g_firebellyLore)
-
+                            EnumParameter("Lore", g_firebellyLore[0], g_firebellyLore),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

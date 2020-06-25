@@ -32,6 +32,9 @@ namespace CitiesOfSigmar {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(weapon);
         if (!ok) {
             delete unit;
@@ -74,6 +77,7 @@ namespace CitiesOfSigmar {
                             EnumParameter("City", g_city[0], g_city),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

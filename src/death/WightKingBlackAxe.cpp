@@ -46,6 +46,9 @@ namespace Death {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -64,7 +67,8 @@ namespace Death {
                     {
                             EnumParameter("Legion", g_legions[0], g_legions),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
-                            EnumParameter("Artefact", g_artefacts[0], g_artefacts)
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {DEATHRATTLE}

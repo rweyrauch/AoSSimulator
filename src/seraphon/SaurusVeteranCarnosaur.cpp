@@ -87,6 +87,9 @@ namespace Seraphon {
         unit->setArtefact(artefact);
         unit->setCommandTrait(trait);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(option);
         if (!ok) {
             delete unit;
@@ -124,7 +127,8 @@ namespace Seraphon {
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
                             EnumParameter("Command Trait", g_saurusCommandTrait[0], g_saurusCommandTrait),
-                            EnumParameter("Artefact", g_celestialRelicsOfTheWarrior[0], g_celestialRelicsOfTheWarrior)
+                            EnumParameter("Artefact", g_celestialRelicsOfTheWarrior[0], g_celestialRelicsOfTheWarrior),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SERAPHON}

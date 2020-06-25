@@ -28,6 +28,9 @@ namespace IdonethDeepkin {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_isharannArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -47,6 +50,7 @@ namespace IdonethDeepkin {
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_isharannArtefacts[0], g_isharannArtefacts),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

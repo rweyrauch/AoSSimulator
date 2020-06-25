@@ -18,6 +18,9 @@ namespace Nighthaunt {
     Unit *KurdossValentian::Create(const ParameterList &parameters) {
         auto unit = new KurdossValentian();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -34,6 +37,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     KurdossValentian::ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     DEATH,
                     {NIGHTHAUNT}

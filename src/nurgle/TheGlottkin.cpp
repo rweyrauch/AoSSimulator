@@ -68,6 +68,9 @@ namespace Nurgle {
     Unit *TheGlottkin::Create(const ParameterList &parameters) {
         auto unit = new TheGlottkin();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
 
         bool ok = unit->configure(lore);
@@ -86,7 +89,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     TheGlottkin::ComputePoints,
                     {
-                            EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore)
+                            EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {NURGLE}

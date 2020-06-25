@@ -51,6 +51,9 @@ namespace Seraphon {
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialDomination[0]);
 
         bool ok = unit->configure(lore);
@@ -71,7 +74,8 @@ namespace Seraphon {
                     {
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
-                            EnumParameter("Lore", g_loreOfCelestialDomination[0], g_loreOfCelestialDomination)
+                            EnumParameter("Lore", g_loreOfCelestialDomination[0], g_loreOfCelestialDomination),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SERAPHON}

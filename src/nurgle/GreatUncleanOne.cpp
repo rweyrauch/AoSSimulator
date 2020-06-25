@@ -86,6 +86,9 @@ namespace Nurgle {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
 
         bool ok = unit->configure(weaponOne, weaponTwo, lore);
@@ -110,7 +113,8 @@ namespace Nurgle {
                             EnumParameter("Weapon Two", MassiveBilesword, weapons2),
                             EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
                             EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
-                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {NURGLE}

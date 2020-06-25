@@ -50,6 +50,9 @@ namespace StormcastEternals {
 
         unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -66,6 +69,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

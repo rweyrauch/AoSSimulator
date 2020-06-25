@@ -49,6 +49,9 @@ namespace Khorne {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -67,7 +70,8 @@ namespace Khorne {
                     {
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
                             EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
-                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts)
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {KHORNE}

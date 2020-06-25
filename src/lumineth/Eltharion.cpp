@@ -43,6 +43,9 @@ namespace LuminethRealmLords {
     Unit *TheLightOfEltharion::Create(const ParameterList &parameters) {
         auto unit = new TheLightOfEltharion();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -59,6 +62,7 @@ namespace LuminethRealmLords {
                     LuminethBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     ORDER,
                     {LUMINETH_REALM_LORDS}

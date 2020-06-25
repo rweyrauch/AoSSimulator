@@ -37,6 +37,9 @@ namespace Dispossessed {
     Unit *Unforged::Create(const ParameterList &parameters) {
         auto unit = new Unforged();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -53,7 +56,8 @@ namespace Dispossessed {
                     Dispossessed::EnumStringToInt,
                     Unforged::ComputePoints,
                     {
-                            EnumParameter("Grudge", g_grudge[0], g_grudge)
+                            EnumParameter("Grudge", g_grudge[0], g_grudge),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {DISPOSSESSED}

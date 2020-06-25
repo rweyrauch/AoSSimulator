@@ -60,6 +60,8 @@ namespace BeastsOfChaos {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_brayherdArtefact[0]);
         unit->setArtefact(artefact);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheTwistedWilds[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
 
         bool ok = unit->configure(lore);
         if (!ok) {
@@ -81,7 +83,7 @@ namespace BeastsOfChaos {
                             EnumParameter("Command Trait", g_brayherdCommandTrait[0], g_brayherdCommandTrait),
                             EnumParameter("Artefact", g_brayherdArtefact[0], g_brayherdArtefact),
                             EnumParameter("Lore", g_loreOfTheTwistedWilds[0], g_loreOfTheTwistedWilds),
-
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

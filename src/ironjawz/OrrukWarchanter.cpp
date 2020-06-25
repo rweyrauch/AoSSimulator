@@ -42,6 +42,9 @@ namespace Ironjawz {
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto beat = (Warbeat) GetEnumParam("Warbeat", parameters, g_warbeats[0]);
 
         bool ok = unit->configure(beat);
@@ -61,7 +64,8 @@ namespace Ironjawz {
                     OrrukWarchanter::ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
-                             EnumParameter("Warbeat", g_warbeats[0], g_warbeats)
+                             EnumParameter("Warbeat", g_warbeats[0], g_warbeats),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

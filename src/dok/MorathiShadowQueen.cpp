@@ -69,6 +69,9 @@ namespace DaughtersOfKhaine {
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -88,7 +91,8 @@ namespace DaughtersOfKhaine {
                     ComputePoints,
                     {
                             EnumParameter("Temple", g_temple[0], g_temple),
-                            EnumParameter("Lore", g_lore[0], g_lore)
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

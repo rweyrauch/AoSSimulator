@@ -23,6 +23,9 @@ namespace Tzeentch {
 
         unit->setChangeCoven(ChangeCoven::CultOfTheTransientForm);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -39,7 +42,8 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     VortemisTheAllSeeing::ComputePoints,
                     {
-                            EnumParameter("Lore", g_loreOfFate[0], g_loreOfFate)
+                            EnumParameter("Lore", g_loreOfFate[0], g_loreOfFate),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {TZEENTCH}

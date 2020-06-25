@@ -80,6 +80,9 @@ namespace Ironjawz {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_bossArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
 
         bool ok = unit->configure(weapons, mount);
@@ -103,7 +106,8 @@ namespace Ironjawz {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
                             EnumParameter("Command Trait", g_bossCommandTraits[0], g_bossCommandTraits),
                             EnumParameter("Artefact", g_bossArtefacts[0], g_bossArtefacts),
-                            EnumParameter("Mount Trait", g_mountTrait[0], g_mountTrait)
+                            EnumParameter("Mount Trait", g_mountTrait[0], g_mountTrait),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

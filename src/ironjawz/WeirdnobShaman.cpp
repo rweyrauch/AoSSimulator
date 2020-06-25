@@ -28,6 +28,9 @@ namespace Ironjawz {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_shamanArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -53,7 +56,8 @@ namespace Ironjawz {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
                             EnumParameter("Command Trait", g_shamanCommandTraits[0], g_shamanCommandTraits),
                             EnumParameter("Artefact", g_shamanArtefacts[0], g_shamanArtefacts),
-                            EnumParameter("Lore", g_lore[0], g_lore)
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

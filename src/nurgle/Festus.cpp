@@ -20,6 +20,9 @@ namespace Nurgle {
     Unit *FestusTheLeechlord::Create(const ParameterList &parameters) {
         auto unit = new FestusTheLeechlord();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
 
         bool ok = unit->configure(lore);
@@ -38,7 +41,9 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     FestusTheLeechlord::ComputePoints,
                     {
-                            EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore)
+                            EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore),
+                            BoolParameter("General")
+
                     },
                     CHAOS,
                     {NURGLE}

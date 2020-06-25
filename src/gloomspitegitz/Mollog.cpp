@@ -20,6 +20,9 @@ namespace GloomspiteGitz {
     Unit *Mollog::Create(const ParameterList &parameters) {
         auto unit = new Mollog();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -36,6 +39,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

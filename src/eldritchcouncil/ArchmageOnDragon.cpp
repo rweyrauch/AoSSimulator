@@ -78,6 +78,9 @@ namespace EldritchCouncil {
         bool tome = GetBoolParam("Arcane Tome", parameters, false);
         bool talisman = GetBoolParam("Talisman of Arcane Power", parameters, false);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(tome, talisman);
         if (!ok) {
             delete unit;
@@ -104,6 +107,7 @@ namespace EldritchCouncil {
                     {
                             BoolParameter("Arcane Tome"),
                             BoolParameter("Talisman of Arcane Power"),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {ELDRITCH_COUNCIL}

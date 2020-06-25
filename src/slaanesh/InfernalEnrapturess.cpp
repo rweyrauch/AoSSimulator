@@ -55,6 +55,9 @@ namespace Slaanesh {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -74,6 +77,7 @@ namespace Slaanesh {
                             EnumParameter("Host", g_host[0], g_host),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SLAANESH}

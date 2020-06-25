@@ -21,6 +21,9 @@ namespace OgorMawtribes {
 
         unit->setMawtribe(Mawtribe::Winterbite);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -37,6 +40,7 @@ namespace OgorMawtribes {
                     Hrothgorn::EnumStringToInt,
                     Hrothgorn::ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

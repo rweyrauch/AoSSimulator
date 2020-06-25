@@ -29,6 +29,9 @@ namespace Bonesplitterz {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -50,7 +53,8 @@ namespace Bonesplitterz {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
                             EnumParameter("Command Trait", g_wizardCommandTraits[0], g_wizardCommandTraits),
                             EnumParameter("Artefact", g_wizardArtefacts[0], g_wizardArtefacts),
-                            EnumParameter("Lore", g_lore[0], g_lore)
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}

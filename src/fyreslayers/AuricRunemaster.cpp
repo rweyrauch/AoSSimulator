@@ -60,6 +60,9 @@ namespace Fyreslayers {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_forgeTempleArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
 
         bool ok = unit->configure(prayer);
@@ -81,7 +84,8 @@ namespace Fyreslayers {
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
                             EnumParameter("Command Trait", g_masterSmiterTraits[0], g_masterSmiterTraits),
                             EnumParameter("Artefact", g_forgeTempleArtefacts[0], g_forgeTempleArtefacts),
-                            EnumParameter("Prayer", g_prayers[0], g_prayers)
+                            EnumParameter("Prayer", g_prayers[0], g_prayers),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {FYRESLAYERS}

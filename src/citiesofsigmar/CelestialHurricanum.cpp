@@ -51,6 +51,9 @@ namespace CitiesOfSigmar {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(battlemage, lore);
@@ -81,7 +84,8 @@ namespace CitiesOfSigmar {
                             BoolParameter("Battlemage"),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
-                            EnumParameter("Lore", g_lore[0], g_lore)
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}

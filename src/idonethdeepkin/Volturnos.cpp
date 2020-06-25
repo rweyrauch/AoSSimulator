@@ -51,6 +51,9 @@ namespace IdonethDeepkin {
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -68,6 +71,7 @@ namespace IdonethDeepkin {
                     ComputePoints,
                     {
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

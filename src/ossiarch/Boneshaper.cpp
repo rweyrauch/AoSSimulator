@@ -29,6 +29,9 @@ namespace OssiarchBonereapers {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_boneshaperArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -59,6 +62,7 @@ namespace OssiarchBonereapers {
                             EnumParameter("Lore", g_lore[0], g_lore),
                             EnumParameter("Command Trait", g_mortisanCommandTraits[0], g_mortisanCommandTraits),
                             EnumParameter("Artefact", g_boneshaperArtefacts[0], g_boneshaperArtefacts),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

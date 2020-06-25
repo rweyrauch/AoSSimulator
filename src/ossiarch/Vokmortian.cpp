@@ -23,6 +23,9 @@ namespace OssiarchBonereapers {
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -51,6 +54,7 @@ namespace OssiarchBonereapers {
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
                             EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS}

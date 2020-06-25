@@ -21,6 +21,9 @@ namespace KharadronOverlords {
 
         unit->setSkyport(Skyport::Barak_Nar);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -37,6 +40,7 @@ namespace KharadronOverlords {
                     KharadronBase::EnumStringToInt,
                     BrokkGrungsson::ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     ORDER,
                     {KHARADRON_OVERLORDS}

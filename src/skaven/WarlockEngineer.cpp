@@ -27,6 +27,9 @@ namespace Skaven {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_skryreArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_skryreLore[0]);
 
         bool ok = unit->configure(lore);
@@ -47,7 +50,8 @@ namespace Skaven {
                     {
                             EnumParameter("Command Trait", g_skryreCommandTraits[0], g_skryreCommandTraits),
                             EnumParameter("Artefact", g_skryreArtefacts[0], g_skryreArtefacts),
-                            EnumParameter("Lore", g_skryreLore[0], g_skryreLore)
+                            EnumParameter("Lore", g_skryreLore[0], g_skryreLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

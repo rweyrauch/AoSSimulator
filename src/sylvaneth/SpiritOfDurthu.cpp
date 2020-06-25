@@ -96,6 +96,9 @@ namespace Sylvaneth {
         unit->setCommandTrait(trait);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -115,6 +118,7 @@ namespace Sylvaneth {
                             EnumParameter("Glade", g_glade[0], g_glade),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             EnumParameter("Command Trait", g_aspectsOfWar[0], g_aspectsOfWar),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SYLVANETH}

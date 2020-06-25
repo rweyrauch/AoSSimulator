@@ -22,6 +22,9 @@ namespace Nighthaunt {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -39,6 +42,7 @@ namespace Nighthaunt {
                     ReikenorTheGrimhailer::ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {NIGHTHAUNT}

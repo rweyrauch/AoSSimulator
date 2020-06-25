@@ -166,6 +166,11 @@ namespace CitiesOfSigmar {
         CitizenOfSigmar(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        int runModifier() const override;
+        int moveModifier() const override;
+        int toSaveModifier(const Weapon *weapon) const override;
+        void onStartHero(PlayerId player) override;
+
     protected:
 
         City m_city = City::Hammerhal;
@@ -186,7 +191,7 @@ namespace CitiesOfSigmar {
 //    Righteous Purpose             TODO
 // Living City
 //    Hunters of the Hidden Paths   TODO
-//    Attuned to Nature             TODO
+//    Attuned to Nature             Yes
 //    Strike then Melt Away         TODO
 // Greywater Fastness
 //    Rune Lore                     TODO
@@ -194,7 +199,7 @@ namespace CitiesOfSigmar {
 //    Salvo Fire                    TODO
 // The Phoenicium
 //    Vengeful Revenants            TODO
-//    Blood of the Ur-Phoenix       TODO
+//    Blood of the Ur-Phoenix       Yes
 //    Living Idols                  TODO
 // Anvilgard
 //    Black Market Bounty           TODO
@@ -207,8 +212,8 @@ namespace CitiesOfSigmar {
 //    Mages of the Whitefire Court  TODO
 //    Arcane Channelling            TODO
 // Tempest's Eye
-//    Alert and Forewarned          TODO
-//    Outriders of the Realms       TODO
+//    Alert and Forewarned          Yes
+//    Outriders of the Realms       Yes
 //    Standing Contracts            TODO
 //    Rapid Redeploy                TODO
 //

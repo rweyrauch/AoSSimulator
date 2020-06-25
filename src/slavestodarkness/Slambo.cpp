@@ -22,6 +22,9 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -39,6 +42,7 @@ namespace SlavesToDarkness {
                     Slambo::ComputePoints,
                     {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS}

@@ -21,6 +21,9 @@ namespace Nighthaunt {
     Unit *LadyOlynder::Create(const ParameterList &parameters) {
         auto unit = new LadyOlynder();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -40,6 +43,7 @@ namespace Nighthaunt {
                     LadyOlynder::ComputePoints,
                     {
                         EnumParameter("Lore", g_lore[0], g_lore),
+                        BoolParameter("General")
                     },
                     DEATH,
                     {NIGHTHAUNT}

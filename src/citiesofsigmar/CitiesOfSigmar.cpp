@@ -148,6 +148,42 @@ namespace CitiesOfSigmar {
         m_artefact = artefact;
     }
 
+    int CitizenOfSigmar::runModifier() const {
+        auto mod = Unit::runModifier();
+
+        // Outriders of the Realm
+        if (m_city == City::Tempests_Eye) mod++;
+
+        return mod;
+    }
+
+    int CitizenOfSigmar::moveModifier() const {
+        auto mod = Unit::moveModifier();
+
+        // Alert and Forewarned
+        if ((m_city == City::Tempests_Eye) && (m_battleRound == 1)) mod += 3;
+
+        return mod;
+    }
+
+    int CitizenOfSigmar::toSaveModifier(const Weapon *weapon) const {
+        auto mod = Unit::toSaveModifier(weapon);
+
+        // Alert and Forewarned
+        if ((m_city == City::Tempests_Eye) && (m_battleRound == 1)) mod++;
+
+        return mod;
+    }
+
+    void CitizenOfSigmar::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        // Attuned to Nature
+        if ((owningPlayer() == player) && (m_city == City::Living_City)) {
+            heal(1);
+        }
+    }
+
     void Init() {
         Anointed::Init();
         Assassin::Init();

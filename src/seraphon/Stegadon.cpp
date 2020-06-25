@@ -98,6 +98,9 @@ namespace Seraphon {
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(option, chief);
         if (!ok) {
             delete unit;
@@ -118,7 +121,8 @@ namespace Seraphon {
                             EnumParameter("Weapon", SkystreakBow, weapons),
                             BoolParameter("Skink Chief"),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
-                            EnumParameter("Constellation", g_constellation[0], g_constellation)
+                            EnumParameter("Constellation", g_constellation[0], g_constellation),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SERAPHON}

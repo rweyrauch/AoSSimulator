@@ -78,6 +78,9 @@ namespace DaughtersOfKhaine {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -99,7 +102,8 @@ namespace DaughtersOfKhaine {
                             EnumParameter("Temple", g_temple[0], g_temple),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_wizardArtefacts[0], g_wizardArtefacts),
-                            EnumParameter("Lore", g_lore[0], g_lore)
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}

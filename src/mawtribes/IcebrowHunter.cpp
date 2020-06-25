@@ -29,6 +29,9 @@ namespace OgorMawtribes {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_icebrowArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -48,6 +51,7 @@ namespace OgorMawtribes {
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
                             EnumParameter("Command Trait", g_icebrowTraits[0], g_icebrowTraits),
                             EnumParameter("Artefact", g_icebrowArtefacts[0], g_icebrowArtefacts),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

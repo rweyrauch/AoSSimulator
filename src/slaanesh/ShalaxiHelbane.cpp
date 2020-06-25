@@ -76,6 +76,9 @@ namespace Slaanesh {
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greaterDaemonLore[0]);
 
         bool ok = unit->configure(weapon, lore);
@@ -97,7 +100,8 @@ namespace Slaanesh {
                     {
                             EnumParameter("Weapon", LivingWhip, weapons),
                             EnumParameter("Host", g_host[0], g_host),
-                            EnumParameter("Lore", g_greaterDaemonLore[0], g_greaterDaemonLore)
+                            EnumParameter("Lore", g_greaterDaemonLore[0], g_greaterDaemonLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SLAANESH}

@@ -35,6 +35,10 @@ namespace FreeAgent {
 
     Unit *GotrekGurnisson::Create(const ParameterList &parameters) {
         auto unit = new GotrekGurnisson();
+
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -51,6 +55,7 @@ namespace FreeAgent {
                     nullptr,
                     GotrekGurnisson::ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     ORDER,
                     {FREE_AGENT}

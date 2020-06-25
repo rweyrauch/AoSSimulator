@@ -83,6 +83,9 @@ namespace FleshEaterCourt {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_terrorgheistMountTraits[0]);
 
@@ -107,7 +110,8 @@ namespace FleshEaterCourt {
                             EnumParameter("Command Trait", g_abhorrantCommandTraits[0], g_abhorrantCommandTraits),
                             EnumParameter("Artefact", g_abhorrantArtefacts[0], g_abhorrantArtefacts),
                             EnumParameter("Lore", g_lore[0], g_lore),
-                            EnumParameter("Mount Trait", g_terrorgheistMountTraits[0], g_terrorgheistMountTraits)
+                            EnumParameter("Mount Trait", g_terrorgheistMountTraits[0], g_terrorgheistMountTraits),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {FLESH_EATER_COURTS}

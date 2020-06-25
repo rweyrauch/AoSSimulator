@@ -122,6 +122,9 @@ namespace Sylvaneth {
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
 
         bool ok = unit->configure(lore);
@@ -141,7 +144,8 @@ namespace Sylvaneth {
                     ComputePoints,
                     {
                             EnumParameter("Glade", g_glade[0], g_glade),
-                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood)
+                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SYLVANETH}

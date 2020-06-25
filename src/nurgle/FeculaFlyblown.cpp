@@ -19,6 +19,10 @@ namespace Nurgle {
 
     Unit *Nurgle::FeculaFlyblown::Create(const ParameterList &parameters) {
         auto unit = new FeculaFlyblown();
+
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -35,6 +39,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     FeculaFlyblown::ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {NURGLE}

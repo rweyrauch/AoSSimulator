@@ -47,6 +47,9 @@ namespace OgorMawtribes {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_thundertuskTraits[0]);
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
 
@@ -89,7 +92,8 @@ namespace OgorMawtribes {
                             EnumParameter("Command Trait", g_frostlordTraits[0], g_frostlordTraits),
                             EnumParameter("Artefact", g_frostlordArtefacts[0], g_frostlordArtefacts),
                             EnumParameter("Mount Trait", g_thundertuskTraits[0], g_thundertuskTraits),
-                            EnumParameter("Prayer", g_prayers[0], g_prayers)
+                            EnumParameter("Prayer", g_prayers[0], g_prayers),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

@@ -41,6 +41,9 @@ namespace OssiarchBonereapers {
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -66,6 +69,7 @@ namespace OssiarchBonereapers {
                     ArkhanTheBlack::ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {OSSIARCH_BONEREAPERS, DEATHLORDS}

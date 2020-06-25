@@ -84,6 +84,9 @@ namespace Fyreslayers {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
 
         bool ok = unit->configure(mount);
@@ -106,6 +109,7 @@ namespace Fyreslayers {
                             EnumParameter("Artefact", g_heirloomArtefacts[0], g_heirloomArtefacts),
                             EnumParameter("Command Trait", g_fatherSonTraits[0], g_fatherSonTraits),
                             EnumParameter("Mount Trait", g_mountTraits[0], g_mountTraits),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {FYRESLAYERS}

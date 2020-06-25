@@ -84,6 +84,9 @@ namespace Seraphon {
         unit->setArtefact(artefact);
         unit->setCommandTrait(trait);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -103,7 +106,8 @@ namespace Seraphon {
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
                             EnumParameter("Command Trait", g_skinkCommandTrait[0], g_skinkCommandTrait),
-                            EnumParameter("Artefact", g_vestmentsOfThePriesthood[0], g_vestmentsOfThePriesthood)
+                            EnumParameter("Artefact", g_vestmentsOfThePriesthood[0], g_vestmentsOfThePriesthood),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SERAPHON}

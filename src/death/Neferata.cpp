@@ -40,6 +40,9 @@ namespace Death {
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
 
         bool ok = unit->configure(lore);
@@ -63,7 +66,8 @@ namespace Death {
                     ComputePoints,
                     {
                             EnumParameter("Legion", g_legions[0], g_legions),
-                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore)
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {SOULBLIGHT, DEATHLORDS}

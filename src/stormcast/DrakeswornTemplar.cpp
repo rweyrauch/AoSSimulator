@@ -84,6 +84,9 @@ namespace StormcastEternals {
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(weapons, skyboltBow);
         if (!ok) {
             delete unit;
@@ -103,7 +106,8 @@ namespace StormcastEternals {
                     {
                             EnumParameter("Weapon", TempestAxe, weapons),
                             BoolParameter("Skybolt Bow"),
-                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

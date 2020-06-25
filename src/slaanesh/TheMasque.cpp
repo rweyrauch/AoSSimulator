@@ -47,6 +47,9 @@ namespace Slaanesh {
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -64,6 +67,7 @@ namespace Slaanesh {
                     TheMasque::ComputePoints,
                     {
                             EnumParameter("Host", g_host[0], g_host),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SLAANESH}

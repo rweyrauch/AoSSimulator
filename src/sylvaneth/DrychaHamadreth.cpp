@@ -96,6 +96,9 @@ namespace Sylvaneth {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -113,7 +116,8 @@ namespace Sylvaneth {
                     DrychaHamadreth::ComputePoints,
                     {
                             EnumParameter("Glade", g_glade[0], g_glade),
-                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood)
+                            EnumParameter("Lore", g_loreOfTheDeepwood[0], g_loreOfTheDeepwood),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SYLVANETH}

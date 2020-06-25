@@ -32,6 +32,9 @@ namespace OgorMawtribes {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_butcherArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_butcherLore[0]);
 
         bool ok = unit->configure(weapon, lore);
@@ -56,7 +59,8 @@ namespace OgorMawtribes {
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
                             EnumParameter("Command Trait", g_butcherTraits[0], g_butcherTraits),
                             EnumParameter("Artefact", g_butcherArtefacts[0], g_butcherArtefacts),
-                            EnumParameter("Lore", g_butcherLore[0], g_butcherLore)
+                            EnumParameter("Lore", g_butcherLore[0], g_butcherLore),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {OGOR_MAWTRIBES}

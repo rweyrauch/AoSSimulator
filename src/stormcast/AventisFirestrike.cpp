@@ -57,6 +57,9 @@ namespace StormcastEternals {
 
         unit->setStormhost(Stormhost::Hammers_of_Sigmar);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -74,6 +77,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

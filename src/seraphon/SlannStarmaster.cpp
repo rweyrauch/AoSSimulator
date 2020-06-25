@@ -51,6 +51,9 @@ namespace Seraphon {
         unit->setArtefact(artefact);
         unit->setCommandTrait(trait);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
@@ -71,7 +74,8 @@ namespace Seraphon {
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
                             EnumParameter("Command Trait", g_slannCommandTrait[0], g_slannCommandTrait),
                             EnumParameter("Artefact", g_treasuresOfTheOldOnes[0], g_treasuresOfTheOldOnes),
-                            EnumParameter("Lore", g_loreOfCelestialDomination[0], g_loreOfCelestialDomination)
+                            EnumParameter("Lore", g_loreOfCelestialDomination[0], g_loreOfCelestialDomination),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SERAPHON}

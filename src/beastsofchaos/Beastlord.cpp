@@ -44,6 +44,8 @@ namespace BeastsOfChaos {
         unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_brayherdArtefact[0]);
         unit->setArtefact(artefact);
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -63,7 +65,8 @@ namespace BeastsOfChaos {
                     {
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                             EnumParameter("Command Trait", g_brayherdCommandTrait[0], g_brayherdCommandTrait),
-                            EnumParameter("Artefact", g_brayherdArtefact[0], g_brayherdArtefact)
+                            EnumParameter("Artefact", g_brayherdArtefact[0], g_brayherdArtefact),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

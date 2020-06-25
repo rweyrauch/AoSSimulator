@@ -65,6 +65,9 @@ namespace Ironjawz {
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -82,6 +85,7 @@ namespace Ironjawz {
                     GordrakkTheFistOfGork::ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {IRONJAWZ}

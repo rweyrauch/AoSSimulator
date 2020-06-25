@@ -51,6 +51,10 @@ namespace GloomspiteGitz {
 
     Unit *Skragrott::Create(const ParameterList &parameters) {
         auto unit = new Skragrott();
+
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
 
         bool ok = unit->configure(lore);
@@ -70,6 +74,7 @@ namespace GloomspiteGitz {
                     ComputePoints,
                     {
                         EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
+                        BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

@@ -28,6 +28,9 @@ namespace Bonesplitterz {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heroArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -46,7 +49,8 @@ namespace Bonesplitterz {
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
                             EnumParameter("Command Trait", g_prophetBossCommandTraits[0], g_prophetBossCommandTraits),
-                            EnumParameter("Artefact", g_heroArtefacts[0], g_heroArtefacts)
+                            EnumParameter("Artefact", g_heroArtefacts[0], g_heroArtefacts),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {BONESPLITTERZ}

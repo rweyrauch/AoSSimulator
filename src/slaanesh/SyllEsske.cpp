@@ -53,6 +53,9 @@ namespace Slaanesh {
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
 
         bool ok = unit->configure(lore);
@@ -72,7 +75,8 @@ namespace Slaanesh {
                     SyllEsske::ComputePoints,
                     {
                             EnumParameter("Host", g_host[0], g_host),
-                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SLAANESH}

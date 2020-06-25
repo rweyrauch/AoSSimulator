@@ -38,6 +38,9 @@ namespace Skaven {
     Unit *LordSkreechVerminking::Create(const ParameterList &parameters) {
         auto unit = new LordSkreechVerminking();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_skryreLore[0]);
 
         bool ok = unit->configure(lore);
@@ -56,7 +59,8 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Lore", g_skryreLore[0], g_skryreLore)
+                        EnumParameter("Lore", g_skryreLore[0], g_skryreLore),
+                        BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

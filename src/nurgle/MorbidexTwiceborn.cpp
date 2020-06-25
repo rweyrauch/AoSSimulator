@@ -18,6 +18,10 @@ namespace Nurgle {
 
     Unit *MorbidexTwiceborn::Create(const ParameterList &parameters) {
         auto unit = new MorbidexTwiceborn();
+
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -34,6 +38,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     MorbidexTwiceborn::ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {NURGLE}

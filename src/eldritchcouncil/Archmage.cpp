@@ -52,6 +52,9 @@ namespace EldritchCouncil {
         auto unit = new Archmage();
         bool steed = GetBoolParam("Steed", parameters, false);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(steed);
         if (!ok) {
             delete unit;
@@ -69,6 +72,7 @@ namespace EldritchCouncil {
                     ComputePoints,
                     {
                             BoolParameter("Steed"),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {ELDRITCH_COUNCIL}

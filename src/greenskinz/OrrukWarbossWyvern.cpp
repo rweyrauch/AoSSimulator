@@ -62,6 +62,9 @@ namespace Greenskinz {
         auto unit = new OrrukWarbossOnWyvern();
         bool pairedChoppas = GetBoolParam("Two Boss Choppas", parameters, false);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(pairedChoppas);
         if (!ok) {
             delete unit;
@@ -79,6 +82,7 @@ namespace Greenskinz {
                     OrrukWarbossOnWyvern::ComputePoints,
                     {
                             BoolParameter("Two Boss Choppas"),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

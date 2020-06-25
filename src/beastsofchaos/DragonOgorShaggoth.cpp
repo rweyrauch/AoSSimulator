@@ -53,10 +53,11 @@ namespace BeastsOfChaos {
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
 
-        // TODO: set command trait
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_thunderscornCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_thunderscornArtefact[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDarkStorms[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
 
         unit->setArtefact(artefact);
         unit->setCommandTrait(trait);
@@ -81,6 +82,7 @@ namespace BeastsOfChaos {
                             EnumParameter("Command Trait", g_thunderscornCommandTrait[0], g_thunderscornCommandTrait),
                             EnumParameter("Artefact", g_thunderscornArtefact[0], g_thunderscornArtefact),
                             EnumParameter("Lore", g_loreOfTheDarkStorms[0], g_loreOfTheDarkStorms),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

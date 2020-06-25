@@ -25,6 +25,9 @@ namespace Tzeentch {
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -42,7 +45,8 @@ namespace Tzeentch {
                     GauntSummonerOfTzeentch::ComputePoints,
                     {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
-                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange)
+                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange),
+                            BoolParameter("General")
 
                     },
                     CHAOS,

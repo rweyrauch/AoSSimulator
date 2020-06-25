@@ -64,6 +64,9 @@ namespace Greenskinz {
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BossChoppaAndShield);
         bool warboar = GetBoolParam("War Boar", parameters, false);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure(weapon, warboar);
         if (!ok) {
             delete unit;
@@ -84,6 +87,7 @@ namespace Greenskinz {
                     {
                             EnumParameter("Weapon", BossChoppaAndShield, weapons),
                             BoolParameter("War Boar"),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GREENSKINZ}

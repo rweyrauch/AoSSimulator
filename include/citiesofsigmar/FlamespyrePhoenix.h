@@ -41,6 +41,8 @@ namespace CitiesOfSigmar {
 
         Wounds applyWoundSave(const Wounds &wounds) override;
 
+        int woundModifier() const override;
+
     private:
 
         int getDamageTableIndex() const;

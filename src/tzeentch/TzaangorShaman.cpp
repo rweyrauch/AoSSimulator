@@ -24,6 +24,9 @@ namespace Tzeentch {
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -43,7 +46,8 @@ namespace Tzeentch {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                             EnumParameter("Command Trait", g_arcaniteCommandTraits[0], g_arcaniteCommandTraits),
                             EnumParameter("Artefact", g_arcaniteArtefacts[0], g_arcaniteArtefacts),
-                            EnumParameter("Lore", g_loreOfFate[0], g_loreOfFate)
+                            EnumParameter("Lore", g_loreOfFate[0], g_loreOfFate),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {TZEENTCH, BEASTS_OF_CHAOS}

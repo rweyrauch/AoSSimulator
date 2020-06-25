@@ -18,6 +18,9 @@ namespace Skaven {
     Unit *SkritchSpiteclaw::Create(const ParameterList &parameters) {
         auto unit = new SkritchSpiteclaw();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -38,6 +41,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

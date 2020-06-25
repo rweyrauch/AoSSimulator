@@ -43,6 +43,8 @@ namespace CitiesOfSigmar {
 
         int blizzardAura(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
+        int woundModifier() const override;
+
     private:
 
         int getDamageTableIndex() const;

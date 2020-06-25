@@ -47,6 +47,9 @@ namespace Khorne {
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -63,7 +66,8 @@ namespace Khorne {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
+                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {KHORNE}

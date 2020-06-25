@@ -49,6 +49,9 @@ namespace GloomspiteGitz {
         auto artefact = (Artefact)GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -66,7 +69,8 @@ namespace GloomspiteGitz {
                     LoonbossWithGiantCaveSquig::ComputePoints,
                     {
                             EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
-                            EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures)
+                            EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

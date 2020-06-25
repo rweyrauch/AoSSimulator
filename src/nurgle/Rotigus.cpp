@@ -66,6 +66,9 @@ namespace Nurgle {
     Unit *Rotigus::Create(const ParameterList &parameters) {
         auto unit = new Rotigus();
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
 
         bool ok = unit->configure(lore);
@@ -84,7 +87,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     Rotigus::ComputePoints,
                     {
-                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore)
+                            EnumParameter("Lore", g_daemonLore[0], g_daemonLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {NURGLE}

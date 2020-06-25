@@ -43,6 +43,9 @@ namespace Skaven {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_eshinArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -61,6 +64,7 @@ namespace Skaven {
                     {
                             EnumParameter("Command Trait", g_eshinClanCommandTraits[0], g_eshinClanCommandTraits),
                             EnumParameter("Artefact", g_eshinArtefacts[0], g_eshinArtefacts),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

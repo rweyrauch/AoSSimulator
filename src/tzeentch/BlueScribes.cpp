@@ -29,6 +29,9 @@ namespace Tzeentch {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
 
         bool ok = unit->configure(lore);
@@ -54,7 +57,8 @@ namespace Tzeentch {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                             EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
                             EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
-                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange)
+                            EnumParameter("Lore", g_loreOfChange[0], g_loreOfChange),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {TZEENTCH}

@@ -49,6 +49,9 @@ namespace CitiesOfSigmar {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
+        auto general = GetBoolParam("General", parameters, false);
+        unit->setGeneral(general);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(anointed, lore);
@@ -79,6 +82,7 @@ namespace CitiesOfSigmar {
                             EnumParameter("City", g_city[0], g_city),
                         EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                         EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                        BoolParameter("General")
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}
@@ -159,6 +163,15 @@ namespace CitiesOfSigmar {
 
     int FlamespyrePhoenix::ComputePoints(int /*numModels*/) {
         return POINTS_PER_UNIT;
+    }
+
+    int FlamespyrePhoenix::woundModifier() const {
+        auto mod = Unit::woundModifier();
+
+        // Blood of the Ur-Phoenix
+        if (m_city == City::Phoenicium) mod++;
+
+        return mod;
     }
 
 } // namespace CitiesOfSigmar

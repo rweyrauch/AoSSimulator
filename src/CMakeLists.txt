@@ -70,7 +70,7 @@ add_library(
         stormcast/KnightAzyros.cpp
         stormcast/KnightHeraldor.cpp
         stormcast/KnightVenator.cpp
-        stormcast/KnigthVexillor.cpp
+        stormcast/KnightVexillor.cpp
         stormcast/AstreiaSolbright.cpp
         stormcast/AventisFirestrike.cpp
         stormcast/VanguardPalladors.cpp
