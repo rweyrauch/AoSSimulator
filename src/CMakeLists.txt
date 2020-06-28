@@ -685,6 +685,13 @@ add_library(
         lumineth/AuralanWardens.cpp
         lumineth/Dawnriders.cpp
         lumineth/Eltharion.cpp
+        lumineth/Stoneguard.cpp
+        lumineth/Stonemage.cpp
+        lumineth/Cathallar.cpp
+        lumineth/AuralanSentinels.cpp
+        lumineth/SpiritOfTheMountain.cpp
+        lumineth/Teclis.cpp
+        lumineth/Avalenor.cpp
 )
 
 target_include_directories(

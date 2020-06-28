@@ -1034,10 +1034,17 @@ enum Keyword {
 
     // Lumineth Realm-Lords
     VANARI,
+    AELEMENTIRI,
+    ALARITH,
+    SCINARI,
     AURALAN_WARDENS,
+    AURALAN_SENTINELS,
     DAWNRIDERS,
     LIGHT_OF_ELTHARION,
-
+    STONEGUARD,
+    STONEMAGE,
+    CATHALLAR,
+    SPIRIT_OF_THE_MOUNTAIN,
 };
 
 Keyword GrandAllianceStringToKeyword(const std::string &allianceName);

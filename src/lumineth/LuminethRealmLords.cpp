@@ -9,8 +9,15 @@
 #include <lumineth/LuminethRealmLords.h>
 #include <magic_enum.hpp>
 #include "lumineth/AuralanWardens.h"
+#include "lumineth/AuralanSentinels.h"
 #include "lumineth/Dawnriders.h"
 #include "lumineth/Eltharion.h"
+#include "lumineth/Stoneguard.h"
+#include "lumineth/Stonemage.h"
+#include "lumineth/Cathallar.h"
+#include "lumineth/SpiritOfTheMountain.h"
+#include "lumineth/Teclis.h"
+#include "lumineth/Avalenor.h"
 
 namespace LuminethRealmLords {
 
@@ -54,8 +61,15 @@ namespace LuminethRealmLords {
 
     void Init() {
         AuralanWardens::Init();
+        AuralanSentinels::Init();
         Dawnriders::Init();
         TheLightOfEltharion::Init();
+        AlarithStoneguard::Init();
+        AlarithStonemage::Init();
+        ScinariCathallar::Init();
+        AlarithSpiritOfTheMountain::Init();
+        ArchmageTeclis::Init();
+        AvalenorTheStoneheartKing::Init();
     }
 
 } //namespace LuminethRealmLords

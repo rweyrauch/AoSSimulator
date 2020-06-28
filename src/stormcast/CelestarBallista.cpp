@@ -83,14 +83,7 @@ namespace StormcastEternals {
     }
 
     void CelestarBallista::onStartShooting(PlayerId player) {
-        auto board = Board::Instance();
-        PlayerId otherPlayer = PlayerId::Red;
-        if (player == PlayerId::Red) {
-            otherPlayer = PlayerId::Blue;
-        }
-        auto otherRoster = board->getPlayerRoster(otherPlayer);
-
-        auto nearestUnit = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+        auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (nearestUnit) {
             double rangeTo = distanceTo(nearestUnit);
             if (rangeTo < (double) m_stormboltsRapid.range()) {

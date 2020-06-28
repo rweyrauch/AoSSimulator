@@ -15,7 +15,7 @@
 namespace LuminethRealmLords {
     static const int BASESIZE = 40;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 220;
 
     bool TheLightOfEltharion::s_registered = false;
 
