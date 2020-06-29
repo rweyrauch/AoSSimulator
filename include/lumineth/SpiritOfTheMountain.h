@@ -35,6 +35,11 @@ namespace LuminethRealmLords {
 
         void onRestore() override;
 
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        void onStartShooting(PlayerId player) override;
+        void onStartCombat(PlayerId player) override;
+
     private:
 
         int getDamageTableIndex() const;
@@ -49,10 +54,10 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// All but Immovable                TODO
-// Ponderous Advance                TODO
-// Stoneheart Shockwave             TODO
-// Stonemage Symbiosis              TODO
+// All but Immovable                Yes
+// Ponderous Advice                 TODO
+// Stoneheart Shockwave             Yes
+// Stonemage Symbiosis              Yes
 // Faith of the Mountain            TODO
 //
 

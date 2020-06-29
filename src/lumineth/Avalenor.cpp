@@ -21,6 +21,7 @@ namespace LuminethRealmLords {
 
     AvalenorTheStoneheartKing::AvalenorTheStoneheartKing() :
             LuminethBase("Avalenor, the Stoneheart King", 6, WOUNDS, 10, 3, false) {
+        m_battleFieldRole = Role::LeaderBehemoth;
     }
 
     bool AvalenorTheStoneheartKing::configure() {

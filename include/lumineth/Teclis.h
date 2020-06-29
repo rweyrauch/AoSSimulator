@@ -25,13 +25,27 @@ namespace LuminethRealmLords {
 
         ArchmageTeclis();
 
-        ~ArchmageTeclis() override = default;
+        ~ArchmageTeclis() override;
 
         bool configure();
 
     protected:
 
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int auraOfCelennar(const Unit *caster);
+
     private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_staff,
+            m_sword,
+            m_talons;
+
+        lsignal::slot m_auraConnection;
 
         static bool s_registered;
     };
@@ -39,6 +53,12 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Archmage                         TODO
+// Aura of Celennar                 Yes
+// Discs of the Aelementiri         TODO
+// Seeing Stone of Celennar         TODO
+// Protection of Teclis             TODO
+// Storm of Searing White Light     TODO
 //
 
 } // namespace LuminethRealmLords

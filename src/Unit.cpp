@@ -1392,6 +1392,14 @@ int Unit::computeFormation() const {
     return std::max(numRanks, weaponRanks);
 }
 
+bool Unit::hasShootingAttack(const Weapon** weapon) const {
+    for (auto w : m_weapons) {
+        *weapon = w;
+        if (w->isMissile()) return true;
+    }
+    return false;
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {

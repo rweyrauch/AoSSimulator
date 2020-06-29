@@ -20,7 +20,7 @@ namespace LuminethRealmLords {
     struct TableEntry {
         int m_blastRange;
         int m_hammerDamage;
-        int m_shockwave;
+        double m_shockwave;
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;
@@ -109,6 +109,11 @@ namespace LuminethRealmLords {
     }
 
     int AlarithSpiritOfTheMountain::getDamageTableIndex() const {
+
+        // Stonemage Symbiosis
+        auto mage = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), STONEMAGE, 12.0f);
+        if (mage) return 0;
+
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
@@ -116,6 +121,42 @@ namespace LuminethRealmLords {
             }
         }
         return 0;
+    }
+
+    int AlarithSpiritOfTheMountain::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+
+        // all but Immovable
+        if (!m_charged && !weapon->isMissile()) extra++;
+
+        return extra;
+    }
+
+    void AlarithSpiritOfTheMountain::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        // Stoneheart Shockwave
+        if (player != owningPlayer()) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_shockwave);
+            for (auto ip : units) {
+                const Weapon* missileWeapon = nullptr;
+                if (ip->hasShootingAttack(&missileWeapon)) {
+                    ip->buffModifier(ToHitMissile, -1, {Shooting, m_battleRound, player});
+                    break;
+                }
+            }
+        }
+    }
+
+    void AlarithSpiritOfTheMountain::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        // Stoneheart Shockwave
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_shockwave);
+        for (auto ip : units) {
+            ip->buffModifier(ToHitMelee, -1, {Combat, m_battleRound, player});
+            break;
+        }
     }
 
 } // namespace LuminethRealmLords

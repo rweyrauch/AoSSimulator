@@ -206,6 +206,8 @@ public:
 
     const Weapon *getWeapon(int which) const { return m_weapons[which]; }
 
+    bool hasShootingAttack(const Weapon** weapon) const;
+
     const UnitStatistics &getStatistics() const { return m_statistics; }
 
     bool isGeneral() const { return m_isGeneral; }

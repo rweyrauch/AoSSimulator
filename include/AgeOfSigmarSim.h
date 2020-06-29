@@ -1045,6 +1045,8 @@ enum Keyword {
     STONEMAGE,
     CATHALLAR,
     SPIRIT_OF_THE_MOUNTAIN,
+    TECLIS,
+
 };
 
 Keyword GrandAllianceStringToKeyword(const std::string &allianceName);

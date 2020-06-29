@@ -16,8 +16,21 @@
 
 namespace LuminethRealmLords {
 
+    enum class GreatNation : int {
+        None,
+        Syar,
+        Iliatha,
+        Zaitrec,
+        Ymetrica,
+    };
+
     enum class CommandTrait : int {
         None,
+        Lords_of_Brilliance,
+        Lords_of_Stone,
+
+        // Nation specific
+
     };
 
     enum class Artefact : int {
@@ -26,6 +39,22 @@ namespace LuminethRealmLords {
 
     enum class Lore : int {
         None,
+
+        // Lore of Hysh
+        Speed_of_Hysh,
+        Solar_Flare,
+        Lambent_Light,
+        Etheral_Blessing,
+        Total_Eclipse,
+        Protection_of_Hysh,
+
+        // Lore of the Mountains
+        Unyielding_Calm,
+        Crippling_Vertigo,
+        Voice_of_the_Mountains,
+        Living_Fissue,
+        Entomb,
+        Assault_of_Stone
     };
 
     class LuminethBase : public Unit {
@@ -55,6 +84,12 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Aetherquartz Reserve             TODO
+// Lightning Reactions              TODO
+// Shining Company                  TODO
+// Enduring as Rock                 TODO
+// Tectonic Force                   TODO
+// Absorb Despair                   TODO
 //
 
     void Init();
