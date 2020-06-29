@@ -126,7 +126,7 @@ namespace LuminethRealmLords {
     int AlarithSpiritOfTheMountain::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto extra = Unit::extraAttacks(attackingModel, weapon, target);
 
-        // all but Immovable
+        // All but Immovable
         if (!m_charged && !weapon->isMissile()) extra++;
 
         return extra;

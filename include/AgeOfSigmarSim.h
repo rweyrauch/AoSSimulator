@@ -1046,6 +1046,13 @@ enum Keyword {
     CATHALLAR,
     SPIRIT_OF_THE_MOUNTAIN,
     TECLIS,
+    AVALENOR,
+
+    // Lumineth Nations
+    SYAR,
+    ILIATHA,
+    ZAITREC,
+    YMETRICA,
 
 };
 

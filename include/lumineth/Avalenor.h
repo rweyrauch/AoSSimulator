@@ -31,7 +31,21 @@ namespace LuminethRealmLords {
 
     protected:
 
+        void onWounded() override;
+
+        void onRestore() override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
+
+        int getDamageTableIndex() const;
+
+        Weapon m_blast,
+            m_hammer,
+            m_hooves;
 
         static bool s_registered;
     };
@@ -39,7 +53,12 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-//
+// All but Immovable                Yes
+// Firestealer Hammers              Yes
+// Elder Wisdom                     TODO
+// Guardian of Hysh                 TODO
+// Stonemage Symbiosis              Yes
+// Unshakeable Faith of the Mountain    TODO
 
 } // namespace LuminethRealmLords
 

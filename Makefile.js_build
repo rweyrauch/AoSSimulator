@@ -92,7 +92,7 @@ OBJECTS += \
         src/stormcast/KnightAzyros.o \
         src/stormcast/KnightHeraldor.o \
         src/stormcast/KnightVenator.o \
-        src/stormcast/KnigthVexillor.o \
+        src/stormcast/KnightVexillor.o \
         src/stormcast/AstreiaSolbright.o \
         src/stormcast/AventisFirestrike.o \
         src/stormcast/VanguardPalladors.o \
@@ -193,6 +193,7 @@ OBJECTS += \
         src/gloomspitegitz/Mollog.o \
         src/gloomspitegitz/LoonsmashaFanatics.o \
         src/gloomspitegitz/SporesplattaFanatics.o \
+        src/gloomspitegitz/TroggothHag.o \
         src/dok/DaughterOfKhaine.o \
         src/dok/WitchAelves.o \
         src/dok/BloodSisters.o \
@@ -247,6 +248,7 @@ OBJECTS += \
         src/nighthaunt/BlackCoach.o \
         src/nighthaunt/CairnWraith.o \
 	    src/nighthaunt/MyrmournBanshees.o \
+	    src/nighthaunt/Mourngul.o \
         src/beastsofchaos/BeastsOfChaosBase.o \
         src/beastsofchaos/Ghorgon.o \
         src/beastsofchaos/Gors.o \
@@ -663,7 +665,19 @@ OBJECTS += \
         src/kharadron/KharadronBase.o \
 	    src/kharadron/BjorgenThundrik.o \
 	    src/kharadron/ThundriksProfiteers.o \
-        src/kharadron/Skywardens.o
+        src/kharadron/Skywardens.o \
+        src/lumineth/LuminethRealmLords.o \
+        src/lumineth/LuminethPrivate.o \
+        src/lumineth/AuralanWardens.o \
+        src/lumineth/Dawnriders.o \
+        src/lumineth/Eltharion.o \
+        src/lumineth/Stoneguard.o \
+        src/lumineth/Stonemage.o \
+        src/lumineth/Cathallar.o \
+        src/lumineth/AuralanSentinels.o \
+        src/lumineth/SpiritOfTheMountain.o \
+        src/lumineth/Teclis.o \
+        src/lumineth/Avalenor.o
 
 
 all: aossim.js aossim.wasm.js

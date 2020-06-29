@@ -18,6 +18,7 @@ namespace LuminethRealmLords {
 
     enum class GreatNation : int {
         None,
+
         Syar,
         Iliatha,
         Zaitrec,
@@ -29,12 +30,40 @@ namespace LuminethRealmLords {
         Lords_of_Brilliance,
         Lords_of_Stone,
 
-        // Nation specific
+        // Scinari
+        Spellmaster,
+        Loremaster,
+        Warmaster,
 
+        // Alarith
+        Majestic,
+        Enduring,
+        //Loremaster,
+
+        // Nation specific
+        Almighty_Blow, // Ymetrica
+        Goading_Arrogance, // Syar
+        Fast_Learner, // Zaitrec
     };
 
     enum class Artefact : int {
         None,
+
+        // Scinari
+        Phoenix_Stone,
+        Silver_Wand,
+        Blade_of_Leaping_Gold,
+
+        // Alarith
+        Heartstone_Amulet,
+        Ebony_Stone,
+        Magmic_Hammer,
+
+        // Nation specific
+        Mountains_Gift, // Ymetrica
+        The_Perfect_Blade, // Syar
+        Simulacra_Amulet, // Iliatha
+        Gift_of_Celennar, // Zaitrec
     };
 
     enum class Lore : int {
@@ -54,7 +83,10 @@ namespace LuminethRealmLords {
         Voice_of_the_Mountains,
         Living_Fissue,
         Entomb,
-        Assault_of_Stone
+        Assault_of_Stone,
+
+        // Nation specific
+        Overwhelming_Heat, // Zaitrec
     };
 
     class LuminethBase : public Unit {
@@ -68,6 +100,8 @@ namespace LuminethRealmLords {
 
         ~LuminethBase() override = default;
 
+        void setNation(GreatNation nation);
+
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
     protected:
@@ -77,6 +111,8 @@ namespace LuminethRealmLords {
 
     protected:
 
+        GreatNation m_nation = GreatNation::None;
+
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
     };
@@ -85,13 +121,21 @@ namespace LuminethRealmLords {
 // Abilities                    Implemented
 // -------------------------------------------
 // Aetherquartz Reserve             TODO
+//   Heightened Reflexes            TODO
+//   Heighteden Senses              TODO
+//   Magical Boost                  TODO
+//   Magical Insight                TODO
+// Absorb Despair                   TODO
 // Lightning Reactions              TODO
 // Shining Company                  TODO
 // Enduring as Rock                 TODO
 // Tectonic Force                   TODO
-// Absorb Despair                   TODO
+// Mountain Realm                   TODO
+// Gleaming Brightness              TODO
+// Soul-bond                        TODO
+// Lambent Mystics                  TODO
+// Unity of Purpose                 TODO
 //
-
     void Init();
 
 } // namespace LuminethRealmLords

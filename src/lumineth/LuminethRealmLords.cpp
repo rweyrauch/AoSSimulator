@@ -22,6 +22,10 @@
 namespace LuminethRealmLords {
 
     std::string LuminethBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Nation") {
+            auto nationName = magic_enum::enum_name((GreatNation)parameter.intValue);
+            return std::string(nationName);
+        }
         if (std::string(parameter.name) == "Command Trait") {
             auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
             return std::string(traitName);
@@ -39,6 +43,9 @@ namespace LuminethRealmLords {
     }
 
     int LuminethBase::EnumStringToInt(const std::string &enumString) {
+        auto nation = magic_enum::enum_cast<GreatNation>(enumString);
+        if (nation.has_value()) return (int)nation.value();
+
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
         if (trait.has_value()) return (int)trait.value();
 
@@ -49,6 +56,31 @@ namespace LuminethRealmLords {
         if (lore.has_value()) return (int)lore.value();
 
         return 0;
+    }
+
+    void LuminethBase::setNation(GreatNation nation) {
+        removeKeyword(SYAR);
+        removeKeyword(ILIATHA);
+        removeKeyword(ZAITREC);
+        removeKeyword(YMETRICA);
+
+        m_nation = nation;
+        switch (nation) {
+            case GreatNation::Syar:
+                addKeyword(SYAR);
+                break;
+            case GreatNation::Iliatha:
+                addKeyword(ILIATHA);
+                break;
+            case GreatNation::Zaitrec:
+                addKeyword(ZAITREC);
+                break;
+            case GreatNation::Ymetrica:
+                addKeyword(MORPHANN);
+                break;
+            default:
+                break;
+        }
     }
 
     void LuminethBase::setCommandTrait(CommandTrait trait) {
