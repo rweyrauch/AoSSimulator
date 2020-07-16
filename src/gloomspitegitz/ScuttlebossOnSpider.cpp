@@ -26,6 +26,7 @@ namespace GloomspiteGitz {
             m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
         m_weapons = {&m_spear, &m_fangs};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

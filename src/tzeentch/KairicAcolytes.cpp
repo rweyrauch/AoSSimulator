@@ -30,7 +30,7 @@ namespace Tzeentch {
             m_cursedGlaiveAdept(Weapon::Type::Melee, "Cursed Glaive", 1, 2, 4, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, KAIRIC_ACOLYTES};
         m_weapons = {&m_sorcerousBolt, &m_cursedBlade, &m_cursedGlaive, &m_cursedBladeAdept, &m_cursedGlaiveAdept};
-
+        m_battleFieldRole = Battleline;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

@@ -12,7 +12,7 @@
 namespace Ironjawz {
     static const int BASESIZE = 40;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 110;
+    static const int POINTS_PER_UNIT = 120;
 
     bool OrrukWeirdnobShaman::s_registered = false;
 
@@ -71,6 +71,7 @@ namespace Ironjawz {
             m_staff(Weapon::Type::Melee, "Waaagh! Staff", 1, 3, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, WIZARD, WEIRDNOB_SHAMAN};
         m_weapons = {&m_staff};
+        m_battleFieldRole = Leader;
     }
 
     bool OrrukWeirdnobShaman::configure(Lore lore) {

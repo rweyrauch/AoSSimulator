@@ -26,6 +26,7 @@ namespace GloomspiteGitz {
             m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
         m_weapons = {&m_moonSickle, &m_squigsTeeth};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

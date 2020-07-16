@@ -13,7 +13,7 @@
 namespace Fyreslayers {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 260;
+    static const int POINTS_PER_UNIT = 250;
 
     struct TableEntry {
         int m_move;
@@ -44,6 +44,7 @@ namespace Fyreslayers {
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, PRIEST, AURIC_RUNESMITER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_latchAxe, &m_runicIron};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
     }
 

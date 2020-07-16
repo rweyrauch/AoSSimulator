@@ -72,6 +72,7 @@ namespace IdonethDeepkin {
             m_stormshoal(Weapon::Type::Melee, "Stormshoal", 3, RAND_2D6, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, EIDOLON, HERO, WIZARD, ASPECT_OF_THE_SEA};
         m_weapons = {&m_abyssalEnergy, &m_trident, &m_sceptre, &m_stormshoal};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss, &m_connection);
 

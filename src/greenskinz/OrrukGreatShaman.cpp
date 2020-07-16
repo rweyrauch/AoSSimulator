@@ -23,6 +23,7 @@ namespace Greenskinz {
             m_boarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, WIZARD, ORRUK_GREAT_SHAMAN};
         m_weapons = {&m_totemicStaff, &m_boarsTusks};
+        m_battleFieldRole = Leader;
     }
 
     bool OrrukGreatShaman::configure(bool warboar) {

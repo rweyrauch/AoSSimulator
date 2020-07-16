@@ -27,6 +27,7 @@ namespace Sylvaneth {
             m_bittergrubsMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1) {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, HERO, WIZARD, BRANCHWYCH};
         m_weapons = {&m_greenwoodScythe, &m_bittergrubsMandibles};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

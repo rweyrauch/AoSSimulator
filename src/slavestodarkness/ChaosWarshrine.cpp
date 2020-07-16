@@ -75,6 +75,7 @@ namespace SlavesToDarkness {
             m_fists(Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, TOTEM, PRIEST, MARK_OF_CHAOS, CHAOS_WARSHRINE};
         m_weapons = {&m_blade, &m_fists};
+        m_battleFieldRole = Behemoth;
     }
 
     bool ChaosWarshrine::configure() {

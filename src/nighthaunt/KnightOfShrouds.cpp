@@ -60,6 +60,7 @@ namespace Nighthaunt {
             m_sword(Weapon::Type::Melee, "Sword of Stolen Hours", 1, 4, 3, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
         m_weapons = {&m_sword};
+        m_battleFieldRole = Leader;
     }
 
     bool KnightOfShrouds::configure() {

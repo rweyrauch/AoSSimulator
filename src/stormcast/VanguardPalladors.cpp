@@ -16,8 +16,8 @@ namespace StormcastEternals {
     static const int WOUNDS = 5;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 720;
+    static const int POINTS_PER_BLOCK = 170;
+    static const int POINTS_MAX_UNIT_SIZE = 4 * POINTS_PER_BLOCK;
 
     bool VanguardPalladors::s_registered = false;
 

@@ -27,6 +27,7 @@ namespace Death {
             m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
         m_weapons = {&m_fangsAndClaws, &m_fangsAndClawsDoom};
+        m_battleFieldRole = Battleline;
     }
 
     bool DireWolves::configure(int numModels) {

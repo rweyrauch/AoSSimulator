@@ -77,6 +77,7 @@ namespace CitiesOfSigmar {
             m_witchstaff(Weapon::Type::Melee, "Witchstaff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, HERO, WIZARD, SORCERESS};
         m_weapons = {&m_witchstaff};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

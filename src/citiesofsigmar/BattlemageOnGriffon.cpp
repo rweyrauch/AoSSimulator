@@ -97,6 +97,7 @@ namespace CitiesOfSigmar {
             m_razorClaws(Weapon::Type::Melee, "Razor Claws", 2, 6, 4, 3, -1, 2) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, MONSTER, HERO, WIZARD, BATTLEMAGE};
         m_weapons = {&m_beastStaff, &m_twinBeaks, &m_razorClaws};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
         m_totalUnbinds = 1;
         m_totalSpells = 1;

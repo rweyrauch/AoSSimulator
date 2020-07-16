@@ -15,8 +15,8 @@ namespace Nurgle {
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int POINTS_PER_BLOCK = 110;
+    static const int POINTS_MAX_UNIT_SIZE = 300;
 
     bool Plaguebearers::s_registered = false;
 
@@ -26,6 +26,7 @@ namespace Nurgle {
             m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
         m_weapons = {&m_plaguesword, &m_plagueswordPlagueRidden};
+        m_battleFieldRole = Battleline;
     }
 
     bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers) {

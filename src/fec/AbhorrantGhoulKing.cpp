@@ -23,6 +23,7 @@ namespace FleshEaterCourt {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
                       ABHORRANT_GHOUL_KING};
         m_weapons = {&m_goryTalonsAndFangs};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

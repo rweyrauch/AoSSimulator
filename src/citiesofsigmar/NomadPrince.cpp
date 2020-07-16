@@ -73,6 +73,7 @@ namespace CitiesOfSigmar {
             m_spear(Weapon::Type::Melee, "Starlight Spear", 2, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, HERO, NOMAD_PRINCE};
         m_weapons = {&m_spear};
+        m_battleFieldRole = Leader;
     }
 
     bool NomadPrince::configure() {

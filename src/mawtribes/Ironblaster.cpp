@@ -67,6 +67,7 @@ namespace OgorMawtribes {
             m_blade(Weapon::Type::Melee, "Scrapper's Jagged Blade", 1, 2, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, OGOR, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, IRONBLASTER};
         m_weapons = {&m_cannonBall, &m_hailShot, &m_clubber, &m_horns, &m_blade};
+        m_battleFieldRole = Artillery;
     }
 
     bool Ironblaster::configure() {

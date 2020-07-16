@@ -12,7 +12,7 @@
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 13;
-    static const int POINTS_PER_UNIT = 390;
+    static const int POINTS_PER_UNIT = 350;
 
     struct TableEntry {
         int m_move;
@@ -95,6 +95,7 @@ namespace OgorMawtribes {
             m_tusks(Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, FROSTLORD};
         m_weapons = {&m_ice, &m_spear, &m_kicks, &m_tusks};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
     }
 

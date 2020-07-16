@@ -41,6 +41,7 @@ namespace Khorne {
             m_breath(Weapon::Type::Missile, "Hellfire Breath", 8, 1, 0, 0, 0, 0) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
         m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne, &m_breath};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalUnbinds = 1;
     }

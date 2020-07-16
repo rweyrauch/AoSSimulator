@@ -73,6 +73,7 @@ namespace KharadronOverlords {
             m_zephyrscope(Weapon::Type::Melee, "Zephyrscope", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHERIC_NAVIGATOR};
         m_weapons = {&m_pistol, &m_zephyrscope};
+        m_battleFieldRole = Leader;
 
         // Aethersight
         m_totalUnbinds = 1;

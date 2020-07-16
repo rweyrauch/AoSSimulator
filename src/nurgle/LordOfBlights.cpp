@@ -63,6 +63,7 @@ namespace Nurgle {
             m_hammer(Weapon::Type::Melee, "Bubotic Hammer", 1, 3, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_BLIGHTS};
         m_weapons = {&m_ripenedDeathsHead, &m_bountyDeathsHead, &m_hammer};
+        m_battleFieldRole = Leader;
     }
 
     bool LordOfBlights::configure() {

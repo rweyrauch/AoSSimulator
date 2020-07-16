@@ -70,6 +70,7 @@ namespace OssiarchBonereapers {
             m_staff(Weapon::Type::Melee, "Staff of Retribution", 2, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, HERO, WIZARD, VOKMORTIAN};
         m_weapons = {&m_gazeOfDeath, &m_staff};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &Vokmortian::grimWarning, &m_connection);
 

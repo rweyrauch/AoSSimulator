@@ -29,6 +29,7 @@ namespace GloomspiteGitz {
             m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, STABBAS};
         m_weapons = {&m_stabba, &m_stabbaBoss, &m_pokinSpear, &m_pokinSpearBoss, &m_barbedNet};
+        m_battleFieldRole = Battleline;
     }
 
     bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,

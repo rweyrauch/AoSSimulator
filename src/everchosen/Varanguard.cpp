@@ -15,8 +15,8 @@ namespace SlavesToDarkness {
     static const int WOUNDS = 5;
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 300;
-    static const int POINTS_MAX_UNIT_SIZE = 300 * 4;
+    static const int POINTS_PER_BLOCK = 280;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
 
     bool Varanguard::s_registered = false;
 

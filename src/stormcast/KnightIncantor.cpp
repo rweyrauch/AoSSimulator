@@ -16,7 +16,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 40;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int POINTS_PER_UNIT = 120;
 
     bool KnightIncantor::s_registered = false;
 
@@ -25,6 +25,7 @@ namespace StormcastEternals {
             m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR};
         m_weapons = {&m_staff};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

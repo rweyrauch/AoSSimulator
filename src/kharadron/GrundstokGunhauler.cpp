@@ -13,7 +13,7 @@
 namespace KharadronOverlords {
     static const int BASESIZE = 0;
     static const int WOUNDS = 0;
-    static const int POINTS_PER_UNIT = 150;
+    static const int POINTS_PER_UNIT = 130;
 
     bool GrundstokGunhauler::s_registered = false;
 

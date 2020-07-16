@@ -79,6 +79,7 @@ namespace SlavesToDarkness {
             m_talons(Weapon::Type::Melee, "Slashing Talons", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MONSTER, SLAVES_TO_DARKNESS, SLAUGHTERBRUTE};
         m_weapons = {&m_claws, &m_jaws, &m_talons};
+        m_battleFieldRole = Behemoth;
     }
 
     bool Slaughterbrute::configure() {

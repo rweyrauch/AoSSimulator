@@ -13,7 +13,7 @@
 namespace Skaven {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT = 220;
 
     struct TableEntry {
         int m_teethRend;
@@ -41,6 +41,7 @@ namespace Skaven {
             m_avalancheOfFlesh(Weapon::Type::Melee, "Avalanche of Flesh", 1, 0, 0, 0, 0, 0) {
         m_keywords = {CHAOS, SKAVENTIDE, CLANS_MOULDER, FIGHTING_BEAST, MONSTER, HELL_PIT_ABOMINATION};
         m_weapons = {&m_gnashingTeath, &m_flailingFists, &m_avalancheOfFlesh};
+        m_battleFieldRole = Behemoth;
 
         s_globalBraveryMod.connect(this, &HellPitAbomination::terrifying, &m_connection);
     }

@@ -8,6 +8,7 @@
 
 #include <death/Necromancer.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
@@ -22,12 +23,18 @@ namespace Death {
             m_staff(Weapon::Type::Melee, "Necromancer's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
         m_weapons = {&m_staff};
+        m_battleFieldRole = Leader;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool Necromancer::configure(Lore lore) {
         auto model = new Model(BASESIZE, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = POINTS_PER_UNIT;
 

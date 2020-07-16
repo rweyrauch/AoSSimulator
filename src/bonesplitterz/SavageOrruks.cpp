@@ -68,6 +68,7 @@ namespace Bonesplitterz {
             m_stikkaBoss(Weapon::Type::Melee, "Savage Stikka", 2, 3, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUKS};
         m_weapons = {&m_chompa, &m_stikka, &m_chompaBoss, &m_stikkaBoss};
+        m_battleFieldRole = Battleline;
     }
 
     bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer) {

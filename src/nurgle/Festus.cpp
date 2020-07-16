@@ -57,6 +57,7 @@ namespace Nurgle {
             m_staff(Weapon::Type::Melee, "Plague Staff", 1, 2, 4, 3, 0, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, WIZARD, FESTUS_THE_LEECHLORD};
         m_weapons = {&m_staff};
+        m_battleFieldRole = Leader;
     }
 
     bool FestusTheLeechlord::configure(Lore lore) {

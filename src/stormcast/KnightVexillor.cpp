@@ -14,7 +14,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 40;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int POINTS_PER_UNIT = 110;
 
     bool KnightVexillor::s_registered = false;
 
@@ -23,6 +23,7 @@ namespace StormcastEternals {
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 4, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VEXILLOR};
         m_weapons = {&m_warhammer};
+        m_battleFieldRole = Leader;
 
         s_globalChargeReroll.connect(this, &KnightVexillor::iconOfWarChargeReroll, &m_iconOfWarSlot);
     }

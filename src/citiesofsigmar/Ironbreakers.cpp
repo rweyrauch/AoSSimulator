@@ -16,8 +16,8 @@ namespace CitiesOfSigmar {
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = 330;
+    static const int POINTS_PER_BLOCK = 110;
+    static const int POINTS_MAX_UNIT_SIZE = 200;
 
     bool Ironbreakers::s_registered = false;
 
@@ -29,6 +29,7 @@ namespace CitiesOfSigmar {
             m_axeOrHammerIronbeard(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONBREAKERS};
         m_weapons = {&m_drakefirePistol, &m_drakefirePistolMelee, &m_axeOrHammer, &m_axeOrHammerIronbeard};
+        m_battleFieldRole = Battleline;
     }
 
     bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer) {

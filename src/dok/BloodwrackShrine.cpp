@@ -14,7 +14,7 @@
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 13;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 210;
 
     struct TableEntry {
         int m_move;
@@ -44,6 +44,7 @@ namespace DaughtersOfKhaine {
             m_goadstaves(Weapon::Type::Melee, "Shrinekeeper's Goadstaves", 2, 6, 3, 3, 0, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, MELUSAI, HERO, WIZARD, BLOODWRACK_MEDUSA, BLOODWRACK_SHRINE};
         m_weapons = {&m_bloodwrackStare, &m_whisperclaw, &m_tailOfSerpents, &m_bloodwrackSpear, &m_goadstaves};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

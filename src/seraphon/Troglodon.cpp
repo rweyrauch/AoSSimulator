@@ -14,7 +14,7 @@
 namespace Seraphon {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 260;
+    static const int POINTS_PER_UNIT = 220;
 
 
     struct TableEntry {
@@ -44,6 +44,7 @@ namespace Seraphon {
             m_rod(Weapon::Type::Melee, "Divining Rod", 1, 2, 4, 4, -1, RAND_D3) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, HERO, WIZARD, TROGLODON, ORACLE};
         m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &Troglodon::terror, &m_connection);

@@ -15,7 +15,7 @@
 namespace CitiesOfSigmar {
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int POINTS_PER_UNIT = 100;
 
     bool Battlemage::s_registered = false;
 
@@ -84,6 +84,7 @@ namespace CitiesOfSigmar {
             m_staff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, HERO, WIZARD, BATTLEMAGE};
         m_weapons = {&m_staff};
+        m_battleFieldRole = Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

@@ -67,6 +67,7 @@ namespace IdonethDeepkin {
             m_stormshoal(Weapon::Type::Melee, "Stormshoal", 3, RAND_2D6, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, EIDOLON, HERO, ASPECT_OF_THE_STORM};
         m_weapons = {&m_spear, &m_crulhook, &m_stormshoal};
+        m_battleFieldRole = Leader;
     }
 
     bool EidolonOfMathlannAspectOfTheStorm::configure() {

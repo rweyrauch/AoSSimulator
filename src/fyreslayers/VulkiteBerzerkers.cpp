@@ -15,7 +15,7 @@ namespace Fyreslayers {
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
     static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 140 * 3;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
 
     bool VulkiteBerzerkers::s_registered = false;
 
@@ -28,6 +28,7 @@ namespace Fyreslayers {
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, VULKITE_BERZERKERS};
         m_weapons = {&m_handaxe, &m_handaxeKarl, &m_warpick, &m_warpickKarl, &m_throwingAxe};
+        m_battleFieldRole = Battleline;
     }
 
     bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool hornOfGrimnir) {

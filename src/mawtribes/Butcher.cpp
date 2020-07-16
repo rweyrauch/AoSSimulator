@@ -76,6 +76,7 @@ namespace OgorMawtribes {
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER};
         m_weapons = {&m_tenderizer, &m_cleaver, &m_bite};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

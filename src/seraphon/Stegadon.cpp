@@ -15,7 +15,7 @@ namespace Seraphon {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 10;
     static const int POINTS_PER_UNIT = 240;
-    static const int POINTS_PER_UNIT_WITH_CHIEF = 270;
+    static const int POINTS_PER_UNIT_WITH_CHIEF = 250;
 
 
     struct TableEntry {
@@ -48,6 +48,7 @@ namespace Seraphon {
             m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, STEGADON};
         m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_warspear, &m_horns, &m_jaws, &m_stomps};
+        m_battleFieldRole = Behemoth;
         m_hasMount = true;
 
         s_globalBattleshockReroll.connect(this, &Stegadon::steadfastMajestyBraveryReroll, &m_steadfastSlot);

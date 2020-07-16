@@ -58,7 +58,7 @@ namespace Nighthaunt {
             m_claws(Weapon::Type::Melee, "Banshee Handmaidens' Spectral Claws", 1, 6, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MORTARCH, LADY_OLYNDER};
         m_weapons = {&m_staff, &m_claws};
-
+        m_battleFieldRole = Leader;
         m_totalSpells = 2;
         m_totalUnbinds = 2;
     }

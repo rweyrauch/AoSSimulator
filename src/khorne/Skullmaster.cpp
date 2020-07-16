@@ -24,6 +24,7 @@ namespace Khorne {
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLMASTER};
         m_weapons = {&m_bladeOfBlood, &m_brazenHooves};
+        m_battleFieldRole = Leader;
     }
 
     bool Skullmaster::configure() {

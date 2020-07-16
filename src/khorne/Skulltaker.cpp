@@ -23,6 +23,7 @@ namespace Khorne {
             m_slayerSword(Weapon::Type::Melee, "The Slayer Sword", 1, 3, 3, 3, -1, 3) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLTAKER};
         m_weapons = {&m_slayerSword};
+        m_battleFieldRole = Leader;
     }
 
     bool Skulltaker::configure() {

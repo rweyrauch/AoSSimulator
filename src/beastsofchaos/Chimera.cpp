@@ -13,7 +13,7 @@
 namespace BeastsOfChaos {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT = 220;
 
 
     bool Chimera::s_registered = false;
@@ -44,6 +44,7 @@ namespace BeastsOfChaos {
             m_maulingClaws(Weapon::Type::Melee, "Mauling Claws", 2, 6, 4, 3, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHIMERA};
         m_weapons = {&m_fieryBreath, &m_avianHead, &m_draconicHead, &m_leonineHead, &m_maulingClaws};
+        m_battleFieldRole = Behemoth;
     }
 
     bool Chimera::configure() {

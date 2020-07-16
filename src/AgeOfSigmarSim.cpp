@@ -142,7 +142,8 @@ static const std::map<std::string, Keyword> g_factionNameLookup = {
         {"Gutbusters",           GUTBUSTERS},
         {"Ogor Mawtribes",       OGOR_MAWTRIBES},
         {"Ossiarch Bonereapers", OSSIARCH_BONEREAPERS},
-        {"Lumineth Realm-Lords", LUMINETH_REALM_LORDS}
+        {"Lumineth Realm-Lords", LUMINETH_REALM_LORDS},
+        {"Sons of Behemat",      SONS_OF_BEHEMAT}
 };
 
 Keyword GrandAllianceStringToKeyword(const std::string &allianceName) {

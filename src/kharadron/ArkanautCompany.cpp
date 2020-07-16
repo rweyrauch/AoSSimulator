@@ -97,6 +97,7 @@ namespace KharadronOverlords {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, SKYFARER, MARINE, ARKANAUT_COMPANY};
         m_weapons = {&m_privateerPistol, &m_volleyGun, &m_skyhook, &m_aetherflarePistol, &m_volleyPistol, &m_cutter,
                      &m_gunButt, &m_skypike};
+        m_battleFieldRole = Battleline;
     }
 
     bool ArkanautCompany::configure(int numModels, int numVolleyGuns, int numSkyhooks, int numSkypikes,

@@ -13,7 +13,7 @@
 namespace IdonethDeepkin {
     static const int BASESIZE = 60;
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 280;
+    static const int POINTS_PER_UNIT = 270;
 
     bool Volturnos::s_registered = false;
 
@@ -24,6 +24,7 @@ namespace IdonethDeepkin {
             m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, HERO, AKHELIAN, AKHELIAN_KING, VOLTURNOS};
         m_weapons = {&m_theAstraSolus, &m_deepmareJawsTalons, &m_deepmareTails};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &Volturnos::crestOfTheHighKings, &m_connection);

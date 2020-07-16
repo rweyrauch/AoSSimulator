@@ -22,6 +22,7 @@ namespace BeastsOfChaos {
             m_pairedAxes(Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
         m_weapons.push_back(&m_pairedAxes);
+        m_battleFieldRole = Leader;
     }
 
     bool Beastlord::configure() {

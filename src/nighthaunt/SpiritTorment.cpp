@@ -61,6 +61,7 @@ namespace Nighthaunt {
             m_chains(Weapon::Type::Melee, "Shacklegheist Chains", 2, 3, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, SPIRIT_TORMENT};
         m_weapons = {&m_chains};
+        m_battleFieldRole = Leader;
     }
 
     bool SpiritTorment::configure() {

@@ -24,6 +24,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, SUNBLOOD};
         m_weapons = {&m_celestiteWarmace, &m_jaws};
+        m_battleFieldRole = Leader;
     }
 
     bool SaurusSunblood::configure() {

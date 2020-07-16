@@ -12,7 +12,7 @@
 namespace KharadronOverlords {
     static const int BASESIZE = 40;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int POINTS_PER_UNIT = 120;
 
     bool ArkanautAdmiral::s_registered = false;
 
@@ -73,6 +73,7 @@ namespace KharadronOverlords {
             m_skalfhammer(Weapon::Type::Melee, "Skalfhammer", 1, 3, 3, 2, -2, 2) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, ARKANAUT_ADMIRAL};
         m_weapons = {&m_pistol, &m_skalfhammer};
+        m_battleFieldRole = Leader;
     }
 
     bool ArkanautAdmiral::configure() {

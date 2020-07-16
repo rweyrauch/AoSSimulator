@@ -16,7 +16,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 220;
+    static const int POINTS_PER_UNIT = 210;
 
     bool LordArcanumOnDracoline::s_registered = false;
 
@@ -26,6 +26,7 @@ namespace StormcastEternals {
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
         m_weapons = {&m_aetherstave, &m_monstrousClaws};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &LordArcanumOnDracoline::supernaturalRoar, &m_connection);

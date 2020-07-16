@@ -61,6 +61,7 @@ namespace Nighthaunt {
             m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, TOMB_BANSHEE};
         m_weapons = {&m_dagger};
+        m_battleFieldRole = Leader;
     }
 
     bool TombBanshee::configure() {

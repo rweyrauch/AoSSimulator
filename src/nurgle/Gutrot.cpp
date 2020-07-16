@@ -53,6 +53,7 @@ namespace Nurgle {
             m_tentacles(Weapon::Type::Melee, "Flailing Tentacles", 1, RAND_D3, 2, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, GUTROT_SPUME};
         m_weapons = {&m_axe, &m_tentacles};
+        m_battleFieldRole = Leader;
     }
 
     bool GutrotSpume::configure() {

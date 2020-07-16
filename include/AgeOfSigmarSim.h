@@ -56,6 +56,8 @@ enum Role {
     Other,
     Behemoth,
     LeaderBehemoth,
+    Artillery,
+    ArtilleryBehemoth
 };
 
 enum BuffableAttribute {
@@ -164,6 +166,7 @@ enum Keyword {
     GUTBUSTERS,
     OSSIARCH_BONEREAPERS,
     LUMINETH_REALM_LORDS,
+    SONS_OF_BEHEMAT,
 
     // Common
     MORTAL,

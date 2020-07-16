@@ -88,6 +88,7 @@ namespace SlavesToDarkness {
                       CHAOS_LORD};
         m_hasMount = true;
         m_weapons = {&m_blade, &m_lance, &m_flail, &m_fangsAndClaws, &m_tail};
+        m_battleFieldRole = LeaderBehemoth;
     }
 
     bool ChaosLordOnManticore::configure(WeaponOption weapon) {

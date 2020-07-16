@@ -81,6 +81,7 @@ namespace SlavesToDarkness {
             m_maw(Weapon::Type::Melee, "Betentacled Maw", 2, RAND_3D6, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, MONSTER, MUTALITH_VORTEX_BEAST};
         m_weapons = {&m_claws, &m_maw};
+        m_battleFieldRole = Behemoth;
     }
 
     bool MutalithVortexBeast::configure() {

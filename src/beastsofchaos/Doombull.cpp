@@ -23,6 +23,7 @@ namespace BeastsOfChaos {
             m_slaughtererAxe(Weapon::Type::Melee, "Slaughterer's Axe", 1, 3, 3, 3, -2, 3) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, HERO, DOOMBULL};
         m_weapons = {&m_bullgorHorns, &m_slaughtererAxe};
+        m_battleFieldRole = Leader;
     }
 
     bool Doombull::configure() {

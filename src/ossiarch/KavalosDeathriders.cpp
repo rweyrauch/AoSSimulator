@@ -85,6 +85,7 @@ namespace OssiarchBonereapers {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, KAVALOS_DEATHRIDERS};
         m_weapons = {&m_blade, &m_spear, &m_bladeHekatos, &m_spearHekatos, &m_hoovesAndTeeth};
+        m_battleFieldRole = Battleline;
         m_hasMount = true;
     }
 

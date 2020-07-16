@@ -43,6 +43,7 @@ namespace Seraphon {
             m_tail(Weapon::Type::Melee, "Bludgeoning Tail", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, BASTILADON};
         m_weapons = {&m_beam, &m_javelins, &m_ark, &m_tail};
+        m_battleFieldRole = Behemoth;
     }
 
     bool Bastiladon::configure() {

@@ -62,6 +62,7 @@ namespace Nighthaunt {
             m_greataxe(Weapon::Type::Melee, "Decapitating Greataxe", 1, 3, 3, 3, -2, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, LORD_EXECUTIONER};
         m_weapons = {&m_greataxe};
+        m_battleFieldRole = Leader;
     }
 
     bool LordExecutioner::configure() {

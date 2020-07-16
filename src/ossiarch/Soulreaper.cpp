@@ -76,6 +76,7 @@ namespace OssiarchBonereapers {
             m_scythe(Weapon::Type::Melee, "Soulreaper Scythe", 2, 3, 3, 3, -1, 2) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULREAPER};
         m_weapons = {&m_scythe};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

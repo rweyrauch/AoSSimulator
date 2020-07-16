@@ -59,6 +59,7 @@ namespace KharadronOverlords {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, MARINE,
                       AETHER_KHEMIST, BJORGEN_THUNDRIK};
         m_weapons = {&m_anatomiser, &m_instruments};
+        m_battleFieldRole = Leader;
     }
 
     bool BjorgenThundrik::configure() {

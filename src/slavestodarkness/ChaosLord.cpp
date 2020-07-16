@@ -66,6 +66,7 @@ namespace SlavesToDarkness {
             m_flail(Weapon::Type::Melee, "Daemonbound War-flail", 2, 6, 4, 4, -2, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_blade, &m_steel, &m_flail};
+        m_battleFieldRole = Leader;
     }
 
     bool ChaosLord::configure(WeaponOption option) {

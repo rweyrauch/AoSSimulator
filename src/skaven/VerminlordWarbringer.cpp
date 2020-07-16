@@ -83,6 +83,7 @@ namespace Skaven {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, CLANS_VERMINUS, MONSTER, HERO, WIZARD,
                       VERMINLORD_WARBRINGER};
         m_weapons = {&m_tails, &m_glaive, &m_fist};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalBraveryMod.connect(this, &VerminlordWarbringer::terrifying, &m_connection);
 

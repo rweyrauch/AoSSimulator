@@ -28,6 +28,7 @@ namespace Skaven {
             m_rustyBladeLeader(Weapon::Type::Melee, "Rusty Blade", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, CLANRATS};
         m_weapons = {&m_rustySpear, &m_rustySpearLeader, &m_rustyBlade, &m_rustyBladeLeader};
+        m_battleFieldRole = Battleline;
     }
 
     bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool clanshields, int standardBearers,

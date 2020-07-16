@@ -25,6 +25,7 @@ namespace Nighthaunt {
             m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE};
         m_weapons = {&m_malignantWeapon, &m_malignantWeaponWarden};
+        m_battleFieldRole = Battleline;
     }
 
     bool ChainraspHorde::configure(int numModels) {

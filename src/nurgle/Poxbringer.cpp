@@ -64,6 +64,7 @@ namespace Nurgle {
             m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, POXBRINGER, WIZARD, HERALD_OF_NURGLE};
         m_weapons = {&m_balesword};
+        m_battleFieldRole = Leader;
     }
 
     bool PoxbringerHeraldOfNurgle::configure(Lore lore) {

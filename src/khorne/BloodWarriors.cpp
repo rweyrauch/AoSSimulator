@@ -29,6 +29,7 @@ namespace Khorne {
             m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOOD_WARRIORS};
         m_weapons = {&m_goreaxe, &m_goreaxeChampion, &m_goreglaive};
+        m_battleFieldRole = Battleline;
     }
 
 

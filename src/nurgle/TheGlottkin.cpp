@@ -15,7 +15,7 @@
 namespace Nurgle {
     static const int BASESIZE = 130;
     static const int WOUNDS = 18;
-    static const int POINTS_PER_UNIT = 420;
+    static const int POINTS_PER_UNIT = 380;
 
     struct TableEntry {
         int m_move;
@@ -44,6 +44,7 @@ namespace Nurgle {
             m_poisonScythe(Weapon::Type::Melee, "Otto's Poison-slick Scythe", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, WIZARD, THE_GLOTTKIN};
         m_weapons = {&m_pestilentTorrent, &m_flailingTentacle, &m_lampreyMaw, &m_poisonScythe};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalUnbinds = 1;
         m_totalSpells = 2;

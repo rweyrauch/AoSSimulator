@@ -8,6 +8,7 @@
 
 #include <death/VampireLordOnDragon.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
@@ -101,7 +102,10 @@ namespace Death {
             m_claws(Weapon::Type::Melee, "Zombie Dragon's Sword-like Claws", 2, 7, 4, 3, -1, 2) {
         m_keywords = {DEATH, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, VAMPIRE_LORD, VAMPIRE};
         m_weapons = {&m_breath, &m_deathlance, &m_maw, &m_claws};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool VampireLordOnZombieDragon::configure(WeaponOption option, bool shield, bool chalice, Lore lore) {
@@ -121,6 +125,9 @@ namespace Death {
         if (shield) {
             m_save = 3;
         }
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_haveChaliceOfBlood = chalice;
 

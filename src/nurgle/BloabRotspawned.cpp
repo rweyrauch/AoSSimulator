@@ -59,6 +59,7 @@ namespace Nurgle {
             m_claws(Weapon::Type::Melee, "Bilespurter's Monstrous Claws", 3, 5, 4, 2, -1, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, WIZARD, BLOAB_ROTSPAWNED};
         m_weapons = {&m_bile, &m_scythe, &m_claws};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

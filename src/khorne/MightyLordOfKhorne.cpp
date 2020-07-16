@@ -23,6 +23,7 @@ namespace Khorne {
             m_bloodDarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MIGHTY_LORD_OF_KHORNE};
         m_weapons = {&m_axeOfKhorne, &m_bloodDarkClaws};
+        m_battleFieldRole = Leader;
 
         // Collar of Khorne
         m_totalUnbinds = 1;

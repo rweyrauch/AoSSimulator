@@ -58,6 +58,14 @@ namespace LuminethRealmLords {
         return 0;
     }
 
+    LuminethBase::LuminethBase() {
+        s_globalBraveryMod.connect(this, &LuminethBase::majestic, &m_majesticConnection);
+    }
+
+    LuminethBase::~LuminethBase() {
+        m_majesticConnection.disconnect();
+    }
+
     void LuminethBase::setNation(GreatNation nation) {
         removeKeyword(SYAR);
         removeKeyword(ILIATHA);
@@ -89,6 +97,37 @@ namespace LuminethRealmLords {
 
     void LuminethBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    int LuminethBase::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+
+        // Aetherquartz Reserve
+        if (m_aetherQuartzReserve == 0) mod--;
+
+        return mod;
+    }
+
+    int LuminethBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+
+        // Enduring
+        if (m_commandTrait == CommandTrait::Enduring) mod += 3;
+
+        return mod;
+    }
+
+    int LuminethBase::majestic(const Unit *unit) {
+        auto mod = 0;
+        if (m_commandTrait == CommandTrait::Majestic) {
+            if (isFriendly(unit)) {
+                if (distanceTo(unit) <= 12.0f) mod++;
+            }
+            else {
+                if (distanceTo(unit) <= 18.0f) mod--;
+            }
+        }
+        return mod;
     }
 
     void Init() {

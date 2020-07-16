@@ -25,6 +25,7 @@ namespace DaughtersOfKhaine {
             m_bloodwrackSpear(Weapon::Type::Melee, "Bloodwrack Spear", 2, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, MELUSAI, DAUGHTERS_OF_KHAINE, HERO, WIZARD, BLOODWRACK_MEDUSA};
         m_weapons = {&m_bloodwrackStare, &m_whisperclaw, &m_tailOfSerpents, &m_bloodwrackSpear};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

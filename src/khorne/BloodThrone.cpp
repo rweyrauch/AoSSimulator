@@ -25,6 +25,7 @@ namespace Khorne {
             m_gnashingMaw(Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTER, HERO, HERALD_OF_KHORNE, HERALD_OF_KHORNE_ON_BLOOD_THRONE};
         m_weapons = {&m_bladeOfBlood, &m_hellblades, &m_gnashingMaw};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

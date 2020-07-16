@@ -23,6 +23,7 @@ namespace StormcastEternals {
             m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_QUESTOR};
         m_weapons = {&m_warblade};
+        m_battleFieldRole = Leader;
     }
 
     bool KnightQuestor::configure() {

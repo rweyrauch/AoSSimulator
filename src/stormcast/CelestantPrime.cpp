@@ -14,7 +14,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 100; //
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 340;
+    static const int POINTS_PER_UNIT = 300;
 
     bool CelestantPrime::s_registered = false;
 
@@ -68,6 +68,7 @@ namespace StormcastEternals {
             m_ghalMaraz(Weapon::Type::Melee, "Ghal Maraz, the Hammer of Sigmar", 2, 3, 3, 2, -3, 3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, CELESTANT_PRIME};
         m_weapons = {&m_ghalMaraz};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &CelestantPrime::bearerOfTheWarhammer, &m_connection);
     }

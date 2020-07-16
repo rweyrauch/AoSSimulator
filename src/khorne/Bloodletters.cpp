@@ -28,7 +28,7 @@ namespace Khorne {
             m_hellbladeReaper(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
         m_weapons = {&m_hellblade, &m_hellbladeReaper};
-
+        m_battleFieldRole = Battleline;
         s_globalBattleshockReroll.connect(this, &Bloodletters::hornblowerBattleshockReroll, &m_hornblowerSlot);
     }
 

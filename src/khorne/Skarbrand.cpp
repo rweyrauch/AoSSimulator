@@ -40,6 +40,7 @@ namespace Khorne {
             m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
         m_weapons = {&m_slaughter, &m_carnage};
+        m_battleFieldRole = LeaderBehemoth;
     }
 
     bool Skarbrand::configure() {

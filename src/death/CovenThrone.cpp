@@ -8,12 +8,13 @@
 
 #include <death/CovenThrone.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 260;
+    static const int POINTS_PER_UNIT = 240;
 
     struct TableEntry {
         int m_move;
@@ -92,7 +93,10 @@ namespace Death {
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, COVEN_THRONE};
         m_weapons = {&m_bite, &m_stiletto, &m_poniards, &m_etherealWeapons};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool CovenThrone::configure(Lore lore) {
@@ -102,6 +106,9 @@ namespace Death {
         model->addMeleeWeapon(&m_poniards);
         model->addMeleeWeapon(&m_etherealWeapons);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = POINTS_PER_UNIT;
 

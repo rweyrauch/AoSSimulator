@@ -15,8 +15,8 @@ namespace Death {
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 15;
-    static const int POINTS_PER_BLOCK = 200;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int POINTS_PER_BLOCK = 180;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
 
     bool BloodKnights::s_registered = false;
 

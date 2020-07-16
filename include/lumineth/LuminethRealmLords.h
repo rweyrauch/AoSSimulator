@@ -96,9 +96,9 @@ namespace LuminethRealmLords {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        LuminethBase() = default;
+        LuminethBase();
 
-        ~LuminethBase() override = default;
+        ~LuminethBase() override;
 
         void setNation(GreatNation nation);
 
@@ -109,12 +109,21 @@ namespace LuminethRealmLords {
         LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        int braveryModifier() const override;
+        int woundModifier() const override;
+
+        int majestic(const Unit *unit);
+
     protected:
 
         GreatNation m_nation = GreatNation::None;
 
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+
+        int m_aetherQuartzReserve = 1;
+
+        lsignal::slot m_majesticConnection;
     };
 
 //

@@ -31,6 +31,7 @@ namespace Khorne {
             m_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
         m_weapons = {&m_reaverBlades, &m_reaverBladesChieftain, &m_meatripperAxe, &m_meatripperAxeChieftain};
+        m_battleFieldRole = Battleline;
     }
 
 

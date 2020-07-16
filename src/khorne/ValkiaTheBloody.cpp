@@ -23,6 +23,7 @@ namespace Khorne {
             m_slaupnir(Weapon::Type::Melee, "Slaupnir", 2, 6, 3, 3, -2, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
         m_weapons = {&m_slaupnir};
+        m_battleFieldRole = Leader;
     }
 
     bool ValkiaTheBloody::configure() {

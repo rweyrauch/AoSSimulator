@@ -17,7 +17,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 100;
     static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 340;
+    static const int POINTS_PER_UNIT = 300;
 
     bool AventisFirestrike::s_registered = false;
 
@@ -28,6 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
                       MONSTER, WIZARD, LORD_ARCANUM, AVENTIS_FIRESTRIKE};
         m_weapons = {&m_staffOfHammerhal, &m_hornsAndHooves};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
 
         m_totalSpells = 1;

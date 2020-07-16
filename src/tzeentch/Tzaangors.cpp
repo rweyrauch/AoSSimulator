@@ -17,7 +17,7 @@ namespace Tzeentch {
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
     static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
 
     bool Tzaangors::s_registered = false;
 
@@ -32,6 +32,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, GOR, TZEENTCH, ARCANITE, TZAANGORS};
         m_weapons = {&m_savageBlade, &m_savageBladeTwistbray, &m_savageGreatblade, &m_savageGreatbladeTwistbray,
                      &m_viciousBeak, &m_viciousBeakTwistbray};
+        m_battleFieldRole = Battleline;
     }
 
     bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,

@@ -62,6 +62,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, DREADBLADE_HARROW};
         m_weapons = {&m_dreadblade, &m_hoovesAndTeeth};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

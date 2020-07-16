@@ -21,7 +21,7 @@
     "lite-server": "^2.5.4"
   },
   "dependencies": {
-    "@types/jquery": "^3.3.38",
+    "@types/jquery": "^3.5.0",
     "dts-gen": "^0.6.0"
   }
 }

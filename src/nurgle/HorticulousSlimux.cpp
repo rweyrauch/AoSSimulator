@@ -53,6 +53,7 @@ namespace Nurgle {
             m_jaws(Weapon::Type::Melee, "Mulch's Slime-encrusted Jaws", 1, RAND_D3, 3, 3, -2, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, HORTICULOUS_SLIMUX};
         m_weapons = {&m_shears, &m_jaws};
+        m_battleFieldRole = Leader;
 
         s_globalChargeReroll.connect(this, &HorticulousSlimux::beastHandlerChargeReroll, &m_beastHandlerChargeSlot);
         s_globalToHitReroll.connect(this, &HorticulousSlimux::beastHandlerToHitRerolls, &m_beastHandlerToHitSlot);

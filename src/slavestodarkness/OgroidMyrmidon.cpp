@@ -55,6 +55,7 @@ namespace SlavesToDarkness {
             m_horns(Weapon::Type::Melee, "Great Horns", 1, 1, 3, 3, -2, 3) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EYE_OF_THE_GODS, OGROID_MYRMIDON};
         m_weapons = {&m_spearMissile, &m_spear, &m_horns};
+        m_battleFieldRole = Leader;
     }
 
     bool OgroidMyrmidon::configure() {

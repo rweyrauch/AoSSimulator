@@ -66,6 +66,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, WIZARD,
                       CHAOS_SORCERER_LORD};
         m_weapons = {&m_staff, &m_blade};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

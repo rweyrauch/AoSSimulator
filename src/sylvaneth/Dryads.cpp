@@ -27,6 +27,7 @@ namespace Sylvaneth {
             m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons", 2, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, DRYADS};
         m_weapons = {&m_wrackingTalons, &m_wrackingTalonsNymph};
+        m_battleFieldRole = Battleline;
     }
 
     bool Dryads::configure(int numModels) {

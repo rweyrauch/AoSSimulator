@@ -15,7 +15,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 220;
+    static const int POINTS_PER_UNIT = 200;
 
     bool LordCelestantOnDracoth::s_registered = false;
 
@@ -28,6 +28,7 @@ namespace StormcastEternals {
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
         m_weapons = {&m_stormstrikeGlaive, &m_lightningHammer, &m_thunderaxe, &m_tempestosHammer, &m_clawsAndFangs};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

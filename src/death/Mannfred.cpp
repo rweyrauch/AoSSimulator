@@ -8,6 +8,7 @@
 
 #include <death/Mannfred.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
@@ -82,6 +83,9 @@ namespace Death {
             m_clawsAndDaggers(Weapon::Type::Melee, "Spirits' Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, MANNFRED};
         m_weapons = {&m_gheistvor, &m_glaive, &m_ebonClaws, &m_clawsAndDaggers};
+        m_battleFieldRole = LeaderBehemoth;
+        m_totalSpells = 2;
+        m_totalUnbinds = 2;
     }
 
     bool MannfredMortarchOfNight::configure() {
@@ -91,6 +95,9 @@ namespace Death {
         model->addMeleeWeapon(&m_ebonClaws);
         model->addMeleeWeapon(&m_clawsAndDaggers);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = POINTS_PER_UNIT;
 

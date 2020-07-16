@@ -61,6 +61,7 @@ namespace SlavesToDarkness {
             m_hooves(Weapon::Type::Melee, "Mighty Hooves", 1, 3, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_hammer, &m_hooves};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

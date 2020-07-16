@@ -13,7 +13,7 @@
 namespace Nighthaunt {
     static const int BASESIZE = 75; // x42 oval
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 170;
+    static const int POINTS_PER_UNIT = 160;
 
     bool ReikenorTheGrimhailer::s_registered = false;
 
@@ -57,6 +57,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, REIKENOR_THE_GRIMHAILER};
         m_weapons = {&m_fellreaper, &m_hoovesAndTeeth};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
 
         m_totalSpells = 1;

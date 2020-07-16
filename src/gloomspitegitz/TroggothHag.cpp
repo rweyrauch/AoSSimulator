@@ -43,6 +43,7 @@ namespace GloomspiteGitz {
             m_bulk(Weapon::Type::Melee, "Crushing Bulk", 1, RAND_D3, 4, 3, 0, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, FELLWATER, MONSTER, HERO, WIZARD, TROGGOTH_HAG};
         m_weapons = {&m_vomit, &m_staff, &m_bulk};
+        m_battleFieldRole = LeaderBehemoth;
     }
 
     void TroggothHag::onRestore() {

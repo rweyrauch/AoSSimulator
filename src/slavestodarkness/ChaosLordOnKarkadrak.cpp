@@ -13,7 +13,7 @@
 namespace SlavesToDarkness {
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 250;
+    static const int POINTS_PER_UNIT = 230;
 
     bool ChaosLordOnKarkadrak::s_registered = false;
 
@@ -64,6 +64,7 @@ namespace SlavesToDarkness {
             m_tail(Weapon::Type::Melee, "Battering Tail", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_battleAxe, &m_blade, &m_hornsAndClaws, &m_tail};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

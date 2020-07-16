@@ -15,7 +15,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 40;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int POINTS_PER_UNIT = 110;
 
     bool LordVeritant::s_registered = false;
 
@@ -24,6 +24,7 @@ namespace StormcastEternals {
             m_judgementBlade(Weapon::Type::Melee, "Judgement Blade", 1, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
         m_weapons = {&m_judgementBlade};
+        m_battleFieldRole = Leader;
 
         m_totalPrayers = 2;
 

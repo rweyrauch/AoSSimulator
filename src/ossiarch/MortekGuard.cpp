@@ -88,6 +88,7 @@ namespace OssiarchBonereapers {
             m_greatbladeHekatos(Weapon::Type::Melee, "Soulcleaver Greatblade", 1, 3, 3, 3, -1, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTEK_GUARD};
         m_weapons = {&m_blade, &m_spear, &m_greatblade, &m_bladeHekatos, &m_spearHekatos, &m_greatbladeHekatos};
+        m_battleFieldRole = Battleline;
     }
 
     bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblades, bool necrophoros) {

@@ -16,8 +16,8 @@ namespace Tzeentch {
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 200;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int POINTS_PER_BLOCK = 220;
+    static const int POINTS_MAX_UNIT_SIZE = 660;
 
     bool HorrorsOfTzeentch::s_registered = false;
 
@@ -38,7 +38,7 @@ namespace Tzeentch {
                      &m_talonedHandsBlue,
                      &m_talonedHandsBrimstone,
                      &m_talonedHandsIridescent};
-
+        m_battleFieldRole = Battleline;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

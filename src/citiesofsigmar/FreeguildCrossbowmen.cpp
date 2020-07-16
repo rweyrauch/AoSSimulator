@@ -74,6 +74,7 @@ namespace CitiesOfSigmar {
             m_crossbowMarksman(Weapon::Type::Missile, "Freeguild Crossbow", 24, 1, 3, 3, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_CROSSBOWMEN};
         m_weapons = {&m_crossbow, &m_dagger, &m_crossbowMarksman};
+        m_battleFieldRole = Battleline;
     }
 
     bool FreeguildCrossbowmen::configure(int numModels, bool standardBearer, bool piper) {

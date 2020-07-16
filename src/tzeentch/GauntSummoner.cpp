@@ -63,6 +63,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, DAEMON, MORTAL, TZEENTCH, ARCANITE, SLAVES_TO_DARKNESS, EVERCHOSEN, HERO, WIZARD,
                       GAUNT_SUMMONER};
         m_weapons = {&m_staff, &m_blade};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

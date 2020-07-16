@@ -9,6 +9,7 @@
 #include <death/BloodseekerPalangquin.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
@@ -92,7 +93,12 @@ namespace Death {
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, BLOODSEEKER_PALANQUIN};
         m_weapons = {&m_wail, &m_blade, &m_etherealWeapons};
+        m_battleFieldRole = LeaderBehemoth;
+
         m_hasMount = true;
+
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool BloodseekerPalanquin::configure(Lore lore) {
@@ -101,6 +107,9 @@ namespace Death {
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_etherealWeapons);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = POINTS_PER_UNIT;
 

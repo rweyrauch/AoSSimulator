@@ -17,7 +17,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 100;
     static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 320;
+    static const int POINTS_PER_UNIT = 280;
 
     bool LordArcanumOnTauralon::s_registered = false;
 
@@ -28,6 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD,
                       LORD_ARCANUM};
         m_weapons = {&m_aetherstave, &m_hornsAndHooves};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
 
         m_totalSpells = 1;

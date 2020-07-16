@@ -23,6 +23,7 @@ namespace Khorne {
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 4, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, HERO, MIGHTY_LORD_OF_KHORNE, KORGHOS_KHUL};
         m_weapons = {&m_axeOfKhorne, &m_clawsAndFangs};
+        m_battleFieldRole = Leader;
 
         // Collar of Khorne
         m_totalUnbinds = 1;

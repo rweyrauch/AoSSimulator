@@ -26,6 +26,7 @@ namespace Slaanesh {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, HELLFLAYER,
                       BLADEBRINGER};
         m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

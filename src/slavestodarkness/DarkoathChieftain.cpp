@@ -57,6 +57,7 @@ namespace SlavesToDarkness {
             m_broadsword(Weapon::Type::Melee, "Cursed Broadsword", 1, 3, 4, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_CHIEFTAIN};
         m_weapons = {&m_axe, &m_broadsword};
+        m_battleFieldRole = Leader;
     }
 
     bool DarkoathChieftain::configure() {

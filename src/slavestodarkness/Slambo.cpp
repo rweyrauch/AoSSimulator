@@ -57,6 +57,7 @@ namespace SlavesToDarkness {
             m_chaosAxes(Weapon::Type::Melee, "Chaos Axes", 1, RAND_D6, 4, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EXALTED_HERO_OF_CHAOS, SLAMBO};
         m_weapons = {&m_hurledAxe, &m_chaosAxes};
+        m_battleFieldRole = Leader;
     }
 
     bool Slambo::configure() {

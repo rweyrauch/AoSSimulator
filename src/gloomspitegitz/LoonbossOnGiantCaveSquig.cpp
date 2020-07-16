@@ -27,6 +27,7 @@ namespace GloomspiteGitz {
             m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_massiveFangFilledGob, &m_moonCutta, &m_moonclanStabba};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

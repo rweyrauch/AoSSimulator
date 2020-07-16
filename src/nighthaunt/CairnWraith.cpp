@@ -65,6 +65,7 @@ namespace Nighthaunt {
             m_scythe(Weapon::Type::Melee, "Reaper Scythe", 2, 3, 4, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, CAIRN_WRAITH};
         m_weapons = {&m_scythe};
+        m_battleFieldRole = Leader;
     }
 
     bool CairnWraith::configure() {

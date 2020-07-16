@@ -16,7 +16,7 @@ namespace CitiesOfSigmar {
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 10;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 140;
+    static const int POINTS_PER_BLOCK = 130;
     static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
 
     bool BlackGuard::s_registered = false;

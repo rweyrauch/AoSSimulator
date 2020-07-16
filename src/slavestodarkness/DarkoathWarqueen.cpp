@@ -56,6 +56,7 @@ namespace SlavesToDarkness {
             m_axe(Weapon::Type::Melee, "Rune-etched Axe", 1, 6, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_WARQUEEN};
         m_weapons = {&m_axe};
+        m_battleFieldRole = Leader;
     }
 
     bool DarkoathWarqueen::configure() {

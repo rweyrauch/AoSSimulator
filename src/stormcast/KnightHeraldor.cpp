@@ -23,6 +23,7 @@ namespace StormcastEternals {
             m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
         m_weapons = {&m_broadsword};
+        m_battleFieldRole = Leader;
     }
 
     bool KnightHeraldor::configure() {

@@ -13,7 +13,7 @@
 namespace Skaven {
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 400;
+    static const int POINTS_PER_UNIT = 390;
 
     struct TableEntry {
         int m_move;
@@ -79,6 +79,7 @@ namespace Skaven {
             m_blows(Weapon::Type::Melee, "Crushing Blows", 2, 6, 4, 3, -1, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, MONSTER, HERO, WIZARD, GREY_SEER, THANQUOL};
         m_weapons = {&m_projectors, &m_staff, &m_braziers, &m_blows};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
 
         m_totalSpells = 2;

@@ -24,6 +24,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Tearing Jaws", 1, 4, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, HERO, RIPPERDACTYL_CHIEF};
         m_weapons = {&m_skyblade, &m_jaws};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

@@ -27,6 +27,7 @@ namespace Khorne {
             m_skullhammer(Weapon::Type::Melee, "Skullhammer", 3, 3, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, ASPIRING_DEATHBRINGER};
         m_weapons = {&m_bloodAxe, &m_wrathHammer, &m_goreaxe, &m_skullhammer};
+        m_battleFieldRole = Leader;
     }
 
     bool AspiringDeathbringer::configure(WeaponOption weapon) {

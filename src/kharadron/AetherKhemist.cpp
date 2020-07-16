@@ -74,6 +74,7 @@ namespace KharadronOverlords {
             m_instruments(Weapon::Type::Melee, "Heavy Instruments", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHER_KHEMIST};
         m_weapons = {&m_anatomiser, &m_instruments};
+        m_battleFieldRole = Leader;
 
         s_globalToHitMod.connect(this, &AetherKhemist::atmosphericIsolation, &m_connection);
     }

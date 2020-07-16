@@ -12,7 +12,7 @@
 namespace IdonethDeepkin {
     static const int BASESIZE = 40;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int POINTS_PER_UNIT = 70;
 
     bool Lotann::s_registered = false;
 
@@ -60,6 +60,7 @@ namespace IdonethDeepkin {
             m_tentacles(Weapon::Type::Melee, "Ochtar's Tentacles", 3, 6, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, SOUL_WARDEN, HERO, LOTANN};
         m_weapons = {&m_quill, &m_cudgel, &m_blade, &m_tentacles};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &Lotann::catalogueOfSouls, &m_connection);
     }

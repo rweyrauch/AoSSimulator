@@ -23,6 +23,7 @@ namespace Sylvaneth {
             m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, HERO, ARCH_REVENANT};
         m_weapons = {&m_glaive, &m_tailPincers};
+        m_battleFieldRole = Leader;
 
         s_globalToHitReroll.connect(this, &ArchRevenant::championOfKurnothToHitRerolls, &m_championsSlot);
     }

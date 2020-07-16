@@ -23,6 +23,7 @@ namespace Ironjawz {
             m_stikks(Weapon::Type::Melee, "Gorkstikk and Morkstikk", 1, 6, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, TOTEM, WARCHANTER};
         m_weapons = {&m_stikks};
+        m_battleFieldRole = Leader;
     }
 
     bool OrrukWarchanter::configure(Warbeat warbeat) {

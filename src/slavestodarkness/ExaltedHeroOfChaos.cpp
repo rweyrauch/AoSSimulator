@@ -60,6 +60,7 @@ namespace SlavesToDarkness {
             m_blades(Weapon::Type::Melee, "Rune-etched Blades", 1, RAND_D6, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS};
         m_weapons = {&m_blades};
+        m_battleFieldRole = Leader;
     }
 
     bool ExaltedHeroOfChaos::configure() {

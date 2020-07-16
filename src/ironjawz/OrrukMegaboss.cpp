@@ -13,7 +13,7 @@
 namespace Ironjawz {
     static const int BASESIZE = 60;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 150;
+    static const int POINTS_PER_UNIT = 140;
 
     bool OrrukMegaboss::s_registered = false;
 
@@ -22,6 +22,7 @@ namespace Ironjawz {
             m_bossChoppaAndFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, MEGABOSS};
         m_weapons = {&m_bossChoppaAndFist};
+        m_battleFieldRole = Leader;
     }
 
     bool OrrukMegaboss::configure() {

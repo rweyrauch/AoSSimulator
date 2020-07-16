@@ -43,6 +43,7 @@ namespace Sylvaneth {
             m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1) {
         m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, MONSTER, HERO, SPIRIT_OF_DURTHU};
         m_weapons = {&m_verdantBlast, &m_guardianSword, &m_massiveImpalingTalons};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalBraveryMod.connect(this, &SpiritOfDurthu::championOfTheEverqueensWill, &m_connection);
     }

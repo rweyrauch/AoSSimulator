@@ -25,6 +25,7 @@ namespace Seraphon {
             m_staff(Weapon::Type::Melee, "Serpent Staff", 1, 2, 4, 3, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARPRIEST};
         m_weapons = {&m_venombolt, &m_staff};
+        m_battleFieldRole = Leader;
     }
 
     bool SkinkStarpriest::configure(Lore lore) {

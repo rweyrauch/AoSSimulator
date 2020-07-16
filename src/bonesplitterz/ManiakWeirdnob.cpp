@@ -13,7 +13,7 @@
 namespace Bonesplitterz {
     static const int BASESIZE = 32;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int POINTS_PER_UNIT = 140;
 
     bool ManiakWeirdnob::s_registered = false;
 
@@ -71,7 +71,7 @@ namespace Bonesplitterz {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, MANIAK_WEIRDNOB};
         m_weapons = {&m_bonebeastStaff, &m_tusksAndHooves};
         m_hasMount = true;
-
+        m_battleFieldRole = Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

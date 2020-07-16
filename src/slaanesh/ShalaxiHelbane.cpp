@@ -14,7 +14,7 @@
 namespace Slaanesh {
     static const int BASESIZE = 100;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 340;
+    static const int POINTS_PER_UNIT = 360;
 
     struct TableEntry {
         int m_move;
@@ -43,6 +43,7 @@ namespace Slaanesh {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS,
                       SHALAXI_HELBANE};
         m_weapons = {&m_livingWhip, &m_soulpiercer, &m_impalingClaws};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

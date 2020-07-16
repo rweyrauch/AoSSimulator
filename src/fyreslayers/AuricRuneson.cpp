@@ -25,6 +25,7 @@ namespace Fyreslayers {
             m_javelinMelee(Weapon::Type::Melee, "Wyrmslayer Javelin", 3, 1, 3, 3, -1, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNESON};
         m_weapons = {&m_throwingAxe, &m_javelin, &m_warAxe, &m_javelinMelee};
+        m_battleFieldRole = Leader;
     }
 
     bool AuricRuneson::configure() {

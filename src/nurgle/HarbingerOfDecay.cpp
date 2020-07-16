@@ -63,6 +63,7 @@ namespace Nurgle {
             m_bite(Weapon::Type::Melee, "Daemonic Mount's Flyblown Bite", 1, RAND_D6, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, HARBINGER_OF_DECAY};
         m_weapons = {&m_scythe, &m_bite};
+        m_battleFieldRole = Leader;
     }
 
     bool HarbingerOfDecay::configure() {

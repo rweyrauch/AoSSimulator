@@ -124,6 +124,7 @@ namespace CitiesOfSigmar {
             m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, HERO, DREADLORD};
         m_weapons = {&m_crossbow, &m_noxiousBreath, &m_blade, &m_lance, &m_jaws, &m_claws};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
     }
 

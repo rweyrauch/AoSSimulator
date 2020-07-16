@@ -24,6 +24,7 @@ namespace Khorne {
             m_bloodWhip(Weapon::Type::Melee, "Blood Whip", 3, 3, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, BLOODSTOKER};
         m_weapons = {&m_tortureBlade, &m_bloodWhip};
+        m_battleFieldRole = Leader;
     }
 
     bool Bloodstoker::configure() {

@@ -24,6 +24,7 @@ namespace Seraphon {
             m_lightning(Weapon::Type::Melee, "Azure Lightning", 3, 6, 4, 3, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER};
         m_weapons = {&m_lightning};
+        m_battleFieldRole = Leader;
     }
 
     bool SlannStarmaster::configure(Lore lore) {

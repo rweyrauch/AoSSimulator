@@ -74,7 +74,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_BLUE_SCRIBES};
         m_weapons = {&m_quills, &m_teethAndHorns};
         m_hasMount = true;
-
+        m_battleFieldRole = Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

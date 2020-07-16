@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 25;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int POINTS_PER_UNIT = 100;
 
     bool HagQueen::s_registered = false;
 
@@ -22,6 +22,7 @@ namespace DaughtersOfKhaine {
             m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN};
         m_weapons = {&m_bladeOfKhaine};
+        m_battleFieldRole = Leader;
     }
 
     bool HagQueen::configure(Prayer prayer) {

@@ -23,6 +23,7 @@ namespace Fyreslayers {
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_grandAxe};
+        m_battleFieldRole = Leader;
     }
 
     bool AuricRunefather::configure() {

@@ -65,6 +65,7 @@ namespace Skaven {
             m_catcher(Weapon::Type::Melee, "Things-catcher", 2, 4, 4, 4, -1, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, HERO, MASTER_MOULDER};
         m_weapons = {&m_lash, &m_catcher};
+        m_battleFieldRole = Leader;
 
         s_globalToHitMod.connect(this, &MasterMoulder::crackTheWhip, &m_whipSlot);
         s_globalBraveryMod.connect(this, &MasterMoulder::crackTheWhipBravery, &m_whipBraverySlot);

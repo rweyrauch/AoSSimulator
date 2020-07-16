@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 13;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 330;
 
     struct TableEntry {
         int m_move;
@@ -44,6 +44,7 @@ namespace DaughtersOfKhaine {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, TOTEM, HERO, PRIEST, WITCH_AELVES, SLAUGHTER_QUEEN,
                       AVATAR_OF_KHAINE, CAULDRON_OF_BLOOD};
         m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_deathsword, &m_sword};
+        m_battleFieldRole = LeaderBehemoth;
 
         // Pact of Blood
         m_totalUnbinds = 1;

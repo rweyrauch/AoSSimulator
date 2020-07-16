@@ -14,8 +14,8 @@ namespace Skaven {
     static const int WOUNDS = 4;
     static const int MIN_UNIT_SIZE = 2;
     static const int MAX_UNIT_SIZE = 8;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int POINTS_PER_BLOCK = 90;
+    static const int POINTS_MAX_UNIT_SIZE = 360;
 
     bool RatOgors::s_registered = false;
 

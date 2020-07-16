@@ -66,6 +66,7 @@ namespace IdonethDeepkin {
             m_bill(Weapon::Type::Melee, "Rakerdart's Serrated Bill", 3, RAND_D3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, SOULRENDER};
         m_weapons = {&m_talunhook, &m_bill};
+        m_battleFieldRole = Leader;
     }
 
     bool IsharannSoulrender::configure() {

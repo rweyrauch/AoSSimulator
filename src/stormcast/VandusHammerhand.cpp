@@ -14,7 +14,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 280;
+    static const int POINTS_PER_UNIT = 260;
 
     bool VandusHammerhand::s_registered = false;
 
@@ -25,6 +25,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT,
                       VANDUS_HAMMERHAND};
         m_weapons = {&m_heldensen, &m_clawsAndFangs};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &VandusHammerhand::lordOfTheHammerhandsBraveryMod, &m_lordSlot);

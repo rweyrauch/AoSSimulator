@@ -26,6 +26,7 @@ namespace BeastsOfChaos {
             m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS};
         m_weapons = {&m_gorBlade, &m_gorBladeFoeRender};
+        m_battleFieldRole = Battleline;
     }
 
     bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer) {

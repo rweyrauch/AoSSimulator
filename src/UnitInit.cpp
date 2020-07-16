@@ -34,6 +34,7 @@
 #include "death/LegionOfNagash.h"
 #include "tzeentch/TzeentchBase.h"
 #include "lumineth/LuminethRealmLords.h"
+#include "behemat/SonsOfBehemat.h"
 
 #include "eldritchcouncil/Swordmasters.h"
 #include "eldritchcouncil/Loremaster.h"
@@ -89,6 +90,7 @@ void Initialize(Verbosity verbosity) {
     Nurgle::Init();
     Death::Init();
     LuminethRealmLords::Init();
+    SonsOfBehemat::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

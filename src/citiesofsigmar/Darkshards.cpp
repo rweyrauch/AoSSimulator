@@ -73,6 +73,7 @@ namespace CitiesOfSigmar {
             m_crossbowMaster(Weapon::Type::Missile, "Repeater Crossbow", 16, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, DARKSHARDS};
         m_weapons = {&m_crossbow, &m_dagger, &m_crossbowMaster};
+        m_battleFieldRole = Battleline;
     }
 
     bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower) {

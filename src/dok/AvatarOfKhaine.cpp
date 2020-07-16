@@ -22,6 +22,7 @@ namespace DaughtersOfKhaine {
             m_sword(Weapon::Type::Melee, "Avatar of Khaine's Sword", 2, 4, 3, 3, -2, 3) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, TOTEM, AVATAR_OF_KHAINE};
         m_weapons = {&m_torrentOfBurningBlood, &m_sword};
+        m_battleFieldRole = Behemoth;
 
         s_globalBraveryMod.connect(this, &AvatarOfKhaine::idolOfWorship, &m_idolSlot);
     }

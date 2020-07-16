@@ -15,8 +15,8 @@ namespace StormcastEternals {
     static const int WOUNDS = 5;
     static const int MIN_UNIT_SIZE = 2;
     static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 220;
-    static const int POINTS_MAX_UNIT_SIZE = 1320;
+    static const int POINTS_PER_BLOCK = 190;
+    static const int POINTS_MAX_UNIT_SIZE = 6 * POINTS_PER_BLOCK;
 
     bool Desolators::s_registered = false;
 

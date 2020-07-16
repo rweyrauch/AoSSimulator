@@ -52,6 +52,7 @@ namespace Nighthaunt {
             m_claws(Weapon::Type::Melee, "Wraith Herald's Spectral Claws", 1, 6, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KURDOSS_VALENTIAN};
         m_weapons = {&m_sceptre, &m_claws};
+        m_battleFieldRole = Leader;
     }
 
     bool KurdossValentian::configure() {

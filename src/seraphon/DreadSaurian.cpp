@@ -41,6 +41,7 @@ namespace Seraphon {
             m_armouredTail(Weapon::Type::Melee, "Armoured Tail", 2, 1, 4, 3, -1, RAND_D6) {
         m_keywords = {ORDER, SERAPHON, MONSTER, TOTEM, DREAD_SAURIAN};
         m_weapons = {&m_gargantuanJaws, &m_rakingClaws, &m_armouredTail};
+        m_battleFieldRole = Behemoth;
 
         s_globalBraveryMod.connect(this, &DreadSaurian::terror, &m_terrorSlot);
     }

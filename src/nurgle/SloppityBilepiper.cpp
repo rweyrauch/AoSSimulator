@@ -61,6 +61,7 @@ namespace Nurgle {
             m_marotter(Weapon::Type::Melee, "Marotter", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SLOPPITY_BILEPIPER, HERALD_OF_NURGLE};
         m_weapons = {&m_marotter};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &SloppityBilepiperHeraldOfNurgle::diseaseOfMirthBraveryMod,
                                    &m_diseaseOfMirthSlot);

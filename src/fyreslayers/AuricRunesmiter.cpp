@@ -24,6 +24,7 @@ namespace Fyreslayers {
             m_latchAxe(Weapon::Type::Melee, "Latch-axe", 1, 1, 4, 3, 0, 2) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNESMITER};
         m_weapons = {&m_throwingAxe, &m_runicIron, &m_latchAxe};
+        m_battleFieldRole = Leader;
     }
 
     bool AuricRunesmiter::configure(Prayer prayer) {

@@ -63,6 +63,7 @@ namespace Skaven {
             m_knives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WARPLOCK_JEZZAILS};
         m_weapons = {&m_jezzail, &m_knives};
+        m_battleFieldRole = Artillery;
     }
 
     bool WarplockJezzails::configure(int numModels) {

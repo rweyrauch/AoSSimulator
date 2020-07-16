@@ -9,12 +9,13 @@
 #include <death/PrinceVhordrai.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
     static const int BASESIZE = 130;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 480;
+    static const int POINTS_PER_UNIT = 460;
 
     struct TableEntry {
         int m_move;
@@ -84,6 +85,9 @@ namespace Death {
             m_claws(Weapon::Type::Melee, "Shordemaire's Sword-like Claws", 2, 7, 4, 3, -1, 2) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, PRINCE_VHORDRAI};
         m_weapons = {&m_bloodlance, &m_maw, &m_claws};
+        m_battleFieldRole = LeaderBehemoth;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool PrinceVhordrai::configure(Lore lore) {
@@ -92,6 +96,9 @@ namespace Death {
         model->addMeleeWeapon(&m_maw);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = POINTS_PER_UNIT;
 

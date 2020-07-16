@@ -12,7 +12,7 @@
 namespace Skaven {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 160;
+    static const int POINTS_PER_UNIT = 150;
 
     bool Plagueclaw::s_registered = false;
 
@@ -50,6 +50,7 @@ namespace Skaven {
             m_knives(Weapon::Type::Melee, "Rusty Knives", 1, RAND_D6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, WAR_MACHINE, PLAGUECLAW};
         m_weapons = {&m_catapult, &m_knives};
+        m_battleFieldRole = Artillery;
     }
 
     bool Plagueclaw::configure() {

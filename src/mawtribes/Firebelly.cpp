@@ -63,6 +63,7 @@ namespace OgorMawtribes {
             m_hammer(Weapon::Type::Melee, "Basalt Hammer", 2, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, HERO, WIZARD, FIREBELLY};
         m_weapons = {&m_fireBreath, &m_hammer};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

@@ -107,6 +107,7 @@ namespace SlavesToDarkness {
             m_talon(Weapon::Type::Melee, "Daemonbone Talon", 2, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, MONSTER, MARK_OF_CHAOS, SOUL_GRINDER};
         m_weapons = {&m_cannon, &m_phlegm, &m_legs, &m_claw, &m_blade, &m_talon};
+        m_battleFieldRole = Behemoth;
 
         // Implacable Advance
         m_runAndShoot = true;

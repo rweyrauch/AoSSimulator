@@ -14,8 +14,8 @@ namespace SlavesToDarkness {
     static const int WOUNDS = 1;
     static const int MIN_UNIT_SIZE = 20;
     static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 150;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int POINTS_PER_BLOCK = 160;
+    static const int POINTS_MAX_UNIT_SIZE = 320;
 
     bool ChaosMarauders::s_registered = false;
 
@@ -71,6 +71,7 @@ namespace SlavesToDarkness {
             m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDERS};
         m_weapons = {&m_axe, &m_flail, &m_axeChieftain, &m_flailChieftain};
+        m_battleFieldRole = Battleline;
 
         s_globalBraveryMod.connect(this, &ChaosMarauders::iconBearer, &m_connection);
     }

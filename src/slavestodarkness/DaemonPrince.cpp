@@ -91,6 +91,7 @@ namespace SlavesToDarkness {
             m_talons(Weapon::Type::Melee, "Malefic Talons", 1, 3, 3, 3, 0, 2) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, HERO, MARK_OF_CHAOS, DAEMON_PRINCE};
         m_weapons = {&m_axe, &m_sword, &m_talons};
+        m_battleFieldRole = Leader;
     }
 
     bool DaemonPrince::configure(WeaponOption option) {

@@ -12,7 +12,7 @@
 namespace OgorMawtribes {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 340;
+    static const int POINTS_PER_UNIT = 300;
 
     struct TableEntry {
         int m_move;
@@ -114,6 +114,7 @@ namespace OgorMawtribes {
                       HUSKARD};
         m_hasMount = true;
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
+        m_battleFieldRole = LeaderBehemoth;
     }
 
     bool HuskardOnThundertusk::configure(WeaponOption option, MountTrait mountTrait, Prayer prayer) {

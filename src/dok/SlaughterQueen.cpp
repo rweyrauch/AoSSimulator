@@ -23,6 +23,7 @@ namespace DaughtersOfKhaine {
             m_deathsword(Weapon::Type::Melee, "Deathsword", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, SLAUGHTER_QUEEN};
         m_weapons = {&m_bladeOfKhaine, &m_deathsword};
+        m_battleFieldRole = Leader;
 
         // Pact of Blood
         m_totalUnbinds = 1;

@@ -26,6 +26,7 @@ namespace CitiesOfSigmar {
             m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave", 2, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, ETERNAL_GUARD};
         m_weapons = {&m_spearStave, &m_spearStaveWarden};
+        m_battleFieldRole = Battleline;
     }
 
     bool EternalGuard::configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields) {

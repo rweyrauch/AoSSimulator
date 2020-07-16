@@ -54,6 +54,7 @@ namespace Nurgle {
             m_claws(Weapon::Type::Melee, "Monstrous Claws", 3, 5, 4, 2, -1, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, MORBIDEX_TWICEBORN};
         m_weapons = {&m_tongues, &m_scythe, &m_claws};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalToWoundMod.connect(this, &MorbidexTwiceborn::maliciousMitesWoundMod, &m_maliciousMitesSlot);
     }

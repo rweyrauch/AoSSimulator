@@ -14,7 +14,7 @@
 namespace Slaanesh {
     static const int BASESIZE = 25;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int POINTS_PER_UNIT = 210;
 
     bool TheContortedEpitome::s_registered = false;
 
@@ -25,6 +25,7 @@ namespace Slaanesh {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH,
                       THE_CONTORTED_EPITOME};
         m_weapons = {&m_ravagingClaws, &m_coiledTentacles};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

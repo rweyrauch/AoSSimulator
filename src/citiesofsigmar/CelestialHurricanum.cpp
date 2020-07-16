@@ -104,6 +104,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, CELESTIAL_HURRICANUM};
         m_weapons = {&m_stormOfShemtek, &m_wizardStaff, &m_arcaneTools, &m_hooves};
         m_hasMount = true;
+        m_battleFieldRole = Behemoth;
 
         s_globalCastMod.connect(this, &CelestialHurricanum::locusOfAzyr, &m_locusConnection);
         s_globalToHitMod.connect(this, &CelestialHurricanum::portentsOfBattle, &m_portentsConnection);
@@ -118,7 +119,7 @@ namespace CitiesOfSigmar {
         if (battlemage) {
             addKeyword(WIZARD);
             addKeyword(HERO);
-
+            m_battleFieldRole = LeaderBehemoth;
             m_totalSpells = 1;
             m_totalUnbinds = 1;
         }

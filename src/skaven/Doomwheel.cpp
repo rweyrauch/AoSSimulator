@@ -12,7 +12,7 @@
 namespace Skaven {
     static const int BASESIZE = 105; // x70 oval
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
+    static const int POINTS_PER_UNIT = 150;
 
     bool Doomwheel::s_registered = false;
 
@@ -23,6 +23,7 @@ namespace Skaven {
             m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, 6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, DOOMWHEEL};
         m_weapons = {&m_warpBolts, &m_grindingWheel, &m_teethAndKnives};
+        m_battleFieldRole = Behemoth;
     }
 
     bool Doomwheel::configure() {

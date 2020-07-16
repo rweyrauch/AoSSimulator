@@ -78,6 +78,7 @@ namespace Skaven {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, MASTERCLAN, MONSTER, HERO, WIZARD,
                       LORD_SKREECH_VERMINKING};
         m_weapons = {&m_tails, &m_glaive, &m_plaguereaper};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalBraveryMod.connect(this, &LordSkreechVerminking::terrifying, &m_connection);
 

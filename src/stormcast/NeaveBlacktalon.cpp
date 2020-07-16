@@ -14,7 +14,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 40;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int POINTS_PER_UNIT = 110;
 
     bool NeaveBlacktalon::s_registered = false;
 
@@ -25,6 +25,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, KNIGHT_ZEPHYROS,
                       NEAVE_BLACKTALON};
         m_weapons = {&m_boltstormPistol, &m_whirlwindAxes};
+        m_battleFieldRole = Leader;
 
         // Tireless hunter
         m_runAndShoot = true;

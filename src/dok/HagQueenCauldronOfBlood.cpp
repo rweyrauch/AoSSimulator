@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 13;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 290;
 
     struct TableEntry {
         int m_move;
@@ -43,6 +43,7 @@ namespace DaughtersOfKhaine {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, WITCH_AELVES, HAG_QUEEN, AVATAR_OF_KHAINE,
                       CAULDRON_OF_BLOOD};
         m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_sword};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalBraveryMod.connect(this, &HagQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
         s_globalSaveMod.connect(this, &HagQueenOnCauldronOfBlood::bloodShield, &m_bloodshieldSlot);

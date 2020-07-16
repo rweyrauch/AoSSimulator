@@ -63,6 +63,7 @@ namespace SlavesToDarkness {
             m_wand(Weapon::Type::Melee, "Darkoath Wand", 1, 2, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, WIZARD, GOD_SPEAKER, THEDDRA_SKULL_SCRYER};
         m_weapons = {&m_wand};
+        m_battleFieldRole = Leader;
     }
 
     bool TheddraSkullscryer::configure(Lore lore) {

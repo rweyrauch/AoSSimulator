@@ -76,6 +76,7 @@ namespace CitiesOfSigmar {
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, HERO, ANOINTED};
         m_weapons = {&m_halberd};
+        m_battleFieldRole = Leader;
         // Blessing of the Ur-Phoenix
         m_totalUnbinds = 1;
     }

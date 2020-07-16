@@ -53,6 +53,7 @@ namespace Nurgle {
             m_teeth(Weapon::Type::Melee, "Tiny Razor-sharp Teeth", 1, 5, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, EPIDEMIUS, TALLYMAN_OF_NURGLE};
         m_weapons = {&m_balesword, &m_teeth};
+        m_battleFieldRole = Leader;
     }
 
     bool EpidemiusTallymanOfNurgle::configure() {

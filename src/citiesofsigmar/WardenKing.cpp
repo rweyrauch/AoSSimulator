@@ -13,7 +13,7 @@
 namespace CitiesOfSigmar {
     static const int BASESIZE = 25;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 110;
+    static const int POINTS_PER_UNIT = 100;
 
     bool WardenKing::s_registered = false;
 
@@ -22,6 +22,7 @@ namespace CitiesOfSigmar {
             m_runeWeapon(Weapon::Type::Melee, "Rune Hammer", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
         m_weapons = {&m_runeWeapon};
+        m_battleFieldRole = Leader;
     }
 
     bool WardenKing::configure() {

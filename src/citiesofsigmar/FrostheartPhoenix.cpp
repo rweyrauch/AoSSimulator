@@ -96,7 +96,7 @@ namespace CitiesOfSigmar {
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FROSTHEART_PHOENIX};
         m_weapons = {&m_talons, &m_halberd};
-
+        m_battleFieldRole = Behemoth;
         s_globalToWoundMod.connect(this, &FrostheartPhoenix::blizzardAura, &m_connection);
     }
 
@@ -107,6 +107,7 @@ namespace CitiesOfSigmar {
     bool FrostheartPhoenix::configure(bool anointed, Lore lore) {
         if (anointed) {
             addKeyword(HERO);
+            m_battleFieldRole = LeaderBehemoth;
         }
 
         auto model = new Model(BASESIZE, wounds());

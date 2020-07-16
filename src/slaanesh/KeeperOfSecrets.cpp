@@ -15,7 +15,7 @@
 namespace Slaanesh {
     static const int BASESIZE = 100;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 360;
+    static const int POINTS_PER_UNIT = 380;
 
     struct TableEntry {
         int m_move;
@@ -44,6 +44,7 @@ namespace Slaanesh {
             m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5) {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS};
         m_weapons = {&m_livingWhip, &m_ritualKnifeOrHand, &m_greatblade, &m_impalingClaws};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

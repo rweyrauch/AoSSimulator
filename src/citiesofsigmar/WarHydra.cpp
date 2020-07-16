@@ -81,6 +81,7 @@ namespace CitiesOfSigmar {
             m_goadAndWhips(Weapon::Type::Melee, "Cruel Goads and Whips", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, WAR_HYDRA};
         m_weapons = {&m_fieryBreath, &m_fangs, &m_limbs, &m_goadAndWhips};
+        m_battleFieldRole = Behemoth;
     }
 
     bool WarHydra::configure() {

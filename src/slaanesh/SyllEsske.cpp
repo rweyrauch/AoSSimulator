@@ -25,6 +25,7 @@ namespace Slaanesh {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, SYLL_ESSKE,
                       THE_VENGEFUL_ALLEGIANCE};
         m_weapons = {&m_axeOfDominion, &m_scourgingWhip};
+        m_battleFieldRole = Leader;
 
         // Lithe and Swift
         m_runAndCharge = true;

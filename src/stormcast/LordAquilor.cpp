@@ -15,7 +15,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 180;
+    static const int POINTS_PER_UNIT = 170;
 
     bool LordAquilor::s_registered = false;
 
@@ -27,6 +27,7 @@ namespace StormcastEternals {
             m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, HERO, LORD_AQUILOR};
         m_weapons = {&m_boltstormPistol, &m_starboundBlade, &m_shockHandaxe, &m_beakAndClaws};
+        m_battleFieldRole = Leader;
     }
 
     bool LordAquilor::configure(bool astralCompass) {

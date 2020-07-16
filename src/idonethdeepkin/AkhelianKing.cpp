@@ -13,7 +13,7 @@
 namespace IdonethDeepkin {
     static const int BASESIZE = 60;
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT = 230;
 
     bool AkhelianKing::s_registered = false;
 
@@ -26,6 +26,8 @@ namespace IdonethDeepkin {
             m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, HERO, AKHELIAN, AKHELIAN_KING};
         m_weapons = {&m_bladedPolearm, &m_greatsword, &m_falchion, &m_deepmareJawsTalons, &m_deepmareTails};
+        m_battleFieldRole = Leader;
+
         m_hasMount = true;
     }
 

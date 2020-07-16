@@ -73,6 +73,7 @@ namespace OgorMawtribes {
             m_assortedWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 3, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER, SLAUGHTERMASTER};
         m_weapons = {&m_stumpBlades, &m_bite, &m_assortedWeapons};
+        m_battleFieldRole = Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

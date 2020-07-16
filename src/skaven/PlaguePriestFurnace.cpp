@@ -84,6 +84,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, WAR_MACHINE, HERO, PRIEST,
                       PLAGUE_FURNACE, PLAGUE_PRIEST};
         m_weapons = {&m_censer, &m_staff, &m_blades, &m_spikes};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalBraveryMod.connect(this, &PlaguePriestOnPlagueFurnace::altarOfTheHornedRat, &m_connection);
     }

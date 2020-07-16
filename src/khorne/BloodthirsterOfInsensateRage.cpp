@@ -41,6 +41,7 @@ namespace Khorne {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO,
                       BLOODTHIRSTER_OF_INSENSATE_RAGE};
         m_weapons = {&m_greatAxeOfKhorne};
+        m_battleFieldRole = LeaderBehemoth;
     }
 
     bool BloodthirsterOfInsensateRage::configure() {

@@ -24,6 +24,7 @@ namespace StormcastEternals {
             m_starblade(Weapon::Type::Melee, "Starblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_AZYROS};
         m_weapons = {&m_starblade};
+        m_battleFieldRole = Leader;
 
         s_globalToHitReroll.connect(this, &KnightAzyros::illuminatorOfTheLostReroll, &m_illuminatorSlot);
     }

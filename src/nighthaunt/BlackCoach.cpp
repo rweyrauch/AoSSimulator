@@ -68,6 +68,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmares' Hooves and Teeth", 1, 8, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, BLACK_COACH};
         m_weapons = {&m_graspMissile, &m_scythe, &m_grasp, &m_claws, &m_hoovesAndTeeth};
+        m_battleFieldRole = Behemoth;
     }
 
     bool BlackCoach::configure() {

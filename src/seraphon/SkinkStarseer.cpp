@@ -25,6 +25,7 @@ namespace Seraphon {
             m_staff(Weapon::Type::Melee, "Astromancer's Staff", 2, 2, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARSEER};
         m_weapons = {&m_astralBolt, &m_staff};
+        m_battleFieldRole = Leader;
     }
 
     bool SkinkStarseer::configure(Lore lore) {

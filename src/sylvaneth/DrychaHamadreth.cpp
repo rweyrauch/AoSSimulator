@@ -15,7 +15,7 @@
 namespace Sylvaneth {
     static const int BASESIZE = 105; // x70 oval
     static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 320;
+    static const int POINTS_PER_UNIT = 300;
 
     bool DrychaHamadreth::s_registered = false;
 
@@ -43,6 +43,7 @@ namespace Sylvaneth {
             m_slashingTalons(Weapon::Type::Melee, "Slashing Talons", 2, 6, 4, 3, -2, 2) {
         m_keywords = {ORDER, SYLVANETH, OUTCASTS, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
         m_weapons = {&m_colonyOfFlitterfuries, &m_swarmOfSquirmlings, &m_slashingTalons};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalToWoundReroll.connect(this, &DrychaHamadreth::songOfSpiteToWoundRerolls, &m_songSlot);
 

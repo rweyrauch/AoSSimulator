@@ -24,6 +24,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, LORD_CELESTANT,
                       GAVRIEL_SUREHEART};
         m_weapons = {&m_starboundBlade};
+        m_battleFieldRole = Leader;
     }
 
     bool GavrielSureheart::configure() {

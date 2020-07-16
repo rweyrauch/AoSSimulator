@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 40;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 480;
 
     bool MorathiHighOracleOfKhaine::s_registered = false;
 
@@ -23,6 +23,7 @@ namespace DaughtersOfKhaine {
             m_wings(Weapon::Type::Melee, "Bladed Wings", 2, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, WIZARD, MORATHI, HIGH_ORACLE_OF_KHAINE};
         m_weapons = {&m_heartrender, &m_wings};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 3;
         m_totalUnbinds = 2;

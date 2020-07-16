@@ -14,7 +14,7 @@
 namespace BeastsOfChaos {
     static const int BASESIZE = 90; // x52 oval;
     static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 180;
+    static const int POINTS_PER_UNIT = 170;
 
     bool DragonOgorShaggoth::s_registered = false;
 
@@ -25,7 +25,7 @@ namespace BeastsOfChaos {
             m_talonedForelimbs(Weapon::Type::Melee, "Taloned Forelimbs", 1, 2, 3, 3, -1, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, THUNDERSCORN, DRAGON_OGOR, MONSTER, HERO, WIZARD, SHAGGOTH};
         m_weapons = {&m_stormWroughtAxe, &m_sweepingTail, &m_talonedForelimbs};
-
+        m_battleFieldRole = Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

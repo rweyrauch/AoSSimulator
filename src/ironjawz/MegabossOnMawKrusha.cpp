@@ -44,6 +44,7 @@ namespace Ironjawz {
         m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
         m_weapons = {&m_bellow, &m_hackaAndChoppa, &m_ripToofFist, &m_fistsAndTail};
         m_hasMount = true;
+        m_battleFieldRole = LeaderBehemoth;
     }
 
     bool MegabossOnMawKrusha::configure(WeaponOption weapons, MountTrait trait) {

@@ -62,6 +62,7 @@ namespace OgorMawtribes {
             m_horns(Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, GNOBLAR_SCRAPLAUNCHER};
         m_weapons = {&m_scrap, &m_scrapperWeapons, &m_horns};
+        m_battleFieldRole = Artillery;
     }
 
     bool GnoblarScraplauncher::configure() {

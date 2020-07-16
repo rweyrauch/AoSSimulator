@@ -15,7 +15,7 @@
 namespace GloomspiteGitz {
     static const int BASESIZE = 60;
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 270;
+    static const int POINTS_PER_UNIT = 250;
 
     bool DankholdTroggboss::s_registered = false;
 
@@ -24,6 +24,7 @@ namespace GloomspiteGitz {
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
         m_weapons = {&m_boulderClub};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &DankholdTroggboss::reassuringPresence, &m_connection);
     }

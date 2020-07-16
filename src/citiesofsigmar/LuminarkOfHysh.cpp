@@ -102,6 +102,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, LUMINARK_OF_HYSH};
         m_weapons = {&m_beamOfLight, &m_wizardsStaff, &m_arcaneTools, &m_hooves};
         m_hasMount = true;
+        m_battleFieldRole = Behemoth;
 
         s_globalUnbindMod.connect(this, &LuminarkOfHysh::locusOfHysh, &m_locusSlot);
     }
@@ -114,7 +115,7 @@ namespace CitiesOfSigmar {
         if (battlemage) {
             addKeyword(WIZARD);
             addKeyword(HERO);
-
+            m_battleFieldRole = LeaderBehemoth;
             m_totalSpells = 1;
             m_totalUnbinds = 1;
         }

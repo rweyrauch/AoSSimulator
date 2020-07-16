@@ -12,7 +12,7 @@
 namespace KharadronOverlords {
     static const int BASESIZE = 0;
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 220;
+    static const int POINTS_PER_UNIT = 190;
 
     bool EndrinmasterWithDirigibleSuit::s_registered = false;
 
@@ -76,6 +76,7 @@ namespace KharadronOverlords {
             m_saw(Weapon::Type::Melee, "Aethermatic Saw", 1, 3, 3, 2, -2, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, ENDRINMASTER};
         m_weapons = {&m_aethercannon, &m_weaponBattery, &m_gaze, &m_saw};
+        m_battleFieldRole = Leader;
     }
 
     bool EndrinmasterWithDirigibleSuit::configure() {

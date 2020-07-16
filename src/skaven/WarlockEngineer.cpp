@@ -15,7 +15,7 @@
 namespace Skaven {
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int POINTS_PER_UNIT = 110;
 
     bool WarlockEngineer::s_registered = false;
 
@@ -67,6 +67,7 @@ namespace Skaven {
             m_blade(Weapon::Type::Melee, "Warp-energy Blade", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, HERO, WIZARD, WARLOCK_ENGINEER};
         m_weapons = {&m_pistol, &m_blade};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

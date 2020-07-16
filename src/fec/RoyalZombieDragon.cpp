@@ -41,6 +41,7 @@ namespace FleshEaterCourt {
             m_swordlikeClaws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2) {
         m_keywords = {DEATH, FLESH_EATER_COURTS, MENAGERIE, MONSTER, ROYAL_ZOMBIE_DRAGON};
         m_weapons = {&m_pestilentialBreath, &m_snappingMaw, &m_swordlikeClaws};
+        m_battleFieldRole = Behemoth;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

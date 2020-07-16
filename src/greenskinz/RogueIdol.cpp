@@ -13,7 +13,7 @@
 namespace Greenskinz {
     static const int BASESIZE = 170; // x105 oval
     static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 400;
+    static const int POINTS_PER_UNIT = 420;
 
     struct TableEntry {
         int m_move;
@@ -40,6 +40,7 @@ namespace Greenskinz {
             m_stompinFeet(Weapon::Type::Melee, "Stompin' Feet", 2, 10, 3, 3, -2, 2) {
         m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
         m_weapons = {&m_boulderFists, &m_stompinFeet};
+        m_battleFieldRole = Behemoth;
     }
 
     bool RogueIdol::configure() {

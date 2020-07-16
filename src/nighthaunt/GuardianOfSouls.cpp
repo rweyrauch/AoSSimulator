@@ -13,7 +13,7 @@
 namespace Nighthaunt {
     static const int BASESIZE = 32;
     static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int POINTS_PER_UNIT = 130;
 
     bool GuardianOfSouls::s_registered = false;
 
@@ -65,6 +65,7 @@ namespace Nighthaunt {
             m_maul(Weapon::Type::Melee, "Maul of Judgement", 1, 2, 3, 3, 0, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, GUARDIAN_OF_SOULS};
         m_weapons = {&m_blade, &m_maul};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

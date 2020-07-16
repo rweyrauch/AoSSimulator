@@ -16,7 +16,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 40;
     static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 160;
+    static const int POINTS_PER_UNIT = 150;
 
     bool LordArcanum::s_registered = false;
 
@@ -25,6 +25,7 @@ namespace StormcastEternals {
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
         m_weapons = {&m_aetherstave};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

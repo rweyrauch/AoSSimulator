@@ -23,6 +23,7 @@ namespace Khorne {
             m_brazenAnvil(Weapon::Type::Melee, "Brazen Anvil", 2, 3, 3, 2, -1, 3) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKULLGRINDER};
         m_weapons = {&m_brazenAnvil};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &Skullgrinder::favouredByKhorne, &m_connection);
     }

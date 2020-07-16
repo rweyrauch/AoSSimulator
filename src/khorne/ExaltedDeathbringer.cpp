@@ -25,6 +25,7 @@ namespace Khorne {
             m_impalingSpear(Weapon::Type::Melee, "Impaling Spear", 2, 5, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, EXALTED_DEATHBRINGER};
         m_weapons = {&m_ruinousAxe, &m_bloodbiteAxe, &m_impalingSpear};
+        m_battleFieldRole = Leader;
     }
 
     bool ExaltedDeathbringer::configure(WeaponOption weapon) {

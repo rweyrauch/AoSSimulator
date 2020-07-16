@@ -23,6 +23,7 @@ namespace Khorne {
             m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, TOTEM, BLOODSECRATOR};
         m_weapons = {&m_ensorcelledAxe};
+        m_battleFieldRole = Leader;
 
         s_globalAttackMod.connect(this, &Bloodsecrator::rageOfKhorneAttackMod, &m_rageOfKhorneSlot);
     }

@@ -76,6 +76,7 @@ namespace OssiarchBonereapers {
             m_talons(Weapon::Type::Melee, "Ossified Talons", 1, 2, 3, 4, 0, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_BONESHAPER};
         m_weapons = {&m_talons};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

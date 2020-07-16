@@ -54,6 +54,7 @@ namespace Nurgle {
             m_claws(Weapon::Type::Melee, "Whippermaw's Monstrous Claws", 3, 5, 4, 2, -1, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, ORGHOTTS_DAEMONSPEW};
         m_weapons = {&m_tongue, &m_rotaxes, &m_claws};
+        m_battleFieldRole = LeaderBehemoth;
     }
 
     bool OrghottsDaemonspew::configure() {

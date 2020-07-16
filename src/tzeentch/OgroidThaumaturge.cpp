@@ -63,6 +63,7 @@ namespace Tzeentch {
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 4, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, WIZARD, OGROID_THAUMATURGE};
         m_weapons = {&m_staff, &m_horns, &m_hooves};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

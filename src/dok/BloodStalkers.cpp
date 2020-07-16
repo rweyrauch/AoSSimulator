@@ -16,8 +16,8 @@ namespace DaughtersOfKhaine {
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 160;
-    static const int POINTS_MAX_UNIT_SIZE = 640;
+    static const int POINTS_PER_BLOCK = 120;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
 
     bool BloodStalkers::s_registered = false;
 

@@ -16,7 +16,7 @@ namespace GloomspiteGitz {
     static const int MIN_UNIT_SIZE = 20;
     static const int MAX_UNIT_SIZE = 60;
     static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int POINTS_MAX_UNIT_SIZE = 360;
 
     bool Shootas::s_registered = false;
 
@@ -29,6 +29,7 @@ namespace GloomspiteGitz {
             m_barbedNet(Weapon::Type::Melee, "Barbed Net", 2, 3, 4, 5, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SHOOTAS};
         m_weapons = {&m_slitta, &m_slittaBoss, &m_moonclanBow, &m_moonclanBowBoss, &m_barbedNet};
+        m_battleFieldRole = Battleline;
     }
 
 

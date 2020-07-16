@@ -14,7 +14,7 @@
 namespace Khorne {
     static const int BASESIZE = 280; // x210 oval
     static const int WOUNDS = 30;
-    static const int POINTS_PER_UNIT = 1200;
+    static const int POINTS_PER_UNIT = 1100;
 
     struct TableEntry {
         int m_move;
@@ -47,6 +47,7 @@ namespace Khorne {
                       VORGAROTH_THE_SCARRED_AND_SKALOK_THE_SKULL_HOST_OF_KHORNE};
         m_weapons = {&m_balefire, &m_skullCleaverAxeOfKhorne, &m_evisceratingClaws, &m_cavernousJaws,
                      &m_brassPlatedTail};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
     }
 

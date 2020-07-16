@@ -17,7 +17,7 @@ namespace Tzeentch {
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 9;
     static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
 
 
     bool TzaangorEnlightenedOnDisks::s_registered = false;

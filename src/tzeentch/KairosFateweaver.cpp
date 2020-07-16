@@ -77,6 +77,7 @@ namespace Tzeentch {
             m_beakAndTalons(Weapon::Type::Melee, "Beak and Claws", 1, 5, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, MONSTER, HERO, WIZARD, LORD_OF_CHANGE, KAIROS_FATEWEAVER};
         m_weapons = {&m_staff, &m_beakAndTalons};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalSpells = 3;
         m_totalUnbinds = 3;

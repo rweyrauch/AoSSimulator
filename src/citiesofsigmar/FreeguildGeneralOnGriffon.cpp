@@ -100,6 +100,7 @@ namespace CitiesOfSigmar {
             m_beak(Weapon::Type::Melee, "Deadly Beak", 2, 2, 3, 3, -2, 4) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, MONSTER, HERO, FREEGUILD_GENERAL};
         m_weapons = {&m_runesword, &m_greathammer, &m_lance, &m_claws, &m_beak};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &FreeguildGeneralOnGriffon::piercingBloodroar, &m_connection);

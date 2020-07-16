@@ -44,6 +44,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, KHORNE, TZEENTCH, NURGLE, SLAANESH,
                       HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
         m_weapons = {&m_slayerOfKings, &m_dorgharsClaws, &m_dorgharsTails, &m_dorgharsHeads};
+        m_battleFieldRole = LeaderBehemoth;
 
         s_globalBraveryMod.connect(this, &Archaon::crownOfDomination, &m_connection);
 

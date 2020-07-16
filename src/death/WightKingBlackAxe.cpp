@@ -22,6 +22,7 @@ namespace Death {
             m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
         m_weapons = {&m_blackAxe};
+        m_battleFieldRole = Leader;
     }
 
     bool WightKingWithBlackAxe::configure() {

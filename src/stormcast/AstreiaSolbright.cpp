@@ -16,7 +16,7 @@
 namespace StormcastEternals {
     static const int BASESIZE = 90; // x52 oval
     static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 220;
+    static const int POINTS_PER_UNIT = 200;
 
     bool AstreiaSolbright::s_registered = false;
 
@@ -27,6 +27,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
                       WIZARD, LORD_ARCANUM, ASTREIA_SOLBRIGHT};
         m_weapons = {&m_aetherstave, &m_monstrousClaws};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &AstreiaSolbright::supernaturalRoar, &m_connection);

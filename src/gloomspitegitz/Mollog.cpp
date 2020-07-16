@@ -59,6 +59,7 @@ namespace GloomspiteGitz {
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, MOLLOG};
         m_weapons = {&m_jabbertoad, &m_club};
+        m_battleFieldRole = Leader;
 
         s_globalBraveryMod.connect(this, &Mollog::reassuringPresence, &m_connection);
     }

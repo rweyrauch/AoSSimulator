@@ -70,6 +70,7 @@ namespace Bonesplitterz {
             m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};
         m_weapons = {&m_bonebeastStikk};
+        m_battleFieldRole = Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

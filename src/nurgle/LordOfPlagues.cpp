@@ -22,6 +22,7 @@ namespace Nurgle {
             m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES};
         m_weapons = {&m_plagueriddenGreatBlade};
+        m_battleFieldRole = Leader;
     }
 
     bool LordOfPlagues::configure() {

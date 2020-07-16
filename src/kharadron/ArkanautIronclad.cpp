@@ -13,7 +13,7 @@
 namespace KharadronOverlords {
     static const int BASESIZE = 0;
     static const int WOUNDS = 18;
-    static const int POINTS_PER_UNIT = 510;
+    static const int POINTS_PER_UNIT = 480;
 
     struct TableEntry {
         int m_move;
@@ -112,6 +112,7 @@ namespace KharadronOverlords {
                      &m_torpedoes,
                      &m_carbines,
                      &m_boardingWeapons};
+        m_battleFieldRole = Behemoth;
     }
 
     bool ArkanautIronclad::configure(WeaponOption option, Endrinwork endrinwork) {

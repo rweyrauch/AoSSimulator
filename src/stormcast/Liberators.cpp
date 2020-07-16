@@ -16,8 +16,8 @@ namespace StormcastEternals {
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 520;
+    static const int POINTS_PER_BLOCK = 90;
+    static const int POINTS_MAX_UNIT_SIZE = 480;
 
     bool Liberators::s_registered = false;
 
@@ -31,6 +31,7 @@ namespace StormcastEternals {
             m_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
         m_weapons = {&m_warhammer, &m_warhammerPrime, &m_warblade, &m_warbladePrime, &m_grandhammer, &m_grandblade};
+        m_battleFieldRole = Battleline;
     }
 
     bool

@@ -81,6 +81,7 @@ namespace CitiesOfSigmar {
             m_goadsAndWhips(Weapon::Type::Melee, "Cruel Goads and Whips", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, MONSTER, KHARIBDYSS};
         m_weapons = {&m_tentacles, &m_tail, &m_limbs, &m_goadsAndWhips};
+        m_battleFieldRole = Behemoth;
 
         s_globalBraveryMod.connect(this, &Kharibdyss::abyssalHowl, &m_connection);
     }

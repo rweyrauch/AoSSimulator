@@ -23,6 +23,7 @@ namespace Slaanesh {
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, THE_MASQUE};
         m_weapons = {&m_ravagingClaws};
+        m_battleFieldRole = Leader;
 
         // Lithe and Swift
         m_runAndCharge = true;

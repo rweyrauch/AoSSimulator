@@ -23,7 +23,7 @@ namespace BeastsOfChaos {
             m_fetishStaff(Weapon::Type::Melee, "Fetish Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, WIZARD, GREAT_BRAY_SHAMAN};
         m_weapons = {&m_fetishStaff};
-
+        m_battleFieldRole = Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
 

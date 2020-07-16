@@ -96,6 +96,7 @@ namespace OgorMawtribes {
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, TYRANT};
         m_weapons = {&m_pistols, &m_thundermace, &m_glaive, &m_bite};
+        m_battleFieldRole = Leader;
     }
 
     bool Tyrant::configure(BigName bigName) {

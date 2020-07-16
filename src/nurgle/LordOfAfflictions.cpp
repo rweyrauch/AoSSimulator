@@ -14,7 +14,7 @@
 namespace Nurgle {
     static const int BASESIZE = 60;
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 200;
+    static const int POINTS_PER_UNIT = 190;
 
     bool LordOfAfflictions::s_registered = false;
 
@@ -65,7 +65,7 @@ namespace Nurgle {
             m_tocsin(Weapon::Type::Melee, "Dolorous Tocsin", 1, 1, 4, 3, -2, 2) {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, LORD_OF_AFFLICTIONS};
         m_weapons = {&m_festerspike, &m_mouthparts, &m_sting, &m_tocsin};
-
+        m_battleFieldRole = Leader;
         s_globalToHitReroll.connect(this, &LordOfAfflictions::plagueVectorToHitRerolls, &m_plagueVectorSlot);
     }
 

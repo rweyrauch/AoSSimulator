@@ -24,6 +24,7 @@ namespace Fyreslayers {
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNEMASTER};
         m_weapons = {&m_throwingAxe, &m_brazierStaff, &m_runicIron};
+        m_battleFieldRole = Leader;
 
         s_globalToHitReroll.connect(this, &AuricRunemaster::holySeekerToHitRerolls, &m_holySeekerToHitSlot);
         s_globalToWoundReroll.connect(this, &AuricRunemaster::holySeekerToWoundRerolls, &m_holySeekerToWoundSlot);

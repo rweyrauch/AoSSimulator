@@ -24,6 +24,7 @@ namespace StormcastEternals {
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
         m_weapons = {&m_runeblade, &m_warhammer};
+        m_battleFieldRole = Leader;
     }
 
     bool LordCelestant::configure() {

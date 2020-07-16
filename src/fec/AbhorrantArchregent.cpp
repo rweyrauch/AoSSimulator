@@ -23,7 +23,7 @@ namespace FleshEaterCourt {
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 7, 3, 3, -1, 1) {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD, ABHORRANT_ARCHREGENT};
         m_weapons = {&m_goryTalonsAndFangs};
-
+        m_battleFieldRole = Leader;
         m_totalUnbinds = 2;
         m_totalSpells = 2;
     }

@@ -16,7 +16,7 @@
 namespace Nurgle {
     static const int BASESIZE = 130;
     static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 340;
+    static const int POINTS_PER_UNIT = 320;
 
     struct TableEntry {
         int m_bileToWound;
@@ -47,6 +47,7 @@ namespace Nurgle {
             m_nurglings(Weapon::Type::Melee, "Host of Nurglings", 1, 3, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, NURGLE, MONSTER, HERO, WIZARD, GREAT_UNCLEAN_ONE, ROTIGUS};
         m_weapons = {&m_bile, &m_flail, &m_bilesword, &m_bileblade, &m_doomsdayBell, &m_nurglings};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;

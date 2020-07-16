@@ -14,7 +14,7 @@
 namespace KharadronOverlords {
     static const int BASESIZE = 0;
     static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 250;
+    static const int POINTS_PER_UNIT = 220;
 
     struct TableEntry {
         int m_move;
@@ -107,6 +107,7 @@ namespace KharadronOverlords {
                      &m_skyhook,
                      &m_carbines,
                      &m_boardingWeapons};
+        m_battleFieldRole = Behemoth;
     }
 
     bool ArkanautFrigate::configure(WeaponOption option, Endrinwork endrinwork) {

@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int BASESIZE = 100;
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 0;
+    static const int POINTS_PER_UNIT = 480;
 
     struct TableEntry {
         int m_move;
@@ -42,6 +42,7 @@ namespace DaughtersOfKhaine {
             m_tail(Weapon::Type::Melee, "Envenomed Tail", 3, 1, 3, 3, -2, 6) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, MONSTER, HERO, WIZARD, MORATHI, THE_SHADOW_QUEEN};
         m_weapons = {&m_gaze, &m_heartrender, &m_crown, &m_tail};
+        m_battleFieldRole = Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

@@ -692,6 +692,13 @@ add_library(
         lumineth/SpiritOfTheMountain.cpp
         lumineth/Teclis.cpp
         lumineth/Avalenor.cpp
+
+        behemat/SonsOfBehemat.cpp
+        behemat/Mancrusher.cpp
+        behemat/Gatebreaker.cpp
+        behemat/KrakenEater.cpp
+        behemat/Warstomper.cpp
+        behemat/Bonegrinder.cpp
 )
 
 target_include_directories(

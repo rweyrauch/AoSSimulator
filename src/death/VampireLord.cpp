@@ -8,6 +8,7 @@
 
 #include <death/VampireLord.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
@@ -81,6 +82,9 @@ namespace Death {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, HERO, WIZARD, VAMPIRE_LORD};
         m_weapons = {&m_blades, &m_hoovesAndTeeth};
+        m_battleFieldRole = Leader;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool VampireLord::configure(bool withSteed, bool withWings, bool chalice, Lore lore) {
@@ -98,6 +102,9 @@ namespace Death {
 
         model->addMeleeWeapon(&m_blades);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_haveChaliceOfBlood = chalice;
 

@@ -15,7 +15,7 @@ namespace Seraphon {
 
     static const int BASESIZE = 120; // x92 oval
     static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 250;
+    static const int POINTS_PER_UNIT = 230;
 
     struct TableEntry {
         int m_move;
@@ -44,6 +44,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, OLDBLOOD};
         m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
+        m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &SaurusOldbloodOnCarnosaur::terror, &m_connection);

@@ -47,6 +47,7 @@ namespace Sylvaneth {
             m_beetleGreatAntlers(Weapon::Type::Melee, "Great Antlers", 2, 5, 4, 3, -2, 5) {
         m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
         m_weapons = {&m_spearOfKurnoth, &m_talonOfDwindling, &m_beetleGreatAntlers};
+        m_battleFieldRole = LeaderBehemoth;
 
         m_totalUnbinds = 3;
         m_totalSpells = 3;

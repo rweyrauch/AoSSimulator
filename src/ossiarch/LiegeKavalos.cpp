@@ -74,6 +74,7 @@ namespace OssiarchBonereapers {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, LIEGE, HERO, LIEGE_KAVALOS};
         m_weapons = {&m_blade, &m_shield, &m_hoovesAndTeeth};
+        m_battleFieldRole = Leader;
         m_hasMount = true;
     }
 

@@ -62,6 +62,7 @@ namespace Nurgle {
             m_maw(Weapon::Type::Melee, "Distended Maw", 2, 2, 3, 4, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SPOILPOX_SCRIVENER, HERALD_OF_NURGLE};
         m_weapons = {&m_sneeze, &m_maw};
+        m_battleFieldRole = Leader;
 
         s_globalChargeReroll.connect(this, &SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls,
                                      &m_keepCountingChargeSlot);

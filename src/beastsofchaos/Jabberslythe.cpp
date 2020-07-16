@@ -24,6 +24,7 @@ namespace BeastsOfChaos {
             m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, JABBERSLYTHE};
         m_weapons = {&m_slytheyTongue, &m_vorpalClaws, &m_spikedTail};
+        m_battleFieldRole = Behemoth;
     }
 
     bool Jabberslythe::configure() {

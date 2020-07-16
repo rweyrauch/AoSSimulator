@@ -24,6 +24,7 @@ namespace StormcastEternals {
             m_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR};
         m_weapons = {&m_astralHammers, &m_astralGrandhammer};
+        m_battleFieldRole = Leader;
 
         s_globalToHitMod.connect(this, &LordOrdinator::arcaneEngineer, &m_connection);
     }

@@ -14,8 +14,8 @@ namespace SlavesToDarkness {
     static const int WOUNDS = 2;
     static const int MIN_UNIT_SIZE = 5;
     static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int POINTS_PER_BLOCK = 90;
+    static const int POINTS_MAX_UNIT_SIZE = 540;
 
     bool ChaosWarriors::s_registered = false;
 
@@ -75,6 +75,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_WARRIORS};
         m_weapons = {&m_handWeapons, &m_halberd, &m_greatBlade, &m_handWeaponsChampion, &m_halberdChampion,
                      &m_greatBladeChampion};
+        m_battleFieldRole = Battleline;
     }
 
     bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower) {
