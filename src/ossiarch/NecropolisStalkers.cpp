@@ -15,7 +15,7 @@ namespace OssiarchBonereapers {
     static const int MIN_UNIT_SIZE = 3;
     static const int MAX_UNIT_SIZE = 6;
     static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
 
     bool NecropolisStalkers::s_registered = false;
 

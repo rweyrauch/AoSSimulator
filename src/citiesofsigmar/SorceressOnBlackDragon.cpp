@@ -103,7 +103,7 @@ namespace CitiesOfSigmar {
             m_lash(Weapon::Type::Melee, "Witch Lash", 2, 1, 3, 4, 0, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 3, 3, 4, 1, -2, RAND_D6),
             m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2) {
-        m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, MONSTER, HERO, WIZARD, SORCERESS};
+        m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, MONSTER, HERO, WIZARD, SORCERESS, DRAGON};
         m_weapons = {&m_noxiousBreath, &m_rod, &m_sword, &m_lash, &m_jaws, &m_claws};
         m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;

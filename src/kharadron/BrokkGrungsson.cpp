@@ -12,7 +12,7 @@
 namespace KharadronOverlords {
     static const int BASESIZE = 40;
     static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 240;
+    static const int POINTS_PER_UNIT = 220;
 
     bool BrokkGrungsson::s_registered = false;
 

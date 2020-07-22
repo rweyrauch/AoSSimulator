@@ -22,14 +22,14 @@ namespace CitiesOfSigmar {
     };
 
     const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
+    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
     const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
             {
-                    {12, 2, 6},
-                    {10, 3, 5},
-                    {8,  3, 4},
-                    {6,  4, 3},
-                    {4,  4, 2}
+                    {14, 1, 6},
+                    {12, 2, 5},
+                    {10,  3, 4},
+                    {8,  4, 3},
+                    {6,  5, 2}
             };
 
     bool DreadlordOnBlackDragon::s_registered = false;
@@ -122,7 +122,7 @@ namespace CitiesOfSigmar {
             m_lance(Weapon::Type::Melee, "Lance of Spite", 2, 3, 3, 3, -1, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 3, 3, 4, 2, -2, RAND_D6),
             m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2) {
-        m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, HERO, DREADLORD};
+        m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, HERO, DREADLORD, DRAGON};
         m_weapons = {&m_crossbow, &m_noxiousBreath, &m_blade, &m_lance, &m_jaws, &m_claws};
         m_battleFieldRole = LeaderBehemoth;
         m_hasMount = true;
