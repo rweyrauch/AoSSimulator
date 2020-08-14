@@ -19,6 +19,7 @@
 #include "ironjawz/MegabossOnMawKrusha.h"
 #include "ironjawz/IronskullsBoyz.h"
 #include "ironjawz/WeirdnobShaman.h"
+#include "ironjawz/MorgoksKrushas.h"
 
 namespace Ironjawz {
 
@@ -143,6 +144,7 @@ namespace Ironjawz {
         MegabossOnMawKrusha::Init();
         IronskullsBoyz::Init();
         OrrukWeirdnobShaman::Init();
+        MorgoksKrushas::Init();
     }
 
 } // namespace Ironjawz

@@ -24,6 +24,8 @@
 #include "dok/MorathiHighOracle.h"
 #include "dok/MorathiShadowQueen.h"
 #include "dok/SlaughterQueenCauldronOfBlood.h"
+#include "dok/Morgwaeth.h"
+#include "dok/TheBladeCoven.h"
 
 namespace DaughtersOfKhaine {
 
@@ -198,9 +200,11 @@ namespace DaughtersOfKhaine {
         KhineraiLifetakers::Init();
         MorathiHighOracleOfKhaine::Init();
         MorathiTheShadowQueen::Init();
+        MorgwaethTheBloodied::Init();
         SistersOfSlaughter::Init();
         SlaughterQueen::Init();
         SlaughterQueenOnCauldronOfBlood::Init();
+        TheBladeCoven::Init();
         WitchAelves::Init();
     }
 

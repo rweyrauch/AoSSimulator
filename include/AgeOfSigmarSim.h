@@ -409,6 +409,8 @@ enum Keyword {
     MORATHI,
     HIGH_ORACLE_OF_KHAINE,
     THE_SHADOW_QUEEN,
+    MORGWAETH_THE_BLOODIED,
+    THE_BLADE_COVEN,
 
     // Daughters of Khaine Temples
     HAGG_NAR,
@@ -735,6 +737,7 @@ enum Keyword {
     WARCHANTER,
     IRONSKULLS_BOYZ,
     WEIRDNOB_SHAMAN,
+    MORGOKS_KRUSHAS,
 
     // Bonesplitterz
     SAVAGE_BOARBOY_MANIAKS,

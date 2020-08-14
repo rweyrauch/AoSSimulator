@@ -199,6 +199,8 @@ add_library(
         dok/MorathiHighOracle.cpp
         dok/MorathiShadowQueen.cpp
         dok/SlaughterQueenCauldronOfBlood.cpp
+        dok/TheBladeCoven.cpp
+        dok/Morgwaeth.cpp
 
         idonethdeepkin/IdonethDeepkin.cpp
         idonethdeepkin/NamartiThralls.cpp
@@ -447,6 +449,7 @@ add_library(
         ironjawz/MegabossOnMawKrusha.cpp
         ironjawz/IronskullsBoyz.cpp
         ironjawz/WeirdnobShaman.cpp
+        ironjawz/MorgoksKrushas.cpp
 
         bonesplitterz/Bonesplitterz.cpp
         bonesplitterz/BoarboyManiaks.cpp

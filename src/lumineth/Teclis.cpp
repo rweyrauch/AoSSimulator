@@ -90,7 +90,11 @@ namespace LuminethRealmLords {
     }
 
     bool ArchmageTeclis::configure() {
+
         auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_staff);
+        model->addMeleeWeapon(&m_sword);
+        model->addMeleeWeapon(&m_talons);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
