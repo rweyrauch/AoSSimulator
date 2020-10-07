@@ -10,7 +10,6 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
-#include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
     static const int BASESIZE = 105; // oval
@@ -64,6 +63,8 @@ namespace LuminethRealmLords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        unit->setNation(GreatNation::Ymetrica);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -103,7 +104,7 @@ namespace LuminethRealmLords {
     }
 
     void AvalenorTheStoneheartKing::onRestore() {
-        Unit::onRestore();
+        LuminethBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

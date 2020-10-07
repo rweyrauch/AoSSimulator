@@ -29,6 +29,17 @@ namespace SonsOfBehemat {
 
     private:
 
+        int getDamageTableIndex() const;
+
+        void onWounded() override;
+
+        void onRestore() override;
+
+        Weapon m_debris,
+            m_stomp,
+            m_grip,
+            m_warclub;
+
         static bool s_registered;
 
     };

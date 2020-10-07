@@ -11,20 +11,81 @@
 
 namespace SonsOfBehemat {
     static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 0;
+    static const int WOUNDS = 12;
     static const int MIN_UNIT_SIZE = 1;
     static const int MAX_UNIT_SIZE = 3;
     static const int POINTS_PER_BLOCK = 180;
     static const int POINTS_MAX_UNIT_SIZE = 480;
 
+    struct TableEntry {
+        int m_stompingCharge;
+        int m_clubAttacks;
+        int m_eadbuttDamage;
+    };
+
+    const size_t NUM_TABLE_ENTRIES = 5;
+    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
+    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+            {
+                    {2, 10, 4},
+                    {3, 9, 3},
+                    {4, 8, 3},
+                    {5, 6,  2},
+                    {6, 4,  1}
+            };
+
     bool Mancrusher::s_registered = false;
 
     Mancrusher::Mancrusher() :
-            SonsOfBehematBase("Mancrusher Gargants", 8, WOUNDS, 6, 5, false) {
+            SonsOfBehematBase("Mancrusher Gargants", 8, WOUNDS, 7, 5, false),
+            m_eadbutt(Weapon::Type::Melee, "'Eadbutt", 1, 1, 4, 3, -3, 4),
+            m_club(Weapon::Type::Melee, "Massive Club", 3, 10, 3, 3, -1, 1),
+            m_kick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3) {
+        m_weapons = {&m_eadbutt, &m_club, &m_kick};
+        m_battleFieldRole = Behemoth;
     }
 
     bool Mancrusher::configure(int numModels) {
-        return false;
+
+        // validate inputs
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            // Invalid model count.
+            return false;
+        }
+
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMeleeWeapon(&m_eadbutt);
+            model->addMeleeWeapon(&m_club);
+            model->addMeleeWeapon(&m_kick);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
+    }
+
+    void Mancrusher::onWounded() {
+        m_eadbutt.setDamage(g_damageTable[getDamageTableIndex()].m_eadbuttDamage);
+        m_club.setAttacks(g_damageTable[getDamageTableIndex()].m_clubAttacks);
+    }
+
+    int Mancrusher::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    void Mancrusher::onRestore() {
+        Unit::onRestore();
+
+        // Reset table-driven attributes
+        onWounded();
     }
 
     Unit *Mancrusher::Create(const ParameterList &parameters) {

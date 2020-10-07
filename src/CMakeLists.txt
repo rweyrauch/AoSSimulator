@@ -21,8 +21,8 @@ add_library(
         CommandAbility.cpp
         Prayer.cpp
         Think.cpp
-        jps.hh
-        pathfinders.cpp
+        #jps.hh
+        #pathfinders.cpp
 
         spells/MysticShield.cpp
 
@@ -75,12 +75,13 @@ add_library(
         stormcast/AventisFirestrike.cpp
         stormcast/VanguardPalladors.cpp
         stormcast/DrakeswornTemplar.cpp
-        stormcast/PrayersOfTheStormhosts.cpp
-        stormcast/StormcastPrayers.cpp
         stormcast/SteelheartsChampions.cpp
         stormcast/TheFarstriders.cpp
         stormcast/AveronStormsire.cpp
         stormcast/StormsiresCursebreakers.cpp
+
+        stormcast/PrayersOfTheStormhosts.cpp
+        stormcast/StormcastPrayers.cpp
         stormcast/StormcastSpells.cpp
         stormcast/Empower.cpp
         stormcast/LoreOfTheStorm.cpp
@@ -717,8 +718,10 @@ target_link_libraries(
 
 target_compile_options(
         AoSSim PRIVATE
+        -Wpedantic
         -Wextra
         -Wall
+        -Wformat-security
         -Wno-unused-parameter
 )
 

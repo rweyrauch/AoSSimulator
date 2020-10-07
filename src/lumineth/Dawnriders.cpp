@@ -65,6 +65,9 @@ namespace LuminethRealmLords {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto standard = GetBoolParam("Standard Bearer", parameters, true);
 
+        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        unit->setNation(nation);
+
         bool ok = unit->configure(numModels, standard);
         if (!ok) {
             delete unit;
@@ -82,7 +85,8 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            BoolParameter("Standard Bearer")
+                            BoolParameter("Standard Bearer"),
+                            EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,
                     {LUMINETH_REALM_LORDS}
@@ -101,7 +105,7 @@ namespace LuminethRealmLords {
     }
 
     void Dawnriders::onRestore() {
-        Unit::onRestore();
+        LuminethBase::onRestore();
 
         m_powerOfHyshActive = false;
     }

@@ -34,8 +34,10 @@ lsignal::signal<int(const Unit *)> Unit::s_globalUnbindMod;
 lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> Unit::s_globalToHitReroll;
 lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> Unit::s_globalToWoundReroll;
 lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> Unit::s_globalSaveReroll;
+
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalBattleshockReroll;
 
+lsignal::signal<int(const Unit*, int roll)> Unit::s_globalBattleshockFleeModifier;
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalRunReroll;
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalChargeReroll;
 

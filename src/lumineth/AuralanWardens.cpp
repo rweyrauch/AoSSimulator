@@ -60,6 +60,9 @@ namespace LuminethRealmLords {
         auto unit = new AuralanWardens();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        unit->setNation(nation);
+
         bool ok = unit->configure(numModels);
         if (!ok) {
             delete unit;
@@ -77,6 +80,7 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,
                     {LUMINETH_REALM_LORDS}
@@ -95,7 +99,7 @@ namespace LuminethRealmLords {
     }
 
     void AuralanWardens::onRestore() {
-        Unit::onRestore();
+        LuminethBase::onRestore();
 
         m_usedMoonfireFlask = false;
         m_powerOfHyshActive = false;

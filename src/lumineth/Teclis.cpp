@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include "lumineth/Teclis.h"
+#include "LuminethPrivate.h"
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 
@@ -40,6 +41,9 @@ namespace LuminethRealmLords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        unit->setNation(nation);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -60,7 +64,8 @@ namespace LuminethRealmLords {
                     LuminethBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,
                     {LUMINETH_REALM_LORDS}
@@ -114,7 +119,10 @@ namespace LuminethRealmLords {
     }
 
     void ArchmageTeclis::onRestore() {
-        Unit::onRestore();
+        LuminethBase::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
     }
 
     int ArchmageTeclis::getDamageTableIndex() const {

@@ -7,6 +7,7 @@
  */
 #include "lumineth/Stoneguard.h"
 #include "../AoSSimPrivate.h"
+#include "LuminethPrivate.h"
 #include <UnitFactory.h>
 #include <magic_enum.hpp>
 
@@ -26,6 +27,9 @@ namespace LuminethRealmLords {
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
         auto weaponOption = (WeaponOption)GetEnumParam("Weapon", parameters, to_integer(WeaponOption::Diamondpick_Hammer));
         auto standardBearer = GetBoolParam("Standard Bearer", parameters, true);
+
+        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        unit->setNation(nation);
 
         bool ok = unit->configure(numModels, weaponOption, standardBearer);
         if (!ok) {
@@ -69,7 +73,8 @@ namespace LuminethRealmLords {
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
                             EnumParameter("Weapon", weapons[0], weapons),
-                            BoolParameter("Standard Bearer")
+                            BoolParameter("Standard Bearer"),
+                            EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,
                     {LUMINETH_REALM_LORDS}

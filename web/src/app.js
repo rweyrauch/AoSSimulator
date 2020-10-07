@@ -27,7 +27,7 @@ AosSim().then(AosSim => {
 
     function populateFactions(alliance, selector, unitSelector, unitRoot, team) {
         selector.options.length = 0;
-        let factionKeywords = new Array();
+        let factionKeywords = [];
 
         const allianceId = sim.GrandAllianceStringToKeyword(alliance);
 
@@ -62,7 +62,7 @@ AosSim().then(AosSim => {
 
     function populateUnits(faction, selector) {
         selector.options.length = 0;
-        let unitNames = new Array();
+        let unitNames = [];
 
         const factionId = sim.FactionStringToKeyword(faction);
 

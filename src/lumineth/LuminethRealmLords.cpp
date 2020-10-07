@@ -105,6 +105,12 @@ namespace LuminethRealmLords {
         // Aetherquartz Reserve
         if (m_aetherQuartzReserve == 0) mod--;
 
+        // Soul-bond
+        if (m_nation == GreatNation::Iliatha) {
+            if (hasKeyword(VANARI) || hasKeyword(AELEMENTIRI)) {
+                mod += 2;
+            }
+        }
         return mod;
     }
 
@@ -130,17 +136,40 @@ namespace LuminethRealmLords {
         return mod;
     }
 
+    void LuminethBase::onRestore() {
+        Unit::onRestore();
+
+        m_aetherQuartzReserve = 1;
+
+        // Gleaming Brightness
+        if (m_nation == GreatNation::Syar) {
+            m_aetherQuartzReserve = 2;
+        }
+    }
+
+    int LuminethBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        return Unit::toHitModifier(weapon, target);
+    }
+
+    int LuminethBase::toSaveModifier(const Weapon *weapon) const {
+        return Unit::toSaveModifier(weapon);
+    }
+
+    int LuminethBase::castingModifier() const {
+        return Unit::castingModifier();
+    }
+
     void Init() {
-        AuralanWardens::Init();
-        AuralanSentinels::Init();
-        Dawnriders::Init();
-        TheLightOfEltharion::Init();
+        AlarithSpiritOfTheMountain::Init();
         AlarithStoneguard::Init();
         AlarithStonemage::Init();
-        ScinariCathallar::Init();
-        AlarithSpiritOfTheMountain::Init();
         ArchmageTeclis::Init();
+        AuralanWardens::Init();
+        AuralanSentinels::Init();
         AvalenorTheStoneheartKing::Init();
-    }
+        Dawnriders::Init();
+        TheLightOfEltharion::Init();
+        ScinariCathallar::Init();
+     }
 
 } //namespace LuminethRealmLords

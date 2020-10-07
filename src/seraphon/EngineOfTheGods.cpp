@@ -193,9 +193,9 @@ namespace Seraphon {
             auto factory = UnitFactory::LookupUnit("Saurus Warriors");
             if (factory) {
                 if (m_roster) {
-                    auto unit = UnitFactory::Create("Saurus Warriors", factory->m_parameters);
-                    unit->deploy(position(), m_orientation);
-                    m_roster->addUnit(unit);
+                    auto summonnedUnit = UnitFactory::Create("Saurus Warriors", factory->m_parameters);
+                    summonnedUnit->deploy(position(), m_orientation);
+                    m_roster->addUnit(summonnedUnit);
                 }
             }
         } else { // roll == 18

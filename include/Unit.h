@@ -463,7 +463,7 @@ protected:
     virtual Wounds applyWoundSave(const Wounds &wounds) { return wounds; }
 
 protected:
-    std::string m_name = "";
+    std::string m_name;
     int m_move = 0;
     int m_wounds = 0;
     int m_bravery = 0;
@@ -543,7 +543,9 @@ protected:
     static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalToHitReroll;
     static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalToWoundReroll;
     static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalSaveReroll;
+
     static lsignal::signal<Rerolls(const Unit *)> s_globalBattleshockReroll;
+    static lsignal::signal<int(const Unit*, int roll)> s_globalBattleshockFleeModifier;
 
     static lsignal::signal<Rerolls(const Unit *)> s_globalRunReroll;
     static lsignal::signal<Rerolls(const Unit *)> s_globalChargeReroll;

@@ -112,6 +112,12 @@ namespace LuminethRealmLords {
         int braveryModifier() const override;
         int woundModifier() const override;
 
+        int toSaveModifier(const Weapon *weapon) const override;
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        int castingModifier() const override;
+
+        void onRestore() override;
+
         int majestic(const Unit *unit);
 
     protected:
@@ -140,8 +146,8 @@ namespace LuminethRealmLords {
 // Enduring as Rock                 TODO
 // Tectonic Force                   TODO
 // Mountain Realm                   TODO
-// Gleaming Brightness              TODO
-// Soul-bond                        TODO
+// Gleaming Brightness              Yes
+// Soul-bond                        Yes
 // Lambent Mystics                  TODO
 // Unity of Purpose                 TODO
 //
