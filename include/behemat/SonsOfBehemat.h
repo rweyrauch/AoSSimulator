@@ -55,6 +55,23 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Son of Behemat                   TODO
+// Timberrrrr!                      TODO
+// Mightier Make Rightier           TODO
+// Getting Stuck In                 TODO
+// Grab Those Rock And Chuck 'Em    TODO
+// Get a Move On, You Slackers!     TODO
+// Fierce Loathings
+//   Bossy Pants and Clever Cogs    TODO
+//   Idiots with Flag               TODO
+//   Shiny 'Uns                     TODO
+//   Crowds                         TODO
+//   Wannabes                       TODO
+//   Piggybackers                   TODO
+// Breaking Down the Houses         TODO
+// Get Rid of 'Em!                  TODO
+// Net of the Beast-Reaver          TODO
+// More Stuff For Me Collection     TODO
 //
 
     void Init();

@@ -46,6 +46,8 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Stomping Charge                  TODO
+// Chuck Rocks                      TODO
 //
 
 } // namespace SonsOfBehemat

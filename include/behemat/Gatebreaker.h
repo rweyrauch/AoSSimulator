@@ -47,6 +47,7 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Smash Down                       TODO
 //
 
 } // namespace SonsOfBehemat

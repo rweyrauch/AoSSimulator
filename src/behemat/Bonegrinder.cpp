@@ -35,11 +35,27 @@ namespace SonsOfBehemat {
     bool Bonegrinder::s_registered = false;
 
     Bonegrinder::Bonegrinder() :
-            SonsOfBehematBase("Bonegrinder Gargant", 12, WOUNDS, 7, 4, false) {
+            SonsOfBehematBase("Bonegrinder Gargant", 12, WOUNDS, 7, 4, false),
+            m_boulder(Weapon::Type::Missile, "Hurled Boulder", 18, 1, 4, 2, -2, RAND_D6),
+            m_club(Weapon::Type::Melee, "Gargantuan Club", 3, RAND_3D6, 3, 3, -1, 2),
+            m_stomp(Weapon::Type::Melee, "Thunderous Stomp", 1, 1, 3, 3, -2, RAND_D6) {
+
+            m_weapons = {&m_boulder, &m_club, &m_stomp};
+            m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, GARGANT, ALEGUZZLER, MONSTER, BONEGRINDER_GARANT};
+            m_battleFieldRole = Behemoth;
     }
 
     bool Bonegrinder::configure() {
-        return false;
+
+        auto model = new Model(BASESIZE, wounds());
+        model->addMissileWeapon(&m_boulder);
+        model->addMeleeWeapon(&m_club);
+        model->addMeleeWeapon(&m_stomp);
+        addModel(model);
+
+        m_points = ComputePoints(1);
+
+        return true;
     }
 
     Unit *Bonegrinder::Create(const ParameterList &parameters) {

@@ -48,6 +48,8 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Hurled Body                      TODO
+// Titanic Boulderclub              TODO
 //
 
 } // namespace SonsOfBehemat

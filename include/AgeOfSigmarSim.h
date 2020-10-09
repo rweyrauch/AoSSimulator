@@ -389,6 +389,7 @@ enum Keyword {
     SHROOMANCER,
     MOLLOG,
     TROGGOTH_HAG,
+    BONEGRINDER_GARANT,
 
     // Daughters of Khaine
     MELUSAI,
@@ -1060,6 +1061,12 @@ enum Keyword {
     ZAITREC,
     YMETRICA,
 
+    // Sons of Behemat
+    MANCRUSHER,
+    MEGA_GARGANT,
+    GATEBREAKER,
+    KRAKEN_EATER,
+    WARSTOMPER,
 };
 
 Keyword GrandAllianceStringToKeyword(const std::string &allianceName);
