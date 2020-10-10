@@ -871,7 +871,8 @@ int Unit::rerolling(int initialRoll, Rerolls reroll) const {
 }
 
 void Unit::computeBattleshockEffect(int roll, int &numFled, int &numRestored) const {
-    numFled = (m_modelsSlain + roll) - (m_bravery + braveryModifier());
+    auto mod = s_globalBattleshockFleeModifier(this, roll);
+    numFled = (m_modelsSlain + roll) - (m_bravery + braveryModifier()) + mod;
     numFled = std::max(0, std::min(remainingModels(), numFled));
     numRestored = 0;
 }

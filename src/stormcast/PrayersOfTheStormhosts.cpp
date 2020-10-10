@@ -17,7 +17,8 @@ namespace StormcastEternals {
 
     bool FromString(const std::string &enumString, PrayersOfTheStormhost &outPrayer) {
         auto prayer = magic_enum::enum_cast<PrayersOfTheStormhost>(enumString);
-        outPrayer = prayer.value();
+        if (prayer.has_value())
+            outPrayer = prayer.value();
         return prayer.has_value();
     }
 

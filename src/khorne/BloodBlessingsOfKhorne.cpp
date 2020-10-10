@@ -17,7 +17,8 @@ namespace Khorne {
 
     bool FromString(const std::string &enumString, BloodBlessingsOfKhorne &outBlessing) {
         auto blessing = magic_enum::enum_cast<BloodBlessingsOfKhorne>(enumString);
-        if (blessing.has_value()) outBlessing = blessing.value();
+        if (blessing.has_value())
+            outBlessing = blessing.value();
         return blessing.has_value();
     }
 

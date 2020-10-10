@@ -18,7 +18,8 @@ namespace StormcastEternals {
 
     bool FromString(const std::string &enumString, Lore &outLore) {
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        outLore = lore.value();
+        if (lore.has_value())
+            outLore = lore.value();
         return lore.has_value();
     }
 
