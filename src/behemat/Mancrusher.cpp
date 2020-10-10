@@ -43,6 +43,7 @@ namespace SonsOfBehemat {
             m_kick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3) {
         m_weapons = {&m_eadbutt, &m_club, &m_kick};
         m_battleFieldRole = Behemoth;
+        m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MONSTER, MANCRUSHER};
     }
 
     bool Mancrusher::configure(int numModels) {

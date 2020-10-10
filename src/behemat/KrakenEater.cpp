@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <behemat/KrakenEater.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
@@ -42,6 +43,9 @@ namespace SonsOfBehemat {
             m_warclub(Weapon::Type::Melee, "Shipwrecka Warclub", 3, 8, 3, 3, -2, 2) {
         m_weapons = {&m_debris, &m_stomp, &m_grip, &m_warclub};
         m_battleFieldRole = Behemoth;
+        m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, KRAKEN_EATER};
+
+        s_globalBraveryMod.connect(this, &KrakenEater::terror, &m_connection);
     }
 
     bool KrakenEater::configure() {
@@ -121,6 +125,42 @@ namespace SonsOfBehemat {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
         m_debris.setRange(g_damageTable[getDamageTableIndex()].m_debrisRange);
         m_warclub.setAttacks(g_damageTable[getDamageTableIndex()].m_clubAttacks);
+    }
+
+    Rerolls KrakenEater::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Almighty Stomp
+        if ((weapon->name() == m_stomp.name()) && (!target->hasKeyword(MONSTER)))
+            return RerollOnes;
+
+        // Death Grip
+        if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
+            return RerollOnes;
+
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    void KrakenEater::onCharged() {
+        // Crushing Charge
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        for (auto unit : units) {
+            if (Dice::rollD6() >= 2) {
+                auto mortal = Dice::rollD6();
+                if (unit->hasKeyword(MONSTER)) {
+                    mortal = Dice::rollD3();
+                }
+                unit->applyDamage({0, mortal});
+            }
+        }
+        Unit::onCharged();
+    }
+
+    int KrakenEater::terror(const Unit *unit) {
+        // Terror
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0)) {
+            return -1;
+        }
+
+        return 0;
     }
 
 } // namespace SonsOfBehemat

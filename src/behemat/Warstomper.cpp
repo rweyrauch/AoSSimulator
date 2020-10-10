@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <behemat/Warstomper.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
@@ -41,6 +42,9 @@ namespace SonsOfBehemat {
             m_club(Weapon::Type::Melee, "Titanic Boulderclub", 3, 1, 3, 3, -2, 2) {
         m_weapons = {&m_grip, &m_jump, &m_club};
         m_battleFieldRole = Behemoth;
+        m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, WARSTOMPER};
+
+        s_globalBraveryMod.connect(this, &Warstomper::terror, &m_connection);
     }
 
     bool Warstomper::configure() {
@@ -126,6 +130,42 @@ namespace SonsOfBehemat {
         attacks += target->remainingModels() + g_damageTable[getDamageTableIndex()].m_clubExtraAttacks;
 
         return attacks;
+    }
+
+    Rerolls Warstomper::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Almighty Jump
+        if ((weapon->name() == m_jump.name()) && (!target->hasKeyword(MONSTER)))
+            return RerollOnesAndTwos;
+
+        // Death Grip
+        if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
+            return RerollOnes;
+
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    void Warstomper::onCharged() {
+        // Crushing Charge
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        for (auto unit : units) {
+            if (Dice::rollD6() >= 2) {
+                auto mortal = Dice::rollD6();
+                if (unit->hasKeyword(MONSTER)) {
+                    mortal = Dice::rollD3();
+                }
+                unit->applyDamage({0, mortal});
+            }
+        }
+        Unit::onCharged();
+    }
+
+    int Warstomper::terror(const Unit *unit) {
+        // Terror
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0)) {
+            return -1;
+        }
+
+        return 0;
     }
 
 } // namespace SonsOfBehemat

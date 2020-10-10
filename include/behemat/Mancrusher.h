@@ -46,8 +46,10 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Keep Up!                         TODO
 // Stomping Charge                  TODO
-// Chuck Rocks                      TODO
+// Stuff 'Em In Me Bag              TODO
+// Timber!                          TODO
 //
 
 } // namespace SonsOfBehemat

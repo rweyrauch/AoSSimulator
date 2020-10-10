@@ -55,8 +55,6 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Son of Behemat                   TODO
-// Timberrrrr!                      TODO
 // Mightier Make Rightier           TODO
 // Getting Stuck In                 TODO
 // Grab Those Rock And Chuck 'Em    TODO

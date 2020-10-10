@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <behemat/Gatebreaker.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
@@ -43,6 +44,9 @@ namespace SonsOfBehemat {
             m_flail(Weapon::Type::Melee, "Fortcrusha Flail", 3, 10, 4, 3, -3, 3) {
         m_weapons = {&m_boulder, &m_stomp, &m_grip, &m_flail};
         m_battleFieldRole = Behemoth;
+        m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, GATEBREAKER};
+
+        s_globalBraveryMod.connect(this, &Gatebreaker::terror, &m_connection);
     }
 
     bool Gatebreaker::configure() {
@@ -122,6 +126,42 @@ namespace SonsOfBehemat {
 
         // Reset table-driven attributes
         onWounded();
+    }
+
+    Rerolls Gatebreaker::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Almighty Stomp
+        if ((weapon->name() == m_stomp.name()) && (!target->hasKeyword(MONSTER)))
+            return RerollOnes;
+
+        // Death Grip
+        if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
+            return RerollOnes;
+
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    void Gatebreaker::onCharged() {
+        // Crushing Charge
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+        for (auto unit : units) {
+            if (Dice::rollD6() >= 2) {
+                auto mortal = Dice::rollD6();
+                if (unit->hasKeyword(MONSTER)) {
+                    mortal = Dice::rollD3();
+                }
+                unit->applyDamage({0, mortal});
+            }
+        }
+        Unit::onCharged();
+    }
+
+    int Gatebreaker::terror(const Unit *unit) {
+        // Terror
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0)) {
+            return -1;
+        }
+
+        return 0;
     }
 
 } // namespace SonsOfBehemat

@@ -35,10 +35,18 @@ namespace SonsOfBehemat {
 
         void onRestore() override;
 
+        void onCharged() override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int terror(const Unit *unit);
+
         Weapon m_boulder,
             m_stomp,
             m_grip,
             m_flail;
+
+        lsignal::slot m_connection;
 
         static bool s_registered;
 
@@ -47,7 +55,14 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Almighty Stomp                   Yes
+// Crushing Charge                  Yes
+// Death Grip                       Yes
+// Longshanks                       TODO
 // Smash Down                       TODO
+// Son of Behemat                   TODO
+// Terror                           Yes
+// Timberrrrr!                      TODO
 //
 
 } // namespace SonsOfBehemat

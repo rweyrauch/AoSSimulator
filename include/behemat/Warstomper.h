@@ -35,11 +35,19 @@ namespace SonsOfBehemat {
 
         void onRestore() override;
 
+        void onCharged() override;
+
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int terror(const Unit *unit);
 
         Weapon m_grip,
             m_jump,
             m_club;
+
+        lsignal::slot m_connection;
 
         static bool s_registered;
 
@@ -48,7 +56,14 @@ namespace SonsOfBehemat {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Almighty Jump                    Yes
+// Crushing Charge                  Yes
+// Death Grip                       Yes
 // Hurled Body                      TODO
+// Longshanks                       TODO
+// Sons of Behemat                  TODO
+// Terror                           Yes
+// Timberrrrr!                      TODO
 // Titanic Boulderclub              TODO
 //
 

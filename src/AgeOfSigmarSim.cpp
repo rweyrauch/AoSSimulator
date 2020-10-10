@@ -92,7 +92,7 @@ static const std::map<std::string, Keyword> g_allianceNameLookup = {
 };
 
 static const std::map<std::string, Keyword> g_factionNameLookup = {
-        {"Stormcast Eternal",    STORMCAST_ETERNAL,},
+        {"Stormcast Eternal",    STORMCAST_ETERNAL},
         {"Khorne",               KHORNE},
         {"Sylvaneth",            SYLVANETH},
         {"Gloomspite Gitz",      GLOOMSPITE_GITZ},
