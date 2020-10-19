@@ -64,12 +64,14 @@ namespace SonsOfBehemat {
     Unit *KrakenEater::Create(const ParameterList &parameters) {
         auto unit = new KrakenEater();
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_takersCommandTrait[0]);
         unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefact[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_takerArtefact[0]);
         unit->setArtefact(artefact);
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
+
+        unit->setTribe(Tribe::Taker);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -87,8 +89,8 @@ namespace SonsOfBehemat {
                     SonsOfBehematBase::EnumStringToInt,
                     KrakenEater::ComputePoints,
                     {
-                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
-                            EnumParameter("Artefact", g_artefact[0], g_artefact),
+                            EnumParameter("Command Trait", g_takersCommandTrait[0], g_takersCommandTrait),
+                            EnumParameter("Artefact", g_takerArtefact[0], g_takerArtefact),
                             BoolParameter("General")
                     },
                     DESTRUCTION,

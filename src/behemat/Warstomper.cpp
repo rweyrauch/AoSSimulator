@@ -62,12 +62,14 @@ namespace SonsOfBehemat {
     Unit *Warstomper::Create(const ParameterList &parameters) {
         auto unit = new Warstomper();
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_stompersCommandTrait[0]);
         unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefact[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_stomperArtefact[0]);
         unit->setArtefact(artefact);
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
+
+        unit->setTribe(Tribe::Stomper);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -85,8 +87,8 @@ namespace SonsOfBehemat {
                     SonsOfBehematBase::EnumStringToInt,
                     Warstomper::ComputePoints,
                     {
-                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
-                            EnumParameter("Artefact", g_artefact[0], g_artefact),
+                            EnumParameter("Command Trait", g_stompersCommandTrait[0], g_stompersCommandTrait),
+                            EnumParameter("Artefact", g_stomperArtefact[0], g_stomperArtefact),
                             BoolParameter("General")
                     },
                     DESTRUCTION,

@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <behemat/Mancrusher.h>
 #include <UnitFactory.h>
+#include <Board.h>
+#include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
     static const int BASESIZE = 90; // x52 oval
@@ -40,8 +42,9 @@ namespace SonsOfBehemat {
             SonsOfBehematBase("Mancrusher Gargants", 8, WOUNDS, 7, 5, false),
             m_eadbutt(Weapon::Type::Melee, "'Eadbutt", 1, 1, 4, 3, -3, 4),
             m_club(Weapon::Type::Melee, "Massive Club", 3, 10, 3, 3, -1, 1),
-            m_kick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3) {
-        m_weapons = {&m_eadbutt, &m_club, &m_kick};
+            m_kick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3),
+            m_rocks(Weapon::Type::Missile, "Chuck Rocks", 18, RAND_D3, 4, 3, -1, RAND_D3) {
+        m_weapons = {&m_eadbutt, &m_club, &m_kick, &m_rocks};
         m_battleFieldRole = Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MONSTER, MANCRUSHER};
     }
@@ -93,6 +96,12 @@ namespace SonsOfBehemat {
         auto unit = new Mancrusher();
         int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
 
+        auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
+        unit->setFierceLoating(loathing);
+
+        auto tribe = (Tribe) GetEnumParam("Tribe", parameters, g_tribe[0]);
+        unit->setTribe(tribe);
+
         bool ok = unit->configure(numModels);
         if (!ok) {
             delete unit;
@@ -110,6 +119,8 @@ namespace SonsOfBehemat {
                     Mancrusher::ComputePoints,
                     {
                             IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Fierce Loathing", g_loathings[0], g_loathings),
+                            EnumParameter("Tribe", g_tribe[0], g_tribe)
                     },
                     DESTRUCTION,
                     {SONS_OF_BEHEMAT}
@@ -124,6 +135,30 @@ namespace SonsOfBehemat {
             points = POINTS_MAX_UNIT_SIZE;
         }
         return points;
+    }
+
+    void Mancrusher::onStartShooting(PlayerId player) {
+        Unit::onStartShooting(player);
+
+        m_rocks.activate(false);
+        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0f);
+        for (auto unit : units) {
+            // Chuck Rocks
+            if (unit->isGeneral()) {
+                m_rocks.activate();
+            }
+        }
+    }
+
+    Wounds Mancrusher::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+
+        // Getting Stuck In
+        if (m_tribe == Tribe::Stomper) {
+            if (target->remainingModels() >= 20) wounds.normal += 2;
+            else if (target->remainingModels() >= 10) wounds.normal += 1;
+        }
+        return wounds;
     }
 
 } // namespace SonsOfBehemat

@@ -702,7 +702,6 @@ add_library(
         behemat/Gatebreaker.cpp
         behemat/KrakenEater.cpp
         behemat/Warstomper.cpp
-        behemat/Bonegrinder.cpp
 )
 
 target_include_directories(

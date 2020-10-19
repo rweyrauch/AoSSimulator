@@ -65,12 +65,17 @@ namespace SonsOfBehemat {
     Unit *Gatebreaker::Create(const ParameterList &parameters) {
         auto unit = new Gatebreaker();
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_breakerCommandTrait[0]);
         unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefact[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_breakerArtefact[0]);
         unit->setArtefact(artefact);
+        auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
+        unit->setFierceLoating(loathing);
+
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
+
+        unit->setTribe(Tribe::Breaker);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -88,8 +93,9 @@ namespace SonsOfBehemat {
                     SonsOfBehematBase::EnumStringToInt,
                     Gatebreaker::ComputePoints,
                     {
-                            EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
-                            EnumParameter("Artefact", g_artefact[0], g_artefact),
+                            EnumParameter("Command Trait", g_breakerCommandTrait[0], g_breakerCommandTrait),
+                            EnumParameter("Artefact", g_breakerArtefact[0], g_breakerArtefact),
+                            EnumParameter("Fierce Loathing", g_loathings[0], g_loathings),
                             BoolParameter("General")
                     },
                     DESTRUCTION,

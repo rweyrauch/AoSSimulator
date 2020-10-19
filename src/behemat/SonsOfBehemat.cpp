@@ -11,13 +11,16 @@
 #include <behemat/Gatebreaker.h>
 #include <behemat/KrakenEater.h>
 #include <behemat/Warstomper.h>
-#include <behemat/Bonegrinder.h>
 #include "../AoSSimPrivate.h"
 #include <magic_enum.hpp>
 
 namespace SonsOfBehemat {
 
     std::string SonsOfBehematBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Tribe") {
+            auto tribeName = magic_enum::enum_name((Tribe)parameter.intValue);
+            return std::string(tribeName);
+        }
         if (std::string(parameter.name) == "Command Trait") {
             auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
             return std::string(traitName);
@@ -30,6 +33,9 @@ namespace SonsOfBehemat {
     }
 
     int SonsOfBehematBase::EnumStringToInt(const std::string &enumString) {
+
+        auto tribe = magic_enum::enum_cast<Tribe>(enumString);
+        if (tribe.has_value()) return (int)tribe.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
         if (trait.has_value()) return (int)trait.value();
@@ -48,12 +54,41 @@ namespace SonsOfBehemat {
         m_artefact = artefact;
     }
 
+    int SonsOfBehematBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+
+        switch (m_fierceLoathing) {
+            case FierceLoathing::Bossy_Pants_and_Clever_Clogs:
+                if (target->hasKeyword(HERO) || target->hasKeyword(WIZARD)) mod++;
+                break;
+            case FierceLoathing::Idiots_with_Flags:
+                if (target->hasKeyword(TOTEM)) mod++;
+                break;
+            case FierceLoathing::Shiny_Uns:
+                if (!target->hasKeyword(HERO) && !target->hasKeyword(MONSTER)) {
+                    if (target->save() <= 4) mod++;
+                }
+                break;
+            case FierceLoathing::Crowds:
+                if (target->remainingModels() >= 20) mod++;
+                break;
+            case FierceLoathing::Wannabes:
+                if (target->hasKeyword(MONSTER) || target->hasKeyword(WAR_MACHINE)) mod++;
+                break;
+            case FierceLoathing::Piggybackers:
+                if (target->hasMount() && !target->hasKeyword(MONSTER)) mod++;
+                break;
+            default:
+                break;
+        }
+        return mod;
+    }
+
     void Init() {
         Mancrusher::Init();
         Gatebreaker::Init();
         KrakenEater::Init();
         Warstomper::Init();
-        Bonegrinder::Init();
     }
 
 } //namespace SonsOfBehemat

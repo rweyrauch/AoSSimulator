@@ -33,11 +33,16 @@ namespace SonsOfBehemat {
 
         void onRestore() override;
 
+        void onStartShooting(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
         int getDamageTableIndex() const;
 
         Weapon m_eadbutt,
             m_club,
-            m_kick;
+            m_kick,
+            m_rocks;
 
         static bool s_registered;
 
@@ -50,6 +55,8 @@ namespace SonsOfBehemat {
 // Stomping Charge                  TODO
 // Stuff 'Em In Me Bag              TODO
 // Timber!                          TODO
+// Getting Stuck In                 Yes
+// Breaking Down the Houses         TODO
 //
 
 } // namespace SonsOfBehemat
