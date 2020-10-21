@@ -1,0 +1,115 @@
+/*
+ * Warhammer Age of Sigmar battle simulator.
+ *
+ * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ *
+ * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
+ */
+
+#include <dok/KhainiteShadowstalkers.h>
+#include <UnitFactory.h>
+#include <iostream>
+#include "DaughterOfKhainePrivate.h"
+
+namespace DaughtersOfKhaine {
+    static const int BASESIZE = 25;
+    static const int WOUNDS = 1;
+    static const int MIN_UNIT_SIZE = 5;
+    static const int MAX_UNIT_SIZE = 20;
+    static const int POINTS_PER_BLOCK = 0;
+    static const int POINTS_MAX_UNIT_SIZE = 0;
+
+    bool KhainiteShadowstalkers::s_registered = false;
+
+    KhainiteShadowstalkers::KhainiteShadowstalkers() :
+            DaughterOfKhaine("Khainite Shadowstalkers", 6, WOUNDS, 7, 5, false),
+            m_cursedMissiles(Weapon::Type::Missile, "Cursed Missiles", 6, 1, 4, 3, 0, 1),
+            m_assassinsBlades(Weapon::Type::Melee, "Assassin's Blades", 1, 2, 4, 3, 0, 1),
+            m_umbralBlades(Weapon::Type::Melee, "Umbral Blades", 1, 3, 3, 3, -1, RAND_D3) {
+        m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, KHAINITE_SHADOWSTALKERS};
+        m_weapons = {&m_cursedMissiles, &m_assassinsBlades, &m_umbralBlades};
+    }
+
+    bool KhainiteShadowstalkers::configure(int numModels) {
+        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+            return false;
+        }
+
+        auto queen = new Model(BASESIZE, wounds()+2);
+        queen->addMissileWeapon(&m_cursedMissiles);
+        queen->addMeleeWeapon(&m_umbralBlades);
+        queen->setName("Shroud Queen");
+        addModel(queen);
+
+        for (auto i = 1; i < numModels; i++) {
+            auto model = new Model(BASESIZE, wounds());
+            model->addMissileWeapon(&m_cursedMissiles);
+            model->addMeleeWeapon(&m_assassinsBlades);
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numModels);
+
+        return true;
+    }
+
+    Unit *KhainiteShadowstalkers::Create(const ParameterList &parameters) {
+        auto unit = new KhainiteShadowstalkers();
+        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+
+        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        unit->setTemple(temple);
+
+        bool ok = unit->configure(numModels);
+        if (!ok) {
+            delete unit;
+            unit = nullptr;
+        }
+        return unit;
+    }
+
+    void KhainiteShadowstalkers::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    DaughterOfKhaine::ValueToString,
+                    DaughterOfKhaine::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            EnumParameter("Temple", g_temple[0], g_temple)
+                    },
+                    ORDER,
+                    {DAUGHTERS_OF_KHAINE}
+            };
+            s_registered = UnitFactory::Register("Khainite Shadowstalkers", factoryMethod);
+        }
+    }
+
+    Wounds KhainiteShadowstalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Cursed Missiles
+        if ((hitRoll == 6) && (weapon->name() == m_cursedMissiles.name())) {
+            return {0, 1};
+        }
+
+        return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int KhainiteShadowstalkers::ComputePoints(int numModels) {
+        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
+        if (numModels == MAX_UNIT_SIZE) {
+            points = POINTS_MAX_UNIT_SIZE;
+        }
+        return points;
+    }
+
+    int KhainiteShadowstalkers::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = DaughterOfKhaine::targetHitModifier(weapon, attacker);
+
+        // Harness Shadow
+        if (!weapon->isMissile()) mod--;
+
+        return mod;
+    }
+
+} // namespace DaughtersOfKhaine

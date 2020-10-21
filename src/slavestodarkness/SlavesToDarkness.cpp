@@ -46,6 +46,7 @@
 #include "slavestodarkness/SoulGrinder.h"
 #include "slavestodarkness/TheddraSkullScryer.h"
 #include "slavestodarkness/VortexBeast.h"
+#include "slavestodarkness/ScionsOfTheFlame.h"
 
 #include "everchosen/Archaon.h"
 #include "everchosen/Varanguard.h"
@@ -209,6 +210,7 @@ namespace SlavesToDarkness {
         SoulGrinder::Init();
         TheddraSkullscryer::Init();
         MutalithVortexBeast::Init();
+        ScionsOfTheFlame::Init();
     }
 
 } //namespace SlavesToDarkness

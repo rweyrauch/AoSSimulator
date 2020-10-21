@@ -26,6 +26,7 @@
 #include "dok/SlaughterQueenCauldronOfBlood.h"
 #include "dok/Morgwaeth.h"
 #include "dok/TheBladeCoven.h"
+#include "dok/KhainiteShadowstalkers.h"
 
 namespace DaughtersOfKhaine {
 
@@ -196,6 +197,7 @@ namespace DaughtersOfKhaine {
         DoomfireWarlocks::Init();
         HagQueen::Init();
         HagQueenOnCauldronOfBlood::Init();
+        KhainiteShadowstalkers::Init();
         KhineraiHeartrenders::Init();
         KhineraiLifetakers::Init();
         MorathiHighOracleOfKhaine::Init();

@@ -202,6 +202,7 @@ add_library(
         dok/SlaughterQueenCauldronOfBlood.cpp
         dok/TheBladeCoven.cpp
         dok/Morgwaeth.cpp
+        dok/KhainiteShadowstalkers.cpp
 
         idonethdeepkin/IdonethDeepkin.cpp
         idonethdeepkin/NamartiThralls.cpp
@@ -564,6 +565,7 @@ add_library(
         slavestodarkness/SoulGrinder.cpp
         slavestodarkness/TheddraSkullScryer.cpp
         slavestodarkness/VortexBeast.cpp
+        slavestodarkness/ScionsOfTheFlame.cpp
 
         freeagents/GotrekGurnisson.cpp
 

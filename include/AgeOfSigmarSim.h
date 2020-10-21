@@ -412,6 +412,7 @@ enum Keyword {
     THE_SHADOW_QUEEN,
     MORGWAETH_THE_BLOODIED,
     THE_BLADE_COVEN,
+    KHAINITE_SHADOWSTALKERS,
 
     // Daughters of Khaine Temples
     HAGG_NAR,
@@ -887,6 +888,7 @@ enum Keyword {
     SLAUGHTERBRUTE,
     MUTALITH_VORTEX_BEAST,
     SOUL_GRINDER,
+    SCIONS_OF_THE_FLAME,
 
     // Slaves to Darkness Damned Legion
     RAVAGERS,
