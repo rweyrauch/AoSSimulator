@@ -31,6 +31,9 @@ namespace SlavesToDarkness {
 
     protected:
 
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
     private:
 
         Weapon m_pots,
@@ -43,8 +46,8 @@ namespace SlavesToDarkness {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Inferno Priest                   TODO
-// All Shall Burn                   TODO
+// Inferno Priest                   Yes
+// All Shall Burn                   Yes
 //
 
 } // SlavesToDarkness
