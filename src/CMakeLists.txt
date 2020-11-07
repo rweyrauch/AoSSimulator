@@ -203,6 +203,7 @@ add_library(
         dok/TheBladeCoven.cpp
         dok/Morgwaeth.cpp
         dok/KhainiteShadowstalkers.cpp
+        dok/MelusaiIronscale.cpp
 
         idonethdeepkin/IdonethDeepkin.cpp
         idonethdeepkin/NamartiThralls.cpp
@@ -285,6 +286,7 @@ add_library(
         slaanesh/InfernalEnrapturess.cpp
         slaanesh/SyllEsske.cpp
         slaanesh/ContortedEpitome.cpp
+        slaanesh/LordOfPain.cpp
 
         nurgle/Nurgle.cpp
         nurgle/Plaguebearers.cpp

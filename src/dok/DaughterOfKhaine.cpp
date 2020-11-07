@@ -27,6 +27,7 @@
 #include "dok/Morgwaeth.h"
 #include "dok/TheBladeCoven.h"
 #include "dok/KhainiteShadowstalkers.h"
+#include "dok/MelusaiIronscale.h"
 
 namespace DaughtersOfKhaine {
 
@@ -200,6 +201,7 @@ namespace DaughtersOfKhaine {
         KhainiteShadowstalkers::Init();
         KhineraiHeartrenders::Init();
         KhineraiLifetakers::Init();
+        MelusaiIronscale::Init();
         MorathiHighOracleOfKhaine::Init();
         MorathiTheShadowQueen::Init();
         MorgwaethTheBloodied::Init();

@@ -25,6 +25,7 @@
 #include "slaanesh/InfernalEnrapturess.h"
 #include "slaanesh/SyllEsske.h"
 #include "slaanesh/ContortedEpitome.h"
+#include "slaanesh/LordOfPain.h"
 
 namespace Slaanesh {
 
@@ -142,6 +143,7 @@ namespace Slaanesh {
         InfernalEnrapturess::Init();
         SyllEsske::Init();
         TheContortedEpitome::Init();
+        LordOfPain::Init();
     }
 
 } // namespace Slaanesh

@@ -413,6 +413,7 @@ enum Keyword {
     MORGWAETH_THE_BLOODIED,
     THE_BLADE_COVEN,
     KHAINITE_SHADOWSTALKERS,
+    MELUSAI_IRONSCALE,
 
     // Daughters of Khaine Temples
     HAGG_NAR,
@@ -531,6 +532,7 @@ enum Keyword {
     THE_CONTORTED_EPITOME,
     BLADEBRINGER,
     HELLFLAYER,
+    LORD_OF_PAIN,
 
     // Hosts of Slaanesh
     PRETENDERS,
