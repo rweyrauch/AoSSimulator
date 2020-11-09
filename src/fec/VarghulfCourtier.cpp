@@ -13,14 +13,14 @@
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 60;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 160;
 
     bool VarghulfCourtier::s_registered = false;
 
     VarghulfCourtier::VarghulfCourtier() :
-            FleshEaterCourts("Varghulf Courtier", 12, WOUNDS, 10, 4, true),
+            FleshEaterCourts("Varghulf Courtier", 12, g_wounds, 10, 4, true),
             m_immenseClaws(Weapon::Type::Melee, "Immense Claws", 2, 4, 3, 3, -1, 2),
             m_daggerlikeFangs(Weapon::Type::Melee, "Dagger-like Fangs", 1, 1, 3, 2, -2, RAND_D3) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, COURTIER, HERO, VARGHULF_COURTIER};
@@ -29,12 +29,12 @@ namespace FleshEaterCourt {
     }
 
     bool VarghulfCourtier::configure() {
-        auto courtier = new Model(BASESIZE, wounds());
+        auto courtier = new Model(g_basesize, wounds());
         courtier->addMeleeWeapon(&m_immenseClaws);
         courtier->addMeleeWeapon(&m_daggerlikeFangs);
         addModel(courtier);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -89,7 +89,7 @@ namespace FleshEaterCourt {
     }
 
     int VarghulfCourtier::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace FleshEaterCourt

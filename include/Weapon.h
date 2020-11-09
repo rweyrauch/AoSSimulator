@@ -14,18 +14,18 @@
 #include <Dice.h>
 
 struct Hits {
-    Hits(int n, const Dice::RollResult &r) : numHits(n), rolls(r) {}
+    Hits(int n, const Dice::RollResult &r) : m_numHits(n), m_rolls(r) {}
 
-    int numHits;
-    Dice::RollResult rolls;
+    int m_numHits;
+    Dice::RollResult m_rolls;
 };
 
 struct WoundingHits {
 public:
-    WoundingHits(int w, const Dice::RollResult &r) : numWoundingHit(w), rolls(r) {}
+    WoundingHits(int w, const Dice::RollResult &r) : m_numWoundingHit(w), m_rolls(r) {}
 
-    int numWoundingHit;
-    Dice::RollResult rolls;
+    int m_numWoundingHit;
+    Dice::RollResult m_rolls;
 };
 
 class Weapon {
@@ -53,7 +53,7 @@ public:
 
     const std::string &name() const { return m_name; }
 
-    const char *name_c() const { return m_name.c_str(); }
+    const char *nameC() const { return m_name.c_str(); }
 
     int range() const { return m_range; }
 

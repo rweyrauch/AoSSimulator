@@ -18,8 +18,8 @@ namespace Death {
     public:
 
         enum WeaponOptions {
-            WightBlade,
-            GreatWightBlade,
+            Wight_Blade,
+            Great_Wight_Blade,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -52,7 +52,7 @@ namespace Death {
 
         bool m_standardBearers = false;
         bool m_hornblowers = false;
-        WeaponOptions m_weaponOption = WightBlade;
+        WeaponOptions m_weaponOption = Wight_Blade;
 
         Weapon m_wightBlade,
                 m_wightBladeSeneschal,

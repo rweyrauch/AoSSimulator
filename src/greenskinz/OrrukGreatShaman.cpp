@@ -11,14 +11,14 @@
 #include <Board.h>
 
 namespace Greenskinz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool OrrukGreatShaman::s_registered = false;
 
     OrrukGreatShaman::OrrukGreatShaman() :
-            Unit("Orruk Great Shaman", 5, WOUNDS, 6, 5, false),
+            Unit("Orruk Great Shaman", 5, g_wounds, 6, 5, false),
             m_totemicStaff(Weapon::Type::Melee, "Totemic Staff", 2, 1, 4, 3, 0, RAND_D3),
             m_boarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, WIZARD, ORRUK_GREAT_SHAMAN};
@@ -27,7 +27,7 @@ namespace Greenskinz {
     }
 
     bool OrrukGreatShaman::configure(bool warboar) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_totemicStaff);
         if (warboar) {
             model->addMeleeWeapon(&m_boarsTusks);
@@ -35,7 +35,7 @@ namespace Greenskinz {
         }
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -91,7 +91,7 @@ namespace Greenskinz {
     }
 
     int OrrukGreatShaman::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Greenskinz

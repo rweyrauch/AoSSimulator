@@ -11,14 +11,14 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 50;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 100;
 
     bool Doombull::s_registered = false;
 
     Doombull::Doombull() :
-            BeastsOfChaosBase("Doombull", 8, WOUNDS, 7, 5, false),
+            BeastsOfChaosBase("Doombull", 8, g_wounds, 7, 5, false),
             m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
             m_slaughtererAxe(Weapon::Type::Melee, "Slaughterer's Axe", 1, 3, 3, 3, -2, 3) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, HERO, DOOMBULL};
@@ -27,12 +27,12 @@ namespace BeastsOfChaos {
     }
 
     bool Doombull::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bullgorHorns);
         model->addMeleeWeapon(&m_slaughtererAxe);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -88,7 +88,7 @@ namespace BeastsOfChaos {
     }
 
     int Doombull::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace BeastsOfChaos

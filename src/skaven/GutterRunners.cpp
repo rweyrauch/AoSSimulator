@@ -10,17 +10,17 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 200;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 60;
+    static const int g_pointsMaxUnitSize = 200;
 
     bool GutterRunners::s_registered = false;
 
     GutterRunners::GutterRunners() :
-            Skaventide("Gutter Runners", 7, WOUNDS, 5, 5, false),
+            Skaventide("Gutter Runners", 7, g_wounds, 5, 5, false),
             m_throwingStars(Weapon::Type::Missile, "Eshin Throwing Stars", 12, 2, 4, 5, 0, 1),
             m_punchDaggerAndBlade(Weapon::Type::Melee, "Punch Daggar and Blade", 1, 2, 3, 4, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, GUTTER_RUNNERS};
@@ -28,7 +28,7 @@ namespace Skaven {
     }
 
     bool GutterRunners::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -36,7 +36,7 @@ namespace Skaven {
         m_runAndShoot = true;
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_throwingStars);
             model->addMeleeWeapon(&m_punchDaggerAndBlade);
             addModel(model);
@@ -49,7 +49,7 @@ namespace Skaven {
 
     Unit *GutterRunners::Create(const ParameterList &parameters) {
         auto unit = new GutterRunners();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -67,7 +67,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     CHAOS,
                     {SKAVEN}
@@ -85,9 +85,9 @@ namespace Skaven {
     }
 
     int GutterRunners::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
 

@@ -18,8 +18,8 @@ namespace KharadronOverlords {
     public:
 
         enum WeaponOption {
-            HeavySkyCannon,
-            HeavySkyhook
+            Heavy_Sky_Cannon,
+            Heavy_Skyhook
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -58,7 +58,7 @@ namespace KharadronOverlords {
 
     private:
 
-        WeaponOption m_weaponOption = HeavySkyCannon;
+        WeaponOption m_weaponOption = Heavy_Sky_Cannon;
 
         Weapon m_cannonShrapnel,
                 m_cannonShell,

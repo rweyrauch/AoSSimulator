@@ -18,8 +18,8 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOption {
-            BrimstoneGun,
-            SteamGun
+            Brimstone_Gun,
+            Steam_Gun
         };
 
         static Unit *Create(const ParameterList &parameters);

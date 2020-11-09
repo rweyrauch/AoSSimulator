@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LEVIADON_H
-#define LEVIADON_H
+#ifndef AKHELIANLEVIADON_H
+#define AKHELIANLEVIADON_H
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -25,21 +25,32 @@ namespace IdonethDeepkin {
 
         AkhelianLeviadon();
 
-        ~AkhelianLeviadon() override = default;
+        ~AkhelianLeviadon() override;
 
         bool configure();
 
-    protected:
+        void onWounded() override;
+
+        void onRestore() override;
+
+    private:
+
+        int getDamageTableIndex() const;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        int voidDrumSaveMod(const Unit *unit, const Weapon *weapon);
+        int voidDrumToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
     private:
+
+        lsignal::slot m_voidDrumSaveSlot,
+            m_voidDrumHitSlot;
 
         Weapon m_harpoonLauncher,
                 m_crushingJaws,
                 m_scythedFins,
-                m_twinProngedSpear,
-                m_razorshellHarpoons;
+                m_spearAndHarpoons;
 
         static bool s_registered;
     };
@@ -47,10 +58,11 @@ namespace IdonethDeepkin {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Crushing Charge                  TODO
 // Jaws of Death                    Yes
-// Void Drum                        TODO
+// Void Drum                        Yes
 //
 
 } // namespace IdonethDeepkin
 
-#endif // LEVIADON_H
+#endif // AKHELIANLEVIADON_H

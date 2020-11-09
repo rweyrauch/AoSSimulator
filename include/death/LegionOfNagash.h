@@ -16,36 +16,36 @@
 namespace Death {
 
     enum class Legion : int {
-        Grand_Host_of_Nagash,
-        Legion_of_Sacrament,
-        Legion_of_Blood,
-        Legion_of_Night
+        Grand_Host_Of_Nagash,
+        Legion_Of_Sacrament,
+        Legion_Of_Blood,
+        Legion_Of_Night
     };
 
     enum class CommandTrait : int {
         None,
 
         // Grand Host
-        Master_of_Death,
+        Master_Of_Death,
         Chosen_Champion,
-        Bane_of_the_Living,
-        Aura_of_Ages,
+        Bane_Of_The_Living,
+        Aura_Of_Ages,
         Ancient_Strategist,
-        Lord_of_Nagashizzar,
+        Lord_Of_Nagashizzar,
 
         // Legion of Sacrament
-        Emissary_of_the_Master,
-        Mark_of_the_Favoured,
+        Emissary_Of_The_Master,
+        Mark_Of_The_Favoured,
         Dark_Acolyte,
-        Mastery_of_Death,
+        Mastery_Of_Death,
         Peerless_Commander,
-        Bound_to_the_Master,
+        Bound_To_The_Master,
 
         // Legion of Blood
         Swift_Strikes,
         Soul_Crushing_Contempt,
-        Aristocracy_of_Blood,
-        Aura_of_Dark_Majesty,
+        Aristocracy_Of_Blood,
+        Aura_Of_Dark_Majesty,
         Walking_Death,
         Sanguine_Blur,
 
@@ -58,7 +58,7 @@ namespace Death {
         Terrifying_Visage,
 
         // Soulblight
-        Curse_of_the_Revenant,
+        Curse_Of_The_Revenant,
         Deathless_Duellist,
         Transfix,
         Mist_Form,
@@ -66,10 +66,10 @@ namespace Death {
         Blood_Fury,
 
         // Death
-        Ruler_of_the_Night,
-        Predator_of_the_Shadows,
+        Ruler_Of_The_Night,
+        Predator_Of_The_Shadows,
         Death_Incarnate,
-        Master_of_the_Black_Arts,
+        Master_Of_The_Black_Arts,
         Red_Fury,
         Supernatural_Horror,
     };
@@ -87,24 +87,24 @@ namespace Death {
 
         // Legion of Sacrament
         Spiritcage,
-        Shroud_of_Darkness,
+        Shroud_Of_Darkness,
         Asylumaticae,
-        Wristbands_of_Black_Gold,
+        Wristbands_Of_Black_Gold,
         Azyrbane_Standard,
         Black_Gem,
 
         // Legion of Blood
-        Ring_of_Domination,
+        Ring_Of_Domination,
         Shadeglass_Decanter,
-        Orb_of_Enchantment,
+        Orb_Of_Enchantment,
         Soulbound_Garments,
         Oubliette_Arcana,
-        Amulet_of_Screams,
+        Amulet_Of_Screams,
 
         // Legion of Night
-        Vial_of_the_Pure_Blood,
-        Shard_of_Night,
-        Gem_of_Exsanguination,
+        Vial_Of_The_Pure_Blood,
+        Shard_Of_Night,
+        Gem_Of_Exsanguination,
         Chiropteric_Cloak,
         Morbhegs_Claw,
         Curseblade,
@@ -118,12 +118,12 @@ namespace Death {
         Overwhelming_Dread,
         Fading_Vigour,
         Spectral_Grasp,
-        Prison_of_Grief,
+        Prison_Of_Grief,
         Decrepify,
         Soul_Harvest,
 
         // Vampire
-        Blades_of_Shyish,
+        Blades_Of_Shyish,
         Spirit_Gale,
         Vile_Transference,
         Amethystine_Pinions,
@@ -156,7 +156,7 @@ namespace Death {
 
     protected:
 
-        Legion m_legion = Legion::Grand_Host_of_Nagash;
+        Legion m_legion = Legion::Grand_Host_Of_Nagash;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
     };

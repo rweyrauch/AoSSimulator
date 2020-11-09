@@ -10,17 +10,17 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 400;
 
     bool Stormvermin::s_registered = false;
 
     Stormvermin::Stormvermin() :
-            Skaventide("Stormvermin", 6, WOUNDS, 5, 5, false),
+            Skaventide("Stormvermin", 6, g_wounds, 5, 5, false),
             m_rustyHalberd(Weapon::Type::Melee, "Rusty Halberd", 2, 2, 4, 3, -1, 1),
             m_rustyHalberdLeader(Weapon::Type::Melee, "Rusty Halberd", 2, 3, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, STORMVERMIN};
@@ -28,11 +28,11 @@ namespace Skaven {
     }
 
     bool Stormvermin::configure(int numModels, bool clanshields, int standardBearers, int drummers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
-        int maxStandardBearers = numModels / MIN_UNIT_SIZE;
-        int maxDummers = numModels / MIN_UNIT_SIZE;
+        int maxStandardBearers = numModels / g_minUnitSize;
+        int maxDummers = numModels / g_minUnitSize;
         if (standardBearers > maxStandardBearers || drummers > maxDummers) {
             return false;
         }
@@ -44,12 +44,12 @@ namespace Skaven {
         // Standard Bearers
         m_retreatAndCharge = (standardBearers > 0);
 
-        auto leader = new Model(BASESIZE, wounds());
+        auto leader = new Model(g_basesize, wounds());
         leader->addMeleeWeapon(&m_rustyHalberdLeader);
         addModel(leader);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_rustyHalberd);
             addModel(model);
         }
@@ -61,7 +61,7 @@ namespace Skaven {
 
     Unit *Stormvermin::Create(const ParameterList &parameters) {
         auto unit = new Stormvermin();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool clanshields = GetBoolParam("Clanshields", parameters, false);
         int standardBearers = GetIntParam("Standard Bearers", parameters, 0);
         int drummers = GetIntParam("Drummers", parameters, 0);
@@ -82,10 +82,10 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Clanshields"),
-                            IntegerParameter("Standard Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Drummers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1)
+                            IntegerParameter("Standard Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Drummers", 0, 0, g_maxUnitSize / g_minUnitSize, 1)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -111,9 +111,9 @@ namespace Skaven {
     }
 
     int Stormvermin::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

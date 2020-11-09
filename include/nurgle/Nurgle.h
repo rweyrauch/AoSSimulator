@@ -22,8 +22,8 @@ namespace Nurgle {
         Grandfathers_Blessing,
         Living_Plague,
         Hulking_Physique,
-        Bloated_with_Corruption,
-        Avalanch_of_Rotten_Flesh,
+        Bloated_With_Corruption,
+        Avalanch_Of_Rotten_Flesh,
         Resilient,
 
         // Daemon
@@ -60,25 +60,25 @@ namespace Nurgle {
         Nurgles_Nail,
         The_Bountiful_Swarm,
         The_Witherstave,
-        Tome_of_a_Thousand_Poxes,
+        Tome_Of_A_Thousand_Poxes,
         The_Endless_Gift,
 
         // Mortal
         The_Virulent_Blade,
         The_Foetid_Shroud,
         Sublucus_Stenchplate,
-        The_Eye_of_Nurgle,
+        The_Eye_Of_Nurgle,
         The_Carrion_Dirge,
-        The_Shield_of_Growths,
+        The_Shield_Of_Growths,
     };
 
     enum class Lore : int {
         None,
 
         // Rotbringer
-        Blades_of_Putrification,
+        Blades_Of_Putrification,
         Rancid_Visitations,
-        Gift_of_Contagion,
+        Gift_Of_Contagion,
 
         // Daemon
         Favoured_Poxes,

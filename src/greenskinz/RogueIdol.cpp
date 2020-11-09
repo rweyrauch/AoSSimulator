@@ -11,9 +11,9 @@
 #include <Board.h>
 
 namespace Greenskinz {
-    static const int BASESIZE = 170; // x105 oval
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 420;
+    static const int g_basesize = 170; // x105 oval
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 420;
 
     struct TableEntry {
         int m_move;
@@ -21,9 +21,9 @@ namespace Greenskinz {
         int m_feetAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 11, 13, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {4, 8, 11, 13, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 2, 10},
                     {8,  3, 8},
@@ -35,7 +35,7 @@ namespace Greenskinz {
     bool RogueIdol::s_registered = false;
 
     RogueIdol::RogueIdol() :
-            Unit("Rogue Idol", 10, WOUNDS, 10, 4, false),
+            Unit("Rogue Idol", 10, g_wounds, 10, 4, false),
             m_boulderFists(Weapon::Type::Melee, "Boulder Fists", 3, 2, 3, 2, -2, RAND_D6),
             m_stompinFeet(Weapon::Type::Melee, "Stompin' Feet", 2, 10, 3, 3, -2, 2) {
         m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
@@ -44,12 +44,12 @@ namespace Greenskinz {
     }
 
     bool RogueIdol::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boulderFists);
         model->addMeleeWeapon(&m_stompinFeet);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -88,7 +88,7 @@ namespace Greenskinz {
 
     int RogueIdol::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -109,9 +109,9 @@ namespace Greenskinz {
         // Avalanche!
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
         for (auto ip : units) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 4) {
-                ip->applyDamage({0, Dice::rollD3()});
+                ip->applyDamage({0, Dice::RollD3()});
             }
         }
 
@@ -125,7 +125,7 @@ namespace Greenskinz {
         modifiedWounds.normal = (wounds.normal + 1) / 2;
         if (wounds.mortal > 0) {
             Dice::RollResult rolls;
-            Dice::rollD6(wounds.mortal, rolls);
+            Dice::RollD6(wounds.mortal, rolls);
             modifiedWounds.mortal = rolls.rollsGE(4);
         }
         return modifiedWounds;
@@ -137,7 +137,7 @@ namespace Greenskinz {
         // Rubble and Ruin
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto ip : units) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 4) {
                 Wounds rubbleRuins = {0, 0};
                 ip->applyDamage(rubbleRuins);
@@ -150,13 +150,13 @@ namespace Greenskinz {
     Rerolls RogueIdol::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Spirit of the Waaagh!
         if (m_charged) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     int RogueIdol::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Greenskinz

@@ -20,53 +20,53 @@ public:
     Model() = delete;
 
     Model(int baseSize, int wounds) :
-            m_baseSize_mm(baseSize),
+            m_baseSizeMm(baseSize),
             m_initialWounds(wounds),
             m_woundsRemaining(wounds) {}
 
-    int basesize() const { return m_baseSize_mm; }
+    [[nodiscard]] int basesize() const { return m_baseSizeMm; }
 
-    double basesizeInches() const { return (double) m_baseSize_mm / 25.4; }
+    [[nodiscard]] double basesizeInches() const { return (double) m_baseSizeMm / 25.4; }
 
     void setPosition(const Math::Point3 &pos) { m_position = pos; }
 
-    const Math::Point3 &position() const { return m_position; }
+    [[nodiscard]] const Math::Point3 &position() const { return m_position; }
 
-    double x() const { return m_position.x; }
+    [[nodiscard]] double x() const { return m_position.x; }
 
-    double y() const { return m_position.y; }
+    [[nodiscard]] double y() const { return m_position.y; }
 
-    double z() const { return m_position.z; }
+    [[nodiscard]] double z() const { return m_position.z; }
 
     void setOrientation(const Math::Vector3 &dir) { m_orientation = dir; }
 
-    const Math::Vector3 &orientation() const { return m_orientation; }
+    [[nodiscard]] const Math::Vector3 &orientation() const { return m_orientation; }
 
     void addMeleeWeapon(const Weapon *weapon);
 
     void addMissileWeapon(const Weapon *weapon);
 
-    int numMeleeWeapons() const { return (int) m_melee.size(); }
+    [[nodiscard]] int numMeleeWeapons() const { return (int) m_melee.size(); }
 
-    std::vector<const Weapon *>::const_iterator meleeWeaponBegin() const { return m_melee.begin(); }
+    [[nodiscard]] std::vector<const Weapon *>::const_iterator meleeWeaponBegin() const { return m_melee.begin(); }
 
-    std::vector<const Weapon *>::const_iterator meleeWeaponEnd() const { return m_melee.end(); }
+    [[nodiscard]] std::vector<const Weapon *>::const_iterator meleeWeaponEnd() const { return m_melee.end(); }
 
-    int numMissileWeapons() const { return (int) m_missile.size(); }
+    [[nodiscard]] int numMissileWeapons() const { return (int) m_missile.size(); }
 
-    std::vector<const Weapon *>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
+    [[nodiscard]] std::vector<const Weapon *>::const_iterator missileWeaponBegin() const { return m_missile.begin(); }
 
-    std::vector<const Weapon *>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
+    [[nodiscard]] std::vector<const Weapon *>::const_iterator missileWeaponEnd() const { return m_missile.end(); }
 
-    bool hasWeapon(const std::string &name) const;
+    [[nodiscard]] bool hasWeapon(const std::string &name) const;
 
     void setName(const std::string &name) { m_name = name; }
 
-    const std::string &getName() const { return m_name; }
+    [[nodiscard]] const std::string &getName() const { return m_name; }
 
-    int initialWounds() const { return m_initialWounds; }
+    [[nodiscard]] int initialWounds() const { return m_initialWounds; }
 
-    int woundsRemaining() const { return m_woundsRemaining; }
+    [[nodiscard]] int woundsRemaining() const { return m_woundsRemaining; }
 
     int applyWound(int wounds);
 
@@ -74,21 +74,21 @@ public:
 
     void slay();
 
-    bool slain() const { return m_slain; }
+    [[nodiscard]] bool slain() const { return m_slain; }
 
     void flee() { m_fled = true; }
 
-    bool fled() const { return m_fled; }
+    [[nodiscard]] bool fled() const { return m_fled; }
 
     void restore();
 
-    const Weapon *preferredWeapon() const { return m_preferredWeapon; }
+    [[nodiscard]] const Weapon *preferredWeapon() const { return m_preferredWeapon; }
 
-    static double distanceBetween(const Model *m0, const Model *m1);
+    static double DistanceBetween(const Model *m0, const Model *m1);
 
 private:
 
-    int m_baseSize_mm = 0;
+    int m_baseSizeMm = 0;
     Math::Point3 m_position = {0, 0, 0};
     Math::Vector3 m_orientation = {1, 0, 0};
     int m_initialWounds = 0;

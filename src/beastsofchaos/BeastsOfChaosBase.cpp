@@ -71,7 +71,7 @@ namespace BeastsOfChaos {
 
         // Bloodgorge
         if (m_currentRecord.m_enemyUnitsSlain) {
-            heal(Dice::rollD3());
+            heal(Dice::RollD3());
         }
 
         return wounds;

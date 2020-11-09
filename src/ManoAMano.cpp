@@ -14,7 +14,7 @@
 ManoAMano::ManoAMano(int numRounds, Realm realm) :
         m_numRounds(numRounds) {
     auto board = Board::Instance();
-    board->setSize(BoardWidth, BoardDepth);
+    board->setSize(s_boardWidth, s_boardDepth);
     board->setRealm(realm);
 }
 
@@ -69,8 +69,8 @@ void ManoAMano::start() {
     int redRoll = 0;
     int blueRoll = 0;
     while (redRoll == blueRoll) {
-        redRoll = Dice::rollD6();
-        blueRoll = Dice::rollD6();
+        redRoll = Dice::RollD6();
+        blueRoll = Dice::RollD6();
     }
     PlayerId firstUnit = PlayerId::Blue;
     if (redRoll > blueRoll) {
@@ -217,8 +217,8 @@ bool ManoAMano::done() const {
 
 void ManoAMano::runInitiativePhase() {
     // Roll D6 for each player, highest goes first.
-    auto p1 = Dice::rollD6();
-    auto p2 = Dice::rollD6();
+    auto p1 = Dice::RollD6();
+    auto p2 = Dice::RollD6();
     if (p1 == p2) {
         // Ties go to the player that went first in the previous round.
         m_attackingPlayer = (m_attackingPlayer == PlayerId::Red) ? PlayerId::Blue : PlayerId::Red;

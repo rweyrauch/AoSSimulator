@@ -38,7 +38,7 @@ namespace IdonethDeepkin {
         Weapon m_abyssalEnergy,
                 m_trident,
                 m_sceptre,
-                m_stormshoal;
+                m_fangs;
 
         lsignal::slot m_connection;
 
@@ -49,6 +49,7 @@ namespace IdonethDeepkin {
 // Abilities                    Implemented
 // -------------------------------------------
 // Dormant Energies                 TODO
+// Stormshoal                       TODO
 // Tranquility of the Abyss         Yes
 // Cloying Sea Mists                TODO
 // Tsunami of Terror                TODO

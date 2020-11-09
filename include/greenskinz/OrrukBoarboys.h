@@ -20,7 +20,7 @@ namespace Greenskinz {
 
         enum WeaponOption {
             Choppa,
-            PigstikkaSpear,
+            Pigstikka_Spear,
         };
 
         static Unit *Create(const ParameterList &parameters);

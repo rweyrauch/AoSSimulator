@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SKULLCRUSHERS_H
-#define SKULLCRUSHERS_H
+#ifndef MIGHTYSKULLCRUSHERS_H
+#define MIGHTYSKULLCRUSHERS_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -18,7 +18,7 @@ namespace Khorne {
     public:
 
         enum WeaponOption {
-            EnsorcelledAxe,
+            Ensorcelled_Axe,
             Bloodglaive,
         };
 
@@ -50,7 +50,7 @@ namespace Khorne {
 
     private:
 
-        WeaponOption m_weaponOption = EnsorcelledAxe;
+        WeaponOption m_weaponOption = Ensorcelled_Axe;
         bool m_standarBearer = false;
         bool m_hornblower = false;
 
@@ -73,4 +73,4 @@ namespace Khorne {
 
 } // namespace Khorne
 
-#endif //SKULLCRUSHERS_H
+#endif //MIGHTYSKULLCRUSHERS_H

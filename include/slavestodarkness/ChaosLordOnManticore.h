@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDONMANTICORE_H
-#define LORDONMANTICORE_H
+#ifndef CHAOSLORDONMANTICORE_H
+#define CHAOSLORDONMANTICORE_H
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -18,12 +18,12 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            BladeAndLance,
-            FlailAndLance,
-            BladeAndShield,
-            FlailAndShield,
-            BladeAndDaggerfist,
-            FlailAndDaggerfist
+            Blade_And_Lance,
+            Flail_And_Lance,
+            Blade_And_Shield,
+            Flail_And_Shield,
+            Blade_And_Daggerfist,
+            Flail_And_Daggerfist
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -62,7 +62,7 @@ namespace SlavesToDarkness {
 
     private:
 
-        WeaponOption m_weapon = WeaponOption::BladeAndShield;
+        WeaponOption m_weapon = WeaponOption::Blade_And_Shield;
 
         Weapon m_blade,
                 m_lance,
@@ -87,4 +87,4 @@ namespace SlavesToDarkness {
 
 } // SlavesToDarkness
 
-#endif //LORDONMANTICORE_H
+#endif //CHAOSLORDONMANTICORE_H

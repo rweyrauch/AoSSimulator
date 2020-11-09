@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef IDONETHDEEPKINBASE_H
-#define IDONETHDEEPKINBASE_H
+#ifndef IDONETHDEEPKIN_H
+#define IDONETHDEEPKIN_H
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -30,14 +30,14 @@ namespace IdonethDeepkin {
         None,
 
         Merciless_Raider,
-        Hunter_of_Souls,
+        Hunter_Of_Souls,
         Unstoppable_Fury,
         Born_From_Agony,
         Nightmare_Legacy,
-        Lord_of_Storm_and_Sea,
+        Lord_Of_Storm_And_Sea,
 
         // Enclave
-        Emissary_of_the_Deep_Places, // Ionrach
+        Emissary_Of_The_Deep_Places, // Ionrach
 
     };
 
@@ -46,18 +46,18 @@ namespace IdonethDeepkin {
 
         // Akhelian
         Sanguine_Pearl,
-        Potion_of_Hateful_Frenzy,
+        Potion_Of_Hateful_Frenzy,
         Ankusha_Spear,
-        Armour_of_the_Cythai,
+        Armour_Of_The_Cythai,
         Bioshock_Shell,
         Abyssal_Blade,
 
         // Idoneth
-        Rune_of_the_Surging_Tide,
+        Rune_Of_The_Surging_Tide,
         Black_Pearl,
         Lliandras_Last_Lament,
         Terrornight_Venom,
-        Cloud_of_Midnight,
+        Cloud_Of_Midnight,
         Whorlshell,
 
         // Isharann
@@ -70,9 +70,9 @@ namespace IdonethDeepkin {
 
         // Arcane
         Arcane_Pearl,
-        Sands_of_Infinity,
+        Sands_Of_Infinity,
         Coral_Ring,
-        Bauble_of_Buoyancy,
+        Bauble_Of_Buoyancy,
         Kraken_Tooth,
         Augury_Shells,
     };
@@ -80,11 +80,11 @@ namespace IdonethDeepkin {
     enum class Lore : int {
         None,
 
-        Steed_of_Tides,
+        Steed_Of_Tides,
         Abyssal_Darkness,
         Vorpal_Maelstrom,
-        Pressure_of_the_Deep,
-        Tide_of_Fear,
+        Pressure_Of_The_Deep,
+        Tide_Of_Fear,
         Arcane_Corrasion,
 
         // Enclave specific
@@ -156,4 +156,4 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // IDONETHDEEPKINBASE_H
+#endif // IDONETHDEEPKIN_H

@@ -11,9 +11,9 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 140;
 
     bool Cygor::s_registered = false;
 
@@ -23,9 +23,9 @@ namespace BeastsOfChaos {
         int m_hornAttacts;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {8, 18, 8},
                     {6, 15, 7},
@@ -35,7 +35,7 @@ namespace BeastsOfChaos {
             };
 
     Cygor::Cygor() :
-            BeastsOfChaosBase("Cygor", 8, WOUNDS, 7, 5, false),
+            BeastsOfChaosBase("Cygor", 8, g_wounds, 7, 5, false),
             m_desecratedBoulder(Weapon::Type::Missile, "Desecrated Boulder", 18, 1, 4, 2, -2, RAND_D6),
             m_massiveHorns(Weapon::Type::Melee, "Massive Horns", 2, 8, 4, 3, -1, 1) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, CYGOR};
@@ -44,12 +44,12 @@ namespace BeastsOfChaos {
     }
 
     bool Cygor::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_desecratedBoulder);
         model->addMeleeWeapon(&m_massiveHorns);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -103,7 +103,7 @@ namespace BeastsOfChaos {
 
     int Cygor::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -114,12 +114,12 @@ namespace BeastsOfChaos {
     Rerolls Cygor::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Ghostsight
         if (target->hasKeyword(WIZARD))
-            return RerollFailed;
+            return Reroll_Failed;
         return Unit::toHitRerolls(weapon, target);
     }
 
     int Cygor::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void Cygor::onUnboundSpell(Unit *caster, int castRoll) {

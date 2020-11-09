@@ -10,19 +10,19 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 440;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 110;
+    static const int g_pointsMaxUnitSize = 440;
 
     bool IcefallYhetees::s_registered = false;
 
     Unit *IcefallYhetees::Create(const ParameterList &parameters) {
         auto unit = new IcefallYhetees();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
@@ -43,7 +43,7 @@ namespace OgorMawtribes {
                     MawtribesBase::EnumStringToInt,
                     IcefallYhetees::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
@@ -54,7 +54,7 @@ namespace OgorMawtribes {
     }
 
     IcefallYhetees::IcefallYhetees() :
-            MawtribesBase("Icefall Yhetees", 9, WOUNDS, 6, 6, false),
+            MawtribesBase("Icefall Yhetees", 9, g_wounds, 6, 6, false),
             m_clawsAndClubs(Weapon::Type::Melee, "Claws and Ice-encrusted Clubs", 1, 3, 4, 3, -1, 2) {
         m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, ICEFALL_YHETESS};
         m_weapons = {&m_clawsAndClubs};
@@ -64,12 +64,12 @@ namespace OgorMawtribes {
     }
 
     bool IcefallYhetees::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_clawsAndClubs);
             addModel(model);
         }
@@ -80,9 +80,9 @@ namespace OgorMawtribes {
     }
 
     int IcefallYhetees::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

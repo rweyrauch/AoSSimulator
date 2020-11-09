@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef COS_LONGBEARDS_H
-#define COS_LONGBEARDS_H
+#ifndef LONGBEARDS_H
+#define LONGBEARDS_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -18,8 +18,8 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOptions {
-            AncestralWeaponAndShield,
-            AncestralGreatAxe
+            Ancestral_Weapon_And_Shield,
+            Ancestral_Great_Axe
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -50,7 +50,7 @@ namespace CitiesOfSigmar {
 
     private:
 
-        WeaponOptions m_weaponOption = AncestralWeaponAndShield;
+        WeaponOptions m_weaponOption = Ancestral_Weapon_And_Shield;
         bool m_standardBearer = false;
         bool m_musician = false;
 
@@ -73,4 +73,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //COS_LONGBEARDS_H
+#endif //LONGBEARDS_H

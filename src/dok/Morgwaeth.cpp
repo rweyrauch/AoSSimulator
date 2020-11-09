@@ -11,14 +11,14 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool MorgwaethTheBloodied::s_registered = false;
 
     MorgwaethTheBloodied::MorgwaethTheBloodied() :
-            DaughterOfKhaine("Morgwaeth the Bloodied", 6, WOUNDS, 8, 5, false),
+            DaughterOfKhaine("Morgwaeth the Bloodied", 6, g_wounds, 8, 5, false),
             m_glaive(Weapon::Type::Melee, "Glaive of Khaine", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN, MORGWAETH_THE_BLOODIED};
         m_weapons = {&m_glaive};
@@ -26,11 +26,11 @@ namespace DaughtersOfKhaine {
     }
 
     bool MorgwaethTheBloodied::configure(Prayer prayer) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -38,7 +38,7 @@ namespace DaughtersOfKhaine {
     Unit *MorgwaethTheBloodied::Create(const ParameterList &parameters) {
         auto unit = new MorgwaethTheBloodied();
 
-        unit->setTemple(Temple::HaggNar);
+        unit->setTemple(Temple::Hagg_Nar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -72,7 +72,7 @@ namespace DaughtersOfKhaine {
     }
 
     int MorgwaethTheBloodied::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void MorgwaethTheBloodied::onStartHero(PlayerId player) {
@@ -81,15 +81,15 @@ namespace DaughtersOfKhaine {
         m_glaive.setDamage(1);
 
         // Priestess of Khaine
-        const auto roll = Dice::rollD6();
+        const auto roll = Dice::RollD6();
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) <= 3.0) {
             // Touch of Death
             if (roll == 1) {
                 applyDamage({0, 1});
             } else if (roll >= 3) {
-                if (Dice::rollD6() >= 4) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         } else {

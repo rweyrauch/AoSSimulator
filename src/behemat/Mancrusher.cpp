@@ -12,12 +12,12 @@
 #include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 12;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 12;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 180;
+    static const int g_pointsMaxUnitSize = 480;
 
     struct TableEntry {
         int m_stompingCharge;
@@ -25,9 +25,9 @@ namespace SonsOfBehemat {
         int m_eadbuttDamage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {2, 10, 4},
                     {3, 9, 3},
@@ -39,7 +39,7 @@ namespace SonsOfBehemat {
     bool Mancrusher::s_registered = false;
 
     Mancrusher::Mancrusher() :
-            SonsOfBehematBase("Mancrusher Gargants", 8, WOUNDS, 7, 5, false),
+            SonsOfBehematBase("Mancrusher Gargants", 8, g_wounds, 7, 5, false),
             m_eadbutt(Weapon::Type::Melee, "'Eadbutt", 1, 1, 4, 3, -3, 4),
             m_club(Weapon::Type::Melee, "Massive Club", 3, 10, 3, 3, -1, 1),
             m_kick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3),
@@ -52,13 +52,13 @@ namespace SonsOfBehemat {
     bool Mancrusher::configure(int numModels) {
 
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_eadbutt);
             model->addMeleeWeapon(&m_club);
             model->addMeleeWeapon(&m_kick);
@@ -77,7 +77,7 @@ namespace SonsOfBehemat {
 
     int Mancrusher::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -94,7 +94,7 @@ namespace SonsOfBehemat {
 
     Unit *Mancrusher::Create(const ParameterList &parameters) {
         auto unit = new Mancrusher();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
         unit->setFierceLoating(loathing);
@@ -118,7 +118,7 @@ namespace SonsOfBehemat {
                     SonsOfBehematBase::EnumStringToInt,
                     Mancrusher::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Fierce Loathing", g_loathings[0], g_loathings),
                             EnumParameter("Tribe", g_tribe[0], g_tribe)
                     },
@@ -130,9 +130,9 @@ namespace SonsOfBehemat {
     }
 
     int Mancrusher::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -33,12 +33,12 @@ TEST(Weapon, Attacks)
     {
         for (auto w : weapons)
         {
-            auto hits = w.rollToHit(0, NoRerolls, 0);
-            auto totalWounds = w.rollToWound(hits.numHits, 0, NoRerolls);
-            auto totalDamage = totalWounds.numWoundingHit * w.damage();
-            if (hits.numHits > 0)
+            auto hits = w.rollToHit(0, No_Rerolls, 0);
+            auto totalWounds = w.rollToWound(hits.m_numHits, 0, No_Rerolls);
+            auto totalDamage = totalWounds.m_numWoundingHit * w.damage();
+            if (hits.m_numHits > 0)
             {
-                if (totalWounds.numWoundingHit > 0)
+                if (totalWounds.m_numWoundingHit > 0)
                 {
                     ASSERT_GT(totalDamage, 0);
                 }
@@ -49,7 +49,7 @@ TEST(Weapon, Attacks)
             }
             else
             {
-                ASSERT_EQ(totalWounds.numWoundingHit, 0);
+                ASSERT_EQ(totalWounds.m_numWoundingHit, 0);
                 ASSERT_EQ(totalDamage, 0);
             }
         }

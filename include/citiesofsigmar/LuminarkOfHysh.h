@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LUMINARK_H
-#define LUMINARK_H
+#ifndef LUMINARKOFHYSH_H
+#define LUMINARKOFHYSH_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -70,4 +70,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //LUMINARK_H
+#endif //LUMINARKOFHYSH_H

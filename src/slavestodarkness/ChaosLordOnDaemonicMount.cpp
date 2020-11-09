@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 170;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 170;
 
     bool ChaosLordOnDaemonicMount::s_registered = false;
 
@@ -56,7 +56,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosLordOnDaemonicMount::ChaosLordOnDaemonicMount() :
-            SlavesToDarknessBase("Chaos Lord On Daemonic Mount", 10, WOUNDS, 8, 4, false),
+            SlavesToDarknessBase("Chaos Lord On Daemonic Mount", 10, g_wounds, 8, 4, false),
             m_hammer(Weapon::Type::Melee, "Cursed Warhammer", 1, 4, 3, 3, -1, 2),
             m_hooves(Weapon::Type::Melee, "Mighty Hooves", 1, 3, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
@@ -66,12 +66,12 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosLordOnDaemonicMount::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_hammer);
         model->addMeleeWeapon(&m_hooves);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -80,7 +80,7 @@ namespace SlavesToDarkness {
         auto savedWounds = Unit::applyWoundSave(wounds);
         Dice::RollResult result;
         // Chaos Runeshield
-        Dice::rollD6(savedWounds.mortal, result);
+        Dice::RollD6(savedWounds.mortal, result);
         savedWounds.mortal -= result.rollsGE(5);
         return savedWounds;
     }
@@ -97,7 +97,7 @@ namespace SlavesToDarkness {
     }
 
     int ChaosLordOnDaemonicMount::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace SlavesToDarkness

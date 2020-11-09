@@ -16,54 +16,54 @@
 namespace Bonesplitterz {
 
     constexpr std::array<int, 4> g_warclan = {
-            to_integer(Warclan::None),
-            to_integer(Warclan::Bonegrinz),
-            to_integer(Warclan::Drakkfoot),
-            to_integer(Warclan::Icebone)
+            ToInteger(Warclan::None),
+            ToInteger(Warclan::Bonegrinz),
+            ToInteger(Warclan::Drakkfoot),
+            ToInteger(Warclan::Icebone)
     };
 
     constexpr std::array<int, 7> g_prophetBossCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Killa_Instinkt),
-            to_integer(CommandTrait::Waaagh_Monger),
-            to_integer(CommandTrait::Great_Hunter),
-            to_integer(CommandTrait::Power_of_the_Beast),
-            to_integer(CommandTrait::Voice_of_Da_Gods),
-            to_integer(CommandTrait::Monsta_Killa)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Killa_Instinkt),
+            ToInteger(CommandTrait::Waaagh_Monger),
+            ToInteger(CommandTrait::Great_Hunter),
+            ToInteger(CommandTrait::Power_Of_The_Beast),
+            ToInteger(CommandTrait::Voice_Of_Da_Gods),
+            ToInteger(CommandTrait::Monsta_Killa)
     };
 
     constexpr std::array<int, 4> g_wizardCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Dead_Kunnin),
-            to_integer(CommandTrait::Master_of_the_Weird),
-            to_integer(CommandTrait::Fuelled_by_the_Spirits)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Dead_Kunnin),
+            ToInteger(CommandTrait::Master_Of_The_Weird),
+            ToInteger(CommandTrait::Fuelled_By_The_Spirits)
     };
 
     constexpr std::array<int, 7> g_heroArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Dokk_Juice),
-            to_integer(Artefact::Savage_Trophy),
-            to_integer(Artefact::Lucky_Bone),
-            to_integer(Artefact::Glowin_Tattooz),
-            to_integer(Artefact::Greatdrake_Toof),
-            to_integer(Artefact::Weepwood_Big_Shiv)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Dokk_Juice),
+            ToInteger(Artefact::Savage_Trophy),
+            ToInteger(Artefact::Lucky_Bone),
+            ToInteger(Artefact::Glowin_Tattooz),
+            ToInteger(Artefact::Greatdrake_Toof),
+            ToInteger(Artefact::Weepwood_Big_Shiv)
     };
 
     constexpr std::array<int, 4> g_wizardArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Big_Wurrgog_Mask),
-            to_integer(Artefact::Morks_Boney_Bitz),
-            to_integer(Artefact::Mystic_Waaagh_Paint)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Big_Wurrgog_Mask),
+            ToInteger(Artefact::Morks_Boney_Bitz),
+            ToInteger(Artefact::Mystic_Waaagh_Paint)
     };
 
     constexpr std::array<int, 7> g_lore = {
-        to_integer(Lore::None),
-        to_integer(Lore::Squiggly_Curse),
-        to_integer(Lore::Breath_of_Gorkamorka),
-        to_integer(Lore::Brutal_Beast_Spirits),
-        to_integer(Lore::Bone_Krusha),
-        to_integer(Lore::Kunnin_Beast_Spirits),
-        to_integer(Lore::Gorkamorkas_War_Cry)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Squiggly_Curse),
+            ToInteger(Lore::Breath_Of_Gorkamorka),
+            ToInteger(Lore::Brutal_Beast_Spirits),
+            ToInteger(Lore::Bone_Krusha),
+            ToInteger(Lore::Kunnin_Beast_Spirits),
+            ToInteger(Lore::Gorkamorkas_War_Cry)
     };
 
 } // namespace Bonesplitterz

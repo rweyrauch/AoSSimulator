@@ -11,9 +11,9 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 13;
-    static const int POINTS_PER_UNIT = 290;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 13;
+    static const int g_pointsPerUnit = 290;
 
     struct TableEntry {
         int m_move;
@@ -21,9 +21,9 @@ namespace DaughtersOfKhaine {
         double m_bloodshield;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 5, 8, 10, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {2, 5, 8, 10, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {6, 8, 18},
                     {5, 7, 14},
@@ -35,7 +35,7 @@ namespace DaughtersOfKhaine {
     bool HagQueenOnCauldronOfBlood::s_registered = false;
 
     HagQueenOnCauldronOfBlood::HagQueenOnCauldronOfBlood() :
-            DaughterOfKhaine("Hag Queen on Cauldron of Blood", 6, WOUNDS, 8, 5, false),
+            DaughterOfKhaine("Hag Queen on Cauldron of Blood", 6, g_wounds, 8, 5, false),
             m_burningBlood(Weapon::Type::Missile, "Torrent of Burning Blood", 10, 6, 3, 3, -1, 1),
             m_knives(Weapon::Type::Melee, "Witch Aelves' Sacrificial Knives", 1, 8, 3, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Haq Queen's Blade of Khaine", 1, 4, 3, 4, -1, 1),
@@ -43,7 +43,7 @@ namespace DaughtersOfKhaine {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, WITCH_AELVES, HAG_QUEEN, AVATAR_OF_KHAINE,
                       CAULDRON_OF_BLOOD};
         m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_sword};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &HagQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
         s_globalSaveMod.connect(this, &HagQueenOnCauldronOfBlood::bloodShield, &m_bloodshieldSlot);
@@ -55,14 +55,14 @@ namespace DaughtersOfKhaine {
     }
 
     bool HagQueenOnCauldronOfBlood::configure(Prayer prayer) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_burningBlood);
         model->addMeleeWeapon(&m_knives);
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_sword);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -130,7 +130,7 @@ namespace DaughtersOfKhaine {
 
     int HagQueenOnCauldronOfBlood::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -144,7 +144,7 @@ namespace DaughtersOfKhaine {
         // Bladed Impact
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 1.0)) {
-            if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
+            if (Dice::RollD6() >= 2) unit->applyDamage({0, Dice::RollD3()});
         }
     }
 
@@ -164,7 +164,7 @@ namespace DaughtersOfKhaine {
     }
 
     int HagQueenOnCauldronOfBlood::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void HagQueenOnCauldronOfBlood::onStartHero(PlayerId player) {
@@ -173,15 +173,15 @@ namespace DaughtersOfKhaine {
         m_blade.setDamage(1);
 
         // Priestess of Khaine
-        const auto roll = Dice::rollD6();
+        const auto roll = Dice::RollD6();
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) <= 3.0) {
             // Touch of Death
             if (roll == 1) {
                 applyDamage({0, 1});
             } else if (roll >= 3) {
-                if (Dice::rollD6() >= 4) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         } else {

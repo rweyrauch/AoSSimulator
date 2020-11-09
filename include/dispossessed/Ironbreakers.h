@@ -18,9 +18,9 @@ namespace Dispossessed {
     public:
 
         enum WeaponOptions {
-            IronbreakerAxeOrHammer,
-            DrakefirePistolAndCinderblastBomb,
-            PairedDrakefirePistols
+            Ironbreaker_Axe_Or_Hammer,
+            Drakefire_Pistol_And_Cinderblast_Bomb,
+            Paired_Drakefire_Pistols
         };
 
         static Unit *Create(const ParameterList &parameters);

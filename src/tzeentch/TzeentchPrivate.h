@@ -16,88 +16,88 @@
 namespace Tzeentch {
 
     constexpr std::array<int, 7> g_changeCoven = {
-            to_integer(ChangeCoven::None),
-            to_integer(ChangeCoven::EternalConflagration),
-            to_integer(ChangeCoven::HostsDuplicitous),
-            to_integer(ChangeCoven::HostsArcanum),
-            to_integer(ChangeCoven::CultOfTheTransientForm),
-            to_integer(ChangeCoven::PyrofaneCult),
-            to_integer(ChangeCoven::GuildOfSummoners)
+            ToInteger(ChangeCoven::None),
+            ToInteger(ChangeCoven::Eternal_Conflagration),
+            ToInteger(ChangeCoven::Hosts_Duplicitous),
+            ToInteger(ChangeCoven::Hosts_Arcanum),
+            ToInteger(ChangeCoven::Cult_Of_The_Transient_Form),
+            ToInteger(ChangeCoven::Pyrofane_Cult),
+            ToInteger(ChangeCoven::Guild_Of_Summoners)
     };
 
     constexpr std::array<int, 7> g_arcaniteCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Arch_Sorcerer),
-            to_integer(CommandTrait::Nexus_of_Fate),
-            to_integer(CommandTrait::Magical_Supremancy),
-            to_integer(CommandTrait::Boundless_Mutation),
-            to_integer(CommandTrait::Cult_Demagogue),
-            to_integer(CommandTrait::Arcane_Sacrifice)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Arch_Sorcerer),
+            ToInteger(CommandTrait::Nexus_Of_Fate),
+            ToInteger(CommandTrait::Magical_Supremancy),
+            ToInteger(CommandTrait::Boundless_Mutation),
+            ToInteger(CommandTrait::Cult_Demagogue),
+            ToInteger(CommandTrait::Arcane_Sacrifice)
     };
 
     constexpr std::array<int, 4> g_mortalCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Nexus_of_Fate),
-            to_integer(CommandTrait::Soul_Burn),
-            to_integer(CommandTrait::Illusionist)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Nexus_Of_Fate),
+            ToInteger(CommandTrait::Soul_Burn),
+            ToInteger(CommandTrait::Illusionist)
     };
 
     constexpr std::array<int, 7> g_daemonCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Arch_Sorcerer),
-            to_integer(CommandTrait::Nexus_of_Fate),
-            to_integer(CommandTrait::Magical_Supremancy),
-            to_integer(CommandTrait::Daemonspark),
-            to_integer(CommandTrait::Incorporeal_Form),
-            to_integer(CommandTrait::Aether_Tether)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Arch_Sorcerer),
+            ToInteger(CommandTrait::Nexus_Of_Fate),
+            ToInteger(CommandTrait::Magical_Supremancy),
+            ToInteger(CommandTrait::Daemonspark),
+            ToInteger(CommandTrait::Incorporeal_Form),
+            ToInteger(CommandTrait::Aether_Tether)
     };
 
     constexpr std::array<int, 4> g_arcaniteArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Ambitions_End),
-            to_integer(Artefact::Secret_Eater),
-            to_integer(Artefact::Spiteful_Shield)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Ambitions_End),
+            ToInteger(Artefact::Secret_Eater),
+            ToInteger(Artefact::Spiteful_Shield)
     };
 
     constexpr std::array<int, 7> g_mortalArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Wicked_Shard),
-            to_integer(Artefact::Changeblade),
-            to_integer(Artefact::Nexus_Staff),
-            to_integer(Artefact::Timeslip_Pendant),
-            to_integer(Artefact::Daemonheart),
-            to_integer(Artefact::Paradoxical_Shield)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Wicked_Shard),
+            ToInteger(Artefact::Changeblade),
+            ToInteger(Artefact::Nexus_Staff),
+            ToInteger(Artefact::Timeslip_Pendant),
+            ToInteger(Artefact::Daemonheart),
+            ToInteger(Artefact::Paradoxical_Shield)
     };
 
     constexpr std::array<int, 10> g_daemonArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Warpfire_Blade),
-            to_integer(Artefact::Sentient_Weapon),
-            to_integer(Artefact::Blade_of_Fate),
-            to_integer(Artefact::Souleater),
-            to_integer(Artefact::Phatasmal_Weapons),
-            to_integer(Artefact::Pyrofyre_Stave),
-            to_integer(Artefact::Aura_of_Mutabulity),
-            to_integer(Artefact::Wellspring_of_Arcane_Might),
-            to_integer(Artefact::Aspect_of_Tzeentch)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Warpfire_Blade),
+            ToInteger(Artefact::Sentient_Weapon),
+            ToInteger(Artefact::Blade_Of_Fate),
+            ToInteger(Artefact::Souleater),
+            ToInteger(Artefact::Phatasmal_Weapons),
+            ToInteger(Artefact::Pyrofyre_Stave),
+            ToInteger(Artefact::Aura_Of_Mutabulity),
+            ToInteger(Artefact::Wellspring_Of_Arcane_Might),
+            ToInteger(Artefact::Aspect_Of_Tzeentch)
     };
 
     constexpr std::array<int, 6> g_loreOfFate = {
-            to_integer(Lore::Bolt_of_Tzeentch),
-            to_integer(Lore::Arcane_Suggestion),
-            to_integer(Lore::Glimpse_the_Future),
-            to_integer(Lore::Shield_of_Faith),
-            to_integer(Lore::Infusion_Arcanum),
-            to_integer(Lore::Treacherous_Bond)
+            ToInteger(Lore::Bolt_Of_Tzeentch),
+            ToInteger(Lore::Arcane_Suggestion),
+            ToInteger(Lore::Glimpse_The_Future),
+            ToInteger(Lore::Shield_Of_Faith),
+            ToInteger(Lore::Infusion_Arcanum),
+            ToInteger(Lore::Treacherous_Bond)
     };
 
     constexpr std::array<int, 6> g_loreOfChange = {
-            to_integer(Lore::Bolt_of_Tzeentch),
-            to_integer(Lore::Treason_of_Tzeentch),
-            to_integer(Lore::Arcane_Transformation),
-            to_integer(Lore::Unchecked_Mutation),
-            to_integer(Lore::Fold_Reality),
-            to_integer(Lore::Tzeentchs_Firestorm)
+            ToInteger(Lore::Bolt_Of_Tzeentch),
+            ToInteger(Lore::Treason_Of_Tzeentch),
+            ToInteger(Lore::Arcane_Transformation),
+            ToInteger(Lore::Unchecked_Mutation),
+            ToInteger(Lore::Fold_Reality),
+            ToInteger(Lore::Tzeentchs_Firestorm)
     };
 
 } // Tzeentch

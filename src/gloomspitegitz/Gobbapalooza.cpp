@@ -10,11 +10,11 @@
 #include <Board.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS_SCAREMONGER = 4;
-    static const int WOUNDS_SHROOMANCER = 4;
-    static const int WOUNDS = 3;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 32;
+    static const int g_woundsScaremonger = 4;
+    static const int g_woundsShroomancer = 4;
+    static const int g_wounds = 3;
+    static const int g_pointsPerUnit = 200;
 
     bool Gobbapalooza::s_registered = false;
 
@@ -47,11 +47,11 @@ namespace GloomspiteGitz {
     }
 
     int Gobbapalooza::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Gobbapalooza::Gobbapalooza() :
-            GloomspiteGitzBase("Gobbapalooza", 5, WOUNDS, 5, 6, false),
+            GloomspiteGitzBase("Gobbapalooza", 5, g_wounds, 5, 6, false),
             m_tusksAndFangs(Weapon::Type::Melee, "Boingob's Tusks and Fangs", 1, 4, 4, 3, -1, RAND_D3),
             m_stikka(Weapon::Type::Melee, "Concealed Stikka", 1, 2, 4, 4, -1, 1),
             m_scorpisquigStikka(Weapon::Type::Melee, "Scorpisquig Stikka", 2, 1, 4, 4, 0, RAND_D3),
@@ -64,27 +64,27 @@ namespace GloomspiteGitz {
 
     bool Gobbapalooza::configure() {
 
-        auto scaremonger = new Model(BASESIZE, WOUNDS_SCAREMONGER);
+        auto scaremonger = new Model(g_basesize, g_woundsScaremonger);
         scaremonger->addMeleeWeapon(&m_tusksAndFangs);
         scaremonger->setName("Scaremonger");
         addModel(scaremonger);
 
-        auto brewgit = new Model(BASESIZE, wounds());
+        auto brewgit = new Model(g_basesize, wounds());
         brewgit->addMeleeWeapon(&m_stikka);
         brewgit->setName("Brewgit");
         addModel(brewgit);
 
-        auto spiker = new Model(BASESIZE, wounds());
+        auto spiker = new Model(g_basesize, wounds());
         spiker->addMeleeWeapon(&m_scorpisquigStikka);
         spiker->setName("Spiker");
         addModel(spiker);
 
-        auto boggleye = new Model(BASESIZE, wounds());
+        auto boggleye = new Model(g_basesize, wounds());
         boggleye->addMeleeWeapon(&m_staff);
         boggleye->setName("Boggleye");
         addModel(boggleye);
 
-        auto shroomancer = new Model(BASESIZE, WOUNDS_SHROOMANCER);
+        auto shroomancer = new Model(g_basesize, g_woundsShroomancer);
         shroomancer->addMeleeWeapon(&m_knife);
         shroomancer->setName("Shroomancer");
         addModel(shroomancer);

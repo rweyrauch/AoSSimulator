@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef BATSWARM_H
-#define BATSWARM_H
+#ifndef BATSWARMS_H
+#define BATSWARMS_H
 
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
@@ -51,4 +51,4 @@ namespace Death {
 
 } //namespace Death
 
-#endif //BATSWARM_H
+#endif //BATSWARMS_H

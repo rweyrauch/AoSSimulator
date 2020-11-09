@@ -11,9 +11,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 25;
-    static const int POINTS_PER_UNIT = 80;
-    static const int WOUNDS = 4;
+    static const int g_basesize = 25;
+    static const int g_pointsPerUnit = 80;
+    static const int g_wounds = 4;
 
     bool TombBanshee::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Nighthaunt {
     }
 
     TombBanshee::TombBanshee() :
-            Nighthaunt("Tomb Banshee", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Tomb Banshee", 6, g_wounds, 10, 4, true),
             m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, TOMB_BANSHEE};
         m_weapons = {&m_dagger};
@@ -65,7 +65,7 @@ namespace Nighthaunt {
     }
 
     bool TombBanshee::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_dagger);
         addModel(model);
 
@@ -77,7 +77,7 @@ namespace Nighthaunt {
     Wounds TombBanshee::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll == 6) && (weapon->name() == m_dagger.name())) {
-            return {0, Dice::rollD3()};
+            return {0, Dice::RollD3()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -89,7 +89,7 @@ namespace Nighthaunt {
         if (player == owningPlayer()) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0);
             if (!units.empty()) {
-                const auto roll = Dice::roll2D6();
+                const auto roll = Dice::Roll2D6();
                 if (roll > units[0]->bravery()) {
                     units[0]->applyDamage({0, units[0]->bravery() - roll});
                 }
@@ -98,7 +98,7 @@ namespace Nighthaunt {
     }
 
     int TombBanshee::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

@@ -18,8 +18,8 @@ namespace Death {
     public:
 
         enum WeaponOptions {
-            AncientBlade,
-            AncientSpear,
+            Ancient_Blade,
+            Ancient_Spear,
         };
 
         static Unit *Create(const ParameterList &parameters);

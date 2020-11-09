@@ -12,14 +12,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 4;
-    static const int POINTS_PER_UNIT = 70;
+    static const int g_basesize = 25;
+    static const int g_wounds = 4;
+    static const int g_pointsPerUnit = 70;
 
     bool SkinkPriest::s_registered = false;
 
     SkinkPriest::SkinkPriest() :
-            SeraphonBase("Skink Priest", 8, WOUNDS, 6, 5, false),
+            SeraphonBase("Skink Priest", 8, g_wounds, 6, 5, false),
             m_starbolt(Weapon::Type::Missile, "Starbolt", 18, 2, 4, 3, -1, 1),
             m_staff(Weapon::Type::Melee, "Star-stone Staff", 1, 1, 4, 4, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, PRIEST};
@@ -28,7 +28,7 @@ namespace Seraphon {
     }
 
     bool SkinkPriest::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_starbolt);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -84,7 +84,7 @@ namespace Seraphon {
     }
 
     int SkinkPriest::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

@@ -13,14 +13,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 200;
 
     bool LordCelestantOnDracoth::s_registered = false;
 
     LordCelestantOnDracoth::LordCelestantOnDracoth() :
-            StormcastEternal("Lord-Celestant on Dracoth", 10, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Celestant on Dracoth", 10, g_wounds, 9, 3, false),
             m_stormstrikeGlaive(Weapon::Type::Melee, "Stormstrike Glaive", 2, 4, 3, 4, -1, 1),
             m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
             m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 3, 3, 3, -1, 2),
@@ -36,28 +36,28 @@ namespace StormcastEternals {
         m_weapon = weapons;
         m_sigmariteThundershield = sigmariteThundershield;
 
-        auto model = new Model(BASESIZE, wounds());
-        if (m_weapon == StormstrikeGlaive) {
+        auto model = new Model(g_basesize, wounds());
+        if (m_weapon == Stormstrike_Glaive) {
             model->addMeleeWeapon(&m_stormstrikeGlaive);
-        } else if (m_weapon == LightningHammer) {
+        } else if (m_weapon == Lightning_Hammer) {
             model->addMeleeWeapon(&m_lightningHammer);
         } else if (m_weapon == Thunderaxe) {
             model->addMeleeWeapon(&m_thunderaxe);
-        } else if (m_weapon == TempestosHammer) {
+        } else if (m_weapon == Tempestos_Hammer) {
             model->addMeleeWeapon(&m_tempestosHammer);
         }
 
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters) {
         auto unit = new LordCelestantOnDracoth();
-        auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, LightningHammer);
+        auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Lightning_Hammer);
         bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
@@ -76,14 +76,14 @@ namespace StormcastEternals {
 
     void LordCelestantOnDracoth::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {TempestosHammer, Thunderaxe, LightningHammer, StormstrikeGlaive};
+            static const std::array<int, 4> weapons = {Tempestos_Hammer, Thunderaxe, Lightning_Hammer, Stormstrike_Glaive};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Weapon", TempestosHammer, weapons),
+                            EnumParameter("Weapon", Tempestos_Hammer, weapons),
                             BoolParameter("Sigmarite Thundershield"),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
@@ -98,13 +98,13 @@ namespace StormcastEternals {
 
     std::string LordCelestantOnDracoth::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == TempestosHammer) {
+            if (parameter.intValue == Tempestos_Hammer) {
                 return "Tempestos Hammer";
             } else if (parameter.intValue == Thunderaxe) {
                 return "Thunderaxe";
-            } else if (parameter.intValue == LightningHammer) {
+            } else if (parameter.intValue == Lightning_Hammer) {
                 return "Lightning Hammer";
-            } else if (parameter.intValue == StormstrikeGlaive) {
+            } else if (parameter.intValue == Stormstrike_Glaive) {
                 return "Stormstrike Glaive";
             }
         }
@@ -117,7 +117,7 @@ namespace StormcastEternals {
 
         // Tempestos Hammer
         if (m_charged && weapon->name() == m_tempestosHammer.name()) {
-            attacks += Dice::rollD3();
+            attacks += Dice::RollD3();
         }
 
         // Thunderaxe
@@ -134,7 +134,7 @@ namespace StormcastEternals {
     Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon) const {
         // Sigmarite Thundershield
         if (m_sigmariteThundershield) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return StormcastEternal::toSaveRerolls(weapon);
     }
@@ -153,13 +153,13 @@ namespace StormcastEternals {
 
     int LordCelestantOnDracoth::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Tempestos Hammer") {
-            return TempestosHammer;
+            return Tempestos_Hammer;
         } else if (enumString == "Thunderaxe") {
             return Thunderaxe;
         } else if (enumString == "Lightning Hammer") {
-            return LightningHammer;
+            return Lightning_Hammer;
         } else if (enumString == "Stormstrike Glaive") {
-            return StormstrikeGlaive;
+            return Stormstrike_Glaive;
         }
         return StormcastEternal::EnumStringToInt(enumString);
     }
@@ -169,7 +169,7 @@ namespace StormcastEternals {
         // Intolerable Damage
         if ((woundRoll == 6) && (weapon->name() == m_clawsAndFangs.name())) {
             // D6 instead of 1
-            return {Dice::rollD6(), 0};
+            return {Dice::RollD6(), 0};
         }
 
         // Lightning Hammer
@@ -177,7 +177,7 @@ namespace StormcastEternals {
             return {weapon->damage(), 2};
         }
 
-        if (m_charged && (m_weapon == StormstrikeGlaive)) {
+        if (m_charged && (m_weapon == Stormstrike_Glaive)) {
             return {weapon->damage() + 2, 0};
         }
 
@@ -185,7 +185,7 @@ namespace StormcastEternals {
     }
 
     int LordCelestantOnDracoth::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void LordCelestantOnDracoth::onStartShooting(PlayerId player) {
@@ -195,13 +195,13 @@ namespace StormcastEternals {
         if (owningPlayer() == player) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 12.0)) {
-                if (Dice::rollD6() >= 4) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
                 auto units = Board::Instance()->getUnitsWithin(unit, GetEnemyId(owningPlayer()), 2.0);
                 for (auto target : units) {
-                    if (Dice::rollD6() >= 4) {
-                        target->applyDamage({0, Dice::rollD3()});
+                    if (Dice::RollD6() >= 4) {
+                        target->applyDamage({0, Dice::RollD3()});
                     }
                 }
             }

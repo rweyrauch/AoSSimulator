@@ -11,18 +11,18 @@
 #include <Board.h>
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 240;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 60;
+    static const int g_pointsMaxUnitSize = 240;
 
     bool PlagueCenserBearers::s_registered = false;
 
     Unit *PlagueCenserBearers::Create(const ParameterList &parameters) {
         auto unit = new PlagueCenserBearers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -33,9 +33,9 @@ namespace Skaven {
     }
 
     int PlagueCenserBearers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -48,7 +48,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     CHAOS,
                     {SKAVEN}
@@ -59,19 +59,19 @@ namespace Skaven {
     }
 
     PlagueCenserBearers::PlagueCenserBearers() :
-            Skaventide("Plague Censer Bearers", 6, WOUNDS, 5, 6, false),
+            Skaventide("Plague Censer Bearers", 6, g_wounds, 5, 6, false),
             m_censer(Weapon::Type::Melee, "Plague Censer", 2, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, PLAGUE_CENSER_BEARERS};
         m_weapons = {&m_censer};
     }
 
     bool PlagueCenserBearers::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_censer);
             addModel(model);
         }
@@ -92,7 +92,7 @@ namespace Skaven {
     Rerolls PlagueCenserBearers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Plaque Disciples
         auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
-        if (monks) return RerollFailed;
+        if (monks) return Reroll_Failed;
 
         return Unit::toHitRerolls(weapon, target);
     }
@@ -100,7 +100,7 @@ namespace Skaven {
     Rerolls PlagueCenserBearers::battleshockRerolls() const {
         // Plaque Disciples
         auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
-        if (monks) return RerollFailed;
+        if (monks) return Reroll_Failed;
 
         return Unit::battleshockRerolls();
     }
@@ -113,8 +113,8 @@ namespace Skaven {
         for (auto unit : units) {
             if (!unit->hasKeyword(CLANS_PESTILENS)) {
                 int mortalWounds = 0;
-                int roll = Dice::rollD6();
-                if (roll == 6) mortalWounds = Dice::rollD3();
+                int roll = Dice::RollD6();
+                if (roll == 6) mortalWounds = Dice::RollD3();
                 else if (roll >= 4) mortalWounds = 1;
 
                 unit->applyDamage({0, mortalWounds});

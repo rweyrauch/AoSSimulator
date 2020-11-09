@@ -12,9 +12,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 60;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 200;
 
     bool LadyOlynder::s_registered = false;
 
@@ -53,7 +53,7 @@ namespace Nighthaunt {
     }
 
     LadyOlynder::LadyOlynder() :
-            Nighthaunt("Lady Olynder", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Lady Olynder", 6, g_wounds, 10, 4, true),
             m_staff(Weapon::Type::Melee, "Staff of Midnight", 2, 3, 3, 3, -2, RAND_D3),
             m_claws(Weapon::Type::Melee, "Banshee Handmaidens' Spectral Claws", 1, 6, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MORTARCH, LADY_OLYNDER};
@@ -64,7 +64,7 @@ namespace Nighthaunt {
     }
 
     bool LadyOlynder::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
@@ -92,9 +92,9 @@ namespace Nighthaunt {
         // Wail of the Damned
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0);
         for (auto unit : units) {
-            auto roll = Dice::roll2D6();
+            auto roll = Dice::Roll2D6();
             if (roll > unit->bravery()) {
-                unit->applyDamage({0, Dice::rollD3()});
+                unit->applyDamage({0, Dice::RollD3()});
             }
         }
     }
@@ -105,11 +105,11 @@ namespace Nighthaunt {
         // Lifting the Veil
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
         if (!units.empty()) {
-            const auto roll = Dice::rollD6();
+            const auto roll = Dice::RollD6();
             if (roll >= 2) {
                 const auto numSlain = units[0]->applyDamage({0, roll});
                 if (numSlain) {
-                    heal(Dice::rollD3());
+                    heal(Dice::RollD3());
                 }
             }
         }
@@ -117,10 +117,10 @@ namespace Nighthaunt {
         if (!m_graveSandsOfTimeUsed) {
             auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0);
             if (unit) {
-                unit->applyDamage({0, Dice::rollD6()});
+                unit->applyDamage({0, Dice::RollD6()});
                 m_graveSandsOfTimeUsed = true;
             } else if (remainingWounds() < wounds()) {
-                heal(Dice::rollD6());
+                heal(Dice::RollD6());
                 m_graveSandsOfTimeUsed = true;
             }
         }
@@ -133,7 +133,7 @@ namespace Nighthaunt {
     }
 
     int LadyOlynder::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

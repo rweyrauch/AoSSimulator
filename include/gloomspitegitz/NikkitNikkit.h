@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef NIKKIT_H
-#define NIKKIT_H
+#ifndef NIKKITNIKKIT_H
+#define NIKKITNIKKIT_H
 
 #include <Spell.h>
 
@@ -19,4 +19,4 @@ protected:
     int getDamage(int castingRoll) const override;
 };
 
-#endif// NIKKIT_H
+#endif// NIKKITNIKKIT_H

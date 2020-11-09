@@ -12,17 +12,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 40;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool BloodStalkers::s_registered = false;
 
     BloodStalkers::BloodStalkers() :
-            DaughterOfKhaine("Blood Stalkers", 8, WOUNDS, 8, 5, false),
+            DaughterOfKhaine("Blood Stalkers", 8, g_wounds, 8, 5, false),
             m_hearseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 3, 3, -1, 1),
             m_sacraficialDaggar(Weapon::Type::Melee, "Sacrificial Dagger", 1, 2, 3, 4, 0, 1),
             m_heartseekBowKrone(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 2, 3, -1, 1),
@@ -34,11 +34,11 @@ namespace DaughtersOfKhaine {
     }
 
     bool BloodStalkers::configure(int numModels, bool bloodWyrm) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto krone = new Model(BASESIZE, wounds());
+        auto krone = new Model(g_basesize, wounds());
         krone->addMissileWeapon(&m_heartseekBowKrone);
         krone->addMeleeWeapon(&m_sacraficialDaggarKrone);
         if (bloodWyrm) {
@@ -47,7 +47,7 @@ namespace DaughtersOfKhaine {
         addModel(krone);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_hearseekerBow);
             model->addMeleeWeapon(&m_sacraficialDaggar);
             addModel(model);
@@ -60,7 +60,7 @@ namespace DaughtersOfKhaine {
 
     Unit *BloodStalkers::Create(const ParameterList &parameters) {
         auto unit = new BloodStalkers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool bloodWyrm = GetBoolParam("Blood Wyrm", parameters, false);
 
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
@@ -82,7 +82,7 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Blood Wyrm"),
                             EnumParameter("Temple", g_temple[0], g_temple)
                     },
@@ -103,9 +103,9 @@ namespace DaughtersOfKhaine {
     }
 
     int BloodStalkers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

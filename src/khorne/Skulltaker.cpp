@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool Skulltaker::s_registered = false;
 
     Skulltaker::Skulltaker() :
-            KhorneBase("Skulltaker", 5, WOUNDS, 10, 4, false),
+            KhorneBase("Skulltaker", 5, g_wounds, 10, 4, false),
             m_slayerSword(Weapon::Type::Melee, "The Slayer Sword", 1, 3, 3, 3, -1, 3) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLTAKER};
         m_weapons = {&m_slayerSword};
@@ -27,11 +27,11 @@ namespace Khorne {
     }
 
     bool Skulltaker::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slayerSword);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -81,13 +81,13 @@ namespace Khorne {
 
     Rerolls Skulltaker::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Cloak of Skulls
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     Rerolls Skulltaker::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Heroes' Bane
         if (target->hasKeyword(HERO)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -95,13 +95,13 @@ namespace Khorne {
     Rerolls Skulltaker::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Heroes' Bane
         if (target->hasKeyword(HERO)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return KhorneBase::toWoundRerolls(weapon, target);
     }
 
     int Skulltaker::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

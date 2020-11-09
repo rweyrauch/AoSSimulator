@@ -12,9 +12,9 @@
 
 namespace LuminethRealmLords {
 
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 660;
+    static const int g_basesize = 100;
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 660;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace LuminethRealmLords {
         int m_auraRange;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {4, 7, 10, 13, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 6, 16},
                     {10,  5,  12},
@@ -53,7 +53,7 @@ namespace LuminethRealmLords {
     }
 
     int ArchmageTeclis::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void ArchmageTeclis::Init() {
@@ -76,7 +76,7 @@ namespace LuminethRealmLords {
     }
 
     ArchmageTeclis::ArchmageTeclis() :
-            LuminethBase("Archmage Teclis", 12, WOUNDS, 10, 4, true),
+            LuminethBase("Archmage Teclis", 12, g_wounds, 10, 4, true),
             m_staff(Weapon::Type::Missile, "Lunar Staff", 18, 1, 2, 2, -3, RAND_D3),
             m_sword(Weapon::Type::Melee, "Sword of Teclis", 1, 2, 4, 2, -3, RAND_D3),
             m_talons(Weapon::Type::Melee, "Moonbright Talons", 1, 6, 3, 3, -2, 2) {
@@ -96,7 +96,7 @@ namespace LuminethRealmLords {
 
     bool ArchmageTeclis::configure() {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_talons);
@@ -127,7 +127,7 @@ namespace LuminethRealmLords {
 
     int ArchmageTeclis::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }

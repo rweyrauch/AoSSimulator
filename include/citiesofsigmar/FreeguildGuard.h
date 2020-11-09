@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef FREEGUARD_H
-#define FREEGUARD_H
+#ifndef FREEGUILDGUARD_H
+#define FREEGUILDGUARD_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -78,4 +78,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //FREEGUARD_H
+#endif //FREEGUILDGUARD_H

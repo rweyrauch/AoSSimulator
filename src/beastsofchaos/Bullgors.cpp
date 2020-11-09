@@ -11,17 +11,17 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool Bullgors::s_registered = false;
 
     Bullgors::Bullgors() :
-            BeastsOfChaosBase("Bullgors", 7, WOUNDS, 6, 5, false),
+            BeastsOfChaosBase("Bullgors", 7, g_wounds, 6, 5, false),
             m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
             m_bullgorAxe(Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2),
             m_bullgorAxeBloodkine(Weapon::Type::Melee, "Bullgor Axe", 1, 4, 4, 3, -1, 2),
@@ -34,29 +34,29 @@ namespace BeastsOfChaos {
 
     bool Bullgors::configure(int numModels, WeaponOptions options,
                              bool drummer, bool bannerBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_drummer = drummer;
         m_bannerBearer = bannerBearer;
-        m_pairedAxes = (options == PairedBullgorAxes);
+        m_pairedAxes = (options == Paired_Bullgor_Axes);
 
-        auto bloodkine = new Model(BASESIZE, wounds());
+        auto bloodkine = new Model(g_basesize, wounds());
         bloodkine->addMeleeWeapon(&m_bullgorHorns);
-        if (options == BullgorAxe || options == PairedBullgorAxes) {
+        if (options == Bullgor_Axe || options == Paired_Bullgor_Axes) {
             bloodkine->addMeleeWeapon(&m_bullgorAxeBloodkine);
-        } else if (options == BullgorGreatAxe) {
+        } else if (options == Bullgor_Great_Axe) {
             bloodkine->addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
         }
         addModel(bloodkine);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_bullgorHorns);
-            if (options == BullgorAxe || options == PairedBullgorAxes) {
+            if (options == Bullgor_Axe || options == Paired_Bullgor_Axes) {
                 model->addMeleeWeapon(&m_bullgorAxe);
-            } else if (options == BullgorGreatAxe) {
+            } else if (options == Bullgor_Great_Axe) {
                 model->addMeleeWeapon(&m_bullgorGreatAxe);
             }
             addModel(model);
@@ -69,8 +69,8 @@ namespace BeastsOfChaos {
 
     Unit *Bullgors::Create(const ParameterList &parameters) {
         auto unit = new Bullgors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, BullgorAxe);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, Bullgor_Axe);
         bool drummer = GetBoolParam("Drummer", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
@@ -87,14 +87,14 @@ namespace BeastsOfChaos {
 
     void Bullgors::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {BullgorAxe, PairedBullgorAxes, BullgorGreatAxe};
+            static const std::array<int, 3> weapons = {Bullgor_Axe, Paired_Bullgor_Axes, Bullgor_Great_Axe};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", weapons[0], weapons),
                             BoolParameter("Drummer"),
                             BoolParameter("Banner Bearer"),
@@ -110,17 +110,17 @@ namespace BeastsOfChaos {
 
     std::string Bullgors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == BullgorAxe) { return "Bullgor Axe"; }
-            else if (parameter.intValue == PairedBullgorAxes) { return "Paired Bullgor Axes"; }
-            else if (parameter.intValue == BullgorGreatAxe) { return "Bullgor Great Axe"; }
+            if (parameter.intValue == Bullgor_Axe) { return "Bullgor Axe"; }
+            else if (parameter.intValue == Paired_Bullgor_Axes) { return "Paired Bullgor Axes"; }
+            else if (parameter.intValue == Bullgor_Great_Axe) { return "Bullgor Great Axe"; }
         }
         return BeastsOfChaosBase::ValueToString(parameter);
     }
 
     int Bullgors::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Bullgor Axe") { return BullgorAxe; }
-        else if (enumString == "Paired Bullgor Axes") { return PairedBullgorAxes; }
-        else if (enumString == "Bullgor Great Axe") { return BullgorGreatAxe; }
+        if (enumString == "Bullgor Axe") { return Bullgor_Axe; }
+        else if (enumString == "Paired Bullgor Axes") { return Paired_Bullgor_Axes; }
+        else if (enumString == "Bullgor Great Axe") { return Bullgor_Great_Axe; }
         return BeastsOfChaosBase::EnumStringToInt(enumString);
     }
 
@@ -134,7 +134,7 @@ namespace BeastsOfChaos {
 
     Rerolls Bullgors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         if (m_pairedAxes) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }
@@ -156,9 +156,9 @@ namespace BeastsOfChaos {
     }
 
     int Bullgors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -14,14 +14,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 200;
 
     bool AstreiaSolbright::s_registered = false;
 
     AstreiaSolbright::AstreiaSolbright() :
-            StormcastEternal("Astreia Solblight", 12, WOUNDS, 9, 3, false),
+            StormcastEternal("Astreia Solblight", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
@@ -42,7 +42,7 @@ namespace StormcastEternals {
 
     bool AstreiaSolbright::configure(Lore lore) {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
         model->addMeleeWeapon(&m_monstrousClaws);
         addModel(model);
@@ -52,7 +52,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLightningPulse(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -61,7 +61,7 @@ namespace StormcastEternals {
         auto unit = new AstreiaSolbright();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
+        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -104,14 +104,14 @@ namespace StormcastEternals {
     Wounds AstreiaSolbright::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Thunderous Pounce
         if (m_charged && weapon->name() == m_monstrousClaws.name()) {
-            return {Dice::rollD3(), 0};
+            return {Dice::RollD3(), 0};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls AstreiaSolbright::chargeRerolls() const {
         // Thunderous Pounce
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     void AstreiaSolbright::onStartCombat(PlayerId /*player*/) {
@@ -131,7 +131,7 @@ namespace StormcastEternals {
     }
 
     int AstreiaSolbright::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

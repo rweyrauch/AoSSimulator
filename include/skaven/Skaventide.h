@@ -23,7 +23,7 @@ namespace Skaven {
         Verminous_Valour,
         Savage_Overlord,
         Supreme_Manipulator,
-        Master_of_Magic,
+        Master_Of_Magic,
         Cunning,
 
         // Skryre
@@ -32,14 +32,14 @@ namespace Skaven {
         //Savage_Overlord,
         Masterful_Scavenger,
         Deranged_Inventor,
-        Overseer_of_Destruction,
+        Overseer_Of_Destruction,
 
         // Pestilens
         //Malevolent,
         //Verminous_Valour,
         //Savage_Overlord,
-        Master_of_Rot_and_Ruin,
-        Architect_of_Death,
+        Master_Of_Rot_And_Ruin,
+        Architect_Of_Death,
         Diseased,
 
         // Verminus
@@ -76,18 +76,18 @@ namespace Skaven {
         The_Gnawshard,
         Skavenbrew,
         Snoutgrovel_Robes,
-        Staff_of_Rightful_Supremacy,
+        Staff_Of_Rightful_Supremacy,
 
         // Skryre
         The_Brass_Orb,
         Warpstone_Armour,
         Esoteric_Warp_Resonator,
         Skryres_Breath_Bellows,
-        Vial_of_the_Fulminator,
+        Vial_Of_The_Fulminator,
         Vigordust_Injector,
 
         // Pestilens
-        Blade_of_Corruption,
+        Blade_Of_Corruption,
         The_Foul_Pendant,
         Brooding_Blade,
         The_Fumigatous,
@@ -96,14 +96,14 @@ namespace Skaven {
 
         // Verminus
         Things_Bane,
-        Shield_of_Distraction,
+        Shield_Of_Distraction,
         Screechskull_Trophies,
         Flaypelt_Cloak,
         Rustcursed_Armour,
         Warpstone_Charm,
 
         // Moulder
-        Lash_of_Fangs,
+        Lash_Of_Fangs,
         Foulhide,
         Snap_Snap_Snarepole,
         Rat_Tail_Snake,
@@ -115,7 +115,7 @@ namespace Skaven {
         Farskitter_Cloak,
         The_Three_Fangs,
         Warpweeper_Stars,
-        The_Cube_of_Mists,
+        The_Cube_Of_Mists,
         Gnawbomb,
 
     };

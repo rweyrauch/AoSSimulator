@@ -17,7 +17,7 @@ public:
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(double x, double y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Result::Failed; }
 
 protected:
 

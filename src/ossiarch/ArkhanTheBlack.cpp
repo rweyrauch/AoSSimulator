@@ -11,9 +11,9 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 105;
-    static const int WOUNDS = 11;
-    static const int POINTS_PER_UNIT = 360;
+    static const int g_basesize = 105;
+    static const int g_wounds = 11;
+    static const int g_pointsPerUnit = 360;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace OssiarchBonereapers {
         int m_staffUnbind;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {16, 6, 2, 2},
                     {13, 5, 2, 1},
@@ -79,14 +79,14 @@ namespace OssiarchBonereapers {
     }
 
     ArkhanTheBlack::ArkhanTheBlack() :
-            OssiarchBonereaperBase("Arkhan the Black, Mortarch of Sacrament", 16, WOUNDS, 10, 4, true),
+            OssiarchBonereaperBase("Arkhan the Black, Mortarch of Sacrament", 16, g_wounds, 10, 4, true),
             m_zefetKar(Weapon::Type::Melee, "Zefet-kar", 1, 1, 3, 3, -1, RAND_D3),
             m_khenashAn(Weapon::Type::Melee, "Khenash-an", 2, 1, 4, 3, -1, RAND_D3),
             m_claws(Weapon::Type::Melee, "Ebon Claws", 1, 6, 4, 3, -2, 2),
             m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Dagger", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, ARKHAN};
         m_weapons = {&m_zefetKar, &m_khenashAn, &m_claws, &m_clawsAndDaggers};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         m_totalSpells = 3;
@@ -94,7 +94,7 @@ namespace OssiarchBonereapers {
     }
 
     bool ArkhanTheBlack::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_zefetKar);
         model->addMeleeWeapon(&m_khenashAn);
         model->addMeleeWeapon(&m_claws);
@@ -104,7 +104,7 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -119,7 +119,7 @@ namespace OssiarchBonereapers {
 
     int ArkhanTheBlack::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -159,7 +159,7 @@ namespace OssiarchBonereapers {
     }
 
     int ArkhanTheBlack::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OssiarchBonereapers

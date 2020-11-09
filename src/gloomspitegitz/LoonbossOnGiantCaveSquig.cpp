@@ -14,14 +14,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 110;
 
     bool LoonbossOnGiantCaveSquig::s_registered = false;
 
     LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
-            GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, WOUNDS, 6, 4, true),
+            GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true),
             m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
             m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1) {
@@ -32,17 +32,17 @@ namespace GloomspiteGitz {
     }
 
     bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_massiveFangFilledGob);
         if (weapon == Mooncutta) {
             model->addMeleeWeapon(&m_moonCutta);
-        } else if (weapon == MoonclanStabba) {
+        } else if (weapon == Moonclan_Stabba) {
             model->addMeleeWeapon(&m_moonclanStabba);
         }
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -71,7 +71,7 @@ namespace GloomspiteGitz {
     std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "weapons") {
             if (parameter.intValue == Mooncutta) { return "Mooncutta"; }
-            else if (parameter.intValue == MoonclanStabba) { return "MoonclanStabba"; }
+            else if (parameter.intValue == Moonclan_Stabba) { return "MoonclanStabba"; }
         }
         return GloomspiteGitzBase::ValueToString(parameter);
     }
@@ -80,7 +80,7 @@ namespace GloomspiteGitz {
         if (enumString == "Mooncutta") {
             return Mooncutta;
         } else if (enumString == "MoonclanStabba") {
-            return MoonclanStabba;
+            return Moonclan_Stabba;
         }
         return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
@@ -107,15 +107,15 @@ namespace GloomspiteGitz {
     void LoonbossOnGiantCaveSquig::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
             // Redcap Mushrooms
-            m_toHitRerolls = NoRerolls;
-            m_toWoundRerolls = NoRerolls;
+            m_toHitRerolls = No_Rerolls;
+            m_toWoundRerolls = No_Rerolls;
 
             if (!m_eatenRedcapMushroom) {
                 if (m_meleeTarget) {
                     std::cout << "Eating the Redcap Mushroom!" << std::endl;
                     m_eatenRedcapMushroom = true;
-                    m_toHitRerolls = RerollFailed;
-                    m_toWoundRerolls = RerollFailed;
+                    m_toHitRerolls = Reroll_Failed;
+                    m_toWoundRerolls = Reroll_Failed;
                 }
             }
         }
@@ -138,7 +138,7 @@ namespace GloomspiteGitz {
     }
 
     int LoonbossOnGiantCaveSquig::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

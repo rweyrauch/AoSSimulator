@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDONMOUNT_H
-#define LORDONMOUNT_H
+#ifndef CHAOSLORDONDAEMONICMOUNT_H
+#define CHAOSLORDONDAEMONICMOUNT_H
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -55,4 +55,4 @@ namespace SlavesToDarkness {
 
 } // SlavesToDarkness
 
-#endif //LORDONMOUNT_H
+#endif //CHAOSLORDONDAEMONICMOUNT_H

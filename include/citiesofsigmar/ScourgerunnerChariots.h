@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SCOURGECHARIOTS_H
-#define SCOURGECHARIOTS_H
+#ifndef SCOURGERUNNERCHARIOTS_H
+#define SCOURGERUNNERCHARIOTS_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -57,4 +57,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //SCOURGECHARIOTS_H
+#endif //SCOURGERUNNERCHARIOTS_H

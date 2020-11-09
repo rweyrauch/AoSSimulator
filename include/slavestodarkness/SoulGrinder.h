@@ -19,8 +19,8 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            WarpmetalBlade,
-            DaemonboneTalon
+            Warpmetal_Blade,
+            Daemonbone_Talon
         };
 
         static Unit *Create(const ParameterList &parameters);

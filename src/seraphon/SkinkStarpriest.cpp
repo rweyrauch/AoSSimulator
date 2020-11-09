@@ -13,14 +13,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool SkinkStarpriest::s_registered = false;
 
     SkinkStarpriest::SkinkStarpriest() :
-            SeraphonBase("Skink Starpriest", 8, WOUNDS, 6, 5, false),
+            SeraphonBase("Skink Starpriest", 8, g_wounds, 6, 5, false),
             m_venombolt(Weapon::Type::Missile, "Venombolt", 18, 2, 3, 3, -1, 1),
             m_staff(Weapon::Type::Melee, "Serpent Staff", 1, 2, 4, 3, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARPRIEST};
@@ -29,7 +29,7 @@ namespace Seraphon {
     }
 
     bool SkinkStarpriest::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_venombolt);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -94,13 +94,13 @@ namespace Seraphon {
         // Astral Herald
         if (owningPlayer() == player) {
             Dice::RollResult result;
-            Dice::rollD6(1, result);
+            Dice::RollD6(1, result);
             m_roster->addCommandPoints(result.rollsGE(5));
         }
     }
 
     int SkinkStarpriest::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

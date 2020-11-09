@@ -12,19 +12,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool Flagellants::s_registered = false;
 
     Unit *Flagellants::Create(const ParameterList &parameters) {
         auto unit = new Flagellants();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
@@ -53,7 +53,7 @@ namespace CitiesOfSigmar {
                     Flagellants::EnumStringToInt,
                     Flagellants::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
@@ -64,7 +64,7 @@ namespace CitiesOfSigmar {
     }
 
     Flagellants::Flagellants() :
-            CitizenOfSigmar("Flagellants", 6, WOUNDS, 8, NoSave, false),
+            CitizenOfSigmar("Flagellants", 6, g_wounds, 8, NoSave, false),
             m_flailsAndClubs(Weapon::Type::Melee, "Castigating Flails and Clubs", 1, 2, 5, 4, 0, 1),
             m_flailsAndClubsProphet(Weapon::Type::Melee, "Castigating Flails and Clubs", 1, 3, 5, 4, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, DEVOTED_OF_SIGMAR, FLAGELLANTS};
@@ -73,18 +73,18 @@ namespace CitiesOfSigmar {
 
     bool Flagellants::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         // Add the Prophet
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_flailsAndClubsProphet);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_flailsAndClubs);
             addModel(model);
         }
@@ -127,7 +127,7 @@ namespace CitiesOfSigmar {
     void Flagellants::onFlee(int numFled) {
         // Reckless Abandon
         Dice::RollResult rolls;
-        Dice::rollD6(numFled, rolls);
+        Dice::RollD6(numFled, rolls);
         int numMortalWounds = rolls.rollsGE(4);
         if (numMortalWounds) {
             auto board = Board::Instance();
@@ -140,9 +140,9 @@ namespace CitiesOfSigmar {
     }
 
     int Flagellants::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -11,14 +11,14 @@
 #include "IronjawzPrivate.h"
 
 namespace Ironjawz {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 40;
+    static const int g_wounds = 3;
+    static const int g_pointsPerUnit = 90;
 
     bool MorgoksKrushas::s_registered = false;
 
     MorgoksKrushas::MorgoksKrushas() :
-            Ironjawz("Morgok's Krushas", 4, WOUNDS, 6, 4, false),
+            Ironjawz("Morgok's Krushas", 4, g_wounds, 6, 4, false),
             m_krushaWeaponsMorgok(Weapon::Type::Melee, "Krusha Weapons", 1, 5, 3, 3, -1, 1),
             m_krushaWeapons(Weapon::Type::Melee, "Krusha Weapons", 1, 4, 3, 3, -1, 1),
             m_goreBasha(Weapon::Type::Melee, "Gore-basha", 2, 3, 4, 3, -1, 2) {
@@ -28,17 +28,17 @@ namespace Ironjawz {
 
     bool MorgoksKrushas::configure() {
 
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_krushaWeaponsMorgok);
         bossModel->setName("Morgok");
         addModel(bossModel);
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_krushaWeapons);
         model->setName("Thugg");
         addModel(model);
 
-        auto ardskull = new Model(BASESIZE, wounds());
+        auto ardskull = new Model(g_basesize, wounds());
         ardskull->addMeleeWeapon(&m_goreBasha);
         ardskull->setName("Ardskull");
         addModel(ardskull);
@@ -80,13 +80,13 @@ namespace Ironjawz {
     Rerolls MorgoksKrushas::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Duff Up da Big Thing
         if (target->wounds() >= 4) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Ironjawz::toHitRerolls(weapon, target);
     }
 
     int MorgoksKrushas::ComputePoints(int numModels) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Ironjawz

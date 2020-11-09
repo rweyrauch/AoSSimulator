@@ -10,18 +10,18 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 560;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 560;
 
     bool WarplockJezzails::s_registered = false;
 
     Unit *WarplockJezzails::Create(const ParameterList &parameters) {
         auto unit = new WarplockJezzails();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -32,9 +32,9 @@ namespace Skaven {
     }
 
     int WarplockJezzails::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -47,7 +47,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     CHAOS,
                     {SKAVEN}
@@ -58,7 +58,7 @@ namespace Skaven {
     }
 
     WarplockJezzails::WarplockJezzails() :
-            Skaventide("Warplock Jezzails", 6, WOUNDS, 4, 6, false),
+            Skaventide("Warplock Jezzails", 6, g_wounds, 4, 6, false),
             m_jezzail(Weapon::Type::Missile, "Warplock Jezzail", 30, 1, 4, 3, -2, 2),
             m_knives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WARPLOCK_JEZZAILS};
@@ -67,12 +67,12 @@ namespace Skaven {
     }
 
     bool WarplockJezzails::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_jezzail);
             model->addMeleeWeapon(&m_knives);
             addModel(model);
@@ -93,7 +93,7 @@ namespace Skaven {
     Rerolls WarplockJezzails::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pavise
         if (!m_moved && (weapon->name() == m_jezzail.name())) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }

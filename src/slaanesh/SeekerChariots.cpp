@@ -12,17 +12,17 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 6;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool SeekerChariots::s_registered = false;
 
     SeekerChariots::SeekerChariots() :
-            SlaaneshBase("Seeker Chariots", 12, WOUNDS, 10, 4, false),
+            SlaaneshBase("Seeker Chariots", 12, g_wounds, 10, 4, false),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 4, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -34,12 +34,12 @@ namespace Slaanesh {
     }
 
     bool SeekerChariots::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_flensingWhips);
             model->addMeleeWeapon(&m_piercingClaws);
             model->addMeleeWeapon(&m_poisonedTongues);
@@ -53,7 +53,7 @@ namespace Slaanesh {
 
     Unit *SeekerChariots::Create(const ParameterList &parameters) {
         auto unit = new SeekerChariots();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
@@ -74,7 +74,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     SeekerChariots::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Host", g_host[0], g_host),
                     },
                     CHAOS,
@@ -90,16 +90,16 @@ namespace Slaanesh {
         // Multilating Blades
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
-            if (Dice::rollD6() >= 2) {
-                ip->applyDamage({0, Dice::rollD3()});
+            if (Dice::RollD6() >= 2) {
+                ip->applyDamage({0, Dice::RollD3()});
             }
         }
     }
 
     int SeekerChariots::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

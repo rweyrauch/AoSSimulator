@@ -12,14 +12,14 @@
 #include "IronjawzPrivate.h"
 
 namespace Ironjawz {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 110;
 
     bool OrrukWarchanter::s_registered = false;
 
     OrrukWarchanter::OrrukWarchanter() :
-            Ironjawz("Orruk Warchanter", 4, WOUNDS, 7, 4, false),
+            Ironjawz("Orruk Warchanter", 4, g_wounds, 7, 4, false),
             m_stikks(Weapon::Type::Melee, "Gorkstikk and Morkstikk", 1, 6, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, TOTEM, WARCHANTER};
         m_weapons = {&m_stikks};
@@ -27,12 +27,12 @@ namespace Ironjawz {
     }
 
     bool OrrukWarchanter::configure(Warbeat warbeat) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stikks);
         addModel(model);
 
         m_warbeat = warbeat;
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -76,7 +76,7 @@ namespace Ironjawz {
     }
 
     int OrrukWarchanter::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Ironjawz

@@ -10,9 +10,9 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 80;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 80;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 200;
 
     bool LiegeKavalos::s_registered = false;
 
@@ -68,7 +68,7 @@ namespace OssiarchBonereapers {
     }
 
     LiegeKavalos::LiegeKavalos() :
-            OssiarchBonereaperBase("Liege-Kavalos", 10, WOUNDS, 10, 3, false),
+            OssiarchBonereaperBase("Liege-Kavalos", 10, g_wounds, 10, 3, false),
             m_blade(Weapon::Type::Melee, "Commander's Blade", 1, 3, 3, 3, -1, 2),
             m_shield(Weapon::Type::Melee, "Nadirite Battle-shield", 1, 1, 3, 4, 0, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1) {
@@ -79,19 +79,19 @@ namespace OssiarchBonereapers {
     }
 
     bool LiegeKavalos::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_shield);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int LiegeKavalos::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OssiarchBonereapers

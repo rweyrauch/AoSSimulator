@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool LordCastellant::s_registered = false;
 
     LordCastellant::LordCastellant() :
-            StormcastEternal("Lord-Castellant", 5, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Castellant", 5, g_wounds, 9, 3, false),
             m_halberd(Weapon::Type::Melee, "Castellant's Halberd", 2, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CASTELLANT};
         m_weapons = {&m_halberd};
@@ -27,11 +27,11 @@ namespace StormcastEternals {
     }
 
     bool LordCastellant::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -74,7 +74,7 @@ namespace StormcastEternals {
     }
 
     int LordCastellant::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

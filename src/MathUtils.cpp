@@ -14,9 +14,9 @@ namespace Math {
     Vector2 Vector2::normalize() const {
         const double dsqr = lengthSquare();
 
-        if (Abs(dsqr - 1.0) < EPSILON) {
+        if (Abs(dsqr - 1.0) < g_epsilon) {
             return *this;
-        } else if (dsqr < EPSILON * EPSILON) {
+        } else if (dsqr < g_epsilon * g_epsilon) {
             return {0, 0};
         }
 
@@ -42,9 +42,9 @@ namespace Math {
     Vector3 Vector3::normalize() const {
         const double dsqr = lengthSquare();
 
-        if (Abs(dsqr - 1.0) < EPSILON) {
+        if (Abs(dsqr - 1.0) < g_epsilon) {
             return *this;
-        } else if (dsqr < EPSILON * EPSILON) {
+        } else if (dsqr < g_epsilon * g_epsilon) {
             return {0, 0, 0};
         }
 
@@ -103,12 +103,12 @@ namespace Math {
         if (num == 0)
             return false;
 
-        Point3 xmin(INFINITE, 0.0, 0.0);
-        Point3 ymin(0.0, INFINITE, 0.0);
-        Point3 zmin(0.0, 0.0, INFINITE);
-        Point3 xmax(-INFINITE, 0.0, 0.0);
-        Point3 ymax(0.0, -INFINITE, 0.0);
-        Point3 zmax(0.0, 0.0, -INFINITE);
+        Point3 xmin(g_infinite, 0.0, 0.0);
+        Point3 ymin(0.0, g_infinite, 0.0);
+        Point3 zmin(0.0, 0.0, g_infinite);
+        Point3 xmax(-g_infinite, 0.0, 0.0);
+        Point3 ymax(0.0, -g_infinite, 0.0);
+        Point3 zmax(0.0, 0.0, -g_infinite);
         Point3 cur;
 
         unsigned int i;
@@ -187,11 +187,11 @@ namespace Math {
         return true;
     }
 
-    EContainment Sphere::contains(const Point3 &point) const {
+    Containment Sphere::contains(const Point3 &point) const {
         double dist_sqr = m_center.distanceSquare(point);
         if (dist_sqr > getRadiusSqr())
-            return CONT_NONE;
-        return CONT_ALL;
+            return Containment::None;
+        return Containment::All;
     }
 
 
@@ -222,13 +222,13 @@ namespace Math {
         return near_pnt.distance(point);
     }
 
-    EContainment Plane::contains(const Point3 &point) const {
+    Containment Plane::contains(const Point3 &point) const {
         Vector3 pv(point.x, point.y, point.z);
         const double result = Vector3::Dot(m_normal, pv) - m_offset;
         if (result > 0.0) {
-            return CONT_ALL;
+            return Containment::All;
         }
-        return CONT_NONE;
+        return Containment::None;
     }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -254,82 +254,82 @@ namespace Math {
     }
 
     void Box3::extendAround(const Point3 &point) {
-        if (point.x < m_maxMin[BI_MIN_X]) {
-            m_maxMin[BI_MIN_X] = point.x;
+        if (point.x < m_maxMin[Bi_Min_X]) {
+            m_maxMin[Bi_Min_X] = point.x;
         }
-        if (point.x > m_maxMin[BI_MAX_X]) {
-            m_maxMin[BI_MAX_X] = point.x;
+        if (point.x > m_maxMin[Bi_Max_X]) {
+            m_maxMin[Bi_Max_X] = point.x;
         }
-        if (point.y < m_maxMin[BI_MIN_Y]) {
-            m_maxMin[BI_MIN_Y] = point.y;
+        if (point.y < m_maxMin[Bi_Min_Y]) {
+            m_maxMin[Bi_Min_Y] = point.y;
         }
-        if (point.y > m_maxMin[BI_MAX_Y]) {
-            m_maxMin[BI_MAX_Y] = point.y;
+        if (point.y > m_maxMin[Bi_Max_Y]) {
+            m_maxMin[Bi_Max_Y] = point.y;
         }
-        if (point.z < m_maxMin[BI_MIN_Z]) {
-            m_maxMin[BI_MIN_Z] = point.z;
+        if (point.z < m_maxMin[Bi_Min_Z]) {
+            m_maxMin[Bi_Min_Z] = point.z;
         }
-        if (point.z > m_maxMin[BI_MAX_Z]) {
-            m_maxMin[BI_MAX_Z] = point.z;
+        if (point.z > m_maxMin[Bi_Max_Z]) {
+            m_maxMin[Bi_Max_Z] = point.z;
         }
     }
 
-    EContainment Box3::contains(const Point3 &point) const {
-        if (point.x < m_maxMin[BI_MIN_X]) {
-            return CONT_NONE;
+    Containment Box3::contains(const Point3 &point) const {
+        if (point.x < m_maxMin[Bi_Min_X]) {
+            return Containment::None;
         }
-        if (point.x > m_maxMin[BI_MAX_X]) {
-            return CONT_NONE;
+        if (point.x > m_maxMin[Bi_Max_X]) {
+            return Containment::None;
         }
-        if (point.y < m_maxMin[BI_MIN_Y]) {
-            return CONT_NONE;
+        if (point.y < m_maxMin[Bi_Min_Y]) {
+            return Containment::None;
         }
-        if (point.y > m_maxMin[BI_MAX_Y]) {
-            return CONT_NONE;
+        if (point.y > m_maxMin[Bi_Max_Y]) {
+            return Containment::None;
         }
-        if (point.z < m_maxMin[BI_MIN_Z]) {
-            return CONT_NONE;
+        if (point.z < m_maxMin[Bi_Min_Z]) {
+            return Containment::None;
         }
-        if (point.z > m_maxMin[BI_MAX_Z]) {
-            return CONT_NONE;
+        if (point.z > m_maxMin[Bi_Max_Z]) {
+            return Containment::None;
         }
-        return CONT_ALL;
+        return Containment::All;
     }
 
-    EContainment Box3::contains(const Box3 &box) const {
+    Containment Box3::contains(const Box3 &box) const {
         bool xoverlap =
-                (box.m_maxMin[BI_MIN_X] <= m_maxMin[BI_MAX_X]) && (box.m_maxMin[BI_MAX_X] >= m_maxMin[BI_MIN_X]);
+                (box.m_maxMin[Bi_Min_X] <= m_maxMin[Bi_Max_X]) && (box.m_maxMin[Bi_Max_X] >= m_maxMin[Bi_Min_X]);
         bool yoverlap =
-                (box.m_maxMin[BI_MIN_Y] <= m_maxMin[BI_MAX_Y]) && (box.m_maxMin[BI_MAX_Y] >= m_maxMin[BI_MIN_Y]);
+                (box.m_maxMin[Bi_Min_Y] <= m_maxMin[Bi_Max_Y]) && (box.m_maxMin[Bi_Max_Y] >= m_maxMin[Bi_Min_Y]);
         bool zoverlap =
-                (box.m_maxMin[BI_MIN_Z] <= m_maxMin[BI_MAX_Z]) && (box.m_maxMin[BI_MAX_Z] >= m_maxMin[BI_MIN_Z]);
+                (box.m_maxMin[Bi_Min_Z] <= m_maxMin[Bi_Max_Z]) && (box.m_maxMin[Bi_Max_Z] >= m_maxMin[Bi_Min_Z]);
 
         if (xoverlap && yoverlap && zoverlap) {
-            bool xin = (m_maxMin[BI_MIN_X] <= box.m_maxMin[BI_MIN_X]) && (m_maxMin[BI_MAX_X] >= box.m_maxMin[BI_MAX_X]);
-            bool yin = (m_maxMin[BI_MIN_Y] <= box.m_maxMin[BI_MIN_Y]) && (m_maxMin[BI_MAX_Y] >= box.m_maxMin[BI_MAX_Y]);
-            bool zin = (m_maxMin[BI_MIN_Z] <= box.m_maxMin[BI_MIN_Z]) && (m_maxMin[BI_MAX_Z] >= box.m_maxMin[BI_MAX_Z]);
+            bool xin = (m_maxMin[Bi_Min_X] <= box.m_maxMin[Bi_Min_X]) && (m_maxMin[Bi_Max_X] >= box.m_maxMin[Bi_Max_X]);
+            bool yin = (m_maxMin[Bi_Min_Y] <= box.m_maxMin[Bi_Min_Y]) && (m_maxMin[Bi_Max_Y] >= box.m_maxMin[Bi_Max_Y]);
+            bool zin = (m_maxMin[Bi_Min_Z] <= box.m_maxMin[Bi_Min_Z]) && (m_maxMin[Bi_Max_Z] >= box.m_maxMin[Bi_Max_Z]);
 
             if (xin && yin && zin)
-                return CONT_ALL;
+                return Containment::All;
             else
-                return CONT_PARTIAL;
+                return Containment::Partial;
         }
-        return CONT_NONE;
+        return Containment::None;
     }
 
-    int Box3::s_cornerIndex[NUM_CORNERS][3] =
+    int Box3::s_cornerIndex[Num_Corners][3] =
             {
-                    {BI_MAX_X, BI_MAX_Y, BI_MAX_Z},
-                    {BI_MIN_X, BI_MAX_Y, BI_MAX_Z},
-                    {BI_MIN_X, BI_MIN_Y, BI_MAX_Z},
-                    {BI_MAX_X, BI_MIN_Y, BI_MAX_Z},
-                    {BI_MAX_X, BI_MAX_Y, BI_MIN_Z},
-                    {BI_MIN_X, BI_MAX_Y, BI_MIN_Z},
-                    {BI_MIN_X, BI_MIN_Y, BI_MIN_Z},
-                    {BI_MAX_X, BI_MIN_Y, BI_MIN_Z}
+                    {Bi_Max_X, Bi_Max_Y, Bi_Max_Z},
+                    {Bi_Min_X, Bi_Max_Y, Bi_Max_Z},
+                    {Bi_Min_X, Bi_Min_Y, Bi_Max_Z},
+                    {Bi_Max_X, Bi_Min_Y, Bi_Max_Z},
+                    {Bi_Max_X, Bi_Max_Y, Bi_Min_Z},
+                    {Bi_Min_X, Bi_Max_Y, Bi_Min_Z},
+                    {Bi_Min_X, Bi_Min_Y, Bi_Min_Z},
+                    {Bi_Max_X, Bi_Min_Y, Bi_Min_Z}
             };
 
-    int Box3::s_edges[NUM_EDGES][2] =
+    int Box3::s_edges[Num_Edges][2] =
             {
                     {0, 1},
                     {1, 2},
@@ -347,7 +347,7 @@ namespace Math {
                     {3, 7},
             };
 
-    int Box3::s_faces[NUM_FACES][4] =
+    int Box3::s_faces[Num_Faces][4] =
             {
                     {0, 1, 2, 3},
                     {4, 5, 6, 7},
@@ -358,20 +358,20 @@ namespace Math {
             };
 
     void Box3::getCorner(unsigned int which, Point3 &corner) const {
-        assert(which < NUM_CORNERS);
+        assert(which < Num_Corners);
         corner.x = m_maxMin[s_cornerIndex[which][0]];
         corner.y = m_maxMin[s_cornerIndex[which][1]];
         corner.z = m_maxMin[s_cornerIndex[which][2]];
     }
 
     void Box3::getEdge(unsigned int which, int &c0, int &c1) const {
-        assert(which < NUM_EDGES);
+        assert(which < Num_Edges);
         c0 = s_edges[which][0];
         c1 = s_edges[which][1];
     }
 
     void Box3::getFace(unsigned int which, int &c0, int &c1, int &c2, int &c3) const {
-        assert(which < NUM_FACES);
+        assert(which < Num_Faces);
         c0 = s_faces[which][0];
         c1 = s_faces[which][1];
         c2 = s_faces[which][2];
@@ -379,8 +379,8 @@ namespace Math {
     }
 
     void Box3::getDims(Vector3 &dims) const {
-        dims = Vector3(m_maxMin[BI_MAX_X], m_maxMin[BI_MAX_Y], m_maxMin[BI_MAX_Z]) -
-               Vector3(m_maxMin[BI_MIN_X], m_maxMin[BI_MIN_Y], m_maxMin[BI_MIN_Z]);
+        dims = Vector3(m_maxMin[Bi_Max_X], m_maxMin[Bi_Max_Y], m_maxMin[Bi_Max_Z]) -
+               Vector3(m_maxMin[Bi_Min_X], m_maxMin[Bi_Min_Y], m_maxMin[Bi_Min_Z]);
     }
 
     double Box3::getSurfaceArea() const {
@@ -398,9 +398,9 @@ namespace Math {
 ///////////////////////////////////////////////////////////////////////////////
 
     OrientedBox::OrientedBox(const Box3 &box) {
-        m_center.set(box.m_maxMin[Box3::BI_MAX_X] + box.m_maxMin[Box3::BI_MIN_X],
-                     box.m_maxMin[Box3::BI_MAX_Y] + box.m_maxMin[Box3::BI_MIN_Y],
-                     box.m_maxMin[Box3::BI_MAX_Z] + box.m_maxMin[Box3::BI_MIN_Z]);
+        m_center.set(box.m_maxMin[Box3::Bi_Max_X] + box.m_maxMin[Box3::Bi_Min_X],
+                     box.m_maxMin[Box3::Bi_Max_Y] + box.m_maxMin[Box3::Bi_Min_Y],
+                     box.m_maxMin[Box3::Bi_Max_Z] + box.m_maxMin[Box3::Bi_Min_Z]);
 
         m_center *= 0.5;
 
@@ -408,13 +408,13 @@ namespace Math {
         m_bv.set(0.0, 1.0, 0.0);
         m_bw.set(0.0, 0.0, 1.0);
 
-        m_hu = (box.m_maxMin[Box3::BI_MAX_X] - box.m_maxMin[Box3::BI_MIN_X]) / 2.0;
-        m_hv = (box.m_maxMin[Box3::BI_MAX_Y] - box.m_maxMin[Box3::BI_MIN_Y]) / 2.0;
-        m_hw = (box.m_maxMin[Box3::BI_MAX_Z] - box.m_maxMin[Box3::BI_MIN_Z]) / 2.0;
+        m_hu = (box.m_maxMin[Box3::Bi_Max_X] - box.m_maxMin[Box3::Bi_Min_X]) / 2.0;
+        m_hv = (box.m_maxMin[Box3::Bi_Max_Y] - box.m_maxMin[Box3::Bi_Min_Y]) / 2.0;
+        m_hw = (box.m_maxMin[Box3::Bi_Max_Z] - box.m_maxMin[Box3::Bi_Min_Z]) / 2.0;
     }
 
-    EContainment OrientedBox::contains(const Point3 &point) const {
-        return CONT_ALL;
+    Containment OrientedBox::contains(const Point3 &point) const {
+        return Containment::All;
     }
 
 
@@ -425,9 +425,9 @@ namespace Math {
 ///////////////////////////////////////////////////////////////////////////////
 
     bool Intersect(const Ray &ray, const Sphere &sphere, RayHit &h0, RayHit &h1) {
-        Vector3 dist(ray.get_origin(), sphere.getCenter());
+        Vector3 dist(ray.getOrigin(), sphere.getCenter());
 
-        const double dirDotDist = dist.dot(ray.get_direction());
+        const double dirDotDist = dist.dot(ray.getDirection());
         const double distDotDist = dist.dot(dist);
         const double disc = dirDotDist * dirDotDist - (distDotDist - sphere.getRadiusSqr());
 
@@ -439,12 +439,12 @@ namespace Math {
 
             // Compute the entry point.
             h0.m_t = tEnter;
-            h0.m_point = ray.point_at(tEnter);
+            h0.m_point = ray.pointAt(tEnter);
             h0.m_norm = Vector3(sphere.getCenter(), h0.m_point) * sphere.getInvRadius();
 
             // Compute the exit point.
             h1.m_t = tLeave;
-            h1.m_point = ray.point_at(tLeave);
+            h1.m_point = ray.pointAt(tLeave);
             h1.m_norm = Vector3(sphere.getCenter(), h1.m_point) * sphere.getInvRadius();
         }
 
@@ -474,12 +474,12 @@ namespace Math {
         double planeDotRayDir = Vector3::Dot(plane.m_normal, ray.m_dir);
 
         // Detect co-planer ray/plane
-        if (Equal(planeDotRayDir, 0.0, EPSILON)) {
+        if (Equal(planeDotRayDir, 0.0, g_epsilon)) {
             h0.m_t = 0.0;
         } else {
             h0.m_t = -(plane.m_offset + planeDotRayOrigin) / planeDotRayDir;
             h0.m_norm = plane.m_normal;
-            h0.m_point = ray.point_at(h0.m_t);
+            h0.m_point = ray.pointAt(h0.m_t);
             hit = true;
         }
         return hit;
@@ -496,16 +496,16 @@ namespace Math {
         Vector3 edge2 = Vector3::Subtract(tri.m_v2, tri.m_v0);
 
         // Begin calculating determinant - also used to calculate U parameter.
-        Vector3 pvec = Vector3::Cross(ray.get_direction(), edge2);
+        Vector3 pvec = Vector3::Cross(ray.getDirection(), edge2);
 
         // If determinant is near zero, ray lies in plane of triangle.
         double det = edge1.dot(pvec);
 
-        if (det < EPSILON)
+        if (det < g_epsilon)
             return false;
 
         // Calculate distance from v0 to ray origin.
-        Vector3 tvec = Vector3::Subtract(ray.get_origin(), tri.m_v0);
+        Vector3 tvec = Vector3::Subtract(ray.getOrigin(), tri.m_v0);
 
         // calculate U parameter and test bounds.
         double u = tvec.dot(pvec);
@@ -516,7 +516,7 @@ namespace Math {
         Vector3 qvec = Vector3::Cross(tvec, edge1);
 
         // Calculate V parameter and test bounds.
-        double v = ray.get_direction().dot(qvec);
+        double v = ray.getDirection().dot(qvec);
         if (v < 0.0 || u + v > det)
             return false;
 
@@ -555,14 +555,14 @@ namespace Math {
         // Identify primary plane
         if (Abs(N.x) > Abs(N.y)) {
             if (Abs(N.x) > Abs(N.z))
-                m_k = COORD_X;
+                m_k = Coord_X;
             else
-                m_k = COORD_Z;
+                m_k = Coord_Z;
         } else {
             if (Abs(N.y) > Abs(N.z))
-                m_k = COORD_Y;
+                m_k = Coord_Y;
             else
-                m_k = COORD_Z;
+                m_k = Coord_Z;
         }
 
         // Compute triangle plane coefficients in projection plane
@@ -830,27 +830,27 @@ namespace Math {
 
     bool Intersect(const Ray2 &ray, const Circle &circle, RayHit &h0, RayHit &h1) {
         // Ray direction is always normalized.
-        const auto delta = Vector2(ray.get_origin() - circle.center());
-        const auto dirD = ray.get_direction().dot(delta);
-        const auto d = Sqr(dirD) - (ray.get_direction().lengthSquare() * (delta.lengthSquare() - Sqr(circle.radius())));
+        const auto delta = Vector2(ray.getOrigin() - circle.center());
+        const auto dirD = ray.getDirection().dot(delta);
+        const auto d = Sqr(dirD) - (ray.getDirection().lengthSquare() * (delta.lengthSquare() - Sqr(circle.radius())));
         if (d < 0) {
             return false;
         } else if (d > 0) {
-            h0.m_t = (-dirD + sqrt(d)) / ray.get_direction().lengthSquare();
-            auto hit0 = ray.point_at(h0.m_t);
+            h0.m_t = (-dirD + sqrt(d)) / ray.getDirection().lengthSquare();
+            auto hit0 = ray.pointAt(h0.m_t);
             h0.m_point.set(hit0.x, hit0.y, 0.0);
             auto diff = h0.m_point - Point3(circle.center().x, circle.center().y, 0.0);
             h0.m_norm = Vector3(diff.x, diff.y, diff.z);
 
-            h1.m_t = (-dirD - sqrt(d)) / ray.get_direction().lengthSquare();
-            auto hit1 = ray.point_at(h1.m_t);
+            h1.m_t = (-dirD - sqrt(d)) / ray.getDirection().lengthSquare();
+            auto hit1 = ray.pointAt(h1.m_t);
             h1.m_point.set(hit1.x, hit1.y, 0.0);
             diff = h1.m_point - Point3(circle.center().x, circle.center().y, 0.0);
             h1.m_norm = Vector3(diff.x, diff.y, diff.z);
         } else if (d == 0) {
             // Tangent to circle
-            h0.m_t = -dirD / ray.get_direction().lengthSquare();
-            auto hit0 = ray.point_at(h0.m_t);
+            h0.m_t = -dirD / ray.getDirection().lengthSquare();
+            auto hit0 = ray.pointAt(h0.m_t);
             h0.m_point.set(hit0.x, hit0.y, 0.0);
             auto diff = h0.m_point - Point3(circle.center().x, circle.center().y, 0.0);
             h0.m_norm = Vector3(diff.x, diff.y, diff.z);
@@ -877,7 +877,7 @@ namespace Math {
 
         bool intersected = false;
 
-        if (!Equal(phi, 0.0, EPSILON)) {
+        if (!Equal(phi, 0.0, g_epsilon)) {
             // Law of sines
             const auto sinTheta = d * sin(phi) / rTotal;
             if (fabs(sinTheta) <= 1.0) {

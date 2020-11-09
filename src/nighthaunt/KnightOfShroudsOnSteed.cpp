@@ -10,9 +10,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 75; // x42 oval
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 75; // x42 oval
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool KnightOfShroudsOnEtherealSteed::s_registered = false;
 
@@ -56,7 +56,7 @@ namespace Nighthaunt {
     }
 
     KnightOfShroudsOnEtherealSteed::KnightOfShroudsOnEtherealSteed() :
-            Nighthaunt("Knight of Shrouds on Ethereal Steed", 12, WOUNDS, 10, 4, true),
+            Nighthaunt("Knight of Shrouds on Ethereal Steed", 12, g_wounds, 10, 4, true),
             m_sword(Weapon::Type::Melee, "Sword of Stolen Hours", 1, 4, 3, 3, -1, 2),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
@@ -66,7 +66,7 @@ namespace Nighthaunt {
     }
 
     bool KnightOfShroudsOnEtherealSteed::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
@@ -77,7 +77,7 @@ namespace Nighthaunt {
     }
 
     int KnightOfShroudsOnEtherealSteed::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

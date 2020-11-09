@@ -11,14 +11,14 @@
 #include "NurglePrivate.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 140;
 
     bool LordOfPlagues::s_registered = false;
 
     LordOfPlagues::LordOfPlagues() :
-            NurgleBase("Lord of Plagues", 4, WOUNDS, 9, 4, false),
+            NurgleBase("Lord of Plagues", 4, g_wounds, 9, 4, false),
             m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES};
         m_weapons = {&m_plagueriddenGreatBlade};
@@ -26,11 +26,11 @@ namespace Nurgle {
     }
 
     bool LordOfPlagues::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_plagueriddenGreatBlade);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,14 +78,14 @@ namespace Nurgle {
         // Plague-ridden Great Weapons
         if (unmodifiedHitRoll == 6) {
             // each 6 inflicts D6 hits
-            return Dice::rollD6();
+            return Dice::RollD6();
         }
 
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int LordOfPlagues::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

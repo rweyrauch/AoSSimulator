@@ -30,14 +30,14 @@ namespace Bonesplitterz {
         Killa_Instinkt,
         Waaagh_Monger,
         Great_Hunter,
-        Power_of_the_Beast,
-        Voice_of_Da_Gods,
+        Power_Of_The_Beast,
+        Voice_Of_Da_Gods,
         Monsta_Killa,
 
         // Wizard
         Dead_Kunnin,
-        Master_of_the_Weird,
-        Fuelled_by_the_Spirits,
+        Master_Of_The_Weird,
+        Fuelled_By_The_Spirits,
 
         // Clan specific
         A_Right_Monster, // Bonegrinz
@@ -71,7 +71,7 @@ namespace Bonesplitterz {
         None,
 
         Squiggly_Curse,
-        Breath_of_Gorkamorka,
+        Breath_Of_Gorkamorka,
         Brutal_Beast_Spirits,
         Bone_Krusha,
         Kunnin_Beast_Spirits,

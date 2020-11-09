@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 240;
+    static const int g_basesize = 50;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 240;
 
     bool Belakor::s_registered = false;
 
@@ -39,7 +39,7 @@ namespace SlavesToDarkness {
     }
 
     int Belakor::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void Belakor::Init() {
@@ -63,7 +63,7 @@ namespace SlavesToDarkness {
     }
 
     Belakor::Belakor() :
-            SlavesToDarknessBase("Be'lakor", 12, WOUNDS, 10, 4, true),
+            SlavesToDarknessBase("Be'lakor", 12, g_wounds, 10, 4, true),
             m_blade(Weapon::Type::Melee, "Blade of Shadows", 1, 6, 3, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, DAEMON_PRINCE, BELAKOR};
         m_weapons = {&m_blade};
@@ -71,11 +71,11 @@ namespace SlavesToDarkness {
     }
 
     bool Belakor::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }

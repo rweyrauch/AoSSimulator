@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool GavrielSureheart::s_registered = false;
 
     GavrielSureheart::GavrielSureheart() :
-            StormcastEternal("Gavriel Sureheart", 5, WOUNDS, 9, 3, false),
+            StormcastEternal("Gavriel Sureheart", 5, g_wounds, 9, 3, false),
             m_starboundBlade(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, LORD_CELESTANT,
                       GAVRIEL_SUREHEART};
@@ -28,11 +28,11 @@ namespace StormcastEternals {
     }
 
     bool GavrielSureheart::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_starboundBlade);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -40,7 +40,7 @@ namespace StormcastEternals {
     Unit *GavrielSureheart::Create(const ParameterList &parameters) {
         auto unit = new GavrielSureheart();
 
-        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
+        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -73,7 +73,7 @@ namespace StormcastEternals {
 
     Rerolls GavrielSureheart::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Sigmarite Thundershield
-        return RerollOnes;
+        return Reroll_Ones;
     }
 
     Wounds GavrielSureheart::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
@@ -96,7 +96,7 @@ namespace StormcastEternals {
     }
 
     int GavrielSureheart::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

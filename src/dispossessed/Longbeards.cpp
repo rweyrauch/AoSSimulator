@@ -11,17 +11,17 @@
 #include "DispossessedPrivate.h"
 
 namespace Dispossessed {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 270;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 270;
 
     bool Longbeards::s_registered = false;
 
     Longbeards::Longbeards() :
-            Dispossessed("Longbeards", 4, WOUNDS, 7, 4, false),
+            Dispossessed("Longbeards", 4, g_wounds, 7, 4, false),
             m_ancestralAxeHammer(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 1, 3, 4, 0, 1),
             m_ancestralGreatAxe(Weapon::Type::Melee, "Ancestral Great Axe", 1, 1, 4, 3, -1, 1),
             m_ancestralAxeHammerOldGuard(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 2, 3, 4, 0, 1),
@@ -33,7 +33,7 @@ namespace Dispossessed {
 
     bool Longbeards::configure(int numModels, WeaponOptions weapons, bool gromrilShields, bool standardBearer,
                                bool musician) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -41,19 +41,19 @@ namespace Dispossessed {
         m_musician = musician;
         m_gromrilShields = gromrilShields;
 
-        auto oldguard = new Model(BASESIZE, wounds());
-        if (weapons == AncestralAxesOrHammers) {
+        auto oldguard = new Model(g_basesize, wounds());
+        if (weapons == Ancestral_Axes_Or_Hammers) {
             oldguard->addMeleeWeapon(&m_ancestralAxeHammerOldGuard);
-        } else if (weapons == AncestralGreatAxe) {
+        } else if (weapons == Ancestral_Great_Axe) {
             oldguard->addMeleeWeapon(&m_ancestralGreatAxeOldGuard);
         }
         addModel(oldguard);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == AncestralAxesOrHammers) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Ancestral_Axes_Or_Hammers) {
                 model->addMeleeWeapon(&m_ancestralAxeHammer);
-            } else if (weapons == AncestralGreatAxe) {
+            } else if (weapons == Ancestral_Great_Axe) {
                 model->addMeleeWeapon(&m_ancestralGreatAxe);
             }
             addModel(model);
@@ -66,8 +66,8 @@ namespace Dispossessed {
 
     Unit *Longbeards::Create(const ParameterList &parameters) {
         auto unit = new Longbeards();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, AncestralAxesOrHammers);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancestral_Axes_Or_Hammers);
         bool gromrilShields = GetBoolParam("Gromril Shields", parameters, false);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool musician = GetBoolParam("Musician", parameters, false);
@@ -82,15 +82,15 @@ namespace Dispossessed {
 
     void Longbeards::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {AncestralAxesOrHammers, AncestralGreatAxe};
+            static const std::array<int, 2> weapons = {Ancestral_Axes_Or_Hammers, Ancestral_Great_Axe};
             static FactoryMethod factoryMethod = {
                     Longbeards::Create,
                     Longbeards::ValueToString,
                     Longbeards::EnumStringToInt,
                     Longbeards::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", AncestralAxesOrHammers, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Ancestral_Axes_Or_Hammers, weapons),
                             BoolParameter("Gromril Shields"),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Musician"),
@@ -107,16 +107,16 @@ namespace Dispossessed {
         // Gromril Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
-                return RerollFailed;
+                return Reroll_Failed;
         }
         return Dispossessed::toSaveRerolls(weapon);
     }
 
     std::string Longbeards::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == AncestralAxesOrHammers) {
+            if (parameter.intValue == Ancestral_Axes_Or_Hammers) {
                 return "Ancestral Axes Or Hammers";
-            } else if (parameter.intValue == AncestralGreatAxe) {
+            } else if (parameter.intValue == Ancestral_Great_Axe) {
                 return "Ancestral Great Axe";
             }
         }
@@ -126,9 +126,9 @@ namespace Dispossessed {
 
     int Longbeards::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Ancestral Axes Or Hammers") {
-            return AncestralAxesOrHammers;
+            return Ancestral_Axes_Or_Hammers;
         } else if (enumString == "Ancestral Great Axe") {
-            return AncestralGreatAxe;
+            return Ancestral_Great_Axe;
         }
         return Dispossessed::EnumStringToInt(enumString);
     }
@@ -149,9 +149,9 @@ namespace Dispossessed {
     }
 
     int Longbeards::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

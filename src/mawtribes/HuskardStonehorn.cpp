@@ -10,9 +10,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 320;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 320;
 
     struct TableEntry {
         int m_move;
@@ -20,9 +20,9 @@ namespace OgorMawtribes {
         int m_hoovesToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 6, 2},
                     {10, 5, 3},
@@ -36,7 +36,7 @@ namespace OgorMawtribes {
     Unit *HuskardOnStonehorn::Create(const ParameterList &parameters) {
         auto unit = new HuskardOnStonehorn();
 
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, HarpoonLauncher);
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Harpoon_Launcher);
 
         auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
@@ -62,31 +62,31 @@ namespace OgorMawtribes {
 
     std::string HuskardOnStonehorn::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == HarpoonLauncher) return "Harpoon Launcher";
+            if (parameter.intValue == Harpoon_Launcher) return "Harpoon Launcher";
             else if (parameter.intValue == Chaintrap) return "Chaintrap";
-            else if (parameter.intValue == BloodVulture) return "Blood Vulture";
+            else if (parameter.intValue == Blood_Vulture) return "Blood Vulture";
         }
         return MawtribesBase::ValueToString(parameter);
     }
 
     int HuskardOnStonehorn::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Harpoon Launcher") return HarpoonLauncher;
+        if (enumString == "Harpoon Launcher") return Harpoon_Launcher;
         else if (enumString == "Chaintrap") return Chaintrap;
-        else if (enumString == "Blood Vulture") return BloodVulture;
+        else if (enumString == "Blood Vulture") return Blood_Vulture;
 
         return MawtribesBase::EnumStringToInt(enumString);
     }
 
     void HuskardOnStonehorn::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {HarpoonLauncher, Chaintrap, BloodVulture};
+            static const std::array<int, 3> weapons = {Harpoon_Launcher, Chaintrap, Blood_Vulture};
             static FactoryMethod factoryMethod = {
                     HuskardOnStonehorn::Create,
                     HuskardOnStonehorn::ValueToString,
                     HuskardOnStonehorn::EnumStringToInt,
                     HuskardOnStonehorn::ComputePoints,
                     {
-                            EnumParameter("Weapon", HarpoonLauncher, weapons),
+                            EnumParameter("Weapon", Harpoon_Launcher, weapons),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
                             EnumParameter("Command Trait", g_frostlordTraits[0], g_frostlordTraits),
                             EnumParameter("Artefact", g_frostlordArtefacts[0], g_frostlordArtefacts),
@@ -101,7 +101,7 @@ namespace OgorMawtribes {
     }
 
     HuskardOnStonehorn::HuskardOnStonehorn() :
-            MawtribesBase("Huskard on Stonehorn", 12, WOUNDS, 9, 3, false),
+            MawtribesBase("Huskard on Stonehorn", 12, g_wounds, 9, 3, false),
             m_harpoon(Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3),
             m_chaintrap(Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3),
             m_vulture(Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0),
@@ -110,21 +110,21 @@ namespace OgorMawtribes {
             m_hooves(Weapon::Type::Melee, "Crushing Hooves", 1, RAND_D6, 3, 2, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, HUSKARD};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
     }
 
     bool HuskardOnStonehorn::configure(WeaponOption option, MountTrait mountTrait) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         m_option = option;
         m_mountTrait = mountTrait;
 
-        if (option == HarpoonLauncher)
+        if (option == Harpoon_Launcher)
             model->addMissileWeapon(&m_harpoon);
         else if (option == Chaintrap)
             model->addMissileWeapon(&m_chaintrap);
-        else if (option == BloodVulture)
+        else if (option == Blood_Vulture)
             model->addMissileWeapon(&m_vulture);
         model->addMeleeWeapon(&m_kicks);
         model->addMeleeWeapon(&m_horns);
@@ -144,7 +144,7 @@ namespace OgorMawtribes {
 
     int HuskardOnStonehorn::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -173,8 +173,8 @@ namespace OgorMawtribes {
     Wounds HuskardOnStonehorn::applyWoundSave(const Wounds &wounds) {
         // Stone Skeleton
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -190,8 +190,8 @@ namespace OgorMawtribes {
 
         if (player == owningPlayer()) {
             if (m_meleeTarget) {
-                if (m_option == BloodVulture) {
-                    if (Dice::rollD6() >= 2) {
+                if (m_option == Blood_Vulture) {
+                    if (Dice::RollD6() >= 2) {
                         m_meleeTarget->applyDamage({0, 1});
                     }
                 }
@@ -200,7 +200,7 @@ namespace OgorMawtribes {
     }
 
     int HuskardOnStonehorn::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

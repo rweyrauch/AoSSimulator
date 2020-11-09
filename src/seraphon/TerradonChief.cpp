@@ -12,14 +12,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 70;
+    static const int g_basesize = 50;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 70;
 
     bool TerradonChief::s_registered = false;
 
     TerradonChief::TerradonChief() :
-            SeraphonBase("Terradon Chief", 16, WOUNDS, 6, 6, true),
+            SeraphonBase("Terradon Chief", 16, g_wounds, 6, 6, true),
             m_skyblade(Weapon::Type::Melee, "Skyblade", 1, 3, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Razor-sharp Jaws", 1, 4, 4, 4, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, HERO, TERRADON_CHIEF};
@@ -30,7 +30,7 @@ namespace Seraphon {
 
     bool TerradonChief::configure() {
         // Add the Alpha
-        auto alpha = new Model(BASESIZE, wounds());
+        auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_skyblade);
         alpha->addMeleeWeapon(&m_jaws);
         addModel(alpha);
@@ -87,7 +87,7 @@ namespace Seraphon {
     }
 
     int TerradonChief::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

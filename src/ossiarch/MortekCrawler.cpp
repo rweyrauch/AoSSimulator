@@ -10,9 +10,9 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 170; // x105 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 170; // x105 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 200;
 
     struct TableEntry {
         int m_skullDamage;
@@ -20,9 +20,9 @@ namespace OssiarchBonereapers {
         int m_stele;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {5, 0,  -3},
                     {4, 0,  -1},
@@ -73,18 +73,18 @@ namespace OssiarchBonereapers {
     }
 
     MortekCrawler::MortekCrawler() :
-            OssiarchBonereaperBase("Mortek Crawler", 4, WOUNDS, 10, 4, false),
+            OssiarchBonereaperBase("Mortek Crawler", 4, g_wounds, 10, 4, false),
             m_catapultSkulls(Weapon::Type::Missile, "Dread Catapult - Necrotic Skulls", 36, 3, 2, 3, 0, 5),
             m_catapultCauldron(Weapon::Type::Missile, "Dread Catapult - Cauldron of Torment", 36, 1, 0, 0, 0, 0),
             m_catapultStele(Weapon::Type::Missile, "Dread Catapult - Cursed Stele", 36, 1, 0, 0, 0, 0),
             m_tools(Weapon::Type::Melee, "Crawler Tools", 1, 6, 3, 4, 0, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, WAR_MACHINE, MORTEK_CRAWLER};
         m_weapons = {&m_catapultSkulls, &m_catapultCauldron, &m_catapultSkulls, &m_tools};
-        m_battleFieldRole = ArtilleryBehemoth;
+        m_battleFieldRole = Artillery_Behemoth;
     }
 
     bool MortekCrawler::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_catapultSkulls);
         model->addMissileWeapon(&m_catapultCauldron);
         model->addMissileWeapon(&m_catapultStele);
@@ -95,7 +95,7 @@ namespace OssiarchBonereapers {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -109,7 +109,7 @@ namespace OssiarchBonereapers {
 
     int MortekCrawler::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -118,7 +118,7 @@ namespace OssiarchBonereapers {
     }
 
     int MortekCrawler::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OssiarchBonereapers

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MORGHASTHARBINGERS_OB_H
-#define MORGHASTHARBINGERS_OB_H
+#ifndef MORGHASTHARBINGERS_H
+#define MORGHASTHARBINGERS_H
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -18,8 +18,8 @@ namespace OssiarchBonereapers {
     public:
 
         enum WeaponOptions {
-            SpiritHalberd,
-            SpiritSwords,
+            Spirit_Halberd,
+            Spirit_Swords,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -42,7 +42,7 @@ namespace OssiarchBonereapers {
 
     private:
 
-        WeaponOptions m_weaponOption = SpiritHalberd;
+        WeaponOptions m_weaponOption = Spirit_Halberd;
 
         Weapon m_spiritHalberd,
                 m_spiritSwords;
@@ -60,4 +60,4 @@ namespace OssiarchBonereapers {
 
 } //namespace OssiarchBonereapers
 
-#endif //MORGHASTHARBINGERS_OB_H
+#endif //MORGHASTHARBINGERS_H

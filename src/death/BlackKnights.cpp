@@ -11,17 +11,17 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 480;
 
     bool BlackKnights::s_registered = false;
 
     BlackKnights::BlackKnights() :
-            LegionOfNagashBase("Black Knights", 12, WOUNDS, 10, 5, false),
+            LegionOfNagashBase("Black Knights", 12, g_wounds, 10, 5, false),
             m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1),
             m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 1, 3, 3, 4, 0, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
@@ -37,7 +37,7 @@ namespace Death {
     }
 
     bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -45,13 +45,13 @@ namespace Death {
         m_standardBearers = standardBearers;
         m_hornblowers = hornblowers;
 
-        auto hellKnight = new Model(BASESIZE, wounds());
+        auto hellKnight = new Model(g_basesize, wounds());
         hellKnight->addMeleeWeapon(&m_barrowLanceKnight);
         hellKnight->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(hellKnight);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_barrowLance);
             model->addMeleeWeapon(&m_hoovesAndTeeth);
             addModel(model);
@@ -64,7 +64,7 @@ namespace Death {
 
     Unit *BlackKnights::Create(const ParameterList &parameters) {
         auto unit = new BlackKnights();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
@@ -87,7 +87,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Hornblowers"),
                             EnumParameter("Legion", g_legions[0], g_legions)
@@ -129,9 +129,9 @@ namespace Death {
     }
 
     int BlackKnights::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

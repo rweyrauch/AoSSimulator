@@ -10,20 +10,20 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 60; // x35
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 15;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 60; // x35
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 15;
+    static const int g_pointsPerBlock = 180;
+    static const int g_pointsMaxUnitSize = 480;
 
     bool KavalosDeathriders::s_registered = false;
 
     Unit *KavalosDeathriders::Create(const ParameterList &parameters) {
         auto unit = new KavalosDeathriders();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, NadiriteBladeAndShield);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Nadirite_Blade_And_Shield);
         bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
@@ -39,9 +39,9 @@ namespace OssiarchBonereapers {
 
     std::string KavalosDeathriders::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == NadirateSpearAndShield) {
+            if (parameter.intValue == Nadirate_Spear_And_Shield) {
                 return "Nadirate Spear and Shield";
-            } else if (parameter.intValue == NadiriteBladeAndShield) {
+            } else if (parameter.intValue == Nadirite_Blade_And_Shield) {
                 return "Nadirite Blade and Shield";
             }
         }
@@ -49,24 +49,24 @@ namespace OssiarchBonereapers {
     }
 
     int KavalosDeathriders::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Nadirite Blade and Shield") return NadiriteBladeAndShield;
-        else if (enumString == "Nadirate Spear and Shield") return NadirateSpearAndShield;
+        if (enumString == "Nadirite Blade and Shield") return Nadirite_Blade_And_Shield;
+        else if (enumString == "Nadirate Spear and Shield") return Nadirate_Spear_And_Shield;
 
         return OssiarchBonereaperBase::EnumStringToInt(enumString);
     }
 
     void KavalosDeathriders::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {NadiriteBladeAndShield, NadirateSpearAndShield};
+            static const std::array<int, 2> weapons = {Nadirite_Blade_And_Shield, Nadirate_Spear_And_Shield};
             static FactoryMethod factoryMethod = {
                     KavalosDeathriders::Create,
                     KavalosDeathriders::ValueToString,
                     KavalosDeathriders::EnumStringToInt,
                     KavalosDeathriders::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Necrophoros"),
-                            EnumParameter("Weapons", NadiriteBladeAndShield, weapons),
+                            EnumParameter("Weapons", Nadirite_Blade_And_Shield, weapons),
                             EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
@@ -77,7 +77,7 @@ namespace OssiarchBonereapers {
     }
 
     KavalosDeathriders::KavalosDeathriders() :
-            OssiarchBonereaperBase("Kavalos Deathriders", 12, WOUNDS, 10, 4, false),
+            OssiarchBonereaperBase("Kavalos Deathriders", 12, g_wounds, 10, 4, false),
             m_blade(Weapon::Type::Melee, "Nadirite Blade", 1, 3, 3, 4, -1, 1),
             m_spear(Weapon::Type::Melee, "Nadirite Spear", 2, 3, 3, 4, 0, 1),
             m_bladeHekatos(Weapon::Type::Melee, "Nadirite Blade", 1, 4, 3, 4, -1, 1),
@@ -91,25 +91,25 @@ namespace OssiarchBonereapers {
 
     bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necrophoros) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
-        auto hekatos = new Model(BASESIZE, wounds());
-        if (option == NadiriteBladeAndShield) {
+        auto hekatos = new Model(g_basesize, wounds());
+        if (option == Nadirite_Blade_And_Shield) {
             hekatos->addMeleeWeapon(&m_bladeHekatos);
-        } else if (option == NadirateSpearAndShield) {
+        } else if (option == Nadirate_Spear_And_Shield) {
             hekatos->addMeleeWeapon(&m_spearHekatos);
         }
         hekatos->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(hekatos);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (option == NadiriteBladeAndShield) {
+            auto model = new Model(g_basesize, wounds());
+            if (option == Nadirite_Blade_And_Shield) {
                 model->addMeleeWeapon(&m_bladeHekatos);
-            } else if (option == NadirateSpearAndShield) {
+            } else if (option == Nadirate_Spear_And_Shield) {
                 model->addMeleeWeapon(&m_spearHekatos);
             }
             model->addMeleeWeapon(&m_hoovesAndTeeth);
@@ -144,9 +144,9 @@ namespace OssiarchBonereapers {
     }
 
     int KavalosDeathriders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

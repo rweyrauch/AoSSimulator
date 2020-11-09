@@ -16,12 +16,12 @@
 namespace Dispossessed {
 
     constexpr std::array<int, 6> g_grudge = {
-            to_integer(Grudge::Stuck_Up),
-            to_integer(Grudge::Speed_Merchants),
-            to_integer(Grudge::Monstrous_Cheaters),
-            to_integer(Grudge::Cowardly_Horders),
-            to_integer(Grudge::Shoddy_Craftsmanship),
-            to_integer(Grudge::Sneaky_Ambushers)
+            ToInteger(Grudge::Stuck_Up),
+            ToInteger(Grudge::Speed_Merchants),
+            ToInteger(Grudge::Monstrous_Cheaters),
+            ToInteger(Grudge::Cowardly_Horders),
+            ToInteger(Grudge::Shoddy_Craftsmanship),
+            ToInteger(Grudge::Sneaky_Ambushers)
     };
 
 } // namespace Dispossessed

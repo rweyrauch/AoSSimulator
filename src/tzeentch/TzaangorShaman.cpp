@@ -12,9 +12,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 150;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 150;
 
     bool TzaangorShaman::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Tzeentch {
     }
 
     TzaangorShaman::TzaangorShaman() :
-            TzeentchBase("Tzaangor Shaman", 16, WOUNDS, 6, 5, true),
+            TzeentchBase("Tzaangor Shaman", 16, g_wounds, 6, 5, true),
             m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
@@ -77,7 +77,7 @@ namespace Tzeentch {
     }
 
     bool TzaangorShaman::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_dagger);
         model->addMeleeWeapon(&m_teethAndHorns);
@@ -86,13 +86,13 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int TzaangorShaman::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     int TzaangorShaman::visionsToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target) {

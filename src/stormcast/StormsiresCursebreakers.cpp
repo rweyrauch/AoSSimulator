@@ -13,14 +13,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int POINTS_PER_UNIT = 130;
+    static const int g_basesize = 40;
+    static const int g_wounds = 3;
+    static const int g_pointsPerUnit = 130;
 
     bool StormsiresCursebreakers::s_registered = false;
 
     StormsiresCursebreakers::StormsiresCursebreakers() :
-            StormcastEternal("Stormsire's Cursebreakers", 5, WOUNDS, 8, 4, false),
+            StormcastEternal("Stormsire's Cursebreakers", 5, g_wounds, 8, 4, false),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, CORPUSCANT,
                       WIZARD, EVOCATORS, STORMSIRES_CURSEBREAKERS};
@@ -31,18 +31,18 @@ namespace StormcastEternals {
     }
 
     bool StormsiresCursebreakers::configure(Lore lore) {
-        auto ammis = new Model(BASESIZE, wounds());
+        auto ammis = new Model(g_basesize, wounds());
         ammis->addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(ammis);
 
-        auto rastus = new Model(BASESIZE, wounds());
+        auto rastus = new Model(g_basesize, wounds());
         rastus->addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(rastus);
 
         m_knownSpells.push_back(std::make_unique<Empower>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -50,7 +50,7 @@ namespace StormcastEternals {
     Rerolls StormsiresCursebreakers::toSaveRerolls(const Weapon *weapon) const {
         // Celestial Lightning Arc
         if (weapon->isMissile()) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return StormcastEternal::toSaveRerolls(weapon);
@@ -60,11 +60,11 @@ namespace StormcastEternals {
         auto mortalWounds = StormcastEternal::generateMortalWounds(unit);
 
         // Celestial Lightning Arc
-        int roll = Dice::rollD6();
+        int roll = Dice::RollD6();
         if (roll >= 4) {
             mortalWounds++;
         }
-        roll = Dice::rollD6();
+        roll = Dice::RollD6();
         if (roll >= 4) {
             mortalWounds++;
         }
@@ -76,7 +76,7 @@ namespace StormcastEternals {
         auto *evos = new StormsiresCursebreakers();
         auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, None);
 
-        evos->setStormhost(Stormhost::Hammers_of_Sigmar);
+        evos->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         bool ok = evos->configure(invigoration);
         if (!ok) {
@@ -115,13 +115,13 @@ namespace StormcastEternals {
     Rerolls StormsiresCursebreakers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Blessed Banishment
         if (target->hasKeyword(DEATH) || target->hasKeyword(CHAOS)) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return StormcastEternal::toHitRerolls(weapon, target);
     }
 
     int StormsiresCursebreakers::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

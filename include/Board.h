@@ -42,17 +42,17 @@ public:
 
     void addRosters(Roster *pRedRoster, Roster *pBlueRoster);
 
-    double width() const { return m_width; }
+    [[nodiscard]] double width() const { return m_width; }
 
-    double depth() const { return m_depth; }
+    [[nodiscard]] double depth() const { return m_depth; }
 
-    int getNumFeatures() const { return (int) m_features.size(); }
+    [[nodiscard]] int getNumFeatures() const { return (int) m_features.size(); }
 
-    const TerrainFeature *getFeature(int which) const { return m_features.at((size_t) which); }
+    [[nodiscard]] const TerrainFeature *getFeature(int which) const { return m_features.at((size_t) which); }
 
-    int getNumObjectives() const { return (int) m_objectives.size(); }
+    [[nodiscard]] int getNumObjectives() const { return (int) m_objectives.size(); }
 
-    const Objective *getObjective(int which) const { return m_objectives.at((size_t) which); }
+    [[nodiscard]] const Objective *getObjective(int which) const { return m_objectives.at((size_t) which); }
 
     const Objective *getNearestObjective(const Unit *unit);
 
@@ -70,7 +70,7 @@ public:
         m_realm = realm;
     }
 
-    Realm getRealm() const { return m_realm; }
+    [[nodiscard]] Realm getRealm() const { return m_realm; }
 
     enum Quadrant {
         Northwest = 0, //
@@ -100,7 +100,7 @@ public:
 protected:
     Board() = default;
 
-    bool inQuadrant(Quadrant quadrant, const Math::Plane &northSouth, const Math::Plane &eastWest,
+    [[nodiscard]] bool inQuadrant(Quadrant quadrant, const Math::Plane &northSouth, const Math::Plane &eastWest,
                     const Math::Point3 &point3) const;
 
 private:

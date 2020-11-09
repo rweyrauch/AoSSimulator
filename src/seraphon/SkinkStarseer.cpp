@@ -13,14 +13,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 50;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool SkinkStarseer::s_registered = false;
 
     SkinkStarseer::SkinkStarseer() :
-            SeraphonBase("Skink Starseer", 5, WOUNDS, 6, 5, true),
+            SeraphonBase("Skink Starseer", 5, g_wounds, 6, 5, true),
             m_astralBolt(Weapon::Type::Missile, "Astral Bolt", 18, 2, 3, 3, -1, RAND_D3),
             m_staff(Weapon::Type::Melee, "Astromancer's Staff", 2, 2, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARSEER};
@@ -29,7 +29,7 @@ namespace Seraphon {
     }
 
     bool SkinkStarseer::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_astralBolt);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -94,13 +94,13 @@ namespace Seraphon {
         // Cosmic Herald
         if (owningPlayer() == player) {
             Dice::RollResult result;
-            Dice::rollD6(1, result);
+            Dice::RollD6(1, result);
             m_roster->addCommandPoints(result.rollsGE(4));
         }
     }
 
     int SkinkStarseer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

@@ -12,17 +12,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 90 * 4;
+    static const int g_basesize = 40;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 90 * 4;
 
     bool KhineraiHeartrenders::s_registered = false;
 
     KhineraiHeartrenders::KhineraiHeartrenders() :
-            DaughterOfKhaine("Khinerai Heartrenders", 14, WOUNDS, 7, 6, true),
+            DaughterOfKhaine("Khinerai Heartrenders", 14, g_wounds, 7, 6, true),
             m_barbedJavelinMissile(Weapon::Type::Missile, "Barbed Javelin", 12, 1, 3, 3, -1, 1),
             m_barbedJavelin(Weapon::Type::Melee, "Barbed Javelin", 2, 1, 4, 4, -1, 1),
             m_barbedJavelinShrykeMissile(Weapon::Type::Missile, "Barbed Javelin", 12, 1, 2, 3, -1, 1),
@@ -35,17 +35,17 @@ namespace DaughtersOfKhaine {
     }
 
     bool KhineraiHeartrenders::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto shryke = new Model(BASESIZE, wounds());
+        auto shryke = new Model(g_basesize, wounds());
         shryke->addMissileWeapon(&m_barbedJavelinShrykeMissile);
         shryke->addMeleeWeapon(&m_barbedJavelinShryke);
         addModel(shryke);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_barbedJavelinMissile);
             model->addMeleeWeapon(&m_barbedJavelin);
             addModel(model);
@@ -60,7 +60,7 @@ namespace DaughtersOfKhaine {
 
     Unit *KhineraiHeartrenders::Create(const ParameterList &parameters) {
         auto unit = new KhineraiHeartrenders();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
@@ -81,7 +81,7 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
@@ -102,9 +102,9 @@ namespace DaughtersOfKhaine {
     }
 
     int KhineraiHeartrenders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

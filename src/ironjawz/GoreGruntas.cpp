@@ -11,17 +11,17 @@
 #include "IronjawzPrivate.h"
 
 namespace Ironjawz {
-    static const int BASESIZE = 90;  // x52 oval
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 160;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 90;  // x52 oval
+    static const int g_wounds = 5;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 160;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool OrrukGoreGruntas::s_registered = false;
 
     OrrukGoreGruntas::OrrukGoreGruntas() :
-            Ironjawz("Orruk Gore-gruntas", 9, WOUNDS, 7, 4, false),
+            Ironjawz("Orruk Gore-gruntas", 9, g_wounds, 7, 4, false),
             m_pigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa", 1, 4, 3, 3, -1, 1),
             m_jaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 3, 3, -1, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 4, 0, 1),
@@ -35,26 +35,26 @@ namespace Ironjawz {
 
     bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         // Add the Boss
-        auto bossModel = new Model(BASESIZE, wounds());
-        if (weapons == PigIronChoppa) {
+        auto bossModel = new Model(g_basesize, wounds());
+        if (weapons == Pig_Iron_Choppa) {
             bossModel->addMeleeWeapon(&m_bossPigironChoppa);
-        } else if (weapons == JaggedGorehacka) {
+        } else if (weapons == Jagged_Gorehacka) {
             bossModel->addMeleeWeapon(&m_bossJaggedGorehacka);
         }
         bossModel->addMeleeWeapon(&m_tusksAndHooves);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == PigIronChoppa) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Pig_Iron_Choppa) {
                 model->addMeleeWeapon(&m_pigironChoppa);
-            } else if (weapons == JaggedGorehacka) {
+            } else if (weapons == Jagged_Gorehacka) {
                 model->addMeleeWeapon(&m_jaggedGorehacka);
             }
             model->addMeleeWeapon(&m_tusksAndHooves);
@@ -68,8 +68,8 @@ namespace Ironjawz {
 
     Unit *OrrukGoreGruntas::Create(const ParameterList &parameters) {
         auto unit = new OrrukGoreGruntas();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, PigIronChoppa);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Pig_Iron_Choppa);
 
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
@@ -84,9 +84,9 @@ namespace Ironjawz {
 
     std::string OrrukGoreGruntas::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "weapons") {
-            if (parameter.intValue == PigIronChoppa) {
+            if (parameter.intValue == Pig_Iron_Choppa) {
                 return "Pig-iron Choppa";
-            } else if (parameter.intValue == JaggedGorehacka) {
+            } else if (parameter.intValue == Jagged_Gorehacka) {
                 return "Jagged Gore-hacka";
             }
         }
@@ -95,24 +95,24 @@ namespace Ironjawz {
 
     int OrrukGoreGruntas::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Pig-iron Choppa") {
-            return PigIronChoppa;
+            return Pig_Iron_Choppa;
         } else if (enumString == "Jagged Gore-hacka") {
-            return JaggedGorehacka;
+            return Jagged_Gorehacka;
         }
         return Ironjawz::EnumStringToInt(enumString);
     }
 
     void OrrukGoreGruntas::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {PigIronChoppa, JaggedGorehacka};
+            static const std::array<int, 2> weapons = {Pig_Iron_Choppa, Jagged_Gorehacka};
             static FactoryMethod factoryMethod = {
                     OrrukGoreGruntas::Create,
                     OrrukGoreGruntas::ValueToString,
                     OrrukGoreGruntas::EnumStringToInt,
                     OrrukGoreGruntas::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", PigIronChoppa, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Pig_Iron_Choppa, weapons),
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
@@ -123,9 +123,9 @@ namespace Ironjawz {
     }
 
     int OrrukGoreGruntas::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

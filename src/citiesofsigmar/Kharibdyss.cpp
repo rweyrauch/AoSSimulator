@@ -11,9 +11,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 105;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 170;
+    static const int g_basesize = 105;
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 170;
 
     struct TableEntry {
         int m_move;
@@ -21,9 +21,9 @@ namespace CitiesOfSigmar {
         int m_tailToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {1, 3, 5, 7, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {1, 3, 5, 7, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {7, 6, 2},
                     {6, 5, 3},
@@ -74,7 +74,7 @@ namespace CitiesOfSigmar {
     }
 
     Kharibdyss::Kharibdyss() :
-            CitizenOfSigmar("Kharibdyss", 7, WOUNDS, 6, 4, false),
+            CitizenOfSigmar("Kharibdyss", 7, g_wounds, 6, 4, false),
             m_tentacles(Weapon::Type::Melee, "Fanged Tentacles", 3, 6, 4, 3, -1, 2),
             m_tail(Weapon::Type::Melee, "Spiked Tail", 2, RAND_D6, 4, 2, 0, 1),
             m_limbs(Weapon::Type::Melee, "Clawed Limbs", 1, 2, 3, 3, -1, 1),
@@ -91,14 +91,14 @@ namespace CitiesOfSigmar {
     }
 
     bool Kharibdyss::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_tentacles);
         model->addMeleeWeapon(&m_tail);
         model->addMeleeWeapon(&m_limbs);
         model->addMeleeWeapon(&m_goadsAndWhips);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -119,7 +119,7 @@ namespace CitiesOfSigmar {
 
     int Kharibdyss::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -137,7 +137,7 @@ namespace CitiesOfSigmar {
     }
 
     int Kharibdyss::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace CitiesOfSigmar

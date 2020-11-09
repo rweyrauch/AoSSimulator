@@ -11,17 +11,17 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 150;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 150;
+    static const int g_pointsMaxUnitSize = 600;
 
     bool Vargheists::s_registered = false;
 
     Vargheists::Vargheists() :
-            LegionOfNagashBase("Vargheists", 12, WOUNDS, 10, 5, true),
+            LegionOfNagashBase("Vargheists", 12, g_wounds, 10, 5, true),
             m_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2),
             m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 4, 3, 3, -1, 2) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, VARGHEISTS};
@@ -29,17 +29,17 @@ namespace Death {
     }
 
     bool Vargheists::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
-        auto vargoyle = new Model(BASESIZE, wounds());
+        auto vargoyle = new Model(g_basesize, wounds());
         vargoyle->addMeleeWeapon(&m_fangsAndTalonsVargoyle);
         addModel(vargoyle);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_fangsAndTalons);
             addModel(model);
         }
@@ -51,7 +51,7 @@ namespace Death {
 
     Unit *Vargheists::Create(const ParameterList &parameters) {
         auto unit = new Vargheists();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
@@ -72,7 +72,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
@@ -83,9 +83,9 @@ namespace Death {
     }
 
     int Vargheists::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

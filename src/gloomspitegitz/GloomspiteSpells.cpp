@@ -33,7 +33,7 @@ namespace GloomspiteGitz {
 
         Result cast(Unit *target, int round) override;
 
-        Result cast(double x, double y, int round) override { return Failed; }
+        Result cast(double x, double y, int round) override { return Result::Failed; }
     };
 
     GreatGreenSpite::GreatGreenSpite(Unit *caster) :
@@ -41,23 +41,23 @@ namespace GloomspiteGitz {
 
     Spell::Result GreatGreenSpite::cast(Unit *target, int round) {
         if (target == nullptr) {
-            return Failed;
+            return Result::Failed;
         }
 
         // Distance to target
         const double distance = m_caster->distanceTo(target);
         if (distance > m_range) {
-            return Failed;
+            return Result::Failed;
         }
 
         auto unit = Board::Instance()->getNearestUnit(m_caster, GetEnemyId(m_caster->owningPlayer()));
 
         // Check for visibility to enemy unit
         if ((unit == nullptr) || !Board::Instance()->isVisible(m_caster, unit)) {
-            return Failed;
+            return Result::Failed;
         }
 
-        Spell::Result result = Failed;
+        Spell::Result result = Result::Failed;
 
         int damage = 1;
         if (target->remainingModels() >= 20)
@@ -70,15 +70,15 @@ namespace GloomspiteGitz {
         if (castingRoll >= m_castingValue) {
             bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
             if (!unbound) {
-                mortalWounds = Dice::rollSpecial(damage);
+                mortalWounds = Dice::RollSpecial(damage);
                 target->applyDamage({0, mortalWounds, Wounds::Source::Spell});
                 SimLog(Verbosity::Narrative,
                        "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                        m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
                        target->name().c_str());
-                result = Success;
+                result = Result::Success;
             } else {
-                result = Unbound;
+                result = Result::Unbound;
             }
         }
 
@@ -95,11 +95,11 @@ namespace GloomspiteGitz {
                 return nullptr;
             case Lore::The_Great_Green_Spite:
                 return new GreatGreenSpite(caster);
-            case Lore::The_Hand_of_Gork:
+            case Lore::The_Hand_Of_Gork:
                 return nullptr;
             case Lore::Squig_Lure:
                 return nullptr;
-            case Lore::Call_da_Moon:
+            case Lore::Call_Da_Moon:
                 return nullptr;
             case Lore::Deadly_Webbing:
                 return nullptr;
@@ -109,9 +109,9 @@ namespace GloomspiteGitz {
                 return nullptr;
             case Lore::Sneaky_Distraction:
                 return nullptr;
-            case Lore::Curse_of_da_Spider_God:
+            case Lore::Curse_Of_Da_Spider_God:
                 return nullptr;
-            case Lore::Gift_of_da_Spider_God:
+            case Lore::Gift_Of_Da_Spider_God:
                 return nullptr;
         }
         return nullptr;

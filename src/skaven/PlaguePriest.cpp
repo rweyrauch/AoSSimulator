@@ -12,9 +12,9 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool PlaguePriest::s_registered = false;
 
@@ -58,7 +58,7 @@ namespace Skaven {
     }
 
     PlaguePriest::PlaguePriest() :
-            Skaventide("Plague Priest", 6, WOUNDS, 6, 5, false),
+            Skaventide("Plague Priest", 6, g_wounds, 6, 5, false),
             m_staff(Weapon::Type::Melee, "Warpstone-tipped Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_censer(Weapon::Type::Melee, "Plague Censer", 2, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, HERO, PRIEST, PLAGUE_PRIEST};
@@ -67,12 +67,12 @@ namespace Skaven {
     }
 
     bool PlaguePriest::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_censer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -85,8 +85,8 @@ namespace Skaven {
         for (auto unit : units) {
             if (!unit->hasKeyword(CLANS_PESTILENS)) {
                 int mortalWounds = 0;
-                int roll = Dice::rollD6();
-                if (roll == 6) mortalWounds = Dice::rollD3();
+                int roll = Dice::RollD6();
+                if (roll == 6) mortalWounds = Dice::RollD3();
                 else if (roll >= 4) mortalWounds = 1;
 
                 unit->applyDamage({0, mortalWounds});
@@ -114,7 +114,7 @@ namespace Skaven {
             if (!units.empty()) {
                 Dice::RollResult result;
 
-                auto prayerRoll = Dice::rollD6();
+                auto prayerRoll = Dice::RollD6();
                 if (prayerRoll == 1) {
                     // Failed - take one mortal wound.
                     applyDamage({0, 1});
@@ -123,7 +123,7 @@ namespace Skaven {
 
                     // Disease-disease!
                     auto numModels = units.front()->remainingModels();
-                    Dice::rollD6(numModels, result);
+                    Dice::RollD6(numModels, result);
                     units.front()->applyDamage({0, result.rollsGE(6)});
                 }
             }
@@ -131,7 +131,7 @@ namespace Skaven {
     }
 
     int PlaguePriest::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 110;
 
     bool KnightVenator::s_registered = false;
 
     KnightVenator::KnightVenator() :
-            StormcastEternal("Knight-Venator", 12, WOUNDS, 9, 3, true),
+            StormcastEternal("Knight-Venator", 12, g_wounds, 9, 3, true),
             m_realmhuntersBow(Weapon::Type::Missile, "Realmhunter's Bow", 30, 3, 2, 3, -1, 1),
             m_beakAndTalonsMissile(Weapon::Type::Missile, "Celestial Beak and Talons", 30, 3, 4, 3, 0, 1),
             m_bowStave(Weapon::Type::Melee, "Bow Stave", 1, 2, 3, 4, 0, 1),
@@ -30,14 +30,14 @@ namespace StormcastEternals {
     }
 
     bool KnightVenator::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_realmhuntersBow);
         model->addMissileWeapon(&m_beakAndTalonsMissile);
         model->addMeleeWeapon(&m_bowStave);
         model->addMeleeWeapon(&m_beakAndTalons);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -88,7 +88,7 @@ namespace StormcastEternals {
     }
 
     int KnightVenator::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

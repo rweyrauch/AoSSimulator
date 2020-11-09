@@ -12,9 +12,9 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 60;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_pointsPerUnit = 60;
 
     bool GarreksReavers::s_registered = false;
 
@@ -50,42 +50,42 @@ namespace Khorne {
     }
 
     GarreksReavers::GarreksReavers() :
-            KhorneBase("Garrek's Reavers", 6, WOUNDS, 6, 6, false),
+            KhorneBase("Garrek's Reavers", 6, g_wounds, 6, 6, false),
             m_garreksAxe(Weapon::Type::Melee, "Garrek's Blooddrinker Axe", 1, 3, 3, 4, -1, 1),
-            m_KarusAxe(Weapon::Type::Melee, "Karsus' Chained Axe", 2, RAND_D3, 4, 4, 0, 1),
-            m_SaeksAxe(Weapon::Type::Melee, "Saek's Meatripper Axe", 1, 1, 3, 4, -1, 1),
+            m_karusAxe(Weapon::Type::Melee, "Karsus' Chained Axe", 2, RAND_D3, 4, 4, 0, 1),
+            m_saeksAxe(Weapon::Type::Melee, "Saek's Meatripper Axe", 1, 1, 3, 4, -1, 1),
             m_blades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOODREAVERS, GARREKS_REAVERS};
-        m_weapons = {&m_garreksAxe, &m_KarusAxe, &m_SaeksAxe, &m_blades};
+        m_weapons = {&m_garreksAxe, &m_karusAxe, &m_saeksAxe, &m_blades};
     }
 
     bool GarreksReavers::configure() {
-        auto garrek = new Model(BASESIZE, wounds());
+        auto garrek = new Model(g_basesize, wounds());
         garrek->setName("Garrek");
         garrek->addMeleeWeapon(&m_garreksAxe);
         addModel(garrek);
 
-        auto karsus = new Model(BASESIZE, wounds());
+        auto karsus = new Model(g_basesize, wounds());
         karsus->setName("Karsus");
-        karsus->addMeleeWeapon(&m_KarusAxe);
+        karsus->addMeleeWeapon(&m_karusAxe);
         addModel(karsus);
 
-        auto saek = new Model(BASESIZE, wounds());
+        auto saek = new Model(g_basesize, wounds());
         saek->setName("Saek");
-        saek->addMeleeWeapon(&m_SaeksAxe);
+        saek->addMeleeWeapon(&m_saeksAxe);
         addModel(saek);
 
-        auto targor = new Model(BASESIZE, wounds());
+        auto targor = new Model(g_basesize, wounds());
         targor->setName("Targor");
         targor->addMeleeWeapon(&m_blades);
         addModel(targor);
 
-        auto arnulf = new Model(BASESIZE, wounds());
+        auto arnulf = new Model(g_basesize, wounds());
         arnulf->setName("Arnulf");
         arnulf->addMeleeWeapon(&m_blades);
         addModel(arnulf);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -93,7 +93,7 @@ namespace Khorne {
     Rerolls GarreksReavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Reaver Blades
         if (weapon->name() == m_blades.name()) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return KhorneBase::toHitRerolls(weapon, unit);
@@ -122,7 +122,7 @@ namespace Khorne {
     }
 
     int GarreksReavers::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

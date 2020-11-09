@@ -7,20 +7,19 @@
  */
 
 #include <khorne/AspiringDeathbringer.h>
-#include <UnitFactory.h>
 #include <Board.h>
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
     static const int POINTS_PER_UNIT_WITH_GOREAXE = 100;
 
     bool AspiringDeathbringer::s_registered = false;
 
     AspiringDeathbringer::AspiringDeathbringer() :
-            KhorneBase("Aspiring Deathbringer", 5, WOUNDS, 7, 4, false),
+            KhorneBase("Aspiring Deathbringer", 5, g_wounds, 7, 4, false),
             m_bloodAxe(Weapon::Type::Melee, "Bloodaxe", 1, 3, 3, 4, 0, 1),
             m_wrathHammer(Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 3, 4, 0, 1),
             m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1),
@@ -33,13 +32,13 @@ namespace Khorne {
     bool AspiringDeathbringer::configure(WeaponOption weapon) {
         m_weaponOption = weapon;
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
-        if (m_weaponOption == BloodaxeAndWrathhammer) {
+        if (m_weaponOption == Bloodaxe_And_Wrathhammer) {
             model->addMeleeWeapon(&m_bloodAxe);
             model->addMeleeWeapon(&m_wrathHammer);
-            m_points = POINTS_PER_UNIT;
-        } else if (m_weaponOption == GoreaxeAndSkullhammer) {
+            m_points = g_pointsPerUnit;
+        } else if (m_weaponOption == Goreaxe_And_Skullhammer) {
             model->addMeleeWeapon(&m_goreaxe);
             model->addMeleeWeapon(&m_skullhammer);
             m_points = POINTS_PER_UNIT_WITH_GOREAXE;
@@ -51,7 +50,7 @@ namespace Khorne {
 
     Unit *AspiringDeathbringer::Create(const ParameterList &parameters) {
         auto unit = new AspiringDeathbringer();
-        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BloodaxeAndWrathhammer);
+        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Bloodaxe_And_Wrathhammer);
 
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
@@ -75,14 +74,14 @@ namespace Khorne {
 
     void AspiringDeathbringer::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {BloodaxeAndWrathhammer,GoreaxeAndSkullhammer};
+            static const std::array<int, 2> weapons = {Bloodaxe_And_Wrathhammer, Goreaxe_And_Skullhammer};
             static FactoryMethod factoryMethod = {
                     AspiringDeathbringer::Create,
                     AspiringDeathbringer::ValueToString,
                     AspiringDeathbringer::EnumStringToInt,
                     AspiringDeathbringer::ComputePoints,
                     {
-                            EnumParameter("Weapon", BloodaxeAndWrathhammer, weapons),
+                            EnumParameter("Weapon", Bloodaxe_And_Wrathhammer, weapons),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
                             EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
@@ -97,9 +96,9 @@ namespace Khorne {
 
     std::string AspiringDeathbringer::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == BloodaxeAndWrathhammer) {
+            if (parameter.intValue == Bloodaxe_And_Wrathhammer) {
                 return "Bloodaxe and Wrath-hammer";
-            } else if (parameter.intValue == GoreaxeAndSkullhammer) {
+            } else if (parameter.intValue == Goreaxe_And_Skullhammer) {
                 return "Goreaxe and Skullhammer";
             }
         }
@@ -108,15 +107,15 @@ namespace Khorne {
 
     int AspiringDeathbringer::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Bloodaxe and Wrath-hammer") {
-            return BloodaxeAndWrathhammer;
+            return Bloodaxe_And_Wrathhammer;
         } else if (enumString == "Goreaxe and Skullhammer") {
-            return GoreaxeAndSkullhammer;
+            return Goreaxe_And_Skullhammer;
         }
         return KhorneBase::EnumStringToInt(enumString);
     }
 
     int AspiringDeathbringer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

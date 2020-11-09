@@ -10,18 +10,18 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 32;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool SavageBoarboys::s_registered = false;
 
     Unit *SavageBoarboys::Create(const ParameterList &parameters) {
         auto unit = new SavageBoarboys();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Chompa);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
@@ -39,14 +39,14 @@ namespace Bonesplitterz {
 
     void SavageBoarboys::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Chompa, SavageStikka};
+            static const std::array<int, 2> weapons = {Chompa, Savage_Stikka};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", weapons[0], weapons),
                             BoolParameter("Skull Thumper"),
                             BoolParameter("Bone Totem Bearer"),
@@ -61,7 +61,7 @@ namespace Bonesplitterz {
     }
 
     SavageBoarboys::SavageBoarboys() :
-            Bonesplitterz("Savage Boarboys", 12, WOUNDS, 5, 6, false),
+            Bonesplitterz("Savage Boarboys", 12, g_wounds, 5, 6, false),
             m_chompa(Weapon::Type::Melee, "Chompa", 1, 3, 4, 3, 0, 1),
             m_stikka(Weapon::Type::Melee, "Savage Stikka", 2, 3, 4, 4, 0, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
@@ -74,7 +74,7 @@ namespace Bonesplitterz {
 
     bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -83,20 +83,20 @@ namespace Bonesplitterz {
         m_totemBearer = totemBearer;
 
         // Add the Boss
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         if (weapons == Chompa) {
             bossModel->addMeleeWeapon(&m_chompaBoss);
-        } else if (weapons == SavageStikka) {
+        } else if (weapons == Savage_Stikka) {
             bossModel->addMeleeWeapon(&m_stikkaBoss);
         }
         bossModel->addMeleeWeapon(&m_tusksAndHooves);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             if (weapons == Chompa) {
                 model->addMeleeWeapon(&m_chompa);
-            } else if (weapons == SavageStikka) {
+            } else if (weapons == Savage_Stikka) {
                 model->addMeleeWeapon(&m_stikka);
             }
             model->addMeleeWeapon(&m_tusksAndHooves);
@@ -112,14 +112,14 @@ namespace Bonesplitterz {
     std::string SavageBoarboys::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
             if (parameter.intValue == Chompa) { return "Chompa"; }
-            else if (parameter.intValue == SavageStikka) { return "Savage Stikka"; }
+            else if (parameter.intValue == Savage_Stikka) { return "Savage Stikka"; }
         }
         return Bonesplitterz::ValueToString(parameter);
     }
 
     int SavageBoarboys::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Chompa") { return Chompa; }
-        else if (enumString == "Savage Stikka") { return SavageStikka; }
+        else if (enumString == "Savage Stikka") { return Savage_Stikka; }
         return Bonesplitterz::EnumStringToInt(enumString);
     }
 
@@ -142,9 +142,9 @@ namespace Bonesplitterz {
     }
 
     int SavageBoarboys::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

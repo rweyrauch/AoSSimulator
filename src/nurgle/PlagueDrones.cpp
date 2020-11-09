@@ -12,17 +12,17 @@
 #include <array>
 
 namespace Nurgle {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 190;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 60;
+    static const int g_wounds = 5;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 190;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool PlagueDrones::s_registered = false;
 
     PlagueDrones::PlagueDrones() :
-            NurgleBase("Plague Drones", 8, WOUNDS, 10, 5, true),
+            NurgleBase("Plague Drones", 8, g_wounds, 10, 5, true),
             m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
             m_plagueswordPlaguebringer(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1),
             m_deathsHead(Weapon::Type::Missile, "Death's Head", 14, 1, 4, 3, 0, 1),
@@ -41,7 +41,7 @@ namespace Nurgle {
     }
 
     bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bellTollers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -50,24 +50,24 @@ namespace Nurgle {
         m_weapon = weapons;
 
         // Add the Plaguebringer
-        auto leader = new Model(BASESIZE, wounds());
+        auto leader = new Model(g_basesize, wounds());
         leader->addMissileWeapon(&m_deathsHead);
         leader->addMeleeWeapon(&m_plagueswordPlaguebringer);
-        if (weapons == PrehensileProboscis) {
+        if (weapons == Prehensile_Proboscis) {
             leader->addMeleeWeapon(&m_proboscis);
-        } else if (weapons == FoulMouthparts) {
+        } else if (weapons == Foul_Mouthparts) {
             leader->addMeleeWeapon(&m_mouthparts);
         }
         leader->addMeleeWeapon(&m_venemousSting);
         addModel(leader);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_deathsHead);
             model->addMeleeWeapon(&m_plaguesword);
-            if (weapons == PrehensileProboscis) {
+            if (weapons == Prehensile_Proboscis) {
                 model->addMeleeWeapon(&m_proboscis);
-            } else if (weapons == FoulMouthparts) {
+            } else if (weapons == Foul_Mouthparts) {
                 model->addMeleeWeapon(&m_mouthparts);
             }
             model->addMeleeWeapon(&m_venemousSting);
@@ -81,8 +81,8 @@ namespace Nurgle {
 
     Unit *PlagueDrones::Create(const ParameterList &parameters) {
         auto unit = new PlagueDrones();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, PrehensileProboscis);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Prehensile_Proboscis);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bells = GetBoolParam("Bell Tollers", parameters, false);
 
@@ -96,15 +96,15 @@ namespace Nurgle {
 
     void PlagueDrones::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {PrehensileProboscis, FoulMouthparts};
+            static const std::array<int, 2> weapons = {Prehensile_Proboscis, Foul_Mouthparts};
             static FactoryMethod factoryMethod = {
                     PlagueDrones::Create,
                     PlagueDrones::ValueToString,
                     PlagueDrones::EnumStringToInt,
                     PlagueDrones::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", PrehensileProboscis, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Prehensile_Proboscis, weapons),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Bell Tollers"),
                     },
@@ -118,8 +118,8 @@ namespace Nurgle {
     Wounds PlagueDrones::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -135,7 +135,7 @@ namespace Nurgle {
         if (m_iconBearer) {
             // Icon Bearer
             if (roll == 1) {
-                numAdded = Dice::rollD6();
+                numAdded = Dice::RollD6();
             }
         }
     }
@@ -143,12 +143,12 @@ namespace Nurgle {
     void PlagueDrones::restoreModels(int numModels) {
         // Icon Bearer
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_deathsHead);
             model->addMeleeWeapon(&m_plaguesword);
-            if (m_weapon == PrehensileProboscis) {
+            if (m_weapon == Prehensile_Proboscis) {
                 model->addMeleeWeapon(&m_proboscis);
-            } else if (m_weapon == FoulMouthparts) {
+            } else if (m_weapon == Foul_Mouthparts) {
                 model->addMeleeWeapon(&m_mouthparts);
             }
             model->addMeleeWeapon(&m_venemousSting);
@@ -158,22 +158,22 @@ namespace Nurgle {
 
     std::string PlagueDrones::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == PrehensileProboscis) { return "Prehensile Proboscis"; }
-            else if (parameter.intValue == FoulMouthparts) { return "Foul Mouthparts"; }
+            if (parameter.intValue == Prehensile_Proboscis) { return "Prehensile Proboscis"; }
+            else if (parameter.intValue == Foul_Mouthparts) { return "Foul Mouthparts"; }
         }
         return NurgleBase::ValueToString(parameter);
     }
 
     int PlagueDrones::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Prehensile Proboscis") { return PrehensileProboscis; }
-        else if (enumString == "Foul Mouthparts") { return FoulMouthparts; }
+        if (enumString == "Prehensile Proboscis") { return Prehensile_Proboscis; }
+        else if (enumString == "Foul Mouthparts") { return Foul_Mouthparts; }
         return NurgleBase::EnumStringToInt(enumString);
     }
 
     int PlagueDrones::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -197,9 +197,9 @@ namespace Nurgle {
     Rerolls PlagueDrones::bellTollersBattleshockReroll(const Unit *unit) {
         // Bell Tollers
         if (m_bellTollers && !isFriendly(unit)) {
-            if (distanceTo(unit) <= 6.0) return RerollOnes;
+            if (distanceTo(unit) <= 6.0) return Reroll_Ones;
         }
-        return RerollOnes;
+        return Reroll_Ones;
     }
 
 } // namespace Nurgle

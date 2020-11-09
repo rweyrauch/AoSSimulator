@@ -12,14 +12,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 32;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 110;
 
     bool SaurusOldblood::s_registered = false;
 
     SaurusOldblood::SaurusOldblood() :
-            SeraphonBase("Saurus Oldblood", 5, WOUNDS, 8, 3, false),
+            SeraphonBase("Saurus Oldblood", 5, g_wounds, 8, 3, false),
             m_maul(Weapon::Type::Melee, "Celestite Maul", 1, 3, 4, 3, -1, RAND_D3),
             m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 5, 3, 3, 0, 1),
             m_warspear(Weapon::Type::Melee, "Celestite Warspear", 2, 4, 3, 3, 0, 1),
@@ -31,14 +31,14 @@ namespace Seraphon {
     }
 
     bool SaurusOldblood::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
-        if (option == CelestiteMaul) {
+        auto model = new Model(g_basesize, wounds());
+        if (option == Celestite_Maul) {
             model->addMeleeWeapon(&m_maul);
-        } else if (option == CelestiteWarblade) {
+        } else if (option == Celestite_Warblade) {
             model->addMeleeWeapon(&m_warblade);
-        } else if (option == CelestiteWarspear) {
+        } else if (option == Celestite_Warspear) {
             model->addMeleeWeapon(&m_warspear);
-        } else if (option == CelestiteGreatblade) {
+        } else if (option == Celestite_Greatblade) {
             model->addMeleeWeapon(&m_greatblade);
         }
         model->addMeleeWeapon(&m_jaws);
@@ -51,7 +51,7 @@ namespace Seraphon {
 
     Unit *SaurusOldblood::Create(const ParameterList &parameters) {
         auto unit = new SaurusOldblood();
-        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, CelestiteWarblade);
+        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Celestite_Warblade);
 
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
@@ -76,15 +76,15 @@ namespace Seraphon {
 
     void SaurusOldblood::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = { CelestiteMaul,CelestiteWarblade,
-                                                        CelestiteWarspear,CelestiteGreatblade};
+            static const std::array<int, 4> weapons = {Celestite_Maul, Celestite_Warblade,
+                                                       Celestite_Warspear, Celestite_Greatblade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Weapon", CelestiteWarblade, weapons),
+                            EnumParameter("Weapon", Celestite_Warblade, weapons),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
                             EnumParameter("Command Trait", g_saurusCommandTrait[0], g_saurusCommandTrait),
@@ -101,19 +101,19 @@ namespace Seraphon {
 
     std::string SaurusOldblood::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == CelestiteMaul) return "Celestite Maul";
-            else if (parameter.intValue == CelestiteWarblade) return "Celestite Warblade";
-            else if (parameter.intValue == CelestiteWarspear) return "Celestite War-spear";
-            else if (parameter.intValue == CelestiteGreatblade) return "Celestite Greatblade";
+            if (parameter.intValue == Celestite_Maul) return "Celestite Maul";
+            else if (parameter.intValue == Celestite_Warblade) return "Celestite Warblade";
+            else if (parameter.intValue == Celestite_Warspear) return "Celestite War-spear";
+            else if (parameter.intValue == Celestite_Greatblade) return "Celestite Greatblade";
         }
         return SeraphonBase::ValueToString(parameter);
     }
 
     int SaurusOldblood::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Celestite Maul") return CelestiteMaul;
-        else if (enumString == "Celestite Warblade") return CelestiteWarblade;
-        else if (enumString == "Celestite War-spear") return CelestiteWarspear;
-        else if (enumString == "Celestite Greatblade") return CelestiteGreatblade;
+        if (enumString == "Celestite Maul") return Celestite_Maul;
+        else if (enumString == "Celestite Warblade") return Celestite_Warblade;
+        else if (enumString == "Celestite War-spear") return Celestite_Warspear;
+        else if (enumString == "Celestite Greatblade") return Celestite_Greatblade;
         return SeraphonBase::EnumStringToInt(enumString);
     }
 
@@ -130,7 +130,7 @@ namespace Seraphon {
     }
 
     int SaurusOldblood::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

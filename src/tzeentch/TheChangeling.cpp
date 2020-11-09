@@ -12,9 +12,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool TheChangeling::s_registered = false;
 
@@ -65,7 +65,7 @@ namespace Tzeentch {
     }
 
     TheChangeling::TheChangeling() :
-            TzeentchBase("The Changeling", 6, WOUNDS, 7, 5, false),
+            TzeentchBase("The Changeling", 6, g_wounds, 7, 5, false),
             m_staff(Weapon::Type::Melee, "The Trickster's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_CHANGELING};
         m_weapons = {&m_staff};
@@ -76,20 +76,20 @@ namespace Tzeentch {
     }
 
     bool TheChangeling::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int TheChangeling::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

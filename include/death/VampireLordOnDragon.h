@@ -19,7 +19,7 @@ namespace Death {
 
         enum WeaponOption {
             Deathlance,
-            VampiricSword
+            Vampiric_Sword
         };
 
         static Unit *Create(const ParameterList &parameters);

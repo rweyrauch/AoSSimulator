@@ -15,72 +15,73 @@
 
 namespace DaughtersOfKhaine {
 
-    constexpr std::array<int, 5> g_temple = {
-        to_integer(Temple::None),
-        to_integer(Temple::HaggNar),
-        to_integer(Temple::DraichiGaneth),
-        to_integer(Temple::TheKraith),
-        to_integer(Temple::Khailebron)
+    constexpr std::array<int, 6> g_temple = {
+            ToInteger(Temple::None),
+            ToInteger(Temple::Hagg_Nar),
+            ToInteger(Temple::Draichi_Ganeth),
+            ToInteger(Temple::The_Kraith),
+            ToInteger(Temple::Khailebron),
+            ToInteger(Temple::Zainthar_Kai)
     };
 
     constexpr std::array<int, 7> g_commandTraits = {
-        to_integer(CommandTrait::None),
-        to_integer(CommandTrait::Bathed_in_Blood),
-        to_integer(CommandTrait::Zealous_Orator),
-        to_integer(CommandTrait::Bloody_Sacrificer),
-        to_integer(CommandTrait::Terrifying_Beauty),
-        to_integer(CommandTrait::Mistress_of_Poisons),
-        to_integer(CommandTrait::True_Believer)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Bathed_In_Blood),
+            ToInteger(CommandTrait::Zealous_Orator),
+            ToInteger(CommandTrait::Bloody_Sacrificer),
+            ToInteger(CommandTrait::Terrifying_Beauty),
+            ToInteger(CommandTrait::Mistress_Of_Poisons),
+            ToInteger(CommandTrait::True_Believer)
     };
 
     constexpr std::array<int, 7> g_heroArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Crown_of_Woe),
-            to_integer(Artefact::Cursed_Blade),
-            to_integer(Artefact::Amulet_of_Dark_Fire),
-            to_integer(Artefact::Crone_Blade),
-            to_integer(Artefact::Thousand_and_One_Dark_Blessings),
-            to_integer(Artefact::Bloodbane_Venom)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Crown_Of_Woe),
+            ToInteger(Artefact::Cursed_Blade),
+            ToInteger(Artefact::Amulet_Of_Dark_Fire),
+            ToInteger(Artefact::Crone_Blade),
+            ToInteger(Artefact::Thousand_And_One_Dark_Blessings),
+            ToInteger(Artefact::Bloodbane_Venom)
     };
 
     constexpr std::array<int, 7> g_wizardArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Shadow_Stone),
-            to_integer(Artefact::Rune_of_Ulgu),
-            to_integer(Artefact::The_Mirror_Glaive),
-            to_integer(Artefact::Seven_Fold_Shadow),
-            to_integer(Artefact::Crystal_Heart),
-            to_integer(Artefact::Shade_Claw)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Shadow_Stone),
+            ToInteger(Artefact::Rune_Of_Ulgu),
+            ToInteger(Artefact::The_Mirror_Glaive),
+            ToInteger(Artefact::Seven_Fold_Shadow),
+            ToInteger(Artefact::Crystal_Heart),
+            ToInteger(Artefact::Shade_Claw)
     };
 
     constexpr std::array<int, 7> g_priestArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Blood_Sigil),
-            to_integer(Artefact::Iron_Circlet),
-            to_integer(Artefact::Rune_of_Khaine),
-            to_integer(Artefact::Crimson_Shard),
-            to_integer(Artefact::Khainite_Pendant),
-            to_integer(Artefact::Hagbrew)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Blood_Sigil),
+            ToInteger(Artefact::Iron_Circlet),
+            ToInteger(Artefact::Rune_Of_Khaine),
+            ToInteger(Artefact::Crimson_Shard),
+            ToInteger(Artefact::Khainite_Pendant),
+            ToInteger(Artefact::Hagbrew)
     };
 
     constexpr std::array<int, 7> g_lore = {
-        to_integer(Lore::None),
-        to_integer(Lore::Steed_of_Shadows),
-        to_integer(Lore::Pit_of_Shades),
-        to_integer(Lore::Mirror_Dance),
-        to_integer(Lore::The_Withering),
-        to_integer(Lore::Mindrazor),
-        to_integer(Lore::Shroud_of_Despair)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Steed_Of_Shadows),
+            ToInteger(Lore::Pit_Of_Shades),
+            ToInteger(Lore::Mirror_Dance),
+            ToInteger(Lore::The_Withering),
+            ToInteger(Lore::Mindrazor),
+            ToInteger(Lore::Shroud_Of_Despair)
     };
 
     constexpr std::array<int, 7> g_prayers = {
-        to_integer(Prayer::None),
-        to_integer(Prayer::Catechism_of_Murder),
-        to_integer(Prayer::Blessing_of_Khaine),
-        to_integer(Prayer::Martyrs_Sacrifice),
-        to_integer(Prayer::Crimson_Rejuvination),
-        to_integer(Prayer::Covenant_of_the_Iron_Heart),
-        to_integer(Prayer::Sacrament_of_Blood)
+            ToInteger(Prayer::None),
+            ToInteger(Prayer::Catechism_Of_Murder),
+            ToInteger(Prayer::Blessing_Of_Khaine),
+            ToInteger(Prayer::Martyrs_Sacrifice),
+            ToInteger(Prayer::Crimson_Rejuvination),
+            ToInteger(Prayer::Covenant_Of_The_Iron_Heart),
+            ToInteger(Prayer::Sacrament_Of_Blood)
     };
 
 } // namespace DaughtersOfKhaine

@@ -11,17 +11,17 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool Bloodcrushers::s_registered = false;
 
     Bloodcrushers::Bloodcrushers() :
-            KhorneBase("Bloodcrushers", 8, WOUNDS, 10, 4, false),
+            KhorneBase("Bloodcrushers", 8, g_wounds, 10, 4, false),
             m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
             m_hellbladeHunter(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1),
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
@@ -37,7 +37,7 @@ namespace Khorne {
     }
 
     bool Bloodcrushers::configure(int numModels, bool iconBearer, bool hornblowers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -45,14 +45,14 @@ namespace Khorne {
         m_hornblower = hornblowers;
 
         // Add the Bloodhunter
-        auto hunter = new Model(BASESIZE, wounds());
+        auto hunter = new Model(g_basesize, wounds());
         hunter->addMeleeWeapon(&m_hellbladeHunter);
         hunter->addMeleeWeapon(&m_brazenHooves);
         addModel(hunter);
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_hellblade);
             model->addMeleeWeapon(&m_brazenHooves);
             addModel(model);
@@ -65,7 +65,7 @@ namespace Khorne {
 
     Unit *Bloodcrushers::Create(const ParameterList &parameters) {
         auto unit = new Bloodcrushers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
@@ -88,7 +88,7 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Bloodcrushers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Hornblowers"),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
@@ -104,11 +104,11 @@ namespace Khorne {
         // Murderous Charge
         if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             Dice::RollResult rolls;
-            Dice::rollD6(remainingModels(), rolls);
+            Dice::RollD6(remainingModels(), rolls);
             Wounds wounds = {0, 0};
             if (remainingModels() >= 6) {
                 for (int i = 0; i < rolls.rollsGE(2); i++) {
-                    wounds.mortal += Dice::rollD3();
+                    wounds.mortal += Dice::RollD3();
                 }
             } else {
                 wounds.mortal = rolls.rollsGE(2);
@@ -131,9 +131,9 @@ namespace Khorne {
     }
 
     int Bloodcrushers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -149,16 +149,16 @@ namespace Khorne {
     void Bloodcrushers::restoreModels(int numModels) {
         // Icon Bearer
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_hellblade);
             addModel(model);
         }
     }
 
     Rerolls Bloodcrushers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return RerollOnes;
+        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
 } // namespace Khorne

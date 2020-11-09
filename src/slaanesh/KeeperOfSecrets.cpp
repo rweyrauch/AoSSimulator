@@ -13,9 +13,9 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 380;
+    static const int g_basesize = 100;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 380;
 
     struct TableEntry {
         int m_move;
@@ -23,9 +23,9 @@ namespace Slaanesh {
         int m_clawDamage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {14, 4, 5},
                     {12, 3, 4},
@@ -37,28 +37,28 @@ namespace Slaanesh {
     bool KeeperOfSecrets::s_registered = false;
 
     KeeperOfSecrets::KeeperOfSecrets() :
-            SlaaneshBase("Keeper of Secrets", 14, WOUNDS, 10, 4, false),
+            SlaaneshBase("Keeper of Secrets", 14, g_wounds, 10, 4, false),
             m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
             m_ritualKnifeOrHand(Weapon::Type::Melee, "Ritual Knife or Sinistrous Hand", 1, 1, 2, 3, -1, 1),
             m_greatblade(Weapon::Type::Melee, "Elegant Greatblade", 2, 4, 3, 3, -1, 2),
             m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5) {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS};
         m_weapons = {&m_livingWhip, &m_ritualKnifeOrHand, &m_greatblade, &m_impalingClaws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
     }
 
     bool KeeperOfSecrets::configure(WeaponOption weapon, Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         m_weapon = weapon;
 
-        if (weapon == LivingWhip) {
+        if (weapon == Living_Whip) {
             model->addMissileWeapon(&m_livingWhip);
         }
-        if (weapon == RitualKnife || weapon == SinistrousHand) {
+        if (weapon == Ritual_Knife || weapon == Sinistrous_Hand) {
             model->addMeleeWeapon(&m_ritualKnifeOrHand);
         }
         model->addMeleeWeapon(&m_greatblade);
@@ -68,14 +68,14 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *KeeperOfSecrets::Create(const ParameterList &parameters) {
         auto unit = new KeeperOfSecrets();
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, RitualKnife);
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Ritual_Knife);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
@@ -101,14 +101,14 @@ namespace Slaanesh {
 
     void KeeperOfSecrets::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {RitualKnife, SinistrousHand, LivingWhip, ShiningAegis};
+            static const std::array<int, 4> weapons = {Ritual_Knife, Sinistrous_Hand, Living_Whip, Shining_Aegis};
             static FactoryMethod factoryMethod = {
                     KeeperOfSecrets::Create,
                     KeeperOfSecrets::ValueToString,
                     KeeperOfSecrets::EnumStringToInt,
                     KeeperOfSecrets::ComputePoints,
                     {
-                            EnumParameter("Weapon", RitualKnife, weapons),
+                            EnumParameter("Weapon", Ritual_Knife, weapons),
                             EnumParameter("Host", g_host[0], g_host),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
@@ -132,7 +132,7 @@ namespace Slaanesh {
 
     int KeeperOfSecrets::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -157,11 +157,11 @@ namespace Slaanesh {
         }
 
         // Ritual Knife
-        if ((m_weapon == RitualKnife) && target) {
+        if ((m_weapon == Ritual_Knife) && target) {
             Wounds knifeWounds = {0, 0};
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll == 6) {
-                knifeWounds = {0, Dice::rollD3()};
+                knifeWounds = {0, Dice::RollD3()};
             } else if (roll >= 2) {
                 knifeWounds = {0, 1};
             }
@@ -170,19 +170,19 @@ namespace Slaanesh {
         }
 
         // Sinistrous Hand
-        if ((m_weapon == SinistrousHand) && m_currentRecord.m_enemyModelsSlain) {
+        if ((m_weapon == Sinistrous_Hand) && m_currentRecord.m_enemyModelsSlain) {
             // TODO: keep track of heroes slain to heal D6
-            heal(Dice::rollD3());
+            heal(Dice::RollD3());
         }
         return wounds;
     }
 
     Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds) {
-        if (m_weapon == ShiningAegis) {
+        if (m_weapon == Shining_Aegis) {
             // Shining Aegis
             Dice::RollResult woundSaves, mortalSaves;
-            Dice::rollD6(wounds.normal, woundSaves);
-            Dice::rollD6(wounds.mortal, mortalSaves);
+            Dice::RollD6(wounds.normal, woundSaves);
+            Dice::RollD6(wounds.mortal, mortalSaves);
 
             Wounds totalWounds = wounds;
             totalWounds.normal -= woundSaves.rollsGE(6);
@@ -203,16 +203,16 @@ namespace Slaanesh {
         if (hero != nullptr) {
             // Heros _always_ refuse right now and take D3
             // TODO: give hero the choice
-            hero->applyDamage({0, Dice::rollD3()});
+            hero->applyDamage({0, Dice::RollD3()});
         }
     }
 
     std::string KeeperOfSecrets::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == RitualKnife) return "Ritual Knife";
-            else if (parameter.intValue == SinistrousHand) return "Sinistrous Hand";
-            else if (parameter.intValue == LivingWhip) return "LivingWhip";
-            else if (parameter.intValue == ShiningAegis) return "Shining Aegis";
+            if (parameter.intValue == Ritual_Knife) return "Ritual Knife";
+            else if (parameter.intValue == Sinistrous_Hand) return "Sinistrous Hand";
+            else if (parameter.intValue == Living_Whip) return "LivingWhip";
+            else if (parameter.intValue == Shining_Aegis) return "Shining Aegis";
         }
         return SlaaneshBase::ValueToString(parameter);
     }
@@ -228,15 +228,15 @@ namespace Slaanesh {
     }
 
     int KeeperOfSecrets::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Ritual Knife") return RitualKnife;
-        else if (enumString == "Sinistrous Hand") return SinistrousHand;
-        else if (enumString == "Living Whip") return LivingWhip;
-        else if (enumString == "Shining Aegis") return ShiningAegis;
+        if (enumString == "Ritual Knife") return Ritual_Knife;
+        else if (enumString == "Sinistrous Hand") return Sinistrous_Hand;
+        else if (enumString == "Living Whip") return Living_Whip;
+        else if (enumString == "Shining Aegis") return Shining_Aegis;
         return SlaaneshBase::EnumStringToInt(enumString);
     }
 
     int KeeperOfSecrets::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

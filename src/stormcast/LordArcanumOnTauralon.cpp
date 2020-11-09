@@ -15,14 +15,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 280;
+    static const int g_basesize = 100;
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 280;
 
     bool LordArcanumOnTauralon::s_registered = false;
 
     LordArcanumOnTauralon::LordArcanumOnTauralon() :
-            StormcastEternal("Lord-Arcanum on Tauralon", 14, WOUNDS, 9, 3, true),
+            StormcastEternal("Lord-Arcanum on Tauralon", 14, g_wounds, 9, 3, true),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD,
@@ -37,7 +37,7 @@ namespace StormcastEternals {
 
     bool LordArcanumOnTauralon::configure(Lore lore) {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
         model->addMeleeWeapon(&m_hornsAndHooves);
         addModel(model);
@@ -47,7 +47,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLightningOrb(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -104,7 +104,7 @@ namespace StormcastEternals {
         // Meteoric Strike
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 2) {
                 ip->applyDamage({0, 1});
             }
@@ -119,7 +119,7 @@ namespace StormcastEternals {
     }
 
     int LordArcanumOnTauralon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

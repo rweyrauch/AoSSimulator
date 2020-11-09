@@ -10,19 +10,19 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 720;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 180;
+    static const int g_pointsMaxUnitSize = 720;
 
     bool ImmortisGuard::s_registered = false;
 
     Unit *ImmortisGuard::Create(const ParameterList &parameters) {
         auto unit = new ImmortisGuard();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
@@ -51,7 +51,7 @@ namespace OssiarchBonereapers {
                     ImmortisGuard::EnumStringToInt,
                     ImmortisGuard::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Legion", g_legion[0], g_legion),
                     },
                     DEATH,
@@ -62,7 +62,7 @@ namespace OssiarchBonereapers {
     }
 
     ImmortisGuard::ImmortisGuard() :
-            OssiarchBonereaperBase("Immortis Guard", 5, WOUNDS, 10, 3, false),
+            OssiarchBonereaperBase("Immortis Guard", 5, g_wounds, 10, 3, false),
             m_halberd(Weapon::Type::Melee, "Dread Halberd", 2, 2, 3, 3, -2, 2),
             m_battleShield(Weapon::Type::Melee, "Battle Shield", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, HEKATOS, IMMORTIS_GUARD};
@@ -71,13 +71,13 @@ namespace OssiarchBonereapers {
 
     bool ImmortisGuard::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_halberd);
             model->addMeleeWeapon(&m_battleShield);
             addModel(model);
@@ -97,9 +97,9 @@ namespace OssiarchBonereapers {
     }
 
     int ImmortisGuard::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

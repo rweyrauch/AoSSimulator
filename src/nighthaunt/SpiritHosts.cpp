@@ -10,30 +10,30 @@
 #include <UnitFactory.h>
 
 namespace Nighthaunt {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 50;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 480;
 
 
     bool SpiritHosts::s_registered = false;
 
     SpiritHosts::SpiritHosts() :
-            Nighthaunt("Spirit Hosts", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Spirit Hosts", 6, g_wounds, 10, 4, true),
             m_spectralClawsAndDaggars(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
         m_weapons = {&m_spectralClawsAndDaggars};
     }
 
     bool SpiritHosts::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_spectralClawsAndDaggars);
             addModel(model);
         }
@@ -45,7 +45,7 @@ namespace Nighthaunt {
 
     Unit *SpiritHosts::Create(const ParameterList &parameters) {
         auto unit = new SpiritHosts();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -63,7 +63,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     SpiritHosts::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -81,9 +81,9 @@ namespace Nighthaunt {
     }
 
     int SpiritHosts::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

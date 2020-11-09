@@ -11,17 +11,17 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 720;
+    static const int g_basesize = 40;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 180;
+    static const int g_pointsMaxUnitSize = 720;
 
     bool Skullreapers::s_registered = false;
 
     Skullreapers::Skullreapers() :
-            KhorneBase("Skullreapers", 5, WOUNDS, 7, 4, false),
+            KhorneBase("Skullreapers", 5, g_wounds, 7, 4, false),
             m_blades(Weapon::Type::Melee, "Gore-slick Blades, Daemonblade, Spinecleavers and Soultearers", 1, 4, 3, 3,
                      0, 1),
             m_viciousMutation(Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3) {
@@ -30,7 +30,7 @@ namespace Khorne {
     }
 
     bool Skullreapers::configure(int numModels, bool iconBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -39,14 +39,14 @@ namespace Khorne {
             m_bravery += 1;
         }
 
-        auto skullseeker = new Model(BASESIZE, wounds());
+        auto skullseeker = new Model(g_basesize, wounds());
         skullseeker->addMeleeWeapon(&m_viciousMutation);
         skullseeker->addMeleeWeapon(&m_blades);
         addModel(skullseeker);
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_blades);
             addModel(model);
         }
@@ -58,7 +58,7 @@ namespace Khorne {
 
     Unit *Skullreapers::Create(const ParameterList &parameters) {
         auto unit = new Skullreapers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, true);
 
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
@@ -80,7 +80,7 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Skullreapers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
@@ -94,7 +94,7 @@ namespace Khorne {
     Rerolls Skullreapers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Trial of skulls.
         if (target->remainingModels() >= 5) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -109,9 +109,9 @@ namespace Khorne {
     }
 
     int Skullreapers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -120,11 +120,11 @@ namespace Khorne {
         Unit::onModelSlain(source);
 
         // Murderous to the Last
-        if (source == Wounds::Source::WeaponMelee) {
+        if (source == Wounds::Source::Weapon_Melee) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && distanceTo(unit) <= 1.0) {
-                if (Dice::rollD6() >= 5) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 5) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }

@@ -11,17 +11,17 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool Bestigors::s_registered = false;
 
     Bestigors::Bestigors() :
-            BeastsOfChaosBase("Bestigors", 6, WOUNDS, 6, 4, false),
+            BeastsOfChaosBase("Bestigors", 6, g_wounds, 6, 4, false),
             m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
             m_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe", 1, 3, 4, 3, -1, 1) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, BESTIGORS};
@@ -29,7 +29,7 @@ namespace BeastsOfChaos {
     }
 
     bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -38,12 +38,12 @@ namespace BeastsOfChaos {
 
         m_runAndCharge = m_brayhorn;
 
-        auto gougehorn = new Model(BASESIZE, wounds());
+        auto gougehorn = new Model(g_basesize, wounds());
         gougehorn->addMeleeWeapon(&m_despoilerAxeGougeHorn);
         addModel(gougehorn);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_despoilerAxe);
             addModel(model);
         }
@@ -55,7 +55,7 @@ namespace BeastsOfChaos {
 
     Unit *Bestigors::Create(const ParameterList &parameters) {
         auto unit = new Bestigors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
@@ -78,7 +78,7 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Brayhorn"),
                             BoolParameter("Banner Bearer"),
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
@@ -103,7 +103,7 @@ namespace BeastsOfChaos {
     Rerolls Bestigors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Despoilers
         if (unit->hasKeyword(ORDER)) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }
@@ -126,9 +126,9 @@ namespace BeastsOfChaos {
     }
 
     int Bestigors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
 
         return points;

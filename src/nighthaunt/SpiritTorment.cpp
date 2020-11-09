@@ -10,9 +10,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool SpiritTorment::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Nighthaunt {
     }
 
     SpiritTorment::SpiritTorment() :
-            Nighthaunt("Spirit Torment", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Spirit Torment", 6, g_wounds, 10, 4, true),
             m_chains(Weapon::Type::Melee, "Shacklegheist Chains", 2, 3, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, SPIRIT_TORMENT};
         m_weapons = {&m_chains};
@@ -65,7 +65,7 @@ namespace Nighthaunt {
     }
 
     bool SpiritTorment::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chains);
         addModel(model);
 
@@ -75,7 +75,7 @@ namespace Nighthaunt {
     }
 
     int SpiritTorment::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

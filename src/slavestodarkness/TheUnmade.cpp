@@ -10,18 +10,18 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 9;
-    static const int MAX_UNIT_SIZE = 36;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 9;
+    static const int g_maxUnitSize = 36;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool TheUnmade::s_registered = false;
 
     Unit *TheUnmade::Create(const ParameterList &parameters) {
         auto unit = new TheUnmade();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -42,7 +42,7 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                     },
                     CHAOS,
@@ -54,7 +54,7 @@ namespace SlavesToDarkness {
     }
 
     TheUnmade::TheUnmade() :
-            SlavesToDarknessBase("The Unmade", 6, WOUNDS, 5, 6, false),
+            SlavesToDarknessBase("The Unmade", 6, g_wounds, 5, 6, false),
             m_maimingWeapons(Weapon::Type::Melee, "Maiming Weapons", 1, 1, 4, 4, 0, 1),
             m_maimingWeaponsLeader(Weapon::Type::Melee, "Maiming Weapons (Joyous One)", 1, 2, 4, 4, 0, 1),
             m_nigthmareSickles(Weapon::Type::Melee, "Nightmare Sickles", 1, 3, 4, 3, -1, 2) {
@@ -69,22 +69,22 @@ namespace SlavesToDarkness {
     }
 
     bool TheUnmade::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto joyousOne = new Model(BASESIZE, wounds());
+        auto joyousOne = new Model(g_basesize, wounds());
         joyousOne->addMeleeWeapon(&m_maimingWeaponsLeader);
         joyousOne->setName("Joyous One");
         addModel(joyousOne);
 
-        auto blissfulOne = new Model(BASESIZE, wounds());
+        auto blissfulOne = new Model(g_basesize, wounds());
         blissfulOne->addMeleeWeapon(&m_nigthmareSickles);
         blissfulOne->setName("Blissful One");
         addModel(blissfulOne);
 
         for (auto i = 2; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_maimingWeapons);
             addModel(model);
         }
@@ -95,9 +95,9 @@ namespace SlavesToDarkness {
     }
 
     int TheUnmade::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

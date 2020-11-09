@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool LordCelestant::s_registered = false;
 
     LordCelestant::LordCelestant() :
-            StormcastEternal("Lord-Celestant", 5, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Celestant", 5, g_wounds, 9, 3, false),
             m_runeblade(Weapon::Type::Melee, "Sigmarite Runeblade", 1, 4, 3, 3, -1, 1),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
@@ -28,12 +28,12 @@ namespace StormcastEternals {
     }
 
     bool LordCelestant::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_runeblade);
         model->addMeleeWeapon(&m_warhammer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -83,9 +83,9 @@ namespace StormcastEternals {
                 auto dist = distanceTo(m_shootingTarget);
                 if (dist <= 16) {
                     // Sigmarite Warcloak
-                    int numStrikes = Dice::rollD6();
+                    int numStrikes = Dice::RollD6();
                     Dice::RollResult rolls;
-                    Dice::rollD6(numStrikes, rolls);
+                    Dice::RollD6(numStrikes, rolls);
                     int mortalWounds = rolls.rollsGE(4);
                     m_shootingTarget->applyDamage({0, mortalWounds});
                 }
@@ -95,7 +95,7 @@ namespace StormcastEternals {
     }
 
     int LordCelestant::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

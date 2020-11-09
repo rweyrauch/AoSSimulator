@@ -11,14 +11,14 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 100;
 
     bool GrimwrathBerzerker::s_registered = false;
 
     GrimwrathBerzerker::GrimwrathBerzerker() :
-            Fyreslayer("Grimwrath Berzerker", 4, WOUNDS, 9, 4, false),
+            Fyreslayer("Grimwrath Berzerker", 4, g_wounds, 9, 4, false),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_greatAxe(Weapon::Type::Melee, "Fyrestorm Greataxe", 1, 4, 3, 3, -2, 2) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, GRIMWRATH_BERZERKER};
@@ -26,12 +26,12 @@ namespace Fyreslayers {
     }
 
     bool GrimwrathBerzerker::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_greatAxe);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,8 +78,8 @@ namespace Fyreslayers {
     Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds) {
         // Unstoppable Berserker
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         int threshold = 6;
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -93,7 +93,7 @@ namespace Fyreslayers {
     }
 
     int GrimwrathBerzerker::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Fyreslayers

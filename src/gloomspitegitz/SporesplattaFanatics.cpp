@@ -10,18 +10,18 @@
 #include <UnitFactory.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 15;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 15;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool SporesmashaFanatics::s_registered = false;
 
     Unit *SporesmashaFanatics::Create(const ParameterList &parameters) {
         auto unit = new SporesmashaFanatics();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -32,9 +32,9 @@ namespace GloomspiteGitz {
     }
 
     int SporesmashaFanatics::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -47,7 +47,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SporesmashaFanatics::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -57,7 +57,7 @@ namespace GloomspiteGitz {
     }
 
     SporesmashaFanatics::SporesmashaFanatics() :
-            GloomspiteGitzBase("Sporesplatta Fanatics", RAND_2D6, WOUNDS, 10, 6, false),
+            GloomspiteGitzBase("Sporesplatta Fanatics", RAND_2D6, g_wounds, 10, 6, false),
             m_ballAndChain(Weapon::Type::Melee, "Spore-ball and Chain", 1, RAND_D3, 2, 4, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, MOONCLAN, FANATIC, SPORESPLATTA};
         m_weapons = {&m_ballAndChain};
@@ -65,13 +65,13 @@ namespace GloomspiteGitz {
 
     bool SporesmashaFanatics::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_ballAndChain);
             addModel(model);
         }

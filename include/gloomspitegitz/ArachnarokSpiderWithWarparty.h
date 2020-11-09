@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SPIDERWARPARTY_H
-#define SPIDERWARPARTY_H
+#ifndef ARACHNAROKSPIDERWITHWARPARTY_H
+#define ARACHNAROKSPIDERWITHWARPARTY_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -39,12 +39,12 @@ namespace GloomspiteGitz {
 
         Rerolls runRerolls() const override {
             // Voracious Predator
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         Rerolls chargeRerolls() const override {
             // Voracious Predator
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         void onCharged() override;
@@ -71,4 +71,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //SPIDERWARPARTY_H
+#endif //ARACHNAROKSPIDERWITHWARPARTY_H

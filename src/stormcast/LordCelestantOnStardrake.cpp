@@ -14,9 +14,9 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 170; // x105 oval
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 500;
+    static const int g_basesize = 170; // x105 oval
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 500;
 
     struct TableEntry {
         int m_move;
@@ -24,9 +24,9 @@ namespace StormcastEternals {
         int m_cavernousJawsBits;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 4;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 8, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 4;
+    static int g_woundThresholds[g_numTableEntries] = {4, 8, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 3, 3},
                     {11, 3, 2},
@@ -37,13 +37,13 @@ namespace StormcastEternals {
     bool LordCelestantOnStardrake::s_registered = false;
 
     LordCelestantOnStardrake::LordCelestantOnStardrake() :
-            StormcastEternal("Lord-Celestant on Stardrake", 12, WOUNDS, 9, 3, true),
+            StormcastEternal("Lord-Celestant on Stardrake", 12, g_wounds, 9, 3, true),
             m_celestineHammer(Weapon::Type::Melee, "Celestine Hammer", 2, 3, 3, 2, -1, RAND_D3),
             m_stormboundBlade(Weapon::Type::Melee, "Stormbound Blade", 2, 3, 3, 4, -1, 2),
             m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT};
         m_weapons = {&m_celestineHammer, &m_stormboundBlade, &m_greatClaws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         s_globalCastMod.connect(this, &LordCelestantOnStardrake::arcaneLineage, &m_connection);
@@ -56,23 +56,23 @@ namespace StormcastEternals {
     bool LordCelestantOnStardrake::configure(WeaponOption weapons) {
         m_weaponOption = weapons;
 
-        auto model = new Model(BASESIZE, wounds());
-        if (weapons == CelestineHammer) {
+        auto model = new Model(g_basesize, wounds());
+        if (weapons == Celestine_Hammer) {
             model->addMeleeWeapon(&m_celestineHammer);
-        } else if (weapons == StormboundBlade) {
+        } else if (weapons == Stormbound_Blade) {
             model->addMeleeWeapon(&m_stormboundBlade);
         }
         model->addMeleeWeapon(&m_greatClaws);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters) {
         auto unit = new LordCelestantOnStardrake();
-        auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, CelestineHammer);
+        auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Celestine_Hammer);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -90,14 +90,14 @@ namespace StormcastEternals {
 
     void LordCelestantOnStardrake::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {CelestineHammer, StormboundBlade};
+            static const std::array<int, 2> weapons = {Celestine_Hammer, Stormbound_Blade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Weapon", CelestineHammer, weapons),
+                            EnumParameter("Weapon", Celestine_Hammer, weapons),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
                             BoolParameter("General")
@@ -112,9 +112,9 @@ namespace StormcastEternals {
 
     std::string LordCelestantOnStardrake::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == CelestineHammer) {
+            if (parameter.intValue == Celestine_Hammer) {
                 return "Celestine Hammer";
-            } else if (parameter.intValue == StormboundBlade) {
+            } else if (parameter.intValue == Stormbound_Blade) {
                 return "Stormbound Blade";
             }
         }
@@ -135,7 +135,7 @@ namespace StormcastEternals {
 
     int LordCelestantOnStardrake::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -149,7 +149,7 @@ namespace StormcastEternals {
 
         // Inescapable Vengeance
         if (m_charged) {
-            attacks += Dice::rollD3();
+            attacks += Dice::RollD3();
         }
         return attacks;
     }
@@ -165,7 +165,7 @@ namespace StormcastEternals {
 
     Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Sigmarite Thundershield
-        return RerollOnes;
+        return Reroll_Ones;
     }
 
     Wounds LordCelestantOnStardrake::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
@@ -186,7 +186,7 @@ namespace StormcastEternals {
             auto numBites = g_damageTable[getDamageTableIndex()].m_cavernousJawsBits;
             int numToSlay = 0;
             for (auto i = 0; i < numBites; i++) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll > m_meleeTarget->wounds()) {
                     numToSlay++;
                 }
@@ -212,10 +212,10 @@ namespace StormcastEternals {
             for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip) {
                 auto dist = distanceTo(*ip);
                 if (dist <= 3.0) {
-                    auto roll = Dice::rollD6();
+                    auto roll = Dice::RollD6();
                     if (roll < (*ip)->remainingModels()) {
                         // inflict D3 mortal wounds
-                        roll = Dice::rollD3();
+                        roll = Dice::RollD3();
                         Wounds mortalWounds = {0, roll};
                         (*ip)->applyDamage(mortalWounds);
                         wounds += mortalWounds;
@@ -248,13 +248,13 @@ namespace StormcastEternals {
                 otherPlayer = PlayerId::Blue;
             }
             auto otherRoster = board->getPlayerRoster(otherPlayer);
-            auto numUnits = Dice::rollD6();
+            auto numUnits = Dice::RollD6();
 
             int unitsAffected = 0;
             for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll >= 4) {
-                    Wounds wounds = {0, Dice::rollD3()};
+                    Wounds wounds = {0, Dice::RollD3()};
                     (*ip)->applyDamage(wounds);
                 }
                 unitsAffected++;
@@ -265,7 +265,7 @@ namespace StormcastEternals {
         {
             auto numModels = m_shootingTarget->remainingModels();
             Dice::RollResult rolls;
-            Dice::rollD6(numModels, rolls);
+            Dice::RollD6(numModels, rolls);
             int mortalWounds = rolls.numUnmodified6s();
             Wounds wounds = {0, mortalWounds};
             m_shootingTarget->applyDamage(wounds);
@@ -274,9 +274,9 @@ namespace StormcastEternals {
 
     int LordCelestantOnStardrake::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Celestine Hammer") {
-            return CelestineHammer;
+            return Celestine_Hammer;
         } else if (enumString == "Stormbound Blade") {
-            return StormboundBlade;
+            return Stormbound_Blade;
         }
         return StormcastEternal::EnumStringToInt(enumString);
     }
@@ -295,7 +295,7 @@ namespace StormcastEternals {
     }
 
     int LordCelestantOnStardrake::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

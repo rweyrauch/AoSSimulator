@@ -11,9 +11,9 @@
 #include "NurglePrivate.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 75; // x42 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 75; // x42 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 160;
 
     bool HarbingerOfDecay::s_registered = false;
 
@@ -58,7 +58,7 @@ namespace Nurgle {
     }
 
     HarbingerOfDecay::HarbingerOfDecay() :
-            NurgleBase("Harbinger of Decay", 4, WOUNDS, 8, 4, false),
+            NurgleBase("Harbinger of Decay", 4, g_wounds, 8, 4, false),
             m_scythe(Weapon::Type::Melee, "Plague Scythe", 1, 3, 3, 3, -1, RAND_D3),
             m_bite(Weapon::Type::Melee, "Daemonic Mount's Flyblown Bite", 1, RAND_D6, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, HARBINGER_OF_DECAY};
@@ -67,12 +67,12 @@ namespace Nurgle {
     }
 
     bool HarbingerOfDecay::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_bite);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -80,8 +80,8 @@ namespace Nurgle {
     Wounds HarbingerOfDecay::applyWoundSave(const Wounds &wounds) {
         // Soulbound Shield
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(4);
@@ -91,7 +91,7 @@ namespace Nurgle {
     }
 
     int HarbingerOfDecay::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

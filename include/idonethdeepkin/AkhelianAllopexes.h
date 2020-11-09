@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ALLOPEXES_H
-#define ALLOPEXES_H
+#ifndef AKHELIANALLOPEXES_H
+#define AKHELIANALLOPEXES_H
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -18,8 +18,8 @@ namespace IdonethDeepkin {
     public:
 
         enum WeaponOption {
-            HarpoonLauncher,
-            NetLauncher,
+            Harpoon_Launcher,
+            Net_Launcher,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -55,8 +55,9 @@ namespace IdonethDeepkin {
 // Abilities                    Implemented
 // -------------------------------------------
 // Bloodthirty Predators            TODO
+// Entangled                        TODO
 //
 
 } // namespace IdonethDeepkin
 
-#endif // ALLOPEXES_H
+#endif // AKHELIANALLOPEXES_H

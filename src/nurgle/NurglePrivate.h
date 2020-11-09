@@ -16,112 +16,112 @@
 namespace Nurgle {
 
     constexpr std::array<int, 19> g_commandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Grandfathers_Blessing),
-            to_integer(CommandTrait::Living_Plague),
-            to_integer(CommandTrait::Hulking_Physique),
-            to_integer(CommandTrait::Bloated_with_Corruption),
-            to_integer(CommandTrait::Avalanch_of_Rotten_Flesh),
-            to_integer(CommandTrait::Resilient),
-            to_integer(CommandTrait::Grandfathers_Blessing),
-            to_integer(CommandTrait::Living_Plague),
-            to_integer(CommandTrait::Hulking_Physique),
-            to_integer(CommandTrait::Tainted_Corruptor),
-            to_integer(CommandTrait::Nurgling_Infestation),
-            to_integer(CommandTrait::Pestilent_Breath),
-            to_integer(CommandTrait::Grandfathers_Blessing),
-            to_integer(CommandTrait::Living_Plague),
-            to_integer(CommandTrait::Hulking_Physique),
-            to_integer(CommandTrait::Hideous_Visage),
-            to_integer(CommandTrait::Overpowering_Stench),
-            to_integer(CommandTrait::Virulent_Contagion)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Grandfathers_Blessing),
+            ToInteger(CommandTrait::Living_Plague),
+            ToInteger(CommandTrait::Hulking_Physique),
+            ToInteger(CommandTrait::Bloated_With_Corruption),
+            ToInteger(CommandTrait::Avalanch_Of_Rotten_Flesh),
+            ToInteger(CommandTrait::Resilient),
+            ToInteger(CommandTrait::Grandfathers_Blessing),
+            ToInteger(CommandTrait::Living_Plague),
+            ToInteger(CommandTrait::Hulking_Physique),
+            ToInteger(CommandTrait::Tainted_Corruptor),
+            ToInteger(CommandTrait::Nurgling_Infestation),
+            ToInteger(CommandTrait::Pestilent_Breath),
+            ToInteger(CommandTrait::Grandfathers_Blessing),
+            ToInteger(CommandTrait::Living_Plague),
+            ToInteger(CommandTrait::Hulking_Physique),
+            ToInteger(CommandTrait::Hideous_Visage),
+            ToInteger(CommandTrait::Overpowering_Stench),
+            ToInteger(CommandTrait::Virulent_Contagion)
     };
 
     constexpr std::array<int, 7> g_daemonCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Grandfathers_Blessing),
-            to_integer(CommandTrait::Living_Plague),
-            to_integer(CommandTrait::Hulking_Physique),
-            to_integer(CommandTrait::Tainted_Corruptor),
-            to_integer(CommandTrait::Nurgling_Infestation),
-            to_integer(CommandTrait::Pestilent_Breath)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Grandfathers_Blessing),
+            ToInteger(CommandTrait::Living_Plague),
+            ToInteger(CommandTrait::Hulking_Physique),
+            ToInteger(CommandTrait::Tainted_Corruptor),
+            ToInteger(CommandTrait::Nurgling_Infestation),
+            ToInteger(CommandTrait::Pestilent_Breath)
     };
 
     constexpr std::array<int, 10> g_mortalRotbringerCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Grandfathers_Blessing),
-            to_integer(CommandTrait::Living_Plague),
-            to_integer(CommandTrait::Hulking_Physique),
-            to_integer(CommandTrait::Bloated_with_Corruption),
-            to_integer(CommandTrait::Avalanch_of_Rotten_Flesh),
-            to_integer(CommandTrait::Resilient),
-            to_integer(CommandTrait::Hideous_Visage),
-            to_integer(CommandTrait::Overpowering_Stench),
-            to_integer(CommandTrait::Virulent_Contagion)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Grandfathers_Blessing),
+            ToInteger(CommandTrait::Living_Plague),
+            ToInteger(CommandTrait::Hulking_Physique),
+            ToInteger(CommandTrait::Bloated_With_Corruption),
+            ToInteger(CommandTrait::Avalanch_Of_Rotten_Flesh),
+            ToInteger(CommandTrait::Resilient),
+            ToInteger(CommandTrait::Hideous_Visage),
+            ToInteger(CommandTrait::Overpowering_Stench),
+            ToInteger(CommandTrait::Virulent_Contagion)
     };
 
     constexpr std::array<int, 19> g_artefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::The_Splithorn_Helm),
-            to_integer(Artefact::Muttergrub),
-            to_integer(Artefact::Rustfang),
-            to_integer(Artefact::Flesh_Pealer),
-            to_integer(Artefact::The_Bileheart),
-            to_integer(Artefact::The_Fecund_Flask),
-            to_integer(Artefact::Noxious_Nexus),
-            to_integer(Artefact::Nurgles_Nail),
-            to_integer(Artefact::The_Bountiful_Swarm),
-            to_integer(Artefact::The_Witherstave),
-            to_integer(Artefact::Tome_of_a_Thousand_Poxes),
-            to_integer(Artefact::The_Endless_Gift),
-            to_integer(Artefact::The_Virulent_Blade),
-            to_integer(Artefact::The_Foetid_Shroud),
-            to_integer(Artefact::Sublucus_Stenchplate),
-            to_integer(Artefact::The_Eye_of_Nurgle),
-            to_integer(Artefact::The_Carrion_Dirge),
-            to_integer(Artefact::The_Shield_of_Growths)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::The_Splithorn_Helm),
+            ToInteger(Artefact::Muttergrub),
+            ToInteger(Artefact::Rustfang),
+            ToInteger(Artefact::Flesh_Pealer),
+            ToInteger(Artefact::The_Bileheart),
+            ToInteger(Artefact::The_Fecund_Flask),
+            ToInteger(Artefact::Noxious_Nexus),
+            ToInteger(Artefact::Nurgles_Nail),
+            ToInteger(Artefact::The_Bountiful_Swarm),
+            ToInteger(Artefact::The_Witherstave),
+            ToInteger(Artefact::Tome_Of_A_Thousand_Poxes),
+            ToInteger(Artefact::The_Endless_Gift),
+            ToInteger(Artefact::The_Virulent_Blade),
+            ToInteger(Artefact::The_Foetid_Shroud),
+            ToInteger(Artefact::Sublucus_Stenchplate),
+            ToInteger(Artefact::The_Eye_Of_Nurgle),
+            ToInteger(Artefact::The_Carrion_Dirge),
+            ToInteger(Artefact::The_Shield_Of_Growths)
     };
 
     constexpr std::array<int, 7> g_daemonArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Noxious_Nexus),
-            to_integer(Artefact::Nurgles_Nail),
-            to_integer(Artefact::The_Bountiful_Swarm),
-            to_integer(Artefact::The_Witherstave),
-            to_integer(Artefact::Tome_of_a_Thousand_Poxes),
-            to_integer(Artefact::The_Endless_Gift)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Noxious_Nexus),
+            ToInteger(Artefact::Nurgles_Nail),
+            ToInteger(Artefact::The_Bountiful_Swarm),
+            ToInteger(Artefact::The_Witherstave),
+            ToInteger(Artefact::Tome_Of_A_Thousand_Poxes),
+            ToInteger(Artefact::The_Endless_Gift)
     };
 
     constexpr std::array<int, 13> g_mortalRotbringerArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::The_Splithorn_Helm),
-            to_integer(Artefact::Muttergrub),
-            to_integer(Artefact::Rustfang),
-            to_integer(Artefact::Flesh_Pealer),
-            to_integer(Artefact::The_Bileheart),
-            to_integer(Artefact::The_Virulent_Blade),
-            to_integer(Artefact::The_Foetid_Shroud),
-            to_integer(Artefact::Sublucus_Stenchplate),
-            to_integer(Artefact::The_Eye_of_Nurgle),
-            to_integer(Artefact::The_Carrion_Dirge),
-            to_integer(Artefact::The_Shield_of_Growths)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::The_Splithorn_Helm),
+            ToInteger(Artefact::Muttergrub),
+            ToInteger(Artefact::Rustfang),
+            ToInteger(Artefact::Flesh_Pealer),
+            ToInteger(Artefact::The_Bileheart),
+            ToInteger(Artefact::The_Virulent_Blade),
+            ToInteger(Artefact::The_Foetid_Shroud),
+            ToInteger(Artefact::Sublucus_Stenchplate),
+            ToInteger(Artefact::The_Eye_Of_Nurgle),
+            ToInteger(Artefact::The_Carrion_Dirge),
+            ToInteger(Artefact::The_Shield_Of_Growths)
     };
 
     constexpr std::array<int, 4> g_daemonLore = {
-            to_integer(Lore::None),
-            to_integer(Lore::Favoured_Poxes),
-            to_integer(Lore::Glorious_Afflictions),
-            to_integer(Lore::Sumptuous_Pestilence)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Favoured_Poxes),
+            ToInteger(Lore::Glorious_Afflictions),
+            ToInteger(Lore::Sumptuous_Pestilence)
     };
 
     constexpr std::array<int, 7> g_mortalRotbringerLore = {
-            to_integer(Lore::None),
-            to_integer(Lore::Blades_of_Putrification),
-            to_integer(Lore::Rancid_Visitations),
-            to_integer(Lore::Gift_of_Contagion),
-            to_integer(Lore::Magnificent_Buboes),
-            to_integer(Lore::Plague_Squall),
-            to_integer(Lore::Cloying_Quagmire)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Blades_Of_Putrification),
+            ToInteger(Lore::Rancid_Visitations),
+            ToInteger(Lore::Gift_Of_Contagion),
+            ToInteger(Lore::Magnificent_Buboes),
+            ToInteger(Lore::Plague_Squall),
+            ToInteger(Lore::Cloying_Quagmire)
     };
 
 } // namespace Nurgle

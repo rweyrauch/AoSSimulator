@@ -34,7 +34,7 @@ TEST(Spells, ArcaneBolt)
     {
         auto ok = spell->cast(target.get(), 1);
 
-        if (ok == Spell::Success)
+        if (ok == Spell::Result::Success)
         {
             ASSERT_LT(target->remainingWounds(), target->initialModels() * target->wounds());
         }
@@ -44,7 +44,7 @@ TEST(Spells, ArcaneBolt)
     // Move target out of range
     target->deploy(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
     auto ok = spell->cast(target.get(), 1);
-    ASSERT_EQ(ok, Spell::Failed);
+    ASSERT_EQ(ok, Spell::Result::Failed);
 }
 
 TEST(Spells, PrimeElectrids)
@@ -63,7 +63,7 @@ TEST(Spells, PrimeElectrids)
     {
         auto ok = spell->cast(target.get(), 1);
 
-        if (ok == Spell::Success)
+        if (ok == Spell::Result::Success)
         {
             ASSERT_LT(target->remainingWounds(), target->initialModels() * target->wounds());
         }
@@ -74,7 +74,7 @@ TEST(Spells, PrimeElectrids)
     // Move target out of range
     target->deploy(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
     auto ok = spell->cast(target.get(), 1);
-    ASSERT_EQ(ok, Spell::Failed);
+    ASSERT_EQ(ok, Spell::Result::Failed);
 }
 
 TEST(Spells, Unbind)
@@ -101,11 +101,11 @@ TEST(Spells, Unbind)
     {
        auto ok = spell->cast(target, 1);
 
-        if (ok == Spell::Success)
+        if (ok == Spell::Result::Success)
         {
             ASSERT_LT(target->remainingWounds(), target->initialModels() * target->wounds());
         }
-        else if (ok == Spell::Unbound)
+        else if (ok == Spell::Result::Unbound)
         {
             SimLog(Verbosity::Narrative, "Spell was unbound.\n");
         }
@@ -115,7 +115,7 @@ TEST(Spells, Unbind)
     // Move target out of range
     target->deploy(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
     auto ok = spell->cast(target, 1);
-    ASSERT_EQ(ok, Spell::Failed);
+    ASSERT_EQ(ok, Spell::Result::Failed);
 
     delete blue; delete red;
 }

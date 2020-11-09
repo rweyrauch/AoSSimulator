@@ -18,7 +18,7 @@ public:
 
     ~Roster();
 
-    PlayerId getOwningPlayer() const { return m_id; }
+    [[nodiscard]] PlayerId getOwningPlayer() const { return m_id; }
 
     void addUnit(Unit *unit);
 
@@ -48,13 +48,13 @@ public:
 
     std::list<Unit *>::iterator unitEnd() { return m_units.end(); }
 
-    int totalPoints() const;
+    [[nodiscard]] int totalPoints() const;
 
     void setCommandPoints(int cp) { m_cp = cp; }
 
     void addCommandPoints(int cp) { m_cp += cp; }
 
-    int getCommandPoints() const { return m_cp; }
+    [[nodiscard]] int getCommandPoints() const { return m_cp; }
 
     bool useCommandPoint();
 

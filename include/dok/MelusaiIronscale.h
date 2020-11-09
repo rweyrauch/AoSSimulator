@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef IRONSCALE_H
-#define IRONSCALE_H
+#ifndef MELUSAIIRONSCALE_H
+#define MELUSAIIRONSCALE_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -50,4 +50,4 @@ namespace DaughtersOfKhaine {
 
 } // namespace DaughtersOfKhaine
 
-#endif //IRONSCALE_H
+#endif //MELUSAIIRONSCALE_H

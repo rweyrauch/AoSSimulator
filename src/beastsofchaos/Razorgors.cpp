@@ -11,29 +11,29 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 50;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 6;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 6;
+    static const int g_pointsPerBlock = 50;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 6;
 
     bool Razorgors::s_registered = false;
 
     Razorgors::Razorgors() :
-            BeastsOfChaosBase("Razorgors", 10, WOUNDS, 6, 5, false),
+            BeastsOfChaosBase("Razorgors", 10, g_wounds, 6, 5, false),
             m_tusksAndHooves(Weapon::Type::Melee, "Large Tusks and Hooves", 1, 4, 4, 3, -1, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, RAZORGORS};
         m_weapons = {&m_tusksAndHooves};
     }
 
     bool Razorgors::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_tusksAndHooves);
             addModel(model);
         }
@@ -45,7 +45,7 @@ namespace BeastsOfChaos {
 
     Unit *Razorgors::Create(const ParameterList &parameters) {
         auto unit = new Razorgors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
@@ -66,7 +66,7 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
@@ -87,9 +87,9 @@ namespace BeastsOfChaos {
     }
 
     int Razorgors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

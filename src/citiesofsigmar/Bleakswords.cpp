@@ -11,19 +11,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool Bleakswords::s_registered = false;
 
     Unit *Bleakswords::Create(const ParameterList &parameters) {
         auto unit = new Bleakswords();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
@@ -54,7 +54,7 @@ namespace CitiesOfSigmar {
                     Bleakswords::EnumStringToInt,
                     Bleakswords::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("City", g_city[0], g_city),
@@ -67,7 +67,7 @@ namespace CitiesOfSigmar {
     }
 
     Bleakswords::Bleakswords() :
-            CitizenOfSigmar("Bleakswords", 6, WOUNDS, 6, 4, false),
+            CitizenOfSigmar("Bleakswords", 6, g_wounds, 6, 4, false),
             m_sword(Weapon::Type::Melee, "Darkling Sword", 1, 1, 4, 4, 0, 1),
             m_swordLordling(Weapon::Type::Melee, "Darkling Sword", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLEAKSWORDS};
@@ -77,7 +77,7 @@ namespace CitiesOfSigmar {
 
     bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -86,12 +86,12 @@ namespace CitiesOfSigmar {
         m_hornblower = hornblower;
 
         // Add the Lordling
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_swordLordling);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_sword);
             addModel(model);
         }
@@ -135,9 +135,9 @@ namespace CitiesOfSigmar {
     }
 
     int Bleakswords::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

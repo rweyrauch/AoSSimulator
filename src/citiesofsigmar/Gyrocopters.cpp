@@ -11,20 +11,20 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 180;
+    static const int g_basesize = 25;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 180;
 
     bool Gyrocopters::s_registered = false;
 
     Unit *Gyrocopters::Create(const ParameterList &parameters) {
         auto unit = new Gyrocopters();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BrimstoneGun);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Brimstone_Gun);
 
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
@@ -39,9 +39,9 @@ namespace CitiesOfSigmar {
 
     std::string Gyrocopters::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == BrimstoneGun) {
+            if (parameter.intValue == Brimstone_Gun) {
                 return "Brimstone Gun";
-            } else if (parameter.intValue == SteamGun) {
+            } else if (parameter.intValue == Steam_Gun) {
                 return "Steam Gun";
             }
         }
@@ -50,24 +50,24 @@ namespace CitiesOfSigmar {
 
     int Gyrocopters::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Brimstone Gun") {
-            return BrimstoneGun;
+            return Brimstone_Gun;
         } else if (enumString == "Steam Gun") {
-            return SteamGun;
+            return Steam_Gun;
         }
         return CitizenOfSigmar::EnumStringToInt(enumString);
     }
 
     void Gyrocopters::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {BrimstoneGun, SteamGun};
+            static const std::array<int, 2> weapons = {Brimstone_Gun, Steam_Gun};
             static FactoryMethod factoryMethod = {
                     Gyrocopters::Create,
                     Gyrocopters::ValueToString,
                     Gyrocopters::EnumStringToInt,
                     Gyrocopters::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", BrimstoneGun, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Brimstone_Gun, weapons),
                             EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
     }
 
     Gyrocopters::Gyrocopters() :
-            CitizenOfSigmar("Gyrocopters", 16, WOUNDS, 6, 4, true),
+            CitizenOfSigmar("Gyrocopters", 16, g_wounds, 6, 4, true),
             m_brimstoneGun(Weapon::Type::Missile, "Brimstone Gun", 16, 3, 3, 3, -1, 1),
             m_steamGun(Weapon::Type::Missile, "Steam Gun", 8, 1, 3, 4, -1, 1),
             m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1) {
@@ -88,16 +88,16 @@ namespace CitiesOfSigmar {
 
     bool Gyrocopters::configure(int numModels, WeaponOption weapons) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == BrimstoneGun) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Brimstone_Gun) {
                 model->addMissileWeapon(&m_brimstoneGun);
-            } else if (weapons == SteamGun) {
+            } else if (weapons == Steam_Gun) {
                 model->addMissileWeapon(&m_steamGun);
             }
             model->addMeleeWeapon(&m_rotorBlades);
@@ -110,9 +110,9 @@ namespace CitiesOfSigmar {
     }
 
     int Gyrocopters::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

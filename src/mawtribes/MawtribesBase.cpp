@@ -104,7 +104,7 @@ namespace OgorMawtribes {
                 int threshold = 6;
                 if ((remainingModels() >= 8) || hasKeyword(MONSTER)) threshold -= 2;
 
-                Dice::rollD6(numDice, result);
+                Dice::RollD6(numDice, result);
 
                 unit->applyDamage({0, result.rollsGE(threshold)});
             }
@@ -118,16 +118,16 @@ namespace OgorMawtribes {
         if ((player == owningPlayer()) && hasKeyword(BEASTCLAW_RAIDERS)) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             for (auto unit : units) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll < m_battleRound) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }
     }
 
     int MawtribesBase::rollChargeDistance() const {
-        m_unmodifiedChargeRoll = Dice::roll2D6();
+        m_unmodifiedChargeRoll = Dice::Roll2D6();
         return m_unmodifiedChargeRoll + chargeModifier();
     }
 

@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 75; // x50 oval
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 75; // x50 oval
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool Skullmaster::s_registered = false;
 
     Skullmaster::Skullmaster() :
-            KhorneBase("Skullmaster", 8, WOUNDS, 10, 4, false),
+            KhorneBase("Skullmaster", 8, g_wounds, 10, 4, false),
             m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1),
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLMASTER};
@@ -28,12 +28,12 @@ namespace Khorne {
     }
 
     bool Skullmaster::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfBlood);
         model->addMeleeWeapon(&m_brazenHooves);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -93,11 +93,11 @@ namespace Khorne {
         // Murderous Charge
         if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             Dice::RollResult rolls;
-            Dice::rollD6(remainingModels(), rolls);
+            Dice::RollD6(remainingModels(), rolls);
             Wounds wounds = {0, 0};
             if (remainingModels() >= 6) {
                 for (int i = 0; i < rolls.rollsGE(2); i++) {
-                    wounds.mortal += Dice::rollD3();
+                    wounds.mortal += Dice::RollD3();
                 }
             } else {
                 wounds.mortal = rolls.rollsGE(2);
@@ -114,13 +114,13 @@ namespace Khorne {
     Rerolls Skullmaster::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Slaughter and Ruin
         if (m_charged) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
 
     int Skullmaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

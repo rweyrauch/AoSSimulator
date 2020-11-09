@@ -30,13 +30,13 @@ public:
 
     virtual bool pray(double x, double y, int round) = 0;
 
-    int prayingValue() const { return m_prayingValue; }
+    [[nodiscard]] int prayingValue() const { return m_prayingValue; }
 
-    double range() const { return m_range; }
+    [[nodiscard]] double range() const { return m_range; }
 
-    const std::string &name() const { return m_name; }
+    [[nodiscard]] const std::string &name() const { return m_name; }
 
-    bool targetFriendly() const { return m_targetFriendly; }
+    [[nodiscard]] bool targetFriendly() const { return m_targetFriendly; }
 
 protected:
 
@@ -98,7 +98,7 @@ protected:
 
     virtual int getModifier(int prayingRoll) const;
 
-    BuffableAttribute m_attribute = ToHitMelee;
+    BuffableAttribute m_attribute = To_Hit_Melee;
     int m_modifier = 0;
 };
 
@@ -113,8 +113,8 @@ public:
 
 protected:
 
-    BuffableAttribute m_attribute = ToHitMelee;
-    Rerolls m_reroll = NoRerolls;
+    BuffableAttribute m_attribute = To_Hit_Melee;
+    Rerolls m_reroll = No_Rerolls;
 };
 
 #endif// PRAYER_H

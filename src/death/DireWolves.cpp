@@ -12,17 +12,17 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 420;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 420;
 
     bool DireWolves::s_registered = false;
 
     DireWolves::DireWolves() :
-            LegionOfNagashBase("Dire Wolves", 10, WOUNDS, 10, 5, false),
+            LegionOfNagashBase("Dire Wolves", 10, g_wounds, 10, 5, false),
             m_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1),
             m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
@@ -31,17 +31,17 @@ namespace Death {
     }
 
     bool DireWolves::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
-        auto doomWolf = new Model(BASESIZE, wounds());
+        auto doomWolf = new Model(g_basesize, wounds());
         doomWolf->addMeleeWeapon(&m_fangsAndClawsDoom);
         addModel(doomWolf);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_fangsAndClaws);
             addModel(model);
         }
@@ -53,7 +53,7 @@ namespace Death {
 
     Unit *DireWolves::Create(const ParameterList &parameters) {
         auto unit = new DireWolves();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
@@ -74,7 +74,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
@@ -108,9 +108,9 @@ namespace Death {
     }
 
     int DireWolves::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

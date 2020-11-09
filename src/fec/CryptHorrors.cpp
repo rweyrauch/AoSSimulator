@@ -13,17 +13,17 @@
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = 130 * 4;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = 130 * 4;
 
     bool CryptHorrors::s_registered = false;
 
     CryptHorrors::CryptHorrors() :
-            FleshEaterCourts("Crypt Horrors", 7, WOUNDS, 10, 5, false),
+            FleshEaterCourts("Crypt Horrors", 7, g_wounds, 10, 5, false),
             m_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2),
             m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 4, 4, 3, 0, 2) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_HORRORS};
@@ -31,16 +31,16 @@ namespace FleshEaterCourt {
     }
 
     bool CryptHorrors::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto haunter = new Model(BASESIZE, wounds());
+        auto haunter = new Model(g_basesize, wounds());
         haunter->addMeleeWeapon(&m_clubsAndTalonsHaunter);
         addModel(haunter);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_clubsAndTalons);
             addModel(model);
         }
@@ -52,7 +52,7 @@ namespace FleshEaterCourt {
 
     Unit *CryptHorrors::Create(const ParameterList &parameters) {
         auto unit = new CryptHorrors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
@@ -78,7 +78,7 @@ namespace FleshEaterCourt {
                     FleshEaterCourts::EnumStringToInt,
                     CryptHorrors::ComputePoints,
                     {
-                            IntegerParameter( "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Grand Court", g_grandCourt[0], g_grandCourt),
                             EnumParameter("Delusion", g_delusion[0], g_delusion),
                     },
@@ -93,7 +93,7 @@ namespace FleshEaterCourt {
         // Chosen of the King
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0);
         if (unit != nullptr) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }
@@ -117,9 +117,9 @@ namespace FleshEaterCourt {
     }
 
     int CryptHorrors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

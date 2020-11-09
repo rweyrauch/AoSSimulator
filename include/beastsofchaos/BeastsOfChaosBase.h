@@ -30,11 +30,11 @@ namespace BeastsOfChaos {
         Indomitable_Beast,
         Apex_Predator,
         Malevolent_Despoiler,
-        Oracle_of_the_Dark_Tongue,
+        Oracle_Of_The_Dark_Tongue,
         Shadowpelt,
 
         // Warherd Alphabeast
-        Eater_of_Heroes,
+        Eater_Of_Heroes,
         Rampant_Juggernaut,
         Gorger,
         Gouge_Tusks,
@@ -44,7 +44,7 @@ namespace BeastsOfChaos {
         // Thunderscorn
         Tempestuous_Tyrant,
         Magnetic_Monstrosity,
-        Father_of_the_Storm,
+        Father_Of_The_Storm,
         Lightning_Fast_Monstrosity,
         Adamantine_Scales,
         Ancient_Beyond_Knowledge,
@@ -67,10 +67,10 @@ namespace BeastsOfChaos {
         Troggoth_Hide_Cloak,
 
         // Spoils of the Warherds
-        Cleaver_of_the_Brass_Bell,
+        Cleaver_Of_The_Brass_Bell,
         Gilded_Horns,
         Glyph_Etched_Talisman,
-        Blackened_Armour_of_Chaos,
+        Blackened_Armour_Of_Chaos,
         Champions_Doomcloak,
         Herdstone_Shard,
 
@@ -78,12 +78,12 @@ namespace BeastsOfChaos {
         Ancestral_Azyrite_Blade,
         Lightning_Chained_Bracers,
         Thunderstrike_Lodestone,
-        Horn_of_the_Tempest,
+        Horn_Of_The_Tempest,
         Tanglehorn_Familiars,
         Ruinous_Icon,
 
         // Fray-specific
-        Blade_of_the_Desecrator, // Allherd
+        Blade_Of_The_Desecrator, // Allherd
         Desolate_Shard, // Darkwalkers
         Mutating_Gnarlblade // Gavespawn
     };
@@ -95,7 +95,7 @@ namespace BeastsOfChaos {
         Viletide,
         Vicious_Stanglethorns,
         Savage_Dominion,
-        Tendrils_of_Atrophy,
+        Tendrils_Of_Atrophy,
         Wild_Rampage,
         Titanic_Fury,
 

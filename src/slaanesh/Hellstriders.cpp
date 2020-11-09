@@ -11,17 +11,17 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 110;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool Hellstriders::s_registered = false;
 
     Hellstriders::Hellstriders() :
-            SlaaneshBase("Hellstriders", 14, WOUNDS, 6, 4, false),
+            SlaaneshBase("Hellstriders", 14, g_wounds, 6, 4, false),
             m_clawSpear(Weapon::Type::Melee, "Claw-spear", 1, 1, 3, 4, -1, 1),
             m_clawSpearReaver(Weapon::Type::Melee, "Claw-spear", 1, 2, 3, 4, -1, 1),
             m_hellscourge(Weapon::Type::Melee, "Hellscourge", 3, 1, 3, 4, 0, 1),
@@ -40,7 +40,7 @@ namespace Slaanesh {
 
     bool
     Hellstriders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -48,8 +48,8 @@ namespace Slaanesh {
         m_bannerBearer = bannerBearer;
         m_hornblower = hornblower;
 
-        auto reaver = new Model(BASESIZE, wounds());
-        if (weapons == ClawSpear)
+        auto reaver = new Model(g_basesize, wounds());
+        if (weapons == Claw_Spear)
             reaver->addMeleeWeapon(&m_clawSpearReaver);
         else if (weapons == Hellscourge)
             reaver->addMeleeWeapon(&m_hellscourgeReaver);
@@ -57,8 +57,8 @@ namespace Slaanesh {
         addModel(reaver);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == ClawSpear)
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Claw_Spear)
                 model->addMeleeWeapon(&m_clawSpear);
             else if (weapons == Hellscourge)
                 model->addMeleeWeapon(&m_hellscourge);
@@ -73,8 +73,8 @@ namespace Slaanesh {
 
     Unit *Hellstriders::Create(const ParameterList &parameters) {
         auto unit = new Hellstriders();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, ClawSpear);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Claw_Spear);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -92,15 +92,15 @@ namespace Slaanesh {
 
     void Hellstriders::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {ClawSpear, Hellscourge};
+            static const std::array<int, 2> weapons = {Claw_Spear, Hellscourge};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter( "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter( "Weapons", ClawSpear, weapons),
+                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Claw_Spear, weapons),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Banner Bearer"),
                             BoolParameter("Hornblower"),
@@ -115,21 +115,21 @@ namespace Slaanesh {
 
     std::string Hellstriders::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == ClawSpear) return "Claw-spear";
+            if (parameter.intValue == Claw_Spear) return "Claw-spear";
             else if (parameter.intValue == Hellscourge) return "Hellscourge";
         }
         return SlaaneshBase::ValueToString(parameter);
     }
 
     int Hellstriders::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Claw-spear") { return ClawSpear; }
+        if (enumString == "Claw-spear") { return Claw_Spear; }
         else if (enumString == "Hellscourge") { return Hellscourge; }
         return SlaaneshBase::EnumStringToInt(enumString);
     }
 
     Rerolls Hellstriders::chargeRerolls() const {
         if (m_bannerBearer) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -143,17 +143,17 @@ namespace Slaanesh {
     }
 
     int Hellstriders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     Rerolls Hellstriders::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return RerollOnes;
+        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
 } // namespace Slaanesh

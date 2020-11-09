@@ -43,7 +43,7 @@ void Model::restore() {
     m_fled = false;
 }
 
-double Model::distanceBetween(const Model *m0, const Model *m1) {
+double Model::DistanceBetween(const Model *m0, const Model *m1) {
     double distance = m0->position().distance(m1->position());
     distance -= m0->basesizeInches() / 2.0;
     distance -= m1->basesizeInches() / 2.0;

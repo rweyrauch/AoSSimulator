@@ -11,17 +11,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 40;
-    static const int POINTS_MAX_UNIT_SIZE = 160;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 40;
+    static const int g_pointsMaxUnitSize = 160;
 
     bool Aetherwings::s_registered = false;
 
     Aetherwings::Aetherwings() :
-            StormcastEternal("Aetherwings", 12, WOUNDS, 6, NoSave, true),
+            StormcastEternal("Aetherwings", 12, g_wounds, 6, NoSave, true),
             m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, AETHERWINGS};
         m_weapons = {&m_beakAndClaws};
@@ -32,13 +32,13 @@ namespace StormcastEternals {
 
     bool Aetherwings::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_beakAndClaws);
             addModel(model);
         }
@@ -50,9 +50,9 @@ namespace StormcastEternals {
 
     Unit *Aetherwings::Create(const ParameterList &parameters) {
         auto unit = new Aetherwings();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, to_integer(Stormhost::None));
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, ToInteger(Stormhost::None));
         unit->setStormhost(stormhost);
 
         bool ok = unit->configure(numModels);
@@ -71,7 +71,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
@@ -83,9 +83,9 @@ namespace StormcastEternals {
     }
 
     int Aetherwings::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

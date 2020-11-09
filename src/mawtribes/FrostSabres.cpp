@@ -11,12 +11,12 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 40;
-    static const int POINTS_MAX_UNIT_SIZE = 240;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 2;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 40;
+    static const int g_pointsMaxUnitSize = 240;
 
 
     bool FrostSabres::s_registered = false;
@@ -24,7 +24,7 @@ namespace OgorMawtribes {
     Unit *FrostSabres::Create(const ParameterList &parameters) {
         auto unit = new FrostSabres();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
@@ -45,7 +45,7 @@ namespace OgorMawtribes {
                     MawtribesBase::EnumStringToInt,
                     FrostSabres::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
@@ -56,19 +56,19 @@ namespace OgorMawtribes {
     }
 
     FrostSabres::FrostSabres() :
-            MawtribesBase("Frost Sabres", 9, WOUNDS, 5, 6, false),
+            MawtribesBase("Frost Sabres", 9, g_wounds, 5, 6, false),
             m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 3, -1, 1) {
         m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, FROST_SABRES};
         m_weapons = {&m_fangs};
     }
 
     bool FrostSabres::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_fangs);
             addModel(model);
         }
@@ -79,9 +79,9 @@ namespace OgorMawtribes {
     }
 
     int FrostSabres::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

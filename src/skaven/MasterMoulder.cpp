@@ -12,9 +12,9 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool MasterMoulder::s_registered = false;
 
@@ -60,7 +60,7 @@ namespace Skaven {
     }
 
     MasterMoulder::MasterMoulder() :
-            Skaventide("Master Moulder", 6, WOUNDS, 6, 5, false),
+            Skaventide("Master Moulder", 6, g_wounds, 6, 5, false),
             m_lash(Weapon::Type::Melee, "Warpstone-tipped Lash", 3, 6, 3, 4, -1, 1),
             m_catcher(Weapon::Type::Melee, "Things-catcher", 2, 4, 4, 4, -1, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, HERO, MASTER_MOULDER};
@@ -77,14 +77,14 @@ namespace Skaven {
     }
 
     bool MasterMoulder::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         if (option == Lash)
             model->addMeleeWeapon(&m_lash);
-        else if (option == ThingsCatcher)
+        else if (option == Things_Catcher)
             model->addMeleeWeapon(&m_catcher);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -114,14 +114,14 @@ namespace Skaven {
         for (auto unit : units) {
             if (unit->hasKeyword(CLANS_MOULDER) && unit->hasKeyword(PACK) &&
                 (unit->remainingWounds() < unit->initialWounds())) {
-                unit->heal(Dice::rollD3());
+                unit->heal(Dice::RollD3());
                 break;
             }
         }
     }
 
     int MasterMoulder::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

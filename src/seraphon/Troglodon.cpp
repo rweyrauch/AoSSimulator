@@ -12,9 +12,9 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 220;
 
 
     struct TableEntry {
@@ -23,9 +23,9 @@ namespace Seraphon {
         int m_jawsToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 18, 2},
                     {9,  15, 3},
@@ -37,14 +37,14 @@ namespace Seraphon {
     bool Troglodon::s_registered = false;
 
     Troglodon::Troglodon() :
-            SeraphonBase("Skink Oracle on Troglodon", 10, WOUNDS, 6, 4, false),
+            SeraphonBase("Skink Oracle on Troglodon", 10, g_wounds, 6, 4, false),
             m_spittle(Weapon::Type::Missile, "Noxious Spittle", 18, RAND_D3, 3, 3, 0, 2),
             m_jaws(Weapon::Type::Melee, "Venomous Jaws", 2, 3, 4, 2, 0, 2),
             m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 4, 3, 0, 2),
             m_rod(Weapon::Type::Melee, "Divining Rod", 1, 2, 4, 4, -1, RAND_D3) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, HERO, WIZARD, TROGLODON, ORACLE};
         m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &Troglodon::terror, &m_connection);
@@ -55,7 +55,7 @@ namespace Seraphon {
     }
 
     bool Troglodon::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spittle);
         model->addMeleeWeapon(&m_jaws);
         model->addMeleeWeapon(&m_forelimbs);
@@ -127,7 +127,7 @@ namespace Seraphon {
 
     int Troglodon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -140,8 +140,8 @@ namespace Seraphon {
 
         if (player == owningPlayer()) {
             // Regeneration
-            if (Dice::rollD6() >= 2) {
-                heal(Dice::rollD3());
+            if (Dice::RollD6() >= 2) {
+                heal(Dice::RollD3());
             }
         }
     }
@@ -170,7 +170,7 @@ namespace Seraphon {
     }
 
     int Troglodon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

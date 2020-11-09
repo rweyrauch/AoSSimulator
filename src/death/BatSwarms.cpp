@@ -11,18 +11,18 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 8;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 50;
+    static const int g_wounds = 5;
+    static const int g_minUnitSize = 2;
+    static const int g_maxUnitSize = 8;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool BatSwarms::s_registered = false;
 
     Unit *BatSwarms::Create(const ParameterList &parameters) {
         auto unit = new BatSwarms();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
@@ -36,9 +36,9 @@ namespace Death {
     }
 
     int BatSwarms::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -51,7 +51,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
@@ -62,7 +62,7 @@ namespace Death {
     }
 
     BatSwarms::BatSwarms() :
-            LegionOfNagashBase("Bat Swarms", 12, WOUNDS, 10, NoSave, true),
+            LegionOfNagashBase("Bat Swarms", 12, g_wounds, 10, NoSave, true),
             m_teeth(Weapon::Type::Melee, "Razor-sharp Teeth", 3, 5, 5, 5, 0, 1) {
         m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, BAT_SWARMS};
         m_weapons = {&m_teeth};
@@ -75,13 +75,13 @@ namespace Death {
     }
 
     bool BatSwarms::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_teeth);
             addModel(model);
         }

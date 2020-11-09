@@ -11,17 +11,17 @@
 #include <array>
 
 namespace Skaven {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 20;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 200;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 20;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 200;
 
     bool Clanrats::s_registered = false;
 
     Clanrats::Clanrats() :
-            Skaventide("Clanrats", 6, WOUNDS, 4, 6, false),
+            Skaventide("Clanrats", 6, g_wounds, 4, 6, false),
             m_rustySpear(Weapon::Type::Melee, "Rusty Spear", 2, 1, 5, 4, 0, 1),
             m_rustySpearLeader(Weapon::Type::Melee, "Rusty Spear", 2, 2, 5, 4, 0, 1),
             m_rustyBlade(Weapon::Type::Melee, "Rusty Blade", 1, 1, 4, 4, 0, 1),
@@ -33,11 +33,11 @@ namespace Skaven {
 
     bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool clanshields, int standardBearers,
                              int bellRingers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
-        int maxStandardBearers = numModels / MIN_UNIT_SIZE;
-        int maxBellRingers = numModels / MIN_UNIT_SIZE;
+        int maxStandardBearers = numModels / g_minUnitSize;
+        int maxBellRingers = numModels / g_minUnitSize;
         if (standardBearers > maxStandardBearers || bellRingers > maxBellRingers) {
             return false;
         }
@@ -49,19 +49,19 @@ namespace Skaven {
         // Standard Bearers
         m_retreatAndCharge = (standardBearers > 0);
 
-        auto leader = new Model(BASESIZE, wounds());
-        if (weapons == RustySpear) {
+        auto leader = new Model(g_basesize, wounds());
+        if (weapons == Rusty_Spear) {
             leader->addMeleeWeapon(&m_rustySpearLeader);
-        } else if (weapons == RustyBlade) {
+        } else if (weapons == Rusty_Blade) {
             leader->addMeleeWeapon(&m_rustyBladeLeader);
         }
         addModel(leader);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == RustySpear) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Rusty_Spear) {
                 model->addMeleeWeapon(&m_rustySpear);
-            } else if (weapons == RustyBlade) {
+            } else if (weapons == Rusty_Blade) {
                 model->addMeleeWeapon(&m_rustyBlade);
             }
             addModel(model);
@@ -74,8 +74,8 @@ namespace Skaven {
 
     Unit *Clanrats::Create(const ParameterList &parameters) {
         auto unit = new Clanrats();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOptions weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, (int) RustySpear);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOptions weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, (int) Rusty_Spear);
         bool clanshields = GetBoolParam("Clanshields", parameters, false);
         int standardBearers = GetIntParam("Standard Bearers", parameters, 0);
         int bellRingers = GetIntParam("Bell Ringers", parameters, 0);
@@ -90,18 +90,18 @@ namespace Skaven {
 
     void Clanrats::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {RustySpear, RustyBlade};
+            static const std::array<int, 2> weapons = {Rusty_Spear, Rusty_Blade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", RustySpear, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Rusty_Spear, weapons),
                             BoolParameter("Clanshields"),
-                            IntegerParameter("Standard Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Bell Ringers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1)
+                            IntegerParameter("Standard Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Bell Ringers", 0, 0, g_maxUnitSize / g_minUnitSize, 1)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -112,9 +112,9 @@ namespace Skaven {
 
     std::string Clanrats::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == RustySpear) {
+            if (parameter.intValue == Rusty_Spear) {
                 return "Rusty Spear";
-            } else if (parameter.intValue == RustyBlade) {
+            } else if (parameter.intValue == Rusty_Blade) {
                 return "Rusty Blade";
             }
         }
@@ -124,9 +124,9 @@ namespace Skaven {
 
     int Clanrats::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Rusty Spear") {
-            return RustySpear;
+            return Rusty_Spear;
         } else if (enumString == "Rusty Blade") {
-            return RustyBlade;
+            return Rusty_Blade;
         }
         return 0;
     }
@@ -149,9 +149,9 @@ namespace Skaven {
     }
 
     int Clanrats::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

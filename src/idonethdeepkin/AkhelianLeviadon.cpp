@@ -10,36 +10,58 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 310;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 340;
+
+    struct TableEntry {
+        int m_save;
+        int m_finDamage;
+        int m_jawsToHit;
+    };
+
+    const size_t g_numTableEntries = 4;
+    const int g_woundThresholds[g_numTableEntries] = {8, 11, 14, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
+            {
+                    {2, 4, 2},
+                    {3, 3, 3},
+                    {4, 2, 4},
+                    {5,  1, 5}
+            };
 
     bool AkhelianLeviadon::s_registered = false;
 
     AkhelianLeviadon::AkhelianLeviadon() :
-            IdonethDeepkinBase("Akhelian Leviadon", 12, WOUNDS, 7, 3, true),
-            m_harpoonLauncher(Weapon::Type::Missile, "Harpoon Launchers", 24, 6, 3, 3, 0, 1),
-            m_crushingJaws(Weapon::Type::Melee, "Leviadon's Crushing Jaws", 1, 1, 2, 2, -2, RAND_D6),
-            m_scythedFins(Weapon::Type::Melee, "Leviadon's Massive Scythed Fins", 2, 4, 3, 3, -1, 3),
-            m_twinProngedSpear(Weapon::Type::Melee, "Twin-pronged Spear", 1, 2, 3, 3, 0, 2),
-            m_razorshellHarpoons(Weapon::Type::Melee, "Razorshell Harpoons", 1, 4, 3, 3, 0, 1) {
+            IdonethDeepkinBase("Akhelian Leviadon", 10, g_wounds, 6, 2, true),
+            m_harpoonLauncher(Weapon::Type::Missile, "Harpoon Launchers", 24, 8, 3, 3, -1, 1),
+            m_crushingJaws(Weapon::Type::Melee, "Crushing Jaws", 1, 2, 2, 2, -2, 3),
+            m_scythedFins(Weapon::Type::Melee, "Massive Scythed Fins", 2, 4, 2, 3, -1, 4),
+            m_spearAndHarpoons(Weapon::Type::Melee, "Twin-pronged Spear and Razorshell Harpoons", 1, 6, 3, 3, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, MONSTER, AKHELIAN, LEVIADON};
-        m_weapons = {&m_harpoonLauncher, &m_crushingJaws, &m_scythedFins, &m_twinProngedSpear, &m_razorshellHarpoons};
+        m_weapons = {&m_harpoonLauncher, &m_crushingJaws, &m_scythedFins, &m_spearAndHarpoons};
         m_battleFieldRole = Behemoth;
         m_hasMount = true;
+
+        s_globalSaveMod.connect(this, &AkhelianLeviadon::voidDrumSaveMod, &m_voidDrumSaveSlot);
+        s_globalToHitMod.connect(this, &AkhelianLeviadon::voidDrumToHitMod, &m_voidDrumHitSlot);
+    }
+
+    AkhelianLeviadon::~AkhelianLeviadon() {
+        m_voidDrumHitSlot.disconnect();
+        m_voidDrumSaveSlot.disconnect();
     }
 
     bool AkhelianLeviadon::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_harpoonLauncher);
         model->addMeleeWeapon(&m_crushingJaws);
         model->addMeleeWeapon(&m_scythedFins);
-        model->addMeleeWeapon(&m_twinProngedSpear);
-        model->addMeleeWeapon(&m_razorshellHarpoons);
+        model->addMeleeWeapon(&m_spearAndHarpoons);
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -84,8 +106,50 @@ namespace IdonethDeepkin {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
+    void AkhelianLeviadon::onWounded() {
+        Unit::onWounded();
+
+        const int damageIndex = getDamageTableIndex();
+        m_scythedFins.setDamage(g_damageTable[damageIndex].m_finDamage);
+        m_crushingJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
+        m_save = g_damageTable[damageIndex].m_save;
+    }
+
+    void AkhelianLeviadon::onRestore() {
+        Unit::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
+    }
+
+    int AkhelianLeviadon::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < g_numTableEntries; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     int AkhelianLeviadon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
+    }
+
+    int AkhelianLeviadon::voidDrumSaveMod(const Unit *unit, const Weapon *weapon) {
+        auto mod = 0;
+        if (unit->hasKeyword(IDONETH_DEEPKIN) && isFriendly(unit) && unit->wounds() <= 8) {
+            if (unit->distanceTo(this) <= 12.0) mod++;
+        }
+        return mod;
+    }
+
+    int AkhelianLeviadon::voidDrumToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        auto mod = 0;
+        if (attacker->hasKeyword(NAMARTI) && isFriendly(attacker)) {
+            if (target->distanceTo(this) <= 12.0f) mod++;
+        }
+        return mod;
     }
 
 } //namespace IdonethDeepkin

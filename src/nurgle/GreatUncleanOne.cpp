@@ -14,9 +14,9 @@
 #include "NurglePrivate.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 130;
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 320;
+    static const int g_basesize = 130;
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 320;
 
     struct TableEntry {
         int m_bileToWound;
@@ -24,9 +24,9 @@ namespace Nurgle {
         int m_swordAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {2, 2, 4},
                     {3, 2, 5},
@@ -38,7 +38,7 @@ namespace Nurgle {
     bool GreatUncleanOne::s_registered = false;
 
     GreatUncleanOne::GreatUncleanOne() :
-            NurgleBase("Great Unclean One", 5, WOUNDS, 10, 4, false),
+            NurgleBase("Great Unclean One", 5, g_wounds, 10, 4, false),
             m_bile(Weapon::Type::Missile, "Noxious Bile", 7, RAND_D6, 3, 2, -2, 1),
             m_flail(),
             m_bilesword(),
@@ -47,22 +47,22 @@ namespace Nurgle {
             m_nurglings(Weapon::Type::Melee, "Host of Nurglings", 1, 3, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, NURGLE, MONSTER, HERO, WIZARD, GREAT_UNCLEAN_ONE, ROTIGUS};
         m_weapons = {&m_bile, &m_flail, &m_bilesword, &m_bileblade, &m_doomsdayBell, &m_nurglings};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;
     }
 
     bool GreatUncleanOne::configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bile);
-        if (optionOne == PlagueFlail)
+        if (optionOne == Plague_Flail)
             model->addMeleeWeapon(&m_flail);
         else if (optionOne == Bileblade)
             model->addMeleeWeapon(&m_bileblade);
-        if (optionTwo == MassiveBilesword)
+        if (optionTwo == Massive_Bilesword)
             model->addMeleeWeapon(&m_bilesword);
-        else if (optionTwo == DoomsdayBell)
+        else if (optionTwo == Doomsday_Bell)
             model->addMeleeWeapon(&m_doomsdayBell);
         model->addMeleeWeapon(&m_nurglings);
         addModel(model);
@@ -70,7 +70,7 @@ namespace Nurgle {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,8 +78,8 @@ namespace Nurgle {
     Unit *GreatUncleanOne::Create(const ParameterList &parameters) {
         auto unit = new GreatUncleanOne();
 
-        auto weaponOne = (WeaponOptionOne) GetEnumParam("Weapon One", parameters, PlagueFlail);
-        auto weaponTwo = (WeaponOptionTwo) GetEnumParam("Weapon Two", parameters, DoomsdayBell);
+        auto weaponOne = (WeaponOptionOne) GetEnumParam("Weapon One", parameters, Plague_Flail);
+        auto weaponTwo = (WeaponOptionTwo) GetEnumParam("Weapon Two", parameters, Doomsday_Bell);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
         unit->setCommandTrait(trait);
@@ -102,16 +102,16 @@ namespace Nurgle {
 
     void GreatUncleanOne::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons1 = {PlagueFlail, Bileblade};
-            static const std::array<int, 2> weapons2 = {MassiveBilesword, DoomsdayBell};
+            static const std::array<int, 2> weapons1 = {Plague_Flail, Bileblade};
+            static const std::array<int, 2> weapons2 = {Massive_Bilesword, Doomsday_Bell};
             static FactoryMethod factoryMethod = {
                     GreatUncleanOne::Create,
                     GreatUncleanOne::ValueToString,
                     GreatUncleanOne::EnumStringToInt,
                     GreatUncleanOne::ComputePoints,
                     {
-                            EnumParameter("Weapon One", PlagueFlail, weapons1),
-                            EnumParameter("Weapon Two", MassiveBilesword, weapons2),
+                            EnumParameter("Weapon One", Plague_Flail, weapons1),
+                            EnumParameter("Weapon Two", Massive_Bilesword, weapons2),
                             EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
                             EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
                             EnumParameter("Lore", g_daemonLore[0], g_daemonLore),
@@ -133,7 +133,7 @@ namespace Nurgle {
 
     int GreatUncleanOne::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -146,9 +146,9 @@ namespace Nurgle {
         if (m_charged) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
             for (auto ip : units) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll >= 4) {
-                    ip->applyDamage({Dice::rollD3(), 0});
+                    ip->applyDamage({Dice::RollD3(), 0});
                 }
             }
         }
@@ -157,28 +157,28 @@ namespace Nurgle {
 
     std::string GreatUncleanOne::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon One") {
-            if (parameter.intValue == PlagueFlail) return "Plague Flail";
+            if (parameter.intValue == Plague_Flail) return "Plague Flail";
             else if (parameter.intValue == Bileblade) return "Bileblade";
         } else if (std::string(parameter.name) == "Weapon Two") {
-            if (parameter.intValue == MassiveBilesword) return "Massive Bilesword";
-            else if (parameter.intValue == DoomsdayBell) return "Doomsday Bell";
+            if (parameter.intValue == Massive_Bilesword) return "Massive Bilesword";
+            else if (parameter.intValue == Doomsday_Bell) return "Doomsday Bell";
         }
         return NurgleBase::ValueToString(parameter);
     }
 
     int GreatUncleanOne::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Plague Flail") return PlagueFlail;
+        if (enumString == "Plague Flail") return Plague_Flail;
         else if (enumString == "Bileblade") return Bileblade;
-        else if (enumString == "Massive Bilesword") return MassiveBilesword;
-        else if (enumString == "Doomsday Bell") return DoomsdayBell;
+        else if (enumString == "Massive Bilesword") return Massive_Bilesword;
+        else if (enumString == "Doomsday Bell") return Doomsday_Bell;
         return NurgleBase::EnumStringToInt(enumString);
     }
 
     Wounds GreatUncleanOne::applyWoundSave(const Wounds &wounds) {
         // Blubber and Bile
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -194,12 +194,12 @@ namespace Nurgle {
 
         if (owningPlayer() == player) {
             // Corpulent Mass
-            heal(Dice::rollD3());
+            heal(Dice::RollD3());
         }
     }
 
     int GreatUncleanOne::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

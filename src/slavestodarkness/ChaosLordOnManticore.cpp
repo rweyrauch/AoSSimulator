@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 280;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 280;
 
     struct TableEntry {
         int m_move;
@@ -20,9 +20,9 @@ namespace SlavesToDarkness {
         int m_tailAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 1, 5},
                     {10, 2, 4},
@@ -36,7 +36,7 @@ namespace SlavesToDarkness {
     Unit *ChaosLordOnManticore::Create(const ParameterList &parameters) {
         auto unit = new ChaosLordOnManticore();
 
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BladeAndShield);
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Blade_And_Shield);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -57,15 +57,15 @@ namespace SlavesToDarkness {
 
     void ChaosLordOnManticore::Init() {
         if (!s_registered) {
-            static const std::array<int, 6> weapons = {BladeAndLance, FlailAndLance, BladeAndShield, FlailAndShield,
-                                                       BladeAndDaggerfist, FlailAndDaggerfist};
+            static const std::array<int, 6> weapons = {Blade_And_Lance, Flail_And_Lance, Blade_And_Shield, Flail_And_Shield,
+                                                       Blade_And_Daggerfist, Flail_And_Daggerfist};
             static FactoryMethod factoryMethod = {
                     ChaosLordOnManticore::Create,
                     ChaosLordOnManticore::ValueToString,
                     ChaosLordOnManticore::EnumStringToInt,
                     ChaosLordOnManticore::ComputePoints,
                     {
-                            EnumParameter("Weapon", BladeAndShield, weapons),
+                            EnumParameter("Weapon", Blade_And_Shield, weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                             BoolParameter("General")
@@ -78,7 +78,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosLordOnManticore::ChaosLordOnManticore() :
-            SlavesToDarknessBase("Chaos Lord On Manticore", 12, WOUNDS, 8, 4, true),
+            SlavesToDarknessBase("Chaos Lord On Manticore", 12, g_wounds, 8, 4, true),
             m_blade(Weapon::Type::Melee, "Daemon Blade", 1, 3, 3, 3, -1, RAND_D3),
             m_lance(Weapon::Type::Melee, "Chaos Lance", 2, 3, 3, 3, 0, 2),
             m_flail(Weapon::Type::Melee, "Chaos Flail", 2, 6, 3, 3, 0, 1),
@@ -88,29 +88,29 @@ namespace SlavesToDarkness {
                       CHAOS_LORD};
         m_hasMount = true;
         m_weapons = {&m_blade, &m_lance, &m_flail, &m_fangsAndClaws, &m_tail};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
     }
 
     bool ChaosLordOnManticore::configure(WeaponOption weapon) {
         m_weapon = weapon;
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         switch (weapon) {
-            case WeaponOption::BladeAndLance:
+            case WeaponOption::Blade_And_Lance:
                 model->addMeleeWeapon(&m_blade);
                 model->addMeleeWeapon(&m_lance);
                 break;
-            case WeaponOption::BladeAndShield:
-            case WeaponOption::BladeAndDaggerfist:
+            case WeaponOption::Blade_And_Shield:
+            case WeaponOption::Blade_And_Daggerfist:
                 model->addMeleeWeapon(&m_blade);
                 break;
-            case WeaponOption::FlailAndLance:
+            case WeaponOption::Flail_And_Lance:
                 model->addMeleeWeapon(&m_flail);
                 model->addMeleeWeapon(&m_lance);
                 break;
-            case WeaponOption::FlailAndShield:
-            case WeaponOption::FlailAndDaggerfist:
+            case WeaponOption::Flail_And_Shield:
+            case WeaponOption::Flail_And_Daggerfist:
                 model->addMeleeWeapon(&m_flail);
                 break;
         }
@@ -119,7 +119,7 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_tail);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -138,7 +138,7 @@ namespace SlavesToDarkness {
 
     int ChaosLordOnManticore::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -149,17 +149,17 @@ namespace SlavesToDarkness {
     std::string ChaosLordOnManticore::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
             switch (parameter.intValue) {
-                case BladeAndLance:
+                case Blade_And_Lance:
                     return "Daemon Blade and Chaos Lance";
-                case FlailAndLance:
+                case Flail_And_Lance:
                     return "Chaos Flail and Chaos Lance";
-                case BladeAndShield:
+                case Blade_And_Shield:
                     return "Daemon Blade and Chaos Runeshield";
-                case FlailAndShield:
+                case Flail_And_Shield:
                     return "Chaos Flail and Chaos Runeshield";
-                case BladeAndDaggerfist:
+                case Blade_And_Daggerfist:
                     return "Daemon Blade and Daggerfist";
-                case FlailAndDaggerfist:
+                case Flail_And_Daggerfist:
                     return "Chaos Flail and Daggerfist";
                 default:
                     break;
@@ -169,12 +169,12 @@ namespace SlavesToDarkness {
     }
 
     int ChaosLordOnManticore::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Daemon Blade and Chaos Lance") return BladeAndLance;
-        else if (enumString == "Chaos Flail and Chaos Lance") return FlailAndLance;
-        else if (enumString == "Daemon Blade and Chaos Runeshield") return BladeAndShield;
-        else if (enumString == "Chaos Flail and Chaos Runeshield") return FlailAndShield;
-        else if (enumString == "Daemon Blade and Daggerfist") return BladeAndDaggerfist;
-        else if (enumString == "Chaos Flail and Daggerfist") return FlailAndDaggerfist;
+        if (enumString == "Daemon Blade and Chaos Lance") return Blade_And_Lance;
+        else if (enumString == "Chaos Flail and Chaos Lance") return Flail_And_Lance;
+        else if (enumString == "Daemon Blade and Chaos Runeshield") return Blade_And_Shield;
+        else if (enumString == "Chaos Flail and Chaos Runeshield") return Flail_And_Shield;
+        else if (enumString == "Daemon Blade and Daggerfist") return Blade_And_Daggerfist;
+        else if (enumString == "Chaos Flail and Daggerfist") return Flail_And_Daggerfist;
 
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
@@ -183,7 +183,7 @@ namespace SlavesToDarkness {
         auto savedWounds = Unit::applyWoundSave(wounds);
         Dice::RollResult result;
         // Chaos Runeshield
-        Dice::rollD6(savedWounds.mortal, result);
+        Dice::RollD6(savedWounds.mortal, result);
         savedWounds.mortal -= result.rollsGE(5);
         return savedWounds;
     }
@@ -207,7 +207,7 @@ namespace SlavesToDarkness {
 
         // Daggerfist
         if ((saveRoll == 6) && (!weapon->isMissile()) &&
-            (m_weapon == WeaponOption::FlailAndDaggerfist || m_weapon == WeaponOption::BladeAndDaggerfist)) {
+            (m_weapon == WeaponOption::Flail_And_Daggerfist || m_weapon == WeaponOption::Blade_And_Daggerfist)) {
             damage.mortal++;
         }
         return damage;
@@ -226,13 +226,13 @@ namespace SlavesToDarkness {
     Rerolls ChaosLordOnManticore::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Territorial Predator
         if ((weapon->name() == m_fangsAndClaws.name()) && (target->hasKeyword(MONSTER))) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     int ChaosLordOnManticore::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace SlavesToDarkness

@@ -11,15 +11,15 @@
 #include <spells/MysticShield.h>
 
 namespace EldritchCouncil {
-    static const int BASESIZE = 25;
-    static const int BASESIZE_STEED = 60; // x35 oval
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 25;
+    static const int g_basesizeSteed = 60; // x35 oval
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool Archmage::s_registered = false;
 
     Archmage::Archmage() :
-            Unit("Archmage", 6, WOUNDS, 7, 6, false),
+            Unit("Archmage", 6, g_wounds, 7, 6, false),
             m_seerstaff(Weapon::Type::Melee, "Seerstaff", 2, 1, 4, 3, -1, 1),
             m_steedHooves(Weapon::Type::Melee, "Aelven Steed's Swift Hooves", 1, 2, 4, 5, 0, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, ARCHMAGE};
@@ -32,7 +32,7 @@ namespace EldritchCouncil {
     bool Archmage::configure(bool steed) {
         m_steed = steed;
 
-        auto model = new Model(steed ? BASESIZE_STEED : BASESIZE, wounds());
+        auto model = new Model(steed ? g_basesizeSteed : g_basesize, wounds());
         model->addMeleeWeapon(&m_seerstaff);
         if (m_steed) {
             model->addMeleeWeapon(&m_steedHooves);
@@ -43,7 +43,7 @@ namespace EldritchCouncil {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -82,7 +82,7 @@ namespace EldritchCouncil {
     }
 
     int Archmage::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace EldritchCouncil

@@ -18,14 +18,14 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            StormcallJavelinAndShield,
-            PairedCelestialHammers,
-            CelestialHammerAndShield
+            Stormcall_Javelin_And_Shield,
+            Paired_Celestial_Hammers,
+            Celestial_Hammer_And_Shield
         };
 
         enum GrandWeaponOption {
-            NoGrandWeapon,
-            StormsurgeTrident,
+            No_Grand_Weapon,
+            Stormsurge_Trident,
             Grandaxe,
             Grandblade,
             Grandhammer,
@@ -60,7 +60,7 @@ namespace StormcastEternals {
 
     private:
 
-        WeaponOption m_weaponOption = StormcallJavelinAndShield;
+        WeaponOption m_weaponOption = Stormcall_Javelin_And_Shield;
 
         Weapon m_celestialHammersMissile,
                 m_stormcallJavelinMissile,

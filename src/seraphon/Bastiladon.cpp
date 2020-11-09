@@ -12,9 +12,9 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 220;
 
     struct TableEntry {
         int m_save;
@@ -22,9 +22,9 @@ namespace Seraphon {
         int m_arkAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {1, 9, 18},
                     {2, 8, 15},
@@ -36,7 +36,7 @@ namespace Seraphon {
     bool Bastiladon::s_registered = false;
 
     Bastiladon::Bastiladon() :
-            SeraphonBase("Bastiladon", 5, WOUNDS, 6, 1, false),
+            SeraphonBase("Bastiladon", 5, g_wounds, 6, 1, false),
             m_beam(Weapon::Type::Missile, "Solar Engine", 24, 9, 4, 3, -1, 2),
             m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
             m_ark(Weapon::Type::Melee, "Ark of Sotek", 3, 18, 4, 6, 0, 1),
@@ -47,7 +47,7 @@ namespace Seraphon {
     }
 
     bool Bastiladon::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_beam);
         model->addMissileWeapon(&m_javelins);
         model->addMeleeWeapon(&m_ark);
@@ -101,7 +101,7 @@ namespace Seraphon {
 
     int Bastiladon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -130,7 +130,7 @@ namespace Seraphon {
     }
 
     int Bastiladon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

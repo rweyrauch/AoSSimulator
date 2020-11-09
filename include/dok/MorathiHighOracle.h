@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MORATHIORACLE_H
-#define MORATHIORACLE_H
+#ifndef MORATHIHIGHORACLE_H
+#define MORATHIHIGHORACLE_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -52,15 +52,12 @@ namespace DaughtersOfKhaine {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Monstrous Transformation         TODO
-// The Truth Revealed               TODO
-// The Iron Heart of Khaine         TODO
-// Sorceress Supreme                Yes
-// Enchanting Beauty                Yes
-// Arnzipal's Black Horror          TODO
+// Commanding Presence              Yes
+// One Soul, Two Bodies             TODO
+// Black Horror of Ulgu             TODO
 // Worship Through Bloodshed        TODO
 //
 
 } // namespace DaughtersOfKhaine
 
-#endif //MORATHIORACLE_H
+#endif //MORATHIHIGHORACLE_H

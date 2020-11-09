@@ -11,9 +11,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool Anointed::s_registered = false;
 
@@ -72,7 +72,7 @@ namespace CitiesOfSigmar {
     }
 
     Anointed::Anointed() :
-            CitizenOfSigmar("Anointed", 6, WOUNDS, 7, 4, false),
+            CitizenOfSigmar("Anointed", 6, g_wounds, 7, 4, false),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, HERO, ANOINTED};
         m_weapons = {&m_halberd};
@@ -82,11 +82,11 @@ namespace CitiesOfSigmar {
     }
 
     bool Anointed::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -94,8 +94,8 @@ namespace CitiesOfSigmar {
     Wounds Anointed::applyWoundSave(const Wounds &wounds) {
         // Witness to Destiny
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(4);
@@ -107,7 +107,7 @@ namespace CitiesOfSigmar {
     }
 
     int Anointed::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace CitiesOfSigmar

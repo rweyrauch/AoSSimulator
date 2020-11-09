@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef FREEHANDGUNNER_H
-#define FREEHANDGUNNER_H
+#ifndef FREEGUILDHANDGUNNERS_H
+#define FREEGUILDHANDGUNNERS_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -19,8 +19,8 @@ namespace CitiesOfSigmar {
 
         enum WeaponOption {
             Handgun,
-            LongRifle,
-            RepeaterHandgun
+            Long_Rifle,
+            Repeater_Handgun
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -75,4 +75,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //FREEHANDGUNNER_H
+#endif //FREEGUILDHANDGUNNERS_H

@@ -18,8 +18,8 @@ namespace Skaven {
     public:
 
         enum WeaponOptions {
-            PairedFoetidBlades,
-            FoetidBladeAndWoeStave
+            Paired_Foetid_Blades,
+            Foetid_Blade_And_Woe_Stave
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -57,7 +57,7 @@ namespace Skaven {
 
     private:
 
-        WeaponOptions m_weaponOption = PairedFoetidBlades;
+        WeaponOptions m_weaponOption = Paired_Foetid_Blades;
         int m_numContagionBanners = 0;
         int m_numIconsOfPestilence = 0;
         int m_numDoomGongs = 0;

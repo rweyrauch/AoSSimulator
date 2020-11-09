@@ -19,8 +19,8 @@ namespace SlavesToDarkness {
 
         enum WeaponOption {
             Reaperblade,
-            DaemonboundSteel,
-            DaemonboundWarFlail
+            Daemonbound_Steel,
+            Daemonbound_War_Flail
         };
 
         static Unit *Create(const ParameterList &parameters);

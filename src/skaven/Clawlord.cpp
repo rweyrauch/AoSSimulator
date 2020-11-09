@@ -11,9 +11,9 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool Clawlord::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Skaven {
     }
 
     Clawlord::Clawlord() :
-            Skaventide("Clawlord", 6, WOUNDS, 6, 4, false),
+            Skaventide("Clawlord", 6, g_wounds, 6, 4, false),
             m_blade(Weapon::Type::Melee, "Warpforged Blade", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD};
         m_weapons = {&m_blade};
@@ -65,11 +65,11 @@ namespace Skaven {
     }
 
     bool Clawlord::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -84,6 +84,6 @@ namespace Skaven {
     }
 
     int Clawlord::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 } //namespace Skaven

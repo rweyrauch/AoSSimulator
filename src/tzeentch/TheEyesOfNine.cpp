@@ -9,16 +9,16 @@
 #include "tzeentch/TheEyesOfNine.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool TheEyesOfTheNine::s_registered = false;
 
     Unit *TheEyesOfTheNine::Create(const ParameterList &parameters) {
         auto unit = new TheEyesOfTheNine();
 
-        unit->setChangeCoven(ChangeCoven::CultOfTheTransientForm);
+        unit->setChangeCoven(ChangeCoven::Cult_Of_The_Transient_Form);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -29,7 +29,7 @@ namespace Tzeentch {
     }
 
     int TheEyesOfTheNine::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void TheEyesOfTheNine::Init() {
@@ -49,7 +49,7 @@ namespace Tzeentch {
     }
 
     TheEyesOfTheNine::TheEyesOfTheNine() :
-            TzeentchBase("The Eyes of the Nine", 6, WOUNDS, 6, 6, false),
+            TzeentchBase("The Eyes of the Nine", 6, g_wounds, 6, 6, false),
             m_flames(Weapon::Type::Missile, "Magical Flames", 12, 2, 5, 4, 0, 1),
             m_bolt(Weapon::Type::Missile, "Sorcerous Bolt", 12, 1, 5, 4, 0, 1),
             m_greatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
@@ -61,31 +61,31 @@ namespace Tzeentch {
     }
 
     bool TheEyesOfTheNine::configure() {
-        auto narvia = new Model(BASESIZE, wounds());
+        auto narvia = new Model(g_basesize, wounds());
         narvia->addMissileWeapon(&m_bolt);
         narvia->addMeleeWeapon(&m_blade);
         narvia->setName("Narvia");
         addModel(narvia);
 
-        auto turosh = new Model(BASESIZE, wounds());
+        auto turosh = new Model(g_basesize, wounds());
         turosh->addMissileWeapon(&m_bolt);
         turosh->addMeleeWeapon(&m_blade);
         turosh->setName("Turosh");
         addModel(turosh);
 
-        auto kcharik = new Model(BASESIZE, wounds() + 1);
+        auto kcharik = new Model(g_basesize, wounds() + 1);
         kcharik->addMeleeWeapon(&m_greatblade);
         kcharik->addMeleeWeapon(&m_beak);
         kcharik->setName("K'charik");
         addModel(kcharik);
 
-        auto horror = new Model(BASESIZE, wounds());
+        auto horror = new Model(g_basesize, wounds());
         horror->addMissileWeapon(&m_flames);
         horror->addMeleeWeapon(&m_hands);
         horror->setName("Blue Horror");
         addModel(horror);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -98,8 +98,8 @@ namespace Tzeentch {
             if (((model->getName() == "Narvia") || (model->getName() == "Turosh")) &&
                 !model->slain() && !model->fled()) {
                 Dice::RollResult normalSaves, mortalSaves;
-                Dice::rollD6(totalWounds.normal, normalSaves);
-                Dice::rollD6(totalWounds.mortal, mortalSaves);
+                Dice::RollD6(totalWounds.normal, normalSaves);
+                Dice::RollD6(totalWounds.mortal, mortalSaves);
                 totalWounds.normal -= normalSaves.rollsGE(6);
                 totalWounds.mortal -= mortalSaves.rollsGE(6);
                 break;

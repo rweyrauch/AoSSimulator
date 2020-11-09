@@ -19,7 +19,7 @@ namespace OgorMawtribes {
 
         enum Ability {
             Brawlers,
-            CrackShots,
+            Crack_Shots,
             Striders,
             Stubborn
         };

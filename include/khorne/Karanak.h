@@ -34,7 +34,7 @@ namespace Khorne {
         void onBeginTurn(int battleRound) override;
 
         // Unflagging Hunter
-        Rerolls chargeRerolls() const override { return RerollFailed; }
+        Rerolls chargeRerolls() const override { return Reroll_Failed; }
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

@@ -18,12 +18,12 @@ namespace Nighthaunt {
     enum class CommandTrait : int {
         None,
 
-        Hatred_of_the_Living,
+        Hatred_Of_The_Living,
         Terrifying_Entity,
         Lingering_Spirit,
         Spiteful_Spirit,
-        Cloaked_in_Shadow,
-        Ruler_of_the_Spirit_Hosts,
+        Cloaked_In_Shadow,
+        Ruler_Of_The_Spirit_Hosts,
 
     };
 
@@ -32,24 +32,24 @@ namespace Nighthaunt {
 
         // Weapons
         Shadows_Edge,
-        Reaper_of_Sorrows,
+        Reaper_Of_Sorrows,
         Balefire_Blade,
         Slitter,
         Headsmans_Judgement,
         Shrieking_Blade,
 
         // Relics
-        Cloak_of_the_Waxing_Moon,
-        Pendant_of_the_Fell_Wind,
+        Cloak_Of_The_Waxing_Moon,
+        Pendant_Of_The_Fell_Wind,
         Dreadbolt_Ring,
-        Mirror_of_Screaming_Souls,
+        Mirror_Of_Screaming_Souls,
         Midnight_Tome,
         Covetous_Familiar,
 
         // Lanterns (Guardian of Souls)
-        Lightshard_of_the_Harvest_Moon,
+        Lightshard_Of_The_Harvest_Moon,
         Wychlight_Lantern,
-        Beacon_of_Nagashizzar,
+        Beacon_Of_Nagashizzar,
 
     };
 

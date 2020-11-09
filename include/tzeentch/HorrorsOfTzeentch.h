@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef HORRORS_H
-#define HORRORS_H
+#ifndef HORRORSOFTZEENTCH_H
+#define HORRORSOFTZEENTCH_H
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -72,4 +72,4 @@ namespace Tzeentch {
 
 } // Tzeentch
 
-#endif //HORRORS_H
+#endif //HORRORSOFTZEENTCH_H

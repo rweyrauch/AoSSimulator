@@ -12,17 +12,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 6;
-    static const int MAX_UNIT_SIZE = 18;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 40;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 6;
+    static const int g_maxUnitSize = 18;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool GryphHounds::s_registered = false;
 
     GryphHounds::GryphHounds() :
-            StormcastEternal("Gryph-hounds", 9, WOUNDS, 6, NoSave, false),
+            StormcastEternal("Gryph-hounds", 9, g_wounds, 6, NoSave, false),
             m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 3, 4, 0, 1),
             m_beakAndClawsAlpha(Weapon::Type::Melee, "Beak and Claws", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, GRYPH_HOUNDS};
@@ -30,16 +30,16 @@ namespace StormcastEternals {
     }
 
     bool GryphHounds::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto alpha = new Model(BASESIZE, wounds());
+        auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_beakAndClawsAlpha);
         addModel(alpha);
 
         for (int i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_beakAndClaws);
             addModel(model);
         }
@@ -51,7 +51,7 @@ namespace StormcastEternals {
 
     Unit *GryphHounds::Create(const ParameterList &parameters) {
         auto unit = new GryphHounds();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -72,8 +72,8 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE,
-                                    MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize,
+                                    g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
@@ -98,9 +98,9 @@ namespace StormcastEternals {
     }
 
     int GryphHounds::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

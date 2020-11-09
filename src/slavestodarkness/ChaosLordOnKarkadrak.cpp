@@ -11,9 +11,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 230;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 9;
+    static const int g_pointsPerUnit = 230;
 
     bool ChaosLordOnKarkadrak::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosLordOnKarkadrak::ChaosLordOnKarkadrak() :
-            SlavesToDarknessBase("Chaos Lord On Karkadrak", 9, WOUNDS, 8, 3, false),
+            SlavesToDarknessBase("Chaos Lord On Karkadrak", 9, g_wounds, 8, 3, false),
             m_battleAxe(Weapon::Type::Melee, "Hexed Battle-axe", 1, 5, 3, 3, 0, 2),
             m_blade(Weapon::Type::Melee, "Daemonbound Blade", 1, 3, 3, 3, -1, RAND_D3),
             m_hornsAndClaws(Weapon::Type::Melee, "Tearing Horn and Claws", 1, 3, 4, 3, -1, 2),
@@ -69,14 +69,14 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosLordOnKarkadrak::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_battleAxe);
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_hornsAndClaws);
         model->addMeleeWeapon(&m_tail);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -88,8 +88,8 @@ namespace SlavesToDarkness {
         if (m_charged) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
             for (auto unit : units) {
-                if (Dice::rollD6() >= 2) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 2) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }
@@ -109,13 +109,13 @@ namespace SlavesToDarkness {
         auto savedWounds = Unit::applyWoundSave(wounds);
         Dice::RollResult result;
         // Rune-etched Plating
-        Dice::rollD6(savedWounds.mortal, result);
+        Dice::RollD6(savedWounds.mortal, result);
         savedWounds.mortal -= result.rollsGE(5);
         return savedWounds;
     }
 
     int ChaosLordOnKarkadrak::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace SlavesToDarkness

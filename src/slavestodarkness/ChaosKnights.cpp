@@ -10,20 +10,20 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 75; // x42 oval
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 160;
-    static const int POINTS_MAX_UNIT_SIZE = 4 * POINTS_PER_BLOCK;
+    static const int g_basesize = 75; // x42 oval
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 160;
+    static const int g_pointsMaxUnitSize = 4 * g_pointsPerBlock;
 
     bool ChaosKnights::s_registered = false;
 
     Unit *ChaosKnights::Create(const ParameterList &parameters) {
         auto unit = new ChaosKnights();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, EnsorcelledWeapon);
-        auto doomWeapon = (WeaponOption) GetEnumParam("Doom Knight Weapon", parameters, EnsorcelledWeapon);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Ensorcelled_Weapon);
+        auto doomWeapon = (WeaponOption) GetEnumParam("Doom Knight Weapon", parameters, Ensorcelled_Weapon);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -43,17 +43,17 @@ namespace SlavesToDarkness {
 
     void ChaosKnights::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {EnsorcelledWeapon, CursedLance};
-            static const std::array<int, 3> knightWeapons = {EnsorcelledWeapon, CursedLance, CursedFlail};
+            static const std::array<int, 2> weapons = {Ensorcelled_Weapon, Cursed_Lance};
+            static const std::array<int, 3> knightWeapons = {Ensorcelled_Weapon, Cursed_Lance, Cursed_Flail};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", EnsorcelledWeapon, weapons),
-                            EnumParameter("Doom Knight Weapon", EnsorcelledWeapon, knightWeapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Ensorcelled_Weapon, weapons),
+                            EnumParameter("Doom Knight Weapon", Ensorcelled_Weapon, knightWeapons),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
@@ -68,7 +68,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosKnights::ChaosKnights() :
-            SlavesToDarknessBase("Chaos Knights", 10, WOUNDS, 7, 4, false),
+            SlavesToDarknessBase("Chaos Knights", 10, g_wounds, 7, 4, false),
             m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 3, 3, -1, 1),
             m_lance(Weapon::Type::Melee, "Cursed Lance", 2, 2, 4, 3, 0, 1),
             m_ensorcelledWeaponLeader(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 4, 3, 3, -1, 1),
@@ -90,22 +90,22 @@ namespace SlavesToDarkness {
     bool
     ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer,
                             bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
-        if (weapons == CursedFlail) {
+        if (weapons == Cursed_Flail) {
             return false;
         }
 
         m_standardBearer = standardBearer;
         m_hornblower = hornblower;
 
-        auto leader = new Model(BASESIZE, wounds());
-        if (doomKnightWeapon == EnsorcelledWeapon) {
+        auto leader = new Model(g_basesize, wounds());
+        if (doomKnightWeapon == Ensorcelled_Weapon) {
             leader->addMeleeWeapon(&m_ensorcelledWeaponLeader);
-        } else if (doomKnightWeapon == CursedLance) {
+        } else if (doomKnightWeapon == Cursed_Lance) {
             leader->addMeleeWeapon(&m_lanceLeader);
-        } else if (doomKnightWeapon == CursedFlail) {
+        } else if (doomKnightWeapon == Cursed_Flail) {
             leader->addMeleeWeapon(&m_flailLeader);
         }
         leader->addMeleeWeapon(&m_hooves);
@@ -113,32 +113,32 @@ namespace SlavesToDarkness {
         addModel(leader);
 
         if (m_standardBearer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Standard Bearer");
-            if (weapons == EnsorcelledWeapon)
+            if (weapons == Ensorcelled_Weapon)
                 model->addMeleeWeapon(&m_ensorcelledWeapon);
-            else if (weapons == CursedLance)
+            else if (weapons == Cursed_Lance)
                 model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_hooves);
             addModel(model);
         }
 
         if (m_hornblower) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
-            if (weapons == EnsorcelledWeapon)
+            if (weapons == Ensorcelled_Weapon)
                 model->addMeleeWeapon(&m_ensorcelledWeapon);
-            else if (weapons == CursedLance)
+            else if (weapons == Cursed_Lance)
                 model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_hooves);
             addModel(model);
         }
 
         for (auto i = (int) m_models.size(); i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == EnsorcelledWeapon)
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Ensorcelled_Weapon)
                 model->addMeleeWeapon(&m_ensorcelledWeapon);
-            else if (weapons == CursedLance)
+            else if (weapons == Cursed_Lance)
                 model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_hooves);
             addModel(model);
@@ -151,11 +151,11 @@ namespace SlavesToDarkness {
 
     std::string ChaosKnights::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons" || std::string(parameter.name) == "Doom Knight Weapon") {
-            if (parameter.intValue == EnsorcelledWeapon) {
+            if (parameter.intValue == Ensorcelled_Weapon) {
                 return "Ensorcelled Weapon";
-            } else if (parameter.intValue == CursedLance) {
+            } else if (parameter.intValue == Cursed_Lance) {
                 return "Cursed Lance";
-            } else if (parameter.intValue == CursedFlail) {
+            } else if (parameter.intValue == Cursed_Flail) {
                 return "Cursed Flail";
             }
         }
@@ -164,11 +164,11 @@ namespace SlavesToDarkness {
 
     int ChaosKnights::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Ensorcelled Weapon") {
-            return EnsorcelledWeapon;
+            return Ensorcelled_Weapon;
         } else if (enumString == "Cursed Lance") {
-            return CursedLance;
+            return Cursed_Lance;
         } else if (enumString == "Cursed Flail") {
-            return CursedFlail;
+            return Cursed_Flail;
         }
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
@@ -190,7 +190,7 @@ namespace SlavesToDarkness {
     Wounds ChaosKnights::applyWoundSave(const Wounds &wounds) {
         // Chaos Runeshield
         Dice::RollResult mortalSaves;
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.mortal -= mortalSaves.rollsGE(5);
@@ -248,9 +248,9 @@ namespace SlavesToDarkness {
     }
 
     int ChaosKnights::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

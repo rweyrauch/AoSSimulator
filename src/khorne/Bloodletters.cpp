@@ -13,17 +13,17 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 110;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool Bloodletters::s_registered = false;
 
     Bloodletters::Bloodletters() :
-            KhorneBase("Bloodletters", 5, WOUNDS, 10, 5, false),
+            KhorneBase("Bloodletters", 5, g_wounds, 10, 5, false),
             m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
             m_hellbladeReaper(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
@@ -37,7 +37,7 @@ namespace Khorne {
     }
 
     bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -46,13 +46,13 @@ namespace Khorne {
         m_hornblower = hornblowers;
 
         // Add the Hellreaper
-        auto reaperModel = new Model(BASESIZE, wounds());
+        auto reaperModel = new Model(g_basesize, wounds());
         reaperModel->addMeleeWeapon(&m_hellbladeReaper);
         addModel(reaperModel);
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_hellblade);
             addModel(model);
         }
@@ -72,7 +72,7 @@ namespace Khorne {
 
     Unit *Bloodletters::Create(const ParameterList &parameters) {
         auto unit = new Bloodletters();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -96,7 +96,7 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Bloodletters::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblowers"),
@@ -123,7 +123,7 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(DAEMON) && ip->hasKeyword(KHORNE) && ip->hasKeyword(HERO)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         }
         return KhorneBase::toHitRerolls(weapon, target);
@@ -134,7 +134,7 @@ namespace Khorne {
         if (m_iconBearer) {
             // Icon Bearer
             if (roll == 1) {
-                numAdded = Dice::rollD6();
+                numAdded = Dice::RollD6();
             }
         }
     }
@@ -142,29 +142,29 @@ namespace Khorne {
     void Bloodletters::restoreModels(int numModels) {
         // Icon Bearer
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_hellblade);
             addModel(model);
         }
     }
 
     int Bloodletters::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     Rerolls Bloodletters::chargeRerolls() const {
-        if (m_standarBearer) return RerollFailed;
+        if (m_standarBearer) return Reroll_Failed;
         return Unit::chargeRerolls();
     }
 
     Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit) {
-        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return RerollOnes;
+        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
 } // namespace Khorne

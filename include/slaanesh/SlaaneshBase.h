@@ -26,25 +26,25 @@ namespace Slaanesh {
         None,
 
         // Invaders
-        Best_of_the_Best,
+        Best_Of_The_Best,
         Glory_Hog,
-        Hurler_of_Obscenities,
+        Hurler_Of_Obscenities,
         Territorial,
         Skin_Taker,
         Extra_Wound,
 
         // Pretenders
-        Strength_of_Godhood,
-        Monarch_of_Lies,
-        True_Child_of_Slaanesh,
+        Strength_Of_Godhood,
+        Monarch_Of_Lies,
+        True_Child_Of_Slaanesh,
         Strongest_Alone,
-        Hunter_of_Godbeasts,
+        Hunter_Of_Godbeasts,
         Inspirer,
 
         // Godseekers
         Hunter_Supreme,
         Thrill_Seeker,
-        Into_the_Fray,
+        Into_The_Fray,
         Trail_Sniffer,
         Symphoniac,
         Speed_Chaser,
@@ -54,44 +54,44 @@ namespace Slaanesh {
         None,
 
         // Invaders
-        The_Rod_of_Misrule,
-        Rapier_of_Ecstatic_Conquest,
-        Whip_of_Subversion,
-        Icon_of_Infinite_Excess,
+        The_Rod_Of_Misrule,
+        Rapier_Of_Ecstatic_Conquest,
+        Whip_Of_Subversion,
+        Icon_Of_Infinite_Excess,
         Fallacious_Gift,
         The_Beguiling_Gem,
 
         // Pretenders
-        The_Crown_of_Dark_Secrets,
-        Pendant_of_Slaanesh,
+        The_Crown_Of_Dark_Secrets,
+        Pendant_Of_Slaanesh,
         Sliverslash,
-        Sceptre_of_Domination,
+        Sceptre_Of_Domination,
         Breathtaker,
-        Mask_of_Spiteful_Beauty,
+        Mask_Of_Spiteful_Beauty,
 
         // Godseekers
-        Cameo_of_the_Dark_Prince,
-        Girdle_of_the_Realm_Racer,
+        Cameo_Of_The_Dark_Prince,
+        Girdle_Of_The_Realm_Racer,
         Threnody_Voicebox,
-        Lash_of_Despair,
+        Lash_Of_Despair,
         Enrapturing_Circlet,
-        Binding_of_Slaanesh,
+        Binding_Of_Slaanesh,
     };
 
     enum class Lore : int {
         None,
 
         // Daemon
-        Lash_of_Slaanesh,
-        Pavane_of_Slaanesh,
+        Lash_Of_Slaanesh,
+        Pavane_Of_Slaanesh,
         Hysterical_Frenzy,
         Soulslice_Shards,
         Phantasmagoria,
-        Bord_of_Damnation,
+        Bord_Of_Damnation,
 
         // Greater Daemon
-        Song_of_Secrets,
-        Progeny_of_Damnation,
+        Song_Of_Secrets,
+        Progeny_Of_Damnation,
         Slothful_Stupor,
 
         // Mortal

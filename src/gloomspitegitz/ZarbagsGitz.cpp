@@ -11,15 +11,15 @@
 #include <Board.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int SQUIG_WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_squigWounds = 2;
+    static const int g_pointsPerUnit = 80;
 
     bool ZarbagsGitz::s_registered = false;
 
     ZarbagsGitz::ZarbagsGitz() :
-            GloomspiteGitzBase("Zarbag's Gitz", 5, WOUNDS, 4, 6, false),
+            GloomspiteGitzBase("Zarbag's Gitz", 5, g_wounds, 4, 6, false),
             m_bow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1),
             m_teeth(Weapon::Type::Melee, "Massive Gob Full of Teeth", 1, 2, 4, 3, -1, 1),
             m_prodder(Weapon::Type::Melee, "Squig Prodder", 2, 1, 5, 4, 0, 1),
@@ -29,37 +29,37 @@ namespace GloomspiteGitz {
     }
 
     bool ZarbagsGitz::configure() {
-        auto herder = new Model(BASESIZE, SQUIG_WOUNDS);
+        auto herder = new Model(g_basesize, g_squigWounds);
         herder->addMeleeWeapon(&m_prodder);
         herder->setName("Herder");
         addModel(herder);
 
         // Two squigs
-        auto squig1 = new Model(BASESIZE, SQUIG_WOUNDS);
+        auto squig1 = new Model(g_basesize, g_squigWounds);
         squig1->addMeleeWeapon(&m_teeth);
         squig1->setName("Squig");
         addModel(squig1);
 
-        auto squig2 = new Model(BASESIZE, SQUIG_WOUNDS);
+        auto squig2 = new Model(g_basesize, g_squigWounds);
         squig2->addMeleeWeapon(&m_teeth);
         squig2->setName("Squig");
         addModel(squig2);
 
-        auto netter = new Model(BASESIZE, wounds());
+        auto netter = new Model(g_basesize, wounds());
         netter->addMeleeWeapon(&m_slitta);
         netter->setName("Netter");
         addModel(netter);
 
         // Three shootas
         for (auto i = 0; i < 3; i++) {
-            auto shoota = new Model(BASESIZE, wounds());
+            auto shoota = new Model(g_basesize, wounds());
             shoota->addMissileWeapon(&m_bow);
             shoota->addMeleeWeapon(&m_slitta);
             shoota->setName("Shoota");
             addModel(shoota);
         }
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -110,7 +110,7 @@ namespace GloomspiteGitz {
     }
 
     int ZarbagsGitz::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

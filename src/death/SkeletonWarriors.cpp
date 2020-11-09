@@ -12,17 +12,17 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool SkeletonWarriors::s_registered = false;
 
     SkeletonWarriors::SkeletonWarriors() :
-            LegionOfNagashBase("Skeleton Warriors", 4, WOUNDS, 10, 6, false),
+            LegionOfNagashBase("Skeleton Warriors", 4, g_wounds, 10, 6, false),
             m_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1),
             m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade", 1, 2, 4, 4, 0, 1),
             m_ancientSpear(Weapon::Type::Melee, "Ancient Spear", 2, 1, 5, 4, 0, 1),
@@ -38,7 +38,7 @@ namespace Death {
     }
 
     bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -46,19 +46,19 @@ namespace Death {
         m_standardBearers = standardBearers;
         m_hornblowers = hornblowers;
 
-        auto champion = new Model(BASESIZE, wounds());
-        if (weapons == AncientBlade) {
+        auto champion = new Model(g_basesize, wounds());
+        if (weapons == Ancient_Blade) {
             champion->addMeleeWeapon(&m_ancientBladeChampion);
-        } else if (weapons == AncientSpear) {
+        } else if (weapons == Ancient_Spear) {
             champion->addMeleeWeapon(&m_ancientSpearChampion);
         }
         addModel(champion);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == AncientBlade) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Ancient_Blade) {
                 model->addMeleeWeapon(&m_ancientBlade);
-            } else if (weapons == AncientSpear) {
+            } else if (weapons == Ancient_Spear) {
                 model->addMeleeWeapon(&m_ancientSpear);
             }
             addModel(model);
@@ -71,8 +71,8 @@ namespace Death {
 
     Unit *SkeletonWarriors::Create(const ParameterList &parameters) {
         auto unit = new SkeletonWarriors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, AncientBlade);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancient_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
@@ -89,15 +89,15 @@ namespace Death {
 
     void SkeletonWarriors::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {AncientBlade, AncientSpear};
+            static const std::array<int, 2> weapons = {Ancient_Blade, Ancient_Spear};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", AncientBlade, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Ancient_Blade, weapons),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Hornblowers"),
                             EnumParameter("Legion", g_legions[0], g_legions)
@@ -111,15 +111,15 @@ namespace Death {
 
     std::string SkeletonWarriors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == AncientBlade) { return "Ancient Blade"; }
-            else if (parameter.intValue == AncientSpear) { return "Ancient Spear"; }
+            if (parameter.intValue == Ancient_Blade) { return "Ancient Blade"; }
+            else if (parameter.intValue == Ancient_Spear) { return "Ancient Spear"; }
         }
         return LegionOfNagashBase::ValueToString(parameter);
     }
 
     int SkeletonWarriors::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Ancient Blade") { return AncientBlade; }
-        else if (enumString == "Ancient Spear") { return AncientSpear; }
+        if (enumString == "Ancient Blade") { return Ancient_Blade; }
+        else if (enumString == "Ancient Spear") { return Ancient_Spear; }
         return LegionOfNagashBase::EnumStringToInt(enumString);
     }
 
@@ -162,9 +162,9 @@ namespace Death {
     }
 
     int SkeletonWarriors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

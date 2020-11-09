@@ -11,14 +11,14 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool AuricRunesmiter::s_registered = false;
 
     AuricRunesmiter::AuricRunesmiter() :
-            Fyreslayer("Auric Runesmiter", 4, WOUNDS, 7, 5, false),
+            Fyreslayer("Auric Runesmiter", 4, g_wounds, 7, 5, false),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1),
             m_latchAxe(Weapon::Type::Melee, "Latch-axe", 1, 1, 4, 3, 0, 2) {
@@ -28,13 +28,13 @@ namespace Fyreslayers {
     }
 
     bool AuricRunesmiter::configure(Prayer prayer) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_latchAxe);
         model->addMeleeWeapon(&m_runicIron);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -86,7 +86,7 @@ namespace Fyreslayers {
     }
 
     int AuricRunesmiter::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Fyreslayers

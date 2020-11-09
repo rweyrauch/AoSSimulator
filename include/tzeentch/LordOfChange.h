@@ -18,9 +18,9 @@ namespace Tzeentch {
     public:
 
         enum WeaponOption {
-            BalefulSword,
-            RodOfSorcery,
-            CurvedBeakAndTalons
+            Baleful_Sword,
+            Rod_Of_Sorcery,
+            Curved_Beak_And_Talons
         };
 
         static Unit *Create(const ParameterList &parameters);

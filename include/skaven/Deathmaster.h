@@ -18,8 +18,8 @@ namespace Skaven {
     public:
 
         enum WeaponOption {
-            WeepingBlades,
-            FightingClaws
+            Weeping_Blades,
+            Fighting_Claws
         };
 
         static Unit *Create(const ParameterList &parameters);

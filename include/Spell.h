@@ -18,7 +18,7 @@ class Unit;
 class Spell {
 public:
 
-    enum Result {
+    enum class Result {
         Failed,
         Unbound,
         Success,
@@ -61,7 +61,7 @@ public:
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(double x, double y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Result::Failed; }
 
 protected:
 
@@ -79,13 +79,13 @@ public:
     AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, double radius, int damage,
                       int affectedRoll);
 
-    Result cast(Unit *target, int round) override { return Failed; }
+    Result cast(Unit *target, int round) override { return Result::Failed; }
 
     Result cast(double x, double y, int round) override;
 
 protected:
 
-    virtual int getDamage(int castingRoll) const;
+    [[nodiscard]] virtual int getDamage(int castingRoll) const;
 
     virtual void secondaryEffect(Unit *target, int round) const {}
 
@@ -99,13 +99,13 @@ public:
     LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, int damage,
                       int affectedRoll);
 
-    Result cast(Unit *target, int round) override { return Failed; }
+    Result cast(Unit *target, int round) override { return Result::Failed; }
 
     Result cast(double x, double y, int round) override;
 
 protected:
 
-    virtual int getDamage(int castingRoll) const;
+    [[nodiscard]] virtual int getDamage(int castingRoll) const;
 
     int m_damage = 0;
     int m_affectedRoll = 0;
@@ -119,11 +119,11 @@ public:
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(double x, double y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Result::Failed; }
 
 protected:
 
-    virtual int getHealing(int castingRoll) const;
+    [[nodiscard]] virtual int getHealing(int castingRoll) const;
 
     int m_healing = 0;
     int m_castingValue2 = -1;
@@ -137,13 +137,13 @@ public:
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(double x, double y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Result::Failed; }
 
 protected:
 
-    virtual int getModifier(int castingRoll) const;
+    [[nodiscard]] virtual int getModifier(int castingRoll) const;
 
-    BuffableAttribute m_attribute = ToHitMelee;
+    BuffableAttribute m_attribute = To_Hit_Melee;
     int m_modifier = 0;
 };
 
@@ -154,12 +154,12 @@ public:
 
     Result cast(Unit *target, int round) override;
 
-    Result cast(double x, double y, int round) override { return Failed; }
+    Result cast(double x, double y, int round) override { return Result::Failed; }
 
 protected:
 
-    BuffableAttribute m_attribute = ToHitMelee;
-    Rerolls m_reroll = NoRerolls;
+    BuffableAttribute m_attribute = To_Hit_Melee;
+    Rerolls m_reroll = No_Rerolls;
 };
 
 #endif// SPELL_H

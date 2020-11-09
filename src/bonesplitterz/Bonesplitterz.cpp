@@ -87,8 +87,8 @@ namespace Bonesplitterz {
 
         // Warpaint
         Dice::RollResult normalResult, mortalResult;
-        Dice::rollD6(totalWounds.normal, normalResult);
-        Dice::rollD6(totalWounds.mortal, mortalResult);
+        Dice::RollD6(totalWounds.normal, normalResult);
+        Dice::RollD6(totalWounds.mortal, mortalResult);
 
         totalWounds.normal -= normalResult.rollsGE(6);
         totalWounds.mortal -= mortalResult.rollsGE(6);
@@ -103,7 +103,7 @@ namespace Bonesplitterz {
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), MONSTER, 3.0);
         if (unit) {
             // Select ability
-            auto roll = Dice::rollD6();
+            auto roll = Dice::RollD6();
             if (roll == 1) {
                 // Wild Abandon
                 m_pileInMove = 6;

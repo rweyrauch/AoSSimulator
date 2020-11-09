@@ -18,12 +18,12 @@ namespace Tzeentch {
 
     enum class ChangeCoven : int {
         None,
-        EternalConflagration,
-        HostsDuplicitous,
-        HostsArcanum,
-        CultOfTheTransientForm,
-        PyrofaneCult,
-        GuildOfSummoners
+        Eternal_Conflagration,
+        Hosts_Duplicitous,
+        Hosts_Arcanum,
+        Cult_Of_The_Transient_Form,
+        Pyrofane_Cult,
+        Guild_Of_Summoners
     };
 
     enum class CommandTrait : int {
@@ -31,7 +31,7 @@ namespace Tzeentch {
 
         // Arcanites
         Arch_Sorcerer,
-        Nexus_of_Fate,
+        Nexus_Of_Fate,
         Magical_Supremancy,
         Boundless_Mutation,
         Cult_Demagogue,
@@ -52,11 +52,11 @@ namespace Tzeentch {
 
         // Coven specific
         Coruscating_Flames,  // Eternal Conflaguration
-        Will_of_the_Phantom_Lord,   // Host Duplicitous
+        Will_Of_The_Phantom_Lord,   // Host Duplicitous
         Spell_Hunters,  // Hosts Arcanum
-        Defiant_in_their_Pursuit,   // Transient Form
-        Shrouded_in_Unnatural_Flame,    // Pyrofane Cult
-        Prophet_of_the_Ostensible  // Guild of Summoners
+        Defiant_In_Their_Pursuit,   // Transient Form
+        Shrouded_In_Unnatural_Flame,    // Pyrofane Cult
+        Prophet_Of_The_Ostensible  // Guild of Summoners
     };
 
     enum class Artefact : int {
@@ -78,17 +78,17 @@ namespace Tzeentch {
         // Daemons
         Warpfire_Blade,
         Sentient_Weapon,
-        Blade_of_Fate,
+        Blade_Of_Fate,
         Souleater,
         Phatasmal_Weapons,
         Pyrofyre_Stave,
-        Aura_of_Mutabulity,
-        Wellspring_of_Arcane_Might,
-        Aspect_of_Tzeentch,
+        Aura_Of_Mutabulity,
+        Wellspring_Of_Arcane_Might,
+        Aspect_Of_Tzeentch,
 
         // Coven specific
-        Shroud_of_Warpflame, // Eternal Conflaguration
-        Brand_of_the_Split_Daemon,   // Host Duplicitous
+        Shroud_Of_Warpflame, // Eternal Conflaguration
+        Brand_Of_The_Split_Daemon,   // Host Duplicitous
         The_Fanged_Circlet, // Hosts Arcanum
         Chaotica_Amulet,    // Transient Form
         Chainfire_Amulet,   // Pyrofane Cult
@@ -97,16 +97,16 @@ namespace Tzeentch {
 
     enum class Lore : int {
         // Lore of Fate
-        Bolt_of_Tzeentch,
+        Bolt_Of_Tzeentch,
         Arcane_Suggestion,
-        Glimpse_the_Future,
-        Shield_of_Faith,
+        Glimpse_The_Future,
+        Shield_Of_Faith,
         Infusion_Arcanum,
         Treacherous_Bond,
 
         // Lore of Change
         //Bolt_of_Tzeentch,
-        Treason_of_Tzeentch,
+        Treason_Of_Tzeentch,
         Arcane_Transformation,
         Unchecked_Mutation,
         Fold_Reality,

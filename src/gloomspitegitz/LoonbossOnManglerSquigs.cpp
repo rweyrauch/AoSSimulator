@@ -13,9 +13,9 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 80;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 280;
+    static const int g_basesize = 80;
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 280;
 
     bool LoonbossOnManglerSquigs::s_registered = false;
 
@@ -25,9 +25,9 @@ namespace GloomspiteGitz {
         int m_ballsAndChainsAttack;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {RAND_3D6, 3, 7},
                     {RAND_2D6, 4, 6},
@@ -37,19 +37,19 @@ namespace GloomspiteGitz {
             };
 
     LoonbossOnManglerSquigs::LoonbossOnManglerSquigs() :
-            GloomspiteGitzBase("Loonboss on Mangler Squigs", RAND_3D6, WOUNDS, 10, 4, true),
+            GloomspiteGitzBase("Loonboss on Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true),
             m_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
             m_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3),
             m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, LOONBOSS, MANGLER_SQUIG};
         m_weapons = {&m_hugeFangFilledGob, &m_moonCutta, &m_ballsAndChains, &m_grotsBashinStikk};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
     }
 
     bool LoonbossOnManglerSquigs::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_moonCutta);
         model->addMeleeWeapon(&m_hugeFangFilledGob);
@@ -58,7 +58,7 @@ namespace GloomspiteGitz {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -90,7 +90,7 @@ namespace GloomspiteGitz {
 
     int LoonbossOnManglerSquigs::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -142,9 +142,9 @@ namespace GloomspiteGitz {
         // get all units within 6" (friend and foe)
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0);
         for (auto ip : units) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 4) {
-                int mortalWounds = Dice::rollD3();
+                int mortalWounds = Dice::RollD3();
                 ip->applyDamage({0, mortalWounds});
             }
         }
@@ -154,15 +154,15 @@ namespace GloomspiteGitz {
     void LoonbossOnManglerSquigs::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
             // Redcap Mushrooms
-            m_toHitRerolls = NoRerolls;
-            m_toWoundRerolls = NoRerolls;
+            m_toHitRerolls = No_Rerolls;
+            m_toWoundRerolls = No_Rerolls;
 
             if (!m_eatenRedcapMushroom) {
                 if (m_meleeTarget) {
                     std::cout << "Eating the Redcap Mushroom!" << std::endl;
                     m_eatenRedcapMushroom = true;
-                    m_toHitRerolls = RerollFailed;
-                    m_toWoundRerolls = RerollFailed;
+                    m_toHitRerolls = Reroll_Failed;
+                    m_toWoundRerolls = Reroll_Failed;
                 }
             }
         }
@@ -181,7 +181,7 @@ namespace GloomspiteGitz {
     }
 
     int LoonbossOnManglerSquigs::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

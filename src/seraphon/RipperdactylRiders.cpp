@@ -12,17 +12,17 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 50;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool RipperdactylRiders::s_registered = false;
 
     RipperdactylRiders::RipperdactylRiders() :
-            SeraphonBase("Ripperdactyl Riders", 12, WOUNDS, 5, 5, true),
+            SeraphonBase("Ripperdactyl Riders", 12, g_wounds, 5, 5, true),
             m_spear(Weapon::Type::Melee, "Moonstone Warspear", 1, 1, 4, 4, 0, 1),
             m_spearAlpha(Weapon::Type::Melee, "Moonstone Warspear", 1, 2, 4, 4, 0, 1),
             m_jaws(Weapon::Type::Melee, "Tearing Jaws", 1, 3, 4, 3, 0, 1) {
@@ -32,19 +32,19 @@ namespace Seraphon {
     }
 
     bool RipperdactylRiders::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         // Add the Alpha
-        auto alpha = new Model(BASESIZE, wounds());
+        auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_spearAlpha);
         alpha->addMeleeWeapon(&m_jaws);
         addModel(alpha);
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_spear);
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
@@ -57,7 +57,7 @@ namespace Seraphon {
 
     Unit *RipperdactylRiders::Create(const ParameterList &parameters) {
         auto unit = new RipperdactylRiders();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
@@ -79,7 +79,7 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation)
                     },
@@ -92,9 +92,9 @@ namespace Seraphon {
     }
 
     int RipperdactylRiders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -110,7 +110,7 @@ namespace Seraphon {
     Rerolls RipperdactylRiders::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (!m_usedToad && (weapon->name() == m_jaws.name())) {
             m_usedToad = true;
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         return Unit::toHitRerolls(weapon, target);

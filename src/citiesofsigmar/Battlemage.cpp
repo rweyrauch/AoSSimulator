@@ -13,9 +13,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 110;
 
     bool Battlemage::s_registered = false;
 
@@ -80,7 +80,7 @@ namespace CitiesOfSigmar {
     }
 
     Battlemage::Battlemage() :
-            CitizenOfSigmar("Battlemage", 5, WOUNDS, 6, 6, false),
+            CitizenOfSigmar("Battlemage", 5, g_wounds, 6, 6, false),
             m_staff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, HERO, WIZARD, BATTLEMAGE};
         m_weapons = {&m_staff};
@@ -90,7 +90,7 @@ namespace CitiesOfSigmar {
     }
 
     bool Battlemage::configure(Realm realm, Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
@@ -98,7 +98,7 @@ namespace CitiesOfSigmar {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_realm = realm;
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -113,7 +113,7 @@ namespace CitiesOfSigmar {
     }
 
     int Battlemage::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 }//namespace CitiesOfSigmar

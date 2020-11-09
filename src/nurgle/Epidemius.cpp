@@ -10,9 +10,9 @@
 #include "nurgle/Epidemius.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 60;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 200;
 
     bool EpidemiusTallymanOfNurgle::s_registered = false;
 
@@ -48,7 +48,7 @@ namespace Nurgle {
     }
 
     EpidemiusTallymanOfNurgle::EpidemiusTallymanOfNurgle() :
-            NurgleBase("Epidemius, Tallyman of Nurgle", 4, WOUNDS, 10, 4, false),
+            NurgleBase("Epidemius, Tallyman of Nurgle", 4, g_wounds, 10, 4, false),
             m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3),
             m_teeth(Weapon::Type::Melee, "Tiny Razor-sharp Teeth", 1, 5, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, EPIDEMIUS, TALLYMAN_OF_NURGLE};
@@ -57,12 +57,12 @@ namespace Nurgle {
     }
 
     bool EpidemiusTallymanOfNurgle::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_balesword);
         model->addMeleeWeapon(&m_teeth);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -70,8 +70,8 @@ namespace Nurgle {
     Wounds EpidemiusTallymanOfNurgle::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -81,7 +81,7 @@ namespace Nurgle {
     }
 
     int EpidemiusTallymanOfNurgle::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

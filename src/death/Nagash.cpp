@@ -12,9 +12,9 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 880;
+    static const int g_basesize = 100;
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 880;
 
     struct TableEntry {
         int m_spells;
@@ -23,9 +23,9 @@ namespace Death {
         int m_unbindBonus;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {3, 6, 10, 13, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {5, 6, 3, 3},
                     {4, 5, 3, 2},
@@ -37,14 +37,14 @@ namespace Death {
     bool Nagash::s_registered = false;
 
     Nagash::Nagash() :
-            LegionOfNagashBase("Nagash", 9, WOUNDS, 10, 3, true),
+            LegionOfNagashBase("Nagash", 9, g_wounds, 10, 3, true),
             m_gaze(Weapon::Type::Missile, "Gaze of Nagash", 12, 1, 3, 2, -1, RAND_D6),
             m_alakanash(Weapon::Type::Melee, "Alakanash", 3, 1, 3, 2, -3, RAND_D6),
             m_zefetNebtar(Weapon::Type::Melee, "Zefet-nebtar", 2, 6, 3, 3, -2, 3),
             m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, DEATHLORDS, MONSTER, HERO, PRIEST, WIZARD, NAGASH};
         m_weapons = {&m_gaze, &m_alakanash, &m_zefetNebtar, &m_clawsAndDaggers};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         m_totalSpells = 8;
         m_totalUnbinds = 8;
@@ -87,7 +87,7 @@ namespace Death {
     }
 
     bool Nagash::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_gaze);
         model->addMeleeWeapon(&m_alakanash);
@@ -98,14 +98,14 @@ namespace Death {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int Nagash::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -140,7 +140,7 @@ namespace Death {
     }
 
     int Nagash::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void Nagash::onWounded() {

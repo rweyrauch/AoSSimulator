@@ -16,87 +16,87 @@
 namespace BeastsOfChaos {
 
     constexpr std::array<int, 4> g_greatFray = {
-        to_integer(Greatfray::None),
-        to_integer(Greatfray::Allherd),
-        to_integer(Greatfray::Darkwalkers),
-        to_integer(Greatfray::Gavespawn)
+            ToInteger(Greatfray::None),
+            ToInteger(Greatfray::Allherd),
+            ToInteger(Greatfray::Darkwalkers),
+            ToInteger(Greatfray::Gavespawn)
     };
 
     constexpr std::array<int, 7> g_brayherdCommandTrait = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Beastial_Cunning),
-            to_integer(CommandTrait::Indomitable_Beast),
-            to_integer(CommandTrait::Apex_Predator),
-            to_integer(CommandTrait::Malevolent_Despoiler),
-            to_integer(CommandTrait::Oracle_of_the_Dark_Tongue),
-            to_integer(CommandTrait::Shadowpelt),
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Beastial_Cunning),
+            ToInteger(CommandTrait::Indomitable_Beast),
+            ToInteger(CommandTrait::Apex_Predator),
+            ToInteger(CommandTrait::Malevolent_Despoiler),
+            ToInteger(CommandTrait::Oracle_Of_The_Dark_Tongue),
+            ToInteger(CommandTrait::Shadowpelt),
     };
 
     constexpr std::array<int, 7> g_warherdCommandTrait = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Eater_of_Heroes),
-            to_integer(CommandTrait::Rampant_Juggernaut),
-            to_integer(CommandTrait::Gorger),
-            to_integer(CommandTrait::Gouge_Tusks),
-            to_integer(CommandTrait::Roaring_Brute),
-            to_integer(CommandTrait::Rugged_Hide),
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Eater_Of_Heroes),
+            ToInteger(CommandTrait::Rampant_Juggernaut),
+            ToInteger(CommandTrait::Gorger),
+            ToInteger(CommandTrait::Gouge_Tusks),
+            ToInteger(CommandTrait::Roaring_Brute),
+            ToInteger(CommandTrait::Rugged_Hide),
     };
 
     constexpr std::array<int, 7> g_thunderscornCommandTrait = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Tempestuous_Tyrant),
-            to_integer(CommandTrait::Magnetic_Monstrosity),
-            to_integer(CommandTrait::Father_of_the_Storm),
-            to_integer(CommandTrait::Lightning_Fast_Monstrosity),
-            to_integer(CommandTrait::Adamantine_Scales),
-            to_integer(CommandTrait::Ancient_Beyond_Knowledge),
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Tempestuous_Tyrant),
+            ToInteger(CommandTrait::Magnetic_Monstrosity),
+            ToInteger(CommandTrait::Father_Of_The_Storm),
+            ToInteger(CommandTrait::Lightning_Fast_Monstrosity),
+            ToInteger(CommandTrait::Adamantine_Scales),
+            ToInteger(CommandTrait::Ancient_Beyond_Knowledge),
     };
 
     constexpr std::array<int, 7> g_brayherdArtefact = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Ramhorn_Helm),
-            to_integer(Artefact::Brayblast_Trumpet),
-            to_integer(Artefact::The_Knowing_Eye),
-            to_integer(Artefact::Volcanic_Axe),
-            to_integer(Artefact::Bleating_Gnarlstaff),
-            to_integer(Artefact::Troggoth_Hide_Cloak),
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Ramhorn_Helm),
+            ToInteger(Artefact::Brayblast_Trumpet),
+            ToInteger(Artefact::The_Knowing_Eye),
+            ToInteger(Artefact::Volcanic_Axe),
+            ToInteger(Artefact::Bleating_Gnarlstaff),
+            ToInteger(Artefact::Troggoth_Hide_Cloak),
     };
 
     constexpr std::array<int, 7> g_warherdArtefact = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Cleaver_of_the_Brass_Bell),
-            to_integer(Artefact::Gilded_Horns),
-            to_integer(Artefact::Glyph_Etched_Talisman),
-            to_integer(Artefact::Blackened_Armour_of_Chaos),
-            to_integer(Artefact::Champions_Doomcloak),
-            to_integer(Artefact::Herdstone_Shard),
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Cleaver_Of_The_Brass_Bell),
+            ToInteger(Artefact::Gilded_Horns),
+            ToInteger(Artefact::Glyph_Etched_Talisman),
+            ToInteger(Artefact::Blackened_Armour_Of_Chaos),
+            ToInteger(Artefact::Champions_Doomcloak),
+            ToInteger(Artefact::Herdstone_Shard),
     };
 
     constexpr std::array<int, 7> g_thunderscornArtefact = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Ancestral_Azyrite_Blade),
-            to_integer(Artefact::Lightning_Chained_Bracers),
-            to_integer(Artefact::Thunderstrike_Lodestone),
-            to_integer(Artefact::Horn_of_the_Tempest),
-            to_integer(Artefact::Tanglehorn_Familiars),
-            to_integer(Artefact::Ruinous_Icon),
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Ancestral_Azyrite_Blade),
+            ToInteger(Artefact::Lightning_Chained_Bracers),
+            ToInteger(Artefact::Thunderstrike_Lodestone),
+            ToInteger(Artefact::Horn_Of_The_Tempest),
+            ToInteger(Artefact::Tanglehorn_Familiars),
+            ToInteger(Artefact::Ruinous_Icon),
     };
 
     constexpr std::array<int, 7> g_loreOfTheTwistedWilds{
-            to_integer(Lore::None),
-            to_integer(Lore::Viletide),
-            to_integer(Lore::Vicious_Stanglethorns),
-            to_integer(Lore::Savage_Dominion),
-            to_integer(Lore::Tendrils_of_Atrophy),
-            to_integer(Lore::Wild_Rampage),
-            to_integer(Lore::Titanic_Fury)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Viletide),
+            ToInteger(Lore::Vicious_Stanglethorns),
+            ToInteger(Lore::Savage_Dominion),
+            ToInteger(Lore::Tendrils_Of_Atrophy),
+            ToInteger(Lore::Wild_Rampage),
+            ToInteger(Lore::Titanic_Fury)
     };
 
     constexpr std::array<int, 4> g_loreOfTheDarkStorms {
-            to_integer(Lore::None),
-            to_integer(Lore::Thunderwave),
-            to_integer(Lore::Hailstorm),
-            to_integer(Lore::Sundering_Blades)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Thunderwave),
+            ToInteger(Lore::Hailstorm),
+            ToInteger(Lore::Sundering_Blades)
     };
 
 } // namespace BeastsOfChaos

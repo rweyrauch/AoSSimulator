@@ -10,17 +10,17 @@
 #include <UnitFactory.h>
 
 namespace Nighthaunt {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool Hexwraiths::s_registered = false;
 
     Hexwraiths::Hexwraiths() :
-            Nighthaunt("Hexwraiths", 12, WOUNDS, 10, 4, true),
+            Nighthaunt("Hexwraiths", 12, g_wounds, 10, 4, true),
             m_spectralScythe(Weapon::Type::Melee, "Spectral Scythe", 1, 2, 4, 3, -1, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 5, 0, 1),
             m_spectralScytheHellwraith(Weapon::Type::Melee, "Spectral Scythe", 1, 3, 4, 3, -1, 1) {
@@ -30,17 +30,17 @@ namespace Nighthaunt {
     }
 
     bool Hexwraiths::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         boss->addMeleeWeapon(&m_spectralScytheHellwraith);
         boss->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(boss);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_spectralScythe);
             model->addMeleeWeapon(&m_hoovesAndTeeth);
             addModel(model);
@@ -53,7 +53,7 @@ namespace Nighthaunt {
 
     Unit *Hexwraiths::Create(const ParameterList &parameters) {
         auto unit = new Hexwraiths();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -71,7 +71,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     Hexwraiths::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -89,9 +89,9 @@ namespace Nighthaunt {
     }
 
     int Hexwraiths::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

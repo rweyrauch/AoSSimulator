@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef DEATHRIDERS_H
-#define DEATHRIDERS_H
+#ifndef KAVALOSDEATHRIDERS_H
+#define KAVALOSDEATHRIDERS_H
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -18,8 +18,8 @@ namespace OssiarchBonereapers {
     public:
 
         enum WeaponOption {
-            NadiriteBladeAndShield,
-            NadirateSpearAndShield
+            Nadirite_Blade_And_Shield,
+            Nadirate_Spear_And_Shield
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -69,4 +69,4 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //DEATHRIDERS_H
+#endif //KAVALOSDEATHRIDERS_H

@@ -11,9 +11,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 75; // x42 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 75; // x42 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 160;
 
     bool ReikenorTheGrimhailer::s_registered = false;
 
@@ -52,7 +52,7 @@ namespace Nighthaunt {
     }
 
     ReikenorTheGrimhailer::ReikenorTheGrimhailer() :
-            Nighthaunt("Reikenor the Grimhailer", 14, WOUNDS, 10, 4, true),
+            Nighthaunt("Reikenor the Grimhailer", 14, g_wounds, 10, 4, true),
             m_fellreaper(Weapon::Type::Melee, "Fellreaper", 2, 4, 4, 3, -1, 2),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, REIKENOR_THE_GRIMHAILER};
@@ -65,7 +65,7 @@ namespace Nighthaunt {
     }
 
     bool ReikenorTheGrimhailer::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_fellreaper);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
@@ -91,14 +91,14 @@ namespace Nighthaunt {
     Rerolls ReikenorTheGrimhailer::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Reaped Like Corn
         if ((target->remainingModels() >= 5) && (weapon->name() == m_fellreaper.name())) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         return Unit::toHitRerolls(weapon, target);
     }
 
     int ReikenorTheGrimhailer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

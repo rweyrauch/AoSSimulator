@@ -11,15 +11,15 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool Deathmaster::s_registered = false;
 
     Unit *Deathmaster::Create(const ParameterList &parameters) {
         auto unit = new Deathmaster();
-        WeaponOption option = WeepingBlades;
+        WeaponOption option = Weeping_Blades;
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_eshinClanCommandTraits[0]);
         unit->setCommandTrait(trait);
@@ -58,7 +58,7 @@ namespace Skaven {
     }
 
     Deathmaster::Deathmaster() :
-            Skaventide("Deathmaster", 7, WOUNDS, 5, 4, false),
+            Skaventide("Deathmaster", 7, g_wounds, 5, 4, false),
             m_stars(Weapon::Type::Missile, "Eshin Throwing Stars", 12, 4, 4, 5, 0, 1),
             m_blades(Weapon::Type::Melee, "Weeping Blades", 1, 3, 3, 3, -1, RAND_D3),
             m_claws(Weapon::Type::Melee, "Fighting Claws", 1, 7, 3, 3, 0, 1) {
@@ -71,15 +71,15 @@ namespace Skaven {
     }
 
     bool Deathmaster::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_stars);
-        if (option == WeepingBlades)
+        if (option == Weeping_Blades)
             model->addMeleeWeapon(&m_blades);
-        else if (option == FightingClaws)
+        else if (option == Fighting_Claws)
             model->addMeleeWeapon(&m_claws);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -101,7 +101,7 @@ namespace Skaven {
     }
 
     int Deathmaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

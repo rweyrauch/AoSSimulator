@@ -18,8 +18,8 @@ namespace Dispossessed {
     public:
 
         enum WeaponOptions {
-            AncestralAxesOrHammers,
-            AncestralGreatAxe
+            Ancestral_Axes_Or_Hammers,
+            Ancestral_Great_Axe
         };
 
         static Unit *Create(const ParameterList &parameters);

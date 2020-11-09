@@ -10,19 +10,19 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 20;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 160;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 20;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 160;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool ChaosMarauders::s_registered = false;
 
     Unit *ChaosMarauders::Create(const ParameterList &parameters) {
         auto unit = new ChaosMarauders();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, AxeAndShield);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Axe_And_Shield);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool drummer = GetBoolParam("Drummer", parameters, false);
 
@@ -42,15 +42,15 @@ namespace SlavesToDarkness {
 
     void ChaosMarauders::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Flail, AxeAndShield};
+            static const std::array<int, 2> weapons = {Flail, Axe_And_Shield};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", AxeAndShield, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Axe_And_Shield, weapons),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Drummer"),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
@@ -64,7 +64,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosMarauders::ChaosMarauders() :
-            SlavesToDarknessBase("Chaos Marauders", 6, WOUNDS, 5, 6, false),
+            SlavesToDarknessBase("Chaos Marauders", 6, g_wounds, 5, 6, false),
             m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
             m_flail(Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, 0, 1),
             m_axeChieftain(Weapon::Type::Melee, "Barbarian Axe", 1, 3, 4, 4, 0, 1),
@@ -81,7 +81,7 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -89,8 +89,8 @@ namespace SlavesToDarkness {
         m_iconBearer = iconBearer;
         m_drummer = drummer;
 
-        auto leader = new Model(BASESIZE, wounds());
-        if (weapons == AxeAndShield) {
+        auto leader = new Model(g_basesize, wounds());
+        if (weapons == Axe_And_Shield) {
             leader->addMeleeWeapon(&m_axeChieftain);
         } else if (weapons == Flail) {
             leader->addMeleeWeapon(&m_flailChieftain);
@@ -99,9 +99,9 @@ namespace SlavesToDarkness {
         addModel(leader);
 
         if (m_iconBearer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Icon Bearer");
-            if (weapons == AxeAndShield)
+            if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
                 model->addMeleeWeapon(&m_flail);
@@ -109,9 +109,9 @@ namespace SlavesToDarkness {
         }
 
         if (m_drummer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Drummer");
-            if (weapons == AxeAndShield)
+            if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
                 model->addMeleeWeapon(&m_flail);
@@ -119,8 +119,8 @@ namespace SlavesToDarkness {
         }
 
         for (auto i = (int) m_models.size(); i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == AxeAndShield)
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
                 model->addMeleeWeapon(&m_flail);
@@ -128,7 +128,7 @@ namespace SlavesToDarkness {
         }
 
         // Darkwood Shields
-        if (m_weaponOption == WeaponOption::AxeAndShield) {
+        if (m_weaponOption == WeaponOption::Axe_And_Shield) {
             m_save = 5;
         }
 
@@ -139,7 +139,7 @@ namespace SlavesToDarkness {
 
     std::string ChaosMarauders::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == AxeAndShield) {
+            if (parameter.intValue == Axe_And_Shield) {
                 return "Barbarian Axe and Darkwood Shield";
             } else if (parameter.intValue == Flail) {
                 return "Barbarian Flail";
@@ -150,7 +150,7 @@ namespace SlavesToDarkness {
 
     int ChaosMarauders::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Barbarian Axe and Darkwood Shield") {
-            return AxeAndShield;
+            return Axe_And_Shield;
         } else if (enumString == "Barbarian Flail") {
             return Flail;
         }
@@ -212,9 +212,9 @@ namespace SlavesToDarkness {
     }
 
     int ChaosMarauders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -229,8 +229,8 @@ namespace SlavesToDarkness {
 
     int ChaosMarauders::rollChargeDistance() const {
         // Boundless Ferocity
-        auto roll1 = Dice::rollD6();
-        auto roll2 = Dice::rollD6();
+        auto roll1 = Dice::RollD6();
+        auto roll2 = Dice::RollD6();
         if (roll1 < roll2) roll1 = 6;
         else if (roll2 < roll1) roll2 = 6;
         else roll1 = 6;

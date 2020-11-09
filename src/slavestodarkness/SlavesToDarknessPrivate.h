@@ -16,88 +16,88 @@
 namespace SlavesToDarkness {
 
     constexpr std::array<int, 4> g_damnedLegion = {
-            to_integer(DamnedLegion::Ravagers),
-            to_integer(DamnedLegion::Cabalists),
-            to_integer(DamnedLegion::Despoilers),
-            to_integer(DamnedLegion::Host_of_the_Everchosen)
+            ToInteger(DamnedLegion::Ravagers),
+            ToInteger(DamnedLegion::Cabalists),
+            ToInteger(DamnedLegion::Despoilers),
+            ToInteger(DamnedLegion::Host_Of_The_Everchosen)
     };
 
     constexpr std::array<int, 5> g_markOfChaos = {
-            to_integer(MarkOfChaos::Undivided),
-            to_integer(MarkOfChaos::Nurgle),
-            to_integer(MarkOfChaos::Khorne),
-            to_integer(MarkOfChaos::Slaanesh),
-            to_integer(MarkOfChaos::Tzeentch)
+            ToInteger(MarkOfChaos::Undivided),
+            ToInteger(MarkOfChaos::Nurgle),
+            ToInteger(MarkOfChaos::Khorne),
+            ToInteger(MarkOfChaos::Slaanesh),
+            ToInteger(MarkOfChaos::Tzeentch)
     };
 
     constexpr std::array<int, 7> g_lore = {
-            to_integer(Lore::None),
-            to_integer(Lore::Binding_Damnation),
-            to_integer(Lore::Spite_Tongue_Curse),
-            to_integer(Lore::Whispers_of_Chaos),
-            to_integer(Lore::Mask_of_Darkness),
-            to_integer(Lore::Call_to_Glory),
-            to_integer(Lore::Ruinous_Vigour)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Binding_Damnation),
+            ToInteger(Lore::Spite_Tongue_Curse),
+            ToInteger(Lore::Whispers_Of_Chaos),
+            ToInteger(Lore::Mask_Of_Darkness),
+            ToInteger(Lore::Call_To_Glory),
+            ToInteger(Lore::Ruinous_Vigour)
     };
 
     constexpr std::array<int, 7> g_ravagersCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Bolstered_by_Hate),
-            to_integer(CommandTrait::Unquestioned_Resolve),
-            to_integer(CommandTrait::Favoured_of_the_Pantheon),
-            to_integer(CommandTrait::Eternal_Vendetta),
-            to_integer(CommandTrait::Flames_of_Spite),
-            to_integer(CommandTrait::Master_of_Deception)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Bolstered_By_Hate),
+            ToInteger(CommandTrait::Unquestioned_Resolve),
+            ToInteger(CommandTrait::Favoured_Of_The_Pantheon),
+            ToInteger(CommandTrait::Eternal_Vendetta),
+            ToInteger(CommandTrait::Flames_Of_Spite),
+            ToInteger(CommandTrait::Master_Of_Deception)
     };
 
     constexpr std::array<int, 7> g_cabalistCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Bolstered_by_Hate),
-            to_integer(CommandTrait::Lord_of_Terror),
-            to_integer(CommandTrait::Favoured_of_the_Pantheon),
-            to_integer(CommandTrait::Mighty_Ritualist),
-            to_integer(CommandTrait::Blasphemous_Influence),
-            to_integer(CommandTrait::All_for_One)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Bolstered_By_Hate),
+            ToInteger(CommandTrait::Lord_Of_Terror),
+            ToInteger(CommandTrait::Favoured_Of_The_Pantheon),
+            ToInteger(CommandTrait::Mighty_Ritualist),
+            ToInteger(CommandTrait::Blasphemous_Influence),
+            ToInteger(CommandTrait::All_For_One)
     };
 
     constexpr std::array<int, 7> g_despoilerCommandTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Bolstered_by_Hate),
-            to_integer(CommandTrait::Lord_of_Terror),
-            to_integer(CommandTrait::Lightning_Reflexes),
-            to_integer(CommandTrait::Radiance_of_Dark_Glory),
-            to_integer(CommandTrait::Distorting_Miasma),
-            to_integer(CommandTrait::Paragon_of_Ruin)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Bolstered_By_Hate),
+            ToInteger(CommandTrait::Lord_Of_Terror),
+            ToInteger(CommandTrait::Lightning_Reflexes),
+            ToInteger(CommandTrait::Radiance_Of_Dark_Glory),
+            ToInteger(CommandTrait::Distorting_Miasma),
+            ToInteger(CommandTrait::Paragon_Of_Ruin)
     };
 
     constexpr std::array<int, 7> g_ravagerArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Hellfire_Sword),
-            to_integer(Artefact::Blasphemous_Cuirass),
-            to_integer(Artefact::Helm_of_the_Oppressor),
-            to_integer(Artefact::Cloak_of_the_Relentless_Conqueror),
-            to_integer(Artefact::Mark_of_the_High_Favoured),
-            to_integer(Artefact::Desecrator_Gauntlets)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Hellfire_Sword),
+            ToInteger(Artefact::Blasphemous_Cuirass),
+            ToInteger(Artefact::Helm_Of_The_Oppressor),
+            ToInteger(Artefact::Cloak_Of_The_Relentless_Conqueror),
+            ToInteger(Artefact::Mark_Of_The_High_Favoured),
+            ToInteger(Artefact::Desecrator_Gauntlets)
     };
 
     constexpr std::array<int, 7> g_cabalistArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Soul_Feeder),
-            to_integer(Artefact::Black_Athame),
-            to_integer(Artefact::Infernal_Puppet),
-            to_integer(Artefact::Spelleater_Pendant),
-            to_integer(Artefact::Scroll_of_Dark_Unravelling),
-            to_integer(Artefact::Spell_Familiar)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Soul_Feeder),
+            ToInteger(Artefact::Black_Athame),
+            ToInteger(Artefact::Infernal_Puppet),
+            ToInteger(Artefact::Spelleater_Pendant),
+            ToInteger(Artefact::Scroll_Of_Dark_Unravelling),
+            ToInteger(Artefact::Spell_Familiar)
     };
 
     constexpr std::array<int, 7> g_despoilerArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Crown_of_Hellish_Adoration),
-            to_integer(Artefact::Helm_of_Many_Eyes),
-            to_integer(Artefact::Armour_of_Tortured_Souls),
-            to_integer(Artefact::Diabolic_Mantle),
-            to_integer(Artefact::Doombringer_Blade),
-            to_integer(Artefact::Realmwarpers_Twist_Rune)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Crown_Of_Hellish_Adoration),
+            ToInteger(Artefact::Helm_Of_Many_Eyes),
+            ToInteger(Artefact::Armour_Of_Tortured_Souls),
+            ToInteger(Artefact::Diabolic_Mantle),
+            ToInteger(Artefact::Doombringer_Blade),
+            ToInteger(Artefact::Realmwarpers_Twist_Rune)
     };
 
 } // SlavesToDarkness

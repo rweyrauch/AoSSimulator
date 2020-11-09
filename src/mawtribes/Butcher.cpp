@@ -12,9 +12,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 50;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 140;
 
     bool Butcher::s_registered = false;
 
@@ -70,7 +70,7 @@ namespace OgorMawtribes {
     }
 
     Butcher::Butcher() :
-            MawtribesBase("Butcher", 6, WOUNDS, 8, 5, false),
+            MawtribesBase("Butcher", 6, g_wounds, 8, 5, false),
             m_tenderizer(Weapon::Type::Melee, "Tenderizer", 1, 3, 3, 3, -1, 3),
             m_cleaver(Weapon::Type::Melee, "Cleaver", 1, 3, 3, 3, -2, 2),
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
@@ -83,7 +83,7 @@ namespace OgorMawtribes {
     }
 
     bool Butcher::configure(WeaponOption weaponOption, Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         if (weaponOption == Tenderiser) {
             model->addMeleeWeapon(&m_tenderizer);
@@ -103,7 +103,7 @@ namespace OgorMawtribes {
             m_totalUnbinds++;
         }
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -127,7 +127,7 @@ namespace OgorMawtribes {
         Unit::onCastSpell(spell, target);
 
         // Bloodgruel
-        const auto roll = Dice::rollD6();
+        const auto roll = Dice::RollD6();
         if (roll == 1) applyDamage({0, 1});
         else heal(1);
     }
@@ -136,13 +136,13 @@ namespace OgorMawtribes {
         Unit::onUnboundSpell(caster, castRoll);
 
         // Bloodgruel
-        const auto roll = Dice::rollD6();
+        const auto roll = Dice::RollD6();
         if (roll == 1) applyDamage({0, 1});
         else heal(1);
     }
 
     int Butcher::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

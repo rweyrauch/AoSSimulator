@@ -98,7 +98,7 @@ namespace SlavesToDarkness {
             case DamnedLegion::Despoilers:
                 addKeyword(DESPOILERS);
                 break;
-            case DamnedLegion::Host_of_the_Everchosen:
+            case DamnedLegion::Host_Of_The_Everchosen:
                 addKeyword(HOST_OF_THE_EVERCHOSEN);
                 break;
             default:
@@ -139,7 +139,7 @@ namespace SlavesToDarkness {
         if (hasKeyword(KHORNE)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(KHORNE)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         }
         return Unit::toHitRerolls(weapon, target);
@@ -164,7 +164,7 @@ namespace SlavesToDarkness {
         if (hasKeyword(TZEENTCH)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(TZEENTCH)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         }
         return Unit::toSaveRerolls(weapon);

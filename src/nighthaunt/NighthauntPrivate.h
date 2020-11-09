@@ -16,45 +16,45 @@
 namespace Nighthaunt {
 
     constexpr std::array<int, 7> g_commandTraits = {
-        to_integer(CommandTrait::None),
-        to_integer(CommandTrait::Hatred_of_the_Living),
-        to_integer(CommandTrait::Terrifying_Entity),
-        to_integer(CommandTrait::Lingering_Spirit),
-        to_integer(CommandTrait::Spiteful_Spirit),
-        to_integer(CommandTrait::Cloaked_in_Shadow),
-        to_integer(CommandTrait::Ruler_of_the_Spirit_Hosts)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Hatred_Of_The_Living),
+            ToInteger(CommandTrait::Terrifying_Entity),
+            ToInteger(CommandTrait::Lingering_Spirit),
+            ToInteger(CommandTrait::Spiteful_Spirit),
+            ToInteger(CommandTrait::Cloaked_In_Shadow),
+            ToInteger(CommandTrait::Ruler_Of_The_Spirit_Hosts)
     };
 
     constexpr std::array<int, 16> g_artefacts = {
-        to_integer(Artefact::None),
+            ToInteger(Artefact::None),
 
-        to_integer(Artefact::Shadows_Edge),
-        to_integer(Artefact::Reaper_of_Sorrows),
-        to_integer(Artefact::Balefire_Blade),
-        to_integer(Artefact::Slitter),
-        to_integer(Artefact::Headsmans_Judgement),
-        to_integer(Artefact::Shrieking_Blade),
+            ToInteger(Artefact::Shadows_Edge),
+            ToInteger(Artefact::Reaper_Of_Sorrows),
+            ToInteger(Artefact::Balefire_Blade),
+            ToInteger(Artefact::Slitter),
+            ToInteger(Artefact::Headsmans_Judgement),
+            ToInteger(Artefact::Shrieking_Blade),
 
-        to_integer(Artefact::Cloak_of_the_Waxing_Moon),
-        to_integer(Artefact::Pendant_of_the_Fell_Wind),
-        to_integer(Artefact::Dreadbolt_Ring),
-        to_integer(Artefact::Mirror_of_Screaming_Souls),
-        to_integer(Artefact::Midnight_Tome),
-        to_integer(Artefact::Covetous_Familiar),
+            ToInteger(Artefact::Cloak_Of_The_Waxing_Moon),
+            ToInteger(Artefact::Pendant_Of_The_Fell_Wind),
+            ToInteger(Artefact::Dreadbolt_Ring),
+            ToInteger(Artefact::Mirror_Of_Screaming_Souls),
+            ToInteger(Artefact::Midnight_Tome),
+            ToInteger(Artefact::Covetous_Familiar),
 
-        to_integer(Artefact::Lightshard_of_the_Harvest_Moon),
-        to_integer(Artefact::Wychlight_Lantern),
-        to_integer(Artefact::Beacon_of_Nagashizzar)
+            ToInteger(Artefact::Lightshard_Of_The_Harvest_Moon),
+            ToInteger(Artefact::Wychlight_Lantern),
+            ToInteger(Artefact::Beacon_Of_Nagashizzar)
     };
 
     constexpr std::array<int, 7> g_lore = {
-        to_integer(Lore::None),
-        to_integer(Lore::Soul_Cage),
-        to_integer(Lore::Spirit_Drain),
-        to_integer(Lore::Lifestealer),
-        to_integer(Lore::Reaping_Scythe),
-        to_integer(Lore::Shademist),
-        to_integer(Lore::Spectral_Tether)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Soul_Cage),
+            ToInteger(Lore::Spirit_Drain),
+            ToInteger(Lore::Lifestealer),
+            ToInteger(Lore::Reaping_Scythe),
+            ToInteger(Lore::Shademist),
+            ToInteger(Lore::Spectral_Tether)
     };
 
 } // namespace Nighthaunt

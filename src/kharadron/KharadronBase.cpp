@@ -96,7 +96,7 @@ namespace KharadronOverlords {
                 break;
             case Skyport::Barak_Zilfin:
                 addKeyword(BARAK_ZILFIN);
-                setCode(Artycle::Master_the_Skies, Amendment::Dont_Argue_With_the_Wind, Footnote::Theres_Always_a_Breeze);
+                setCode(Artycle::Master_The_Skies, Amendment::Dont_Argue_With_The_Wind, Footnote::Theres_Always_A_Breeze);
                 break;
             case Skyport::Barak_Urbaz:
                 addKeyword(BARAK_URBAZ);
@@ -104,7 +104,7 @@ namespace KharadronOverlords {
                 break;
             case Skyport::Barak_Thryng:
                 addKeyword(BARAK_THRYNG);
-                setCode(Artycle::Chronicle_of_Grudges, Amendment::Take_Help_Where_You_Can_Get_It, Footnote::Honour_the_Gods_Just_in_Case);
+                setCode(Artycle::Chronicle_Of_Grudges, Amendment::Take_Help_Where_You_Can_Get_It, Footnote::Honour_The_Gods_Just_In_Case);
                 break;
             case Skyport::Barak_Mhornar:
                 addKeyword(BARAK_MHORNAR);

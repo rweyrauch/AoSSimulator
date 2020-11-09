@@ -13,17 +13,17 @@
 #include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool AuralanWardens::s_registered = false;
 
     AuralanWardens::AuralanWardens() :
-            LuminethBase("Vanari Auralan Wardens", 6, WOUNDS, 6, 4, false),
+            LuminethBase("Vanari Auralan Wardens", 6, g_wounds, 6, 4, false),
             m_championsBlade(Weapon::Type::Melee, "Champion's Blade", 1, 2, 3, 4, -1, 1),
             m_wardensPike(Weapon::Type::Melee, "Warden's Pike", 3, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, AURALAN_WARDENS};
@@ -34,17 +34,17 @@ namespace LuminethRealmLords {
     }
 
     bool AuralanWardens::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto highWarden = new Model(BASESIZE, wounds());
+        auto highWarden = new Model(g_basesize, wounds());
         highWarden->addMeleeWeapon(&m_championsBlade);
         highWarden->setName("High Warden");
         addModel(highWarden);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_wardensPike);
             addModel(model);
         }
@@ -58,7 +58,7 @@ namespace LuminethRealmLords {
 
     Unit *AuralanWardens::Create(const ParameterList &parameters) {
         auto unit = new AuralanWardens();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
         unit->setNation(nation);
@@ -79,7 +79,7 @@ namespace LuminethRealmLords {
                     LuminethBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,
@@ -91,9 +91,9 @@ namespace LuminethRealmLords {
     }
 
     int AuralanWardens::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -113,8 +113,8 @@ namespace LuminethRealmLords {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0f)) {
                 m_usedMoonfireFlask = true;
-                if (Dice::rollD6() >= 2) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 2) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }

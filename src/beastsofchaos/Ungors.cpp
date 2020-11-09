@@ -11,17 +11,17 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 200;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 60;
+    static const int g_pointsMaxUnitSize = 200;
 
     bool Ungors::s_registered = false;
 
     Ungors::Ungors() :
-            BeastsOfChaosBase("Ungors", 6, WOUNDS, 4, 6, false),
+            BeastsOfChaosBase("Ungors", 6, g_wounds, 4, 6, false),
             m_ungorBlade(Weapon::Type::Melee, "Ungor Blade", 1, 1, 4, 4, 0, 1),
             m_ungorBladeHalfhorn(Weapon::Type::Melee, "Ungor Blade", 1, 2, 4, 4, 0, 1),
             m_gnarledShortspear(Weapon::Type::Melee, "Gnarled Shortspear", 2, 1, 5, 4, 0, 1),
@@ -33,7 +33,7 @@ namespace BeastsOfChaos {
 
     bool Ungors::configure(int numModels, WeaponOptions weapons,
                            bool brayhorn, bool bannerBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -42,19 +42,19 @@ namespace BeastsOfChaos {
 
         m_runAndCharge = m_brayhorn;
 
-        auto halfhorn = new Model(BASESIZE, wounds());
-        if (weapons == UngorBlade) {
+        auto halfhorn = new Model(g_basesize, wounds());
+        if (weapons == Ungor_Blade) {
             halfhorn->addMeleeWeapon(&m_ungorBladeHalfhorn);
-        } else if (weapons == GnarledShortspear) {
+        } else if (weapons == Gnarled_Shortspear) {
             halfhorn->addMeleeWeapon(&m_gnarledShortspearHalfhorn);
         }
         addModel(halfhorn);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == UngorBlade) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Ungor_Blade) {
                 model->addMeleeWeapon(&m_ungorBlade);
-            } else if (weapons == GnarledShortspear) {
+            } else if (weapons == Gnarled_Shortspear) {
                 model->addMeleeWeapon(&m_gnarledShortspear);
             }
             addModel(model);
@@ -67,8 +67,8 @@ namespace BeastsOfChaos {
 
     Unit *Ungors::Create(const ParameterList &parameters) {
         auto unit = new Ungors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, UngorBlade);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, Ungor_Blade);
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
@@ -85,14 +85,14 @@ namespace BeastsOfChaos {
 
     void Ungors::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {UngorBlade, GnarledShortspear};
+            static const std::array<int, 2> weapons = {Ungor_Blade, Gnarled_Shortspear};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter<2>("Weapons", weapons[0], weapons),
                             BoolParameter("Brayhorn"),
                             BoolParameter("Banner Bearer"),
@@ -108,15 +108,15 @@ namespace BeastsOfChaos {
 
     std::string Ungors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == UngorBlade) { return "Ungor Blade"; }
-            else if (parameter.intValue == GnarledShortspear) { return "Gnarled Shortspear"; }
+            if (parameter.intValue == Ungor_Blade) { return "Ungor Blade"; }
+            else if (parameter.intValue == Gnarled_Shortspear) { return "Gnarled Shortspear"; }
         }
         return BeastsOfChaosBase::ValueToString(parameter);
     }
 
     int Ungors::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Ungor Blade") { return UngorBlade; }
-        else if (enumString == "Gnarled Shortspear") { return GnarledShortspear; }
+        if (enumString == "Ungor Blade") { return Ungor_Blade; }
+        else if (enumString == "Gnarled Shortspear") { return Gnarled_Shortspear; }
 
         return BeastsOfChaosBase::EnumStringToInt(enumString);
     }
@@ -124,9 +124,9 @@ namespace BeastsOfChaos {
     Rerolls Ungors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Braying Hatred
         if (remainingModels() >= 30) {
-            return RerollOnesAndTwos;
+            return Reroll_Ones_And_Twos;
         } else if (remainingModels() >= 20) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -141,9 +141,9 @@ namespace BeastsOfChaos {
     }
 
     int Ungors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

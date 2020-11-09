@@ -18,113 +18,113 @@
 namespace StormcastEternals {
 
     constexpr std::array<int, 9> g_stormhost = {
-            to_integer(Stormhost::None),
-            to_integer(Stormhost::Hammers_of_Sigmar),
-            to_integer(Stormhost::Hallowed_Knights),
-            to_integer(Stormhost::Celestial_Vindicators),
-            to_integer(Stormhost::Anvils_of_the_Heldenhammer),
-            to_integer(Stormhost::Knights_Excelsior),
-            to_integer(Stormhost::Celestial_Warbringers),
-            to_integer(Stormhost::Tempest_Lords),
-            to_integer(Stormhost::Astral_Templars),
+            ToInteger(Stormhost::None),
+            ToInteger(Stormhost::Hammers_Of_Sigmar),
+            ToInteger(Stormhost::Hallowed_Knights),
+            ToInteger(Stormhost::Celestial_Vindicators),
+            ToInteger(Stormhost::Anvils_Of_The_Heldenhammer),
+            ToInteger(Stormhost::Knights_Excelsior),
+            ToInteger(Stormhost::Celestial_Warbringers),
+            ToInteger(Stormhost::Tempest_Lords),
+            ToInteger(Stormhost::Astral_Templars),
     };
 
     constexpr std::array<int, 6> g_commandTrait {
-            to_integer(CommandTrait::Shielded_By_Faith),
-            to_integer(CommandTrait::Consummate_Commander),
-            to_integer(CommandTrait::Cunning_Strategist),
-            to_integer(CommandTrait::Zealous_Crusader),
-            to_integer(CommandTrait::Staunch_Defender),
-            to_integer(CommandTrait::Champion_of_the_Realms),
+            ToInteger(CommandTrait::Shielded_By_Faith),
+            ToInteger(CommandTrait::Consummate_Commander),
+            ToInteger(CommandTrait::Cunning_Strategist),
+            ToInteger(CommandTrait::Zealous_Crusader),
+            ToInteger(CommandTrait::Staunch_Defender),
+            ToInteger(CommandTrait::Champion_Of_The_Realms),
     };
 
     constexpr std::array<int, 6> g_stormForgedWeapons = {
-            to_integer(Artefact::Strife_Ender),
-            to_integer(Artefact::Blade_of_Heroes),
-            to_integer(Artefact::Hammer_of_Might),
-            to_integer(Artefact::Fang_of_Dracothian),
-            to_integer(Artefact::Obsidian_Blade),
-            to_integer(Artefact::Gift_of_the_Six_Smiths)
+            ToInteger(Artefact::Strife_Ender),
+            ToInteger(Artefact::Blade_Of_Heroes),
+            ToInteger(Artefact::Hammer_Of_Might),
+            ToInteger(Artefact::Fang_Of_Dracothian),
+            ToInteger(Artefact::Obsidian_Blade),
+            ToInteger(Artefact::Gift_Of_The_Six_Smiths)
     };
 
     constexpr std::array<int, 6> g_heavenWroughtArmour = {
-            to_integer(Artefact::Armour_of_Destiny),
-            to_integer(Artefact::Armour_of_Silvered_Sigmarite),
-            to_integer(Artefact::Drakescale_Armour),
-            to_integer(Artefact::Mirrorshield),
-            to_integer(Artefact::Spellshield),
-            to_integer(Artefact::Featherfoe_Torc)
+            ToInteger(Artefact::Armour_Of_Destiny),
+            ToInteger(Artefact::Armour_Of_Silvered_Sigmarite),
+            ToInteger(Artefact::Drakescale_Armour),
+            ToInteger(Artefact::Mirrorshield),
+            ToInteger(Artefact::Spellshield),
+            ToInteger(Artefact::Featherfoe_Torc)
     };
 
     constexpr std::array<int, 6> g_artefactsOfTheTempests = {
-            to_integer(Artefact::Talisman_of_Endurance),
-            to_integer(Artefact::Obsidian_Amulet),
-            to_integer(Artefact::Luckstone),
-            to_integer(Artefact::Seed_of_Rebirth),
-            to_integer(Artefact::Sigmarite_Pendant),
-            to_integer(Artefact::Quicksilver_Draught)
+            ToInteger(Artefact::Talisman_Of_Endurance),
+            ToInteger(Artefact::Obsidian_Amulet),
+            ToInteger(Artefact::Luckstone),
+            ToInteger(Artefact::Seed_Of_Rebirth),
+            ToInteger(Artefact::Sigmarite_Pendant),
+            ToInteger(Artefact::Quicksilver_Draught)
     };
 
     constexpr std::array<int, 3> g_treasuredStandards = {
-            to_integer(Artefact::Hurricane_Standard),
-            to_integer(Artefact::Lichebone_Standard),
-            to_integer(Artefact::Pennant_of_Sigmaron)
+            ToInteger(Artefact::Hurricane_Standard),
+            ToInteger(Artefact::Lichebone_Standard),
+            ToInteger(Artefact::Pennant_Of_Sigmaron)
     };
 
     constexpr std::array<int, 3> g_mysticLights = {
-            to_integer(Artefact::Shriving_Light),
-            to_integer(Artefact::Fury_Brand),
-            to_integer(Artefact::Lantern_of_the_Tempest)
+            ToInteger(Artefact::Shriving_Light),
+            ToInteger(Artefact::Fury_Brand),
+            ToInteger(Artefact::Lantern_Of_The_Tempest)
     };
 
     constexpr std::array<int, 3> g_celestialStaves = {
-            to_integer(Artefact::Staff_of_Focus),
-            to_integer(Artefact::Mindlock_Staff),
-            to_integer(Artefact::Staff_of_Azyr)
+            ToInteger(Artefact::Staff_Of_Focus),
+            ToInteger(Artefact::Mindlock_Staff),
+            ToInteger(Artefact::Staff_Of_Azyr)
     };
 
     constexpr std::array<int, 3> g_scrollsOfPower = {
-            to_integer(Artefact::Scroll_of_Unravelling),
-            to_integer(Artefact::Scroll_of_Condemnation),
-            to_integer(Artefact::Storm_Scroll)
+            ToInteger(Artefact::Scroll_Of_Unravelling),
+            ToInteger(Artefact::Scroll_Of_Condemnation),
+            ToInteger(Artefact::Storm_Scroll)
     };
 
 
     constexpr std::array<int, 6> g_loreOfTheStorm = {
-            to_integer(Lore::Lightning_Blast),
-            to_integer(Lore::Starfall),
-            to_integer(Lore::Thundershock),
-            to_integer(Lore::Azyrite_Halo),
-            to_integer(Lore::Chain_Lightning),
-            to_integer(Lore::Stormcaller),
+            ToInteger(Lore::Lightning_Blast),
+            ToInteger(Lore::Starfall),
+            ToInteger(Lore::Thundershock),
+            ToInteger(Lore::Azyrite_Halo),
+            ToInteger(Lore::Chain_Lightning),
+            ToInteger(Lore::Stormcaller),
     };
 
     constexpr std::array<int, 3> g_loreOfInvigoration = {
-            to_integer(Lore::Terrifying_Aspect),
-            to_integer(Lore::Celestial_Blades),
-            to_integer(Lore::Speed_of_Lightning)
+            ToInteger(Lore::Terrifying_Aspect),
+            ToInteger(Lore::Celestial_Blades),
+            ToInteger(Lore::Speed_Of_Lightning)
     };
 
     constexpr std::array<int, 9> g_lore = {
-            to_integer(Lore::Lightning_Blast),
-            to_integer(Lore::Starfall),
-            to_integer(Lore::Thundershock),
-            to_integer(Lore::Azyrite_Halo),
-            to_integer(Lore::Chain_Lightning),
-            to_integer(Lore::Stormcaller),
-            to_integer(Lore::Terrifying_Aspect),
-            to_integer(Lore::Celestial_Blades),
-            to_integer(Lore::Speed_of_Lightning)
+            ToInteger(Lore::Lightning_Blast),
+            ToInteger(Lore::Starfall),
+            ToInteger(Lore::Thundershock),
+            ToInteger(Lore::Azyrite_Halo),
+            ToInteger(Lore::Chain_Lightning),
+            ToInteger(Lore::Stormcaller),
+            ToInteger(Lore::Terrifying_Aspect),
+            ToInteger(Lore::Celestial_Blades),
+            ToInteger(Lore::Speed_Of_Lightning)
     };
 
 
     constexpr std::array<int, 6> g_prayersOfTheStormhost = {
-            to_integer(PrayersOfTheStormhost::Divine_Light),
-            to_integer(PrayersOfTheStormhost::Bless_Weapons),
-            to_integer(PrayersOfTheStormhost::Bolster_Faith),
-            to_integer(PrayersOfTheStormhost::Abjuration),
-            to_integer(PrayersOfTheStormhost::God_Kings_Aspect),
-            to_integer(PrayersOfTheStormhost::Translocation),
+            ToInteger(PrayersOfTheStormhost::Divine_Light),
+            ToInteger(PrayersOfTheStormhost::Bless_Weapons),
+            ToInteger(PrayersOfTheStormhost::Bolster_Faith),
+            ToInteger(PrayersOfTheStormhost::Abjuration),
+            ToInteger(PrayersOfTheStormhost::God_Kings_Aspect),
+            ToInteger(PrayersOfTheStormhost::Translocation),
     };
 
 } // namespace StormcastEternals

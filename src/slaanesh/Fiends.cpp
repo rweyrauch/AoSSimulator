@@ -12,17 +12,17 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 75; // x42 oval
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 9;
-    static const int POINTS_PER_BLOCK = 190;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
+    static const int g_basesize = 75; // x42 oval
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 9;
+    static const int g_pointsPerBlock = 190;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 3;
 
     bool Fiends::s_registered = false;
 
     Fiends::Fiends() :
-            SlaaneshBase("Fiends", 12, WOUNDS, 10, 5, false),
+            SlaaneshBase("Fiends", 12, g_wounds, 10, 5, false),
             m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
             m_deadlyPincersBlissbringer(Weapon::Type::Melee, "Deadly Pincers", 1, 5, 3, 3, -1, 1),
             m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1) {
@@ -37,17 +37,17 @@ namespace Slaanesh {
     }
 
     bool Fiends::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto blissbringer = new Model(BASESIZE, wounds());
+        auto blissbringer = new Model(g_basesize, wounds());
         blissbringer->addMeleeWeapon(&m_deadlyPincersBlissbringer);
         blissbringer->addMeleeWeapon(&m_barbedStinger);
         addModel(blissbringer);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_deadlyPincers);
             model->addMeleeWeapon(&m_barbedStinger);
             addModel(model);
@@ -60,7 +60,7 @@ namespace Slaanesh {
 
     Unit *Fiends::Create(const ParameterList &parameters) {
         auto unit = new Fiends();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
@@ -81,7 +81,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Host", g_host[0], g_host),
                     },
                     CHAOS,
@@ -130,9 +130,9 @@ namespace Slaanesh {
     }
 
     int Fiends::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

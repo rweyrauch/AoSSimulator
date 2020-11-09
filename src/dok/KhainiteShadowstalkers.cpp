@@ -12,17 +12,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 0;
-    static const int POINTS_MAX_UNIT_SIZE = 0;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 0;
+    static const int g_pointsMaxUnitSize = 0;
 
     bool KhainiteShadowstalkers::s_registered = false;
 
     KhainiteShadowstalkers::KhainiteShadowstalkers() :
-            DaughterOfKhaine("Khainite Shadowstalkers", 6, WOUNDS, 7, 5, false),
+            DaughterOfKhaine("Khainite Shadowstalkers", 6, g_wounds, 7, 5, false),
             m_cursedMissiles(Weapon::Type::Missile, "Cursed Missiles", 6, 1, 4, 3, 0, 1),
             m_assassinsBlades(Weapon::Type::Melee, "Assassin's Blades", 1, 2, 4, 3, 0, 1),
             m_umbralBlades(Weapon::Type::Melee, "Umbral Blades", 1, 3, 3, 3, -1, RAND_D3) {
@@ -31,18 +31,18 @@ namespace DaughtersOfKhaine {
     }
 
     bool KhainiteShadowstalkers::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto queen = new Model(BASESIZE, wounds()+2);
+        auto queen = new Model(g_basesize, wounds()+2);
         queen->addMissileWeapon(&m_cursedMissiles);
         queen->addMeleeWeapon(&m_umbralBlades);
         queen->setName("Shroud Queen");
         addModel(queen);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_cursedMissiles);
             model->addMeleeWeapon(&m_assassinsBlades);
             addModel(model);
@@ -55,7 +55,7 @@ namespace DaughtersOfKhaine {
 
     Unit *KhainiteShadowstalkers::Create(const ParameterList &parameters) {
         auto unit = new KhainiteShadowstalkers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
@@ -76,7 +76,7 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
@@ -96,9 +96,9 @@ namespace DaughtersOfKhaine {
     }
 
     int KhainiteShadowstalkers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

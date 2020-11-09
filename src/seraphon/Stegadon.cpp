@@ -12,9 +12,9 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 240;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 240;
     static const int POINTS_PER_UNIT_WITH_CHIEF = 250;
 
 
@@ -24,9 +24,9 @@ namespace Seraphon {
         int m_stompAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {8, 4, 5},
                     {7, 3, 4},
@@ -38,7 +38,7 @@ namespace Seraphon {
     bool Stegadon::s_registered = false;
 
     Stegadon::Stegadon() :
-            SeraphonBase("Stegadon", 8, WOUNDS, 5, 4, false),
+            SeraphonBase("Stegadon", 8, g_wounds, 5, 4, false),
             m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
             m_bow(Weapon::Type::Missile, "Skystreak Bow", 24, 3, 3, 3, -1, 3),
             m_throwers(Weapon::Type::Missile, "Sunfire Throwers", 8, 1, 0, 0, 0, 0),
@@ -61,11 +61,11 @@ namespace Seraphon {
     bool Stegadon::configure(WeaponOption option, bool skinkChief) {
         m_skinkChief = skinkChief;
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_javelins);
-        if (option == SkystreakBow)
+        if (option == Skystreak_Bow)
             model->addMissileWeapon(&m_bow);
-        else if (option == SunfireThrowers)
+        else if (option == Sunfire_Throwers)
             model->addMissileWeapon(&m_throwers);
         model->addMeleeWeapon(&m_horns);
         model->addMeleeWeapon(&m_jaws);
@@ -77,7 +77,7 @@ namespace Seraphon {
         }
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
         if (m_skinkChief) m_points = POINTS_PER_UNIT_WITH_CHIEF;
 
         return true;
@@ -92,7 +92,7 @@ namespace Seraphon {
 
     Unit *Stegadon::Create(const ParameterList &parameters) {
         auto unit = new Stegadon();
-        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, SkystreakBow);
+        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Skystreak_Bow);
         bool chief = GetBoolParam("Skink Chief", parameters, false);
 
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
@@ -112,14 +112,14 @@ namespace Seraphon {
 
     void Stegadon::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {SkystreakBow, SunfireThrowers};
+            static const std::array<int, 2> weapons = {Skystreak_Bow, Sunfire_Throwers};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Weapon", SkystreakBow, weapons),
+                            EnumParameter("Weapon", Skystreak_Bow, weapons),
                             BoolParameter("Skink Chief"),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
@@ -135,8 +135,8 @@ namespace Seraphon {
 
     std::string Stegadon::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == SkystreakBow) return "Skystreak Bow";
-            else if (parameter.intValue == SunfireThrowers) return "Sunfire Throwers";
+            if (parameter.intValue == Skystreak_Bow) return "Skystreak Bow";
+            else if (parameter.intValue == Sunfire_Throwers) return "Sunfire Throwers";
         }
         return SeraphonBase::ValueToString(parameter);
     }
@@ -150,7 +150,7 @@ namespace Seraphon {
 
     int Stegadon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -159,8 +159,8 @@ namespace Seraphon {
     }
 
     int Stegadon::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Skystreak Bow") return SkystreakBow;
-        else if (enumString == "Sunfire Throwers") return SunfireThrowers;
+        if (enumString == "Skystreak Bow") return Skystreak_Bow;
+        else if (enumString == "Sunfire Throwers") return Sunfire_Throwers;
 
         return SeraphonBase::EnumStringToInt(enumString);
     }
@@ -171,19 +171,19 @@ namespace Seraphon {
         // Unstoppable Stampede
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto unit : units) {
-            if (Dice::rollD6() >= 3) {
-                unit->applyDamage({0, Dice::rollD3()});
+            if (Dice::RollD6() >= 3) {
+                unit->applyDamage({0, Dice::RollD3()});
             }
         }
     }
 
     Rerolls Stegadon::steadfastMajestyBraveryReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return RerollFailed;
-        return NoRerolls;
+        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return Reroll_Failed;
+        return No_Rerolls;
     }
 
     int Stegadon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void Stegadon::onStartCombat(PlayerId player) {

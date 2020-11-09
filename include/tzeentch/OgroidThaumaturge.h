@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef OGROID_H
-#define OGROID_H
+#ifndef OGROIDTHAUMATURGE_H
+#define OGROIDTHAUMATURGE_H
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -50,4 +50,4 @@ namespace Tzeentch {
 
 } // namespace Tzeentch
 
-#endif //OGROID_H
+#endif //OGROIDTHAUMATURGE_H

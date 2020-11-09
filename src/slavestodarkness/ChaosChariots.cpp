@@ -11,19 +11,19 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 7;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 7;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool ChaosChariots::s_registered = false;
 
     Unit *ChaosChariots::Create(const ParameterList &parameters) {
         auto unit = new ChaosChariots();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, GreatBladeAndWhip);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Great_Blade_And_Whip);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -41,15 +41,15 @@ namespace SlavesToDarkness {
 
     void ChaosChariots::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {GreatBladeAndWhip, WarFlailAndWhip};
+            static const std::array<int, 2> weapons = {Great_Blade_And_Whip, War_Flail_And_Whip};
             static FactoryMethod factoryMethod = {
                     ChaosChariots::Create,
                     ChaosChariots::ValueToString,
                     ChaosChariots::EnumStringToInt,
                     ChaosChariots::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter( "Weapons", GreatBladeAndWhip, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Great_Blade_And_Whip, weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                     },
@@ -61,7 +61,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosChariots::ChaosChariots() :
-            SlavesToDarknessBase("Chaos Chariots", 12, WOUNDS, 6, 4, false),
+            SlavesToDarknessBase("Chaos Chariots", 12, g_wounds, 6, 4, false),
             m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 2, 2, 3, 3, -1, 2),
             m_flail(Weapon::Type::Melee, "Chaos War-flail", 2, RAND_D6, 4, 3, 0, 1),
             m_whip(Weapon::Type::Melee, "Lashing Whip", 2, 2, 4, 4, 0, 1),
@@ -76,14 +76,14 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosChariots::configure(int numModels, WeaponOption weapons) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto exalted = new Model(BASESIZE, wounds());
-        if (weapons == GreatBladeAndWhip) {
+        auto exalted = new Model(g_basesize, wounds());
+        if (weapons == Great_Blade_And_Whip) {
             exalted->addMeleeWeapon(&m_greatBladeExalted);
-        } else if (weapons == WarFlailAndWhip) {
+        } else if (weapons == War_Flail_And_Whip) {
             exalted->addMeleeWeapon(&m_flailExalted);
         }
         exalted->addMeleeWeapon(&m_whipExalted);
@@ -92,10 +92,10 @@ namespace SlavesToDarkness {
         addModel(exalted);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == GreatBladeAndWhip)
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Great_Blade_And_Whip)
                 model->addMeleeWeapon(&m_greatBlade);
-            else if (weapons == WarFlailAndWhip)
+            else if (weapons == War_Flail_And_Whip)
                 model->addMeleeWeapon(&m_flail);
             model->addMeleeWeapon(&m_whip);
             model->addMeleeWeapon(&m_hooves);
@@ -109,9 +109,9 @@ namespace SlavesToDarkness {
 
     std::string ChaosChariots::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == GreatBladeAndWhip) {
+            if (parameter.intValue == Great_Blade_And_Whip) {
                 return "Chaos Greatblade and Whip";
-            } else if (parameter.intValue == WarFlailAndWhip) {
+            } else if (parameter.intValue == War_Flail_And_Whip) {
                 return "Chaos War-flail and Whip";
             }
         }
@@ -120,17 +120,17 @@ namespace SlavesToDarkness {
 
     int ChaosChariots::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Chaos Greatblade and Whip") {
-            return GreatBladeAndWhip;
+            return Great_Blade_And_Whip;
         } else if (enumString == "Chaos War-flail and Whip") {
-            return WarFlailAndWhip;
+            return War_Flail_And_Whip;
         }
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
     int ChaosChariots::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -154,7 +154,7 @@ namespace SlavesToDarkness {
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 1.0)) {
             Dice::RollResult result;
-            Dice::rollD6(m_unmodifiedChargeRoll, result);
+            Dice::RollD6(m_unmodifiedChargeRoll, result);
             unit->applyDamage({0, result.rollsGE(5)});
         }
     }

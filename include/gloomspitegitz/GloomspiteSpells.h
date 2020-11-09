@@ -21,17 +21,17 @@ namespace GloomspiteGitz {
         Vindictive_Glare,
         Itchy_Nuisance,
         The_Great_Green_Spite,
-        The_Hand_of_Gork,
+        The_Hand_Of_Gork,
         Squig_Lure,
-        Call_da_Moon,
+        Call_Da_Moon,
 
         // LoreOfTheSpiderFangs
         Deadly_Webbing,
         Venomous_Spiderlings,
         Scuttling_Terrors,
         Sneaky_Distraction,
-        Curse_of_da_Spider_God,
-        Gift_of_da_Spider_God
+        Curse_Of_Da_Spider_God,
+        Gift_Of_Da_Spider_God
     };
 
     std::string ToString(Lore which);

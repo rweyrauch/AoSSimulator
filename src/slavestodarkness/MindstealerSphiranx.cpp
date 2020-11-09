@@ -12,9 +12,9 @@
 
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 100;
 
     bool MindstealerSphiranx::s_registered = false;
 
@@ -51,7 +51,7 @@ namespace SlavesToDarkness {
     }
 
     MindstealerSphiranx::MindstealerSphiranx() :
-            SlavesToDarknessBase("Mindstealer Sphiranx", 10, WOUNDS, 10, 5, false),
+            SlavesToDarknessBase("Mindstealer Sphiranx", 10, g_wounds, 10, 5, false),
             m_claws(Weapon::Type::Melee, "Shredding Claws", 1, 3, 3, 3, -1, 1),
             m_tail(Weapon::Type::Melee, "Lashing Tail", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, MINDSTEALER_SPHIRANX};
@@ -64,13 +64,13 @@ namespace SlavesToDarkness {
     }
 
     bool MindstealerSphiranx::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_tail);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -85,7 +85,7 @@ namespace SlavesToDarkness {
     }
 
     int MindstealerSphiranx::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 }//namespace SlavesToDarkness

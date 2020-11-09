@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDONDRAK_H
-#define LORDONDRAK_H
+#ifndef CHAOSLORDONKARKADRAK_H
+#define CHAOSLORDONKARKADRAK_H
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -59,4 +59,4 @@ namespace SlavesToDarkness {
 
 } // SlavesToDarkness
 
-#endif //LORDONDRAK_H
+#endif //CHAOSLORDONKARKADRAK_H

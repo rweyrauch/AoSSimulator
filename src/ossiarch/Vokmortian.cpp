@@ -11,9 +11,9 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 180;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 180;
 
     bool Vokmortian::s_registered = false;
 
@@ -65,7 +65,7 @@ namespace OssiarchBonereapers {
     }
 
     Vokmortian::Vokmortian() :
-            OssiarchBonereaperBase("Vokmortian", 5, WOUNDS, 10, 5, false),
+            OssiarchBonereaperBase("Vokmortian", 5, g_wounds, 10, 5, false),
             m_gazeOfDeath(Weapon::Type::Missile, "Gaze of Death", 12, 1, 3, 2, -1, RAND_D3),
             m_staff(Weapon::Type::Melee, "Staff of Retribution", 2, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, HERO, WIZARD, VOKMORTIAN};
@@ -83,7 +83,7 @@ namespace OssiarchBonereapers {
     }
 
     bool Vokmortian::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_gazeOfDeath);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -93,7 +93,7 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -107,7 +107,7 @@ namespace OssiarchBonereapers {
     }
 
     int Vokmortian::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OssiarchBonereapers

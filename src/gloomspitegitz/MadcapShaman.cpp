@@ -13,14 +13,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 4;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 32;
+    static const int g_wounds = 4;
+    static const int g_pointsPerUnit = 80;
 
     bool MadcapShaman::s_registered = false;
 
     MadcapShaman::MadcapShaman() :
-            GloomspiteGitzBase("Madcap Shaman", 5, WOUNDS, 4, 6, false),
+            GloomspiteGitzBase("Madcap Shaman", 5, g_wounds, 4, 6, false),
             m_moonStaff(Weapon::Type::Melee, "Moon Staff", 2, 1, 4, 4, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN};
         m_weapons = {&m_moonStaff};
@@ -31,7 +31,7 @@ namespace GloomspiteGitz {
     }
 
     bool MadcapShaman::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonStaff);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -41,7 +41,7 @@ namespace GloomspiteGitz {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -99,7 +99,7 @@ namespace GloomspiteGitz {
     }
 
     int MadcapShaman::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

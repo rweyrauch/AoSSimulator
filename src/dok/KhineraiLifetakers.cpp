@@ -12,17 +12,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 40;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool KhineraiLifetakers::s_registered = false;
 
     KhineraiLifetakers::KhineraiLifetakers() :
-            DaughterOfKhaine("Khinerai Lifetakers", 14, WOUNDS, 7, 6, true),
+            DaughterOfKhaine("Khinerai Lifetakers", 14, g_wounds, 7, 6, true),
             m_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1),
             m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 2, 4, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
@@ -30,16 +30,16 @@ namespace DaughtersOfKhaine {
     }
 
     bool KhineraiLifetakers::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto harridynn = new Model(BASESIZE, wounds());
+        auto harridynn = new Model(g_basesize, wounds());
         harridynn->addMeleeWeapon(&m_barbedSickleHarridynn);
         addModel(harridynn);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_barbedSickle);
             addModel(model);
         }
@@ -51,7 +51,7 @@ namespace DaughtersOfKhaine {
 
     Unit *KhineraiLifetakers::Create(const ParameterList &parameters) {
         auto unit = new KhineraiLifetakers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
@@ -72,7 +72,7 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
@@ -109,9 +109,9 @@ namespace DaughtersOfKhaine {
     }
 
     int KhineraiLifetakers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

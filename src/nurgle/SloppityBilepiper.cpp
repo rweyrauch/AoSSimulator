@@ -11,9 +11,9 @@
 #include "NurglePrivate.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool SloppityBilepiperHeraldOfNurgle::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Nurgle {
     }
 
     SloppityBilepiperHeraldOfNurgle::SloppityBilepiperHeraldOfNurgle() :
-            NurgleBase("Sloppity Bilepiper, Herald of Nurgle", 4, WOUNDS, 10, 4, false),
+            NurgleBase("Sloppity Bilepiper, Herald of Nurgle", 4, g_wounds, 10, 4, false),
             m_marotter(Weapon::Type::Melee, "Marotter", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SLOPPITY_BILEPIPER, HERALD_OF_NURGLE};
         m_weapons = {&m_marotter};
@@ -75,11 +75,11 @@ namespace Nurgle {
     }
 
     bool SloppityBilepiperHeraldOfNurgle::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_marotter);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -87,8 +87,8 @@ namespace Nurgle {
     Wounds SloppityBilepiperHeraldOfNurgle::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -109,13 +109,13 @@ namespace Nurgle {
 
     Rerolls SloppityBilepiperHeraldOfNurgle::jollyGutpipesChargeReroll(const Unit *unit) {
         if ((unit->hasKeyword(NURGLINGS) || unit->hasKeyword(GREAT_UNCLEAN_ONE)) && (distanceTo(unit) <= 7.0))
-            return RerollOnes;
+            return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
     int SloppityBilepiperHeraldOfNurgle::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

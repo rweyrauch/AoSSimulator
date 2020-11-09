@@ -13,14 +13,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 110;
 
     bool LordVeritant::s_registered = false;
 
     LordVeritant::LordVeritant() :
-            StormcastEternal("Lord-Veritant", 5, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Veritant", 5, g_wounds, 9, 3, false),
             m_judgementBlade(Weapon::Type::Melee, "Judgement Blade", 1, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
         m_weapons = {&m_judgementBlade};
@@ -33,14 +33,14 @@ namespace StormcastEternals {
     }
 
     bool LordVeritant::configure(PrayersOfTheStormhost prayer) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_judgementBlade);
         addModel(model);
 
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateSanction(this)));
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreatePrayerOfTheStormhost(prayer, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -101,7 +101,7 @@ namespace StormcastEternals {
     }
 
     int LordVeritant::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

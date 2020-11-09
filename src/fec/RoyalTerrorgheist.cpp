@@ -12,9 +12,9 @@
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
-    static const int BASESIZE = 130;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 300;
+    static const int g_basesize = 130;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 300;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace FleshEaterCourt {
         int m_clawAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {4, 7, 10, 13, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {14, 6, 4},
                     {12, 5, 4},
@@ -36,7 +36,7 @@ namespace FleshEaterCourt {
     bool RoyalTerrorgheist::s_registered = false;
 
     RoyalTerrorgheist::RoyalTerrorgheist() :
-            FleshEaterCourts("Royal Terrorgheist", 14, WOUNDS, 10, 4, true),
+            FleshEaterCourts("Royal Terrorgheist", 14, g_wounds, 10, 4, true),
             m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 1, 0, 0, 0, 0),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 3, 3, 4, 3, -2, RAND_D6) {
@@ -46,13 +46,13 @@ namespace FleshEaterCourt {
     }
 
     bool RoyalTerrorgheist::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_deathShriek);
         model->addMeleeWeapon(&m_skeletalClaws);
         model->addMeleeWeapon(&m_fangedMaw);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -107,8 +107,8 @@ namespace FleshEaterCourt {
         if (player == owningPlayer()) {
             auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 6.0);
             if (unit != nullptr) {
-                if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
-                    int woundsHealed = Dice::rollD3();
+                if (remainingWounds() < g_wounds && remainingWounds() > 0) {
+                    int woundsHealed = Dice::RollD3();
                     for (auto &m : m_models) {
                         m->applyHealing(woundsHealed);
                     }
@@ -119,7 +119,7 @@ namespace FleshEaterCourt {
 
     int RoyalTerrorgheist::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -144,13 +144,13 @@ namespace FleshEaterCourt {
         // Infested
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto ip : units) {
-            Wounds wounds = {0, Dice::rollD3()};
+            Wounds wounds = {0, Dice::RollD3()};
             ip->applyDamage(wounds);
         }
     }
 
     int RoyalTerrorgheist::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void RoyalTerrorgheist::onStartShooting(PlayerId player) {
@@ -159,7 +159,7 @@ namespace FleshEaterCourt {
         // Death Shriek
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= (double) m_deathShriek.range())) {
-            const auto roll = Dice::rollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
+            const auto roll = Dice::RollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
             if (roll > unit->bravery()) {
                 unit->applyDamage({0, roll - unit->bravery()});
             }

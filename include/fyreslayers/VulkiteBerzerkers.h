@@ -18,9 +18,9 @@ namespace Fyreslayers {
     public:
 
         enum WeaponOption {
-            HandaxeAndShield,
-            WarpickAndShield,
-            PairedHandaxes
+            Handaxe_And_Shield,
+            Warpick_And_Shield,
+            Paired_Handaxes
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -47,7 +47,7 @@ namespace Fyreslayers {
 
     private:
 
-        WeaponOption m_weaponOption = HandaxeAndShield;
+        WeaponOption m_weaponOption = Handaxe_And_Shield;
         bool m_hornOfGrimnir = false;
 
         Weapon m_handaxe,

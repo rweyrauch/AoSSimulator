@@ -13,17 +13,17 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 2;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 2;
 
     bool NamartiReavers::s_registered = false;
 
     NamartiReavers::NamartiReavers() :
-            IdonethDeepkinBase("Namarti Reavers", 8, WOUNDS, 6, 5, false),
+            IdonethDeepkinBase("Namarti Reavers", 8, g_wounds, 6, 5, false),
             m_keeningBlade(Weapon::Type::Melee, "Keening Blade", 1, 2, 3, 4, 0, 1),
             m_whisperbowAimedFire(Weapon::Type::Missile, "Whisperbow: Aimed Fire", 18, 1, 4, 4, 0, 1),
             m_whisperbowStormFire(Weapon::Type::Missile, "Whisperbow: Storm Fire", 9, 3, 4, 4, 0, 1) {
@@ -32,18 +32,18 @@ namespace IdonethDeepkin {
     }
 
     bool NamartiReavers::configure(int numModels, int numIconBearers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        if (numIconBearers > MAX_UNIT_SIZE / 10) {
+        if (numIconBearers > g_maxUnitSize / 10) {
             return false;
         }
 
         m_numIconBearers = numIconBearers;
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_whisperbowStormFire);
             model->addMissileWeapon(&m_whisperbowAimedFire);
             model->addMeleeWeapon(&m_keeningBlade);
@@ -57,7 +57,7 @@ namespace IdonethDeepkin {
 
     Unit *NamartiReavers::Create(const ParameterList &parameters) {
         auto unit = new NamartiReavers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
 
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
@@ -79,8 +79,8 @@ namespace IdonethDeepkin {
                     IdonethDeepkinBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Icon Bearers", 0, 0, MAX_UNIT_SIZE / 10, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / 10, 1),
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
                     },
                     ORDER,
@@ -110,9 +110,9 @@ namespace IdonethDeepkin {
     }
 
     int NamartiReavers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

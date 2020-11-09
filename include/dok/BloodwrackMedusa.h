@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef BLOODWRACK_H
-#define BLOODWRACK_H
+#ifndef BLOODWRACKMEDUSA_H
+#define BLOODWRACKMEDUSA_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -52,4 +52,4 @@ namespace DaughtersOfKhaine {
 
 } // namespace DaughtersOfKhaine
 
-#endif //BLOODWRACK_H
+#endif //BLOODWRACKMEDUSA_H

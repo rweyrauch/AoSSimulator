@@ -11,9 +11,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 130;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 130;
 
     bool GuardianOfSouls::s_registered = false;
 
@@ -60,7 +60,7 @@ namespace Nighthaunt {
     }
 
     GuardianOfSouls::GuardianOfSouls() :
-            Nighthaunt("Guardian of Souls with Nightmare Lantern", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Guardian of Souls with Nightmare Lantern", 6, g_wounds, 10, 4, true),
             m_blade(Weapon::Type::Melee, "Chill Blade", 1, 3, 3, 3, -1, 1),
             m_maul(Weapon::Type::Melee, "Maul of Judgement", 1, 2, 3, 3, 0, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, GUARDIAN_OF_SOULS};
@@ -72,7 +72,7 @@ namespace Nighthaunt {
     }
 
     bool GuardianOfSouls::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_maul);
         addModel(model);
@@ -86,7 +86,7 @@ namespace Nighthaunt {
     }
 
     int GuardianOfSouls::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

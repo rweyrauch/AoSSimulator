@@ -11,25 +11,25 @@
 #include "DispossessedPrivate.h"
 
 namespace Dispossessed {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool Unforged::s_registered = false;
 
     Unforged::Unforged() :
-            Dispossessed("Unforged", 4, WOUNDS, 10, 6, false),
+            Dispossessed("Unforged", 4, g_wounds, 10, 6, false),
             m_runicAxes(Weapon::Type::Melee, "Runic Axes", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, UNFORGED};
         m_weapons = {&m_runicAxes};
     }
 
     bool Unforged::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_runicAxes);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -68,7 +68,7 @@ namespace Dispossessed {
 
     Rerolls Unforged::toHitRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // Runic Axes
-        return RerollOnes;
+        return Reroll_Ones;
     }
 
     Wounds Unforged::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -90,7 +90,7 @@ namespace Dispossessed {
     }
 
     int Unforged::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Dispossessed

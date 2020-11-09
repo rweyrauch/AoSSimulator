@@ -11,9 +11,9 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 220;
 
 
     bool Chimera::s_registered = false;
@@ -24,9 +24,9 @@ namespace BeastsOfChaos {
         int m_leonineHeadDamage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {RAND_D6, -3, RAND_D6},
                     {RAND_D3, -2, RAND_D3},
@@ -36,7 +36,7 @@ namespace BeastsOfChaos {
             };
 
     Chimera::Chimera() :
-            BeastsOfChaosBase("Chimera", 10, WOUNDS, 6, 5, true),
+            BeastsOfChaosBase("Chimera", 10, g_wounds, 6, 5, true),
             m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 14, 1, 0, 0, 0, RAND_D6),
             m_avianHead(Weapon::Type::Melee, "Avian Head", 1, 3, 3, 4, -3, RAND_D3),
             m_draconicHead(Weapon::Type::Melee, "Draconic Head", 1, 3, 4, 4, -1, 2),
@@ -48,7 +48,7 @@ namespace BeastsOfChaos {
     }
 
     bool Chimera::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         // NOTE: Fiery Breath attack is special, do not treat it as a weapon
 
@@ -58,7 +58,7 @@ namespace BeastsOfChaos {
         model->addMeleeWeapon(&m_maulingClaws);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -106,7 +106,7 @@ namespace BeastsOfChaos {
 
     int Chimera::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -131,7 +131,7 @@ namespace BeastsOfChaos {
             if (m_shootingTarget) {
                 if (distanceTo(m_shootingTarget) <= (double) m_fieryBreath.range()) {
                     // Auto-hit and inflict mortal wounds.
-                    Wounds breathDamage = {0, Dice::rollSpecial(g_damageTable[getDamageTableIndex()].m_fieryBreath)};
+                    Wounds breathDamage = {0, Dice::RollSpecial(g_damageTable[getDamageTableIndex()].m_fieryBreath)};
                     m_shootingTarget->applyDamage(breathDamage);
                 }
             }
@@ -139,7 +139,7 @@ namespace BeastsOfChaos {
     }
 
     int Chimera::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace BeastsOfChaos

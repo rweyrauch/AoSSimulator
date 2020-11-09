@@ -18,9 +18,9 @@ namespace Khorne {
     public:
 
         enum WeaponOption {
-            RuinousAxeAndSkullgouger,
-            BloodbiteAxeAndRunemarkedShield,
-            ImpalingSpear
+            Ruinous_Axe_And_Skullgouger,
+            Bloodbite_Axe_And_Runemarked_Shield,
+            Impaling_Spear
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -51,7 +51,7 @@ namespace Khorne {
 
     private:
 
-        WeaponOption m_weaponOption = RuinousAxeAndSkullgouger;
+        WeaponOption m_weaponOption = Ruinous_Axe_And_Skullgouger;
 
         Weapon m_ruinousAxe,
                 m_bloodbiteAxe,

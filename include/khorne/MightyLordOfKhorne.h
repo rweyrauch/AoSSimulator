@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDOFKHORNE_H
-#define LORDOFKHORNE_H
+#ifndef MIGHTYLORDOFKHORNE_H
+#define MIGHTYLORDOFKHORNE_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -49,4 +49,4 @@ namespace Khorne {
 
 } // namespace Khorne
 
-#endif //LORDOFKHORNE_H
+#endif //MIGHTYLORDOFKHORNE_H

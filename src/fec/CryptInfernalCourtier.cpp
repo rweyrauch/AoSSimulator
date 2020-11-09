@@ -13,14 +13,14 @@
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 50;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool CryptInfernalCourtier::s_registered = false;
 
     CryptInfernalCourtier::CryptInfernalCourtier() :
-            FleshEaterCourts("Crypt Infernal Courtier", 12, WOUNDS, 10, 4, true),
+            FleshEaterCourts("Crypt Infernal Courtier", 12, g_wounds, 10, 4, true),
             m_foetidBreath(Weapon::Type::Missile, "Foetid Breath", 9, 1, 4, 3, -1, RAND_D3),
             m_skeweringTalons(Weapon::Type::Melee, "Skewering Talons", 1, 5, 4, 3, -1, 2) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_INFERNAL_COURTIER};
@@ -29,12 +29,12 @@ namespace FleshEaterCourt {
     }
 
     bool CryptInfernalCourtier::configure() {
-        auto infernal = new Model(BASESIZE, wounds());
+        auto infernal = new Model(g_basesize, wounds());
         infernal->addMissileWeapon(&m_foetidBreath);
         infernal->addMeleeWeapon(&m_skeweringTalons);
         addModel(infernal);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -99,7 +99,7 @@ namespace FleshEaterCourt {
     }
 
     int CryptInfernalCourtier::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace FleshEaterCourt

@@ -11,19 +11,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 400;
 
     bool Darkshards::s_registered = false;
 
     Unit *Darkshards::Create(const ParameterList &parameters) {
         auto unit = new Darkshards();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
@@ -54,7 +54,7 @@ namespace CitiesOfSigmar {
                     Darkshards::EnumStringToInt,
                     Darkshards::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("City", g_city[0], g_city),
@@ -67,7 +67,7 @@ namespace CitiesOfSigmar {
     }
 
     Darkshards::Darkshards() :
-            CitizenOfSigmar("Darkshards", 6, WOUNDS, 6, 5, false),
+            CitizenOfSigmar("Darkshards", 6, g_wounds, 6, 5, false),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 2, 4, 4, 0, 1),
             m_dagger(Weapon::Type::Melee, "Cruel Dagger", 1, 1, 5, 5, 0, 1),
             m_crossbowMaster(Weapon::Type::Missile, "Repeater Crossbow", 16, 2, 3, 4, 0, 1) {
@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
 
     bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -87,13 +87,13 @@ namespace CitiesOfSigmar {
         m_hornblower = hornblower;
 
         // Add the Guardmaster
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMissileWeapon(&m_crossbowMaster);
         bossModel->addMeleeWeapon(&m_dagger);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_crossbow);
             model->addMeleeWeapon(&m_dagger);
             addModel(model);
@@ -130,9 +130,9 @@ namespace CitiesOfSigmar {
     }
 
     int Darkshards::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

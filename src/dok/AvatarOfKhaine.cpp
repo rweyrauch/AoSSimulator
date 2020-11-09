@@ -10,14 +10,14 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 9;
+    static const int g_pointsPerUnit = 140;
 
     bool AvatarOfKhaine::s_registered = false;
 
     AvatarOfKhaine::AvatarOfKhaine() :
-            DaughterOfKhaine("Avatar of Khaine", 9, WOUNDS, 10, 4, false),
+            DaughterOfKhaine("Avatar of Khaine", 9, g_wounds, 10, 4, false),
             m_torrentOfBurningBlood(Weapon::Type::Missile, "Torrent of Burning Blood", 10, 6, 3, 3, -1, 1),
             m_sword(Weapon::Type::Melee, "Avatar of Khaine's Sword", 2, 4, 3, 3, -2, 3) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, TOTEM, AVATAR_OF_KHAINE};
@@ -32,12 +32,12 @@ namespace DaughtersOfKhaine {
     }
 
     bool AvatarOfKhaine::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_torrentOfBurningBlood);
         model->addMeleeWeapon(&m_sword);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -81,7 +81,7 @@ namespace DaughtersOfKhaine {
     }
 
     int AvatarOfKhaine::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace DaughtersOfKhaine

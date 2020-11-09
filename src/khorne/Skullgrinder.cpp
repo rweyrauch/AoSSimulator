@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool Skullgrinder::s_registered = false;
 
     Skullgrinder::Skullgrinder() :
-            KhorneBase("Skullgrinder", 5, WOUNDS, 8, 4, false),
+            KhorneBase("Skullgrinder", 5, g_wounds, 8, 4, false),
             m_brazenAnvil(Weapon::Type::Melee, "Brazen Anvil", 2, 3, 3, 2, -1, 3) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKULLGRINDER};
         m_weapons = {&m_brazenAnvil};
@@ -33,11 +33,11 @@ namespace Khorne {
     }
 
     bool Skullgrinder::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_brazenAnvil);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -101,8 +101,8 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0);
         for (auto unit : units) {
             if (unit->hasKeyword(HERO) || unit->hasKeyword(MONSTER)) {
-                if (Dice::rollD6() >= 2) {
-                    Wounds anvilWounds = {0, Dice::rollD3()};
+                if (Dice::RollD6() >= 2) {
+                    Wounds anvilWounds = {0, Dice::RollD3()};
                     unit->applyDamage(anvilWounds);
                     wounds += anvilWounds;
                     break;
@@ -113,7 +113,7 @@ namespace Khorne {
     }
 
     int Skullgrinder::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

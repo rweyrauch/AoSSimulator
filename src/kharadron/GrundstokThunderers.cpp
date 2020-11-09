@@ -10,18 +10,18 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 0;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 0;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 480;
 
     bool GrundstokThunderers::s_registered = false;
 
     Unit *GrundstokThunderers::Create(const ParameterList &parameters) {
         auto unit = new GrundstokThunderers();
-        int numModel = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numMortars = GetIntParam("Grundstok Mortars", parameters, 1);
         int numCannons = GetIntParam("Aethercannons", parameters, 1);
         int numFumigators = GetIntParam("Aetheric Fumigators", parameters, 1);
@@ -60,12 +60,12 @@ namespace KharadronOverlords {
                     GrundstokThunderers::EnumStringToInt,
                     GrundstokThunderers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Grundstok Mortars", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Aethercannons", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Aetheric Fumigator", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Desksweepers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Honour Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Grundstok Mortars", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Aethercannons", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Aetheric Fumigator", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Desksweepers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Honour Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
                             EnumParameter("Skyport", g_skyport[0], g_skyport),
                             EnumParameter("Artycle", g_artycles[0], g_artycles),
                             EnumParameter("Amendment", g_amendments[0], g_amendments),
@@ -79,7 +79,7 @@ namespace KharadronOverlords {
     }
 
     GrundstokThunderers::GrundstokThunderers() :
-            KharadronBase("Grundstok Thunderers", 4, WOUNDS, 7, 4, false),
+            KharadronBase("Grundstok Thunderers", 4, g_wounds, 7, 4, false),
             m_rifle(Weapon::Type::Missile, "Aethershot Rifle", 18, 2, 3, 4, -1, 1),
             m_doubleBarrelledRifle(Weapon::Type::Missile, "Double-barrelled Aethershot Rifle", 18, 4, 3, 4, -1, 1),
             m_fumigator(Weapon::Type::Missile, "Aetheric Fumigator", 9, 3, 3, 3, -1, 1),
@@ -102,24 +102,24 @@ namespace KharadronOverlords {
     bool
     GrundstokThunderers::configure(int numModels, int numMortars, int numCannons, int numFumigators, int numDecksweeper,
                                    int numHonourBearers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        const int maxSpecials = numModels / MIN_UNIT_SIZE;
+        const int maxSpecials = numModels / g_minUnitSize;
         if (numMortars > maxSpecials || numCannons > maxSpecials || numFumigators > maxSpecials ||
             numDecksweeper > maxSpecials || numHonourBearers > maxSpecials) {
             return false;
         }
 
-        auto sergeant = new Model(BASESIZE, wounds());
+        auto sergeant = new Model(g_basesize, wounds());
         sergeant->addMissileWeapon(&m_doubleBarrelledRifle);
         sergeant->addMeleeWeapon(&m_drillbill);
         sergeant->addMeleeWeapon(&m_gunButt);
         addModel(sergeant);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             if (numMortars > 0) {
                 model->addMissileWeapon(&m_mortar);
                 numMortars--;
@@ -149,9 +149,9 @@ namespace KharadronOverlords {
     }
 
     int GrundstokThunderers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

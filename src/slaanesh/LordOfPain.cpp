@@ -12,26 +12,26 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool LordOfPain::s_registered = false;
 
     LordOfPain::LordOfPain() :
-            SlaaneshBase("Lord of Pain", 6, WOUNDS, 7, 4, false),
+            SlaaneshBase("Lord of Pain", 6, g_wounds, 7, 4, false),
             m_mace(Weapon::Type::Melee, "Soulpiercer Mace", 2, 5, 3, 3, -1, 2) {
-        m_keywords = {CHAOS, MORATHI, SLAANESH, HEDONITE, HERO, LORD_OF_PAIN};
+        m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, LORD_OF_PAIN};
         m_weapons = {&m_mace};
         m_battleFieldRole = Leader;
     }
 
     bool LordOfPain::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_mace);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -72,7 +72,7 @@ namespace Slaanesh {
     }
 
     int LordOfPain::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool KnightQuestor::s_registered = false;
 
     KnightQuestor::KnightQuestor() :
-            StormcastEternal("Knight-Questor", 5, WOUNDS, 8, 3, false),
+            StormcastEternal("Knight-Questor", 5, g_wounds, 8, 3, false),
             m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_QUESTOR};
         m_weapons = {&m_warblade};
@@ -27,11 +27,11 @@ namespace StormcastEternals {
     }
 
     bool KnightQuestor::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warblade);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -76,14 +76,14 @@ namespace StormcastEternals {
     Rerolls KnightQuestor::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Heroic Challenge
         if (unit->hasKeyword(HERO)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return StormcastEternal::toHitRerolls(weapon, unit);
     }
 
     Rerolls KnightQuestor::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Sigmarite Shield
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -95,7 +95,7 @@ namespace StormcastEternals {
     }
 
     int KnightQuestor::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

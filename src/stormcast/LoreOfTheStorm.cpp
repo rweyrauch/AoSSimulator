@@ -42,8 +42,8 @@ namespace StormcastEternals {
 
     void Thundershock::secondaryEffect(Unit *target, int round) const {
         if (target) {
-            target->buffModifier(ToHitMelee, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
-            target->buffModifier(ToHitMissile, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
+            target->buffModifier(To_Hit_Melee, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
+            target->buffModifier(To_Hit_Missile, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
         }
     }
 
@@ -68,11 +68,11 @@ namespace StormcastEternals {
     }
 
     Spell *CreateCelestialBlades(Unit *caster) {
-        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18.0, ToWoundMelee, 1, true);
+        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18.0, To_Wound_Melee, 1, true);
     }
 
     Spell *CreateSpeedOfLightning(Unit *caster) {
-        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9.0, ChargeDistance, RerollFailed, true);
+        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9.0, Charge_Distance, Reroll_Failed, true);
     }
 
     Spell *CreateLore(Lore which, Unit *caster) {
@@ -93,7 +93,7 @@ namespace StormcastEternals {
                 return CreateCelestialBlades(caster);
             case Lore::Terrifying_Aspect:
                 return CreateTerrifyingAspect(caster);
-            case Lore::Speed_of_Lightning:
+            case Lore::Speed_Of_Lightning:
                 return CreateSpeedOfLightning(caster);
             default:
                 return nullptr;

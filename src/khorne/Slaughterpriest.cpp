@@ -11,14 +11,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 100;
 
     bool Slaughterpriest::s_registered = false;
 
     Slaughterpriest::Slaughterpriest() :
-            KhorneBase("Slaughterpriest", 6, WOUNDS, 8, 5, false),
+            KhorneBase("Slaughterpriest", 6, g_wounds, 8, 5, false),
             m_bloodbathedAxe(Weapon::Type::Melee, "Bloodbathed Axe", 2, 3, 4, 3, 0, 2),
             m_hackblade(Weapon::Type::Melee, "Hackblade", 1, 3, 3, 4, 0, 1),
             m_wrathHammer(Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 4, 4, 0, 1) {
@@ -33,9 +33,9 @@ namespace Khorne {
     }
 
     bool Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
-        if (weapon == BloodbathedAxe) {
+        if (weapon == Bloodbathed_Axe) {
             model->addMeleeWeapon(&m_bloodbathedAxe);
         } else {
             model->addMeleeWeapon(&m_hackblade);
@@ -47,14 +47,14 @@ namespace Khorne {
         m_knownPrayers.push_back(
                 std::unique_ptr<Prayer>(new DamagePrayer(this, "Blood Boil", 4, 16.0, RAND_D6, RAND_D3)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *Slaughterpriest::Create(const ParameterList &parameters) {
         auto unit = new Slaughterpriest();
-        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BloodbathedAxe);
+        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Bloodbathed_Axe);
         auto blessing = (BloodBlessingsOfKhorne) GetEnumParam("Blood Blessings of Khorne", parameters,
                                                               g_bloodBlessingsOfKhorne[0]);
 
@@ -80,14 +80,14 @@ namespace Khorne {
 
     void Slaughterpriest::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {BloodbathedAxe, HackbladeAndWrathHammer};
+            static const std::array<int, 2> weapons = {Bloodbathed_Axe, Hackblade_And_Wrath_Hammer};
             static FactoryMethod factoryMethod = {
                     Slaughterpriest::Create,
                     Slaughterpriest::ValueToString,
                     Slaughterpriest::EnumStringToInt,
                     Slaughterpriest::ComputePoints,
                     {
-                            EnumParameter("Weapon", BloodbathedAxe, weapons),
+                            EnumParameter("Weapon", Bloodbathed_Axe, weapons),
                             EnumParameter("Blood Blessings of Khorne", g_bloodBlessingsOfKhorne[0], g_bloodBlessingsOfKhorne),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
                             EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
@@ -103,8 +103,8 @@ namespace Khorne {
 
     std::string Slaughterpriest::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == BloodbathedAxe) { return "Bloodbathed Axe"; }
-            else if (parameter.intValue == HackbladeAndWrathHammer) { return "Hackblade and Wrath-hammer"; }
+            if (parameter.intValue == Bloodbathed_Axe) { return "Bloodbathed Axe"; }
+            else if (parameter.intValue == Hackblade_And_Wrath_Hammer) { return "Hackblade and Wrath-hammer"; }
         } else if (std::string(parameter.name) == "Blood Blessings of Khorne") {
             return ToString((BloodBlessingsOfKhorne) parameter.intValue);
         }
@@ -117,13 +117,13 @@ namespace Khorne {
             return (int) blessing;
         }
 
-        if (enumString == "Bloodbathed Axe") { return BloodbathedAxe; }
-        else if (enumString == "Hackblade and Wrath-hammer") { return HackbladeAndWrathHammer; }
+        if (enumString == "Bloodbathed Axe") { return Bloodbathed_Axe; }
+        else if (enumString == "Hackblade and Wrath-hammer") { return Hackblade_And_Wrath_Hammer; }
         return KhorneBase::EnumStringToInt(enumString);
     }
 
     int Slaughterpriest::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

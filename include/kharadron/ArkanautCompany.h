@@ -18,9 +18,9 @@ namespace KharadronOverlords {
     public:
 
         enum CaptainWeapon {
-            AetherflarePistol,
-            VolleyPistol,
-            PrivateerPistol
+            Aetherflare_Pistol,
+            Volley_Pistol,
+            Privateer_Pistol
         };
 
         static Unit *Create(const ParameterList &parameters);

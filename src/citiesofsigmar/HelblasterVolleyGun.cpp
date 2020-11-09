@@ -11,9 +11,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 25;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 120;
 
     bool HelblasterVolleyGun::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace CitiesOfSigmar {
     }
 
     HelblasterVolleyGun::HelblasterVolleyGun() :
-            CitizenOfSigmar("Helblaster Volley Gun", 3, WOUNDS, 5, 4, false),
+            CitizenOfSigmar("Helblaster Volley Gun", 3, g_wounds, 5, 4, false),
             m_volley1(Weapon::Type::Missile, "Volley of Shots (1 Deck)", 24, RAND_D6, 4, 3, -1, 1),
             m_volley2(Weapon::Type::Missile, "Volley of Shots (2 Decks)", 24, RAND_2D6, 4, 3, -1, 1),
             m_volley3(Weapon::Type::Missile, "Volley of Shots (3 Decks)", 24, RAND_3D6, 4, 3, -1, 1),
@@ -68,7 +68,7 @@ namespace CitiesOfSigmar {
     }
 
     bool HelblasterVolleyGun::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         // TODO: allow selection of 1, 2 or 3 decks
         model->addMissileWeapon(&m_volley1);
@@ -76,7 +76,7 @@ namespace CitiesOfSigmar {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -91,7 +91,7 @@ namespace CitiesOfSigmar {
     }
 
     int HelblasterVolleyGun::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace CitiesOfSigmar

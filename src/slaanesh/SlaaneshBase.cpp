@@ -102,7 +102,7 @@ namespace Slaanesh {
     Rerolls SlaaneshBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Heir to the Throne
         if ((m_host == Host::Pretenders) && (remainingModels() >= 10)) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }

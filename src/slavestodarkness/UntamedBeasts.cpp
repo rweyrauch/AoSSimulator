@@ -10,18 +10,18 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 9;
-    static const int MAX_UNIT_SIZE = 36;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 9;
+    static const int g_maxUnitSize = 36;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool UntamedBeasts::s_registered = false;
 
     Unit *UntamedBeasts::Create(const ParameterList &parameters) {
         auto unit = new UntamedBeasts();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -42,7 +42,7 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     UntamedBeasts::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                     },
                     CHAOS,
@@ -54,7 +54,7 @@ namespace SlavesToDarkness {
     }
 
     UntamedBeasts::UntamedBeasts() :
-            SlavesToDarknessBase("Untamed Beasts", 6, WOUNDS, 5, 6, false),
+            SlavesToDarknessBase("Untamed Beasts", 6, g_wounds, 5, 6, false),
             m_harpoonFirstFang(Weapon::Type::Missile, "Jagged Harpoon", 8, 1, 4, 3, -1, 2),
             m_huntingWeapons(Weapon::Type::Melee, "Hunting Weapons", 1, 1, 4, 4, 0, 1),
             m_huntingWeaponsHeartEater(Weapon::Type::Melee, "Hunting Weapons (Heart-eater)", 1, 2, 4, 4, 0, 1) {
@@ -66,28 +66,28 @@ namespace SlavesToDarkness {
     }
 
     bool UntamedBeasts::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto hearteater = new Model(BASESIZE, wounds());
+        auto hearteater = new Model(g_basesize, wounds());
         hearteater->addMeleeWeapon(&m_huntingWeaponsHeartEater);
         hearteater->setName("Heart-eater");
         addModel(hearteater);
 
-        auto firstfang = new Model(BASESIZE, wounds());
+        auto firstfang = new Model(g_basesize, wounds());
         firstfang->addMissileWeapon(&m_harpoonFirstFang);
         firstfang->addMeleeWeapon(&m_huntingWeapons);
         firstfang->setName("First Fang");
         addModel(firstfang);
 
-        auto prowler = new Model(BASESIZE, 2);
+        auto prowler = new Model(g_basesize, 2);
         prowler->addMeleeWeapon(&m_huntingWeapons);
         prowler->setName("Rocktusk Prowler");
         addModel(prowler);
 
         for (auto i = 3; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_huntingWeapons);
             addModel(model);
         }
@@ -98,9 +98,9 @@ namespace SlavesToDarkness {
     }
 
     int UntamedBeasts::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

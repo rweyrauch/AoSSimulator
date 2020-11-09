@@ -18,7 +18,7 @@ namespace Khorne {
 
     enum class SlaughterHost : int {
         None = 0,
-        Reapers_of_Vengeance,
+        Reapers_Of_Vengeance,
         Bloodlords,
         Goretide,
         Skullfiend_Tribe
@@ -31,7 +31,7 @@ namespace Khorne {
         Arch_Slaughterer,
         Unrivalled_Battle_Lust,
         Slaughterborn,
-        Hungry_for_Glory,
+        Hungry_For_Glory,
         Berserker_Lord,
         Violent_Urgency,
 
@@ -39,22 +39,22 @@ namespace Khorne {
         //Arch_Slaughterer,
         //Unrivalled_Battle_Lust,
         //Slaughterborn,
-        Mark_of_the_Cannibal,
+        Mark_Of_The_Cannibal,
         Bloodsworn,
-        Disciple_of_Khorne,
+        Disciple_Of_Khorne,
 
         // Khorne Daemons
         //Arch_Slaughterer,
         //Unrivalled_Battle_Lust,
         //Slaughterborn,
         Rage_Unchained,
-        Aspect_of_Death,
+        Aspect_Of_Death,
         Devastating_Blow,
 
         // Slaughterhost specific
         Mage_Eater, // Reapers
         Slaughterers_Thirst,    // Bloodlords
-        Hew_the_Foe,    // Goretide
+        Hew_The_Foe,    // Goretide
         Master_Decapitator  // Skullfiend
     };
 
@@ -63,43 +63,43 @@ namespace Khorne {
 
         // Khorne Mortals
         Heart_Seeker,
-        Collar_of_Contempt,
+        Collar_Of_Contempt,
         Blood_Drinker,
         Gorecleaver,
         The_Crimson_Plate,
         Blood_Rune,
 
         // Khorne Bloodbound
-        Skull_Helm_of_Khorne,
+        Skull_Helm_Of_Khorne,
         Blood_Forged_Armour,
         Brazen_Rune,
-        Blade_of_Endless_Bloodshed,
-        Mask_of_the_Destroyer,
-        Talisman_of_Burning_Blood,
+        Blade_Of_Endless_Bloodshed,
+        Mask_Of_The_Destroyer,
+        Talisman_Of_Burning_Blood,
 
         // Khorne Bloodbound with Totem
-        Banner_of_Rage,
-        Banner_of_Wrath,
-        Banner_of_Blood,
+        Banner_Of_Rage,
+        Banner_Of_Wrath,
+        Banner_Of_Blood,
 
         // Khorne Daemons
-        Argath_the_King_of_Blades,
+        Argath_The_King_Of_Blades,
         Deathdealer,
-        Khartoth_the_Bloodhunger,
+        Khartoth_The_Bloodhunger,
         Hellfire_Blade,
-        Harvester_of_Skulls,
+        Harvester_Of_Skulls,
         Foes_Bane,
 
         The_Crimson_Crown,
-        Armour_of_Scorn,
-        Mark_of_the_Bloodreaper,
-        Collar_of_Khorne,
+        Armour_Of_Scorn,
+        Mark_Of_The_Bloodreaper,
+        Collar_Of_Khorne,
         Crimson_Soulstone,
-        Mark_of_the_Slayer,
+        Mark_Of_The_Slayer,
 
         // Slaughterhost specific
         Skullshard_Mantle,  // Reapers
-        Halo_of_Blood,  // Bloodlords
+        Halo_Of_Blood,  // Bloodlords
         Thronebreakers_Torc,    // Goretide
         Crowncleaver    // Skullfiend
     };

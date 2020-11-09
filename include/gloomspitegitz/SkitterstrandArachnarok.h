@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SKITTERSTRAND_H
-#define SKITTERSTRAND_H
+#ifndef SKITTERSTRANDARACHNAROK_H
+#define SKITTERSTRANDARACHNAROK_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -57,4 +57,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //SKITTERSTRAND_H
+#endif //SKITTERSTRANDARACHNAROK_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef VORGAROTH_H
-#define VORGAROTH_H
+#ifndef VORGAROTHANDSKALOK_H
+#define VORGAROTHANDSKALOK_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -69,4 +69,4 @@ namespace Khorne {
 
 } // namespace Khorne
 
-#endif //VORGAROTH_H
+#endif //VORGAROTHANDSKALOK_H

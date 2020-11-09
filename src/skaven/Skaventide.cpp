@@ -82,7 +82,7 @@ namespace Skaven {
     }
 
     bool Skaventide::moreMore() const {
-        return (Dice::rollD6() >= 3);
+        return (Dice::RollD6() >= 3);
     }
 
     std::string Skaventide::ValueToString(const Parameter &parameter) {

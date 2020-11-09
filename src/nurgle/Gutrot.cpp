@@ -10,9 +10,9 @@
 #include "nurgle/Gutrot.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 140;
 
     bool GutrotSpume::s_registered = false;
 
@@ -48,7 +48,7 @@ namespace Nurgle {
     }
 
     GutrotSpume::GutrotSpume() :
-            NurgleBase("Gutrot Spume", 4, WOUNDS, 9, 3, false),
+            NurgleBase("Gutrot Spume", 4, g_wounds, 9, 3, false),
             m_axe(Weapon::Type::Melee, "Rot-pocked Axe", 2, 4, 3, 2, -1, 2),
             m_tentacles(Weapon::Type::Melee, "Flailing Tentacles", 1, RAND_D3, 2, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, GUTROT_SPUME};
@@ -57,18 +57,18 @@ namespace Nurgle {
     }
 
     bool GutrotSpume::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axe);
         model->addMeleeWeapon(&m_tentacles);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int GutrotSpume::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

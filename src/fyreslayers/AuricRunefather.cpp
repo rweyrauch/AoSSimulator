@@ -11,14 +11,14 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 100;
 
     bool AuricRunefather::s_registered = false;
 
     AuricRunefather::AuricRunefather() :
-            Fyreslayer("Auric Runefather", 4, WOUNDS, 8, 4, false),
+            Fyreslayer("Auric Runefather", 4, g_wounds, 8, 4, false),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNEFATHER};
@@ -27,12 +27,12 @@ namespace Fyreslayers {
     }
 
     bool AuricRunefather::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_grandAxe);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -81,7 +81,7 @@ namespace Fyreslayers {
     }
 
     int AuricRunefather::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void AuricRunefather::onStartHero(PlayerId player) {
@@ -91,7 +91,7 @@ namespace Fyreslayers {
             // Stare Down
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
-                unit->buffModifier(Bravery, -Dice::rollD3(), {Hero, m_battleRound + 1, owningPlayer()});
+                unit->buffModifier(Bravery, -Dice::RollD3(), {Hero, m_battleRound + 1, owningPlayer()});
             }
         }
     }
@@ -102,9 +102,9 @@ namespace Fyreslayers {
         // Weapon-breaker
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (unit) {
-            if (Dice::rollD6() == 6) {
+            if (Dice::RollD6() == 6) {
                 // TODO: buff only affects a single weapon
-                unit->buffModifier(ToHitMelee, -1, {Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
+                unit->buffModifier(To_Hit_Melee, -1, {Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
             }
         }
         return wounds;

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef EXALTEDHERO_H
-#define EXALTEDHERO_H
+#ifndef EXALTEDHEROOFCHAOS_H
+#define EXALTEDHEROOFCHAOS_H
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -54,4 +54,4 @@ namespace SlavesToDarkness {
 
 } // SlavesToDarkness
 
-#endif //EXALTEDHERO_H
+#endif //EXALTEDHEROOFCHAOS_H

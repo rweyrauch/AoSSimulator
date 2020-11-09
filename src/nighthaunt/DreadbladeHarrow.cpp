@@ -11,9 +11,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool DreadbladeHarrow::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Nighthaunt {
     }
 
     DreadbladeHarrow::DreadbladeHarrow() :
-            Nighthaunt("Dreadblade Harrow", 12, WOUNDS, 10, 4, true),
+            Nighthaunt("Dreadblade Harrow", 12, g_wounds, 10, 4, true),
             m_dreadblade(Weapon::Type::Melee, "Dreadblade", 1, 3, 3, 3, -1, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, DREADBLADE_HARROW};
@@ -67,7 +67,7 @@ namespace Nighthaunt {
     }
 
     bool DreadbladeHarrow::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_dreadblade);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
@@ -96,12 +96,12 @@ namespace Nighthaunt {
     Rerolls DreadbladeHarrow::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), KNIGHT_OF_SHROUDS, 9.0);
         if (unit && (weapon->name() == m_dreadblade.name())) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toWoundRerolls(weapon, target);
     }
 
     int DreadbladeHarrow::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 } // namespace Nighthaunt

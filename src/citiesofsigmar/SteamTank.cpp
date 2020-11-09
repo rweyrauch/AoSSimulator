@@ -12,10 +12,10 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 105;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 180;
-    static const int POINTS_FOR_COMMANDER = 50;
+    static const int g_basesize = 105;
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 180;
+    static const int g_pointsForCommander = 50;
 
     struct TableEntry {
         int m_move;
@@ -23,9 +23,9 @@ namespace CitiesOfSigmar {
         int m_gunToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {RAND_2D6, 30, 2},
                     {RAND_2D6, 24, 3},
@@ -79,7 +79,7 @@ namespace CitiesOfSigmar {
     }
 
     SteamTank::SteamTank() :
-            CitizenOfSigmar("Steam Tank", RAND_2D6, WOUNDS, 8, 3, false),
+            CitizenOfSigmar("Steam Tank", RAND_2D6, g_wounds, 8, 3, false),
             m_steamCannon(Weapon::Type::Missile, "Steam Cannon", 30, 1, 4, 2, -2, RAND_D6),
             m_steamGun(Weapon::Type::Missile, "Steam Gun", 8, RAND_2D6, 4, 2, 0, 1),
             m_longRifle(Weapon::Type::Missile, "Long Rifle", 30, 1, 3, 3, -1, 2),
@@ -92,20 +92,20 @@ namespace CitiesOfSigmar {
     }
 
     bool SteamTank::configure(bool commander) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_steamCannon);
         model->addMissileWeapon(&m_steamGun);
         model->addMeleeWeapon(&m_crushingWheels);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         if (commander) {
             addKeyword(HERO);
             model->addMissileWeapon(&m_longRifle);
             model->addMissileWeapon(&m_handgun);
             model->addMeleeWeapon(&m_sword);
-            m_battleFieldRole = LeaderBehemoth;
-            m_points += POINTS_FOR_COMMANDER;
+            m_battleFieldRole = Leader_Behemoth;
+            m_points += g_pointsForCommander;
         }
         addModel(model);
         m_commander = commander;
@@ -129,7 +129,7 @@ namespace CitiesOfSigmar {
 
     int SteamTank::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -152,8 +152,8 @@ namespace CitiesOfSigmar {
         // Steel Behemoth
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) <= 1.0) {
-            if (Dice::rollD6() >= 2) {
-                unit->applyDamage({0, Dice::rollD3()});
+            if (Dice::RollD6() >= 2) {
+                unit->applyDamage({0, Dice::RollD3()});
             }
         }
     }
@@ -167,7 +167,7 @@ namespace CitiesOfSigmar {
             // Apply 'More Pressure!' or 'I'll Fix It'
             if ((remainingWounds() < initialWounds()) && m_commander) {
                 // Damaged - try to heal
-                heal(Dice::rollD3());
+                heal(Dice::RollD3());
             } else {
                 // TODO: decide to overpressure
             }
@@ -191,7 +191,7 @@ namespace CitiesOfSigmar {
     }
 
     int SteamTank::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace CitiesOfSigmar

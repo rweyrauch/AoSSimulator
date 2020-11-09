@@ -10,12 +10,12 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 40;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 2;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 480;
 
 
     bool Leadbelchers::s_registered = false;
@@ -23,7 +23,7 @@ namespace OgorMawtribes {
     Unit *Leadbelchers::Create(const ParameterList &parameters) {
         auto unit = new Leadbelchers();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
@@ -52,7 +52,7 @@ namespace OgorMawtribes {
                     Leadbelchers::EnumStringToInt,
                     Leadbelchers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
@@ -63,7 +63,7 @@ namespace OgorMawtribes {
     }
 
     Leadbelchers::Leadbelchers() :
-            MawtribesBase("Leadbelchers", 6, WOUNDS, 6, 5, false),
+            MawtribesBase("Leadbelchers", 6, g_wounds, 6, 5, false),
             m_gun(Weapon::Type::Missile, "Leadbelcher Gun", 12, RAND_D3, 4, 3, -1, 1),
             m_blow(Weapon::Type::Melee, "Bludgeoning Blow", 1, 2, 3, 3, -1, 2),
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
@@ -73,7 +73,7 @@ namespace OgorMawtribes {
     }
 
     bool Leadbelchers::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -82,14 +82,14 @@ namespace OgorMawtribes {
             m_gun.setRange(m_gun.range() + 6);
         }
 
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         boss->addMissileWeapon(&m_gun);
         boss->addMeleeWeapon(&m_blowThunderfist);
         boss->addMeleeWeapon(&m_bite);
         addModel(boss);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_gun);
             model->addMeleeWeapon(&m_blow);
             model->addMeleeWeapon(&m_bite);
@@ -112,9 +112,9 @@ namespace OgorMawtribes {
     }
 
     int Leadbelchers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

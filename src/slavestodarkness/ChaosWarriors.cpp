@@ -10,19 +10,19 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 540;
 
     bool ChaosWarriors::s_registered = false;
 
     Unit *ChaosWarriors::Create(const ParameterList &parameters) {
         auto unit = new ChaosWarriors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, PairedHandWeapons);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Paired_Hand_Weapons);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -42,7 +42,7 @@ namespace SlavesToDarkness {
 
     void ChaosWarriors::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {HandWeaponAndShield, HalberdAndShield, GreatBlade, PairedHandWeapons};
+            static const std::array<int, 4> weapons = {Hand_Weapon_And_Shield, Halberd_And_Shield, Great_Blade, Paired_Hand_Weapons};
 
             static FactoryMethod factoryMethod = {
                     ChaosWarriors::Create,
@@ -50,8 +50,8 @@ namespace SlavesToDarkness {
                     ChaosWarriors::EnumStringToInt,
                     ChaosWarriors::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", HandWeaponAndShield, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Hand_Weapon_And_Shield, weapons),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
@@ -65,7 +65,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosWarriors::ChaosWarriors() :
-            SlavesToDarknessBase("Chaos Warriors", 5, WOUNDS, 7, 4, false),
+            SlavesToDarknessBase("Chaos Warriors", 5, g_wounds, 7, 4, false),
             m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 3, 3, 0, 1),
             m_halberd(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 3, 4, 0, 1),
             m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 4, 3, -1, 1),
@@ -79,7 +79,7 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -89,16 +89,16 @@ namespace SlavesToDarkness {
         m_hasShields = false;
         m_pairedWeapons = false;
 
-        auto champion = new Model(BASESIZE, wounds());
-        if (weapons == HandWeaponAndShield) {
+        auto champion = new Model(g_basesize, wounds());
+        if (weapons == Hand_Weapon_And_Shield) {
             champion->addMeleeWeapon(&m_handWeaponsChampion);
             m_hasShields = true;
-        } else if (weapons == HalberdAndShield) {
+        } else if (weapons == Halberd_And_Shield) {
             champion->addMeleeWeapon(&m_halberdChampion);
             m_hasShields = true;
-        } else if (weapons == GreatBlade) {
+        } else if (weapons == Great_Blade) {
             champion->addMeleeWeapon(&m_greatBladeChampion);
-        } else if (weapons == PairedHandWeapons) {
+        } else if (weapons == Paired_Hand_Weapons) {
             champion->addMeleeWeapon(&m_handWeaponsChampion);
             m_pairedWeapons = true;
         }
@@ -106,42 +106,42 @@ namespace SlavesToDarkness {
         addModel(champion);
 
         if (m_standardBearer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Standard Bearer");
-            if (weapons == HandWeaponAndShield)
+            if (weapons == Hand_Weapon_And_Shield)
                 model->addMeleeWeapon(&m_handWeapons);
-            else if (weapons == HalberdAndShield)
+            else if (weapons == Halberd_And_Shield)
                 model->addMeleeWeapon(&m_halberd);
-            else if (weapons == GreatBlade)
+            else if (weapons == Great_Blade)
                 model->addMeleeWeapon(&m_greatBlade);
-            else if (weapons == PairedHandWeapons)
+            else if (weapons == Paired_Hand_Weapons)
                 model->addMeleeWeapon(&m_handWeapons);
             addModel(model);
         }
 
         if (m_hornblower) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
-            if (weapons == HandWeaponAndShield)
+            if (weapons == Hand_Weapon_And_Shield)
                 model->addMeleeWeapon(&m_handWeapons);
-            else if (weapons == HalberdAndShield)
+            else if (weapons == Halberd_And_Shield)
                 model->addMeleeWeapon(&m_halberd);
-            else if (weapons == GreatBlade)
+            else if (weapons == Great_Blade)
                 model->addMeleeWeapon(&m_greatBlade);
-            else if (weapons == PairedHandWeapons)
+            else if (weapons == Paired_Hand_Weapons)
                 model->addMeleeWeapon(&m_handWeapons);
             addModel(model);
         }
 
         for (auto i = (int) m_models.size(); i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == HandWeaponAndShield)
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Hand_Weapon_And_Shield)
                 model->addMeleeWeapon(&m_handWeapons);
-            else if (weapons == HalberdAndShield)
+            else if (weapons == Halberd_And_Shield)
                 model->addMeleeWeapon(&m_halberd);
-            else if (weapons == GreatBlade)
+            else if (weapons == Great_Blade)
                 model->addMeleeWeapon(&m_greatBlade);
-            else if (weapons == PairedHandWeapons)
+            else if (weapons == Paired_Hand_Weapons)
                 model->addMeleeWeapon(&m_handWeapons);
             addModel(model);
         }
@@ -153,13 +153,13 @@ namespace SlavesToDarkness {
 
     std::string ChaosWarriors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == HandWeaponAndShield) {
+            if (parameter.intValue == Hand_Weapon_And_Shield) {
                 return "Hand Weapon and Shield";
-            } else if (parameter.intValue == HalberdAndShield) {
+            } else if (parameter.intValue == Halberd_And_Shield) {
                 return "Halberd and Shield";
-            } else if (parameter.intValue == GreatBlade) {
+            } else if (parameter.intValue == Great_Blade) {
                 return "Greatblade";
-            } else if (parameter.intValue == PairedHandWeapons) {
+            } else if (parameter.intValue == Paired_Hand_Weapons) {
                 return "Paired Hand Weapons";
             }
         }
@@ -168,13 +168,13 @@ namespace SlavesToDarkness {
 
     int ChaosWarriors::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Hand Weapon and Shield") {
-            return HandWeaponAndShield;
+            return Hand_Weapon_And_Shield;
         } else if (enumString == "Halberd and Shield") {
-            return HalberdAndShield;
+            return Halberd_And_Shield;
         } else if (enumString == "Greatblade") {
-            return GreatBlade;
+            return Great_Blade;
         } else if (enumString == "Paired Hand Weapons") {
-            return PairedHandWeapons;
+            return Paired_Hand_Weapons;
         }
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
@@ -197,7 +197,7 @@ namespace SlavesToDarkness {
         if (m_hasShields) {
             // Chaos Runeshield
             Dice::RollResult mortalSaves;
-            Dice::rollD6(wounds.mortal, mortalSaves);
+            Dice::RollD6(wounds.mortal, mortalSaves);
 
             Wounds totalWounds = wounds;
             totalWounds.mortal -= mortalSaves.rollsGE(5);
@@ -229,14 +229,14 @@ namespace SlavesToDarkness {
     Rerolls ChaosWarriors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pair of Chaos Hand Weapons
         if (m_pairedWeapons)
-            return RerollOnes;
+            return Reroll_Ones;
         return Unit::toHitRerolls(weapon, target);
     }
 
     Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon) const {
         // Legions of Chaos
         if (remainingModels() >= 10)
-            return RerollFailed;
+            return Reroll_Failed;
         return Unit::toSaveRerolls(weapon);
     }
 
@@ -255,9 +255,9 @@ namespace SlavesToDarkness {
     }
 
     int ChaosWarriors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

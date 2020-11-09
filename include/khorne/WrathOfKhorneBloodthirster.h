@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WRATHBLOODTHIRSTER_H
-#define WRATHBLOODTHIRSTER_H
+#ifndef WRATHOFKHORNEBLOODTHIRSTER_H
+#define WRATHOFKHORNEBLOODTHIRSTER_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -63,4 +63,4 @@ namespace Khorne {
 
 } // namespace Khorne
 
-#endif //WRATHBLOODTHIRSTER_H
+#endif //WRATHOFKHORNEBLOODTHIRSTER_H

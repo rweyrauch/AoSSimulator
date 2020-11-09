@@ -67,7 +67,7 @@ namespace GloomspiteGitz {
 
     int GloomspiteGitzBase::EnumStringToInt(const std::string &enumString) {
         Lore lore;
-        if (FromString(enumString, lore)) return to_integer(lore);
+        if (FromString(enumString, lore)) return ToInteger(lore);
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
         if (trait.has_value()) return (int)trait.value();
@@ -130,7 +130,7 @@ namespace GloomspiteGitz {
                     }
                 }
                 if (target) {
-                    int mortal = Dice::rollD3();
+                    int mortal = Dice::RollD3();
                     target->applyDamage({0, mortal});
 
                     SimLog(Verbosity::Narrative,
@@ -157,7 +157,7 @@ namespace GloomspiteGitz {
     Rerolls GloomspiteGitzBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Moonclan Fungus Brew
         if (hasKeyword(MOONCLAN) && hasKeyword(GROT) && inLightOfTheBadMoon()) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -187,7 +187,7 @@ namespace GloomspiteGitz {
 
         // Lunar Squigs
         if (hasKeyword(SQUIG) && inLightOfTheBadMoon()) {
-            buffMovement(RunAndCharge, true, {Phase::Hero, m_battleRound + 1, owningPlayer()});
+            buffMovement(Run_And_Charge, true, {Phase::Hero, m_battleRound + 1, owningPlayer()});
         }
     }
 

@@ -11,9 +11,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 60;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 140;
 
     bool OgroidMyrmidon::s_registered = false;
 
@@ -49,7 +49,7 @@ namespace SlavesToDarkness {
     }
 
     OgroidMyrmidon::OgroidMyrmidon() :
-            SlavesToDarknessBase("Ogroid Myrmidon", 6, WOUNDS, 8, 4, false),
+            SlavesToDarknessBase("Ogroid Myrmidon", 6, g_wounds, 8, 4, false),
             m_spearMissile(Weapon::Type::Missile, "Gladiator Spear", 18, 1, 3, 3, -1, RAND_D3),
             m_spear(Weapon::Type::Melee, "Gladiator Spear", 2, 6, 3, 3, -1, 1),
             m_horns(Weapon::Type::Melee, "Great Horns", 1, 1, 3, 3, -2, 3) {
@@ -59,14 +59,14 @@ namespace SlavesToDarkness {
     }
 
     bool OgroidMyrmidon::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_spearMissile);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_horns);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -80,7 +80,7 @@ namespace SlavesToDarkness {
     }
 
     int OgroidMyrmidon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 }//namespace SlavesToDarkness

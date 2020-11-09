@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 110;
 
     bool ChaosLord::s_registered = false;
 
@@ -40,7 +40,7 @@ namespace SlavesToDarkness {
 
     void ChaosLord::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {Reaperblade, DaemonboundSteel, DaemonboundWarFlail};
+            static const std::array<int, 3> weapons = {Reaperblade, Daemonbound_Steel, Daemonbound_War_Flail};
             static FactoryMethod factoryMethod = {
                     ChaosLord::Create,
                     ChaosLord::ValueToString,
@@ -60,7 +60,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosLord::ChaosLord() :
-            SlavesToDarknessBase("Chaos Lord", 5, WOUNDS, 8, 4, false),
+            SlavesToDarknessBase("Chaos Lord", 5, g_wounds, 8, 4, false),
             m_blade(Weapon::Type::Melee, "Reaperblade", 2, 3, 3, 3, -2, 2),
             m_steel(Weapon::Type::Melee, "Daemonbound Steel", 1, 3, 3, 3, -1, 1),
             m_flail(Weapon::Type::Melee, "Daemonbound War-flail", 2, 6, 4, 4, -2, 1) {
@@ -70,17 +70,17 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosLord::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         if (option == Reaperblade)
             model->addMeleeWeapon(&m_blade);
-        else if (option == DaemonboundSteel)
+        else if (option == Daemonbound_Steel)
             model->addMeleeWeapon(&m_steel);
-        else if (option == DaemonboundWarFlail)
+        else if (option == Daemonbound_War_Flail)
             model->addMeleeWeapon(&m_flail);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -99,9 +99,9 @@ namespace SlavesToDarkness {
             switch (parameter.intValue) {
                 case Reaperblade:
                     return "Reaperblade";
-                case DaemonboundSteel:
+                case Daemonbound_Steel:
                     return "Daemonbound Steel";
-                case DaemonboundWarFlail:
+                case Daemonbound_War_Flail:
                     return "Daemonbound War-flail";
                 default:
                     break;
@@ -112,14 +112,14 @@ namespace SlavesToDarkness {
 
     int ChaosLord::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Reaperblade") return Reaperblade;
-        else if (enumString == "Daemonbound Steel") return DaemonboundSteel;
-        else if (enumString == "Daemonbound War-flail") return DaemonboundWarFlail;
+        else if (enumString == "Daemonbound Steel") return Daemonbound_Steel;
+        else if (enumString == "Daemonbound War-flail") return Daemonbound_War_Flail;
 
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
     int ChaosLord::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace SlavesToDarkness

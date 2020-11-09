@@ -12,17 +12,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 170;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 40;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 170;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool Protectors::s_registered = false;
 
     Protectors::Protectors() :
-            StormcastEternal("Protectors", 4, WOUNDS, 7, 4, false),
+            StormcastEternal("Protectors", 4, g_wounds, 7, 4, false),
             m_glaive(Weapon::Type::Melee, "Stormstrike Glaive", 3, 3, 3, 3, -1, 1),
             m_glaivePrime(Weapon::Type::Melee, "Stormstrike Glaive", 3, 4, 3, 3, -1, 1),
             m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0) {
@@ -32,7 +32,7 @@ namespace StormcastEternals {
 
     bool Protectors::configure(int numModels, int numStarsoulMaces) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -43,19 +43,19 @@ namespace StormcastEternals {
         }
 
         // Add the Prime
-        auto primeModel = new Model(BASESIZE, wounds());
+        auto primeModel = new Model(g_basesize, wounds());
         primeModel->addMeleeWeapon(&m_glaivePrime);
         addModel(primeModel);
 
         for (auto i = 0; i < numStarsoulMaces; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_starsoulMace);
             addModel(model);
         }
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_glaive);
             addModel(model);
         }
@@ -68,16 +68,16 @@ namespace StormcastEternals {
     Wounds Protectors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deathstrike
         if ((hitRoll == 6) && target->hasKeyword(MONSTER) && (weapon->name() == m_glaive.name())) {
-            return {Dice::rollD6(), 0};
+            return {Dice::RollD6(), 0};
         }
         // Starsoul Mace
         if (weapon->name() == m_starsoulMace.name()) {
             int mortalWounds = 0;
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 6) {
-                mortalWounds = Dice::rollD3() + 1;
+                mortalWounds = Dice::RollD3() + 1;
             } else if (roll >= 2) {
-                mortalWounds = Dice::rollD3();
+                mortalWounds = Dice::RollD3();
             }
             return {0, mortalWounds};
         }
@@ -86,7 +86,7 @@ namespace StormcastEternals {
 
     Unit *Protectors::Create(const ParameterList &parameters) {
         auto unit = new Protectors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
@@ -108,8 +108,8 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Starsoul Maces", 2, 0, (MAX_UNIT_SIZE / 5) * 2, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Starsoul Maces", 2, 0, (g_maxUnitSize / 5) * 2, 1),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
@@ -131,9 +131,9 @@ namespace StormcastEternals {
     }
 
     int Protectors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

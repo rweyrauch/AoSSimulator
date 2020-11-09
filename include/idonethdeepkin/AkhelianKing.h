@@ -18,7 +18,7 @@ namespace IdonethDeepkin {
     public:
 
         enum WeaponOption {
-            BladedPolearm,
+            Bladed_Polearm,
             Greatsword,
         };
 

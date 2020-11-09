@@ -16,31 +16,31 @@ MysticShield::MysticShield(Unit *caster) :
 
 Spell::Result MysticShield::cast(Unit *target, int round) {
     if (target == nullptr) {
-        return Failed;
+        return Result::Failed;
     }
 
     // Distance to target
     const double distance = m_caster->distanceTo(target);
     if (distance > m_range) {
-        return Failed;
+        return Result::Failed;
     }
 
     // Check for visibility to target
     if (!Board::Instance()->isVisible(m_caster, target)) {
-        return Failed;
+        return Result::Failed;
     }
 
-    Spell::Result result = Failed;
+    Spell::Result result = Result::Failed;
 
     const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound) {
-            target->buffReroll(ToSave, RerollOnes, {Phase::Hero, round + 1, m_caster->owningPlayer()});
-            result = Success;
+            target->buffReroll(To_Save, Reroll_Ones, {Phase::Hero, round + 1, m_caster->owningPlayer()});
+            result = Result::Success;
         } else {
             SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
-            result = Unbound;
+            result = Result::Unbound;
         }
     } else {
         SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),

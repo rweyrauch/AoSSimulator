@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef FREEOUTRIDERS_H
-#define FREEOUTRIDERS_H
+#ifndef FREEGUILDOUTRIDERS_H
+#define FREEGUILDOUTRIDERS_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -18,9 +18,9 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOption {
-            RepeaterHandgun,
+            Repeater_Handgun,
             Blunderbuss,
-            BraceOfPistols
+            Brace_Of_Pistols
         };
 
         static Unit *Create(const ParameterList &parameters);

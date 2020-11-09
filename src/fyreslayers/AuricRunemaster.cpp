@@ -11,14 +11,14 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool AuricRunemaster::s_registered = false;
 
     AuricRunemaster::AuricRunemaster() :
-            Fyreslayer("Auric Runemaster", 4, WOUNDS, 8, 4, false),
+            Fyreslayer("Auric Runemaster", 4, g_wounds, 8, 4, false),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_brazierStaff(Weapon::Type::Melee, "Brazier-staff", 2, 1, 4, 3, -1, RAND_D3),
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
@@ -36,7 +36,7 @@ namespace Fyreslayers {
     }
 
     bool AuricRunemaster::configure(Prayer prayer) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_brazierStaff);
         model->addMeleeWeapon(&m_runicIron);
@@ -44,7 +44,7 @@ namespace Fyreslayers {
 
         m_prayer = prayer;
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -96,7 +96,7 @@ namespace Fyreslayers {
     }
 
     int AuricRunemaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void AuricRunemaster::onStartHero(PlayerId player) {
@@ -106,7 +106,7 @@ namespace Fyreslayers {
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 12.0)) {
             Dice::RollResult result;
-            Dice::rollD6(2, result);
+            Dice::RollD6(2, result);
             if (result.rollsGE(6) >= 1) {
                 m_holySeekerToHit = true;
                 m_holySeekerTarget = unit;
@@ -130,10 +130,10 @@ namespace Fyreslayers {
 
         if (m_holySeekerToHit && (target == m_holySeekerTarget)) {
             if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         }
-        return NoRerolls;
+        return No_Rerolls;
     }
 
     Rerolls
@@ -141,10 +141,10 @@ namespace Fyreslayers {
 
         if (m_holySeekerToWound && (target == m_holySeekerTarget)) {
             if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         }
-        return NoRerolls;
+        return No_Rerolls;
     }
 
 } // namespace Fyreslayers

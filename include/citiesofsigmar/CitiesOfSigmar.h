@@ -30,38 +30,38 @@ namespace CitiesOfSigmar {
 
         // Hammerhal
         Acadamae_Prodigy,
-        Blood_of_the_Twelve,
+        Blood_Of_The_Twelve,
         Aggressive_General,
 
         // Living City
         Ironoak_Artisan,
         Forest_Strider,
-        Druid_of_the_Everspring,
+        Druid_Of_The_Everspring,
 
         // Greywater Fastness
-        Seat_on_the_Council,
+        Seat_On_The_Council,
         Drillmaster,
         Ghoul_Mere_Ranger,
 
         // Phoenicium
-        Seeder_of_Vengeance,
-        One_with_Fire_and_Ice,
-        Aura_of_Serenity,
+        Seeder_Of_Vengeance,
+        One_With_Fire_And_Ice,
+        Aura_Of_Serenity,
 
         // Anvilgard
         Blackfang_Crimelord,
-        Slayer_of_Monsters,
+        Slayer_Of_Monsters,
         Secretive_Warlock,
 
         // Hallowheart
-        Veteran_of_the_Blazing_Crusade,
-        Warden_of_the_Flame,
+        Veteran_Of_The_Blazing_Crusade,
+        Warden_Of_The_Flame,
         Famed_Spell_Hunter,
 
         // Tempests Eye
         Aetherguard_Captain,
         Hawk_Eyed,
-        Swift_as_the_Wind,
+        Swift_As_The_Wind,
 
     };
 
@@ -69,12 +69,12 @@ namespace CitiesOfSigmar {
         None,
 
         // Hammerhal
-        Armour_of_Mallus,
+        Armour_Of_Mallus,
         Saints_Blade,
         The_Twinstone,
 
         // Living City
-        Spear_of_the_Hunt,
+        Spear_Of_The_Hunt,
         Deepmire_Cloak,
         Wardroth_Horn,
 
@@ -95,7 +95,7 @@ namespace CitiesOfSigmar {
 
         // Hallowheart
         Agloraxi_Prism,
-        Pauldrons_of_Living_Flame,
+        Pauldrons_Of_Living_Flame,
         Whitefire_Tome,
 
         // Tempests Eye
@@ -109,13 +109,13 @@ namespace CitiesOfSigmar {
         None,
 
         // Hammerhal
-        Wings_of_Fire,
+        Wings_Of_Fire,
         Cindercloud,
         Twin_Tailed_Comet,
 
         // Living City
         Lifesurge,
-        Cage_of_Thorns,
+        Cage_Of_Thorns,
         Ironoak_Skin,
 
         // Greywater Fastness
@@ -142,8 +142,8 @@ namespace CitiesOfSigmar {
         Ignite_Weapons,
 
         // Tempests Eye
-        Aura_of_Glory,
-        Strike_of_Eagles,
+        Aura_Of_Glory,
+        Strike_Of_Eagles,
         Celestial_Visions,
     };
 

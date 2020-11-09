@@ -11,9 +11,9 @@
 #include "nurgle/FeculaFlyblown.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 100;
 
     bool FeculaFlyblown::s_registered = false;
 
@@ -49,7 +49,7 @@ namespace Nurgle {
     }
 
     Nurgle::FeculaFlyblown::FeculaFlyblown() :
-            NurgleBase("Fecula Flyblown", 4, WOUNDS, 8, 4, false),
+            NurgleBase("Fecula Flyblown", 4, g_wounds, 8, 4, false),
             m_staff(Weapon::Type::Melee, "Rotwood Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, BLESSED_SONS, HERO, WIZARD, SORCERER, FECULA_FLYBLOWN};
         m_weapons = {&m_staff};
@@ -60,20 +60,20 @@ namespace Nurgle {
     }
 
     bool Nurgle::FeculaFlyblown::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int FeculaFlyblown::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

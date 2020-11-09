@@ -9,9 +9,9 @@
 #include "mawtribes/HrothgornsMantrappers.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 40;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_pointsPerUnit = 40;
 
     bool HrothgornsMantrappers::s_registered = false;
 
@@ -45,7 +45,7 @@ namespace OgorMawtribes {
     }
 
     HrothgornsMantrappers::HrothgornsMantrappers() :
-            MawtribesBase("Hrothgorn's Mantrappers", 5, WOUNDS, 4, 6, false),
+            MawtribesBase("Hrothgorn's Mantrappers", 5, g_wounds, 4, 6, false),
             m_sharpStuff(Weapon::Type::Missile, "Sharp Stuff", 8, 1, 4, 5, 0, 1),
             m_motleyWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, WINTERBITE, GNOBLARS,
@@ -54,19 +54,19 @@ namespace OgorMawtribes {
     }
 
     bool HrothgornsMantrappers::configure() {
-        auto bushwakka = new Model(BASESIZE, wounds());
+        auto bushwakka = new Model(g_basesize, wounds());
         bushwakka->setName("Bushwakka");
         bushwakka->addMissileWeapon(&m_sharpStuff);
         bushwakka->addMeleeWeapon(&m_motleyWeapons);
         addModel(bushwakka);
 
-        auto quiv = new Model(BASESIZE, wounds());
+        auto quiv = new Model(g_basesize, wounds());
         quiv->setName("Quiv");
         quiv->addMissileWeapon(&m_sharpStuff);
         quiv->addMeleeWeapon(&m_motleyWeapons);
         addModel(quiv);
 
-        auto luggitAndThwak = new Model(BASESIZE, wounds());
+        auto luggitAndThwak = new Model(g_basesize, wounds());
         luggitAndThwak->setName("Luggit and Thwak");
         luggitAndThwak->addMissileWeapon(&m_sharpStuff);
         luggitAndThwak->addMeleeWeapon(&m_motleyWeapons);
@@ -78,7 +78,7 @@ namespace OgorMawtribes {
     }
 
     int HrothgornsMantrappers::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

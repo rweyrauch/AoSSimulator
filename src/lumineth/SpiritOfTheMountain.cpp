@@ -13,9 +13,9 @@
 #include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
-    static const int BASESIZE = 105; // oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 340;
+    static const int g_basesize = 105; // oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 340;
 
     struct TableEntry {
         int m_blastRange;
@@ -23,9 +23,9 @@ namespace LuminethRealmLords {
         double m_shockwave;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 10, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 10, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {30, 5, 12},
                     {25,  4,  10},
@@ -37,18 +37,18 @@ namespace LuminethRealmLords {
     bool AlarithSpiritOfTheMountain::s_registered = false;
 
     AlarithSpiritOfTheMountain::AlarithSpiritOfTheMountain() :
-            LuminethBase("Alarith Spirit of the Mountain", 6, WOUNDS, 10, 3, false),
+            LuminethBase("Alarith Spirit of the Mountain", 6, g_wounds, 10, 3, false),
             m_blast(Weapon::Type::Missile, "Geomantic Blast", 30, 1, 3, 2, -2, RAND_D6),
             m_hammer(Weapon::Type::Melee, "Stoneheart Worldhammer", 3, 4, 3, 2, -2, 5),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 2, 3, 3, -1, 2) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, HERO, ALARITH, MONSTER, SPIRIT_OF_THE_MOUNTAIN};
         m_weapons = {&m_blast, &m_hammer, &m_hooves};
-        m_battleFieldRole = Role::LeaderBehemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool AlarithSpiritOfTheMountain::configure() {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_blast);
         model->addMeleeWeapon(&m_hammer);
         model->addMeleeWeapon(&m_hooves);
@@ -96,7 +96,7 @@ namespace LuminethRealmLords {
     }
 
     int AlarithSpiritOfTheMountain::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void AlarithSpiritOfTheMountain::onRestore() {
@@ -121,7 +121,7 @@ namespace LuminethRealmLords {
         if (mage) return 0;
 
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -147,7 +147,7 @@ namespace LuminethRealmLords {
             for (auto ip : units) {
                 const Weapon* missileWeapon = nullptr;
                 if (ip->hasShootingAttack(&missileWeapon)) {
-                    ip->buffModifier(ToHitMissile, -1, {Shooting, m_battleRound, player});
+                    ip->buffModifier(To_Hit_Missile, -1, {Shooting, m_battleRound, player});
                     break;
                 }
             }
@@ -160,7 +160,7 @@ namespace LuminethRealmLords {
         // Stoneheart Shockwave
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_shockwave);
         for (auto ip : units) {
-            ip->buffModifier(ToHitMelee, -1, {Combat, m_battleRound, player});
+            ip->buffModifier(To_Hit_Melee, -1, {Combat, m_battleRound, player});
             break;
         }
     }

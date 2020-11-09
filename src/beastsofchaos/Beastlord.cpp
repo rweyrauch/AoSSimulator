@@ -11,14 +11,14 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool Beastlord::s_registered = false;
 
     Beastlord::Beastlord() :
-            BeastsOfChaosBase("Beastlord", 6, WOUNDS, 7, 4, false),
+            BeastsOfChaosBase("Beastlord", 6, g_wounds, 7, 4, false),
             m_pairedAxes(Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
         m_weapons.push_back(&m_pairedAxes);
@@ -26,11 +26,11 @@ namespace BeastsOfChaos {
     }
 
     bool Beastlord::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_pairedAxes);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -80,7 +80,7 @@ namespace BeastsOfChaos {
     Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Dual Axes
         if (weapon->name() == m_pairedAxes.name()) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -88,13 +88,13 @@ namespace BeastsOfChaos {
     Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Hatred of Heroes
         if (target->hasKeyword(HERO)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toWoundRerolls(weapon, target);
     }
 
     int Beastlord::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace BeastsOfChaos

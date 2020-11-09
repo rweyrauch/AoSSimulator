@@ -12,9 +12,9 @@
 
 namespace LuminethRealmLords {
 
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool ScinariCathallar::s_registered = false;
 
@@ -36,7 +36,7 @@ namespace LuminethRealmLords {
     }
 
     int ScinariCathallar::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void ScinariCathallar::Init() {
@@ -59,7 +59,7 @@ namespace LuminethRealmLords {
     }
 
     ScinariCathallar::ScinariCathallar() :
-            LuminethBase("Scinari Cathallar", 6, WOUNDS, 7, 5, false),
+            LuminethBase("Scinari Cathallar", 6, g_wounds, 7, 5, false),
             m_touch(Weapon::Type::Melee, "Despairing Touch", 1, 1, 4, 2, 0, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, HERO, WIZARD, CATHALLAR};
         m_weapons = {&m_touch};
@@ -69,7 +69,7 @@ namespace LuminethRealmLords {
     }
 
     bool ScinariCathallar::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_touch);
         addModel(model);
 

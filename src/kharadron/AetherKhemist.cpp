@@ -10,9 +10,9 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool AetherKhemist::s_registered = false;
 
@@ -69,7 +69,7 @@ namespace KharadronOverlords {
     }
 
     AetherKhemist::AetherKhemist() :
-            KharadronBase("Aether Khemist", 4, WOUNDS, 7, 4, false),
+            KharadronBase("Aether Khemist", 4, g_wounds, 7, 4, false),
             m_anatomiser(Weapon::Type::Missile, "Atmospheric Anatomiser", 9, RAND_3D6, 4, 4, -2, 1),
             m_instruments(Weapon::Type::Melee, "Heavy Instruments", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHER_KHEMIST};
@@ -84,12 +84,12 @@ namespace KharadronOverlords {
     }
 
     bool AetherKhemist::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_anatomiser);
         model->addMeleeWeapon(&m_instruments);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -104,7 +104,7 @@ namespace KharadronOverlords {
     }
 
     int AetherKhemist::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //KharadronOverlords

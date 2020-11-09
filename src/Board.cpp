@@ -329,19 +329,19 @@ bool Board::inQuadrant(Board::Quadrant quadrant, const Math::Plane &northSouth, 
                        const Math::Point3 &position) const {
     switch (quadrant) {
         case Northwest:
-            if (northSouth.contains(position) && !eastWest.contains(position))
+            if ((Math::Containment::All == northSouth.contains(position)) && (Math::Containment::All != eastWest.contains(position)))
                 return true;
             break;
         case Northeast:
-            if (northSouth.contains(position) && eastWest.contains(position))
+            if ((Math::Containment::All == northSouth.contains(position)) && (Math::Containment::All == eastWest.contains(position)))
                 return true;
             break;
         case Southeast:
-            if (!northSouth.contains(position) && eastWest.contains(position))
+            if ((Math::Containment::All != northSouth.contains(position)) && (Math::Containment::All == eastWest.contains(position)))
                 return true;
             break;
         case Southwest:
-            if (!northSouth.contains(position) && !eastWest.contains(position))
+            if ((Math::Containment::All != northSouth.contains(position)) && (Math::Containment::All != eastWest.contains(position)))
                 return true;
             break;
     }
@@ -457,7 +457,7 @@ double Board::moveModel(Model &model, const Math::Point3 &toPoint) const {
 
     auto totalMoveDistance = minPoi;
     const Math::Ray ray(model.position(),toPoint);
-    auto newPos = ray.point_at(totalMoveDistance);
+    auto newPos = ray.pointAt(totalMoveDistance);
     model.setPosition(newPos);
 
     return totalMoveDistance;

@@ -11,9 +11,9 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool IsharannTidecaster::s_registered = false;
 
@@ -65,7 +65,7 @@ namespace IdonethDeepkin {
     }
 
     IsharannTidecaster::IsharannTidecaster() :
-            IdonethDeepkinBase("Isharann Tidecaster", 6, WOUNDS, 7, 6, false),
+            IdonethDeepkinBase("Isharann Tidecaster", 6, g_wounds, 7, 6, false),
             m_staff(Weapon::Type::Melee, "Pelagic Staff", 1, 2, 3, 3, 0, RAND_D3) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, WIZARD, TIDECASTER};
         m_weapons = {&m_staff};
@@ -76,7 +76,7 @@ namespace IdonethDeepkin {
     }
 
     bool IsharannTidecaster::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
 
         addModel(model);
@@ -84,13 +84,13 @@ namespace IdonethDeepkin {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int IsharannTidecaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //IdonethDeepkin

@@ -11,9 +11,9 @@
 #include <Board.h>
 
 namespace Skaven {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 220;
 
     struct TableEntry {
         int m_teethRend;
@@ -21,9 +21,9 @@ namespace Skaven {
         int m_avalancheOfFlesh;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {-3, 6, 2},
                     {-2, 5, 3},
@@ -35,7 +35,7 @@ namespace Skaven {
     bool HellPitAbomination::s_registered = false;
 
     HellPitAbomination::HellPitAbomination() :
-            Skaventide("Hell Pit Abomination", RAND_2D6, WOUNDS, 6, 5, false),
+            Skaventide("Hell Pit Abomination", RAND_2D6, g_wounds, 6, 5, false),
             m_gnashingTeath(Weapon::Type::Melee, "Gnashing Teeth", 1, 6, 3, 3, -3, 2),
             m_flailingFists(Weapon::Type::Melee, "Flailing Fists", 2, 6, 3, 3, -1, 3),
             m_avalancheOfFlesh(Weapon::Type::Melee, "Avalanche of Flesh", 1, 0, 0, 0, 0, 0) {
@@ -51,20 +51,20 @@ namespace Skaven {
     }
 
     bool HellPitAbomination::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gnashingTeath);
         model->addMeleeWeapon(&m_flailingFists);
         model->addMeleeWeapon(&m_avalancheOfFlesh);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int HellPitAbomination::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -108,12 +108,12 @@ namespace Skaven {
             // TODO: check distance for each model in target unit
             int numRolls = unit->remainingModels();
             for (auto i = 0; i < numRolls; i++) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll >= g_damageTable[getDamageTableIndex()].m_avalancheOfFlesh) {
                     mortalWounds++;
                 } else if (m_charged) // re-roll if charged
                 {
-                    roll = Dice::rollD6();
+                    roll = Dice::RollD6();
                     if (roll >= g_damageTable[getDamageTableIndex()].m_avalancheOfFlesh) {
                         mortalWounds++;
                     }
@@ -129,8 +129,8 @@ namespace Skaven {
     void HellPitAbomination::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
             // Regenerating Monstrosity
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
-                int woundsHealed = Dice::rollD3();
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
+                int woundsHealed = Dice::RollD3();
                 for (auto &m : m_models) {
                     m->applyHealing(woundsHealed);
                 }
@@ -143,18 +143,18 @@ namespace Skaven {
 
         // Too Horrible to Die
         if (!m_beenSlain) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
 
             if (roll >= 5) {
                 // It's Alive!
-                roll = Dice::rollD6();
+                roll = Dice::RollD6();
                 m_models.front()->restore();
-                m_models.front()->applyWound(WOUNDS - roll);
+                m_models.front()->applyWound(g_wounds - roll);
             } else if (roll >= 3) {
                 // The Rats Emerge
                 auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
                 for (auto ip : units) {
-                    roll = Dice::rollD3();
+                    roll = Dice::RollD3();
                     ip->applyDamage({0, roll});
                 }
             }
@@ -171,7 +171,7 @@ namespace Skaven {
     }
 
     int HellPitAbomination::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

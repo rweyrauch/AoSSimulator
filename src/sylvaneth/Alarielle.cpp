@@ -16,9 +16,9 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 160;
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 600;
+    static const int g_basesize = 160;
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 600;
 
     bool Alarielle::s_registered = false;
 
@@ -28,9 +28,9 @@ namespace Sylvaneth {
         int m_greatAntlerDamage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {4, 7, 10, 13, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {4, 7, 10, 13, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {16, 30, 5},
                     {14, 25, 4},
@@ -41,13 +41,13 @@ namespace Sylvaneth {
 
 
     Alarielle::Alarielle() :
-            SylvanethBase("Alarielle", 16, WOUNDS, 10, 3, true),
+            SylvanethBase("Alarielle", 16, g_wounds, 10, 3, true),
             m_spearOfKurnoth(Weapon::Type::Missile, "Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6),
             m_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1),
             m_beetleGreatAntlers(Weapon::Type::Melee, "Great Antlers", 2, 5, 4, 3, -2, 5) {
         m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
         m_weapons = {&m_spearOfKurnoth, &m_talonOfDwindling, &m_beetleGreatAntlers};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         m_totalUnbinds = 3;
         m_totalSpells = 3;
@@ -58,7 +58,7 @@ namespace Sylvaneth {
     }
 
     bool Alarielle::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spearOfKurnoth);
         model->addMeleeWeapon(&m_talonOfDwindling);
         model->addMeleeWeapon(&m_beetleGreatAntlers);
@@ -68,7 +68,7 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -83,9 +83,9 @@ namespace Sylvaneth {
 
     void Alarielle::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Lifebloom - heal herself D3
-                int woundsHealed = Dice::rollD3();
+                int woundsHealed = Dice::RollD3();
                 for (auto &m : m_models) {
                     m->applyHealing(woundsHealed);
                 }
@@ -95,7 +95,7 @@ namespace Sylvaneth {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 30.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(SYLVANETH))
-                    ip->heal(Dice::rollD3());
+                    ip->heal(Dice::RollD3());
             }
         }
     }
@@ -109,7 +109,7 @@ namespace Sylvaneth {
 
     int Alarielle::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -159,9 +159,9 @@ namespace Sylvaneth {
         // Living Battering Ram
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
-            if (Dice::rollD6() >= 4) {
+            if (Dice::RollD6() >= 4) {
                 Wounds wounds = {0, 0};
-                wounds.mortal = Dice::rollD3();
+                wounds.mortal = Dice::RollD3();
                 ip->applyDamage(wounds);
             }
         }
@@ -171,7 +171,7 @@ namespace Sylvaneth {
     Wounds Alarielle::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Talon of the Dwindling
         if (weapon->name() == m_talonOfDwindling.name() && hitRoll == 6) {
-            return {weapon->damage(), Dice::rollD3()};
+            return {weapon->damage(), Dice::RollD3()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -185,7 +185,7 @@ namespace Sylvaneth {
         if (getCommandPoints() > 0) {
             if (m_roster && m_roster->useCommandPoint()) {
                 // Buff Alarielle
-                buffReroll(ToWoundMelee, RerollOnes, {Combat, m_battleRound + 1, owningPlayer()});
+                buffReroll(To_Wound_Melee, Reroll_Ones, {Combat, m_battleRound + 1, owningPlayer()});
 
                 // Buff all friends with in 14".
                 s_globalToWoundReroll.connect(this, &Alarielle::ghyransWrathToWoundReroll, &m_ghyransWrathSlot);
@@ -216,13 +216,13 @@ namespace Sylvaneth {
     }
 
     int Alarielle::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Rerolls Alarielle::ghyransWrathToWoundReroll(const Unit *attacker, const Weapon *weapon, const Unit *target) {
         if (isFriendly(attacker) && attacker->hasKeyword(SYLVANETH) && (distanceTo(attacker) < 14.0))
-            return RerollOnes;
-        return NoRerolls;
+            return Reroll_Ones;
+        return No_Rerolls;
     }
 
 } // namespace Sylvaneth

@@ -11,17 +11,17 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = 390;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = 390;
 
     bool WildwoodRangers::s_registered = false;
 
     WildwoodRangers::WildwoodRangers() :
-            CitizenOfSigmar("Wildwood Rangers", 6, WOUNDS, 7, 5, false),
+            CitizenOfSigmar("Wildwood Rangers", 6, g_wounds, 7, 5, false),
             m_rangersDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 2, 3, 3, -1, 1),
             m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WILDWOOD_RANGERS};
@@ -29,19 +29,19 @@ namespace CitiesOfSigmar {
     }
 
     bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_standardBearer = standardBearer;
         m_hornblower = hornblower;
 
-        auto warden = new Model(BASESIZE, wounds());
+        auto warden = new Model(g_basesize, wounds());
         warden->addMeleeWeapon(&m_wardensDraich);
         addModel(warden);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_rangersDraich);
             addModel(model);
         }
@@ -53,7 +53,7 @@ namespace CitiesOfSigmar {
 
     Unit *WildwoodRangers::Create(const ParameterList &parameters) {
         auto unit = new WildwoodRangers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -76,7 +76,7 @@ namespace CitiesOfSigmar {
                     CitizenOfSigmar::EnumStringToInt,
                     WildwoodRangers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("City", g_city[0], g_city),
@@ -115,9 +115,9 @@ namespace CitiesOfSigmar {
     }
 
     int WildwoodRangers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

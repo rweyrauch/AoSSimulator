@@ -11,17 +11,17 @@
 #include <Board.h>
 
 namespace Nurgle {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 6;
+    static const int g_basesize = 60;
+    static const int g_wounds = 7;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 6;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 6;
 
     bool BeastsOfNurgle::s_registered = false;
 
     BeastsOfNurgle::BeastsOfNurgle() :
-            NurgleBase("Beasts of Nurgle", 5, WOUNDS, 10, 5, false),
+            NurgleBase("Beasts of Nurgle", 5, g_wounds, 10, 5, false),
             m_clawsAndTentacles(Weapon::Type::Melee, "Claws and Tentacles", 1, RAND_D6, 4, 3, 0, 1),
             m_slobberingTongue(Weapon::Type::Melee, "Slobbering Tongue", 2, 1, 3, 3, 0, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, NURGLE, BEASTS_OF_NURGLE};
@@ -29,12 +29,12 @@ namespace Nurgle {
     }
 
     bool BeastsOfNurgle::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_clawsAndTentacles);
             model->addMeleeWeapon(&m_slobberingTongue);
             addModel(model);
@@ -51,7 +51,7 @@ namespace Nurgle {
 
     Unit *BeastsOfNurgle::Create(const ParameterList &parameters) {
         auto unit = new BeastsOfNurgle();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -69,7 +69,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     BeastsOfNurgle::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     CHAOS,
                     {NURGLE}
@@ -81,8 +81,8 @@ namespace Nurgle {
     Wounds BeastsOfNurgle::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -106,9 +106,9 @@ namespace Nurgle {
     }
 
     int BeastsOfNurgle::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

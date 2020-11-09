@@ -10,20 +10,20 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 840;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 6;
+    static const int g_minUnitSize = 2;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 840;
 
     bool MournfangPack::s_registered = false;
 
     Unit *MournfangPack::Create(const ParameterList &parameters) {
         auto unit = new MournfangPack();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, CullingClubOrPreyHackerAndIronfist);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Culling_Club_Or_Prey_Hacker_And_Ironfist);
         bool banner = GetBoolParam("Banner Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
@@ -40,15 +40,15 @@ namespace OgorMawtribes {
 
     void MournfangPack::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {CullingClubOrPreyHackerAndIronfist, GargantHacker};
+            static const std::array<int, 2> weapons = {Culling_Club_Or_Prey_Hacker_And_Ironfist, Gargant_Hacker};
             static FactoryMethod factoryMethod = {
                     MournfangPack::Create,
                     MournfangPack::ValueToString,
                     MournfangPack::EnumStringToInt,
                     MournfangPack::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", CullingClubOrPreyHackerAndIronfist, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Culling_Club_Or_Prey_Hacker_And_Ironfist, weapons),
                             BoolParameter("Banner Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
@@ -61,7 +61,7 @@ namespace OgorMawtribes {
     }
 
     MournfangPack::MournfangPack() :
-            MawtribesBase("Mournfang Pack", 9, WOUNDS, 6, 4, false),
+            MawtribesBase("Mournfang Pack", 9, g_wounds, 6, 4, false),
             m_pistol(Weapon::Type::Missile, "Ironlock Pistol", 12, 1, 4, 3, -1, RAND_D3),
             m_clubOrHacker(Weapon::Type::Melee, "Culling Club or Prey Hacker", 1, 3, 3, 3, 0, 2),
             m_gargantHacker(Weapon::Type::Melee, "Gargant Hacker", 2, 2, 4, 3, -1, 3),
@@ -71,7 +71,7 @@ namespace OgorMawtribes {
     }
 
     bool MournfangPack::configure(int numModels, WeaponOption weaponOption, bool hornblower, bool bannerBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -79,41 +79,41 @@ namespace OgorMawtribes {
         m_hornblower = hornblower;
         m_bannerBearer = bannerBearer;
 
-        auto skalg = new Model(BASESIZE, wounds());
+        auto skalg = new Model(g_basesize, wounds());
         skalg->addMissileWeapon(&m_pistol);
-        if (weaponOption == CullingClubOrPreyHackerAndIronfist)
+        if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
             skalg->addMeleeWeapon(&m_clubOrHacker);
-        else if (weaponOption == GargantHacker)
+        else if (weaponOption == Gargant_Hacker)
             skalg->addMeleeWeapon(&m_gargantHacker);
         skalg->addMeleeWeapon(&m_tusks);
         addModel(skalg);
 
         if (m_hornblower) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
-            if (weaponOption == CullingClubOrPreyHackerAndIronfist)
+            if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
                 model->addMeleeWeapon(&m_clubOrHacker);
-            else if (weaponOption == GargantHacker)
+            else if (weaponOption == Gargant_Hacker)
                 model->addMeleeWeapon(&m_gargantHacker);
             model->addMeleeWeapon(&m_tusks);
             addModel(model);
         }
         if (m_bannerBearer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Banner Bearer");
-            if (weaponOption == CullingClubOrPreyHackerAndIronfist)
+            if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
                 model->addMeleeWeapon(&m_clubOrHacker);
-            else if (weaponOption == GargantHacker)
+            else if (weaponOption == Gargant_Hacker)
                 model->addMeleeWeapon(&m_gargantHacker);
             model->addMeleeWeapon(&m_tusks);
             addModel(model);
         }
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weaponOption == CullingClubOrPreyHackerAndIronfist)
+            auto model = new Model(g_basesize, wounds());
+            if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
                 model->addMeleeWeapon(&m_clubOrHacker);
-            else if (weaponOption == GargantHacker)
+            else if (weaponOption == Gargant_Hacker)
                 model->addMeleeWeapon(&m_gargantHacker);
             model->addMeleeWeapon(&m_tusks);
             addModel(model);
@@ -125,25 +125,25 @@ namespace OgorMawtribes {
     }
 
     int MournfangPack::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     std::string MournfangPack::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == CullingClubOrPreyHackerAndIronfist)
+            if (parameter.intValue == Culling_Club_Or_Prey_Hacker_And_Ironfist)
                 return "Culling Club or Prey Hacker and Ironfist";
-            else if (parameter.intValue == GargantHacker) return "Gargant Hacker";
+            else if (parameter.intValue == Gargant_Hacker) return "Gargant Hacker";
         }
         return MawtribesBase::ValueToString(parameter);
     }
 
     int MournfangPack::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Culling Club or Prey Hacker and Ironfist") return CullingClubOrPreyHackerAndIronfist;
-        else if (enumString == "Gargant Hacker") return GargantHacker;
+        if (enumString == "Culling Club or Prey Hacker and Ironfist") return Culling_Club_Or_Prey_Hacker_And_Ironfist;
+        else if (enumString == "Gargant Hacker") return Gargant_Hacker;
 
         return MawtribesBase::EnumStringToInt(enumString);
     }
@@ -158,7 +158,7 @@ namespace OgorMawtribes {
 
     Wounds MournfangPack::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
         // Ironfist
-        if ((saveRoll == 6) && (m_option == CullingClubOrPreyHackerAndIronfist)) {
+        if ((saveRoll == 6) && (m_option == Culling_Club_Or_Prey_Hacker_And_Ironfist)) {
             return {0, 1};
         }
         return Unit::computeReturnedDamage(weapon, saveRoll);

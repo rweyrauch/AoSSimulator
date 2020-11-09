@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 110;
 
     bool NeaveBlacktalon::s_registered = false;
 
     NeaveBlacktalon::NeaveBlacktalon() :
-            StormcastEternal("Neave Blacktalon", 6, WOUNDS, 9, 3, false),
+            StormcastEternal("Neave Blacktalon", 6, g_wounds, 9, 3, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 3, 0, 1),
             m_whirlwindAxes(Weapon::Type::Melee, "The Whirlwind Axes", 1, 7, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, KNIGHT_ZEPHYROS,
@@ -32,12 +32,12 @@ namespace StormcastEternals {
     }
 
     bool NeaveBlacktalon::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boltstormPistol);
         model->addMeleeWeapon(&m_whirlwindAxes);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -45,7 +45,7 @@ namespace StormcastEternals {
     Unit *NeaveBlacktalon::Create(const ParameterList &parameters) {
         auto unit = new NeaveBlacktalon();
 
-        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
+        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -94,7 +94,7 @@ namespace StormcastEternals {
     }
 
     int NeaveBlacktalon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

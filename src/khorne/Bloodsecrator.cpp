@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool Bloodsecrator::s_registered = false;
 
     Bloodsecrator::Bloodsecrator() :
-            KhorneBase("Bloodsecrator", 4, WOUNDS, 9, 3, false),
+            KhorneBase("Bloodsecrator", 4, g_wounds, 9, 3, false),
             m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, TOTEM, BLOODSECRATOR};
         m_weapons = {&m_ensorcelledAxe};
@@ -33,11 +33,11 @@ namespace Khorne {
     }
 
     bool Bloodsecrator::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ensorcelledAxe);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -86,7 +86,7 @@ namespace Khorne {
     }
 
     int Bloodsecrator::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     int

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LOONBOSSONCAVESQUIG_H
-#define LOONBOSSONCAVESQUIG_H
+#ifndef LOONBOSSONGIANTCAVESQUIG_H
+#define LOONBOSSONGIANTCAVESQUIG_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
 
         enum WeaponOptions {
             Mooncutta,
-            MoonclanStabba,
+            Moonclan_Stabba,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -51,8 +51,8 @@ namespace GloomspiteGitz {
     private:
 
         bool m_eatenRedcapMushroom = false;
-        Rerolls m_toHitRerolls = NoRerolls;
-        Rerolls m_toWoundRerolls = NoRerolls;
+        Rerolls m_toHitRerolls = No_Rerolls;
+        Rerolls m_toWoundRerolls = No_Rerolls;
 
         Weapon m_massiveFangFilledGob,
                 m_moonCutta,
@@ -70,4 +70,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //LOONBOSSONCAVESQUIG_H
+#endif //LOONBOSSONGIANTCAVESQUIG_H

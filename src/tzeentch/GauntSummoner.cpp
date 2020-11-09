@@ -13,9 +13,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 240;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 240;
 
     bool GauntSummonerOfTzeentch::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Tzeentch {
     }
 
     GauntSummonerOfTzeentch::GauntSummonerOfTzeentch() :
-            TzeentchBase("Gaunt Summoner of Tzeentch", 5, WOUNDS, 8, 6, false),
+            TzeentchBase("Gaunt Summoner of Tzeentch", 5, g_wounds, 8, 6, false),
             m_staff(Weapon::Type::Missile, "Changestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_blade(Weapon::Type::Melee, "Warptongue Blade", 1, 1, 3, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, MORTAL, TZEENTCH, ARCANITE, SLAVES_TO_DARKNESS, EVERCHOSEN, HERO, WIZARD,
@@ -70,7 +70,7 @@ namespace Tzeentch {
     }
 
     bool GauntSummonerOfTzeentch::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_blade);
         addModel(model);
@@ -78,7 +78,7 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -87,7 +87,7 @@ namespace Tzeentch {
     GauntSummonerOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Warptongue Blade
         if ((woundRoll == 6) && (weapon->name() == m_blade.name())) {
-            return {0, Dice::rollD6()};
+            return {0, Dice::RollD6()};
         }
         return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -108,7 +108,7 @@ namespace Tzeentch {
                         "Horrors of Tzeentch"
                 };
 
-                const int which = Dice::rollD6() - 1;
+                const int which = Dice::RollD6() - 1;
 
                 auto factory = UnitFactory::LookupUnit(SummonedUnitNames[which]);
                 if (factory) {
@@ -130,7 +130,7 @@ namespace Tzeentch {
     }
 
     int GauntSummonerOfTzeentch::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

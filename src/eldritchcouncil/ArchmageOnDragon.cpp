@@ -11,9 +11,9 @@
 #include <spells/MysticShield.h>
 
 namespace EldritchCouncil {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 320;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 320;
 
     struct TableEntry {
         int m_move;
@@ -21,9 +21,9 @@ namespace EldritchCouncil {
         int m_jawsToHit;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {14, 6, 2},
                     {12, 5, 3},
@@ -35,7 +35,7 @@ namespace EldritchCouncil {
     bool ArchmageOnDragon::s_registered = false;
 
     ArchmageOnDragon::ArchmageOnDragon() :
-            Unit("Archmage On Dragon", 14, WOUNDS, 7, 5, true),
+            Unit("Archmage On Dragon", 14, g_wounds, 7, 5, true),
             m_magestaff(Weapon::Type::Melee, "Magestaff", 2, 1, 4, 3, -1, RAND_D3),
             m_sorcerousBlade(Weapon::Type::Melee, "Sorcerous Blade", 1, 3, 4, 4, 0, 1),
             m_dragonClaws(Weapon::Type::Melee, "Dragon's Claws", 2, 6, 4, 3, -1, 2),
@@ -56,7 +56,7 @@ namespace EldritchCouncil {
             m_totalUnbinds = 2;
         }
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_magestaff);
         if (!m_arcaneTome) {
             model->addMeleeWeapon(&m_sorcerousBlade);
@@ -68,7 +68,7 @@ namespace EldritchCouncil {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -130,7 +130,7 @@ namespace EldritchCouncil {
 
     int ArchmageOnDragon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -139,7 +139,7 @@ namespace EldritchCouncil {
     }
 
     int ArchmageOnDragon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace EldritchCouncil

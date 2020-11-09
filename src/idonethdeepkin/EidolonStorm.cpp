@@ -10,9 +10,9 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 360;
+    static const int g_basesize = 100;
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 330;
 
     bool EidolonOfMathlannAspectOfTheStorm::s_registered = false;
 
@@ -61,24 +61,25 @@ namespace IdonethDeepkin {
     }
 
     EidolonOfMathlannAspectOfTheStorm::EidolonOfMathlannAspectOfTheStorm() :
-            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Storm", 12, WOUNDS, 10, 3, true),
-            m_spear(Weapon::Type::Melee, "Fuathtar, Spear of Repressed Fury", 2, 4, 3, 2, -2, 2),
-            m_crulhook(Weapon::Type::Melee, "Crulhook", 1, 4, 2, 3, -1, 1),
-            m_stormshoal(Weapon::Type::Melee, "Stormshoal", 3, RAND_2D6, 4, 4, 0, 1) {
+            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Storm", 12, g_wounds, 10, 3, true),
+            m_spear(Weapon::Type::Melee, "Spear of Repressed Fury", 2, 4, 3, 2, -2, 2),
+            m_crulhook(Weapon::Type::Melee, "Crulhook", 1, 4, 3, 2, -1, 1),
+            m_fangs(Weapon::Type::Melee, "Sharp Fangs", 3, RAND_2D6, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, EIDOLON, HERO, ASPECT_OF_THE_STORM};
-        m_weapons = {&m_spear, &m_crulhook, &m_stormshoal};
+        m_weapons = {&m_spear, &m_crulhook, &m_fangs};
         m_battleFieldRole = Leader;
+        m_retreatAndCharge = true;
     }
 
     bool EidolonOfMathlannAspectOfTheStorm::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_crulhook);
-        model->addMeleeWeapon(&m_stormshoal);
+        model->addMeleeWeapon(&m_fangs);
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -86,7 +87,7 @@ namespace IdonethDeepkin {
     Rerolls EidolonOfMathlannAspectOfTheStorm::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Crashing Upon the Foe
         if (m_charged && (weapon->name() == m_spear.name())) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return Unit::toHitRerolls(weapon, target);
@@ -107,12 +108,12 @@ namespace IdonethDeepkin {
 
         // Crashing Upon the Foe
         if (m_charged) {
-            heal(Dice::rollD3());
+            heal(Dice::RollD3());
         }
     }
 
     int EidolonOfMathlannAspectOfTheStorm::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // IdonethDeepkin

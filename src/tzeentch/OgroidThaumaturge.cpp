@@ -12,9 +12,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 50;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 160;
 
     bool OgroidThaumaturge::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Tzeentch {
     }
 
     OgroidThaumaturge::OgroidThaumaturge() :
-            TzeentchBase("OgroidT haumaturge", 6, WOUNDS, 8, 5, false),
+            TzeentchBase("OgroidT haumaturge", 6, g_wounds, 8, 5, false),
             m_staff(Weapon::Type::Melee, "Thaumaturge Staff", 2, 3, 3, 3, -1, RAND_D3),
             m_horns(Weapon::Type::Melee, "Great Horns", 1, 2, 3, 3, -2, 3),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 4, 4, 3, 0, 1) {
@@ -70,7 +70,7 @@ namespace Tzeentch {
     }
 
     bool OgroidThaumaturge::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_horns);
         model->addMeleeWeapon(&m_hooves);
@@ -79,13 +79,13 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int OgroidThaumaturge::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

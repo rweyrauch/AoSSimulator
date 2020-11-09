@@ -18,8 +18,8 @@ namespace Tzeentch {
     public:
 
         enum WeaponOptions {
-            PairedSavageBlades,
-            SavageBladeAndShield
+            Paired_Savage_Blades,
+            Savage_Blade_And_Shield
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -51,7 +51,7 @@ namespace Tzeentch {
 
     private:
 
-        WeaponOptions m_weaponOption = PairedSavageBlades;
+        WeaponOptions m_weaponOption = Paired_Savage_Blades;
         int m_numGreatblades = 0;
         int m_numMutants = 0;
         bool m_iconBearer = false;

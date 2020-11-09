@@ -12,9 +12,9 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 13;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 13;
+    static const int g_pointsPerUnit = 200;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Skaven {
         int m_spikesToHit;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 5, 8, 10, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {6, 4, 2},
                     {6, 3, 3},
@@ -76,7 +76,7 @@ namespace Skaven {
     }
 
     PlaguePriestOnPlagueFurnace::PlaguePriestOnPlagueFurnace() :
-            Skaventide("Plague Priest on Plague Furnace", 6, WOUNDS, 10, 4, false),
+            Skaventide("Plague Priest on Plague Furnace", 6, g_wounds, 10, 4, false),
             m_censer(Weapon::Type::Melee, "Great Plague Censer", 3, 1, 2, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Warpstone-tipped Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_blades(Weapon::Type::Melee, "Foetid Blades", 1, 6, 4, 4, 0, 1),
@@ -84,7 +84,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, WAR_MACHINE, HERO, PRIEST,
                       PLAGUE_FURNACE, PLAGUE_PRIEST};
         m_weapons = {&m_censer, &m_staff, &m_blades, &m_spikes};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &PlaguePriestOnPlagueFurnace::altarOfTheHornedRat, &m_connection);
     }
@@ -94,14 +94,14 @@ namespace Skaven {
     }
 
     bool PlaguePriestOnPlagueFurnace::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_censer);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_blades);
         model->addMeleeWeapon(&m_spikes);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -123,7 +123,7 @@ namespace Skaven {
 
     int PlaguePriestOnPlagueFurnace::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -135,7 +135,7 @@ namespace Skaven {
                                                      int woundRoll) const {
         // Great Plague Censor
         if ((weapon->name() == m_censer.name()) && (hitRoll >= 2)) {
-            return {0, Dice::rollD3() + g_damageTable[getDamageTableIndex()].m_censerDamage};
+            return {0, Dice::RollD3() + g_damageTable[getDamageTableIndex()].m_censerDamage};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -148,8 +148,8 @@ namespace Skaven {
         for (auto unit : units) {
             if (!unit->hasKeyword(CLANS_PESTILENS)) {
                 int mortalWounds = 0;
-                int roll = Dice::rollD6();
-                if (roll == 6) mortalWounds = Dice::rollD3();
+                int roll = Dice::RollD6();
+                if (roll == 6) mortalWounds = Dice::RollD3();
                 else if (roll >= 4) mortalWounds = 1;
 
                 unit->applyDamage({0, mortalWounds});
@@ -175,7 +175,7 @@ namespace Skaven {
 
         // Pushed into Battle
         if ((weapon->name() == m_spikes.name()) && m_charged) {
-            extra += Dice::rollD6();
+            extra += Dice::RollD6();
         }
         return extra;
     }
@@ -186,8 +186,8 @@ namespace Skaven {
         // Protection of the Horned Rat
         Dice::RollResult resultNormal, resultMortal;
 
-        Dice::rollD6(wounds.normal, resultNormal);
-        Dice::rollD6(wounds.mortal, resultMortal);
+        Dice::RollD6(wounds.normal, resultNormal);
+        Dice::RollD6(wounds.mortal, resultMortal);
 
         Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
         totalWounds -= negatedWounds;
@@ -206,21 +206,21 @@ namespace Skaven {
                 unit = this;
             }
 
-            auto prayerRoll = Dice::rollD6();
+            auto prayerRoll = Dice::RollD6();
             if (prayerRoll == 1) {
                 // Failed - take one mortal wound.
                 applyDamage({0, 1});
             } else if (prayerRoll >= 3) {
                 // Success - select prayer (randomly)
-                if (Dice::rollD6() >= 4) {
+                if (Dice::RollD6() >= 4) {
                     // Filth-filth!
-                    unit->buffReroll(BuffableAttribute::ToWoundMelee, RerollFailed,
+                    unit->buffReroll(BuffableAttribute::To_Wound_Melee, Reroll_Failed,
                                      {Phase::Hero, m_battleRound + 1, owningPlayer()});
-                    unit->buffReroll(BuffableAttribute::ToWoundMissile, RerollFailed,
+                    unit->buffReroll(BuffableAttribute::To_Wound_Missile, Reroll_Failed,
                                      {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 } else {
                     // Rabid-rabid!
-                    unit->buffModifier(BuffableAttribute::AttacksMelee, 1,
+                    unit->buffModifier(BuffableAttribute::Attacks_Melee, 1,
                                        {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }
@@ -229,7 +229,7 @@ namespace Skaven {
     }
 
     int PlaguePriestOnPlagueFurnace::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

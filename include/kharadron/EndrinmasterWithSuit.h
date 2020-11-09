@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ENDRINMASTERSUIT_H
-#define ENDRINMASTERSUIT_H
+#ifndef ENDRINMASTERWITHSUIT_H
+#define ENDRINMASTERWITHSUIT_H
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -51,4 +51,4 @@ namespace KharadronOverlords {
 
 } // namespace KharadronOverlords
 
-#endif //ENDRINMASTERSUIT_H
+#endif //ENDRINMASTERWITHSUIT_H

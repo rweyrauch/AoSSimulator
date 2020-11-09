@@ -13,14 +13,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool LordRelictor::s_registered = false;
 
     LordRelictor::LordRelictor() :
-            StormcastEternal("Lord-Relictor", 5, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Relictor", 5, g_wounds, 9, 3, false),
             m_relicHammer(Weapon::Type::Melee, "Relic Hammer", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_RELICTOR};
         m_weapons = {&m_relicHammer};
@@ -30,11 +30,11 @@ namespace StormcastEternals {
     }
 
     bool LordRelictor::configure(PrayersOfTheStormhost prayer) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_relicHammer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateLightningStorm(this)));
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateHealingStorm(this)));
@@ -99,7 +99,7 @@ namespace StormcastEternals {
     }
 
     int LordRelictor::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

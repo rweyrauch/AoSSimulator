@@ -18,8 +18,8 @@ namespace KharadronOverlords {
     public:
 
         enum WeaponOption {
-            SkyCannon,
-            DrillCannon
+            Sky_Cannon,
+            Drill_Cannon
         };
 
         static Unit *Create(const ParameterList &parameters);

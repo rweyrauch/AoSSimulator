@@ -18,8 +18,8 @@ namespace Seraphon {
     public:
 
         enum WeaponOption {
-            CelestiteBlade,
-            CelestiteWarspear
+            Celestite_Blade,
+            Celestite_Warspear
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -48,7 +48,7 @@ namespace Seraphon {
 
     private:
 
-        WeaponOption m_weaponOption = CelestiteBlade;
+        WeaponOption m_weaponOption = Celestite_Blade;
         bool m_iconBearer = false;
         bool m_wardrum = false;
 

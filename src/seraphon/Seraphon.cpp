@@ -87,7 +87,7 @@ namespace Seraphon {
             if (constellation == Constellation::Koatls_Claw || constellation == Constellation::Thunder_Lizard)
                 constellation = Constellation::None;
         } else if (way == WayOfTheSeraphon::Coalesced) {
-            if (constellation == Constellation::Dracothions_Tail || constellation == Constellation::Fangs_of_Sotek)
+            if (constellation == Constellation::Dracothions_Tail || constellation == Constellation::Fangs_Of_Sotek)
                 constellation = Constellation::None;
         }
 
@@ -104,7 +104,7 @@ namespace Seraphon {
         if (constellation == Constellation::Koatls_Claw) addKeyword(KOATLS_CLAW);
         else if (constellation == Constellation::Thunder_Lizard) addKeyword(THUNDER_LIZARD);
         else if (constellation == Constellation::Dracothions_Tail) addKeyword(DRACOTHIONS_TAIL);
-        else if (constellation == Constellation::Fangs_of_Sotek) addKeyword(FANGS_OF_SOTEK);
+        else if (constellation == Constellation::Fangs_Of_Sotek) addKeyword(FANGS_OF_SOTEK);
 
         m_way = way;
         m_constellation = constellation;

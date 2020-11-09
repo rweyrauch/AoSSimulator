@@ -80,16 +80,16 @@ namespace Death {
 
         m_legion = legion;
         switch (legion) {
-            case Legion::Grand_Host_of_Nagash:
+            case Legion::Grand_Host_Of_Nagash:
                 addKeyword(GRAND_HOST_OF_NAGASH);
                 break;
-            case Legion::Legion_of_Sacrament:
+            case Legion::Legion_Of_Sacrament:
                 addKeyword(LEGION_OF_SACRAMENT);
                 break;
-            case Legion::Legion_of_Night:
+            case Legion::Legion_Of_Night:
                 addKeyword(LEGION_OF_NIGHT);
                 break;
-            case Legion::Legion_of_Blood:
+            case Legion::Legion_Of_Blood:
                 addKeyword(LEGION_OF_BLOOD);
                 break;
         }
@@ -101,7 +101,7 @@ namespace Death {
         int unitsHealed = 0;
         for (auto unit : units) {
             if (unit->hasKeyword(SUMMONABLE) && (unit->remainingWounds() < unit->initialWounds())) {
-                const auto woundsRestored = Dice::rollD3();
+                const auto woundsRestored = Dice::RollD3();
                 if (unit->numOfWoundedModels() > 0) {
                     unit->heal(woundsRestored);
                 } else {

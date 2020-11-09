@@ -18,10 +18,10 @@ namespace Seraphon {
     public:
 
         enum WeaponOption {
-            JavelinsDaggersAndBucklers,
-            BoltspittersAndClubs,
-            BoltspittersDaggersAndBucklers,
-            ClubsAndBucklers
+            Javelins_Daggers_And_Bucklers,
+            Boltspitters_And_Clubs,
+            Boltspitters_Daggers_And_Bucklers,
+            Clubs_And_Bucklers
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -48,7 +48,7 @@ namespace Seraphon {
 
     private:
 
-        WeaponOption m_weaponOption = BoltspittersDaggersAndBucklers;
+        WeaponOption m_weaponOption = Boltspitters_Daggers_And_Bucklers;
 
         Weapon m_javelin,
                 m_boltspitter,

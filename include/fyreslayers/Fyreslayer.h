@@ -26,28 +26,28 @@ namespace Fyreslayers {
     };
 
     enum class Rune : int {
-        OfFury,
-        OfSearingHeat,
-        OfAwakenedSteel,
-        OfFieryDetermination,
-        OfRelentlessZeal,
-        OfFarsight
+        Of_Fury,
+        Of_Searing_Heat,
+        Of_Awakened_Steel,
+        Of_Fiery_Determination,
+        Of_Relentless_Zeal,
+        Of_Farsight
     };
 
     enum class CommandTrait : int {
         None,
 
         // Inheritance of Grimnir
-        Fury_of_the_Fyreslayers,
-        Honour_of_the_Ancestors,
-        Spirit_of_Grimnir,
-        Blood_of_the_Berserker,
-        Iron_Will_of_the_Guardian,
-        Destroyer_of_Foes,
+        Fury_Of_The_Fyreslayers,
+        Honour_Of_The_Ancestors,
+        Spirit_Of_Grimnir,
+        Blood_Of_The_Berserker,
+        Iron_Will_Of_The_Guardian,
+        Destroyer_Of_Foes,
 
         // Magmic Empowerments
         Fyremantle,
-        Wisdom_and_Authority,
+        Wisdom_And_Authority,
         Oathsayer,
         Ash_Beard,
         Fyresteel_Weaponsmith,
@@ -65,16 +65,16 @@ namespace Fyreslayers {
 
         // Heirlooms of the Lodge
         Magnetised_Runes,
-        Draught_of_Magmalt_Ale,
+        Draught_Of_Magmalt_Ale,
         Drakeslayer,
         Obsidian_Glowhelm,
         Shimmering_Blade,
-        Axe_of_Grimnir,
+        Axe_Of_Grimnir,
 
         // Artefacts of Wrath and Doom
         Beastslayer,
-        Bracers_of_Ember_Iron,
-        Rune_of_Blazing_Fury,
+        Bracers_Of_Ember_Iron,
+        Rune_Of_Blazing_Fury,
 
         // Artefacts of the Forge-temple
         Salamander_Cloak,
@@ -85,13 +85,13 @@ namespace Fyreslayers {
         Droth_Helm,
 
         // Icons of Grimnir
-        Icon_of_the_Ancestors,
-        Icon_of_Grimnirs_Condemnation,
+        Icon_Of_The_Ancestors,
+        Icon_Of_Grimnirs_Condemnation,
         The_Nulsidian_Icon,
 
         // Lodge specific
         Vosaxe,             // Vostarg
-        Helm_of_Obsidia,    // Greyfyrd
+        Helm_Of_Obsidia,    // Greyfyrd
         Tyrant_Slayer,      // Hermdar
         Igneous_Battle_Throne   // Lofnir
     };
@@ -113,9 +113,9 @@ namespace Fyreslayers {
 
         Molten_Infusion,
         Searing_Heat,
-        Prayer_of_Ash,
+        Prayer_Of_Ash,
         Ember_Storm,
-        Prayer_of_Grimnirs_Fury,
+        Prayer_Of_Grimnirs_Fury,
         Gilded_Claws
     };
 

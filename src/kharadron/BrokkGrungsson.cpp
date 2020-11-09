@@ -10,9 +10,9 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 40;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 220;
 
     bool BrokkGrungsson::s_registered = false;
 
@@ -50,7 +50,7 @@ namespace KharadronOverlords {
     }
 
     BrokkGrungsson::BrokkGrungsson() :
-            KharadronBase("Brokk Grungsson", 12, WOUNDS, 8, 3, true),
+            KharadronBase("Brokk Grungsson", 12, g_wounds, 8, 3, true),
             m_boast(Weapon::Type::Missile, "Grungsson's Boast", 18, 2, 3, 2, -2, RAND_D3),
             m_charter(Weapon::Type::Missile, "The Magnate's Charter", 18, 6, 3, 3, -1, 1),
             m_aetherblasters(Weapon::Type::Missile, "Aetherblasters", 9, 2, 3, 4, 0, 1),
@@ -61,20 +61,20 @@ namespace KharadronOverlords {
     }
 
     bool BrokkGrungsson::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boast);
         model->addMissileWeapon(&m_charter);
         model->addMissileWeapon(&m_aetherblasters);
         model->addMeleeWeapon(&m_saw);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int BrokkGrungsson::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //KharadronOverlords

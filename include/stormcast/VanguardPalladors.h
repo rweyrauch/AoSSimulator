@@ -18,8 +18,8 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            ShockHandaxe,
-            StarstrikeJavelin,
+            Shock_Handaxe,
+            Starstrike_Javelin,
         };
 
         static Unit *Create(const ParameterList &parameters);

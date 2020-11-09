@@ -12,14 +12,14 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 0;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_pointsPerUnit = 0;
 
     bool TheBladeCoven::s_registered = false;
 
     TheBladeCoven::TheBladeCoven() :
-            DaughterOfKhaine("The Blade Coven", 8, WOUNDS, 8, 5, false),
+            DaughterOfKhaine("The Blade Coven", 8, g_wounds, 8, 5, false),
             m_heartseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 3, 3, -1, 1),
             m_sacrificialWeapons(Weapon::Type::Melee, "Sacrificial Weapons", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, THE_BLADE_COVEN};
@@ -28,23 +28,23 @@ namespace DaughtersOfKhaine {
 
     bool TheBladeCoven::configure() {
 
-        auto kyrae = new Model(BASESIZE, wounds()+1);
+        auto kyrae = new Model(g_basesize, wounds()+1);
         kyrae->addMissileWeapon(&m_heartseekerBow);
         kyrae->addMeleeWeapon(&m_sacrificialWeapons);
         kyrae->setName("Kyrae");
         addModel(kyrae);
 
-        auto khamyss = new Model(BASESIZE, wounds());
+        auto khamyss = new Model(g_basesize, wounds());
         khamyss->addMeleeWeapon(&m_sacrificialWeapons);
         khamyss->setName("Khamyss");
         addModel(khamyss);
 
-        auto kyrssa = new Model(BASESIZE, wounds());
+        auto kyrssa = new Model(g_basesize, wounds());
         kyrssa->addMeleeWeapon(&m_sacrificialWeapons);
         kyrssa->setName("Kyrssa");
         addModel(kyrssa);
 
-        auto lethyr = new Model(BASESIZE, wounds());
+        auto lethyr = new Model(g_basesize, wounds());
         lethyr->addMeleeWeapon(&m_sacrificialWeapons);
         lethyr->setName("Lethyr");
         addModel(lethyr);
@@ -56,7 +56,7 @@ namespace DaughtersOfKhaine {
 
     Unit *TheBladeCoven::Create(const ParameterList &parameters) {
         auto unit = new TheBladeCoven();
-        unit->setTemple(Temple::HaggNar);
+        unit->setTemple(Temple::Hagg_Nar);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -92,7 +92,7 @@ namespace DaughtersOfKhaine {
     }
 
     int TheBladeCoven::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace DaughtersOfKhaine

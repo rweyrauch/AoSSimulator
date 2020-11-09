@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MORNFANGPACK_H
-#define MORNFANGPACK_H
+#ifndef MOURNFANGPACK_H
+#define MOURNFANGPACK_H
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -18,8 +18,8 @@ namespace OgorMawtribes {
     public:
 
         enum WeaponOption {
-            CullingClubOrPreyHackerAndIronfist,
-            GargantHacker
+            Culling_Club_Or_Prey_Hacker_And_Ironfist,
+            Gargant_Hacker
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -54,7 +54,7 @@ namespace OgorMawtribes {
 
     private:
 
-        WeaponOption m_option = CullingClubOrPreyHackerAndIronfist;
+        WeaponOption m_option = Culling_Club_Or_Prey_Hacker_And_Ironfist;
         bool m_hornblower = false;
         bool m_bannerBearer = false;
 
@@ -77,4 +77,4 @@ namespace OgorMawtribes {
 
 } // namespace OgorMawtribes
 
-#endif //MORNFANGPACK_H
+#endif //MOURNFANGPACK_H

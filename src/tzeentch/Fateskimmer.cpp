@@ -12,9 +12,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 140;
 
     bool Fateskimmer::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Tzeentch {
     }
 
     Fateskimmer::Fateskimmer() :
-            TzeentchBase("Fateskimmer", 16, WOUNDS, 10, 5, true),
+            TzeentchBase("Fateskimmer", 16, g_wounds, 10, 5, true),
             m_magicalFlames(Weapon::Type::Missile, "Magical Flames", 18, 3, 4, 4, -1, 1),
             m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
@@ -72,7 +72,7 @@ namespace Tzeentch {
     }
 
     bool Fateskimmer::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_magicalFlames);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_dagger);
@@ -82,7 +82,7 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -90,13 +90,13 @@ namespace Tzeentch {
     Wounds Fateskimmer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Sky-sharks
         if (target->hasKeyword(MONSTER) && (weapon->name() == m_bite.name())) {
-            return {Dice::rollD3(), 0};
+            return {Dice::RollD3(), 0};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Fateskimmer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

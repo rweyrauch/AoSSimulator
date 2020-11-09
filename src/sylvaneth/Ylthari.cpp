@@ -12,9 +12,9 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 180;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 180;
 
     bool Ylthari::s_registered = false;
 
@@ -53,7 +53,7 @@ namespace Sylvaneth {
     }
 
     Ylthari::Ylthari() :
-            SylvanethBase("Ylthari", 5, WOUNDS, 7, 5, false),
+            SylvanethBase("Ylthari", 5, g_wounds, 7, 5, false),
             m_briarStaff(Weapon::Type::Melee, "Briar Staff", 1, 1, 3, 3, -1, RAND_D3),
             m_thorns(Weapon::Type::Melee, "Spiteful Thorns", 1, 3, 4, 4, 0, 1),
             m_snappingMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1) {
@@ -66,7 +66,7 @@ namespace Sylvaneth {
     }
 
     bool Ylthari::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_briarStaff);
         model->addMeleeWeapon(&m_thorns);
         model->addMeleeWeapon(&m_snappingMandibles);
@@ -76,13 +76,13 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateTheReaping(this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int Ylthari::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Sylvaneth

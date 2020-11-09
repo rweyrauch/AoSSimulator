@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WARHOUNDS_H
-#define WARHOUNDS_H
+#ifndef CHAOSWARHOUNDS_H
+#define CHAOSWARHOUNDS_H
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -48,4 +48,4 @@ namespace BeastsOfChaos {
 
 } // namespace BeastsOfChaos
 
-#endif //WARHOUNDS_H
+#endif //CHAOSWARHOUNDS_H

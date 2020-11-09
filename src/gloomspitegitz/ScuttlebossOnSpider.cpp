@@ -14,14 +14,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 60;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 100;
 
     bool ScuttlebossOnGiganticSpider::s_registered = false;
 
     ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider() :
-            GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, WOUNDS, 6, 4, true),
+            GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, g_wounds, 6, 4, true),
             m_spear(Weapon::Type::Melee, "Envenomed Spear", 2, 4, 4, 4, -1, 1),
             m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
@@ -31,12 +31,12 @@ namespace GloomspiteGitz {
     }
 
     bool ScuttlebossOnGiganticSpider::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_fangs);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -91,7 +91,7 @@ namespace GloomspiteGitz {
     }
 
     int ScuttlebossOnGiganticSpider::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

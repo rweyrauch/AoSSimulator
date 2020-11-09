@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef VOLLEYGUN_H
-#define VOLLEYGUN_H
+#ifndef HELBLASTERVOLLEYGUN_H
+#define HELBLASTERVOLLEYGUN_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -57,4 +57,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //VOLLEYGUN_H
+#endif //HELBLASTERVOLLEYGUN_H

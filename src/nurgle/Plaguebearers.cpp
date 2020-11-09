@@ -11,17 +11,17 @@
 #include <Board.h>
 
 namespace Nurgle {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 110;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool Plaguebearers::s_registered = false;
 
     Plaguebearers::Plaguebearers() :
-            NurgleBase("Plaguebearers", 4, WOUNDS, 10, 5, false),
+            NurgleBase("Plaguebearers", 4, g_wounds, 10, 5, false),
             m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
             m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
@@ -30,7 +30,7 @@ namespace Nurgle {
     }
 
     bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -38,12 +38,12 @@ namespace Nurgle {
         m_pipers = pipers;
 
         // Add the Plagueridden
-        auto leader = new Model(BASESIZE, wounds());
+        auto leader = new Model(g_basesize, wounds());
         leader->addMeleeWeapon(&m_plagueswordPlagueRidden);
         addModel(leader);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_plaguesword);
             addModel(model);
         }
@@ -55,7 +55,7 @@ namespace Nurgle {
 
     Unit *Plaguebearers::Create(const ParameterList &parameters) {
         auto unit = new Plaguebearers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool pipers = GetBoolParam("Pipers", parameters, false);
 
@@ -75,7 +75,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     Plaguebearers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Piper"),
                     },
@@ -89,8 +89,8 @@ namespace Nurgle {
     Wounds Plaguebearers::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -113,9 +113,9 @@ namespace Nurgle {
     }
 
     int Plaguebearers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -124,7 +124,7 @@ namespace Nurgle {
         // Locus of Fecundity
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0);
         for (auto unit : units) {
-            if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) return RerollOnes;
+            if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) return Reroll_Ones;
         }
         return Unit::toSaveRerolls(weapon);
     }

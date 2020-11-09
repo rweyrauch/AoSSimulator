@@ -11,25 +11,25 @@
 #include "DispossessedPrivate.h"
 
 namespace Dispossessed {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool WardenKing::s_registered = false;
 
     WardenKing::WardenKing() :
-            Dispossessed("Warden King", 4, WOUNDS, 8, 4, false),
+            Dispossessed("Warden King", 4, g_wounds, 8, 4, false),
             m_runeWeapon(Weapon::Type::Melee, "Rune Weapon", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
         m_weapons = {&m_runeWeapon};
     }
 
     bool WardenKing::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_runeWeapon);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -67,7 +67,7 @@ namespace Dispossessed {
     }
 
     int WardenKing::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Dispossessed

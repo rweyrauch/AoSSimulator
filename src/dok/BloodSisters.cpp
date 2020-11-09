@@ -12,17 +12,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 40;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 480;
 
     bool BloodSisters::s_registered = false;
 
     BloodSisters::BloodSisters() :
-            DaughterOfKhaine("Blood Sisters", 8, WOUNDS, 8, 5, false),
+            DaughterOfKhaine("Blood Sisters", 8, g_wounds, 8, 5, false),
             m_heartshardGlaive(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 3, 3, -1, 1),
             m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 2, 3, -1, 1),
             m_crystalTouch(Weapon::Type::Melee, "Crystal Touch", 1, 1, 4, 0, 0, 1),
@@ -32,17 +32,17 @@ namespace DaughtersOfKhaine {
     }
 
     bool BloodSisters::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto gorgai = new Model(BASESIZE, wounds());
+        auto gorgai = new Model(g_basesize, wounds());
         gorgai->addMeleeWeapon(&m_heartshardGlaiveGorgai);
         gorgai->addMeleeWeapon(&m_crystalTouchGorgai);
         addModel(gorgai);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_heartshardGlaive);
             model->addMeleeWeapon(&m_crystalTouch);
             addModel(model);
@@ -55,7 +55,7 @@ namespace DaughtersOfKhaine {
 
     Unit *BloodSisters::Create(const ParameterList &parameters) {
         auto unit = new BloodSisters();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
@@ -76,7 +76,7 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
@@ -96,9 +96,9 @@ namespace DaughtersOfKhaine {
     }
 
     int BloodSisters::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

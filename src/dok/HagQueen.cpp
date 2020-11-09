@@ -11,14 +11,14 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool HagQueen::s_registered = false;
 
     HagQueen::HagQueen() :
-            DaughterOfKhaine("Hag Queen", 6, WOUNDS, 8, 5, false),
+            DaughterOfKhaine("Hag Queen", 6, g_wounds, 8, 5, false),
             m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN};
         m_weapons = {&m_bladeOfKhaine};
@@ -26,11 +26,11 @@ namespace DaughtersOfKhaine {
     }
 
     bool HagQueen::configure(Prayer prayer) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfKhaine);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -82,7 +82,7 @@ namespace DaughtersOfKhaine {
     }
 
     int HagQueen::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void HagQueen::onStartHero(PlayerId player) {
@@ -91,15 +91,15 @@ namespace DaughtersOfKhaine {
         m_bladeOfKhaine.setDamage(1);
 
         // Priestess of Khaine
-        const auto roll = Dice::rollD6();
+        const auto roll = Dice::RollD6();
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) <= 3.0) {
             // Touch of Death
             if (roll == 1) {
                 applyDamage({0, 1});
             } else if (roll >= 3) {
-                if (Dice::rollD6() >= 4) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         } else {

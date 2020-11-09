@@ -12,9 +12,9 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 105; // x70 oval
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 80;
 
     bool CorpseCartWithBalefireBrazier::s_registered = false;
 
@@ -33,7 +33,7 @@ namespace Death {
     }
 
     int CorpseCartWithBalefireBrazier::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void CorpseCartWithBalefireBrazier::Init() {
@@ -54,7 +54,7 @@ namespace Death {
     }
 
     CorpseCartWithBalefireBrazier::CorpseCartWithBalefireBrazier() :
-            LegionOfNagashBase("Corpse Cart with Balefire Brazier", 4, WOUNDS, 10, 6, false),
+            LegionOfNagashBase("Corpse Cart with Balefire Brazier", 4, g_wounds, 10, 6, false),
             m_goad(Weapon::Type::Melee, "Corpsemaster's Goad", 2, 2, 4, 4, 0, 1),
             m_lash(Weapon::Type::Melee, "Corpsemaster's Lash", 1, 3, 4, 4, 0, 1),
             m_blades(Weapon::Type::Melee, "Zombies' Rusty Blades", 1, RAND_2D6, 5, 5, 0, 1) {
@@ -68,13 +68,13 @@ namespace Death {
     }
 
     bool CorpseCartWithBalefireBrazier::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goad);
         model->addMeleeWeapon(&m_lash);
         model->addMeleeWeapon(&m_blades);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -92,7 +92,7 @@ namespace Death {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(WIZARD)) {
-                    if (Dice::rollD6() >= 4) {
+                    if (Dice::RollD6() >= 4) {
                         unit->applyDamage({0, 1});
                     }
                 }

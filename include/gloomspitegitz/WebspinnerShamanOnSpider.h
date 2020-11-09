@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SHAMANONSPIDER_H
-#define SHAMANONSPIDER_H
+#ifndef WEBSPINNERSHAMANONSPIDER_H
+#define WEBSPINNERSHAMANONSPIDER_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -74,4 +74,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //SHAMANONSPIDER_H
+#endif //WEBSPINNERSHAMANONSPIDER_H

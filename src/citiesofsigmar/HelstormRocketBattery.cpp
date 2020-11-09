@@ -12,9 +12,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 130;
+    static const int g_basesize = 25;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 130;
 
     bool HelstormRocketBattery::s_registered = false;
 
@@ -58,7 +58,7 @@ namespace CitiesOfSigmar {
     }
 
     HelstormRocketBattery::HelstormRocketBattery() :
-            CitizenOfSigmar("Helstorm Rocket Battery", 3, WOUNDS, 5, 4, false),
+            CitizenOfSigmar("Helstorm Rocket Battery", 3, g_wounds, 5, 4, false),
             m_rocketSalvo(Weapon::Type::Missile, "Helstorm Rocket Salvo", 36, 3, 5, 3, -2, RAND_D3),
             m_crewsTools(Weapon::Type::Melee, "Crew's Tools", 1, 3, 5, 5, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, HELSTORM_ROCKET_BATTERY};
@@ -67,12 +67,12 @@ namespace CitiesOfSigmar {
     }
 
     bool HelstormRocketBattery::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_rocketSalvo);
         model->addMeleeWeapon(&m_crewsTools);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -90,13 +90,13 @@ namespace CitiesOfSigmar {
         // Calculated Trajectory
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto unit : units) {
-            if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return RerollOnes;
+            if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     int HelstormRocketBattery::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace CitiesOfSigmar

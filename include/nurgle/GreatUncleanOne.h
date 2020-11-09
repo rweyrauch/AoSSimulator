@@ -18,13 +18,13 @@ namespace Nurgle {
     public:
 
         enum WeaponOptionOne {
-            PlagueFlail,
+            Plague_Flail,
             Bileblade
         };
 
         enum WeaponOptionTwo {
-            MassiveBilesword,
-            DoomsdayBell
+            Massive_Bilesword,
+            Doomsday_Bell
         };
 
         static Unit *Create(const ParameterList &parameters);

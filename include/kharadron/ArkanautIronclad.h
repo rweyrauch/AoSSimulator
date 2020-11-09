@@ -18,9 +18,9 @@ namespace KharadronOverlords {
     public:
 
         enum WeaponOption {
-            GreatSkyCannon,
-            GreatSkyhook,
-            GreatVolleyCannon
+            Great_Sky_Cannon,
+            Great_Skyhook,
+            Great_Volley_Cannon
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -59,7 +59,7 @@ namespace KharadronOverlords {
 
     private:
 
-        WeaponOption m_weaponOption = GreatSkyCannon;
+        WeaponOption m_weaponOption = Great_Sky_Cannon;
 
         Weapon m_cannonShrapnel,
                 m_cannonShell,

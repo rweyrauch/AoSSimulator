@@ -10,17 +10,17 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool NightRunners::s_registered = false;
 
     NightRunners::NightRunners() :
-            Skaventide("Night Runners", 7, WOUNDS, 4, 6, false),
+            Skaventide("Night Runners", 7, g_wounds, 4, 6, false),
             m_throwingWeapons(Weapon::Type::Missile, "Eshin Throwing Weapons", 12, 1, 4, 5, 0, 1),
             m_stabbingBlade(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1),
             m_stabbingBladeLeader(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1) {
@@ -29,20 +29,20 @@ namespace Skaven {
     }
 
     bool NightRunners::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         // Running Death
         m_runAndShoot = true;
 
-        auto leader = new Model(BASESIZE, wounds());
+        auto leader = new Model(g_basesize, wounds());
         leader->addMissileWeapon(&m_throwingWeapons);
         leader->addMeleeWeapon(&m_stabbingBladeLeader);
         addModel(leader);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_throwingWeapons);
             model->addMeleeWeapon(&m_stabbingBlade);
             addModel(model);
@@ -55,7 +55,7 @@ namespace Skaven {
 
     Unit *NightRunners::Create(const ParameterList &parameters) {
         auto unit = new NightRunners();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -73,7 +73,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     CHAOS,
                     {SKAVEN}
@@ -91,9 +91,9 @@ namespace Skaven {
     }
 
     int NightRunners::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

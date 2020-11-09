@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SHADOWSTALKERS_H
-#define SHADOWSTALKERS_H
+#ifndef KHAINITESHADOWSTALKERS_H
+#define KHAINITESHADOWSTALKERS_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -53,4 +53,4 @@ namespace DaughtersOfKhaine {
 
 } // namespace DaughtersOfKhaine
 
-#endif //SHADOWSTALKERS_H
+#endif //KHAINITESHADOWSTALKERS_H

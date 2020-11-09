@@ -18,8 +18,8 @@ namespace BeastsOfChaos {
     public:
 
         enum WeaponOptions {
-            UngorBlade,
-            GnarledShortspear
+            Ungor_Blade,
+            Gnarled_Shortspear
         };
 
         static Unit *Create(const ParameterList &parameters);

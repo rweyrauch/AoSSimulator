@@ -10,18 +10,18 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 32;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool SavageBoarboyManiaks::s_registered = false;
 
     Unit *SavageBoarboyManiaks::Create(const ParameterList &parameters) {
         auto unit = new SavageBoarboyManiaks();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool thumper = GetBoolParam("Boar Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
@@ -44,7 +44,7 @@ namespace Bonesplitterz {
                     Bonesplitterz::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Boar Thumper"),
                             BoolParameter("Bone Totem Bearer"),
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
@@ -58,7 +58,7 @@ namespace Bonesplitterz {
     }
 
     SavageBoarboyManiaks::SavageBoarboyManiaks() :
-            Bonesplitterz("Savage Boarboy Maniaks", 12, WOUNDS, 6, 6, false),
+            Bonesplitterz("Savage Boarboy Maniaks", 12, g_wounds, 6, 6, false),
             m_chompas(Weapon::Type::Melee, "Pair of Chompas", 1, 4, 4, 3, 0, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
             m_chompasBoss(Weapon::Type::Melee, "Pair of Chompas", 1, 5, 4, 3, 0, 1) {
@@ -69,7 +69,7 @@ namespace Bonesplitterz {
 
     bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totemBearer) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -78,13 +78,13 @@ namespace Bonesplitterz {
         m_totemBearer = totemBearer;
 
         // Add the Boss
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_chompasBoss);
         bossModel->addMeleeWeapon(&m_tusksAndHooves);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_chompas);
             model->addMeleeWeapon(&m_tusksAndHooves);
             addModel(model);
@@ -124,9 +124,9 @@ namespace Bonesplitterz {
     }
 
     int SavageBoarboyManiaks::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -9,9 +9,9 @@
 #include "nighthaunt/KurdossValentian.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 180;
+    static const int g_basesize = 60;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 180;
 
     bool KurdossValentian::s_registered = false;
 
@@ -47,7 +47,7 @@ namespace Nighthaunt {
     }
 
     KurdossValentian::KurdossValentian() :
-            Nighthaunt("Kurdoss Valentian", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Kurdoss Valentian", 6, g_wounds, 10, 4, true),
             m_sceptre(Weapon::Type::Melee, "Sepulchral Sceptre", 1, 5, 3, 3, -2, RAND_D3),
             m_claws(Weapon::Type::Melee, "Wraith Herald's Spectral Claws", 1, 6, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KURDOSS_VALENTIAN};
@@ -56,7 +56,7 @@ namespace Nighthaunt {
     }
 
     bool KurdossValentian::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sceptre);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
@@ -74,20 +74,20 @@ namespace Nighthaunt {
 
         // Soul-crushing Smite
         if ((woundRoll == 6) && (weapon->name() == m_sceptre.name())) {
-            return {Dice::rollD6(), 0};
+            return {Dice::RollD6(), 0};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls KurdossValentian::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (target->isGeneral() && (weapon->name() == m_sceptre.name())) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     int KurdossValentian::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

@@ -18,8 +18,8 @@ namespace Nurgle {
     public:
 
         enum WeaponOption {
-            PrehensileProboscis,
-            FoulMouthparts
+            Prehensile_Proboscis,
+            Foul_Mouthparts
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -52,7 +52,7 @@ namespace Nurgle {
 
         bool m_iconBearer = false;
         bool m_bellTollers = false;
-        WeaponOption m_weapon = PrehensileProboscis;
+        WeaponOption m_weapon = Prehensile_Proboscis;
 
         Rerolls bellTollersBattleshockReroll(const Unit *unit);
 

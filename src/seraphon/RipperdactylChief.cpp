@@ -12,14 +12,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_pointsPerUnit = 80;
 
     bool RipperdactylChief::s_registered = false;
 
     RipperdactylChief::RipperdactylChief() :
-            SeraphonBase("Ripperdactyl Chief", 12, WOUNDS, 6, 5, true),
+            SeraphonBase("Ripperdactyl Chief", 12, g_wounds, 6, 5, true),
             m_skyblade(Weapon::Type::Melee, "Skyblade", 1, 4, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Tearing Jaws", 1, 4, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, HERO, RIPPERDACTYL_CHIEF};
@@ -30,7 +30,7 @@ namespace Seraphon {
 
     bool RipperdactylChief::configure() {
         // Add the Alpha
-        auto alpha = new Model(BASESIZE, wounds());
+        auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_skyblade);
         alpha->addMeleeWeapon(&m_jaws);
         addModel(alpha);
@@ -95,7 +95,7 @@ namespace Seraphon {
     }
 
     int RipperdactylChief::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

@@ -13,17 +13,17 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 190;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 50;
+    static const int g_wounds = 5;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 190;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool KurnothHunters::s_registered = false;
 
     KurnothHunters::KurnothHunters() :
-            SylvanethBase("Kurnoth Hunters", 5, WOUNDS, 7, 4, false),
+            SylvanethBase("Kurnoth Hunters", 5, g_wounds, 7, 4, false),
             m_greatbow(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 4, 3, -1, RAND_D3),
             m_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 3, 3, -1, RAND_D3),
             m_greatsword(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 3, 3, -1, 2),
@@ -38,14 +38,14 @@ namespace Sylvaneth {
 
     bool KurnothHunters::configure(int numModels, WeaponOption weapons) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         m_weaponOption = weapons;
 
-        auto huntmaster = new Model(BASESIZE, wounds());
+        auto huntmaster = new Model(g_basesize, wounds());
         if (m_weaponOption == Greatbows) {
             huntmaster->addMissileWeapon(&m_greatbowHuntmaster);
             huntmaster->addMeleeWeapon(&m_viciousClaws);
@@ -57,7 +57,7 @@ namespace Sylvaneth {
         addModel(huntmaster);
 
         for (int i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             if (m_weaponOption == Greatbows) {
                 model->addMissileWeapon(&m_greatbow);
                 model->addMeleeWeapon(&m_viciousClaws);
@@ -76,7 +76,7 @@ namespace Sylvaneth {
 
     Unit *KurnothHunters::Create(const ParameterList &parameters) {
         auto unit = new KurnothHunters();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, KurnothHunters::Greatswords);
 
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
@@ -99,7 +99,7 @@ namespace Sylvaneth {
                     KurnothHunters::EnumStringToInt,
                     KurnothHunters::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", Greatswords, weapons),
                             EnumParameter("Glade", g_glade[0], g_glade),
                     },
@@ -150,7 +150,7 @@ namespace Sylvaneth {
         if (!units.empty()) {
             auto unit = units.front();
             Dice::RollResult result;
-            Dice::rollD6(unit->remainingModels(), result);
+            Dice::RollD6(unit->remainingModels(), result);
             Wounds trampleWounds = {0, result.rollsGE(4)};
             unit->applyDamage(trampleWounds);
             wounds += trampleWounds;
@@ -159,9 +159,9 @@ namespace Sylvaneth {
     }
 
     int KurnothHunters::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

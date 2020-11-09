@@ -16,134 +16,134 @@
 namespace OgorMawtribes {
 
     constexpr std::array<int, 7> g_mawtribe = {
-            to_integer(Mawtribe::None),
-            to_integer(Mawtribe::Meatfist),
-            to_integer(Mawtribe::Bloodgullet),
-            to_integer(Mawtribe::Underguts),
-            to_integer(Mawtribe::Boulderhead),
-            to_integer(Mawtribe::Thunderbellies),
-            to_integer(Mawtribe::Winterbite)
+            ToInteger(Mawtribe::None),
+            ToInteger(Mawtribe::Meatfist),
+            ToInteger(Mawtribe::Bloodgullet),
+            ToInteger(Mawtribe::Underguts),
+            ToInteger(Mawtribe::Boulderhead),
+            ToInteger(Mawtribe::Thunderbellies),
+            ToInteger(Mawtribe::Winterbite)
     };
 
     constexpr std::array<int, 7> g_tyrantTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Furious_Guzzler),
-            to_integer(CommandTrait::Prodigious_Girth),
-            to_integer(CommandTrait::Killer_Reputation),
-            to_integer(CommandTrait::Mighty_Bellower),
-            to_integer(CommandTrait::An_Eye_for_Loot),
-            to_integer(CommandTrait::Crushing_Bulk),
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Furious_Guzzler),
+            ToInteger(CommandTrait::Prodigious_Girth),
+            ToInteger(CommandTrait::Killer_Reputation),
+            ToInteger(CommandTrait::Mighty_Bellower),
+            ToInteger(CommandTrait::An_Eye_For_Loot),
+            ToInteger(CommandTrait::Crushing_Bulk),
     };
 
     constexpr std::array<int, 7> g_butcherTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Questionable_Hygiene),
-            to_integer(CommandTrait::Herald_of_the_Gulping_God),
-            to_integer(CommandTrait::Growling_Stomach),
-            to_integer(CommandTrait::Gastromancer),
-            to_integer(CommandTrait::Rolls_of_Fat),
-            to_integer(CommandTrait::Spell_Eater)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Questionable_Hygiene),
+            ToInteger(CommandTrait::Herald_Of_The_Gulping_God),
+            ToInteger(CommandTrait::Growling_Stomach),
+            ToInteger(CommandTrait::Gastromancer),
+            ToInteger(CommandTrait::Rolls_Of_Fat),
+            ToInteger(CommandTrait::Spell_Eater)
     };
 
     constexpr std::array<int, 7> g_frostlordTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Nomadic_Raider),
-            to_integer(CommandTrait::Voice_of_the_Avalanche),
-            to_integer(CommandTrait::Frostfell_Aura),
-            to_integer(CommandTrait::Master_of_the_Mournfangs),
-            to_integer(CommandTrait::Skilled_Rider),
-            to_integer(CommandTrait::Touched_by_the_Everwinter)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Nomadic_Raider),
+            ToInteger(CommandTrait::Voice_Of_The_Avalanche),
+            ToInteger(CommandTrait::Frostfell_Aura),
+            ToInteger(CommandTrait::Master_Of_The_Mournfangs),
+            ToInteger(CommandTrait::Skilled_Rider),
+            ToInteger(CommandTrait::Touched_By_The_Everwinter)
     };
 
     constexpr std::array<int, 7> g_icebrowTraits = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Winter_Rander),
-            to_integer(CommandTrait::Eye_of_the_Blizzard),
-            to_integer(CommandTrait::Blood_Vultures_Gaze),
-            to_integer(CommandTrait::Frost_Maw),
-            to_integer(CommandTrait::Raised_by_Yhetees),
-            to_integer(CommandTrait::Skal_Packmaster)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Winter_Rander),
+            ToInteger(CommandTrait::Eye_Of_The_Blizzard),
+            ToInteger(CommandTrait::Blood_Vultures_Gaze),
+            ToInteger(CommandTrait::Frost_Maw),
+            ToInteger(CommandTrait::Raised_By_Yhetees),
+            ToInteger(CommandTrait::Skal_Packmaster)
     };
 
     constexpr std::array<int, 7> g_tyrantArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Headmasher),
-            to_integer(Artefact::Grawls_Gut_Plate),
-            to_integer(Artefact::Gruesome_Trophy_Rack),
-            to_integer(Artefact::Flask_of_Stonehorn_Blood),
-            to_integer(Artefact::Sky_Titan_Scatter_Pistols),
-            to_integer(Artefact::The_Fang_of_Ghur)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Headmasher),
+            ToInteger(Artefact::Grawls_Gut_Plate),
+            ToInteger(Artefact::Gruesome_Trophy_Rack),
+            ToInteger(Artefact::Flask_Of_Stonehorn_Blood),
+            ToInteger(Artefact::Sky_Titan_Scatter_Pistols),
+            ToInteger(Artefact::The_Fang_Of_Ghur)
     };
 
     constexpr std::array<int, 7> g_butcherArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Dracoline_Heart),
-            to_integer(Artefact::Shrunken_Priest_Head),
-            to_integer(Artefact::Wizardflesh_Apron),
-            to_integer(Artefact::Bloodrock_Talisman),
-            to_integer(Artefact::Grease_Smeared_Tusks),
-            to_integer(Artefact::Rotting_Dankhold_Spores)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Dracoline_Heart),
+            ToInteger(Artefact::Shrunken_Priest_Head),
+            ToInteger(Artefact::Wizardflesh_Apron),
+            ToInteger(Artefact::Bloodrock_Talisman),
+            ToInteger(Artefact::Grease_Smeared_Tusks),
+            ToInteger(Artefact::Rotting_Dankhold_Spores)
     };
 
     constexpr std::array<int, 7> g_frostlordArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::The_Rime_Shroud),
-            to_integer(Artefact::Blade_of_All_Frost),
-            to_integer(Artefact::Carvalox_Flank),
-            to_integer(Artefact::Alvagr_Rune_Token),
-            to_integer(Artefact::Skullshards_of_Dragaar),
-            to_integer(Artefact::Elixir_of_Frostwyrm)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::The_Rime_Shroud),
+            ToInteger(Artefact::Blade_Of_All_Frost),
+            ToInteger(Artefact::Carvalox_Flank),
+            ToInteger(Artefact::Alvagr_Rune_Token),
+            ToInteger(Artefact::Skullshards_Of_Dragaar),
+            ToInteger(Artefact::Elixir_Of_Frostwyrm)
     };
 
     constexpr std::array<int, 4> g_icebrowArtefacts = {
-            to_integer(Artefact::None),
-            to_integer(Artefact::The_Pelt_of_Charngar),
-            to_integer(Artefact::Kattanak_Browplate),
-            to_integer(Artefact::Frost_Talon_Shardbolts)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::The_Pelt_Of_Charngar),
+            ToInteger(Artefact::Kattanak_Browplate),
+            ToInteger(Artefact::Frost_Talon_Shardbolts)
     };
 
     constexpr std::array<int, 7> g_butcherLore = {
-            to_integer(Lore::None),
-            to_integer(Lore::Fleshcrave_Curse),
-            to_integer(Lore::Blood_Feast),
-            to_integer(Lore::Ribcracker),
-            to_integer(Lore::Blubbergrub_Stench),
-            to_integer(Lore::Molten_Entrails),
-            to_integer(Lore::Greasy_Deluge)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Fleshcrave_Curse),
+            ToInteger(Lore::Blood_Feast),
+            ToInteger(Lore::Ribcracker),
+            ToInteger(Lore::Blubbergrub_Stench),
+            ToInteger(Lore::Molten_Entrails),
+            ToInteger(Lore::Greasy_Deluge)
     };
 
     constexpr std::array<int, 4> g_firebellyLore = {
-            to_integer(Lore::None),
-            to_integer(Lore::Fiery_Whirlwind),
-            to_integer(Lore::Billowing_Ash),
-            to_integer(Lore::Tongues_of_Flame)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Fiery_Whirlwind),
+            ToInteger(Lore::Billowing_Ash),
+            ToInteger(Lore::Tongues_Of_Flame)
     };
 
     constexpr std::array<int, 4> g_prayers = {
-            to_integer(Prayer::None),
-            to_integer(Prayer::Pulverising_Hailstorm),
-            to_integer(Prayer::Keening_Gale),
-            to_integer(Prayer::Call_of_the_Blizzard)
+            ToInteger(Prayer::None),
+            ToInteger(Prayer::Pulverising_Hailstorm),
+            ToInteger(Prayer::Keening_Gale),
+            ToInteger(Prayer::Call_Of_The_Blizzard)
     };
 
     constexpr std::array<int, 7> g_stonehornTraits = {
-            to_integer(MountTrait::None),
-            to_integer(MountTrait::Black_Clatterhorn),
-            to_integer(MountTrait::Metalcrusher),
-            to_integer(MountTrait::Belligerent_Charger),
-            to_integer(MountTrait::Frosthoof_Bull),
-            to_integer(MountTrait::Rockmane_Elder),
-            to_integer(MountTrait::Old_Granitetooth)
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Black_Clatterhorn),
+            ToInteger(MountTrait::Metalcrusher),
+            ToInteger(MountTrait::Belligerent_Charger),
+            ToInteger(MountTrait::Frosthoof_Bull),
+            ToInteger(MountTrait::Rockmane_Elder),
+            ToInteger(MountTrait::Old_Granitetooth)
     };
 
     constexpr std::array<int, 7> g_thundertuskTraits = {
-            to_integer(MountTrait::None),
-            to_integer(MountTrait::Fleet_of_Hoof),
-            to_integer(MountTrait::Fleshgreed),
-            to_integer(MountTrait::Rimefrost_Hide),
-            to_integer(MountTrait::Gvarnak),
-            to_integer(MountTrait::Matriarch),
-            to_integer(MountTrait::Alvagr_Ancient)
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Fleet_Of_Hoof),
+            ToInteger(MountTrait::Fleshgreed),
+            ToInteger(MountTrait::Rimefrost_Hide),
+            ToInteger(MountTrait::Gvarnak),
+            ToInteger(MountTrait::Matriarch),
+            ToInteger(MountTrait::Alvagr_Ancient)
     };
 
 } // namespace OgorMawtribes

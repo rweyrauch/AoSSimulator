@@ -28,7 +28,7 @@ namespace Ironjawz {
 
         // Megaboss
         Hulking_Muscle_Bound_Brute,
-        Live_to_Fight,
+        Live_To_Fight,
         Brutish_Cunning,
         Ironclad,
         Bestial_Charisma,
@@ -36,11 +36,11 @@ namespace Ironjawz {
 
         // Shaman
         Dead_Kunnin,
-        Master_of_the_Weird,
-        Bursting_with_Power,
+        Master_Of_The_Weird,
+        Bursting_With_Power,
 
         // Clan specific
-        Right_Fist_of_Dakkbad, // Ironsunz
+        Right_Fist_Of_Dakkbad, // Ironsunz
         Get_Da_Realmgate, // Bloodtoof
         Checked_Out, // Da Choppas
     };
@@ -49,9 +49,9 @@ namespace Ironjawz {
         None,
 
         // Megaboss
-        Armour_of_Gork,
+        Armour_Of_Gork,
         Destroyer,
-        Daubing_of_Mork,
+        Daubing_Of_Mork,
         The_Golden_Toof,
         Metalrippas_Klaw,
         The_Boss_Skewer,
@@ -92,9 +92,9 @@ namespace Ironjawz {
         Brain_Bursta,
         Mighty_Eadbutt,
         Da_Blazin_Eyes,
-        Da_Great_Big_Green_Hand_of_Gork,
+        Da_Great_Big_Green_Hand_Of_Gork,
         Bash_Em_Ladz,
-        Wrath_of_Gork
+        Wrath_Of_Gork
     };
 
     class Ironjawz : public Unit {

@@ -12,18 +12,18 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 330;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 110;
+    static const int g_pointsMaxUnitSize = 330;
 
 
     bool Daemonettes::s_registered = false;
 
     Daemonettes::Daemonettes() :
-            SlaaneshBase("Daemonettes", 6, WOUNDS, 10, 5, false),
+            SlaaneshBase("Daemonettes", 6, g_wounds, 10, 5, false),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
             m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws", 1, 3, 4, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
@@ -41,7 +41,7 @@ namespace Slaanesh {
     }
 
     bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -50,12 +50,12 @@ namespace Slaanesh {
         m_hornblower = hornblower;
 
         // Add the Alluress
-        auto reaperModel = new Model(BASESIZE, wounds());
+        auto reaperModel = new Model(g_basesize, wounds());
         reaperModel->addMeleeWeapon(&m_piercingClawsAlluress);
         addModel(reaperModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_piercingClaws);
             addModel(model);
         }
@@ -67,7 +67,7 @@ namespace Slaanesh {
 
     Unit *Daemonettes::Create(const ParameterList &parameters) {
         auto unit = new Daemonettes();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -91,7 +91,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter( "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Banner Bearer"),
                             BoolParameter("Hornblower"),
@@ -109,7 +109,7 @@ namespace Slaanesh {
         if (m_iconBearer) {
             // Icon Bearer
             if (roll == 1) {
-                numAdded = Dice::rollD6();
+                numAdded = Dice::RollD6();
             }
         }
     }
@@ -117,7 +117,7 @@ namespace Slaanesh {
     void Daemonettes::restoreModels(int numModels) {
         // Icon Bearer
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_piercingClaws);
             addModel(model);
         }
@@ -125,23 +125,23 @@ namespace Slaanesh {
 
     Rerolls Daemonettes::chargeRerolls() const {
         if (m_bannerBearer) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::chargeRerolls();
     }
 
     int Daemonettes::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     Rerolls Daemonettes::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return RerollOnes;
+        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
 } // namespace Slaanesh

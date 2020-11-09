@@ -10,9 +10,9 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 70;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 70;
 
     bool Lotann::s_registered = false;
 
@@ -53,7 +53,7 @@ namespace IdonethDeepkin {
     }
 
     Lotann::Lotann() :
-            IdonethDeepkinBase("Lotann", 6, WOUNDS, 7, 6, false),
+            IdonethDeepkinBase("Lotann", 6, g_wounds, 7, 6, false),
             m_quill(Weapon::Type::Melee, "Bone Quill", 1, 1, 3, 5, 0, 1),
             m_cudgel(Weapon::Type::Melee, "Ochtar's Cudgel", 3, 1, 4, 3, -1, 2),
             m_blade(Weapon::Type::Melee, "Ochtar's Blade", 3, 1, 3, 4, -1, 1),
@@ -70,7 +70,7 @@ namespace IdonethDeepkin {
     }
 
     bool Lotann::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_quill);
         model->addMeleeWeapon(&m_cudgel);
         model->addMeleeWeapon(&m_blade);
@@ -78,15 +78,15 @@ namespace IdonethDeepkin {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Wounds Lotann::applyWoundSave(const Wounds &wounds) {
         Dice::RollResult normalSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, normalSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, normalSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= normalSaves.rollsGE(5);
@@ -108,7 +108,7 @@ namespace IdonethDeepkin {
     }
 
     int Lotann::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //IdonethDeepkin

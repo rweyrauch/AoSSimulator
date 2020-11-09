@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef COS_IRONDRAKES_H
-#define COS_IRONDRAKES_H
+#ifndef IRONDRAKES_H
+#define IRONDRAKES_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -19,9 +19,9 @@ namespace CitiesOfSigmar {
 
         enum WeaponOptions {
             Drakegun,
-            GrudgehammerTorpedo,
-            DrakefirePistolAndCinderblastBomb,
-            PairedDrakefirePistols
+            Grudgehammer_Torpedo,
+            Drakefire_Pistol_And_Cinderblast_Bomb,
+            Paired_Drakefire_Pistols
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -86,4 +86,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //COS_IRONDRAKES_H
+#endif //IRONDRAKES_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MORATHIQUEEN_H
-#define MORATHIQUEEN_H
+#ifndef MORATHISHADOWQUEEN_H
+#define MORATHISHADOWQUEEN_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -25,9 +25,9 @@ namespace DaughtersOfKhaine {
 
         MorathiTheShadowQueen();
 
-        ~MorathiTheShadowQueen() override = default;
+        ~MorathiTheShadowQueen() override;
 
-        bool configure(Lore lore);
+        bool configure();
 
     protected:
 
@@ -38,6 +38,12 @@ namespace DaughtersOfKhaine {
     private:
 
         int getDamageTableIndex() const;
+
+        int furyOfTheShadowQueen(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+
+    private:
+
+        lsignal::slot m_furySlot;
 
         Weapon m_gaze,
                 m_heartrender,
@@ -50,12 +56,11 @@ namespace DaughtersOfKhaine {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Monsterous Revelation            TODO
-// Gaze of Morathi                  TODO
+// Fury of the Shadow Queen         Yes
+// Two Bodies, One Soul             TODO
 // The Iron Heart of Khaine         TODO
-// Arnzipal's Black Horror          TODO
 //
 
 } // namespace DaughtersOfKhaine
 
-#endif //MORATHIQUEEN_H
+#endif //MORATHISHADOWQUEEN_H

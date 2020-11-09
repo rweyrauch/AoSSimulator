@@ -12,14 +12,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 140;
 
     bool Hellflayer::s_registered = false;
 
     Hellflayer::Hellflayer() :
-            SlaaneshBase("Hellflayer", 12, WOUNDS, 10, 4, false),
+            SlaaneshBase("Hellflayer", 12, g_wounds, 10, 4, false),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 4, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -28,13 +28,13 @@ namespace Slaanesh {
     }
 
     bool Hellflayer::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongues);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -71,7 +71,7 @@ namespace Slaanesh {
     }
 
     int Hellflayer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

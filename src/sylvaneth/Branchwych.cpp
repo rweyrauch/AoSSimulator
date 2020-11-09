@@ -15,14 +15,14 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool Branchwych::s_registered = false;
 
     Branchwych::Branchwych() :
-            SylvanethBase("Branchwych", 7, WOUNDS, 7, 5, false),
+            SylvanethBase("Branchwych", 7, g_wounds, 7, 5, false),
             m_greenwoodScythe(Weapon::Type::Melee, "Greenwood Scythe", 2, 2, 4, 3, 0, 2),
             m_bittergrubsMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1) {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, HERO, WIZARD, BRANCHWYCH};
@@ -34,7 +34,7 @@ namespace Sylvaneth {
     }
 
     bool Branchwych::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greenwoodScythe);
         model->addMeleeWeapon(&m_bittergrubsMandibles);
         addModel(model);
@@ -43,7 +43,7 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -115,7 +115,7 @@ namespace Sylvaneth {
     }
 
     int Branchwych::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Sylvaneth

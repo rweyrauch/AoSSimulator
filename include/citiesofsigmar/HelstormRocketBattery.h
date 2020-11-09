@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ROCKETBATTERY_H
-#define ROCKETBATTERY_H
+#ifndef HELSTORMROCKETBATTERY_H
+#define HELSTORMROCKETBATTERY_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -56,4 +56,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //ROCKETBATTERY_H
+#endif //HELSTORMROCKETBATTERY_H

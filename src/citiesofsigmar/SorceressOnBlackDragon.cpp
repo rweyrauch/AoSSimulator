@@ -13,9 +13,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 105;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 300;
+    static const int g_basesize = 105;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 300;
 
     struct TableEntry {
         int m_move;
@@ -23,9 +23,9 @@ namespace CitiesOfSigmar {
         int m_clawAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {14, 1, 6},
                     {12, 2, 5},
@@ -40,7 +40,7 @@ namespace CitiesOfSigmar {
     Unit *SorceressOnBlackDragon::Create(const ParameterList &parameters) {
         auto unit = new SorceressOnBlackDragon();
 
-        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, WitchRod);
+        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Witch_Rod);
 
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
@@ -74,14 +74,14 @@ namespace CitiesOfSigmar {
 
     void SorceressOnBlackDragon::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {WitchRod, DarklingSword};
+            static const std::array<int, 2> weapons = {Witch_Rod, Darkling_Sword};
             static FactoryMethod factoryMethod = {
                     SorceressOnBlackDragon::Create,
                     SorceressOnBlackDragon::ValueToString,
                     SorceressOnBlackDragon::EnumStringToInt,
                     SorceressOnBlackDragon::ComputePoints,
                     {
-                            EnumParameter("Weapon", WitchRod, weapons),
+                            EnumParameter("Weapon", Witch_Rod, weapons),
                             EnumParameter("City", g_city[0], g_city),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
@@ -96,7 +96,7 @@ namespace CitiesOfSigmar {
     }
 
     SorceressOnBlackDragon::SorceressOnBlackDragon() :
-            CitizenOfSigmar("Sorceress on Black Dragon", 14, WOUNDS, 7, 5, true),
+            CitizenOfSigmar("Sorceress on Black Dragon", 14, g_wounds, 7, 5, true),
             m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, -7, 0),
             m_rod(Weapon::Type::Melee, "Witch Rod", 1, 1, 4, 3, -1, RAND_D3),
             m_sword(Weapon::Type::Melee, "Darkling Sword", 1, 3, 4, 4, 0, 1),
@@ -105,7 +105,7 @@ namespace CitiesOfSigmar {
             m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, MONSTER, HERO, WIZARD, SORCERESS, DRAGON};
         m_weapons = {&m_noxiousBreath, &m_rod, &m_sword, &m_lash, &m_jaws, &m_claws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         m_totalSpells = 1;
@@ -113,12 +113,12 @@ namespace CitiesOfSigmar {
     }
 
     bool SorceressOnBlackDragon::configure(WeaponOption option, Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_noxiousBreath);
 
-        if (option == WitchRod)
+        if (option == Witch_Rod)
             model->addMeleeWeapon(&m_rod);
-        else if (option == DarklingSword)
+        else if (option == Darkling_Sword)
             model->addMeleeWeapon(&m_sword);
 
         model->addMeleeWeapon(&m_jaws);
@@ -129,7 +129,7 @@ namespace CitiesOfSigmar {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -152,7 +152,7 @@ namespace CitiesOfSigmar {
 
     int SorceressOnBlackDragon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -165,14 +165,14 @@ namespace CitiesOfSigmar {
         // Noxious Breath
         if ((weapon->name() == m_noxiousBreath.name())) {
             Dice::RollResult result;
-            Dice::rollD6(target->remainingModels(), result);
+            Dice::RollD6(target->remainingModels(), result);
             return {0, result.rollsGE(6)};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int SorceressOnBlackDragon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void SorceressOnBlackDragon::onStartHero(PlayerId player) {

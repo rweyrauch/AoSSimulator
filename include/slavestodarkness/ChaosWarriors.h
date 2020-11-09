@@ -18,10 +18,10 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            HandWeaponAndShield = 0,
-            HalberdAndShield,
-            GreatBlade,
-            PairedHandWeapons
+            Hand_Weapon_And_Shield = 0,
+            Halberd_And_Shield,
+            Great_Blade,
+            Paired_Hand_Weapons
         };
 
         static Unit *Create(const ParameterList &parameters);

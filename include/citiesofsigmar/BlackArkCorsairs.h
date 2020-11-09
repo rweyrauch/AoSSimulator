@@ -18,8 +18,8 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOption {
-            RepeaterHandbow,
-            WickedCutlass
+            Repeater_Handbow,
+            Wicked_Cutlass
         };
 
         static Unit *Create(const ParameterList &parameters);

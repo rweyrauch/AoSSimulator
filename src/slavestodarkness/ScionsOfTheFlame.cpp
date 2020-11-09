@@ -10,18 +10,18 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 8;
-    static const int MAX_UNIT_SIZE = 32;
-    static const int POINTS_PER_BLOCK = 0;
-    static const int POINTS_MAX_UNIT_SIZE = 0;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 8;
+    static const int g_maxUnitSize = 32;
+    static const int g_pointsPerBlock = 0;
+    static const int g_pointsMaxUnitSize = 0;
 
     bool ScionsOfTheFlame::s_registered = false;
 
     Unit *ScionsOfTheFlame::Create(const ParameterList &parameters) {
         auto unit = new ScionsOfTheFlame();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -42,7 +42,7 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                     },
                     CHAOS,
@@ -54,7 +54,7 @@ namespace SlavesToDarkness {
     }
 
     ScionsOfTheFlame::ScionsOfTheFlame() :
-            SlavesToDarknessBase("Scions of the Flame", 6, WOUNDS, 5, 6, false),
+            SlavesToDarknessBase("Scions of the Flame", 6, g_wounds, 5, 6, false),
             m_pots(Weapon::Type::Missile, "Flameburst Pots", 8, 1, 4, 3, 0, 1),
             m_scionWeapons(Weapon::Type::Melee, "Scion Weapons", 1, 1, 4, 4, 0, 1),
             m_scionWeaponsLeaders(Weapon::Type::Melee, "Scion Weapons", 1, 2, 4, 4, 0, 1) {
@@ -63,36 +63,36 @@ namespace SlavesToDarkness {
     }
 
     bool ScionsOfTheFlame::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto lord = new Model(BASESIZE, wounds());
+        auto lord = new Model(g_basesize, wounds());
         lord->addMissileWeapon(&m_pots);
         lord->addMeleeWeapon(&m_scionWeaponsLeaders);
         lord->setName("Blazing Lord");
         addModel(lord);
 
-        auto immolator = new Model(BASESIZE, wounds());
+        auto immolator = new Model(g_basesize, wounds());
         immolator->addMissileWeapon(&m_pots);
         immolator->addMeleeWeapon(&m_scionWeaponsLeaders);
         immolator->setName("Immolator");
         addModel(immolator);
 
-        auto champion = new Model(BASESIZE, wounds()+1);
+        auto champion = new Model(g_basesize, wounds()+1);
         champion->addMissileWeapon(&m_pots);
         champion->addMeleeWeapon(&m_scionWeapons);
         champion->setName("Brazen Champion");
         addModel(champion);
 
-        auto priest = new Model(BASESIZE, wounds());
+        auto priest = new Model(g_basesize, wounds());
         priest->addMissileWeapon(&m_pots);
         priest->addMeleeWeapon(&m_scionWeapons);
         priest->setName("Inferno Priest");
         addModel(priest);
 
         for (auto i = (int) m_models.size(); i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_pots);
             model->addMeleeWeapon(&m_scionWeapons);
             addModel(model);
@@ -104,9 +104,9 @@ namespace SlavesToDarkness {
     }
 
     int ScionsOfTheFlame::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -116,7 +116,7 @@ namespace SlavesToDarkness {
             auto predicate = [](const auto& val) { return (val->getName() == "Inferno Priest") && !val->slain() && !val->fled(); };
             auto ip = std::find_if(m_models.begin(), m_models.end(), predicate);
             if (ip != m_models.end())
-                return RerollOnes;
+                return Reroll_Ones;
         }
         return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }

@@ -19,7 +19,7 @@ namespace SlavesToDarkness {
 
         enum WeaponOption {
             Flail = 0,
-            AxeAndShield,
+            Axe_And_Shield,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -60,7 +60,7 @@ namespace SlavesToDarkness {
 
         bool m_iconBearer = false;
         bool m_drummer = false;
-        bool m_weaponOption = WeaponOption::AxeAndShield;
+        bool m_weaponOption = WeaponOption::Axe_And_Shield;
 
     private:
 

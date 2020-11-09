@@ -12,17 +12,17 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 400;
 
     bool SaurusGuard::s_registered = false;
 
     SaurusGuard::SaurusGuard() :
-            SeraphonBase("Saurus Guard", 5, WOUNDS, 8, 4, false),
+            SeraphonBase("Saurus Guard", 5, g_wounds, 8, 4, false),
             m_celestitePolearm(Weapon::Type::Melee, "Celestite Polearm", 1, 2, 3, 3, -1, 1),
             m_celestitePolearmAlpha(Weapon::Type::Melee, "Celestite Polearm", 1, 3, 3, 3, -1, 1),
             m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1) {
@@ -37,7 +37,7 @@ namespace Seraphon {
     }
 
     bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -45,14 +45,14 @@ namespace Seraphon {
         m_wardrum = wardrum;
 
         // Add the Alpha
-        auto alpha = new Model(BASESIZE, wounds());
+        auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_celestitePolearmAlpha);
         alpha->addMeleeWeapon(&m_jaws);
         addModel(alpha);
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_celestitePolearm);
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
@@ -65,7 +65,7 @@ namespace Seraphon {
 
     Unit *SaurusGuard::Create(const ParameterList &parameters) {
         auto unit = new SaurusGuard();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Stardrake Icon", parameters, false);
         bool wardrum = GetBoolParam("Wardrum", parameters, false);
 
@@ -89,7 +89,7 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Stardrake Icon"),
                             BoolParameter( "Wardrum"),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
@@ -104,15 +104,15 @@ namespace Seraphon {
     }
 
     int SaurusGuard::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     Rerolls SaurusGuard::chargeRerolls() const {
-        if (m_wardrum) return RerollFailed;
+        if (m_wardrum) return Reroll_Failed;
 
         return SeraphonBase::chargeRerolls();
     }

@@ -10,9 +10,9 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool AethericNavigator::s_registered = false;
 
@@ -68,7 +68,7 @@ namespace KharadronOverlords {
     }
 
     AethericNavigator::AethericNavigator() :
-            KharadronBase("Aetheric Navigator", 4, WOUNDS, 7, 3, false),
+            KharadronBase("Aetheric Navigator", 4, g_wounds, 7, 3, false),
             m_pistol(Weapon::Type::Missile, "Ranging Pistol", 15, 2, 3, 3, -1, 1),
             m_zephyrscope(Weapon::Type::Melee, "Zephyrscope", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHERIC_NAVIGATOR};
@@ -80,18 +80,18 @@ namespace KharadronOverlords {
     }
 
     bool AethericNavigator::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistol);
         model->addMeleeWeapon(&m_zephyrscope);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int AethericNavigator::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //KharadronOverlords

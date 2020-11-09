@@ -11,17 +11,17 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 105; // x70 ovals
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 4;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 200;
+    static const int g_basesize = 105; // x70 ovals
+    static const int g_wounds = 6;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 4;
+    static const int g_pointsPerBlock = 60;
+    static const int g_pointsMaxUnitSize = 200;
 
     bool TuskgorChariots::s_registered = false;
 
     TuskgorChariots::TuskgorChariots() :
-            BeastsOfChaosBase("Tuskgor Chariots", 10, WOUNDS, 6, 4, false),
+            BeastsOfChaosBase("Tuskgor Chariots", 10, g_wounds, 6, 4, false),
             m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
             m_gnarledSpear(Weapon::Type::Melee, "Gnarled Spear", 2, 1, 4, 4, 0, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 3, 0, 1) {
@@ -31,12 +31,12 @@ namespace BeastsOfChaos {
     }
 
     bool TuskgorChariots::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_despoilerAxe);
             model->addMeleeWeapon(&m_gnarledSpear);
             model->addMeleeWeapon(&m_tusksAndHooves);
@@ -50,7 +50,7 @@ namespace BeastsOfChaos {
 
     Unit *TuskgorChariots::Create(const ParameterList &parameters) {
         auto unit = new TuskgorChariots();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         unit->setGreatfray(fray);
@@ -71,7 +71,7 @@ namespace BeastsOfChaos {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
@@ -102,7 +102,7 @@ namespace BeastsOfChaos {
     Rerolls TuskgorChariots::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Despoilers
         if (unit->hasKeyword(ORDER)) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }
@@ -118,13 +118,13 @@ namespace BeastsOfChaos {
 
     Rerolls TuskgorChariots::chargeRerolls() const {
         // Tuskgor Charge
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     int TuskgorChariots::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

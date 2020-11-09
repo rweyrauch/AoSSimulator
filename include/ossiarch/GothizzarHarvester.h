@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GOTHIZZAR_H
-#define GOTHIZZAR_H
+#ifndef GOTHIZZARHARVESTER_H
+#define GOTHIZZARHARVESTER_H
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -68,4 +68,4 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //GOTHIZZAR_H
+#endif //GOTHIZZARHARVESTER_H

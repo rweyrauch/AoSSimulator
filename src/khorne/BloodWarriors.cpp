@@ -13,17 +13,17 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 520;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 520;
 
     bool BloodWarriors::s_registered = false;
 
     BloodWarriors::BloodWarriors() :
-            KhorneBase("Blood Warriors", 5, WOUNDS, 6, 4, false),
+            KhorneBase("Blood Warriors", 5, g_wounds, 6, 4, false),
             m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1),
             m_goreaxeChampion(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1),
             m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2) {
@@ -34,7 +34,7 @@ namespace Khorne {
 
 
     bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
         const int maxGlaives = numModels / 10;
@@ -47,19 +47,19 @@ namespace Khorne {
         m_pairedGoreaxe = pairedGoreax;
 
         // Add the Champion
-        auto championModel = new Model(BASESIZE, wounds());
+        auto championModel = new Model(g_basesize, wounds());
         championModel->addMeleeWeapon(&m_goreaxeChampion);
         addModel(championModel);
 
         for (auto i = 0; i < numGoreglaives; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_goreglaive);
             addModel(model);
         }
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_goreaxe);
             addModel(model);
         }
@@ -72,7 +72,7 @@ namespace Khorne {
     Rerolls BloodWarriors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Goreaxes
         if (m_pairedGoreaxe && (weapon->name() == m_goreaxe.name())) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return KhorneBase::toHitRerolls(weapon, unit);
@@ -91,7 +91,7 @@ namespace Khorne {
 
     Unit *BloodWarriors::Create(const ParameterList &parameters) {
         auto unit = new BloodWarriors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pairedGoreax = GetBoolParam("Paired Goreaxe", parameters, false);
         int numGoreglaives = GetIntParam("Goreglaives", parameters, 0);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
@@ -115,9 +115,9 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     BloodWarriors::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Paired Goreaxe"),
-                            IntegerParameter("Goreglaives", 0, 0, MAX_UNIT_SIZE / 10, 1),
+                            IntegerParameter("Goreglaives", 0, 0, g_maxUnitSize / 10, 1),
                             BoolParameter("Icon Bearer"),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
@@ -138,9 +138,9 @@ namespace Khorne {
     }
 
     int BloodWarriors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

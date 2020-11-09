@@ -17,17 +17,17 @@ namespace Skaven {
     class Stormfiends : public Skaventide {
     public:
 
-        enum WeaponOption_1 {
-            WarpfireProjectors,
+        enum WeaponOption1 {
+            Warpfire_Projectors,
             Windlaunchers
         };
-        enum WeaponOption_2 {
+        enum WeaponOption2 {
             Grinderfists,
-            RatlingCannons
+            Ratling_Cannons
         };
-        enum WeaponOption_3 {
-            DoomflayerGauntlets,
-            ShockGauntlets
+        enum WeaponOption3 {
+            Doomflayer_Gauntlets,
+            Shock_Gauntlets
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -44,7 +44,7 @@ namespace Skaven {
 
         ~Stormfiends() override = default;
 
-        bool configure(int numModels, WeaponOption_1 weapon1, WeaponOption_2 weapon2, WeaponOption_3 weapon3);
+        bool configure(int numModels, WeaponOption1 weapon1, WeaponOption2 weapon2, WeaponOption3 weapon3);
 
     protected:
 
@@ -54,9 +54,9 @@ namespace Skaven {
 
     private:
 
-        WeaponOption_1 m_weapons1 = WarpfireProjectors;
-        WeaponOption_2 m_weapons2 = Grinderfists;
-        WeaponOption_3 m_weapons3 = DoomflayerGauntlets;
+        WeaponOption1 m_weapons1 = Warpfire_Projectors;
+        WeaponOption2 m_weapons2 = Grinderfists;
+        WeaponOption3 m_weapons3 = Doomflayer_Gauntlets;
 
         Weapon m_ratlingCannons,
                 m_windlaunchers,

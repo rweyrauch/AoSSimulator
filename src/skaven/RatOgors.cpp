@@ -10,19 +10,19 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 8;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 2;
+    static const int g_maxUnitSize = 8;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool RatOgors::s_registered = false;
 
     Unit *RatOgors::Create(const ParameterList &parameters) {
         auto unit = new RatOgors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        int numGuns = GetIntParam("Warpfire Guns", parameters, MIN_UNIT_SIZE / 2);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        int numGuns = GetIntParam("Warpfire Guns", parameters, g_minUnitSize / 2);
 
         bool ok = unit->configure(numModels, numGuns);
         if (!ok) {
@@ -33,9 +33,9 @@ namespace Skaven {
     }
 
     int RatOgors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -48,9 +48,9 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Warpfire Guns", MIN_UNIT_SIZE / 2, MIN_UNIT_SIZE / 2,
-                             MAX_UNIT_SIZE / 2, MIN_UNIT_SIZE / 2),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Warpfire Guns", g_minUnitSize / 2, g_minUnitSize / 2,
+                             g_maxUnitSize / 2, g_minUnitSize / 2),
                     },
                     CHAOS,
                     {SKAVEN}
@@ -61,7 +61,7 @@ namespace Skaven {
     }
 
     RatOgors::RatOgors() :
-            Skaventide("Rat Ogors", 6, WOUNDS, 5, 5, false),
+            Skaventide("Rat Ogors", 6, g_wounds, 5, 5, false),
             m_gun(Weapon::Type::Missile, "Warpfire Gun", 16, 1, 5, 3, -1, RAND_D3),
             m_clawsBladesAndFangs(Weapon::Type::Melee, "Tearing Claws, Blades and Fangs", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, FIGHTING_BEAST, PACK, RAT_OGORS};
@@ -69,7 +69,7 @@ namespace Skaven {
     }
 
     bool RatOgors::configure(int numModels, int numGuns) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
         const int maxGuns = numModels / 2;
@@ -78,13 +78,13 @@ namespace Skaven {
         }
 
         for (auto i = 0; i < numGuns; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_gun);
             model->addMeleeWeapon(&m_clawsBladesAndFangs);
             addModel(model);
         }
         for (auto i = numGuns; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_clawsBladesAndFangs);
             addModel(model);
         }

@@ -11,9 +11,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool LordExecutioner::s_registered = false;
 
@@ -58,7 +58,7 @@ namespace Nighthaunt {
     }
 
     LordExecutioner::LordExecutioner() :
-            Nighthaunt("Lord Executioner", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Lord Executioner", 6, g_wounds, 10, 4, true),
             m_greataxe(Weapon::Type::Melee, "Decapitating Greataxe", 1, 3, 3, 3, -2, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, LORD_EXECUTIONER};
         m_weapons = {&m_greataxe};
@@ -66,7 +66,7 @@ namespace Nighthaunt {
     }
 
     bool LordExecutioner::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greataxe);
         addModel(model);
 
@@ -89,7 +89,7 @@ namespace Nighthaunt {
         // Staring Death in the Face
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (unit) {
-            unit->buffModifier(ToHitMelee, -1, {Phase::Battleshock, m_battleRound, player});
+            unit->buffModifier(To_Hit_Melee, -1, {Phase::Battleshock, m_battleRound, player});
         }
 
     }
@@ -100,7 +100,7 @@ namespace Nighthaunt {
         // Disembodied Skulls
         if (unsavedWounds.mortal) {
             Dice::RollResult result;
-            Dice::rollD6(unsavedWounds.mortal, result);
+            Dice::RollD6(unsavedWounds.mortal, result);
             unsavedWounds.mortal -= result.rollsGE(5);
             unsavedWounds.mortal = std::max(0, unsavedWounds.mortal);
         }
@@ -108,7 +108,7 @@ namespace Nighthaunt {
     }
 
     int LordExecutioner::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

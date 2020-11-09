@@ -16,81 +16,81 @@
 namespace Seraphon {
 
     const std::array<int, 2> g_wayOfTheSeraphon = {
-            to_integer(WayOfTheSeraphon::Starborne),
-            to_integer(WayOfTheSeraphon::Coalesced)
+            ToInteger(WayOfTheSeraphon::Starborne),
+            ToInteger(WayOfTheSeraphon::Coalesced)
     };
 
     const std::array<int, 5> g_constellation = {
-            to_integer(Constellation::None),
-            to_integer(Constellation::Koatls_Claw),        // Coalesced
-            to_integer(Constellation::Thunder_Lizard),     // Coalesced
-            to_integer(Constellation::Dracothions_Tail),   // Starborne
-            to_integer(Constellation::Fangs_of_Sotek),      // Starborne
+            ToInteger(Constellation::None),
+            ToInteger(Constellation::Koatls_Claw),        // Coalesced
+            ToInteger(Constellation::Thunder_Lizard),     // Coalesced
+            ToInteger(Constellation::Dracothions_Tail),   // Starborne
+            ToInteger(Constellation::Fangs_Of_Sotek),      // Starborne
     };
 
     const std::array<int, 4> g_slannCommandTrait = {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Arcane_Might),
-            to_integer(CommandTrait::Vast_Intellect),
-            to_integer(CommandTrait::Great_Rememberer)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Arcane_Might),
+            ToInteger(CommandTrait::Vast_Intellect),
+            ToInteger(CommandTrait::Great_Rememberer)
     };
 
     const std::array<int, 4> g_saurusCommandTrait {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Disciplined_Fury),
-            to_integer(CommandTrait::Thickly_Scaled_Hide),
-            to_integer(CommandTrait::Mighty_Warleader)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Disciplined_Fury),
+            ToInteger(CommandTrait::Thickly_Scaled_Hide),
+            ToInteger(CommandTrait::Mighty_Warleader)
     };
 
     const std::array<int, 4> g_skinkCommandTrait {
-            to_integer(CommandTrait::None),
-            to_integer(CommandTrait::Master_of_Star_Rituals),
-            to_integer(CommandTrait::Nimble),
-            to_integer(CommandTrait::Cunning)
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Master_Of_Star_Rituals),
+            ToInteger(CommandTrait::Nimble),
+            ToInteger(CommandTrait::Cunning)
     };
 
     const std::array<int, 7> g_treasuresOfTheOldOnes {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Zoetic_Dial),
-            to_integer(Artefact::Light_of_Dracothian),
-            to_integer(Artefact::Prism_of_Amyntok),
-            to_integer(Artefact::Itxi_Grubs),
-            to_integer(Artefact::Plaque_of_Dominion),
-            to_integer(Artefact::Throne_of_the_Lost_Gods)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Zoetic_Dial),
+            ToInteger(Artefact::Light_Of_Dracothian),
+            ToInteger(Artefact::Prism_Of_Amyntok),
+            ToInteger(Artefact::Itxi_Grubs),
+            ToInteger(Artefact::Plaque_Of_Dominion),
+            ToInteger(Artefact::Throne_Of_The_Lost_Gods)
     };
 
     const std::array<int, 4> g_celestialRelicsOfTheWarrior {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Blade_of_Realities),
-            to_integer(Artefact::Sigils_of_the_Prime_Hunter),
-            to_integer(Artefact::Blood_Rage_Pendant)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Blade_Of_Realities),
+            ToInteger(Artefact::Sigils_Of_The_Prime_Hunter),
+            ToInteger(Artefact::Blood_Rage_Pendant)
     };
 
     const std::array<int, 4> g_vestmentsOfThePriesthood {
-            to_integer(Artefact::None),
-            to_integer(Artefact::Incandescent_Rectrices),
-            to_integer(Artefact::Cloak_of_Feathers),
-            to_integer(Artefact::Sacred_Stegadon_Helm)
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Incandescent_Rectrices),
+            ToInteger(Artefact::Cloak_Of_Feathers),
+            ToInteger(Artefact::Sacred_Stegadon_Helm)
     };
 
     const std::array<int, 7> g_loreOfCelestialDomination = {
-            to_integer(Lore::None),
-            to_integer(Lore::Celestial_Apotheosis),
-            to_integer(Lore::Walk_Between_Realms),
-            to_integer(Lore::Mystical_Unforging),
-            to_integer(Lore::Celestial_Equilibrium),
-            to_integer(Lore::Stellar_Tempest),
-            to_integer(Lore::Drain_Magic)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Celestial_Apotheosis),
+            ToInteger(Lore::Walk_Between_Realms),
+            ToInteger(Lore::Mystical_Unforging),
+            ToInteger(Lore::Celestial_Equilibrium),
+            ToInteger(Lore::Stellar_Tempest),
+            ToInteger(Lore::Drain_Magic)
     };
 
     const std::array<int, 7> g_loreOfCelestialManipulation = {
-            to_integer(Lore::None),
-            to_integer(Lore::Celestial_Harmony),
-            to_integer(Lore::Hand_of_Glory),
-            to_integer(Lore::Extend_Astromatrix),
-            to_integer(Lore::Fiery_Convocation),
-            to_integer(Lore::Bind_Endless_Spell),
-            to_integer(Lore::Tide_of_Serpents)
+            ToInteger(Lore::None),
+            ToInteger(Lore::Celestial_Harmony),
+            ToInteger(Lore::Hand_Of_Glory),
+            ToInteger(Lore::Extend_Astromatrix),
+            ToInteger(Lore::Fiery_Convocation),
+            ToInteger(Lore::Bind_Endless_Spell),
+            ToInteger(Lore::Tide_Of_Serpents)
     };
 
 } // namespace Seraphon

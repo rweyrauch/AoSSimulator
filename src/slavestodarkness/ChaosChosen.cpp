@@ -10,18 +10,18 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 140 * 4;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 140 * 4;
 
     bool ChaosChosen::s_registered = false;
 
     Unit *ChaosChosen::Create(const ParameterList &parameters) {
         auto unit = new ChaosChosen();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool drummer = GetBoolParam("Drummer", parameters, false);
 
@@ -47,7 +47,7 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     ChaosChosen::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Drummer"),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
@@ -61,7 +61,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosChosen::ChaosChosen() :
-            SlavesToDarknessBase("Chaos Chosen", 6, WOUNDS, 7, 4, false),
+            SlavesToDarknessBase("Chaos Chosen", 6, g_wounds, 7, 4, false),
             m_greataxe(Weapon::Type::Melee, "Soul Splitter", 1, 3, 3, 3, -1, 1),
             m_greataxeChampion(Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
@@ -75,34 +75,34 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_iconBearer = iconBearer;
         m_drummer = drummer;
 
-        auto champion = new Model(BASESIZE, wounds());
+        auto champion = new Model(g_basesize, wounds());
         champion->addMeleeWeapon(&m_greataxeChampion);
         champion->setName("Exalted Champion");
         addModel(champion);
 
         if (m_iconBearer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Icon Bearer");
             model->addMeleeWeapon(&m_greataxe);
             addModel(model);
         }
 
         if (m_drummer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Drummer");
             model->addMeleeWeapon(&m_greataxe);
             addModel(model);
         }
 
         for (auto i = (int) m_models.size(); i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_greataxe);
             addModel(model);
         }
@@ -161,9 +161,9 @@ namespace SlavesToDarkness {
     }
 
     int ChaosChosen::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -10,9 +10,9 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 3;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 3;
+    static const int g_pointsPerUnit = 80;
 
     bool WarpGrinder::s_registered = false;
 
@@ -45,23 +45,23 @@ namespace Skaven {
     }
 
     WarpGrinder::WarpGrinder() :
-            Skaventide("Warp-grinder", 6, WOUNDS, 4, 6, false),
+            Skaventide("Warp-grinder", 6, g_wounds, 4, 6, false),
             m_warpGrinder(Weapon::Type::Melee, "Warp-grinder", 1, 1, 4, 3, -2, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, WARP_GRINDER};
         m_weapons = {&m_warpGrinder};
     }
 
     bool WarpGrinder::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpGrinder);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int WarpGrinder::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 } //namespace Skaven

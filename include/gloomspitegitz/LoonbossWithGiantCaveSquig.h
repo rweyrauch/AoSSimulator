@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LOONBOSSWITHCAVESQUIG_H
-#define LOONBOSSWITHCAVESQUIG_H
+#ifndef LOONBOSSWITHGIANTCAVESQUIG_H
+#define LOONBOSSWITHGIANTCAVESQUIG_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>

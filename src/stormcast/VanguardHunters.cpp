@@ -12,17 +12,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 15;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 40;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 15;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool VanguardHunters::s_registered = false;
 
     VanguardHunters::VanguardHunters() :
-            StormcastEternal("Vanguard-Hunters", 6, WOUNDS, 7, 4, false),
+            StormcastEternal("Vanguard-Hunters", 6, g_wounds, 7, 4, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_boltstormPistolPrime(Weapon::Type::Missile, "Boltstorm Pistol", 9, 3, 3, 4, 0, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
@@ -39,7 +39,7 @@ namespace StormcastEternals {
 
     bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astralCompass) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -48,20 +48,20 @@ namespace StormcastEternals {
         m_astralCompass = astralCompass;
 
         // Add the Prime
-        auto primeModel = new Model(BASESIZE, wounds());
-        if (m_weaponOption == StormSabre) {
+        auto primeModel = new Model(g_basesize, wounds());
+        if (m_weaponOption == Storm_Sabre) {
             primeModel->addMeleeWeapon(&m_stormSabrePrime);
-        } else if (m_weaponOption == ShockHandaxe) {
+        } else if (m_weaponOption == Shock_Handaxe) {
             primeModel->addMeleeWeapon(&m_shockHandaxePrime);
         }
         primeModel->addMissileWeapon(&m_boltstormPistolPrime);
         addModel(primeModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (m_weaponOption == StormSabre) {
+            auto model = new Model(g_basesize, wounds());
+            if (m_weaponOption == Storm_Sabre) {
                 model->addMeleeWeapon(&m_stormSabre);
-            } else if (m_weaponOption == ShockHandaxe) {
+            } else if (m_weaponOption == Shock_Handaxe) {
                 model->addMeleeWeapon(&m_shockHandaxe);
             }
             model->addMissileWeapon(&m_shockHandaxePrime);
@@ -75,8 +75,8 @@ namespace StormcastEternals {
 
     Unit *VanguardHunters::Create(const ParameterList &parameters) {
         auto hunters = new VanguardHunters();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StormSabre);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Storm_Sabre);
         bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
@@ -92,15 +92,15 @@ namespace StormcastEternals {
 
     void VanguardHunters::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {ShockHandaxe, StormSabre};
+            static const std::array<int, 2> weapons = {Shock_Handaxe, Storm_Sabre};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", StormSabre, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Storm_Sabre, weapons),
                             BoolParameter("Astral Compass"),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
@@ -114,9 +114,9 @@ namespace StormcastEternals {
 
     std::string VanguardHunters::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == StormSabre) {
+            if (parameter.intValue == Storm_Sabre) {
                 return "Storm Sabre";
-            } else if (parameter.intValue == ShockHandaxe) {
+            } else if (parameter.intValue == Shock_Handaxe) {
                 return "Shock Handaxe";
             }
         }
@@ -125,17 +125,17 @@ namespace StormcastEternals {
 
     int VanguardHunters::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Storm Sabre") {
-            return StormSabre;
+            return Storm_Sabre;
         } else if (enumString == "Shock Handaxe") {
-            return ShockHandaxe;
+            return Shock_Handaxe;
         }
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
     int VanguardHunters::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

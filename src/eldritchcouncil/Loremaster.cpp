@@ -11,14 +11,14 @@
 #include <spells/MysticShield.h>
 
 namespace EldritchCouncil {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool Loremaster::s_registered = false;
 
     Loremaster::Loremaster() :
-            Unit("Loremaster", 6, WOUNDS, 7, 4, false),
+            Unit("Loremaster", 6, g_wounds, 7, 4, false),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, LOREMASTER};
         m_weapons = {&m_greatsword};
@@ -28,11 +28,11 @@ namespace EldritchCouncil {
     }
 
     bool Loremaster::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greatsword);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -74,13 +74,13 @@ namespace EldritchCouncil {
     Rerolls Loremaster::toSaveRerolls(const Weapon *weapon) const {
         // Deflect Shots
         if (weapon->isMissile()) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toSaveRerolls(weapon);
     }
 
     int Loremaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace EldritchCouncil

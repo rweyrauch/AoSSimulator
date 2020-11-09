@@ -10,9 +10,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 13;
-    static const int POINTS_PER_UNIT = 350;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 13;
+    static const int g_pointsPerUnit = 350;
 
     struct TableEntry {
         int m_move;
@@ -20,9 +20,9 @@ namespace OgorMawtribes {
         int m_tusksToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 5, 8, 10, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {8, 12, 2},
                     {7, 10, 3},
@@ -88,19 +88,19 @@ namespace OgorMawtribes {
     }
 
     FrostlordOnThundertusk::FrostlordOnThundertusk() :
-            MawtribesBase("Frostlord on Thundertusk", 8, WOUNDS, 9, 3, false),
+            MawtribesBase("Frostlord on Thundertusk", 8, g_wounds, 9, 3, false),
             m_ice(Weapon::Type::Missile, "Frost-wreathed Ice", 18, 0, 0, 0, 0, 0),
             m_spear(Weapon::Type::Melee, "Frost Spear", 2, 4, 3, 3, -1, 3),
             m_kicks(Weapon::Type::Melee, "Punches and Kicks", 1, 3, 3, 3, 0, 1),
             m_tusks(Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, FROSTLORD};
         m_weapons = {&m_ice, &m_spear, &m_kicks, &m_tusks};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
     }
 
     bool FrostlordOnThundertusk::configure(MountTrait mountTrait) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         m_mountTrait = mountTrait;
 
@@ -123,7 +123,7 @@ namespace OgorMawtribes {
 
     int FrostlordOnThundertusk::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -153,7 +153,7 @@ namespace OgorMawtribes {
         if (player == owningPlayer()) {
             if (m_meleeTarget) {
                 Dice::RollResult result;
-                Dice::rollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
+                Dice::RollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
                 int toWound = 6;
                 if (m_meleeTarget->remainingModels() >= 20) toWound -= 2;
                 else if (m_meleeTarget->remainingModels() >= 10) toWound -= 1;
@@ -165,7 +165,7 @@ namespace OgorMawtribes {
     }
 
     int FrostlordOnThundertusk::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

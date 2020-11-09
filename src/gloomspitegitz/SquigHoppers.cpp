@@ -10,17 +10,17 @@
 #include <UnitFactory.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool SquiqHoppers::s_registered = false;
 
     SquiqHoppers::SquiqHoppers() :
-            GloomspiteGitzBase("Squig Hoppers", RAND_3D6, WOUNDS, 4, 6, true),
+            GloomspiteGitzBase("Squig Hoppers", RAND_3D6, g_wounds, 4, 6, true),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1) {
@@ -31,20 +31,20 @@ namespace GloomspiteGitz {
 
     bool SquiqHoppers::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         // Add the boss
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         boss->addMeleeWeapon(&m_slittaBoss);
         boss->addMeleeWeapon(&m_fangFilledGob);
         addModel(boss);
 
         // and the rest
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_slitta);
             model->addMeleeWeapon(&m_fangFilledGob);
             addModel(model);
@@ -57,7 +57,7 @@ namespace GloomspiteGitz {
 
     Unit *SquiqHoppers::Create(const ParameterList &parameters) {
         auto unit = new SquiqHoppers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -75,7 +75,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SquiqHoppers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -85,9 +85,9 @@ namespace GloomspiteGitz {
     }
 
     int SquiqHoppers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

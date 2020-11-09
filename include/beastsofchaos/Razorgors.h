@@ -31,7 +31,7 @@ namespace BeastsOfChaos {
 
     protected:
 
-        Rerolls chargeRerolls() const override { return RerollFailed; }
+        Rerolls chargeRerolls() const override { return Reroll_Failed; }
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

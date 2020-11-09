@@ -18,8 +18,8 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            GreatBladeAndWhip,
-            WarFlailAndWhip
+            Great_Blade_And_Whip,
+            War_Flail_And_Whip
         };
 
         static Unit *Create(const ParameterList &parameters);

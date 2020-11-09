@@ -13,10 +13,10 @@
 #include <Board.h>
 
 Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget) {
-    outTarget.targetUnit = false;
-    outTarget.target = nullptr;
-    outTarget.x = 0;
-    outTarget.y = 0;
+    outTarget.m_targetUnit = false;
+    outTarget.m_target = nullptr;
+    outTarget.m_x = 0;
+    outTarget.m_y = 0;
 
     for (auto sip = caster->spellBegin(); sip != caster->spellEnd(); ++sip) {
         if (*sip == nullptr) continue;
@@ -36,10 +36,10 @@ Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget) {
 }
 
 Prayer *SelectPrayer(Unit *priest, AbilityTarget &outTarget) {
-    outTarget.targetUnit = false;
-    outTarget.target = nullptr;
-    outTarget.x = 0;
-    outTarget.y = 0;
+    outTarget.m_targetUnit = false;
+    outTarget.m_target = nullptr;
+    outTarget.m_x = 0;
+    outTarget.m_y = 0;
 
     for (auto pip = priest->prayerBegin(); pip != priest->prayerEnd(); ++pip) {
         if (*pip == nullptr) continue;
@@ -57,10 +57,10 @@ Prayer *SelectPrayer(Unit *priest, AbilityTarget &outTarget) {
 }
 
 CommandAbility *SelectCommandAbility(Unit *commander, AbilityTarget &outTarget) {
-    outTarget.targetUnit = false;
-    outTarget.target = nullptr;
-    outTarget.x = 0;
-    outTarget.y = 0;
+    outTarget.m_targetUnit = false;
+    outTarget.m_target = nullptr;
+    outTarget.m_x = 0;
+    outTarget.m_y = 0;
 
     for (auto cip = commander->commandAbilityBegin(); cip != commander->commandAbilityEnd(); ++cip) {
         if (*cip == nullptr) continue;

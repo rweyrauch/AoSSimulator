@@ -10,9 +10,9 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 0;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 190;
+    static const int g_basesize = 0;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 190;
 
     bool EndrinmasterWithDirigibleSuit::s_registered = false;
 
@@ -69,7 +69,7 @@ namespace KharadronOverlords {
     }
 
     EndrinmasterWithDirigibleSuit::EndrinmasterWithDirigibleSuit() :
-            KharadronBase("Endrinmaster with Dirigible Suit", 12, WOUNDS, 8, 3, true),
+            KharadronBase("Endrinmaster with Dirigible Suit", 12, g_wounds, 8, 3, true),
             m_aethercannon(Weapon::Type::Missile, "Aethercannon", 12, 1, 3, 2, -2, RAND_D3),
             m_weaponBattery(Weapon::Type::Missile, "Dirigible Suit Weapon Battery", 18, 6, 3, 3, -1, 1),
             m_gaze(Weapon::Type::Missile, "Gaze of Grungni", 9, 1, 3, 2, -1, RAND_D3),
@@ -80,20 +80,20 @@ namespace KharadronOverlords {
     }
 
     bool EndrinmasterWithDirigibleSuit::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_aethercannon);
         model->addMissileWeapon(&m_weaponBattery);
         model->addMissileWeapon(&m_gaze);
         model->addMeleeWeapon(&m_saw);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int EndrinmasterWithDirigibleSuit::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //KharadronOverlords

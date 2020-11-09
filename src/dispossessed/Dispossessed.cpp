@@ -37,27 +37,27 @@ namespace Dispossessed {
         switch (m_grudge) {
             case Grudge::Stuck_Up:
                 if (target->hasKeyword(HERO)) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
                 break;
             case Grudge::Speed_Merchants:
                 if (target->move() >= 10) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
                 break;
             case Grudge::Monstrous_Cheaters:
                 if (target->hasKeyword(MONSTER)) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
                 break;
             case Grudge::Cowardly_Horders:
                 if (target->initialModels() >= 20) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
                 break;
             case Grudge::Shoddy_Craftsmanship:
                 if (target->save() >= 2 && target->save() <= 4) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
                 break;
             case Grudge::Sneaky_Ambushers:

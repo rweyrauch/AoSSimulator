@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef FREEGENERALGRIFFON_H
-#define FREEGENERALGRIFFON_H
+#ifndef FREEGUILDGENERALONGRIFFON_H
+#define FREEGUILDGENERALONGRIFFON_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -18,7 +18,7 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOption {
-            RuneSword,
+            Rune_Sword,
             Greathammer,
             Lance
         };
@@ -84,4 +84,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //FREEGENERALGRIFFON_H
+#endif //FREEGUILDGENERALONGRIFFON_H

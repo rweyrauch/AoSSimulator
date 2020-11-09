@@ -11,17 +11,17 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 400;
 
     bool HearthguardBerzerkers::s_registered = false;
 
     HearthguardBerzerkers::HearthguardBerzerkers() :
-            Fyreslayer("Hearthguard Berzerkers", 4, WOUNDS, 8, 5, false),
+            Fyreslayer("Hearthguard Berzerkers", 4, g_wounds, 8, 5, false),
             m_broadaxe(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 2, 3, 3, -1, 2),
             m_broadaxeKarl(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 3, 3, 3, -1, 2),
             m_poleaxe(Weapon::Type::Melee, "Flamestrike Poleaxe", 2, 2, 3, 3, 0, 1),
@@ -32,26 +32,26 @@ namespace Fyreslayers {
     }
 
     bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto karl = new Model(BASESIZE, wounds());
+        auto karl = new Model(g_basesize, wounds());
         karl->addMissileWeapon(&m_throwingAxe);
-        if (weapons == BerzerkerBroadaxe) {
+        if (weapons == Berzerker_Broadaxe) {
             karl->addMeleeWeapon(&m_broadaxeKarl);
-        } else if (weapons == FlamestrikePoleaxe) {
+        } else if (weapons == Flamestrike_Poleaxe) {
             karl->addMeleeWeapon(&m_poleaxeKarl);
         }
         addModel(karl);
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_throwingAxe);
-            if (weapons == BerzerkerBroadaxe) {
+            if (weapons == Berzerker_Broadaxe) {
                 model->addMeleeWeapon(&m_broadaxe);
-            } else if (weapons == FlamestrikePoleaxe) {
+            } else if (weapons == Flamestrike_Poleaxe) {
                 model->addMeleeWeapon(&m_poleaxe);
             }
             addModel(model);
@@ -64,8 +64,8 @@ namespace Fyreslayers {
 
     Unit *HearthguardBerzerkers::Create(const ParameterList &parameters) {
         auto unit = new HearthguardBerzerkers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, BerzerkerBroadaxe);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Berzerker_Broadaxe);
 
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         unit->setLodge(lodge);
@@ -80,15 +80,15 @@ namespace Fyreslayers {
 
     void HearthguardBerzerkers::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {BerzerkerBroadaxe, FlamestrikePoleaxe};
+            static const std::array<int, 2> weapons = {Berzerker_Broadaxe, Flamestrike_Poleaxe};
             static FactoryMethod factoryMethod = {
                     HearthguardBerzerkers::Create,
                     HearthguardBerzerkers::ValueToString,
                     HearthguardBerzerkers::EnumStringToInt,
                     HearthguardBerzerkers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", BerzerkerBroadaxe, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Berzerker_Broadaxe, weapons),
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
                     },
                     ORDER,
@@ -100,15 +100,15 @@ namespace Fyreslayers {
 
     std::string HearthguardBerzerkers::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == BerzerkerBroadaxe) { return "Berzerker Broadaxe"; }
-            else if (parameter.intValue == FlamestrikePoleaxe) { return "Flamestrike Poleaxe"; }
+            if (parameter.intValue == Berzerker_Broadaxe) { return "Berzerker Broadaxe"; }
+            else if (parameter.intValue == Flamestrike_Poleaxe) { return "Flamestrike Poleaxe"; }
         }
         return Fyreslayer::ValueToString(parameter);
     }
 
     int HearthguardBerzerkers::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Berzerker Broadaxe") { return BerzerkerBroadaxe; }
-        else if (enumString == "Flamestrike Poleaxe") { return FlamestrikePoleaxe; }
+        if (enumString == "Berzerker Broadaxe") { return Berzerker_Broadaxe; }
+        else if (enumString == "Flamestrike Poleaxe") { return Flamestrike_Poleaxe; }
         return Fyreslayer::EnumStringToInt(enumString);
     }
 
@@ -124,8 +124,8 @@ namespace Fyreslayers {
     Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds) {
         // Duty Unto Death
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         int saveValue = 6;
 
@@ -146,9 +146,9 @@ namespace Fyreslayers {
     }
 
     int HearthguardBerzerkers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

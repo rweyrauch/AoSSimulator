@@ -24,11 +24,11 @@ TEST(Circle, POI_CenterHit) {
     hit = PointOfIntersection(c1, {3, 1}, c2, poi);
     ASSERT_TRUE(hit);
     auto expectedPoi = Vector2(c1.center(), c2.center()).length() - (c1.radius() + c2.radius());
-    ASSERT_NEAR(poi, expectedPoi, EPSILON);
+    ASSERT_NEAR(poi, expectedPoi, g_epsilon);
 
     hit = PointOfIntersection(c2, {-3, -1}, c1, poi);
     ASSERT_TRUE(hit);
-    ASSERT_NEAR(poi, expectedPoi, EPSILON);
+    ASSERT_NEAR(poi, expectedPoi, g_epsilon);
 }
 
 TEST(Circle, POI_GlancingHit) {

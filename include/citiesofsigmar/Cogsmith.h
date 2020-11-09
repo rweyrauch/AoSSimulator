@@ -18,8 +18,8 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOption {
-            GrudgeRaker,
-            CogAxe
+            Grudge_Raker,
+            Cog_Axe
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -46,7 +46,7 @@ namespace CitiesOfSigmar {
 
     private:
 
-        WeaponOption m_weaponOption = GrudgeRaker;
+        WeaponOption m_weaponOption = Grudge_Raker;
 
         Weapon m_grudgeRaker,
                 m_pistols,

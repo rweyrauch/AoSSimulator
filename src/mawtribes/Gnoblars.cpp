@@ -10,19 +10,19 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 20;
-    static const int MAX_UNIT_SIZE = 60;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 270;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 20;
+    static const int g_maxUnitSize = 60;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 270;
 
     bool Gnoblars::s_registered = false;
 
     Unit *Gnoblars::Create(const ParameterList &parameters) {
         auto unit = new Gnoblars();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
@@ -43,7 +43,7 @@ namespace OgorMawtribes {
                     MawtribesBase::EnumStringToInt,
                     Gnoblars::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
                     },
                     DESTRUCTION,
@@ -54,7 +54,7 @@ namespace OgorMawtribes {
     }
 
     Gnoblars::Gnoblars() :
-            MawtribesBase("Gnoblars", 5, WOUNDS, 4, 6, false),
+            MawtribesBase("Gnoblars", 5, g_wounds, 4, 6, false),
             m_sharpStuff(Weapon::Type::Missile, "Sharp Stuff", 8, 1, 4, 5, 0, 1),
             m_motleyWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 1, 5, 5, 0, 1),
             m_motleyWeaponsBiter(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 2, 5, 5, 0, 2) {
@@ -63,17 +63,17 @@ namespace OgorMawtribes {
     }
 
     bool Gnoblars::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto biter = new Model(BASESIZE, wounds());
+        auto biter = new Model(g_basesize, wounds());
         biter->addMissileWeapon(&m_sharpStuff);
         biter->addMeleeWeapon(&m_motleyWeaponsBiter);
         addModel(biter);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_sharpStuff);
             model->addMeleeWeapon(&m_motleyWeapons);
             addModel(model);
@@ -85,9 +85,9 @@ namespace OgorMawtribes {
     }
 
     int Gnoblars::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

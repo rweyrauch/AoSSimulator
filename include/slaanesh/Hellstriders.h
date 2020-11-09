@@ -18,7 +18,7 @@ namespace Slaanesh {
     public:
 
         enum WeaponOption {
-            ClawSpear,
+            Claw_Spear,
             Hellscourge
         };
 

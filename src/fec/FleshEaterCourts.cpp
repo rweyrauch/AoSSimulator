@@ -29,15 +29,15 @@ namespace FleshEaterCourt {
     Rerolls FleshEaterCourts::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_delusion == Delusion::The_Royal_Hunt) {
             if (target->hasKeyword(MONSTER)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
-        } else if (m_delusion == Delusion::A_Matter_of_Honour) {
+        } else if (m_delusion == Delusion::A_Matter_Of_Honour) {
             if (target->hasKeyword(HERO)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         } else if (m_delusion == Delusion::The_Grand_Tournament) {
             if (!isGeneral()) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         } else {
             // Morgaunt Court - Blood Loyalty
@@ -45,7 +45,7 @@ namespace FleshEaterCourt {
                 auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
                 for (auto ip : units) {
                     if (ip->hasKeyword(MORGAUNT) && ip->hasKeyword(SERFS)) {
-                        return RerollOnes;
+                        return Reroll_Ones;
                     }
                 }
             }
@@ -56,17 +56,17 @@ namespace FleshEaterCourt {
     Rerolls FleshEaterCourts::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_delusion == Delusion::The_Royal_Hunt) {
             if (target->hasKeyword(MONSTER)) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
-        } else if (m_delusion == Delusion::A_Matter_of_Honour) {
+        } else if (m_delusion == Delusion::A_Matter_Of_Honour) {
             if (target->isGeneral()) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         } else {
             // Hollowmourne - Shattering Charge
             if (hasKeyword(HOLLOWMOURNE) && (hasKeyword(COURTIER) || hasKeyword(KNIGHTS))) {
                 if (charged()) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
             }
         }
@@ -114,8 +114,8 @@ namespace FleshEaterCourt {
         for (auto ip : units) {
             if (ip->hasKeyword(FLESH_EATER_COURTS) && ip->hasKeyword(HERO)) {
                 Dice::RollResult woundSaves, mortalSaves;
-                Dice::rollD6(wounds.normal, woundSaves);
-                Dice::rollD6(wounds.mortal, mortalSaves);
+                Dice::RollD6(wounds.normal, woundSaves);
+                Dice::RollD6(wounds.mortal, mortalSaves);
 
                 Wounds totalWounds = wounds;
                 totalWounds.normal -= woundSaves.rollsGE(6);

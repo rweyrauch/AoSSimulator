@@ -18,8 +18,8 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            ShockHandaxe,
-            StormSabre,
+            Shock_Handaxe,
+            Storm_Sabre,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -42,7 +42,7 @@ namespace StormcastEternals {
 
     private:
 
-        WeaponOption m_weaponOption = StormSabre;
+        WeaponOption m_weaponOption = Storm_Sabre;
         bool m_astralCompass = false;
 
         Weapon m_boltstormPistol,

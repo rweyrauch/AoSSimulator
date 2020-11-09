@@ -12,17 +12,17 @@
 #include "DispossessedPrivate.h"
 
 namespace Dispossessed {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool Thunderers::s_registered = false;
 
     Thunderers::Thunderers() :
-            Dispossessed("Thunderers", 4, WOUNDS, 6, 5, false),
+            Dispossessed("Thunderers", 4, g_wounds, 6, 5, false),
             m_duardinHandgun(Weapon::Type::Missile, "Duardin Handgun", 16, 1, 4, 3, -1, 1),
             m_duardinHandgunVeteran(Weapon::Type::Missile, "Duardin Handgun (Veteran)", 16, 1, 3, 3, -1, 1),
             m_braceOfDuardinPistols(Weapon::Type::Missile, "Brace of Duardin Pistols", 8, 2, 4, 3, -1, 1),
@@ -36,7 +36,7 @@ namespace Dispossessed {
     bool
     Thunderers::configure(int numModels, WeaponOptions veteranWeapon, bool duardinBucklers, StandardOptions standard,
                           bool drummers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -44,18 +44,18 @@ namespace Dispossessed {
         m_drummers = drummers;
         m_duardinBucklers = duardinBucklers;
 
-        auto veteran = new Model(BASESIZE, wounds());
-        if (veteranWeapon == DuardinHandgun) {
+        auto veteran = new Model(g_basesize, wounds());
+        if (veteranWeapon == Duardin_Handgun) {
             veteran->addMissileWeapon(&m_duardinHandgunVeteran);
             veteran->addMeleeWeapon(&m_duardinHandgunMelee);
-        } else if (veteranWeapon == BraceOfDuardinPistols) {
+        } else if (veteranWeapon == Brace_Of_Duardin_Pistols) {
             veteran->addMissileWeapon(&m_braceOfDuardinPistols);
             veteran->addMeleeWeapon(&m_braceOfDuardinPistolsMelee);
         }
         addModel(veteran);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_duardinHandgun);
             model->addMeleeWeapon(&m_duardinHandgunMelee);
             addModel(model);
@@ -68,8 +68,8 @@ namespace Dispossessed {
 
     Unit *Thunderers::Create(const ParameterList &parameters) {
         auto unit = new Thunderers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapon = (WeaponOptions) GetEnumParam("Veteran Weapon", parameters, DuardinHandgun);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapon = (WeaponOptions) GetEnumParam("Veteran Weapon", parameters, Duardin_Handgun);
         bool duardinBucklers = GetBoolParam("Duardin Bucklers", parameters, false);
         auto standard = (StandardOptions) GetEnumParam("Standard", parameters, None);
         bool drummer = GetBoolParam("Drummer", parameters, false);
@@ -84,16 +84,16 @@ namespace Dispossessed {
 
     void Thunderers::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> veteranWeapons = {DuardinHandgun, BraceOfDuardinPistols};
-            static const std::array<int, 3> weapons = {Thunderers::None, Thunderers::RunicIcon, Thunderers::ClanBanner};
+            static const std::array<int, 2> veteranWeapons = {Duardin_Handgun, Brace_Of_Duardin_Pistols};
+            static const std::array<int, 3> weapons = {Thunderers::None, Thunderers::Runic_Icon, Thunderers::Clan_Banner};
             static FactoryMethod factoryMethod = {
                     Thunderers::Create,
                     Thunderers::ValueToString,
                     Thunderers::EnumStringToInt,
                     Thunderers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Veteran Weapon", DuardinHandgun, veteranWeapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Veteran Weapon", Duardin_Handgun, veteranWeapons),
                             BoolParameter("Duardin Bucklers"),
                             EnumParameter("Standard", Thunderers::None, weapons),
                             BoolParameter("Drummers"),
@@ -108,18 +108,18 @@ namespace Dispossessed {
 
     std::string Thunderers::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Veteran Weapon") {
-            if (parameter.intValue == DuardinHandgun) {
+            if (parameter.intValue == Duardin_Handgun) {
                 return "Duardin Handgun";
-            } else if (parameter.intValue == BraceOfDuardinPistols) {
+            } else if (parameter.intValue == Brace_Of_Duardin_Pistols) {
                 return "Brace Of Duardin Pistols";
             }
         }
         if (std::string(parameter.name) == "Standard") {
             if (parameter.intValue == None) {
                 return "None";
-            } else if (parameter.intValue == RunicIcon) {
+            } else if (parameter.intValue == Runic_Icon) {
                 return "Runic Icon";
-            } else if (parameter.intValue == ClanBanner) {
+            } else if (parameter.intValue == Clan_Banner) {
                 return "Clan Banner";
             }
         }
@@ -131,13 +131,13 @@ namespace Dispossessed {
         if (enumString == "None") {
             return None;
         } else if (enumString == "Runic Icon") {
-            return RunicIcon;
+            return Runic_Icon;
         } else if (enumString == "Clan Banner") {
-            return ClanBanner;
+            return Clan_Banner;
         } else if (enumString == "Duardin Handgun") {
-            return DuardinHandgun;
+            return Duardin_Handgun;
         } else if (enumString == "Brace Of Duardin Pistols") {
-            return BraceOfDuardinPistols;
+            return Brace_Of_Duardin_Pistols;
         }
         return Dispossessed::EnumStringToInt(enumString);
     }
@@ -153,7 +153,7 @@ namespace Dispossessed {
     void Thunderers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
 
-        if (m_standard == ClanBanner) {
+        if (m_standard == Clan_Banner) {
             numFled = (numFled + 1) / 2;
         }
     }
@@ -170,9 +170,9 @@ namespace Dispossessed {
     }
 
     int Thunderers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

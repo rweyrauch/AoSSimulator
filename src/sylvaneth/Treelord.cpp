@@ -12,9 +12,9 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 180;
+    static const int g_basesize = 105; // x70 oval
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 180;
 
     bool Treelord::s_registered = false;
 
@@ -24,9 +24,9 @@ namespace Sylvaneth {
         int m_talonsToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {2, 4, 2},
                     {3, 3, 2},
@@ -36,7 +36,7 @@ namespace Sylvaneth {
             };
 
     Treelord::Treelord() :
-            SylvanethBase("Treelord", 6, WOUNDS, 6, 3, false),
+            SylvanethBase("Treelord", 6, g_wounds, 6, 3, false),
             m_strangleroots(Weapon::Type::Missile, "Strangleroots", 12, 5, 2, 3, -1, 1),
             m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 4, 3, 3, -1, RAND_D6),
             m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1) {
@@ -46,13 +46,13 @@ namespace Sylvaneth {
     }
 
     bool Treelord::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_strangleroots);
         model->addMeleeWeapon(&m_sweepingBlows);
         model->addMeleeWeapon(&m_massiveImpalingTalons);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -70,7 +70,7 @@ namespace Sylvaneth {
         // Our Roots Run Deep
         if (hasKeyword(OAKENBROW)) woundsInflicted += 2;
 
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -112,13 +112,13 @@ namespace Sylvaneth {
     Wounds Treelord::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Impale
         if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name())) {
-            return {0, Dice::rollD6()};
+            return {0, Dice::RollD6()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Treelord::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Sylvaneth

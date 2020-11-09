@@ -18,8 +18,8 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            DaemonicAxe,
-            HellforgedSword
+            Daemonic_Axe,
+            Hellforged_Sword
         };
 
         static Unit *Create(const ParameterList &parameters);

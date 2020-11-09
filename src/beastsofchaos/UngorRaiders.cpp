@@ -11,17 +11,17 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool UngorRaiders::s_registered = false;
 
     UngorRaiders::UngorRaiders() :
-            BeastsOfChaosBase("Ungor Raiders", 6, WOUNDS, 4, 6, false),
+            BeastsOfChaosBase("Ungor Raiders", 6, g_wounds, 4, 6, false),
             m_raiderBow(Weapon::Type::Missile, "Raider Bow", 18, 1, 4, 4, 0, 1),
             m_raiderBowHalfhorn(Weapon::Type::Missile, "Raider Bow", 18, 1, 3, 4, 0, 1),
             m_jaggedShank(Weapon::Type::Melee, "Jagged Shank", 1, 1, 5, 5, 0, 1) {
@@ -30,7 +30,7 @@ namespace BeastsOfChaos {
     }
 
     bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -39,13 +39,13 @@ namespace BeastsOfChaos {
 
         m_runAndCharge = m_brayhorn;
 
-        auto halfhorn = new Model(BASESIZE, wounds());
+        auto halfhorn = new Model(g_basesize, wounds());
         halfhorn->addMissileWeapon(&m_raiderBowHalfhorn);
         halfhorn->addMeleeWeapon(&m_jaggedShank);
         addModel(halfhorn);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_raiderBow);
             model->addMeleeWeapon(&m_jaggedShank);
             addModel(model);
@@ -58,7 +58,7 @@ namespace BeastsOfChaos {
 
     Unit *UngorRaiders::Create(const ParameterList &parameters) {
         auto unit = new UngorRaiders();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
@@ -81,7 +81,7 @@ namespace BeastsOfChaos {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Brayhorn"),
                             BoolParameter("Banner Bearer"),
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
@@ -106,18 +106,18 @@ namespace BeastsOfChaos {
         // Baying Anger
         if (weapon->isMissile()) {
             if (remainingModels() >= 30) {
-                return RerollOnesAndTwos;
+                return Reroll_Ones_And_Twos;
             } else if (remainingModels() >= 20) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     int UngorRaiders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

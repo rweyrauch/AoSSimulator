@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef COS_WILDWOODRANGERS_H
-#define COS_WILDWOODRANGERS_H
+#ifndef WILDWOODRANGERS_H
+#define WILDWOODRANGERS_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -60,4 +60,4 @@ namespace CitiesOfSigmar {
 
 } // namespace Wanderers
 
-#endif //COS_WILDWOODRANGERS_H
+#endif //WILDWOODRANGERS_H

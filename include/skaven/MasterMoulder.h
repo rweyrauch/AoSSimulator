@@ -19,7 +19,7 @@ namespace Skaven {
 
         enum WeaponOption {
             Lash,
-            ThingsCatcher
+            Things_Catcher
         };
 
         static Unit *Create(const ParameterList &parameters);

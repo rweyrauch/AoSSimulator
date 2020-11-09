@@ -11,17 +11,17 @@
 #include <iostream>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 20;
-    static const int MAX_UNIT_SIZE = 60;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 20;
+    static const int g_maxUnitSize = 60;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool Shootas::s_registered = false;
 
     Shootas::Shootas() :
-            GloomspiteGitzBase("Shootas", 5, WOUNDS, 4, 6, false),
+            GloomspiteGitzBase("Shootas", 5, g_wounds, 4, 6, false),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1),
             m_moonclanBow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1),
@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
 
     Unit *Shootas::Create(const ParameterList &parameters) {
         auto unit = new Shootas();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
         int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
         int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
@@ -57,11 +57,11 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     Shootas::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Barbed Nets", 0, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Barbed Nets", 0, 0, 3 * g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Gong Bashers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Flag Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -73,18 +73,18 @@ namespace GloomspiteGitz {
     bool
     Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, int numFlagbearers, int numIconbearers) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
-        if (numBarbedNets > 3 * numModels / MIN_UNIT_SIZE) {
+        if (numBarbedNets > 3 * numModels / g_minUnitSize) {
             return false;
         }
-        if (numGongbashers > numModels / MIN_UNIT_SIZE) {
+        if (numGongbashers > numModels / g_minUnitSize) {
             return false;
         }
-        if (numFlagbearers + numIconbearers > numModels / MIN_UNIT_SIZE) {
+        if (numFlagbearers + numIconbearers > numModels / g_minUnitSize) {
             return false;
         }
 
@@ -93,14 +93,14 @@ namespace GloomspiteGitz {
         m_numIconbearers = numIconbearers;
 
         // Add the boss
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         boss->addMeleeWeapon(&m_slittaBoss);
         boss->addMissileWeapon(&m_moonclanBowBoss);
         addModel(boss);
 
         // add the nets
         for (auto i = 1; i < numBarbedNets; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_barbedNet);
             addModel(model);
         }
@@ -108,7 +108,7 @@ namespace GloomspiteGitz {
         // and the rest
         auto currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_slitta);
             model->addMissileWeapon(&m_moonclanBow);
             addModel(model);
@@ -179,9 +179,9 @@ namespace GloomspiteGitz {
     }
 
     int Shootas::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

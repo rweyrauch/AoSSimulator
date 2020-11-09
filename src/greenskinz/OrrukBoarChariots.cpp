@@ -10,17 +10,17 @@
 #include <UnitFactory.h>
 
 namespace Greenskinz {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 240;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 6;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 240;
 
     bool OrrukBoarChariots::s_registered = false;
 
     OrrukBoarChariots::OrrukBoarChariots() :
-            Unit("Orruk Boar Chariots", 9, WOUNDS, 6, 4, false),
+            Unit("Orruk Boar Chariots", 9, g_wounds, 6, 4, false),
             m_pigstikkaSpears(Weapon::Type::Melee, "Crew's Pigstikka Spears", 2, 2, 4, 4, 0, 1),
             m_warBoarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 4, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUK_BOAR_CHARIOTS};
@@ -29,12 +29,12 @@ namespace Greenskinz {
     }
 
     bool OrrukBoarChariots::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_pigstikkaSpears);
             model->addMeleeWeapon(&m_warBoarsTusks);
             addModel(model);
@@ -47,7 +47,7 @@ namespace Greenskinz {
 
     Unit *OrrukBoarChariots::Create(const ParameterList &parameters) {
         auto unit = new OrrukBoarChariots();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -65,7 +65,7 @@ namespace Greenskinz {
                     nullptr,
                     OrrukBoarChariots::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DESTRUCTION,
                     {GREENSKINZ}
@@ -77,26 +77,26 @@ namespace Greenskinz {
     int OrrukBoarChariots::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         // Tusker Charge
         if (m_charged && weapon->name() == m_warBoarsTusks.name()) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toWoundModifier(weapon, target);
     }
 
     void OrrukBoarChariots::onCharged() {
         // Scythed Wheels
-        int roll = Dice::rollD6();
+        int roll = Dice::RollD6();
         if (roll >= 4) {
             if (m_meleeTarget) {
-                m_meleeTarget->applyDamage({0, Dice::rollD3()});
+                m_meleeTarget->applyDamage({0, Dice::RollD3()});
             }
         }
         Unit::onCharged();
     }
 
     int OrrukBoarChariots::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

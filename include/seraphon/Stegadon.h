@@ -18,8 +18,8 @@ namespace Seraphon {
     public:
 
         enum WeaponOption {
-            SkystreakBow,
-            SunfireThrowers
+            Skystreak_Bow,
+            Sunfire_Throwers
         };
 
         static Unit *Create(const ParameterList &parameters);

@@ -9,14 +9,14 @@
 #include <stormcast/TheFarstriders.h>
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 2;
+    static const int g_pointsPerUnit = 100;
 
     bool TheFarstriders::s_registered = false;
 
     TheFarstriders::TheFarstriders() :
-            StormcastEternal("The Farstriders", 6, WOUNDS, 7, 4, false),
+            StormcastEternal("The Farstriders", 6, g_wounds, 7, 4, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
             m_stormSaber(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1) {
@@ -29,32 +29,32 @@ namespace StormcastEternals {
     }
 
     bool TheFarstriders::configure() {
-        auto sanson = new Model(BASESIZE, wounds());
+        auto sanson = new Model(g_basesize, wounds());
         sanson->setName("Sanson");
         sanson->addMissileWeapon(&m_boltstormPistol);
         sanson->addMeleeWeapon(&m_shockHandaxe);
         addModel(sanson);
 
-        auto almeric = new Model(BASESIZE, wounds());
+        auto almeric = new Model(g_basesize, wounds());
         almeric->setName("Almeric");
         almeric->addMissileWeapon(&m_boltstormPistol);
         almeric->addMeleeWeapon(&m_shockHandaxe);
         addModel(almeric);
 
-        auto elias = new Model(BASESIZE, wounds());
+        auto elias = new Model(g_basesize, wounds());
         elias->setName("Elias");
         elias->addMissileWeapon(&m_boltstormPistol);
         elias->addMeleeWeapon(&m_stormSaber);
         addModel(elias);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *TheFarstriders::Create(const ParameterList &parameters) {
         auto unit = new TheFarstriders();
-        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
+        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -82,7 +82,7 @@ namespace StormcastEternals {
     }
 
     int TheFarstriders::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

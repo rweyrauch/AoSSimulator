@@ -11,9 +11,9 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 380;
+    static const int g_basesize = 100;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 380;
 
     struct TableEntry {
         int m_roarOfTotalRage;
@@ -21,9 +21,9 @@ namespace Khorne {
         int m_totalCarnage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {1, 5, 5},
                     {2, 6, 4},
@@ -35,21 +35,21 @@ namespace Khorne {
     bool Skarbrand::s_registered = false;
 
     Skarbrand::Skarbrand() :
-            KhorneBase("Skarbrand", 8, WOUNDS, 10, 4, true),
+            KhorneBase("Skarbrand", 8, g_wounds, 10, 4, true),
             m_slaughter(Weapon::Type::Melee, "Slaughter", 2, 5, 4, 3, -2, 3),
             m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
         m_weapons = {&m_slaughter, &m_carnage};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
     }
 
     bool Skarbrand::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slaughter);
         // Do not add Carnage or Roar of Total Rage, their attacks are special.
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -98,7 +98,7 @@ namespace Khorne {
 
     int Skarbrand::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -108,7 +108,7 @@ namespace Khorne {
 
     Rerolls Skarbrand::chargeRerolls() const {
         // Inescapable Wrath
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     int Skarbrand::generateMortalWounds(const Unit *unit) {
@@ -116,11 +116,11 @@ namespace Khorne {
         if (distanceTo(unit) <= (double) m_carnage.range()) {
             int index = getDamageTableIndex();
             if (!m_attackedInPreviousRound)
-                index = NUM_TABLE_ENTRIES - 1;
+                index = g_numTableEntries - 1;
 
             m_attackedInPreviousRound = true;
 
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= g_damageTable[index].m_totalCarnage) {
                 int mortals = 8;
                 if (roll == 6)
@@ -141,7 +141,7 @@ namespace Khorne {
         if (m_shootingTarget) {
             if (distanceTo(m_shootingTarget) <= 8.0) {
                 Dice::RollResult results;
-                Dice::rollD6(g_damageTable[getDamageTableIndex()].m_roarOfTotalRage, results);
+                Dice::RollD6(g_damageTable[getDamageTableIndex()].m_roarOfTotalRage, results);
                 if (results.rollsGE(4)) {
                     Wounds wounds = {0, results.rollsGE(4)};
                     m_shootingTarget->applyDamage(wounds);
@@ -156,7 +156,7 @@ namespace Khorne {
     }
 
     int Skarbrand::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

@@ -10,9 +10,9 @@
 #include "nurgle/HorticulousSlimux.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 105; // x70 oval
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 220;
 
     bool HorticulousSlimux::s_registered = false;
 
@@ -48,7 +48,7 @@ namespace Nurgle {
     }
 
     HorticulousSlimux::HorticulousSlimux() :
-            NurgleBase("Horticulous Slimux", 5, WOUNDS, 10, 3, false),
+            NurgleBase("Horticulous Slimux", 5, g_wounds, 10, 3, false),
             m_shears(Weapon::Type::Melee, "Lopping Shears", 1, 3, 3, 3, -1, RAND_D3),
             m_jaws(Weapon::Type::Melee, "Mulch's Slime-encrusted Jaws", 1, RAND_D3, 3, 3, -2, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, HORTICULOUS_SLIMUX};
@@ -65,12 +65,12 @@ namespace Nurgle {
     }
 
     bool HorticulousSlimux::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_shears);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,8 +78,8 @@ namespace Nurgle {
     Wounds HorticulousSlimux::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -90,22 +90,22 @@ namespace Nurgle {
 
     Rerolls HorticulousSlimux::beastHandlerChargeReroll(const Unit *unit) {
         if (isFriendly(unit) && (distanceTo(unit) <= 7.0)) {
-            if (unit->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
+            if (unit->hasKeyword(BEASTS_OF_NURGLE)) return Reroll_Ones;
         }
-        return NoRerolls;
+        return No_Rerolls;
     }
 
     Rerolls
     HorticulousSlimux::beastHandlerToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
                                                 const Unit * /*target*/) {
         if (isFriendly(attacker) && (distanceTo(attacker) <= 7.0)) {
-            if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return RerollOnes;
+            if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return Reroll_Ones;
         }
-        return NoRerolls;
+        return No_Rerolls;
     }
 
     int HorticulousSlimux::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

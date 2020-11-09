@@ -11,19 +11,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 65;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 65;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 180;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool DemigryphKnights::s_registered = false;
 
     Unit *DemigryphKnights::Create(const ParameterList &parameters) {
         auto unit = new DemigryphKnights();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
                     DemigryphKnights::EnumStringToInt,
                     DemigryphKnights::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", DemigryphKnights::Lance, weapons),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
@@ -83,7 +83,7 @@ namespace CitiesOfSigmar {
     }
 
     DemigryphKnights::DemigryphKnights() :
-            CitizenOfSigmar("Demigryph Knights", 10, WOUNDS, 6, 3, false),
+            CitizenOfSigmar("Demigryph Knights", 10, g_wounds, 6, 3, false),
             m_halberd(Weapon::Type::Melee, "Demigryph Knight's Halberd", 2, 3, 3, 3, -1, 1),
             m_lance(Weapon::Type::Melee, "Demigryph Knight's Lance", 2, 3, 3, 4, 0, 1),
             m_halberdPreceptor(Weapon::Type::Melee, "Demigryph Knight's Halberd", 2, 4, 3, 3, -1, 1),
@@ -96,7 +96,7 @@ namespace CitiesOfSigmar {
 
     bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -105,7 +105,7 @@ namespace CitiesOfSigmar {
         m_hornblower = hornblower;
 
         // Add the Preceptor
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         if (weapons == Halberd) {
             bossModel->addMeleeWeapon(&m_halberdPreceptor);
         } else if (weapons == Lance) {
@@ -115,7 +115,7 @@ namespace CitiesOfSigmar {
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             if (weapons == Halberd) {
                 model->addMeleeWeapon(&m_halberd);
             } else if (weapons == Lance) {
@@ -170,9 +170,9 @@ namespace CitiesOfSigmar {
     }
 
     int DemigryphKnights::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

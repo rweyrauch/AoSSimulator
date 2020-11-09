@@ -11,17 +11,17 @@
 #include <Board.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 10;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 200;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int g_basesize = 60;
+    static const int g_wounds = 10;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 200;
+    static const int g_pointsMaxUnitSize = 600;
 
     bool DankholdTroggoths::s_registered = false;
 
     DankholdTroggoths::DankholdTroggoths() :
-            GloomspiteGitzBase("Dankhold Troggoths", 6, WOUNDS, 6, 4, false),
+            GloomspiteGitzBase("Dankhold Troggoths", 6, g_wounds, 6, 4, false),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 3, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD};
         m_weapons = {&m_boulderClub};
@@ -34,12 +34,12 @@ namespace GloomspiteGitz {
     }
 
     bool DankholdTroggoths::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_boulderClub);
             addModel(model);
         }
@@ -51,7 +51,7 @@ namespace GloomspiteGitz {
 
     Unit *DankholdTroggoths::Create(const ParameterList &parameters) {
         auto unit = new DankholdTroggoths();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -69,7 +69,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -81,17 +81,17 @@ namespace GloomspiteGitz {
 
     void DankholdTroggoths::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Regeneration - heal D3
                 // Troggoth Renewal
-                if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4))) {
-                    int woundsHealed = Dice::rollD3();
+                if (Dice::RollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::RollD6() >= 4))) {
+                    int woundsHealed = Dice::RollD3();
                     if (inLightOfTheBadMoon())
                         woundsHealed *= 2;
                     for (auto &m : m_models) {
                         if (!m->slain() || !m->fled()) {
                             if (m->woundsRemaining() < wounds()) {
-                                int numToHeal = std::min(woundsHealed, WOUNDS - m->woundsRemaining());
+                                int numToHeal = std::min(woundsHealed, g_wounds - m->woundsRemaining());
                                 m->applyHealing(numToHeal);
                                 woundsHealed -= numToHeal;
                                 if (woundsHealed <= 0) { break; }
@@ -106,7 +106,7 @@ namespace GloomspiteGitz {
     void DankholdTroggoths::onStartCombat(PlayerId player) {
         if (m_meleeTarget) {
             // Crushing Grip
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= m_meleeTarget->wounds()) {
                 m_meleeTarget->slay(1);
             }
@@ -115,7 +115,7 @@ namespace GloomspiteGitz {
         // Squiggly-beast Followers
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto ip : units) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= ip->remainingModels()) {
                 ip->applyDamage({0, 1});
             }
@@ -124,9 +124,9 @@ namespace GloomspiteGitz {
     }
 
     int DankholdTroggoths::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -144,7 +144,7 @@ namespace GloomspiteGitz {
     Wounds DankholdTroggoths::applyWoundSave(const Wounds &wounds) {
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
-            if (Dice::rollD6() >= 4) {
+            if (Dice::RollD6() >= 4) {
                 return {0, 0, Wounds::Source::Spell};
             }
         }

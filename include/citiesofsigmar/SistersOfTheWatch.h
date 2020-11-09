@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SISTEROFWATCH_H
-#define SISTEROFWATCH_H
+#ifndef SISTERSOFTHEWATCH_H
+#define SISTERSOFTHEWATCH_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -58,4 +58,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //SISTEROFWATCH_H
+#endif //SISTERSOFTHEWATCH_H

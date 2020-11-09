@@ -12,17 +12,17 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 9;
-    static const int POINTS_PER_BLOCK = 200;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int g_basesize = 40;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 9;
+    static const int g_pointsPerBlock = 200;
+    static const int g_pointsMaxUnitSize = 600;
 
     bool TzaangorSkyfires::s_registered = false;
 
     TzaangorSkyfires::TzaangorSkyfires() :
-            TzeentchBase("Tzaangor Skyfires", 16, WOUNDS, 6, 5, true),
+            TzeentchBase("Tzaangor Skyfires", 16, g_wounds, 6, 5, true),
             m_arrowOfFate(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 4, 3, -1, RAND_D3),
             m_arrowOfFateAviarch(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 3, 3, -1, RAND_D3),
             m_bowStave(Weapon::Type::Melee, "Bow Stave", 1, 2, 5, 5, 0, 1),
@@ -35,12 +35,12 @@ namespace Tzeentch {
 
     bool TzaangorSkyfires::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
-        auto aviarch = new Model(BASESIZE, wounds());
+        auto aviarch = new Model(g_basesize, wounds());
         aviarch->addMissileWeapon(&m_arrowOfFateAviarch);
         aviarch->addMeleeWeapon(&m_bowStave);
         aviarch->addMeleeWeapon(&m_viciousBeak);
@@ -48,7 +48,7 @@ namespace Tzeentch {
         addModel(aviarch);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_arrowOfFate);
             model->addMeleeWeapon(&m_bowStave);
             model->addMeleeWeapon(&m_viciousBeak);
@@ -63,7 +63,7 @@ namespace Tzeentch {
 
     Unit *TzaangorSkyfires::Create(const ParameterList &parameters) {
         auto *unit = new TzaangorSkyfires();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
@@ -84,7 +84,7 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     TzaangorSkyfires::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                     },
                     CHAOS,
@@ -101,7 +101,7 @@ namespace Tzeentch {
         for (auto ip : units) {
             enemyHasFought |= ip->hasFought();
         }
-        if (!enemyHasFought) return RerollFailed;
+        if (!enemyHasFought) return Reroll_Failed;
 
         return TzeentchBase::toHitRerolls(weapon, target);
     }
@@ -113,7 +113,7 @@ namespace Tzeentch {
         for (auto ip : units) {
             enemyHasFought |= ip->hasFought();
         }
-        if (!enemyHasFought) return RerollFailed;
+        if (!enemyHasFought) return Reroll_Failed;
 
         return TzeentchBase::toWoundRerolls(weapon, target);
     }
@@ -121,15 +121,15 @@ namespace Tzeentch {
     Wounds TzaangorSkyfires::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Judgement from Afar
         if ((hitRoll == 6) && (weapon->name() == m_arrowOfFate.name())) {
-            return {0, Dice::rollD3()};
+            return {0, Dice::RollD3()};
         }
         return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int TzaangorSkyfires::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

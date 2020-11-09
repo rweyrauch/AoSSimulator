@@ -13,9 +13,9 @@
 
 namespace Seraphon {
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 230;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 230;
 
     struct TableEntry {
         int m_move;
@@ -23,9 +23,9 @@ namespace Seraphon {
         int m_jawsDamage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 3, 5},
                     {9,  4, 4},
@@ -37,14 +37,14 @@ namespace Seraphon {
     bool SaurusOldbloodOnCarnosaur::s_registered = false;
 
     SaurusOldbloodOnCarnosaur::SaurusOldbloodOnCarnosaur() :
-            SeraphonBase("Saurus Oldblood on Carnosaur", 10, WOUNDS, 8, 4, false),
+            SeraphonBase("Saurus Oldblood on Carnosaur", 10, g_wounds, 8, 4, false),
             m_gauntlet(Weapon::Type::Missile, "Sunbolt Gauntlet", 18, RAND_D6, 3, 4, -1, 1),
             m_spear(Weapon::Type::Melee, "Sunstone Spear", 2, 3, 3, 3, -1, 3),
             m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 3, 3, 0, 2),
             m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, OLDBLOOD};
         m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &SaurusOldbloodOnCarnosaur::terror, &m_connection);
@@ -55,7 +55,7 @@ namespace Seraphon {
     }
 
     bool SaurusOldbloodOnCarnosaur::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_gauntlet);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_forelimbs);
@@ -127,7 +127,7 @@ namespace Seraphon {
 
     int SaurusOldbloodOnCarnosaur::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -163,7 +163,7 @@ namespace Seraphon {
     }
 
     int SaurusOldbloodOnCarnosaur::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

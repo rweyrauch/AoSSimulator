@@ -18,8 +18,8 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            CelestineHammer,
-            StormboundBlade,
+            Celestine_Hammer,
+            Stormbound_Blade,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -64,7 +64,7 @@ namespace StormcastEternals {
 
     protected:
 
-        WeaponOption m_weaponOption = CelestineHammer;
+        WeaponOption m_weaponOption = Celestine_Hammer;
 
     private:
 

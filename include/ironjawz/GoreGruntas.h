@@ -17,8 +17,8 @@ namespace Ironjawz {
     public:
 
         enum WeaponOption {
-            PigIronChoppa = 0,
-            JaggedGorehacka,
+            Pig_Iron_Choppa = 0,
+            Jagged_Gorehacka,
         };
 
         static Unit *Create(const ParameterList &parameters);

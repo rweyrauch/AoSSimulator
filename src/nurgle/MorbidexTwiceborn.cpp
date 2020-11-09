@@ -10,9 +10,9 @@
 #include "nurgle/MorbidexTwiceborn.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 240;
+    static const int g_basesize = 100;
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 240;
 
     bool MorbidexTwiceborn::s_registered = false;
 
@@ -48,13 +48,13 @@ namespace Nurgle {
     }
 
     MorbidexTwiceborn::MorbidexTwiceborn() :
-            NurgleBase("Morbidex Twicebornd", 10, WOUNDS, 9, 3, false),
+            NurgleBase("Morbidex Twicebornd", 10, g_wounds, 9, 3, false),
             m_tongues(Weapon::Type::Missile, "Slabrous Tongues", 6, 3, 3, 2, -1, 1),
             m_scythe(Weapon::Type::Melee, "Fleshreaper Scythe", 2, 5, 3, 3, -1, 2),
             m_claws(Weapon::Type::Melee, "Monstrous Claws", 3, 5, 4, 2, -1, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, MORBIDEX_TWICEBORN};
         m_weapons = {&m_tongues, &m_scythe, &m_claws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         s_globalToWoundMod.connect(this, &MorbidexTwiceborn::maliciousMitesWoundMod, &m_maliciousMitesSlot);
     }
@@ -64,13 +64,13 @@ namespace Nurgle {
     }
 
     bool MorbidexTwiceborn::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tongues);
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -82,7 +82,7 @@ namespace Nurgle {
     }
 
     int MorbidexTwiceborn::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

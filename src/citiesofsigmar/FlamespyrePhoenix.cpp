@@ -11,10 +11,10 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 105;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 200;
-    static const int POINTS_PER_UNIT_WITH_ANOINTED = 300;
+    static const int g_basesize = 105;
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 200;
+    static const int g_pointsPerUnitWithAnointed = 300;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace CitiesOfSigmar {
         int m_wakeOfFire;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 7, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 7, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {16, 6, 5},
                     {14, 5, 4},
@@ -92,7 +92,7 @@ namespace CitiesOfSigmar {
     }
 
     FlamespyrePhoenix::FlamespyrePhoenix() :
-            CitizenOfSigmar("Flamespyre Phoenix", 16, WOUNDS, 8, 4, true),
+            CitizenOfSigmar("Flamespyre Phoenix", 16, g_wounds, 8, 4, true),
             m_talons(Weapon::Type::Melee, "Flaming Talons", 2, 6, 4, 3, -1, 2),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
@@ -103,10 +103,10 @@ namespace CitiesOfSigmar {
     bool FlamespyrePhoenix::configure(bool anointed, Lore lore) {
         if (anointed) {
             addKeyword(HERO);
-            m_battleFieldRole = LeaderBehemoth;
+            m_battleFieldRole = Leader_Behemoth;
         }
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_talons);
         if (anointed) {
             model->addMeleeWeapon(&m_halberd);
@@ -114,9 +114,9 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         if (anointed) {
-            m_points = POINTS_PER_UNIT_WITH_ANOINTED;
+            m_points = g_pointsPerUnitWithAnointed;
         } else {
-            m_points = POINTS_PER_UNIT;
+            m_points = g_pointsPerUnit;
         }
 
         return true;
@@ -137,7 +137,7 @@ namespace CitiesOfSigmar {
 
     int FlamespyrePhoenix::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -149,8 +149,8 @@ namespace CitiesOfSigmar {
         if (hasKeyword(HERO)) {
             // Witness to Destiny
             Dice::RollResult woundSaves, mortalSaves;
-            Dice::rollD6(wounds.normal, woundSaves);
-            Dice::rollD6(wounds.mortal, mortalSaves);
+            Dice::RollD6(wounds.normal, woundSaves);
+            Dice::RollD6(wounds.mortal, mortalSaves);
 
             Wounds totalWounds = wounds;
             totalWounds.normal -= woundSaves.rollsGE(4);
@@ -164,7 +164,7 @@ namespace CitiesOfSigmar {
     }
 
     int FlamespyrePhoenix::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     int FlamespyrePhoenix::woundModifier() const {

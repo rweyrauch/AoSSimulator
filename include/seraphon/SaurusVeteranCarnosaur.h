@@ -18,9 +18,9 @@ namespace Seraphon {
     public:
 
         enum WeaponOption {
-            CelestiteWarblade,
-            CelestiteWarspear,
-            CelestiteGreatblade
+            Celestite_Warblade,
+            Celestite_Warspear,
+            Celestite_Greatblade
         };
 
         static Unit *Create(const ParameterList &parameters);

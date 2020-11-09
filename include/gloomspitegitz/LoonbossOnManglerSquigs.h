@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LOONBOSSMANGLERSQUIGS_H
-#define LOONBOSSMANGLERSQUIGS_H
+#ifndef LOONBOSSONMANGLERSQUIGS_H
+#define LOONBOSSONMANGLERSQUIGS_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -50,8 +50,8 @@ namespace GloomspiteGitz {
         int getDamageTableIndex() const;
 
         bool m_eatenRedcapMushroom = false;
-        Rerolls m_toHitRerolls = NoRerolls;
-        Rerolls m_toWoundRerolls = NoRerolls;
+        Rerolls m_toHitRerolls = No_Rerolls;
+        Rerolls m_toWoundRerolls = No_Rerolls;
 
         Weapon m_hugeFangFilledGob,
                 m_moonCutta,
@@ -72,4 +72,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //LOONBOSSMANGLERSQUIGS_H
+#endif //LOONBOSSONMANGLERSQUIGS_H

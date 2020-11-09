@@ -13,14 +13,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 250;
+    static const int g_basesize = 60;
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 250;
 
     bool DankholdTroggboss::s_registered = false;
 
     DankholdTroggboss::DankholdTroggboss() :
-            GloomspiteGitzBase("Dankhold Troggboss", 6, WOUNDS, 7, 4, false),
+            GloomspiteGitzBase("Dankhold Troggboss", 6, g_wounds, 7, 4, false),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
         m_weapons = {&m_boulderClub};
@@ -34,11 +34,11 @@ namespace GloomspiteGitz {
     }
 
     bool DankholdTroggboss::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boulderClub);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -85,11 +85,11 @@ namespace GloomspiteGitz {
 
     void DankholdTroggboss::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Regeneration - heal D3
                 // Troggoth Renewal
-                if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4))) {
-                    int woundsHealed = Dice::rollD3();
+                if (Dice::RollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::RollD6() >= 4))) {
+                    int woundsHealed = Dice::RollD3();
                     if (inLightOfTheBadMoon())
                         woundsHealed *= 2;
                     for (auto &m : m_models) {
@@ -103,7 +103,7 @@ namespace GloomspiteGitz {
     void DankholdTroggboss::onStartCombat(PlayerId player) {
         if (m_meleeTarget) {
             // Crushing Grip
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= m_meleeTarget->wounds()) {
                 m_meleeTarget->slay(1);
             }
@@ -112,7 +112,7 @@ namespace GloomspiteGitz {
         // Squiggly-beast Followers
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto ip : units) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= ip->remainingModels()) {
                 ip->applyDamage({0, 1});
             }
@@ -132,13 +132,13 @@ namespace GloomspiteGitz {
     }
 
     int DankholdTroggboss::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Wounds DankholdTroggboss::applyWoundSave(const Wounds &wounds) {
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
-            if (Dice::rollD6() >= 4) {
+            if (Dice::RollD6() >= 4) {
                 return {0, 0, Wounds::Source::Spell};
             }
         }

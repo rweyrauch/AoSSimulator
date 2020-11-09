@@ -10,9 +10,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 9;
+    static const int g_pointsPerUnit = 120;
 
     bool GnoblarScraplauncher::s_registered = false;
 
@@ -56,7 +56,7 @@ namespace OgorMawtribes {
     }
 
     GnoblarScraplauncher::GnoblarScraplauncher() :
-            MawtribesBase("Gnoblar Scraplauncher", 7, WOUNDS, 5, 4, false),
+            MawtribesBase("Gnoblar Scraplauncher", 7, g_wounds, 5, 4, false),
             m_scrap(Weapon::Type::Missile, "Piles of Old Scrap", 36, 3, 3, 4, 0, RAND_D3),
             m_scrapperWeapons(Weapon::Type::Melee, "Gnoblar Scrappers' Weapons", 1, 7, 5, 5, 0, 1),
             m_horns(Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 1, 4, 3, -1, RAND_D3) {
@@ -66,7 +66,7 @@ namespace OgorMawtribes {
     }
 
     bool GnoblarScraplauncher::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_scrap);
         model->addMeleeWeapon(&m_scrapperWeapons);
@@ -104,7 +104,7 @@ namespace OgorMawtribes {
     }
 
     int GnoblarScraplauncher::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

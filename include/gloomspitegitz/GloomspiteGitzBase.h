@@ -5,8 +5,8 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef GLOOMSPITEBASE_H
-#define GLOOMSPITEBASE_H
+#ifndef GLOOMSPITEGITZBASE_H
+#define GLOOMSPITEGITZBASE_H
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -64,18 +64,18 @@ namespace GloomspiteGitz {
         Spiteful_Prodder,
         Backstabbers_Blade,
         Loonstone_Talisman,
-        The_Pipes_of_Doom,
+        The_Pipes_Of_Doom,
         The_Clammy_Cowl,
         Leering_Gitshield,
 
         // FoetidFetishes
         Spiteshroom_Familiar,
         Moonface_Mommet,
-        Staff_of_Sneaky_Stealin,
+        Staff_Of_Sneaky_Stealin,
 
         // VenomousValuables
-        Totem_of_the_Spider_God,
-        Headdress_of_Many_Eyes,
+        Totem_Of_The_Spider_God,
+        Headdress_Of_Many_Eyes,
         The_Black_Fang,
         Nibblas_Itty_Ring,
         Earskuttla,
@@ -143,4 +143,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //GLOOMSPITEBASE_H
+#endif //GLOOMSPITEGITZBASE_H

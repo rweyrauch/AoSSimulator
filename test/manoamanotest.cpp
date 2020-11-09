@@ -28,7 +28,7 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
     bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
     ASSERT_TRUE(ok);
 
-    ok = reavers->configure(30, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ok = reavers->configure(30, Khorne::Bloodreavers::Reaver_Blades, true, true);
     ASSERT_TRUE(ok);
     reavers->formation(2);
 
@@ -71,7 +71,7 @@ TEST(ManoAMano, StatsLiberatorsVsReavers)
     bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
     ASSERT_TRUE(ok);
 
-    ok = reavers->configure(20, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ok = reavers->configure(20, Khorne::Bloodreavers::Reaver_Blades, true, true);
     ASSERT_TRUE(ok);
 
     battle.combatants(libs, reavers);
@@ -117,10 +117,10 @@ TEST(ManoAMano, StatsSequitersVsReavers)
     auto seqs = new StormcastEternals::Sequitors();
     auto reavers = new Khorne::Bloodreavers();
 
-    bool ok = seqs->configure(10, StormcastEternals::Sequitors::TempestBlade, 2, true, false);
+    bool ok = seqs->configure(10, StormcastEternals::Sequitors::Tempest_Blade, 2, true, false);
     ASSERT_TRUE(ok);
 
-    ok = reavers->configure(20, Khorne::Bloodreavers::ReaverBlades, true, true);
+    ok = reavers->configure(20, Khorne::Bloodreavers::Reaver_Blades, true, true);
     ASSERT_TRUE(ok);
 
     battle.combatants(seqs, reavers);
@@ -213,7 +213,7 @@ TEST(ManoAMano, StatsSequitorVsStabbas)
     auto seqs = new StormcastEternals::Sequitors();
     auto grots = new GloomspiteGitz::Stabbas();
 
-    bool ok = seqs->configure(15, StormcastEternals::Sequitors::TempestBlade, 6, true, false);
+    bool ok = seqs->configure(15, StormcastEternals::Sequitors::Tempest_Blade, 6, true, false);
     ASSERT_TRUE(ok);
 
     ok = grots->configure(60, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);

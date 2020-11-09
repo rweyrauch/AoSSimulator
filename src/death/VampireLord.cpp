@@ -12,10 +12,10 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 32;
-    static const int BASESIZE_WITH_STEED = 60; // x35 oval
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 32;
+    static const int g_basesizeWithSteed = 60; // x35 oval
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool VampireLord::s_registered = false;
 
@@ -49,7 +49,7 @@ namespace Death {
     }
 
     int VampireLord::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void VampireLord::Init() {
@@ -77,7 +77,7 @@ namespace Death {
     }
 
     VampireLord::VampireLord() :
-            LegionOfNagashBase("Vampire Lord", 5, WOUNDS, 10, 4, false),
+            LegionOfNagashBase("Vampire Lord", 5, g_wounds, 10, 4, false),
             m_blades(Weapon::Type::Melee, "Spirit-possessed Blades", 1, 4, 3, 3, -1, RAND_D3),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, HERO, WIZARD, VAMPIRE_LORD};
@@ -88,7 +88,7 @@ namespace Death {
     }
 
     bool VampireLord::configure(bool withSteed, bool withWings, bool chalice, Lore lore) {
-        auto model = new Model(withSteed ? BASESIZE_WITH_STEED : BASESIZE, wounds());
+        auto model = new Model(withSteed ? g_basesizeWithSteed : g_basesize, wounds());
 
         if (withSteed) {
             model->addMeleeWeapon(&m_hoovesAndTeeth);
@@ -108,7 +108,7 @@ namespace Death {
 
         m_haveChaliceOfBlood = chalice;
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -121,7 +121,7 @@ namespace Death {
 
             // Chalice of Blood
             if (m_haveChaliceOfBlood && !m_usedChaliceOfBlood && remainingWounds() < wounds()) {
-                heal(Dice::rollD6());
+                heal(Dice::RollD6());
                 m_usedChaliceOfBlood = true;
             }
         }

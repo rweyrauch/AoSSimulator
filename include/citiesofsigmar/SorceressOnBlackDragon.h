@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SORCERESSBLACKDRAGON_H
-#define SORCERESSBLACKDRAGON_H
+#ifndef SORCERESSONBLACKDRAGON_H
+#define SORCERESSONBLACKDRAGON_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -18,8 +18,8 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOption {
-            WitchRod,
-            DarklingSword
+            Witch_Rod,
+            Darkling_Sword
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -78,4 +78,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //SORCERESSBLACKDRAGON_H
+#endif //SORCERESSONBLACKDRAGON_H

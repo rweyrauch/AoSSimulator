@@ -16,7 +16,7 @@ namespace Bonesplitterz {
 
         enum WeaponOption {
             Chompa,
-            SavageStikka,
+            Savage_Stikka,
         };
 
         static Unit *Create(const ParameterList &parameters);

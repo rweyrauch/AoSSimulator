@@ -10,14 +10,14 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 3;
-    static const int POINTS_PER_UNIT = 60;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 3;
+    static const int g_pointsPerUnit = 60;
 
     bool Doomflayer::s_registered = false;
 
     Doomflayer::Doomflayer() :
-            Skaventide("Doom-flayer", RAND_2D6, WOUNDS, 4, 5, false),
+            Skaventide("Doom-flayer", RAND_2D6, g_wounds, 4, 5, false),
             m_whirlingBlades(Weapon::Type::Melee, "Whirling Blades", 1, 0, 3, 3, -1, 1),
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, DOOM_FLAYER};
@@ -25,12 +25,12 @@ namespace Skaven {
     }
 
     bool Doomflayer::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_whirlingBlades);
         model->addMeleeWeapon(&m_rustyKnives);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,8 +78,8 @@ namespace Skaven {
         if (weapon->name() == m_whirlingBlades.name()) {
             // Decide to overcharge
             if (moreMore()) {
-                auto roll1 = Dice::rollD6();
-                auto roll2 = Dice::rollD6();
+                auto roll1 = Dice::RollD6();
+                auto roll2 = Dice::RollD6();
                 if ((roll1 == roll2) || (roll1 + roll2 == 7)) {
                     m_moreMoreFailed = true;
                 }
@@ -110,7 +110,7 @@ namespace Skaven {
     }
 
     int Doomflayer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 110;
 
     bool KnightVexillor::s_registered = false;
 
     KnightVexillor::KnightVexillor() :
-            StormcastEternal("Knight-Vexillor", 5, WOUNDS, 8, 3, false),
+            StormcastEternal("Knight-Vexillor", 5, g_wounds, 8, 3, false),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 4, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VEXILLOR};
         m_weapons = {&m_warhammer};
@@ -33,11 +33,11 @@ namespace StormcastEternals {
     }
 
     bool KnightVexillor::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warhammer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -80,12 +80,12 @@ namespace StormcastEternals {
     }
 
     Rerolls KnightVexillor::iconOfWarChargeReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0)) return RerollFailed;
-        return NoRerolls;
+        if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0)) return Reroll_Failed;
+        return No_Rerolls;
     }
 
     int KnightVexillor::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

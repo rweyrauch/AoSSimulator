@@ -26,7 +26,7 @@ namespace Seraphon {
         Koatls_Claw,        // Coalesced
         Thunder_Lizard,     // Coalesced
         Dracothions_Tail,   // Starborne
-        Fangs_of_Sotek,      // Starborne
+        Fangs_Of_Sotek,      // Starborne
     };
 
     //
@@ -46,13 +46,13 @@ namespace Seraphon {
         Mighty_Warleader,
 
         // Skink
-        Master_of_Star_Rituals,
+        Master_Of_Star_Rituals,
         Nimble,
         Cunning,
 
         // Constellation specific
         Ancient_Knowledge, // Dracothions Tail
-        Old_and_Grizzled,   // Fangs of Sotek
+        Old_And_Grizzled,   // Fangs of Sotek
         Dominant_Predator,  // Koatls Claw
         Prime_Warbeast      // The Thunder Lizard
     };
@@ -65,27 +65,27 @@ namespace Seraphon {
 
         // TreasuresOfTheOldOnes
         Zoetic_Dial,
-        Light_of_Dracothian,
-        Prism_of_Amyntok,
+        Light_Of_Dracothian,
+        Prism_Of_Amyntok,
         Itxi_Grubs,
-        Plaque_of_Dominion,
-        Throne_of_the_Lost_Gods,
+        Plaque_Of_Dominion,
+        Throne_Of_The_Lost_Gods,
 
         // CelestialRelicsOfTheWarrior
-        Blade_of_Realities,
-        Sigils_of_the_Prime_Hunter,
+        Blade_Of_Realities,
+        Sigils_Of_The_Prime_Hunter,
         Blood_Rage_Pendant,
 
         // VestmentsOfThePriesthood
         Incandescent_Rectrices,
-        Cloak_of_Feathers,
+        Cloak_Of_Feathers,
         Sacred_Stegadon_Helm,
 
         // Constellation specific
         Godbeast_Pendant,   // Dracothions Tail
         Serpent_God_Dagger, // Fangs of Sotek
         Eviscerating_Blade, // Koatls Claw
-        Fusil_of_Conflagration  // The Thunder Lizard
+        Fusil_Of_Conflagration  // The Thunder Lizard
     };
 
     //
@@ -104,11 +104,11 @@ namespace Seraphon {
 
         // LoreOfCelestialManipulation
         Celestial_Harmony,
-        Hand_of_Glory,
+        Hand_Of_Glory,
         Extend_Astromatrix,
         Fiery_Convocation,
         Bind_Endless_Spell,
-        Tide_of_Serpents
+        Tide_Of_Serpents
     };
 
     class SeraphonBase : public Unit {

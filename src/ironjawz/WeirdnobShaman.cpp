@@ -10,9 +10,9 @@
 #include "IronjawzPrivate.h"
 
 namespace Ironjawz {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool OrrukWeirdnobShaman::s_registered = false;
 
@@ -42,7 +42,7 @@ namespace Ironjawz {
     }
 
     int OrrukWeirdnobShaman::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void OrrukWeirdnobShaman::Init() {
@@ -67,7 +67,7 @@ namespace Ironjawz {
     }
 
     OrrukWeirdnobShaman::OrrukWeirdnobShaman() :
-            Ironjawz("Orruk Weirdnob Shaman", 4, WOUNDS, 6, 5, false),
+            Ironjawz("Orruk Weirdnob Shaman", 4, g_wounds, 6, 5, false),
             m_staff(Weapon::Type::Melee, "Waaagh! Staff", 1, 3, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, WIZARD, WEIRDNOB_SHAMAN};
         m_weapons = {&m_staff};
@@ -75,11 +75,11 @@ namespace Ironjawz {
     }
 
     bool OrrukWeirdnobShaman::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }

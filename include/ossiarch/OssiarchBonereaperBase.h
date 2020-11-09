@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef OSSIARCHBASE_H
-#define OSSIARCHBASE_H
+#ifndef OSSIARCHBONEREAPERBASE_H
+#define OSSIARCHBONEREAPERBASE_H
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -33,7 +33,7 @@ namespace OssiarchBonereapers {
         Immortal_Ruler,
         Dark_Acolyte,
         Peerless_Warrior,
-        Hatred_of_the_Living,
+        Hatred_Of_The_Living,
         Life_Stealer,
 
         // Mortisan
@@ -49,7 +49,7 @@ namespace OssiarchBonereapers {
         Mighty_Archaeossian,    // Petrifex Elite
         Twisted_Challenge,  // Stalliarch Lords
         Scrimshawed_Savage, // Ivory Host
-        Unsettling_and_Sinister,    // Null Myriad
+        Unsettling_And_Sinister,    // Null Myriad
         Wrathful_Avenger    // Crematorians
     };
 
@@ -59,24 +59,24 @@ namespace OssiarchBonereapers {
         // Kavaloi
         Mindblade,
         Lordly_Phylactery,
-        Scroll_of_Command,
+        Scroll_Of_Command,
         Grave_Sand_Boneplate,
         Marrowpact,
-        Helm_of_the_Ordained,
+        Helm_Of_The_Ordained,
 
         // Boneshaper
         Artisans_Key,
-        Lode_of_Saturation,
+        Lode_Of_Saturation,
         The_Crafter_Gems,
 
         // Soulmason
         Gothizzar_Cartouche,
         Soul_Reservoir,
-        Throne_of_Dzendt,
+        Throne_Of_Dzendt,
 
         // Soulreaper
         Luminscythe,
-        Vial_of_Binding,
+        Vial_Of_Binding,
         Guardian_Reavesoul,
 
         // Legion specific
@@ -91,7 +91,7 @@ namespace OssiarchBonereapers {
     enum class Lore : int {
         Arcane_Command,
         Empower_Nadirite_Weapons,
-        Protection_of_Nagash,
+        Protection_Of_Nagash,
         Reinforce_Battle_Shields,
         Drain_Vitality,
         Mortal_Contract
@@ -168,4 +168,4 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif // OSSIARCHBASE_H
+#endif // OSSIARCHBONEREAPERBASE_H

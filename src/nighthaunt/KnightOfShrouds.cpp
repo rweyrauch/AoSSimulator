@@ -10,9 +10,9 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool KnightOfShrouds::s_registered = false;
 
@@ -56,7 +56,7 @@ namespace Nighthaunt {
     }
 
     KnightOfShrouds::KnightOfShrouds() :
-            Nighthaunt("Knight of Shrouds", 6, WOUNDS, 10, 4, true),
+            Nighthaunt("Knight of Shrouds", 6, g_wounds, 10, 4, true),
             m_sword(Weapon::Type::Melee, "Sword of Stolen Hours", 1, 4, 3, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
         m_weapons = {&m_sword};
@@ -64,7 +64,7 @@ namespace Nighthaunt {
     }
 
     bool KnightOfShrouds::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         addModel(model);
 
@@ -74,7 +74,7 @@ namespace Nighthaunt {
     }
 
     int KnightOfShrouds::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

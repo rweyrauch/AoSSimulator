@@ -10,24 +10,24 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int g_basesize = 40;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 400;
 
     bool OgorGluttons::s_registered = false;
 
     Unit *OgorGluttons::Create(const ParameterList &parameters) {
         auto unit = new OgorGluttons();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool skullBearer = GetBoolParam("Beast Skull Bearer", parameters, true);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, true);
         bool lookout = GetBoolParam("Lookout Gnoblar", parameters, true);
         bool bellower = GetBoolParam("Bellower", parameters, true);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, ClubOrBladeAndIronfist);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Club_Or_Blade_And_Ironfist);
 
         auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
         unit->setMawtribe(tribe);
@@ -42,30 +42,30 @@ namespace OgorMawtribes {
 
     std::string OgorGluttons::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == ClubOrBladeAndIronfist) return "Club or Blade and Ironfist";
-            else if (parameter.intValue == PairedClubOrBlade) return "Paired Club or Blade";
+            if (parameter.intValue == Club_Or_Blade_And_Ironfist) return "Club or Blade and Ironfist";
+            else if (parameter.intValue == Paired_Club_Or_Blade) return "Paired Club or Blade";
         }
         return MawtribesBase::ValueToString(parameter);
     }
 
     int OgorGluttons::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Club or Blade and Ironfist") return ClubOrBladeAndIronfist;
-        else if (enumString == "Paired Club or Blade") return PairedClubOrBlade;
+        if (enumString == "Club or Blade and Ironfist") return Club_Or_Blade_And_Ironfist;
+        else if (enumString == "Paired Club or Blade") return Paired_Club_Or_Blade;
 
         return MawtribesBase::EnumStringToInt(enumString);
     }
 
     void OgorGluttons::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {ClubOrBladeAndIronfist, PairedClubOrBlade};
+            static const std::array<int, 2> weapons = {Club_Or_Blade_And_Ironfist, Paired_Club_Or_Blade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", ClubOrBladeAndIronfist, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Club_Or_Blade_And_Ironfist, weapons),
                             BoolParameter("Beast Skull Bearer"),
                             BoolParameter("Banner Bearer"),
                             BoolParameter("Lookout Gnoblar"),
@@ -80,7 +80,7 @@ namespace OgorMawtribes {
     }
 
     OgorGluttons::OgorGluttons() :
-            MawtribesBase("Ogor Gluttons", 6, WOUNDS, 6, 5, false),
+            MawtribesBase("Ogor Gluttons", 6, g_wounds, 6, 5, false),
             m_clubOrBlade(Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 3, 3, 3, 0, 2),
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
             m_clubOrBladeCrusher(Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2) {
@@ -97,7 +97,7 @@ namespace OgorMawtribes {
 
     bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer,
                                  bool lookoutGnoblar, bool bellower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -107,13 +107,13 @@ namespace OgorMawtribes {
         m_lookoutGnoblar = lookoutGnoblar;
         m_bellower = bellower;
 
-        auto crusher = new Model(BASESIZE, wounds());
+        auto crusher = new Model(g_basesize, wounds());
         crusher->addMeleeWeapon(&m_clubOrBladeCrusher);
         crusher->addMeleeWeapon(&m_bite);
         addModel(crusher);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_clubOrBlade);
             model->addMeleeWeapon(&m_bite);
             addModel(model);
@@ -136,7 +136,7 @@ namespace OgorMawtribes {
     Rerolls OgorGluttons::chargeRerolls() const {
         // Beast Skull Bearer
         if (m_skullBearer) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -144,7 +144,7 @@ namespace OgorMawtribes {
     int OgorGluttons::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
         // Paired Clubs or Blades
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_clubOrBlade.name()) &&
-            (m_weaponOption == PairedClubOrBlade)) {
+            (m_weaponOption == Paired_Club_Or_Blade)) {
             return 2;
         }
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
@@ -152,16 +152,16 @@ namespace OgorMawtribes {
 
     Wounds OgorGluttons::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
         // Ironfist
-        if ((saveRoll == 6) && (m_weaponOption == ClubOrBladeAndIronfist)) {
+        if ((saveRoll == 6) && (m_weaponOption == Club_Or_Blade_And_Ironfist)) {
             return {0, 1};
         }
         return Unit::computeReturnedDamage(weapon, saveRoll);
     }
 
     int OgorGluttons::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -179,9 +179,9 @@ namespace OgorMawtribes {
         auto totalWounds = Unit::applyWoundSave(wounds);
 
         // Lookout Gnoblar
-        if (m_lookoutGnoblar && (wounds.source == Wounds::Source::WeaponMissile)) {
+        if (m_lookoutGnoblar && (wounds.source == Wounds::Source::Weapon_Missile)) {
             Dice::RollResult result;
-            Dice::rollD6(totalWounds.normal, result);
+            Dice::RollD6(totalWounds.normal, result);
             totalWounds.normal -= result.rollsGE(6);
         }
 

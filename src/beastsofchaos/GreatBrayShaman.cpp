@@ -12,14 +12,14 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool GreatBrayShaman::s_registered = false;
 
     GreatBrayShaman::GreatBrayShaman() :
-            BeastsOfChaosBase("Great Bray-shaman", 6, WOUNDS, 6, 6, false),
+            BeastsOfChaosBase("Great Bray-shaman", 6, g_wounds, 6, 6, false),
             m_fetishStaff(Weapon::Type::Melee, "Fetish Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, WIZARD, GREAT_BRAY_SHAMAN};
         m_weapons = {&m_fetishStaff};
@@ -35,7 +35,7 @@ namespace BeastsOfChaos {
     }
 
     bool GreatBrayShaman::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_fetishStaff);
         addModel(model);
 
@@ -44,7 +44,7 @@ namespace BeastsOfChaos {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -102,7 +102,7 @@ namespace BeastsOfChaos {
     }
 
     int GreatBrayShaman::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace BeastsOfChaos

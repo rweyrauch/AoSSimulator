@@ -14,9 +14,9 @@
 
 namespace Seraphon {
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 260;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 260;
 
     struct TableEntry {
         int m_move;
@@ -24,9 +24,9 @@ namespace Seraphon {
         int m_stompAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 5, 8, 10, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 5, 8, 10, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {8, 4, 5},
                     {7, 3, 4},
@@ -38,14 +38,14 @@ namespace Seraphon {
     bool EngineOfTheGods::s_registered = false;
 
     EngineOfTheGods::EngineOfTheGods() :
-            SeraphonBase("Engine of the Gods", 8, WOUNDS, 6, 4, false),
+            SeraphonBase("Engine of the Gods", 8, g_wounds, 6, 4, false),
             m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
             m_horns(Weapon::Type::Melee, "Massive Horns", 2, 2, 3, 3, -1, 4),
             m_jaws(Weapon::Type::Melee, "Grinding Jaws", 1, 2, 3, 3, -1, 2),
             m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2) {
         m_keywords = {ORDER, SERAPHON, STEGADON, SKINK, MONSTER, HERO, ENGINE_OF_THE_GODS};
         m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         s_globalBattleshockReroll.connect(this, &EngineOfTheGods::steadfastMajestyBraveryReroll, &m_steadfastSlot);
@@ -60,7 +60,7 @@ namespace Seraphon {
     }
 
     bool EngineOfTheGods::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_javelins);
         model->addMeleeWeapon(&m_horns);
         model->addMeleeWeapon(&m_jaws);
@@ -133,7 +133,7 @@ namespace Seraphon {
 
     int EngineOfTheGods::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -147,8 +147,8 @@ namespace Seraphon {
         // Unstoppable Stampede
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto unit : units) {
-            if (Dice::rollD6() >= 3) {
-                unit->applyDamage({0, Dice::rollD3()});
+            if (Dice::RollD6() >= 3) {
+                unit->applyDamage({0, Dice::RollD3()});
             }
         }
     }
@@ -162,30 +162,30 @@ namespace Seraphon {
         m_timeStoodStill = false;
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SLANN, 12.0);
 
-        int roll = Dice::roll2D6();
+        int roll = Dice::Roll2D6();
         if (unit) {
-            roll = Dice::roll3D6();
+            roll = Dice::Roll3D6();
         }
         if (roll <= 3) {
-            applyDamage({0, Dice::rollD3()});
+            applyDamage({0, Dice::RollD3()});
         } else if (roll <= 8) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto u : units) {
                 if (u->hasKeyword(SERAPHON)) {
-                    u->heal(Dice::rollD3());
+                    u->heal(Dice::RollD3());
                 }
             }
-            heal(Dice::rollD3());
+            heal(Dice::RollD3());
         } else if (roll <= 12) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
             if (units.empty()) {
                 units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 24.0);
                 if (!units.empty()) {
-                    units.front()->applyDamage({0, Dice::rollD3()});
+                    units.front()->applyDamage({0, Dice::RollD3()});
                 }
             } else {
                 for (auto u : units) {
-                    u->applyDamage({0, Dice::rollD3()});
+                    u->applyDamage({0, Dice::RollD3()});
                 }
             }
         } else if (roll <= 17) {
@@ -204,18 +204,18 @@ namespace Seraphon {
     }
 
     Rerolls EngineOfTheGods::steadfastMajestyBraveryReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return RerollFailed;
-        return NoRerolls;
+        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return Reroll_Failed;
+        return No_Rerolls;
     }
 
     int EngineOfTheGods::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Rerolls EngineOfTheGods::cosmicEngineChargeReroll(const Unit *unit) {
         if (m_timeStoodStill && isFriendly(unit) && unit->hasKeyword(SERAPHON) && (distanceTo(unit) <= 24.0))
-            return RerollFailed;
-        return NoRerolls;
+            return Reroll_Failed;
+        return No_Rerolls;
     }
 
     int EngineOfTheGods::cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,

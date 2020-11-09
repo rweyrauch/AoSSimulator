@@ -10,9 +10,9 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 20;
-    static const int POINTS_PER_UNIT = 500;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 20;
+    static const int g_pointsPerUnit = 500;
 
     bool Katakros::s_registered = false;
 
@@ -60,7 +60,7 @@ namespace OssiarchBonereapers {
     }
 
     Katakros::Katakros() :
-            OssiarchBonereaperBase("Orpheon Katakros", 4, WOUNDS, 10, 3, false),
+            OssiarchBonereaperBase("Orpheon Katakros", 4, g_wounds, 10, 3, false),
             m_indaKhaat(Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3),
             m_shieldImmortis(Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2),
             m_nadiriteDagger(Weapon::Type::Melee, "Nadirite Dagger", 1, 1, 3, 3, -1, 1),
@@ -73,7 +73,7 @@ namespace OssiarchBonereapers {
     }
 
     bool Katakros::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_indaKhaat);
         model->addMeleeWeapon(&m_shieldImmortis);
         model->addMeleeWeapon(&m_nadiriteDagger);
@@ -85,7 +85,7 @@ namespace OssiarchBonereapers {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -123,7 +123,7 @@ namespace OssiarchBonereapers {
     }
 
     int Katakros::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void Katakros::onRestore() {

@@ -12,17 +12,17 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 220;
-    static const int POINTS_MAX_UNIT_SIZE = 440;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 220;
+    static const int g_pointsMaxUnitSize = 440;
 
     bool HorrorsOfTzeentch::s_registered = false;
 
     HorrorsOfTzeentch::HorrorsOfTzeentch() :
-            TzeentchBase("Horrors of Tzeentch", 5, WOUNDS, 10, 6, false),
+            TzeentchBase("Horrors of Tzeentch", 5, g_wounds, 10, 6, false),
             m_magicalFlamesPink(Weapon::Type::Missile, "Magical Flames (Pink)", 12, 3, 5, 4, 0, 1),
             m_magicalFlamesBlue(Weapon::Type::Missile, "Magical Flames (Blue)", 12, 2, 5, 4, 0, 1),
             m_magicalFlamesBrimstone(Weapon::Type::Missile, "Magical Flames (Brimstone)", 12, 1, 5, 4, 0, 1),
@@ -44,20 +44,20 @@ namespace Tzeentch {
     }
 
     bool HorrorsOfTzeentch::configure(int numModels, bool iconBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_iconBearer = iconBearer;
         m_hornblower = hornblower;
 
-        auto horror = new Model(BASESIZE, wounds());
+        auto horror = new Model(g_basesize, wounds());
         horror->addMissileWeapon(&m_magicalFlamesPink);
         horror->addMeleeWeapon(&m_talonedHandsIridescent);
         addModel(horror);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_magicalFlamesPink);
             model->addMeleeWeapon(&m_talonedHandsPink);
             addModel(model);
@@ -70,7 +70,7 @@ namespace Tzeentch {
 
     Unit *HorrorsOfTzeentch::Create(const ParameterList &parameters) {
         auto unit = new HorrorsOfTzeentch();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -93,7 +93,7 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     HorrorsOfTzeentch::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
@@ -110,7 +110,7 @@ namespace Tzeentch {
         if (m_iconBearer) {
             // Icon Bearer
             if (roll == 1) {
-                numAdded = Dice::rollD6();
+                numAdded = Dice::RollD6();
             }
         }
     }
@@ -118,7 +118,7 @@ namespace Tzeentch {
     void HorrorsOfTzeentch::restoreModels(int numModels) {
         // Icon Bearer
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_magicalFlamesPink);
             model->addMeleeWeapon(&m_talonedHandsPink);
             addModel(model);
@@ -148,9 +148,9 @@ namespace Tzeentch {
     }
 
     int HorrorsOfTzeentch::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -162,8 +162,8 @@ namespace Tzeentch {
         // TODO: only applies when the unit has Pink Horrors
         Dice::RollResult resultNormal, resultMortal;
 
-        Dice::rollD6(wounds.normal, resultNormal);
-        Dice::rollD6(wounds.mortal, resultMortal);
+        Dice::RollD6(wounds.normal, resultNormal);
+        Dice::RollD6(wounds.mortal, resultMortal);
 
         Wounds negatedWounds = {resultNormal.rollsGE(6), resultNormal.rollsGE(6)};
         totalWounds -= negatedWounds;

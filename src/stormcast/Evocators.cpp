@@ -13,17 +13,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 210;
-    static const int POINTS_MAX_UNIT_SIZE = 840;
+    static const int g_basesize = 40;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 210;
+    static const int g_pointsMaxUnitSize = 840;
 
     bool Evocators::s_registered = false;
 
     Evocators::Evocators() :
-            StormcastEternal("Evocators", 5, WOUNDS, 8, 4, false),
+            StormcastEternal("Evocators", 5, g_wounds, 8, 4, false),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
             m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1),
             m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
@@ -38,7 +38,7 @@ namespace StormcastEternals {
     bool
     Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstave, Lore lore) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -50,7 +50,7 @@ namespace StormcastEternals {
         }
 
         // Add the Prime
-        auto primeModel = new Model(BASESIZE, wounds());
+        auto primeModel = new Model(g_basesize, wounds());
         if (primeGrandstave) {
             primeModel->addMeleeWeapon(&m_grandStavePrime);
             numGrandstaves--;
@@ -60,14 +60,14 @@ namespace StormcastEternals {
         addModel(primeModel);
 
         for (auto i = 0; i < numGrandstaves; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_grandStave);
             addModel(model);
         }
 
         auto currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_tempestBladeAndStave);
             addModel(model);
         }
@@ -83,7 +83,7 @@ namespace StormcastEternals {
     Rerolls Evocators::toSaveRerolls(const Weapon *weapon) const {
         // Celestial Lightning Arc
         if (weapon->isMissile()) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return StormcastEternal::toSaveRerolls(weapon);
@@ -93,11 +93,11 @@ namespace StormcastEternals {
         auto mortalWounds = StormcastEternal::generateMortalWounds(unit);
 
         // Celestial Lightning Arc
-        int roll = Dice::rollD6();
+        int roll = Dice::RollD6();
         if (roll >= 4) {
             mortalWounds++;
         }
-        roll = Dice::rollD6();
+        roll = Dice::RollD6();
         if (roll >= 4) {
             mortalWounds++;
         }
@@ -107,7 +107,7 @@ namespace StormcastEternals {
 
     Unit *Evocators::Create(const ParameterList &parameters) {
         auto *evos = new Evocators();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool primeGrandstave = GetBoolParam("Prime Grandstave", parameters, false);
         int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
         auto lore = (Lore) GetEnumParam("Lore of Invigoration", parameters, g_loreOfInvigoration[0]);
@@ -131,9 +131,9 @@ namespace StormcastEternals {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Prime Grandstave"),
-                            IntegerParameter("Grandstaves", 2, 0, MAX_UNIT_SIZE, 1),
+                            IntegerParameter("Grandstaves", 2, 0, g_maxUnitSize, 1),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Lore of Invigoration", g_loreOfInvigoration[0], g_loreOfInvigoration)
                     },
@@ -154,9 +154,9 @@ namespace StormcastEternals {
     }
 
     int Evocators::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

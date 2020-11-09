@@ -12,17 +12,17 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 7;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * MAX_UNIT_SIZE;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 7;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * g_maxUnitSize;
 
     bool SkullCannons::s_registered = false;
 
     SkullCannons::SkullCannons() :
-            KhorneBase("Skull Cannons", 8, WOUNDS, 10, 4, false),
+            KhorneBase("Skull Cannons", 8, g_wounds, 10, 4, false),
             m_burningSkulls(Weapon::Type::Missile, "Burning Skulls", 30, 1, 3, 3, -2, RAND_D6),
             m_hellblades(Weapon::Type::Melee, "Hellblades", 1, 2, 4, 3, -1, 1),
             m_gnashingMaw(Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3) {
@@ -33,12 +33,12 @@ namespace Khorne {
     }
 
     bool SkullCannons::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_burningSkulls);
             model->addMeleeWeapon(&m_hellblades);
             model->addMeleeWeapon(&m_gnashingMaw);
@@ -52,7 +52,7 @@ namespace Khorne {
 
     Unit *SkullCannons::Create(const ParameterList &parameters) {
         auto unit = new SkullCannons();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
@@ -73,7 +73,7 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     SkullCannons::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
@@ -102,9 +102,9 @@ namespace Khorne {
     }
 
     int SkullCannons::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

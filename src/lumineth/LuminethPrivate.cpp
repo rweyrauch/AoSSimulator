@@ -11,7 +11,7 @@
 namespace LuminethRealmLords {
 
     Spell::Result PowerOfHysh::cast(Unit *target, int round) {
-        auto result = Spell::Failed;
+        auto result = Result::Failed;
         if (m_caster->remainingModels() >= 5) {
             const int castingRoll = m_caster->rollCasting();
             if (castingRoll >= m_castingValue) {
@@ -19,11 +19,11 @@ namespace LuminethRealmLords {
                 if (!unbound) {
                     SimLog(Verbosity::Narrative, "%s spell %s was cast.\n", m_caster->name().c_str(),
                            name().c_str());
-                    result = Success;
+                    result = Result::Success;
                 } else {
                     SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(),
                            name().c_str());
-                    result = Unbound;
+                    result = Result::Unbound;
                 }
             } else {
                 SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),

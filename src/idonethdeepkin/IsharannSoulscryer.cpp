@@ -10,9 +10,9 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 130;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 130;
 
     bool IsharannSoulscryer::s_registered = false;
 
@@ -61,7 +61,7 @@ namespace IdonethDeepkin {
     }
 
     IsharannSoulscryer::IsharannSoulscryer() :
-            IdonethDeepkinBase("Isharann Soulscryer", 6, WOUNDS, 7, 6, false),
+            IdonethDeepkinBase("Isharann Soulscryer", 6, g_wounds, 7, 6, false),
             m_shoal(Weapon::Type::Missile, "Scryfish Shoal", 18, 8, 5, 5, 0, 1),
             m_claw(Weapon::Type::Melee, "Finger-claw", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, PRIEST, SOULSCRYER};
@@ -70,19 +70,19 @@ namespace IdonethDeepkin {
     }
 
     bool IsharannSoulscryer::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_shoal);
         model->addMeleeWeapon(&m_claw);
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int IsharannSoulscryer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //IdonethDeepkin

@@ -13,14 +13,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 160;
 
     bool BladebringerOnSeekerChariot::s_registered = false;
 
     BladebringerOnSeekerChariot::BladebringerOnSeekerChariot() :
-            SlaaneshBase("Bladebringer, Herald on Seeker Chariot", 12, WOUNDS, 10, 4, false),
+            SlaaneshBase("Bladebringer, Herald on Seeker Chariot", 12, g_wounds, 10, 4, false),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -38,7 +38,7 @@ namespace Slaanesh {
     }
 
     bool BladebringerOnSeekerChariot::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongues);
@@ -47,7 +47,7 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -104,14 +104,14 @@ namespace Slaanesh {
         // Multilating Blades
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
-            if (Dice::rollD6() >= 2) {
-                ip->applyDamage({0, Dice::rollD3()});
+            if (Dice::RollD6() >= 2) {
+                ip->applyDamage({0, Dice::RollD3()});
             }
         }
     }
 
     int BladebringerOnSeekerChariot::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

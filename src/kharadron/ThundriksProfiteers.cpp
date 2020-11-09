@@ -9,9 +9,9 @@
 #include "kharadron/ThundriksProfiteers.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 0;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_pointsPerUnit = 0;
 
     bool ThundriksProfiteers::s_registered = false;
 
@@ -29,7 +29,7 @@ namespace KharadronOverlords {
     }
 
     int ThundriksProfiteers::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void ThundriksProfiteers::Init() {
@@ -48,7 +48,7 @@ namespace KharadronOverlords {
     }
 
     ThundriksProfiteers::ThundriksProfiteers() :
-            KharadronBase("Thundrik's Profiteers", 4, WOUNDS, 7, 4, false),
+            KharadronBase("Thundrik's Profiteers", 4, g_wounds, 7, 4, false),
             m_volleyGun(Weapon::Type::Missile, "Aethermatic Volley Gun", 18, 6, 5, 4, -1, 1),
             m_rifle(Weapon::Type::Missile, "Aethershot Rifle", 18, 4, 3, 4, -1, 1),
             m_privateerPistol(Weapon::Type::Missile, "Privateer Pistol", 12, 2, 4, 4, 0, 1),
@@ -64,25 +64,25 @@ namespace KharadronOverlords {
 
     bool ThundriksProfiteers::configure() {
 
-        auto garodd = new Model(BASESIZE, wounds());
+        auto garodd = new Model(g_basesize, wounds());
         garodd->addMissileWeapon(&m_privateerPistol);
         garodd->addMeleeWeapon(&m_cutter);
         garodd->setName("Garodd Alensen");
         addModel(garodd);
 
-        auto enrik = new Model(BASESIZE, wounds());
+        auto enrik = new Model(g_basesize, wounds());
         enrik->addMissileWeapon(&m_volleyGun);
         enrik->addMeleeWeapon(&m_gunButt);
         enrik->setName("Enrik Ironhail");
         addModel(enrik);
 
-        auto deadeye = new Model(BASESIZE, wounds());
+        auto deadeye = new Model(g_basesize, wounds());
         deadeye->addMissileWeapon(&m_rifle);
         deadeye->addMeleeWeapon(&m_gunButt);
         deadeye->setName("Dead-Eye Lund");
         addModel(deadeye);
 
-        auto khazgan = new Model(BASESIZE, wounds());
+        auto khazgan = new Model(g_basesize, wounds());
         khazgan->addMissileWeapon(&m_vulcaniserPistol);
         khazgan->addMeleeWeapon(&m_skypike);
         khazgan->setName("Khazgan Drakkskewer");

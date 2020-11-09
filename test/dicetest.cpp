@@ -17,7 +17,7 @@ TEST(Dice, D6)
 {
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = Dice::rollD6();
+        auto r = Dice::RollD6();
         ASSERT_GE(r, 1);
         ASSERT_LE(r, 6);
     }
@@ -27,7 +27,7 @@ TEST(Dice, D3)
 {
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = Dice::rollD3();
+        auto r = Dice::RollD3();
         ASSERT_GE(r, 1);
         ASSERT_LE(r, 3);
     }
@@ -37,7 +37,7 @@ TEST(Dice, TwoD6)
 {
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = Dice::roll2D6();
+        auto r = Dice::Roll2D6();
         ASSERT_GE(r, 2);
         ASSERT_LE(r, 12);
     }
@@ -47,7 +47,7 @@ TEST(Dice, ThreeD6)
 {
     for (auto i = 0; i < g_numRolls; i++)
     {
-        auto r = Dice::roll3D6();
+        auto r = Dice::Roll3D6();
         ASSERT_GE(r, 3);
         ASSERT_LE(r, 18);
     }
@@ -63,7 +63,7 @@ TEST(Dice, MultipleD6)
     {
         auto numDice = (int)dist(gen);
 
-        auto rv = Dice::rollD6(numDice);
+        auto rv = Dice::RollD6(numDice);
         ASSERT_EQ(rv.size(), numDice);
         for (auto r : rv)
         {
@@ -72,9 +72,9 @@ TEST(Dice, MultipleD6)
         }
 
         Dice::RollResult rr;
-        Dice::rollD6(numDice, rr);
+        Dice::RollD6(numDice, rr);
         int total = 0;
-        for (int v : rr.distribution)
+        for (int v : rr.m_distribution)
         {
             total += v;
         }
@@ -92,7 +92,7 @@ TEST(Dice, MultipleD6Rerolling)
     {
         auto numDice = (int)dist(gen);
 
-        auto rv = Dice::rollD6(numDice, 1);
+        auto rv = Dice::RollD6(numDice, 1);
         ASSERT_EQ(rv.size(), numDice);
         for (auto r : rv)
         {
@@ -101,9 +101,9 @@ TEST(Dice, MultipleD6Rerolling)
         }
 
         Dice::RollResult rr;
-        Dice::rollD6(numDice, 1, rr);
+        Dice::RollD6(numDice, 1, rr);
         int total = 0;
-        for (int v : rr.distribution)
+        for (int v : rr.m_distribution)
         {
             total += v;
         }
@@ -121,10 +121,10 @@ int sum_acc(const std::vector<int>& v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
 }
 Rerolls rr1(int x) {
-    return RerollOnes;
+    return Reroll_Ones;
 }
 Rerolls rrf(int x) {
-    return RerollFailed;
+    return Reroll_Failed;
 }
 
 TEST(Dice, SignalTest)
@@ -151,10 +151,10 @@ TEST(Dice, SignalTest)
     auto rfc = roller.connect(rrf);
 
     auto rr = roller(1);
-    ASSERT_EQ(rr, RerollFailed);
+    ASSERT_EQ(rr, Reroll_Failed);
 
     roller.disconnect(rfc);
 
     auto rf = roller(2);
-    ASSERT_EQ(rf, RerollOnes);
+    ASSERT_EQ(rf, Reroll_Ones);
 }

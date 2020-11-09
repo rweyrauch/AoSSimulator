@@ -10,9 +10,9 @@
 #include "nighthaunt/BlackCoach.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 170; // x105 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 170; // x105 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 220;
 
     bool BlackCoach::s_registered = false;
 
@@ -21,9 +21,9 @@ namespace Nighthaunt {
         int m_clawAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 9},
                     {10, 8},
@@ -60,7 +60,7 @@ namespace Nighthaunt {
     }
 
     BlackCoach::BlackCoach() :
-            Nighthaunt("Black Coach", 14, WOUNDS, 10, 4, true),
+            Nighthaunt("Black Coach", 14, g_wounds, 10, 4, true),
             m_graspMissile(Weapon::Type::Missile, "Cairn Wraith's Soulreach Grasp", 10, 1, 3, 3, -3, RAND_D3),
             m_scythe(Weapon::Type::Melee, "Cairn Wraith's Reaper Scythe", 1, 3, 4, 3, -1, 2),
             m_grasp(Weapon::Type::Melee, "Cairn Wraith's Soulreach Grasp", 3, 1, 3, 3, -3, RAND_D3),
@@ -72,7 +72,7 @@ namespace Nighthaunt {
     }
 
     bool BlackCoach::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_graspMissile);
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_grasp);
@@ -95,7 +95,7 @@ namespace Nighthaunt {
 
     int BlackCoach::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -120,7 +120,7 @@ namespace Nighthaunt {
 
         // Evocation of Death
         Dice::RollResult result;
-        Dice::rollD6(3, result);
+        Dice::RollD6(3, result);
         m_powerLevel += result.rollsGE(4);
 
         // Insubstantial Form
@@ -139,15 +139,15 @@ namespace Nighthaunt {
 
         if ((player == owningPlayer()) && (m_powerLevel >= 1)) {
             // Nimbus of Power
-            heal(Dice::rollD3());
+            heal(Dice::RollD3());
         }
 
         if ((player == owningPlayer()) && (m_powerLevel >= 5)) {
             // Witch-fire
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             for (auto unit : units) {
-                if (Dice::rollD6() >= 4) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }
@@ -160,8 +160,8 @@ namespace Nighthaunt {
             // Spectral Scythes
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
             if (!units.empty()) {
-                if (Dice::rollD6() >= 2) {
-                    units[0]->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 2) {
+                    units[0]->applyDamage({0, Dice::RollD3()});
                 }
             }
         }
@@ -181,18 +181,18 @@ namespace Nighthaunt {
     Rerolls BlackCoach::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Reaped Like Corn
         if ((target->remainingModels() >= 5) && (weapon->name() == m_scythe.name())) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         // Unholy Vigour
         if ((m_powerLevel >= 2) && (!weapon->isMissile())) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     int BlackCoach::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

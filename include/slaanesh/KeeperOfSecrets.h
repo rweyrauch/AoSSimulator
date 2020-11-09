@@ -18,10 +18,10 @@ namespace Slaanesh {
     public:
 
         enum WeaponOption {
-            RitualKnife,
-            SinistrousHand,
-            LivingWhip,
-            ShiningAegis
+            Ritual_Knife,
+            Sinistrous_Hand,
+            Living_Whip,
+            Shining_Aegis
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -58,7 +58,7 @@ namespace Slaanesh {
 
     private:
 
-        WeaponOption m_weapon = RitualKnife;
+        WeaponOption m_weapon = Ritual_Knife;
 
         Weapon m_livingWhip,
                 m_ritualKnifeOrHand,

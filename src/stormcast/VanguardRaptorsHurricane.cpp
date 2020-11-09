@@ -12,17 +12,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 40;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool VanguardRaptorsHurricane::s_registered = false;
 
     VanguardRaptorsHurricane::VanguardRaptorsHurricane() :
-            StormcastEternal("Vanguard Raptors with Hurricane Crossbows", 5, WOUNDS, 7, 4, false),
+            StormcastEternal("Vanguard Raptors with Hurricane Crossbows", 5, g_wounds, 7, 4, false),
             m_hurricaneCrossbow(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 4, 4, 0, 1),
             m_hurricaneCrossbowPrime(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 3, 4, 0, 1),
             m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 4, 0, 1) {
@@ -32,19 +32,19 @@ namespace StormcastEternals {
 
     bool VanguardRaptorsHurricane::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         // Add the Prime
-        auto primeModel = new Model(BASESIZE, wounds());
+        auto primeModel = new Model(g_basesize, wounds());
         primeModel->addMissileWeapon(&m_hurricaneCrossbowPrime);
         primeModel->addMeleeWeapon(&m_heavyStock);
         addModel(primeModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_hurricaneCrossbow);
             model->addMeleeWeapon(&m_heavyStock);
             addModel(model);
@@ -57,7 +57,7 @@ namespace StormcastEternals {
 
     Unit *VanguardRaptorsHurricane::Create(const ParameterList &parameters) {
         auto unit = new VanguardRaptorsHurricane();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -78,7 +78,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
@@ -99,9 +99,9 @@ namespace StormcastEternals {
     }
 
     int VanguardRaptorsHurricane::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

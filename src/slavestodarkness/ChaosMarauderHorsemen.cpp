@@ -10,19 +10,19 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 65;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 110;
-    static const int POINTS_MAX_UNIT_SIZE = 330;
+    static const int g_basesize = 65;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 110;
+    static const int g_pointsMaxUnitSize = 330;
 
     bool ChaosMarauderHorsemen::s_registered = false;
 
     Unit *ChaosMarauderHorsemen::Create(const ParameterList &parameters) {
         auto unit = new ChaosMarauderHorsemen();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, AxeAndShield);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Axe_And_Shield);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -42,15 +42,15 @@ namespace SlavesToDarkness {
 
     void ChaosMarauderHorsemen::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {AxeAndShield, JavelinAndShield, Flail};
+            static const std::array<int, 3> weapons = {Axe_And_Shield, Javelin_And_Shield, Flail};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter( "Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", AxeAndShield, weapons),
+                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Axe_And_Shield, weapons),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
@@ -65,7 +65,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosMarauderHorsemen::ChaosMarauderHorsemen() :
-            SlavesToDarknessBase("Chaos Marauder Horsemen", 12, WOUNDS, 5, 6, false),
+            SlavesToDarknessBase("Chaos Marauder Horsemen", 12, g_wounds, 5, 6, false),
             m_javelinMissile(Weapon::Type::Missile, "Marauder Javelin", 12, 1, 4, 3, -1, 1),
             m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
             m_flail(Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, -1, 1),
@@ -91,7 +91,7 @@ namespace SlavesToDarkness {
     }
 
     bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool iconBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -99,12 +99,12 @@ namespace SlavesToDarkness {
         m_iconBearer = iconBearer;
         m_hornblower = hornblower;
 
-        auto leader = new Model(BASESIZE, wounds());
-        if (weapons == AxeAndShield) {
+        auto leader = new Model(g_basesize, wounds());
+        if (weapons == Axe_And_Shield) {
             leader->addMeleeWeapon(&m_axeMaster);
         } else if (weapons == Flail) {
             leader->addMeleeWeapon(&m_flailMaster);
-        } else if (weapons == JavelinAndShield) {
+        } else if (weapons == Javelin_And_Shield) {
             leader->addMeleeWeapon(&m_javelinMaster);
             leader->addMissileWeapon(&m_javelinMissile);
         }
@@ -113,13 +113,13 @@ namespace SlavesToDarkness {
         addModel(leader);
 
         if (m_iconBearer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Icon Bearer");
-            if (weapons == AxeAndShield)
+            if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
                 model->addMeleeWeapon(&m_flail);
-            else if (weapons == JavelinAndShield) {
+            else if (weapons == Javelin_And_Shield) {
                 model->addMissileWeapon(&m_javelinMissile);
                 model->addMeleeWeapon(&m_javelin);
             }
@@ -128,13 +128,13 @@ namespace SlavesToDarkness {
         }
 
         if (m_hornblower) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
-            if (weapons == AxeAndShield)
+            if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
                 model->addMeleeWeapon(&m_flail);
-            else if (weapons == JavelinAndShield) {
+            else if (weapons == Javelin_And_Shield) {
                 model->addMissileWeapon(&m_javelinMissile);
                 model->addMeleeWeapon(&m_javelin);
             }
@@ -143,12 +143,12 @@ namespace SlavesToDarkness {
         }
 
         for (auto i = (int) m_models.size(); i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == AxeAndShield)
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
                 model->addMeleeWeapon(&m_flail);
-            else if (weapons == JavelinAndShield) {
+            else if (weapons == Javelin_And_Shield) {
                 model->addMissileWeapon(&m_javelinMissile);
                 model->addMeleeWeapon(&m_javelin);
             }
@@ -157,7 +157,7 @@ namespace SlavesToDarkness {
         }
 
         // Darkwood Shields
-        if (m_weaponOption == AxeAndShield || m_weaponOption == JavelinAndShield) {
+        if (m_weaponOption == Axe_And_Shield || m_weaponOption == Javelin_And_Shield) {
             m_save = 5;
         }
 
@@ -168,11 +168,11 @@ namespace SlavesToDarkness {
 
     std::string ChaosMarauderHorsemen::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == AxeAndShield) {
+            if (parameter.intValue == Axe_And_Shield) {
                 return "Barbarian Axe and Darkwood Shield";
             } else if (parameter.intValue == Flail) {
                 return "Barbarian Flail";
-            } else if (parameter.intValue == JavelinAndShield) {
+            } else if (parameter.intValue == Javelin_And_Shield) {
                 return "Marauder Javelin and Darkwood Shield";
             }
         }
@@ -181,11 +181,11 @@ namespace SlavesToDarkness {
 
     int ChaosMarauderHorsemen::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Barbarian Axe and Darkwood Shield") {
-            return AxeAndShield;
+            return Axe_And_Shield;
         } else if (enumString == "Barbarian Flail") {
             return Flail;
         } else if (enumString == "Marauder Javelin and Darkwood Shield") {
-            return JavelinAndShield;
+            return Javelin_And_Shield;
         }
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
@@ -245,9 +245,9 @@ namespace SlavesToDarkness {
     }
 
     int ChaosMarauderHorsemen::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

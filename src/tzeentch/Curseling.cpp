@@ -12,9 +12,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 160;
 
     bool CurselingEyeOfTzeentch::s_registered = false;
 
@@ -58,7 +58,7 @@ namespace Tzeentch {
     }
 
     CurselingEyeOfTzeentch::CurselingEyeOfTzeentch() :
-            TzeentchBase("Curseling Eye of Tzeentch", 5, WOUNDS, 7, 4, false),
+            TzeentchBase("Curseling Eye of Tzeentch", 5, g_wounds, 7, 4, false),
             m_sword(Weapon::Type::Melee, "Blazing Sword", 1, 3, 3, 4, -1, 1),
             m_flail(Weapon::Type::Melee, "Threshing Flail", 1, 3, 4, 3, 0, 1),
             m_staff(Weapon::Type::Melee, "Staff of Tzeentch", 2, 1, 5, 4, 0, RAND_D3) {
@@ -71,7 +71,7 @@ namespace Tzeentch {
     }
 
     bool CurselingEyeOfTzeentch::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_flail);
         model->addMeleeWeapon(&m_staff);
@@ -80,13 +80,13 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int CurselingEyeOfTzeentch::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

@@ -10,9 +10,9 @@
 #include "mawtribes/Hrothgorn.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 50;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 120;
 
     bool Hrothgorn::s_registered = false;
 
@@ -50,7 +50,7 @@ namespace OgorMawtribes {
     }
 
     Hrothgorn::Hrothgorn() :
-            MawtribesBase("Hrothgorn", 6, WOUNDS, 7, 5, false),
+            MawtribesBase("Hrothgorn", 6, g_wounds, 7, 5, false),
             m_trapLauncher(Weapon::Type::Missile, "Trap Launcher", 12, 1, 4, 3, 0, RAND_D3),
             m_knife(Weapon::Type::Melee, "Hunting Knife", 1, 4, 3, 3, 0, 2),
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
@@ -61,7 +61,7 @@ namespace OgorMawtribes {
     }
 
     bool Hrothgorn::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_trapLauncher);
         model->addMeleeWeapon(&m_knife);
@@ -83,7 +83,7 @@ namespace OgorMawtribes {
     }
 
     int Hrothgorn::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

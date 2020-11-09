@@ -11,14 +11,14 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 160;
 
     bool Jabberslythe::s_registered = false;
 
     Jabberslythe::Jabberslythe() :
-            BeastsOfChaosBase("Jabberslythe", 12, WOUNDS, 6, 5, true),
+            BeastsOfChaosBase("Jabberslythe", 12, g_wounds, 6, 5, true),
             m_slytheyTongue(Weapon::Type::Missile, "Slythey Tongue", 9, 1, 3, 3, -1, RAND_D3),
             m_vorpalClaws(Weapon::Type::Melee, "Vorpal Claws", 1, 6, 3, 3, -2, 1),
             m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3) {
@@ -28,13 +28,13 @@ namespace BeastsOfChaos {
     }
 
     bool Jabberslythe::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_slytheyTongue);
         model->addMeleeWeapon(&m_vorpalClaws);
         model->addMeleeWeapon(&m_spikedTail);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -72,14 +72,14 @@ namespace BeastsOfChaos {
     }
 
     int Jabberslythe::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Wounds Jabberslythe::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
         auto totalWounds = Unit::computeReturnedDamage(weapon, saveRoll);
 
         // Spurting Bile Blood
-        if (Dice::rollD6() >= 4) {
+        if (Dice::RollD6() >= 4) {
             totalWounds.mortal++;
         }
 

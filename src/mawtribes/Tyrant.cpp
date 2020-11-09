@@ -11,9 +11,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 50;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 160;
 
     bool Tyrant::s_registered = false;
 
@@ -89,7 +89,7 @@ namespace OgorMawtribes {
     }
 
     Tyrant::Tyrant() :
-            MawtribesBase("Tyrant", 6, WOUNDS, 8, 4, false),
+            MawtribesBase("Tyrant", 6, g_wounds, 8, 4, false),
             m_pistols(Weapon::Type::Missile, "Ogor Pistols", 12, 2, 4, 3, -1, RAND_D3),
             m_thundermace(Weapon::Type::Melee, "Thundermace", 1, 3, 3, 3, -2, 3),
             m_glaive(Weapon::Type::Melee, "Beastskewer Glaive", 3, 2, 3, 3, -1, RAND_D3),
@@ -100,9 +100,9 @@ namespace OgorMawtribes {
     }
 
     bool Tyrant::configure(BigName bigName) {
-        if (bigName == Deathcheater) m_wounds = WOUNDS + 1;
+        if (bigName == Deathcheater) m_wounds = g_wounds + 1;
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistols);
         model->addMeleeWeapon(&m_thundermace);
         model->addMeleeWeapon(&m_glaive);
@@ -113,7 +113,7 @@ namespace OgorMawtribes {
         else if (bigName == Longstrider) m_move = 8;
 
         m_bigName = bigName;
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -121,12 +121,12 @@ namespace OgorMawtribes {
     Wounds Tyrant::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((hitRoll == 6) && (weapon->name() == m_glaive.name())) {
             if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)) {
-                return {Dice::rollD6(), 0};
+                return {Dice::RollD6(), 0};
             }
         }
         if ((hitRoll == 6) && (weapon->name() == m_thundermace.name())) {
             if (target->remainingModels() > 3) {
-                return {weapon->damage(), Dice::rollD3()};
+                return {weapon->damage(), Dice::RollD3()};
             } else {
                 return {weapon->damage(), 1};
             }
@@ -143,7 +143,7 @@ namespace OgorMawtribes {
     }
 
     int Tyrant::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

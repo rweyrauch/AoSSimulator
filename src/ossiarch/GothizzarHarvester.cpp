@@ -10,9 +10,9 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 105; // x70 oval
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 200;
 
     struct TableEntry {
         int m_range;
@@ -20,9 +20,9 @@ namespace OssiarchBonereapers {
         int m_attacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {16, 2, 6},
                     {14, 3, 5},
@@ -83,7 +83,7 @@ namespace OssiarchBonereapers {
     }
 
     GothizzarHarvester::GothizzarHarvester() :
-            OssiarchBonereaperBase("Gothizzar Harvester", 6, WOUNDS, 10, 4, false),
+            OssiarchBonereaperBase("Gothizzar Harvester", 6, g_wounds, 10, 4, false),
             m_deathsHeadMaw(Weapon::Type::Missile, "Death's Head Maw", 16, 4, 3, 3, -1, 1),
             m_sickles(Weapon::Type::Melee, "Soulcleaver Sickles", 1, 6, 3, 3, -2, 2),
             m_bludgeons(Weapon::Type::Melee, "Soulcrusher Bludgeons", 1, 6, 3, 3, -2, 2),
@@ -94,7 +94,7 @@ namespace OssiarchBonereapers {
     }
 
     bool GothizzarHarvester::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_deathsHeadMaw);
         if (option == Sickles)
@@ -105,7 +105,7 @@ namespace OssiarchBonereapers {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -122,7 +122,7 @@ namespace OssiarchBonereapers {
 
     int GothizzarHarvester::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -150,7 +150,7 @@ namespace OssiarchBonereapers {
     }
 
     int GothizzarHarvester::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OssiarchBonereapers

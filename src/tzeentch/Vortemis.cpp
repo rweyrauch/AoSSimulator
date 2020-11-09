@@ -12,16 +12,16 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool VortemisTheAllSeeing::s_registered = false;
 
     Unit *VortemisTheAllSeeing::Create(const ParameterList &parameters) {
         auto unit = new VortemisTheAllSeeing();
 
-        unit->setChangeCoven(ChangeCoven::CultOfTheTransientForm);
+        unit->setChangeCoven(ChangeCoven::Cult_Of_The_Transient_Form);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -53,7 +53,7 @@ namespace Tzeentch {
     }
 
     VortemisTheAllSeeing::VortemisTheAllSeeing() :
-            TzeentchBase("Vortemis the All-seeing", 6, WOUNDS, 7, 5, false),
+            TzeentchBase("Vortemis the All-seeing", 6, g_wounds, 7, 5, false),
             m_staffMissile(Weapon::Type::Missile, "Tzeenchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_staff(Weapon::Type::Melee, "Tzeenchian Runestaff", 1, 1, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, CULT_OF_THE_TRANSIENT_FORM, HERO, WIZARD, MAGISTER,
@@ -66,7 +66,7 @@ namespace Tzeentch {
     }
 
     bool VortemisTheAllSeeing::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staffMissile);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -74,13 +74,13 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int VortemisTheAllSeeing::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

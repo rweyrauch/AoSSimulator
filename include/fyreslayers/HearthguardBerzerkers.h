@@ -18,8 +18,8 @@ namespace Fyreslayers {
     public:
 
         enum WeaponOption {
-            BerzerkerBroadaxe,
-            FlamestrikePoleaxe
+            Berzerker_Broadaxe,
+            Flamestrike_Poleaxe
         };
 
         static Unit *Create(const ParameterList &parameters);

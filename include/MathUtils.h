@@ -21,14 +21,14 @@ namespace Math {
 
 // coordinate names
     enum {
-        COORD_X = 0,
-        COORD_Y = 1,
-        COORD_Z = 2,
+        Coord_X = 0,
+        Coord_Y = 1,
+        Coord_Z = 2,
     };
 
 // How close to zero is to considered zero?
-    const double EPSILON = 1.0e-6;
-    const double INFINITE = DBL_MAX;
+    const double g_epsilon = 1.0e-6;
+    const double g_infinite = DBL_MAX;
     
     template<class T>
     inline T Clamp(T val, T min, T max) {
@@ -164,7 +164,7 @@ namespace Math {
             return !(*this == v);
         }
 
-        bool equal(const Point2 &v, double e = EPSILON) const {
+        bool equal(const Point2 &v, double e = g_epsilon) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e));
         }
@@ -295,7 +295,7 @@ namespace Math {
             return !(*this == v);
         }
 
-        bool equal(const Point3 &v, double e = EPSILON) const {
+        bool equal(const Point3 &v, double e = g_epsilon) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e) &&
                     Equal(z, v.z, e));
@@ -451,7 +451,7 @@ namespace Math {
             return !(*this == v);
         }
 
-        inline bool equal(const Vector2 &v, double e = EPSILON) const {
+        inline bool equal(const Vector2 &v, double e = g_epsilon) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e));
         }
@@ -585,7 +585,7 @@ namespace Math {
             return !(*this == v);
         }
 
-        bool equal(const Vector3 &v, double e = EPSILON) const {
+        bool equal(const Vector3 &v, double e = g_epsilon) const {
             return (Equal(x, v.x, e) &&
                     Equal(y, v.y, e) &&
                     Equal(z, v.z, e));
@@ -689,10 +689,10 @@ namespace Math {
 
     };
 
-    enum EContainment {
-        CONT_NONE,          // Not contained
-        CONT_PARTIAL,       // Partially contained
-        CONT_ALL            // Entirely contained
+    enum class Containment {
+        None,          // Not contained
+        Partial,       // Partially contained
+        All            // Entirely contained
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -798,7 +798,7 @@ namespace Math {
             return (1.0f / m_radius);
         }
 
-        EContainment contains(const Point3 &point) const;
+        Containment contains(const Point3 &point) const;
 
     protected:
 
@@ -827,7 +827,7 @@ namespace Math {
 
         double distance(const Point3 &point) const;
 
-        EContainment contains(const Point3 &point) const;
+        Containment contains(const Point3 &point) const;
 
     public:
 
@@ -845,48 +845,48 @@ namespace Math {
     class Box3 {
     public:
         enum EBoxIndex {
-            BI_MAX_X = 0,
-            BI_MAX_Y,
-            BI_MAX_Z,
-            BI_MIN_X,
-            BI_MIN_Y,
-            BI_MIN_Z,
-            BI_NUM_NDX
+            Bi_Max_X = 0,
+            Bi_Max_Y,
+            Bi_Max_Z,
+            Bi_Min_X,
+            Bi_Min_Y,
+            Bi_Min_Z,
+            Bi_Num_Ndx
         };
 
         enum {
-            NUM_CORNERS = 8,
-            NUM_EDGES = 12,
-            NUM_FACES = 6
+            Num_Corners = 8,
+            Num_Edges = 12,
+            Num_Faces = 6
         };
 
         Box3() = default;
 
         Box3(const Point3 &max, const Point3 &min) {
-            m_maxMin[BI_MAX_X] = max.x;
-            m_maxMin[BI_MAX_Y] = max.y;
-            m_maxMin[BI_MAX_Z] = max.z;
-            m_maxMin[BI_MIN_X] = min.x;
-            m_maxMin[BI_MIN_Y] = min.y;
-            m_maxMin[BI_MIN_Z] = min.z;
+            m_maxMin[Bi_Max_X] = max.x;
+            m_maxMin[Bi_Max_Y] = max.y;
+            m_maxMin[Bi_Max_Z] = max.z;
+            m_maxMin[Bi_Min_X] = min.x;
+            m_maxMin[Bi_Min_Y] = min.y;
+            m_maxMin[Bi_Min_Z] = min.z;
         }
 
         Box3(double maxX, double maxY, double maxZ, double minX, double minY, double minZ) {
-            m_maxMin[BI_MAX_X] = maxX;
-            m_maxMin[BI_MAX_Y] = maxY;
-            m_maxMin[BI_MAX_Z] = maxZ;
-            m_maxMin[BI_MIN_X] = minX;
-            m_maxMin[BI_MIN_Y] = minY;
-            m_maxMin[BI_MIN_Z] = minZ;
+            m_maxMin[Bi_Max_X] = maxX;
+            m_maxMin[Bi_Max_Y] = maxY;
+            m_maxMin[Bi_Max_Z] = maxZ;
+            m_maxMin[Bi_Min_X] = minX;
+            m_maxMin[Bi_Min_Y] = minY;
+            m_maxMin[Bi_Min_Z] = minZ;
         }
 
         void empty() {
-            m_maxMin[BI_MAX_X] = -INFINITE;
-            m_maxMin[BI_MAX_Y] = -INFINITE;
-            m_maxMin[BI_MAX_Z] = -INFINITE;
-            m_maxMin[BI_MIN_X] = INFINITE;
-            m_maxMin[BI_MIN_Y] = INFINITE;
-            m_maxMin[BI_MIN_Z] = INFINITE;
+            m_maxMin[Bi_Max_X] = -g_infinite;
+            m_maxMin[Bi_Max_Y] = -g_infinite;
+            m_maxMin[Bi_Max_Z] = -g_infinite;
+            m_maxMin[Bi_Min_X] = g_infinite;
+            m_maxMin[Bi_Min_Y] = g_infinite;
+            m_maxMin[Bi_Min_Z] = g_infinite;
         }
 
         bool split(double plane, unsigned int axis, Box3 &boxL, Box3 &boxR) const;
@@ -898,38 +898,38 @@ namespace Math {
         void getFace(unsigned int which, int &c0, int &c1, int &c2, int &c3) const;
 
         void getCenter(Point3 &center) const {
-            center.x = (m_maxMin[BI_MAX_X] + m_maxMin[BI_MIN_X]) * 0.5f;
-            center.y = (m_maxMin[BI_MAX_Y] + m_maxMin[BI_MIN_Y]) * 0.5f;
-            center.z = (m_maxMin[BI_MAX_Z] + m_maxMin[BI_MIN_Z]) * 0.5f;
+            center.x = (m_maxMin[Bi_Max_X] + m_maxMin[Bi_Min_X]) * 0.5f;
+            center.y = (m_maxMin[Bi_Max_Y] + m_maxMin[Bi_Min_Y]) * 0.5f;
+            center.z = (m_maxMin[Bi_Max_Z] + m_maxMin[Bi_Min_Z]) * 0.5f;
         }
 
         void getDims(Vector3 &dims) const;
 
         void getMax(Point3 &max) const {
-            max.set(m_maxMin[BI_MAX_X], m_maxMin[BI_MAX_Y], m_maxMin[BI_MAX_Z]);
+            max.set(m_maxMin[Bi_Max_X], m_maxMin[Bi_Max_Y], m_maxMin[Bi_Max_Z]);
         }
 
         void getMin(Point3 &min) const {
-            min.set(m_maxMin[BI_MIN_X], m_maxMin[BI_MIN_Y], m_maxMin[BI_MIN_Z]);
+            min.set(m_maxMin[Bi_Min_X], m_maxMin[Bi_Min_Y], m_maxMin[Bi_Min_Z]);
         }
 
         double getSurfaceArea() const;
 
-        EContainment contains(const Point3 &point) const;
+        Containment contains(const Point3 &point) const;
 
-        EContainment contains(const Box3 &box) const;
+        Containment contains(const Box3 &box) const;
 
         void extendAround(const Point3 &point);
 
     public:
 
-        double m_maxMin[BI_NUM_NDX] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+        double m_maxMin[Bi_Num_Ndx] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
     private:
 
-        static int s_cornerIndex[NUM_CORNERS][3];
-        static int s_edges[NUM_EDGES][2];
-        static int s_faces[NUM_FACES][4];
+        static int s_cornerIndex[Num_Corners][3];
+        static int s_edges[Num_Edges][2];
+        static int s_faces[Num_Faces][4];
     };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -945,7 +945,7 @@ namespace Math {
 
         explicit OrientedBox(const Box3 &box);
 
-        EContainment contains(const Point3 &point) const;
+        Containment contains(const Point3 &point) const;
 
     public:
 
@@ -987,18 +987,18 @@ namespace Math {
             m_dir = m_dir.normalize();
         }
 
-        Point2 point_at(double t) const {
+        Point2 pointAt(double t) const {
             Point2 point(m_origin);
             point.x += m_dir.x * t;
             point.y += m_dir.y * t;
             return point;
         }
 
-        const Point2 &get_origin() const {
+        const Point2 &getOrigin() const {
             return m_origin;
         }
 
-        const Vector2 &get_direction() const {
+        const Vector2 &getDirection() const {
             return m_dir;
         }
 
@@ -1031,7 +1031,7 @@ namespace Math {
             m_dir = m_dir.normalize();
         }
 
-        Point3 point_at(const double t) const {
+        Point3 pointAt(const double t) const {
             Point3 point(m_origin);
             point.x += m_dir.x * t;
             point.y += m_dir.y * t;
@@ -1039,11 +1039,11 @@ namespace Math {
             return point;
         }
 
-        const Point3 &get_origin() const {
+        const Point3 &getOrigin() const {
             return m_origin;
         }
 
-        const Vector3 &get_direction() const {
+        const Vector3 &getDirection() const {
             return m_dir;
         }
 

@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool Bloodmaster::s_registered = false;
 
     Bloodmaster::Bloodmaster() :
-            KhorneBase("Bloodmaster", 5, WOUNDS, 10, 4, false),
+            KhorneBase("Bloodmaster", 5, g_wounds, 10, 4, false),
             m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, BLOODMASTER};
         m_weapons = {&m_bladeOfBlood};
@@ -27,11 +27,11 @@ namespace Khorne {
     }
 
     bool Bloodmaster::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfBlood);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -88,7 +88,7 @@ namespace Khorne {
     }
 
     int Bloodmaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef FREECROSSBOWMEN_H
-#define FREECROSSBOWMEN_H
+#ifndef FREEGUILDCROSSBOWMEN_H
+#define FREEGUILDCROSSBOWMEN_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -65,4 +65,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //FREECROSSBOWMEN_H
+#endif //FREEGUILDCROSSBOWMEN_H

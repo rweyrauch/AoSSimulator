@@ -13,14 +13,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 170;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 170;
 
     bool LordAquilor::s_registered = false;
 
     LordAquilor::LordAquilor() :
-            StormcastEternal("Lord-Aquilor", 12, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Aquilor", 12, g_wounds, 9, 3, false),
             m_boltstormPistol(Weapon::Type::Missile, "Heavy Boltstorm Pistol", 9, 4, 3, 3, 0, 1),
             m_starboundBlade(Weapon::Type::Melee, "Starbound Blade", 1, 3, 3, 3, -1, 2),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 3, 3, 0, 1),
@@ -31,7 +31,7 @@ namespace StormcastEternals {
     }
 
     bool LordAquilor::configure(bool astralCompass) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boltstormPistol);
         model->addMeleeWeapon(&m_starboundBlade);
         model->addMeleeWeapon(&m_shockHandaxe);
@@ -40,7 +40,7 @@ namespace StormcastEternals {
 
         m_astralCompass = astralCompass;
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -93,7 +93,7 @@ namespace StormcastEternals {
     }
 
     int LordAquilor::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

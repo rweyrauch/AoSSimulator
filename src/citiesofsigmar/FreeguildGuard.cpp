@@ -11,19 +11,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool FreeguildGuard::s_registered = false;
 
     Unit *FreeguildGuard::Create(const ParameterList &parameters) {
         auto unit = new FreeguildGuard();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool drummer = GetBoolParam("Drummer", parameters, true);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Halberd);
@@ -72,7 +72,7 @@ namespace CitiesOfSigmar {
                     FreeguildGuard::EnumStringToInt,
                     FreeguildGuard::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", Spear, weapons),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
@@ -86,7 +86,7 @@ namespace CitiesOfSigmar {
     }
 
     FreeguildGuard::FreeguildGuard() :
-            CitizenOfSigmar("Freeguild Guard", 5, WOUNDS, 5, 5, false),
+            CitizenOfSigmar("Freeguild Guard", 5, g_wounds, 5, 5, false),
             m_halberd(Weapon::Type::Melee, "Freeguild Halberd", 1, 1, 4, 3, -1, 1),
             m_spear(Weapon::Type::Melee, "Freeguild Spear", 2, 1, 4, 4, 0, 1),
             m_sword(Weapon::Type::Melee, "Freeguild Sword", 1, 1, 4, 4, 0, 1),
@@ -100,7 +100,7 @@ namespace CitiesOfSigmar {
 
     bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer, WeaponOption weapons) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -109,7 +109,7 @@ namespace CitiesOfSigmar {
         m_drummer = drummer;
 
         // Add the Sergeant
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         if (weapons == Halberd) {
             bossModel->addMeleeWeapon(&m_halberdSergeant);
         } else if (weapons == Spear) {
@@ -120,7 +120,7 @@ namespace CitiesOfSigmar {
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             if (weapons == Halberd) {
                 model->addMeleeWeapon(&m_halberd);
             } else if (weapons == Spear) {
@@ -177,9 +177,9 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildGuard::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

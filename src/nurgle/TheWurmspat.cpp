@@ -10,9 +10,9 @@
 #include "nurgle/TheWurmspat.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 4;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 40;
+    static const int g_wounds = 4;
+    static const int g_pointsPerUnit = 80;
 
     bool TheWurmspat::s_registered = false;
 
@@ -43,22 +43,22 @@ namespace Nurgle {
     }
 
     TheWurmspat::TheWurmspat() :
-            NurgleBase("The Wurmspat", 4, WOUNDS, 8, 4, false),
+            NurgleBase("The Wurmspat", 4, g_wounds, 8, 4, false),
             m_blightedWeapons(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, BLESSED_SONS, PUTRID_BLIGHTKINGS, THE_WURMSPAT};
         m_weapons = {&m_blightedWeapons};
     }
 
     bool TheWurmspat::configure() {
-        auto sepsimus = new Model(BASESIZE, wounds());
+        auto sepsimus = new Model(g_basesize, wounds());
         sepsimus->addMeleeWeapon(&m_blightedWeapons);
         addModel(sepsimus);
 
-        auto ghulgoch = new Model(BASESIZE, wounds());
+        auto ghulgoch = new Model(g_basesize, wounds());
         ghulgoch->addMeleeWeapon(&m_blightedWeapons);
         addModel(ghulgoch);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -67,14 +67,14 @@ namespace Nurgle {
         // Blighted Weapons
         if (unmodifiedHitRoll == 6) {
             // each 6 inflicts D6 hits
-            return Dice::rollD6();
+            return Dice::RollD6();
         }
 
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int TheWurmspat::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

@@ -19,16 +19,16 @@ namespace Greenskinz {
     public:
 
         enum WeaponOption {
-            ChoppaAndShield,
-            SpearAndShield,
-            PairedChoppas,
-            OrrukBowAndCutta
+            Choppa_And_Shield,
+            Spear_And_Shield,
+            Paired_Choppas,
+            Orruk_Bow_And_Cutta
         };
 
         enum StandardBearer {
             None,
-            OrrukBanner,
-            SkullIcon
+            Orruk_Banner,
+            Skull_Icon
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -65,7 +65,7 @@ namespace Greenskinz {
 
         bool m_waaaghDrummer = false;
         StandardBearer m_standardBearer = None;
-        WeaponOption m_weaponOption = ChoppaAndShield;
+        WeaponOption m_weaponOption = Choppa_And_Shield;
 
         Weapon m_orrukBows,
                 m_choppa,

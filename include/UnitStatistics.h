@@ -48,38 +48,38 @@ public:
         m_actions.push_back(action);
     }
 
-    int numberOfRoundsMoved() const;
+    [[nodiscard]] int numberOfRoundsMoved() const;
 
-    int numberOfRoundsRan() const;
+    [[nodiscard]] int numberOfRoundsRan() const;
 
-    int numberOfRoundsCharged() const;
+    [[nodiscard]] int numberOfRoundsCharged() const;
 
     // Totals
-    double totalMovementDistance() const;
+    [[nodiscard]] double totalMovementDistance() const;
 
-    double averageMovementDistance() const;
+    [[nodiscard]] double averageMovementDistance() const;
 
-    double totalRunDistance() const;
+    [[nodiscard]] double totalRunDistance() const;
 
-    double averageRunDistance() const;
+    [[nodiscard]] double averageRunDistance() const;
 
-    double totalChargeDistance() const;
+    [[nodiscard]] double totalChargeDistance() const;
 
-    double averageChargeDistance() const;
+    [[nodiscard]] double averageChargeDistance() const;
 
-    int totalSavesMade() const;
+    [[nodiscard]] int totalSavesMade() const;
 
-    int totalSavesFailed() const;
+    [[nodiscard]] int totalSavesFailed() const;
 
-    int totalEnemyModelsSlain() const;
+    [[nodiscard]] int totalEnemyModelsSlain() const;
 
     void totalWoundsInflicted(Wounds &wounds) const;
 
-    int totalModelsSlain() const;
+    [[nodiscard]] int totalModelsSlain() const;
 
     void totalWoundsTaken(Wounds &wounds) const;
 
-    int totalModelsFled() const;
+    [[nodiscard]] int totalModelsFled() const;
 
     void reset() {
         m_numRounds = 0;

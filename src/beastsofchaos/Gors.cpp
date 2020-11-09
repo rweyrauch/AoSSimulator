@@ -11,17 +11,17 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 200;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 200;
 
     bool Gors::s_registered = false;
 
     Gors::Gors() :
-            BeastsOfChaosBase("Gors", 6, WOUNDS, 5, 5, false),
+            BeastsOfChaosBase("Gors", 6, g_wounds, 5, 5, false),
             m_gorBlade(Weapon::Type::Melee, "Gor Blade", 1, 1, 4, 3, 0, 1),
             m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS};
@@ -30,7 +30,7 @@ namespace BeastsOfChaos {
     }
 
     bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -38,12 +38,12 @@ namespace BeastsOfChaos {
         m_bannerBearer = bannerBearer;
         m_pairedBlades = pairedBlades;
 
-        auto foe = new Model(BASESIZE, wounds());
+        auto foe = new Model(g_basesize, wounds());
         foe->addMeleeWeapon(&m_gorBladeFoeRender);
         addModel(foe);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_gorBlade);
             addModel(model);
         }
@@ -55,7 +55,7 @@ namespace BeastsOfChaos {
 
     Unit *Gors::Create(const ParameterList &parameters) {
         auto unit = new Gors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pairedBlades = GetBoolParam("Paired Blades", parameters, false);
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
@@ -79,7 +79,7 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Paired Blades"),
                             BoolParameter("Brayhorn"),
                             BoolParameter("Banner Bearer"),
@@ -95,7 +95,7 @@ namespace BeastsOfChaos {
 
     Rerolls Gors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Rend and Tear
-        if (m_pairedBlades) { return RerollOnes; }
+        if (m_pairedBlades) { return Reroll_Ones; }
         return Unit::toHitRerolls(weapon, target);
     }
 
@@ -116,9 +116,9 @@ namespace BeastsOfChaos {
     }
 
     int Gors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

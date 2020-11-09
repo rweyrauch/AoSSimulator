@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SPORESMASHAFANATICS_H
-#define SPORESMASHAFANATICS_H
+#ifndef SPORESPLATTAFANATICS_H
+#define SPORESPLATTAFANATICS_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -49,4 +49,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif // SPORESMASHAFANATICS_H
+#endif // SPORESPLATTAFANATICS_H

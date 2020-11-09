@@ -10,17 +10,17 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 8;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 600;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 8;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 6;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 600;
 
     bool Khorgoraths::s_registered = false;
 
     Khorgoraths::Khorgoraths() :
-            KhorneBase("Khorgoraths", 6, WOUNDS, 6, 4, false),
+            KhorneBase("Khorgoraths", 6, g_wounds, 6, 4, false),
             m_boneTentacles(Weapon::Type::Missile, "Bone Tentacles", 6, 3, 3, 4, 0, 1),
             m_clawAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2) {
         m_keywords = {CHAOS, KHORNE, MONSTER, BLOODBOUND, KHORGORATHS};
@@ -28,12 +28,12 @@ namespace Khorne {
     }
 
     bool Khorgoraths::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_boneTentacles);
             model->addMeleeWeapon(&m_clawAndFangs);
             addModel(model);
@@ -46,7 +46,7 @@ namespace Khorne {
 
     Unit *Khorgoraths::Create(const ParameterList &parameters) {
         auto unit = new Khorgoraths();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
@@ -67,7 +67,7 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Khorgoraths::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
@@ -94,9 +94,9 @@ namespace Khorne {
     }
 
     int Khorgoraths::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

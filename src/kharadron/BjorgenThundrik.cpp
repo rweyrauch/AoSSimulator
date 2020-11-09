@@ -9,9 +9,9 @@
 #include "kharadron/BjorgenThundrik.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 0;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 0;
 
     bool BjorgenThundrik::s_registered = false;
 
@@ -32,7 +32,7 @@ namespace KharadronOverlords {
     }
 
     int BjorgenThundrik::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void BjorgenThundrik::Init() {
@@ -53,7 +53,7 @@ namespace KharadronOverlords {
     }
 
     BjorgenThundrik::BjorgenThundrik() :
-            KharadronBase("Bjorgen Thundrik", 4, WOUNDS, 7, 4, false),
+            KharadronBase("Bjorgen Thundrik", 4, g_wounds, 7, 4, false),
             m_anatomiser(Weapon::Type::Missile, "Atmospheric Anatomiser", 9, RAND_3D6, 4, 4, -2, 1),
             m_instruments(Weapon::Type::Melee, "Heavy Instruments", 1, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, MARINE,
@@ -63,7 +63,7 @@ namespace KharadronOverlords {
     }
 
     bool BjorgenThundrik::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_anatomiser);
         model->addMeleeWeapon(&m_instruments);
         addModel(model);

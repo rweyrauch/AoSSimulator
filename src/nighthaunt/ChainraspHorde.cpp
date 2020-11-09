@@ -10,17 +10,17 @@
 #include <iostream>
 
 namespace Nighthaunt {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool ChainraspHorde::s_registered = false;
 
     ChainraspHorde::ChainraspHorde() :
-            Nighthaunt("Chainrasp Horde", 6, WOUNDS, 10, 5, true), // todo: bravery 6 when no Dreadwarden
+            Nighthaunt("Chainrasp Horde", 6, g_wounds, 10, 5, true), // todo: bravery 6 when no Dreadwarden
             m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
             m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE};
@@ -29,16 +29,16 @@ namespace Nighthaunt {
     }
 
     bool ChainraspHorde::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto warden = new Model(BASESIZE, wounds());
+        auto warden = new Model(g_basesize, wounds());
         warden->addMeleeWeapon(&m_malignantWeaponWarden);
         addModel(warden);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_malignantWeapon);
             addModel(model);
         }
@@ -50,7 +50,7 @@ namespace Nighthaunt {
 
     Unit *ChainraspHorde::Create(const ParameterList &parameters) {
         auto unit = new ChainraspHorde();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -68,7 +68,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     ChainraspHorde::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -81,16 +81,16 @@ namespace Nighthaunt {
     Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) const {
         // Chilling Horde
         if (remainingModels() >= 10) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return Nighthaunt::toHitRerolls(weapon, unit);
     }
 
     int ChainraspHorde::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

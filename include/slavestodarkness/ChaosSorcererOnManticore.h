@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SORCERERONMANTICORE_H
-#define SORCERERONMANTICORE_H
+#ifndef CHAOSSORCERERONMANTICORE_H
+#define CHAOSSORCERERONMANTICORE_H
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -59,4 +59,4 @@ namespace SlavesToDarkness {
 
 } // SlavesToDarkness
 
-#endif //SORCERERONMANTICORE_H
+#endif //CHAOSSORCERERONMANTICORE_H

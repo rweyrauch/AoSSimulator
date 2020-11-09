@@ -10,17 +10,17 @@
 #include <iostream>
 
 namespace Nighthaunt {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 260;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 260;
 
     bool DreadscytheHarridans::s_registered = false;
 
     DreadscytheHarridans::DreadscytheHarridans() :
-            Nighthaunt("Dreadscythe Harridans", 8, WOUNDS, 10, 4, true),
+            Nighthaunt("Dreadscythe Harridans", 8, g_wounds, 10, 4, true),
             m_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1),
             m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs", 1, 4, 4, 3, -1, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS};
@@ -28,16 +28,16 @@ namespace Nighthaunt {
     }
 
     bool DreadscytheHarridans::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto crone = new Model(BASESIZE, wounds());
+        auto crone = new Model(g_basesize, wounds());
         crone->addMeleeWeapon(&m_scythedLimbsCrone);
         addModel(crone);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_scythedLimbs);
             addModel(model);
         }
@@ -49,7 +49,7 @@ namespace Nighthaunt {
 
     Unit *DreadscytheHarridans::Create(const ParameterList &parameters) {
         auto unit = new DreadscytheHarridans();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -67,7 +67,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     DreadscytheHarridans::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -97,9 +97,9 @@ namespace Nighthaunt {
     }
 
     int DreadscytheHarridans::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

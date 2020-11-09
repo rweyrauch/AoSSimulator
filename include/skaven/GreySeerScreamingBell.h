@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GREYSEERONSCREAMINGBELL_H
-#define GREYSEERONSCREAMINGBELL_H
+#ifndef GREYSEERSCREAMINGBELL_H
+#define GREYSEERSCREAMINGBELL_H
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -79,4 +79,4 @@ namespace Skaven {
 
 } // namespace Skaven
 
-#endif //GREYSEERONSCREAMINGBELL_H
+#endif //GREYSEERSCREAMINGBELL_H

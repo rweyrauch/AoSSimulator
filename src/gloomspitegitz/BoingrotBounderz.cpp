@@ -11,17 +11,17 @@
 #include <iostream>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 15;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 15;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool BoingrotBounderz::s_registered = false;
 
     BoingrotBounderz::BoingrotBounderz() :
-            GloomspiteGitzBase("Boingrot Bounderz", RAND_2D6, WOUNDS, 5, 4, true),
+            GloomspiteGitzBase("Boingrot Bounderz", RAND_2D6, g_wounds, 5, 4, true),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1),
             m_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 3, 4, -1, 1) {
@@ -32,20 +32,20 @@ namespace GloomspiteGitz {
 
     bool BoingrotBounderz::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         // Add the boss
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         boss->addMeleeWeapon(&m_pokinLanceBoss);
         boss->addMeleeWeapon(&m_fangFilledGob);
         addModel(boss);
 
         // and the rest
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_pokinLance);
             model->addMeleeWeapon(&m_fangFilledGob);
             addModel(model);
@@ -58,7 +58,7 @@ namespace GloomspiteGitz {
 
     Unit *BoingrotBounderz::Create(const ParameterList &parameters) {
         auto unit = new BoingrotBounderz();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -76,7 +76,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     BoingrotBounderz::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -93,7 +93,7 @@ namespace GloomspiteGitz {
                 int numEnemyModels = m_meleeTarget->remainingModels();
 
                 Dice::RollResult rolls;
-                Dice::rollD6(numEnemyModels, rolls);
+                Dice::RollD6(numEnemyModels, rolls);
                 int numMortalWounds = rolls.rollsGE(4);
 
                 m_meleeTarget->applyDamage({0, numMortalWounds});
@@ -113,9 +113,9 @@ namespace GloomspiteGitz {
     }
 
     int BoingrotBounderz::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -10,14 +10,14 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 150;
+    static const int g_basesize = 105; // x70 oval
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 150;
 
     bool Doomwheel::s_registered = false;
 
     Doomwheel::Doomwheel() :
-            Skaventide("Doomwheel", RAND_4D6, WOUNDS, 7, 4, false),
+            Skaventide("Doomwheel", RAND_4D6, g_wounds, 7, 4, false),
             m_warpBolts(Weapon::Type::Missile, "Warp Bolts", 13, 0, 3, 3, -1, RAND_D3),
             m_grindingWheel(Weapon::Type::Melee, "Grinding Wheel", 1, RAND_D6, 3, 3, -1, 1),
             m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, 6, 5, 5, 0, 1) {
@@ -27,13 +27,13 @@ namespace Skaven {
     }
 
     bool Doomwheel::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpBolts);
         model->addMeleeWeapon(&m_grindingWheel);
         model->addMeleeWeapon(&m_teethAndKnives);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -70,8 +70,8 @@ namespace Skaven {
         if (weapon->name() == m_warpBolts.name()) {
             // Decide to overcharge
             if (moreMore()) {
-                auto roll1 = Dice::rollD6();
-                auto roll2 = Dice::rollD6();
+                auto roll1 = Dice::RollD6();
+                auto roll2 = Dice::RollD6();
                 if (roll1 == roll2) {
                     m_moreMoreFailed = true;
                 }
@@ -95,7 +95,7 @@ namespace Skaven {
         auto wounds = Unit::onEndCombat(player);
 
         if (m_moreMoreFailed) {
-            Wounds overchargeWounds = {0, Dice::roll2D6()};
+            Wounds overchargeWounds = {0, Dice::Roll2D6()};
             applyDamage(overchargeWounds);
             wounds += overchargeWounds;
             m_moreMoreFailed = false;
@@ -104,7 +104,7 @@ namespace Skaven {
     }
 
     int Doomwheel::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

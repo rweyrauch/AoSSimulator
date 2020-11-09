@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SISTEROFTHORN_H
-#define SISTEROFTHORN_H
+#ifndef SISTERSOFTHETHORN_H
+#define SISTERSOFTHETHORN_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -64,4 +64,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //SISTEROFTHORN_H
+#endif //SISTERSOFTHETHORN_H

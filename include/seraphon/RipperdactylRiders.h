@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef RIPPERDACTYLS_H
-#define RIPPERDACTYLS_H
+#ifndef RIPPERDACTYLRIDERS_H
+#define RIPPERDACTYLRIDERS_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -57,4 +57,4 @@ namespace Seraphon {
 
 } // namespace Seraphon
 
-#endif //RIPPERDACTYLS_H
+#endif //RIPPERDACTYLRIDERS_H

@@ -12,17 +12,17 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 180;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 3;
 
     bool Tzaangors::s_registered = false;
 
     Tzaangors::Tzaangors() :
-            TzeentchBase("Tzaangors", 6, WOUNDS, 5, 5, false),
+            TzeentchBase("Tzaangors", 6, g_wounds, 5, 5, false),
             m_savageBlade(Weapon::Type::Melee, "Savage Blade", 1, 2, 4, 4, 0, 1),
             m_savageBladeTwistbray(Weapon::Type::Melee, "Savage Blade", 1, 2, 3, 4, 0, 1),
             m_savageGreatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
@@ -37,14 +37,14 @@ namespace Tzeentch {
 
     bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
                               bool brayhorns) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
-        const int maxGreatblades = (numGreatblades / MIN_UNIT_SIZE) * 2;
+        const int maxGreatblades = (numGreatblades / g_minUnitSize) * 2;
         if (numGreatblades > maxGreatblades) {
             return false;
         }
-        const int maxMutents = numModels / MIN_UNIT_SIZE;
+        const int maxMutents = numModels / g_minUnitSize;
         if (numMutants > maxMutents) {
             return false;
         }
@@ -58,7 +58,7 @@ namespace Tzeentch {
         // Brayhorns
         m_runAndCharge = brayhorns;
 
-        auto twistbray = new Model(BASESIZE, wounds());
+        auto twistbray = new Model(g_basesize, wounds());
         if (numGreatblades)
             twistbray->addMeleeWeapon(&m_savageGreatbladeTwistbray);
         else
@@ -68,7 +68,7 @@ namespace Tzeentch {
 
         // the Twistbray is always given a greatblade if there are any greatblades
         for (auto i = 1; i < numGreatblades; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_savageGreatblade);
             model->addMeleeWeapon(&m_viciousBeak);
             addModel(model);
@@ -76,7 +76,7 @@ namespace Tzeentch {
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_savageBlade);
             model->addMeleeWeapon(&m_viciousBeak);
             addModel(model);
@@ -89,8 +89,8 @@ namespace Tzeentch {
 
     Unit *Tzaangors::Create(const ParameterList &parameters) {
         auto unit = new Tzaangors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, SavageBladeAndShield);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Savage_Blade_And_Shield);
         int numGreatblades = GetIntParam("Greatblades", parameters, 0);
         int numMutants = GetIntParam("Mutants", parameters, 0);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
@@ -109,17 +109,17 @@ namespace Tzeentch {
 
     void Tzaangors::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {PairedSavageBlades, SavageBladeAndShield};
+            static const std::array<int, 2> weapons = {Paired_Savage_Blades, Savage_Blade_And_Shield};
             static FactoryMethod factoryMethod = {
                     Tzaangors::Create,
                     Tzaangors::ValueToString,
                     Tzaangors::EnumStringToInt,
                     Tzaangors::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", PairedSavageBlades, weapons),
-                            IntegerParameter("Greatblades", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE * 2, 1),
-                            IntegerParameter("Mutants", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Paired_Savage_Blades, weapons),
+                            IntegerParameter("Greatblades", 0, 0, g_maxUnitSize / g_minUnitSize * 2, 1),
+                            IntegerParameter("Mutants", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Brayhorns"),
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
@@ -133,9 +133,9 @@ namespace Tzeentch {
 
     std::string Tzaangors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == SavageBladeAndShield) {
+            if (parameter.intValue == Savage_Blade_And_Shield) {
                 return "Savage Blade And Shield";
-            } else if (parameter.intValue == PairedSavageBlades) {
+            } else if (parameter.intValue == Paired_Savage_Blades) {
                 return "Paired Savage Blades";
             }
         }
@@ -145,9 +145,9 @@ namespace Tzeentch {
 
     int Tzaangors::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Savage Blade And Shield") {
-            return SavageBladeAndShield;
+            return Savage_Blade_And_Shield;
         } else if (enumString == "Paired Savage Blades") {
-            return PairedSavageBlades;
+            return Paired_Savage_Blades;
         }
         return TzeentchBase::EnumStringToInt(enumString);
     }
@@ -156,10 +156,10 @@ namespace Tzeentch {
         // Arcanite Shield
         auto totalWounds = Unit::applyWoundSave(wounds);
 
-        if (m_weaponOption == SavageBladeAndShield) {
+        if (m_weaponOption == Savage_Blade_And_Shield) {
             Dice::RollResult normalSaves, mortalSaves;
-            Dice::rollD6(totalWounds.normal, normalSaves);
-            Dice::rollD6(totalWounds.mortal, mortalSaves);
+            Dice::RollD6(totalWounds.normal, normalSaves);
+            Dice::RollD6(totalWounds.mortal, mortalSaves);
             totalWounds.normal -= normalSaves.rollsGE(6);
             totalWounds.mortal -= mortalSaves.rollsGE(6);
         }
@@ -170,7 +170,7 @@ namespace Tzeentch {
         int modifier = TzeentchBase::toHitModifier(weapon, target);
 
         // Paired Savage Blades
-        if ((m_weaponOption == PairedSavageBlades) && (weapon->name() == m_savageBlade.name()))
+        if ((m_weaponOption == Paired_Savage_Blades) && (weapon->name() == m_savageBlade.name()))
             modifier += 1;
 
         return modifier;
@@ -201,9 +201,9 @@ namespace Tzeentch {
     }
 
     int Tzaangors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

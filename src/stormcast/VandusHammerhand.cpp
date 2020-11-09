@@ -12,14 +12,14 @@
 #include "UnitFactory.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 260;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 260;
 
     bool VandusHammerhand::s_registered = false;
 
     VandusHammerhand::VandusHammerhand() :
-            StormcastEternal("Vandus Hammerhand", 10, WOUNDS, 9, 3, false),
+            StormcastEternal("Vandus Hammerhand", 10, g_wounds, 9, 3, false),
             m_heldensen(Weapon::Type::Melee, "Heldensen", 2, 3, 3, 2, -1, 3),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT,
@@ -36,12 +36,12 @@ namespace StormcastEternals {
     }
 
     bool VandusHammerhand::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_heldensen);
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -49,7 +49,7 @@ namespace StormcastEternals {
     Unit *VandusHammerhand::Create(const ParameterList &parameters) {
         auto unit = new VandusHammerhand();
 
-        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
+        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -85,7 +85,7 @@ namespace StormcastEternals {
 
         // Heldensen
         if (m_charged && weapon->name() == m_heldensen.name()) {
-            attacks += Dice::rollD3();
+            attacks += Dice::RollD3();
         }
         return attacks;
     }
@@ -94,7 +94,7 @@ namespace StormcastEternals {
         // Intolerable Damage
         if ((woundRoll == 6) && (weapon->name() == m_clawsAndFangs.name())) {
             // D6 instead of 1
-            return {Dice::rollD6(), 0};
+            return {Dice::RollD6(), 0};
         }
         return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -105,7 +105,7 @@ namespace StormcastEternals {
     }
 
     int VandusHammerhand::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void VandusHammerhand::onStartShooting(PlayerId player) {
@@ -115,13 +115,13 @@ namespace StormcastEternals {
         if (owningPlayer() == player) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 12.0)) {
-                if (Dice::rollD6() >= 4) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
                 auto units = Board::Instance()->getUnitsWithin(unit, GetEnemyId(owningPlayer()), 2.0);
                 for (auto target : units) {
-                    if (Dice::rollD6() >= 4) {
-                        target->applyDamage({0, Dice::rollD3()});
+                    if (Dice::RollD6() >= 4) {
+                        target->applyDamage({0, Dice::RollD3()});
                     }
                 }
             }

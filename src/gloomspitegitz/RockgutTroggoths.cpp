@@ -12,29 +12,29 @@
 #include <UnitFactory.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 140 * 4;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 140 * 4;
 
     bool RockgutTroggoths::s_registered = false;
 
     RockgutTroggoths::RockgutTroggoths() :
-            GloomspiteGitzBase("Rockgut Troggoths", 6, WOUNDS, 5, 5, false),
+            GloomspiteGitzBase("Rockgut Troggoths", 6, g_wounds, 5, 5, false),
             m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT};
         m_weapons = {&m_massiveStoneMaul};
     }
 
     bool RockgutTroggoths::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_massiveStoneMaul);
             addModel(model);
         }
@@ -46,7 +46,7 @@ namespace GloomspiteGitz {
 
     Unit *RockgutTroggoths::Create(const ParameterList &parameters) {
         auto unit = new RockgutTroggoths();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -64,7 +64,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     RockgutTroggoths::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -75,18 +75,18 @@ namespace GloomspiteGitz {
 
     void RockgutTroggoths::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Regeneration - heal D3
                 // Troggoth Renewal
-                if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4))) {
-                    int woundsHealed = Dice::rollD3();
+                if (Dice::RollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::RollD6() >= 4))) {
+                    int woundsHealed = Dice::RollD3();
                     if (inLightOfTheBadMoon())
                         woundsHealed *= 2;
 
                     for (auto &m : m_models) {
                         if (!m->slain() || !m->fled()) {
                             if (m->woundsRemaining() < wounds()) {
-                                int numToHeal = std::min(woundsHealed, WOUNDS - m->woundsRemaining());
+                                int numToHeal = std::min(woundsHealed, g_wounds - m->woundsRemaining());
                                 m->applyHealing(numToHeal);
                                 woundsHealed -= numToHeal;
                                 if (woundsHealed <= 0) { break; }
@@ -101,8 +101,8 @@ namespace GloomspiteGitz {
     Wounds RockgutTroggoths::applyWoundSave(const Wounds &wounds) {
         // Stony Skin
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -126,9 +126,9 @@ namespace GloomspiteGitz {
             // Throwin Boulders
             double rangeTo = distanceTo(nearestUnit);
             if (rangeTo < 12) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll <= nearestUnit->remainingModels()) {
-                    nearestUnit->applyDamage({0, Dice::rollD3()});
+                    nearestUnit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }
@@ -137,9 +137,9 @@ namespace GloomspiteGitz {
     }
 
     int RockgutTroggoths::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

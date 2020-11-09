@@ -13,17 +13,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool WitchAelves::s_registered = false;
 
     WitchAelves::WitchAelves() :
-            DaughterOfKhaine("Witch Aelves", 6, WOUNDS, 7, 6, false),
+            DaughterOfKhaine("Witch Aelves", 6, g_wounds, 7, 6, false),
             m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
             m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
@@ -32,7 +32,7 @@ namespace DaughtersOfKhaine {
     }
 
     bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -44,12 +44,12 @@ namespace DaughtersOfKhaine {
             m_runAndCharge = true;
         }
 
-        auto hag = new Model(BASESIZE, wounds());
+        auto hag = new Model(g_basesize, wounds());
         hag->addMeleeWeapon(&m_sacrificialKnifeHag);
         addModel(hag);
 
         for (auto i = 1; i < numModels; i++) {
-            auto witch = new Model(BASESIZE, wounds());
+            auto witch = new Model(g_basesize, wounds());
             witch->addMeleeWeapon(&m_sacrificialKnife);
             addModel(witch);
         }
@@ -61,7 +61,7 @@ namespace DaughtersOfKhaine {
 
     Unit *WitchAelves::Create(const ParameterList &parameters) {
         auto unit = new WitchAelves();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pairedKnives = GetBoolParam("Paired Knives", parameters, true);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
@@ -85,7 +85,7 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Paired Knives"),
                             BoolParameter("Hornblowers"),
                             BoolParameter("Standard Bearers"),
@@ -116,8 +116,8 @@ namespace DaughtersOfKhaine {
 
     int WitchAelves::rollBattleshock() const {
         if (m_standardBearers) {
-            int r1 = Dice::rollD6();
-            int r2 = Dice::rollD6();
+            int r1 = Dice::RollD6();
+            int r2 = Dice::RollD6();
             return std::min(r1, r2);
         }
         return DaughterOfKhaine::rollBattleshock();
@@ -143,9 +143,9 @@ namespace DaughtersOfKhaine {
     }
 
     int WitchAelves::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

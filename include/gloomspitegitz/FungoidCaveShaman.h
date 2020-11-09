@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CAVESHAMAN_H
-#define CAVESHAMAN_H
+#ifndef FUNGOIDCAVESHAMAN_H
+#define FUNGOIDCAVESHAMAN_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -59,4 +59,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //CAVESHAMAN_H
+#endif //FUNGOIDCAVESHAMAN_H

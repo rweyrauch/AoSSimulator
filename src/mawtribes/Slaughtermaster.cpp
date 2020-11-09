@@ -13,9 +13,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 105; // x70 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 105; // x70 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 140;
 
     bool Slaughtermaster::s_registered = false;
 
@@ -67,7 +67,7 @@ namespace OgorMawtribes {
     }
 
     Slaughtermaster::Slaughtermaster() :
-            MawtribesBase("Slaughtermaster", 6, WOUNDS, 8, 5, false),
+            MawtribesBase("Slaughtermaster", 6, g_wounds, 8, 5, false),
             m_stumpBlades(Weapon::Type::Melee, "Stump Blades", 1, RAND_2D6, 3, 3, 0, 1),
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
             m_assortedWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 3, 5, 5, 0, 1) {
@@ -80,7 +80,7 @@ namespace OgorMawtribes {
     }
 
     bool Slaughtermaster::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_stumpBlades);
         model->addMeleeWeapon(&m_assortedWeapons);
@@ -106,7 +106,7 @@ namespace OgorMawtribes {
         Unit::onCastSpell(spell, target);
 
         // Bloodgruel
-        const auto roll = Dice::rollD6();
+        const auto roll = Dice::RollD6();
         if (roll == 1) applyDamage({0, 1});
         else heal(1);
     }
@@ -115,7 +115,7 @@ namespace OgorMawtribes {
         Unit::onUnboundSpell(caster, castRoll);
 
         // Bloodgruel
-        const auto roll = Dice::rollD6();
+        const auto roll = Dice::RollD6();
         if (roll == 1) applyDamage({0, 1});
         else heal(1);
     }
@@ -125,15 +125,15 @@ namespace OgorMawtribes {
 
         // Great Cauldron
         if (owningPlayer() == player) {
-            const auto roll = Dice::rollD6();
+            const auto roll = Dice::RollD6();
             switch (roll) {
                 case 1:
                     // Bad Meat
-                    applyDamage({0, Dice::rollD3()});
+                    applyDamage({0, Dice::RollD3()});
                     break;
                 case 2:
                     // Troggoth Guts
-                    heal(Dice::rollD3());
+                    heal(Dice::RollD3());
                     {
                         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
                         for (auto unit : units) {
@@ -147,7 +147,7 @@ namespace OgorMawtribes {
                 {
                     auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), OGOR, 12.0);
                     if (unit) {
-                        unit->buffModifier(BuffableAttribute::ToHitMelee, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                        unit->buffModifier(BuffableAttribute::To_Hit_Melee, 1, {Hero, m_battleRound + 1, owningPlayer()});
                     }
                 }
                     break;
@@ -157,7 +157,7 @@ namespace OgorMawtribes {
                 {
                     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
                     for (auto unit : units) {
-                        if (Dice::rollD6() >= 4) unit->applyDamage({0, Dice::rollD3()});
+                        if (Dice::RollD6() >= 4) unit->applyDamage({0, Dice::RollD3()});
                     }
                 }
                     break;
@@ -168,7 +168,7 @@ namespace OgorMawtribes {
     }
 
     int Slaughtermaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

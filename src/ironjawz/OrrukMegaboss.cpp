@@ -11,14 +11,14 @@
 #include "IronjawzPrivate.h"
 
 namespace Ironjawz {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 60;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 140;
 
     bool OrrukMegaboss::s_registered = false;
 
     OrrukMegaboss::OrrukMegaboss() :
-            Ironjawz("Orruk Megaboss", 4, WOUNDS, 8, 3, false),
+            Ironjawz("Orruk Megaboss", 4, g_wounds, 8, 3, false),
             m_bossChoppaAndFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, MEGABOSS};
         m_weapons = {&m_bossChoppaAndFist};
@@ -26,11 +26,11 @@ namespace Ironjawz {
     }
 
     bool OrrukMegaboss::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bossChoppaAndFist);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -103,7 +103,7 @@ namespace Ironjawz {
     }
 
     int OrrukMegaboss::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Ironjawz

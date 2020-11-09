@@ -12,17 +12,17 @@
 #include <array>
 
 namespace Skaven {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool PlagueMonks::s_registered = false;
 
     PlagueMonks::PlagueMonks() :
-            Skaventide("Plague Monks", 6, WOUNDS, 5, 6, false),
+            Skaventide("Plague Monks", 6, g_wounds, 5, 6, false),
             m_foetidBlade(Weapon::Type::Melee, "Foetid Blade", 1, 2, 4, 4, 0, 1),
             m_woeStave(Weapon::Type::Melee, "Woe-stave", 2, 1, 4, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, PLAGUE_MONKS};
@@ -31,11 +31,11 @@ namespace Skaven {
 
     bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int contagionBanners, int iconsOfPestilence,
                                 int doomGongs, int baleChimes) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
-        int maxBanners = numModels / MIN_UNIT_SIZE;
-        int maxHarbingers = numModels / MIN_UNIT_SIZE;
+        int maxBanners = numModels / g_minUnitSize;
+        int maxHarbingers = numModels / g_minUnitSize;
         if (contagionBanners + iconsOfPestilence > maxBanners) {
             return false;
         }
@@ -49,15 +49,15 @@ namespace Skaven {
         m_numDoomGongs = doomGongs;
         m_numBaleChimes = baleChimes;
 
-        auto bringer = new Model(BASESIZE, wounds());
+        auto bringer = new Model(g_basesize, wounds());
         bringer->addMeleeWeapon(&m_foetidBlade);
         addModel(bringer);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == PairedFoetidBlades) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Paired_Foetid_Blades) {
                 model->addMeleeWeapon(&m_foetidBlade);
-            } else if (weapons == FoetidBladeAndWoeStave) {
+            } else if (weapons == Foetid_Blade_And_Woe_Stave) {
                 model->addMeleeWeapon(&m_foetidBlade);
                 model->addMeleeWeapon(&m_woeStave);
             }
@@ -71,8 +71,8 @@ namespace Skaven {
 
     Unit *PlagueMonks::Create(const ParameterList &parameters) {
         auto unit = new PlagueMonks();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, PairedFoetidBlades);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Paired_Foetid_Blades);
         int contagionBanners = GetIntParam("Contagion Banners", parameters, 0);
         int iconsOfPestilence = GetIntParam("Icons Of Pestilence", parameters, 0);
         int doomGongs = GetIntParam("Doom Gongs", parameters, 0);
@@ -88,19 +88,19 @@ namespace Skaven {
 
     void PlagueMonks::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {PairedFoetidBlades, FoetidBladeAndWoeStave};
+            static const std::array<int, 2> weapons = {Paired_Foetid_Blades, Foetid_Blade_And_Woe_Stave};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", PairedFoetidBlades, weapons),
-                            IntegerParameter("Contagion Banners", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Icons Of Pestilence", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Doom Gongs", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Bale Chimes", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Paired_Foetid_Blades, weapons),
+                            IntegerParameter("Contagion Banners", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Icons Of Pestilence", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Doom Gongs", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Bale Chimes", 0, 0, g_maxUnitSize / g_minUnitSize, 1)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -135,8 +135,8 @@ namespace Skaven {
 
     Rerolls PlagueMonks::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pair of Foetid Blades
-        if ((m_weaponOption == PairedFoetidBlades) && (weapon->name() == m_foetidBlade.name())) {
-            return RerollFailed;
+        if ((m_weaponOption == Paired_Foetid_Blades) && (weapon->name() == m_foetidBlade.name())) {
+            return Reroll_Failed;
         }
         return Skaventide::toHitRerolls(weapon, target);
     }
@@ -155,9 +155,9 @@ namespace Skaven {
             // Book of Woes
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(player));
             if (distanceTo(unit) <= 13.0 && !unit->hasKeyword(CLANS_PESTILENS)) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll == 6) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                    unit->applyDamage({0, Dice::RollD3()});
                 } else if (roll >= 4) {
                     unit->applyDamage({0, 1});
                 }
@@ -167,9 +167,9 @@ namespace Skaven {
 
     std::string PlagueMonks::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == PairedFoetidBlades) {
+            if (parameter.intValue == Paired_Foetid_Blades) {
                 return "Paired Foetid Blades";
-            } else if (parameter.intValue == FoetidBladeAndWoeStave) {
+            } else if (parameter.intValue == Foetid_Blade_And_Woe_Stave) {
                 return "Foetid Blade And Woe Stave";
             }
         }
@@ -179,17 +179,17 @@ namespace Skaven {
 
     int PlagueMonks::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Paired Foetid Blades") {
-            return PairedFoetidBlades;
+            return Paired_Foetid_Blades;
         } else if (enumString == "Foetid Blade And Woe Stave") {
-            return FoetidBladeAndWoeStave;
+            return Foetid_Blade_And_Woe_Stave;
         }
         return 0;
     }
 
     int PlagueMonks::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

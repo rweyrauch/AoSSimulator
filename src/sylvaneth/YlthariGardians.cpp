@@ -10,9 +10,9 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 0;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_pointsPerUnit = 0;
 
     bool YltharisGuardians::s_registered = false;
 
@@ -44,7 +44,7 @@ namespace Sylvaneth {
     }
 
     YltharisGuardians::YltharisGuardians() :
-            SylvanethBase("Ylthari's Guardians", 5, WOUNDS, 6, 5, false),
+            SylvanethBase("Ylthari's Guardians", 5, g_wounds, 6, 5, false),
             m_enchantedGreatBlade(Weapon::Type::Melee, "Enchanted Greatblade", 1, 4, 3, 3, -1, 1),
             m_revenantBow(Weapon::Type::Missile, "Revenant Bow", 24, 2, 4, 3, -1, 1),
             m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2),
@@ -54,34 +54,34 @@ namespace Sylvaneth {
     }
 
     bool YltharisGuardians::configure() {
-        auto gallanghann = new Model(BASESIZE, wounds());
+        auto gallanghann = new Model(g_basesize, wounds());
         gallanghann->addMeleeWeapon(&m_protectorGlaive);
         gallanghann->setName("Gallanghann");
         addModel(gallanghann);
 
-        auto skhathael = new Model(BASESIZE, wounds());
+        auto skhathael = new Model(g_basesize, wounds());
         skhathael->addMeleeWeapon(&m_enchantedGreatBlade);
         skhathael->setName("Skhathael");
         addModel(skhathael);
 
-        auto ahnslaine = new Model(BASESIZE, wounds());
+        auto ahnslaine = new Model(g_basesize, wounds());
         ahnslaine->addMissileWeapon(&m_revenantBow);
         ahnslaine->addMeleeWeapon(&m_revenantBowMelee);
         ahnslaine->setName("Ahnslaine");
         addModel(ahnslaine);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Rerolls YltharisGuardians::toWoundRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // Vigour and Wrath
-        return RerollOnes;
+        return Reroll_Ones;
     }
 
     int YltharisGuardians::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Sylvaneth

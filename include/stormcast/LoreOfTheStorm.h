@@ -26,7 +26,7 @@ namespace StormcastEternals {
         // LoreOfInvigoration
         Terrifying_Aspect,
         Celestial_Blades,
-        Speed_of_Lightning
+        Speed_Of_Lightning
     };
 
     std::string ToString(Lore which);

@@ -10,18 +10,18 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool SplinteredFang::s_registered = false;
 
     Unit *SplinteredFang::Create(const ParameterList &parameters) {
         auto unit = new SplinteredFang();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -42,7 +42,7 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     SplinteredFang::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                     },
                     CHAOS,
@@ -53,7 +53,7 @@ namespace SlavesToDarkness {
     }
 
     SplinteredFang::SplinteredFang() :
-            SlavesToDarknessBase("Splintered Fang", 6, WOUNDS, 5, 5, false),
+            SlavesToDarknessBase("Splintered Fang", 6, g_wounds, 5, 5, false),
             m_poisonedWeapons(Weapon::Type::Melee, "Poisoned Weapons", 1, 1, 4, 4, 0, 1),
             m_poisonedWeaponsLeader(Weapon::Type::Melee, "Poisoned Weapons (Trueblood)", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPLINTERED_FANG};
@@ -61,27 +61,27 @@ namespace SlavesToDarkness {
     }
 
     bool SplinteredFang::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto trueblood = new Model(BASESIZE, wounds());
+        auto trueblood = new Model(g_basesize, wounds());
         trueblood->addMeleeWeapon(&m_poisonedWeaponsLeader);
         trueblood->setName("Trueblood");
         addModel(trueblood);
 
-        auto serpentCaller = new Model(BASESIZE, wounds());
+        auto serpentCaller = new Model(g_basesize, wounds());
         serpentCaller->addMeleeWeapon(&m_poisonedWeapons);
         serpentCaller->setName("Serpent Caller");
         addModel(serpentCaller);
 
-        auto serpent = new Model(BASESIZE, WOUNDS + 1);
+        auto serpent = new Model(g_basesize, g_wounds + 1);
         serpent->addMeleeWeapon(&m_poisonedWeapons);
         serpent->setName("Serpent");
         addModel(serpent);
 
         for (auto i = 3; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_poisonedWeapons);
             addModel(model);
         }
@@ -112,9 +112,9 @@ namespace SlavesToDarkness {
     }
 
     int SplinteredFang::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

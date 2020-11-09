@@ -10,17 +10,17 @@
 #include <UnitFactory.h>
 
 namespace EldritchCouncil {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 160;
-    static const int POINTS_MAX_UNIT_SIZE = 420;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 160;
+    static const int g_pointsMaxUnitSize = 420;
 
     bool Swordmasters::s_registered = false;
 
     Swordmasters::Swordmasters() :
-            Unit("Swordmasters", 6, WOUNDS, 7, 4, false),
+            Unit("Swordmasters", 6, g_wounds, 7, 4, false),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1),
             m_greatswordLord(Weapon::Type::Melee, "Greatsword", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, SWORDMASTERS};
@@ -28,19 +28,19 @@ namespace EldritchCouncil {
     }
 
     bool Swordmasters::configure(int numModels, bool hornblower, bool standardBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_standardBearer = standardBearer;
         m_hornblower = hornblower;
 
-        auto lord = new Model(BASESIZE, wounds());
+        auto lord = new Model(g_basesize, wounds());
         lord->addMeleeWeapon(&m_greatswordLord);
         addModel(lord);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_greatsword);
             addModel(model);
         }
@@ -52,7 +52,7 @@ namespace EldritchCouncil {
 
     Unit *Swordmasters::Create(const ParameterList &parameters) {
         auto unit = new Swordmasters();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -72,7 +72,7 @@ namespace EldritchCouncil {
                     nullptr,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
                     },
@@ -85,21 +85,21 @@ namespace EldritchCouncil {
 
     Rerolls Swordmasters::toHitRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // A Blur of Blades
-        return RerollOnes;
+        return Reroll_Ones;
     }
 
     Rerolls Swordmasters::toSaveRerolls(const Weapon *weapon) const {
         // Deflect Shots
         if (weapon->isMissile()) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toSaveRerolls(weapon);
     }
 
     int Swordmasters::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

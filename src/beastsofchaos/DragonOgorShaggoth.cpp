@@ -12,14 +12,14 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 90; // x52 oval;
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 170;
+    static const int g_basesize = 90; // x52 oval;
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 170;
 
     bool DragonOgorShaggoth::s_registered = false;
 
     DragonOgorShaggoth::DragonOgorShaggoth() :
-            BeastsOfChaosBase("Dragon Ogor Shaggoth", 8, WOUNDS, 7, 4, false),
+            BeastsOfChaosBase("Dragon Ogor Shaggoth", 8, g_wounds, 7, 4, false),
             m_stormWroughtAxe(Weapon::Type::Melee, "Storm-wrought Axe", 2, 3, 3, 3, -1, 3),
             m_sweepingTail(Weapon::Type::Melee, "Sweeping Tail", 3, RAND_D3, 4, 3, 0, 1),
             m_talonedForelimbs(Weapon::Type::Melee, "Taloned Forelimbs", 1, 2, 3, 3, -1, 1) {
@@ -31,7 +31,7 @@ namespace BeastsOfChaos {
     }
 
     bool DragonOgorShaggoth::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stormWroughtAxe);
         model->addMeleeWeapon(&m_sweepingTail);
         model->addMeleeWeapon(&m_talonedForelimbs);
@@ -42,7 +42,7 @@ namespace BeastsOfChaos {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -93,7 +93,7 @@ namespace BeastsOfChaos {
     }
 
     int DragonOgorShaggoth::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace BeastsOfChaos

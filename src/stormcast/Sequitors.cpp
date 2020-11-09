@@ -13,17 +13,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 40;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 480;
 
     bool Sequitors::s_registered = false;
 
     Sequitors::Sequitors() :
-            StormcastEternal("Sequitors", 5, WOUNDS, 7, 4, false),
+            StormcastEternal("Sequitors", 5, g_wounds, 7, 4, false),
             m_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1),
             m_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul", 1, 3, 3, 3, 0, 1),
             m_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1),
@@ -44,7 +44,7 @@ namespace StormcastEternals {
     bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace,
                               bool redemptionCache) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -62,12 +62,12 @@ namespace StormcastEternals {
         m_haveRedemptionCache = redemptionCache;
 
         // Add the Prime
-        auto primeModel = new Model(BASESIZE, wounds());
+        auto primeModel = new Model(g_basesize, wounds());
         if (primeGreatmace) {
             primeModel->addMeleeWeapon(&m_stormsmiteGreatmacePrime);
-        } else if (m_weaponOption == StormsmiteMaul) {
+        } else if (m_weaponOption == Stormsmite_Maul) {
             primeModel->addMeleeWeapon(&m_stormsmiteMaulPrime);
-        } else if (m_weaponOption == TempestBlade) {
+        } else if (m_weaponOption == Tempest_Blade) {
             primeModel->addMeleeWeapon(&m_tempestBladePrime);
         }
         if (m_haveRedemptionCache) {
@@ -76,17 +76,17 @@ namespace StormcastEternals {
         addModel(primeModel);
 
         for (auto i = 0; i < numGreatmaces; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_stormsmiteGreatmace);
             addModel(model);
         }
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (m_weaponOption == StormsmiteMaul) {
+            auto model = new Model(g_basesize, wounds());
+            if (m_weaponOption == Stormsmite_Maul) {
                 model->addMeleeWeapon(&m_stormsmiteMaul);
-            } else if (m_weaponOption == TempestBlade) {
+            } else if (m_weaponOption == Tempest_Blade) {
                 model->addMeleeWeapon(&m_tempestBlade);
             }
             addModel(model);
@@ -106,9 +106,9 @@ namespace StormcastEternals {
             for (auto ip = m->meleeWeaponBegin(); ip != m->meleeWeaponEnd(); ++ip) {
                 if ((*ip)->name() == m_stormsmiteMaul.name() || (*ip)->name() == m_tempestBlade.name()) {
                     if (m_aethericChannellingWeapons || isMissile) {
-                        return RerollOnes; // weapons empowered
+                        return Reroll_Ones; // weapons empowered
                     } else {
-                        return RerollFailed;
+                        return Reroll_Failed;
                     } // shields empowered
                 }
             }
@@ -120,7 +120,7 @@ namespace StormcastEternals {
     Rerolls Sequitors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Aetheric Channeling
         if (m_aethericChannellingWeapons) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return StormcastEternal::toHitRerolls(weapon, unit);
     }
@@ -131,7 +131,7 @@ namespace StormcastEternals {
             if ((weapon->name() == m_stormsmiteGreatmace.name()) &&
                 (unit->hasKeyword(DAEMON) || unit->hasKeyword(NIGHTHAUNT))) {
                 // each 6 inflicts d3 hits instead of 1
-                return Dice::rollD3();
+                return Dice::RollD3();
             }
         }
         return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
@@ -139,8 +139,8 @@ namespace StormcastEternals {
 
     Unit *Sequitors::Create(const ParameterList &parameters) {
         auto unit = new Sequitors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StormsmiteMaul);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stormsmite_Maul);
         int numGreatmaces = GetIntParam("Greatmaces", parameters, 0);
         bool primeGreatmace = GetBoolParam("Prime Greatmace", parameters, false);
         bool redemptionCache = GetBoolParam("Redemption Cache", parameters, false);
@@ -158,16 +158,16 @@ namespace StormcastEternals {
 
     void Sequitors::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {StormsmiteMaul, TempestBlade};
+            static const std::array<int, 2> weapons = {Stormsmite_Maul, Tempest_Blade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", StormsmiteMaul, weapons),
-                            IntegerParameter("Greatmaces", 2, 0, MAX_UNIT_SIZE / 5 * 2, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Stormsmite_Maul, weapons),
+                            IntegerParameter("Greatmaces", 2, 0, g_maxUnitSize / 5 * 2, 1),
                             BoolParameter("Prime Greatmace"),
                             BoolParameter("Redemption Cache"),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
@@ -182,9 +182,9 @@ namespace StormcastEternals {
 
     std::string Sequitors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == StormsmiteMaul) {
+            if (parameter.intValue == Stormsmite_Maul) {
                 return "Stormsmite Maul";
-            } else if (parameter.intValue == TempestBlade) {
+            } else if (parameter.intValue == Tempest_Blade) {
                 return "Tempest Blade";
             }
         }
@@ -193,9 +193,9 @@ namespace StormcastEternals {
 
     int Sequitors::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Stormsmite Maul") {
-            return StormsmiteMaul;
+            return Stormsmite_Maul;
         } else if (enumString == "Tempest Blade") {
-            return TempestBlade;
+            return Tempest_Blade;
         }
         return StormcastEternal::EnumStringToInt(enumString);
     }
@@ -208,7 +208,7 @@ namespace StormcastEternals {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(CHAOS) || ip->hasKeyword(DEATH)) {
-                    int roll = Dice::rollD6();
+                    int roll = Dice::RollD6();
                     if (roll >= 4) {
                         ip->applyDamage({0, 1});
                         break;
@@ -219,9 +219,9 @@ namespace StormcastEternals {
     }
 
     int Sequitors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

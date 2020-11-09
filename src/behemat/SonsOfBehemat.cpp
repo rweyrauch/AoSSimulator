@@ -58,10 +58,10 @@ namespace SonsOfBehemat {
         auto mod = Unit::toHitModifier(weapon, target);
 
         switch (m_fierceLoathing) {
-            case FierceLoathing::Bossy_Pants_and_Clever_Clogs:
+            case FierceLoathing::Bossy_Pants_And_Clever_Clogs:
                 if (target->hasKeyword(HERO) || target->hasKeyword(WIZARD)) mod++;
                 break;
-            case FierceLoathing::Idiots_with_Flags:
+            case FierceLoathing::Idiots_With_Flags:
                 if (target->hasKeyword(TOTEM)) mod++;
                 break;
             case FierceLoathing::Shiny_Uns:

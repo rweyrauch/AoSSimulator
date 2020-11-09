@@ -19,8 +19,8 @@ namespace Khorne {
     public:
 
         enum WeaponOption {
-            BloodbathedAxe,
-            HackbladeAndWrathHammer
+            Bloodbathed_Axe,
+            Hackblade_And_Wrath_Hammer
         };
 
         static Unit *Create(const ParameterList &parameters);

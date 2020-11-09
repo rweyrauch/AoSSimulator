@@ -12,14 +12,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool ViceleaderHeraldOfSlaanesh::s_registered = false;
 
     ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
-            SlaaneshBase("Viceleader Herald of Slaanesh", 6, WOUNDS, 10, 5, false),
+            SlaaneshBase("Viceleader Herald of Slaanesh", 6, g_wounds, 10, 5, false),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, VICELEADER};
         m_weapons = {&m_ravagingClaws};
@@ -33,14 +33,14 @@ namespace Slaanesh {
     }
 
     bool ViceleaderHeraldOfSlaanesh::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -94,8 +94,8 @@ namespace Slaanesh {
     Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds) {
         // Lightning Reflexes
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -107,7 +107,7 @@ namespace Slaanesh {
     }
 
     int ViceleaderHeraldOfSlaanesh::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

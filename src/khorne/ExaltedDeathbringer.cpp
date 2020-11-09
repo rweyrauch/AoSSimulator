@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool ExaltedDeathbringer::s_registered = false;
 
     ExaltedDeathbringer::ExaltedDeathbringer() :
-            KhorneBase("Exalted Deathbringer", 5, WOUNDS, 8, 4, false),
+            KhorneBase("Exalted Deathbringer", 5, g_wounds, 8, 4, false),
             m_ruinousAxe(Weapon::Type::Melee, "Ruinous Axe", 1, 3, 4, 3, -1, 2),
             m_bloodbiteAxe(Weapon::Type::Melee, "Bloodbite Axe", 1, 6, 3, 4, 0, 1),
             m_impalingSpear(Weapon::Type::Melee, "Impaling Spear", 2, 5, 3, 3, -1, 1) {
@@ -31,25 +31,25 @@ namespace Khorne {
     bool ExaltedDeathbringer::configure(WeaponOption weapon) {
         m_weaponOption = weapon;
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
-        if (m_weaponOption == RuinousAxeAndSkullgouger) {
+        if (m_weaponOption == Ruinous_Axe_And_Skullgouger) {
             model->addMeleeWeapon(&m_ruinousAxe);
-        } else if (m_weaponOption == BloodbiteAxeAndRunemarkedShield) {
+        } else if (m_weaponOption == Bloodbite_Axe_And_Runemarked_Shield) {
             model->addMeleeWeapon(&m_bloodbiteAxe);
-        } else if (m_weaponOption == ImpalingSpear) {
+        } else if (m_weaponOption == Impaling_Spear) {
             model->addMeleeWeapon(&m_impalingSpear);
         }
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *ExaltedDeathbringer::Create(const ParameterList &parameters) {
         auto unit = new ExaltedDeathbringer();
-        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, RuinousAxeAndSkullgouger);
+        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Ruinous_Axe_And_Skullgouger);
 
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
@@ -73,14 +73,14 @@ namespace Khorne {
 
     void ExaltedDeathbringer::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {RuinousAxeAndSkullgouger, BloodbiteAxeAndRunemarkedShield, ImpalingSpear};
+            static const std::array<int, 3> weapons = {Ruinous_Axe_And_Skullgouger, Bloodbite_Axe_And_Runemarked_Shield, Impaling_Spear};
             static FactoryMethod factoryMethod = {
                     ExaltedDeathbringer::Create,
                     ExaltedDeathbringer::ValueToString,
                     ExaltedDeathbringer::EnumStringToInt,
                     ExaltedDeathbringer::ComputePoints,
                     {
-                            EnumParameter("Weapon", RuinousAxeAndSkullgouger, weapons),
+                            EnumParameter("Weapon", Ruinous_Axe_And_Skullgouger, weapons),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
                             EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
@@ -95,11 +95,11 @@ namespace Khorne {
 
     std::string ExaltedDeathbringer::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == RuinousAxeAndSkullgouger) {
+            if (parameter.intValue == Ruinous_Axe_And_Skullgouger) {
                 return "Ruinous Axe and Skullgouger";
-            } else if (parameter.intValue == BloodbiteAxeAndRunemarkedShield) {
+            } else if (parameter.intValue == Bloodbite_Axe_And_Runemarked_Shield) {
                 return "Bloodbite Axe and Runemarked Shield";
-            } else if (parameter.intValue == ImpalingSpear) {
+            } else if (parameter.intValue == Impaling_Spear) {
                 return "Impaling Spear";
             }
         }
@@ -108,11 +108,11 @@ namespace Khorne {
 
     int ExaltedDeathbringer::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Ruinous Axe and Skullgouger") {
-            return RuinousAxeAndSkullgouger;
+            return Ruinous_Axe_And_Skullgouger;
         } else if (enumString == "Bloodbite Axe and Runemarked Shield") {
-            return BloodbiteAxeAndRunemarkedShield;
+            return Bloodbite_Axe_And_Runemarked_Shield;
         } else if (enumString == "Impaling Spear") {
-            return ImpalingSpear;
+            return Impaling_Spear;
         }
         return KhorneBase::EnumStringToInt(enumString);
     }
@@ -135,14 +135,14 @@ namespace Khorne {
     }
 
     Wounds ExaltedDeathbringer::applyWoundSave(const Wounds &wounds) {
-        if (m_weaponOption == BloodbiteAxeAndRunemarkedShield) {
+        if (m_weaponOption == Bloodbite_Axe_And_Runemarked_Shield) {
             auto totalWounds = KhorneBase::applyWoundSave(wounds);
 
             if (totalWounds.source == Wounds::Source::Spell) {
                 Dice::RollResult result;
-                Dice::rollD6(totalWounds.normal, result);
+                Dice::RollD6(totalWounds.normal, result);
                 totalWounds.normal -= result.rollsGE(2);
-                Dice::rollD6(totalWounds.mortal, result);
+                Dice::RollD6(totalWounds.mortal, result);
                 totalWounds.mortal -= result.rollsGE(2);
             }
             return totalWounds;
@@ -154,21 +154,21 @@ namespace Khorne {
     ExaltedDeathbringer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Brutal Impalement
         if ((woundRoll == 6) && (weapon->name() == m_impalingSpear.name())) {
-            return {weapon->damage(), Dice::rollD3()};
+            return {weapon->damage(), Dice::RollD3()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Wounds ExaltedDeathbringer::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
         // Skullgouger
-        if ((saveRoll == 6) && (m_weaponOption == RuinousAxeAndSkullgouger)) {
-            return {0, Dice::rollD3()};
+        if ((saveRoll == 6) && (m_weaponOption == Ruinous_Axe_And_Skullgouger)) {
+            return {0, Dice::RollD3()};
         }
         return Unit::computeReturnedDamage(weapon, saveRoll);
     }
 
     int ExaltedDeathbringer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

@@ -18,9 +18,9 @@ class Prayer;
 class CommandAbility;
 
 struct AbilityTarget {
-    bool targetUnit = false;
-    Unit *target = nullptr;
-    double x = 0, y = 0;
+    bool m_targetUnit = false;
+    Unit *m_target = nullptr;
+    double m_x = 0, m_y = 0;
 };
 
 Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget);

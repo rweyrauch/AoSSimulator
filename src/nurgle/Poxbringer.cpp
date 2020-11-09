@@ -11,9 +11,9 @@
 #include "NurglePrivate.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool PoxbringerHeraldOfNurgle::s_registered = false;
 
@@ -60,7 +60,7 @@ namespace Nurgle {
     }
 
     PoxbringerHeraldOfNurgle::PoxbringerHeraldOfNurgle() :
-            NurgleBase("Poxbringer, Herald of Nurgle", 4, WOUNDS, 10, 4, false),
+            NurgleBase("Poxbringer, Herald of Nurgle", 4, g_wounds, 10, 4, false),
             m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, POXBRINGER, WIZARD, HERALD_OF_NURGLE};
         m_weapons = {&m_balesword};
@@ -68,11 +68,11 @@ namespace Nurgle {
     }
 
     bool PoxbringerHeraldOfNurgle::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_balesword);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -80,8 +80,8 @@ namespace Nurgle {
     Wounds PoxbringerHeraldOfNurgle::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -91,7 +91,7 @@ namespace Nurgle {
     }
 
     int PoxbringerHeraldOfNurgle::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

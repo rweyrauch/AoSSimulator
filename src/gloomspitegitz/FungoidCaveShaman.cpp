@@ -14,14 +14,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 4;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 32;
+    static const int g_wounds = 4;
+    static const int g_pointsPerUnit = 90;
 
     bool FungoidCaveShaman::s_registered = false;
 
     FungoidCaveShaman::FungoidCaveShaman() :
-            GloomspiteGitzBase("Fungoid Cave-shaman", 5, WOUNDS, 4, 6, false),
+            GloomspiteGitzBase("Fungoid Cave-shaman", 5, g_wounds, 4, 6, false),
             m_moonSickle(Weapon::Type::Melee, "Moon-sickle", 1, 3, 4, 4, -1, 1),
             m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
@@ -33,7 +33,7 @@ namespace GloomspiteGitz {
     }
 
     bool FungoidCaveShaman::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonSickle);
         model->addMeleeWeapon(&m_squigsTeeth);
 
@@ -44,7 +44,7 @@ namespace GloomspiteGitz {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -103,21 +103,21 @@ namespace GloomspiteGitz {
 
         // Mouthpiece of Mork
         if ((owningPlayer() == playerId) && m_roster) {
-            if (Dice::rollD6() >= 4) {
+            if (Dice::RollD6() >= 4) {
                 m_roster->addCommandPoints(1);
             }
         }
     }
 
     int FungoidCaveShaman::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Wounds FungoidCaveShaman::applyWoundSave(const Wounds &wounds) {
         // Spore Squig
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(4);

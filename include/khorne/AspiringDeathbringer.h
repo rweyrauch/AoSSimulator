@@ -18,8 +18,8 @@ namespace Khorne {
     public:
 
         enum WeaponOption {
-            BloodaxeAndWrathhammer,
-            GoreaxeAndSkullhammer,
+            Bloodaxe_And_Wrathhammer,
+            Goreaxe_And_Skullhammer,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -42,7 +42,7 @@ namespace Khorne {
 
     private:
 
-        WeaponOption m_weaponOption = BloodaxeAndWrathhammer;
+        WeaponOption m_weaponOption = Bloodaxe_And_Wrathhammer;
 
         Weapon m_bloodAxe,
                 m_wrathHammer,

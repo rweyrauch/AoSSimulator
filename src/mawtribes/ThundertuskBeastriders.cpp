@@ -10,9 +10,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 270;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 270;
 
     struct TableEntry {
         int m_move;
@@ -20,9 +20,9 @@ namespace OgorMawtribes {
         int m_tusksToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {8, 12, 2},
                     {7, 10, 3},
@@ -52,21 +52,21 @@ namespace OgorMawtribes {
     std::string ThundertuskBeastriders::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
             if (parameter.intValue == Chaintrap) return "Chaintrap";
-            else if (parameter.intValue == BloodVulture) return "Blood Vulture";
+            else if (parameter.intValue == Blood_Vulture) return "Blood Vulture";
         }
         return MawtribesBase::ValueToString(parameter);
     }
 
     int ThundertuskBeastriders::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Chaintrap") return Chaintrap;
-        else if (enumString == "Blood Vulture") return BloodVulture;
+        else if (enumString == "Blood Vulture") return Blood_Vulture;
 
         return MawtribesBase::EnumStringToInt(enumString);
     }
 
     void ThundertuskBeastriders::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Chaintrap, BloodVulture};
+            static const std::array<int, 2> weapons = {Chaintrap, Blood_Vulture};
             static FactoryMethod factoryMethod = {
                     ThundertuskBeastriders::Create,
                     ThundertuskBeastriders::ValueToString,
@@ -84,7 +84,7 @@ namespace OgorMawtribes {
     }
 
     ThundertuskBeastriders::ThundertuskBeastriders() :
-            MawtribesBase("Thundertusk Beastriders", 8, WOUNDS, 7, 4, false),
+            MawtribesBase("Thundertusk Beastriders", 8, g_wounds, 7, 4, false),
             m_harpoon(Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3),
             m_chaintrap(Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3),
             m_vulture(Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0),
@@ -99,14 +99,14 @@ namespace OgorMawtribes {
     }
 
     bool ThundertuskBeastriders::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         m_option = option;
 
         model->addMissileWeapon(&m_harpoon);
         if (option == Chaintrap)
             model->addMissileWeapon(&m_chaintrap);
-        else if (option == BloodVulture)
+        else if (option == Blood_Vulture)
             model->addMissileWeapon(&m_vulture);
         model->addMissileWeapon(&m_ice);
         model->addMeleeWeapon(&m_kicks);
@@ -126,7 +126,7 @@ namespace OgorMawtribes {
 
     int ThundertuskBeastriders::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -157,7 +157,7 @@ namespace OgorMawtribes {
         if (player == owningPlayer()) {
             if (m_meleeTarget) {
                 Dice::RollResult result;
-                Dice::rollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
+                Dice::RollD6(g_damageTable[getDamageTableIndex()].m_ice, result);
                 int toWound = 6;
                 if (m_meleeTarget->remainingModels() >= 20) toWound -= 2;
                 else if (m_meleeTarget->remainingModels() >= 10) toWound -= 1;
@@ -165,8 +165,8 @@ namespace OgorMawtribes {
                 Wounds wounds = {0, result.rollsGE(toWound)};
                 m_meleeTarget->applyDamage(wounds);
 
-                if (m_option == BloodVulture) {
-                    if (Dice::rollD6() >= 2) {
+                if (m_option == Blood_Vulture) {
+                    if (Dice::RollD6() >= 2) {
                         m_meleeTarget->applyDamage({0, 1});
                     }
                 }
@@ -175,7 +175,7 @@ namespace OgorMawtribes {
     }
 
     int ThundertuskBeastriders::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

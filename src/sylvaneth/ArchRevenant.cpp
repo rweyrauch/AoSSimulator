@@ -11,14 +11,14 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool ArchRevenant::s_registered = false;
 
     ArchRevenant::ArchRevenant() :
-            SylvanethBase("Arch-Revenant", 12, WOUNDS, 8, 4, true),
+            SylvanethBase("Arch-Revenant", 12, g_wounds, 8, 4, true),
             m_glaive(Weapon::Type::Melee, "Revenant's Glaive", 2, 3, 3, 3, -2, 2),
             m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, HERO, ARCH_REVENANT};
@@ -33,12 +33,12 @@ namespace Sylvaneth {
     }
 
     bool ArchRevenant::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_tailPincers);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -89,7 +89,7 @@ namespace Sylvaneth {
     Rerolls ArchRevenant::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Crescent Shield
         if (!m_crescentShieldProtection) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return SylvanethBase::toHitRerolls(weapon, unit);
     }
@@ -97,21 +97,21 @@ namespace Sylvaneth {
     Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon) const {
         // Crescent Shield
         if (m_crescentShieldProtection) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return Unit::toSaveRerolls(weapon);
     }
 
     int ArchRevenant::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Rerolls
     ArchRevenant::championOfKurnothToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
         if (isFriendly(attacker) && attacker->hasKeyword(KURNOTH_HUNTERS) && (distanceTo(attacker) <= 12.0))
-            return RerollOnes;
-        return NoRerolls;
+            return Reroll_Ones;
+        return No_Rerolls;
     }
 
 } // namespace Sylvaneth

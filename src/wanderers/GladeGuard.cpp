@@ -11,17 +11,17 @@
 #include <Board.h>
 
 namespace Wanderers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool GladeGuard::s_registered = false;
 
     GladeGuard::GladeGuard() :
-            Wanderer("Glade Guard", 6, WOUNDS, 6, 6, false),
+            Wanderer("Glade Guard", 6, g_wounds, 6, 6, false),
             m_longbow(Weapon::Type::Missile, "Longbow", 20, 1, 4, 4, 0, 1),
             m_longbowLord(Weapon::Type::Missile, "Longbow", 20, 2, 4, 4, 0, 1),
             m_gladeBlade(Weapon::Type::Melee, "Glade Blade", 1, 1, 5, 5, 0, 1) {
@@ -30,20 +30,20 @@ namespace Wanderers {
     }
 
     bool GladeGuard::configure(int numModels, bool pennantBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_pennantBearer = pennantBearer;
         m_hornblower = hornblower;
 
-        auto lord = new Model(BASESIZE, wounds());
+        auto lord = new Model(g_basesize, wounds());
         lord->addMissileWeapon(&m_longbowLord);
         lord->addMeleeWeapon(&m_gladeBlade);
         addModel(lord);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_longbow);
             model->addMeleeWeapon(&m_gladeBlade);
             addModel(model);
@@ -56,7 +56,7 @@ namespace Wanderers {
 
     Unit *GladeGuard::Create(const ParameterList &parameters) {
         auto unit = new GladeGuard();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pennantBearer = GetBoolParam("Pennant Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
 
@@ -76,7 +76,7 @@ namespace Wanderers {
                     nullptr,
                     GladeGuard::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Pennant Bearer"),
                             BoolParameter("Hornblower"),
                     },
@@ -101,7 +101,7 @@ namespace Wanderers {
 
     Rerolls GladeGuard::runRerolls() const {
         if (m_hornblower) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Wanderer::runRerolls();
     }
@@ -134,9 +134,9 @@ namespace Wanderers {
     }
 
     int GladeGuard::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

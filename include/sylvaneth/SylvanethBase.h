@@ -32,26 +32,26 @@ namespace Sylvaneth {
         // Aspects of War
         Dread_Harvester,
         Gnarled_Warrior,
-        Gift_of_Ghyran,
-        Lord_of_Spites,
+        Gift_Of_Ghyran,
+        Lord_Of_Spites,
         Warsinger,
-        Wisdom_of_the_Ancients,
+        Wisdom_Of_The_Ancients,
 
         // Aspects of Renewal
         Arcane_Bounty,
         Mystic_Regrowth,
-        Voice_of_Warding,
+        Voice_Of_Warding,
         Glade_Lore,
         Spellsinger,
         Radiant_Spirit,
 
         // Glade specific
         Regal_Old_Growth, // Oakenbrow,
-        Nurtured_by_Magic, // Gnarlroot
-        Legacy_of_Valour, // Heartwood
+        Nurtured_By_Magic, // Gnarlroot
+        Legacy_Of_Valour, // Heartwood
         Mere_Rainfall, // Ironbark
-        My_Heart_is_Ice, // Winterleaf
-        Paragon_of_Terror, // Dreadwood
+        My_Heart_Is_Ice, // Winterleaf
+        Paragon_Of_Terror, // Dreadwood
         Seek_New_Fruit, // Harvestboon
     };
 
@@ -75,15 +75,15 @@ namespace Sylvaneth {
         Nightbloom_Garland,
 
         // Verdent Treasures
-        Seed_of_Rebirth,
+        Seed_Of_Rebirth,
         Wraithstone,
         Everdew_Vial,
         Lifewreath,
-        Crown_of_Fell_Bowers,
+        Crown_Of_Fell_Bowers,
         Etherblossom,
 
         // Relics of Nature
-        Acorn_of_the_Ages,
+        Acorn_Of_The_Ages,
         Spiritsong_Stave,
         The_Vesperal_Gem,
         Luneths_Lamp,
@@ -92,11 +92,11 @@ namespace Sylvaneth {
 
         // Glade specific
         Dawnflask, // Oakenbrow
-        Chalice_of_Nectar, // Gnarlroot
-        Horn_of_the_Consort, // Heartwood
+        Chalice_Of_Nectar, // Gnarlroot
+        Horn_Of_The_Consort, // Heartwood
         Ironbark_Talisman, // Ironbark
         Frozen_Kernel, // Winterleaf
-        Jewel_of_Withering, // Dreadwood
+        Jewel_Of_Withering, // Dreadwood
         The_Silent_Sickle, // Harvestboon
     };
 
@@ -104,7 +104,7 @@ namespace Sylvaneth {
         None,
 
         // Lore of the Deepwood
-        Throne_of_Vines,
+        Throne_Of_Vines,
         Regrowth,
         The_Dwellers_Below,
         Deadly_Harvest,

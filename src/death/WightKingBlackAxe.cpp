@@ -11,14 +11,14 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool WightKingWithBlackAxe::s_registered = false;
 
     WightKingWithBlackAxe::WightKingWithBlackAxe() :
-            LegionOfNagashBase("Wight King with Black Axe", 4, WOUNDS, 10, 4, false),
+            LegionOfNagashBase("Wight King with Black Axe", 4, g_wounds, 10, 4, false),
             m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
         m_weapons = {&m_blackAxe};
@@ -26,11 +26,11 @@ namespace Death {
     }
 
     bool WightKingWithBlackAxe::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blackAxe);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -84,7 +84,7 @@ namespace Death {
     }
 
     int WightKingWithBlackAxe::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void WightKingWithBlackAxe::onStartHero(PlayerId player) {

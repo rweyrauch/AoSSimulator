@@ -11,14 +11,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 60;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 140;
 
     bool MightyLordOfKhorne::s_registered = false;
 
     MightyLordOfKhorne::MightyLordOfKhorne() :
-            KhorneBase("Mighty Lord of Khorne", 5, WOUNDS, 9, 3, false),
+            KhorneBase("Mighty Lord of Khorne", 5, g_wounds, 9, 3, false),
             m_axeOfKhorne(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
             m_bloodDarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MIGHTY_LORD_OF_KHORNE};
@@ -30,12 +30,12 @@ namespace Khorne {
     }
 
     bool MightyLordOfKhorne::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axeOfKhorne);
         model->addMeleeWeapon(&m_bloodDarkClaws);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -84,7 +84,7 @@ namespace Khorne {
     }
 
     int MightyLordOfKhorne::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

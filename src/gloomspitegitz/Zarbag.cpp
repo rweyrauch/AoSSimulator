@@ -11,14 +11,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool Zarbag::s_registered = false;
 
     Zarbag::Zarbag() :
-            GloomspiteGitzBase("Zarbag", 5, WOUNDS, 4, 6, false),
+            GloomspiteGitzBase("Zarbag", 5, g_wounds, 4, 6, false),
             m_sickle(Weapon::Type::Melee, "Cursed Sickle", 2, 3, 3, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN, ZARBAG};
         m_weapons = {&m_sickle};
@@ -29,7 +29,7 @@ namespace GloomspiteGitz {
     }
 
     bool Zarbag::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sickle);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -39,7 +39,7 @@ namespace GloomspiteGitz {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -89,7 +89,7 @@ namespace GloomspiteGitz {
     }
 
     int Zarbag::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SAURUSWARDEN_H
-#define SAURUSWARDEN_H
+#ifndef SAURUSETERNITYWARDEN_H
+#define SAURUSETERNITYWARDEN_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -51,4 +51,4 @@ namespace Seraphon {
 
 } // namespace Seraphon
 
-#endif //SAURUSWARDEN_H
+#endif //SAURUSETERNITYWARDEN_H

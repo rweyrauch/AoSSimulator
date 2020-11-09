@@ -21,8 +21,8 @@ enum ParamType {
 };
 
 enum {
-    SIM_FALSE = 0,
-    SIM_TRUE = 1,
+    Sim_False = 0,
+    Sim_True = 1,
 };
 
 struct Parameter {

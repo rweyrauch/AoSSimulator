@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SPIDERFLINGER_H
-#define SPIDERFLINGER_H
+#ifndef ARACHNAROKSPIDERWITHFLINGER_H
+#define ARACHNAROKSPIDERWITHFLINGER_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -60,4 +60,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //SPIDERFLINGER_H
+#endif //ARACHNAROKSPIDERWITHFLINGER_H

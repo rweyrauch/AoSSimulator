@@ -11,9 +11,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 50;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 120;
 
     bool IcebrowHunter::s_registered = false;
 
@@ -61,7 +61,7 @@ namespace OgorMawtribes {
     }
 
     IcebrowHunter::IcebrowHunter() :
-            MawtribesBase("Icebrow Hunter", 6, WOUNDS, 7, 5, false),
+            MawtribesBase("Icebrow Hunter", 6, g_wounds, 7, 5, false),
             m_spear(Weapon::Type::Missile, "Great Throwing Spear", 9, 1, 4, 3, -1, RAND_D3),
             m_crossbow(Weapon::Type::Missile, "Hunter's Crossbow", 12, 1, 4, 3, 0, RAND_D3),
             m_club(Weapon::Type::Melee, "Hunter's Culling Club", 1, 4, 3, 3, 0, 2),
@@ -72,7 +72,7 @@ namespace OgorMawtribes {
     }
 
     bool IcebrowHunter::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_spear);
         model->addMissileWeapon(&m_crossbow);
@@ -95,7 +95,7 @@ namespace OgorMawtribes {
     }
 
     int IcebrowHunter::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

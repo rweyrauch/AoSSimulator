@@ -28,16 +28,16 @@ namespace FleshEaterCourt {
         Crusading_Army = 0,
         The_Royal_Hunt,
         The_Feast_Day,
-        A_Matter_of_Honour,
+        A_Matter_Of_Honour,
         The_Grand_Tournament,
-        Defenders_of_the_Realm
+        Defenders_Of_The_Realm
     };
 
     enum class CommandTrait : int {
         None,
 
         // Abhorrant
-        Bringer_of_Death,
+        Bringer_Of_Death,
         Frenzied_Flesheater,
         Savage_Beyond_Reason,
         Majestic_Horror,
@@ -63,16 +63,16 @@ namespace FleshEaterCourt {
         None,
 
         // Abhorrant
-        Signet_of_the_First_Court,
+        Signet_Of_The_First_Court,
         Splintervane_Brooch,
         Blood_River_Chalice,
         The_Grim_Garland,
         The_Dermal_Robe,
-        Heart_of_the_Gargant,
+        Heart_Of_The_Gargant,
 
         // Courtier
         Keening_Bone,
-        Medal_of_Madness,
+        Medal_Of_Madness,
         The_Flayed_Pennant,
         Carrion_Wand,
         The_Fleshform_Raiment,
@@ -81,7 +81,7 @@ namespace FleshEaterCourt {
         // Grand Court specific
         Decrepit_Coronet, // Morgaunt
         Corpsefane_Gauntlet, // Hollowmourne
-        Eye_of_Hysh, // Blisterskin
+        Eye_Of_Hysh, // Blisterskin
         Ghurish_Mawshard, // Gristlegore
     };
 
@@ -114,7 +114,7 @@ namespace FleshEaterCourt {
         Baneful_Breath,
         //Horribly_Resilient,
         Necrotic_Fangs,
-        Death_From_the_Skies,
+        Death_From_The_Skies,
 
     };
 

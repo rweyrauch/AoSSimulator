@@ -11,9 +11,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 60;
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 100;
 
     bool FomoroidCrusher::s_registered = false;
 
@@ -49,7 +49,7 @@ namespace SlavesToDarkness {
     }
 
     FomoroidCrusher::FomoroidCrusher() :
-            SlavesToDarknessBase("Fomoroid Crusher", 6, WOUNDS, 10, 5, false),
+            SlavesToDarknessBase("Fomoroid Crusher", 6, g_wounds, 10, 5, false),
             m_hurledTerrain(Weapon::Type::Missile, "Hurled Terrain", 12, 2, 3, 3, -1, 2),
             m_fists(Weapon::Type::Melee, "Crushing Fists", 1, 4, 3, 3, 0, 2) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, FOMOROID_CRUSHER};
@@ -57,13 +57,13 @@ namespace SlavesToDarkness {
     }
 
     bool FomoroidCrusher::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_hurledTerrain);
         model->addMeleeWeapon(&m_fists);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -74,7 +74,7 @@ namespace SlavesToDarkness {
         // Rampage
         if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             Dice::RollResult rolls;
-            Dice::rollD6(m_lastChargeDistance, rolls);
+            Dice::RollD6(m_lastChargeDistance, rolls);
 
             Wounds wounds = {0, rolls.rollsGE(6)};
             m_meleeTarget->applyDamage(wounds);
@@ -91,7 +91,7 @@ namespace SlavesToDarkness {
     }
 
     int FomoroidCrusher::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 }//namespace SlavesToDarkness

@@ -15,14 +15,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 220;
 
     bool Skragrott::s_registered = false;
 
     Skragrott::Skragrott() :
-            GloomspiteGitzBase("Skragrott", 4, WOUNDS, 6, 5, false),
+            GloomspiteGitzBase("Skragrott", 4, g_wounds, 6, 5, false),
             m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
             m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
@@ -34,7 +34,7 @@ namespace GloomspiteGitz {
     }
 
     bool Skragrott::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
         model->addMeleeWeapon(&m_daMoonOnnaStikk);
 
@@ -45,7 +45,7 @@ namespace GloomspiteGitz {
 
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -113,8 +113,8 @@ namespace GloomspiteGitz {
     Wounds Skragrott::applyWoundSave(const Wounds &wounds) {
         // Loonking's Crown
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(4);
@@ -130,14 +130,14 @@ namespace GloomspiteGitz {
 
         // Babbling Wand
         if (isGeneral() && (owningPlayer() == playerId) && m_roster) {
-            if (Dice::rollD6() >= 4) {
-                m_roster->addCommandPoints(Dice::rollD3());
+            if (Dice::RollD6() >= 4) {
+                m_roster->addCommandPoints(Dice::RollD3());
             }
         }
     }
 
     int Skragrott::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

@@ -12,17 +12,17 @@
 #include "DispossessedPrivate.h"
 
 namespace Dispossessed {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 180;
-    static const int POINTS_MAX_UNIT_SIZE = 540;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 180;
+    static const int g_pointsMaxUnitSize = 540;
 
     bool Irondrakes::s_registered = false;
 
     Irondrakes::Irondrakes() :
-            Dispossessed("Irondrakes", 4, WOUNDS, 7, 4, false),
+            Dispossessed("Irondrakes", 4, g_wounds, 7, 4, false),
             m_drakegun(Weapon::Type::Missile, "Drakegun", 16, 1, 3, 3, -1, 1),
             m_drakegunWarden(Weapon::Type::Missile, "Drakegun", 16, 1, 2, 3, -1, 1),
             m_grudgehammerTorpedo(Weapon::Type::Missile, "Grudgehammer Torpedo", 20, 1, 3, 3, -2, RAND_D3),
@@ -35,28 +35,28 @@ namespace Dispossessed {
     }
 
     bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool iconBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_iconBearer = iconBearer;
         m_hornblower = hornblower;
 
-        auto ironwarden = new Model(BASESIZE, wounds());
+        auto ironwarden = new Model(g_basesize, wounds());
         if (ironWardenWeapons == Drakegun) {
             ironwarden->addMissileWeapon(&m_drakegunWarden);
             ironwarden->addMeleeWeapon(&m_mailedFist);
-        } else if (ironWardenWeapons == DrakefirePistolAndCinderblastBomb) {
+        } else if (ironWardenWeapons == Drakefire_Pistol_And_Cinderblast_Bomb) {
             ironwarden->addMissileWeapon(&m_drakefirePistol);
             ironwarden->addMeleeWeapon(&m_drakefirePistolMelee);
             m_hasCinderblastBomb = true;
-        } else if (ironWardenWeapons == PairedDrakefirePistols) {
+        } else if (ironWardenWeapons == Paired_Drakefire_Pistols) {
             // two attacks when using dual-pistols
             ironwarden->addMissileWeapon(&m_drakefirePistol);
             ironwarden->addMissileWeapon(&m_drakefirePistol);
             ironwarden->addMeleeWeapon(&m_drakefirePistolMelee);
             ironwarden->addMeleeWeapon(&m_drakefirePistolMelee);
-        } else if (ironWardenWeapons == GrudgehammerTorpedo) {
+        } else if (ironWardenWeapons == Grudgehammer_Torpedo) {
             ironwarden->addMissileWeapon(&m_grudgehammerTorpedo);
             ironwarden->addMeleeWeapon(&m_mailedFist);
         }
@@ -67,7 +67,7 @@ namespace Dispossessed {
         addModel(ironwarden);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_drakegun);
             model->addMeleeWeapon(&m_mailedFist);
             addModel(model);
@@ -80,7 +80,7 @@ namespace Dispossessed {
 
     Unit *Irondrakes::Create(const ParameterList &parameters) {
         auto unit = new Irondrakes();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironwarden Weapon", parameters, Drakegun);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -95,15 +95,15 @@ namespace Dispossessed {
 
     void Irondrakes::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {Drakegun, GrudgehammerTorpedo,
-                                                       DrakefirePistolAndCinderblastBomb, PairedDrakefirePistols};
+            static const std::array<int, 4> weapons = {Drakegun, Grudgehammer_Torpedo,
+                                                       Drakefire_Pistol_And_Cinderblast_Bomb, Paired_Drakefire_Pistols};
             static FactoryMethod factoryMethod = {
                     Irondrakes::Create,
                     Irondrakes::ValueToString,
                     Irondrakes::EnumStringToInt,
                     Irondrakes::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Ironwarden Weapon", Drakegun, weapons),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Hornblower"),
@@ -134,9 +134,9 @@ namespace Dispossessed {
         if (m_hasCinderblastBomb) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6);
             if (!units.empty()) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll >= 2) {
-                    units.front()->applyDamage({0, Dice::rollD3()});
+                    units.front()->applyDamage({0, Dice::RollD3()});
                 }
                 m_hasCinderblastBomb = false;
             }
@@ -146,7 +146,7 @@ namespace Dispossessed {
     Wounds Irondrakes::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Grudgehammer Torpedo
         if (weapon->name() == m_grudgehammerTorpedo.name() && target->hasKeyword(MONSTER)) {
-            return {Dice::rollD6(), 0};
+            return {Dice::RollD6(), 0};
         }
         return Dispossessed::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -167,11 +167,11 @@ namespace Dispossessed {
         if (std::string(parameter.name) == "Ironwarden Weapon") {
             if (parameter.intValue == Drakegun) {
                 return "Drakegun";
-            } else if (parameter.intValue == GrudgehammerTorpedo) {
+            } else if (parameter.intValue == Grudgehammer_Torpedo) {
                 return "Grudgehammer Torpedo";
-            } else if (parameter.intValue == DrakefirePistolAndCinderblastBomb) {
+            } else if (parameter.intValue == Drakefire_Pistol_And_Cinderblast_Bomb) {
                 return "Drakefire Pistol And Cinderblast Bomb";
-            } else if (parameter.intValue == PairedDrakefirePistols) {
+            } else if (parameter.intValue == Paired_Drakefire_Pistols) {
                 return "Paired Drakefire Pistols";
             }
         }
@@ -183,11 +183,11 @@ namespace Dispossessed {
         if (enumString == "Drakegun") {
             return Drakegun;
         } else if (enumString == "Grudgehammer Torpedo") {
-            return GrudgehammerTorpedo;
+            return Grudgehammer_Torpedo;
         } else if (enumString == "Drakefire Pistol And CinderblastBomb") {
-            return DrakefirePistolAndCinderblastBomb;
+            return Drakefire_Pistol_And_Cinderblast_Bomb;
         } else if (enumString == "Paired Drakefire Pistols") {
-            return PairedDrakefirePistols;
+            return Paired_Drakefire_Pistols;
         }
         return Dispossessed::EnumStringToInt(enumString);
     }
@@ -201,9 +201,9 @@ namespace Dispossessed {
     }
 
     int Irondrakes::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

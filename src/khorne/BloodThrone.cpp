@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 120;
 
     bool HeraldOfKhorneOnBloodThrone::s_registered = false;
 
     HeraldOfKhorneOnBloodThrone::HeraldOfKhorneOnBloodThrone() :
-            KhorneBase("Herald of Khorne on Blood Throne", 8, WOUNDS, 10, 4, false),
+            KhorneBase("Herald of Khorne on Blood Throne", 8, g_wounds, 10, 4, false),
             m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1),
             m_hellblades(Weapon::Type::Melee, "Hellblades", 1, 2, 4, 3, -1, 1),
             m_gnashingMaw(Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3) {
@@ -30,13 +30,13 @@ namespace Khorne {
     }
 
     bool HeraldOfKhorneOnBloodThrone::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfBlood);
         model->addMeleeWeapon(&m_hellblades);
         model->addMeleeWeapon(&m_gnashingMaw);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -94,7 +94,7 @@ namespace Khorne {
     }
 
     int HeraldOfKhorneOnBloodThrone::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

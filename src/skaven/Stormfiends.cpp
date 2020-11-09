@@ -11,17 +11,17 @@
 #include <array>
 
 namespace Skaven {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 6;
-    static const int POINTS_PER_BLOCK = 260;
-    static const int POINTS_MAX_UNIT_SIZE = 260 * 2;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 6;
+    static const int g_pointsPerBlock = 260;
+    static const int g_pointsMaxUnitSize = 260 * 2;
 
     bool Stormfiends::s_registered = false;
 
     Stormfiends::Stormfiends() :
-            Skaventide("Stormfiends", 6, WOUNDS, 6, 4, false),
+            Skaventide("Stormfiends", 6, g_wounds, 6, 4, false),
             m_ratlingCannons(Weapon::Type::Missile, "Ratling Cannons", 12, RAND_3D6, 4, 3, -1, 1),
             m_windlaunchers(Weapon::Type::Missile, "Windlaunchers", 24, 3, 4, 4, -3, RAND_D3),
             m_warpfireProjectors(Weapon::Type::Missile, "Warpfire Projectors", 8, 0, 0, 0, 0, 0),
@@ -34,9 +34,9 @@ namespace Skaven {
                      &m_shockGauntlets, &m_clubbingBlows};
     }
 
-    bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption_1 weapon1, Stormfiends::WeaponOption_2 weapon2,
-                                Stormfiends::WeaponOption_3 weapon3) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+    bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption1 weapon1, Stormfiends::WeaponOption2 weapon2,
+                                Stormfiends::WeaponOption3 weapon3) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -47,8 +47,8 @@ namespace Skaven {
         int numWeapon1 = numModels / 3;
 
         for (auto i = 0; i < numWeapon1; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapon1 == WarpfireProjectors) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapon1 == Warpfire_Projectors) {
                 model->addMissileWeapon(&m_warpfireProjectors);
             } else if (weapon1 == Windlaunchers) {
                 model->addMissileWeapon(&m_windlaunchers);
@@ -59,10 +59,10 @@ namespace Skaven {
 
         int numWeapon2 = numModels / 3;
         for (auto i = 0; i < numWeapon2; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             if (weapon2 == Grinderfists) {
                 model->addMeleeWeapon(&m_grinderfists);
-            } else if (weapon2 == RatlingCannons) {
+            } else if (weapon2 == Ratling_Cannons) {
                 model->addMissileWeapon(&m_ratlingCannons);
                 model->addMeleeWeapon(&m_clubbingBlows);
             }
@@ -72,10 +72,10 @@ namespace Skaven {
         int numWeapon3 = numModels - (numWeapon1 + numWeapon2);
         for (auto i = 0; i < numWeapon3; i++) {
             // Warpstone-laced Armour => +1 wounds
-            auto model = new Model(BASESIZE, WOUNDS + 1);
-            if (weapon3 == DoomflayerGauntlets) {
+            auto model = new Model(g_basesize, g_wounds + 1);
+            if (weapon3 == Doomflayer_Gauntlets) {
                 model->addMeleeWeapon(&m_doomfireGauntlets);
-            } else if (weapon3 == ShockGauntlets) {
+            } else if (weapon3 == Shock_Gauntlets) {
                 model->addMeleeWeapon(&m_shockGauntlets);
             }
             addModel(model);
@@ -88,10 +88,10 @@ namespace Skaven {
 
     Unit *Stormfiends::Create(const ParameterList &parameters) {
         auto unit = new Stormfiends();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOption_1 weapon1 = (WeaponOption_1) GetEnumParam("Weapon A", parameters, WarpfireProjectors);
-        WeaponOption_2 weapon2 = (WeaponOption_2) GetEnumParam("Weapon B", parameters, Grinderfists);
-        WeaponOption_3 weapon3 = (WeaponOption_3) GetEnumParam("Weapon C", parameters, DoomflayerGauntlets);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOption1 weapon1 = (WeaponOption1) GetEnumParam("Weapon A", parameters, Warpfire_Projectors);
+        WeaponOption2 weapon2 = (WeaponOption2) GetEnumParam("Weapon B", parameters, Grinderfists);
+        WeaponOption3 weapon3 = (WeaponOption3) GetEnumParam("Weapon C", parameters, Doomflayer_Gauntlets);
 
         bool ok = unit->configure(numModels, weapon1, weapon2, weapon3);
         if (!ok) {
@@ -103,19 +103,19 @@ namespace Skaven {
 
     void Stormfiends::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weaponA = {WarpfireProjectors, Windlaunchers};
-            static const std::array<int, 2> weaponB = {Grinderfists, RatlingCannons};
-            static const std::array<int, 2> weaponC = {DoomflayerGauntlets, ShockGauntlets};
+            static const std::array<int, 2> weaponA = {Warpfire_Projectors, Windlaunchers};
+            static const std::array<int, 2> weaponB = {Grinderfists, Ratling_Cannons};
+            static const std::array<int, 2> weaponC = {Doomflayer_Gauntlets, Shock_Gauntlets};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapon A", WarpfireProjectors, weaponA),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapon A", Warpfire_Projectors, weaponA),
                             EnumParameter("Weapon B", Grinderfists, weaponB),
-                            EnumParameter("Weapon C", DoomflayerGauntlets, weaponC),
+                            EnumParameter("Weapon C", Doomflayer_Gauntlets, weaponC),
                     },
                     CHAOS,
                     {SKAVEN}
@@ -126,7 +126,7 @@ namespace Skaven {
 
     std::string Stormfiends::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon A") {
-            if (parameter.intValue == WarpfireProjectors) {
+            if (parameter.intValue == Warpfire_Projectors) {
                 return "Warpfire Projectors";
             } else if (parameter.intValue == Windlaunchers) {
                 return "Windlaunchers";
@@ -134,13 +134,13 @@ namespace Skaven {
         } else if (std::string(parameter.name) == "Weapon B") {
             if (parameter.intValue == Grinderfists) {
                 return "Grinderfists";
-            } else if (parameter.intValue == RatlingCannons) {
+            } else if (parameter.intValue == Ratling_Cannons) {
                 return "Ratling Cannons";
             }
         } else if (std::string(parameter.name) == "Weapon C") {
-            if (parameter.intValue == DoomflayerGauntlets) {
+            if (parameter.intValue == Doomflayer_Gauntlets) {
                 return "Doomflayer Gauntlets";
-            } else if (parameter.intValue == ShockGauntlets) {
+            } else if (parameter.intValue == Shock_Gauntlets) {
                 return "Shock Gauntlets";
             }
         }
@@ -150,25 +150,25 @@ namespace Skaven {
 
     int Stormfiends::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Warpfire Projectors") {
-            return WarpfireProjectors;
+            return Warpfire_Projectors;
         } else if (enumString == "Windlaunchers") {
             return Windlaunchers;
         } else if (enumString == "Grinderfists") {
             return Grinderfists;
         } else if (enumString == "Ratling Cannons") {
-            return RatlingCannons;
+            return Ratling_Cannons;
         } else if (enumString == "Doomflayer Gauntlets") {
-            return DoomflayerGauntlets;
+            return Doomflayer_Gauntlets;
         } else if (enumString == "Shock Gauntlets") {
-            return ShockGauntlets;
+            return Shock_Gauntlets;
         }
         return 0;
     }
 
     int Stormfiends::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -188,7 +188,7 @@ namespace Skaven {
     int Stormfiends::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
         // Shock Gauntlets
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_shockGauntlets.name())) {
-            return Dice::rollD6();
+            return Dice::RollD6();
         }
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }

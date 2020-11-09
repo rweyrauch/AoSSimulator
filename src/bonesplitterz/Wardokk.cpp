@@ -12,9 +12,9 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool Wardokk::s_registered = false;
 
@@ -66,7 +66,7 @@ namespace Bonesplitterz {
     }
 
     Wardokk::Wardokk() :
-            Bonesplitterz("Wardokk", 5, WOUNDS, 7, 6, false),
+            Bonesplitterz("Wardokk", 5, g_wounds, 7, 6, false),
             m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};
         m_weapons = {&m_bonebeastStikk};
@@ -76,20 +76,20 @@ namespace Bonesplitterz {
     }
 
     bool Wardokk::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bonebeastStikk);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int Wardokk::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void Wardokk::onStartHero(PlayerId player) {
@@ -101,18 +101,18 @@ namespace Bonesplitterz {
             for (auto unit : units) {
                 if (unit->hasKeyword(BONESPLITTERZ) && (unit->remainingWounds() < unit->initialWounds())) {
                     // Grimdokk Dance
-                    if (Dice::rollD6() >= 3)
-                        unit->heal(Dice::rollD3());
+                    if (Dice::RollD6() >= 3)
+                        unit->heal(Dice::RollD3());
                     break;
                 } else if (unit->hasKeyword(WIZARD) && unit->hasKeyword(BONESPLITTERZ)) {
                     // Weirddokk Dance
-                    if (Dice::rollD6() >= 3)
-                        unit->buffModifier(CastingRoll, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                    if (Dice::RollD6() >= 3)
+                        unit->buffModifier(Casting_Roll, 1, {Hero, m_battleRound + 1, owningPlayer()});
                     break;
                 } else if (unit->meleeTarget() != nullptr) {
                     // Glyphdokk Dance
-                    if (Dice::rollD6() >= 3)
-                        unit->buffModifier(ToSave, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                    if (Dice::RollD6() >= 3)
+                        unit->buffModifier(To_Save, 1, {Hero, m_battleRound + 1, owningPlayer()});
                     break;
                 }
             }

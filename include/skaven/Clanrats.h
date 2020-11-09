@@ -18,8 +18,8 @@ namespace Skaven {
     public:
 
         enum WeaponOptions {
-            RustySpear,
-            RustyBlade
+            Rusty_Spear,
+            Rusty_Blade
         };
 
         static Unit *Create(const ParameterList &parameters);

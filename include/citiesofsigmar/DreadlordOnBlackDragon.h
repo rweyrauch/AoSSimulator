@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef DREADLORDBLACKDRAGON_H
-#define DREADLORDBLACKDRAGON_H
+#ifndef DREADLORDONBLACKDRAGON_H
+#define DREADLORDONBLACKDRAGON_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -18,11 +18,11 @@ namespace CitiesOfSigmar {
     public:
 
         enum WeaponOption {
-            ExileBladeAndShield,
-            ExileBladeAndCrossbow,
-            LanceAndShield,
-            LanceAndCrossbow,
-            PairExileBlades
+            Exile_Blade_And_Shield,
+            Exile_Blade_And_Crossbow,
+            Lance_And_Shield,
+            Lance_And_Crossbow,
+            Pair_Exile_Blades
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -48,8 +48,8 @@ namespace CitiesOfSigmar {
         void onRestore() override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override {
-            if ((m_weaponOption == PairExileBlades) && (weapon->name() == m_blade.name())) {
-                return RerollFailed;
+            if ((m_weaponOption == Pair_Exile_Blades) && (weapon->name() == m_blade.name())) {
+                return Reroll_Failed;
             }
             return Unit::toHitRerolls(weapon, target);
         }
@@ -58,7 +58,7 @@ namespace CitiesOfSigmar {
             auto mod = Unit::toSaveModifier(weapon);
 
             // Tyrant Shield
-            if (m_weaponOption == LanceAndShield || m_weaponOption == ExileBladeAndShield) mod++;
+            if (m_weaponOption == Lance_And_Shield || m_weaponOption == Exile_Blade_And_Shield) mod++;
 
             return mod;
         }
@@ -71,7 +71,7 @@ namespace CitiesOfSigmar {
 
         int getDamageTableIndex() const;
 
-        WeaponOption m_weaponOption = LanceAndShield;
+        WeaponOption m_weaponOption = Lance_And_Shield;
 
         Weapon m_crossbow,
                 m_noxiousBreath,
@@ -95,4 +95,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //DREADLORDBLACKDRAGON_H
+#endif //DREADLORDONBLACKDRAGON_H

@@ -12,17 +12,17 @@
 #include <array>
 
 namespace Greenskinz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool Orruks::s_registered = false;
 
     Orruks::Orruks() :
-            Unit("Orruks", 5, WOUNDS, 5, 5, false),
+            Unit("Orruks", 5, g_wounds, 5, 5, false),
             m_orrukBows(Weapon::Type::Missile, "Orruk Bows", 18, 1, 5, 4, 0, 1),
             m_choppa(Weapon::Type::Melee, "Choppa", 1, 1, 4, 4, -1, 1),
             m_pigstikkaSpear(Weapon::Type::Melee, "Pigstikka Spear", 2, 1, 4, 4, 0, 1),
@@ -44,7 +44,7 @@ namespace Greenskinz {
 
     bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, StandardBearer standardBearer) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -54,18 +54,18 @@ namespace Greenskinz {
         m_weaponOption = weapons;
 
         // Add the boss
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         switch (weapons) {
-            case ChoppaAndShield:
+            case Choppa_And_Shield:
                 boss->addMeleeWeapon(&m_choppaBoss);
                 break;
-            case SpearAndShield:
+            case Spear_And_Shield:
                 boss->addMeleeWeapon(&m_pigstikkaSpearBoss);
                 break;
-            case PairedChoppas:
+            case Paired_Choppas:
                 boss->addMeleeWeapon(&m_choppaBoss);
                 break;
-            case OrrukBowAndCutta:
+            case Orruk_Bow_And_Cutta:
                 boss->addMissileWeapon(&m_orrukBowBoss);
                 boss->addMeleeWeapon(&m_choppaBoss);
                 break;
@@ -73,18 +73,18 @@ namespace Greenskinz {
         addModel(boss);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             switch (weapons) {
-                case ChoppaAndShield:
+                case Choppa_And_Shield:
                     model->addMeleeWeapon(&m_choppa);
                     break;
-                case SpearAndShield:
+                case Spear_And_Shield:
                     model->addMeleeWeapon(&m_pigstikkaSpear);
                     break;
-                case PairedChoppas:
+                case Paired_Choppas:
                     model->addMeleeWeapon(&m_choppa);
                     break;
-                case OrrukBowAndCutta:
+                case Orruk_Bow_And_Cutta:
                     model->addMissileWeapon(&m_orrukBows);
                     model->addMeleeWeapon(&m_choppa);
                     break;
@@ -99,10 +99,10 @@ namespace Greenskinz {
 
     Unit *Orruks::Create(const ParameterList &parameters) {
         auto unit = new Orruks();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, ChoppaAndShield);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Choppa_And_Shield);
         bool drummer = GetBoolParam("Waaagh! Drummer", parameters, false);
-        StandardBearer standardBearer = (StandardBearer) GetEnumParam("Standard Bearer", parameters, OrrukBanner);
+        StandardBearer standardBearer = (StandardBearer) GetEnumParam("Standard Bearer", parameters, Orruk_Banner);
 
         bool ok = unit->configure(numModels, weapons, drummer, standardBearer);
         if (!ok) {
@@ -114,8 +114,8 @@ namespace Greenskinz {
 
     void Orruks::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {ChoppaAndShield, SpearAndShield, PairedChoppas, OrrukBowAndCutta};
-            static const std::array<int, 3> banners = {None, OrrukBanner, SkullIcon};
+            static const std::array<int, 4> weapons = {Choppa_And_Shield, Spear_And_Shield, Paired_Choppas, Orruk_Bow_And_Cutta};
+            static const std::array<int, 3> banners = {None, Orruk_Banner, Skull_Icon};
 
             static FactoryMethod factoryMethod {
                     Orruks::Create,
@@ -123,7 +123,7 @@ namespace Greenskinz {
                     Orruks::EnumStringToInt,
                     Orruks::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", weapons[0], weapons),
                             BoolParameter("Waaagh! Drummer"),
                             EnumParameter("Standard Bearer", banners[0], banners),
@@ -137,19 +137,19 @@ namespace Greenskinz {
 
     std::string Orruks::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == ChoppaAndShield) {
+            if (parameter.intValue == Choppa_And_Shield) {
                 return "Choppa and Shield";
-            } else if (parameter.intValue == SpearAndShield) {
+            } else if (parameter.intValue == Spear_And_Shield) {
                 return "Pigstikka Spear And Shield";
-            } else if (parameter.intValue == PairedChoppas) {
+            } else if (parameter.intValue == Paired_Choppas) {
                 return "Paired Choppas";
-            } else if (parameter.intValue == OrrukBowAndCutta) {
+            } else if (parameter.intValue == Orruk_Bow_And_Cutta) {
                 return "Orruk Bow and Cutta";
             }
         } else if (std::string(parameter.name) == "Standard Bearer") {
-            if (parameter.intValue == OrrukBanner) {
+            if (parameter.intValue == Orruk_Banner) {
                 return "Orruk Banner";
-            } else if (parameter.intValue == SkullIcon) {
+            } else if (parameter.intValue == Skull_Icon) {
                 return "Skull Icon";
             } else if (parameter.intValue == None) {
                 return "None";
@@ -160,17 +160,17 @@ namespace Greenskinz {
 
     int Orruks::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Choppa and Shield") {
-            return ChoppaAndShield;
+            return Choppa_And_Shield;
         } else if (enumString == "Pigstikka Spear and Shield") {
-            return SpearAndShield;
+            return Spear_And_Shield;
         } else if (enumString == "Paired Choppas") {
-            return PairedChoppas;
+            return Paired_Choppas;
         } else if (enumString == "Orruk Bow and Cutta") {
-            return OrrukBowAndCutta;
+            return Orruk_Bow_And_Cutta;
         } else if (enumString == "Orruk Banner") {
-            return OrrukBanner;
+            return Orruk_Banner;
         } else if (enumString == "Skull Icon") {
-            return SkullIcon;
+            return Skull_Icon;
         } else if (enumString == "None") {
             return None;
         }
@@ -186,7 +186,7 @@ namespace Greenskinz {
 
     int Orruks::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
-        if (m_standardBearer == OrrukBanner) {
+        if (m_standardBearer == Orruk_Banner) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             if (!units.empty()) {
                 modifier += 2;
@@ -197,8 +197,8 @@ namespace Greenskinz {
 
     Rerolls Orruks::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Choppas
-        if ((m_weaponOption == PairedChoppas) && (weapon->name() == m_choppa.name())) {
-            return RerollOnes;
+        if ((m_weaponOption == Paired_Choppas) && (weapon->name() == m_choppa.name())) {
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -214,8 +214,8 @@ namespace Greenskinz {
 
     Rerolls Orruks::toSaveRerolls(const Weapon *weapon) const {
         // Waaagh! Shield
-        if (!weapon->isMissile() && (m_weaponOption == ChoppaAndShield || m_weaponOption == SpearAndShield)) {
-            return RerollFailed;
+        if (!weapon->isMissile() && (m_weaponOption == Choppa_And_Shield || m_weaponOption == Spear_And_Shield)) {
+            return Reroll_Failed;
         }
         return Unit::toSaveRerolls(weapon);
     }
@@ -236,9 +236,9 @@ namespace Greenskinz {
     }
 
     int Orruks::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -15,14 +15,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 200;
 
     bool LordArcanumOnGryphcharger::s_registered = false;
 
     LordArcanumOnGryphcharger::LordArcanumOnGryphcharger() :
-            StormcastEternal("Lord-Arcanum on Gryph-charger", 12, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Arcanum on Gryph-charger", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD,
@@ -37,7 +37,7 @@ namespace StormcastEternals {
 
     bool LordArcanumOnGryphcharger::configure(Lore lore) {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
         model->addMeleeWeapon(&m_beakAndClaws);
         addModel(model);
@@ -47,7 +47,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateHealingLight(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -116,7 +116,7 @@ namespace StormcastEternals {
     }
 
     int LordArcanumOnGryphcharger::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

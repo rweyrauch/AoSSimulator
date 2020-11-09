@@ -12,14 +12,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 40;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 110;
 
     bool SaurusEternityWarden::s_registered = false;
 
     SaurusEternityWarden::SaurusEternityWarden() :
-            SeraphonBase("Saurus Eternity Warden", 5, WOUNDS, 8, 3, false),
+            SeraphonBase("Saurus Eternity Warden", 5, g_wounds, 8, 3, false),
             m_mace(Weapon::Type::Melee, "Star-stone Mace", 1, 3, 3, 3, -1, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, ETERNITY_WARDEN};
@@ -28,7 +28,7 @@ namespace Seraphon {
     }
 
     bool SaurusEternityWarden::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_mace);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
@@ -93,7 +93,7 @@ namespace Seraphon {
     }
 
     int SaurusEternityWarden::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

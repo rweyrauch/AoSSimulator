@@ -12,9 +12,9 @@
 #include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 35;
-    static const int POINTS_PER_UNIT = 490;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 35;
+    static const int g_pointsPerUnit = 490;
 
     struct TableEntry {
         int m_move;
@@ -23,9 +23,9 @@ namespace SonsOfBehemat {
         int m_smashDown;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {12, 18, 24, 30, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {12, 18, 24, 30, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 10, 18, 2},
                     {11, 9, 15, 3},
@@ -37,7 +37,7 @@ namespace SonsOfBehemat {
     bool Gatebreaker::s_registered = false;
 
     Gatebreaker::Gatebreaker() :
-            SonsOfBehematBase("Gatebreaker Mega-Gargant", 12, WOUNDS, 7, 4, false),
+            SonsOfBehematBase("Gatebreaker Mega-Gargant", 12, g_wounds, 7, 4, false),
             m_boulder(Weapon::Type::Missile, "Hurled Boulder", 18, 1, 3, 2, -3, 4),
             m_stomp(Weapon::Type::Melee, "Almighty Stomp", 2, 2, 3, 3, -2, RAND_D3),
             m_grip(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
@@ -50,14 +50,14 @@ namespace SonsOfBehemat {
     }
 
     bool Gatebreaker::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boulder);
         model->addMeleeWeapon(&m_stomp);
         model->addMeleeWeapon(&m_flail);
         model->addMeleeWeapon(&m_grip);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -106,12 +106,12 @@ namespace SonsOfBehemat {
     }
 
     int Gatebreaker::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     int Gatebreaker::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -137,11 +137,11 @@ namespace SonsOfBehemat {
     Rerolls Gatebreaker::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Almighty Stomp
         if ((weapon->name() == m_stomp.name()) && (!target->hasKeyword(MONSTER)))
-            return RerollOnes;
+            return Reroll_Ones;
 
         // Death Grip
         if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
-            return RerollOnes;
+            return Reroll_Ones;
 
         return Unit::toHitRerolls(weapon, target);
     }
@@ -150,10 +150,10 @@ namespace SonsOfBehemat {
         // Crushing Charge
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
         for (auto unit : units) {
-            if (Dice::rollD6() >= 2) {
-                auto mortal = Dice::rollD6();
+            if (Dice::RollD6() >= 2) {
+                auto mortal = Dice::RollD6();
                 if (unit->hasKeyword(MONSTER)) {
-                    mortal = Dice::rollD3();
+                    mortal = Dice::RollD3();
                 }
                 unit->applyDamage({0, mortal});
             }

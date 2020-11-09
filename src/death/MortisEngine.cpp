@@ -12,9 +12,9 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 180;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 180;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Death {
         int m_hostAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {14, 9, 12},
                     {12, 8, 10},
@@ -50,7 +50,7 @@ namespace Death {
     }
 
     int MortisEngine::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void MortisEngine::Init() {
@@ -71,7 +71,7 @@ namespace Death {
     }
 
     MortisEngine::MortisEngine() :
-            LegionOfNagashBase("Mortis Engine", 14, WOUNDS, 10, 4, true),
+            LegionOfNagashBase("Mortis Engine", 14, g_wounds, 10, 4, true),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Corpsemaster's Mortis Staff", 1, 1, 4, 3, -1, RAND_D3),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
@@ -81,13 +81,13 @@ namespace Death {
     }
 
     bool MortisEngine::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_etherealWeapons);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -109,7 +109,7 @@ namespace Death {
 
     int MortisEngine::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -130,8 +130,8 @@ namespace Death {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
                                                        g_damageTable[getDamageTableIndex()].m_wailRange);
         for (auto unit : units) {
-            if (Dice::roll2D6() > unit->bravery()) {
-                unit->applyDamage({0, Dice::rollD3()});
+            if (Dice::Roll2D6() > unit->bravery()) {
+                unit->applyDamage({0, Dice::RollD3()});
             }
         }
     }

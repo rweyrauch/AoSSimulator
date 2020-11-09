@@ -12,14 +12,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool TheMasque::s_registered = false;
 
     TheMasque::TheMasque() :
-            SlaaneshBase("The Masque", 10, WOUNDS, 10, 5, false),
+            SlaaneshBase("The Masque", 10, g_wounds, 10, 5, false),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, THE_MASQUE};
         m_weapons = {&m_ravagingClaws};
@@ -33,11 +33,11 @@ namespace Slaanesh {
     }
 
     bool TheMasque::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,7 +78,7 @@ namespace Slaanesh {
     }
 
     int TheMasque::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

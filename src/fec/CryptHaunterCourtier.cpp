@@ -13,14 +13,14 @@
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 50;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool CryptHaunterCourtier::s_registered = false;
 
     CryptHaunterCourtier::CryptHaunterCourtier() :
-            FleshEaterCourts("Crypt Haunter Courtier", 12, WOUNDS, 10, 4, true),
+            FleshEaterCourts("Crypt Haunter Courtier", 12, g_wounds, 10, 4, true),
             m_massiveBoneClub(Weapon::Type::Melee, "Massive Bone Clube", 1, 3, 4, 3, 0, 3),
             m_rancidTalons(Weapon::Type::Melee, "Rancid Talons", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_HAUNTER_COURTIER};
@@ -29,12 +29,12 @@ namespace FleshEaterCourt {
     }
 
     bool CryptHaunterCourtier::configure() {
-        auto infernal = new Model(BASESIZE, wounds());
+        auto infernal = new Model(g_basesize, wounds());
         infernal->addMeleeWeapon(&m_massiveBoneClub);
         infernal->addMeleeWeapon(&m_rancidTalons);
         addModel(infernal);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -98,13 +98,13 @@ namespace FleshEaterCourt {
         // Chosen of the King
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
         for (auto unit : units) {
-            if (unit->hasKeyword(ABHORRANT)) return RerollFailed;
+            if (unit->hasKeyword(ABHORRANT)) return Reroll_Failed;
         }
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }
 
     int CryptHaunterCourtier::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace FleshEaterCourt

@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
 
         enum WeaponOption {
             Stabba,
-            PokinSpear
+            Pokin_Spear
         };
 
         static Unit *Create(const ParameterList &parameters);

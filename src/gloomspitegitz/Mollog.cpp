@@ -11,9 +11,9 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 170;
+    static const int g_basesize = 50;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 170;
 
     bool Mollog::s_registered = false;
 
@@ -50,11 +50,11 @@ namespace GloomspiteGitz {
     }
 
     int Mollog::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Mollog::Mollog() :
-            GloomspiteGitzBase("Mollog", 6, WOUNDS, 7, 4, false),
+            GloomspiteGitzBase("Mollog", 6, g_wounds, 7, 4, false),
             m_jabbertoad(Weapon::Type::Missile, "Jabbertoad", 12, 1, 4, 4, 0, 1),
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, MOLLOG};
@@ -69,7 +69,7 @@ namespace GloomspiteGitz {
     }
 
     bool Mollog::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_jabbertoad);
         model->addMeleeWeapon(&m_club);
         addModel(model);
@@ -81,11 +81,11 @@ namespace GloomspiteGitz {
 
     void Mollog::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Regeneration - heal D3
                 // Troggoth Renewal
-                if (Dice::rollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::rollD6() >= 4))) {
-                    int woundsHealed = Dice::rollD3();
+                if (Dice::RollD6() >= 4 || (inLightOfTheBadMoon() && (Dice::RollD6() >= 4))) {
+                    int woundsHealed = Dice::RollD3();
                     if (inLightOfTheBadMoon())
                         woundsHealed *= 2;
                     for (auto &m : m_models) {
@@ -109,7 +109,7 @@ namespace GloomspiteGitz {
 
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
-            if (Dice::rollD6() >= 4) {
+            if (Dice::RollD6() >= 4) {
                 return {0, 0, Wounds::Source::Spell};
             }
         }
@@ -136,7 +136,7 @@ namespace GloomspiteGitz {
             }
         }
         if (m_stalagsquig) {
-            const auto roll = Dice::rollD6();
+            const auto roll = Dice::RollD6();
             if (totalWounds.mortal > 0) {
                 totalWounds.mortal--;
                 if (roll < 5)
@@ -166,7 +166,7 @@ namespace GloomspiteGitz {
             if (m_batSquig) {
                 auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
                 if (unit && (distanceTo(unit) <= 18.0)) {
-                    if (Dice::rollD6() >= 5) {
+                    if (Dice::RollD6() >= 5) {
                         unit->applyDamage({0, 1});
                     }
                 }
@@ -180,8 +180,8 @@ namespace GloomspiteGitz {
         if (m_spiteshroom) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
-                if (Dice::rollD6() >= 5) {
-                    unit->buffModifier(BuffableAttribute::ToHitMelee, -1, {Phase::Combat, m_battleRound, player});
+                if (Dice::RollD6() >= 5) {
+                    unit->buffModifier(BuffableAttribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
                 }
             }
         }

@@ -10,9 +10,9 @@
 #include "gloomspitegitz/RippasSnarlfangs.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_pointsPerUnit = 80;
 
     bool RippasSnarlfangs::s_registered = false;
 
@@ -44,7 +44,7 @@ namespace GloomspiteGitz {
     }
 
     RippasSnarlfangs::RippasSnarlfangs() :
-            GloomspiteGitzBase("Rippa's Snarlfangs", 12, WOUNDS, 4, 5, false),
+            GloomspiteGitzBase("Rippa's Snarlfangs", 12, g_wounds, 4, 5, false),
             m_grotBow(Weapon::Type::Missile, "Grot Bow", 18, 1, 4, 4, 0, 1),
             m_bossLoppa(Weapon::Type::Melee, "Boss Loppa", 1, 2, 3, 4, -1, 1),
             m_stikka(Weapon::Type::Melee, "Stabbin' Stikka", 2, 1, 4, 4, 0, 1),
@@ -58,25 +58,25 @@ namespace GloomspiteGitz {
     }
 
     bool RippasSnarlfangs::configure() {
-        auto rippa = new Model(BASESIZE, wounds());
+        auto rippa = new Model(g_basesize, wounds());
         rippa->addMeleeWeapon(&m_bossLoppa);
         rippa->addMeleeWeapon(&m_jaws);
         rippa->setName("Rippa Narkbad");
         addModel(rippa);
 
-        auto stabbit = new Model(BASESIZE, wounds());
+        auto stabbit = new Model(g_basesize, wounds());
         stabbit->addMeleeWeapon(&m_stikka);
         stabbit->addMeleeWeapon(&m_jaws);
         stabbit->setName("Stabbit");
         addModel(stabbit);
 
-        auto meanEye = new Model(BASESIZE, wounds());
+        auto meanEye = new Model(g_basesize, wounds());
         meanEye->addMissileWeapon(&m_grotBow);
         meanEye->addMeleeWeapon(&m_bowStave);
         meanEye->addMeleeWeapon(&m_jaws);
         addModel(meanEye);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -93,7 +93,7 @@ namespace GloomspiteGitz {
     }
 
     int RippasSnarlfangs::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace GloomspiteGitz

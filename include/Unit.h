@@ -522,9 +522,9 @@ protected:
     TurnRecord m_currentRecord;
     UnitStatistics m_statistics;
 
-    std::list<ModifierBuff> m_attributeModifiers[NUM_BUFFABLE_ATTRIBUTES];
-    std::list<RerollBuff> m_rollModifiers[NUM_BUFFABLE_ATTRIBUTES];
-    std::list<MovementRuleBuff> m_movementRules[NUM_MOVEMENT_RULES];
+    std::list<ModifierBuff> m_attributeModifiers[Num_Buffable_Attributes];
+    std::list<RerollBuff> m_rollModifiers[Num_Buffable_Attributes];
+    std::list<MovementRuleBuff> m_movementRules[Num_Movement_Rules];
 
     static lsignal::signal<int(const Unit *)> s_globalMoveMod;
     static lsignal::signal<int(const Unit *)> s_globalRunMod;

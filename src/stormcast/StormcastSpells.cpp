@@ -53,7 +53,7 @@ PurifyingBlast::PurifyingBlast(Unit *caster) :
 }
 
 Spell::Result PurifyingBlast::cast(Unit * /*target*/, int round) {
-    Spell::Result result = Failed;
+    Spell::Result result = Result::Failed;
 
     const int castingRoll = m_caster->rollCasting();
     if (castingRoll >= m_castingValue) {
@@ -61,13 +61,13 @@ Spell::Result PurifyingBlast::cast(Unit * /*target*/, int round) {
         if (!unbound) {
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
             for (auto ip : units) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 int total = roll + ip->bravery();
                 if (ip->hasKeyword(DEATH) || ip->hasKeyword(DAEMON)) {
                     total = roll + ip->bravery() / 2;
                 }
                 if (total < 10) {
-                    Wounds wounds = {0, Dice::rollD3(), Wounds::Source::Spell};
+                    Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
                     int numSlain = ip->applyDamage(wounds);
                     if (numSlain > 0) {
                         SimLog(Verbosity::Narrative, "%s inflicts %d mortal wounds on unit %s.\n",
@@ -75,10 +75,10 @@ Spell::Result PurifyingBlast::cast(Unit * /*target*/, int round) {
                     }
                 }
             }
-            result = Success;
+            result = Result::Success;
         } else {
             SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
-            result = Unbound;
+            result = Result::Unbound;
         }
     } else {
         SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),

@@ -13,9 +13,9 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 110;
 
     bool WarlockEngineer::s_registered = false;
 
@@ -62,7 +62,7 @@ namespace Skaven {
     }
 
     WarlockEngineer::WarlockEngineer() :
-            Skaventide("Warlock Engineer", 6, WOUNDS, 5, 5, false),
+            Skaventide("Warlock Engineer", 6, g_wounds, 5, 5, false),
             m_pistol(Weapon::Type::Missile, "Warplock Pistol", 9, 1, 3, 3, -1, RAND_D3),
             m_blade(Weapon::Type::Melee, "Warp-energy Blade", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, HERO, WIZARD, WARLOCK_ENGINEER};
@@ -74,7 +74,7 @@ namespace Skaven {
     }
 
     bool WarlockEngineer::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistol);
         model->addMeleeWeapon(&m_blade);
         addModel(model);
@@ -83,7 +83,7 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -98,7 +98,7 @@ namespace Skaven {
         auto wounds = Unit::onEndCombat(player);
 
         if (m_moreMoreFailed) {
-            Wounds overloadWounds = {0, Dice::rollD6()};
+            Wounds overloadWounds = {0, Dice::RollD6()};
             applyDamage(overloadWounds);
             wounds += overloadWounds;
             m_moreMoreFailed = false;
@@ -124,7 +124,7 @@ namespace Skaven {
     }
 
     int WarlockEngineer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

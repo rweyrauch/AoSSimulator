@@ -6,19 +6,18 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <fec/AbhorrantGhoulKing.h>
-#include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 32;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 160;
 
     bool AbhorrantGhoulKing::s_registered = false;
 
     AbhorrantGhoulKing::AbhorrantGhoulKing() :
-            FleshEaterCourts("Abhorrant Ghoul King", 6, WOUNDS, 10, 4, false),
+            FleshEaterCourts("Abhorrant Ghoul King", 6, g_wounds, 10, 4, false),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 6, 3, 3, -1, 1) {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
                       ABHORRANT_GHOUL_KING};
@@ -30,14 +29,14 @@ namespace FleshEaterCourt {
     }
 
     bool AbhorrantGhoulKing::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -97,8 +96,8 @@ namespace FleshEaterCourt {
     void AbhorrantGhoulKing::onStartHero(PlayerId player) {
         // Royal Blood
         if (player == owningPlayer()) {
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
-                int woundsHealed = Dice::rollD3();
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
+                int woundsHealed = Dice::RollD3();
                 for (auto &m : m_models) {
                     m->applyHealing(woundsHealed);
                 }
@@ -107,7 +106,7 @@ namespace FleshEaterCourt {
     }
 
     int AbhorrantGhoulKing::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace FleshEasterCourt

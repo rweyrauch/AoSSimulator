@@ -12,9 +12,9 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_pointsPerUnit = 80;
 
     bool MagoresFiends::s_registered = false;
 
@@ -50,7 +50,7 @@ namespace Khorne {
     }
 
     MagoresFiends::MagoresFiends() :
-            KhorneBase("Magore's Fiends", 5, WOUNDS, 6, 4, false),
+            KhorneBase("Magore's Fiends", 5, g_wounds, 6, 4, false),
             m_bellyMaw(Weapon::Type::Melee, "Magore's Belly Maw", 1, 1, 4, 3, -1, RAND_D3),
             m_daemonicAxe(Weapon::Type::Melee, "Magore's Daemonic Axe", 1, 3, 3, 3, -1, 1),
             m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1) {
@@ -59,30 +59,30 @@ namespace Khorne {
     }
 
     bool MagoresFiends::configure() {
-        auto magore = new Model(BASESIZE, wounds());
+        auto magore = new Model(g_basesize, wounds());
         magore->setName("Magore");
         magore->addMeleeWeapon(&m_bellyMaw);
         magore->addMeleeWeapon(&m_daemonicAxe);
         addModel(magore);
 
-        auto ghartok = new Model(BASESIZE, wounds());
+        auto ghartok = new Model(g_basesize, wounds());
         ghartok->setName("Ghartok");
         ghartok->addMeleeWeapon(&m_goreaxe);
         addModel(ghartok);
 
-        auto zharkus = new Model(BASESIZE, wounds());
+        auto zharkus = new Model(g_basesize, wounds());
         zharkus->setName("Zharkus");
         zharkus->addMeleeWeapon(&m_goreaxe);
         addModel(zharkus);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Rerolls MagoresFiends::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (target->hasKeyword(STORMCAST_ETERNAL)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -100,13 +100,13 @@ namespace Khorne {
         // Blood Scent
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), RIPTOOTH, 3.0);
         if (unit) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::chargeRerolls();
     }
 
     int MagoresFiends::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

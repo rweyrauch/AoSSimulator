@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GUTROTSPUME_H
-#define GUTROTSPUME_H
+#ifndef GUTROT_H
+#define GUTROT_H
 
 #include "nurgle/Nurgle.h"
 
@@ -49,4 +49,4 @@ namespace Nurgle {
 
 } // Nurgle
 
-#endif //GUTROTSPUME_H
+#endif //GUTROT_H

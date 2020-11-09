@@ -41,7 +41,7 @@ namespace GloomspiteGitz {
         // Bad Moon does not move in the first round
         if (round != 1) {
             if (m_location != Location::Set) {
-                int roll = Dice::rollD6();
+                int roll = Dice::RollD6();
                 if (roll == 6) {
                     // advance two positions
                     advanceOne();

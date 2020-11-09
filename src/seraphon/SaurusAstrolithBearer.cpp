@@ -12,14 +12,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 140;
 
     bool SaurusAstrolithBearer::s_registered = false;
 
     SaurusAstrolithBearer::SaurusAstrolithBearer() :
-            SeraphonBase("Saurus Astrolith Bearer", 5, WOUNDS, 8, 4, false),
+            SeraphonBase("Saurus Astrolith Bearer", 5, g_wounds, 8, 4, false),
             m_warpick(Weapon::Type::Melee, "Celestite Warpick", 1, 3, 3, 3, -1, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, TOTEM, ASTROLITH_BEARER};
@@ -28,7 +28,7 @@ namespace Seraphon {
     }
 
     bool SaurusAstrolithBearer::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpick);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
@@ -85,7 +85,7 @@ namespace Seraphon {
     }
 
     int SaurusAstrolithBearer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

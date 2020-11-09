@@ -11,14 +11,14 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 270;
+    static const int g_basesize = 60;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 270;
 
     bool Volturnos::s_registered = false;
 
     Volturnos::Volturnos() :
-            IdonethDeepkinBase("Volturnos", 14, WOUNDS, 8, 3, true),
+            IdonethDeepkinBase("Volturnos", 14, g_wounds, 8, 3, true),
             m_theAstraSolus(Weapon::Type::Melee, "The Astra Solus", 1, 5, 3, 3, -1, RAND_D3),
             m_deepmareJawsTalons(Weapon::Type::Melee, "Deepmare's Fanged Jaw and Talons", 2, 3, 3, 3, -1, 1),
             m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2) {
@@ -35,13 +35,13 @@ namespace IdonethDeepkin {
     }
 
     bool Volturnos::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_theAstraSolus);
         model->addMeleeWeapon(&m_deepmareJawsTalons);
         model->addMeleeWeapon(&m_deepmareTails);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -86,9 +86,9 @@ namespace IdonethDeepkin {
         // Deepmare Horn
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         if (!units.empty()) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 2) {
-                units.front()->applyDamage({0, Dice::rollD3()});
+                units.front()->applyDamage({0, Dice::RollD3()});
             }
         }
 
@@ -114,7 +114,7 @@ namespace IdonethDeepkin {
     }
 
     int Volturnos::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace IdonethDeepkin

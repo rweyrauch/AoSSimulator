@@ -12,9 +12,9 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 270;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 270;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Khorne {
         int m_axeToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 4, 2},
                     {9,  3, 3},
@@ -36,21 +36,21 @@ namespace Khorne {
     bool BloodthirsterOfUnfetteredFury::s_registered = false;
 
     BloodthirsterOfUnfetteredFury::BloodthirsterOfUnfetteredFury() :
-            KhorneBase("Bloodthirster Of Unfettered Fury", 10, WOUNDS, 10, 4, true),
+            KhorneBase("Bloodthirster Of Unfettered Fury", 10, g_wounds, 10, 4, true),
             m_lashOfKhorne(Weapon::Type::Missile, "Lash of Khorne", 8, 4, 4, 3, -1, RAND_D3),
             m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_UNFETTERED_FURY};
         m_weapons = {&m_lashOfKhorne, &m_mightyAxeOfKhorne};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
     }
 
     bool BloodthirsterOfUnfetteredFury::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_lashOfKhorne);
         model->addMeleeWeapon(&m_mightyAxeOfKhorne);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -100,7 +100,7 @@ namespace Khorne {
 
     int BloodthirsterOfUnfetteredFury::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -126,7 +126,7 @@ namespace Khorne {
         // The Land Rebels
         auto enemyUnits = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0);
         for (auto ip : enemyUnits) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll == 6) {
                 ip->applyDamage({0, 1});
                 // TODO: also movement of affected unit is halved until your next hero phase
@@ -135,7 +135,7 @@ namespace Khorne {
     }
 
     int BloodthirsterOfUnfetteredFury::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

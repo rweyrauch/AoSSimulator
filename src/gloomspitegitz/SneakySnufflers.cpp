@@ -12,17 +12,17 @@
 #include <Roster.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 6;
-    static const int MAX_UNIT_SIZE = 18;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 210;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 6;
+    static const int g_maxUnitSize = 18;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 210;
 
     bool SneakySnufflers::s_registered = false;
 
     SneakySnufflers::SneakySnufflers() :
-            GloomspiteGitzBase("Sneaky Snufflers", 5, WOUNDS, 4, 6, false),
+            GloomspiteGitzBase("Sneaky Snufflers", 5, g_wounds, 4, 6, false),
             m_sickle(Weapon::Type::Melee, "Loonfungus Sickle", 1, 1, 4, 4, 0, 1),
             m_gnashers(Weapon::Type::Melee, "Gnashers", 1, 1, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SNEAKY_SNUFFERS};
@@ -31,13 +31,13 @@ namespace GloomspiteGitz {
 
     bool SneakySnufflers::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_sickle);
             model->addMeleeWeapon(&m_gnashers);
             addModel(model);
@@ -50,7 +50,7 @@ namespace GloomspiteGitz {
 
     Unit *SneakySnufflers::Create(const ParameterList &parameters) {
         auto unit = new SneakySnufflers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -68,7 +68,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SneakySnufflers::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -78,9 +78,9 @@ namespace GloomspiteGitz {
     }
 
     int SneakySnufflers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

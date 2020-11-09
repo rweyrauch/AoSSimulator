@@ -10,9 +10,9 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool ArkanautAdmiral::s_registered = false;
 
@@ -68,7 +68,7 @@ namespace KharadronOverlords {
     }
 
     ArkanautAdmiral::ArkanautAdmiral() :
-            KharadronBase("Arkanaut Admiral", 4, WOUNDS, 8, 3, false),
+            KharadronBase("Arkanaut Admiral", 4, g_wounds, 8, 3, false),
             m_pistol(Weapon::Type::Missile, "Volley Pistol", 9, 3, 3, 4, -1, 1),
             m_skalfhammer(Weapon::Type::Melee, "Skalfhammer", 1, 3, 3, 2, -2, 2) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, ARKANAUT_ADMIRAL};
@@ -77,32 +77,32 @@ namespace KharadronOverlords {
     }
 
     bool ArkanautAdmiral::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistol);
         model->addMeleeWeapon(&m_skalfhammer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Rerolls ArkanautAdmiral::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // If You Want A Job Done...
-        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return RerollOnes;
+        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Reroll_Ones;
 
         return Unit::toHitRerolls(weapon, target);
     }
 
     Rerolls ArkanautAdmiral::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // If You Want A Job Done...
-        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return RerollOnes;
+        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Reroll_Ones;
 
         return Unit::toWoundRerolls(weapon, target);
     }
 
     int ArkanautAdmiral::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //KharadronOverlords

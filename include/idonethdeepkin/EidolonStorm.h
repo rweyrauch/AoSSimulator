@@ -41,7 +41,7 @@ namespace IdonethDeepkin {
 
         Weapon m_spear,
                 m_crulhook,
-                m_stormshoal;
+                m_fangs;
 
         static bool s_registered;
     };
@@ -52,6 +52,7 @@ namespace IdonethDeepkin {
 // Crashing Upon the Foe            Yes
 // Drench with Hate                 TODO
 // Pulled Into the Depths           TODO
+// Stormshoal                       TODO
 //
 
 } // namespace IdonethDeepkin

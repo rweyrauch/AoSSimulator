@@ -12,18 +12,18 @@
 
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 9;
-    static const int MAX_UNIT_SIZE = 36;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 9;
+    static const int g_maxUnitSize = 36;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool SpireTyrants::s_registered = false;
 
     Unit *SpireTyrants::Create(const ParameterList &parameters) {
         auto unit = new SpireTyrants();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -37,9 +37,9 @@ namespace SlavesToDarkness {
     }
 
     int SpireTyrants::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -52,7 +52,7 @@ namespace SlavesToDarkness {
                     SlavesToDarknessBase::EnumStringToInt,
                     SpireTyrants::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                     },
                     CHAOS,
@@ -63,7 +63,7 @@ namespace SlavesToDarkness {
     }
 
     SpireTyrants::SpireTyrants() :
-            SlavesToDarknessBase("Spire Tyrants", 6, WOUNDS, 5, 5, false),
+            SlavesToDarknessBase("Spire Tyrants", 6, g_wounds, 5, 5, false),
             m_gladiatorialWeapons(Weapon::Type::Melee, "Gladiatorial Weapons", 1, 1, 4, 4, 0, 1),
             m_gladiatorialWeaponsChampion(Weapon::Type::Melee, "Gladiatorial Weapons", 1, 3, 4, 4, 0, 1),
             m_gladiatorialWeaponsHeadclaimer(Weapon::Type::Melee, "Gladiatorial Weapons", 1, 1, 4, 4, 0, 2),
@@ -72,27 +72,27 @@ namespace SlavesToDarkness {
     }
 
     bool SpireTyrants::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto champion = new Model(BASESIZE, wounds());
+        auto champion = new Model(g_basesize, wounds());
         champion->addMeleeWeapon(&m_gladiatorialWeaponsChampion);
         champion->setName("Pit Champion");
         addModel(champion);
 
-        auto headclaimer = new Model(BASESIZE, wounds());
+        auto headclaimer = new Model(g_basesize, wounds());
         headclaimer->addMeleeWeapon(&m_gladiatorialWeaponsHeadclaimer);
         headclaimer->setName("Headclaimer");
         addModel(headclaimer);
 
-        auto destroyer = new Model(BASESIZE, wounds());
+        auto destroyer = new Model(g_basesize, wounds());
         destroyer->addMeleeWeapon(&m_gladiatorialWeaponsDestroyer);
         destroyer->setName("Bestigor Destroyer");
         addModel(destroyer);
 
         for (auto i = 3; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_gladiatorialWeapons);
             addModel(model);
         }

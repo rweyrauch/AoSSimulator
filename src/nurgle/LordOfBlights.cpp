@@ -11,9 +11,9 @@
 #include "NurglePrivate.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 140;
 
     bool LordOfBlights::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Nurgle {
     }
 
     LordOfBlights::LordOfBlights() :
-            NurgleBase("Lord of Blights", 4, WOUNDS, 8, 4, false),
+            NurgleBase("Lord of Blights", 4, g_wounds, 8, 4, false),
             m_ripenedDeathsHead(Weapon::Type::Missile, "Thrice-ripened Death's Head", 14, 1, 3, 3, -3, RAND_D3),
             m_bountyDeathsHead(Weapon::Type::Missile, "Munificent Bounty Death's Head", 14, 1, 4, 3, 0, 1),
             m_hammer(Weapon::Type::Melee, "Bubotic Hammer", 1, 3, 3, 3, -1, 2) {
@@ -67,25 +67,25 @@ namespace Nurgle {
     }
 
     bool LordOfBlights::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_ripenedDeathsHead);
         model->addMissileWeapon(&m_bountyDeathsHead);
         model->addMeleeWeapon(&m_hammer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon) const {
         // Vermid Shield
-        if (!weapon->isMissile()) return RerollOnes;
+        if (!weapon->isMissile()) return Reroll_Ones;
         return Unit::toSaveRerolls(weapon);
     }
 
     int LordOfBlights::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

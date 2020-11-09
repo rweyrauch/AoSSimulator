@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef COS_RUNELORD_H
-#define COS_RUNELORD_H
+#ifndef RUNELORD_H
+#define RUNELORD_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -53,4 +53,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //COS_RUNELORD_H
+#endif //RUNELORD_H

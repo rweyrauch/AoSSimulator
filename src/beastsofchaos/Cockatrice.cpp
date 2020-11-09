@@ -11,14 +11,14 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 60;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 90;
 
     bool Cockatrice::s_registered = false;
 
     Cockatrice::Cockatrice() :
-            BeastsOfChaosBase("Cockatrice", 12, WOUNDS, 5, 6, true),
+            BeastsOfChaosBase("Cockatrice", 12, g_wounds, 5, 6, true),
             m_petrifyingGaze(Weapon::Type::Missile, "Petrifying Gaze", 10, 0, 0, 0, 0, 0),
             m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 2, 2, 4, 3, -1, RAND_D3),
             m_swordlikeTalons(Weapon::Type::Melee, "Sword-like Talons", 1, 4, 4, 4, 0, 1) {
@@ -27,7 +27,7 @@ namespace BeastsOfChaos {
     }
 
     bool Cockatrice::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         // NOTE: Petrifying Gaze attack is special, do not treat it as a weapon
 
@@ -35,7 +35,7 @@ namespace BeastsOfChaos {
         model->addMeleeWeapon(&m_swordlikeTalons);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -89,8 +89,8 @@ namespace BeastsOfChaos {
             // Petrifying Gaze
             if (m_shootingTarget) {
                 if (distanceTo(m_shootingTarget) <= (double) m_petrifyingGaze.range()) {
-                    if (Dice::rollD6() >= 4) {
-                        Wounds gazeDamage = {0, Dice::rollD6()};
+                    if (Dice::RollD6() >= 4) {
+                        Wounds gazeDamage = {0, Dice::RollD6()};
                         m_shootingTarget->applyDamage(gazeDamage);
                     }
                 }
@@ -99,7 +99,7 @@ namespace BeastsOfChaos {
     }
 
     int Cockatrice::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace BeastsOfChaos

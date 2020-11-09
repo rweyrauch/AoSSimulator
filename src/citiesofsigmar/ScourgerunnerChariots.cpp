@@ -11,19 +11,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 210;
+    static const int g_basesize = 25;
+    static const int g_wounds = 6;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 210;
 
     bool ScourgerunnerChariots::s_registered = false;
 
     Unit *ScourgerunnerChariots::Create(const ParameterList &parameters) {
         auto unit = new ScourgerunnerChariots();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
@@ -52,7 +52,7 @@ namespace CitiesOfSigmar {
                     ScourgerunnerChariots::EnumStringToInt,
                     ScourgerunnerChariots::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
@@ -63,7 +63,7 @@ namespace CitiesOfSigmar {
     }
 
     ScourgerunnerChariots::ScourgerunnerChariots() :
-            CitizenOfSigmar("Scourgerunner Chariots", 12, WOUNDS, 6, 5, false),
+            CitizenOfSigmar("Scourgerunner Chariots", 12, g_wounds, 6, 5, false),
             m_harpoon(Weapon::Type::Missile, "Ravager Harpoon", 18, 2, 3, 3, -1, RAND_D3),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 5, 4, 0, 1),
             m_hookSpear(Weapon::Type::Melee, "Hook-spear", 2, 2, 4, 4, 0, 1),
@@ -77,13 +77,13 @@ namespace CitiesOfSigmar {
 
     bool ScourgerunnerChariots::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         // Add the Master
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMissileWeapon(&m_crossbowMaster);
         bossModel->addMissileWeapon(&m_harpoonMaster);
         bossModel->addMeleeWeapon(&m_hookSpear);
@@ -91,7 +91,7 @@ namespace CitiesOfSigmar {
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_crossbow);
             model->addMissileWeapon(&m_harpoon);
             model->addMeleeWeapon(&m_hookSpear);
@@ -108,15 +108,15 @@ namespace CitiesOfSigmar {
     ScourgerunnerChariots::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Lay the Beast Low
         if ((hitRoll == 6) && (weapon->name() == m_harpoon.name())) {
-            return {0, Dice::rollD3()};
+            return {0, Dice::RollD3()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int ScourgerunnerChariots::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

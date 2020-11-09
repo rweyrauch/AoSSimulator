@@ -10,9 +10,9 @@
 #include <UnitFactory.h>
 
 namespace Greenskinz {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 11;
-    static const int POINTS_PER_UNIT = 240;
+    static const int g_basesize = 100;
+    static const int g_wounds = 11;
+    static const int g_pointsPerUnit = 240;
 
     struct TableEntry {
         int m_move;
@@ -20,9 +20,9 @@ namespace Greenskinz {
         int m_tailToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 5, 2},
                     {10, 4, 3},
@@ -34,18 +34,18 @@ namespace Greenskinz {
     bool OrrukWarbossOnWyvern::s_registered = false;
 
     OrrukWarbossOnWyvern::OrrukWarbossOnWyvern() :
-            Unit("Orruk Warboss on Wyvern", 12, WOUNDS, 7, 4, true),
+            Unit("Orruk Warboss on Wyvern", 12, g_wounds, 7, 4, true),
             m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 6, 3, 3, -1, 1),
             m_hornsClawsAndTeeth(Weapon::Type::Melee, "Wyvern's Horns, Claws and Teeth", 2, 5, 4, 3, -1, 2),
             m_barbedTail(Weapon::Type::Melee, "Wyvern's Barbed, Venomous Tail", 3, 2, 4, 2, -1, 3) {
         m_keywords = {DESTRUCTION, ORRUK, WYVERN, GREENSKINZ, MONSTER, HERO, ORRUK_WARBOSS};
         m_weapons = {&m_bossChoppa, &m_hornsClawsAndTeeth, &m_barbedTail};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
     }
 
     bool OrrukWarbossOnWyvern::configure(bool pairedChoppas) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         m_pairedChoppas = pairedChoppas;
 
@@ -54,7 +54,7 @@ namespace Greenskinz {
         model->addMeleeWeapon(&m_barbedTail);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -94,7 +94,7 @@ namespace Greenskinz {
 
     int OrrukWarbossOnWyvern::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -119,7 +119,7 @@ namespace Greenskinz {
     Rerolls OrrukWarbossOnWyvern::toSaveRerolls(const Weapon *weapon) const {
         // Boss Shield
         if (!m_pairedChoppas) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toSaveRerolls(weapon);
     }
@@ -135,7 +135,7 @@ namespace Greenskinz {
     }
 
     int OrrukWarbossOnWyvern::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Greenskinz

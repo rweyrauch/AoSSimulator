@@ -12,17 +12,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 170;
-    static const int POINTS_MAX_UNIT_SIZE = 4 * POINTS_PER_BLOCK;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 5;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 170;
+    static const int g_pointsMaxUnitSize = 4 * g_pointsPerBlock;
 
     bool VanguardPalladors::s_registered = false;
 
     VanguardPalladors::VanguardPalladors() :
-            StormcastEternal("Vanguard-Palladors", 12, WOUNDS, 7, 4, false),
+            StormcastEternal("Vanguard-Palladors", 12, g_wounds, 7, 4, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_starstrikeJavelinMissile(Weapon::Type::Missile, "Starstrike Javelin", 18, 1, 3, 3, -1, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 3, 3, 0, 1),
@@ -36,14 +36,14 @@ namespace StormcastEternals {
 
     bool VanguardPalladors::configure(int numModels, WeaponOption weapons) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         // Add the Prime
-        auto primeModel = new Model(BASESIZE, wounds());
-        if (weapons == ShockHandaxe) {
+        auto primeModel = new Model(g_basesize, wounds());
+        if (weapons == Shock_Handaxe) {
             primeModel->addMeleeWeapon(&m_shockHandaxe);
         } else {
             primeModel->addMissileWeapon(&m_starstrikeJavelinMissile);
@@ -55,8 +55,8 @@ namespace StormcastEternals {
 
         auto currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == ShockHandaxe) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Shock_Handaxe) {
                 model->addMeleeWeapon(&m_shockHandaxe);
             } else {
                 model->addMissileWeapon(&m_starstrikeJavelinMissile);
@@ -74,8 +74,8 @@ namespace StormcastEternals {
 
     Unit *VanguardPalladors::Create(const ParameterList &parameters) {
         auto *unit = new VanguardPalladors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, StarstrikeJavelin);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Starstrike_Javelin);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -90,15 +90,15 @@ namespace StormcastEternals {
 
     void VanguardPalladors::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {ShockHandaxe, StarstrikeJavelin};
+            static const std::array<int, 2> weapons = {Shock_Handaxe, Starstrike_Javelin};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", StarstrikeJavelin, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Starstrike_Javelin, weapons),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
@@ -111,9 +111,9 @@ namespace StormcastEternals {
 
     std::string VanguardPalladors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == StarstrikeJavelin) {
+            if (parameter.intValue == Starstrike_Javelin) {
                 return "Starstrike Javelin";
-            } else if (parameter.intValue == ShockHandaxe) {
+            } else if (parameter.intValue == Shock_Handaxe) {
                 return "Shock Handaxe";
             }
         }
@@ -122,9 +122,9 @@ namespace StormcastEternals {
 
     int VanguardPalladors::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Starstrike Javelin") {
-            return StarstrikeJavelin;
+            return Starstrike_Javelin;
         } else if (enumString == "Shock Handaxe") {
-            return ShockHandaxe;
+            return Shock_Handaxe;
         }
         return StormcastEternal::EnumStringToInt(enumString);
     }
@@ -135,7 +135,7 @@ namespace StormcastEternals {
         // TODO: make sure prime model exists
         // Lunar Blade
         if (distanceTo(m_meleeTarget) <= 1.0) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 2) {
                 Wounds bladeWounds = {0, 1};
                 m_meleeTarget->applyDamage(bladeWounds);
@@ -154,9 +154,9 @@ namespace StormcastEternals {
     }
 
     int VanguardPalladors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef FATEWEAVER_H
-#define FATEWEAVER_H
+#ifndef KAIROSFATEWEAVER_H
+#define KAIROSFATEWEAVER_H
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -58,4 +58,4 @@ namespace Tzeentch {
 
 } // namespace Tzeentch
 
-#endif //FATEWEAVER_H
+#endif //KAIROSFATEWEAVER_H

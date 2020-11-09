@@ -20,7 +20,7 @@ namespace SlavesToDarkness {
         Ravagers,
         Cabalists,
         Despoilers,
-        Host_of_the_Everchosen
+        Host_Of_The_Everchosen
     };
 
     enum class MarkOfChaos : int {
@@ -37,9 +37,9 @@ namespace SlavesToDarkness {
         // Lore of the Damned
         Binding_Damnation,
         Spite_Tongue_Curse,
-        Whispers_of_Chaos,
-        Mask_of_Darkness,
-        Call_to_Glory,
+        Whispers_Of_Chaos,
+        Mask_Of_Darkness,
+        Call_To_Glory,
         Ruinous_Vigour
     };
 
@@ -47,28 +47,28 @@ namespace SlavesToDarkness {
         None,
 
         // Ravagers
-        Bolstered_by_Hate,
+        Bolstered_By_Hate,
         Unquestioned_Resolve,
-        Favoured_of_the_Pantheon,
+        Favoured_Of_The_Pantheon,
         Eternal_Vendetta,
-        Flames_of_Spite,
-        Master_of_Deception,
+        Flames_Of_Spite,
+        Master_Of_Deception,
 
         // Cabalists
         //Bolstered_by_Hate,
-        Lord_of_Terror,
+        Lord_Of_Terror,
         //Favoured_of_the_Pantheon,
         Mighty_Ritualist,
         Blasphemous_Influence,
-        All_for_One,
+        All_For_One,
 
         // Despoilers
         //Bolstered_by_Hate,
         //Lord_of_Terror,
         Lightning_Reflexes,
-        Radiance_of_Dark_Glory,
+        Radiance_Of_Dark_Glory,
         Distorting_Miasma,
-        Paragon_of_Ruin,
+        Paragon_Of_Ruin,
     };
 
     enum class Artefact : int {
@@ -77,9 +77,9 @@ namespace SlavesToDarkness {
         // Ravagers
         Hellfire_Sword,
         Blasphemous_Cuirass,
-        Helm_of_the_Oppressor,
-        Cloak_of_the_Relentless_Conqueror,
-        Mark_of_the_High_Favoured,
+        Helm_Of_The_Oppressor,
+        Cloak_Of_The_Relentless_Conqueror,
+        Mark_Of_The_High_Favoured,
         Desecrator_Gauntlets,
 
         // Cabalists
@@ -87,13 +87,13 @@ namespace SlavesToDarkness {
         Black_Athame,
         Infernal_Puppet,
         Spelleater_Pendant,
-        Scroll_of_Dark_Unravelling,
+        Scroll_Of_Dark_Unravelling,
         Spell_Familiar,
 
         // Despoilers
-        Crown_of_Hellish_Adoration,
-        Helm_of_Many_Eyes,
-        Armour_of_Tortured_Souls,
+        Crown_Of_Hellish_Adoration,
+        Helm_Of_Many_Eyes,
+        Armour_Of_Tortured_Souls,
         Diabolic_Mantle,
         Doombringer_Blade,
         Realmwarpers_Twist_Rune

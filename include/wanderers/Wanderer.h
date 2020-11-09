@@ -30,7 +30,7 @@ namespace Wanderers {
         }
 
         // Defiant Hunters
-        Rerolls battleshockRerolls() const override { return RerollFailed; }
+        Rerolls battleshockRerolls() const override { return Reroll_Failed; }
 
     };
 

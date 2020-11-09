@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef STALKERS_H
-#define STALKERS_H
+#ifndef NECROPOLISSTALKERS_H
+#define NECROPOLISSTALKERS_H
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -50,13 +50,13 @@ namespace OssiarchBonereapers {
     private:
 
         enum Aspect {
-            BladeStrike,
-            BladeParry,
+            Blade_Strike,
+            Blade_Parry,
             Destroyer,
             Precision
         };
 
-        Aspect m_activeAspect = BladeStrike;
+        Aspect m_activeAspect = Blade_Strike;
 
         Weapon m_falchions,
                 m_blades;
@@ -76,4 +76,4 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //STALKERS_H
+#endif //NECROPOLISSTALKERS_H

@@ -12,9 +12,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 380;
+    static const int g_basesize = 100;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 380;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Tzeentch {
         int m_infernalGateway;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 1, 3},
                     {10, 2, 4},
@@ -37,7 +37,7 @@ namespace Tzeentch {
 
     Unit *LordOfChange::Create(const ParameterList &parameters) {
         auto unit = new LordOfChange();
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BalefulSword);
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Baleful_Sword);
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
@@ -61,30 +61,30 @@ namespace Tzeentch {
 
     std::string LordOfChange::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == RodOfSorcery) return "Rod of Sorcery";
-            else if (parameter.intValue == BalefulSword) return "Baleful Sword";
-            else if (parameter.intValue == CurvedBeakAndTalons) return "Curved Beak and Talons";
+            if (parameter.intValue == Rod_Of_Sorcery) return "Rod of Sorcery";
+            else if (parameter.intValue == Baleful_Sword) return "Baleful Sword";
+            else if (parameter.intValue == Curved_Beak_And_Talons) return "Curved Beak and Talons";
         }
         return TzeentchBase::ValueToString(parameter);
     }
 
     int LordOfChange::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Rod of Sorcery") return RodOfSorcery;
-        else if (enumString == "Baleful Sword") return BalefulSword;
-        else if (enumString == "Curved Beak and Talons") return CurvedBeakAndTalons;
+        if (enumString == "Rod of Sorcery") return Rod_Of_Sorcery;
+        else if (enumString == "Baleful Sword") return Baleful_Sword;
+        else if (enumString == "Curved Beak and Talons") return Curved_Beak_And_Talons;
         return TzeentchBase::EnumStringToInt(enumString);
     }
 
     void LordOfChange::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {BalefulSword, RodOfSorcery, CurvedBeakAndTalons};
+            static const std::array<int, 3> weapons = {Baleful_Sword, Rod_Of_Sorcery, Curved_Beak_And_Talons};
             static const FactoryMethod factoryMethod = {
                     LordOfChange::Create,
                     LordOfChange::ValueToString,
                     LordOfChange::EnumStringToInt,
                     LordOfChange::ComputePoints,
                     {
-                            EnumParameter( "Weapon", BalefulSword, weapons),
+                            EnumParameter("Weapon", Baleful_Sword, weapons),
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                             EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
                             EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
@@ -99,7 +99,7 @@ namespace Tzeentch {
     }
 
     LordOfChange::LordOfChange() :
-            TzeentchBase("Lord of Change", 12, WOUNDS, 10, 4, true),
+            TzeentchBase("Lord of Change", 12, g_wounds, 10, 4, true),
             m_rodOfSorcery(Weapon::Type::Missile, "Rod of Sorcery", 18, RAND_2D6, 3, 3, -1, 1),
             m_staff(Weapon::Type::Melee, "Staff of Tzeentch", 3, 4, 3, 1, 0, 2),
             m_sword(Weapon::Type::Melee, "Baleful Sword", 1, 2, 4, 2, -2, 3),
@@ -109,19 +109,19 @@ namespace Tzeentch {
                      &m_staff,
                      &m_sword,
                      &m_beakAndTalons};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
     }
 
     bool LordOfChange::configure(LordOfChange::WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
-        if (option == RodOfSorcery)
+        auto model = new Model(g_basesize, wounds());
+        if (option == Rod_Of_Sorcery)
             model->addMissileWeapon(&m_rodOfSorcery);
-        else if (option == BalefulSword)
+        else if (option == Baleful_Sword)
             model->addMeleeWeapon(&m_sword);
-        else if (option == CurvedBeakAndTalons)
+        else if (option == Curved_Beak_And_Talons)
             model->addMeleeWeapon(&m_beakAndTalons);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -129,7 +129,7 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -149,7 +149,7 @@ namespace Tzeentch {
 
     int LordOfChange::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -159,13 +159,13 @@ namespace Tzeentch {
 
     int LordOfChange::rollCasting() const {
         // Mastery of Magic
-        auto r0 = Dice::rollD6();
-        auto r1 = Dice::rollD6();
+        auto r0 = Dice::RollD6();
+        auto r1 = Dice::RollD6();
         return std::max(r0, r1) * 2 + castingModifier();
     }
 
     int LordOfChange::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

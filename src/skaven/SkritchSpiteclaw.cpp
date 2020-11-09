@@ -9,9 +9,9 @@
 #include "skaven/SkritchSpiteclaw.h"
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 70;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 70;
 
     bool SkritchSpiteclaw::s_registered = false;
 
@@ -30,7 +30,7 @@ namespace Skaven {
     }
 
     int SkritchSpiteclaw::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void SkritchSpiteclaw::Init() {
@@ -52,7 +52,7 @@ namespace Skaven {
     }
 
     SkritchSpiteclaw::SkritchSpiteclaw() :
-            Skaventide("Skritch Spiteclaw", 6, WOUNDS, 6, 4, false),
+            Skaventide("Skritch Spiteclaw", 6, g_wounds, 6, 4, false),
             m_halberd(Weapon::Type::Melee, "Wicked Halberd", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD, SKRITCH_SPITECLAW};
         m_weapons = {&m_halberd};
@@ -60,11 +60,11 @@ namespace Skaven {
     }
 
     bool SkritchSpiteclaw::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }

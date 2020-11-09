@@ -11,14 +11,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 160;
 
     bool LordOfKhorneOnJuggernaut::s_registered = false;
 
     LordOfKhorneOnJuggernaut::LordOfKhorneOnJuggernaut() :
-            KhorneBase("Lord of Khorne on Juggernaut", 5, WOUNDS, 9, 3, false),
+            KhorneBase("Lord of Khorne on Juggernaut", 5, g_wounds, 9, 3, false),
             m_wrathforgedAxe(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, LORD_OF_KHORNE_ON_JUGGERNAUT};
@@ -28,12 +28,12 @@ namespace Khorne {
     }
 
     bool LordOfKhorneOnJuggernaut::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_wrathforgedAxe);
         model->addMeleeWeapon(&m_brazenHooves);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -84,9 +84,9 @@ namespace Khorne {
     void LordOfKhorneOnJuggernaut::onCharged() {
         // Slaughterous Charge
         if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 2) {
-                Wounds wounds = {0, Dice::rollD3()};
+                Wounds wounds = {0, Dice::RollD3()};
 
                 SimLog(Verbosity::Narrative, "%s Murderous Charge inflicted %d mortal wounds on %s\n",
                        name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
@@ -107,7 +107,7 @@ namespace Khorne {
     }
 
     int LordOfKhorneOnJuggernaut::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     Wounds LordOfKhorneOnJuggernaut::applyWoundSave(const Wounds &wounds) {
@@ -116,9 +116,9 @@ namespace Khorne {
         // Brass-clad Shield
         if (totalWounds.source == Wounds::Source::Spell) {
             Dice::RollResult result;
-            Dice::rollD6(totalWounds.normal, result);
+            Dice::RollD6(totalWounds.normal, result);
             totalWounds.normal -= result.rollsGE(5);
-            Dice::rollD6(totalWounds.mortal, result);
+            Dice::RollD6(totalWounds.mortal, result);
             totalWounds.mortal -= result.rollsGE(5);
         }
 

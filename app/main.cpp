@@ -7,8 +7,6 @@
  */
 
 #include <iostream>
-#include <cassert>
-#include <sstream>
 #include <Board.h>
 #include <Dice.h>
 #include <Battle.h>
@@ -343,9 +341,9 @@ Unit* parseUnitDescription(const std::string& desc)
                     if (paramType == ParamType::Boolean)
                     {
                         if (value == "true")
-                            pv->intValue = SIM_TRUE;
+                            pv->intValue = Sim_True;
                         else
-                            pv->intValue = SIM_FALSE;
+                            pv->intValue = Sim_False;
                     }
                     else if (paramType == ParamType::Integer)
                     {
@@ -388,8 +386,8 @@ std::string damageToString(int damage)
                 return "3D6";
             case RAND_4D6:
                 return "4D6";
-            case RAND_2D3:
-                return "2D3";
+            default:
+                break;
         }
     }
     return std::string(std::to_string(damage));

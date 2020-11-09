@@ -12,14 +12,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 9;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 25;
+    static const int g_wounds = 9;
+    static const int g_pointsPerUnit = 120;
 
     bool SyllEsske::s_registered = false;
 
     SyllEsske::SyllEsske() :
-            SlaaneshBase("Syll'Esske The Vengeful Allegiance", 8, WOUNDS, 10, 4, false),
+            SlaaneshBase("Syll'Esske The Vengeful Allegiance", 8, g_wounds, 10, 4, false),
             m_axeOfDominion(Weapon::Type::Melee, "Axe of Dominion", 2, 4, 4, 3, -2, RAND_D3),
             m_scourgingWhip(Weapon::Type::Melee, "Scourging Whip", 2, 8, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, SYLL_ESSKE,
@@ -35,7 +35,7 @@ namespace Slaanesh {
     }
 
     bool SyllEsske::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axeOfDominion);
         model->addMeleeWeapon(&m_scourgingWhip);
         addModel(model);
@@ -43,7 +43,7 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -87,7 +87,7 @@ namespace Slaanesh {
     }
 
     int SyllEsske::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

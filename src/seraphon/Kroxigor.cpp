@@ -12,17 +12,17 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 560;
+    static const int g_basesize = 50;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 560;
 
     bool Kroxigor::s_registered = false;
 
     Kroxigor::Kroxigor() :
-            SeraphonBase("Kroxigor", 8, WOUNDS, 7, 4, false),
+            SeraphonBase("Kroxigor", 8, g_wounds, 7, 4, false),
             m_maul(Weapon::Type::Melee, "Drakebite Maul", 2, 4, 4, 3, -1, 2),
             m_hammer(Weapon::Type::Melee, "Moon Hammer", 2, 0, 4, 3, -1, 2),
             m_jaws(Weapon::Type::Melee, "Vice-like Jaws", 1, 1, 4, 3, -1, 1) {
@@ -31,7 +31,7 @@ namespace Seraphon {
     }
 
     bool Kroxigor::configure(int numModels, int numMoonhammers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
         const int maxHammers = numModels / 3;
@@ -40,13 +40,13 @@ namespace Seraphon {
         }
 
         for (auto i = 0; i < numMoonhammers; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_hammer);
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
         }
         for (auto i = numMoonhammers; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_maul);
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
@@ -59,8 +59,8 @@ namespace Seraphon {
 
     Unit *Kroxigor::Create(const ParameterList &parameters) {
         auto unit = new Kroxigor();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        int numHammers = GetIntParam("Moon Hammers", parameters, MIN_UNIT_SIZE / 3);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        int numHammers = GetIntParam("Moon Hammers", parameters, g_minUnitSize / 3);
 
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
@@ -82,8 +82,8 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Moon Hammers", 1, 0, MAX_UNIT_SIZE / 3, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Moon Hammers", 1, 0, g_maxUnitSize / 3, 1),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation)
                     },
@@ -96,9 +96,9 @@ namespace Seraphon {
 
 
     int Kroxigor::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

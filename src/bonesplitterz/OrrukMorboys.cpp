@@ -11,18 +11,18 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool SavageOrrukMorboys::s_registered = false;
 
     Unit *SavageOrrukMorboys::Create(const ParameterList &parameters) {
         auto unit = new SavageOrrukMorboys();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
@@ -45,7 +45,7 @@ namespace Bonesplitterz {
                     Bonesplitterz::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Skull Thumper"),
                             BoolParameter("Bone Totem Bearer"),
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
@@ -58,7 +58,7 @@ namespace Bonesplitterz {
     }
 
     SavageOrrukMorboys::SavageOrrukMorboys() :
-            Bonesplitterz("Savage Orruk Morboys", 5, WOUNDS, 6, 6, false),
+            Bonesplitterz("Savage Orruk Morboys", 5, g_wounds, 6, 6, false),
             m_chompaAndShiv(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 3, 4, 3, 0, 1),
             m_chompaAndShivBoss(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 4, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUK_MORBOYS};
@@ -67,7 +67,7 @@ namespace Bonesplitterz {
 
     bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemBearer) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -76,12 +76,12 @@ namespace Bonesplitterz {
         m_totemBearer = totemBearer;
 
         // Add the Boss
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_chompaAndShivBoss);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_chompaAndShiv);
             addModel(model);
         }
@@ -101,9 +101,9 @@ namespace Bonesplitterz {
     }
 
     int SavageOrrukMorboys::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

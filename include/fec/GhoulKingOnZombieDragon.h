@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GHOULKINGZOMBIEDRAGON_H
-#define GHOULKINGZOMBIEDRAGON_H
+#ifndef GHOULKINGONZOMBIEDRAGON_H
+#define GHOULKINGONZOMBIEDRAGON_H
 
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
@@ -64,4 +64,4 @@ namespace FleshEaterCourt {
 
 } // namespace FleshEaterCourt
 
-#endif //GHOULKINGZOMBIEDRAGON_H
+#endif //GHOULKINGONZOMBIEDRAGON_H

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SPOILPOX_H
-#define SPOILPOX_H
+#ifndef SPOILPOXSCRIVENER_H
+#define SPOILPOXSCRIVENER_H
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -56,4 +56,4 @@ namespace Nurgle {
 
 } // Nurgle
 
-#endif //SPOILPOX_H
+#endif //SPOILPOXSCRIVENER_H

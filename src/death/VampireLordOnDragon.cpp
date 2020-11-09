@@ -12,9 +12,9 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 130;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 440;
+    static const int g_basesize = 130;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 440;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Death {
         int m_clawAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {14, 2, 7},
                     {12, 3, 6},
@@ -65,12 +65,12 @@ namespace Death {
     }
 
     int VampireLordOnZombieDragon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void VampireLordOnZombieDragon::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Deathlance, VampiricSword};
+            static const std::array<int, 2> weapons = {Deathlance, Vampiric_Sword};
             static FactoryMethod factoryMethod = {
                     Create,
                     LegionOfNagashBase::ValueToString,
@@ -94,7 +94,7 @@ namespace Death {
     }
 
     VampireLordOnZombieDragon::VampireLordOnZombieDragon() :
-            LegionOfNagashBase("Vampire Lord on Zombie Dragon", 14, WOUNDS, 10, 4, true),
+            LegionOfNagashBase("Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 4, true),
             m_breath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_deathlance(Weapon::Type::Melee, "Deathlance", 1, 3, 3, 3, -1, 2),
             m_sword(Weapon::Type::Melee, "Vampiric Sword", 1, 4, 3, 3, -1, RAND_D3),
@@ -102,19 +102,19 @@ namespace Death {
             m_claws(Weapon::Type::Melee, "Zombie Dragon's Sword-like Claws", 2, 7, 4, 3, -1, 2) {
         m_keywords = {DEATH, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, VAMPIRE_LORD, VAMPIRE};
         m_weapons = {&m_breath, &m_deathlance, &m_maw, &m_claws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }
 
     bool VampireLordOnZombieDragon::configure(WeaponOption option, bool shield, bool chalice, Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_breath);
 
         if (option == Deathlance) {
             model->addMeleeWeapon(&m_deathlance);
-        } else if (option == VampiricSword) {
+        } else if (option == Vampiric_Sword) {
             model->addMeleeWeapon(&m_sword);
         }
         model->addMeleeWeapon(&m_maw);
@@ -131,7 +131,7 @@ namespace Death {
 
         m_haveChaliceOfBlood = chalice;
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -156,7 +156,7 @@ namespace Death {
 
     int VampireLordOnZombieDragon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -173,7 +173,7 @@ namespace Death {
 
             // Chalice of Blood
             if (m_haveChaliceOfBlood && !m_usedChaliceOfBlood && remainingWounds() < wounds()) {
-                heal(Dice::rollD6());
+                heal(Dice::RollD6());
                 m_usedChaliceOfBlood = true;
             }
         }
@@ -198,7 +198,7 @@ namespace Death {
 
         // Pestilential Breath
         if ((weapon->name() == m_breath.name())) {
-            if (Dice::rollD6() <= target->remainingModels()) {
+            if (Dice::RollD6() <= target->remainingModels()) {
                 // Auto hits
                 mod += 6;
             }

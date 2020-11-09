@@ -11,14 +11,14 @@
 #include <array>
 
 namespace Greenskinz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 32;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 140;
 
     bool OrrukWarboss::s_registered = false;
 
     OrrukWarboss::OrrukWarboss() :
-            Unit("Orruk Warboss", 5, WOUNDS, 7, 4, false),
+            Unit("Orruk Warboss", 5, g_wounds, 7, 4, false),
             m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 6, 3, 3, -1, 1),
             m_massiveChoppa(Weapon::Type::Melee, "Massive Choppa", 1, 3, 4, 3, -2, RAND_D3),
             m_greatWaaaghBanner(Weapon::Type::Melee, "Great Waaagh! Banner", 2, 4, 4, 4, 0, 1),
@@ -29,19 +29,19 @@ namespace Greenskinz {
     }
 
     bool OrrukWarboss::configure(WeaponOption weapon, bool warboar) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         m_weapon = weapon;
 
         switch (weapon) {
-            case BossChoppaAndShield:
-            case PairedBossChoppas:
+            case Boss_Choppa_And_Shield:
+            case Paired_Boss_Choppas:
                 model->addMeleeWeapon(&m_bossChoppa);
                 break;
-            case MassiveChoppa:
+            case Massive_Choppa:
                 model->addMeleeWeapon(&m_massiveChoppa);
                 break;
-            case GreatWaaaghBanner:
+            case Great_Waaagh_Banner:
                 model->addMeleeWeapon(&m_greatWaaaghBanner);
                 addKeyword(TOTEM);
                 break;
@@ -55,14 +55,14 @@ namespace Greenskinz {
         }
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *OrrukWarboss::Create(const ParameterList &parameters) {
         auto unit = new OrrukWarboss();
-        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, BossChoppaAndShield);
+        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Boss_Choppa_And_Shield);
         bool warboar = GetBoolParam("War Boar", parameters, false);
 
         auto general = GetBoolParam("General", parameters, false);
@@ -78,15 +78,15 @@ namespace Greenskinz {
 
     void OrrukWarboss::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {BossChoppaAndShield, PairedBossChoppas,
-                                                       MassiveChoppa, GreatWaaaghBanner};
+            static const std::array<int, 4> weapons = {Boss_Choppa_And_Shield, Paired_Boss_Choppas,
+                                                       Massive_Choppa, Great_Waaagh_Banner};
             static FactoryMethod factoryMethod = {
                     OrrukWarboss::Create,
                     OrrukWarboss::ValueToString,
                     OrrukWarboss::EnumStringToInt,
                     OrrukWarboss::ComputePoints,
                     {
-                            EnumParameter("Weapon", BossChoppaAndShield, weapons),
+                            EnumParameter("Weapon", Boss_Choppa_And_Shield, weapons),
                             BoolParameter("War Boar"),
                             BoolParameter("General")
                     },
@@ -99,13 +99,13 @@ namespace Greenskinz {
 
     std::string OrrukWarboss::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == BossChoppaAndShield) {
+            if (parameter.intValue == Boss_Choppa_And_Shield) {
                 return "Boss Choppa and Shield";
-            } else if (parameter.intValue == MassiveChoppa) {
+            } else if (parameter.intValue == Massive_Choppa) {
                 return "Massive Choppa";
-            } else if (parameter.intValue == PairedBossChoppas) {
+            } else if (parameter.intValue == Paired_Boss_Choppas) {
                 return "Paired Boss Choppas";
-            } else if (parameter.intValue == GreatWaaaghBanner) {
+            } else if (parameter.intValue == Great_Waaagh_Banner) {
                 return "Great Waaagh! Banner";
             }
         }
@@ -114,13 +114,13 @@ namespace Greenskinz {
 
     int OrrukWarboss::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Boss Choppa and Shield") {
-            return BossChoppaAndShield;
+            return Boss_Choppa_And_Shield;
         } else if (enumString == "Massive Choppa") {
-            return MassiveChoppa;
+            return Massive_Choppa;
         } else if (enumString == "Paired Boss Choppas") {
-            return PairedBossChoppas;
+            return Paired_Boss_Choppas;
         } else if (enumString == "Great Waaagh! Banner") {
-            return GreatWaaaghBanner;
+            return Great_Waaagh_Banner;
         }
         return 0;
     }
@@ -128,7 +128,7 @@ namespace Greenskinz {
     int OrrukWarboss::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         int attacks = Unit::extraAttacks(attackingModel, weapon, target);
         // Choppa Boss
-        if ((m_weapon == PairedBossChoppas) && (weapon->name() == m_bossChoppa.name())) {
+        if ((m_weapon == Paired_Boss_Choppas) && (weapon->name() == m_bossChoppa.name())) {
             attacks += 2;
         }
         return attacks;
@@ -136,14 +136,14 @@ namespace Greenskinz {
 
     Rerolls OrrukWarboss::toSaveRerolls(const Weapon *weapon) const {
         // Boss Shield
-        if (m_weapon == BossChoppaAndShield) {
-            return RerollFailed;
+        if (m_weapon == Boss_Choppa_And_Shield) {
+            return Reroll_Failed;
         }
         return Unit::toSaveRerolls(weapon);
     }
 
     int OrrukWarboss::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Greenskinz

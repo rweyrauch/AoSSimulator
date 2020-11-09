@@ -10,14 +10,14 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 3;
-    static const int POINTS_PER_UNIT = 70;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 3;
+    static const int g_pointsPerUnit = 70;
 
     bool WarpfireThrower::s_registered = false;
 
     WarpfireThrower::WarpfireThrower() :
-            Skaventide("Warpfire Thrower", 6, WOUNDS, 4, 6, false),
+            Skaventide("Warpfire Thrower", 6, g_wounds, 4, 6, false),
             m_warpfireThrower(Weapon::Type::Missile, "Warpfire Thrower", 8, 0, 0, 0, 0, 0),
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, WARPFIRE_THROWER};
@@ -25,12 +25,12 @@ namespace Skaven {
     }
 
     bool WarpfireThrower::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpfireThrower);
         model->addMeleeWeapon(&m_rustyKnives);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -66,21 +66,21 @@ namespace Skaven {
         auto mortalWounds = Skaventide::generateMortalWounds(unit);
 
         if (m_shootingTarget) {
-            bool moreMoreWarpfire = ((Dice::rollD6() >= 2) || remainingWounds() <= 1);
+            bool moreMoreWarpfire = ((Dice::RollD6() >= 2) || remainingWounds() <= 1);
 
             // Warpfire
             if (distanceTo(m_shootingTarget) <= (double) m_warpfireThrower.range()) {
                 int numTargetModels = m_shootingTarget->remainingModels();
                 Dice::RollResult rollResult;
-                Dice::rollD6(numTargetModels, rollResult);
+                Dice::RollD6(numTargetModels, rollResult);
                 mortalWounds += rollResult.rollsGE(4);
 
                 // More-more Warpfire!
                 if (moreMoreWarpfire) {
-                    Dice::rollD6(numTargetModels, rollResult);
+                    Dice::RollD6(numTargetModels, rollResult);
                     mortalWounds += rollResult.rollsGE(4);
 
-                    int roll = Dice::rollD6();
+                    int roll = Dice::RollD6();
                     if (roll <= 2) {
                         // this model is slain
                         slay(1);
@@ -93,7 +93,7 @@ namespace Skaven {
     }
 
     int WarpfireThrower::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Skaven

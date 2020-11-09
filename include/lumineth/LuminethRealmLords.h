@@ -27,8 +27,8 @@ namespace LuminethRealmLords {
 
     enum class CommandTrait : int {
         None,
-        Lords_of_Brilliance,
-        Lords_of_Stone,
+        Lords_Of_Brilliance,
+        Lords_Of_Stone,
 
         // Scinari
         Spellmaster,
@@ -52,7 +52,7 @@ namespace LuminethRealmLords {
         // Scinari
         Phoenix_Stone,
         Silver_Wand,
-        Blade_of_Leaping_Gold,
+        Blade_Of_Leaping_Gold,
 
         // Alarith
         Heartstone_Amulet,
@@ -63,27 +63,27 @@ namespace LuminethRealmLords {
         Mountains_Gift, // Ymetrica
         The_Perfect_Blade, // Syar
         Simulacra_Amulet, // Iliatha
-        Gift_of_Celennar, // Zaitrec
+        Gift_Of_Celennar, // Zaitrec
     };
 
     enum class Lore : int {
         None,
 
         // Lore of Hysh
-        Speed_of_Hysh,
+        Speed_Of_Hysh,
         Solar_Flare,
         Lambent_Light,
         Etheral_Blessing,
         Total_Eclipse,
-        Protection_of_Hysh,
+        Protection_Of_Hysh,
 
         // Lore of the Mountains
         Unyielding_Calm,
         Crippling_Vertigo,
-        Voice_of_the_Mountains,
+        Voice_Of_The_Mountains,
         Living_Fissue,
         Entomb,
-        Assault_of_Stone,
+        Assault_Of_Stone,
 
         // Nation specific
         Overwhelming_Heat, // Zaitrec

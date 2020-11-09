@@ -10,9 +10,9 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 150;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 150;
 
     bool Plagueclaw::s_registered = false;
 
@@ -45,7 +45,7 @@ namespace Skaven {
     }
 
     Plagueclaw::Plagueclaw() :
-            Skaventide("Plagueclaw", 3, WOUNDS, 4, 5, false),
+            Skaventide("Plagueclaw", 3, g_wounds, 4, 5, false),
             m_catapult(Weapon::Type::Missile, "Plagueclaw Catapult", 31, 1, 3, 3, -2, RAND_D6),
             m_knives(Weapon::Type::Melee, "Rusty Knives", 1, RAND_D6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, WAR_MACHINE, PLAGUECLAW};
@@ -54,12 +54,12 @@ namespace Skaven {
     }
 
     bool Plagueclaw::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_catapult);
         model->addMeleeWeapon(&m_knives);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,13 +78,13 @@ namespace Skaven {
 
         // Barrage of Disease
         if (target->remainingModels() >= 10) {
-            wounds.normal += Dice::roll2D6();
+            wounds.normal += Dice::Roll2D6();
         }
         return wounds;
     }
 
     int Plagueclaw::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

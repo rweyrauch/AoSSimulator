@@ -12,19 +12,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 6;
-    static const int MIN_UNIT_SIZE = 1;
-    static const int MAX_UNIT_SIZE = 3;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 210;
+    static const int g_basesize = 25;
+    static const int g_wounds = 6;
+    static const int g_minUnitSize = 1;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 210;
 
     bool DrakespawnChariots::s_registered = false;
 
     Unit *DrakespawnChariots::Create(const ParameterList &parameters) {
         auto unit = new DrakespawnChariots();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
@@ -53,7 +53,7 @@ namespace CitiesOfSigmar {
                     DrakespawnChariots::EnumStringToInt,
                     DrakespawnChariots::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
@@ -64,7 +64,7 @@ namespace CitiesOfSigmar {
     }
 
     DrakespawnChariots::DrakespawnChariots() :
-            CitizenOfSigmar("Drakespawn Chariots", 10, WOUNDS, 7, 4, false),
+            CitizenOfSigmar("Drakespawn Chariots", 10, g_wounds, 7, 4, false),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 5, 4, 0, 1),
             m_spear(Weapon::Type::Melee, "Barbed Spear", 2, 2, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 4, 3, 4, 0, 1) {
@@ -75,13 +75,13 @@ namespace CitiesOfSigmar {
 
     bool DrakespawnChariots::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_crossbow);
             model->addMeleeWeapon(&m_spear);
             model->addMeleeWeapon(&m_jaws);
@@ -94,9 +94,9 @@ namespace CitiesOfSigmar {
     }
 
     int DrakespawnChariots::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -108,8 +108,8 @@ namespace CitiesOfSigmar {
         for (int i = 0; i < remainingModels(); i++) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && distanceTo(unit) <= 1.0) {
-                if (Dice::rollD6() >= 2) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 2) {
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }

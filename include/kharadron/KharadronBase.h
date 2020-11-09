@@ -28,16 +28,16 @@ namespace KharadronOverlords {
 
     enum class Artycle : int {
         Honour_Is_Everything,
-        Master_the_Skies,
-        Settle_the_Grudges,
+        Master_The_Skies,
+        Settle_The_Grudges,
 
         // Skyport specific
         Respect_Your_Commanders, // Barak-Nar
         //Master_the_Skies, // Barak-Zilfin
-        Honour_is_Everything, // Barak-Zon
+        //Honour_is_Everything, // Barak-Zon
         Seek_New_Prospects, // Barak-Urbaz
         //Seek_New_Prospects, // Barak-Mhornar
-        Chronicle_of_Grudges, // Barak-Thryng
+        Chronicle_Of_Grudges, // Barak-Thryng
     };
 
     enum class Amendment : int {
@@ -47,7 +47,7 @@ namespace KharadronOverlords {
 
         // Skyport specific
         Trust_Aethermatics_Not_Superstition, // Barak-Nar
-        Dont_Argue_With_the_Wind, // Barak-Zilpin
+        Dont_Argue_With_The_Wind, // Barak-Zilpin
         Leave_No_Duardin_Behind, // Barak-Zon
         //Always_Take_What_You_Are_Owed, // Barak-Urbaz
         //Prosecute_Wars_With_All_Haste, // Barak-Mhornar
@@ -61,11 +61,11 @@ namespace KharadronOverlords {
 
         // Skyport specific
         Through_Knowledge_Power, // Barak-Nar
-        Theres_Always_a_Breeze, // Barak-Zilfin
+        Theres_Always_A_Breeze, // Barak-Zilfin
         Show_Them_Your_Steel,// Barak-Zon
         Where_Theres_War_Theres_Gold, // Barak-Urbaz
         Who_Strikes_First_Strikes_Hardest, // Barak-Mhornar
-        Honour_the_Gods_Just_in_Case, // Barak-Thryng
+        Honour_The_Gods_Just_In_Case, // Barak-Thryng
     };
 
     enum class CommandTrait : int  {
@@ -73,11 +73,11 @@ namespace KharadronOverlords {
 
         // Admiral
         Wealthy,
-        Tough_as_Old_Boots,
+        Tough_As_Old_Boots,
         Grudgebearer,
         Cunning_Fleetmaster,
         War_Wounds,
-        A_Scholar_and_an_Arkanaut,
+        A_Scholar_And_An_Arkanaut,
 
         // Endrinmaster
         // Wealthy,
@@ -91,7 +91,7 @@ namespace KharadronOverlords {
         // Wealthy,
         // Tough_as_Old_Boots,
         Stormcaller,
-        Ride_the_Winds,
+        Ride_The_Winds,
         Sceptic,
         Diviner,
 
@@ -99,14 +99,14 @@ namespace KharadronOverlords {
         // Wealthy,
         // Tough_as_Old_Boots,
         // Grudgebearer,
-        A_Nose_for_Gold,
-        Genius_in_the_Making,
+        A_Nose_For_Gold,
+        Genius_In_The_Making,
         Collector,
 
         // Skyport
-        Champion_of_Progress, // Barak-Nar
+        Champion_Of_Progress, // Barak-Nar
         Master_Commander, // Barak-Zilfin
-        Bearer_of_the_Ironstar, // Barak-Zon
+        Bearer_Of_The_Ironstar, // Barak-Zon
         Khemist_Supreme, // Barak-Urbaz
         Opportunistic_Privateer, // Barak-Mhornar
         Supremely_Stubborn, // Barak-Thryng
@@ -117,10 +117,10 @@ namespace KharadronOverlords {
 
         // Admiral
         Masterwrought_Armour,
-        Hammer_of_Aetheric_Might,
+        Hammer_Of_Aetheric_Might,
         Gattlesons_Endless_Repeater,
-        Rune_of_Mark,
-        Flask_of_Vintage_Amberwhisky,
+        Rune_Of_Mark,
+        Flask_Of_Vintage_Amberwhisky,
         Proclamtor_Mask_Hailer,
 
         // Navigator
@@ -141,13 +141,13 @@ namespace KharadronOverlords {
         // Khemist
         Emergency_Ventplates,
         Caustic_Anatomiser,
-        Spell_in_a_Bottle,
+        Spell_In_A_Bottle,
 
         // Skyport
         Aethercharged_Rune, // Barak-Nar
-        Staff_of_Ocular_Optimisation, // Barak-Zilfin
+        Staff_Of_Ocular_Optimisation, // Barak-Zilfin
         Aethersped_Hammer, // Barak-Zon
-        Breath_of_Morgrim, // Barak-Urbaz
+        Breath_Of_Morgrim, // Barak-Urbaz
         Galeforce_Stave, // Barak-Mhornar
         Grudgehammer, // Barak-Thryng
     };
@@ -169,7 +169,7 @@ namespace KharadronOverlords {
         Malefic_Skymines,
 
         // Gunhauler
-        Iggrind_Kaz_Surge_Injection_Endrin_Mk_IV,
+        Iggrind_Kaz_Surge_Injection_Endrin_Mk_Iv,
         Zonbarcorp_Debtsettler_Spar_Torpedo,
         Coalbeards_Collapsible_Compartments,
     };

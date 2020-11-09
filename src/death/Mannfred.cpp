@@ -12,9 +12,9 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 11;
-    static const int POINTS_PER_UNIT = 340;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 11;
+    static const int g_pointsPerUnit = 340;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Death {
         double m_vigourRange;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    const int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    const TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {16, 6, 15},
                     {13, 5, 12},
@@ -53,7 +53,7 @@ namespace Death {
     }
 
     int MannfredMortarchOfNight::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void MannfredMortarchOfNight::Init() {
@@ -76,20 +76,20 @@ namespace Death {
     }
 
     MannfredMortarchOfNight::MannfredMortarchOfNight() :
-            LegionOfNagashBase("Mannfred, Mortarch of Night", 16, WOUNDS, 10, 4, true),
+            LegionOfNagashBase("Mannfred, Mortarch of Night", 16, g_wounds, 10, 4, true),
             m_gheistvor(Weapon::Type::Melee, "Gheistvor", 1, 4, 3, 3, -1, RAND_D3),
             m_glaive(Weapon::Type::Melee, "Sickle-glaive", 2, 2, 3, 3, -1, 2),
             m_ebonClaws(Weapon::Type::Melee, "Ashigaroth's Ebon Claws", 1, 6, 4, 3, -2, 2),
             m_clawsAndDaggers(Weapon::Type::Melee, "Spirits' Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, MANNFRED};
         m_weapons = {&m_gheistvor, &m_glaive, &m_ebonClaws, &m_clawsAndDaggers};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_totalSpells = 2;
         m_totalUnbinds = 2;
     }
 
     bool MannfredMortarchOfNight::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gheistvor);
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_ebonClaws);
@@ -99,7 +99,7 @@ namespace Death {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -121,7 +121,7 @@ namespace Death {
 
     int MannfredMortarchOfNight::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }

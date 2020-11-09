@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MEGABOSS_MAWKRUSHA_H
-#define MEGABOSS_MAWKRUSHA_H
+#ifndef MEGABOSSONMAWKRUSHA_H
+#define MEGABOSSONMAWKRUSHA_H
 
 #include <ironjawz/Ironjawz.h>
 
@@ -17,8 +17,8 @@ namespace Ironjawz {
     public:
 
         enum WeaponOption {
-            HackaAndChoppa = 0,
-            ChoppaAndRiptoofFist,
+            Hacka_And_Choppa = 0,
+            Choppa_And_Riptoof_Fist,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -55,7 +55,7 @@ namespace Ironjawz {
 
         int getDamageTableIndex() const;
 
-        WeaponOption m_weaponOption = HackaAndChoppa;
+        WeaponOption m_weaponOption = Hacka_And_Choppa;
         int m_modelsSlainAtStartOfCombat = 0;
 
         Weapon m_bellow,
@@ -79,4 +79,4 @@ namespace Ironjawz {
 
 } // namespace Ironjawz
 
-#endif //MEGABOSS_MAWKRUSHA_H
+#endif //MEGABOSSONMAWKRUSHA_H

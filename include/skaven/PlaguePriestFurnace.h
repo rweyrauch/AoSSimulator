@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef PLAGUEPRIESTONPLAGUEFURNACE_H
-#define PLAGUEPRIESTONPLAGUEFURNACE_H
+#ifndef PLAGUEPRIESTFURNACE_H
+#define PLAGUEPRIESTFURNACE_H
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -76,4 +76,4 @@ namespace Skaven {
 
 } // namespace Skaven
 
-#endif //PLAGUEPRIESTONPLAGUEFURNACE_H
+#endif //PLAGUEPRIESTFURNACE_H

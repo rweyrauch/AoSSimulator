@@ -11,9 +11,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 60;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 60;
 
     bool BlackArkFleetmaster::s_registered = false;
 
@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
     }
 
     BlackArkFleetmaster::BlackArkFleetmaster() :
-            CitizenOfSigmar("Black Ark Fleetmaster", 6, WOUNDS, 7, 4, false),
+            CitizenOfSigmar("Black Ark Fleetmaster", 6, g_wounds, 7, 4, false),
             m_cutlass(Weapon::Type::Melee, "Black Ark Cutlass", 1, 3, 3, 4, 0, 1),
             m_murderHook(Weapon::Type::Melee, "Murder Hook", 1, 2, 4, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, HERO, BLACK_ARK_FLEETMASTER};
@@ -78,12 +78,12 @@ namespace CitiesOfSigmar {
     }
 
     bool BlackArkFleetmaster::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_cutlass);
         model->addMeleeWeapon(&m_murderHook);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -97,7 +97,7 @@ namespace CitiesOfSigmar {
     }
 
     int BlackArkFleetmaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 }//namespace CitiesOfSigmar

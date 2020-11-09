@@ -12,19 +12,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool FreeguildHandgunners::s_registered = false;
 
     Unit *FreeguildHandgunners::Create(const ParameterList &parameters) {
         auto unit = new FreeguildHandgunners();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
         auto marksmanWeapon = (WeaponOption) GetEnumParam("Marksman Weapon", parameters, Handgun);
@@ -44,9 +44,9 @@ namespace CitiesOfSigmar {
         if (std::string(parameter.name) == "Marksman Weapon") {
             if (parameter.intValue == Handgun) {
                 return "Handgun";
-            } else if (parameter.intValue == LongRifle) {
+            } else if (parameter.intValue == Long_Rifle) {
                 return "Long Rifle";
-            } else if (parameter.intValue == RepeaterHandgun) {
+            } else if (parameter.intValue == Repeater_Handgun) {
                 return "Repeater Handgun";
             }
         }
@@ -57,23 +57,23 @@ namespace CitiesOfSigmar {
         if (enumString == "Handgun") {
             return Handgun;
         } else if (enumString == "Long Rifle") {
-            return LongRifle;
+            return Long_Rifle;
         } else if (enumString == "Repeater Handgun") {
-            return RepeaterHandgun;
+            return Repeater_Handgun;
         }
         return CitizenOfSigmar::EnumStringToInt(enumString);
     }
 
     void FreeguildHandgunners::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {Handgun, LongRifle, RepeaterHandgun};
+            static const std::array<int, 3> weapons = {Handgun, Long_Rifle, Repeater_Handgun};
             static FactoryMethod factoryMethod = {
                     FreeguildHandgunners::Create,
                     FreeguildHandgunners::ValueToString,
                     FreeguildHandgunners::EnumStringToInt,
                     FreeguildHandgunners::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter<3>("Marksman Weapon", Handgun, weapons),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Piper"),
@@ -87,7 +87,7 @@ namespace CitiesOfSigmar {
     }
 
     FreeguildHandgunners::FreeguildHandgunners() :
-            CitizenOfSigmar("Freeguild Handgunners", 5, WOUNDS, 5, 6, false),
+            CitizenOfSigmar("Freeguild Handgunners", 5, g_wounds, 5, 6, false),
             m_freeguildHandgun(Weapon::Type::Missile, "Freeguild Handgun", 16, 1, 4, 3, -1, 1),
             m_dagger(Weapon::Type::Melee, "Dagger", 1, 1, 5, 5, 0, 1),
             m_longRifle(Weapon::Type::Missile, "Long Rifle", 30, 1, 4, 3, -1, 2),
@@ -100,7 +100,7 @@ namespace CitiesOfSigmar {
 
     bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -109,19 +109,19 @@ namespace CitiesOfSigmar {
         m_piper = piper;
 
         // Add the Marksman
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         if (marksmanWeapon == Handgun) {
             bossModel->addMissileWeapon(&m_handgunMarksman);
-        } else if (marksmanWeapon == LongRifle) {
+        } else if (marksmanWeapon == Long_Rifle) {
             bossModel->addMissileWeapon(&m_longRifle);
-        } else if (marksmanWeapon == RepeaterHandgun) {
+        } else if (marksmanWeapon == Repeater_Handgun) {
             bossModel->addMeleeWeapon(&m_repeaterHandgun);
         }
         bossModel->addMeleeWeapon(&m_dagger);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_freeguildHandgun);
             model->addMeleeWeapon(&m_dagger);
             addModel(model);
@@ -161,9 +161,9 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildHandgunners::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

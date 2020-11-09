@@ -12,17 +12,17 @@
 #include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
-    static const int BASESIZE = 65; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = 520;
+    static const int g_basesize = 65; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = 520;
 
     bool Dawnriders::s_registered = false;
 
     Dawnriders::Dawnriders() :
-            LuminethBase("Vanari Dawnriders", 14, WOUNDS, 7, 4, false),
+            LuminethBase("Vanari Dawnriders", 14, g_wounds, 7, 4, false),
             m_guardiansSword(Weapon::Type::Melee, "Guardian's Sword", 1, 2, 3, 4, -1, 1),
             m_lance(Weapon::Type::Melee, "Sunmetal Lance", 2, 1, 3, 4, 0, 1),
             m_hooves(Weapon::Type::Melee, "Dashing Hooves", 1, 2, 4, 4, 0, 1) {
@@ -35,18 +35,18 @@ namespace LuminethRealmLords {
     }
 
     bool Dawnriders::configure(int numModels, bool standardBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto master = new Model(BASESIZE, wounds());
+        auto master = new Model(g_basesize, wounds());
         master->addMeleeWeapon(&m_guardiansSword);
         master->addMeleeWeapon(&m_hooves);
         master->setName("Steedmaster");
         addModel(master);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_hooves);
             addModel(model);
@@ -62,7 +62,7 @@ namespace LuminethRealmLords {
 
     Unit *Dawnriders::Create(const ParameterList &parameters) {
         auto unit = new Dawnriders();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto standard = GetBoolParam("Standard Bearer", parameters, true);
 
         auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
@@ -84,7 +84,7 @@ namespace LuminethRealmLords {
                     LuminethBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearer"),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
@@ -97,9 +97,9 @@ namespace LuminethRealmLords {
     }
 
     int Dawnriders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -153,7 +153,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls Dawnriders::battleshockRerolls() const {
-        if (m_standardBearer) return RerollFailed;
+        if (m_standardBearer) return Reroll_Failed;
         return Unit::battleshockRerolls();
     }
 

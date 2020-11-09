@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool ExaltedHeroOfChaos::s_registered = false;
 
@@ -56,7 +56,7 @@ namespace SlavesToDarkness {
     }
 
     ExaltedHeroOfChaos::ExaltedHeroOfChaos() :
-            SlavesToDarknessBase("Exalted Hero of Chaos", 5, WOUNDS, 8, 4, false),
+            SlavesToDarknessBase("Exalted Hero of Chaos", 5, g_wounds, 8, 4, false),
             m_blades(Weapon::Type::Melee, "Rune-etched Blades", 1, RAND_D6, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS};
         m_weapons = {&m_blades};
@@ -64,11 +64,11 @@ namespace SlavesToDarkness {
     }
 
     bool ExaltedHeroOfChaos::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blades);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -76,7 +76,7 @@ namespace SlavesToDarkness {
     Wounds ExaltedHeroOfChaos::applyWoundSave(const Wounds &wounds) {
         // Dark Blessings
         Dice::RollResult mortalSaves;
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.mortal -= mortalSaves.rollsGE(5);
@@ -95,7 +95,7 @@ namespace SlavesToDarkness {
     }
 
     int ExaltedHeroOfChaos::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace SlavesToDarkness

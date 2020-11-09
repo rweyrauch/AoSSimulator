@@ -19,7 +19,7 @@ namespace OgorMawtribes {
 
         enum WeaponOption {
             Chaintrap,
-            BloodVulture
+            Blood_Vulture
         };
 
         static Unit *Create(const ParameterList &parameters);

@@ -11,9 +11,9 @@
 #include "NurglePrivate.h"
 
 namespace Nurgle {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool SpoilpoxScrivenerHeraldOfNurgle::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Nurgle {
     }
 
     SpoilpoxScrivenerHeraldOfNurgle::SpoilpoxScrivenerHeraldOfNurgle() :
-            NurgleBase("Spoilpox Scrivener, Herald of Nurgle", 4, WOUNDS, 10, 4, false),
+            NurgleBase("Spoilpox Scrivener, Herald of Nurgle", 4, g_wounds, 10, 4, false),
             m_sneeze(Weapon::Type::Missile, "Disgusting Sneeze", 6, RAND_D6, 3, 4, 0, 1),
             m_maw(Weapon::Type::Melee, "Distended Maw", 2, 2, 3, 4, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SPOILPOX_SCRIVENER, HERALD_OF_NURGLE};
@@ -76,12 +76,12 @@ namespace Nurgle {
     }
 
     bool SpoilpoxScrivenerHeraldOfNurgle::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_sneeze);
         model->addMeleeWeapon(&m_maw);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -89,8 +89,8 @@ namespace Nurgle {
     Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::rollD6(wounds.normal, woundSaves);
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
@@ -101,22 +101,22 @@ namespace Nurgle {
 
     Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls(const Unit *unit) {
         if ((unit->hasKeyword(PLAGUEBEARER) || unit->hasKeyword(PLAGUEBEARERS)) && (distanceTo(unit) <= 7.0))
-            return RerollOnes;
+            return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
     Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
                                                                       const Unit * /*target*/) {
         if ((attacker->hasKeyword(PLAGUEBEARER) || attacker->hasKeyword(PLAGUEBEARERS)) &&
             (distanceTo(attacker) <= 7.0))
-            return RerollOnes;
+            return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
     int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nurgle

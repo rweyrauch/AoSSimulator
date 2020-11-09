@@ -25,7 +25,7 @@ TEST(Battle, BallistaVsAlarielle)
     auto ballista2 = new StormcastEternals::CelestarBallista();
     auto lordOrdinator = new StormcastEternals::LordOrdinator();
 
-    bool ok = lordOrdinator->configure(StormcastEternals::LordOrdinator::AstralHammers);
+    bool ok = lordOrdinator->configure(StormcastEternals::LordOrdinator::Astral_Hammers);
     ASSERT_TRUE(ok);
 
     ok = ballista0->configure();

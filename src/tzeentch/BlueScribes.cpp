@@ -11,9 +11,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 0;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 0;
 
     bool TheBlueScribes::s_registered = false;
 
@@ -43,7 +43,7 @@ namespace Tzeentch {
     }
 
     int TheBlueScribes::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void TheBlueScribes::Init() {
@@ -68,7 +68,7 @@ namespace Tzeentch {
     }
 
     TheBlueScribes::TheBlueScribes() :
-            TzeentchBase("The Blue Scribes", 16, WOUNDS, 10, 5, true),
+            TzeentchBase("The Blue Scribes", 16, g_wounds, 10, 5, true),
             m_quills(Weapon::Type::Melee, "Sharpened Quills", 1, 2, 5, 5, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_BLUE_SCRIBES};
@@ -80,7 +80,7 @@ namespace Tzeentch {
     }
 
     bool TheBlueScribes::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_quills);
         model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
@@ -88,7 +88,7 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }

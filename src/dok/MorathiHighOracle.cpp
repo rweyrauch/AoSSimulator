@@ -11,17 +11,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 480;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 120;
 
     bool MorathiHighOracleOfKhaine::s_registered = false;
 
     MorathiHighOracleOfKhaine::MorathiHighOracleOfKhaine() :
-            DaughterOfKhaine("Morathi, High Oracle of Khaine", 6, WOUNDS, 9, 4, false),
+            DaughterOfKhaine("Morathi, Khaine", 6, g_wounds, 8, 4, false),
             m_heartrender(Weapon::Type::Melee, "Heartrender", 2, 3, 3, 3, -1, RAND_D3),
             m_wings(Weapon::Type::Melee, "Bladed Wings", 2, 6, 3, 3, -1, 1) {
-        m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, WIZARD, MORATHI, HIGH_ORACLE_OF_KHAINE};
+        m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, WIZARD, MORATHI_KHAINE};
         m_weapons = {&m_heartrender, &m_wings};
         m_battleFieldRole = Leader;
 
@@ -30,7 +30,7 @@ namespace DaughtersOfKhaine {
     }
 
     bool MorathiHighOracleOfKhaine::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_heartrender);
         model->addMeleeWeapon(&m_wings);
         addModel(model);
@@ -38,7 +38,7 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -77,14 +77,14 @@ namespace DaughtersOfKhaine {
                     ORDER,
                     {DAUGHTERS_OF_KHAINE}
             };
-            s_registered = UnitFactory::Register("Morathi, High Oracle of Khaine", factoryMethod);
+            s_registered = UnitFactory::Register("Morathi, Khaine", factoryMethod);
         }
     }
 
     int MorathiHighOracleOfKhaine::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = DaughterOfKhaine::targetHitModifier(weapon, attacker);
 
-        // Enchanting Beauty
+        // Commanding Presence
         mod--;
 
         return mod;
@@ -111,7 +111,7 @@ namespace DaughtersOfKhaine {
     }
 
     int MorathiHighOracleOfKhaine::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace DaughtersOfKhaine

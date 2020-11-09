@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef HAGQUEENCAULDRON_H
-#define HAGQUEENCAULDRON_H
+#ifndef HAGQUEENCAULDRONOFBLOOD_H
+#define HAGQUEENCAULDRONOFBLOOD_H
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -73,4 +73,4 @@ namespace DaughtersOfKhaine {
 
 } // namespace DaughtersOfKhaine
 
-#endif //HAGQUEENCAULDRON_H
+#endif //HAGQUEENCAULDRONOFBLOOD_H

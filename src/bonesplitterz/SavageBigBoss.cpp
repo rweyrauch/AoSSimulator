@@ -10,9 +10,9 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 90;
 
     bool SavageBigBoss::s_registered = false;
 
@@ -61,7 +61,7 @@ namespace Bonesplitterz {
     }
 
     SavageBigBoss::SavageBigBoss() :
-            Bonesplitterz("Savage Big Boss", 5, WOUNDS, 7, 6, false),
+            Bonesplitterz("Savage Big Boss", 5, g_wounds, 7, 6, false),
             m_chompasBoss(Weapon::Type::Melee, "Boss Chompa", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, SAVAGE_BIG_BOSS};
         m_weapons = {&m_chompasBoss};
@@ -69,17 +69,17 @@ namespace Bonesplitterz {
     }
 
     bool SavageBigBoss::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chompasBoss);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int SavageBigBoss::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Bonesplitterz

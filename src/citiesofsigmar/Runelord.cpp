@@ -11,14 +11,14 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool Runelord::s_registered = false;
 
     Runelord::Runelord() :
-            CitizenOfSigmar("Runelord", 4, WOUNDS, 7, 4, false),
+            CitizenOfSigmar("Runelord", 4, g_wounds, 7, 4, false),
             m_runeStaff(Weapon::Type::Melee, "Rune Staff", 1, 1, 4, 3, 0, RAND_D3),
             m_forgehammer(Weapon::Type::Melee, "Forgehammer", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, PRIEST, RUNELORD};
@@ -30,12 +30,12 @@ namespace CitiesOfSigmar {
     }
 
     bool Runelord::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_runeStaff);
         model->addMeleeWeapon(&m_forgehammer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -84,7 +84,7 @@ namespace CitiesOfSigmar {
     }
 
     int Runelord::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace CitiesOfSigmar

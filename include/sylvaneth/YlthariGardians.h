@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef YLTHARISGUARDIANS_H
-#define YLTHARISGUARDIANS_H
+#ifndef YLTHARIGARDIANS_H
+#define YLTHARIGARDIANS_H
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -54,4 +54,4 @@ namespace Sylvaneth {
 
 } // namespace Sylvaneth
 
-#endif //YLTHARISGUARDIANS_H
+#endif //YLTHARIGARDIANS_H

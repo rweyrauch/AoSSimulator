@@ -15,14 +15,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 90;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 90;
 
     bool LordExorcist::s_registered = false;
 
     LordExorcist::LordExorcist() :
-            StormcastEternal("Lord-Exorcist", 5, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Exorcist", 5, g_wounds, 9, 3, false),
             m_stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_EXORCIST};
         m_weapons = {&m_stave};
@@ -34,7 +34,7 @@ namespace StormcastEternals {
 
     bool LordExorcist::configure(Lore lore) {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stave);
         addModel(model);
 
@@ -43,7 +43,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePurifyingBlast(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -103,7 +103,7 @@ namespace StormcastEternals {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(DAEMON) || ip->hasKeyword(NIGHTHAUNT)) {
-                    int roll = Dice::rollD6();
+                    int roll = Dice::RollD6();
                     if (roll >= 4) {
                         ip->applyDamage({0, 1});
                     }
@@ -113,7 +113,7 @@ namespace StormcastEternals {
     }
 
     int LordExorcist::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool ValkiaTheBloody::s_registered = false;
 
     ValkiaTheBloody::ValkiaTheBloody() :
-            KhorneBase("Valkia the Bloody", 12, WOUNDS, 9, 3, true),
+            KhorneBase("Valkia the Bloody", 12, g_wounds, 9, 3, true),
             m_slaupnir(Weapon::Type::Melee, "Slaupnir", 2, 6, 3, 3, -2, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
         m_weapons = {&m_slaupnir};
@@ -27,11 +27,11 @@ namespace Khorne {
     }
 
     bool ValkiaTheBloody::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slaupnir);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -88,7 +88,7 @@ namespace Khorne {
     }
 
     int ValkiaTheBloody::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

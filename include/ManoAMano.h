@@ -16,8 +16,8 @@ class Roster;
 
 class ManoAMano {
 public:
-    static const int BoardWidth = 48;
-    static const int BoardDepth = 36;
+    static const int s_boardWidth = 48;
+    static const int s_boardDepth = 36;
 
     explicit ManoAMano(int numRounds, Realm realm = Azyr);
 
@@ -31,29 +31,29 @@ public:
 
     void next();
 
-    bool done() const;
+    [[nodiscard]] bool done() const;
 
-    int currentRound() const { return m_round; }
+    [[nodiscard]] int currentRound() const { return m_round; }
 
-    Phase currentPhase() const { return m_currentPhase; }
+    [[nodiscard]] Phase currentPhase() const { return m_currentPhase; }
 
     void logStatistics() const;
 
     void getStatistics(PlayerId which, UnitStatistics &stats);
 
-    PlayerId getVictor() const;
+    [[nodiscard]] PlayerId getVictor() const;
 
-    double getInitialRedX() const { return m_initialPos[0].x; }
+    [[nodiscard]] double getInitialRedX() const { return m_initialPos[0].x; }
 
-    double getInitialRedY() const { return m_initialPos[0].y; }
+    [[nodiscard]] double getInitialRedY() const { return m_initialPos[0].y; }
 
-    double getInitialBlueX() const { return m_initialPos[1].x; }
+    [[nodiscard]] double getInitialBlueX() const { return m_initialPos[1].x; }
 
-    double getInitialBlueY() const { return m_initialPos[1].y; }
+    [[nodiscard]] double getInitialBlueY() const { return m_initialPos[1].y; }
 
-    double getBoardWidth() const { return BoardWidth; }
+    [[nodiscard]] double getBoardWidth() const { return s_boardWidth; }
 
-    double getBoardDepth() const { return BoardDepth; }
+    [[nodiscard]] double getBoardDepth() const { return s_boardDepth; }
 
 protected:
 
@@ -75,9 +75,9 @@ protected:
 
     Unit *blueUnit();
 
-    const Unit *redUnit() const;
+    [[nodiscard]] const Unit *redUnit() const;
 
-    const Unit *blueUnit() const;
+    [[nodiscard]] const Unit *blueUnit() const;
 
     Unit *attackingUnit();
 

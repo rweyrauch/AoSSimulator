@@ -11,18 +11,18 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 40;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool FellBats::s_registered = false;
 
     Unit *FellBats::Create(const ParameterList &parameters) {
         auto unit = new FellBats();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         unit->setLegion(legion);
@@ -36,9 +36,9 @@ namespace Death {
     }
 
     int FellBats::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -51,7 +51,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
@@ -62,20 +62,20 @@ namespace Death {
     }
 
     FellBats::FellBats() :
-            LegionOfNagashBase("Fell Bats", 14, WOUNDS, 10, 6, true),
+            LegionOfNagashBase("Fell Bats", 14, g_wounds, 10, 6, true),
             m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, FELL_BATS};
         m_weapons = {&m_fangs};
     }
 
     bool FellBats::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_fangs);
             addModel(model);
         }

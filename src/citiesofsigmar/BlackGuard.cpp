@@ -12,12 +12,12 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 3;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 3;
 
     bool BlackGuard::s_registered = false;
 
@@ -27,7 +27,7 @@ namespace CitiesOfSigmar {
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool drummer = GetBoolParam("Drummer", parameters, true);
 
@@ -55,7 +55,7 @@ namespace CitiesOfSigmar {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Drummer"),
                             EnumParameter("City", g_city[0], g_city),
@@ -68,7 +68,7 @@ namespace CitiesOfSigmar {
     }
 
     BlackGuard::BlackGuard() :
-            CitizenOfSigmar("Black Guard", 6, WOUNDS, 8, 4, false),
+            CitizenOfSigmar("Black Guard", 6, g_wounds, 8, 4, false),
             m_halberd(Weapon::Type::Melee, "Ebon Halberd", 2, 2, 3, 3, -1, 1),
             m_halberdCaptain(Weapon::Type::Melee, "Ebon Halberd", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLACK_GUARD};
@@ -77,7 +77,7 @@ namespace CitiesOfSigmar {
 
     bool BlackGuard::configure(int numModels, bool standardBearer, bool drummer) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -86,12 +86,12 @@ namespace CitiesOfSigmar {
         m_drummer = drummer;
 
         // Add the Captain
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_halberdCaptain);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_halberd);
             addModel(model);
         }
@@ -128,9 +128,9 @@ namespace CitiesOfSigmar {
     }
 
     int BlackGuard::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

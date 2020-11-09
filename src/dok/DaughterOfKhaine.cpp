@@ -48,9 +48,9 @@ namespace DaughtersOfKhaine {
         if (m_battleRound == 3) {
             // Daughters of the First Temple
             if (hasKeyword(HAGG_NAR)) {
-                return RerollFailed;
+                return Reroll_Failed;
             }
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }
@@ -58,7 +58,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::toWoundRerolls(const Weapon *weapon, const Unit *unit) const {
         // Blood Rites - Slaughterer's Strength
         if (m_battleRound == 4) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return Unit::toWoundRerolls(weapon, unit);
@@ -67,7 +67,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::toSaveRerolls(const Weapon *weapon) const {
         // Blood Rites - Unquenchable Fervour
         if (m_battleRound == 5) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return Unit::toSaveRerolls(weapon);
@@ -76,7 +76,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::runRerolls() const {
         // Blood Rites - Quickening Bloodlust
         if (m_battleRound == 1) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::runRerolls();
     }
@@ -84,7 +84,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::chargeRerolls() const {
         // Blood Rites - Headlong Fury
         if (m_battleRound == 2) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::chargeRerolls();
     }
@@ -101,8 +101,8 @@ namespace DaughtersOfKhaine {
     Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds) {
         // Fanatical Faith
         Dice::RollResult mortalSaves, normalSaves;
-        Dice::rollD6(wounds.mortal, mortalSaves);
-        Dice::rollD6(wounds.normal, normalSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.normal, normalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.normal -= normalSaves.rollsGE(6);
@@ -161,20 +161,24 @@ namespace DaughtersOfKhaine {
         removeKeyword(DRAICHI_GANETH);
         removeKeyword(THE_KRAITH);
         removeKeyword(KHAILEBRON);
+        removeKeyword(ZAINTHAR_KAI);
 
         m_temple = temple;
         switch (temple) {
-            case Temple::HaggNar:
+            case Temple::Hagg_Nar:
                 addKeyword(HAGG_NAR);
                 break;
-            case Temple::DraichiGaneth:
+            case Temple::Draichi_Ganeth:
                 addKeyword(DRAICHI_GANETH);
                 break;
-            case Temple::TheKraith:
+            case Temple::The_Kraith:
                 addKeyword(THE_KRAITH);
                 break;
             case Temple::Khailebron:
                 addKeyword(KHAILEBRON);
+                break;
+            case Temple::Zainthar_Kai:
+                addKeyword(ZAINTHAR_KAI);
                 break;
             default:
                 break;
@@ -187,6 +191,16 @@ namespace DaughtersOfKhaine {
 
     void DaughterOfKhaine::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    int DaughterOfKhaine::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+
+        // Khaine's Essence
+        if ((m_temple == Temple::Zainthar_Kai) && (hasKeyword(MELUSAI) || hasKeyword(KHINERAI_HARPIES))) {
+            mod++;
+        }
+        return mod;
     }
 
     void Init() {

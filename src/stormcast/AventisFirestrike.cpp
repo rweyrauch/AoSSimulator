@@ -15,20 +15,20 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 300;
+    static const int g_basesize = 100;
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 300;
 
     bool AventisFirestrike::s_registered = false;
 
     AventisFirestrike::AventisFirestrike() :
-            StormcastEternal("Aventis Firestrike", 14, WOUNDS, 9, 3, true),
+            StormcastEternal("Aventis Firestrike", 14, g_wounds, 9, 3, true),
             m_staffOfHammerhal(Weapon::Type::Melee, "Staff of Hammerhal", 2, 4, 3, 3, -1, RAND_D3),
             m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
                       MONSTER, WIZARD, LORD_ARCANUM, AVENTIS_FIRESTRIKE};
         m_weapons = {&m_staffOfHammerhal, &m_hornsAndHooves};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         m_totalSpells = 1;
@@ -37,7 +37,7 @@ namespace StormcastEternals {
 
     bool AventisFirestrike::configure(Lore lore) {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staffOfHammerhal);
         model->addMeleeWeapon(&m_hornsAndHooves);
         addModel(model);
@@ -47,7 +47,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePyroelectricBlast(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -56,7 +56,7 @@ namespace StormcastEternals {
         auto unit = new AventisFirestrike();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
+        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -109,7 +109,7 @@ namespace StormcastEternals {
         // Meteoric Strike
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
-            if (Dice::rollD6() >= 2) {
+            if (Dice::RollD6() >= 2) {
                 ip->applyDamage({0, 1});
             }
         }
@@ -125,7 +125,7 @@ namespace StormcastEternals {
     }
 
     int AventisFirestrike::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

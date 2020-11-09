@@ -11,9 +11,9 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 32;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 140;
 
     bool ManiakWeirdnob::s_registered = false;
 
@@ -65,7 +65,7 @@ namespace Bonesplitterz {
     }
 
     ManiakWeirdnob::ManiakWeirdnob() :
-            Bonesplitterz("Maniak Weirdnob", 12, WOUNDS, 7, 6, false),
+            Bonesplitterz("Maniak Weirdnob", 12, g_wounds, 7, 6, false),
             m_bonebeastStaff(Weapon::Type::Melee, "Bonebeast Staff", 1, 3, 4, 3, 0, RAND_D3),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, MANIAK_WEIRDNOB};
@@ -77,7 +77,7 @@ namespace Bonesplitterz {
     }
 
     bool ManiakWeirdnob::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bonebeastStaff);
         model->addMeleeWeapon(&m_tusksAndHooves);
 
@@ -86,13 +86,13 @@ namespace Bonesplitterz {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int ManiakWeirdnob::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Bonesplitterz

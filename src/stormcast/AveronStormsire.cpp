@@ -14,14 +14,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 130;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 130;
 
     bool AveronStormsire::s_registered = false;
 
     AveronStormsire::AveronStormsire() :
-            StormcastEternal("Averon Stormsire", 5, WOUNDS, 9, 3, false),
+            StormcastEternal("Averon Stormsire", 5, g_wounds, 9, 3, false),
             m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO, WIZARD,
                       KNIGHT_INCANTOR, AVERON_STORMSIRE};
@@ -34,7 +34,7 @@ namespace StormcastEternals {
 
     bool AveronStormsire::configure(Lore lore) {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
@@ -44,7 +44,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         // TODO: add Stormsire spell
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -53,7 +53,7 @@ namespace StormcastEternals {
         auto unit = new AveronStormsire();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->setStormhost(Stormhost::Hammers_of_Sigmar);
+        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
@@ -101,7 +101,7 @@ namespace StormcastEternals {
     }
 
     int AveronStormsire::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

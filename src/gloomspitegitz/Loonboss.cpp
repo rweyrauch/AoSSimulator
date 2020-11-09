@@ -12,14 +12,14 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 70;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 70;
 
     bool Loonboss::s_registered = false;
 
     Loonboss::Loonboss() :
-            GloomspiteGitzBase("Loonboss", 5, WOUNDS, 5, 5, false),
+            GloomspiteGitzBase("Loonboss", 5, g_wounds, 5, 5, false),
             m_moonslicer(Weapon::Type::Melee, "Moon-slicer", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_moonslicer};
@@ -27,11 +27,11 @@ namespace GloomspiteGitz {
     }
 
     bool Loonboss::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonslicer);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -83,7 +83,7 @@ namespace GloomspiteGitz {
     }
 
     int Loonboss::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

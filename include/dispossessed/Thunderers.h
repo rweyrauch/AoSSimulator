@@ -18,14 +18,14 @@ namespace Dispossessed {
     public:
 
         enum WeaponOptions {
-            DuardinHandgun,
-            BraceOfDuardinPistols
+            Duardin_Handgun,
+            Brace_Of_Duardin_Pistols
         };
 
         enum StandardOptions {
             None,
-            RunicIcon,
-            ClanBanner
+            Runic_Icon,
+            Clan_Banner
         };
 
         static Unit *Create(const ParameterList &parameters);

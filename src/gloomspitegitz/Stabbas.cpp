@@ -11,17 +11,17 @@
 #include <iostream>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 20;
-    static const int MAX_UNIT_SIZE = 60;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 20;
+    static const int g_maxUnitSize = 60;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool Stabbas::s_registered = false;
 
     Stabbas::Stabbas() :
-            GloomspiteGitzBase("Stabbas", 5, WOUNDS, 4, 6, false),
+            GloomspiteGitzBase("Stabbas", 5, g_wounds, 4, 6, false),
             m_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1),
             m_stabbaBoss(Weapon::Type::Melee, "Stabba", 1, 1, 3, 4, 0, 1),
             m_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1),
@@ -35,18 +35,18 @@ namespace GloomspiteGitz {
     bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
                             int numGongbashers, int numFlagbearers, int numIconbearers) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
-        if (numBarbedNets > 3 * numModels / MIN_UNIT_SIZE) {
+        if (numBarbedNets > 3 * numModels / g_minUnitSize) {
             return false;
         }
-        if (numGongbashers > numModels / MIN_UNIT_SIZE) {
+        if (numGongbashers > numModels / g_minUnitSize) {
             return false;
         }
-        if (numFlagbearers + numIconbearers > numModels / MIN_UNIT_SIZE) {
+        if (numFlagbearers + numIconbearers > numModels / g_minUnitSize) {
             return false;
         }
 
@@ -55,11 +55,11 @@ namespace GloomspiteGitz {
         m_numIconbearers = numIconbearers;
 
         // Add the boss
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         if (bossWeapon == Stabba) {
             boss->addMeleeWeapon(&m_stabbaBoss);
             m_ranks = 2;
-        } else if (bossWeapon == PokinSpear) {
+        } else if (bossWeapon == Pokin_Spear) {
             boss->addMeleeWeapon(&m_pokinSpearBoss);
             m_ranks = 3;
         }
@@ -67,7 +67,7 @@ namespace GloomspiteGitz {
 
         // add the nets
         for (auto i = 1; i < numBarbedNets; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_barbedNet);
             addModel(model);
         }
@@ -75,10 +75,10 @@ namespace GloomspiteGitz {
         // and the rest
         auto currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             if (weapons == Stabba) {
                 model->addMeleeWeapon(&m_stabba);
-            } else if (weapons == PokinSpear) {
+            } else if (weapons == Pokin_Spear) {
                 model->addMeleeWeapon(&m_pokinSpear);
             }
             addModel(model);
@@ -91,7 +91,7 @@ namespace GloomspiteGitz {
 
     Unit *Stabbas::Create(const ParameterList &parameters) {
         auto unit = new Stabbas();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stabba);
         WeaponOption bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, Stabba);
         int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
@@ -110,20 +110,20 @@ namespace GloomspiteGitz {
 
     void Stabbas::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Stabbas::Stabba, Stabbas::PokinSpear};
+            static const std::array<int, 2> weapons = {Stabbas::Stabba, Stabbas::Pokin_Spear};
             static FactoryMethod factoryMethod = {
                     Stabbas::Create,
                     Stabbas::ValueToString,
                     Stabbas::EnumStringToInt,
                     Stabbas::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter( "Weapons", Stabbas::Stabba, weapons),
                             EnumParameter("Boss Weapon", Stabbas::Stabba, weapons),
-                            IntegerParameter( "Barbed Nets", 3, 0, 3 * MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Gong Bashers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Flag Bearers", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Icon Bearers", 0, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
+                            IntegerParameter( "Barbed Nets", 3, 0, 3 * g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Gong Bashers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Flag Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -177,7 +177,7 @@ namespace GloomspiteGitz {
         if (std::string(parameter.name) == "Weapons" || std::string(parameter.name) == "Boss Weapon") {
             if (parameter.intValue == Stabba) {
                 return "Stabba";
-            } else if (parameter.intValue == PokinSpear) {
+            } else if (parameter.intValue == Pokin_Spear) {
                 return "Pokin' Spear";
             }
         }
@@ -188,7 +188,7 @@ namespace GloomspiteGitz {
         if (enumString == "Stabba") {
             return Stabba;
         } else if (enumString == "Pokin' Spear") {
-            return PokinSpear;
+            return Pokin_Spear;
         }
         return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
@@ -216,9 +216,9 @@ namespace GloomspiteGitz {
     }
 
     int Stabbas::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

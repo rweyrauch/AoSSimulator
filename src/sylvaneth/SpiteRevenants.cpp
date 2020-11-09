@@ -11,17 +11,17 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 200;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 60;
+    static const int g_pointsMaxUnitSize = 200;
 
     bool SpiteRevenants::s_registered = false;
 
     SpiteRevenants::SpiteRevenants() :
-            SylvanethBase("Spite Revenants", 5, WOUNDS, 6, 5, false),
+            SylvanethBase("Spite Revenants", 5, g_wounds, 6, 5, false),
             m_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 3, 3, 0, 1),
             m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 4, 3, 3, 0, 1) {
         m_keywords = {ORDER, SYLVANETH, OUTCASTS, SPITE_REVENANTS};
@@ -35,16 +35,16 @@ namespace Sylvaneth {
     }
 
     bool SpiteRevenants::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto shadestalker = new Model(BASESIZE, wounds());
+        auto shadestalker = new Model(g_basesize, wounds());
         shadestalker->addMeleeWeapon(&m_cruelTalonsAndFangsShadestalker);
         addModel(shadestalker);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_cruelTalonsAndFangs);
             addModel(model);
         }
@@ -56,7 +56,7 @@ namespace Sylvaneth {
 
     Unit *SpiteRevenants::Create(const ParameterList &parameters) {
         auto unit = new SpiteRevenants();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
@@ -77,7 +77,7 @@ namespace Sylvaneth {
                     SylvanethBase::EnumStringToInt,
                     SpiteRevenants::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Glade", g_glade[0], g_glade),
                     },
                     ORDER,
@@ -90,15 +90,15 @@ namespace Sylvaneth {
     Rerolls SpiteRevenants::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Malicious Tormentors
         if (hasKeyword(DREADWOOD)) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return SylvanethBase::toHitRerolls(weapon, target);
     }
 
     int SpiteRevenants::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

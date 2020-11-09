@@ -34,7 +34,7 @@ namespace IdonethDeepkin {
         void onStartShooting(PlayerId player) override;
 
         // Swift Tide
-        Rerolls runRerolls() const override { return RerollFailed; }
+        Rerolls runRerolls() const override { return Reroll_Failed; }
 
     protected:
 

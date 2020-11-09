@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GOTREK_H
-#define GOTREK_H
+#ifndef GOTREKGURNISSON_H
+#define GOTREKGURNISSON_H
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -60,4 +60,4 @@ namespace FreeAgent {
 
 } // namespace FreeAgent
 
-#endif //GOTREK_H
+#endif //GOTREKGURNISSON_H

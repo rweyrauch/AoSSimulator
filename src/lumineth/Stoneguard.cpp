@@ -13,19 +13,19 @@
 
 namespace LuminethRealmLords {
 
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 15;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 300;
+    static const int g_basesize = 32;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 15;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 300;
 
     bool AlarithStoneguard::s_registered = false;
 
     Unit *AlarithStoneguard::Create(const ParameterList &parameters) {
         auto unit = new AlarithStoneguard();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weaponOption = (WeaponOption)GetEnumParam("Weapon", parameters, to_integer(WeaponOption::Diamondpick_Hammer));
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weaponOption = (WeaponOption)GetEnumParam("Weapon", parameters, ToInteger(WeaponOption::Diamondpick_Hammer));
         auto standardBearer = GetBoolParam("Standard Bearer", parameters, true);
 
         auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
@@ -55,23 +55,24 @@ namespace LuminethRealmLords {
     }
 
     int AlarithStoneguard::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     void AlarithStoneguard::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {to_integer(WeaponOption::Diamondpick_Hammer), to_integer(WeaponOption::Stone_Mallet)};
+            static const std::array<int, 2> weapons = {ToInteger(WeaponOption::Diamondpick_Hammer),
+                                                       ToInteger(WeaponOption::Stone_Mallet)};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapon", weapons[0], weapons),
                             BoolParameter("Standard Bearer"),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
@@ -85,7 +86,7 @@ namespace LuminethRealmLords {
     }
 
     AlarithStoneguard::AlarithStoneguard() :
-        LuminethBase("Alarith Stoneguard", 4, WOUNDS, 7, 4, false),
+        LuminethBase("Alarith Stoneguard", 4, g_wounds, 7, 4, false),
         m_malletOrHammer(Weapon::Type::Melee, "Stone Mallet or Diamondpick Hammer", 1, 2, 3, 3, -1, 1),
         m_stratumHammer(Weapon::Type::Melee, "Stratum Hammer", 1, 3, 3, 4, 0, 1),
         m_pairedStratumHammers(Weapon::Type::Melee, "Paired Stratum Hammers", 1, 3, 3, 4, 0, 1) {
@@ -95,20 +96,20 @@ namespace LuminethRealmLords {
     }
 
     bool AlarithStoneguard::configure(int numModels, WeaponOption weaponOption, bool standardBearer) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_weaponOption = weaponOption;
         m_standardBearer = standardBearer;
 
-        auto seneschal = new Model(BASESIZE, wounds());
+        auto seneschal = new Model(g_basesize, wounds());
         seneschal->addMeleeWeapon(&m_pairedStratumHammers);
         seneschal->setName("Truestone Seneschal");
         addModel(seneschal);
 
         if (m_standardBearer) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_stratumHammer);
             model->setName("Standard Bearer");
             addModel(model);
@@ -116,7 +117,7 @@ namespace LuminethRealmLords {
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_malletOrHammer);
             addModel(model);
         }
@@ -127,7 +128,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls AlarithStoneguard::battleshockRerolls() const {
-        if (m_standardBearer) return RerollFailed;
+        if (m_standardBearer) return Reroll_Failed;
         return Unit::battleshockRerolls();
     }
 
@@ -144,7 +145,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls AlarithStoneguard::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        if (weapon->name() == m_pairedStratumHammers.name()) return RerollFailed;
+        if (weapon->name() == m_pairedStratumHammers.name()) return Reroll_Failed;
         return Unit::toHitRerolls(weapon, target);
     }
 

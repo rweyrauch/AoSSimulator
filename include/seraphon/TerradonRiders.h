@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef TERRADONS_H
-#define TERRADONS_H
+#ifndef TERRADONRIDERS_H
+#define TERRADONRIDERS_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -18,8 +18,8 @@ namespace Seraphon {
     public:
 
         enum WeaponOption {
-            StarstrikeJavelins,
-            SunleechBolas
+            Starstrike_Javelins,
+            Sunleech_Bolas
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -59,4 +59,4 @@ namespace Seraphon {
 
 } // namespace Seraphon
 
-#endif //TERRADONS_H
+#endif //TERRADONRIDERS_H

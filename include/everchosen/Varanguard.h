@@ -18,9 +18,9 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            EnsorcelledWeapon,
+            Ensorcelled_Weapon,
             Fellspear,
-            DaemonforgedBlade
+            Daemonforged_Blade
         };
 
         static Unit *Create(const ParameterList &parameters);

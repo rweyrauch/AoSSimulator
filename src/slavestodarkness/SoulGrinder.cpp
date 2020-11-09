@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 160;
-    static const int WOUNDS = 16;
-    static const int POINTS_PER_UNIT = 210;
+    static const int g_basesize = 160;
+    static const int g_wounds = 16;
+    static const int g_pointsPerUnit = 210;
 
     struct TableEntry {
         int m_move;
@@ -20,9 +20,9 @@ namespace SlavesToDarkness {
         int m_legAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 10, 13, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 6, 6},
                     {10, 5, 5},
@@ -36,7 +36,7 @@ namespace SlavesToDarkness {
     Unit *SoulGrinder::Create(const ParameterList &parameters) {
         auto unit = new SoulGrinder();
 
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, WarpmetalBlade);
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Warpmetal_Blade);
 
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
@@ -55,9 +55,9 @@ namespace SlavesToDarkness {
     std::string SoulGrinder::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
             switch (parameter.intValue) {
-                case WarpmetalBlade:
+                case Warpmetal_Blade:
                     return "Warpmetal Blade";
-                case DaemonboneTalon:
+                case Daemonbone_Talon:
                     return "Daemonbone Talon";
                 default:
                     break;
@@ -67,26 +67,26 @@ namespace SlavesToDarkness {
     }
 
     int SoulGrinder::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Warpmetal Blade") return WarpmetalBlade;
-        else if (enumString == "Daemonbone Talon") return DaemonboneTalon;
+        if (enumString == "Warpmetal Blade") return Warpmetal_Blade;
+        else if (enumString == "Daemonbone Talon") return Daemonbone_Talon;
 
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
     int SoulGrinder::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void SoulGrinder::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {WarpmetalBlade, DaemonboneTalon};
+            static const std::array<int, 2> weapons = {Warpmetal_Blade, Daemonbone_Talon};
             static FactoryMethod factoryMethod = {
                     SoulGrinder::Create,
                     SoulGrinder::ValueToString,
                     SoulGrinder::EnumStringToInt,
                     SoulGrinder::ComputePoints,
                     {
-                            EnumParameter("Weapon", WarpmetalBlade, weapons),
+                            EnumParameter("Weapon", Warpmetal_Blade, weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                     },
@@ -98,7 +98,7 @@ namespace SlavesToDarkness {
     }
 
     SoulGrinder::SoulGrinder() :
-            SlavesToDarknessBase("Soul Grinder", 12, WOUNDS, 10, 4, false),
+            SlavesToDarknessBase("Soul Grinder", 12, g_wounds, 10, 4, false),
             m_cannon(Weapon::Type::Missile, "Harvester Cannon", 16, 6, 4, 3, -1, 1),
             m_phlegm(Weapon::Type::Missile, "Phlegm Bombardment", 20, 1, 4, 3, -2, 3),
             m_legs(Weapon::Type::Melee, "Piston-driven Legs", 1, 6, 4, 3, -1, 1),
@@ -114,19 +114,19 @@ namespace SlavesToDarkness {
     }
 
     bool SoulGrinder::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_cannon);
         model->addMissileWeapon(&m_phlegm);
         model->addMeleeWeapon(&m_legs);
         model->addMeleeWeapon(&m_claw);
-        if (option == WarpmetalBlade)
+        if (option == Warpmetal_Blade)
             model->addMeleeWeapon(&m_blade);
-        else if (option == DaemonboneTalon)
+        else if (option == Daemonbone_Talon)
             model->addMeleeWeapon(&m_talon);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -135,7 +135,7 @@ namespace SlavesToDarkness {
 
         // Hellforged Claw
         if ((weapon->name() == m_claw.name()) && (hitRoll == 6)) {
-            return {0, Dice::rollD6()};
+            return {0, Dice::RollD6()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -158,7 +158,7 @@ namespace SlavesToDarkness {
 
     int SoulGrinder::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }

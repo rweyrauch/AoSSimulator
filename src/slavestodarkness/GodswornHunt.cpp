@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 60;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_pointsPerUnit = 60;
 
     bool GodswornHunt::s_registered = false;
 
@@ -31,7 +31,7 @@ namespace SlavesToDarkness {
     }
 
     int GodswornHunt::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void GodswornHunt::Init() {
@@ -52,7 +52,7 @@ namespace SlavesToDarkness {
     }
 
     GodswornHunt::GodswornHunt() :
-            SlavesToDarknessBase("Godsworn Hunt", 6, WOUNDS, 6, 6, false),
+            SlavesToDarknessBase("Godsworn Hunt", 6, g_wounds, 6, 6, false),
             m_huntingBow(Weapon::Type::Missile, "Hunting Bow", 24, 2, 4, 4, 0, 1),
             m_javelin(Weapon::Type::Missile, "Ensorcelled Javelin", 12, 1, 3, 3, -1, RAND_D3),
             m_knife(Weapon::Type::Melee, "Darkoath Knife", 1, 3, 4, 4, 0, 1),
@@ -64,29 +64,29 @@ namespace SlavesToDarkness {
     }
 
     bool GodswornHunt::configure() {
-        auto jagathra = new Model(BASESIZE, wounds());
+        auto jagathra = new Model(g_basesize, wounds());
         jagathra->addMissileWeapon(&m_javelin);
         jagathra->addMeleeWeapon(&m_knife);
         jagathra->setName("Jagathra");
         addModel(jagathra);
 
-        auto shond = new Model(BASESIZE, wounds());
+        auto shond = new Model(g_basesize, wounds());
         shond->addMeleeWeapon(&m_greatWeapon);
         shond->setName("Shond Head-Claimer");
         addModel(shond);
 
-        auto grundann = new Model(BASESIZE, wounds());
+        auto grundann = new Model(g_basesize, wounds());
         grundann->addMeleeWeapon(&m_greatWeapon);
         grundann->setName("Grundann Blood-Eye");
         addModel(grundann);
 
-        auto ollo = new Model(BASESIZE, wounds());
+        auto ollo = new Model(g_basesize, wounds());
         ollo->addMissileWeapon(&m_huntingBow);
         ollo->addMeleeWeapon(&m_bowMelee);
         ollo->setName("Ollo");
         addModel(ollo);
 
-        auto grawl = new Model(BASESIZE, wounds());
+        auto grawl = new Model(g_basesize, wounds());
         grawl->addMeleeWeapon(&m_bite);
         grawl->setName("Grawl");
         addModel(grawl);
@@ -98,12 +98,12 @@ namespace SlavesToDarkness {
 
     Rerolls GodswornHunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     Rerolls GodswornHunt::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        if (target->hasKeyword(STORMCAST_ETERNAL)) return RerollFailed;
+        if (target->hasKeyword(STORMCAST_ETERNAL)) return Reroll_Failed;
         return Unit::toWoundRerolls(weapon, target);
     }
 

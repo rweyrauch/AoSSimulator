@@ -12,9 +12,9 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 100;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 360;
+    static const int g_basesize = 100;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 360;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Slaanesh {
         int m_clawDamage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {14, 2, 5},
                     {12, 2, 4},
@@ -36,25 +36,25 @@ namespace Slaanesh {
     bool ShalaxiHelbane::s_registered = false;
 
     ShalaxiHelbane::ShalaxiHelbane() :
-            SlaaneshBase("Shalaxi Helbane", 14, WOUNDS, 10, 4, false),
+            SlaaneshBase("Shalaxi Helbane", 14, g_wounds, 10, 4, false),
             m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
             m_soulpiercer(Weapon::Type::Melee, "Soulpiercer", 3, 1, 2, 2, -3, RAND_D6),
             m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5) {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS,
                       SHALAXI_HELBANE};
         m_weapons = {&m_livingWhip, &m_soulpiercer, &m_impalingClaws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
     }
 
     bool ShalaxiHelbane::configure(WeaponOption weapon, Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         m_weapon = weapon;
 
-        if (m_weapon == LivingWhip) {
+        if (m_weapon == Living_Whip) {
             model->addMissileWeapon(&m_livingWhip);
         }
         model->addMeleeWeapon(&m_soulpiercer);
@@ -65,14 +65,14 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *ShalaxiHelbane::Create(const ParameterList &parameters) {
         auto unit = new ShalaxiHelbane();
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, LivingWhip);
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Living_Whip);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
@@ -92,14 +92,14 @@ namespace Slaanesh {
 
     void ShalaxiHelbane::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = { LivingWhip, ShiningAegis};
+            static const std::array<int, 2> weapons = {Living_Whip, Shining_Aegis};
             static FactoryMethod factoryMethod = {
                     ShalaxiHelbane::Create,
                     ShalaxiHelbane::ValueToString,
                     ShalaxiHelbane::EnumStringToInt,
                     ShalaxiHelbane::ComputePoints,
                     {
-                            EnumParameter("Weapon", LivingWhip, weapons),
+                            EnumParameter("Weapon", Living_Whip, weapons),
                             EnumParameter("Host", g_host[0], g_host),
                             EnumParameter("Lore", g_greaterDaemonLore[0], g_greaterDaemonLore),
                             BoolParameter("General")
@@ -121,7 +121,7 @@ namespace Slaanesh {
 
     int ShalaxiHelbane::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -135,11 +135,11 @@ namespace Slaanesh {
     }
 
     Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds) {
-        if (m_weapon == ShiningAegis) {
+        if (m_weapon == Shining_Aegis) {
             // Shining Aegis
             Dice::RollResult woundSaves, mortalSaves;
-            Dice::rollD6(wounds.normal, woundSaves);
-            Dice::rollD6(wounds.mortal, mortalSaves);
+            Dice::RollD6(wounds.normal, woundSaves);
+            Dice::RollD6(wounds.mortal, mortalSaves);
 
             Wounds totalWounds = wounds;
             totalWounds.normal -= woundSaves.rollsGE(6);
@@ -172,20 +172,20 @@ namespace Slaanesh {
 
     std::string ShalaxiHelbane::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == LivingWhip) return "LivingWhip";
-            else if (parameter.intValue == ShiningAegis) return "Shining Aegis";
+            if (parameter.intValue == Living_Whip) return "LivingWhip";
+            else if (parameter.intValue == Shining_Aegis) return "Shining Aegis";
         }
         return SlaaneshBase::ValueToString(parameter);
     }
 
     int ShalaxiHelbane::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Living Whip") return LivingWhip;
-        else if (enumString == "Shining Aegis") return ShiningAegis;
+        if (enumString == "Living Whip") return Living_Whip;
+        else if (enumString == "Shining Aegis") return Shining_Aegis;
         return SlaaneshBase::EnumStringToInt(enumString);
     }
 
     int ShalaxiHelbane::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

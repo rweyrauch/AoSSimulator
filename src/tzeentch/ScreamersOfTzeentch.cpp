@@ -12,30 +12,30 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 32;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 320;
 
 
     bool ScreamersOfTzeentch::s_registered = false;
 
     ScreamersOfTzeentch::ScreamersOfTzeentch() :
-            TzeentchBase("Screamers of Tzeentch", 16, WOUNDS, 10, 5, true),
+            TzeentchBase("Screamers of Tzeentch", 16, g_wounds, 10, 5, true),
             m_bite(Weapon::Type::Melee, "Lamprey Bite", 1, 3, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, SCREAMERS};
         m_weapons = {&m_bite};
     }
 
     bool ScreamersOfTzeentch::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_bite);
             addModel(model);
         }
@@ -47,7 +47,7 @@ namespace Tzeentch {
 
     Unit *ScreamersOfTzeentch::Create(const ParameterList &parameters) {
         auto unit = new ScreamersOfTzeentch();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
         unit->setChangeCoven(coven);
@@ -68,7 +68,7 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     ScreamersOfTzeentch::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                     },
                     CHAOS,
@@ -82,15 +82,15 @@ namespace Tzeentch {
     ScreamersOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Sky-sharks
         if (target->hasKeyword(MONSTER)) {
-            return {Dice::rollD3(), 0};
+            return {Dice::RollD3(), 0};
         }
         return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int ScreamersOfTzeentch::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

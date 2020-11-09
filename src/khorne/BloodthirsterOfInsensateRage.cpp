@@ -12,9 +12,9 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 270;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 270;
 
     struct TableEntry {
         int m_move;
@@ -22,9 +22,9 @@ namespace Khorne {
         int m_outrageousCarnage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 5, 4},
                     {9,  5, 3},
@@ -36,20 +36,20 @@ namespace Khorne {
     bool BloodthirsterOfInsensateRage::s_registered = false;
 
     BloodthirsterOfInsensateRage::BloodthirsterOfInsensateRage() :
-            KhorneBase("Bloodthirster Of Insensate Rage", 14, WOUNDS, 10, 4, true),
+            KhorneBase("Bloodthirster Of Insensate Rage", 14, g_wounds, 10, 4, true),
             m_greatAxeOfKhorne(Weapon::Type::Melee, "Great Axe of Khorne", 2, 5, 4, 2, -2, RAND_D6) {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO,
                       BLOODTHIRSTER_OF_INSENSATE_RAGE};
         m_weapons = {&m_greatAxeOfKhorne};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
     }
 
     bool BloodthirsterOfInsensateRage::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greatAxeOfKhorne);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -99,7 +99,7 @@ namespace Khorne {
 
     int BloodthirsterOfInsensateRage::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -110,7 +110,7 @@ namespace Khorne {
     Rerolls BloodthirsterOfInsensateRage::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Rage Unbound
         if (m_charged) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -135,7 +135,7 @@ namespace Khorne {
         if ((woundRoll == 6) && weapon->name() == m_greatAxeOfKhorne.name()) {
             const int damageIndex = getDamageTableIndex();
 
-            Wounds wounds = {0, Dice::rollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
+            Wounds wounds = {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
 
             // These mortal wounds are applied to all enemy units within 8".
             // Skip the target unit as the weaponDamage function will handle it.
@@ -153,7 +153,7 @@ namespace Khorne {
     }
 
     int BloodthirsterOfInsensateRage::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

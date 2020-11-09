@@ -13,17 +13,17 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool DoomfireWarlocks::s_registered = false;
 
     DoomfireWarlocks::DoomfireWarlocks() :
-            DaughterOfKhaine("Doomfire Warlocks", 14, WOUNDS, 6, 5, false),
+            DaughterOfKhaine("Doomfire Warlocks", 14, g_wounds, 6, 5, false),
             m_crossBow(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 4, 4, 0, 1),
             m_scimitar(Weapon::Type::Melee, "Cursed Scimitar", 1, 2, 4, 4, -1, 1),
             m_crossBowMaster(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 3, 4, 0, 1),
@@ -38,11 +38,11 @@ namespace DaughtersOfKhaine {
     }
 
     bool DoomfireWarlocks::configure(int numModels, bool crossbows) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
-        auto master = new Model(BASESIZE, wounds());
+        auto master = new Model(g_basesize, wounds());
         master->addMeleeWeapon(&m_scimitarMaster);
         master->addMeleeWeapon(&m_steedsBite);
         if (crossbows) {
@@ -51,7 +51,7 @@ namespace DaughtersOfKhaine {
         addModel(master);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_scimitar);
             model->addMeleeWeapon(&m_steedsBite);
             if (crossbows) {
@@ -70,7 +70,7 @@ namespace DaughtersOfKhaine {
 
     Unit *DoomfireWarlocks::Create(const ParameterList &parameters) {
         auto unit = new DoomfireWarlocks();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool crossbows = GetBoolParam("Crossbows", parameters, false);
 
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
@@ -92,7 +92,7 @@ namespace DaughtersOfKhaine {
                     DaughterOfKhaine::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Crossbows"),
                             EnumParameter("Temple", g_temple[0], g_temple)
                     },
@@ -104,9 +104,9 @@ namespace DaughtersOfKhaine {
     }
 
     int DoomfireWarlocks::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

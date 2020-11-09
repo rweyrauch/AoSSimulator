@@ -14,14 +14,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 210;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 210;
 
     bool LordArcanumOnDracoline::s_registered = false;
 
     LordArcanumOnDracoline::LordArcanumOnDracoline() :
-            StormcastEternal("Lord-Arcanum on Celestial Dracoline", 12, WOUNDS, 9, 3, false),
+            StormcastEternal("Lord-Arcanum on Celestial Dracoline", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
@@ -41,7 +41,7 @@ namespace StormcastEternals {
 
     bool LordArcanumOnDracoline::configure(Lore lore) {
 
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
         model->addMeleeWeapon(&m_monstrousClaws);
         addModel(model);
@@ -51,7 +51,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateStormLance(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -107,14 +107,14 @@ namespace StormcastEternals {
     LordArcanumOnDracoline::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Thunderous Pounce
         if (m_charged && weapon->name() == m_monstrousClaws.name()) {
-            return {Dice::rollD3(), 0};
+            return {Dice::RollD3(), 0};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls LordArcanumOnDracoline::chargeRerolls() const {
         // Thunderous Pounce
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     void LordArcanumOnDracoline::onStartCombat(PlayerId /*player*/) {
@@ -134,7 +134,7 @@ namespace StormcastEternals {
     }
 
     int LordArcanumOnDracoline::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace StormcastEternals

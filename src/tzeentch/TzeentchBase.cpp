@@ -39,24 +39,24 @@ namespace Tzeentch {
     std::string TzeentchBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Change Coven") {
             if (parameter.intValue == (int)ChangeCoven::None) return "None";
-            else if (parameter.intValue == (int)ChangeCoven::EternalConflagration) return "Eternal Conflagration";
-            else if (parameter.intValue == (int)ChangeCoven::HostsDuplicitous) return "Hosts Duplicitous";
-            else if (parameter.intValue == (int)ChangeCoven::HostsArcanum) return "Hosts Arcanum";
-            else if (parameter.intValue == (int)ChangeCoven::CultOfTheTransientForm) return "Cult of the Transient Form";
-            else if (parameter.intValue == (int)ChangeCoven::PyrofaneCult) return "Pyrofane Cult";
-            else if (parameter.intValue == (int)ChangeCoven::GuildOfSummoners) return "Guild of Summoners";
+            else if (parameter.intValue == (int)ChangeCoven::Eternal_Conflagration) return "Eternal Conflagration";
+            else if (parameter.intValue == (int)ChangeCoven::Hosts_Duplicitous) return "Hosts Duplicitous";
+            else if (parameter.intValue == (int)ChangeCoven::Hosts_Arcanum) return "Hosts Arcanum";
+            else if (parameter.intValue == (int)ChangeCoven::Cult_Of_The_Transient_Form) return "Cult of the Transient Form";
+            else if (parameter.intValue == (int)ChangeCoven::Pyrofane_Cult) return "Pyrofane Cult";
+            else if (parameter.intValue == (int)ChangeCoven::Guild_Of_Summoners) return "Guild of Summoners";
         }
         return ParameterValueToString(parameter);
     }
 
     int TzeentchBase::EnumStringToInt(const std::string &enumString) {
         if (enumString == "None") return (int)ChangeCoven::None;
-        else if (enumString == "Eternal Conflagration") return (int)ChangeCoven::EternalConflagration;
-        else if (enumString == "Hosts Duplicitous") return (int)ChangeCoven::HostsDuplicitous;
-        else if (enumString == "Hosts Arcanum") return (int)ChangeCoven::HostsArcanum;
-        else if (enumString == "Cult of the Transient Form") return (int)ChangeCoven::CultOfTheTransientForm;
-        else if (enumString == "Pyrofane Cult") return (int)ChangeCoven::PyrofaneCult;
-        else if (enumString == "Guild of Summoners") return (int)ChangeCoven::GuildOfSummoners;
+        else if (enumString == "Eternal Conflagration") return (int)ChangeCoven::Eternal_Conflagration;
+        else if (enumString == "Hosts Duplicitous") return (int)ChangeCoven::Hosts_Duplicitous;
+        else if (enumString == "Hosts Arcanum") return (int)ChangeCoven::Hosts_Arcanum;
+        else if (enumString == "Cult of the Transient Form") return (int)ChangeCoven::Cult_Of_The_Transient_Form;
+        else if (enumString == "Pyrofane Cult") return (int)ChangeCoven::Pyrofane_Cult;
+        else if (enumString == "Guild of Summoners") return (int)ChangeCoven::Guild_Of_Summoners;
 
         return 0;
     }
@@ -71,22 +71,22 @@ namespace Tzeentch {
 
         m_coven = coven;
         switch (coven) {
-            case ChangeCoven::EternalConflagration:
+            case ChangeCoven::Eternal_Conflagration:
                 addKeyword(ETERNAL_CONFLAGRATION);
                 break;
-            case ChangeCoven::HostsDuplicitous:
+            case ChangeCoven::Hosts_Duplicitous:
                 addKeyword(HOSTS_DUPLICITOUS);
                 break;
-            case ChangeCoven::HostsArcanum:
+            case ChangeCoven::Hosts_Arcanum:
                 addKeyword(HOSTS_ARCANUM);
                 break;
-            case ChangeCoven::CultOfTheTransientForm:
+            case ChangeCoven::Cult_Of_The_Transient_Form:
                 addKeyword(CULT_OF_THE_TRANSIENT_FORM);
                 break;
-            case ChangeCoven::PyrofaneCult:
+            case ChangeCoven::Pyrofane_Cult:
                 addKeyword(PYROFANE_CULT);
                 break;
-            case ChangeCoven::GuildOfSummoners:
+            case ChangeCoven::Guild_Of_Summoners:
                 addKeyword(GUILD_OF_SUMMONERS);
                 break;
             default:

@@ -11,9 +11,9 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 300;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 300;
 
     struct TableEntry {
         int m_move;
@@ -21,9 +21,9 @@ namespace Khorne {
         int m_axeToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 12, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 6,       2},
                     {9,  3,       3},
@@ -35,25 +35,25 @@ namespace Khorne {
     bool WrathOfKhorneBloodthirster::s_registered = false;
 
     WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
-            KhorneBase("Wrath of Khorne Bloodthirster", 10, WOUNDS, 10, 4, true),
+            KhorneBase("Wrath of Khorne Bloodthirster", 10, g_wounds, 10, 4, true),
             m_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6),
             m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3),
             m_breath(Weapon::Type::Missile, "Hellfire Breath", 8, 1, 0, 0, 0, 0) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
         m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne, &m_breath};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         m_totalUnbinds = 1;
     }
 
     bool WrathOfKhorneBloodthirster::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bloodflail);
         model->addMissileWeapon(&m_breath);
         model->addMeleeWeapon(&m_mightyAxeOfKhorne);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -112,7 +112,7 @@ namespace Khorne {
 
     int WrathOfKhorneBloodthirster::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -123,7 +123,7 @@ namespace Khorne {
     Rerolls WrathOfKhorneBloodthirster::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Relentless Hunter
         if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -137,15 +137,15 @@ namespace Khorne {
                                                     int woundRoll) const {
         // Hellfire Breath
         if (weapon->name() == m_breath.name()) {
-            if (Dice::rollD6() >= 2) {
-                return {0, Dice::rollD3()};
+            if (Dice::RollD6() >= 2) {
+                return {0, Dice::RollD3()};
             }
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int WrathOfKhorneBloodthirster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

@@ -12,14 +12,14 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 130;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 130;
 
     bool Necromancer::s_registered = false;
 
     Necromancer::Necromancer() :
-            LegionOfNagashBase("Necromancer", 5, WOUNDS, 10, 6, false),
+            LegionOfNagashBase("Necromancer", 5, g_wounds, 10, 6, false),
             m_staff(Weapon::Type::Melee, "Necromancer's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
         m_weapons = {&m_staff};
@@ -29,14 +29,14 @@ namespace Death {
     }
 
     bool Necromancer::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -92,7 +92,7 @@ namespace Death {
     }
 
     int Necromancer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void Necromancer::onStartHero(PlayerId player) {

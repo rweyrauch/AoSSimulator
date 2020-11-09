@@ -12,9 +12,9 @@
 #include <Board.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 160;
-    static const int WOUNDS = 14;
-    static const int POINTS_PER_UNIT = 200;
+    static const int g_basesize = 160;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 200;
 
     bool SkitterstrandArachnarok::s_registered = false;
 
@@ -24,9 +24,9 @@ namespace GloomspiteGitz {
         int m_fangsToHit;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {8, 8, 2},
                     {7, 7, 3},
@@ -36,7 +36,7 @@ namespace GloomspiteGitz {
             };
 
     SkitterstrandArachnarok::SkitterstrandArachnarok() :
-            GloomspiteGitzBase("Skitterstrand Arachnarok", 8, WOUNDS, 6, 4, true),
+            GloomspiteGitzBase("Skitterstrand Arachnarok", 8, g_wounds, 6, 4, true),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
             m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
@@ -45,12 +45,12 @@ namespace GloomspiteGitz {
     }
 
     bool SkitterstrandArachnarok::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chitinousLegs);
         model->addMeleeWeapon(&m_monstrousFangs);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -69,7 +69,7 @@ namespace GloomspiteGitz {
 
     int SkitterstrandArachnarok::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -109,13 +109,13 @@ namespace GloomspiteGitz {
         // Spider Venom
         int threshold = inLightOfTheBadMoon() ? 5 : 6;
         if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name())) {
-            return {0, Dice::rollD3()};
+            return {0, Dice::RollD3()};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int SkitterstrandArachnarok::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace GloomspiteGitz

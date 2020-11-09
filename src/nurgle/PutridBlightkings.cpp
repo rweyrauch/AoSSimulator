@@ -11,24 +11,24 @@
 #include <Board.h>
 
 namespace Nurgle {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 500;
+    static const int g_basesize = 40;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 500;
 
     bool PutridBlightkings::s_registered = false;
 
     PutridBlightkings::PutridBlightkings() :
-            NurgleBase("Putrid Blightkings", 4, WOUNDS, 8, 4, false),
+            NurgleBase("Putrid Blightkings", 4, g_wounds, 8, 4, false),
             m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS};
         m_weapons = {&m_blightedWeapon};
     }
 
     bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousTocsin) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -36,12 +36,12 @@ namespace Nurgle {
         m_sonorousTocsin = sonorousTocsin;
 
         // Add the Blightlord
-        auto leader = new Model(BASESIZE, WOUNDS + 1);
+        auto leader = new Model(g_basesize, g_wounds + 1);
         leader->addMeleeWeapon(&m_blightedWeapon);
         addModel(leader);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_blightedWeapon);
             addModel(model);
         }
@@ -53,7 +53,7 @@ namespace Nurgle {
 
     Unit *PutridBlightkings::Create(const ParameterList &parameters) {
         auto unit = new PutridBlightkings();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool sonorousTocsin = GetBoolParam("Sonorous Tocsin", parameters, false);
 
@@ -73,7 +73,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     PutridBlightkings::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Sonorous Tocsin"),
                     },
@@ -88,7 +88,7 @@ namespace Nurgle {
         // Blighted Weapons
         if (unmodifiedHitRoll == 6) {
             // each 6 inflicts D6 hits
-            return Dice::rollD6();
+            return Dice::RollD6();
         }
 
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
@@ -111,9 +111,9 @@ namespace Nurgle {
     }
 
     int PutridBlightkings::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -126,9 +126,9 @@ namespace Nurgle {
 
             // Virulent Discharge
             for (auto unit : units) {
-                if (Dice::rollD6() >= 6) {
-                    if (unit->hasKeyword(NURGLE)) unit->heal(Dice::rollD3());
-                    else unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 6) {
+                    if (unit->hasKeyword(NURGLE)) unit->heal(Dice::RollD3());
+                    else unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }

@@ -11,14 +11,14 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 180;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 180;
 
     bool WarpLightningCannon::s_registered = false;
 
     WarpLightningCannon::WarpLightningCannon() :
-            Skaventide("Warp Lightning Cannon", 3, WOUNDS, 4, 4, false),
+            Skaventide("Warp Lightning Cannon", 3, g_wounds, 4, 4, false),
             m_warpLightningBlast(Weapon::Type::Missile, "Warp Lightning Blast", 24, 0, 0, 0, 0, 0),
             m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, RAND_D6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, WARP_LIGHTNING_CANNON};
@@ -27,12 +27,12 @@ namespace Skaven {
     }
 
     bool WarpLightningCannon::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpLightningBlast);
         model->addMeleeWeapon(&m_teethAndKnives);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -68,13 +68,13 @@ namespace Skaven {
         auto mortalWounds = Skaventide::generateMortalWounds(unit);
 
         if (m_shootingTarget) {
-            bool moreMoreWarpLightning = ((Dice::rollD6() >= 2) || remainingWounds() <= 2);
+            bool moreMoreWarpLightning = ((Dice::RollD6() >= 2) || remainingWounds() <= 2);
 
             // Warp Lightning Blast
             if (distanceTo(m_shootingTarget) <= (double) m_warpLightningBlast.range()) {
-                int power = Dice::rollD6();
+                int power = Dice::RollD6();
                 Dice::RollResult rollResult;
-                Dice::rollD6(6, rollResult);
+                Dice::RollD6(6, rollResult);
                 mortalWounds += rollResult.rollsGE(power);
 
                 // More-more Warp Lightning!
@@ -90,13 +90,13 @@ namespace Skaven {
 
                     if (foundEngineer) {
                         Dice::RollResult rollResultMore;
-                        Dice::rollD6(6, rollResultMore);
+                        Dice::RollD6(6, rollResultMore);
                         mortalWounds += rollResultMore.rollsGE(power);
 
                         int mortalWoundsSelf = 0;
                         int numUnmodifiedOnes = rollResult.numUnmodified1s() + rollResultMore.numUnmodified1s();
                         for (auto i = 0; i < numUnmodifiedOnes; i++) {
-                            mortalWoundsSelf += Dice::rollD3();
+                            mortalWoundsSelf += Dice::RollD3();
                         }
                         applyDamage({0, mortalWoundsSelf});
                     }
@@ -108,7 +108,7 @@ namespace Skaven {
     }
 
     int WarpLightningCannon::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Skaven

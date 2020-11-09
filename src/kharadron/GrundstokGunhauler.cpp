@@ -11,15 +11,15 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 0;
-    static const int WOUNDS = 0;
-    static const int POINTS_PER_UNIT = 130;
+    static const int g_basesize = 0;
+    static const int g_wounds = 0;
+    static const int g_pointsPerUnit = 130;
 
     bool GrundstokGunhauler::s_registered = false;
 
     Unit *GrundstokGunhauler::Create(const ParameterList &parameters) {
         auto unit = new GrundstokGunhauler();
-        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, SkyCannon);
+        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Sky_Cannon);
 
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
         unit->setSkyport(port);
@@ -41,28 +41,28 @@ namespace KharadronOverlords {
 
     std::string GrundstokGunhauler::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == SkyCannon) return "Sky Cannon";
-            else if (parameter.intValue == DrillCannon) return "Drill Cannon";
+            if (parameter.intValue == Sky_Cannon) return "Sky Cannon";
+            else if (parameter.intValue == Drill_Cannon) return "Drill Cannon";
         }
         return KharadronBase::ValueToString(parameter);
     }
 
     int GrundstokGunhauler::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Sky Cannon") return SkyCannon;
-        else if (enumString == "Drill Cannon") return DrillCannon;
+        if (enumString == "Sky Cannon") return Sky_Cannon;
+        else if (enumString == "Drill Cannon") return Drill_Cannon;
         return KharadronBase::EnumStringToInt(enumString);
     }
 
     void GrundstokGunhauler::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {SkyCannon, DrillCannon};
+            static const std::array<int, 2> weapons = {Sky_Cannon, Drill_Cannon};
             static FactoryMethod factoryMethod = {
                     GrundstokGunhauler::Create,
                     GrundstokGunhauler::ValueToString,
                     GrundstokGunhauler::EnumStringToInt,
                     GrundstokGunhauler::ComputePoints,
                     {
-                            EnumParameter("Weapon", SkyCannon, weapons),
+                            EnumParameter("Weapon", Sky_Cannon, weapons),
                             EnumParameter("Skyport", g_skyport[0], g_skyport),
                             EnumParameter("Artycle", g_artycles[0], g_artycles),
                             EnumParameter("Amendment", g_amendments[0], g_amendments),
@@ -77,7 +77,7 @@ namespace KharadronOverlords {
     }
 
     GrundstokGunhauler::GrundstokGunhauler() :
-            KharadronBase("Grundstok Gunhauler", 12, WOUNDS, 7, 4, true),
+            KharadronBase("Grundstok Gunhauler", 12, g_wounds, 7, 4, true),
             m_cannonShrapnel(),
             m_cannonShell(),
             m_drillCannon(),
@@ -92,12 +92,12 @@ namespace KharadronOverlords {
     }
 
     bool GrundstokGunhauler::configure(WeaponOption option, Endrinwork endrinwork) {
-        auto model = new Model(BASESIZE, wounds());
-        if (option == SkyCannon) {
+        auto model = new Model(g_basesize, wounds());
+        if (option == Sky_Cannon) {
             model->addMissileWeapon(&m_cannonShrapnel);
             model->addMissileWeapon(&m_cannonShell);
             m_cannonShell.activate(false);
-        } else if (option == DrillCannon) {
+        } else if (option == Drill_Cannon) {
             model->addMissileWeapon(&m_drillCannon);
         }
         model->addMissileWeapon(&m_carbines);
@@ -106,7 +106,7 @@ namespace KharadronOverlords {
 
         m_endrinwork = endrinwork;
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -126,8 +126,8 @@ namespace KharadronOverlords {
         // Bomb Racks
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 1.0)) {
-            if (Dice::rollD6() >= 4) {
-                unit->applyDamage({0, Dice::rollD3()});
+            if (Dice::RollD6() >= 4) {
+                unit->applyDamage({0, Dice::RollD3()});
             }
         }
     }
@@ -152,7 +152,7 @@ namespace KharadronOverlords {
     }
 
     int GrundstokGunhauler::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //KharadronOverlords

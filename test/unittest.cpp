@@ -101,7 +101,7 @@ TEST(Unit, LiberatorsVsBloodreavers)
     int initialNumLibs = liberators.remainingModels();
     ASSERT_EQ(initialNumLibs, 5);
 
-    ok = bloodreavers.configure(10, Khorne::Bloodreavers::ReaverBlades, false, false);
+    ok = bloodreavers.configure(10, Khorne::Bloodreavers::Reaver_Blades, false, false);
     ASSERT_TRUE(ok);
 
     int initialNumBloodreavers = bloodreavers.remainingModels();
@@ -143,7 +143,7 @@ TEST(Unit, BallistaVsAlarielle)
     StormcastEternals::CelestarBallista ballista0, ballista1, ballista2;
     StormcastEternals::LordOrdinator lordOrdinator;
 
-    bool ok = lordOrdinator.configure(StormcastEternals::LordOrdinator::AstralHammers);
+    bool ok = lordOrdinator.configure(StormcastEternals::LordOrdinator::Astral_Hammers);
     ASSERT_TRUE(ok);
 
     ok = ballista0.configure();

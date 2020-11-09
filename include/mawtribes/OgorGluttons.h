@@ -18,8 +18,8 @@ namespace OgorMawtribes {
     public:
 
         enum WeaponOption {
-            ClubOrBladeAndIronfist,
-            PairedClubOrBlade
+            Club_Or_Blade_And_Ironfist,
+            Paired_Club_Or_Blade
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -55,7 +55,7 @@ namespace OgorMawtribes {
 
     private:
 
-        WeaponOption m_weaponOption = ClubOrBladeAndIronfist;
+        WeaponOption m_weaponOption = Club_Or_Blade_And_Ironfist;
 
         bool m_bellower = false;
         bool m_skullBearer = false;

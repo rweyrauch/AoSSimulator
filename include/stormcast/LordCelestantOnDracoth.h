@@ -18,10 +18,10 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            TempestosHammer,
+            Tempestos_Hammer,
             Thunderaxe,
-            LightningHammer,
-            StormstrikeGlaive,
+            Lightning_Hammer,
+            Stormstrike_Glaive,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -42,7 +42,7 @@ namespace StormcastEternals {
 
     protected:
 
-        WeaponOption m_weapon = TempestosHammer;
+        WeaponOption m_weapon = Tempestos_Hammer;
         bool m_sigmariteThundershield = false;
 
     protected:

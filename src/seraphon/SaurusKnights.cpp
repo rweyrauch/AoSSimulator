@@ -11,17 +11,17 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 400;
 
     bool SaurusKnights::s_registered = false;
 
     SaurusKnights::SaurusKnights() :
-            SeraphonBase("Saurus Knights", 8, WOUNDS, 8, 4, false),
+            SeraphonBase("Saurus Knights", 8, g_wounds, 8, 4, false),
             m_celestiteBlade(Weapon::Type::Melee, "Celestite Blade", 1, 2, 3, 3, 0, 1),
             m_celestiteBladeAlpha(Weapon::Type::Melee, "Celestite Blade", 1, 3, 3, 3, 0, 1),
             m_celestiteSpear(Weapon::Type::Melee, "Celestite Warspear", 1, 2, 4, 3, 0, 1),
@@ -41,7 +41,7 @@ namespace Seraphon {
     }
 
     bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons, bool iconBearer, bool wardrum) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -50,10 +50,10 @@ namespace Seraphon {
         m_wardrum = wardrum;
 
         // Add the Alpha
-        auto alpha = new Model(BASESIZE, wounds());
-        if (m_weaponOption == CelestiteBlade) {
+        auto alpha = new Model(g_basesize, wounds());
+        if (m_weaponOption == Celestite_Blade) {
             alpha->addMeleeWeapon(&m_celestiteBladeAlpha);
-        } else if (m_weaponOption == CelestiteWarspear) {
+        } else if (m_weaponOption == Celestite_Warspear) {
             alpha->addMeleeWeapon(&m_celestiteSpearAlpha);
         }
         alpha->addMeleeWeapon(&m_jaws);
@@ -62,10 +62,10 @@ namespace Seraphon {
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (m_weaponOption == CelestiteBlade) {
+            auto model = new Model(g_basesize, wounds());
+            if (m_weaponOption == Celestite_Blade) {
                 model->addMeleeWeapon(&m_celestiteBlade);
-            } else if (m_weaponOption == CelestiteWarspear) {
+            } else if (m_weaponOption == Celestite_Warspear) {
                 model->addMeleeWeapon(&m_celestiteSpear);
             }
             model->addMeleeWeapon(&m_jaws);
@@ -80,8 +80,8 @@ namespace Seraphon {
 
     Unit *SaurusKnights::Create(const ParameterList &parameters) {
         auto unit = new SaurusKnights();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, CelestiteBlade);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Celestite_Blade);
         bool iconBearer = GetBoolParam("Stardrake Icon", parameters, false);
         bool wardrum = GetBoolParam("Wardrum", parameters, false);
 
@@ -99,29 +99,29 @@ namespace Seraphon {
 
     std::string SaurusKnights::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == CelestiteBlade) { return "Celestite Blade"; }
-            else if (parameter.intValue == CelestiteWarspear) { return "Celestite Warspear"; }
+            if (parameter.intValue == Celestite_Blade) { return "Celestite Blade"; }
+            else if (parameter.intValue == Celestite_Warspear) { return "Celestite Warspear"; }
         }
         return SeraphonBase::ValueToString(parameter);
     }
 
     int SaurusKnights::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Celestite Blade") { return CelestiteBlade; }
-        else if (enumString == "Celestite Warspear") { return CelestiteWarspear; }
+        if (enumString == "Celestite Blade") { return Celestite_Blade; }
+        else if (enumString == "Celestite Warspear") { return Celestite_Warspear; }
         return SeraphonBase::EnumStringToInt(enumString);
     }
 
     void SaurusKnights::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {CelestiteBlade, CelestiteWarspear};
+            static const std::array<int, 2> weapons = {Celestite_Blade, Celestite_Warspear};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", CelestiteBlade, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Celestite_Blade, weapons),
                             BoolParameter("Stardrake Icon"),
                             BoolParameter("Wardrum"),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
@@ -144,15 +144,15 @@ namespace Seraphon {
     }
 
     int SaurusKnights::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     Rerolls SaurusKnights::chargeRerolls() const {
-        if (m_wardrum) return RerollFailed;
+        if (m_wardrum) return Reroll_Failed;
 
         return SeraphonBase::chargeRerolls();
     }

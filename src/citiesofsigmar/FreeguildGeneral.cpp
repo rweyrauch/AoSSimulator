@@ -11,9 +11,9 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool FreeguildGeneral::s_registered = false;
 
@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
     }
 
     FreeguildGeneral::FreeguildGeneral() :
-            CitizenOfSigmar("Freeguild General", 5, WOUNDS, 7, 4, false),
+            CitizenOfSigmar("Freeguild General", 5, g_wounds, 7, 4, false),
             m_zweihander(Weapon::Type::Melee, "Zweihander", 1, 3, 3, 3, -2, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, HERO, FREEGUILD_GENERAL};
         m_weapons = {&m_zweihander};
@@ -83,11 +83,11 @@ namespace CitiesOfSigmar {
     }
 
     bool FreeguildGeneral::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_zweihander);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -110,7 +110,7 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildGeneral::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace CitiesOfSigmar

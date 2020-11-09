@@ -12,9 +12,9 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 120;
 
     bool WurrgogProphet::s_registered = false;
 
@@ -65,7 +65,7 @@ namespace Bonesplitterz {
     }
 
     WurrgogProphet::WurrgogProphet() :
-            Bonesplitterz("Wurrgog Prophet", 5, WOUNDS, 8, 5, false),
+            Bonesplitterz("Wurrgog Prophet", 5, g_wounds, 8, 5, false),
             m_staffAndShiv(Weapon::Type::Melee, "Wurrgog Staff and Bone Shiv", 1, 4, 4, 3, 0, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, WURRGOG_PROPHET};
@@ -76,7 +76,7 @@ namespace Bonesplitterz {
     }
 
     bool WurrgogProphet::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staffAndShiv);
         model->addMeleeWeapon(&m_fangedMaw);
         addModel(model);
@@ -84,7 +84,7 @@ namespace Bonesplitterz {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -103,14 +103,14 @@ namespace Bonesplitterz {
 
         if (owningPlayer() == playerId) {
             // Prophet of Da Waaagh!
-            if (Dice::rollD6() >= 4) {
+            if (Dice::RollD6() >= 4) {
                 m_roster->addCommandPoints(1);
             }
         }
     }
 
     int WurrgogProphet::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Bonesplitterz

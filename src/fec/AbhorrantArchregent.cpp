@@ -12,14 +12,14 @@
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 240;
+    static const int g_basesize = 40;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 240;
 
     bool AbhorrantArchregent::s_registered = false;
 
     AbhorrantArchregent::AbhorrantArchregent() :
-            FleshEaterCourts("Abhorrant Archregent", 6, WOUNDS, 10, 4, false),
+            FleshEaterCourts("Abhorrant Archregent", 6, g_wounds, 10, 4, false),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 7, 3, 3, -1, 1) {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD, ABHORRANT_ARCHREGENT};
         m_weapons = {&m_goryTalonsAndFangs};
@@ -29,14 +29,14 @@ namespace FleshEaterCourt {
     }
 
     bool AbhorrantArchregent::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -96,7 +96,7 @@ namespace FleshEaterCourt {
     void AbhorrantArchregent::onStartHero(PlayerId player) {
         // Imperial Blood
         if (player == owningPlayer()) {
-            if (remainingWounds() < WOUNDS && remainingWounds() > 0) {
+            if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 int woundsHealed = 3;
                 for (auto &m : m_models) {
                     m->applyHealing(woundsHealed);
@@ -107,7 +107,7 @@ namespace FleshEaterCourt {
     }
 
     int AbhorrantArchregent::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace FleshEasterCourt

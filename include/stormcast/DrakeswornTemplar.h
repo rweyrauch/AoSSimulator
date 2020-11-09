@@ -18,8 +18,8 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            TempestAxe,
-            ArcHammer,
+            Tempest_Axe,
+            Arc_Hammer,
             Stormlance,
         };
 
@@ -61,7 +61,7 @@ namespace StormcastEternals {
 
     protected:
 
-        WeaponOption m_weaponOption = TempestAxe;
+        WeaponOption m_weaponOption = Tempest_Axe;
 
     private:
 

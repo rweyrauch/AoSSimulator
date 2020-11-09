@@ -13,14 +13,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 25;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 140;
 
     bool InfernalEnrapturess::s_registered = false;
 
     InfernalEnrapturess::InfernalEnrapturess() :
-            SlaaneshBase("Infernal Enrapturess Herald of Slaanesh", 6, WOUNDS, 10, 5, false),
+            SlaaneshBase("Infernal Enrapturess Herald of Slaanesh", 6, g_wounds, 10, 5, false),
             m_ravagingClaw(Weapon::Type::Melee, "Ravaging Claw", 1, 3, 3, 4, -1, 1),
             m_lyreCacophonousMelody(Weapon::Type::Missile, "Heartstring Lyre: Cacophonous Melody", 18, 6, 3, 4, -1, 1),
             m_lyreEuphonicBlast(Weapon::Type::Missile, "Heartstring Lyre: Euphonic Blast", 24, 1, 2, 3, -3, RAND_D3) {
@@ -33,13 +33,13 @@ namespace Slaanesh {
     }
 
     bool InfernalEnrapturess::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_lyreCacophonousMelody);
         model->addMissileWeapon(&m_lyreEuphonicBlast);
         model->addMeleeWeapon(&m_ravagingClaw);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -106,7 +106,7 @@ namespace Slaanesh {
     }
 
     int InfernalEnrapturess::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

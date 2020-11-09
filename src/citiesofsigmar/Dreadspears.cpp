@@ -11,19 +11,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool Dreadspears::s_registered = false;
 
     Unit *Dreadspears::Create(const ParameterList &parameters) {
         auto unit = new Dreadspears();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
@@ -54,9 +54,9 @@ namespace CitiesOfSigmar {
                     Dreadspears::EnumStringToInt,
                     Dreadspears::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            {ParamType::Boolean, "Standard Bearer", Sim_True, Sim_False, Sim_False, 0},
+                            {ParamType::Boolean, "Hornblower", Sim_True, Sim_False, Sim_False, 0},
                             EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
@@ -67,7 +67,7 @@ namespace CitiesOfSigmar {
     }
 
     Dreadspears::Dreadspears() :
-            CitizenOfSigmar("Dreadspears", 6, WOUNDS, 6, 4, false),
+            CitizenOfSigmar("Dreadspears", 6, g_wounds, 6, 4, false),
             m_spear(Weapon::Type::Melee, "Darkling Spear", 2, 1, 4, 4, 0, 1),
             m_spearLordling(Weapon::Type::Melee, "Darkling Spear", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, DREADSPEARS};
@@ -77,7 +77,7 @@ namespace CitiesOfSigmar {
 
     bool Dreadspears::configure(int numModels, bool standardBearer, bool hornblower) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -86,12 +86,12 @@ namespace CitiesOfSigmar {
         m_hornblower = hornblower;
 
         // Add the Lordling
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_spearLordling);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_spear);
             addModel(model);
         }
@@ -135,9 +135,9 @@ namespace CitiesOfSigmar {
     }
 
     int Dreadspears::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

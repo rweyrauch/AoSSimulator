@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool Slambo::s_registered = false;
 
@@ -52,7 +52,7 @@ namespace SlavesToDarkness {
     }
 
     Slambo::Slambo() :
-            SlavesToDarknessBase("Slambo", 5, WOUNDS, 8, 4, false),
+            SlavesToDarknessBase("Slambo", 5, g_wounds, 8, 4, false),
             m_hurledAxe(Weapon::Type::Missile, "Hurled Chaos Axe", 8, 1, 3, 3, -1, RAND_D3),
             m_chaosAxes(Weapon::Type::Melee, "Chaos Axes", 1, RAND_D6, 4, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EXALTED_HERO_OF_CHAOS, SLAMBO};
@@ -61,18 +61,18 @@ namespace SlavesToDarkness {
     }
 
     bool Slambo::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_hurledAxe);
         model->addMeleeWeapon(&m_chaosAxes);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int Slambo::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //SlavesToDarkness

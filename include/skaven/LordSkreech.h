@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LORDSKREECHVERMINKING_H
-#define LORDSKREECHVERMINKING_H
+#ifndef LORDSKREECH_H
+#define LORDSKREECH_H
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -63,4 +63,4 @@ namespace Skaven {
 
 } // namespace Skaven
 
-#endif //LORDSKREECHVERMINKING_H
+#endif //LORDSKREECH_H

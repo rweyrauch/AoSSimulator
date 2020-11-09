@@ -11,14 +11,14 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool Doomseeker::s_registered = false;
 
     Doomseeker::Doomseeker() :
-            Fyreslayer("Doomseeker", 4, WOUNDS, 8, 4, false),
+            Fyreslayer("Doomseeker", 4, g_wounds, 8, 4, false),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_warIron(Weapon::Type::Melee, "Runic War-iron", 1, 3, 3, 4, 0, 1),
             m_doomseekerAxe(Weapon::Type::Melee, "Doomseeker Axe", 1, 3, 3, 3, -1, 1) {
@@ -28,13 +28,13 @@ namespace Fyreslayers {
     }
 
     bool Doomseeker::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_warIron);
         model->addMeleeWeapon(&m_doomseekerAxe);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -91,7 +91,7 @@ namespace Fyreslayers {
     }
 
     int Doomseeker::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Fyreslayers

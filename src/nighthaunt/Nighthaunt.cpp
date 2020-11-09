@@ -47,8 +47,8 @@ namespace Nighthaunt {
         auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
         if (hero && hero->hasKeyword(NIGHTHAUNT)) {
             Dice::RollResult woundSaves, mortalSaves;
-            Dice::rollD6(wounds.normal, woundSaves);
-            Dice::rollD6(wounds.mortal, mortalSaves);
+            Dice::RollD6(wounds.normal, woundSaves);
+            Dice::RollD6(wounds.mortal, mortalSaves);
 
             Wounds totalWounds = wounds;
             totalWounds.normal -= woundSaves.rollsGE(5);

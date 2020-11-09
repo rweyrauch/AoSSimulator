@@ -40,12 +40,12 @@ enum PlayerId {
 };
 
 enum Rerolls {
-    NoRerolls = 0,
-    RerollOnes,
-    RerollOnesAndTwos,
-    RerollSixes,
-    RerollFailed,
-    RerollSuccessful
+    No_Rerolls = 0,
+    Reroll_Ones,
+    Reroll_Ones_And_Twos,
+    Reroll_Sixes,
+    Reroll_Failed,
+    Reroll_Successful
 };
 
 const int NoSave = 7;
@@ -55,42 +55,42 @@ enum Role {
     Leader,
     Other,
     Behemoth,
-    LeaderBehemoth,
+    Leader_Behemoth,
     Artillery,
-    ArtilleryBehemoth
+    Artillery_Behemoth
 };
 
 enum BuffableAttribute {
-    MoveDistance = 0,
-    RunDistance,
-    ChargeDistance,
-    ToHitMissile,
-    ToHitMelee,
-    ToWoundMissile,
-    ToWoundMelee,
-    ToSave,
+    Move_Distance = 0,
+    Run_Distance,
+    Charge_Distance,
+    To_Hit_Missile,
+    To_Hit_Melee,
+    To_Wound_Missile,
+    To_Wound_Melee,
+    To_Save,
     Bravery,
-    CastingRoll,
-    UnbindingRoll,
-    TargetToHitMelee,
-    TargetToHitMissile,
-    TargetToWoundMelee,
-    TargetToWoundMissile,
-    TargetToSave,
-    AttacksMelee,
-    AttacksMissile,
+    Casting_Roll,
+    Unbinding_Roll,
+    Target_To_Hit_Melee,
+    Target_To_Hit_Missile,
+    Target_To_Wound_Melee,
+    Target_To_Wound_Missile,
+    Target_To_Save,
+    Attacks_Melee,
+    Attacks_Missile,
 
-    NUM_BUFFABLE_ATTRIBUTES
+    Num_Buffable_Attributes
 };
 
 enum MovementRules {
     Fly = 0,
-    RunAndShoot,
-    RunAndCharge,
-    RetreatAndShoot,
-    RetreatAndCharge,
+    Run_And_Shoot,
+    Run_And_Charge,
+    Retreat_And_Shoot,
+    Retreat_And_Charge,
 
-    NUM_MOVEMENT_RULES
+    Num_Movement_Rules
 };
 
 enum Realm {
@@ -407,8 +407,7 @@ enum Keyword {
     BLOODWRACK_MEDUSA,
     BLOODWRACK_SHRINE,
     CAULDRON_OF_BLOOD,
-    MORATHI,
-    HIGH_ORACLE_OF_KHAINE,
+    MORATHI_KHAINE,
     THE_SHADOW_QUEEN,
     MORGWAETH_THE_BLOODIED,
     THE_BLADE_COVEN,
@@ -421,6 +420,7 @@ enum Keyword {
     THE_KRAITH,
     KHAILEBRON,
     KHELT_NAR,
+    ZAINTHAR_KAI,
 
     // Idoneth Deepkin
     NAMARTI,
@@ -1114,8 +1114,8 @@ enum Verbosity : int {
 struct Wounds {
 
     enum class Source {
-        WeaponMelee,
-        WeaponMissile,
+        Weapon_Melee,
+        Weapon_Missile,
         Ability,
         Spell,
         Prayer
@@ -1123,7 +1123,7 @@ struct Wounds {
 
     int normal = 0;
     int mortal = 0;
-    Source source = Source::WeaponMelee;
+    Source source = Source::Weapon_Melee;
 
     Wounds &operator+=(const Wounds &w) {
         normal += w.normal;

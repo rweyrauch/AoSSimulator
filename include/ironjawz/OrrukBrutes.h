@@ -18,12 +18,12 @@ namespace Ironjawz {
     public:
 
         enum WeaponOption {
-            TwoBruteChoppas = 0,
-            JaggedGorehacka,
+            Two_Brute_Choppas = 0,
+            Jagged_Gorehacka,
         };
         enum BossWeaponOption {
-            BossChoppa,
-            BossKlaw,
+            Boss_Choppa,
+            Boss_Klaw,
         };
 
         static Unit *Create(const ParameterList &parameters);

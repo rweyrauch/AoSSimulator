@@ -18,9 +18,9 @@ namespace BeastsOfChaos {
     public:
 
         enum WeaponOptions {
-            BullgorAxe,
-            PairedBullgorAxes,
-            BullgorGreatAxe
+            Bullgor_Axe,
+            Paired_Bullgor_Axes,
+            Bullgor_Great_Axe
         };
 
         static Unit *Create(const ParameterList &parameters);

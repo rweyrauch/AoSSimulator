@@ -19,8 +19,8 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            AstralHammers,
-            AstralGrandhammer
+            Astral_Hammers,
+            Astral_Grandhammer
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -51,7 +51,7 @@ namespace StormcastEternals {
 
     private:
 
-        WeaponOption m_weaponOption = AstralHammers;
+        WeaponOption m_weaponOption = Astral_Hammers;
 
         Weapon m_astralHammers,
                 m_astralGrandhammer;

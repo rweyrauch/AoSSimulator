@@ -40,8 +40,8 @@ namespace Khorne {
     private:
 
         Weapon m_garreksAxe,
-                m_KarusAxe,
-                m_SaeksAxe,
+                m_karusAxe,
+                m_saeksAxe,
                 m_blades;
 
         static bool s_registered;

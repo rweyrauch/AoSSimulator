@@ -78,7 +78,7 @@ namespace StormcastEternals {
     Rerolls StormcastEternal::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Driven by Vengeance
         if (hasKeyword(CELESTIAL_VINDICATORS) && m_charged) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
 
         return Unit::toHitRerolls(weapon, unit);
@@ -98,7 +98,7 @@ namespace StormcastEternals {
     Rerolls StormcastEternal::battleshockRerolls() const {
         // No True Death
         if (hasKeyword(ANVILS_OF_THE_HELDENHAMMER)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         return Unit::battleshockRerolls();
@@ -116,7 +116,7 @@ namespace StormcastEternals {
 
         m_stormHost = host;
         switch (m_stormHost) {
-            case Stormhost::Hammers_of_Sigmar:
+            case Stormhost::Hammers_Of_Sigmar:
                 addKeyword(HAMMERS_OF_SIGMAR);
                 break;
             case Stormhost::Hallowed_Knights:
@@ -125,7 +125,7 @@ namespace StormcastEternals {
             case Stormhost::Celestial_Vindicators:
                 addKeyword(CELESTIAL_VINDICATORS);
                 break;
-            case Stormhost::Anvils_of_the_Heldenhammer:
+            case Stormhost::Anvils_Of_The_Heldenhammer:
                 addKeyword(ANVILS_OF_THE_HELDENHAMMER);
                 break;
             case Stormhost::Knights_Excelsior:
@@ -167,7 +167,7 @@ namespace StormcastEternals {
 
     int StormcastEternal::EnumStringToInt(const std::string &enumString) {
         Lore lore;
-        if (FromString(enumString, lore)) return to_integer(lore);
+        if (FromString(enumString, lore)) return ToInteger(lore);
 
         auto stormhost = magic_enum::enum_cast<Stormhost>(enumString);
         if (stormhost.has_value()) return (int)stormhost.value();
@@ -186,7 +186,7 @@ namespace StormcastEternals {
 
         // Grand Strategists
         if ((owningPlayer() == player) && hasKeyword(TEMPEST_LORDS)) {
-            if (Dice::rollD6() >= 4) {
+            if (Dice::RollD6() >= 4) {
                 m_roster->addCommandPoints(1);
             }
         }
@@ -286,7 +286,7 @@ namespace StormcastEternals {
 
                 int mortalsTarget = 0;
                 for (auto i = 0; i < numFlasks; i++) {
-                    mortalsTarget += Dice::rollSpecial(damage);
+                    mortalsTarget += Dice::RollSpecial(damage);
                 }
 
                 auto numSlain = ip->applyDamage({0, mortalsTarget});

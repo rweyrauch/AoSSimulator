@@ -18,8 +18,8 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            AxeAndShield = 0,
-            JavelinAndShield,
+            Axe_And_Shield = 0,
+            Javelin_And_Shield,
             Flail,
         };
 
@@ -59,7 +59,7 @@ namespace SlavesToDarkness {
 
         bool m_iconBearer = false;
         bool m_hornblower = false;
-        bool m_weaponOption = WeaponOption::AxeAndShield;
+        bool m_weaponOption = WeaponOption::Axe_And_Shield;
 
     private:
 

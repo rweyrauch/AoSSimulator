@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ALEGUZZLER_H
-#define ALEGUZZLER_H
+#ifndef ALEGUZZLERGARGANT_H
+#define ALEGUZZLERGARGANT_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -58,4 +58,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //ALEGUZZLER_H
+#endif //ALEGUZZLERGARGANT_H

@@ -19,8 +19,8 @@ namespace Dispossessed {
 
         enum StandardOptions {
             None,
-            RunicIcon,
-            ClanBanner
+            Runic_Icon,
+            Clan_Banner
         };
 
         static Unit *Create(const ParameterList &parameters);

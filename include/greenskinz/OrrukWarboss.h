@@ -19,10 +19,10 @@ namespace Greenskinz {
     public:
 
         enum WeaponOption {
-            BossChoppaAndShield,
-            PairedBossChoppas,
-            MassiveChoppa,
-            GreatWaaaghBanner
+            Boss_Choppa_And_Shield,
+            Paired_Boss_Choppas,
+            Massive_Choppa,
+            Great_Waaagh_Banner
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -49,7 +49,7 @@ namespace Greenskinz {
 
     private:
 
-        WeaponOption m_weapon = BossChoppaAndShield;
+        WeaponOption m_weapon = Boss_Choppa_And_Shield;
 
         Weapon m_bossChoppa,
                 m_massiveChoppa,

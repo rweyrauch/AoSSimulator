@@ -10,9 +10,9 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 70;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 70;
 
     bool TheddraSkullscryer::s_registered = false;
 
@@ -36,7 +36,7 @@ namespace SlavesToDarkness {
     }
 
     int TheddraSkullscryer::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void TheddraSkullscryer::Init() {
@@ -59,7 +59,7 @@ namespace SlavesToDarkness {
     }
 
     TheddraSkullscryer::TheddraSkullscryer() :
-            SlavesToDarknessBase("Theddra Skull-scryer", 6, WOUNDS, 7, 5, false),
+            SlavesToDarknessBase("Theddra Skull-scryer", 6, g_wounds, 7, 5, false),
             m_wand(Weapon::Type::Melee, "Darkoath Wand", 1, 2, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, WIZARD, GOD_SPEAKER, THEDDRA_SKULL_SCRYER};
         m_weapons = {&m_wand};
@@ -67,23 +67,23 @@ namespace SlavesToDarkness {
     }
 
     bool TheddraSkullscryer::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_wand);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Rerolls TheddraSkullscryer::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     Rerolls TheddraSkullscryer::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        if (target->hasKeyword(STORMCAST_ETERNAL)) return RerollFailed;
+        if (target->hasKeyword(STORMCAST_ETERNAL)) return Reroll_Failed;
         return Unit::toWoundRerolls(weapon, target);
     }
 

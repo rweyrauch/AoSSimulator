@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SAURUSASTROLITH_H
-#define SAURUSASTROLITH_H
+#ifndef SAURUSASTROLITHBEARER_H
+#define SAURUSASTROLITHBEARER_H
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -48,4 +48,4 @@ namespace Seraphon {
 
 } // namespace Seraphon
 
-#endif //SAURUSASTROLITH_H
+#endif //SAURUSASTROLITHBEARER_H

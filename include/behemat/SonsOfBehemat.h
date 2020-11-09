@@ -28,24 +28,24 @@ namespace SonsOfBehemat {
 
         // Irascible Old Bullies
         Monstrously_Tough,
-        Old_and_Gnarly,
-        Louder_than_Words,
+        Old_And_Gnarly,
+        Louder_Than_Words,
         Strong_Right_Foot,
         Very_Acquisitive,
         Extremely_Intimidating,
 
         // Veterans of One-Sided Battle
         // Monstrously_Tough,
-        // Old_and_Gnarly,
-        // Louder_than_Words,
+        // Old_And_Gnarly,
+        // Louder_Than_Words,
         Inescapable_Grip,
         Very_Shouty,
-        Eager_for_the_Fight,
+        Eager_For_The_Fight,
 
         // Unstoppable Besiegers
         // Monstrously_Tough,
-        // Old_and_Gnarly,
-        // Louder_than_Words,
+        // Old_And_Gnarly,
+        // Louder_Than_Words,
         Extremely_Bitter,
         Smasher,
         Sees_Red
@@ -58,17 +58,17 @@ namespace SonsOfBehemat {
         None,
 
         // Trophies Taken by Force
-        Jaws_of_the_Mogalodon,
+        Jaws_Of_The_Mogalodon,
         Wallopin_Tentacle,
-        Jar_of_Burny_Grog,
-        Net_of_the_Beast_Reaver,
+        Jar_Of_Burny_Grog,
+        Net_Of_The_Beast_Reaver,
         Glowy_Lantern,
         Krakenskin_Sandals,
 
         // Trappings of the Titan
         Ironweld_Cestus,
-        Club_of_the_First_Oak,
-        Mantle_of_the_Destroyer,
+        Club_Of_The_First_Oak,
+        Mantle_Of_The_Destroyer,
 
         // Legacy of Demolition
         Enchanted_Portcullis,
@@ -82,8 +82,8 @@ namespace SonsOfBehemat {
     enum class FierceLoathing : int {
         None,
 
-        Bossy_Pants_and_Clever_Clogs,
-        Idiots_with_Flags,
+        Bossy_Pants_And_Clever_Clogs,
+        Idiots_With_Flags,
         Shiny_Uns,
         Crowds,
         Wannabes,

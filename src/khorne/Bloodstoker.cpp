@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 80;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 80;
 
     bool Bloodstoker::s_registered = false;
 
     Bloodstoker::Bloodstoker() :
-            KhorneBase("Bloodstoker", 6, WOUNDS, 8, 4, false),
+            KhorneBase("Bloodstoker", 6, g_wounds, 8, 4, false),
             m_tortureBlade(Weapon::Type::Melee, "Torture Blade", 1, 3, 3, 3, 0, 1),
             m_bloodWhip(Weapon::Type::Melee, "Blood Whip", 3, 3, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, BLOODSTOKER};
@@ -28,12 +28,12 @@ namespace Khorne {
     }
 
     bool Bloodstoker::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_tortureBlade);
         model->addMeleeWeapon(&m_bloodWhip);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -82,7 +82,7 @@ namespace Khorne {
     }
 
     int Bloodstoker::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

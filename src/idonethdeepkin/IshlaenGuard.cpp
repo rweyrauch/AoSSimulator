@@ -11,17 +11,17 @@
 #include "IdonethDeepkinPrivate.h"
 
 namespace IdonethDeepkin {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 140;
-    static const int POINTS_MAX_UNIT_SIZE = 560;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 560;
 
     bool AkhelianIshlaenGuard::s_registered = false;
 
     AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
-            IdonethDeepkinBase("Akhelian Ishlaen Guard", 14, WOUNDS, 6, 4, true),
+            IdonethDeepkinBase("Akhelian Ishlaen Guard", 14, g_wounds, 6, 4, true),
             m_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1),
             m_helsabrePrince(Weapon::Type::Melee, "Helsabre", 1, 4, 3, 3, 0, 1),
             m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
@@ -32,21 +32,21 @@ namespace IdonethDeepkin {
     }
 
     bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool musicians) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_standardBearers = standardBearers;
         m_musicians = musicians;
 
-        auto prince = new Model(BASESIZE, wounds());
+        auto prince = new Model(g_basesize, wounds());
         prince->addMeleeWeapon(&m_helsabrePrince);
         prince->addMeleeWeapon(&m_fangmoraFangedMaw);
         prince->addMeleeWeapon(&m_fangmoraLashingTail);
         addModel(prince);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_helsabre);
             model->addMeleeWeapon(&m_fangmoraFangedMaw);
             model->addMeleeWeapon(&m_fangmoraLashingTail);
@@ -60,7 +60,7 @@ namespace IdonethDeepkin {
 
     Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters) {
         auto unit = new AkhelianIshlaenGuard();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
         bool musicians = GetBoolParam("Musicians", parameters, true);
 
@@ -83,7 +83,7 @@ namespace IdonethDeepkin {
                     IdonethDeepkinBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Musicians"),
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
@@ -97,12 +97,12 @@ namespace IdonethDeepkin {
     }
 
     Rerolls AkhelianIshlaenGuard::battleshockRerolls() const {
-        if (m_standardBearers) { return RerollFailed; }
+        if (m_standardBearers) { return Reroll_Failed; }
         return Unit::battleshockRerolls();
     }
 
     Rerolls AkhelianIshlaenGuard::chargeRerolls() const {
-        if (m_musicians) { return RerollFailed; }
+        if (m_musicians) { return Reroll_Failed; }
         return Unit::chargeRerolls();
     }
 
@@ -123,9 +123,9 @@ namespace IdonethDeepkin {
     }
 
     int AkhelianIshlaenGuard::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

@@ -12,17 +12,17 @@
 #include <Roster.h>
 
 namespace GloomspiteGitz {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 6;
-    static const int MAX_UNIT_SIZE = 24;
-    static const int POINTS_PER_BLOCK = 70;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 6;
+    static const int g_maxUnitSize = 24;
+    static const int g_pointsPerBlock = 70;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool SquiqHerd::s_registered = false;
 
     SquiqHerd::SquiqHerd() :
-            GloomspiteGitzBase("Squig Herd", 5, WOUNDS, 3, 6, false),
+            GloomspiteGitzBase("Squig Herd", 5, g_wounds, 3, 6, false),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD};
@@ -31,7 +31,7 @@ namespace GloomspiteGitz {
 
     bool SquiqHerd::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -40,14 +40,14 @@ namespace GloomspiteGitz {
 
         // Add the herder
         for (auto i = 0; i < numHerders; i++) {
-            auto herder = new Model(BASESIZE, wounds());
+            auto herder = new Model(g_basesize, wounds());
             herder->addMeleeWeapon(&m_squigProdder);
             addModel(herder);
         }
 
         // and the squigs
         for (auto i = numHerders; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_fangFilledGob);
             addModel(model);
         }
@@ -59,7 +59,7 @@ namespace GloomspiteGitz {
 
     Unit *SquiqHerd::Create(const ParameterList &parameters) {
         auto unit = new SquiqHerd();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
         if (!ok) {
@@ -77,7 +77,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SquiqHerd::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -89,7 +89,7 @@ namespace GloomspiteGitz {
     Rerolls SquiqHerd::runRerolls() const {
         // Go Dat Way!
         if (hasHerder()) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         return GloomspiteGitzBase::runRerolls();
@@ -98,7 +98,7 @@ namespace GloomspiteGitz {
     Rerolls SquiqHerd::chargeRerolls() const {
         // Go Dat Way!
         if (hasHerder()) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         return GloomspiteGitzBase::chargeRerolls();
@@ -112,7 +112,7 @@ namespace GloomspiteGitz {
     void SquiqHerd::onFlee(int numFled) {
         // Squigs Go Wild
         Dice::RollResult rolls;
-        Dice::rollD6(numFled, rolls);
+        Dice::RollD6(numFled, rolls);
         int numMortalWounds = rolls.rollsGE(4);
         if (numMortalWounds) {
             auto board = Board::Instance();
@@ -125,9 +125,9 @@ namespace GloomspiteGitz {
     }
 
     int SquiqHerd::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

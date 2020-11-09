@@ -12,17 +12,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 40;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool Prosecutors::s_registered = false;
 
     Prosecutors::Prosecutors() :
-            StormcastEternal("Prosecutors", 12, WOUNDS, 7, 4, true),
+            StormcastEternal("Prosecutors", 12, g_wounds, 7, 4, true),
             m_celestialHammersMissile(Weapon::Type::Missile, "Celestial Hammer(s)", 18, 2, 4, 4, 0, 1),
             m_stormcallJavelinMissile(Weapon::Type::Missile, "Stormcall Javelin", 18, 1, 3, 3, 0, 1),
             m_stormcallJavelinMissilePrime(Weapon::Type::Missile, "Stormcall Javelin", 18, 2, 3, 3, 0, 1),
@@ -54,7 +54,7 @@ namespace StormcastEternals {
                                 Prosecutors::GrandWeaponOption primeGrandWeapon, int numTridents, int numGrandaxes,
                                 int numGrandblades, int numGrandhammers) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -65,7 +65,7 @@ namespace StormcastEternals {
         int maxTridents = 0;
         int totalTridents = numTridents;
 
-        if (primeGrandWeapon == StormsurgeTrident) {
+        if (primeGrandWeapon == Stormsurge_Trident) {
             totalTridents++;
         }
         if (primeGrandWeapon == Grandaxe || primeGrandWeapon == Grandblade || primeGrandWeapon == Grandhammer) {
@@ -73,7 +73,7 @@ namespace StormcastEternals {
         }
 
         // 1 in 3 can have a trident when using javelins
-        if (weapons == StormcallJavelinAndShield) {
+        if (weapons == Stormcall_Javelin_And_Shield) {
             maxTridents = numModels / 3;
             maxGrandWeapons = 0;
         }
@@ -87,18 +87,18 @@ namespace StormcastEternals {
 
         m_weaponOption = weapons;
 
-        auto prime = new Model(BASESIZE, wounds());
+        auto prime = new Model(g_basesize, wounds());
         switch (primeGrandWeapon) {
-            case NoGrandWeapon:
-                if (weapons == CelestialHammerAndShield || weapons == PairedCelestialHammers) {
+            case No_Grand_Weapon:
+                if (weapons == Celestial_Hammer_And_Shield || weapons == Paired_Celestial_Hammers) {
                     prime->addMissileWeapon(&m_celestialHammersMissile);
                     prime->addMeleeWeapon(&m_celestialHammersPrime);
-                } else if (weapons == StormcallJavelinAndShield) {
+                } else if (weapons == Stormcall_Javelin_And_Shield) {
                     prime->addMissileWeapon(&m_stormcallJavelinMissilePrime);
                     prime->addMeleeWeapon(&m_stormcallJavelin);
                 }
                 break;
-            case StormsurgeTrident:
+            case Stormsurge_Trident:
                 prime->addMissileWeapon(&m_stormsurgeTridentMissilePrime);
                 prime->addMeleeWeapon(&m_stormsurgeTrident);
                 totalTridents--;
@@ -122,33 +122,33 @@ namespace StormcastEternals {
         addModel(prime);
 
         for (auto i = 0; i < totalTridents; i++) {
-            auto tridentModel = new Model(BASESIZE, wounds());
+            auto tridentModel = new Model(g_basesize, wounds());
             tridentModel->addMissileWeapon(&m_stormsurgeTridentMissile);
             tridentModel->addMeleeWeapon(&m_stormsurgeTrident);
             addModel(tridentModel);
         }
         for (auto i = 0; i < numGrandaxes; i++) {
-            auto grandaxeModel = new Model(BASESIZE, wounds());
+            auto grandaxeModel = new Model(g_basesize, wounds());
             grandaxeModel->addMeleeWeapon(&m_grandaxe);
             addModel(grandaxeModel);
         }
         for (auto i = 0; i < numGrandblades; i++) {
-            auto grandbladeModel = new Model(BASESIZE, wounds());
+            auto grandbladeModel = new Model(g_basesize, wounds());
             grandbladeModel->addMeleeWeapon(&m_grandblade);
             addModel(grandbladeModel);
         }
         for (auto i = 0; i < numGrandhammers; i++) {
-            auto grandhammerModel = new Model(BASESIZE, wounds());
+            auto grandhammerModel = new Model(g_basesize, wounds());
             grandhammerModel->addMeleeWeapon(&m_grandhammer);
             addModel(grandhammerModel);
         }
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (m_weaponOption == CelestialHammerAndShield || m_weaponOption == PairedCelestialHammers) {
+            auto model = new Model(g_basesize, wounds());
+            if (m_weaponOption == Celestial_Hammer_And_Shield || m_weaponOption == Paired_Celestial_Hammers) {
                 model->addMissileWeapon(&m_celestialHammersMissile);
                 model->addMeleeWeapon(&m_celestialHammers);
-            } else if (m_weaponOption == StormcallJavelinAndShield) {
+            } else if (m_weaponOption == Stormcall_Javelin_And_Shield) {
                 model->addMissileWeapon(&m_stormcallJavelinMissile);
                 model->addMeleeWeapon(&m_stormcallJavelin);
             }
@@ -175,8 +175,8 @@ namespace StormcastEternals {
 
     Unit *Prosecutors::Create(const ParameterList &parameters) {
         auto unit = new Prosecutors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, CelestialHammerAndShield);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Celestial_Hammer_And_Shield);
         GrandWeaponOption primeGrandWeapon = (GrandWeaponOption) GetEnumParam("Prime Grand Weapon", parameters, None);
         int numTridents = GetIntParam("Stormsurge Tridents", parameters, 0);
         int numGrandaxes = GetIntParam("Grandaxes", parameters, 0);
@@ -197,17 +197,17 @@ namespace StormcastEternals {
 
     std::string Prosecutors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == StormcallJavelinAndShield) {
+            if (parameter.intValue == Stormcall_Javelin_And_Shield) {
                 return "Stormcall Javelin and Shield";
-            } else if (parameter.intValue == CelestialHammerAndShield) {
+            } else if (parameter.intValue == Celestial_Hammer_And_Shield) {
                 return "Celestial Hammer and Shield";
-            } else if (parameter.intValue == PairedCelestialHammers) {
+            } else if (parameter.intValue == Paired_Celestial_Hammers) {
                 return "Paired Celestial Hammers";
             }
         } else if (std::string(parameter.name) == "Prime Grand Weapon") {
-            if (parameter.intValue == NoGrandWeapon) {
+            if (parameter.intValue == No_Grand_Weapon) {
                 return "No Grand Weapon";
-            } else if (parameter.intValue == StormsurgeTrident) {
+            } else if (parameter.intValue == Stormsurge_Trident) {
                 return "Stormsurge Trident";
             } else if (parameter.intValue == Grandaxe) {
                 return "Grandaxe";
@@ -223,15 +223,15 @@ namespace StormcastEternals {
 
     int Prosecutors::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Stormcall Javelin and Shield") {
-            return StormcallJavelinAndShield;
+            return Stormcall_Javelin_And_Shield;
         } else if (enumString == "Celestial Hammer and Shield") {
-            return CelestialHammerAndShield;
+            return Celestial_Hammer_And_Shield;
         } else if (enumString == "Paired Celestial Hammers") {
-            return PairedCelestialHammers;
+            return Paired_Celestial_Hammers;
         } else if (enumString == "No Grand Weapon") {
-            return NoGrandWeapon;
+            return No_Grand_Weapon;
         } else if (enumString == "Stormsurge Trident") {
-            return StormsurgeTrident;
+            return Stormsurge_Trident;
         } else if (enumString == "Grandaxe") {
             return Grandaxe;
         } else if (enumString == "Grandblade") {
@@ -244,23 +244,23 @@ namespace StormcastEternals {
 
     void Prosecutors::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {StormcallJavelinAndShield,
-                                                             PairedCelestialHammers, CelestialHammerAndShield};
-            static const std::array<int, 5> primeWeapons = {NoGrandWeapon,
-                                                                  StormsurgeTrident,Grandaxe,Grandblade,Grandhammer};
+            static const std::array<int, 3> weapons = {Stormcall_Javelin_And_Shield,
+                                                       Paired_Celestial_Hammers, Celestial_Hammer_And_Shield};
+            static const std::array<int, 5> primeWeapons = {No_Grand_Weapon,
+                                                            Stormsurge_Trident, Grandaxe, Grandblade, Grandhammer};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", StormcallJavelinAndShield, weapons),
-                            EnumParameter("Prime Grand Weapon", NoGrandWeapon, primeWeapons),
-                            IntegerParameter("Stormsurge Tridents", 0, 0, MAX_UNIT_SIZE / 3, 1),
-                            IntegerParameter("Grandaxes", 0, 0, MAX_UNIT_SIZE / 3, 1),
-                            IntegerParameter("Grandblades", 0, 0, MAX_UNIT_SIZE / 3, 1),
-                            IntegerParameter("Grandhammers", 0, 0, MAX_UNIT_SIZE / 3, 1),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Stormcall_Javelin_And_Shield, weapons),
+                            EnumParameter("Prime Grand Weapon", No_Grand_Weapon, primeWeapons),
+                            IntegerParameter("Stormsurge Tridents", 0, 0, g_maxUnitSize / 3, 1),
+                            IntegerParameter("Grandaxes", 0, 0, g_maxUnitSize / 3, 1),
+                            IntegerParameter("Grandblades", 0, 0, g_maxUnitSize / 3, 1),
+                            IntegerParameter("Grandhammers", 0, 0, g_maxUnitSize / 3, 1),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
@@ -271,16 +271,16 @@ namespace StormcastEternals {
     }
 
     Rerolls Prosecutors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        if ((m_weaponOption == PairedCelestialHammers) && (weapon->name() == m_celestialHammers.name())) {
-            return RerollOnes;
+        if ((m_weaponOption == Paired_Celestial_Hammers) && (weapon->name() == m_celestialHammers.name())) {
+            return Reroll_Ones;
         }
         return StormcastEternal::toHitRerolls(weapon, target);
     }
 
     Rerolls Prosecutors::toSaveRerolls(const Weapon *weapon) const {
         // Sigmarite Shields
-        if (m_weaponOption == CelestialHammerAndShield || m_weaponOption == StormcallJavelinAndShield) {
-            return RerollOnes;
+        if (m_weaponOption == Celestial_Hammer_And_Shield || m_weaponOption == Stormcall_Javelin_And_Shield) {
+            return Reroll_Ones;
         }
         return StormcastEternal::toSaveRerolls(weapon);
     }
@@ -295,9 +295,9 @@ namespace StormcastEternals {
     }
 
     int Prosecutors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

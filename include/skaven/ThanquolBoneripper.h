@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef THANQUALONBONERIPPER_H
-#define THANQUALONBONERIPPER_H
+#ifndef THANQUOLBONERIPPER_H
+#define THANQUOLBONERIPPER_H
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -63,4 +63,4 @@ namespace Skaven {
 
 } // namespace Skaven
 
-#endif //THANQUALONBONERIPPER_H
+#endif //THANQUOLBONERIPPER_H

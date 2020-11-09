@@ -53,7 +53,7 @@ namespace Khorne {
 
         m_slaughterHost = host;
         switch (m_slaughterHost) {
-            case SlaughterHost::Reapers_of_Vengeance:
+            case SlaughterHost::Reapers_Of_Vengeance:
                 addKeyword(REAPERS_OF_VENGEANCE);
                 break;
             case SlaughterHost::Bloodlords:
@@ -74,7 +74,7 @@ namespace Khorne {
         // Slay the Mighty
         if (m_slaughterHost == SlaughterHost::Bloodlords) {
             if (hasKeyword(DAEMON) && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
-                return RerollOnes;
+                return Reroll_Ones;
             }
         }
         // Tireless Conquerors
@@ -85,7 +85,7 @@ namespace Khorne {
                     const auto obj = Board::Instance()->getObjective(i);
                     if (obj) {
                         if (position().distance(obj->m_pos) <= 12.0) {
-                            return RerollOnes;
+                            return Reroll_Ones;
                         }
                     }
                 }
@@ -100,7 +100,7 @@ namespace Khorne {
             if (hasKeyword(MORTAL)) {
                 auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0);
                 if (hero) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
             }
         }
@@ -110,10 +110,10 @@ namespace Khorne {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(GREATER_DAEMON)) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
                 if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0) {
-                    return RerollOnes;
+                    return Reroll_Ones;
                 }
             }
         }

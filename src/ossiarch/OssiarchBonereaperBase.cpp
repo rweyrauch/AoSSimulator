@@ -112,8 +112,8 @@ namespace OssiarchBonereapers {
 
         if (hasKeyword(HEKATOS) || hekatos || hero) {
             Dice::RollResult woundSaves, mortalSaves;
-            Dice::rollD6(wounds.normal, woundSaves);
-            Dice::rollD6(wounds.mortal, mortalSaves);
+            Dice::RollD6(wounds.normal, woundSaves);
+            Dice::RollD6(wounds.mortal, mortalSaves);
 
             totalWounds.normal -= woundSaves.rollsGE(6);
             totalWounds.normal = std::max(totalWounds.normal, 0);
@@ -134,7 +134,7 @@ namespace OssiarchBonereapers {
     Rerolls OssiarchBonereaperBase::toSaveRerolls(const Weapon *weapon) const {
         // Unstoppable Juggernauts
         if (m_legion == Legion::Petrifex_Elite) {
-            return RerollOnes;
+            return Reroll_Ones;
         }
         return Unit::toSaveRerolls(weapon);
     }
@@ -151,10 +151,10 @@ namespace OssiarchBonereapers {
         Unit::onModelSlain(source);
 
         // Immoliate
-        if ((source == Wounds::Source::WeaponMelee) && (m_legion == Legion::Crematorians)) {
+        if ((source == Wounds::Source::Weapon_Melee) && (m_legion == Legion::Crematorians)) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0f)) {
-                auto roll = Dice::rollD6();
+                auto roll = Dice::RollD6();
                 if (hasKeyword(HERO) || hasKeyword(MONSTER)) roll++;
                 if (roll >= 5) {
                     unit->applyDamage({0, 1});

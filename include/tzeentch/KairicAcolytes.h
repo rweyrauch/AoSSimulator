@@ -18,9 +18,9 @@ namespace Tzeentch {
     public:
 
         enum WeaponOptions {
-            CursedBlade,
-            PairedCursedBlades,
-            CursedBladeAndShield
+            Cursed_Blade,
+            Paired_Cursed_Blades,
+            Cursed_Blade_And_Shield
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -50,7 +50,7 @@ namespace Tzeentch {
 
     private:
 
-        WeaponOptions m_weaponOption = CursedBlade;
+        WeaponOptions m_weaponOption = Cursed_Blade;
         int m_numCursedGlaives = 0;
         int m_numScrollsOfDarkArts = 0;
         int m_numVulcharcs = 0;

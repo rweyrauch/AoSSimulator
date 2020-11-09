@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SNARLFANGS_H
-#define SNARLFANGS_H
+#ifndef RIPPASSNARLFANGS_H
+#define RIPPASSNARLFANGS_H
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -53,4 +53,4 @@ namespace GloomspiteGitz {
 
 } // namespace GloomspiteGitz
 
-#endif //SNARLFANGS_H
+#endif //RIPPASSNARLFANGS_H

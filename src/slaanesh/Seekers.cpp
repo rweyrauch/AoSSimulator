@@ -12,17 +12,17 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 120;
-    static const int POINTS_MAX_UNIT_SIZE = 480;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = 480;
 
     bool Seekers::s_registered = false;
 
     Seekers::Seekers() :
-            SlaaneshBase("Seekers", 14, WOUNDS, 10, 5, false),
+            SlaaneshBase("Seekers", 14, g_wounds, 10, 5, false),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 3, 4, -1, 1),
             m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
@@ -40,7 +40,7 @@ namespace Slaanesh {
     }
 
     bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, bool hornblower) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -49,13 +49,13 @@ namespace Slaanesh {
         m_hornblower = hornblower;
 
         // Add the Heartseeker
-        auto reaperModel = new Model(BASESIZE, wounds());
+        auto reaperModel = new Model(g_basesize, wounds());
         reaperModel->addMeleeWeapon(&m_piercingClawsHeartseeker);
         reaperModel->addMeleeWeapon(&m_poisonedTongue);
         addModel(reaperModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_piercingClaws);
             model->addMeleeWeapon(&m_poisonedTongue);
             addModel(model);
@@ -68,7 +68,7 @@ namespace Slaanesh {
 
     Unit *Seekers::Create(const ParameterList &parameters) {
         auto unit = new Seekers();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -92,7 +92,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblower"),
@@ -110,7 +110,7 @@ namespace Slaanesh {
         if (m_iconBearer) {
             // Icon Bearer
             if (roll == 1) {
-                numAdded = Dice::rollD3();
+                numAdded = Dice::RollD3();
             }
         }
     }
@@ -118,7 +118,7 @@ namespace Slaanesh {
     void Seekers::restoreModels(int numModels) {
         // Icon Bearer
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_piercingClaws);
             model->addMeleeWeapon(&m_poisonedTongue);
             addModel(model);
@@ -127,28 +127,28 @@ namespace Slaanesh {
 
     Rerolls Seekers::chargeRerolls() const {
         if (m_bannerBearer) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::chargeRerolls();
     }
 
     int Seekers::runModifier() const {
         // Quicksilver Speed
-        return Dice::rollD6();
+        return Dice::RollD6();
     }
 
     int Seekers::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     Rerolls Seekers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return RerollOnes;
+        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
 
-        return NoRerolls;
+        return No_Rerolls;
     }
 
 } // namespace Slaanesh

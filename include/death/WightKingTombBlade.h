@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef WIGHTKINGBLADE_H
-#define WIGHTKINGBLADE_H
+#ifndef WIGHTKINGTOMBBLADE_H
+#define WIGHTKINGTOMBBLADE_H
 
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
@@ -56,4 +56,4 @@ namespace Death {
 
 } // namespace Death
 
-#endif // WIGHTKINGBLADE_H
+#endif // WIGHTKINGTOMBBLADE_H

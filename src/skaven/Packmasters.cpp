@@ -10,19 +10,19 @@
 #include <UnitFactory.h>
 
 namespace Skaven {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 240;
+    static const int g_basesize = 25;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 60;
+    static const int g_pointsMaxUnitSize = 240;
 
     bool Packmasters::s_registered = false;
 
     Unit *Packmasters::Create(const ParameterList &parameters) {
         auto unit = new Packmasters();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        int numCatchers = GetIntParam("Thing-catchers", parameters, MIN_UNIT_SIZE / 3);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        int numCatchers = GetIntParam("Thing-catchers", parameters, g_minUnitSize / 3);
 
         bool ok = unit->configure(numModels, numCatchers);
         if (!ok) {
@@ -33,9 +33,9 @@ namespace Skaven {
     }
 
     int Packmasters::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -48,9 +48,9 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Thing-catchers", MIN_UNIT_SIZE / 3, MIN_UNIT_SIZE / 3,
-                             MAX_UNIT_SIZE / 3, MIN_UNIT_SIZE / 3),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Thing-catchers", g_minUnitSize / 3, g_minUnitSize / 3,
+                             g_maxUnitSize / 3, g_minUnitSize / 3),
                     },
                     CHAOS,
                     {SKAVEN}
@@ -61,7 +61,7 @@ namespace Skaven {
     }
 
     Packmasters::Packmasters() :
-            Skaventide("Packmasters", 6, WOUNDS, 5, 6, false),
+            Skaventide("Packmasters", 6, g_wounds, 5, 6, false),
             m_whip(Weapon::Type::Melee, "Herding Whip", 3, 1, 4, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Rusty Blade", 1, 2, 4, 4, 0, 1),
             m_catcher(Weapon::Type::Melee, "Things-catcher", 2, 1, 4, 4, -1, 2) {
@@ -78,7 +78,7 @@ namespace Skaven {
     }
 
     bool Packmasters::configure(int numModels, int numCatchers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
         const int maxCatchers = numModels / 3;
@@ -87,13 +87,13 @@ namespace Skaven {
         }
 
         for (auto i = 0; i < numCatchers; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_whip);
             model->addMeleeWeapon(&m_catcher);
             addModel(model);
         }
         for (auto i = numCatchers; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_whip);
             model->addMeleeWeapon(&m_blade);
             addModel(model);

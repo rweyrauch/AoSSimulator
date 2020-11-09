@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef COS_ETERNALGUARD_H
-#define COS_ETERNALGUARD_H
+#ifndef ETERNALGUARD_H
+#define ETERNALGUARD_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -66,4 +66,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //COS_ETERNALGUARD_H
+#endif //ETERNALGUARD_H

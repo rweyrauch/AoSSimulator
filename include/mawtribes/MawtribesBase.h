@@ -34,31 +34,31 @@ namespace OgorMawtribes {
         Prodigious_Girth,
         Killer_Reputation,
         Mighty_Bellower,
-        An_Eye_for_Loot,
+        An_Eye_For_Loot,
         Crushing_Bulk,
 
         // Butcher
         Questionable_Hygiene,
-        Herald_of_the_Gulping_God,
+        Herald_Of_The_Gulping_God,
         Growling_Stomach,
         Gastromancer,
-        Rolls_of_Fat,
+        Rolls_Of_Fat,
         Spell_Eater,
 
         // Frostlord/Huskard
         Nomadic_Raider,
-        Voice_of_the_Avalanche,
+        Voice_Of_The_Avalanche,
         Frostfell_Aura,
-        Master_of_the_Mournfangs,
+        Master_Of_The_Mournfangs,
         Skilled_Rider,
-        Touched_by_the_Everwinter,
+        Touched_By_The_Everwinter,
 
         // Icebrow
         Winter_Rander,
-        Eye_of_the_Blizzard,
+        Eye_Of_The_Blizzard,
         Blood_Vultures_Gaze,
         Frost_Maw,
-        Raised_by_Yhetees,
+        Raised_By_Yhetees,
         Skal_Packmaster
     };
 
@@ -69,9 +69,9 @@ namespace OgorMawtribes {
         Headmasher,
         Grawls_Gut_Plate,
         Gruesome_Trophy_Rack,
-        Flask_of_Stonehorn_Blood,
+        Flask_Of_Stonehorn_Blood,
         Sky_Titan_Scatter_Pistols,
-        The_Fang_of_Ghur,
+        The_Fang_Of_Ghur,
 
         // Butcher
         Dracoline_Heart,
@@ -83,14 +83,14 @@ namespace OgorMawtribes {
 
         // Frostlord/Huskard
         The_Rime_Shroud,
-        Blade_of_All_Frost,
+        Blade_Of_All_Frost,
         Carvalox_Flank,
         Alvagr_Rune_Token,
-        Skullshards_of_Dragaar,
-        Elixir_of_Frostwyrm,
+        Skullshards_Of_Dragaar,
+        Elixir_Of_Frostwyrm,
 
         // Icebrow
-        The_Pelt_of_Charngar,
+        The_Pelt_Of_Charngar,
         Kattanak_Browplate,
         Frost_Talon_Shardbolts,
     };
@@ -109,7 +109,7 @@ namespace OgorMawtribes {
         // Firebelly
         Fiery_Whirlwind,
         Billowing_Ash,
-        Tongues_of_Flame,
+        Tongues_Of_Flame,
     };
 
     enum class Prayer : int {
@@ -117,7 +117,7 @@ namespace OgorMawtribes {
 
         Pulverising_Hailstorm,
         Keening_Gale,
-        Call_of_the_Blizzard
+        Call_Of_The_Blizzard
     };
 
     enum class MountTrait : int {
@@ -132,7 +132,7 @@ namespace OgorMawtribes {
         Old_Granitetooth,
 
         // Thundertusk
-        Fleet_of_Hoof,
+        Fleet_Of_Hoof,
         Fleshgreed,
         Rimefrost_Hide,
         Gvarnak,

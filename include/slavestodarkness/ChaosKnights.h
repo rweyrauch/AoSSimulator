@@ -18,9 +18,9 @@ namespace SlavesToDarkness {
     public:
 
         enum WeaponOption {
-            EnsorcelledWeapon = 0,
-            CursedLance,
-            CursedFlail,    // Doom Knight only
+            Ensorcelled_Weapon = 0,
+            Cursed_Lance,
+            Cursed_Flail,    // Doom Knight only
         };
 
         static Unit *Create(const ParameterList &parameters);

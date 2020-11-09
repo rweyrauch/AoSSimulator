@@ -12,14 +12,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 60; // x35 oval
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 110;
+    static const int g_basesize = 60; // x35 oval
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 110;
 
     bool SaurusScarVeteranOnColdOne::s_registered = false;
 
     SaurusScarVeteranOnColdOne::SaurusScarVeteranOnColdOne() :
-            SeraphonBase("Saurus Scar-Veteran on Cold One", 8, WOUNDS, 8, 4, false),
+            SeraphonBase("Saurus Scar-Veteran on Cold One", 8, g_wounds, 8, 4, false),
             m_warpick(Weapon::Type::Melee, "Celestite Warpick", 1, 3, 3, 3, -1, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1),
             m_coldOneJaws(Weapon::Type::Melee, "Snapping Jaws", 1, 2, 3, 4, 0, 1) {
@@ -30,7 +30,7 @@ namespace Seraphon {
     }
 
     bool SaurusScarVeteranOnColdOne::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpick);
         model->addMeleeWeapon(&m_jaws);
         model->addMeleeWeapon(&m_coldOneJaws);
@@ -96,7 +96,7 @@ namespace Seraphon {
     }
 
     int SaurusScarVeteranOnColdOne::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

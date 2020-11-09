@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef DAUGHTERSOFKHAINE_H
-#define DAUGHTERSOFKHAINE_H
+#ifndef DAUGHTEROFKHAINE_H
+#define DAUGHTEROFKHAINE_H
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -18,41 +18,43 @@ namespace DaughtersOfKhaine {
 
     enum class Temple : int {
         None = 0,
-        HaggNar,
-        DraichiGaneth,
-        TheKraith,
-        Khailebron
+        Hagg_Nar,
+        Draichi_Ganeth,
+        The_Kraith,
+        Khailebron,
+        Zainthar_Kai
     };
 
     enum class CommandTrait : int {
         None,
 
-        Bathed_in_Blood,
+        Bathed_In_Blood,
         Zealous_Orator,
         Bloody_Sacrificer,
         Terrifying_Beauty,
-        Mistress_of_Poisons,
+        Mistress_Of_Poisons,
         True_Believer,
 
         // Temple specific
         Devoted_Disciples,  // Hagg Nar
-        Murder_of_Illusion, // Khailebron
+        Murder_Of_Illusion, // Khailebron
+        Curse_Of_The_Bloody_Handed, // Zainthar Kai
     };
 
     enum class Artefact : int {
         None,
 
         // Hero
-        Crown_of_Woe,
+        Crown_Of_Woe,
         Cursed_Blade,
-        Amulet_of_Dark_Fire,
+        Amulet_Of_Dark_Fire,
         Crone_Blade,
-        Thousand_and_One_Dark_Blessings,
+        Thousand_And_One_Dark_Blessings,
         Bloodbane_Venom,
 
         // Wizard
         Shadow_Stone,
-        Rune_of_Ulgu,
+        Rune_Of_Ulgu,
         The_Mirror_Glaive,
         Seven_Fold_Shadow,
         Crystal_Heart,
@@ -61,36 +63,36 @@ namespace DaughtersOfKhaine {
         // Priest
         Blood_Sigil,
         Iron_Circlet,
-        Rune_of_Khaine,
+        Rune_Of_Khaine,
         Crimson_Shard,
         Khainite_Pendant,
         Hagbrew,
 
         // Temple specific
         The_Darksword,  // Draichi Ganeth
-        Venom_of_Nagendra,  // The Kraith
+        Venom_Of_Nagendra,  // The Kraith
     };
 
     enum class Lore : int {
         None,
 
-        Steed_of_Shadows,
-        Pit_of_Shades,
+        Steed_Of_Shadows,
+        Pit_Of_Shades,
         Mirror_Dance,
         The_Withering,
         Mindrazor,
-        Shroud_of_Despair,
+        Shroud_Of_Despair,
     };
 
     enum class Prayer : int {
         None,
 
-        Catechism_of_Murder,
-        Blessing_of_Khaine,
+        Catechism_Of_Murder,
+        Blessing_Of_Khaine,
         Martyrs_Sacrifice,
         Crimson_Rejuvination,
-        Covenant_of_the_Iron_Heart,
-        Sacrament_of_Blood,
+        Covenant_Of_The_Iron_Heart,
+        Sacrament_Of_Blood,
     };
 
     class DaughterOfKhaine : public Unit {
@@ -129,6 +131,8 @@ namespace DaughtersOfKhaine {
 
         Wounds applyWoundSave(const Wounds &wounds) override;
 
+        int braveryModifier() const override;
+
     protected:
 
         Temple m_temple = Temple::None;
@@ -160,4 +164,4 @@ namespace DaughtersOfKhaine {
 
 } // namespace DaughtersOfKhaine
 
-#endif //DAUGHTERSOFKHAINE_H
+#endif //DAUGHTEROFKHAINE_H

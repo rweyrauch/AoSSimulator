@@ -12,17 +12,17 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 60;
-    static const int POINTS_PER_BLOCK = 60;
-    static const int POINTS_MAX_UNIT_SIZE = 320;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 60;
+    static const int g_pointsPerBlock = 60;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool Zombies::s_registered = false;
 
     Zombies::Zombies() :
-            LegionOfNagashBase("Zombies", 4, WOUNDS, 10, NoSave, false),
+            LegionOfNagashBase("Zombies", 4, g_wounds, 10, NoSave, false),
             m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
         m_weapons = {&m_zombieBite};
@@ -36,7 +36,7 @@ namespace Death {
     }
 
     bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -45,7 +45,7 @@ namespace Death {
         m_noiseMaker = noiseMaker;
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_zombieBite);
             addModel(model);
         }
@@ -57,7 +57,7 @@ namespace Death {
 
     Unit *Zombies::Create(const ParameterList &parameters) {
         auto unit = new Zombies();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
 
@@ -80,7 +80,7 @@ namespace Death {
                     LegionOfNagashBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Noisemaker"),
                             EnumParameter("Legion", g_legions[0], g_legions)
@@ -128,9 +128,9 @@ namespace Death {
     }
 
     int Zombies::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

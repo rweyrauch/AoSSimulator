@@ -12,9 +12,9 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 140;
 
     bool MagisterOnDiscOfTzeentch::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Tzeentch {
     }
 
     MagisterOnDiscOfTzeentch::MagisterOnDiscOfTzeentch() :
-            TzeentchBase("Magister on Disc of Tzeentch", 16, WOUNDS, 7, 5, true),
+            TzeentchBase("Magister on Disc of Tzeentch", 16, g_wounds, 7, 5, true),
             m_staff(Weapon::Type::Missile, "Tzeentchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_sword(Weapon::Type::Melee, "Warpsteel Sword", 1, 1, 4, 4, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
@@ -73,7 +73,7 @@ namespace Tzeentch {
     }
 
     bool MagisterOnDiscOfTzeentch::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_teethAndHorns);
@@ -82,13 +82,13 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int MagisterOnDiscOfTzeentch::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Tzeentch

@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef HURRICANUM_H
-#define HURRICANUM_H
+#ifndef CELESTIALHURRICANUM_H
+#define CELESTIALHURRICANUM_H
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -75,4 +75,4 @@ namespace CitiesOfSigmar {
 
 } // namespace CitiesOfSigmar
 
-#endif //HURRICANUM_H
+#endif //CELESTIALHURRICANUM_H

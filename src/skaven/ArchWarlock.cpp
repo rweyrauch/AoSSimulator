@@ -14,9 +14,9 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 160;
+    static const int g_basesize = 32;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 160;
 
     bool ArchWarlock::s_registered = false;
 
@@ -63,7 +63,7 @@ namespace Skaven {
     }
 
     ArchWarlock::ArchWarlock() :
-            Skaventide("Arch-Warlock", 6, WOUNDS, 6, 3, false),
+            Skaventide("Arch-Warlock", 6, g_wounds, 6, 3, false),
             m_halberd(Weapon::Type::Melee, "Stormcage Halberd", 2, 1, 3, 3, -2, RAND_D3),
             m_claw(Weapon::Type::Melee, "Piston Claw", 1, 1, 4, 3, -2, 3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, HERO, WIZARD, WARLOCK_ENGINEER, ARCH_WARLOCK};
@@ -75,7 +75,7 @@ namespace Skaven {
     }
 
     bool ArchWarlock::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         model->addMeleeWeapon(&m_claw);
         addModel(model);
@@ -84,7 +84,7 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -93,7 +93,7 @@ namespace Skaven {
         auto wounds = Unit::onEndCombat(player);
 
         if (m_moreMoreFailed) {
-            Wounds overloadWounds = {0, Dice::rollD6()};
+            Wounds overloadWounds = {0, Dice::RollD6()};
             applyDamage(overloadWounds);
             wounds += overloadWounds;
             m_moreMoreFailed = false;
@@ -132,14 +132,14 @@ namespace Skaven {
         if ((owningPlayer() == player) && !m_usedGauntlet) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && distanceTo(unit) < 8.0) {
-                if (Dice::rollD6() >= 2) unit->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 2) unit->applyDamage({0, Dice::RollD3()});
                 m_usedGauntlet = true;
             }
         }
     }
 
     int ArchWarlock::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

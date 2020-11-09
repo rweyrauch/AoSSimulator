@@ -13,14 +13,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 220;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 220;
 
     bool BladebringerOnExaltedChariot::s_registered = false;
 
     BladebringerOnExaltedChariot::BladebringerOnExaltedChariot() :
-            SlaaneshBase("Bladebringer, Herald on Exalted Chariot", 10, WOUNDS, 10, 4, false),
+            SlaaneshBase("Bladebringer, Herald on Exalted Chariot", 10, g_wounds, 10, 4, false),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 9, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1) {
@@ -35,7 +35,7 @@ namespace Slaanesh {
     }
 
     bool BladebringerOnExaltedChariot::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongues);
@@ -44,7 +44,7 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -101,17 +101,17 @@ namespace Slaanesh {
         // Excess of Blades
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
-            int roll = Dice::rollD6();
+            int roll = Dice::RollD6();
             if (roll >= 5) {
-                ip->applyDamage({0, Dice::rollD6()});
-            } else if (Dice::rollD6() >= 2) {
-                ip->applyDamage({0, Dice::rollD3()});
+                ip->applyDamage({0, Dice::RollD6()});
+            } else if (Dice::RollD6() >= 2) {
+                ip->applyDamage({0, Dice::RollD3()});
             }
         }
     }
 
     int BladebringerOnExaltedChariot::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh

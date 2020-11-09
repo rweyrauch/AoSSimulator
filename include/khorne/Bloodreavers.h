@@ -18,8 +18,8 @@ namespace Khorne {
     public:
 
         enum WeaponOption {
-            ReaverBlades,
-            MeatripperAxe
+            Reaver_Blades,
+            Meatripper_Axe
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -52,7 +52,7 @@ namespace Khorne {
 
     private:
 
-        WeaponOption m_weaponOption = ReaverBlades;
+        WeaponOption m_weaponOption = Reaver_Blades;
         bool m_iconBearer = false;
         bool m_hornblower = false;
 

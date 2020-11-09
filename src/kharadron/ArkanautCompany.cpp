@@ -11,22 +11,22 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool ArkanautCompany::s_registered = false;
 
     Unit *ArkanautCompany::Create(const ParameterList &parameters) {
         auto unit = new ArkanautCompany();
-        int numModel = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numVolleyGuns = GetIntParam("Volley Guns", parameters, 1);
         int numSkyhooks = GetIntParam("Light Skyhooks", parameters, 1);
         int numSkypikes = GetIntParam("Skypikes", parameters, 1);
-        auto option = (CaptainWeapon) GetEnumParam("Captain Weapon", parameters, AetherflarePistol);
+        auto option = (CaptainWeapon) GetEnumParam("Captain Weapon", parameters, Aetherflare_Pistol);
 
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
         unit->setSkyport(port);
@@ -46,32 +46,32 @@ namespace KharadronOverlords {
 
     std::string ArkanautCompany::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Captain Weapon") {
-            if (parameter.intValue == AetherflarePistol) return "Aetherflare Pistol";
-            else if (parameter.intValue == PrivateerPistol) return "Privateer Pistol";
+            if (parameter.intValue == Aetherflare_Pistol) return "Aetherflare Pistol";
+            else if (parameter.intValue == Privateer_Pistol) return "Privateer Pistol";
         }
         return KharadronBase::ValueToString(parameter);
     }
 
     int ArkanautCompany::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Privateer Pistol") return PrivateerPistol;
-        else if (enumString == "Aetherflare Pistol") return AetherflarePistol;
+        if (enumString == "Privateer Pistol") return Privateer_Pistol;
+        else if (enumString == "Aetherflare Pistol") return Aetherflare_Pistol;
         return KharadronBase::EnumStringToInt(enumString);
     }
 
     void ArkanautCompany::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {AetherflarePistol, VolleyPistol, PrivateerPistol};
+            static const std::array<int, 3> weapons = {Aetherflare_Pistol, Volley_Pistol, Privateer_Pistol};
             static FactoryMethod factoryMethod = {
                     ArkanautCompany::Create,
                     ArkanautCompany::ValueToString,
                     ArkanautCompany::EnumStringToInt,
                     ArkanautCompany::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            IntegerParameter("Volley Guns", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Light Skyhooks", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            IntegerParameter("Skypikes", 1, 0, MAX_UNIT_SIZE / MIN_UNIT_SIZE, 1),
-                            EnumParameter("Captain Weapon", AetherflarePistol, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Volley Guns", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Light Skyhooks", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Skypikes", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            EnumParameter("Captain Weapon", Aetherflare_Pistol, weapons),
                             EnumParameter("Skyport", g_skyport[0], g_skyport),
                             EnumParameter("Artycle", g_artycles[0], g_artycles),
                             EnumParameter("Amendment", g_amendments[0], g_amendments),
@@ -85,7 +85,7 @@ namespace KharadronOverlords {
     }
 
     ArkanautCompany::ArkanautCompany() :
-            KharadronBase("Arkanaut Company", 4, WOUNDS, 6, 4, false),
+            KharadronBase("Arkanaut Company", 4, g_wounds, 6, 4, false),
             m_privateerPistol(Weapon::Type::Missile, "Privateer Pistol", 9, 2, 4, 4, 0, 1),
             m_volleyGun(Weapon::Type::Missile, "Aethermatic Volley Gun", 12, 6, 5, 4, -1, 1),
             m_skyhook(Weapon::Type::Missile, "Light Skyhook", 18, 1, 4, 3, -2, RAND_D3),
@@ -102,44 +102,44 @@ namespace KharadronOverlords {
 
     bool ArkanautCompany::configure(int numModels, int numVolleyGuns, int numSkyhooks, int numSkypikes,
                                     CaptainWeapon option) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
-        const int maxSpecials = numModels / MIN_UNIT_SIZE;
+        const int maxSpecials = numModels / g_minUnitSize;
         if (numVolleyGuns > maxSpecials || numSkyhooks > maxSpecials || numSkypikes > maxSpecials) {
             return false;
         }
 
         // Add the Captain
-        auto captain = new Model(BASESIZE, wounds());
-        if (option == AetherflarePistol) {
+        auto captain = new Model(g_basesize, wounds());
+        if (option == Aetherflare_Pistol) {
             captain->addMissileWeapon(&m_aetherflarePistol);
-        } else if (option == VolleyPistol) {
+        } else if (option == Volley_Pistol) {
             captain->addMissileWeapon(&m_volleyPistol);
-        } else if (option == PrivateerPistol) {
+        } else if (option == Privateer_Pistol) {
             captain->addMissileWeapon(&m_privateerPistol);
         }
         captain->addMeleeWeapon(&m_cutter);
         addModel(captain);
 
         for (auto i = 0; i < numVolleyGuns; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_volleyGun);
             model->addMeleeWeapon(&m_gunButt);
         }
         for (auto i = 0; i < numSkyhooks; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_skyhook);
             model->addMeleeWeapon(&m_gunButt);
         }
         for (auto i = 0; i < numSkypikes; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_skypike);
         }
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_privateerPistol);
             model->addMeleeWeapon(&m_cutter);
             addModel(model);
@@ -151,9 +151,9 @@ namespace KharadronOverlords {
     }
 
     int ArkanautCompany::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
@@ -173,7 +173,7 @@ namespace KharadronOverlords {
         // Glory-seekers
         auto obj = Board::Instance()->getNearestObjective(this);
         if (obj && (distanceTo(obj->m_pos) <= 9.0)) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
 
         return Unit::battleshockRerolls();

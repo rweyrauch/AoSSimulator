@@ -11,17 +11,17 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 30;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 420;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 30;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 420;
 
     bool TreeRevenants::s_registered = false;
 
     TreeRevenants::TreeRevenants() :
-            SylvanethBase("Tree Revenants", 5, WOUNDS, 6, 5, false),
+            SylvanethBase("Tree Revenants", 5, g_wounds, 6, 5, false),
             m_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1),
             m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade", 1, 4, 4, 3, -1, 1),
             m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2) {
@@ -30,14 +30,14 @@ namespace Sylvaneth {
     }
 
     bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         m_gladeBanners = gladeBanners;
         m_waypipes = waypipes;
 
-        auto scion = new Model(BASESIZE, wounds());
+        auto scion = new Model(g_basesize, wounds());
         if (scionGlaive) {
             scion->addMeleeWeapon(&m_protectorGlaive);
         } else {
@@ -46,7 +46,7 @@ namespace Sylvaneth {
         addModel(scion);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_enchantedBlade);
             addModel(model);
         }
@@ -62,7 +62,7 @@ namespace Sylvaneth {
 
     Unit *TreeRevenants::Create(const ParameterList &parameters) {
         auto unit = new TreeRevenants();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool scionGlaive = GetBoolParam("Scion Glaive", parameters, false);
         bool gladeBanners = GetBoolParam("Glade Banners", parameters, false);
         bool waypipes = GetBoolParam("Waypipes", parameters, false);
@@ -86,7 +86,7 @@ namespace Sylvaneth {
                     SylvanethBase::EnumStringToInt,
                     TreeRevenants::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Scion Glaive"),
                             BoolParameter("Glade Banners"),
                             BoolParameter("Waypipes"),
@@ -111,7 +111,7 @@ namespace Sylvaneth {
     Rerolls TreeRevenants::runRerolls() const {
         if (m_moveRerollAvailable) {
             m_moveRerollAvailable = false;
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return SylvanethBase::runRerolls();
     }
@@ -119,7 +119,7 @@ namespace Sylvaneth {
     Rerolls TreeRevenants::chargeRerolls() const {
         if (m_moveRerollAvailable) {
             m_moveRerollAvailable = false;
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return SylvanethBase::chargeRerolls();
     }
@@ -141,9 +141,9 @@ namespace Sylvaneth {
     }
 
     int TreeRevenants::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

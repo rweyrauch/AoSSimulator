@@ -28,13 +28,13 @@ public:
 
     void next();
 
-    bool done() const;
+    [[nodiscard]] bool done() const;
 
-    int currentRound() const { return m_round; }
+    [[nodiscard]] int currentRound() const { return m_round; }
 
-    PlayerId activePlayer() const { return m_currentPlayer; }
+    [[nodiscard]] PlayerId activePlayer() const { return m_currentPlayer; }
 
-    Phase currentPhase() const { return m_currentPhase; }
+    [[nodiscard]] Phase currentPhase() const { return m_currentPhase; }
 
 protected:
 

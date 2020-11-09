@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SCREAMERS_H
-#define SCREAMERS_H
+#ifndef SCREAMERSOFTZEENTCH_H
+#define SCREAMERSOFTZEENTCH_H
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -49,4 +49,4 @@ namespace Tzeentch {
 
 } // Tzeentch
 
-#endif //SCREAMERS_H
+#endif //SCREAMERSOFTZEENTCH_H

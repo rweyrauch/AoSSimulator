@@ -12,17 +12,17 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 90; // x52 oval
-    static const int WOUNDS = 5;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 190;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 6;
+    static const int g_basesize = 90; // x52 oval
+    static const int g_wounds = 5;
+    static const int g_minUnitSize = 2;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 190;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 6;
 
     bool Tempestors::s_registered = false;
 
     Tempestors::Tempestors() :
-            StormcastEternal("Tempestors", 10, WOUNDS, 7, 3, false),
+            StormcastEternal("Tempestors", 10, g_wounds, 7, 3, false),
             m_stormBlast(Weapon::Type::Missile, "Storm Blast", 12, 1, 4, 0, 0, 0),
             m_volleystormCrossbow(Weapon::Type::Missile, "Volleystorm Crossbow", 12, 4, 3, 4, 0, 1),
             m_warblade(Weapon::Type::Melee, "Warblade", 1, 3, 3, 4, 0, 1),
@@ -33,12 +33,12 @@ namespace StormcastEternals {
     }
 
     bool Tempestors::configure(int numModels) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         for (int i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_stormBlast);
             model->addMissileWeapon(&m_volleystormCrossbow);
             model->addMeleeWeapon(&m_warblade);
@@ -53,7 +53,7 @@ namespace StormcastEternals {
 
     Unit *Tempestors::Create(const ParameterList &parameters) {
         auto unit = new Tempestors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -74,7 +74,7 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,
@@ -88,12 +88,12 @@ namespace StormcastEternals {
     Wounds Tempestors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Intolerable Damage
         if ((hitRoll == 6) && (weapon->name() == m_clawsAndFangs.name())) {
-            return {Dice::rollD6(), 0};
+            return {Dice::RollD6(), 0};
         }
 
         // Storm Blast
         if (weapon->name() == m_stormBlast.name()) {
-            return {0, Dice::rollD3()};
+            return {0, Dice::RollD3()};
         }
 
         return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
@@ -101,7 +101,7 @@ namespace StormcastEternals {
 
     Rerolls Tempestors::toSaveRerolls(const Weapon * /*weapon*/) const {
         // Sigmarite Shields
-        return RerollOnes;
+        return Reroll_Ones;
     }
 
     int Tempestors::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
@@ -117,9 +117,9 @@ namespace StormcastEternals {
     }
 
     int Tempestors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

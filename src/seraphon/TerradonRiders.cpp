@@ -12,17 +12,17 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 3;
-    static const int MIN_UNIT_SIZE = 3;
-    static const int MAX_UNIT_SIZE = 12;
-    static const int POINTS_PER_BLOCK = 90;
-    static const int POINTS_MAX_UNIT_SIZE = 360;
+    static const int g_basesize = 50;
+    static const int g_wounds = 3;
+    static const int g_minUnitSize = 3;
+    static const int g_maxUnitSize = 12;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 360;
 
     bool TerradonRiders::s_registered = false;
 
     TerradonRiders::TerradonRiders() :
-            SeraphonBase("Terradon Riders", 16, WOUNDS, 5, 6, true),
+            SeraphonBase("Terradon Riders", 16, g_wounds, 5, 6, true),
             m_javelin(Weapon::Type::Missile, "Starstrike Javelin", 12, 2, 4, 3, 0, 1),
             m_javelinLeader(Weapon::Type::Missile, "Starstrike Javelin", 12, 3, 4, 3, 0, 1),
             m_bolas(Weapon::Type::Missile, "Sunleech Bolas", 6, RAND_D6, 4, 3, 0, 1),
@@ -34,15 +34,15 @@ namespace Seraphon {
     }
 
     bool TerradonRiders::configure(int numModels, WeaponOption option) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         // Add the Alpha
-        auto alpha = new Model(BASESIZE, wounds());
-        if (option == StarstrikeJavelins) {
+        auto alpha = new Model(g_basesize, wounds());
+        if (option == Starstrike_Javelins) {
             alpha->addMissileWeapon(&m_javelinLeader);
-        } else if (option == SunleechBolas) {
+        } else if (option == Sunleech_Bolas) {
             alpha->addMissileWeapon(&m_bolasLeader);
         }
         alpha->addMeleeWeapon(&m_jaws);
@@ -50,10 +50,10 @@ namespace Seraphon {
 
         int currentModelCount = (int) m_models.size();
         for (auto i = currentModelCount; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (option == StarstrikeJavelins) {
+            auto model = new Model(g_basesize, wounds());
+            if (option == Starstrike_Javelins) {
                 model->addMissileWeapon(&m_javelin);
-            } else if (option == SunleechBolas) {
+            } else if (option == Sunleech_Bolas) {
                 model->addMissileWeapon(&m_bolas);
             }
             model->addMeleeWeapon(&m_jaws);
@@ -67,8 +67,8 @@ namespace Seraphon {
 
     Unit *TerradonRiders::Create(const ParameterList &parameters) {
         auto unit = new TerradonRiders();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto option = (WeaponOption) GetEnumParam("Weapons", parameters, StarstrikeJavelins);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto option = (WeaponOption) GetEnumParam("Weapons", parameters, Starstrike_Javelins);
 
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
@@ -84,15 +84,15 @@ namespace Seraphon {
 
     void TerradonRiders::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {StarstrikeJavelins, SunleechBolas};
+            static const std::array<int, 2> weapons = {Starstrike_Javelins, Sunleech_Bolas};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", StarstrikeJavelins, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Starstrike_Javelins, weapons),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation)
                     },
@@ -105,24 +105,24 @@ namespace Seraphon {
     }
 
     int TerradonRiders::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }
 
     std::string TerradonRiders::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == StarstrikeJavelins) return "Starstrike Javelins";
-            else if (parameter.intValue == SunleechBolas) return "Sunleech Bolas";
+            if (parameter.intValue == Starstrike_Javelins) return "Starstrike Javelins";
+            else if (parameter.intValue == Sunleech_Bolas) return "Sunleech Bolas";
         }
         return SeraphonBase::ValueToString(parameter);
     }
 
     int TerradonRiders::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Starstrike Javelins") return StarstrikeJavelins;
-        else if (enumString == "Sunleech Bolas") return SunleechBolas;
+        if (enumString == "Starstrike Javelins") return Starstrike_Javelins;
+        else if (enumString == "Sunleech Bolas") return Sunleech_Bolas;
         return SeraphonBase::EnumStringToInt(enumString);
     }
 

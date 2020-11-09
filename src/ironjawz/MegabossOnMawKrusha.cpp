@@ -12,9 +12,9 @@
 #include "IronjawzPrivate.h"
 
 namespace Ironjawz {
-    static const int BASESIZE = 160;
-    static const int WOUNDS = 15;
-    static const int POINTS_PER_UNIT = 460;
+    static const int g_basesize = 160;
+    static const int g_wounds = 15;
+    static const int g_pointsPerUnit = 460;
 
     bool MegabossOnMawKrusha::s_registered = false;
 
@@ -24,9 +24,9 @@ namespace Ironjawz {
         int m_bulkDice;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 10, 13, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 10, 13, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 8, 8},
                     {10, 7, 7},
@@ -36,7 +36,7 @@ namespace Ironjawz {
             };
 
     MegabossOnMawKrusha::MegabossOnMawKrusha() :
-            Ironjawz("Megaboss on Maw-Krusha", 12, WOUNDS, 8, 3, true),
+            Ironjawz("Megaboss on Maw-Krusha", 12, g_wounds, 8, 3, true),
             m_bellow(Weapon::Type::Missile, "Innard-bursting Bellow", 8, RAND_D6, 2, 3, -1, 1),
             m_hackaAndChoppa(Weapon::Type::Melee, "Boss Gore-hacka and Choppa", 2, 8, 3, 3, -1, 2),
             m_ripToofFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2),
@@ -44,16 +44,16 @@ namespace Ironjawz {
         m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
         m_weapons = {&m_bellow, &m_hackaAndChoppa, &m_ripToofFist, &m_fistsAndTail};
         m_hasMount = true;
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
     }
 
     bool MegabossOnMawKrusha::configure(WeaponOption weapons, MountTrait trait) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bellow);
 
-        if (weapons == HackaAndChoppa) {
+        if (weapons == Hacka_And_Choppa) {
             model->addMeleeWeapon(&m_hackaAndChoppa);
-        } else if (weapons == ChoppaAndRiptoofFist) {
+        } else if (weapons == Choppa_And_Riptoof_Fist) {
             model->addMeleeWeapon(&m_ripToofFist);
         }
         model->addMeleeWeapon(&m_fistsAndTail);
@@ -63,14 +63,14 @@ namespace Ironjawz {
         m_weaponOption = weapons;
         m_mountTrait = trait;
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters) {
         auto unit = new MegabossOnMawKrusha();
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, HackaAndChoppa);
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Hacka_And_Choppa);
 
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
@@ -96,14 +96,14 @@ namespace Ironjawz {
 
     void MegabossOnMawKrusha::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {HackaAndChoppa, ChoppaAndRiptoofFist};
+            static const std::array<int, 2> weapons = {Hacka_And_Choppa, Choppa_And_Riptoof_Fist};
             static FactoryMethod factoryMethod = {
                     MegabossOnMawKrusha::Create,
                     MegabossOnMawKrusha::ValueToString,
                     MegabossOnMawKrusha::EnumStringToInt,
                     MegabossOnMawKrusha::ComputePoints,
                     {
-                            EnumParameter("Weapons", HackaAndChoppa, weapons),
+                            EnumParameter("Weapons", Hacka_And_Choppa, weapons),
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
                             EnumParameter("Command Trait", g_bossCommandTraits[0], g_bossCommandTraits),
                             EnumParameter("Artefact", g_bossArtefacts[0], g_bossArtefacts),
@@ -130,7 +130,7 @@ namespace Ironjawz {
 
     int MegabossOnMawKrusha::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -146,7 +146,7 @@ namespace Ironjawz {
         if (!units.empty()) {
             auto unit = units.front();
             Dice::RollResult result;
-            Dice::rollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
+            Dice::RollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
             Wounds bulkWounds = {0, result.rollsGE(5)};
             unit->applyDamage(bulkWounds);
         }
@@ -171,7 +171,7 @@ namespace Ironjawz {
     Wounds MegabossOnMawKrusha::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
         auto wounds = Ironjawz::computeReturnedDamage(weapon, saveRoll);
         // Rip-toof Fist
-        if ((saveRoll == 6) && (m_weaponOption == ChoppaAndRiptoofFist)) {
+        if ((saveRoll == 6) && (m_weaponOption == Choppa_And_Riptoof_Fist)) {
             wounds += {0, 1};
         }
         return wounds;
@@ -179,9 +179,9 @@ namespace Ironjawz {
 
     std::string MegabossOnMawKrusha::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == HackaAndChoppa) {
+            if (parameter.intValue == Hacka_And_Choppa) {
                 return "Boss Gore-hacka and Choppa";
-            } else if (parameter.intValue == ChoppaAndRiptoofFist) {
+            } else if (parameter.intValue == Choppa_And_Riptoof_Fist) {
                 return "Boss Choppa and Rip-toof Fist";
             }
         }
@@ -191,15 +191,15 @@ namespace Ironjawz {
 
     int MegabossOnMawKrusha::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Boss Gore-hacka and Choppa") {
-            return HackaAndChoppa;
+            return Hacka_And_Choppa;
         } else if (enumString == "Boss Choppa and Rip-toof Fist") {
-            return ChoppaAndRiptoofFist;
+            return Choppa_And_Riptoof_Fist;
         }
         return Ironjawz::EnumStringToInt(enumString);
     }
 
     int MegabossOnMawKrusha::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Ironjawz

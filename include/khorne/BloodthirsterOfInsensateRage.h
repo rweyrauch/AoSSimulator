@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef BLOODTHIRSTERRAGE_H
-#define BLOODTHIRSTERRAGE_H
+#ifndef BLOODTHIRSTEROFINSENSATERAGE_H
+#define BLOODTHIRSTEROFINSENSATERAGE_H
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -58,4 +58,4 @@ namespace Khorne {
 
 } // namespace Khorne
 
-#endif //BLOODTHIRSTERRAGE_H
+#endif //BLOODTHIRSTEROFINSENSATERAGE_H

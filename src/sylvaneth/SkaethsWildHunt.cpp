@@ -10,9 +10,9 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 1;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 1;
+    static const int g_pointsPerUnit = 120;
 
     bool SkaethsWildHunt::s_registered = false;
 
@@ -44,7 +44,7 @@ namespace Sylvaneth {
     }
 
     SkaethsWildHunt::SkaethsWildHunt() :
-            SylvanethBase("Skaeth's Wild Hunt", 6, WOUNDS, 6, 5, false),
+            SylvanethBase("Skaeth's Wild Hunt", 6, g_wounds, 6, 5, false),
             m_seekerBow(Weapon::Type::Missile, "Seeker Bow", 18, 1, 3, 4, -1, 1),
             m_javalin(Weapon::Type::Missile, "Javalin of the Hunt", 9, 1, 3, 3, -1, 2),
             m_javalinMelee(Weapon::Type::Melee, "Javalin of the Hunt (Melee)", 2, 1, 3, 3, -1, 2),
@@ -62,40 +62,40 @@ namespace Sylvaneth {
     }
 
     bool SkaethsWildHunt::configure() {
-        auto skaeth = new Model(BASESIZE, wounds());
+        auto skaeth = new Model(g_basesize, wounds());
         skaeth->addMissileWeapon(&m_javalin);
         skaeth->addMeleeWeapon(&m_javalinMelee);
         skaeth->setName("Skaeth");
         addModel(skaeth);
 
-        auto althaen = new Model(BASESIZE, wounds());
+        auto althaen = new Model(g_basesize, wounds());
         althaen->addMissileWeapon(&m_seekerBow);
         althaen->addMeleeWeapon(&m_huntingWeapon);
         althaen->setName("Althaen");
         addModel(althaen);
 
-        auto karthaen = new Model(BASESIZE, wounds());
+        auto karthaen = new Model(g_basesize, wounds());
         karthaen->addMeleeWeapon(&m_huntingWeapon);
         karthaen->setName("Karthaen");
         addModel(karthaen);
 
-        auto sheoch = new Model(BASESIZE, wounds());
+        auto sheoch = new Model(g_basesize, wounds());
         sheoch->addMeleeWeapon(&m_huntingWeapon);
         sheoch->setName("Sheoch");
         addModel(sheoch);
 
-        auto lighaen = new Model(BASESIZE, wounds());
+        auto lighaen = new Model(g_basesize, wounds());
         lighaen->addMeleeWeapon(&m_teethAndClaws);
         lighaen->setName("Lighaen");
         addModel(lighaen);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
 
     int SkaethsWildHunt::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Sylvaneth

@@ -11,18 +11,18 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 4;
-    static const int MIN_UNIT_SIZE = 2;
-    static const int MAX_UNIT_SIZE = 8;
-    static const int POINTS_PER_BLOCK = 100;
-    static const int POINTS_MAX_UNIT_SIZE = 400;
+    static const int g_basesize = 32;
+    static const int g_wounds = 4;
+    static const int g_minUnitSize = 2;
+    static const int g_maxUnitSize = 8;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = 400;
 
     bool SavageBigStabbas::s_registered = false;
 
     Unit *SavageBigStabbas::Create(const ParameterList &parameters) {
         auto unit = new SavageBigStabbas();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
@@ -43,7 +43,7 @@ namespace Bonesplitterz {
                     Bonesplitterz::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
                     },
                     DESTRUCTION,
@@ -55,7 +55,7 @@ namespace Bonesplitterz {
     }
 
     SavageBigStabbas::SavageBigStabbas() :
-            Bonesplitterz("Savage Big Stabbas", 5, WOUNDS, 6, 6, false),
+            Bonesplitterz("Savage Big Stabbas", 5, g_wounds, 6, 6, false),
             m_gorkToof(Weapon::Type::Melee, "Gorktoof", 3, 3, 3, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_BIG_STABBAS};
         m_weapons = {&m_gorkToof};
@@ -65,13 +65,13 @@ namespace Bonesplitterz {
 
     void SavageBigStabbas::onModelSlain(Wounds::Source source) {
         // Da Final Fling
-        if (source == Wounds::Source::WeaponMelee) {
+        if (source == Wounds::Source::Weapon_Melee) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
-                auto roll = Dice::rollD6();
+                auto roll = Dice::RollD6();
                 if (unit->hasKeyword(MONSTER)) roll += 2;
                 if (roll >= 4) {
-                    unit->applyDamage({0, Dice::rollD3()});
+                    unit->applyDamage({0, Dice::RollD3()});
                 }
             }
         }
@@ -79,13 +79,13 @@ namespace Bonesplitterz {
 
     bool SavageBigStabbas::configure(int numModels) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
         for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_gorkToof);
             addModel(model);
         }
@@ -98,15 +98,15 @@ namespace Bonesplitterz {
     Wounds SavageBigStabbas::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // The Bigger They Are
         if (target->hasKeyword(MONSTER)) {
-            return {Dice::rollSpecial(RAND_D6), 0};
+            return {Dice::RollSpecial(RAND_D6), 0};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int SavageBigStabbas::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

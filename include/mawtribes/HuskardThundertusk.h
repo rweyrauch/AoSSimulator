@@ -18,9 +18,9 @@ namespace OgorMawtribes {
     public:
 
         enum WeaponOption {
-            HarpoonLauncher,
+            Harpoon_Launcher,
             Chaintrap,
-            BloodVulture
+            Blood_Vulture
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -53,7 +53,7 @@ namespace OgorMawtribes {
 
     private:
 
-        WeaponOption m_option = HarpoonLauncher;
+        WeaponOption m_option = Harpoon_Launcher;
 
         Weapon m_harpoon,
                 m_chaintrap,

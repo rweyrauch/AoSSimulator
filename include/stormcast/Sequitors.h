@@ -18,8 +18,8 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            StormsmiteMaul,
-            TempestBlade
+            Stormsmite_Maul,
+            Tempest_Blade
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -57,7 +57,7 @@ namespace StormcastEternals {
 
     private:
 
-        WeaponOption m_weaponOption = StormsmiteMaul;
+        WeaponOption m_weaponOption = Stormsmite_Maul;
         bool m_haveRedemptionCache = false;
         bool m_aethericChannellingWeapons = false;
 

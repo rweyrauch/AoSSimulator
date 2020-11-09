@@ -11,19 +11,19 @@
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 60;
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool DrakespawnKnights::s_registered = false;
 
     Unit *DrakespawnKnights::Create(const ParameterList &parameters) {
         auto unit = new DrakespawnKnights();
 
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
 
@@ -54,9 +54,9 @@ namespace CitiesOfSigmar {
                     DrakespawnKnights::EnumStringToInt,
                     DrakespawnKnights::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            {ParamType::Boolean, "Standard Bearer", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
-                            {ParamType::Boolean, "Hornblower", SIM_TRUE, SIM_FALSE, SIM_FALSE, 0},
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            {ParamType::Boolean, "Standard Bearer", Sim_True, Sim_False, Sim_False, 0},
+                            {ParamType::Boolean, "Hornblower", Sim_True, Sim_False, Sim_False, 0},
                             EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,
@@ -67,7 +67,7 @@ namespace CitiesOfSigmar {
     }
 
     DrakespawnKnights::DrakespawnKnights() :
-            CitizenOfSigmar("Drakespawn Knights", 10, WOUNDS, 7, 3, false),
+            CitizenOfSigmar("Drakespawn Knights", 10, g_wounds, 7, 3, false),
             m_lance(Weapon::Type::Melee, "Barbed Lance", 2, 1, 3, 4, -1, 1),
             m_lanceDreadKnight(Weapon::Type::Melee, "Barbed Lance", 2, 2, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 2, 3, 4, 0, 1) {
@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
 
     bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornblower) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -87,13 +87,13 @@ namespace CitiesOfSigmar {
         m_hornblower = hornblower;
 
         // Add the Dread Knight
-        auto bossModel = new Model(BASESIZE, wounds());
+        auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_lanceDreadKnight);
         bossModel->addMeleeWeapon(&m_jaws);
         addModel(bossModel);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
@@ -140,9 +140,9 @@ namespace CitiesOfSigmar {
     }
 
     int DrakespawnKnights::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

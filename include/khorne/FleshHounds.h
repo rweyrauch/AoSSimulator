@@ -32,7 +32,7 @@ namespace Khorne {
     protected:
 
         // Unflagging Hunter
-        Rerolls chargeRerolls() const override { return RerollFailed; }
+        Rerolls chargeRerolls() const override { return Reroll_Failed; }
 
         int unbindingModifier() const override;
 

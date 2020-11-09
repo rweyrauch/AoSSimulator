@@ -12,9 +12,9 @@
 #include "MawtribesPrivate.h"
 
 namespace OgorMawtribes {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 50;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 120;
 
     bool Firebelly::s_registered = false;
 
@@ -58,7 +58,7 @@ namespace OgorMawtribes {
     }
 
     Firebelly::Firebelly() :
-            MawtribesBase("Firebelly", 6, WOUNDS, 6, 5, false),
+            MawtribesBase("Firebelly", 6, g_wounds, 6, 5, false),
             m_fireBreath(Weapon::Type::Missile, "Fire Breath", 6, 1, 0, 0, 0, 0),
             m_hammer(Weapon::Type::Melee, "Basalt Hammer", 2, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, HERO, WIZARD, FIREBELLY};
@@ -70,7 +70,7 @@ namespace OgorMawtribes {
     }
 
     bool Firebelly::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_fireBreath);
         model->addMeleeWeapon(&m_hammer);
@@ -92,15 +92,15 @@ namespace OgorMawtribes {
         // Fire Breath
         if (player == owningPlayer() && m_shootingTarget) {
             if (distanceTo(m_shootingTarget) <= (double) m_fireBreath.range()) {
-                if (Dice::rollD6() >= 4) {
-                    m_shootingTarget->applyDamage({0, Dice::rollD3()});
+                if (Dice::RollD6() >= 4) {
+                    m_shootingTarget->applyDamage({0, Dice::RollD3()});
                 }
             }
         }
     }
 
     int Firebelly::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OgorMawtribes

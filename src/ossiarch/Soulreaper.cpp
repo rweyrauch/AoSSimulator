@@ -11,9 +11,9 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
-    static const int BASESIZE = 32;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool MortisanSoulreaper::s_registered = false;
 
@@ -72,7 +72,7 @@ namespace OssiarchBonereapers {
     }
 
     MortisanSoulreaper::MortisanSoulreaper() :
-            OssiarchBonereaperBase("Mortisan Soulreaper", 5, WOUNDS, 10, 4, false),
+            OssiarchBonereaperBase("Mortisan Soulreaper", 5, g_wounds, 10, 4, false),
             m_scythe(Weapon::Type::Melee, "Soulreaper Scythe", 2, 3, 3, 3, -1, 2) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULREAPER};
         m_weapons = {&m_scythe};
@@ -83,7 +83,7 @@ namespace OssiarchBonereapers {
     }
 
     bool MortisanSoulreaper::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         addModel(model);
 
@@ -92,7 +92,7 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -109,13 +109,13 @@ namespace OssiarchBonereapers {
     Rerolls MortisanSoulreaper::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Soulreaper
         if ((target->remainingModels() >= 5) && (weapon->name() == m_scythe.name())) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     int MortisanSoulreaper::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace OssiarchBonereapers

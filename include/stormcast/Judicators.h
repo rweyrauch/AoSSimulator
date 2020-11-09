@@ -18,8 +18,8 @@ namespace StormcastEternals {
     public:
 
         enum WeaponOption {
-            SkyboltBow,
-            BoltstormCrossbow,
+            Skybolt_Bow,
+            Boltstorm_Crossbow,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -50,7 +50,7 @@ namespace StormcastEternals {
 
     private:
 
-        WeaponOption m_weaponOption = SkyboltBow;
+        WeaponOption m_weaponOption = Skybolt_Bow;
 
         Weapon m_skyboltBow,
                 m_skyboltPrime,

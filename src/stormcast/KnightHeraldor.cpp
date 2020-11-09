@@ -12,14 +12,14 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 40;
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 100;
 
     bool KnightHeraldor::s_registered = false;
 
     KnightHeraldor::KnightHeraldor() :
-            StormcastEternal("Knight-Heraldor", 5, WOUNDS, 8, 3, false),
+            StormcastEternal("Knight-Heraldor", 5, g_wounds, 8, 3, false),
             m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
         m_weapons = {&m_broadsword};
@@ -27,11 +27,11 @@ namespace StormcastEternals {
     }
 
     bool KnightHeraldor::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_broadsword);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -74,7 +74,7 @@ namespace StormcastEternals {
     }
 
     int KnightHeraldor::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 

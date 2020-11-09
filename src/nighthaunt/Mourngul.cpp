@@ -10,9 +10,9 @@
 #include "nighthaunt/Mourngul.h"
 
 namespace Nighthaunt {
-    static const int BASESIZE = 170; // x105 oval
-    static const int WOUNDS = 10;
-    static const int POINTS_PER_UNIT = 270;
+    static const int g_basesize = 170; // x105 oval
+    static const int g_wounds = 10;
+    static const int g_pointsPerUnit = 270;
 
     bool Mourngul::s_registered = false;
 
@@ -21,9 +21,9 @@ namespace Nighthaunt {
         int m_clawAttacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 6, 8, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 8},
                     {10, 7},
@@ -60,14 +60,14 @@ namespace Nighthaunt {
     }
 
     Mourngul::Mourngul() :
-            Nighthaunt("Mourngul", 12, WOUNDS, 10, 4, true),
+            Nighthaunt("Mourngul", 12, g_wounds, 10, 4, true),
             m_clawsAndFangs(Weapon::Type::Melee, "Nightmarish Claws and Fangs", 2, 8, 3, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, MONSTER, MOURNGUL};
         m_weapons = {&m_clawsAndFangs};
     }
 
     bool Mourngul::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
 
@@ -86,7 +86,7 @@ namespace Nighthaunt {
 
     int Mourngul::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -110,7 +110,7 @@ namespace Nighthaunt {
     }
 
     int Mourngul::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Nighthaunt

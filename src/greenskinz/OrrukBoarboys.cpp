@@ -12,17 +12,17 @@
 #include <array>
 
 namespace Greenskinz {
-    static const int BASESIZE = 60; // x35 ovals
-    static const int WOUNDS = 2;
-    static const int MIN_UNIT_SIZE = 5;
-    static const int MAX_UNIT_SIZE = 20;
-    static const int POINTS_PER_BLOCK = 130;
-    static const int POINTS_MAX_UNIT_SIZE = POINTS_PER_BLOCK * 4;
+    static const int g_basesize = 60; // x35 ovals
+    static const int g_wounds = 2;
+    static const int g_minUnitSize = 5;
+    static const int g_maxUnitSize = 20;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
 
     bool OrrukBoarboys::s_registered = false;
 
     OrrukBoarboys::OrrukBoarboys() :
-            Unit("Orruk Boarboys", 9, WOUNDS, 5, 5, false),
+            Unit("Orruk Boarboys", 9, g_wounds, 5, 5, false),
             m_choppa(Weapon::Type::Melee, "Choppa", 1, 1, 4, 4, -1, 1),
             m_pigstikkaSpear(Weapon::Type::Melee, "Pigstikka Spear", 2, 1, 4, 4, 0, 1),
             m_warBoarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1),
@@ -35,7 +35,7 @@ namespace Greenskinz {
 
     bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBearer, bool horns) {
         // validate inputs
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
@@ -45,12 +45,12 @@ namespace Greenskinz {
         m_weaponOption = weapons;
 
         // Add the boss
-        auto boss = new Model(BASESIZE, wounds());
+        auto boss = new Model(g_basesize, wounds());
         switch (weapons) {
             case Choppa:
                 boss->addMeleeWeapon(&m_choppaBoss);
                 break;
-            case PigstikkaSpear:
+            case Pigstikka_Spear:
                 boss->addMeleeWeapon(&m_pigstikkaSpearBoss);
                 break;
         }
@@ -58,12 +58,12 @@ namespace Greenskinz {
         addModel(boss);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
+            auto model = new Model(g_basesize, wounds());
             switch (weapons) {
                 case Choppa:
                     model->addMeleeWeapon(&m_choppa);
                     break;
-                case PigstikkaSpear:
+                case Pigstikka_Spear:
                     model->addMeleeWeapon(&m_pigstikkaSpear);
                     break;
             }
@@ -78,7 +78,7 @@ namespace Greenskinz {
 
     Unit *OrrukBoarboys::Create(const ParameterList &parameters) {
         auto unit = new OrrukBoarboys();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Choppa);
         bool glyphBearer = GetBoolParam("Glyph Bearer", parameters, false);
         bool horns = GetBoolParam("Waaagh! Horns", parameters, false);
@@ -93,14 +93,14 @@ namespace Greenskinz {
 
     void OrrukBoarboys::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Choppa, PigstikkaSpear};
+            static const std::array<int, 2> weapons = {Choppa, Pigstikka_Spear};
             static FactoryMethod factoryMethod = {
                     OrrukBoarboys::Create,
                     OrrukBoarboys::ValueToString,
                     OrrukBoarboys::EnumStringToInt,
                     OrrukBoarboys::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", Choppa, weapons),
                             BoolParameter("Glyph Bearer"),
                             BoolParameter("Waaagh! Horns"),
@@ -116,7 +116,7 @@ namespace Greenskinz {
         if (std::string(parameter.name) == "Weapons") {
             if (parameter.intValue == Choppa) {
                 return "Choppa";
-            } else if (parameter.intValue == PigstikkaSpear) {
+            } else if (parameter.intValue == Pigstikka_Spear) {
                 return "Pigstikka Spear";
             }
         }
@@ -127,7 +127,7 @@ namespace Greenskinz {
         if (enumString == "Choppa") {
             return Choppa;
         } else if (enumString == "Pigstikka Spear") {
-            return PigstikkaSpear;
+            return Pigstikka_Spear;
         }
         return 0;
     }
@@ -153,7 +153,7 @@ namespace Greenskinz {
     int OrrukBoarboys::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         // Tusker Charge
         if (m_charged && weapon->name() == m_warBoarsTusks.name()) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toWoundModifier(weapon, target);
     }
@@ -161,15 +161,15 @@ namespace Greenskinz {
     Rerolls OrrukBoarboys::toSaveRerolls(const Weapon *weapon) const {
         // Tusker Shield
         if (!weapon->isMissile()) {
-            return RerollFailed;
+            return Reroll_Failed;
         }
         return Unit::toSaveRerolls(weapon);
     }
 
     int OrrukBoarboys::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

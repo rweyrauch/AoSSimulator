@@ -12,14 +12,14 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
-    static const int BASESIZE = 60;
-    static const int WOUNDS = 8;
-    static const int POINTS_PER_UNIT = 100;
+    static const int g_basesize = 60;
+    static const int g_wounds = 8;
+    static const int g_pointsPerUnit = 100;
 
     bool ScylaAnfingrimm::s_registered = false;
 
     ScylaAnfingrimm::ScylaAnfingrimm() :
-            KhorneBase("Scyla Anfingrimm", 8, WOUNDS, 9, 5, false),
+            KhorneBase("Scyla Anfingrimm", 8, g_wounds, 9, 5, false),
             m_brutalFists(Weapon::Type::Melee, "Brutal Fists", 2, RAND_2D6, 4, 3, -1, 1),
             m_serpentineTail(Weapon::Type::Melee, "Serpentine Tail", 3, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SCYLA_ANFINGRIMM};
@@ -34,12 +34,12 @@ namespace Khorne {
     }
 
     bool ScylaAnfingrimm::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_brutalFists);
         model->addMeleeWeapon(&m_serpentineTail);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -78,13 +78,13 @@ namespace Khorne {
     int ScylaAnfingrimm::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         int attacks = KhorneBase::extraAttacks(attackingModel, weapon, target);
         // Raging Fury
-        attacks += (WOUNDS - remainingWounds());
+        attacks += (g_wounds - remainingWounds());
 
         return attacks;
     }
 
     int ScylaAnfingrimm::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // namespace Khorne

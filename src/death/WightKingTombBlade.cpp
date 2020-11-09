@@ -11,15 +11,15 @@
 #include "LegionOfNagashPrivate.h"
 
 namespace Death {
-    static const int BASESIZE = 32;
-    static const int BASESIZE_MOUNT = 60; // x35 oval
-    static const int WOUNDS = 5;
-    static const int POINTS_PER_UNIT = 120;
+    static const int g_basesize = 32;
+    static const int g_basesizeMount = 60; // x35 oval
+    static const int g_wounds = 5;
+    static const int g_pointsPerUnit = 120;
 
     bool WightKingWithBalefulTombBlade::s_registered = false;
 
     WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade() :
-            LegionOfNagashBase("Wight King with Baleful Tomb Blade", 4, WOUNDS, 10, 3, false),
+            LegionOfNagashBase("Wight King with Baleful Tomb Blade", 4, g_wounds, 10, 3, false),
             m_balefulTombBlade(Weapon::Type::Melee, "Baleful Tomb Blade", 1, 4, 3, 3, -1, 1),
             m_steedsHoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
@@ -73,7 +73,7 @@ namespace Death {
     }
 
     bool WightKingWithBalefulTombBlade::configure(bool hasSteed) {
-        auto model = new Model(hasSteed ? BASESIZE_MOUNT : BASESIZE, wounds());
+        auto model = new Model(hasSteed ? g_basesizeMount : g_basesize, wounds());
 
         m_hasSteed = hasSteed;
         m_hasMount = hasSteed;
@@ -85,7 +85,7 @@ namespace Death {
         }
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -94,13 +94,13 @@ namespace Death {
                                                        int woundRoll) const {
         // Beheading Strike
         if ((hitRoll >= 6) && (weapon->name() == m_balefulTombBlade.name())) {
-            return {Dice::rollD3(), 0};
+            return {Dice::RollD3(), 0};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int WightKingWithBalefulTombBlade::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
     void WightKingWithBalefulTombBlade::onStartHero(PlayerId player) {

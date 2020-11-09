@@ -13,14 +13,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 320;
+    static const int g_basesize = 50;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 320;
 
     bool LordKroak::s_registered = false;
 
     LordKroak::LordKroak() :
-            SeraphonBase("Lord Kroak", 5, WOUNDS, 9, 4, true),
+            SeraphonBase("Lord Kroak", 5, g_wounds, 9, 4, true),
             m_barrier(Weapon::Type::Melee, "Azyrite Force Barrier", 3, 0, 3, 3, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER, LORD_KROAK};
         m_weapons = {&m_barrier};
@@ -31,7 +31,7 @@ namespace Seraphon {
     }
 
     bool LordKroak::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_barrier);
         addModel(model);
 
@@ -103,8 +103,8 @@ namespace Seraphon {
         // Dead for Innumerable Ages
         Dice::RollResult resultNormal, resultMortal;
 
-        Dice::rollD6(wounds.normal, resultNormal);
-        Dice::rollD6(wounds.mortal, resultMortal);
+        Dice::RollD6(wounds.normal, resultNormal);
+        Dice::RollD6(wounds.mortal, resultMortal);
 
         Wounds negatedWounds = {resultNormal.rollsGE(4), resultNormal.rollsGE(4)};
         totalWounds -= negatedWounds;
@@ -117,7 +117,7 @@ namespace Seraphon {
         // Impeccable Foresight
         if (owningPlayer() == player) {
             Dice::RollResult result;
-            Dice::rollD6(3, result);
+            Dice::RollD6(3, result);
             m_roster->addCommandPoints(result.rollsGE(4));
         }
     }
@@ -130,7 +130,7 @@ namespace Seraphon {
     }
 
     int LordKroak::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

@@ -28,7 +28,7 @@ namespace StormcastEternals {
         Cunning_Strategist,
         Zealous_Crusader,
         Staunch_Defender,
-        Champion_of_the_Realms,
+        Champion_Of_The_Realms,
 
         // Stormhosts
         We_Cannot_Fail, // Hammers of Sigmar
@@ -36,8 +36,8 @@ namespace StormcastEternals {
         Single_Minded_Fury, // Celestial Vindicators
         Deathly_Aura, // Anvils
         Divine_Executioner, // Knights Excelsior
-        Portents_and_Omens, // Celestial Warbringers
-        Bonds_of_Noble_Duty, // Tempest Lords
+        Portents_And_Omens, // Celestial Warbringers
+        Bonds_Of_Noble_Duty, // Tempest Lords
         Dauntless_Hunters // Astral Templars
     };
 
@@ -49,55 +49,55 @@ namespace StormcastEternals {
 
         // StormForgedWeapons
         Strife_Ender,
-        Blade_of_Heroes,
-        Hammer_of_Might,
-        Fang_of_Dracothian,
+        Blade_Of_Heroes,
+        Hammer_Of_Might,
+        Fang_Of_Dracothian,
         Obsidian_Blade,
-        Gift_of_the_Six_Smiths,
+        Gift_Of_The_Six_Smiths,
 
         // HeavenWroughtArmour
-        Armour_of_Destiny,
-        Armour_of_Silvered_Sigmarite,
+        Armour_Of_Destiny,
+        Armour_Of_Silvered_Sigmarite,
         Drakescale_Armour,
         Mirrorshield,
         Spellshield,
         Featherfoe_Torc,
 
         // ArtefactsOfTheTempests
-        Talisman_of_Endurance,
+        Talisman_Of_Endurance,
         Obsidian_Amulet,
         Luckstone,
-        Seed_of_Rebirth,
+        Seed_Of_Rebirth,
         Sigmarite_Pendant,
         Quicksilver_Draught,
 
         // TreasuredStandards
         Hurricane_Standard,
         Lichebone_Standard,
-        Pennant_of_Sigmaron,
+        Pennant_Of_Sigmaron,
 
         // MysticLights
         Shriving_Light,
         Fury_Brand,
-        Lantern_of_the_Tempest,
+        Lantern_Of_The_Tempest,
 
         // CelestialStaves
-        Staff_of_Focus,
+        Staff_Of_Focus,
         Mindlock_Staff,
-        Staff_of_Azyr,
+        Staff_Of_Azyr,
 
         // ScrollsOfPower
-        Scroll_of_Unravelling,
-        Scroll_of_Condemnation,
+        Scroll_Of_Unravelling,
+        Scroll_Of_Condemnation,
         Storm_Scroll,
 
         // Stormhost
         God_Forged_Blade,   // Hammers of Sigmar
-        Parchment_of_Purity, // Hallowed Knights
+        Parchment_Of_Purity, // Hallowed Knights
         Stormrage_Blade, // Celestial Vindicators
         Soulthief, // Anvils
-        Chains_of_Celestial_Lightning, // Knights Excelsior
-        Hammers_of_Augury, // Celestial Warbringers
+        Chains_Of_Celestial_Lightning, // Knights Excelsior
+        Hammers_Of_Augury, // Celestial Warbringers
         Patricians_Helm, // Tempest Lords
         Godbeast_Plate // Astral Templars
     };
@@ -105,10 +105,10 @@ namespace StormcastEternals {
     enum class Stormhost : int {
         None = 0,
 
-        Hammers_of_Sigmar,
+        Hammers_Of_Sigmar,
         Hallowed_Knights,
         Celestial_Vindicators,
-        Anvils_of_the_Heldenhammer,
+        Anvils_Of_The_Heldenhammer,
         Knights_Excelsior,
         Celestial_Warbringers,
         Tempest_Lords,

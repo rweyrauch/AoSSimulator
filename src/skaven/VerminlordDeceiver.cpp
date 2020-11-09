@@ -11,9 +11,9 @@
 #include "SkavenPrivate.h"
 
 namespace Skaven {
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 320;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 320;
 
     struct TableEntry {
         int m_move;
@@ -21,9 +21,9 @@ namespace Skaven {
         int m_stilettoToWound;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 4, 2},
                     {10, 3, 3},
@@ -75,14 +75,14 @@ namespace Skaven {
     }
 
     VerminlordDeceiver::VerminlordDeceiver() :
-            Skaventide("Verminlord Deceiver", 12, WOUNDS, 10, 4, false),
+            Skaventide("Verminlord Deceiver", 12, g_wounds, 10, 4, false),
             m_doomstar(Weapon::Type::Missile, "Doomstar", 13, 1, 3, 3, -1, RAND_D3),
             m_tails(Weapon::Type::Missile, "Prehensile Tail", 6, 4, 3, 3, -1, 1),
             m_warpstiletto(Weapon::Type::Melee, "Warpstiletto", 1, 6, 3, 2, -3, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, CLANS_ESHIN, MONSTER, HERO, WIZARD,
                       VERMINLORD_DECEIVER};
         m_weapons = {&m_doomstar, &m_tails, &m_warpstiletto};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &VerminlordDeceiver::terrifying, &m_connection);
 
@@ -95,13 +95,13 @@ namespace Skaven {
     }
 
     bool VerminlordDeceiver::configure() {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_doomstar);
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_warpstiletto);
         addModel(model);
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -112,8 +112,8 @@ namespace Skaven {
         // Protection of the Horned Rat
         Dice::RollResult resultNormal, resultMortal;
 
-        Dice::rollD6(wounds.normal, resultNormal);
-        Dice::rollD6(wounds.mortal, resultMortal);
+        Dice::RollD6(wounds.normal, resultNormal);
+        Dice::RollD6(wounds.mortal, resultMortal);
 
         Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
         totalWounds -= negatedWounds;
@@ -132,7 +132,7 @@ namespace Skaven {
     VerminlordDeceiver::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Doomstar
         if ((weapon->name() == m_doomstar.name()) && (target->remainingModels() >= 10)) {
-            return {Dice::rollD6(), 0};
+            return {Dice::RollD6(), 0};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -164,7 +164,7 @@ namespace Skaven {
 
     int VerminlordDeceiver::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -173,7 +173,7 @@ namespace Skaven {
     }
 
     int VerminlordDeceiver::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Skaven

@@ -11,17 +11,17 @@
 #include "DispossessedPrivate.h"
 
 namespace Dispossessed {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 1;
-    static const int MIN_UNIT_SIZE = 10;
-    static const int MAX_UNIT_SIZE = 40;
-    static const int POINTS_PER_BLOCK = 80;
-    static const int POINTS_MAX_UNIT_SIZE = 280;
+    static const int g_basesize = 25;
+    static const int g_wounds = 1;
+    static const int g_minUnitSize = 10;
+    static const int g_maxUnitSize = 40;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = 280;
 
     bool Warriors::s_registered = false;
 
     Warriors::Warriors() :
-            Dispossessed("Warriors", 4, WOUNDS, 6, 5, false),
+            Dispossessed("Warriors", 4, g_wounds, 6, 5, false),
             m_duardinAxeOrHammer(Weapon::Type::Melee, "Duardin Axe or Duardin Hammer", 1, 1, 3, 4, 0, 1),
             m_duardinAxeOrHammerVeteran(Weapon::Type::Melee, "Duardin Axe or Duardin Hammer", 1, 2, 3, 4, 0, 1),
             m_doubleHandedAxe(Weapon::Type::Melee, "Double-handed Duardin Axe", 1, 1, 4, 3, -1, 1),
@@ -33,7 +33,7 @@ namespace Dispossessed {
 
     bool Warriors::configure(int numModels, WeaponOptions weapons, bool duardinShields, StandardOptions standard,
                              bool hornblowers) {
-        if (numModels < MIN_UNIT_SIZE || numModels > MAX_UNIT_SIZE) {
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
@@ -41,19 +41,19 @@ namespace Dispossessed {
         m_hornblowers = hornblowers;
         m_duardinShields = duardinShields;
 
-        auto veteran = new Model(BASESIZE, wounds());
-        if (weapons == DuardinAxeOrHammer) {
+        auto veteran = new Model(g_basesize, wounds());
+        if (weapons == Duardin_Axe_Or_Hammer) {
             veteran->addMeleeWeapon(&m_duardinAxeOrHammerVeteran);
-        } else if (weapons == DoubleHandedDuardinAxe) {
+        } else if (weapons == Double_Handed_Duardin_Axe) {
             veteran->addMeleeWeapon(&m_doubleHandedAxeVeteran);
         }
         addModel(veteran);
 
         for (auto i = 1; i < numModels; i++) {
-            auto model = new Model(BASESIZE, wounds());
-            if (weapons == DuardinAxeOrHammer) {
+            auto model = new Model(g_basesize, wounds());
+            if (weapons == Duardin_Axe_Or_Hammer) {
                 model->addMeleeWeapon(&m_duardinAxeOrHammer);
-            } else if (weapons == DoubleHandedDuardinAxe) {
+            } else if (weapons == Double_Handed_Duardin_Axe) {
                 model->addMeleeWeapon(&m_doubleHandedAxe);
             }
             addModel(model);
@@ -66,8 +66,8 @@ namespace Dispossessed {
 
     Unit *Warriors::Create(const ParameterList &parameters) {
         auto unit = new Warriors();
-        int numModels = GetIntParam("Models", parameters, MIN_UNIT_SIZE);
-        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, DuardinAxeOrHammer);
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Duardin_Axe_Or_Hammer);
         bool duardinShields = GetBoolParam("Duardin Shields", parameters, false);
         auto standard = (StandardOptions) GetEnumParam("Standard", parameters, None);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -82,15 +82,15 @@ namespace Dispossessed {
 
     void Warriors::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Warriors::DuardinAxeOrHammer, Warriors::DoubleHandedDuardinAxe};
+            static const std::array<int, 2> weapons = {Warriors::Duardin_Axe_Or_Hammer, Warriors::Double_Handed_Duardin_Axe};
             static FactoryMethod factoryMethod = {
                     Warriors::Create,
                     Warriors::ValueToString,
                     Warriors::EnumStringToInt,
                     Warriors::ComputePoints,
                     {
-                            IntegerParameter("Models", MIN_UNIT_SIZE, MIN_UNIT_SIZE, MAX_UNIT_SIZE, MIN_UNIT_SIZE),
-                            EnumParameter("Weapons", Warriors::DuardinAxeOrHammer, weapons),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Weapons", Warriors::Duardin_Axe_Or_Hammer, weapons),
                             BoolParameter("Duardin Shields"),
                             BoolParameter("Standard Bearer"),
                             BoolParameter("Hornblowers"),
@@ -107,7 +107,7 @@ namespace Dispossessed {
         // Duardin Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
-                return RerollFailed;
+                return Reroll_Failed;
         }
         return Dispossessed::toSaveRerolls(weapon);
     }
@@ -116,9 +116,9 @@ namespace Dispossessed {
         // Resolute in Defence
         if (m_opponentsCombat) {
             if (remainingModels() >= 20)
-                return RerollFailed;
+                return Reroll_Failed;
             else
-                return RerollOnes;
+                return Reroll_Ones;
         }
         return Dispossessed::toWoundRerolls(weapon, target);
     }
@@ -131,17 +131,17 @@ namespace Dispossessed {
 
     std::string Warriors::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapons") {
-            if (parameter.intValue == DuardinAxeOrHammer) {
+            if (parameter.intValue == Duardin_Axe_Or_Hammer) {
                 return "Duardin Axe Or Hammer";
-            } else if (parameter.intValue == DoubleHandedDuardinAxe) {
+            } else if (parameter.intValue == Double_Handed_Duardin_Axe) {
                 return "Double Handed Duardin Axe";
             }
         } else if (std::string(parameter.name) == "Standard") {
             if (parameter.intValue == None) {
                 return "None";
-            } else if (parameter.intValue == RunicIcon) {
+            } else if (parameter.intValue == Runic_Icon) {
                 return "Runic Icon";
-            } else if (parameter.intValue == ClanBanner) {
+            } else if (parameter.intValue == Clan_Banner) {
                 return "Clan Banner";
             }
         }
@@ -151,15 +151,15 @@ namespace Dispossessed {
 
     int Warriors::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Duardin Axe Or Hammer") {
-            return DuardinAxeOrHammer;
+            return Duardin_Axe_Or_Hammer;
         } else if (enumString == "Double Handed Duardin Axe") {
-            return DoubleHandedDuardinAxe;
+            return Double_Handed_Duardin_Axe;
         } else if (enumString == "None") {
             return None;
         } else if (enumString == "Runic Icon") {
-            return RunicIcon;
+            return Runic_Icon;
         } else if (enumString == "Clan Banner") {
-            return ClanBanner;
+            return Clan_Banner;
         }
         return Dispossessed::EnumStringToInt(enumString);
     }
@@ -175,15 +175,15 @@ namespace Dispossessed {
     void Warriors::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
 
-        if (m_standard == ClanBanner) {
+        if (m_standard == Clan_Banner) {
             numFled = (numFled + 1) / 2;
         }
     }
 
     int Warriors::ComputePoints(int numModels) {
-        auto points = numModels / MIN_UNIT_SIZE * POINTS_PER_BLOCK;
-        if (numModels == MAX_UNIT_SIZE) {
-            points = POINTS_MAX_UNIT_SIZE;
+        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
+        if (numModels == g_maxUnitSize) {
+            points = g_pointsMaxUnitSize;
         }
         return points;
     }

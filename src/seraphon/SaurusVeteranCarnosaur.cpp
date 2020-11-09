@@ -13,9 +13,9 @@
 
 namespace Seraphon {
 
-    static const int BASESIZE = 120; // x92 oval
-    static const int WOUNDS = 12;
-    static const int POINTS_PER_UNIT = 210;
+    static const int g_basesize = 120; // x92 oval
+    static const int g_wounds = 12;
+    static const int g_pointsPerUnit = 210;
 
     struct TableEntry {
         int m_move;
@@ -23,9 +23,9 @@ namespace Seraphon {
         int m_jawsDamage;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {2, 4, 7, 9, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {2, 4, 7, 9, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 3, 5},
                     {9,  4, 4},
@@ -37,7 +37,7 @@ namespace Seraphon {
     bool SaurusScarVeteranOnCarnosaur::s_registered = false;
 
     SaurusScarVeteranOnCarnosaur::SaurusScarVeteranOnCarnosaur() :
-            SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, WOUNDS, 8, 4, false),
+            SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, g_wounds, 8, 4, false),
             m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 6, 3, 3, 0, 1),
             m_warspear(Weapon::Type::Melee, "Celestite Warspear", 2, 6, 3, 3, 0, 1),
             m_greatblade(Weapon::Type::Melee, "Celestite Greatblade", 1, 3, 4, 3, -1, 2),
@@ -45,7 +45,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, SCAR_VETERAN};
         m_weapons = {&m_warblade, &m_warspear, &m_greatblade, &m_forelimbs, &m_jaws};
-        m_battleFieldRole = LeaderBehemoth;
+        m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
         s_globalBraveryMod.connect(this, &SaurusScarVeteranOnCarnosaur::terror, &m_connection);
@@ -56,10 +56,10 @@ namespace Seraphon {
     }
 
     bool SaurusScarVeteranOnCarnosaur::configure(WeaponOption option) {
-        auto model = new Model(BASESIZE, wounds());
-        if (option == CelestiteWarblade) model->addMeleeWeapon(&m_warblade);
-        else if (option == CelestiteWarspear) model->addMeleeWeapon(&m_warspear);
-        else if (option == CelestiteGreatblade) model->addMeleeWeapon(&m_greatblade);
+        auto model = new Model(g_basesize, wounds());
+        if (option == Celestite_Warblade) model->addMeleeWeapon(&m_warblade);
+        else if (option == Celestite_Warspear) model->addMeleeWeapon(&m_warspear);
+        else if (option == Celestite_Greatblade) model->addMeleeWeapon(&m_greatblade);
         model->addMeleeWeapon(&m_forelimbs);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
@@ -76,7 +76,7 @@ namespace Seraphon {
 
     Unit *SaurusScarVeteranOnCarnosaur::Create(const ParameterList &parameters) {
         auto unit = new SaurusScarVeteranOnCarnosaur();
-        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, CelestiteWarblade);
+        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Celestite_Warblade);
 
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
@@ -101,30 +101,30 @@ namespace Seraphon {
 
     std::string SaurusScarVeteranOnCarnosaur::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == CelestiteWarblade) return "Celestite Warblade";
-            else if (parameter.intValue == CelestiteWarspear) return "Celestite War-spear";
-            else if (parameter.intValue == CelestiteGreatblade) return "Celestite Greatblade";
+            if (parameter.intValue == Celestite_Warblade) return "Celestite Warblade";
+            else if (parameter.intValue == Celestite_Warspear) return "Celestite War-spear";
+            else if (parameter.intValue == Celestite_Greatblade) return "Celestite Greatblade";
         }
         return SeraphonBase::ValueToString(parameter);
     }
 
     int SaurusScarVeteranOnCarnosaur::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Celestite Warblade") return CelestiteWarblade;
-        else if (enumString == "Celestite War-spear") return CelestiteWarspear;
-        else if (enumString == "Celestite Greatblade") return CelestiteGreatblade;
+        if (enumString == "Celestite Warblade") return Celestite_Warblade;
+        else if (enumString == "Celestite War-spear") return Celestite_Warspear;
+        else if (enumString == "Celestite Greatblade") return Celestite_Greatblade;
         return SeraphonBase::EnumStringToInt(enumString);
     }
 
     void SaurusScarVeteranOnCarnosaur::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {CelestiteWarblade, CelestiteWarspear, CelestiteGreatblade};
+            static const std::array<int, 3> weapons = {Celestite_Warblade, Celestite_Warspear, Celestite_Greatblade};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Weapon", CelestiteWarblade, weapons),
+                            EnumParameter("Weapon", Celestite_Warblade, weapons),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
                             EnumParameter("Command Trait", g_saurusCommandTrait[0], g_saurusCommandTrait),
@@ -148,7 +148,7 @@ namespace Seraphon {
 
     int SaurusScarVeteranOnCarnosaur::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -197,7 +197,7 @@ namespace Seraphon {
     }
 
     int SaurusScarVeteranOnCarnosaur::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

@@ -13,14 +13,14 @@
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
-    static const int BASESIZE = 50;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 260;
+    static const int g_basesize = 50;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 260;
 
     bool SlannStarmaster::s_registered = false;
 
     SlannStarmaster::SlannStarmaster() :
-            SeraphonBase("Slann Starmaster", 5, WOUNDS, 9, 4, true),
+            SeraphonBase("Slann Starmaster", 5, g_wounds, 9, 4, true),
             m_lightning(Weapon::Type::Melee, "Azure Lightning", 3, 6, 4, 3, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER};
         m_weapons = {&m_lightning};
@@ -28,7 +28,7 @@ namespace Seraphon {
     }
 
     bool SlannStarmaster::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_lightning);
         addModel(model);
 
@@ -92,7 +92,7 @@ namespace Seraphon {
         // Foresight
         if (owningPlayer() == player) {
             Dice::RollResult result;
-            Dice::rollD6(2, result);
+            Dice::RollD6(2, result);
             m_roster->addCommandPoints(result.rollsGE(4));
         }
     }
@@ -107,7 +107,7 @@ namespace Seraphon {
     }
 
     int SlannStarmaster::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace Seraphon

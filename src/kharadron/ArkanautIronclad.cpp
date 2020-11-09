@@ -11,9 +11,9 @@
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
-    static const int BASESIZE = 0;
-    static const int WOUNDS = 18;
-    static const int POINTS_PER_UNIT = 480;
+    static const int g_basesize = 0;
+    static const int g_wounds = 18;
+    static const int g_pointsPerUnit = 480;
 
     struct TableEntry {
         int m_move;
@@ -21,9 +21,9 @@ namespace KharadronOverlords {
         int m_bombRacks;
     };
 
-    const size_t NUM_TABLE_ENTRIES = 5;
-    static int g_woundThresholds[NUM_TABLE_ENTRIES] = {3, 6, 9, 15, WOUNDS};
-    static TableEntry g_damageTable[NUM_TABLE_ENTRIES] =
+    const size_t g_numTableEntries = 5;
+    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 15, g_wounds};
+    static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 8, 2},
                     {8,  7, 1},
@@ -36,7 +36,7 @@ namespace KharadronOverlords {
 
     Unit *ArkanautIronclad::Create(const ParameterList &parameters) {
         auto unit = new ArkanautIronclad();
-        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, GreatSkyCannon);
+        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Great_Sky_Cannon);
 
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
         unit->setSkyport(port);
@@ -58,30 +58,30 @@ namespace KharadronOverlords {
 
     std::string ArkanautIronclad::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Weapon") {
-            if (parameter.intValue == GreatSkyCannon) return "Great Sky Cannon";
-            else if (parameter.intValue == GreatVolleyCannon) return "Great Volley Cannon";
-            else if (parameter.intValue == GreatSkyhook) return "Great Skyhook";
+            if (parameter.intValue == Great_Sky_Cannon) return "Great Sky Cannon";
+            else if (parameter.intValue == Great_Volley_Cannon) return "Great Volley Cannon";
+            else if (parameter.intValue == Great_Skyhook) return "Great Skyhook";
         }
         return KharadronBase::ValueToString(parameter);
     }
 
     int ArkanautIronclad::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Great Sky Cannon") return GreatSkyCannon;
-        else if (enumString == "Great Volley Cannon") return GreatVolleyCannon;
-        else if (enumString == "Great Skyhook") return GreatSkyhook;
+        if (enumString == "Great Sky Cannon") return Great_Sky_Cannon;
+        else if (enumString == "Great Volley Cannon") return Great_Volley_Cannon;
+        else if (enumString == "Great Skyhook") return Great_Skyhook;
         return KharadronBase::EnumStringToInt(enumString);
     }
 
     void ArkanautIronclad::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {GreatSkyCannon, GreatSkyhook, GreatVolleyCannon};
+            static const std::array<int, 3> weapons = {Great_Sky_Cannon, Great_Skyhook, Great_Volley_Cannon};
             static FactoryMethod factoryMethod = {
                     ArkanautIronclad::Create,
                     ArkanautIronclad::ValueToString,
                     ArkanautIronclad::EnumStringToInt,
                     ArkanautIronclad::ComputePoints,
                     {
-                            EnumParameter("Weapon", GreatSkyCannon, weapons),
+                            EnumParameter("Weapon", Great_Sky_Cannon, weapons),
                             EnumParameter("Skyport", g_skyport[0], g_skyport),
                             EnumParameter("Artycle", g_artycles[0], g_artycles),
                             EnumParameter("Amendment", g_amendments[0], g_amendments),
@@ -96,7 +96,7 @@ namespace KharadronOverlords {
     }
 
     ArkanautIronclad::ArkanautIronclad() :
-            KharadronBase("Arkanaut Ironclad", 10, WOUNDS, 8, 3, true),
+            KharadronBase("Arkanaut Ironclad", 10, g_wounds, 8, 3, true),
             m_cannonShrapnel(Weapon::Type::Missile, "Great Sky Cannon: Shrapnel", 24, 6, 3, 3, -1, 2),
             m_cannonShell(Weapon::Type::Missile, "Great Sky Cannon: Shell", 30, 1, 3, 2, -2, 6),
             m_skyhook(Weapon::Type::Missile, "Great Skyhook", 24, 1, 3, 2, -2, 6),
@@ -116,14 +116,14 @@ namespace KharadronOverlords {
     }
 
     bool ArkanautIronclad::configure(WeaponOption option, Endrinwork endrinwork) {
-        auto model = new Model(BASESIZE, wounds());
-        if (option == GreatSkyCannon) {
+        auto model = new Model(g_basesize, wounds());
+        if (option == Great_Sky_Cannon) {
             model->addMissileWeapon(&m_cannonShrapnel);
             model->addMissileWeapon(&m_cannonShell);
             m_cannonShell.activate(false);
-        } else if (option == GreatSkyhook) {
+        } else if (option == Great_Skyhook) {
             model->addMissileWeapon(&m_skyhook);
-        } else if (option == GreatVolleyCannon) {
+        } else if (option == Great_Volley_Cannon) {
             model->addMissileWeapon(&m_volleyCannon);
         }
         model->addMissileWeapon(&m_carbines);
@@ -134,7 +134,7 @@ namespace KharadronOverlords {
         m_weaponOption = option;
         m_endrinwork = endrinwork;
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -152,7 +152,7 @@ namespace KharadronOverlords {
 
     int ArkanautIronclad::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < NUM_TABLE_ENTRIES; i++) {
+        for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
             }
@@ -163,7 +163,7 @@ namespace KharadronOverlords {
     void ArkanautIronclad::onStartShooting(PlayerId player) {
         Unit::onStartShooting(player);
 
-        if (m_weaponOption == GreatSkyCannon) {
+        if (m_weaponOption == Great_Sky_Cannon) {
             auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (nearestUnit) {
                 const auto preferShell = (nearestUnit->save() < 4);
@@ -176,7 +176,7 @@ namespace KharadronOverlords {
     int ArkanautIronclad::chargeModifier() const {
         auto mod = Unit::chargeModifier();
 
-        if (m_weaponOption == GreatSkyhook) mod += 2;
+        if (m_weaponOption == Great_Skyhook) mod += 2;
 
         return mod;
     }
@@ -192,7 +192,7 @@ namespace KharadronOverlords {
 
     Rerolls ArkanautIronclad::runRerolls() const {
         // Aetheric Navigator/Endrinrigger
-        return RerollFailed;
+        return Reroll_Failed;
     }
 
     void ArkanautIronclad::onStartCombat(PlayerId player) {
@@ -201,18 +201,18 @@ namespace KharadronOverlords {
         // Bomb Racks
         auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (nearestUnit && (distanceTo(nearestUnit) <= 1.0)) {
-            auto roll = Dice::rollD6();
+            auto roll = Dice::RollD6();
             roll += g_damageTable[getDamageTableIndex()].m_bombRacks;
 
             if (roll >= 4) {
-                int wounds = Dice::rollD3();
+                int wounds = Dice::RollD3();
                 nearestUnit->applyDamage({0, wounds});
             }
         }
     }
 
     int ArkanautIronclad::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //KharadronOverlords

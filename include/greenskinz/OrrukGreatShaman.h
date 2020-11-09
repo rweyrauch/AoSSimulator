@@ -6,8 +6,8 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ORRUKSHAMAN_H
-#define ORRUKSHAMAN_H
+#ifndef ORRUKGREATSHAMAN_H
+#define ORRUKGREATSHAMAN_H
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -50,4 +50,4 @@ namespace Greenskinz {
 
 } // namespace Greenskinz
 
-#endif // ORRUKSHAMAN_H
+#endif // ORRUKGREATSHAMAN_H

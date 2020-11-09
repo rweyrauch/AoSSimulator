@@ -18,8 +18,8 @@ namespace OssiarchBonereapers {
     public:
 
         enum WeaponOption {
-            NadiriteBladeAndShield,
-            NadirateSpearAndShield
+            Nadirite_Blade_And_Shield,
+            Nadirate_Spear_And_Shield
         };
 
         static Unit *Create(const ParameterList &parameters);

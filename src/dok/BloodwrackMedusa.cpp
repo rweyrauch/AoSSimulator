@@ -11,14 +11,14 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
-    static const int BASESIZE = 40;
-    static const int WOUNDS = 6;
-    static const int POINTS_PER_UNIT = 140;
+    static const int g_basesize = 40;
+    static const int g_wounds = 6;
+    static const int g_pointsPerUnit = 140;
 
     bool BloodwrackMedusa::s_registered = false;
 
     BloodwrackMedusa::BloodwrackMedusa() :
-            DaughterOfKhaine("Bloodwrack Medusa", 8, WOUNDS, 8, 5, false),
+            DaughterOfKhaine("Bloodwrack Medusa", 8, g_wounds, 8, 5, false),
             m_bloodwrackStare(Weapon::Type::Missile, "Bloodwrack Stare", 10, 1, 0, 0, -7, 0),
             m_whisperclaw(Weapon::Type::Melee, "Whisperclaw", 1, 4, 3, 3, 0, 1),
             m_tailOfSerpents(Weapon::Type::Melee, "Tail of Serpents", 2, RAND_D6, 4, 4, 0, 1),
@@ -32,7 +32,7 @@ namespace DaughtersOfKhaine {
     }
 
     bool BloodwrackMedusa::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bloodwrackStare);
         model->addMeleeWeapon(&m_whisperclaw);
         model->addMeleeWeapon(&m_tailOfSerpents);
@@ -42,7 +42,7 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -96,14 +96,14 @@ namespace DaughtersOfKhaine {
     Wounds BloodwrackMedusa::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (weapon->name() == m_bloodwrackStare.name()) {
             Dice::RollResult result;
-            Dice::rollD6(target->remainingModels(), result);
+            Dice::RollD6(target->remainingModels(), result);
             return {0, result.rollsGE(5)};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int BloodwrackMedusa::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } //namespace DaughtersOfKhaine

@@ -12,14 +12,14 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int BASESIZE = 25;
-    static const int WOUNDS = 7;
-    static const int POINTS_PER_UNIT = 210;
+    static const int g_basesize = 25;
+    static const int g_wounds = 7;
+    static const int g_pointsPerUnit = 210;
 
     bool TheContortedEpitome::s_registered = false;
 
     TheContortedEpitome::TheContortedEpitome() :
-            SlaaneshBase("The Contorted Epitome", 12, WOUNDS, 10, 5, false),
+            SlaaneshBase("The Contorted Epitome", 12, g_wounds, 10, 5, false),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 9, 3, 4, -1, 1),
             m_coiledTentacles(Weapon::Type::Melee, "Coiled Tentacles", 3, 2, 3, 4, -2, 2) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH,
@@ -32,7 +32,7 @@ namespace Slaanesh {
     }
 
     bool TheContortedEpitome::configure(Lore lore) {
-        auto model = new Model(BASESIZE, wounds());
+        auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         model->addMeleeWeapon(&m_coiledTentacles);
         addModel(model);
@@ -40,7 +40,7 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = POINTS_PER_UNIT;
+        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -94,7 +94,7 @@ namespace Slaanesh {
     Wounds TheContortedEpitome::applyWoundSave(const Wounds &wounds) {
         // Swallow Energy
         Dice::RollResult mortalSaves;
-        Dice::rollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
 
         Wounds totalWounds = wounds;
         totalWounds.mortal -= mortalSaves.rollsGE(2);
@@ -104,7 +104,7 @@ namespace Slaanesh {
     }
 
     int TheContortedEpitome::ComputePoints(int /*numModels*/) {
-        return POINTS_PER_UNIT;
+        return g_pointsPerUnit;
     }
 
 } // Slannesh
