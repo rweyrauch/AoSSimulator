@@ -9,7 +9,6 @@
 #include <stormcast/GavrielSureheart.h>
 #include <iostream>
 #include "UnitFactory.h"
-#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int g_basesize = 40;

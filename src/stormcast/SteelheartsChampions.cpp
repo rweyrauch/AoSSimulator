@@ -7,7 +7,6 @@
  */
 #include <UnitFactory.h>
 #include <stormcast/SteelheartsChampions.h>
-#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int g_basesize = 40;

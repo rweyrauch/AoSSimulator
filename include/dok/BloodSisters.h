@@ -31,14 +31,12 @@ namespace DaughtersOfKhaine {
 
     protected:
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds onEndCombat(PlayerId player) override;
 
     private:
 
         Weapon m_heartshardGlaive,
-                m_heartshardGlaiveGorgai,
-                m_crystalTouch,
-                m_crystalTouchGorgai;
+                m_heartshardGlaiveGorgai;
 
         static bool s_registered;
     };
@@ -46,7 +44,7 @@ namespace DaughtersOfKhaine {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Turned to Crystal                Yes
+// Turned to Crystal                TODO
 //
 
 } // namespace DaughtersOfKhaine

@@ -24,8 +24,8 @@ namespace Slaanesh {
             SlaaneshBase("Hellstriders", 14, g_wounds, 6, 4, false),
             m_clawSpear(Weapon::Type::Melee, "Claw-spear", 1, 1, 3, 4, -1, 1),
             m_clawSpearReaver(Weapon::Type::Melee, "Claw-spear", 1, 2, 3, 4, -1, 1),
-            m_hellscourge(Weapon::Type::Melee, "Hellscourge", 3, 1, 3, 4, 0, 1),
-            m_hellscourgeReaver(Weapon::Type::Melee, "Hellscourge", 3, 2, 3, 4, 0, 1),
+            m_hellscourge(Weapon::Type::Melee, "Hellscourge", 3, 2, 3, 4, 0, 1),
+            m_hellscourgeReaver(Weapon::Type::Melee, "Hellscourge", 3, 3, 3, 4, 0, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HELLSTRIDERS};
         m_weapons = {&m_clawSpear, &m_clawSpearReaver, &m_hellscourge, &m_hellscourgeReaver, &m_poisonedTongue};

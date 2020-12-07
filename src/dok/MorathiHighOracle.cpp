@@ -13,12 +13,12 @@
 namespace DaughtersOfKhaine {
     static const int g_basesize = 40;
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 120;
+    static const int g_pointsPerUnit = 210;
 
     bool MorathiHighOracleOfKhaine::s_registered = false;
 
     MorathiHighOracleOfKhaine::MorathiHighOracleOfKhaine() :
-            DaughterOfKhaine("Morathi, Khaine", 6, g_wounds, 8, 4, false),
+            DaughterOfKhaine("Morathi-Khaine", 6, g_wounds, 8, 4, false),
             m_heartrender(Weapon::Type::Melee, "Heartrender", 2, 3, 3, 3, -1, RAND_D3),
             m_wings(Weapon::Type::Melee, "Bladed Wings", 2, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, WIZARD, MORATHI_KHAINE};

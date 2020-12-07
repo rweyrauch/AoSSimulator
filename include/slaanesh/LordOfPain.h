@@ -31,6 +31,8 @@ namespace Slaanesh {
 
     protected:
 
+        Wounds applyWoundSave(const Wounds &wounds) override;
+
     private:
 
         Weapon m_mace;

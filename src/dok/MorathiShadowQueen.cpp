@@ -14,7 +14,7 @@
 namespace DaughtersOfKhaine {
     static const int g_basesize = 100;
     static const int g_wounds = 12;
-    static const int g_pointsPerUnit = 480;
+    static const int g_pointsPerUnit = 390;
 
     struct TableEntry {
         int m_move;

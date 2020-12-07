@@ -27,7 +27,7 @@ namespace DaughtersOfKhaine {
 
         ~BloodStalkers() override = default;
 
-        bool configure(int numModels, bool bloodWyrm);
+        bool configure(int numModels);
 
     protected:
 
@@ -35,10 +35,8 @@ namespace DaughtersOfKhaine {
 
     private:
 
-        Weapon m_hearseekerBow,
-                m_sacraficialDaggar,
-                m_heartseekBowKrone,
-                m_sacraficialDaggarKrone,
+        Weapon m_heartseekerBow,
+                m_scianlar,
                 m_bloodWyrm;
 
         static bool s_registered;

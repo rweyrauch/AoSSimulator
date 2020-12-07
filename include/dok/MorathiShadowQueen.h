@@ -39,7 +39,8 @@ namespace DaughtersOfKhaine {
 
         int getDamageTableIndex() const;
 
-        int furyOfTheShadowQueen(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+        int furyOfTheShadowQueen(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
+                                 const Unit *target);
 
     private:
 

@@ -14,9 +14,9 @@ namespace IdonethDeepkin {
     static const int g_basesize = 90; // x52 oval
     static const int g_wounds = 8;
     static const int g_minUnitSize = 1;
-    static const int g_maxUnitSize = 4;
+    static const int g_maxUnitSize = 3;
     static const int g_pointsPerBlock = 110;
-    static const int g_pointsMaxUnitSize = 440;
+    static const int g_pointsMaxUnitSize = 330;
 
     bool AkhelianAllopexes::s_registered = false;
 

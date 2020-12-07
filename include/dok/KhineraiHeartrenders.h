@@ -54,7 +54,6 @@ namespace DaughtersOfKhaine {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Descend to Battle                TODO
 // Fight and Flight                 TODO
 // Death From Above                 Partial/TODO
 // Heartpiercer Shield              Yes

@@ -71,7 +71,8 @@ namespace Slaanesh {
 // Standard Banner                  Yes
 // Icon Banner                      Yes
 // Hornblower                       Yes
-// Soul Hunters                     TODO
+// Piercing Strike                  TODO
+// Hooked Tendrils                  TODO
 //
 } // Slannesh
 

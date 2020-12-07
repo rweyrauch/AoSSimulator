@@ -23,33 +23,28 @@ namespace DaughtersOfKhaine {
 
     BloodStalkers::BloodStalkers() :
             DaughterOfKhaine("Blood Stalkers", 8, g_wounds, 8, 5, false),
-            m_hearseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 3, 3, -1, 1),
-            m_sacraficialDaggar(Weapon::Type::Melee, "Sacrificial Dagger", 1, 2, 3, 4, 0, 1),
-            m_heartseekBowKrone(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 2, 3, -1, 1),
-            m_sacraficialDaggarKrone(Weapon::Type::Melee, "Sacrificial Dagger", 1, 2, 2, 4, 0, 1),
+            m_heartseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 2, 3, 3, -1, 1),
+            m_scianlar(Weapon::Type::Melee, "Scianlar", 1, 2, 3, 4, 0, 1),
             m_bloodWyrm(Weapon::Type::Melee, "Blood Wyrm", 1, 1, 3, 3, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_STALKERS};
-        m_weapons = {&m_hearseekerBow, &m_sacraficialDaggar, &m_heartseekBowKrone, &m_sacraficialDaggarKrone,
-                     &m_bloodWyrm};
+        m_weapons = {&m_heartseekerBow, &m_scianlar, &m_bloodWyrm};
     }
 
-    bool BloodStalkers::configure(int numModels, bool bloodWyrm) {
+    bool BloodStalkers::configure(int numModels) {
         if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
 
         auto krone = new Model(g_basesize, wounds());
-        krone->addMissileWeapon(&m_heartseekBowKrone);
-        krone->addMeleeWeapon(&m_sacraficialDaggarKrone);
-        if (bloodWyrm) {
-            krone->addMeleeWeapon(&m_bloodWyrm);
-        }
+        krone->addMissileWeapon(&m_heartseekerBow);
+        krone->addMeleeWeapon(&m_scianlar);
+        krone->addMeleeWeapon(&m_bloodWyrm);
         addModel(krone);
 
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
-            model->addMissileWeapon(&m_hearseekerBow);
-            model->addMeleeWeapon(&m_sacraficialDaggar);
+            model->addMissileWeapon(&m_heartseekerBow);
+            model->addMeleeWeapon(&m_scianlar);
             addModel(model);
         }
 
@@ -61,12 +56,11 @@ namespace DaughtersOfKhaine {
     Unit *BloodStalkers::Create(const ParameterList &parameters) {
         auto unit = new BloodStalkers();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        bool bloodWyrm = GetBoolParam("Blood Wyrm", parameters, false);
 
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
-        bool ok = unit->configure(numModels, bloodWyrm);
+        bool ok = unit->configure(numModels);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -83,7 +77,6 @@ namespace DaughtersOfKhaine {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            BoolParameter("Blood Wyrm"),
                             EnumParameter("Temple", g_temple[0], g_temple)
                     },
                     ORDER,
@@ -95,7 +88,7 @@ namespace DaughtersOfKhaine {
 
     Wounds BloodStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Heartseekers
-        if ((hitRoll >= 6) && (weapon->name() == m_hearseekerBow.name())) {
+        if ((hitRoll >= 6) && (weapon->name() == m_heartseekerBow.name())) {
             return {0, 1};
         }
 

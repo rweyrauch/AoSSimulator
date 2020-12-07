@@ -9,6 +9,7 @@
 #include <dok/BloodSisters.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include <Board.h>
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
@@ -24,11 +25,9 @@ namespace DaughtersOfKhaine {
     BloodSisters::BloodSisters() :
             DaughterOfKhaine("Blood Sisters", 8, g_wounds, 8, 5, false),
             m_heartshardGlaive(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 3, 3, -1, 1),
-            m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 2, 3, -1, 1),
-            m_crystalTouch(Weapon::Type::Melee, "Crystal Touch", 1, 1, 4, 0, 0, 1),
-            m_crystalTouchGorgai(Weapon::Type::Melee, "Crystal Touch", 1, 1, 3, 0, 0, 1) {
+            m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS};
-        m_weapons = {&m_heartshardGlaive, &m_heartshardGlaiveGorgai, &m_crystalTouch, &m_crystalTouchGorgai};
+        m_weapons = {&m_heartshardGlaive, &m_heartshardGlaiveGorgai};
     }
 
     bool BloodSisters::configure(int numModels) {
@@ -38,13 +37,11 @@ namespace DaughtersOfKhaine {
 
         auto gorgai = new Model(g_basesize, wounds());
         gorgai->addMeleeWeapon(&m_heartshardGlaiveGorgai);
-        gorgai->addMeleeWeapon(&m_crystalTouchGorgai);
         addModel(gorgai);
 
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_heartshardGlaive);
-            model->addMeleeWeapon(&m_crystalTouch);
             addModel(model);
         }
 
@@ -86,21 +83,28 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    Wounds BloodSisters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Turned to Crystal
-        if (weapon->name() == m_crystalTouch.name()) {
-            return {0, 1};
-        }
-
-        return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
-    }
-
     int BloodSisters::ComputePoints(int numModels) {
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    Wounds BloodSisters::onEndCombat(PlayerId player) {
+        auto wounds = Unit::onEndCombat(player);
+
+        // Turned to Crystal
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+            if (!units.empty()) {
+                auto unit = units.front();
+                Dice::RollResult result;
+                Dice::RollD6(unit->remainingModels(), result);
+                wounds.mortal += result.rollsGE(3);
+            }
+        }
+        return wounds;
     }
 
 } // namespace DaughtersOfKhaine

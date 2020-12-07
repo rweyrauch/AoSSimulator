@@ -25,8 +25,8 @@ namespace DaughtersOfKhaine {
             DaughterOfKhaine("Khinerai Heartrenders", 14, g_wounds, 7, 6, true),
             m_barbedJavelinMissile(Weapon::Type::Missile, "Barbed Javelin", 12, 1, 3, 3, -1, 1),
             m_barbedJavelin(Weapon::Type::Melee, "Barbed Javelin", 2, 1, 4, 4, -1, 1),
-            m_barbedJavelinShrykeMissile(Weapon::Type::Missile, "Barbed Javelin", 12, 1, 2, 3, -1, 1),
-            m_barbedJavelinShryke(Weapon::Type::Melee, "Barbed Javelin", 2, 1, 3, 4, -1, 1) {
+            m_barbedJavelinShrykeMissile(Weapon::Type::Missile, "Barbed Javelin", 12, 2, 3, 3, -1, 1),
+            m_barbedJavelinShryke(Weapon::Type::Melee, "Barbed Javelin", 2, 2, 4, 4, -1, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_HEARTRENDERS};
         m_weapons = {&m_barbedJavelinMissile, &m_barbedJavelin, &m_barbedJavelinShrykeMissile, &m_barbedJavelinShryke};
 
