@@ -26,6 +26,7 @@
 #include "slaanesh/SyllEsske.h"
 #include "slaanesh/ContortedEpitome.h"
 #include "slaanesh/LordOfPain.h"
+#include "slaanesh/TheDreadPageant.h"
 
 namespace Slaanesh {
 
@@ -144,6 +145,7 @@ namespace Slaanesh {
         SyllEsske::Init();
         TheContortedEpitome::Init();
         LordOfPain::Init();
+        TheDreadPageant::Init();
     }
 
 } // namespace Slaanesh

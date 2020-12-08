@@ -533,6 +533,7 @@ enum Keyword {
     BLADEBRINGER,
     HELLFLAYER,
     LORD_OF_PAIN,
+    DREAD_PAGEANT,
 
     // Hosts of Slaanesh
     PRETENDERS,
@@ -1058,6 +1059,8 @@ enum Keyword {
     SPIRIT_OF_THE_MOUNTAIN,
     TECLIS,
     AVALENOR,
+    MYARI_LIGHTCALLER,
+    MYARIS_PURIFIERS,
 
     // Lumineth Nations
     SYAR,

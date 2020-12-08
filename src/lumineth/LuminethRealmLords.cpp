@@ -18,6 +18,8 @@
 #include "lumineth/SpiritOfTheMountain.h"
 #include "lumineth/Teclis.h"
 #include "lumineth/Avalenor.h"
+#include "lumineth/MyariLightcaller.h"
+#include "lumineth/MyarisPurifiers.h"
 
 namespace LuminethRealmLords {
 
@@ -170,6 +172,8 @@ namespace LuminethRealmLords {
         Dawnriders::Init();
         TheLightOfEltharion::Init();
         ScinariCathallar::Init();
+        MyariLigthcaller::Init();
+        MyarisPurifiers::Init();
      }
 
 } //namespace LuminethRealmLords

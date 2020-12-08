@@ -287,6 +287,7 @@ add_library(
         slaanesh/SyllEsske.cpp
         slaanesh/ContortedEpitome.cpp
         slaanesh/LordOfPain.cpp
+        slaanesh/TheDreadPageant.cpp
 
         nurgle/Nurgle.cpp
         nurgle/Plaguebearers.cpp
@@ -700,6 +701,8 @@ add_library(
         lumineth/SpiritOfTheMountain.cpp
         lumineth/Teclis.cpp
         lumineth/Avalenor.cpp
+        lumineth/MyariLightcaller.cpp
+        lumineth/MyarisPurifiers.cpp
 
         behemat/SonsOfBehemat.cpp
         behemat/Mancrusher.cpp
