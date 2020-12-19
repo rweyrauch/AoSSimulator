@@ -51,8 +51,6 @@ namespace Khorne {
     private:
 
         WeaponOption m_weaponOption = Ensorcelled_Axe;
-        bool m_standarBearer = false;
-        bool m_hornblower = false;
 
         Weapon m_ensorcelledAxe,
                 m_bloodglaive,

@@ -41,7 +41,6 @@ namespace Nurgle {
 
     protected:
 
-        bool m_iconBearer = false;
         bool m_sonorousTocsin = false;
 
     private:

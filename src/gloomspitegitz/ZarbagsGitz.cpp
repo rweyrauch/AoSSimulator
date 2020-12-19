@@ -95,14 +95,7 @@ namespace GloomspiteGitz {
         int modifier = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
         // Netters
         if (distanceTo(attacker) <= 2.0) {
-            bool hasNets = false;
-            for (auto &ip : m_models) {
-                if (ip->getName() == "Netter") {
-                    hasNets = true;
-                    break;
-                }
-            }
-            if (hasNets) {
+            if (isNamedModelAlive("Netter")) {
                 modifier -= 1;
             }
         }

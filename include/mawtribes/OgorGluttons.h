@@ -57,9 +57,6 @@ namespace OgorMawtribes {
 
         WeaponOption m_weaponOption = Club_Or_Blade_And_Ironfist;
 
-        bool m_bellower = false;
-        bool m_skullBearer = false;
-        bool m_bannerBearer = false;
         bool m_lookoutGnoblar = false;
 
         Weapon m_clubOrBlade,

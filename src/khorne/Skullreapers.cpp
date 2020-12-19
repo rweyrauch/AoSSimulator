@@ -34,8 +34,8 @@ namespace Khorne {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        if (m_iconBearer) {
+        // TODO: make this buffer dynamic
+        if (iconBearer) {
             m_bravery += 1;
         }
 
@@ -48,6 +48,10 @@ namespace Khorne {
         for (auto i = currentModelCount; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_blades);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
             addModel(model);
         }
 

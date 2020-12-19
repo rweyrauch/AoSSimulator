@@ -39,9 +39,6 @@ namespace BeastsOfChaos {
 
     private:
 
-        bool m_brayhorn = false;
-        bool m_bannerBearer = false;
-
         Weapon m_raiderBow,
                 m_raiderBowHalfhorn,
                 m_jaggedShank;

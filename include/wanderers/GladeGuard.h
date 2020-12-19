@@ -41,9 +41,6 @@ namespace Wanderers {
 
     private:
 
-        bool m_hornblower = false,
-                m_pennantBearer = false;
-
         bool m_usedArcaneBodkins = false;
 
         Weapon m_longbow,

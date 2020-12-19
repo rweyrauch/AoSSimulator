@@ -51,8 +51,6 @@ namespace Greenskinz {
 
     private:
 
-        bool m_waaaghHorns = false;
-        bool m_glyphBearer = false;
         WeaponOption m_weaponOption = Choppa;
 
         Weapon m_choppa,

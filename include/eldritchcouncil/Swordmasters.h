@@ -38,9 +38,6 @@ namespace EldritchCouncil {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_hornblower = false;
-
         Weapon m_greatsword,
                 m_greatswordLord;
 

@@ -33,12 +33,6 @@ namespace SlavesToDarkness {
 
         Rerolls chargeRerolls() const override;
 
-        void onWounded() override;
-
-    protected:
-
-        bool m_hasShrikeTalon = true;
-
     private:
 
         Weapon m_ravenDarts,

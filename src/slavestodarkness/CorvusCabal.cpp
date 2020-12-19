@@ -91,22 +91,10 @@ namespace SlavesToDarkness {
     }
 
     Rerolls CorvusCabal::chargeRerolls() const {
-        if (m_hasShrikeTalon) {
+        if (isNamedModelAlive("Shrike Talon")) {
             return Reroll_Ones;
         }
         return Unit::chargeRerolls();
-    }
-
-    void CorvusCabal::onWounded() {
-        Unit::onWounded();
-
-        // Check for Shrike Talon
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Shrike Talon")) {
-                m_hasShrikeTalon = false;
-                break;
-            }
-        }
     }
 
     int CorvusCabal::ComputePoints(int numModels) {

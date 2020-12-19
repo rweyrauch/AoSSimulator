@@ -37,10 +37,7 @@ namespace BeastsOfChaos {
             return false;
         }
 
-        m_brayhorn = brayhorn;
-        m_bannerBearer = bannerBearer;
-
-        m_runAndCharge = m_brayhorn;
+        m_runAndCharge = brayhorn;
 
         auto halfhorn = new Model(g_basesize, wounds());
         if (weapons == Ungor_Blade) {
@@ -56,6 +53,14 @@ namespace BeastsOfChaos {
                 model->addMeleeWeapon(&m_ungorBlade);
             } else if (weapons == Gnarled_Shortspear) {
                 model->addMeleeWeapon(&m_gnarledShortspear);
+            }
+            if (bannerBearer) {
+                model->setName("Banner Bearer");
+                bannerBearer = false;
+            }
+            else if (brayhorn) {
+                model->setName("Brayhorn");
+                brayhorn = false;
             }
             addModel(model);
         }

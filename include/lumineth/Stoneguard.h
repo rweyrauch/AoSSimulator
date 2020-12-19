@@ -51,7 +51,6 @@ namespace LuminethRealmLords {
                 m_pairedStratumHammers;
 
         WeaponOption m_weaponOption = WeaponOption::Stone_Mallet;
-        bool m_standardBearer = false;
 
         static bool s_registered;
     };

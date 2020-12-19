@@ -76,7 +76,23 @@ namespace Slaanesh {
     }
 
     Wounds LordOfPain::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        auto unsavedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+
+        // Share the Pain
+        Dice::RollResult woundSaves, mortalSaves;
+        Dice::RollD6(unsavedWounds.normal, woundSaves);
+        Dice::RollD6(unsavedWounds.mortal, mortalSaves);
+
+        Wounds totalWounds = unsavedWounds;
+        totalWounds.normal -= woundSaves.rollsGE(5);
+        totalWounds.mortal -= mortalSaves.rollsGE(5);
+
+        if ((totalWounds.normal < unsavedWounds.normal) ||
+            (totalWounds.mortal < unsavedWounds.mortal)) {
+            attackingUnit->applyDamage({0, 1}, this);
+        }
+
+        return totalWounds;
     }
 
 } // Slannesh

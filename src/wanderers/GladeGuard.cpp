@@ -34,9 +34,6 @@ namespace Wanderers {
             return false;
         }
 
-        m_pennantBearer = pennantBearer;
-        m_hornblower = hornblower;
-
         auto lord = new Model(g_basesize, wounds());
         lord->addMissileWeapon(&m_longbowLord);
         lord->addMeleeWeapon(&m_gladeBlade);
@@ -46,6 +43,14 @@ namespace Wanderers {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_longbow);
             model->addMeleeWeapon(&m_gladeBlade);
+            if (pennantBearer) {
+                model->setName("Pennant Bearer");
+                pennantBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -100,7 +105,7 @@ namespace Wanderers {
     }
 
     Rerolls GladeGuard::runRerolls() const {
-        if (m_hornblower) {
+        if (isNamedModelAlive("Hornblower")) {
             return Reroll_Failed;
         }
         return Wanderer::runRerolls();
@@ -108,7 +113,7 @@ namespace Wanderers {
 
     int GladeGuard::braveryModifier() const {
         int modifier = Wanderer::braveryModifier();
-        if (m_pennantBearer) {
+        if (isNamedModelAlive("Pennant Bearer")) {
             modifier += 1;
 
             // if (Board::Instance()->unitInCover(this)) { modifier += 1; }

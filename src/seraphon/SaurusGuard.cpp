@@ -41,9 +41,6 @@ namespace Seraphon {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_wardrum = wardrum;
-
         // Add the Alpha
         auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_celestitePolearmAlpha);
@@ -55,6 +52,14 @@ namespace Seraphon {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_celestitePolearm);
             model->addMeleeWeapon(&m_jaws);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (wardrum) {
+                model->setName("Wardrum");
+                wardrum = false;
+            }
             addModel(model);
         }
 
@@ -112,14 +117,14 @@ namespace Seraphon {
     }
 
     Rerolls SaurusGuard::chargeRerolls() const {
-        if (m_wardrum) return Reroll_Failed;
+        if (isNamedModelAlive("Wardrum")) return Reroll_Failed;
 
         return SeraphonBase::chargeRerolls();
     }
 
     int SaurusGuard::stardrakeIcon(const Unit *target) {
         // Icon Bearer
-        if (m_iconBearer && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive("Icon Bearer") && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

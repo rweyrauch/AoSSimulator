@@ -79,22 +79,19 @@ namespace SlavesToDarkness {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_drummer = drummer;
-
         auto champion = new Model(g_basesize, wounds());
         champion->addMeleeWeapon(&m_greataxeChampion);
         champion->setName("Exalted Champion");
         addModel(champion);
 
-        if (m_iconBearer) {
+        if (iconBearer) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Icon Bearer");
             model->addMeleeWeapon(&m_greataxe);
             addModel(model);
         }
 
-        if (m_drummer) {
+        if (drummer) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Drummer");
             model->addMeleeWeapon(&m_greataxe);
@@ -112,44 +109,16 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    void ChaosChosen::onWounded() {
-        Unit::onWounded();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Drummer")) {
-                m_drummer = false;
-            }
-            if (ip->slain() && (ip->getName() == "Icon Bearer")) {
-                m_iconBearer = false;
-            }
-        }
-    }
-
     int ChaosChosen::runModifier() const {
         auto modifier = Unit::runModifier();
-        if (m_drummer) modifier += 1;
+        if (isNamedModelAlive("Drummer")) modifier += 1;
         return modifier;
     }
 
     int ChaosChosen::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (m_drummer) modifier += 1;
+        if (isNamedModelAlive("Drummer")) modifier += 1;
         return modifier;
-    }
-
-    void ChaosChosen::onRestore() {
-        Unit::onRestore();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->getName() == "Drummer") {
-                m_drummer = true;
-            }
-            if (ip->getName() == "Icon Bearer") {
-                m_iconBearer = true;
-            }
-        }
     }
 
     Wounds ChaosChosen::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -170,7 +139,7 @@ namespace SlavesToDarkness {
 
     int ChaosChosen::iconBearer(const Unit *unit) {
         // Icon Bearer
-        if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
+        if (isNamedModelAlive("Icon Bearer") && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
             return -1;
         }
         return 0;

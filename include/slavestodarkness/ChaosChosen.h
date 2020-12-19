@@ -31,27 +31,19 @@ namespace SlavesToDarkness {
 
     protected:
 
-        void onWounded() override;
-
         int runModifier() const override;
 
         int chargeModifier() const override;
-
-        void onRestore() override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int iconBearer(const Unit *unit);
 
-    protected:
-
-        bool m_iconBearer = false;
-        bool m_drummer = false;
 
     private:
 
         Weapon m_greataxe,
-                m_greataxeChampion;
+               m_greataxeChampion;
 
         lsignal::slot m_braverySlot;
 

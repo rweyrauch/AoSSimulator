@@ -52,7 +52,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Rage Unbound                     Yes
-// Outrageous Carnage               Partial/TODO
+// Outrageous Carnage               Yes
 // Bloodthirsty Charge              TODO
 //
 

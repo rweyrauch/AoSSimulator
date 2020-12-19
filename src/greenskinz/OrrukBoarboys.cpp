@@ -40,8 +40,6 @@ namespace Greenskinz {
             return false;
         }
 
-        m_waaaghHorns = horns;
-        m_glyphBearer = glyphBearer;
         m_weaponOption = weapons;
 
         // Add the boss
@@ -68,6 +66,14 @@ namespace Greenskinz {
                     break;
             }
             model->addMeleeWeapon(&m_warBoarsTusks);
+            if (horns) {
+                model->setName("Waaagh Horn");
+                horns = false;
+            }
+            else if (glyphBearer) {
+                model->setName("Glyph Bearer");
+                glyphBearer = false;
+            }
             addModel(model);
         }
 
@@ -134,14 +140,14 @@ namespace Greenskinz {
 
     int OrrukBoarboys::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (m_waaaghHorns)
+        if (isNamedModelAlive("Waaagh Horn"))
             modifier += 2;
         return modifier;
     }
 
     int OrrukBoarboys::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
-        if (m_glyphBearer) {
+        if (isNamedModelAlive("Glyph Bearer")) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             if (!units.empty()) {
                 modifier += 2;

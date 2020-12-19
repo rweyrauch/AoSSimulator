@@ -33,13 +33,6 @@ namespace SlavesToDarkness {
 
         int chargeModifier() const override;
 
-        void onWounded() override;
-
-    protected:
-
-        bool m_hasThrallmaster = true;
-        bool m_hasLuminate = true;
-
     private:
 
         Weapon m_throwingStars,

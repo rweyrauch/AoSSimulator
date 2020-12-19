@@ -83,9 +83,6 @@ namespace SlavesToDarkness {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         m_hasShields = false;
         m_pairedWeapons = false;
 
@@ -105,7 +102,7 @@ namespace SlavesToDarkness {
         champion->setName("Aspiring Champion");
         addModel(champion);
 
-        if (m_standardBearer) {
+        if (standardBearer) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Standard Bearer");
             if (weapons == Hand_Weapon_And_Shield)
@@ -119,7 +116,7 @@ namespace SlavesToDarkness {
             addModel(model);
         }
 
-        if (m_hornblower) {
+        if (hornblower) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
             if (weapons == Hand_Weapon_And_Shield)
@@ -179,20 +176,6 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    void ChaosWarriors::onWounded() {
-        Unit::onWounded();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Hornblower")) {
-                m_hornblower = false;
-            }
-            if (ip->slain() && (ip->getName() == "Standard Bearer")) {
-                m_standardBearer = false;
-            }
-        }
-    }
-
     Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         if (m_hasShields) {
             // Chaos Runeshield
@@ -210,19 +193,19 @@ namespace SlavesToDarkness {
 
     int ChaosWarriors::runModifier() const {
         auto modifier = Unit::runModifier();
-        if (m_hornblower) modifier += 1;
+        if (isNamedModelAlive("Hornblower")) modifier += 1;
         return modifier;
     }
 
     int ChaosWarriors::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (m_hornblower) modifier += 1;
+        if (isNamedModelAlive("Hornblower")) modifier += 1;
         return modifier;
     }
 
     int ChaosWarriors::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
-        if (m_standardBearer) modifier += 1;
+        if (isNamedModelAlive("Standard Bearer")) modifier += 1;
         return modifier;
     }
 
@@ -238,20 +221,6 @@ namespace SlavesToDarkness {
         if (remainingModels() >= 10)
             return Reroll_Failed;
         return Unit::toSaveRerolls(weapon);
-    }
-
-    void ChaosWarriors::onRestore() {
-        Unit::onRestore();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->getName() == "Hornblower") {
-                m_hornblower = true;
-            }
-            if (ip->getName() == "Standard Bearer") {
-                m_standardBearer = true;
-            }
-        }
     }
 
     int ChaosWarriors::ComputePoints(int numModels) {

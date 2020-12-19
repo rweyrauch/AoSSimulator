@@ -77,8 +77,8 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         int totalModels = 0;
         for (auto ip : units) {
-            // TODO: check for models within 3"
-            totalModels += ip->remainingModels();
+            // Check for models within 3"
+            totalModels += ip->numModelsWithin(m_models.front().get(), 3.0f);
         }
         attacks += std::max(totalModels - m_blades.attacks(), 0);
 

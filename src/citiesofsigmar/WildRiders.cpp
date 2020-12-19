@@ -83,9 +83,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         // Add the Hunter
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_spearHunter);
@@ -96,6 +93,14 @@ namespace CitiesOfSigmar {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_spear);
             model->addMeleeWeapon(&m_hooves);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -106,19 +111,19 @@ namespace CitiesOfSigmar {
 
     int WildRiders::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int WildRiders::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int WildRiders::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

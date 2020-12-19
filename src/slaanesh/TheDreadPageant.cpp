@@ -92,7 +92,7 @@ namespace Slaanesh {
     Wounds TheDreadPageant::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         Wounds totalWounds = wounds;
 
-        if (modelIsAlive("Vasillac")) {
+        if (isNamedModelAlive("Vasillac")) {
             // Art of the Myrmidesh
             Dice::RollResult woundSaves, mortalSaves;
             Dice::RollD6(wounds.normal, woundSaves);
@@ -113,16 +113,6 @@ namespace Slaanesh {
             return {weapon->damage(), 1};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-    }
-
-    bool TheDreadPageant::modelIsAlive(const std::string &name) const {
-        for (const auto& m : m_models) {
-            if (m->getName() != name) {
-                continue;
-            }
-            return !(m->slain() || m->fled());
-        }
-        return false;
     }
 
 } // Slannesh

@@ -29,10 +29,6 @@ namespace IdonethDeepkin {
 
         bool configure(int numModels, int numIconBearers);
 
-    protected:
-
-        int m_numIconBearers = 0;
-
     private:
 
         Weapon m_lanmariBlade;

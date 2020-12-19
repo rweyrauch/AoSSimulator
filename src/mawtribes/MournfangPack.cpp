@@ -76,8 +76,6 @@ namespace OgorMawtribes {
         }
 
         m_option = weaponOption;
-        m_hornblower = hornblower;
-        m_bannerBearer = bannerBearer;
 
         auto skalg = new Model(g_basesize, wounds());
         skalg->addMissileWeapon(&m_pistol);
@@ -88,7 +86,7 @@ namespace OgorMawtribes {
         skalg->addMeleeWeapon(&m_tusks);
         addModel(skalg);
 
-        if (m_hornblower) {
+        if (hornblower) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
             if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
@@ -98,7 +96,7 @@ namespace OgorMawtribes {
             model->addMeleeWeapon(&m_tusks);
             addModel(model);
         }
-        if (m_bannerBearer) {
+        if (bannerBearer) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Banner Bearer");
             if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
@@ -166,42 +164,14 @@ namespace OgorMawtribes {
 
     int MournfangPack::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (m_hornblower) modifier += 1;
+        if (isNamedModelAlive("Hornblower")) modifier += 1;
         return modifier;
-    }
-
-    void MournfangPack::onWounded() {
-        MawtribesBase::onWounded();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Hornblower")) {
-                m_hornblower = false;
-            }
-            if (ip->slain() && (ip->getName() == "Banner Bearer")) {
-                m_bannerBearer = false;
-            }
-        }
-    }
-
-    void MournfangPack::onRestore() {
-        MawtribesBase::onRestore();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->getName() == "Hornblower") {
-                m_hornblower = true;
-            }
-            if (ip->getName() == "Banner Bearer") {
-                m_bannerBearer = true;
-            }
-        }
     }
 
     int MournfangPack::braveryModifier() const {
         auto mod = MawtribesBase::braveryModifier();
 
-        if (m_bannerBearer) mod++;
+        if (isNamedModelAlive("Banner Bearer")) mod++;
 
         return mod;
     }

@@ -88,9 +88,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         // Add the Handmaiden
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMissileWeapon(&m_javelin);
@@ -103,6 +100,14 @@ namespace CitiesOfSigmar {
             model->addMissileWeapon(&m_javelin);
             model->addMeleeWeapon(&m_staff);
             model->addMeleeWeapon(&m_antlersAndHooves);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -116,19 +121,19 @@ namespace CitiesOfSigmar {
 
     int SistersOfTheThorn::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int SistersOfTheThorn::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int SistersOfTheThorn::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

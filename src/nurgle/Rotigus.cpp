@@ -129,16 +129,19 @@ namespace Nurgle {
     }
 
     Wounds Rotigus::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto unsavedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+
         // Blubber and Bile
         Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
+        Dice::RollD6(unsavedWounds.normal, woundSaves);
+        Dice::RollD6(unsavedWounds.mortal, mortalSaves);
 
-        Wounds totalWounds = wounds;
+        Wounds totalWounds = unsavedWounds;
         totalWounds.normal -= woundSaves.rollsGE(5);
         totalWounds.mortal -= mortalSaves.rollsGE(5);
 
-        // TODO: on 6+ attacking unit takes a mortal wound.
+        // On each 6+, the attacking unit takes a mortal wound.
+        attackingUnit->applyDamage({0, mortalSaves.rollsGE(6) + woundSaves.rollsGE(6)}, this);
 
         return totalWounds.clamp();
     }

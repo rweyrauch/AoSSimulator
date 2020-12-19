@@ -51,6 +51,7 @@ namespace StormcastEternals {
         }
         primeModel->addMissileWeapon(&m_boltstormPistol);
         primeModel->addMeleeWeapon(&m_beakAndClaws);
+        primeModel->setName("Prime");
         addModel(primeModel);
 
         auto currentModelCount = (int) m_models.size();

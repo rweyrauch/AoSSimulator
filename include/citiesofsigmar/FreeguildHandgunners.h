@@ -51,9 +51,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_piper = false;
-
         Weapon m_freeguildHandgun,
                 m_dagger,
                 m_longRifle,

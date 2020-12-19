@@ -38,11 +38,13 @@ namespace IdonethDeepkin {
             return false;
         }
 
-        m_numIconBearers = numIconBearers;
-
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_lanmariBlade);
+            if (numIconBearers >= 0) {
+                model->setName("Icon Bearer");
+                numIconBearers--;
+            }
             addModel(model);
         }
 

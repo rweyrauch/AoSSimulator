@@ -99,18 +99,6 @@ namespace SlavesToDarkness {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    void SplinteredFang::onWounded() {
-        Unit::onWounded();
-
-        // Check for Serpent Caller
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Serpent Caller")) {
-                m_hasSerpentCaller = false;
-                break;
-            }
-        }
-    }
-
     int SplinteredFang::ComputePoints(int numModels) {
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {

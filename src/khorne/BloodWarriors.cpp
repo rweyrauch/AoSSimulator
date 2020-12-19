@@ -43,7 +43,6 @@ namespace Khorne {
             return false;
         }
 
-        m_iconBearer = iconBearer;
         m_pairedGoreaxe = pairedGoreax;
 
         // Add the Champion
@@ -61,6 +60,11 @@ namespace Khorne {
         for (auto i = currentModelCount; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_goreaxe);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+
             addModel(model);
         }
 
@@ -82,7 +86,7 @@ namespace Khorne {
         int modifier = KhorneBase::braveryModifier();
 
         // Icon Bearer
-        if (m_iconBearer) {
+        if (isNamedModelAlive("Icon Bearer")) {
             modifier++;
         }
 

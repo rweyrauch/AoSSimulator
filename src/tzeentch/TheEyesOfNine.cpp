@@ -94,16 +94,12 @@ namespace Tzeentch {
         auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Arcanite Shield
-        for (auto &model : m_models) {
-            if (((model->getName() == "Narvia") || (model->getName() == "Turosh")) &&
-                !model->slain() && !model->fled()) {
-                Dice::RollResult normalSaves, mortalSaves;
-                Dice::RollD6(totalWounds.normal, normalSaves);
-                Dice::RollD6(totalWounds.mortal, mortalSaves);
-                totalWounds.normal -= normalSaves.rollsGE(6);
-                totalWounds.mortal -= mortalSaves.rollsGE(6);
-                break;
-            }
+        if (isNamedModelAlive("Narvia") || isNamedModelAlive("Turosh")) {
+            Dice::RollResult normalSaves, mortalSaves;
+            Dice::RollD6(totalWounds.normal, normalSaves);
+            Dice::RollD6(totalWounds.mortal, mortalSaves);
+            totalWounds.normal -= normalSaves.rollsGE(6);
+            totalWounds.mortal -= mortalSaves.rollsGE(6);
         }
         return totalWounds;
     }

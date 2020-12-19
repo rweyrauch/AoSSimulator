@@ -45,9 +45,7 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_hornblower = false,
-                m_standardBearer = false,
-                m_gladeShields = false;
+        bool m_gladeShields = false;
 
         Weapon m_spearStave,
                 m_spearStaveWarden;

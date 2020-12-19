@@ -46,8 +46,6 @@ namespace LuminethRealmLords {
             m_lance,
             m_hooves;
 
-        bool m_standardBearer = false;
-
         bool m_powerOfHyshActive = false;
 
         static bool s_registered;

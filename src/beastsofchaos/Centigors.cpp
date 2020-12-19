@@ -34,10 +34,7 @@ namespace BeastsOfChaos {
             return false;
         }
 
-        m_brayhorn = brayhorn;
-        m_bannerBearer = bannerBearer;
-
-        m_runAndCharge = m_brayhorn;
+        m_runAndCharge = brayhorn;
 
         auto gorehoof = new Model(g_basesize, wounds());
         gorehoof->addMeleeWeapon(&m_centigorSpearGorehoof);
@@ -48,6 +45,14 @@ namespace BeastsOfChaos {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_centigorSpear);
             model->addMeleeWeapon(&m_clawedForelimbs);
+            if (bannerBearer) {
+                model->setName("Banner Bearer");
+                bannerBearer = false;
+            }
+            else if (brayhorn) {
+                model->setName("Brayhorn");
+                brayhorn = false;
+            }
             addModel(model);
         }
 
@@ -105,7 +110,7 @@ namespace BeastsOfChaos {
 
     int Centigors::runModifier() const {
         int modifier = Unit::runModifier();
-        if (m_bannerBearer) {
+        if (isNamedModelAlive("Drummer")) {
             modifier += 1;
         }
         return modifier;

@@ -25,7 +25,7 @@ namespace Greenskinz {
             Orruk_Bow_And_Cutta
         };
 
-        enum StandardBearer {
+        enum StandardOption {
             None,
             Orruk_Banner,
             Skull_Icon
@@ -45,7 +45,7 @@ namespace Greenskinz {
 
         ~Orruks() override = default;
 
-        bool configure(int numModels, WeaponOption weapons, bool drummer, StandardBearer standardBearer);
+        bool configure(int numModels, WeaponOption weapons, bool drummer, StandardOption standardBearer);
 
     protected:
 
@@ -63,8 +63,6 @@ namespace Greenskinz {
 
     private:
 
-        bool m_waaaghDrummer = false;
-        StandardBearer m_standardBearer = None;
         WeaponOption m_weaponOption = Choppa_And_Shield;
 
         Weapon m_orrukBows,

@@ -33,13 +33,7 @@ namespace SlavesToDarkness {
 
         int braveryModifier() const override;
 
-        void onWounded() override;
-
         Rerolls toSaveRerolls(const Weapon *weapon) const override;
-
-    protected:
-
-        bool m_hasSignifer = true;
 
     private:
 

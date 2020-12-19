@@ -34,10 +34,7 @@ namespace BeastsOfChaos {
             return false;
         }
 
-        m_brayhorn = brayhorn;
-        m_bannerBearer = bannerBearer;
-
-        m_runAndCharge = m_brayhorn;
+        m_runAndCharge = brayhorn;
 
         auto halfhorn = new Model(g_basesize, wounds());
         halfhorn->addMissileWeapon(&m_raiderBowHalfhorn);
@@ -48,6 +45,14 @@ namespace BeastsOfChaos {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_raiderBow);
             model->addMeleeWeapon(&m_jaggedShank);
+            if (bannerBearer) {
+                model->setName("Banner Bearer");
+                bannerBearer = false;
+            }
+            else if (brayhorn) {
+                model->setName("Brayhorn");
+                brayhorn = false;
+            }
             addModel(model);
         }
 

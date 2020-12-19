@@ -51,8 +51,6 @@ namespace BeastsOfChaos {
 
     private:
 
-        bool m_drummer = false;
-        bool m_bannerBearer = false;
         bool m_pairedAxes = false;
 
         Weapon m_bullgorHorns;

@@ -53,8 +53,6 @@ namespace Khorne {
     private:
 
         WeaponOption m_weaponOption = Reaver_Blades;
-        bool m_iconBearer = false;
-        bool m_hornblower = false;
 
         Weapon m_reaverBlades,
                 m_reaverBladesChieftain,

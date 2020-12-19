@@ -52,8 +52,6 @@ namespace Tzeentch {
         m_weaponOption = weapons;
         m_numGreatblades = numGreatblades;
         m_numMutants = numMutants;
-        m_iconBearer = iconBearer;
-        m_brayhorns = brayhorns;
 
         // Brayhorns
         m_runAndCharge = brayhorns;
@@ -79,6 +77,14 @@ namespace Tzeentch {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_savageBlade);
             model->addMeleeWeapon(&m_viciousBeak);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (brayhorns) {
+                model->setName("Brayhorn");
+                brayhorns = false;
+            }
             addModel(model);
         }
 

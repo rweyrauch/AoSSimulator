@@ -43,8 +43,6 @@ namespace BeastsOfChaos {
 
     private:
 
-        bool m_brayhorn = false;
-        bool m_bannerBearer = false;
         bool m_drunkenRevelry = false;
 
         Weapon m_centigorSpear,

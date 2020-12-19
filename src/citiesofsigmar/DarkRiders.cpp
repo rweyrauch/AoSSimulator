@@ -91,9 +91,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         // Add the Herald
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMissileWeapon(&m_crossbowHerald);
@@ -106,6 +103,14 @@ namespace CitiesOfSigmar {
             model->addMissileWeapon(&m_crossbow);
             model->addMeleeWeapon(&m_spear);
             model->addMeleeWeapon(&m_bite);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -116,13 +121,13 @@ namespace CitiesOfSigmar {
 
     int DarkRiders::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int DarkRiders::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

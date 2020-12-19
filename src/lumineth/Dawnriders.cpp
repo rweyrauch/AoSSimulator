@@ -49,12 +49,15 @@ namespace LuminethRealmLords {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_hooves);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
             addModel(model);
         }
 
         m_knownSpells.push_back(std::make_unique<PowerOfHysh>(this));
 
-        m_standardBearer = standardBearer;
         m_points = ComputePoints(numModels);
 
         return true;
@@ -153,7 +156,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls Dawnriders::battleshockRerolls() const {
-        if (m_standardBearer) return Reroll_Failed;
+        if (isNamedModelAlive("Standard Bearer")) return Reroll_Failed;
         return Unit::battleshockRerolls();
     }
 

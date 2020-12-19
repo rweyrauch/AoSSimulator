@@ -33,9 +33,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         auto warden = new Model(g_basesize, wounds());
         warden->addMeleeWeapon(&m_wardensDraich);
         addModel(warden);
@@ -43,6 +40,14 @@ namespace CitiesOfSigmar {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_rangersDraich);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -98,19 +103,19 @@ namespace CitiesOfSigmar {
 
     int WildwoodRangers::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int WildwoodRangers::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int WildwoodRangers::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

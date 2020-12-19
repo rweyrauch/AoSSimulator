@@ -108,8 +108,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_trumpeter = trumpeter;
-
         // Add the Sharpshooter
         auto bossModel = new Model(g_basesize, wounds());
         if (sharpshooterWeapon == Repeater_Handgun) {
@@ -128,6 +126,10 @@ namespace CitiesOfSigmar {
             model->addMissileWeapon(&m_handgun);
             model->addMeleeWeapon(&m_sabre);
             model->addMeleeWeapon(&m_hooves);
+            if (trumpeter) {
+                model->setName("Trumpeter");
+                trumpeter = false;
+            }
             addModel(model);
         }
 
@@ -138,13 +140,13 @@ namespace CitiesOfSigmar {
 
     int FreeguildOutriders::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_trumpeter) mod++;
+        if (isNamedModelAlive("Trumpeter")) mod++;
         return mod;
     }
 
     int FreeguildOutriders::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_trumpeter) mod++;
+        if (isNamedModelAlive("Trumpeter")) mod++;
         return mod;
     }
 

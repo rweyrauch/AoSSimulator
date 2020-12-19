@@ -39,12 +39,6 @@ namespace Slaanesh {
 
         Rerolls hornblowerBattleshockReroll(const Unit *unit);
 
-    protected:
-
-        bool m_iconBearer = false;
-        bool m_bannerBearer = false;
-        bool m_hornblower = false;
-
     private:
 
         Weapon m_piercingClaws,

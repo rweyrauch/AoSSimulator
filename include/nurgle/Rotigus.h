@@ -53,7 +53,7 @@ namespace Nurgle {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blubber and Bile                 Partial/TODO
+// Blubber and Bile                 Yes
 // Corpulent Mass                   Yes
 // Mountain of Loathsome Flesh      Yes
 // Streams of Brackish Filth        Yes

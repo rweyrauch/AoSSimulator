@@ -48,9 +48,6 @@ namespace Tzeentch {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_hornblower = hornblower;
-
         auto horror = new Model(g_basesize, wounds());
         horror->addMissileWeapon(&m_magicalFlamesPink);
         horror->addMeleeWeapon(&m_talonedHandsIridescent);
@@ -60,6 +57,15 @@ namespace Tzeentch {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_magicalFlamesPink);
             model->addMeleeWeapon(&m_talonedHandsPink);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
+
             addModel(model);
         }
 
@@ -107,7 +113,7 @@ namespace Tzeentch {
 
     void HorrorsOfTzeentch::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         TzeentchBase::computeBattleshockEffect(roll, numFled, numAdded);
-        if (m_iconBearer) {
+        if (isNamedModelAlive("Icon Bearer")) {
             // Icon Bearer
             if (roll == 1) {
                 numAdded = Dice::RollD6();

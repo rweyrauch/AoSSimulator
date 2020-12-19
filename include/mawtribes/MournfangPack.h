@@ -44,10 +44,6 @@ namespace OgorMawtribes {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-        void onWounded() override;
-
-        void onRestore() override;
-
         int chargeModifier() const override;
 
         int braveryModifier() const override;
@@ -55,8 +51,6 @@ namespace OgorMawtribes {
     private:
 
         WeaponOption m_option = Culling_Club_Or_Prey_Hacker_And_Ironfist;
-        bool m_hornblower = false;
-        bool m_bannerBearer = false;
 
         Weapon m_pistol,
                 m_clubOrHacker,

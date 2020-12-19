@@ -43,9 +43,6 @@ namespace Khorne {
 
     private:
 
-        bool m_iconBearer = false;
-        bool m_hornblower = false;
-
         lsignal::slot m_hornblowerSlot;
 
         Weapon m_hellblade,

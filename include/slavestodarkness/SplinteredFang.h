@@ -33,12 +33,6 @@ namespace SlavesToDarkness {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        void onWounded() override;
-
-    protected:
-
-        bool m_hasSerpentCaller = true;
-
     private:
 
         Weapon m_poisonedWeapons,

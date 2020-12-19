@@ -102,10 +102,7 @@ namespace OgorMawtribes {
         }
 
         m_weaponOption = option;
-        m_skullBearer = skullBearer;
-        m_bannerBearer = bannerBearer;
         m_lookoutGnoblar = lookoutGnoblar;
-        m_bellower = bellower;
 
         auto crusher = new Model(g_basesize, wounds());
         crusher->addMeleeWeapon(&m_clubOrBladeCrusher);
@@ -116,6 +113,19 @@ namespace OgorMawtribes {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_clubOrBlade);
             model->addMeleeWeapon(&m_bite);
+            if (skullBearer) {
+                model->setName("Skull Bearer");
+                skullBearer = false;
+            }
+            else if (bannerBearer) {
+                model->setName("Banner Bearer");
+                bannerBearer = false;
+            }
+            else if (bellower) {
+                model->setName("Bellower");
+                bellower = false;
+            }
+
             addModel(model);
         }
 
@@ -128,14 +138,14 @@ namespace OgorMawtribes {
         auto mod = MawtribesBase::braveryModifier();
 
         // Tribal Banner Bearer
-        if (m_bannerBearer) mod++;
+        if (isNamedModelAlive("Banner Bearer")) mod++;
 
         return mod;
     }
 
     Rerolls OgorGluttons::chargeRerolls() const {
         // Beast Skull Bearer
-        if (m_skullBearer) {
+        if (isNamedModelAlive("Skull Bearer")) {
             return Reroll_Failed;
         }
         return Unit::chargeRerolls();
@@ -168,7 +178,7 @@ namespace OgorMawtribes {
 
     int OgorGluttons::bellower(const Unit *target) {
         // Bellower
-        if (m_bellower && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive("Bellower") && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

@@ -83,9 +83,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         // Add the Dread Knight
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_lanceDreadKnight);
@@ -96,6 +93,14 @@ namespace CitiesOfSigmar {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_jaws);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -106,19 +111,19 @@ namespace CitiesOfSigmar {
 
     int DrakespawnKnights::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int DrakespawnKnights::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int DrakespawnKnights::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

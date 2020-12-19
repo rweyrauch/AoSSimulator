@@ -41,13 +41,9 @@ namespace SlavesToDarkness {
 
     protected:
 
-        void onWounded() override;
-
         int runModifier() const override;
 
         int chargeModifier() const override;
-
-        void onRestore() override;
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
@@ -57,8 +53,6 @@ namespace SlavesToDarkness {
 
     protected:
 
-        bool m_iconBearer = false;
-        bool m_hornblower = false;
         bool m_weaponOption = WeaponOption::Axe_And_Shield;
 
     private:

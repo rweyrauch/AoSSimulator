@@ -44,10 +44,6 @@ namespace Slaanesh {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_bannerBearer = bannerBearer;
-        m_hornblower = hornblower;
-
         auto reaver = new Model(g_basesize, wounds());
         if (weapons == Claw_Spear)
             reaver->addMeleeWeapon(&m_clawSpearReaver);
@@ -63,6 +59,18 @@ namespace Slaanesh {
             else if (weapons == Hellscourge)
                 model->addMeleeWeapon(&m_hellscourge);
             model->addMeleeWeapon(&m_poisonedTongue);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (bannerBearer) {
+                model->setName("Banner Bearer");
+                bannerBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -128,7 +136,7 @@ namespace Slaanesh {
     }
 
     Rerolls Hellstriders::chargeRerolls() const {
-        if (m_bannerBearer) {
+        if (isNamedModelAlive("Banner Bearer")) {
             return Reroll_Failed;
         }
         return Unit::chargeRerolls();
@@ -136,7 +144,7 @@ namespace Slaanesh {
 
     int Hellstriders::braveryModifier() const {
         int modifier = Unit::braveryModifier();
-        if (m_iconBearer) {
+        if (isNamedModelAlive("Icon Bearer")) {
             modifier += 2;
         }
         return modifier;
@@ -151,7 +159,7 @@ namespace Slaanesh {
     }
 
     Rerolls Hellstriders::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && m_hornblower && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive("Hornblower") && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
 
         return No_Rerolls;
     }

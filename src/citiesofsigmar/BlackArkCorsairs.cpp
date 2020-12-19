@@ -100,9 +100,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         // Add the Reaver
         auto bossModel = new Model(g_basesize, wounds());
         if (weapons == Repeater_Handbow) {
@@ -121,6 +118,14 @@ namespace CitiesOfSigmar {
                 model->addMeleeWeapon(&m_cutlass);
             }
             model->addMeleeWeapon(&m_blade);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -131,19 +136,19 @@ namespace CitiesOfSigmar {
 
     int BlackArkCorsairs::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int BlackArkCorsairs::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_hornblower) mod++;
+        if (isNamedModelAlive("Hornblower")) mod++;
         return mod;
     }
 
     int BlackArkCorsairs::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

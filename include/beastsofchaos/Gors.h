@@ -40,8 +40,6 @@ namespace BeastsOfChaos {
     private:
 
         bool m_pairedBlades = false;
-        bool m_brayhorn = false;
-        bool m_bannerBearer = false;
 
         Weapon m_gorBlade,
                 m_gorBladeFoeRender;

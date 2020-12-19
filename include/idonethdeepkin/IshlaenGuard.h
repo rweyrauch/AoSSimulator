@@ -37,9 +37,6 @@ namespace IdonethDeepkin {
 
         int toSaveModifier(const Weapon *weapon) const override;
 
-        bool m_standardBearers = false;
-        bool m_musicians = false;
-
     private:
 
         Weapon m_helsabre,

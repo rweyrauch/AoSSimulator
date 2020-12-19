@@ -82,9 +82,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_drummer = drummer;
-
         // Add the Keeper
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_halberdKeeper);
@@ -93,6 +90,14 @@ namespace CitiesOfSigmar {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_halberd);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
+            }
             addModel(model);
         }
 
@@ -103,19 +108,19 @@ namespace CitiesOfSigmar {
 
     int PhoenixGuard::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_drummer) mod++;
+        if (isNamedModelAlive("Drummer")) mod++;
         return mod;
     }
 
     int PhoenixGuard::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_drummer) mod++;
+        if (isNamedModelAlive("Drummer")) mod++;
         return mod;
     }
 
     int PhoenixGuard::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

@@ -79,9 +79,6 @@ namespace OgorMawtribes {
             return false;
         }
 
-        m_runeMawBearer = runeMawBearer;
-        m_bellower = bellower;
-
         auto gutlord = new Model(g_basesize, wounds());
         gutlord->addMeleeWeapon(&m_bashingWeaponGutlord);
         gutlord->addMeleeWeapon(&m_bite);
@@ -91,6 +88,15 @@ namespace OgorMawtribes {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_bashingWeapon);
             model->addMeleeWeapon(&m_bite);
+            if (runeMawBearer) {
+                model->setName("Rune Maw Bearer");
+                runeMawBearer = false;
+            }
+            else if (bellower) {
+                model->setName("Bellower");
+                bellower = false;
+            }
+
             addModel(model);
         }
 
@@ -109,7 +115,7 @@ namespace OgorMawtribes {
 
     int Ironguts::bellower(const Unit *target) {
         // Bellower
-        if (m_bellower && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive("Bellower") && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -1;
         }
         return 0;

@@ -36,9 +36,6 @@ namespace IdonethDeepkin {
             return false;
         }
 
-        m_standardBearers = standardBearers;
-        m_musicians = musicians;
-
         auto prince = new Model(g_basesize, wounds());
         prince->addMeleeWeapon(&m_helsabrePrince);
         prince->addMeleeWeapon(&m_fangmoraFangedMaw);
@@ -50,6 +47,14 @@ namespace IdonethDeepkin {
             model->addMeleeWeapon(&m_helsabre);
             model->addMeleeWeapon(&m_fangmoraFangedMaw);
             model->addMeleeWeapon(&m_fangmoraLashingTail);
+            if (standardBearers) {
+                model->setName("Standard Bearer");
+                standardBearers = false;
+            }
+            else if (musicians) {
+                model->setName("Musicians");
+                musicians = false;
+            }
             addModel(model);
         }
 
@@ -97,12 +102,12 @@ namespace IdonethDeepkin {
     }
 
     Rerolls AkhelianIshlaenGuard::battleshockRerolls() const {
-        if (m_standardBearers) { return Reroll_Failed; }
+        if (isNamedModelAlive("Standard Bearer")) { return Reroll_Failed; }
         return Unit::battleshockRerolls();
     }
 
     Rerolls AkhelianIshlaenGuard::chargeRerolls() const {
-        if (m_musicians) { return Reroll_Failed; }
+        if (isNamedModelAlive("Musician")) { return Reroll_Failed; }
         return Unit::chargeRerolls();
     }
 

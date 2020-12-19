@@ -35,9 +35,6 @@ namespace OgorMawtribes {
 
     private:
 
-        bool m_runeMawBearer = false;
-        bool m_bellower = false;
-
         Weapon m_bashingWeapon,
                 m_bite,
                 m_bashingWeaponGutlord;

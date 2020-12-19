@@ -47,8 +47,6 @@ namespace Ironjawz {
         }
 
         m_numShields = numShields;
-        m_drummer = drummer;
-        m_standardBearer = standard;
 
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
@@ -58,6 +56,18 @@ namespace Ironjawz {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_choppa);
+            if (standard != StandardOption::None) {
+                if (standard == StandardOption::BannerBearer)
+                    model->setName("Banner Bearer");
+                else if (standard == StandardOption::GlyphBearer)
+                    model->setName("Glyph Bearer");
+                standard = StandardOption::None;
+            }
+            else if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
+            }
+
             addModel(model);
         }
 
@@ -110,7 +120,7 @@ namespace Ironjawz {
     int OrrukArdboys::braveryModifier() const {
         auto mod = Ironjawz::braveryModifier();
 
-        if (m_standardBearer == BannerBearer) {
+        if (isNamedModelAlive("Banner Bearer")) {
             mod += 2;
         }
         return mod;
@@ -123,7 +133,7 @@ namespace Ironjawz {
     int OrrukArdboys::chargeModifier() const {
         int modifier = Ironjawz::chargeModifier();
 
-        if (m_drummer)
+        if (isNamedModelAlive("Drummer"))
             modifier += 2;
 
         return modifier;
@@ -174,7 +184,7 @@ namespace Ironjawz {
 
     int OrrukArdboys::glyphBearer(const Unit *target) {
         // Gorkamorka Glyph Bearer
-        if ((m_standardBearer == GlyphBearer) && (target->owningPlayer() != owningPlayer()) &&
+        if (isNamedModelAlive("Glyph Bearer") && (target->owningPlayer() != owningPlayer()) &&
             (distanceTo(target) <= 3.0)) {
             return -1;
         }

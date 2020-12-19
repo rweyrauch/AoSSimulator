@@ -97,9 +97,6 @@ namespace SlavesToDarkness {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         auto leader = new Model(g_basesize, wounds());
         if (doomKnightWeapon == Ensorcelled_Weapon) {
             leader->addMeleeWeapon(&m_ensorcelledWeaponLeader);
@@ -112,7 +109,7 @@ namespace SlavesToDarkness {
         leader->setName("Doom Knight");
         addModel(leader);
 
-        if (m_standardBearer) {
+        if (standardBearer) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Standard Bearer");
             if (weapons == Ensorcelled_Weapon)
@@ -123,7 +120,7 @@ namespace SlavesToDarkness {
             addModel(model);
         }
 
-        if (m_hornblower) {
+        if (hornblower) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
             if (weapons == Ensorcelled_Weapon)
@@ -173,20 +170,6 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    void ChaosKnights::onWounded() {
-        Unit::onWounded();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Hornblower")) {
-                m_hornblower = false;
-            }
-            if (ip->slain() && (ip->getName() == "Standard Bearer")) {
-                m_standardBearer = false;
-            }
-        }
-    }
-
     Wounds ChaosKnights::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Chaos Runeshield
         Dice::RollResult mortalSaves;
@@ -201,34 +184,20 @@ namespace SlavesToDarkness {
 
     int ChaosKnights::runModifier() const {
         auto modifier = Unit::runModifier();
-        if (m_hornblower) modifier += 1;
+        if (isNamedModelAlive("Hornblower")) modifier += 1;
         return modifier;
     }
 
     int ChaosKnights::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (m_hornblower) modifier += 1;
+        if (isNamedModelAlive("Hornblower")) modifier += 1;
         return modifier;
     }
 
     int ChaosKnights::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
-        if (m_standardBearer) modifier += 1;
+        if (isNamedModelAlive("Standard Bearer")) modifier += 1;
         return modifier;
-    }
-
-    void ChaosKnights::onRestore() {
-        Unit::onRestore();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->getName() == "Hornblower") {
-                m_hornblower = true;
-            }
-            if (ip->getName() == "Standard Bearer") {
-                m_standardBearer = true;
-            }
-        }
     }
 
     Wounds ChaosKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

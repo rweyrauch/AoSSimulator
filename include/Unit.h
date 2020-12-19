@@ -88,6 +88,8 @@ public:
 
     const Model *getModel(int which) const { return m_models.at(which).get(); }
 
+    bool isNamedModelAlive(const std::string& name) const;
+
     /*!
      * Restore a unit to its initial condition, as it was at the start of the battle.
      */

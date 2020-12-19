@@ -91,24 +91,10 @@ namespace SlavesToDarkness {
 
     int CypherLords::chargeModifier() const {
         int modifier = Unit::chargeModifier();
-        if (m_hasLuminate) {
+        if (isNamedModelAlive("Luminate")) {
             modifier += 1;
         }
         return modifier;
-    }
-
-    void CypherLords::onWounded() {
-        Unit::onWounded();
-
-        // Check for Thrallmaster and Luminate
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Thrallmaster")) {
-                m_hasThrallmaster = false;
-            }
-            if (ip->slain() && (ip->getName() == "Luminate")) {
-                m_hasLuminate = false;
-            }
-        }
     }
 
     int CypherLords::ComputePoints(int numModels) {

@@ -37,11 +37,6 @@ namespace Nurgle {
 
         Rerolls toSaveRerolls(const Weapon *weapon) const override;
 
-    protected:
-
-        bool m_iconBearer = false;
-        bool m_pipers = false;
-
     private:
 
         Weapon m_plaguesword,

@@ -57,9 +57,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_hornblower = false;
-
         Weapon m_handbow,
                 m_cutlass,
                 m_blade,

@@ -135,19 +135,16 @@ namespace Khorne {
         if ((woundRoll == 6) && weapon->name() == m_greatAxeOfKhorne.name()) {
             const int damageIndex = getDamageTableIndex();
 
-            Wounds wounds = {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
-
             // These mortal wounds are applied to all enemy units within 8".
             // Skip the target unit as the weaponDamage function will handle it.
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0);
             for (auto ip : units) {
                 if (ip != target) {
-                    // TODO: need to allow unit a wound save
-                    Wounds actualWounds = wounds; //ip->applyWoundSave(wounds);
-                    ip->applyDamage(actualWounds, nullptr); // TODO: allow non-const attacker
+                    Wounds wounds = {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
+                    ip->applyDamage(wounds, nullptr); // TODO: allow non-const attacker
                 }
             }
-            return wounds;
+            return {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
         }
         return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }

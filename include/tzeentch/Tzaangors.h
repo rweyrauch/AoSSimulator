@@ -54,8 +54,6 @@ namespace Tzeentch {
         WeaponOptions m_weaponOption = Paired_Savage_Blades;
         int m_numGreatblades = 0;
         int m_numMutants = 0;
-        bool m_iconBearer = false;
-        bool m_brayhorns = false;
 
         Weapon m_savageBlade,
                 m_savageBladeTwistbray,

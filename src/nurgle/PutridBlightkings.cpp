@@ -32,7 +32,6 @@ namespace Nurgle {
             return false;
         }
 
-        m_iconBearer = iconBearer;
         m_sonorousTocsin = sonorousTocsin;
 
         // Add the Blightlord
@@ -43,6 +42,10 @@ namespace Nurgle {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_blightedWeapon);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
             addModel(model);
         }
 

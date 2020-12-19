@@ -46,8 +46,6 @@ namespace Seraphon {
         }
 
         m_weaponOption = weapons;
-        m_iconBearer = iconBearer;
-        m_wardrum = wardrum;
 
         // Add the Alpha
         auto alpha = new Model(g_basesize, wounds());
@@ -70,6 +68,14 @@ namespace Seraphon {
             }
             model->addMeleeWeapon(&m_jaws);
             model->addMeleeWeapon(&m_coldOneJaws);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (wardrum) {
+                model->setName("Wardrum");
+                wardrum = false;
+            }
             addModel(model);
         }
 
@@ -152,14 +158,14 @@ namespace Seraphon {
     }
 
     Rerolls SaurusKnights::chargeRerolls() const {
-        if (m_wardrum) return Reroll_Failed;
+        if (isNamedModelAlive("Wardrum")) return Reroll_Failed;
 
         return SeraphonBase::chargeRerolls();
     }
 
     int SaurusKnights::stardrakeIcon(const Unit *target) {
         // Icon Bearer
-        if (m_iconBearer && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive("Icon Bearer") && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

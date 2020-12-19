@@ -41,8 +41,6 @@ namespace Khorne {
 
     private:
 
-        bool m_iconBearer = false;
-
         Weapon m_blades,
                 m_viciousMutation;
 

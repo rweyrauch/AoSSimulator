@@ -51,8 +51,6 @@ namespace CitiesOfSigmar {
     private:
 
         WeaponOptions m_weaponOption = Ancestral_Weapon_And_Shield;
-        bool m_standardBearer = false;
-        bool m_musician = false;
 
         Weapon m_ancestralAxeHammer,
                 m_ancestralGreatAxe,

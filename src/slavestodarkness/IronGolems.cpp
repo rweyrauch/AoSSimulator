@@ -98,23 +98,10 @@ namespace SlavesToDarkness {
 
     int IronGolems::braveryModifier() const {
         int modifier = Unit::braveryModifier();
-        if (m_hasSignifer) {
+        if (isNamedModelAlive("Signifer")) {
             modifier += 2;
         }
         return modifier;
-    }
-
-    void IronGolems::onWounded() {
-        Unit::onWounded();
-
-        // Check for Signifer
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Signifer")) {
-                m_hasSignifer = false;
-                break;
-            }
-        }
-
     }
 
     int IronGolems::ComputePoints(int numModels) {

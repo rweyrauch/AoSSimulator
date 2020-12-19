@@ -43,9 +43,6 @@ namespace Tzeentch {
 
     private:
 
-        bool m_iconBearer = false;
-        bool m_hornblower = false;
-
         Weapon m_magicalFlamesPink,
                 m_magicalFlamesBlue,
                 m_magicalFlamesBrimstone,

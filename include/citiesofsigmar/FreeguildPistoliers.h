@@ -50,8 +50,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_trumpeter = false;
-
         Weapon m_pistols,
                 m_handgun,
                 m_sabreAndPistolButt,

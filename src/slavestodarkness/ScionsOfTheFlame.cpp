@@ -113,9 +113,7 @@ namespace SlavesToDarkness {
 
     Rerolls ScionsOfTheFlame::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (weapon->name() == m_pots.name()) {
-            auto predicate = [](const auto& val) { return (val->getName() == "Inferno Priest") && !val->slain() && !val->fled(); };
-            auto ip = std::find_if(m_models.begin(), m_models.end(), predicate);
-            if (ip != m_models.end())
+            if (isNamedModelAlive("Inferno Priest"))
                 return Reroll_Ones;
         }
         return SlavesToDarknessBase::toHitRerolls(weapon, target);

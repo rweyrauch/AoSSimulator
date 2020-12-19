@@ -47,9 +47,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_hornblower = false;
-
         Weapon m_lance,
                 m_lanceDreadKnight,
                 m_jaws;

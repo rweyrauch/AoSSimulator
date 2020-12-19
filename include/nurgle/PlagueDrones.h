@@ -50,8 +50,6 @@ namespace Nurgle {
 
     protected:
 
-        bool m_iconBearer = false;
-        bool m_bellTollers = false;
         WeaponOption m_weapon = Prehensile_Proboscis;
 
         Rerolls bellTollersBattleshockReroll(const Unit *unit);

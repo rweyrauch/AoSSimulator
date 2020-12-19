@@ -48,7 +48,7 @@ namespace LuminethRealmLords {
     }
 
     int AlarithStoneguard::EnumStringToInt(const std::string &enumString) {
-        auto weapon = magic_enum::enum_cast<CommandTrait>(enumString);
+        auto weapon = magic_enum::enum_cast<WeaponOption>(enumString);
         if (weapon.has_value()) return (int)weapon.value();
 
         return LuminethBase::EnumStringToInt(enumString);
@@ -101,14 +101,13 @@ namespace LuminethRealmLords {
         }
 
         m_weaponOption = weaponOption;
-        m_standardBearer = standardBearer;
 
         auto seneschal = new Model(g_basesize, wounds());
         seneschal->addMeleeWeapon(&m_pairedStratumHammers);
         seneschal->setName("Truestone Seneschal");
         addModel(seneschal);
 
-        if (m_standardBearer) {
+        if (standardBearer) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_stratumHammer);
             model->setName("Standard Bearer");
@@ -128,7 +127,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls AlarithStoneguard::battleshockRerolls() const {
-        if (m_standardBearer) return Reroll_Failed;
+        if (isNamedModelAlive("Standard Bearer")) return Reroll_Failed;
         return Unit::battleshockRerolls();
     }
 

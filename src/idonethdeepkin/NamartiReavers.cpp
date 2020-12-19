@@ -40,13 +40,15 @@ namespace IdonethDeepkin {
             return false;
         }
 
-        m_numIconBearers = numIconBearers;
-
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_whisperbowStormFire);
             model->addMissileWeapon(&m_whisperbowAimedFire);
             model->addMeleeWeapon(&m_keeningBlade);
+            if (numIconBearers >= 0) {
+                model->setName("Icon Bearer");
+                numIconBearers--;
+            }
             addModel(model);
         }
 

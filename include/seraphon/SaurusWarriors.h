@@ -49,8 +49,6 @@ namespace Seraphon {
     private:
 
         WeaponOption m_weaponOption = Celestite_Club;
-        bool m_iconBearer = false;
-        bool m_wardrum = false;
 
         Weapon m_celestiteClub,
                 m_celestiteClubAlpha,

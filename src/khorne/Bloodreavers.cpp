@@ -41,8 +41,6 @@ namespace Khorne {
         }
 
         m_weaponOption = weapons;
-        m_iconBearer = iconBearer;
-        m_hornblower = hornblowers;
 
         // Add the Chieftain
         auto chieftainModel = new Model(g_basesize, wounds());
@@ -61,6 +59,15 @@ namespace Khorne {
             } else if (m_weaponOption == Meatripper_Axe) {
                 model->addMeleeWeapon(&m_meatripperAxe);
             }
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
+            }
+
             addModel(model);
         }
 
@@ -82,7 +89,7 @@ namespace Khorne {
         int modifier = KhorneBase::braveryModifier();
 
         // Icon Bearer
-        if (m_iconBearer) {
+        if (isNamedModelAlive("Icon Bearer")) {
             modifier++;
         }
 
@@ -160,7 +167,7 @@ namespace Khorne {
 
     int Bloodreavers::runModifier() const {
         int modifier = KhorneBase::runModifier();
-        if (m_hornblower) {
+        if (isNamedModelAlive("Hornblower")) {
             modifier += 1;
         }
         return modifier;
@@ -168,7 +175,7 @@ namespace Khorne {
 
     int Bloodreavers::chargeModifier() const {
         int modifier = KhorneBase::chargeModifier();
-        if (m_hornblower) {
+        if (isNamedModelAlive("Hornblower")) {
             modifier += 1;
         }
         return modifier;

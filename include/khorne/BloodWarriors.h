@@ -40,7 +40,6 @@ namespace Khorne {
     private:
 
         bool m_pairedGoreaxe = false;
-        bool m_iconBearer = false;
 
         Weapon m_goreaxe,
                 m_goreaxeChampion,

@@ -37,9 +37,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_musician = musician;
-
         auto oldguard = new Model(g_basesize, wounds());
         if (weapons == Ancestral_Weapon_And_Shield) {
             oldguard->addMeleeWeapon(&m_ancestralAxeHammerOldGuard);
@@ -54,6 +51,14 @@ namespace CitiesOfSigmar {
                 model->addMeleeWeapon(&m_ancestralAxeHammer);
             } else if (weapons == Ancestral_Great_Axe) {
                 model->addMeleeWeapon(&m_ancestralGreatAxe);
+            }
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (musician) {
+                model->setName("Musician");
+                musician = false;
             }
             addModel(model);
         }
@@ -134,19 +139,19 @@ namespace CitiesOfSigmar {
 
     int Longbeards::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_musician) mod++;
+        if (isNamedModelAlive("Musician")) mod++;
         return mod;
     }
 
     int Longbeards::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_musician) mod++;
+        if (isNamedModelAlive("Musician")) mod++;
         return mod;
     }
 
     int Longbeards::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

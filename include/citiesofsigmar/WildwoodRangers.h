@@ -41,9 +41,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_hornblower = false,
-                m_standardBearer = false;
-
         Weapon m_rangersDraich,
                 m_wardensDraich;
 

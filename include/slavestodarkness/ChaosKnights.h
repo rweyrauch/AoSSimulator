@@ -42,8 +42,6 @@ namespace SlavesToDarkness {
 
     protected:
 
-        void onWounded() override;
-
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         int runModifier() const override;
@@ -52,18 +50,11 @@ namespace SlavesToDarkness {
 
         int braveryModifier() const override;
 
-        void onRestore() override;
-
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int terrifyingChampions(const Unit *unit);
-
-    protected:
-
-        bool m_standardBearer = false;
-        bool m_hornblower = false;
 
     private:
 

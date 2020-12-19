@@ -37,9 +37,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_drummer = drummer;
-
         auto ironbeard = new Model(g_basesize, wounds());
         if (ironbeardWeapons == Ironbreaker_Axe_Or_Hammer) {
             ironbeard->addMeleeWeapon(&m_axeOrHammerIronbeard);
@@ -59,6 +56,14 @@ namespace CitiesOfSigmar {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_axeOrHammer);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
+            }
             addModel(model);
         }
 
@@ -171,19 +176,19 @@ namespace CitiesOfSigmar {
 
     int Ironbreakers::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_drummer) mod++;
+        if (isNamedModelAlive("Drummer")) mod++;
         return mod;
     }
 
     int Ironbreakers::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_drummer) mod++;
+        if (isNamedModelAlive("Drummer")) mod++;
         return mod;
     }
 
     int Ironbreakers::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

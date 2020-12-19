@@ -38,8 +38,6 @@ namespace Khorne {
         }
 
         m_weaponOption = weapons;
-        m_standarBearer = standardBearer;
-        m_hornblower = hornblowers;
 
         // Add the Skullhunter
         auto hunter = new Model(g_basesize, wounds());
@@ -60,6 +58,14 @@ namespace Khorne {
                 model->addMeleeWeapon(&m_bloodglaive);
             }
             model->addMeleeWeapon(&m_brazenHooves);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
+            }
             addModel(model);
         }
 
@@ -110,21 +116,21 @@ namespace Khorne {
 
     int MightySkullcrushers::chargeModifier() const {
         int modifier = KhorneBase::chargeModifier();
-        if (m_hornblower)
+        if (isNamedModelAlive("Hornblower"))
             modifier += 1;
         return modifier;
     }
 
     int MightySkullcrushers::runModifier() const {
         int modifier = KhorneBase::runModifier();
-        if (m_hornblower)
+        if (isNamedModelAlive("Hornblower"))
             modifier += 1;
         return modifier;
     }
 
     int MightySkullcrushers::braveryModifier() const {
         int modifier = KhorneBase::braveryModifier();
-        if (m_standarBearer)
+        if (isNamedModelAlive("Standard Bearer"))
             modifier += 2;
         return modifier;
     }

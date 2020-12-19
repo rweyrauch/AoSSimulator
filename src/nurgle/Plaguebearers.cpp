@@ -34,9 +34,6 @@ namespace Nurgle {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_pipers = pipers;
-
         // Add the Plagueridden
         auto leader = new Model(g_basesize, wounds());
         leader->addMeleeWeapon(&m_plagueswordPlagueRidden);
@@ -45,6 +42,15 @@ namespace Nurgle {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_plaguesword);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (pipers) {
+                model->setName("Piper");
+                pipers = false;
+            }
+
             addModel(model);
         }
 

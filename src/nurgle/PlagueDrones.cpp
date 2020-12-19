@@ -45,8 +45,6 @@ namespace Nurgle {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_bellTollers = bellTollers;
         m_weapon = weapons;
 
         // Add the Plaguebringer
@@ -71,6 +69,15 @@ namespace Nurgle {
                 model->addMeleeWeapon(&m_mouthparts);
             }
             model->addMeleeWeapon(&m_venemousSting);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (bellTollers) {
+                model->setName("Bell Tollers");
+                bellTollers = false;
+            }
+
             addModel(model);
         }
 
@@ -132,7 +139,7 @@ namespace Nurgle {
 
     void PlagueDrones::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Unit::computeBattleshockEffect(roll, numFled, numAdded);
-        if (m_iconBearer) {
+        if (isNamedModelAlive("Icon Bearer")) {
             // Icon Bearer
             if (roll == 1) {
                 numAdded = Dice::RollD6();
@@ -196,7 +203,7 @@ namespace Nurgle {
 
     Rerolls PlagueDrones::bellTollersBattleshockReroll(const Unit *unit) {
         // Bell Tollers
-        if (m_bellTollers && !isFriendly(unit)) {
+        if (isNamedModelAlive("Bell Tollers") && !isFriendly(unit)) {
             if (distanceTo(unit) <= 6.0) return Reroll_Ones;
         }
         return Reroll_Ones;

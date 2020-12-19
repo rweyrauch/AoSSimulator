@@ -52,9 +52,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_hornblower = false;
-
         Weapon m_halberd,
                 m_lance,
                 m_halberdPreceptor,

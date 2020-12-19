@@ -45,9 +45,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_drummer = false;
-
         Weapon m_halberd, m_halberdCaptain;
 
         static bool s_registered;

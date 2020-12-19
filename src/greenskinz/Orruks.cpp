@@ -42,15 +42,13 @@ namespace Greenskinz {
                      &m_cuttaBoss};
     }
 
-    bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, StandardBearer standardBearer) {
+    bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, StandardOption standardBearer) {
         // validate inputs
         if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             // Invalid model count.
             return false;
         }
 
-        m_waaaghDrummer = drummer;
-        m_standardBearer = standardBearer;
         m_weaponOption = weapons;
 
         // Add the boss
@@ -89,6 +87,17 @@ namespace Greenskinz {
                     model->addMeleeWeapon(&m_choppa);
                     break;
             }
+            if (standardBearer != StandardOption::None) {
+                if (standardBearer == StandardOption::Orruk_Banner)
+                    model->setName("Orruk Banner");
+                else if (standardBearer == StandardOption::Skull_Icon)
+                    model->setName("Skull Icon");
+                standardBearer = StandardOption::None;
+            }
+            else if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
+            }
             addModel(model);
         }
 
@@ -100,9 +109,9 @@ namespace Greenskinz {
     Unit *Orruks::Create(const ParameterList &parameters) {
         auto unit = new Orruks();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Choppa_And_Shield);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Choppa_And_Shield);
         bool drummer = GetBoolParam("Waaagh! Drummer", parameters, false);
-        StandardBearer standardBearer = (StandardBearer) GetEnumParam("Standard Bearer", parameters, Orruk_Banner);
+        auto standardBearer = (StandardOption) GetEnumParam("Standard Bearer", parameters, Orruk_Banner);
 
         bool ok = unit->configure(numModels, weapons, drummer, standardBearer);
         if (!ok) {
@@ -115,7 +124,7 @@ namespace Greenskinz {
     void Orruks::Init() {
         if (!s_registered) {
             static const std::array<int, 4> weapons = {Choppa_And_Shield, Spear_And_Shield, Paired_Choppas, Orruk_Bow_And_Cutta};
-            static const std::array<int, 3> banners = {None, Orruk_Banner, Skull_Icon};
+            static const std::array<int, 3> banners = {StandardOption::None, StandardOption::Orruk_Banner, StandardOption::Skull_Icon};
 
             static FactoryMethod factoryMethod {
                     Orruks::Create,
@@ -179,14 +188,14 @@ namespace Greenskinz {
 
     int Orruks::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (m_waaaghDrummer)
+        if (isNamedModelAlive("Drummer"))
             modifier += 2;
         return modifier;
     }
 
     int Orruks::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
-        if (m_standardBearer == Orruk_Banner) {
+        if (isNamedModelAlive("Orruk Banner")) {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             if (!units.empty()) {
                 modifier += 2;

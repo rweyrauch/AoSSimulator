@@ -32,8 +32,6 @@ namespace Wanderers {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
         m_gladeShields = gladeShields;
 
         auto lord = new Model(g_basesize, wounds());
@@ -43,6 +41,14 @@ namespace Wanderers {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_spearStave);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -87,7 +93,7 @@ namespace Wanderers {
     }
 
     Rerolls EternalGuard::runRerolls() const {
-        if (m_hornblower) {
+        if (isNamedModelAlive("Hornblower")) {
             return Reroll_Failed;
         }
         return Wanderer::runRerolls();
@@ -95,7 +101,7 @@ namespace Wanderers {
 
     int EternalGuard::braveryModifier() const {
         int modifier = Wanderer::braveryModifier();
-        if (m_standardBearer) {
+        if (isNamedModelAlive("Standard Bearer")) {
             modifier += 1;
 
             // if (Board::Instance()->unitInCover(this)) { modifier += 1; }

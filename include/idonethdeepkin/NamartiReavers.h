@@ -36,10 +36,6 @@ namespace IdonethDeepkin {
         // Swift Tide
         Rerolls runRerolls() const override { return Reroll_Failed; }
 
-    protected:
-
-        int m_numIconBearers = 0;
-
     private:
 
         Weapon m_keeningBlade,

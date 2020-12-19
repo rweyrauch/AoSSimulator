@@ -35,8 +35,6 @@ namespace Slaanesh {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        bool modelIsAlive(const std::string& name) const;
-
     private:
 
         Weapon m_bow,

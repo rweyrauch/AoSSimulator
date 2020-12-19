@@ -105,9 +105,6 @@ namespace CitiesOfSigmar {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_drummer = drummer;
-
         // Add the Sergeant
         auto bossModel = new Model(g_basesize, wounds());
         if (weapons == Halberd) {
@@ -128,6 +125,14 @@ namespace CitiesOfSigmar {
             } else if (weapons == Sword) {
                 model->addMeleeWeapon(&m_sword);
             }
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
+            }
             addModel(model);
         }
 
@@ -138,19 +143,19 @@ namespace CitiesOfSigmar {
 
     int FreeguildGuard::runModifier() const {
         auto mod = Unit::runModifier();
-        if (m_drummer) mod++;
+        if (isNamedModelAlive("Drummer")) mod++;
         return mod;
     }
 
     int FreeguildGuard::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (m_drummer) mod++;
+        if (isNamedModelAlive("Drummer")) mod++;
         return mod;
     }
 
     int FreeguildGuard::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (m_standardBearer) mod++;
+        if (isNamedModelAlive("Standard Bearer")) mod++;
         return mod;
     }
 

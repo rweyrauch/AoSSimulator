@@ -38,8 +38,6 @@ namespace BeastsOfChaos {
             return false;
         }
 
-        m_drummer = drummer;
-        m_bannerBearer = bannerBearer;
         m_pairedAxes = (options == Paired_Bullgor_Axes);
 
         auto bloodkine = new Model(g_basesize, wounds());
@@ -58,6 +56,14 @@ namespace BeastsOfChaos {
                 model->addMeleeWeapon(&m_bullgorAxe);
             } else if (options == Bullgor_Great_Axe) {
                 model->addMeleeWeapon(&m_bullgorGreatAxe);
+            }
+            if (bannerBearer) {
+                model->setName("Banner Bearer");
+                bannerBearer = false;
+            }
+            else if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
             }
             addModel(model);
         }
@@ -126,7 +132,7 @@ namespace BeastsOfChaos {
 
     int Bullgors::chargeModifier() const {
         int modifier = Unit::chargeModifier();
-        if (m_drummer) {
+        if (isNamedModelAlive("Drummer")) {
             modifier += 1;
         }
         return modifier;

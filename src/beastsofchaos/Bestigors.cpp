@@ -33,10 +33,7 @@ namespace BeastsOfChaos {
             return false;
         }
 
-        m_brayhorn = brayhorn;
-        m_bannerBearer = bannerBearer;
-
-        m_runAndCharge = m_brayhorn;
+        m_runAndCharge = brayhorn;
 
         auto gougehorn = new Model(g_basesize, wounds());
         gougehorn->addMeleeWeapon(&m_despoilerAxeGougeHorn);
@@ -46,6 +43,14 @@ namespace BeastsOfChaos {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_despoilerAxe);
             addModel(model);
+            if (bannerBearer) {
+                model->setName("Banner Bearer");
+                bannerBearer = false;
+            }
+            else if (brayhorn) {
+                model->setName("Brayhorn");
+                brayhorn = false;
+            }
         }
 
         m_points = ComputePoints(numModels);
@@ -119,7 +124,7 @@ namespace BeastsOfChaos {
 
     int Bestigors::runModifier() const {
         int modifier = Unit::runModifier();
-        if (m_bannerBearer) {
+        if (isNamedModelAlive("Banner Bearer")) {
             modifier += 1;
         }
         return modifier;

@@ -96,8 +96,6 @@ namespace SlavesToDarkness {
         }
 
         m_weaponOption = weapons;
-        m_iconBearer = iconBearer;
-        m_hornblower = hornblower;
 
         auto leader = new Model(g_basesize, wounds());
         if (weapons == Axe_And_Shield) {
@@ -112,7 +110,7 @@ namespace SlavesToDarkness {
         leader->setName("Marauder Chieftain");
         addModel(leader);
 
-        if (m_iconBearer) {
+        if (iconBearer) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Icon Bearer");
             if (weapons == Axe_And_Shield)
@@ -127,7 +125,7 @@ namespace SlavesToDarkness {
             addModel(model);
         }
 
-        if (m_hornblower) {
+        if (hornblower) {
             auto model = new Model(g_basesize, wounds());
             model->setName("Hornblower");
             if (weapons == Axe_And_Shield)
@@ -190,44 +188,16 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    void ChaosMarauderHorsemen::onWounded() {
-        Unit::onWounded();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->slain() && (ip->getName() == "Hornblower")) {
-                m_hornblower = false;
-            }
-            if (ip->slain() && (ip->getName() == "Icon Bearer")) {
-                m_iconBearer = false;
-            }
-        }
-    }
-
     int ChaosMarauderHorsemen::runModifier() const {
         auto modifier = Unit::runModifier();
-        if (m_hornblower) modifier += 1;
+        if (isNamedModelAlive("Hornblower")) modifier += 1;
         return modifier;
     }
 
     int ChaosMarauderHorsemen::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (m_hornblower) modifier += 1;
+        if (isNamedModelAlive("Hornblower")) modifier += 1;
         return modifier;
-    }
-
-    void ChaosMarauderHorsemen::onRestore() {
-        Unit::onRestore();
-
-        // Check for special models
-        for (const auto &ip : m_models) {
-            if (ip->getName() == "Hornblower") {
-                m_hornblower = true;
-            }
-            if (ip->getName() == "Icon Bearer") {
-                m_iconBearer = true;
-            }
-        }
     }
 
     int ChaosMarauderHorsemen::toHitModifier(const Weapon *weapon, const Unit *target) const {
@@ -254,7 +224,7 @@ namespace SlavesToDarkness {
 
     int ChaosMarauderHorsemen::iconBearer(const Unit *unit) {
         // Icon Bearer
-        if (m_iconBearer && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
+        if (isNamedModelAlive("Icon Bearer") && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
             return -1;
         }
         return 0;

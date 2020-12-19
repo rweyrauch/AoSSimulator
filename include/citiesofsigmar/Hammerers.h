@@ -41,9 +41,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_musician = false;
-
         Weapon m_greatHammer,
                 m_greatHammerKeeper;
 

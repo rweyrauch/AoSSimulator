@@ -46,9 +46,6 @@ namespace BeastsOfChaos {
 
     private:
 
-        bool m_brayhorn = false;
-        bool m_bannerBearer = false;
-
         Weapon m_ungorBlade,
                 m_ungorBladeHalfhorn,
                 m_gnarledShortspear,

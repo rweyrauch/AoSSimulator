@@ -49,8 +49,6 @@ namespace CitiesOfSigmar {
 
     private:
 
-        bool m_trumpeter = false;
-
         Weapon m_blunderbuss,
                 m_pistols,
                 m_handgun,

@@ -42,8 +42,6 @@ namespace Khorne {
         }
 
         m_iconBearer = iconBearer;
-        m_standarBearer = standardBearer;
-        m_hornblower = hornblowers;
 
         // Add the Hellreaper
         auto reaperModel = new Model(g_basesize, wounds());
@@ -54,6 +52,14 @@ namespace Khorne {
         for (auto i = currentModelCount; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_hellblade);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
+            }
             addModel(model);
         }
 
@@ -157,12 +163,12 @@ namespace Khorne {
     }
 
     Rerolls Bloodletters::chargeRerolls() const {
-        if (m_standarBearer) return Reroll_Failed;
+        if (isNamedModelAlive("Standard Bearer")) return Reroll_Failed;
         return Unit::chargeRerolls();
     }
 
     Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit) {
-        if (m_hornblower && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
+        if (isNamedModelAlive("Hornblower") && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
 
         return No_Rerolls;
     }

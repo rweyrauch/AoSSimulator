@@ -32,9 +32,6 @@ namespace EldritchCouncil {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_hornblower = hornblower;
-
         auto lord = new Model(g_basesize, wounds());
         lord->addMeleeWeapon(&m_greatswordLord);
         addModel(lord);
@@ -42,6 +39,14 @@ namespace EldritchCouncil {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_greatsword);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 

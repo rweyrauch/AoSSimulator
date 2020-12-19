@@ -43,7 +43,7 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Share the Pain                   TODO
+// Share the Pain                   Yes
 // Paragon of Depravity             TODO
 //
 

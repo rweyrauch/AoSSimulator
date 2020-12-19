@@ -37,9 +37,6 @@ namespace Seraphon {
 
     private:
 
-        bool m_iconBearer = false;
-        bool m_wardrum = false;
-
         Weapon m_celestitePolearm,
                 m_celestitePolearmAlpha,
                 m_jaws;

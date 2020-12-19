@@ -48,8 +48,6 @@ namespace Khorne {
     private:
 
         bool m_iconBearer = false;
-        bool m_standarBearer = false;
-        bool m_hornblower = false;
 
         Weapon m_hellblade,
                 m_hellbladeReaper;

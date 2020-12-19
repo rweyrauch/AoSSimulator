@@ -1403,6 +1403,16 @@ bool Unit::hasShootingAttack(const Weapon** weapon) const {
     return false;
 }
 
+bool Unit::isNamedModelAlive(const std::string& name) const {
+    for (const auto& m : m_models) {
+        if (m->getName() != name) {
+            continue;
+        }
+        return !(m->slain() || m->fled());
+    }
+    return false;
+}
+
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
                        bool fly) :
         Unit(name, move, wounds, bravery, save, fly) {
