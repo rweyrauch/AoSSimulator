@@ -121,15 +121,15 @@ namespace SlavesToDarkness {
                         break;
                     case 4:
                         // Tide of Transmogrification
-                        unit->applyDamage({0, Dice::RollD3()});
+                        unit->applyDamage({0, Dice::RollD3()}, this);
                         break;
                     case 5:
                         // Maelstrom of Change
-                        unit->applyDamage({0, Dice::RollD6()});
+                        unit->applyDamage({0, Dice::RollD6()}, this);
                         break;
                     case 6: {
                         // Spawnchange
-                        auto numSlain = unit->applyDamage({0, Dice::RollD6()});
+                        auto numSlain = unit->applyDamage({0, Dice::RollD6()}, this);
                         if (numSlain) {
                             if (remainingWounds() < initialWounds()) {
                                 heal(Dice::RollD3());

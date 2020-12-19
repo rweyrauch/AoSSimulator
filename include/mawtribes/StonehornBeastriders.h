@@ -48,7 +48,7 @@ namespace OgorMawtribes {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         void onStartShooting(PlayerId player) override;
 

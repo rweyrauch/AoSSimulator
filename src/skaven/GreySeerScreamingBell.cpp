@@ -114,8 +114,8 @@ namespace Skaven {
         return true;
     }
 
-    Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Skaventide::applyWoundSave(wounds);
+    Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
         Dice::RollResult resultNormal, resultMortal;
@@ -186,7 +186,7 @@ namespace Skaven {
                 // Magical Backlash
                 auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
                 for (auto unit : units) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             } else if (roll <= 4) {
                 // Unholy Clamour
@@ -198,7 +198,7 @@ namespace Skaven {
                                                                g_damageTable[getDamageTableIndex()].m_pealRange);
                 for (auto unit : units) {
                     if (Dice::RollD6() >= 4) {
-                        unit->applyDamage({0, 1});
+                        unit->applyDamage({0, 1}, this);
                     }
                 }
             } else if (roll == 7) {
@@ -215,7 +215,7 @@ namespace Skaven {
                                                                g_damageTable[getDamageTableIndex()].m_pealRange);
                 for (auto unit : units) {
                     if (Dice::RollD6() >= 4) {
-                        unit->applyDamage({0, Dice::RollD3()});
+                        unit->applyDamage({0, Dice::RollD3()}, this);
                     }
                 }
             } else if (roll <= 11) {

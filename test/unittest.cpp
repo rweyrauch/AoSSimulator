@@ -235,7 +235,7 @@ TEST(Unit, DamageTable)
 
     for (auto i = 0; i < alarielle.wounds(); i++)
     {
-        alarielle.applyDamage(wounds);
+        alarielle.applyDamage(wounds, &alarielle);
         std::cout << "Wound: " << alarielle.remainingWounds() << "  Move: " << alarielle.move() << std::endl;
     }
 }

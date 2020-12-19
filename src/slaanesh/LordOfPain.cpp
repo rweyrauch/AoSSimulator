@@ -75,8 +75,8 @@ namespace Slaanesh {
         return g_pointsPerUnit;
     }
 
-    Wounds LordOfPain::applyWoundSave(const Wounds &wounds) {
-        return Unit::applyWoundSave(wounds);
+    Wounds LordOfPain::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
 } // Slannesh

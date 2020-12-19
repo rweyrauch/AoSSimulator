@@ -152,7 +152,7 @@ namespace Skaven {
                 if (roll == 6) mortalWounds = Dice::RollD3();
                 else if (roll >= 4) mortalWounds = 1;
 
-                unit->applyDamage({0, mortalWounds});
+                unit->applyDamage({0, mortalWounds}, this);
                 wounds.mortal += mortalWounds;
             }
         }
@@ -180,8 +180,8 @@ namespace Skaven {
         return extra;
     }
 
-    Wounds PlaguePriestOnPlagueFurnace::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Skaventide::applyWoundSave(wounds);
+    Wounds PlaguePriestOnPlagueFurnace::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
         Dice::RollResult resultNormal, resultMortal;
@@ -209,7 +209,7 @@ namespace Skaven {
             auto prayerRoll = Dice::RollD6();
             if (prayerRoll == 1) {
                 // Failed - take one mortal wound.
-                applyDamage({0, 1});
+                applyDamage({0, 1}, this);
             } else if (prayerRoll >= 3) {
                 // Success - select prayer (randomly)
                 if (Dice::RollD6() >= 4) {

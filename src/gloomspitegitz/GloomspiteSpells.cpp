@@ -71,7 +71,7 @@ namespace GloomspiteGitz {
             bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
             if (!unbound) {
                 mortalWounds = Dice::RollSpecial(damage);
-                target->applyDamage({0, mortalWounds, Wounds::Source::Spell});
+                target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
                 SimLog(Verbosity::Narrative,
                        "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                        m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,

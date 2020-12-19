@@ -177,7 +177,7 @@ namespace CitiesOfSigmar {
                 auto numHits = result.rollsGE(2);
                 for (auto i = 0; i < numHits; i++) {
                     auto mw = Dice::RollD3();
-                    m_shootingTarget->applyDamage({0, mw});
+                    m_shootingTarget->applyDamage({0, mw}, this);
                 }
             }
         }

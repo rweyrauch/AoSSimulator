@@ -86,7 +86,7 @@ namespace Nurgle {
         return true;
     }
 
-    Wounds LordOfAfflictions::applyWoundSave(const Wounds &wounds) {
+    Wounds LordOfAfflictions::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);
@@ -111,15 +111,15 @@ namespace Nurgle {
             // Incubatch
             for (auto unit : units) {
                 auto roll = Dice::RollD6();
-                if (unit->hasKeyword(NURGLE) && (roll >= 6)) unit->applyDamage({0, 1});
-                else if (roll >= 2) unit->applyDamage({0, 1});
+                if (unit->hasKeyword(NURGLE) && (roll >= 6)) unit->applyDamage({0, 1}, this);
+                else if (roll >= 2) unit->applyDamage({0, 1}, this);
             }
 
             // Virulent Discharge
             for (auto unit : units) {
                 if (Dice::RollD6() >= 6) {
                     if (unit->hasKeyword(NURGLE)) unit->heal(Dice::RollD3());
-                    else unit->applyDamage({0, Dice::RollD3()});
+                    else unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

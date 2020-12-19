@@ -119,7 +119,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    Wounds PhoenixGuard::applyWoundSave(const Wounds &wounds) {
+    Wounds PhoenixGuard::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Witness to Destiny
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

@@ -74,7 +74,7 @@ namespace GloomspiteGitz {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {
             if (Dice::RollD6() >= 2) {
-                unit->applyDamage({0, Dice::RollD3()});
+                unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
         // TODO: Setup 5 cave squigs w/in 9" of this model and outside of 3" from enemy models.
@@ -141,7 +141,7 @@ namespace GloomspiteGitz {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1);
         for (auto ip : units) {
             if (Dice::RollD6() == 6) {
-                ip->applyDamage({0, 1});
+                ip->applyDamage({0, 1}, this);
             }
         }
     }

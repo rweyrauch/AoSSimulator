@@ -217,7 +217,7 @@ namespace StormcastEternals {
                         // inflict D3 mortal wounds
                         roll = Dice::RollD3();
                         Wounds mortalWounds = {0, roll};
-                        (*ip)->applyDamage(mortalWounds);
+                        (*ip)->applyDamage(mortalWounds, this);
                         wounds += mortalWounds;
                     }
                 }
@@ -255,7 +255,7 @@ namespace StormcastEternals {
                 int roll = Dice::RollD6();
                 if (roll >= 4) {
                     Wounds wounds = {0, Dice::RollD3()};
-                    (*ip)->applyDamage(wounds);
+                    (*ip)->applyDamage(wounds, this);
                 }
                 unitsAffected++;
 
@@ -268,7 +268,7 @@ namespace StormcastEternals {
             Dice::RollD6(numModels, rolls);
             int mortalWounds = rolls.numUnmodified6s();
             Wounds wounds = {0, mortalWounds};
-            m_shootingTarget->applyDamage(wounds);
+            m_shootingTarget->applyDamage(wounds, this);
         }
     }
 

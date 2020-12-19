@@ -91,7 +91,7 @@ namespace Khorne {
                 SimLog(Verbosity::Narrative, "%s Murderous Charge inflicted %d mortal wounds on %s\n",
                        name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
 
-                m_meleeTarget->applyDamage(wounds);
+                m_meleeTarget->applyDamage(wounds, this);
             }
         }
         KhorneBase::onCharged();
@@ -110,8 +110,8 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
-    Wounds LordOfKhorneOnJuggernaut::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Unit::applyWoundSave(wounds);
+    Wounds LordOfKhorneOnJuggernaut::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Brass-clad Shield
         if (totalWounds.source == Wounds::Source::Spell) {

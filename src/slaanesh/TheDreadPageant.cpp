@@ -30,18 +30,22 @@ namespace Slaanesh {
 
     bool TheDreadPageant::configure() {
         auto vasillac = new Model(g_basesize, wounds()+2);
+        vasillac->setName("Vasillac");
         vasillac->addMeleeWeapon(&m_harpoon);
         addModel(vasillac);
 
         auto slakeslash = new Model(g_basesize, wounds()+2);
+        slakeslash->setName("Slakeslash");
         slakeslash->addMeleeWeapon(&m_clawAndWeapon);
         addModel(slakeslash);
 
         auto glissete = new Model(g_basesize, wounds());
+        glissete->setName("Glissete");
         glissete->addMeleeWeapon(&m_glaive);
         addModel(glissete);
 
         auto hadzu = new Model(g_basesize, wounds());
+        hadzu->setName("Hadzu");
         hadzu->addMissileWeapon(&m_bow);
         addModel(hadzu);
 
@@ -83,6 +87,42 @@ namespace Slaanesh {
 
     int TheDreadPageant::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds TheDreadPageant::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        Wounds totalWounds = wounds;
+
+        if (modelIsAlive("Vasillac")) {
+            // Art of the Myrmidesh
+            Dice::RollResult woundSaves, mortalSaves;
+            Dice::RollD6(wounds.normal, woundSaves);
+            Dice::RollD6(wounds.mortal, mortalSaves);
+
+            totalWounds.normal -= woundSaves.rollsGE(4);
+            totalWounds.normal = std::max(totalWounds.normal, 0);
+            totalWounds.mortal -= mortalSaves.rollsGE(4);
+            totalWounds.mortal = std::max(totalWounds.mortal, 0);
+        }
+
+        return totalWounds;
+    }
+
+    Wounds TheDreadPageant::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Deadliest Procession
+        if (hitRoll == 6) {
+            return {weapon->damage(), 1};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    bool TheDreadPageant::modelIsAlive(const std::string &name) const {
+        for (const auto& m : m_models) {
+            if (m->getName() != name) {
+                continue;
+            }
+            return !(m->slain() || m->fled());
+        }
+        return false;
     }
 
 } // Slannesh

@@ -117,7 +117,7 @@ namespace Skaven {
                 if (roll == 6) mortalWounds = Dice::RollD3();
                 else if (roll >= 4) mortalWounds = 1;
 
-                unit->applyDamage({0, mortalWounds});
+                unit->applyDamage({0, mortalWounds}, this);
                 wounds.mortal += mortalWounds;
             }
         }

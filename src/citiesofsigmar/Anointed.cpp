@@ -91,7 +91,7 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    Wounds Anointed::applyWoundSave(const Wounds &wounds) {
+    Wounds Anointed::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Witness to Destiny
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

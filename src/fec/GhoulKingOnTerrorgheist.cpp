@@ -170,7 +170,7 @@ namespace FleshEaterCourt {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto ip : units) {
             Wounds wounds = {0, Dice::RollD3()};
-            ip->applyDamage(wounds);
+            ip->applyDamage(wounds, this);
         }
     }
 
@@ -186,7 +186,7 @@ namespace FleshEaterCourt {
         if (unit && (distanceTo(unit) <= m_deathShriek.range())) {
             const auto roll = Dice::RollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
             if (roll > unit->bravery()) {
-                unit->applyDamage({0, roll - unit->bravery()});
+                unit->applyDamage({0, roll - unit->bravery()}, this);
             }
         }
     }

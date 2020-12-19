@@ -143,7 +143,7 @@ namespace IdonethDeepkin {
             int num3plus = roll.rollsGE(3);
             totalMortalWounds += (num3plus - num6s);
 
-            m_meleeTarget->applyDamage({0, totalMortalWounds});
+            m_meleeTarget->applyDamage({0, totalMortalWounds}, this);
 
             m_usedBiovoltaicBlast = true;
         }

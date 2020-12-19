@@ -144,7 +144,7 @@ namespace DaughtersOfKhaine {
         // Bladed Impact
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 1.0)) {
-            if (Dice::RollD6() >= 2) unit->applyDamage({0, Dice::RollD3()});
+            if (Dice::RollD6() >= 2) unit->applyDamage({0, Dice::RollD3()}, this);
         }
     }
 
@@ -156,7 +156,7 @@ namespace DaughtersOfKhaine {
         const int auraToHit = g_damageTable[getDamageTableIndex()].m_auraOfAgony;
         for (auto unit : units) {
             if (Dice::RollD6() >= auraToHit) {
-                unit->applyDamage({0, Dice::RollD3()});
+                unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }

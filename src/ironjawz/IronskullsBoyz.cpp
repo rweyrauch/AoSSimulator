@@ -76,7 +76,7 @@ namespace Ironjawz {
         }
     }
 
-    Wounds IronskullsBoyz::applyWoundSave(const Wounds &wounds) {
+    Wounds IronskullsBoyz::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Dead 'Ard
         Dice::RollResult result;
         Dice::RollD6(wounds.normal, result);

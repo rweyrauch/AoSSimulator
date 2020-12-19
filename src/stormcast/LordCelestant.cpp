@@ -87,7 +87,7 @@ namespace StormcastEternals {
                     Dice::RollResult rolls;
                     Dice::RollD6(numStrikes, rolls);
                     int mortalWounds = rolls.rollsGE(4);
-                    m_shootingTarget->applyDamage({0, mortalWounds});
+                    m_shootingTarget->applyDamage({0, mortalWounds}, this);
                 }
             }
         }

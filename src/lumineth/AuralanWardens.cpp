@@ -114,7 +114,7 @@ namespace LuminethRealmLords {
             if (unit && (distanceTo(unit) <= 3.0f)) {
                 m_usedMoonfireFlask = true;
                 if (Dice::RollD6() >= 2) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

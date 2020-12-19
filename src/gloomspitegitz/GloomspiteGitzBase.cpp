@@ -131,7 +131,7 @@ namespace GloomspiteGitz {
                 }
                 if (target) {
                     int mortal = Dice::RollD3();
-                    target->applyDamage({0, mortal});
+                    target->applyDamage({0, mortal}, this);
 
                     SimLog(Verbosity::Narrative,
                            "Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",

@@ -134,7 +134,7 @@ namespace Slaanesh {
         onWounded();
     }
 
-    Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds) {
+    Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         if (m_weapon == Shining_Aegis) {
             // Shining Aegis
             Dice::RollResult woundSaves, mortalSaves;
@@ -149,7 +149,7 @@ namespace Slaanesh {
 
             return totalWounds;
         }
-        return Unit::applyWoundSave(wounds);
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     Wounds ShalaxiHelbane::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

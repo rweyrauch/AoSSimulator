@@ -98,7 +98,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    Wounds RockgutTroggoths::applyWoundSave(const Wounds &wounds) {
+    Wounds RockgutTroggoths::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Stony Skin
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);
@@ -128,7 +128,7 @@ namespace GloomspiteGitz {
             if (rangeTo < 12) {
                 int roll = Dice::RollD6();
                 if (roll <= nearestUnit->remainingModels()) {
-                    nearestUnit->applyDamage({0, Dice::RollD3()});
+                    nearestUnit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

@@ -103,7 +103,7 @@ namespace Khorne {
             if (unit->hasKeyword(HERO) || unit->hasKeyword(MONSTER)) {
                 if (Dice::RollD6() >= 2) {
                     Wounds anvilWounds = {0, Dice::RollD3()};
-                    unit->applyDamage(anvilWounds);
+                    unit->applyDamage(anvilWounds, this);
                     wounds += anvilWounds;
                     break;
                 }

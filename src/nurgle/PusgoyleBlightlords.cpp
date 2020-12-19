@@ -86,7 +86,7 @@ namespace Nurgle {
         }
     }
 
-    Wounds PusgoyleBlightlords::applyWoundSave(const Wounds &wounds) {
+    Wounds PusgoyleBlightlords::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);
@@ -118,7 +118,7 @@ namespace Nurgle {
                 ip->heal(Dice::RollD3());
             } else {
                 // Inflict D3 mortal wounds
-                ip->applyDamage({0, Dice::RollD3()});
+                ip->applyDamage({0, Dice::RollD3()}, this);
             }
         }
         Unit::onStartHero(player);

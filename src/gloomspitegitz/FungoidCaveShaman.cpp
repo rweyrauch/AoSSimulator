@@ -113,7 +113,7 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Wounds FungoidCaveShaman::applyWoundSave(const Wounds &wounds) {
+    Wounds FungoidCaveShaman::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Spore Squig
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

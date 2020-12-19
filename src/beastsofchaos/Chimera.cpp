@@ -132,7 +132,7 @@ namespace BeastsOfChaos {
                 if (distanceTo(m_shootingTarget) <= (double) m_fieryBreath.range()) {
                     // Auto-hit and inflict mortal wounds.
                     Wounds breathDamage = {0, Dice::RollSpecial(g_damageTable[getDamageTableIndex()].m_fieryBreath)};
-                    m_shootingTarget->applyDamage(breathDamage);
+                    m_shootingTarget->applyDamage(breathDamage, this);
                 }
             }
         }

@@ -31,6 +31,16 @@ namespace LuminethRealmLords {
 
     protected:
 
+        int castingModifier() const override {
+            // Scryowl Familiar
+            return (LuminethBase::castingModifier() + 1);
+        }
+
+        int unbindingModifier() const override {
+            // Scryowl Familiar
+            return (LuminethBase::castingModifier() + 1);
+        }
+
     private:
 
         Weapon m_beams,
@@ -42,7 +52,7 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Scryowl Familar                  TODO
+// Scryowl Familar                  Yes
 // Dazzling Light                   TODO
 //
 

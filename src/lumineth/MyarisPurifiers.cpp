@@ -82,4 +82,18 @@ namespace LuminethRealmLords {
         return true;
     }
 
+    Wounds MyarisPurifiers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Sunmetal weapons
+        if ((hitRoll >= 6) && ((weapon->name() == m_greatsword.name()) || (weapon->name() == m_bow.name()))) {
+            return {0, 1};
+        }
+
+        // Crushing Blow
+        if ((hitRoll >= 6) && (weapon->name() == m_mallet.name())) {
+            return { weapon->damage() + 1, 0};
+        }
+
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
 } // namespace LuminethRealmLords

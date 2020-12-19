@@ -140,7 +140,7 @@ namespace GloomspiteGitz {
 
         // Spell Eater
         if (Dice::RollD6() >= 4) {
-            caster->applyDamage({0, Dice::RollD3()});
+            caster->applyDamage({0, Dice::RollD3()}, this);
         }
     }
 

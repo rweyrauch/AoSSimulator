@@ -148,7 +148,7 @@ namespace Seraphon {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto unit : units) {
             if (Dice::RollD6() >= 3) {
-                unit->applyDamage({0, Dice::RollD3()});
+                unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }
@@ -167,7 +167,7 @@ namespace Seraphon {
             roll = Dice::Roll3D6();
         }
         if (roll <= 3) {
-            applyDamage({0, Dice::RollD3()});
+            applyDamage({0, Dice::RollD3()}, this);
         } else if (roll <= 8) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto u : units) {
@@ -181,11 +181,11 @@ namespace Seraphon {
             if (units.empty()) {
                 units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 24.0);
                 if (!units.empty()) {
-                    units.front()->applyDamage({0, Dice::RollD3()});
+                    units.front()->applyDamage({0, Dice::RollD3()}, this);
                 }
             } else {
                 for (auto u : units) {
-                    u->applyDamage({0, Dice::RollD3()});
+                    u->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         } else if (roll <= 17) {

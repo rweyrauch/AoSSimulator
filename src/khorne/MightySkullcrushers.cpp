@@ -160,7 +160,7 @@ namespace Khorne {
             SimLog(Verbosity::Narrative, "%s Murderous Charge inflicted %d mortal wounds on %s\n",
                    name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
 
-            m_meleeTarget->applyDamage(wounds);
+            m_meleeTarget->applyDamage(wounds, this);
         }
         KhorneBase::onCharged();
     }

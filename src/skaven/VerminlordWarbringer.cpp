@@ -107,8 +107,8 @@ namespace Skaven {
         return true;
     }
 
-    Wounds VerminlordWarbringer::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Skaventide::applyWoundSave(wounds);
+    Wounds VerminlordWarbringer::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
         Dice::RollResult resultNormal, resultMortal;

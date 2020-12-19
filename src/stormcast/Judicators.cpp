@@ -189,7 +189,7 @@ namespace StormcastEternals {
                         roll--;
 
                     if (roll <= m_shootingTarget->remainingModels()) {
-                        m_shootingTarget->applyDamage({0, Dice::RollD3()});
+                        m_shootingTarget->applyDamage({0, Dice::RollD3()}, this);
                     }
                 }
             }

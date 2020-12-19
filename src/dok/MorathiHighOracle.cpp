@@ -104,8 +104,8 @@ namespace DaughtersOfKhaine {
         return mod;
     }
 
-    Wounds MorathiHighOracleOfKhaine::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = DaughterOfKhaine::applyWoundSave(wounds);
+    Wounds MorathiHighOracleOfKhaine::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = DaughterOfKhaine::applyWoundSave(wounds, attackingUnit);
 
         return totalWounds;
     }

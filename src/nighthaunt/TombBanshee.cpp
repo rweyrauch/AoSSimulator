@@ -91,7 +91,7 @@ namespace Nighthaunt {
             if (!units.empty()) {
                 const auto roll = Dice::Roll2D6();
                 if (roll > units[0]->bravery()) {
-                    units[0]->applyDamage({0, units[0]->bravery() - roll});
+                    units[0]->applyDamage({0, units[0]->bravery() - roll}, this);
                 }
             }
         }

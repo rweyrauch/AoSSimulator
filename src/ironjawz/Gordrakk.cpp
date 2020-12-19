@@ -126,7 +126,7 @@ namespace Ironjawz {
             Dice::RollResult result;
             Dice::RollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
             Wounds bulkWounds = {0, result.rollsGE(5)};
-            unit->applyDamage(bulkWounds);
+            unit->applyDamage(bulkWounds, this);
         }
     }
 

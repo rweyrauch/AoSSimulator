@@ -155,8 +155,8 @@ namespace Tzeentch {
         return points;
     }
 
-    Wounds HorrorsOfTzeentch::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = TzeentchBase::applyWoundSave(wounds);
+    Wounds HorrorsOfTzeentch::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         // Ectoplasmic Elasticity
         // TODO: only applies when the unit has Pink Horrors

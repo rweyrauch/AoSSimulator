@@ -75,7 +75,7 @@ namespace Fyreslayers {
         }
     }
 
-    Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds) {
+    Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Unstoppable Berserker
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

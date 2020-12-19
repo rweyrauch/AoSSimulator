@@ -38,13 +38,13 @@ bool DamagePrayer::pray(Unit *target, int round) {
     const int prayingRoll = Dice::RollD6();
     if (prayingRoll >= m_prayingValue) {
         mortalWounds = Dice::RollSpecial(getDamage(target, prayingRoll));
-        target->applyDamage({0, mortalWounds, Wounds::Source::Prayer});
+        target->applyDamage({0, mortalWounds, Wounds::Source::Prayer}, m_priest);
         SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, mortalWounds,
                target->name().c_str());
         result = true;
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1});
+        m_priest->applyDamage({0, m_damageOn1}, m_priest);
     }
 
     return result;
@@ -88,7 +88,7 @@ bool HealPrayer::pray(Unit *target, int round) {
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, wounds, target->name().c_str());
         result = true;
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1});
+        m_priest->applyDamage({0, m_damageOn1}, m_priest);
     }
 
     return result;
@@ -128,7 +128,7 @@ bool BuffModifierPrayer::pray(Unit *target, int round) {
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, target->name().c_str());
         result = true;
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer});
+        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer}, m_priest);
     }
 
     return result;
@@ -172,7 +172,7 @@ bool BuffRerollPrayer::pray(Unit *target, int round) {
                m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, target->name().c_str());
         result = true;
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer});
+        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer}, m_priest);
     }
 
     return result;

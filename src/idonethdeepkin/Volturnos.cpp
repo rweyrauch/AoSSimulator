@@ -88,7 +88,7 @@ namespace IdonethDeepkin {
         if (!units.empty()) {
             int roll = Dice::RollD6();
             if (roll >= 2) {
-                units.front()->applyDamage({0, Dice::RollD3()});
+                units.front()->applyDamage({0, Dice::RollD3()}, this);
             }
         }
 

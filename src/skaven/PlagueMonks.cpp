@@ -157,9 +157,9 @@ namespace Skaven {
             if (distanceTo(unit) <= 13.0 && !unit->hasKeyword(CLANS_PESTILENS)) {
                 int roll = Dice::RollD6();
                 if (roll == 6) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 } else if (roll >= 4) {
-                    unit->applyDamage({0, 1});
+                    unit->applyDamage({0, 1}, this);
                 }
             }
         }

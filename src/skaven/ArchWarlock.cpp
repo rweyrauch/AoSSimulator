@@ -94,7 +94,7 @@ namespace Skaven {
 
         if (m_moreMoreFailed) {
             Wounds overloadWounds = {0, Dice::RollD6()};
-            applyDamage(overloadWounds);
+            applyDamage(overloadWounds, this);
             wounds += overloadWounds;
             m_moreMoreFailed = false;
         }
@@ -132,7 +132,7 @@ namespace Skaven {
         if ((owningPlayer() == player) && !m_usedGauntlet) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && distanceTo(unit) < 8.0) {
-                if (Dice::RollD6() >= 2) unit->applyDamage({0, Dice::RollD3()});
+                if (Dice::RollD6() >= 2) unit->applyDamage({0, Dice::RollD3()}, this);
                 m_usedGauntlet = true;
             }
         }

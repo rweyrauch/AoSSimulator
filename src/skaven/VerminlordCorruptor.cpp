@@ -105,8 +105,8 @@ namespace Skaven {
         return true;
     }
 
-    Wounds VerminlordCorruptor::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Skaventide::applyWoundSave(wounds);
+    Wounds VerminlordCorruptor::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
         Dice::RollResult resultNormal, resultMortal;
@@ -144,7 +144,7 @@ namespace Skaven {
         for (auto unit : units) {
             if (Dice::RollD6() >= 4) {
                 Wounds plague = {0, Dice::RollD3()};
-                unit->applyDamage(plague);
+                unit->applyDamage(plague, this);
                 wounds += plague;
             }
         }

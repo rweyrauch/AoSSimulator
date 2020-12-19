@@ -106,7 +106,7 @@ namespace StormcastEternals {
         for (auto ip : units) {
             int roll = Dice::RollD6();
             if (roll >= 2) {
-                ip->applyDamage({0, 1});
+                ip->applyDamage({0, 1}, this);
             }
         }
     }

@@ -128,7 +128,7 @@ namespace Nurgle {
             for (auto unit : units) {
                 if (Dice::RollD6() >= 6) {
                     if (unit->hasKeyword(NURGLE)) unit->heal(Dice::RollD3());
-                    else unit->applyDamage({0, Dice::RollD3()});
+                    else unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

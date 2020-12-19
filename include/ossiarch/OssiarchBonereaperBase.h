@@ -116,7 +116,7 @@ namespace OssiarchBonereapers {
         OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
         Rerolls toSaveRerolls(const Weapon *weapon) const override;
         void onModelSlain(Wounds::Source source) override;
         bool battleshockRequired() const override;

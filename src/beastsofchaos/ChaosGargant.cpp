@@ -125,7 +125,7 @@ namespace BeastsOfChaos {
                 }
             }
             if (heroesNearby) {
-                applyDamage({0, 1});
+                applyDamage({0, 1}, this);
                 buffModifier(BuffableAttribute::Attacks_Melee, 1, {Combat, m_battleRound, player});
             }
         }

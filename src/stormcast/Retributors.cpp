@@ -124,7 +124,7 @@ namespace StormcastEternals {
                         mortalWounds = Dice::RollD3();
                     }
 
-                    m_meleeTarget->applyDamage({0, mortalWounds});
+                    m_meleeTarget->applyDamage({0, mortalWounds}, this);
                 }
             }
         }

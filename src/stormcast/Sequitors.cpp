@@ -210,7 +210,7 @@ namespace StormcastEternals {
                 if (ip->hasKeyword(CHAOS) || ip->hasKeyword(DEATH)) {
                     int roll = Dice::RollD6();
                     if (roll >= 4) {
-                        ip->applyDamage({0, 1});
+                        ip->applyDamage({0, 1}, this);
                         break;
                     }
                 }

@@ -145,9 +145,9 @@ namespace Fyreslayers {
                     int rs = Dice::RollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
                     if (rs <= m_shootingTarget->remainingModels()) {
                         if (dist < 6.0) {
-                            m_shootingTarget->applyDamage({0, Dice::RollD6()});
+                            m_shootingTarget->applyDamage({0, Dice::RollD6()}, this);
                         } else {
-                            m_shootingTarget->applyDamage({0, Dice::RollD3()});
+                            m_shootingTarget->applyDamage({0, Dice::RollD3()}, this);
                         }
                     }
                 }
@@ -163,7 +163,7 @@ namespace Fyreslayers {
         for (auto ip : units) {
             if (Dice::RollD6() < ip->remainingModels()) {
                 Wounds tailWounds = {0, Dice::RollD3()};
-                ip->applyDamage(tailWounds);
+                ip->applyDamage(tailWounds, this);
                 wounds += tailWounds;
             }
         }

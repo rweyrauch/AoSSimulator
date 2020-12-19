@@ -86,7 +86,7 @@ namespace Nurgle {
         return true;
     }
 
-    Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds) {
+    Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

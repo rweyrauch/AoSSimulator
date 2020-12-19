@@ -105,7 +105,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    Wounds Mollog::applyWoundSave(const Wounds &wounds) {
+    Wounds Mollog::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
 
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
@@ -114,7 +114,7 @@ namespace GloomspiteGitz {
             }
         }
 
-        auto totalWounds = Unit::applyWoundSave(wounds);
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Loyal to the End
         if (m_batSquig) {
@@ -167,7 +167,7 @@ namespace GloomspiteGitz {
                 auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
                 if (unit && (distanceTo(unit) <= 18.0)) {
                     if (Dice::RollD6() >= 5) {
-                        unit->applyDamage({0, 1});
+                        unit->applyDamage({0, 1}, this);
                     }
                 }
             }

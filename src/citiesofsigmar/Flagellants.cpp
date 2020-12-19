@@ -133,7 +133,7 @@ namespace CitiesOfSigmar {
             auto board = Board::Instance();
             auto closestTarget = board->getNearestUnit(this, PlayerId::None);
             if (closestTarget && distanceTo(closestTarget) <= 6.0) {
-                closestTarget->applyDamage({0, numMortalWounds});
+                closestTarget->applyDamage({0, numMortalWounds}, this);
             }
         }
         Unit::onFlee(numFled);

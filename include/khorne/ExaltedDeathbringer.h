@@ -43,7 +43,7 @@ namespace Khorne {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

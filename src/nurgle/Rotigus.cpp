@@ -121,14 +121,14 @@ namespace Nurgle {
             for (auto ip : units) {
                 int roll = Dice::RollD6();
                 if (roll >= 4) {
-                    ip->applyDamage({Dice::RollD3(), 0});
+                    ip->applyDamage({Dice::RollD3(), 0}, this);
                 }
             }
         }
         Unit::onCharged();
     }
 
-    Wounds Rotigus::applyWoundSave(const Wounds &wounds) {
+    Wounds Rotigus::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Blubber and Bile
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);
@@ -156,8 +156,8 @@ namespace Nurgle {
             for (auto unit : units) {
                 auto roll = Dice::RollD6();
                 if (unit->fly()) {
-                    if (roll >= 6) unit->applyDamage({0, Dice::RollD3()});
-                } else if (roll >= 4) unit->applyDamage({0, Dice::RollD3()});
+                    if (roll >= 6) unit->applyDamage({0, Dice::RollD3()}, this);
+                } else if (roll >= 4) unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }

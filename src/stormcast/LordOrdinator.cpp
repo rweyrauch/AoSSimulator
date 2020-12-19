@@ -138,7 +138,7 @@ namespace StormcastEternals {
             // the only unit the LO hit was the target unit
             if (m_meteoricSlam.front() == m_meleeTarget) {
                 Wounds slamWounds = {0, Dice::RollD3()};
-                m_meleeTarget->applyDamage(slamWounds);
+                m_meleeTarget->applyDamage(slamWounds, this);
                 wounds += slamWounds;
             }
         }

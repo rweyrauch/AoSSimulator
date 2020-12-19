@@ -124,7 +124,7 @@ namespace GloomspiteGitz {
         for (auto ip : units) {
             int roll = Dice::RollD6();
             if (roll >= 2) {
-                ip->applyDamage({0, Dice::RollD3()});
+                ip->applyDamage({0, Dice::RollD3()}, this);
             }
         }
         Unit::onCharged();

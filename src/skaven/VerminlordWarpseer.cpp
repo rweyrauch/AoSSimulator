@@ -106,8 +106,8 @@ namespace Skaven {
         return true;
     }
 
-    Wounds VerminlordWarpseer::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Skaventide::applyWoundSave(wounds);
+    Wounds VerminlordWarpseer::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
         Dice::RollResult resultNormal, resultMortal;
@@ -153,7 +153,7 @@ namespace Skaven {
         if (!m_usedOrb) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && distanceTo(unit) <= 13.0) {
-                unit->applyDamage({0, Dice::RollD6()});
+                unit->applyDamage({0, Dice::RollD6()}, this);
                 m_usedOrb = true;
             }
         }

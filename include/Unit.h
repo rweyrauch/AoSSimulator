@@ -154,7 +154,7 @@ public:
 
     bool makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll);
 
-    int applyDamage(const Wounds &totalWounds);
+    int applyDamage(const Wounds &totalWounds, Unit* attackingUnit);
 
     int initialModels() const { return (int) m_models.size(); }
 
@@ -460,7 +460,7 @@ protected:
 
     virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0}; }
 
-    virtual Wounds applyWoundSave(const Wounds &wounds) { return wounds; }
+    virtual Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) { return wounds; }
 
 protected:
     std::string m_name;

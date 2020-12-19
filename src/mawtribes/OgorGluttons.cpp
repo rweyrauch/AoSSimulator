@@ -175,8 +175,8 @@ namespace OgorMawtribes {
         return 0;
     }
 
-    Wounds OgorGluttons::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Unit::applyWoundSave(wounds);
+    Wounds OgorGluttons::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Lookout Gnoblar
         if (m_lookoutGnoblar && (wounds.source == Wounds::Source::Weapon_Missile)) {

@@ -31,7 +31,7 @@ namespace IdonethDeepkin {
 
     protected:
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         int catalogueOfSouls(const Unit *target);
 

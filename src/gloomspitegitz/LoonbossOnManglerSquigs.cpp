@@ -145,7 +145,7 @@ namespace GloomspiteGitz {
             int roll = Dice::RollD6();
             if (roll >= 4) {
                 int mortalWounds = Dice::RollD3();
-                ip->applyDamage({0, mortalWounds});
+                ip->applyDamage({0, mortalWounds}, this);
             }
         }
         GloomspiteGitzBase::onSlain();

@@ -49,7 +49,7 @@ namespace OgorMawtribes {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         int bellower(const Unit *target);
 

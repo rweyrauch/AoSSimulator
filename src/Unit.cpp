@@ -75,14 +75,14 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     // Apply all of the wounds to the target.  Target apply wound save and return
     // number of slain models.
-    numSlain = targetUnit->applyDamage(totalDamage);
+    numSlain = targetUnit->applyDamage(totalDamage, this);
 
     if (targetUnit->remainingModels() == 0) {
         targetUnit->onSlain();
     }
 
     // apply returned damage to this unit
-    int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
+    int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
     if (remainingModels() == 0) {
         onSlain();
     }
@@ -132,9 +132,9 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     // Apply all of the wounds to the target.  Target apply wound save and return
     // number of slain models.
-    numSlain = targetUnit->applyDamage(totalDamage);
+    numSlain = targetUnit->applyDamage(totalDamage, this);
 
-    int numSlainByReturnedDamage = applyDamage(totalDamageReflected);
+    int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
     if (remainingModels() == 0) {
         onSlain();
     }
@@ -226,9 +226,9 @@ void Unit::addModel(Model *model) {
     m_basesizeMm = (double) model->basesize();
 }
 
-int Unit::applyDamage(const Wounds &totalWoundsInflicted) {
+int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
     // apply wound/mortal wound save
-    auto totalWounds = applyWoundSave(totalWoundsInflicted);
+    auto totalWounds = applyWoundSave(totalWoundsInflicted, attackingUnit);
 
     // apply both normal and mortal wounds
     int totalDamage = totalWounds.normal + totalWounds.mortal;

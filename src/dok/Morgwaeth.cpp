@@ -86,16 +86,16 @@ namespace DaughtersOfKhaine {
         if (unit && distanceTo(unit) <= 3.0) {
             // Touch of Death
             if (roll == 1) {
-                applyDamage({0, 1});
+                applyDamage({0, 1}, this);
             } else if (roll >= 3) {
                 if (Dice::RollD6() >= 4) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         } else {
             // Rune of Khorne
             if (roll == 1) {
-                applyDamage({0, 1});
+                applyDamage({0, 1}, this);
             } else if (roll >= 3) {
                 m_glaive.setDamage(RAND_D3);
             }

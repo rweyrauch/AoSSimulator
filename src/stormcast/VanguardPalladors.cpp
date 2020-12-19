@@ -138,7 +138,7 @@ namespace StormcastEternals {
             int roll = Dice::RollD6();
             if (roll >= 2) {
                 Wounds bladeWounds = {0, 1};
-                m_meleeTarget->applyDamage(bladeWounds);
+                m_meleeTarget->applyDamage(bladeWounds, this);
                 wounds += bladeWounds;
             }
         }

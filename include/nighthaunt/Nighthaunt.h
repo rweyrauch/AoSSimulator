@@ -83,7 +83,7 @@ namespace Nighthaunt {
         Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         int toSaveModifier(const Weapon *weapon) const override;
 

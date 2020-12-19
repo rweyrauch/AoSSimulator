@@ -81,8 +81,8 @@ namespace Tzeentch {
         return true;
     }
 
-    Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = TzeentchBase::applyWoundSave(wounds);
+    Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         // Arcanite Shield
         if (m_weaponOption == Cursed_Blade_And_Shield) {

@@ -100,7 +100,7 @@ namespace OssiarchBonereapers {
         }
     }
 
-    Wounds MorghastArchai::applyWoundSave(const Wounds &wounds) {
+    Wounds MorghastArchai::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Ebon-wrought Armour
         Dice::RollResult mortalSaves;
         Dice::RollD6(wounds.mortal, mortalSaves);

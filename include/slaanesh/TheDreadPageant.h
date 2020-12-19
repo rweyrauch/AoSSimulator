@@ -25,11 +25,17 @@ namespace Slaanesh {
 
         TheDreadPageant();
 
-        ~TheDreadPageant() override;
+        ~TheDreadPageant() override = default;
 
         bool configure();
 
     protected:
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        bool modelIsAlive(const std::string& name) const;
 
     private:
 
@@ -44,8 +50,8 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Art of the Myrmidesh             TODO
-// Deadlist Procession              TODO
+// Art of the Myrmidesh             Yes
+// Deadlist Procession              Yes
 //
 
 } // Slannesh

@@ -31,7 +31,13 @@ namespace Slaanesh {
 
     protected:
 
+        void onStartCombat(PlayerId player) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
     private:
+
+        int m_extraMeleeAttacks = 0;
 
         Weapon m_flensingWhips,
                 m_piercingClaws,
@@ -43,7 +49,7 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Soulscent                        TODO
+// Soulscent                        Yes
 // Acquiescence                     TODO
 //
 

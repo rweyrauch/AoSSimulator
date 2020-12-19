@@ -144,7 +144,7 @@ namespace Khorne {
                 Dice::RollD6(g_damageTable[getDamageTableIndex()].m_roarOfTotalRage, results);
                 if (results.rollsGE(4)) {
                     Wounds wounds = {0, results.rollsGE(4)};
-                    m_shootingTarget->applyDamage(wounds);
+                    m_shootingTarget->applyDamage(wounds, this);
 
                     SimLog(Verbosity::Narrative, "Skarbrand Roar of Total Rage inflicts %d mortal wounds on to %s",
                            wounds.mortal, m_shootingTarget->name().c_str());

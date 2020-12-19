@@ -148,7 +148,7 @@ namespace Nurgle {
             for (auto ip : units) {
                 int roll = Dice::RollD6();
                 if (roll >= 4) {
-                    ip->applyDamage({Dice::RollD3(), 0});
+                    ip->applyDamage({Dice::RollD3(), 0}, this);
                 }
             }
         }
@@ -174,7 +174,7 @@ namespace Nurgle {
         return NurgleBase::EnumStringToInt(enumString);
     }
 
-    Wounds GreatUncleanOne::applyWoundSave(const Wounds &wounds) {
+    Wounds GreatUncleanOne::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Blubber and Bile
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

@@ -113,10 +113,10 @@ namespace LuminethRealmLords {
             if (unit && (distanceTo(unit) < 18.0f)) {
                 auto roll = Dice::RollD6();
                 if (roll >= 5) {
-                    unit->applyDamage({0, Dice::RollD6()});
+                    unit->applyDamage({0, Dice::RollD6()}, this);
                 }
                 else if (roll >= 2) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

@@ -105,7 +105,7 @@ namespace Khorne {
         Unit::onUnboundSpell(caster, castRoll);
 
         // Brass Collar of Bloody Vengeance
-        caster->applyDamage({0, Dice::RollD3()});
+        caster->applyDamage({0, Dice::RollD3()}, this);
     }
 
 } // namespace Khorne

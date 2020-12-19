@@ -150,7 +150,7 @@ namespace SonsOfBehemat {
                 if (unit->hasKeyword(MONSTER)) {
                     mortal = Dice::RollD3();
                 }
-                unit->applyDamage({0, mortal});
+                unit->applyDamage({0, mortal}, this);
             }
         }
         Unit::onCharged();

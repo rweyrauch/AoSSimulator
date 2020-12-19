@@ -108,7 +108,7 @@ namespace FleshEaterCourt {
         return modifier;
     }
 
-    Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds) {
+    Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Deathless Courtiers
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
@@ -127,7 +127,7 @@ namespace FleshEaterCourt {
             }
         }
 
-        return Unit::applyWoundSave(wounds);
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     std::string FleshEaterCourts::ValueToString(const Parameter &parameter) {

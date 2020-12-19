@@ -145,7 +145,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds) {
+    Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         if (hasKeyword(HERO)) {
             // Witness to Destiny
             Dice::RollResult woundSaves, mortalSaves;
@@ -160,7 +160,7 @@ namespace CitiesOfSigmar {
 
             return totalWounds;
         }
-        return Unit::applyWoundSave(wounds);
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     int FlamespyrePhoenix::ComputePoints(int /*numModels*/) {

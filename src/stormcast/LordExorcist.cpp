@@ -105,7 +105,7 @@ namespace StormcastEternals {
                 if (ip->hasKeyword(DAEMON) || ip->hasKeyword(NIGHTHAUNT)) {
                     int roll = Dice::RollD6();
                     if (roll >= 4) {
-                        ip->applyDamage({0, 1});
+                        ip->applyDamage({0, 1}, this);
                     }
                 }
             }

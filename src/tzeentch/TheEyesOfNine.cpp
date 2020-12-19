@@ -90,8 +90,8 @@ namespace Tzeentch {
         return true;
     }
 
-    Wounds TheEyesOfTheNine::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Unit::applyWoundSave(wounds);
+    Wounds TheEyesOfTheNine::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Arcanite Shield
         for (auto &model : m_models) {

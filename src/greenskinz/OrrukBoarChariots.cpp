@@ -87,7 +87,7 @@ namespace Greenskinz {
         int roll = Dice::RollD6();
         if (roll >= 4) {
             if (m_meleeTarget) {
-                m_meleeTarget->applyDamage({0, Dice::RollD3()});
+                m_meleeTarget->applyDamage({0, Dice::RollD3()}, this);
             }
         }
         Unit::onCharged();

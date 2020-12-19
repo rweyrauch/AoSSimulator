@@ -144,7 +144,7 @@ namespace Khorne {
                 if (ip != target) {
                     // TODO: need to allow unit a wound save
                     Wounds actualWounds = wounds; //ip->applyWoundSave(wounds);
-                    ip->applyDamage(actualWounds);
+                    ip->applyDamage(actualWounds, nullptr); // TODO: allow non-const attacker
                 }
             }
             return wounds;

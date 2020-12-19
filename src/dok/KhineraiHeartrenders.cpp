@@ -122,7 +122,7 @@ namespace DaughtersOfKhaine {
         // Death From Above
         if ((m_setupInRound == m_battleRound) && weapon->isMissile() &&
             (weapon->name() == m_barbedJavelinMissile.name()))
-            return -2;
+            return weapon->rend()-1;
         return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 

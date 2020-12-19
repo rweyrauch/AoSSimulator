@@ -89,7 +89,7 @@ namespace Skaven {
                 if (roll == 6) mortalWounds = Dice::RollD3();
                 else if (roll >= 4) mortalWounds = 1;
 
-                unit->applyDamage({0, mortalWounds});
+                unit->applyDamage({0, mortalWounds}, this);
                 wounds.mortal += mortalWounds;
             }
         }
@@ -117,14 +117,14 @@ namespace Skaven {
                 auto prayerRoll = Dice::RollD6();
                 if (prayerRoll == 1) {
                     // Failed - take one mortal wound.
-                    applyDamage({0, 1});
+                    applyDamage({0, 1}, this);
                 } else if (prayerRoll >= 3) {
                     // TODO: Implement area-of-effect Pestilence-pestilence!
 
                     // Disease-disease!
                     auto numModels = units.front()->remainingModels();
                     Dice::RollD6(numModels, result);
-                    units.front()->applyDamage({0, result.rollsGE(6)});
+                    units.front()->applyDamage({0, result.rollsGE(6)}, this);
                 }
             }
         }

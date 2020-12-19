@@ -110,7 +110,7 @@ namespace StormcastEternals {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
             if (Dice::RollD6() >= 2) {
-                ip->applyDamage({0, 1});
+                ip->applyDamage({0, 1}, this);
             }
         }
     }

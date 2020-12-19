@@ -74,4 +74,33 @@ namespace Slaanesh {
         return g_pointsPerUnit;
     }
 
+    int Hellflayer::extraAttacks(const Model *attackingModel, const Weapon *weapon,
+                                               const Unit *target) const {
+        auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+
+        // Soulscent
+        if (!weapon->isMissile()) extras += m_extraMeleeAttacks;
+
+        return extras;
+    }
+
+    void Hellflayer::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        m_extraMeleeAttacks = 0;
+
+        // Soulscent
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+            for (auto u : units) {
+                if (Dice::RollD6() >= 4) {
+                    u->applyDamage({0, Dice::RollD3()}, this);
+
+                    // Extra attacks
+                    m_extraMeleeAttacks++;
+                }
+            }
+        }
+    }
+
 } // Slannesh

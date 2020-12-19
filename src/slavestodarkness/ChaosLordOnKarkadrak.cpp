@@ -89,7 +89,7 @@ namespace SlavesToDarkness {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
             for (auto unit : units) {
                 if (Dice::RollD6() >= 2) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }
@@ -105,8 +105,8 @@ namespace SlavesToDarkness {
         return damage;
     }
 
-    Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds) {
-        auto savedWounds = Unit::applyWoundSave(wounds);
+    Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto savedWounds = Unit::applyWoundSave(wounds, attackingUnit);
         Dice::RollResult result;
         // Rune-etched Plating
         Dice::RollD6(savedWounds.mortal, result);

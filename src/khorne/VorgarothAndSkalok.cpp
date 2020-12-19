@@ -151,14 +151,14 @@ namespace Khorne {
         for (auto ip : units) {
             int roll = Dice::RollD6();
             if (roll >= 3) {
-                ip->applyDamage({0, Dice::RollD3()});
+                ip->applyDamage({0, Dice::RollD3()}, this);
             }
         }
         KhorneBase::onCharged();
     }
 
-    Wounds VorgarothAndSkalok::applyWoundSave(const Wounds &wounds) {
-        return Unit::applyWoundSave(wounds);
+    Wounds VorgarothAndSkalok::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     int VorgarothAndSkalok::ComputePoints(int /*numModels*/) {

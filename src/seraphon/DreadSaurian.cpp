@@ -134,9 +134,9 @@ namespace Seraphon {
         for (auto unit : units) {
             if (Dice::RollD6() >= 2) {
                 if (unit->hasKeyword(MONSTER))
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 else
-                    unit->applyDamage({0, Dice::RollD6()});
+                    unit->applyDamage({0, Dice::RollD6()}, this);
             }
         }
     }
@@ -149,7 +149,7 @@ namespace Seraphon {
         for (auto unit : units) {
             if (!unit->hasKeyword(MONSTER)) {
                 if (Dice::RollD6() >= 4)
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }

@@ -152,7 +152,7 @@ namespace OgorMawtribes {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Wounds StonehornBeastriders::applyWoundSave(const Wounds &wounds) {
+    Wounds StonehornBeastriders::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Stone Skeleton
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);
@@ -174,7 +174,7 @@ namespace OgorMawtribes {
             if (m_meleeTarget) {
                 if (m_option == Blood_Vulture) {
                     if (Dice::RollD6() >= 2) {
-                        m_meleeTarget->applyDamage({0, 1});
+                        m_meleeTarget->applyDamage({0, 1}, this);
                     }
                 }
             }

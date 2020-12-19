@@ -110,7 +110,7 @@ namespace GloomspiteGitz {
         return Unit::unbindingModifier() + 1;
     }
 
-    Wounds Skragrott::applyWoundSave(const Wounds &wounds) {
+    Wounds Skragrott::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Loonking's Crown
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

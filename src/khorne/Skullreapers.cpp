@@ -124,7 +124,7 @@ namespace Khorne {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && distanceTo(unit) <= 1.0) {
                 if (Dice::RollD6() >= 5) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

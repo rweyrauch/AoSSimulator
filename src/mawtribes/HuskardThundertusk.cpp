@@ -186,11 +186,11 @@ namespace OgorMawtribes {
                 else if (m_meleeTarget->remainingModels() >= 10) toWound -= 1;
 
                 Wounds wounds = {0, result.rollsGE(toWound)};
-                m_meleeTarget->applyDamage(wounds);
+                m_meleeTarget->applyDamage(wounds, this);
 
                 if (m_option == Blood_Vulture) {
                     if (Dice::RollD6() >= 2) {
-                        m_meleeTarget->applyDamage({0, 1});
+                        m_meleeTarget->applyDamage({0, 1}, this);
                     }
                 }
             }

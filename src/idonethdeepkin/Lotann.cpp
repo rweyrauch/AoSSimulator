@@ -83,7 +83,7 @@ namespace IdonethDeepkin {
         return true;
     }
 
-    Wounds Lotann::applyWoundSave(const Wounds &wounds) {
+    Wounds Lotann::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         Dice::RollResult normalSaves, mortalSaves;
         Dice::RollD6(wounds.normal, normalSaves);
         Dice::RollD6(wounds.mortal, mortalSaves);

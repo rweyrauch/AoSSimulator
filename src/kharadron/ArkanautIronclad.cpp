@@ -206,7 +206,7 @@ namespace KharadronOverlords {
 
             if (roll >= 4) {
                 int wounds = Dice::RollD3();
-                nearestUnit->applyDamage({0, wounds});
+                nearestUnit->applyDamage({0, wounds}, this);
             }
         }
     }

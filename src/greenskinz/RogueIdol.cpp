@@ -111,14 +111,14 @@ namespace Greenskinz {
         for (auto ip : units) {
             int roll = Dice::RollD6();
             if (roll >= 4) {
-                ip->applyDamage({0, Dice::RollD3()});
+                ip->applyDamage({0, Dice::RollD3()}, this);
             }
         }
 
         Unit::onSlain();
     }
 
-    Wounds RogueIdol::applyWoundSave(const Wounds &wounds) {
+    Wounds RogueIdol::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         Wounds modifiedWounds = wounds;
 
         // Da Big' Un
@@ -140,7 +140,7 @@ namespace Greenskinz {
             int roll = Dice::RollD6();
             if (roll >= 4) {
                 Wounds rubbleRuins = {0, 0};
-                ip->applyDamage(rubbleRuins);
+                ip->applyDamage(rubbleRuins, this);
                 wounds += rubbleRuins;
             }
         }

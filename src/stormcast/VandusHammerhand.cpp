@@ -116,12 +116,12 @@ namespace StormcastEternals {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 12.0)) {
                 if (Dice::RollD6() >= 4) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
                 auto units = Board::Instance()->getUnitsWithin(unit, GetEnemyId(owningPlayer()), 2.0);
                 for (auto target : units) {
                     if (Dice::RollD6() >= 4) {
-                        target->applyDamage({0, Dice::RollD3()});
+                        target->applyDamage({0, Dice::RollD3()}, this);
                     }
                 }
             }

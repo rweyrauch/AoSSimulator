@@ -91,7 +91,7 @@ namespace BeastsOfChaos {
                 if (distanceTo(m_shootingTarget) <= (double) m_petrifyingGaze.range()) {
                     if (Dice::RollD6() >= 4) {
                         Wounds gazeDamage = {0, Dice::RollD6()};
-                        m_shootingTarget->applyDamage(gazeDamage);
+                        m_shootingTarget->applyDamage(gazeDamage, this);
                     }
                 }
             }

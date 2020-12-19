@@ -75,7 +75,7 @@ namespace Nurgle {
         return true;
     }
 
-    Wounds HorticulousSlimux::applyWoundSave(const Wounds &wounds) {
+    Wounds HorticulousSlimux::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Disgustingly Resilient
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

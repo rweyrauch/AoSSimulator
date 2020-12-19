@@ -94,7 +94,7 @@ namespace Nighthaunt {
         for (auto unit : units) {
             auto roll = Dice::Roll2D6();
             if (roll > unit->bravery()) {
-                unit->applyDamage({0, Dice::RollD3()});
+                unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }
@@ -107,7 +107,7 @@ namespace Nighthaunt {
         if (!units.empty()) {
             const auto roll = Dice::RollD6();
             if (roll >= 2) {
-                const auto numSlain = units[0]->applyDamage({0, roll});
+                const auto numSlain = units[0]->applyDamage({0, roll}, this);
                 if (numSlain) {
                     heal(Dice::RollD3());
                 }
@@ -117,7 +117,7 @@ namespace Nighthaunt {
         if (!m_graveSandsOfTimeUsed) {
             auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0);
             if (unit) {
-                unit->applyDamage({0, Dice::RollD6()});
+                unit->applyDamage({0, Dice::RollD6()}, this);
                 m_graveSandsOfTimeUsed = true;
             } else if (remainingWounds() < wounds()) {
                 heal(Dice::RollD6());

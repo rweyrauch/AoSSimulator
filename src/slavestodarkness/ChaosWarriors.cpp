@@ -193,7 +193,7 @@ namespace SlavesToDarkness {
         }
     }
 
-    Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds) {
+    Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         if (m_hasShields) {
             // Chaos Runeshield
             Dice::RollResult mortalSaves;
@@ -205,7 +205,7 @@ namespace SlavesToDarkness {
 
             return totalWounds;
         }
-        return Unit::applyWoundSave(wounds);
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     int ChaosWarriors::runModifier() const {

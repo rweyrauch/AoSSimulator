@@ -94,8 +94,8 @@ namespace Nighthaunt {
 
     }
 
-    Wounds LordExecutioner::applyWoundSave(const Wounds &wounds) {
-        auto unsavedWounds = Nighthaunt::applyWoundSave(wounds);
+    Wounds LordExecutioner::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto unsavedWounds = Nighthaunt::applyWoundSave(wounds, attackingUnit);
 
         // Disembodied Skulls
         if (unsavedWounds.mortal) {

@@ -42,7 +42,7 @@ namespace Nighthaunt {
         m_auraOfDreadSlot.disconnect();
     }
 
-    Wounds Nighthaunt::applyWoundSave(const Wounds &wounds) {
+    Wounds Nighthaunt::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Deathless Spirits
         auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
         if (hero && hero->hasKeyword(NIGHTHAUNT)) {
@@ -58,7 +58,7 @@ namespace Nighthaunt {
 
             return totalWounds;
         }
-        return Unit::applyWoundSave(wounds);
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
 

@@ -129,7 +129,7 @@ namespace Ironjawz {
         return modifier;
     }
 
-    Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds) {
+    Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Orruk-forged Shields
         if (m_numShields > 0) {
             Dice::RollResult result;
@@ -138,7 +138,7 @@ namespace Ironjawz {
             modWounds.normal -= result.numUnmodified6s();
             return modWounds;
         }
-        return Ironjawz::applyWoundSave(wounds);
+        return Ironjawz::applyWoundSave(wounds, attackingUnit);
     }
 
     std::string OrrukArdboys::ValueToString(const Parameter &parameter) {

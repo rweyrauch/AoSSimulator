@@ -165,7 +165,7 @@ namespace Slaanesh {
             } else if (roll >= 2) {
                 knifeWounds = {0, 1};
             }
-            target->applyDamage(knifeWounds);
+            target->applyDamage(knifeWounds, this);
             wounds += knifeWounds;
         }
 
@@ -177,7 +177,7 @@ namespace Slaanesh {
         return wounds;
     }
 
-    Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds) {
+    Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         if (m_weapon == Shining_Aegis) {
             // Shining Aegis
             Dice::RollResult woundSaves, mortalSaves;
@@ -192,7 +192,7 @@ namespace Slaanesh {
 
             return totalWounds;
         }
-        return Unit::applyWoundSave(wounds);
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     void KeeperOfSecrets::onStartCombat(PlayerId player) {
@@ -203,7 +203,7 @@ namespace Slaanesh {
         if (hero != nullptr) {
             // Heros _always_ refuse right now and take D3
             // TODO: give hero the choice
-            hero->applyDamage({0, Dice::RollD3()});
+            hero->applyDamage({0, Dice::RollD3()}, this);
         }
     }
 

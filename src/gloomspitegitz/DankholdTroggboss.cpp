@@ -114,7 +114,7 @@ namespace GloomspiteGitz {
         for (auto ip : units) {
             int roll = Dice::RollD6();
             if (roll >= ip->remainingModels()) {
-                ip->applyDamage({0, 1});
+                ip->applyDamage({0, 1}, this);
             }
         }
 
@@ -135,14 +135,14 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Wounds DankholdTroggboss::applyWoundSave(const Wounds &wounds) {
+    Wounds DankholdTroggboss::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
             if (Dice::RollD6() >= 4) {
                 return {0, 0, Wounds::Source::Spell};
             }
         }
-        return Unit::applyWoundSave(wounds);
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
 } // namespace GloomspiteGitz

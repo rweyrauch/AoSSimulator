@@ -106,7 +106,7 @@ namespace OgorMawtribes {
 
                 Dice::RollD6(numDice, result);
 
-                unit->applyDamage({0, result.rollsGE(threshold)});
+                unit->applyDamage({0, result.rollsGE(threshold)}, this);
             }
         }
     }
@@ -120,7 +120,7 @@ namespace OgorMawtribes {
             for (auto unit : units) {
                 int roll = Dice::RollD6();
                 if (roll < m_battleRound) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

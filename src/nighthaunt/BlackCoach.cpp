@@ -147,7 +147,7 @@ namespace Nighthaunt {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             for (auto unit : units) {
                 if (Dice::RollD6() >= 4) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }
@@ -161,7 +161,7 @@ namespace Nighthaunt {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
             if (!units.empty()) {
                 if (Dice::RollD6() >= 2) {
-                    units[0]->applyDamage({0, Dice::RollD3()});
+                    units[0]->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

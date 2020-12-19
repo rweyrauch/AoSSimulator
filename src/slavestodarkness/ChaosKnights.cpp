@@ -187,7 +187,7 @@ namespace SlavesToDarkness {
         }
     }
 
-    Wounds ChaosKnights::applyWoundSave(const Wounds &wounds) {
+    Wounds ChaosKnights::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Chaos Runeshield
         Dice::RollResult mortalSaves;
         Dice::RollD6(wounds.mortal, mortalSaves);

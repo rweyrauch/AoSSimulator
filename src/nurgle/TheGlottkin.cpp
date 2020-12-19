@@ -141,7 +141,7 @@ namespace Nurgle {
             for (auto ip : units) {
                 int roll = Dice::RollD6();
                 if (roll >= 4) {
-                    ip->applyDamage({Dice::RollD3(), 0});
+                    ip->applyDamage({Dice::RollD3(), 0}, this);
                 }
             }
         }

@@ -77,7 +77,7 @@ namespace SlavesToDarkness {
             Dice::RollD6(m_lastChargeDistance, rolls);
 
             Wounds wounds = {0, rolls.rollsGE(6)};
-            m_meleeTarget->applyDamage(wounds);
+            m_meleeTarget->applyDamage(wounds, this);
         }
     }
 

@@ -91,7 +91,7 @@ namespace Slaanesh {
         }
     }
 
-    Wounds TheContortedEpitome::applyWoundSave(const Wounds &wounds) {
+    Wounds TheContortedEpitome::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Swallow Energy
         Dice::RollResult mortalSaves;
         Dice::RollD6(wounds.mortal, mortalSaves);

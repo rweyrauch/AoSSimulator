@@ -159,7 +159,7 @@ namespace SlavesToDarkness {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto unit : units) {
             if (Dice::RollD6() >= 2) {
-                unit->applyDamage({0, Dice::RollD3()});
+                unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }

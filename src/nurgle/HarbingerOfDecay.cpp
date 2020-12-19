@@ -77,7 +77,7 @@ namespace Nurgle {
         return true;
     }
 
-    Wounds HarbingerOfDecay::applyWoundSave(const Wounds &wounds) {
+    Wounds HarbingerOfDecay::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Soulbound Shield
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

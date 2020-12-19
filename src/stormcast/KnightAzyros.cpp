@@ -87,9 +87,9 @@ namespace StormcastEternals {
             if (!units.empty()) {
                 for (auto ip : units) {
                     if (ip->hasKeyword(CHAOS)) {
-                        ip->applyDamage({0, Dice::RollD6()});
+                        ip->applyDamage({0, Dice::RollD6()}, this);
                     } else {
-                        ip->applyDamage({0, Dice::RollD3()});
+                        ip->applyDamage({0, Dice::RollD3()}, this);
                     }
                 }
                 m_usedLightOfSigmar = true;

@@ -155,7 +155,7 @@ namespace Skaven {
                 auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
                 for (auto ip : units) {
                     roll = Dice::RollD3();
-                    ip->applyDamage({0, roll});
+                    ip->applyDamage({0, roll}, this);
                 }
             }
             m_beenSlain = true;

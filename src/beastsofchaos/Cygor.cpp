@@ -126,7 +126,7 @@ namespace BeastsOfChaos {
         Unit::onUnboundSpell(caster, castRoll);
 
         // Soul-eater
-        caster->applyDamage({0, 1});
+        caster->applyDamage({0, 1}, this);
     }
 
 } // namespace BeastsOfChaos

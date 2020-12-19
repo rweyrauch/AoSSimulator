@@ -40,7 +40,7 @@ namespace Nurgle {
 
     protected:
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 

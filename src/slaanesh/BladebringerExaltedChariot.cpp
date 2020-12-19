@@ -103,15 +103,42 @@ namespace Slaanesh {
         for (auto ip : units) {
             int roll = Dice::RollD6();
             if (roll >= 5) {
-                ip->applyDamage({0, Dice::RollD6()});
+                ip->applyDamage({0, Dice::RollD6()}, this);
             } else if (Dice::RollD6() >= 2) {
-                ip->applyDamage({0, Dice::RollD3()});
+                ip->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }
 
     int BladebringerOnExaltedChariot::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void BladebringerOnExaltedChariot::onStartCombat(PlayerId player) {
+
+        m_extraMeleeAttacks = 0;
+
+        // Pungent Soulscent
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+            for (auto u : units) {
+                if (Dice::RollD6() >= 2) {
+                    u->applyDamage({0, Dice::RollD3()}, this);
+
+                    // Extra attacks
+                    m_extraMeleeAttacks++;
+                }
+            }
+        }
+    }
+
+    int BladebringerOnExaltedChariot::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+
+        // Pungent Soulscent
+        if (!weapon->isMissile()) extras += m_extraMeleeAttacks;
+
+        return extras;
     }
 
 } // Slannesh

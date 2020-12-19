@@ -152,7 +152,7 @@ namespace Sylvaneth {
             Dice::RollResult result;
             Dice::RollD6(unit->remainingModels(), result);
             Wounds trampleWounds = {0, result.rollsGE(4)};
-            unit->applyDamage(trampleWounds);
+            unit->applyDamage(trampleWounds, this);
             wounds += trampleWounds;
         }
         return wounds;

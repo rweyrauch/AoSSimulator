@@ -98,7 +98,7 @@ namespace Skaven {
                         for (auto i = 0; i < numUnmodifiedOnes; i++) {
                             mortalWoundsSelf += Dice::RollD3();
                         }
-                        applyDamage({0, mortalWoundsSelf});
+                        applyDamage({0, mortalWoundsSelf}, this);
                     }
                 }
             }

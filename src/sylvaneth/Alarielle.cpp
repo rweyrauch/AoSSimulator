@@ -162,7 +162,7 @@ namespace Sylvaneth {
             if (Dice::RollD6() >= 4) {
                 Wounds wounds = {0, 0};
                 wounds.mortal = Dice::RollD3();
-                ip->applyDamage(wounds);
+                ip->applyDamage(wounds, this);
             }
         }
         Unit::onCharged();

@@ -91,7 +91,7 @@ namespace Slaanesh {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         for (auto ip : units) {
             if (Dice::RollD6() >= 2) {
-                ip->applyDamage({0, Dice::RollD3()});
+                ip->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }

@@ -82,8 +82,8 @@ namespace Bonesplitterz {
         return 0;
     }
 
-    Wounds Bonesplitterz::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = Unit::applyWoundSave(wounds);
+    Wounds Bonesplitterz::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Warpaint
         Dice::RollResult normalResult, mortalResult;

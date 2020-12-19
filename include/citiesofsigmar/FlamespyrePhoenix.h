@@ -39,7 +39,7 @@ namespace CitiesOfSigmar {
 
         void onRestore() override;
 
-        Wounds applyWoundSave(const Wounds &wounds) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         int woundModifier() const override;
 

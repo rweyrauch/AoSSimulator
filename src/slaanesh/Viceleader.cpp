@@ -91,7 +91,7 @@ namespace Slaanesh {
         }
     }
 
-    Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds) {
+    Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Lightning Reflexes
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

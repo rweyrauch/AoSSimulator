@@ -128,7 +128,7 @@ namespace OgorMawtribes {
 
         // Bloodgruel
         const auto roll = Dice::RollD6();
-        if (roll == 1) applyDamage({0, 1});
+        if (roll == 1) applyDamage({0, 1}, this);
         else heal(1);
     }
 
@@ -137,7 +137,7 @@ namespace OgorMawtribes {
 
         // Bloodgruel
         const auto roll = Dice::RollD6();
-        if (roll == 1) applyDamage({0, 1});
+        if (roll == 1) applyDamage({0, 1}, this);
         else heal(1);
     }
 

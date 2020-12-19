@@ -103,7 +103,7 @@ namespace OssiarchBonereapers {
 
     }
 
-    Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds) {
+    Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Deathless Warriors
         auto hekatos = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HEKATOS, 6.0);
         auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 16.0);
@@ -157,7 +157,7 @@ namespace OssiarchBonereapers {
                 auto roll = Dice::RollD6();
                 if (hasKeyword(HERO) || hasKeyword(MONSTER)) roll++;
                 if (roll >= 5) {
-                    unit->applyDamage({0, 1});
+                    unit->applyDamage({0, 1}, this);
                 }
             }
         }

@@ -97,8 +97,8 @@ namespace Seraphon {
         return extra;
     }
 
-    Wounds LordKroak::applyWoundSave(const Wounds &wounds) {
-        auto totalWounds = SeraphonBase::applyWoundSave(wounds);
+    Wounds LordKroak::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = SeraphonBase::applyWoundSave(wounds, attackingUnit);
 
         // Dead for Innumerable Ages
         Dice::RollResult resultNormal, resultMortal;

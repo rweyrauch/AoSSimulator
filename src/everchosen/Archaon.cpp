@@ -135,8 +135,8 @@ namespace SlavesToDarkness {
         return Unit::computeReturnedDamage(weapon, saveRoll);
     }
 
-    Wounds Archaon::applyWoundSave(const Wounds &wounds) {
-        auto modifiedWounds = Unit::applyWoundSave(wounds);
+    Wounds Archaon::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto modifiedWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         return modifiedWounds;
     }

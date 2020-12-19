@@ -159,7 +159,7 @@ namespace OgorMawtribes {
                 else if (m_meleeTarget->remainingModels() >= 10) toWound -= 1;
 
                 Wounds wounds = {0, result.rollsGE(toWound)};
-                m_meleeTarget->applyDamage(wounds);
+                m_meleeTarget->applyDamage(wounds, this);
             }
         }
     }

@@ -64,7 +64,7 @@ namespace FreeAgent {
         }
     }
 
-    Wounds GotrekGurnisson::applyWoundSave(const Wounds &wounds) {
+    Wounds GotrekGurnisson::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Avatar of Grimnir
         Wounds appliedWounds = {0, 0};
         appliedWounds.normal = std::min(1, wounds.normal);

@@ -107,7 +107,7 @@ namespace OgorMawtribes {
 
         // Bloodgruel
         const auto roll = Dice::RollD6();
-        if (roll == 1) applyDamage({0, 1});
+        if (roll == 1) applyDamage({0, 1}, this);
         else heal(1);
     }
 
@@ -116,7 +116,7 @@ namespace OgorMawtribes {
 
         // Bloodgruel
         const auto roll = Dice::RollD6();
-        if (roll == 1) applyDamage({0, 1});
+        if (roll == 1) applyDamage({0, 1}, this);
         else heal(1);
     }
 
@@ -129,7 +129,7 @@ namespace OgorMawtribes {
             switch (roll) {
                 case 1:
                     // Bad Meat
-                    applyDamage({0, Dice::RollD3()});
+                    applyDamage({0, Dice::RollD3()}, this);
                     break;
                 case 2:
                     // Troggoth Guts
@@ -157,7 +157,7 @@ namespace OgorMawtribes {
                 {
                     auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
                     for (auto unit : units) {
-                        if (Dice::RollD6() >= 4) unit->applyDamage({0, Dice::RollD3()});
+                        if (Dice::RollD6() >= 4) unit->applyDamage({0, Dice::RollD3()}, this);
                     }
                 }
                     break;

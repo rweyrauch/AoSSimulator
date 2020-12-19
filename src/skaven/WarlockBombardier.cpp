@@ -100,7 +100,7 @@ namespace Skaven {
 
         if (m_moreMoreFailed) {
             Wounds overloadWounds = {0, Dice::RollD6()};
-            applyDamage(overloadWounds);
+            applyDamage(overloadWounds, this);
             wounds += overloadWounds;
             m_moreMoreFailed = false;
         }

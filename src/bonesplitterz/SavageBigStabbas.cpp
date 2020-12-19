@@ -71,7 +71,7 @@ namespace Bonesplitterz {
                 auto roll = Dice::RollD6();
                 if (unit->hasKeyword(MONSTER)) roll += 2;
                 if (roll >= 4) {
-                    unit->applyDamage({0, Dice::RollD3()});
+                    unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
         }

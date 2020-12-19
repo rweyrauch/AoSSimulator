@@ -131,7 +131,7 @@ namespace Death {
                                                        g_damageTable[getDamageTableIndex()].m_wailRange);
         for (auto unit : units) {
             if (Dice::Roll2D6() > unit->bravery()) {
-                unit->applyDamage({0, Dice::RollD3()});
+                unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
     }

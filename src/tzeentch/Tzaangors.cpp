@@ -152,9 +152,9 @@ namespace Tzeentch {
         return TzeentchBase::EnumStringToInt(enumString);
     }
 
-    Wounds Tzaangors::applyWoundSave(const Wounds &wounds) {
+    Wounds Tzaangors::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Arcanite Shield
-        auto totalWounds = Unit::applyWoundSave(wounds);
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         if (m_weaponOption == Savage_Blade_And_Shield) {
             Dice::RollResult normalSaves, mortalSaves;

@@ -93,7 +93,7 @@ namespace Death {
             for (auto unit : units) {
                 if (unit->hasKeyword(WIZARD)) {
                     if (Dice::RollD6() >= 4) {
-                        unit->applyDamage({0, 1});
+                        unit->applyDamage({0, 1}, this);
                     }
                 }
             }

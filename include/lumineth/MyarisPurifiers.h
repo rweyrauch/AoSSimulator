@@ -31,6 +31,8 @@ namespace LuminethRealmLords {
 
     protected:
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_bow,
@@ -44,9 +46,9 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Crushing Blow                    TODO
+// Crushing Blow                    Yes
 // Guardians                        TODO
-// Sunmetal Weapons                 TODO
+// Sunmetal Weapons                 Yes
 //
 
 } // namespace LuminethRealmLords

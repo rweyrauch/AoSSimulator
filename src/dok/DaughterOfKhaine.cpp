@@ -98,7 +98,7 @@ namespace DaughtersOfKhaine {
         return mod;
     }
 
-    Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds) {
+    Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Fanatical Faith
         Dice::RollResult mortalSaves, normalSaves;
         Dice::RollD6(wounds.mortal, mortalSaves);
