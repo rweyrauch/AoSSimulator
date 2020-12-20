@@ -58,11 +58,11 @@ namespace DaughtersOfKhaine {
             model->addMeleeWeapon(&m_barbedWhip);
 
             if (standardBearers) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearers = false;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(model);
@@ -113,7 +113,7 @@ namespace DaughtersOfKhaine {
     }
 
     int SistersOfSlaughter::rollBattleshock() const {
-        if (isNamedModelAlive("Standard Bearer")) {
+        if (isNamedModelAlive(Model::StandardBearer)) {
             int r1 = Dice::RollD6();
             int r2 = Dice::RollD6();
             return std::min(r1, r2);

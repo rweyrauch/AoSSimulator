@@ -45,7 +45,7 @@ namespace Death {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_zombieBite);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (noiseMaker) {
@@ -141,7 +141,7 @@ namespace Death {
     }
 
     int Zombies::standardBearerBraveryMod(const Unit *unit) {
-        if (isNamedModelAlive("Standard Bearer") && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
+        if (isNamedModelAlive(Model::StandardBearer) && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 

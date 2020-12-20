@@ -53,7 +53,7 @@ namespace Seraphon {
             model->addMeleeWeapon(&m_celestitePolearm);
             model->addMeleeWeapon(&m_jaws);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (wardrum) {
@@ -124,7 +124,7 @@ namespace Seraphon {
 
     int SaurusGuard::stardrakeIcon(const Unit *target) {
         // Icon Bearer
-        if (isNamedModelAlive("Icon Bearer") && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive(Model::IconBearer) && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

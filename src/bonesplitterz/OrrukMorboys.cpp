@@ -81,7 +81,7 @@ namespace Bonesplitterz {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_chompaAndShiv);
             if (totemBearer) {
-                model->setName("Totem Bearer");
+                model->setName(Model::TotemBearer);
                 totemBearer = false;
             }
             else if (skullThumper) {

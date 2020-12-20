@@ -118,7 +118,7 @@ namespace OgorMawtribes {
                 skullBearer = false;
             }
             else if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (bellower) {

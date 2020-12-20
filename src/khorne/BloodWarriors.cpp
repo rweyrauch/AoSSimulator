@@ -61,7 +61,7 @@ namespace Khorne {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_goreaxe);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
 
@@ -86,7 +86,7 @@ namespace Khorne {
         int modifier = KhorneBase::braveryModifier();
 
         // Icon Bearer
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             modifier++;
         }
 

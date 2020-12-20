@@ -47,11 +47,11 @@ namespace DaughtersOfKhaine {
             auto witch = new Model(g_basesize, wounds());
             witch->addMeleeWeapon(&m_sacrificialKnife);
             if (standardBearers) {
-                witch->setName("Standard Bearer");
+                witch->setName(Model::StandardBearer);
                 standardBearers = false;
             }
             else if (hornblowers) {
-                witch->setName("Hornblower");
+                witch->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(witch);
@@ -118,7 +118,7 @@ namespace DaughtersOfKhaine {
     }
 
     int WitchAelves::rollBattleshock() const {
-        if (isNamedModelAlive("Standard Bearer")) {
+        if (isNamedModelAlive(Model::StandardBearer)) {
             int r1 = Dice::RollD6();
             int r2 = Dice::RollD6();
             return std::min(r1, r2);

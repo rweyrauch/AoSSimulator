@@ -48,7 +48,7 @@ namespace Wanderers {
                 pennantBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -105,7 +105,7 @@ namespace Wanderers {
     }
 
     Rerolls GladeGuard::runRerolls() const {
-        if (isNamedModelAlive("Hornblower")) {
+        if (isNamedModelAlive(Model::Hornblower)) {
             return Reroll_Failed;
         }
         return Wanderer::runRerolls();

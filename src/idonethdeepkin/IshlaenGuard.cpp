@@ -48,7 +48,7 @@ namespace IdonethDeepkin {
             model->addMeleeWeapon(&m_fangmoraFangedMaw);
             model->addMeleeWeapon(&m_fangmoraLashingTail);
             if (standardBearers) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearers = false;
             }
             else if (musicians) {
@@ -102,12 +102,12 @@ namespace IdonethDeepkin {
     }
 
     Rerolls AkhelianIshlaenGuard::battleshockRerolls() const {
-        if (isNamedModelAlive("Standard Bearer")) { return Reroll_Failed; }
+        if (isNamedModelAlive(Model::StandardBearer)) { return Reroll_Failed; }
         return Unit::battleshockRerolls();
     }
 
     Rerolls AkhelianIshlaenGuard::chargeRerolls() const {
-        if (isNamedModelAlive("Musician")) { return Reroll_Failed; }
+        if (isNamedModelAlive(Model::Musician)) { return Reroll_Failed; }
         return Unit::chargeRerolls();
     }
 

@@ -60,11 +60,11 @@ namespace Death {
                 model->addMeleeWeapon(&m_greatWightBlade);
             }
             if (standardBearers) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearers = false;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(model);
@@ -159,13 +159,13 @@ namespace Death {
     int GraveGuard::rollChargeDistance() const {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
-        if (isNamedModelAlive("Hornblower"))
+        if (isNamedModelAlive(Model::Hornblower))
             return std::max(6, dist);
         return dist;
     }
 
     int GraveGuard::standardBearerBraveryMod(const Unit *unit) {
-        if (isNamedModelAlive("Standard Bearer") && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
+        if (isNamedModelAlive(Model::StandardBearer) && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 

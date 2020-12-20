@@ -68,11 +68,11 @@ namespace Dispossessed {
             model->addMissileWeapon(&m_drakegun);
             model->addMeleeWeapon(&m_mailedFist);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -199,7 +199,7 @@ namespace Dispossessed {
 
     int Irondrakes::rollRunDistance() const {
         // Sound the Advance
-        if (isNamedModelAlive("Hornblower")) {
+        if (isNamedModelAlive(Model::Hornblower)) {
             return 4;
         }
         return Unit::rollRunDistance();

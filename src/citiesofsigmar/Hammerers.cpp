@@ -42,11 +42,11 @@ namespace CitiesOfSigmar {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_greatHammer);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (musician) {
-                model->setName("Musician");
+                model->setName(Model::Musician);
                 musician = false;
             }
 
@@ -107,19 +107,19 @@ namespace CitiesOfSigmar {
 
     int Hammerers::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Musician")) mod++;
+        if (isNamedModelAlive(Model::Musician)) mod++;
         return mod;
     }
 
     int Hammerers::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Musician")) mod++;
+        if (isNamedModelAlive(Model::Musician)) mod++;
         return mod;
     }
 
     int Hammerers::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) mod++;
+        if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 

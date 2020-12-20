@@ -43,7 +43,7 @@ namespace Nurgle {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_blightedWeapon);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             addModel(model);

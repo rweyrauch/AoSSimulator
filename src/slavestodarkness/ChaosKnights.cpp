@@ -111,7 +111,7 @@ namespace SlavesToDarkness {
 
         if (standardBearer) {
             auto model = new Model(g_basesize, wounds());
-            model->setName("Standard Bearer");
+            model->setName(Model::StandardBearer);
             if (weapons == Ensorcelled_Weapon)
                 model->addMeleeWeapon(&m_ensorcelledWeapon);
             else if (weapons == Cursed_Lance)
@@ -122,7 +122,7 @@ namespace SlavesToDarkness {
 
         if (hornblower) {
             auto model = new Model(g_basesize, wounds());
-            model->setName("Hornblower");
+            model->setName(Model::Hornblower);
             if (weapons == Ensorcelled_Weapon)
                 model->addMeleeWeapon(&m_ensorcelledWeapon);
             else if (weapons == Cursed_Lance)
@@ -184,19 +184,19 @@ namespace SlavesToDarkness {
 
     int ChaosKnights::runModifier() const {
         auto modifier = Unit::runModifier();
-        if (isNamedModelAlive("Hornblower")) modifier += 1;
+        if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosKnights::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (isNamedModelAlive("Hornblower")) modifier += 1;
+        if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosKnights::braveryModifier() const {
         auto modifier = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) modifier += 1;
+        if (isNamedModelAlive(Model::StandardBearer)) modifier += 1;
         return modifier;
     }
 

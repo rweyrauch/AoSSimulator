@@ -46,7 +46,7 @@ namespace BeastsOfChaos {
             model->addMeleeWeapon(&m_centigorSpear);
             model->addMeleeWeapon(&m_clawedForelimbs);
             if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (brayhorn) {
@@ -110,7 +110,7 @@ namespace BeastsOfChaos {
 
     int Centigors::runModifier() const {
         int modifier = Unit::runModifier();
-        if (isNamedModelAlive("Drummer")) {
+        if (isNamedModelAlive(Model::Drummer)) {
             modifier += 1;
         }
         return modifier;

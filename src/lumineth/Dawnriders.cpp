@@ -50,7 +50,7 @@ namespace LuminethRealmLords {
             model->addMeleeWeapon(&m_lance);
             model->addMeleeWeapon(&m_hooves);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             addModel(model);
@@ -156,7 +156,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls Dawnriders::battleshockRerolls() const {
-        if (isNamedModelAlive("Standard Bearer")) return Reroll_Failed;
+        if (isNamedModelAlive(Model::StandardBearer)) return Reroll_Failed;
         return Unit::battleshockRerolls();
     }
 

@@ -44,7 +44,7 @@ namespace BeastsOfChaos {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_gorBlade);
             if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (brayhorn) {

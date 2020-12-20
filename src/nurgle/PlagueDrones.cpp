@@ -70,7 +70,7 @@ namespace Nurgle {
             }
             model->addMeleeWeapon(&m_venemousSting);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (bellTollers) {
@@ -139,7 +139,7 @@ namespace Nurgle {
 
     void PlagueDrones::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Unit::computeBattleshockEffect(roll, numFled, numAdded);
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             if (roll == 1) {
                 numAdded = Dice::RollD6();

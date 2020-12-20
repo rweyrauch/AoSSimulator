@@ -53,11 +53,11 @@ namespace CitiesOfSigmar {
                 model->addMeleeWeapon(&m_ancestralGreatAxe);
             }
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (musician) {
-                model->setName("Musician");
+                model->setName(Model::Musician);
                 musician = false;
             }
             addModel(model);
@@ -139,19 +139,19 @@ namespace CitiesOfSigmar {
 
     int Longbeards::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Musician")) mod++;
+        if (isNamedModelAlive(Model::Musician)) mod++;
         return mod;
     }
 
     int Longbeards::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Musician")) mod++;
+        if (isNamedModelAlive(Model::Musician)) mod++;
         return mod;
     }
 
     int Longbeards::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) mod++;
+        if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 

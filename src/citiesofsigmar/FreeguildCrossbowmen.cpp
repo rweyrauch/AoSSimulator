@@ -95,11 +95,11 @@ namespace CitiesOfSigmar {
             model->addMissileWeapon(&m_crossbow);
             model->addMeleeWeapon(&m_dagger);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (piper) {
-                model->setName("Piper");
+                model->setName(Model::Piper);
                 piper = false;
             }
             addModel(model);
@@ -112,19 +112,19 @@ namespace CitiesOfSigmar {
 
     int FreeguildCrossbowmen::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Piper")) mod++;
+        if (isNamedModelAlive(Model::Piper)) mod++;
         return mod;
     }
 
     int FreeguildCrossbowmen::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Piper")) mod++;
+        if (isNamedModelAlive(Model::Piper)) mod++;
         return mod;
     }
 
     int FreeguildCrossbowmen::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) mod++;
+        if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 

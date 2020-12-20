@@ -37,7 +37,7 @@ namespace Nighthaunt {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_huntersGlaive);
             if (drummer) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummer = false;
             }
 

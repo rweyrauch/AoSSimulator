@@ -55,7 +55,7 @@ namespace BeastsOfChaos {
                 model->addMeleeWeapon(&m_gnarledShortspear);
             }
             if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (brayhorn) {

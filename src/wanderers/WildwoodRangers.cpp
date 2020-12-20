@@ -40,11 +40,11 @@ namespace Wanderers {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_rangersDraich);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -97,7 +97,7 @@ namespace Wanderers {
     }
 
     Rerolls WildwoodRangers::runRerolls() const {
-        if (isNamedModelAlive("Hornblower")) {
+        if (isNamedModelAlive(Model::Hornblower)) {
             return Reroll_Failed;
         }
         return Wanderer::runRerolls();
@@ -105,7 +105,7 @@ namespace Wanderers {
 
     int WildwoodRangers::braveryModifier() const {
         int modifier = Wanderer::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) {
+        if (isNamedModelAlive(Model::StandardBearer)) {
             modifier += 1;
 
             // if (Board::Instance()->unitInCover(this)) { modifier += 1; }

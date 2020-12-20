@@ -117,7 +117,7 @@ namespace GloomspiteGitz {
                 numGongbashers--;
             }
             else if (numIconbearers > 0) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 numIconbearers--;
             }
             addModel(model);
@@ -155,13 +155,13 @@ namespace GloomspiteGitz {
 
     int Shootas::braveryModifier() const {
         int modifier = GloomspiteGitzBase::braveryModifier();
-        if (isNamedModelAlive("Flag Bearer")) { modifier += 1; }
+        if (isNamedModelAlive(Model::FlagBearer)) { modifier += 1; }
         return modifier;
     }
 
     int Shootas::toSaveModifier(const Weapon *weapon) const {
         int modifier = GloomspiteGitzBase::toSaveModifier(weapon);
-        if (isNamedModelAlive("Icon Bearer") && weapon->isMissile()) {
+        if (isNamedModelAlive(Model::IconBearer) && weapon->isMissile()) {
             modifier += 1;
         }
         return modifier;

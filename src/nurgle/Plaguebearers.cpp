@@ -43,11 +43,11 @@ namespace Nurgle {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_plaguesword);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (pipers) {
-                model->setName("Piper");
+                model->setName(Model::Piper);
                 pipers = false;
             }
 

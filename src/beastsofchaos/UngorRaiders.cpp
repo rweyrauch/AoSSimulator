@@ -46,7 +46,7 @@ namespace BeastsOfChaos {
             model->addMissileWeapon(&m_raiderBow);
             model->addMeleeWeapon(&m_jaggedShank);
             if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (brayhorn) {

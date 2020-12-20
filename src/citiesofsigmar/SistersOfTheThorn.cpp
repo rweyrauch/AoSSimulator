@@ -101,11 +101,11 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_staff);
             model->addMeleeWeapon(&m_antlersAndHooves);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -121,19 +121,19 @@ namespace CitiesOfSigmar {
 
     int SistersOfTheThorn::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Hornblower")) mod++;
+        if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int SistersOfTheThorn::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Hornblower")) mod++;
+        if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int SistersOfTheThorn::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) mod++;
+        if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 

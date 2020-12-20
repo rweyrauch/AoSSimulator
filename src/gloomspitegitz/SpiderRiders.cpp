@@ -51,11 +51,11 @@ namespace GloomspiteGitz {
             model->addMeleeWeapon(&m_crookedSpear);
             model->addMeleeWeapon(&m_fangs);
             if (drummers) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummers = false;
             }
             else if (totemBearers) {
-                model->setName("Totem Bearer");
+                model->setName(Model::TotemBearer);
                 totemBearers = false;
             }
             addModel(model);
@@ -101,14 +101,14 @@ namespace GloomspiteGitz {
 
     int SpiderRiders::braveryModifier() const {
         int modifier = GloomspiteGitzBase::braveryModifier();
-        if (isNamedModelAlive("Totem Bearer"))
+        if (isNamedModelAlive(Model::TotemBearer))
             modifier += 2;
         return modifier;
     }
 
     int SpiderRiders::runModifier() const {
         int modifier = GloomspiteGitzBase::runModifier();
-        if (isNamedModelAlive("Drummer"))
+        if (isNamedModelAlive(Model::Drummer))
             modifier += 2;
         return modifier;
     }

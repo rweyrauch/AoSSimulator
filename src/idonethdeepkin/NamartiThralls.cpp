@@ -42,7 +42,7 @@ namespace IdonethDeepkin {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_lanmariBlade);
             if (numIconBearers >= 0) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 numIconBearers--;
             }
             addModel(model);

@@ -91,11 +91,11 @@ namespace CitiesOfSigmar {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_zweihander);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -108,19 +108,19 @@ namespace CitiesOfSigmar {
 
     int FreeguildGreatswords::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Hornblower")) mod++;
+        if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int FreeguildGreatswords::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Hornblower")) mod++;
+        if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int FreeguildGreatswords::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) mod++;
+        if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 

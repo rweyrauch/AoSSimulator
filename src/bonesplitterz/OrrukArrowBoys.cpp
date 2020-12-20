@@ -83,7 +83,7 @@ namespace Bonesplitterz {
             model->addMissileWeapon(&m_stingaBow);
             model->addMeleeWeapon(&m_boneShiv);
             if (totemBearer) {
-                model->setName("Totem Bearer");
+                model->setName(Model::TotemBearer);
                 totemBearer = false;
             }
             else if (skullThumper) {

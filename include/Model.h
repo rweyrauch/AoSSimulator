@@ -17,6 +17,21 @@
 class Model {
 public:
 
+    //
+    // Common model names/roles.
+    //
+    static constexpr const char* StandardBearer = "Standard Bearer";
+    static constexpr const char* BannerBearer = "Banner Bearer";
+    static constexpr const char* IconBearer = "Icon Bearer";
+    static constexpr const char* TotemBearer = "Totem Bearer";
+    static constexpr const char* FlagBearer = "Flag Bearer";
+
+    static constexpr const char* Hornblower = "Hornblower";
+    static constexpr const char* Drummer = "Drummer";
+    static constexpr const char* Musician = "Musician";
+    static constexpr const char* Piper = "Piper";
+    static constexpr const char* Trumpeter = "Trumpeter";
+
     Model() = delete;
 
     Model(int baseSize, int wounds) :

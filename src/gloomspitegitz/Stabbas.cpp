@@ -79,7 +79,7 @@ namespace GloomspiteGitz {
                 model->addMeleeWeapon(&m_pokinSpear);
             }
             if (numFlagbearers > 0) {
-                model->setName("Flag Bearer");
+                model->setName(Model::FlagBearer);
                 numFlagbearers--;
             }
             else if (numGongbashers > 0) {
@@ -87,7 +87,7 @@ namespace GloomspiteGitz {
                 numGongbashers--;
             }
             else if (numIconbearers > 0) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 numIconbearers--;
             }
             addModel(model);
@@ -164,7 +164,7 @@ namespace GloomspiteGitz {
 
     int Stabbas::toSaveModifier(const Weapon *weapon) const {
         int modifier = GloomspiteGitzBase::toSaveModifier(weapon);
-        if (isNamedModelAlive("Icon Bearer") && weapon->isMissile()) {
+        if (isNamedModelAlive(Model::IconBearer) && weapon->isMissile()) {
             modifier += 1;
         }
         // Moonshields
@@ -176,7 +176,7 @@ namespace GloomspiteGitz {
 
     int Stabbas::braveryModifier() const {
         int modifier = GloomspiteGitzBase::braveryModifier();
-        if (isNamedModelAlive("Flag Bearer")) {
+        if (isNamedModelAlive(Model::FlagBearer)) {
             modifier += 1;
         }
         return modifier;

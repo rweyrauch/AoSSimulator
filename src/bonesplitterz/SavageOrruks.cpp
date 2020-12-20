@@ -95,7 +95,7 @@ namespace Bonesplitterz {
                 model->addMeleeWeapon(&m_stikka);
             }
             if (totemBearer) {
-                model->setName("Totem Bearer");
+                model->setName(Model::TotemBearer);
                 totemBearer = false;
             }
             else if (skullThumper) {

@@ -52,11 +52,11 @@ namespace Death {
             model->addMeleeWeapon(&m_templarLanceOrBlade);
             model->addMeleeWeapon(&m_hoovesAndTeeth);
             if (standardBearers) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearers = false;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(model);
@@ -138,7 +138,7 @@ namespace Death {
     }
 
     int BloodKnights::standardBearerBraveryMod(const Unit *unit) {
-        if (isNamedModelAlive("Standard Bearer") && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
+        if (isNamedModelAlive(Model::StandardBearer) && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 

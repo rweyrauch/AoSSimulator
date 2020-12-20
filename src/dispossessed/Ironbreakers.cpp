@@ -56,11 +56,11 @@ namespace Dispossessed {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_axeOrHammer);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (drummer) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummer = false;
             }
             addModel(model);
@@ -172,7 +172,7 @@ namespace Dispossessed {
 
     int Ironbreakers::rollRunDistance() const {
         // Sound the Advance
-        if (isNamedModelAlive("Drummer")) {
+        if (isNamedModelAlive(Model::Drummer)) {
             return 4;
         }
         return Unit::rollRunDistance();

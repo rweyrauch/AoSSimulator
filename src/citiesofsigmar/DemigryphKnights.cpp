@@ -120,11 +120,11 @@ namespace CitiesOfSigmar {
             }
             model->addMeleeWeapon(&m_beakAndTalons);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -137,19 +137,19 @@ namespace CitiesOfSigmar {
 
     int DemigryphKnights::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Hornblower")) mod++;
+        if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int DemigryphKnights::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Hornblower")) mod++;
+        if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int DemigryphKnights::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) mod++;
+        if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 

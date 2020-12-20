@@ -40,11 +40,11 @@ namespace EldritchCouncil {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_greatsword);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);

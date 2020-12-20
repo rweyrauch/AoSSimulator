@@ -78,7 +78,7 @@ namespace Tzeentch {
             model->addMeleeWeapon(&m_savageBlade);
             model->addMeleeWeapon(&m_viciousBeak);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (brayhorns) {

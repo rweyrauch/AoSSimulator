@@ -53,11 +53,11 @@ namespace Khorne {
             model->addMeleeWeapon(&m_hellblade);
             model->addMeleeWeapon(&m_brazenHooves);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(model);
@@ -145,7 +145,7 @@ namespace Khorne {
 
     void Bloodcrushers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         KhorneBase::computeBattleshockEffect(roll, numFled, numAdded);
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             numAdded = 1;
         }
@@ -161,7 +161,7 @@ namespace Khorne {
     }
 
     Rerolls Bloodcrushers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (isNamedModelAlive("Hornblower") && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
+        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
 
         return No_Rerolls;
     }

@@ -110,7 +110,7 @@ namespace LuminethRealmLords {
         if (standardBearer) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_stratumHammer);
-            model->setName("Standard Bearer");
+            model->setName(Model::StandardBearer);
             addModel(model);
         }
 
@@ -127,7 +127,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls AlarithStoneguard::battleshockRerolls() const {
-        if (isNamedModelAlive("Standard Bearer")) return Reroll_Failed;
+        if (isNamedModelAlive(Model::StandardBearer)) return Reroll_Failed;
         return Unit::battleshockRerolls();
     }
 

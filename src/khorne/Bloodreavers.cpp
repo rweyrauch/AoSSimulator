@@ -60,11 +60,11 @@ namespace Khorne {
                 model->addMeleeWeapon(&m_meatripperAxe);
             }
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
 
@@ -89,7 +89,7 @@ namespace Khorne {
         int modifier = KhorneBase::braveryModifier();
 
         // Icon Bearer
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             modifier++;
         }
 
@@ -167,7 +167,7 @@ namespace Khorne {
 
     int Bloodreavers::runModifier() const {
         int modifier = KhorneBase::runModifier();
-        if (isNamedModelAlive("Hornblower")) {
+        if (isNamedModelAlive(Model::Hornblower)) {
             modifier += 1;
         }
         return modifier;
@@ -175,7 +175,7 @@ namespace Khorne {
 
     int Bloodreavers::chargeModifier() const {
         int modifier = KhorneBase::chargeModifier();
-        if (isNamedModelAlive("Hornblower")) {
+        if (isNamedModelAlive(Model::Hornblower)) {
             modifier += 1;
         }
         return modifier;

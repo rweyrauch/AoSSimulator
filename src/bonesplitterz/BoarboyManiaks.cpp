@@ -85,7 +85,7 @@ namespace Bonesplitterz {
             model->addMeleeWeapon(&m_chompas);
             model->addMeleeWeapon(&m_tusksAndHooves);
             if (totemBearer) {
-                model->setName("Totem Bearer");
+                model->setName(Model::TotemBearer);
                 totemBearer = false;
             }
             else if (boarThumper) {

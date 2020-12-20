@@ -63,7 +63,7 @@ namespace Dispossessed {
                 standard = StandardOptions::None;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(model);
@@ -176,7 +176,7 @@ namespace Dispossessed {
 
     int Warriors::rollRunDistance() const {
         // Sound the Advance
-        if (isNamedModelAlive("Hornblower")) {
+        if (isNamedModelAlive(Model::Hornblower)) {
             return 4;
         }
         return Unit::rollRunDistance();

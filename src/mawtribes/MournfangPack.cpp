@@ -88,7 +88,7 @@ namespace OgorMawtribes {
 
         if (hornblower) {
             auto model = new Model(g_basesize, wounds());
-            model->setName("Hornblower");
+            model->setName(Model::Hornblower);
             if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
                 model->addMeleeWeapon(&m_clubOrHacker);
             else if (weaponOption == Gargant_Hacker)
@@ -98,7 +98,7 @@ namespace OgorMawtribes {
         }
         if (bannerBearer) {
             auto model = new Model(g_basesize, wounds());
-            model->setName("Banner Bearer");
+            model->setName(Model::BannerBearer);
             if (weaponOption == Culling_Club_Or_Prey_Hacker_And_Ironfist)
                 model->addMeleeWeapon(&m_clubOrHacker);
             else if (weaponOption == Gargant_Hacker)
@@ -164,7 +164,7 @@ namespace OgorMawtribes {
 
     int MournfangPack::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (isNamedModelAlive("Hornblower")) modifier += 1;
+        if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 

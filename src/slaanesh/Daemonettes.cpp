@@ -54,15 +54,15 @@ namespace Slaanesh {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_piercingClaws);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -114,7 +114,7 @@ namespace Slaanesh {
 
     void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Unit::computeBattleshockEffect(roll, numFled, numAdded);
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             if (roll == 1) {
                 numAdded = Dice::RollD6();
@@ -147,7 +147,7 @@ namespace Slaanesh {
     }
 
     Rerolls Daemonettes::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive("Hornblower") && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
 
         return No_Rerolls;
     }

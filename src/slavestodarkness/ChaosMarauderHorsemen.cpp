@@ -112,7 +112,7 @@ namespace SlavesToDarkness {
 
         if (iconBearer) {
             auto model = new Model(g_basesize, wounds());
-            model->setName("Icon Bearer");
+            model->setName(Model::IconBearer);
             if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
@@ -127,7 +127,7 @@ namespace SlavesToDarkness {
 
         if (hornblower) {
             auto model = new Model(g_basesize, wounds());
-            model->setName("Hornblower");
+            model->setName(Model::Hornblower);
             if (weapons == Axe_And_Shield)
                 model->addMeleeWeapon(&m_axe);
             else if (weapons == Flail)
@@ -190,13 +190,13 @@ namespace SlavesToDarkness {
 
     int ChaosMarauderHorsemen::runModifier() const {
         auto modifier = Unit::runModifier();
-        if (isNamedModelAlive("Hornblower")) modifier += 1;
+        if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosMarauderHorsemen::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (isNamedModelAlive("Hornblower")) modifier += 1;
+        if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
@@ -224,7 +224,7 @@ namespace SlavesToDarkness {
 
     int ChaosMarauderHorsemen::iconBearer(const Unit *unit) {
         // Icon Bearer
-        if (isNamedModelAlive("Icon Bearer") && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
+        if (isNamedModelAlive(Model::IconBearer) && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
             return -1;
         }
         return 0;

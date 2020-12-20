@@ -58,11 +58,11 @@ namespace BeastsOfChaos {
                 model->addMeleeWeapon(&m_bullgorGreatAxe);
             }
             if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (drummer) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummer = false;
             }
             addModel(model);
@@ -132,7 +132,7 @@ namespace BeastsOfChaos {
 
     int Bullgors::chargeModifier() const {
         int modifier = Unit::chargeModifier();
-        if (isNamedModelAlive("Drummer")) {
+        if (isNamedModelAlive(Model::Drummer)) {
             modifier += 1;
         }
         return modifier;

@@ -126,11 +126,11 @@ namespace CitiesOfSigmar {
                 model->addMeleeWeapon(&m_sword);
             }
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (drummer) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummer = false;
             }
             addModel(model);
@@ -143,19 +143,19 @@ namespace CitiesOfSigmar {
 
     int FreeguildGuard::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Drummer")) mod++;
+        if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int FreeguildGuard::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Drummer")) mod++;
+        if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int FreeguildGuard::braveryModifier() const {
         auto mod = Unit::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer")) mod++;
+        if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 

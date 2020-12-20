@@ -44,7 +44,7 @@ namespace BeastsOfChaos {
             model->addMeleeWeapon(&m_despoilerAxe);
             addModel(model);
             if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (brayhorn) {
@@ -124,7 +124,7 @@ namespace BeastsOfChaos {
 
     int Bestigors::runModifier() const {
         int modifier = Unit::runModifier();
-        if (isNamedModelAlive("Banner Bearer")) {
+        if (isNamedModelAlive(Model::BannerBearer)) {
             modifier += 1;
         }
         return modifier;

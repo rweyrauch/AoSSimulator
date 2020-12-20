@@ -59,11 +59,11 @@ namespace Khorne {
             }
             model->addMeleeWeapon(&m_brazenHooves);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(model);
@@ -116,21 +116,21 @@ namespace Khorne {
 
     int MightySkullcrushers::chargeModifier() const {
         int modifier = KhorneBase::chargeModifier();
-        if (isNamedModelAlive("Hornblower"))
+        if (isNamedModelAlive(Model::Hornblower))
             modifier += 1;
         return modifier;
     }
 
     int MightySkullcrushers::runModifier() const {
         int modifier = KhorneBase::runModifier();
-        if (isNamedModelAlive("Hornblower"))
+        if (isNamedModelAlive(Model::Hornblower))
             modifier += 1;
         return modifier;
     }
 
     int MightySkullcrushers::braveryModifier() const {
         int modifier = KhorneBase::braveryModifier();
-        if (isNamedModelAlive("Standard Bearer"))
+        if (isNamedModelAlive(Model::StandardBearer))
             modifier += 2;
         return modifier;
     }

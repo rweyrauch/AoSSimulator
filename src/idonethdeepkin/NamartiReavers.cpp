@@ -46,7 +46,7 @@ namespace IdonethDeepkin {
             model->addMissileWeapon(&m_whisperbowAimedFire);
             model->addMeleeWeapon(&m_keeningBlade);
             if (numIconBearers >= 0) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 numIconBearers--;
             }
             addModel(model);

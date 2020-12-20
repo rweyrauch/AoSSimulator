@@ -95,7 +95,7 @@ namespace Greenskinz {
                 standardBearer = StandardOption::None;
             }
             else if (drummer) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummer = false;
             }
             addModel(model);
@@ -188,7 +188,7 @@ namespace Greenskinz {
 
     int Orruks::chargeModifier() const {
         auto modifier = Unit::chargeModifier();
-        if (isNamedModelAlive("Drummer"))
+        if (isNamedModelAlive(Model::Drummer))
             modifier += 2;
         return modifier;
     }

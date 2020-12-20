@@ -60,15 +60,15 @@ namespace Slaanesh {
                 model->addMeleeWeapon(&m_hellscourge);
             model->addMeleeWeapon(&m_poisonedTongue);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (bannerBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -144,7 +144,7 @@ namespace Slaanesh {
 
     int Hellstriders::braveryModifier() const {
         int modifier = Unit::braveryModifier();
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             modifier += 2;
         }
         return modifier;
@@ -159,7 +159,7 @@ namespace Slaanesh {
     }
 
     Rerolls Hellstriders::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive("Hornblower") && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
 
         return No_Rerolls;
     }

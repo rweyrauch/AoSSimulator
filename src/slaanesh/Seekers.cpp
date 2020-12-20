@@ -55,15 +55,15 @@ namespace Slaanesh {
             model->addMeleeWeapon(&m_piercingClaws);
             model->addMeleeWeapon(&m_poisonedTongue);
             if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (standardBearer) {
-                model->setName("Banner Bearer");
+                model->setName(Model::BannerBearer);
                 standardBearer = false;
             }
             else if (hornblower) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
@@ -115,7 +115,7 @@ namespace Slaanesh {
 
     void Seekers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Unit::computeBattleshockEffect(roll, numFled, numAdded);
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             if (roll == 1) {
                 numAdded = Dice::RollD3();
@@ -154,7 +154,7 @@ namespace Slaanesh {
     }
 
     Rerolls Seekers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive("Hornblower") && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
 
         return No_Rerolls;
     }

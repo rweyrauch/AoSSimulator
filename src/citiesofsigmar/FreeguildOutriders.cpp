@@ -127,7 +127,7 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_sabre);
             model->addMeleeWeapon(&m_hooves);
             if (trumpeter) {
-                model->setName("Trumpeter");
+                model->setName(Model::Trumpeter);
                 trumpeter = false;
             }
             addModel(model);
@@ -140,13 +140,13 @@ namespace CitiesOfSigmar {
 
     int FreeguildOutriders::runModifier() const {
         auto mod = Unit::runModifier();
-        if (isNamedModelAlive("Trumpeter")) mod++;
+        if (isNamedModelAlive(Model::Trumpeter)) mod++;
         return mod;
     }
 
     int FreeguildOutriders::chargeModifier() const {
         auto mod = Unit::chargeModifier();
-        if (isNamedModelAlive("Trumpeter")) mod++;
+        if (isNamedModelAlive(Model::Trumpeter)) mod++;
         return mod;
     }
 

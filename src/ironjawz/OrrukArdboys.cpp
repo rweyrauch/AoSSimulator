@@ -58,13 +58,13 @@ namespace Ironjawz {
             model->addMeleeWeapon(&m_choppa);
             if (standard != StandardOption::None) {
                 if (standard == StandardOption::BannerBearer)
-                    model->setName("Banner Bearer");
+                    model->setName(Model::BannerBearer);
                 else if (standard == StandardOption::GlyphBearer)
                     model->setName("Glyph Bearer");
                 standard = StandardOption::None;
             }
             else if (drummer) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummer = false;
             }
 
@@ -133,7 +133,7 @@ namespace Ironjawz {
     int OrrukArdboys::chargeModifier() const {
         int modifier = Ironjawz::chargeModifier();
 
-        if (isNamedModelAlive("Drummer"))
+        if (isNamedModelAlive(Model::Drummer))
             modifier += 2;
 
         return modifier;

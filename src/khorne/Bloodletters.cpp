@@ -51,15 +51,15 @@ namespace Khorne {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_hellblade);
             if (standardBearer) {
-                model->setName("Standard Bearer");
+                model->setName(Model::StandardBearer);
                 standardBearer = false;
             }
             else if (iconBearer) {
-                model->setName("Icon Bearer");
+                model->setName(Model::IconBearer);
                 iconBearer = false;
             }
             else if (hornblowers) {
-                model->setName("Hornblower");
+                model->setName(Model::Hornblower);
                 hornblowers = false;
             }
             addModel(model);
@@ -139,7 +139,7 @@ namespace Khorne {
 
     void Bloodletters::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         KhorneBase::computeBattleshockEffect(roll, numFled, numAdded);
-        if (isNamedModelAlive("Icon Bearer")) {
+        if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             if (roll == 1) {
                 numAdded = Dice::RollD6();
@@ -165,12 +165,12 @@ namespace Khorne {
     }
 
     Rerolls Bloodletters::chargeRerolls() const {
-        if (isNamedModelAlive("Standard Bearer")) return Reroll_Failed;
+        if (isNamedModelAlive(Model::StandardBearer)) return Reroll_Failed;
         return Unit::chargeRerolls();
     }
 
     Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit) {
-        if (isNamedModelAlive("Hornblower") && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
+        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
 
         return No_Rerolls;
     }

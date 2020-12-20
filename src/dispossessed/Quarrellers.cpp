@@ -55,7 +55,7 @@ namespace Dispossessed {
                 standard = StandardOptions::None;
             }
             else if (drummer) {
-                model->setName("Drummer");
+                model->setName(Model::Drummer);
                 drummer = false;
             }
 
@@ -152,7 +152,7 @@ namespace Dispossessed {
 
     int Quarrellers::rollRunDistance() const {
         // Sound the Advance
-        if (isNamedModelAlive("Drummer")) {
+        if (isNamedModelAlive(Model::Drummer)) {
             return 4;
         }
         return Unit::rollRunDistance();
