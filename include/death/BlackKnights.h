@@ -43,9 +43,6 @@ namespace Death {
 
     private:
 
-        bool m_standardBearers = false;
-        bool m_hornblowers = false;
-
         Weapon m_barrowLance,
                 m_barrowLanceKnight,
                 m_hoovesAndTeeth;

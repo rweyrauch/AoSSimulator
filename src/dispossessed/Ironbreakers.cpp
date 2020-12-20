@@ -36,9 +36,6 @@ namespace Dispossessed {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_drummer = drummer;
-
         auto ironbeard = new Model(g_basesize, wounds());
         if (ironbeardWeapons == Ironbreaker_Axe_Or_Hammer) {
             ironbeard->addMeleeWeapon(&m_axeOrHammerIronbeard);
@@ -58,6 +55,14 @@ namespace Dispossessed {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_axeOrHammer);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
+            }
             addModel(model);
         }
 
@@ -167,7 +172,7 @@ namespace Dispossessed {
 
     int Ironbreakers::rollRunDistance() const {
         // Sound the Advance
-        if (m_drummer) {
+        if (isNamedModelAlive("Drummer")) {
             return 4;
         }
         return Unit::rollRunDistance();

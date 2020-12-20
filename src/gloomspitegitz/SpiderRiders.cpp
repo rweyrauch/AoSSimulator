@@ -37,9 +37,6 @@ namespace GloomspiteGitz {
             return false;
         }
 
-        m_drummers = drummers;
-        m_totemBearers = totemBearers;
-
         // Add the boss
         auto boss = new Model(g_basesize, wounds());
         boss->addMissileWeapon(&m_spiderBow);
@@ -53,6 +50,14 @@ namespace GloomspiteGitz {
             model->addMissileWeapon(&m_spiderBow);
             model->addMeleeWeapon(&m_crookedSpear);
             model->addMeleeWeapon(&m_fangs);
+            if (drummers) {
+                model->setName("Drummer");
+                drummers = false;
+            }
+            else if (totemBearers) {
+                model->setName("Totem Bearer");
+                totemBearers = false;
+            }
             addModel(model);
         }
 
@@ -96,14 +101,14 @@ namespace GloomspiteGitz {
 
     int SpiderRiders::braveryModifier() const {
         int modifier = GloomspiteGitzBase::braveryModifier();
-        if (m_totemBearers)
+        if (isNamedModelAlive("Totem Bearer"))
             modifier += 2;
         return modifier;
     }
 
     int SpiderRiders::runModifier() const {
         int modifier = GloomspiteGitzBase::runModifier();
-        if (m_drummers)
+        if (isNamedModelAlive("Drummer"))
             modifier += 2;
         return modifier;
     }

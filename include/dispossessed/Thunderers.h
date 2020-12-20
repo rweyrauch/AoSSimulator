@@ -56,8 +56,6 @@ namespace Dispossessed {
     private:
 
         bool m_duardinBucklers = false;
-        StandardOptions m_standard = None;
-        bool m_drummers = false;
 
         Weapon m_duardinHandgun,
                 m_duardinHandgunVeteran,

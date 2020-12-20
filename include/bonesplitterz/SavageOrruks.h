@@ -39,7 +39,7 @@ namespace Bonesplitterz {
 
         int chargeModifier() const override {
             int mod = Unit::chargeModifier();
-            if (m_thumper) {
+            if (isNamedModelAlive("Skull Thumper")) {
                 mod += 2;
             }
             return mod;
@@ -47,7 +47,7 @@ namespace Bonesplitterz {
 
         int braveryModifier() const override {
             int mod = Unit::braveryModifier();
-            if (m_totemBearer) {
+            if (isNamedModelAlive("Totem Bearer")) {
                 mod++;
             }
             return mod;
@@ -65,9 +65,6 @@ namespace Bonesplitterz {
         }
 
     private:
-
-        bool m_thumper = false;
-        bool m_totemBearer = false;
 
         Weapon m_chompa,
                 m_stikka,

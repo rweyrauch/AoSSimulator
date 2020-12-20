@@ -41,8 +41,6 @@ namespace Khorne {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-
         // Add the Hellreaper
         auto reaperModel = new Model(g_basesize, wounds());
         reaperModel->addMeleeWeapon(&m_hellbladeReaper);
@@ -55,6 +53,10 @@ namespace Khorne {
             if (standardBearer) {
                 model->setName("Standard Bearer");
                 standardBearer = false;
+            }
+            else if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
             }
             else if (hornblowers) {
                 model->setName("Hornblower");
@@ -137,7 +139,7 @@ namespace Khorne {
 
     void Bloodletters::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         KhorneBase::computeBattleshockEffect(roll, numFled, numAdded);
-        if (m_iconBearer) {
+        if (isNamedModelAlive("Icon Bearer")) {
             // Icon Bearer
             if (roll == 1) {
                 numAdded = Dice::RollD6();

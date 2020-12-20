@@ -40,8 +40,6 @@ namespace Dispossessed {
             return false;
         }
 
-        m_standard = standard;
-        m_drummers = drummers;
         m_duardinBucklers = duardinBucklers;
 
         auto veteran = new Model(g_basesize, wounds());
@@ -58,6 +56,18 @@ namespace Dispossessed {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_duardinHandgun);
             model->addMeleeWeapon(&m_duardinHandgunMelee);
+            if (standard == StandardOptions::Clan_Banner) {
+                model->setName("Clan Banner");
+                standard = StandardOptions::None;
+            }
+            else if (standard == StandardOptions::Runic_Icon) {
+                model->setName("Runic Icon");
+                standard = StandardOptions::None;
+            }
+            else if (drummers) {
+                model->setName("Drummer");
+                drummers = false;
+            }
             addModel(model);
         }
 
@@ -144,7 +154,7 @@ namespace Dispossessed {
 
     int Thunderers::rollRunDistance() const {
         // Sound the Advance
-        if (m_drummers) {
+        if (isNamedModelAlive("Drummer")) {
             return 4;
         }
         return Unit::rollRunDistance();
@@ -153,7 +163,7 @@ namespace Dispossessed {
     void Thunderers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
 
-        if (m_standard == Clan_Banner) {
+        if (isNamedModelAlive("Clan Banner")) {
             numFled = (numFled + 1) / 2;
         }
     }

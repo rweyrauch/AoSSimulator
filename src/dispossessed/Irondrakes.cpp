@@ -39,9 +39,6 @@ namespace Dispossessed {
             return false;
         }
 
-        m_iconBearer = iconBearer;
-        m_hornblower = hornblower;
-
         auto ironwarden = new Model(g_basesize, wounds());
         if (ironWardenWeapons == Drakegun) {
             ironwarden->addMissileWeapon(&m_drakegunWarden);
@@ -70,6 +67,14 @@ namespace Dispossessed {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_drakegun);
             model->addMeleeWeapon(&m_mailedFist);
+            if (iconBearer) {
+                model->setName("Icon Bearer");
+                iconBearer = false;
+            }
+            else if (hornblower) {
+                model->setName("Hornblower");
+                hornblower = false;
+            }
             addModel(model);
         }
 
@@ -194,7 +199,7 @@ namespace Dispossessed {
 
     int Irondrakes::rollRunDistance() const {
         // Sound the Advance
-        if (m_hornblower) {
+        if (isNamedModelAlive("Hornblower")) {
             return 4;
         }
         return Unit::rollRunDistance();

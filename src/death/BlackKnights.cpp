@@ -42,9 +42,6 @@ namespace Death {
             return false;
         }
 
-        m_standardBearers = standardBearers;
-        m_hornblowers = hornblowers;
-
         auto hellKnight = new Model(g_basesize, wounds());
         hellKnight->addMeleeWeapon(&m_barrowLanceKnight);
         hellKnight->addMeleeWeapon(&m_hoovesAndTeeth);
@@ -54,6 +51,15 @@ namespace Death {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_barrowLance);
             model->addMeleeWeapon(&m_hoovesAndTeeth);
+            if (standardBearers) {
+                model->setName("Standard Bearer");
+                standardBearers = false;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
+            }
+
             addModel(model);
         }
 
@@ -137,14 +143,14 @@ namespace Death {
     }
 
     int BlackKnights::standardBearerBraveryMod(const Unit *unit) {
-        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
+        if (isNamedModelAlive("Standard Bearer") && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 
     int BlackKnights::rollChargeDistance() const {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
-        if (m_hornblowers) {
+        if (isNamedModelAlive("Hornblower")) {
             return std::max(6, dist);
         }
         return dist;

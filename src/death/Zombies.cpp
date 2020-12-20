@@ -41,12 +41,17 @@ namespace Death {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_noiseMaker = noiseMaker;
-
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_zombieBite);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (noiseMaker) {
+                model->setName("Noisemaker");
+                noiseMaker = false;
+            }
             addModel(model);
         }
 
@@ -136,14 +141,14 @@ namespace Death {
     }
 
     int Zombies::standardBearerBraveryMod(const Unit *unit) {
-        if (m_standardBearer && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
+        if (isNamedModelAlive("Standard Bearer") && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 
     int Zombies::rollChargeDistance() const {
         // Noise Maker
         auto dist = Unit::rollChargeDistance();
-        if (m_noiseMaker) {
+        if (isNamedModelAlive("Noisemaker")) {
             return std::max(6, dist);
         }
         return dist;

@@ -72,9 +72,6 @@ namespace Bonesplitterz {
             return false;
         }
 
-        m_thumper = skullThumper;
-        m_totemBearer = totemBearer;
-
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMissileWeapon(&m_stingaBow);
@@ -85,6 +82,14 @@ namespace Bonesplitterz {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_stingaBow);
             model->addMeleeWeapon(&m_boneShiv);
+            if (totemBearer) {
+                model->setName("Totem Bearer");
+                totemBearer = false;
+            }
+            else if (skullThumper) {
+                model->setName("Skull Thumper");
+                skullThumper = false;
+            }
             addModel(model);
         }
 

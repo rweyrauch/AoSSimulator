@@ -42,8 +42,6 @@ namespace Death {
             return false;
         }
 
-        m_standardBearers = standardBearers;
-        m_hornblowers = hornblowers;
         m_weaponOption = weapons;
 
         auto seneschal = new Model(g_basesize, wounds());
@@ -60,6 +58,14 @@ namespace Death {
                 model->addMeleeWeapon(&m_wightBlade);
             } else if (weapons == Great_Wight_Blade) {
                 model->addMeleeWeapon(&m_greatWightBlade);
+            }
+            if (standardBearers) {
+                model->setName("Standard Bearer");
+                standardBearers = false;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
             }
             addModel(model);
         }
@@ -153,11 +159,13 @@ namespace Death {
     int GraveGuard::rollChargeDistance() const {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
-        return std::max(6, dist);
+        if (isNamedModelAlive("Hornblower"))
+            return std::max(6, dist);
+        return dist;
     }
 
     int GraveGuard::standardBearerBraveryMod(const Unit *unit) {
-        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
+        if (isNamedModelAlive("Standard Bearer") && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 

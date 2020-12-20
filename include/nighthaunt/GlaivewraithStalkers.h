@@ -31,8 +31,6 @@ namespace Nighthaunt {
 
     protected:
 
-        bool m_drummer = true;
-
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
     private:

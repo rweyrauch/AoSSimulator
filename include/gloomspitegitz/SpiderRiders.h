@@ -39,9 +39,6 @@ namespace GloomspiteGitz {
 
     private:
 
-        bool m_drummers = false;
-        bool m_totemBearers = false;
-
         Weapon m_spiderBow,
                 m_crookedSpear,
                 m_crookedSpearBoss,

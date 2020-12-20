@@ -42,6 +42,7 @@ namespace GloomspiteGitz {
         for (auto i = 0; i < numHerders; i++) {
             auto herder = new Model(g_basesize, wounds());
             herder->addMeleeWeapon(&m_squigProdder);
+            herder->setName("Herder");
             addModel(herder);
         }
 
@@ -105,8 +106,7 @@ namespace GloomspiteGitz {
     }
 
     bool SquiqHerd::hasHerder() const {
-        // TODO: check for herders - assuming herder is always the last model removed.
-        return true;
+        return isNamedModelAlive("Herder");
     }
 
     void SquiqHerd::onFlee(int numFled) {

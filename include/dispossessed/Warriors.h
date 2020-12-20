@@ -60,8 +60,6 @@ namespace Dispossessed {
     private:
 
         bool m_duardinShields = false;
-        StandardOptions m_standard = None;
-        bool m_hornblowers = false;
 
         bool m_opponentsCombat = false;
 

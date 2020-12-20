@@ -51,9 +51,6 @@ namespace Dispossessed {
 
     private:
 
-        bool m_iconBearer = false;
-        bool m_drummer = false;
-
         bool m_hasCinderblastBomb = false;
 
         Weapon m_drakefirePistol,

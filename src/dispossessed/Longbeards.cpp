@@ -37,8 +37,6 @@ namespace Dispossessed {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_musician = musician;
         m_gromrilShields = gromrilShields;
 
         auto oldguard = new Model(g_basesize, wounds());
@@ -55,6 +53,14 @@ namespace Dispossessed {
                 model->addMeleeWeapon(&m_ancestralAxeHammer);
             } else if (weapons == Ancestral_Great_Axe) {
                 model->addMeleeWeapon(&m_ancestralGreatAxe);
+            }
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (musician) {
+                model->setName("Musician");
+                musician = false;
             }
             addModel(model);
         }
@@ -135,7 +141,7 @@ namespace Dispossessed {
 
     int Longbeards::rollRunDistance() const {
         // Sound the Advance
-        if (m_musician) {
+        if (isNamedModelAlive("Musician")) {
             return 4;
         }
         return Unit::rollRunDistance();
@@ -143,7 +149,7 @@ namespace Dispossessed {
 
     void Longbeards::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
-        if (m_standardBearer) {
+        if (isNamedModelAlive("Standard Bearer")) {
             numFled = (numFled + 1) / 2;
         }
     }

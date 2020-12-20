@@ -41,12 +41,7 @@ namespace DaughtersOfKhaine {
         }
 
         m_hasSacrificialKnife = sacrificialKnife;
-        m_hornblowers = hornblowers;
-        m_standardBearers = standardBearers;
-
-        if (m_hornblowers) {
-            m_runAndCharge = true;
-        }
+        m_runAndCharge = hornblowers;
 
         auto handmaiden = new Model(g_basesize, wounds());
         if (m_hasSacrificialKnife) {
@@ -61,6 +56,15 @@ namespace DaughtersOfKhaine {
                 model->addMeleeWeapon(&m_sacrificialKnife);
             }
             model->addMeleeWeapon(&m_barbedWhip);
+
+            if (standardBearers) {
+                model->setName("Standard Bearer");
+                standardBearers = false;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
+            }
             addModel(model);
         }
 
@@ -109,7 +113,7 @@ namespace DaughtersOfKhaine {
     }
 
     int SistersOfSlaughter::rollBattleshock() const {
-        if (m_standardBearers) {
+        if (isNamedModelAlive("Standard Bearer")) {
             int r1 = Dice::RollD6();
             int r2 = Dice::RollD6();
             return std::min(r1, r2);

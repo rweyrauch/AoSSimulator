@@ -43,9 +43,6 @@ namespace IdonethDeepkin {
 
         void onCharged() override;
 
-        bool m_standardBearers = false;
-        bool m_musicians = false;
-
         bool m_usedBiovoltaicBlast = false;
 
     private:

@@ -88,10 +88,6 @@ namespace GloomspiteGitz {
             return false;
         }
 
-        m_numFlagbearers = numFlagbearers;
-        m_numGongbashers = numGongbashers;
-        m_numIconbearers = numIconbearers;
-
         // Add the boss
         auto boss = new Model(g_basesize, wounds());
         boss->addMeleeWeapon(&m_slittaBoss);
@@ -102,6 +98,7 @@ namespace GloomspiteGitz {
         for (auto i = 1; i < numBarbedNets; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_barbedNet);
+            model->setName("Netter");
             addModel(model);
         }
 
@@ -111,6 +108,18 @@ namespace GloomspiteGitz {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_slitta);
             model->addMissileWeapon(&m_moonclanBow);
+            if (numFlagbearers > 0) {
+                model->setName("Flag Bearer");
+                numFlagbearers--;
+            }
+            else if (numGongbashers > 0) {
+                model->setName("Gong Basher");
+                numGongbashers--;
+            }
+            else if (numIconbearers > 0) {
+                model->setName("Icon Bearer");
+                numIconbearers--;
+            }
             addModel(model);
         }
 
@@ -140,19 +149,19 @@ namespace GloomspiteGitz {
 
     int Shootas::runModifier() const {
         int modifier = GloomspiteGitzBase::runModifier();
-        if (m_numGongbashers > 0) { modifier += 2; }
+        if (isNamedModelAlive("Gong Basher")) { modifier += 2; }
         return modifier;
     }
 
     int Shootas::braveryModifier() const {
         int modifier = GloomspiteGitzBase::braveryModifier();
-        if (m_numFlagbearers > 0) { modifier += 1; }
+        if (isNamedModelAlive("Flag Bearer")) { modifier += 1; }
         return modifier;
     }
 
     int Shootas::toSaveModifier(const Weapon *weapon) const {
         int modifier = GloomspiteGitzBase::toSaveModifier(weapon);
-        if (m_numIconbearers > 0 && weapon->isMissile()) {
+        if (isNamedModelAlive("Icon Bearer") && weapon->isMissile()) {
             modifier += 1;
         }
         return modifier;

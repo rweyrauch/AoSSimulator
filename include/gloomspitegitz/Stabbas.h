@@ -53,10 +53,6 @@ namespace GloomspiteGitz {
 
     private:
 
-        int m_numGongbashers = 0;
-        int m_numFlagbearers = 0;
-        int m_numIconbearers = 0;
-
         Weapon m_stabba,
                 m_stabbaBoss,
                 m_pokinSpear,

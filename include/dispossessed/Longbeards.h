@@ -49,8 +49,6 @@ namespace Dispossessed {
     private:
 
         bool m_gromrilShields = false;
-        bool m_standardBearer = false;
-        bool m_musician = false;
 
         Weapon m_ancestralAxeHammer,
                 m_ancestralGreatAxe,

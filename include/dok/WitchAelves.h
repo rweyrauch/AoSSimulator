@@ -42,8 +42,6 @@ namespace DaughtersOfKhaine {
     protected:
 
         bool m_pairedKnives = true;
-        bool m_hornblowers = false;
-        bool m_standardBearers = false;
 
     private:
 

@@ -79,9 +79,6 @@ namespace Bonesplitterz {
             return false;
         }
 
-        m_thumper = skullThumper;
-        m_totemBearer = totemBearer;
-
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
         if (weapons == Chompa) {
@@ -100,6 +97,14 @@ namespace Bonesplitterz {
                 model->addMeleeWeapon(&m_stikka);
             }
             model->addMeleeWeapon(&m_tusksAndHooves);
+            if (totemBearer) {
+                model->setName("Totem Bearer");
+                totemBearer = false;
+            }
+            else if (skullThumper) {
+                model->setName("Skull Thumper");
+                skullThumper = false;
+            }
             addModel(model);
         }
 

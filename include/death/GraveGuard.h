@@ -50,8 +50,6 @@ namespace Death {
 
     private:
 
-        bool m_standardBearers = false;
-        bool m_hornblowers = false;
         WeaponOptions m_weaponOption = Wight_Blade;
 
         Weapon m_wightBlade,

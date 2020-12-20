@@ -72,9 +72,6 @@ namespace Bonesplitterz {
             return false;
         }
 
-        m_thumper = skullThumper;
-        m_totemBearer = totemBearer;
-
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_chompaAndShivBoss);
@@ -83,6 +80,14 @@ namespace Bonesplitterz {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_chompaAndShiv);
+            if (totemBearer) {
+                model->setName("Totem Bearer");
+                totemBearer = false;
+            }
+            else if (skullThumper) {
+                model->setName("Skull Thumper");
+                skullThumper = false;
+            }
             addModel(model);
         }
 

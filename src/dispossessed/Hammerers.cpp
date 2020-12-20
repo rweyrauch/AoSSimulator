@@ -34,9 +34,6 @@ namespace Dispossessed {
             return false;
         }
 
-        m_standardBearer = standardBearer;
-        m_musician = musician;
-
         auto keeper = new Model(g_basesize, wounds());
         keeper->addMeleeWeapon(&m_greatHammerKeeper);
         addModel(keeper);
@@ -44,6 +41,14 @@ namespace Dispossessed {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_greatHammer);
+            if (standardBearer) {
+                model->setName("Standard Bearer");
+                standardBearer = false;
+            }
+            else if (musician) {
+                model->setName("Musician");
+                musician = false;
+            }
             addModel(model);
         }
 
@@ -98,7 +103,7 @@ namespace Dispossessed {
 
     int Hammerers::rollRunDistance() const {
         // Sound the Advance
-        if (m_musician) {
+        if (isNamedModelAlive("Musician")) {
             return 4;
         }
         return Unit::rollRunDistance();
@@ -107,7 +112,7 @@ namespace Dispossessed {
     void Hammerers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
 
-        if (m_standardBearer) {
+        if (isNamedModelAlive("Standard Bearer")) {
             numFled = (numFled + 1) / 2;
         }
     }

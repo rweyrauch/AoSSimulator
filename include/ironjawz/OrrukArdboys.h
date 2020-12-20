@@ -56,8 +56,6 @@ namespace Ironjawz {
         Weapon m_choppa,
                 m_bossChoppa;
 
-        bool m_drummer = false;
-        StandardOption m_standardBearer = None;
         int m_numShields = 0;
 
         lsignal::slot m_connection;

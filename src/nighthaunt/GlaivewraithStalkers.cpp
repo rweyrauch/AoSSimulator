@@ -31,12 +31,16 @@ namespace Nighthaunt {
             return false;
         }
 
-        m_drummer = drummer;
-        m_runAndCharge = m_drummer;
+        m_runAndCharge = drummer;
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_huntersGlaive);
+            if (drummer) {
+                model->setName("Drummer");
+                drummer = false;
+            }
+
             addModel(model);
         }
 

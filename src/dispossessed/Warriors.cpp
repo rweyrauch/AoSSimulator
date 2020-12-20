@@ -37,8 +37,6 @@ namespace Dispossessed {
             return false;
         }
 
-        m_standard = standard;
-        m_hornblowers = hornblowers;
         m_duardinShields = duardinShields;
 
         auto veteran = new Model(g_basesize, wounds());
@@ -55,6 +53,18 @@ namespace Dispossessed {
                 model->addMeleeWeapon(&m_duardinAxeOrHammer);
             } else if (weapons == Double_Handed_Duardin_Axe) {
                 model->addMeleeWeapon(&m_doubleHandedAxe);
+            }
+            if (standard == StandardOptions::Clan_Banner) {
+                model->setName("Clan Banner");
+                standard = StandardOptions::None;
+            }
+            else if (standard == StandardOptions::Runic_Icon) {
+                model->setName("Runic Icon");
+                standard = StandardOptions::None;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
             }
             addModel(model);
         }
@@ -166,7 +176,7 @@ namespace Dispossessed {
 
     int Warriors::rollRunDistance() const {
         // Sound the Advance
-        if (m_hornblowers) {
+        if (isNamedModelAlive("Hornblower")) {
             return 4;
         }
         return Unit::rollRunDistance();
@@ -175,7 +185,7 @@ namespace Dispossessed {
     void Warriors::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
         Dispossessed::computeBattleshockEffect(roll, numFled, numAdded);
 
-        if (m_standard == Clan_Banner) {
+        if (isNamedModelAlive("Clan Banner")) {
             numFled = (numFled + 1) / 2;
         }
     }

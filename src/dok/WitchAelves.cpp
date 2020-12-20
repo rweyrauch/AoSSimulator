@@ -37,12 +37,7 @@ namespace DaughtersOfKhaine {
         }
 
         m_pairedKnives = pairedKnives;
-        m_hornblowers = hornblowers;
-        m_standardBearers = standardBearers;
-
-        if (m_hornblowers) {
-            m_runAndCharge = true;
-        }
+        m_runAndCharge = hornblowers;
 
         auto hag = new Model(g_basesize, wounds());
         hag->addMeleeWeapon(&m_sacrificialKnifeHag);
@@ -51,6 +46,14 @@ namespace DaughtersOfKhaine {
         for (auto i = 1; i < numModels; i++) {
             auto witch = new Model(g_basesize, wounds());
             witch->addMeleeWeapon(&m_sacrificialKnife);
+            if (standardBearers) {
+                witch->setName("Standard Bearer");
+                standardBearers = false;
+            }
+            else if (hornblowers) {
+                witch->setName("Hornblower");
+                hornblowers = false;
+            }
             addModel(witch);
         }
 
@@ -115,7 +118,7 @@ namespace DaughtersOfKhaine {
     }
 
     int WitchAelves::rollBattleshock() const {
-        if (m_standardBearers) {
+        if (isNamedModelAlive("Standard Bearer")) {
             int r1 = Dice::RollD6();
             int r2 = Dice::RollD6();
             return std::min(r1, r2);

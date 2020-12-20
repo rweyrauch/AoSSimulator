@@ -43,9 +43,6 @@ namespace Death {
             return false;
         }
 
-        m_standardBearers = standardBearers;
-        m_hornblowers = hornblowers;
-
         auto champion = new Model(g_basesize, wounds());
         if (weapons == Ancient_Blade) {
             champion->addMeleeWeapon(&m_ancientBladeChampion);
@@ -60,6 +57,14 @@ namespace Death {
                 model->addMeleeWeapon(&m_ancientBlade);
             } else if (weapons == Ancient_Spear) {
                 model->addMeleeWeapon(&m_ancientSpear);
+            }
+            if (standardBearers) {
+                model->setName("Standard Bearer");
+                standardBearers = false;
+            }
+            else if (hornblowers) {
+                model->setName("Hornblower");
+                hornblowers = false;
             }
             addModel(model);
         }
@@ -172,11 +177,13 @@ namespace Death {
     int SkeletonWarriors::rollChargeDistance() const {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
-        return std::max(6, dist);
+        if (isNamedModelAlive("Hornblower"))
+            return std::max(6, dist);
+        return dist;
     }
 
     int SkeletonWarriors::standardBearerBraveryMod(const Unit *unit) {
-        if (m_standardBearers && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
+        if (isNamedModelAlive("Standard Bearer") && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
         return 0;
     }
 

@@ -40,9 +40,6 @@ namespace Death {
 
     private:
 
-        bool m_standardBearer = false;
-        bool m_noiseMaker = false;
-
         Weapon m_zombieBite;
 
         lsignal::slot m_standardSlot;
