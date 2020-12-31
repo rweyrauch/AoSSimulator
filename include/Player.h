@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 
 #include <Roster.h>
 
@@ -38,6 +36,3 @@ private:
 
     int m_commandPoints = 0;
 };
-
-
-#endif //PLAYER_H

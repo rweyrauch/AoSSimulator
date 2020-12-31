@@ -111,26 +111,6 @@ namespace IdonethDeepkin {
         return Unit::chargeRerolls();
     }
 
-    void AkhelianMorrsarrGuard::onBeginTurn(int battleRound) {
-        Unit::onBeginTurn(battleRound);
-
-        // reset weapon damage and rend (if previously charged)
-        m_voltspear.setDamage(m_voltspear.damage());
-        m_voltspear.setRend(m_voltspear.rend());
-        m_voltspearPrince.setDamage(m_voltspearPrince.damage());
-        m_voltspearPrince.setRend(m_voltspearPrince.rend());
-    }
-
-    void AkhelianMorrsarrGuard::onCharged() {
-        Unit::onCharged();
-
-        // Wave Riders
-        m_voltspear.setDamage(2);
-        m_voltspear.setRend(-2);
-        m_voltspearPrince.setDamage(2);
-        m_voltspearPrince.setRend(-2);
-    }
-
     void AkhelianMorrsarrGuard::onStartCombat(PlayerId player) {
         Unit::onStartCombat(player);
 
@@ -161,6 +141,16 @@ namespace IdonethDeepkin {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    Wounds AkhelianMorrsarrGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        if (m_charged && (weapon->name() == m_voltspear.name())) return {weapon->damage()+1, 0};
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int AkhelianMorrsarrGuard::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        if (m_charged && (weapon->name() == m_voltspear.name())) return -2;
+        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace IdonethDeepkin

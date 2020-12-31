@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MODEL_H
-#define MODEL_H
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -119,5 +117,3 @@ private:
     const Weapon *m_preferredWeapon = nullptr;
 };
 
-
-#endif //MODEL_H

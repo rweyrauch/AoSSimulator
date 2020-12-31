@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef PRAYER_H
-#define PRAYER_H
+#pragma once
 
 #include <string>
 #include <utility>
@@ -116,5 +114,3 @@ protected:
     BuffableAttribute m_attribute = To_Hit_Melee;
     Rerolls m_reroll = No_Rerolls;
 };
-
-#endif// PRAYER_H

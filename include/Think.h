@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THINK_H
-#define THINK_H
+#pragma once
 
 class Unit;
 
@@ -28,5 +26,3 @@ Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget);
 Prayer *SelectPrayer(Unit *priest, AbilityTarget &outTarget);
 
 CommandAbility *SelectCommandAbility(Unit *commander, AbilityTarget &outTarget);
-
-#endif //THINK_H

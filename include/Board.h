@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BOARD_H
-#define BOARD_H
+#pragma once
 
 #include <vector>
 #include <AgeOfSigmarSim.h>
@@ -113,5 +111,3 @@ private:
     static Board *s_pInstance;
 };
 
-
-#endif //WARHAMMERSIM_BOARD_H

@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DICE_H
-#define DICE_H
+#pragma once
 
 #include <random>
 #include <vector>
@@ -43,8 +41,8 @@ public:
         int m_distribution[7] = {0, 0, 0, 0, 0, 0, 0};
 
         void clear() {
-            for (auto i = 0; i < 7; i++)
-                m_distribution[i] = 0;
+            for (int& val : m_distribution)
+                val = 0;
         }
 
         void add(const RollResult &r) {
@@ -90,5 +88,3 @@ private:
     static std::uniform_int_distribution<int> s_d4;
 };
 
-
-#endif //DICE_H

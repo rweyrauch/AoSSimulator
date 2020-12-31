@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AGEOFSIGMARSIM_H
-#define AGEOFSIGMARSIM_H
+#pragma once
 
 #include <cinttypes>
 #include <string>
@@ -1161,8 +1159,5 @@ Verbosity GetVerbosity();
 
 void SimLog(Verbosity verbosity, const char *format, ...);
 
-
 double AverageRandomValue(int value);
 
-
-#endif //AGEOFSIGMARSIM_H

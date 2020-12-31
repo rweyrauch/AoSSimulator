@@ -1,5 +1,18 @@
 project(WarhammerSim)
 
+set(CMAKE_CXX_STANDARD 20)
+
+file(GLOB stormcast_src "stormcast/*.cpp" "stormcast/*.h")
+file(GLOB khorne_src "khorne/*.cpp" "khorne/*.h")
+file(GLOB gloomspitegitz_src "gloomspitegitz/*.cpp" "gloomspitegitz/*.h")
+file(GLOB citiesofsigmar_src "citiesofsigmar/*.cpp" "citiesofsigmar/*.h")
+file(GLOB slavestodarkness_src "slavestodarkness/*.cpp" "slavestodarkness/*.h")
+file(GLOB skaven_src "skaven/*.cpp" "skaven/*.h")
+file(GLOB mawtribes_src "mawtribes/*.cpp" "mawtribes/*.h")
+file(GLOB beastsofchaos_src "beastsofchaos/*.cpp" "beastsofchaos/*.h")
+file(GLOB nurgle_src "nurgle/*.cpp" "nurgle/*.h")
+file(GLOB seraphon_src "seraphon/*.cpp" "seraphon/*.h")
+
 add_library(
         AoSSim STATIC
         Dice.cpp
@@ -26,103 +39,16 @@ add_library(
 
         spells/MysticShield.cpp
 
-        stormcast/CelestantPrime.cpp
-        stormcast/Aetherwings.cpp
-        stormcast/StormcastEternals.cpp
-        stormcast/Liberators.cpp
-        stormcast/Judicators.cpp
-        stormcast/CelestarBallista.cpp
-        stormcast/LordOrdinator.cpp
-        stormcast/Retributors.cpp
-        stormcast/Sequitors.cpp
-        stormcast/Evocators.cpp
-        stormcast/EvocatorsOnDracolines.cpp
-        stormcast/LordCelestant.cpp
-        stormcast/LordCelestantOnDracoth.cpp
-        stormcast/LordCelestantOnStardrake.cpp
-        stormcast/KnightIncantor.cpp
-        stormcast/KnightQuestor.cpp
-        stormcast/KnightZephyros.cpp
-        stormcast/VanguardHunters.cpp
-        stormcast/VanguardRaptorsHurricane.cpp
-        stormcast/VanguardRaptorsLongstrike.cpp
-        stormcast/Castigators.cpp
-        stormcast/VandusHammerhand.cpp
-        stormcast/GryphHounds.cpp
-        stormcast/Concussors.cpp
-        stormcast/Desolators.cpp
-        stormcast/Fulminators.cpp
-        stormcast/Tempestors.cpp
-        stormcast/Protectors.cpp
-        stormcast/Prosecutors.cpp
-        stormcast/Decimators.cpp
-        stormcast/NeaveBlacktalon.cpp
-        stormcast/GavrielSureheart.cpp
-        stormcast/LordExorcist.cpp
-        stormcast/LordRelictor.cpp
-        stormcast/LordArcanumOnDracoline.cpp
-        stormcast/LordArcanumOnGryphcharger.cpp
-        stormcast/LordArcanumOnTauralon.cpp
-        stormcast/LordArcanum.cpp
-        stormcast/LordAquilor.cpp
-        stormcast/LordCastellant.cpp
-        stormcast/LordVeritant.cpp
-        stormcast/KnightAzyros.cpp
-        stormcast/KnightHeraldor.cpp
-        stormcast/KnightVenator.cpp
-        stormcast/KnightVexillor.cpp
-        stormcast/AstreiaSolbright.cpp
-        stormcast/AventisFirestrike.cpp
-        stormcast/VanguardPalladors.cpp
-        stormcast/DrakeswornTemplar.cpp
-        stormcast/SteelheartsChampions.cpp
-        stormcast/TheFarstriders.cpp
-        stormcast/AveronStormsire.cpp
-        stormcast/StormsiresCursebreakers.cpp
-
-        stormcast/PrayersOfTheStormhosts.cpp
-        stormcast/StormcastPrayers.cpp
-        stormcast/StormcastSpells.cpp
-        stormcast/Empower.cpp
-        stormcast/LoreOfTheStorm.cpp
-
-        khorne/KhorneBase.cpp
-        khorne/Bloodreavers.cpp
-        khorne/BloodWarriors.cpp
-        khorne/Bloodletters.cpp
-        khorne/Skullreapers.cpp
-        khorne/Wrathmongers.cpp
-        khorne/Khorgoraths.cpp
-        khorne/BloodthirsterOfInsensateRage.cpp
-        khorne/BloodthirsterOfUnfetteredFury.cpp
-        khorne/WrathOfKhorneBloodthirster.cpp
-        khorne/Skarbrand.cpp
-        khorne/Karanak.cpp
-        khorne/FleshHounds.cpp
-        khorne/Skulltaker.cpp
-        khorne/Bloodmaster.cpp
-        khorne/Bloodcrushers.cpp
-        khorne/MightySkullcrushers.cpp
-        khorne/Skullmaster.cpp
-        khorne/VorgarothAndSkalok.cpp
-        khorne/MightyLordOfKhorne.cpp
-        khorne/Slaughterpriest.cpp
-        khorne/KorghosKhul.cpp
-        khorne/ExaltedDeathbringer.cpp
-        khorne/Bloodsecrator.cpp
-        khorne/Bloodstoker.cpp
-        khorne/BloodThrone.cpp
-        khorne/SkullCannons.cpp
-        khorne/ValkiaTheBloody.cpp
-        khorne/AspiringDeathbringer.cpp
-        khorne/Skullgrinder.cpp
-        khorne/ScylaAnfingrimm.cpp
-        khorne/LordOfKhorneOnJuggernaut.cpp
-        khorne/BloodBlessingsOfKhorne.cpp
-        khorne/SkarrBloodwrath.cpp
-        khorne/Riptooth.cpp
-        khorne/MagoresFiends.cpp
-        khorne/GarreksReavers.cpp
+        ${stormcast_src}
+        ${khorne_src}
+        ${gloomspitegitz_src}
+        ${citiesofsigmar_src}
+        ${slavestodarkness_src}
+        ${skaven_src}
+        ${mawtribes_src}
+        ${beastsofchaos_src}
+        ${nurgle_src}
+        ${seraphon_src}
 
         sylvaneth/SylvanethBase.cpp
         sylvaneth/Alarielle.cpp
@@ -141,47 +67,6 @@ add_library(
         sylvaneth/YlthariGardians.cpp
         sylvaneth/SkaethsWildHunt.cpp
         sylvaneth/SylvanethSpells.cpp
-
-        gloomspitegitz/SquigHerd.cpp
-        gloomspitegitz/SquigHoppers.cpp
-        gloomspitegitz/BoingrotBounderz.cpp
-        gloomspitegitz/LoonbossOnManglerSquigs.cpp
-        gloomspitegitz/ManglerSquigs.cpp
-        gloomspitegitz/ColossalSquig.cpp
-        gloomspitegitz/Stabbas.cpp
-        gloomspitegitz/Shootas.cpp
-        gloomspitegitz/DankholdTroggboss.cpp
-        gloomspitegitz/DankholdTroggoths.cpp
-        gloomspitegitz/RockgutTroggoths.cpp
-        gloomspitegitz/Skragrott.cpp
-        gloomspitegitz/Loonboss.cpp
-        gloomspitegitz/LoonbossOnGiantCaveSquig.cpp
-        gloomspitegitz/LoonbossWithGiantCaveSquig.cpp
-        gloomspitegitz/AleguzzlerGargant.cpp
-        gloomspitegitz/SquigGobba.cpp
-        gloomspitegitz/GloomspiteGitzBase.cpp
-        gloomspitegitz/BadMoon.cpp
-        gloomspitegitz/SpiderRiders.cpp
-        gloomspitegitz/FellwaterTroggoths.cpp
-        gloomspitegitz/FungoidCaveShaman.cpp
-        gloomspitegitz/MadcapShaman.cpp
-        gloomspitegitz/WebspinnerShaman.cpp
-        gloomspitegitz/WebspinnerShamanOnSpider.cpp
-        gloomspitegitz/ArachnarokSpiderWithFlinger.cpp
-        gloomspitegitz/ArachnarokSpiderWithWarparty.cpp
-        gloomspitegitz/SkitterstrandArachnarok.cpp
-        gloomspitegitz/SneakySnufflers.cpp
-        gloomspitegitz/ScuttlebossOnSpider.cpp
-        gloomspitegitz/RippasSnarlfangs.cpp
-        gloomspitegitz/Zarbag.cpp
-        gloomspitegitz/ZarbagsGitz.cpp
-        gloomspitegitz/Gobbapalooza.cpp
-        gloomspitegitz/Mollog.cpp
-        gloomspitegitz/LoonsmashaFanatics.cpp
-        gloomspitegitz/SporesplattaFanatics.cpp
-        gloomspitegitz/TroggothHag.cpp
-        gloomspitegitz/NikkitNikkit.cpp
-        gloomspitegitz/GloomspiteSpells.cpp
 
         dok/DaughterOfKhaine.cpp
         dok/WitchAelves.cpp
@@ -245,29 +130,6 @@ add_library(
         nighthaunt/MyrmournBanshees.cpp
         nighthaunt/Mourngul.cpp
 
-        beastsofchaos/BeastsOfChaosBase.cpp
-        beastsofchaos/Ghorgon.cpp
-        beastsofchaos/Gors.cpp
-        beastsofchaos/Bestigors.cpp
-        beastsofchaos/Bullgors.cpp
-        beastsofchaos/Ungors.cpp
-        beastsofchaos/Cygor.cpp
-        beastsofchaos/Centigors.cpp
-        beastsofchaos/Doombull.cpp
-        beastsofchaos/Chimera.cpp
-        beastsofchaos/Beastlord.cpp
-        beastsofchaos/GreatBrayShaman.cpp
-        beastsofchaos/UngorRaiders.cpp
-        beastsofchaos/TuskgorChariots.cpp
-        beastsofchaos/Cockatrice.cpp
-        beastsofchaos/ChaosSpawn.cpp
-        beastsofchaos/ChaosWarhounds.cpp
-        beastsofchaos/Jabberslythe.cpp
-        beastsofchaos/DragonOgors.cpp
-        beastsofchaos/DragonOgorShaggoth.cpp
-        beastsofchaos/Razorgors.cpp
-        beastsofchaos/ChaosGargant.cpp
-
         slaanesh/SlaaneshBase.cpp
         slaanesh/Fiends.cpp
         slaanesh/Daemonettes.cpp
@@ -288,34 +150,6 @@ add_library(
         slaanesh/ContortedEpitome.cpp
         slaanesh/LordOfPain.cpp
         slaanesh/TheDreadPageant.cpp
-
-        nurgle/Nurgle.cpp
-        nurgle/Plaguebearers.cpp
-        nurgle/LordOfPlagues.cpp
-        nurgle/PutridBlightkings.cpp
-        nurgle/BeastsOfNurgle.cpp
-        nurgle/TheGlottkin.cpp
-        nurgle/PlagueDrones.cpp
-        nurgle/PusgoyleBlightlords.cpp
-        nurgle/Rotigus.cpp
-        nurgle/GreatUncleanOne.cpp
-        nurgle/FeculaFlyblown.cpp
-        nurgle/TheWurmspat.cpp
-        nurgle/BloabRotspawned.cpp
-        nurgle/Epidemius.cpp
-        nurgle/Festus.cpp
-        nurgle/Gutrot.cpp
-        nurgle/HarbingerOfDecay.cpp
-        nurgle/HorticulousSlimux.cpp
-        nurgle/LordOfAfflictions.cpp
-        nurgle/LordOfBlights.cpp
-        nurgle/MorbidexTwiceborn.cpp
-        nurgle/OrghottsDaemonspew.cpp
-        nurgle/Poxbringer.cpp
-        nurgle/SloppityBilepiper.cpp
-        nurgle/SpoilpoxScrivener.cpp
-        nurgle/Nurglings.cpp
-        nurgle/SorcererOfNurgle.cpp
 
         death/LegionOfNagash.cpp
         death/BlackKnights.cpp
@@ -373,48 +207,6 @@ add_library(
         dispossessed/Unforged.cpp
         dispossessed/Runelord.cpp
         dispossessed/WardenKing.cpp
-
-        skaven/ArchWarlock.cpp
-        skaven/Clanrats.cpp
-        skaven/Clawlord.cpp
-        skaven/Deathmaster.cpp
-        skaven/Doomflayer.cpp
-        skaven/Doomwheel.cpp
-        skaven/GiantRats.cpp
-        skaven/GreySeer.cpp
-        skaven/GreySeerScreamingBell.cpp
-        skaven/GutterRunners.cpp
-        skaven/HellPitAbomination.cpp
-        skaven/LordSkreech.cpp
-        skaven/MasterMoulder.cpp
-        skaven/NightRunners.cpp
-        skaven/Packmasters.cpp
-        skaven/PlagueCenserBearers.cpp
-        skaven/Plagueclaw.cpp
-        skaven/PlagueMonks.cpp
-        skaven/PlaguePriest.cpp
-        skaven/PlaguePriestFurnace.cpp
-        skaven/RatlingGun.cpp
-        skaven/RatOgors.cpp
-        skaven/RatSwarms.cpp
-        skaven/Skaventide.cpp
-        skaven/SkryeAcolytes.cpp
-        skaven/Stormfiends.cpp
-        skaven/Stormvermin.cpp
-        skaven/ThanquolBoneripper.cpp
-        skaven/VerminlordCorruptor.cpp
-        skaven/VerminlordDeceiver.cpp
-        skaven/VerminlordWarbringer.cpp
-        skaven/VerminlordWarpseer.cpp
-        skaven/WarlockBombardier.cpp
-        skaven/WarlockEngineer.cpp
-        skaven/WarpfireThrower.cpp
-        skaven/WarpGrinder.cpp
-        skaven/WarpLightningCannon.cpp
-        skaven/WarplockJezzails.cpp
-        skaven/SkritchSpiteclaw.cpp
-        skaven/SpiteclawsSwarm.cpp
-        skaven/SkavenSpells.cpp
 
         tzeentch/TzeentchBase.cpp
         tzeentch/KairicAcolytes.cpp
@@ -481,37 +273,6 @@ add_library(
         greenskinz/OrrukWarbossWyvern.cpp
         greenskinz/RogueIdol.cpp
 
-        seraphon/Seraphon.cpp
-        seraphon/DreadSaurian.cpp
-        seraphon/SaurusGuard.cpp
-        seraphon/SaurusKnights.cpp
-        seraphon/SaurusWarriors.cpp
-        seraphon/Skinks.cpp
-        seraphon/SaurusOldblood.cpp
-        seraphon/SaurusSunblood.cpp
-        seraphon/SaurusOldbloodCarnosaur.cpp
-        seraphon/SaurusVeteranCarnosaur.cpp
-        seraphon/Troglodon.cpp
-        seraphon/Razordons.cpp
-        seraphon/Salamanders.cpp
-        seraphon/Bastiladon.cpp
-        seraphon/Kroxigor.cpp
-        seraphon/RipperdactylRiders.cpp
-        seraphon/TerradonRiders.cpp
-        seraphon/Stegadon.cpp
-        seraphon/EngineOfTheGods.cpp
-        seraphon/SaurusVeteranColdOne.cpp
-        seraphon/ChameleonSkinks.cpp
-        seraphon/RipperdactylChief.cpp
-        seraphon/TerradonChief.cpp
-        seraphon/SaurusAstrolithBearer.cpp
-        seraphon/SaurusEternityWarden.cpp
-        seraphon/SkinkPriest.cpp
-        seraphon/SkinkStarpriest.cpp
-        seraphon/SkinkStarseer.cpp
-        seraphon/LordKroak.cpp
-        seraphon/SlannStarmaster.cpp
-
         fyreslayers/AuricHearthguard.cpp
         fyreslayers/HearthguardBerzerkers.cpp
         fyreslayers/VulkiteBerzerkers.cpp
@@ -530,129 +291,7 @@ add_library(
         everchosen/Archaon.cpp
         everchosen/Varanguard.cpp
 
-        slavestodarkness/SlavesToDarkness.cpp
-        slavestodarkness/ChaosChosen.cpp
-        slavestodarkness/ChaosKnights.cpp
-        slavestodarkness/ChaosMarauders.cpp
-        slavestodarkness/ChaosMarauderHorsemen.cpp
-        slavestodarkness/ChaosWarriors.cpp
-        slavestodarkness/CorvusCabal.cpp
-        slavestodarkness/CypherLords.cpp
-        slavestodarkness/Furies.cpp
-        slavestodarkness/IronGolems.cpp
-        slavestodarkness/Raptoryx.cpp
-        slavestodarkness/Slambo.cpp
-        slavestodarkness/SplinteredFang.cpp
-        slavestodarkness/TheUnmade.cpp
-        slavestodarkness/UntamedBeasts.cpp
-        slavestodarkness/ChaosLordOnKarkadrak.cpp
-        slavestodarkness/ChaosLordOnManticore.cpp
-        slavestodarkness/ChaosWarshrine.cpp
-        slavestodarkness/ChaosSorcererOnManticore.cpp
-        slavestodarkness/ChaosSorcerer.cpp
-        slavestodarkness/DarkoathChieftain.cpp
-        slavestodarkness/DarkoathWarqueen.cpp
-        slavestodarkness/ExaltedHeroOfChaos.cpp
-        slavestodarkness/ChaosLordOnDaemonicMount.cpp
-        slavestodarkness/ChaosLord.cpp
-        slavestodarkness/ChaosChariots.cpp
-        slavestodarkness/GorebeastChariots.cpp
-        slavestodarkness/SpireTyrants.cpp
-        slavestodarkness/MindstealerSphiranx.cpp
-        slavestodarkness/FormoroidCrusher.cpp
-        slavestodarkness/OgroidMyrmidon.cpp
-        slavestodarkness/Belakor.cpp
-        slavestodarkness/DaemonPrince.cpp
-        slavestodarkness/GodswornHunt.cpp
-        slavestodarkness/SlaughterBrute.cpp
-        slavestodarkness/SoulGrinder.cpp
-        slavestodarkness/TheddraSkullScryer.cpp
-        slavestodarkness/VortexBeast.cpp
-        slavestodarkness/ScionsOfTheFlame.cpp
-
         freeagents/GotrekGurnisson.cpp
-
-        citiesofsigmar/Anointed.cpp
-        citiesofsigmar/Assassin.cpp
-        citiesofsigmar/Battlemage.cpp
-        citiesofsigmar/BattlemageOnGriffon.cpp
-        citiesofsigmar/BlackArkCorsairs.cpp
-        citiesofsigmar/BlackArkFleetmaster.cpp
-        citiesofsigmar/BlackGuard.cpp
-        citiesofsigmar/Bleakswords.cpp
-        citiesofsigmar/CelestialHurricanum.cpp
-        citiesofsigmar/CitiesOfSigmar.cpp
-        citiesofsigmar/Cogsmith.cpp
-        citiesofsigmar/DarkRiders.cpp
-        citiesofsigmar/Darkshards.cpp
-        citiesofsigmar/DemigryphKnights.cpp
-        citiesofsigmar/DrakespawnChariots.cpp
-        citiesofsigmar/DrakespawnKnights.cpp
-        citiesofsigmar/DreadlordOnBlackDragon.cpp
-        citiesofsigmar/Dreadspears.cpp
-        citiesofsigmar/EternalGuard.cpp
-        citiesofsigmar/Executioners.cpp
-        citiesofsigmar/Flagellants.cpp
-        citiesofsigmar/FlamespyrePhoenix.cpp
-        citiesofsigmar/FreeguildCrossbowmen.cpp
-        citiesofsigmar/FreeguildGeneral.cpp
-        citiesofsigmar/FreeguildGeneralOnGriffon.cpp
-        citiesofsigmar/FreeguildGreatswords.cpp
-        citiesofsigmar/FreeguildGuard.cpp
-        citiesofsigmar/FreeguildHandgunners.cpp
-        citiesofsigmar/FreeguildOutriders.cpp
-        citiesofsigmar/FreeguildPistoliers.cpp
-        citiesofsigmar/FrostheartPhoenix.cpp
-        citiesofsigmar/Gyrobombers.cpp
-        citiesofsigmar/Gyrocopters.cpp
-        citiesofsigmar/Hammerers.cpp
-        citiesofsigmar/HelblasterVolleyGun.cpp
-        citiesofsigmar/HelstormRocketBattery.cpp
-        citiesofsigmar/Ironbreakers.cpp
-        citiesofsigmar/Irondrakes.cpp
-        citiesofsigmar/Kharibdyss.cpp
-        citiesofsigmar/Longbeards.cpp
-        citiesofsigmar/LuminarkOfHysh.cpp
-        citiesofsigmar/NomadPrince.cpp
-        citiesofsigmar/PhoenixGuard.cpp
-        citiesofsigmar/Runelord.cpp
-        citiesofsigmar/ScourgerunnerChariots.cpp
-        citiesofsigmar/ShadowWarriors.cpp
-        citiesofsigmar/SistersOfTheThorn.cpp
-        citiesofsigmar/SistersOfTheWatch.cpp
-        citiesofsigmar/Sorceress.cpp
-        citiesofsigmar/SorceressOnBlackDragon.cpp
-        citiesofsigmar/SteamTank.cpp
-        citiesofsigmar/WardenKing.cpp
-        citiesofsigmar/WarHydra.cpp
-        citiesofsigmar/WildRiders.cpp
-        citiesofsigmar/WildwoodRangers.cpp
-
-        mawtribes/MawtribesBase.cpp
-        mawtribes/Tyrant.cpp
-        mawtribes/OgorGluttons.cpp
-        mawtribes/Leadbelchers.cpp
-        mawtribes/Ironblaster.cpp
-        mawtribes/Slaughtermaster.cpp
-        mawtribes/Butcher.cpp
-        mawtribes/Gorgers.cpp
-        mawtribes/Ironguts.cpp
-        mawtribes/Scraplauncher.cpp
-        mawtribes/Gnoblars.cpp
-        mawtribes/Firebelly.cpp
-        mawtribes/Maneaters.cpp
-        mawtribes/FrostlordStonehorn.cpp
-        mawtribes/FrostlordThundertusk.cpp
-        mawtribes/HuskardStonehorn.cpp
-        mawtribes/HuskardThundertusk.cpp
-        mawtribes/StonehornBeastriders.cpp
-        mawtribes/ThundertuskBeastriders.cpp
-        mawtribes/FrostSabres.cpp
-        mawtribes/IcebrowHunter.cpp
-        mawtribes/IcefallYhetees.cpp
-        mawtribes/MournfangPack.cpp
-        mawtribes/Hrothgorn.cpp
-        mawtribes/HrothgornsMantrappers.cpp
 
         ossiarch/OssiarchBonereaperBase.cpp
         ossiarch/MortekGuard.cpp

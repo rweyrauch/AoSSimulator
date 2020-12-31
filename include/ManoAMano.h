@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MANOAMANO_H
-#define MANOAMANO_H
+#pragma once
 
 #include <AgeOfSigmarSim.h>
 #include <Unit.h>
@@ -99,5 +97,3 @@ private:
     bool m_isDone = false;
 
 };
-
-#endif // MANOAMANO_H

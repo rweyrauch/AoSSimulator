@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BATTLE_H
-#define BATTLE_H
+#pragma once
 
 #include <AgeOfSigmarSim.h>
 #include <Player.h>
@@ -63,5 +61,3 @@ private:
     bool m_isDone = false;
 };
 
-
-#endif //WARHAMMERSIM_BATTLE_H

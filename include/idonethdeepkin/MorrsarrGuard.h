@@ -37,11 +37,10 @@ namespace IdonethDeepkin {
 
         void onRestore() override { m_usedBiovoltaicBlast = false; }
 
-        void onBeginTurn(int battleRound) override;
-
         void onStartCombat(PlayerId player) override;
 
-        void onCharged() override;
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         bool m_usedBiovoltaicBlast = false;
 

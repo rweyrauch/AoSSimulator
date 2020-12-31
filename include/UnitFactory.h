@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef UNITFACTORY_H
-#define UNITFACTORY_H
+#pragma once
 
 #include <map>
 #include <vector>
@@ -100,4 +98,3 @@ protected:
     static std::map<std::string, FactoryMethod> s_registeredUnits;
 };
 
-#endif // UNITFACTORY_H

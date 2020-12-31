@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef UNIT_H
-#define UNIT_H
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -559,4 +557,3 @@ public:
     CustomUnit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 };
 
-#endif //UNIT_H

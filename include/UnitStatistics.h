@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef UNITSTATISTICS_H
-#define UNITSTATISTICS_H
+#pragma once
 
 #include <vector>
 #include <functional>
@@ -94,5 +92,3 @@ private:
     std::vector<TurnRecord> m_actions;
 };
 
-
-#endif //UNITSTATISTICS_H

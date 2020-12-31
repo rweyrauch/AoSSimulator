@@ -1,13 +1,11 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WEAPON_H
-#define WEAPON_H
+#pragma once
 
 #include <string>
 #include <AgeOfSigmarSim.h>
@@ -111,4 +109,3 @@ private:
     mutable double m_strength = -1.0;
 };
 
-#endif //WEAPON_H
