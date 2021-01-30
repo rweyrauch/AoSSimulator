@@ -31,6 +31,8 @@
 #include "nighthaunt/CairnWraith.h"
 #include "nighthaunt/MyrmournBanshees.h"
 #include "nighthaunt/Mourngul.h"
+#include "nighthaunt/TheBriarQueen.h"
+#include "nighthaunt/ThornsOfTheBriarQueen.h"
 
 namespace Nighthaunt {
 
@@ -139,6 +141,8 @@ namespace Nighthaunt {
         CairnWraith::Init();
         MyrmournBanshees::Init();
         Mourngul::Init();
+        TheBriarQueen::Init();
+        ThornsOfTheBriarQueen::Init();
     }
 
 } // namespace Nighthaunt

@@ -23,6 +23,8 @@
 #include "fec/CryptHaunterCourtier.h"
 #include "fec/RoyalZombieDragon.h"
 #include "fec/RoyalTerrorgheist.h"
+#include "fec/DukeCrakmarrow.h"
+#include "fec/TheGrymwatch.h"
 
 namespace FleshEaterCourt {
 
@@ -217,6 +219,8 @@ namespace FleshEaterCourt {
         RoyalZombieDragon::Init();
         CryptGhastCourtier::Init();
         CryptHaunterCourtier::Init();
+        DukeCrakmarrow::Init();
+        TheGrymwatch::Init();
     }
 
 } // namespace FleshEaterCourt

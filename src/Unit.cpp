@@ -217,7 +217,8 @@ void Unit::beginTurn(int battleRound, PlayerId playerWithTurn) {
     onBeginTurn(battleRound);
 }
 
-void Unit::endTurn(int /*battleRound*/) {
+void Unit::endTurn(int battleRound) {
+    onEndTurn(battleRound);
     m_statistics.record(m_currentRecord);
 }
 
@@ -742,7 +743,7 @@ int Unit::heal(int numWounds) {
     return numHealedWounds;
 }
 
-bool Unit::makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll) {
+bool Unit::makeSave(const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll) {
     auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target);
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save + saveModifiers - effectiveRend;
@@ -753,10 +754,10 @@ bool Unit::makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *t
         if (reroll == Reroll_Failed) {
             saveRoll = Dice::RollD6();
         }
-        if ((reroll == Reroll_Ones) && (woundRoll == 1)) {
+        else if ((reroll == Reroll_Ones) && (saveRoll == 1)) {
             saveRoll = Dice::RollD6();
         }
-        if ((reroll == Reroll_Ones_And_Twos) && (woundRoll == 1 || woundRoll == 2)) {
+        else if ((reroll == Reroll_Ones_And_Twos) && (saveRoll == 1 || saveRoll == 2)) {
             saveRoll = Dice::RollD6();
         }
     }
@@ -823,8 +824,7 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
 
                     // roll save
                     int saveRoll = 0;
-                    if (!target->makeSave(woundRoll, weapon, weaponRend(weapon, target, hitRoll, woundRoll), target,
-                                          saveRoll)) {
+                    if (!target->makeSave(weapon, weaponRend(weapon, target, hitRoll, woundRoll), target,saveRoll)) {
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
 
@@ -1082,6 +1082,9 @@ int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const 
     for (auto bi : m_attributeModifiers[which]) {
         extra += bi.modifier;
     }
+
+    extra += UnitModifierInterface::extraAttacks(attackingModel, weapon, target);
+
     return extra;
 }
 
@@ -1095,6 +1098,9 @@ int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const {
     for (auto bi : m_attributeModifiers[which]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::toHitModifier(weapon, target);
+
     return modifier;
 }
 
@@ -1108,6 +1114,9 @@ int Unit::toWoundModifier(const Weapon *weapon, const Unit *target) const {
     for (auto bi : m_attributeModifiers[which]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::toWoundModifier(weapon, target);
+
     return modifier;
 }
 
@@ -1119,6 +1128,10 @@ Rerolls Unit::toHitRerolls(const Weapon *weapon, const Unit *target) const {
     auto globalRR = s_globalToHitReroll(this, weapon, target);
     if (globalRR != No_Rerolls)
         return globalRR;
+
+    auto baseRR = UnitModifierInterface::toHitRerolls(weapon, target);
+    if (baseRR != No_Rerolls)
+        return baseRR;
 
     if (m_rollModifiers[which].empty())
         return No_Rerolls;
@@ -1134,6 +1147,10 @@ Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
     if (globalRR != No_Rerolls)
         return globalRR;
 
+    auto baseRR = UnitModifierInterface::toWoundRerolls(weapon, target);
+    if (baseRR != No_Rerolls)
+        return baseRR;
+
     if (m_rollModifiers[which].empty())
         return No_Rerolls;
     return m_rollModifiers[which].front().rerolls;
@@ -1144,6 +1161,9 @@ int Unit::toSaveModifier(const Weapon *weapon) const {
     for (auto bi : m_attributeModifiers[To_Save]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::toSaveModifier(weapon);
+
     return modifier;
 }
 
@@ -1151,6 +1171,10 @@ Rerolls Unit::toSaveRerolls(const Weapon *weapon) const {
     auto globalRR = s_globalSaveReroll(this, weapon, this);
     if (globalRR != No_Rerolls)
         return globalRR;
+
+    auto baseRR = UnitModifierInterface::toSaveRerolls(weapon);
+    if (baseRR != No_Rerolls)
+        return baseRR;
 
     if (m_rollModifiers[To_Save].empty())
         return No_Rerolls;
@@ -1162,6 +1186,10 @@ Rerolls Unit::battleshockRerolls() const {
     if (globalRR != No_Rerolls)
         return globalRR;
 
+    auto baseRR = UnitModifierInterface::battleshockRerolls();
+    if (baseRR != No_Rerolls)
+        return baseRR;
+
     if (m_rollModifiers[Bravery].empty())
         return No_Rerolls;
     return m_rollModifiers[Bravery].front().rerolls;
@@ -1172,6 +1200,9 @@ int Unit::castingModifier() const {
     for (auto bi : m_attributeModifiers[Casting_Roll]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::castingModifier();
+
     return modifier;
 }
 
@@ -1180,6 +1211,9 @@ int Unit::unbindingModifier() const {
     for (auto bi : m_attributeModifiers[Unbinding_Roll]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::unbindingModifier();
+
     return modifier;
 }
 
@@ -1188,6 +1222,9 @@ int Unit::moveModifier() const {
     for (auto bi : m_attributeModifiers[Move_Distance]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::moveModifier();
+
     return modifier;
 }
 
@@ -1196,6 +1233,9 @@ int Unit::runModifier() const {
     for (auto bi : m_attributeModifiers[Run_Distance]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::runModifier();
+
     return modifier;
 }
 
@@ -1204,6 +1244,9 @@ int Unit::chargeModifier() const {
     for (auto bi : m_attributeModifiers[Charge_Distance]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::chargeModifier();
+
     return modifier;
 }
 
@@ -1211,6 +1254,10 @@ Rerolls Unit::runRerolls() const {
     auto globalRR = s_globalRunReroll(this);
     if (globalRR != No_Rerolls)
         return globalRR;
+
+    auto baseRR = UnitModifierInterface::runRerolls();
+    if (baseRR != No_Rerolls)
+        return baseRR;
 
     if (m_rollModifiers[Run_Distance].empty())
         return No_Rerolls;
@@ -1221,6 +1268,10 @@ Rerolls Unit::chargeRerolls() const {
     auto globalRR = s_globalChargeReroll(this);
     if (globalRR != No_Rerolls)
         return globalRR;
+
+    auto baseRR = UnitModifierInterface::chargeRerolls();
+    if (baseRR != No_Rerolls)
+        return baseRR;
 
     if (m_rollModifiers[Charge_Distance].empty())
         return No_Rerolls;
@@ -1262,7 +1313,7 @@ bool Unit::canRetreatAndCharge() const {
         return m_movementRules[Retreat_And_Charge].front().allowed;
 }
 
-int Unit::targetHitModifier(const Weapon *weapon, const Unit * /*attacker*/) const {
+int Unit::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = 0;
 
     BuffableAttribute which = Target_To_Hit_Melee;
@@ -1272,10 +1323,13 @@ int Unit::targetHitModifier(const Weapon *weapon, const Unit * /*attacker*/) con
     for (auto bi : m_attributeModifiers[which]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::targetHitModifier(weapon, attacker);
+
     return modifier;
 }
 
-int Unit::targetWoundModifier(const Weapon *weapon, const Unit * /*attacker*/) const {
+int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = 0;
 
     BuffableAttribute which = Target_To_Wound_Melee;
@@ -1285,15 +1339,21 @@ int Unit::targetWoundModifier(const Weapon *weapon, const Unit * /*attacker*/) c
     for (auto bi : m_attributeModifiers[which]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::targetWoundModifier(weapon, attacker);
+
     return modifier;
 }
 
-int Unit::targetSaveModifier(const Weapon * /*weapon*/, const Unit * /*attacker*/) const {
+int Unit::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = 0;
 
     for (auto bi : m_attributeModifiers[Target_To_Save]) {
         modifier += bi.modifier;
     }
+
+    modifier += UnitModifierInterface::targetSaveModifier(weapon, attacker);
+
     return modifier;
 }
 

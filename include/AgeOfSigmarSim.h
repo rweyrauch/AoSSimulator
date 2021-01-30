@@ -473,6 +473,9 @@ enum Keyword {
     BLACK_COACH,
     MYRMOURN_BANSHEES,
     MOURNGUL,
+    MIRRORGHAST_BANSHEE,
+    THE_BRIAR_QUEEN,
+    THORNS_OF_THE_BRIAR_QUEEN,
 
     // Beasts of Chaos
     BULLGOR,
@@ -616,6 +619,8 @@ enum Keyword {
     MENAGERIE,
     ROYAL_TERRORGHEIST,
     ROYAL_ZOMBIE_DRAGON,
+    DUKE_CRAKMARROW,
+    GRYMWATCH,
 
     // Flesh-eater Court Grand Courts
     MORGAUNT,
@@ -890,6 +895,7 @@ enum Keyword {
     MUTALITH_VORTEX_BEAST,
     SOUL_GRINDER,
     SCIONS_OF_THE_FLAME,
+    KHAGRAS_RAVAGERS,
 
     // Slaves to Darkness Damned Legion
     RAVAGERS,

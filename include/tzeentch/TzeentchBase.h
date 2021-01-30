@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef TZEENTCHBASE_H
-#define TZEENTCHBASE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -189,5 +188,3 @@ namespace Tzeentch {
 //
 
 } // Tzeentch
-
-#endif //TZEENTCHBASE_H

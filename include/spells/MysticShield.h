@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MYSTICSHIELD_H
-#define MYSTICSHIELD_H
+#pragma once
 
 #include <Spell.h>
 
@@ -22,5 +21,3 @@ public:
 protected:
 
 };
-
-#endif// MYSTICSHIELD_H

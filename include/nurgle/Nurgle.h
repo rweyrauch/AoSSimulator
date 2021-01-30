@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef NURGLE_H
-#define NURGLE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -131,5 +130,3 @@ namespace Nurgle {
     void Init();
 
 } // namespace Nurgle
-
-#endif //NURGLE_H

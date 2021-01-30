@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef KHARADRONBASE_H
-#define KHARADRONBASE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -244,5 +243,3 @@ namespace KharadronOverlords {
     void Init();
 
 } // namespace KharadronOverlords
-
-#endif // KHARADRONBASE_H

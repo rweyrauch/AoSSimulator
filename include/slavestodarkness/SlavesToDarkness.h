@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SLAVESTODARKNESS_H
-#define SLAVESTODARKNESS_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -162,5 +161,3 @@ namespace SlavesToDarkness {
 //
 
 } // SlavesToDarkness
-
-#endif //SLAVESTODARKNESS_H

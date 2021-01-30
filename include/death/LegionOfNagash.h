@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LEGIONOFNAGASH_H
-#define LEGIONOFNAGASH_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -191,5 +190,3 @@ namespace Death {
     void Init();
 
 } // namespace Death
-
-#endif //LEGIONOFNAGASH_H

@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef IDONETHDEEPKIN_H
-#define IDONETHDEEPKIN_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -156,4 +155,3 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // IDONETHDEEPKIN_H

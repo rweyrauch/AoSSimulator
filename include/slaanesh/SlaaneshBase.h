@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SLAANESHBASE_H
-#define SLAANESHBASE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -152,5 +151,3 @@ namespace Slaanesh {
     void Init();
 
 } // namespace Slaanesh
-
-#endif //SLAANESHBASE_H

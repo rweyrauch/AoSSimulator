@@ -60,3 +60,4 @@ aossim_glue.cpp
 aossim_glue.js
 web/dist
 web/node_modules
+cmake-emscripten

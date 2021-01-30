@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef KHORNEBASE_H
-#define KHORNEBASE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -169,5 +168,3 @@ namespace Khorne {
 //
 
 } // namespace Khorne
-
-#endif // KHORNEBASE_H

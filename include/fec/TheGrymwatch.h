@@ -1,7 +1,7 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019-2021 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
@@ -13,7 +13,7 @@
 
 namespace FleshEaterCourt {
 
-    class AbhorrantArchregent : public FleshEaterCourts {
+    class TheGrymwatch : public FleshEaterCourts {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -22,19 +22,16 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        AbhorrantArchregent();
+        TheGrymwatch();
 
-        ~AbhorrantArchregent() override = default;
+        ~TheGrymwatch() override = default;
 
-        bool configure(Lore lore);
-
-    protected:
-
-        void onStartHero(PlayerId player) override;
+        bool configure();
 
     private:
 
-        Weapon m_goryTalonsAndFangs;
+        Weapon m_weaponsAndClaws,
+                m_fangs;
 
         static bool s_registered;
     };
@@ -42,9 +39,8 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Imperial Blood                   Yes
-// Ferocious Hunger                 TODO
-// Summon Imperial Guard            TODO
+// Royal Retinue                    TODO
+// Quest to Slay the Monster        TODO
 //
 
 } // namespace FleshEaterCourt

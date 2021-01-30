@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef CRYPTINFERNALCOURTIER_H
-#define CRYPTINFERNALCOURTIER_H
+#pragma once
 
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
@@ -49,5 +48,3 @@ namespace FleshEaterCourt {
 //
 
 } // namespace FleshEaterCourt
-
-#endif //CRYPTINFERNALCOURTIER_H

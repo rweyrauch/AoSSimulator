@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef VARANGUARD_H
-#define VARANGUARD_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -69,5 +68,3 @@ namespace SlavesToDarkness {
 //
 
 } // namespace SlavesToDarkness
-
-#endif //VARANGUARD_H

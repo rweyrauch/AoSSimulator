@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef STORMCASTETERNALS_H
-#define STORMCASTETERNALS_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -195,5 +194,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //STORMCASTETERNALS_H

@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef ROYALZOMBIEDRAGON_H
-#define ROYALZOMBIEDRAGON_H
+#pragma once
 
 #include <fec/FleshEaterCourts.h>
 #include <Weapon.h>
@@ -55,5 +54,3 @@ namespace FleshEaterCourt {
 //
 
 } // namespace FleshEaterCourt
-
-#endif //ROYALZOMBIEDRAGON_H

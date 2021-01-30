@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SERAPHON_H
-#define SERAPHON_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -178,5 +177,3 @@ namespace Seraphon {
     void Init();
 
 } // namespace Seraphon
-
-#endif //SERAPHON_H

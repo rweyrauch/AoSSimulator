@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SKAVENTIDE_H
-#define SKAVENTIDE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -184,5 +183,3 @@ namespace Skaven {
     void Init();
 
 } // namespace Skaven
-
-#endif //SKAVENTIDE_H

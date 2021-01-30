@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef MAWTRIBESBASE_H
-#define MAWTRIBESBASE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -217,5 +216,3 @@ namespace OgorMawtribes {
     void Init();
 
 } // namespace OgorMawtribes
-
-#endif // MAWTRIBESBASE_H

@@ -1,19 +1,19 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
 #pragma once
 
-#include <fec/FleshEaterCourts.h>
+#include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt {
+namespace SlavesToDarkness {
 
-    class CryptGhastCourtier : public FleshEaterCourts {
+    class KhagrasRavagers : public SlavesToDarknessBase {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -22,18 +22,21 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        CryptGhastCourtier();
+        KhagrasRavagers();
 
-        ~CryptGhastCourtier() override = default;
+        ~KhagrasRavagers() override = default;
 
         bool configure();
 
     protected:
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
     private:
 
-        Weapon m_boneClub,
-                m_filthyClaws;
+        Weapon m_handWeapons,
+                m_mace,
+                m_staff;
 
         static bool s_registered;
     };
@@ -41,8 +44,7 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Trophy Hunter                    TODO
-// Muster Serfs                     TODO
+// Chaos Runeshields                Yes
 //
 
-} // namespace FleshEaterCourt
+} // SlavesToDarkness

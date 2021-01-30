@@ -1,11 +1,10 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019-2021 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
 #pragma once
 
 #include <fec/FleshEaterCourts.h>
@@ -13,7 +12,7 @@
 
 namespace FleshEaterCourt {
 
-    class AbhorrantArchregent : public FleshEaterCourts {
+    class DukeCrakmarrow : public FleshEaterCourts {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -22,19 +21,15 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        AbhorrantArchregent();
+        DukeCrakmarrow();
 
-        ~AbhorrantArchregent() override = default;
+        ~DukeCrakmarrow() override = default;
 
-        bool configure(Lore lore);
-
-    protected:
-
-        void onStartHero(PlayerId player) override;
+        bool configure();
 
     private:
 
-        Weapon m_goryTalonsAndFangs;
+        Weapon m_halberd;
 
         static bool s_registered;
     };
@@ -42,9 +37,8 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Imperial Blood                   Yes
-// Ferocious Hunger                 TODO
-// Summon Imperial Guard            TODO
+// Gallant Champion                 TODO
+// Muster the Grymwatch             TODO
 //
 
 } // namespace FleshEaterCourt

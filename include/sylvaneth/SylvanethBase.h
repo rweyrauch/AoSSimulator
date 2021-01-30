@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef SYLVANETHBASE_H
-#define SYLVANETHBASE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -188,5 +187,3 @@ namespace Sylvaneth {
 //
 
 } // namespace Sylvaneth
-
-#endif // SYLVANETHBASE_H

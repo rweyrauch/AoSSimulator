@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef LUMINETHREALMLORDS_H
-#define LUMINETHREALMLORDS_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -155,4 +154,3 @@ namespace LuminethRealmLords {
 
 } // namespace LuminethRealmLords
 
-#endif // LUMINETHREALMLORDS_H

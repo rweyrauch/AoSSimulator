@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef IRONJAWZ_H
-#define IRONJAWZ_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -155,5 +154,3 @@ namespace Ironjawz {
     void Init();
 
 } // namespace Ironjawz
-
-#endif // IRONJAWZ_H

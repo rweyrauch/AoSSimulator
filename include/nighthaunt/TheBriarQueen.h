@@ -1,19 +1,20 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019-2021 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#pragma once
+#ifndef BRIARQUEEN_H
+#define BRIARQUEEN_H
 
-#include <fec/FleshEaterCourts.h>
+#include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
 
-namespace FleshEaterCourt {
+namespace Nighthaunt {
 
-    class AbhorrantArchregent : public FleshEaterCourts {
+    class TheBriarQueen : public Nighthaunt {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -22,19 +23,18 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        AbhorrantArchregent();
+        TheBriarQueen();
 
-        ~AbhorrantArchregent() override = default;
+        ~TheBriarQueen() override = default;
 
         bool configure(Lore lore);
 
     protected:
 
-        void onStartHero(PlayerId player) override;
-
     private:
 
-        Weapon m_goryTalonsAndFangs;
+        Weapon m_scream,
+                m_whip;
 
         static bool s_registered;
     };
@@ -42,9 +42,11 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Imperial Blood                   Yes
-// Ferocious Hunger                 TODO
-// Summon Imperial Guard            TODO
+// Ethereal                         Yes
+// Howling Vortex                   TODO
 //
 
-} // namespace FleshEaterCourt
+
+} // namespace Nighthaunt
+
+#endif // BRIARQUEEN_H

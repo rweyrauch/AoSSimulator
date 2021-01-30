@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef OSSIARCHBONEREAPERBASE_H
-#define OSSIARCHBONEREAPERBASE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -167,5 +166,3 @@ namespace OssiarchBonereapers {
     void Init();
 
 } // namespace OssiarchBonereapers
-
-#endif // OSSIARCHBONEREAPERBASE_H

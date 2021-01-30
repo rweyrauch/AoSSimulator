@@ -6,8 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#ifndef GLOOMSPITESPELLS_H
-#define GLOOMSPITESPELLS_H
+#pragma once
 
 #include <Spell.h>
 #include <array>
@@ -43,5 +42,3 @@ namespace GloomspiteGitz {
     DamageSpell *CreateVindictiveGlare(Unit *caster);
 
 } // namespace GloomspiteGitz
-
-#endif //GLOOMSPITESPELLS_H

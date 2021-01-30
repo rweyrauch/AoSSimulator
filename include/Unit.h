@@ -13,19 +13,21 @@
 #include <string>
 #include <functional>
 #include <algorithm>
-#include <Weapon.h>
-#include <Model.h>
-#include <UnitStatistics.h>
+#include "UnitModifierInterface.h"
+#include "EventInterface.h"
+#include "Weapon.h"
+#include "Model.h"
+#include "UnitStatistics.h"
 
-#include <Spell.h>
-#include <Prayer.h>
-#include <CommandAbility.h>
+#include "Spell.h"
+#include "Prayer.h"
+#include "CommandAbility.h"
 
 #include <lsignal.h>
 
 class Roster;
 
-class Unit {
+class Unit : public UnitModifierInterface, public EventInterface {
 public:
     Unit() = default;
 
@@ -152,7 +154,7 @@ public:
 
     int applyBattleshock();
 
-    bool makeSave(int woundRoll, const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll);
+    bool makeSave(const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll);
 
     int applyDamage(const Wounds &totalWounds, Unit* attackingUnit);
 
@@ -269,104 +271,47 @@ protected:
 
 protected:
 
-    /*!
-     * Some weapons generate extra attacks.
-     * Examples include additional attacks when charging or when a minimum number of models are attacking.
-     * @param weapon Attacking weapon
-     * @return Number of additional attacks (not including the normal attack).
-     */
-    virtual int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const;
+    //
+    // UnitDecorator interface
+    //
 
-    /*!
-     * Some weapons/units generate extra hits based on the hit
-     * @param unmodifiedHitRoll
-     * @param weapon
-     * @param unit
-     * @return
-     */
-    virtual int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const { return 1; }
+    int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-    /*!
-     * To-hit modifier (buffs) when this unit uses the given weapon to attack the target.
-     * @param weapon Attacking with weapon
-     * @param target Unit being attacked
-     * @return To-hit roll modifier.
-     */
-    virtual int toHitModifier(const Weapon *weapon, const Unit *target) const;
+    int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-    /*!
-     * Target to-hit modifier (debuff) when the attacker unit targets this unit using the given weapon.
-     * @param weapon Weapon used in the attack.
-     * @param target Unit attacking this unit.
-     * @return To-hit roll modifier.
-     */
-    virtual int targetHitModifier(const Weapon *weapon, const Unit *attacker) const;
+    int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    /*!
-     * To-hit rerolls when this unit uses the given weapon to attack the target.
-     * @param weapon Attacking with weapon
-     * @param target Unit being attacked
-     * @return To-hit re-roll.
-     */
-    virtual Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const;
+    Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    /*!
-     * To-wound modifier (buffs) when this unit uses the given weapon to attack the target.
-     * @param weapon Attacking with weapon
-     * @param target Unit being attacked
-     * @return To-wound roll modifier.
-     */
-    virtual int toWoundModifier(const Weapon *weapon, const Unit *target) const;
+    int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-    /*!
-     * Target to-wound modifier (debuff) when the attacker targets this unit using the given weapon.
-     * @param weapon Weapon used in the attack.
-     * @param target Unit attacking this unit.
-     * @return To-wound roll modifier.
-     */
-    virtual int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const;
+    int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    /*!
-     * To-wound re-rolls when this unit use the given weapon to attack the target.
-     * @param weapon Attacking with weapon
-     * @param target Unit being attacked
-     * @return To-wound re-roll.
-     */
-    virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const;
+    Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    /*!
-     * Compute the weapon damage on the given target with the hit and wound rolls.
-     * @param weapon Attacking with weapon
-     * @param target Unit being attacked.
-     * @param hitRoll Roll to-hit
-     * @param woundRoll Roll to-wound
-     * @return Weapon damage
-     */
-    virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        return {weapon->damage(), 0};
-    }
+    int toSaveModifier(const Weapon *weapon) const override;
 
-    /*!
-     * Modifier to apply to damage for a single attack.
-     * @param wounds Attack damage
-     * @param attacker Attacking unit
-     * @param hitRoll Unmodified roll to-hit
-     * @param woundRoll Unmodified roll to-wound
-     * @return Modified wounds
-     */
-    virtual Wounds targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll,
-                                              int woundRoll) const { return wounds; }
+    int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    /*!
-     * Compute the weapon rend against the given target with the hit and wound rolls.
-     * @param weapon Attacking with weapon.
-     * @param target Unit being attacked.
-     * @param hitRoll Roll to-hit
-     * @param woundRoll Roll to-wound
-     * @return Weapon rend
-     */
-    virtual int weaponRend(const Weapon *weapon, const Unit *target,
-                           int hitRoll, int woundRoll) const { return weapon->rend(); }
+    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+
+    int braveryModifier() const override;
+
+    Rerolls battleshockRerolls() const override;
+
+    int castingModifier() const override;
+
+    int unbindingModifier() const override;
+
+    int moveModifier() const override;
+
+    int runModifier() const override;
+
+    Rerolls runRerolls() const override;
+
+    int chargeModifier() const override;
+
+    Rerolls chargeRerolls() const override;
 
     /*!
      * Some units do mortal wounds for simply existing.
@@ -375,11 +320,7 @@ protected:
      */
     virtual int generateMortalWounds(const Unit *unit) { return 0; }
 
-    virtual int toSaveModifier(const Weapon *weapon) const;
-
-    virtual int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const;
-
-    virtual Rerolls toSaveRerolls(const Weapon *weapon) const;
+    virtual void restoreModels(int numModels) {}
 
     /*!
      * Does this unit need to take battleshock.
@@ -387,72 +328,9 @@ protected:
      */
     virtual bool battleshockRequired() const { return true; }
 
-    virtual int braveryModifier() const;
-
-    virtual Rerolls battleshockRerolls() const;
-
     virtual int rollBattleshock() const;
 
     virtual void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const;
-
-    virtual int castingModifier() const;
-
-    virtual int unbindingModifier() const;
-
-    virtual void restoreModels(int numModels) {}
-
-    virtual int woundModifier() const { return 0; }
-
-    virtual int moveModifier() const;
-
-    virtual int runModifier() const;
-
-    virtual Rerolls runRerolls() const;
-
-    virtual int chargeModifier() const;
-
-    virtual Rerolls chargeRerolls() const;
-
-
-    virtual void onRestore() {}
-
-    virtual void onBeginRound(int battleRound) {}
-
-    virtual void onEndRound(int battleRound) {}
-
-    virtual void onBeginTurn(int battleRound) {}
-
-    virtual void onSlain() {}
-
-    virtual void onModelSlain(Wounds::Source source) {}
-
-    virtual void onWounded() {}
-
-    virtual void onRan() {}
-
-    virtual void onFlee(int numFled) {}
-
-    virtual void onCharged() {}
-
-    virtual void onUnboundSpell(Unit *caster, int castRoll) {}
-
-    virtual void onCastSpell(const Spell *spell, const Unit *target) {}
-
-    virtual void onStartHero(PlayerId player) {}
-
-    virtual void onEndHero(PlayerId player) {}
-
-    virtual void onStartMovement(PlayerId player) {}
-
-    virtual void onEndMovement(PlayerId player) {}
-
-    virtual void onStartShooting(PlayerId player) {}
-
-    virtual Wounds onEndShooting(PlayerId player) { return {0, 0}; }
-
-    virtual void onStartCombat(PlayerId player) {}
-
-    virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
 
     virtual int rollRunDistance() const;
 
