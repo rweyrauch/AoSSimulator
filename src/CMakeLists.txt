@@ -27,8 +27,7 @@ file(GLOB ossiarch_src "ossiarch/*.cpp" "ossiarch/*.h")
 file(GLOB kharadron_src "kharadron/*.cpp" "kharadron/*.h")
 file(GLOB lumineth_src "lumineth/*.cpp" "lumineth/*.h")
 
-add_library(
-        AoSSim STATIC
+set(AOSSIM_SOURCE
         Dice.cpp
         Unit.cpp
         Weapon.cpp
@@ -80,7 +79,6 @@ add_library(
         ${kharadron_src}
         ${lumineth_src}
 
-
         wanderers/Wanderer.cpp
         wanderers/EternalGuard.cpp
         wanderers/GladeGuard.cpp
@@ -123,26 +121,60 @@ add_library(
         behemat/Warstomper.cpp
 )
 
-target_include_directories(
-        AoSSim PUBLIC
-        ${GTK3_INCLUDE_DIRS}
-        ../include
+if(EMSCRIPTEN)
+    set(AOSSIM_SOURCE ${AOSSIM_SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/glue_stub.cpp)
+endif()
+
+add_library(
+        AoSSim STATIC
+        ${AOSSIM_SOURCE}
 )
 
-target_link_libraries(
-        AoSSim
-        ${GTK3_LIBRARIES}
-)
+if(NOT EMSCRIPTEN)
+    target_include_directories(
+            AoSSim PUBLIC
+            ${GTK3_INCLUDE_DIRS}
+            ../include
+    )
+    target_link_libraries(
+            AoSSim
+            ${GTK3_LIBRARIES}
+    )
+    target_compile_definitions(
+            AoSSim PUBLIC HAVE_CAIRO
+    )
+    target_compile_options(
+            AoSSim PRIVATE
+            -Wpedantic
+            -Wextra
+            -Wall
+            -Wformat-security
+            -Wno-unused-parameter
+    )
+else()
 
-target_compile_options(
-        AoSSim PRIVATE
-        -Wpedantic
-        -Wextra
-        -Wall
-        -Wformat-security
-        -Wno-unused-parameter
-)
+    ADD_CUSTOM_COMMAND (
+            MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/aossim.idl
+            OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/src/aossim_glue.js ${CMAKE_CURRENT_BINARY_DIR}/src/aossim_glue.cpp
+            COMMAND python3 $ENV{EMSDK}/upstream/emscripten/tools/webidl_binder.py ${CMAKE_CURRENT_SOURCE_DIR}/aossim.idl ${CMAKE_CURRENT_BINARY_DIR}/aossim_glue
+    )
+    SET_PROPERTY(SOURCE glue_stub.cpp APPEND PROPERTY OBJECT_DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/src/aossim_glue.cpp)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s MODULARIZE=1 -s EXPORT_NAME=AosSim -s NO_FILESYSTEM=0 -s EXPORT_BINDINGS=1 -s RESERVED_FUNCTION_POINTERS=20 -s NO_EXIT_RUNTIME=1 --post-js ${CMAKE_CURRENT_BINARY_DIR}/aossim_glue.js")
 
-target_compile_definitions(
-        AoSSim PUBLIC HAVE_CAIRO
-)
+    target_include_directories(
+            AoSSim PUBLIC
+            ../include
+    )
+    target_compile_options(
+            AoSSim PRIVATE
+            -Wpedantic
+            -Wextra
+            -Wall
+            -Wformat-security
+            -Wno-unused-parameter
+            -fno-exceptions
+            -frtti
+            -fbracket-depth=512
+    )
+endif()
+

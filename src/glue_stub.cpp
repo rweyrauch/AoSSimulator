@@ -6,10 +6,10 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <iostream>
-#include "include/AgeOfSigmarSim.h"
-#include "include/ManoAMano.h"
-#include "include/Unit.h"
-#include "include/UnitFactory.h"
+#include "AgeOfSigmarSim.h"
+#include "ManoAMano.h"
+#include "Unit.h"
+#include "UnitFactory.h"
 
 static std::vector<std::string> g_unitNames;
 
@@ -186,5 +186,3 @@ int JSInterface::GetUnitPoints(const char* name, int numModels)
     }
     return 0;
 }
-
-#include "aossim_glue.cpp"

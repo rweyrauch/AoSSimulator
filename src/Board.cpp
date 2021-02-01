@@ -7,7 +7,6 @@
  */
 
 #include <vector>
-#include <algorithm>
 
 #ifdef HAVE_CAIRO
 #include <cairomm/context.h>

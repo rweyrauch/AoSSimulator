@@ -2,28 +2,34 @@ cmake_minimum_required(VERSION 3.10)
 project(AoSSimulator)
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK3 REQUIRED gtk+-3.0 gtkmm-3.0)
-include_directories(${GTK3_INCLUDE_DIRS})
-link_directories(${GTK3_LIBRARY_DIRS})
+pkg_check_modules(GTK3 gtk+-3.0 gtkmm-3.0)
+if(GTK3_FOUND)
+    include_directories(${GTK3_INCLUDE_DIRS})
+    link_directories(${GTK3_LIBRARY_DIRS})
+endif()
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(
-        AoSManoAMano
-        app/main.cpp
-        include/AgeOfSigmarSim.h)
+if(NOT EMSCRIPTEN)
+    add_executable(
+            AoSManoAMano
+            app/main.cpp
+            include/AgeOfSigmarSim.h)
 
-target_link_libraries(
-        AoSManoAMano
-        AoSSim
-)
-
-target_include_directories(
-        AoSManoAMano PRIVATE
-        include
-)
+    target_link_libraries(
+            AoSManoAMano
+            AoSSim
+    )
+    target_include_directories(
+            AoSManoAMano PRIVATE
+            include
+    )
+endif()
 
 add_subdirectory("src")
-add_subdirectory("test")
-add_subdirectory("gtkManoAMano")
-add_subdirectory("queryTool")
+
+if(NOT EMSCRIPTEN)
+    add_subdirectory("test")
+    add_subdirectory("gtkManoAMano")
+    add_subdirectory("queryTool")
+endif()
