@@ -186,3 +186,5 @@ int JSInterface::GetUnitPoints(const char* name, int numModels)
     }
     return 0;
 }
+
+//#include "aossim_glue.cpp"

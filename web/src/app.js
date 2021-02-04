@@ -1,23 +1,23 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2020 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2020-2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-if (AosSim === undefined) {
+if (AoSSimulator === undefined) {
     console.log("Module not found");
 }
 else {
     console.log("AoS module is loaded.");
 }
 
-AosSim().then(AosSim => {
+AoSSimulator().then(AoSSimulator => {
 
-    const sim = AosSim.JSInterface.prototype;
+    const sim = AoSSimulator.JSInterface.prototype;
 
-    let g_verboseLevel = AosSim.Normal;
+    let g_verboseLevel = AoSSimulator.Normal;
     let g_numRounds = 5;
     let g_saveMaps = false;
     let g_numIterations = 5;
@@ -32,7 +32,7 @@ AosSim().then(AosSim => {
         const allianceId = sim.GrandAllianceStringToKeyword(alliance);
 
         for (let idx = 0; idx < sim.GetNumberOfAvailableUnits(); idx++) {
-            var unitInfo = new AosSim.JSUnitInfo();
+            let unitInfo = new AoSSimulator.JSUnitInfo();
             sim.GetUnitInfo(idx, unitInfo);
             if (allianceId === unitInfo.grandAlliance) {
                 for (let fidx = 0; fidx < unitInfo.numberOfFactions; fidx++) {
@@ -67,7 +67,7 @@ AosSim().then(AosSim => {
         const factionId = sim.FactionStringToKeyword(faction);
 
         for (let idx = 0; idx < sim.GetNumberOfAvailableUnits(); idx++) {
-            var unitInfo = new AosSim.JSUnitInfo();
+            let unitInfo = new AoSSimulator.JSUnitInfo();
             sim.GetUnitInfo(idx, unitInfo);
             // filter based on keyword
             for (let fidx = 0; fidx < unitInfo.numberOfFactions; fidx++) {

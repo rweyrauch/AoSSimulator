@@ -51,7 +51,7 @@ interface Model {
 interface Weapon {
     void Weapon();
 
-    [Const] DOMString name_c();
+    [Const] DOMString nameC();
     long range();
     long attacks();
     long toHit();
