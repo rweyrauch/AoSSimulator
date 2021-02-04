@@ -182,7 +182,7 @@ AoSSimulator().then(AoSSimulator => {
     }
 
     function createConfigUI(unitName, container, team) {
-        var factory = new AosSim.JSUnitInfo();
+        var factory = new AoSSimulator.JSUnitInfo();
         sim.GetUnitInfoByName(unitName, factory);
 
         console.log("Found factory for unit " + unitName + " on team " + team);
@@ -194,7 +194,7 @@ AoSSimulator().then(AoSSimulator => {
 
         console.log("\tNumber of parameters: " + factory.numberOfParameters);
 
-        var params = new AosSim.Parameter();
+        var params = new AoSSimulator.Parameter();
 
         var defaultModelCount = 0;
 
@@ -213,7 +213,7 @@ AoSSimulator().then(AoSSimulator => {
 
             const controlId = (team + "-" + pname).trim().replace(' ', '-').toLowerCase();
 
-            if (ptype === AosSim.Integer) {
+            if (ptype === AoSSimulator.Integer) {
 
                 let group = document.createElement("fieldset");
                 group.classList.add("form-group");
@@ -244,7 +244,7 @@ AoSSimulator().then(AoSSimulator => {
 
                 container.appendChild(group);
             }
-            else if (ptype === AosSim.Enum) {
+            else if (ptype === AoSSimulator.Enum) {
 
                 let group = document.createElement("fieldset");
                 group.classList.add("form-group");
@@ -268,7 +268,7 @@ AoSSimulator().then(AoSSimulator => {
 
                 container.appendChild(group);
             }
-            else if (ptype === AosSim.Boolean) {
+            else if (ptype === AoSSimulator.Boolean) {
                 let group = document.createElement("fieldset");
                 group.classList.add("form-check");
 
@@ -294,7 +294,7 @@ AoSSimulator().then(AoSSimulator => {
     }
 
     function createUnit(unitName, unitUI) {
-        var factory = new AosSim.JSUnitInfo();
+        var factory = new AoSSimulator.JSUnitInfo();
         sim.GetUnitInfoByName(unitName, factory);
 
         if (!unitUI) return null;
@@ -308,8 +308,8 @@ AoSSimulator().then(AoSSimulator => {
                     if (iip instanceof HTMLInputElement) {
                         const input = iip;
                         if (input.type === "number") {
-                            let param = new AosSim.Parameter();
-                            param.paramType = AosSim.Integer;
+                            let param = new AoSSimulator.Parameter();
+                            param.paramType = AoSSimulator.Integer;
                             param.name = input.name;
                             param.intValue = +input.value;
                             param.minValue = +input.min;
@@ -317,8 +317,8 @@ AoSSimulator().then(AoSSimulator => {
                             param.increment = +input.step;
                             sim.AddUnitParameter(param);
                         } else if (input.type === "checkbox") {
-                            let param = new AosSim.Parameter();
-                            param.paramType = AosSim.Boolean;
+                            let param = new AoSSimulator.Parameter();
+                            param.paramType = AoSSimulator.Boolean;
                             param.name = input.name;
                             param.intValue = input.checked ? 1 : 0;
                             param.minValue = 0;
@@ -329,8 +329,8 @@ AoSSimulator().then(AoSSimulator => {
                     }
                     else if (iip instanceof HTMLSelectElement) {
                         const select = iip;
-                        let param = new AosSim.Parameter();
-                        param.paramType = AosSim.Enum;
+                        let param = new AoSSimulator.Parameter();
+                        param.paramType = AoSSimulator.Enum;
                         param.name = select.name;
                         param.intValue = select.selectedIndex;
                         param.minValue = 0;
@@ -341,7 +341,7 @@ AoSSimulator().then(AoSSimulator => {
             }
         }
 
-        var unit = sim.CreateUnit(unitName);
+        let unit = sim.CreateUnit(unitName);
 
         console.log("Unit points: " + unit.points() +  "  Models: " + unit.remainingModels());
 
@@ -424,7 +424,7 @@ AoSSimulator().then(AoSSimulator => {
                 console.log("Red Wounds: " + unit.wounds() + "  Move: " + unit.move() + "  Weapons: " + unit.getNumWeapons());
                 for (var i = 0; i < unit.getNumWeapons(); i++) {
                     const weapon = unit.getWeapon(i);
-                    console.log("\t" + weapon.name_c() + "  Range: " + weapon.attacks() + "  Hit: " + weapon.toHit() + 
+                    console.log("\t" + weapon.nameC() + "  Range: " + weapon.attacks() + "  Hit: " + weapon.toHit() +
                         " toWound: " + weapon.toWound() + "  Strength: " + weapon.strength().toFixed(2));
                 }
             }
@@ -432,7 +432,7 @@ AoSSimulator().then(AoSSimulator => {
     }
 
     function createChart(redVictories, blueVictories, ties) {
-        var ctx = document.getElementById("results-chart").getContext('2d');
+        let ctx = document.getElementById("results-chart").getContext('2d');
         if (ctx) {
 
             var data = {
@@ -447,7 +447,7 @@ AoSSimulator().then(AoSSimulator => {
               ],
              };
 
-            var options = {
+            let options = {
                 title: {
                     display: true,
                     position: 'bottom',
@@ -457,7 +457,7 @@ AoSSimulator().then(AoSSimulator => {
                 }
             };
 
-            var chart = new Chart(ctx, {
+            let chart = new Chart(ctx, {
                 type: 'doughnut',
                 data: data,
                 options: options
@@ -501,9 +501,9 @@ AoSSimulator().then(AoSSimulator => {
 
             const victor = g_battle.getVictor();
 
-            if (victor == AosSim.Blue)
+            if (victor == AoSSimulator.Blue)
                 blueVictories++;
-            else if (victor == AosSim.Red)
+            else if (victor == AoSSimulator.Red)
                 redVictories++;
             else
                 ties++;
@@ -525,7 +525,7 @@ AoSSimulator().then(AoSSimulator => {
         g_numIterations = +numIterationsInput.value;
 
         const verboseCheckbox = document.getElementById("verbose-flag");
-        if (verboseCheckbox.checked) g_verboseLevel = AosSim.Narrative;
+        if (verboseCheckbox.checked) g_verboseLevel = AoSSimulator.Narrative;
         sim.SetVerbosity(g_verboseLevel);
 
         const saveCheckbox = document.getElementById("savemaps-flag");
@@ -554,8 +554,8 @@ AoSSimulator().then(AoSSimulator => {
 
     function updateStats(stats, team) {
 
-        var woundsTaken = new AosSim.Wounds();
-        var woundsInflicted = new AosSim.Wounds();
+        var woundsTaken = new AoSSimulator.Wounds();
+        var woundsInflicted = new AoSSimulator.Wounds();
         stats.totalWoundsInflicted(woundsInflicted);
         stats.totalWoundsTaken(woundsTaken);
         var unit = g_red;
@@ -600,12 +600,12 @@ AoSSimulator().then(AoSSimulator => {
     }
 
     function fillInStatistics() {
-        var redStats = new AosSim.UnitStatistics();
-        g_battle.getStatistics(AosSim.Red, redStats);
+        var redStats = new AoSSimulator.UnitStatistics();
+        g_battle.getStatistics(AoSSimulator.Red, redStats);
         updateStats(redStats, "red");
 
-        var blueStats = new AosSim.UnitStatistics();
-        g_battle.getStatistics(AosSim.Blue, blueStats);
+        var blueStats = new AoSSimulator.UnitStatistics();
+        g_battle.getStatistics(AoSSimulator.Blue, blueStats);
         updateStats(blueStats, "blue");
     }
 
@@ -700,7 +700,7 @@ AoSSimulator().then(AoSSimulator => {
 
     console.log("Initializing AoS module.");
 
-    g_battle = new AosSim.ManoAMano(5);
+    g_battle = new AoSSimulator.ManoAMano(5);
 
     plumbCallbacks();
 

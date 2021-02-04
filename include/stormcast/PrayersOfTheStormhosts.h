@@ -1,16 +1,16 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef PRAYERSOFTHESTORMHOSTS_H
-#define PRAYERSOFTHESTORMHOSTS_H
+#pragma once
 
 #include <Prayer.h>
-#include <array>
+#include <string>
+
+class Unit;
 
 namespace StormcastEternals {
 
@@ -42,7 +42,3 @@ namespace StormcastEternals {
     Prayer *CreatePrayerOfTheStormhost(PrayersOfTheStormhost which, Unit *caster);
 
 } // namespace StormcastEternals
-
-
-
-#endif //PRAYERSOFTHESTORMHOSTS_H

@@ -1,7 +1,7 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2020 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2020-2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
@@ -187,4 +187,4 @@ int JSInterface::GetUnitPoints(const char* name, int numModels)
     return 0;
 }
 
-//#include "aossim_glue.cpp"
+#include "aossim_glue.cpp"
