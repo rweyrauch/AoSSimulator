@@ -318,11 +318,15 @@ Use npm to setup JS environment.
 
     % cd web
     % npm install
-   
-Basic instructions:
-
-    % emmake make -f Makefile.js_build
     % npm start
+   
+Basic build instructions.  
+
+Open an shell, configure the emscripten tool chain environment.  Run the following commands:
+
+    % emcmake cmake -B cmake-web-release -DCMAKE_BUILD_TYPE=Release
+    % cd cmake-web-release
+    % make
        
 ## Future Plans
 
@@ -334,7 +338,6 @@ Basic instructions:
 6. More statistics and data collection.
 7. Expand to allow multiple units for each player.
 8. Import rosters from the various roster generation tools like BattleScribe or Warscroll Builder.
-9. JavaScript port.
 
 
     
