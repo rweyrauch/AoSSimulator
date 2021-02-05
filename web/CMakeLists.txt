@@ -3,6 +3,7 @@ project(WarhammerSim)
 set(AOSSIM_SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/glue_stub.cpp)
 
 add_executable(AoSSimWeb ${AOSSIM_SOURCE})
+set_target_properties(AoSSimWeb PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/dist)
 
 ADD_CUSTOM_COMMAND (
         MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/aossim.idl
