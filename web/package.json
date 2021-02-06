@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/rweyrauch/AoSSimWeb#readme",
   "devDependencies": {
-    "lite-server": "^2.6.1"
+    "lite-server": "^2.6.1",
+    "socket.io": ">=2.4.0"
   },
   "dependencies": {
     "@types/jquery": "^3.5.5",
