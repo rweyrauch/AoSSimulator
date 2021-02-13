@@ -133,14 +133,15 @@ namespace StormcastEternals {
     Wounds VanguardPalladors::onEndCombat(PlayerId player) {
         auto wounds = Unit::onEndCombat(player);
 
-        // TODO: make sure prime model exists
-        // Lunar Blade
-        if (distanceTo(m_meleeTarget) <= 1.0) {
-            int roll = Dice::RollD6();
-            if (roll >= 2) {
-                Wounds bladeWounds = {0, 1};
-                m_meleeTarget->applyDamage(bladeWounds, this);
-                wounds += bladeWounds;
+        if (isNamedModelAlive("Prime")) {
+            // Lunar Blade
+            if (distanceTo(m_meleeTarget) <= 1.0) {
+                int roll = Dice::RollD6();
+                if (roll >= 2) {
+                    Wounds bladeWounds = {0, 1};
+                    m_meleeTarget->applyDamage(bladeWounds, this);
+                    wounds += bladeWounds;
+                }
             }
         }
         return wounds;

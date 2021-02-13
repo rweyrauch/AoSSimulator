@@ -131,6 +131,14 @@ namespace OssiarchBonereapers {
 
         // Restore table-driven attributes
         onWounded();
+
+        // Defaults
+        m_shieldImmortis.activate(false);
+        m_blades.activate(true);
+        m_indaKhaat.setAttacks(1);
+        m_spiritDagger.activate(true);
+        m_greatblade.activate(true);
+        m_nadiriteDagger.activate(true);
     }
 
 } // namespace OssiarchBonereapers

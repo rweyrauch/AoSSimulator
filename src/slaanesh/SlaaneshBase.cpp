@@ -27,6 +27,15 @@
 #include "slaanesh/ContortedEpitome.h"
 #include "slaanesh/LordOfPain.h"
 #include "slaanesh/TheDreadPageant.h"
+#include "slaanesh/BlissbarbArchers.h"
+#include "slaanesh/BlissbarbSeekers.h"
+#include "slaanesh/MymideshPainbringers.h"
+#include "slaanesh/Shardspeaker.h"
+#include "slaanesh/Sigvald.h"
+#include "slaanesh/SlaangorFiendbloods.h"
+#include "slaanesh/SlickbladeSeekers.h"
+#include "slaanesh/SymbareshTwinsouls.h"
+#include "slaanesh/GlutosOrscollion.h"
 
 namespace Slaanesh {
 
@@ -146,6 +155,15 @@ namespace Slaanesh {
         TheContortedEpitome::Init();
         LordOfPain::Init();
         TheDreadPageant::Init();
+        BlissbarbArchers::Init();
+        BlissbarbSeekers::Init();
+        MyrmideshPainbringers::Init();
+        ShardspeakerOfSlaanesh::Init();
+        SigvaldPrinceOfSlaanesh::Init();
+        SlaangorFiendbloods::Init();
+        SlickbladeSeekers::Init();
+        SymbareshTwinsouls::Init();
+        GlutosOrscollion::Init();
     }
 
 } // namespace Slaanesh
