@@ -15,7 +15,7 @@
 namespace Slaanesh {
     static const int g_basesize = 120; // x92 oval
     static const int g_wounds = 9;
-    static const int g_pointsPerUnit = 180;
+    static const int g_pointsPerUnit = 190;
 
     bool ExaltedChariot::s_registered = false;
 

@@ -16,8 +16,8 @@ namespace Slaanesh {
     static const int g_wounds = 2;
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
-    static const int g_pointsPerBlock = 0;
-    static const int g_pointsMaxUnitSize = 0;
+    static const int g_pointsPerBlock = 150;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool MyrmideshPainbringers::s_registered = false;
 

@@ -16,8 +16,8 @@ namespace DaughtersOfKhaine {
     static const int g_wounds = 1;
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
-    static const int g_pointsPerBlock = 90;
-    static const int g_pointsMaxUnitSize = 90 * 4;
+    static const int g_pointsPerBlock = 80;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool KhineraiHeartrenders::s_registered = false;
 

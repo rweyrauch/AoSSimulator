@@ -17,8 +17,8 @@ namespace DaughtersOfKhaine {
     static const int g_wounds = 1;
     static const int g_minUnitSize = 10;
     static const int g_maxUnitSize = 30;
-    static const int g_pointsPerBlock = 120;
-    static const int g_pointsMaxUnitSize = 300;
+    static const int g_pointsPerBlock = 100;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool WitchAelves::s_registered = false;
 

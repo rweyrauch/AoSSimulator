@@ -909,7 +909,7 @@ void Unit::castSpell() {
             if (sip == nullptr) continue;
 
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), sip->range());
-            if (sip->targetFriendly()) {
+            if (sip->allowedTargets() == Spell::Target::Friendly) {
                 units = Board::Instance()->getUnitsWithin(this, owningPlayer(), sip->range());
                 units.push_back(this);
             }

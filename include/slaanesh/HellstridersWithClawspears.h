@@ -1,42 +1,31 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2019-21 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef HELLSTRIDERS_H
-#define HELLSTRIDERS_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
 namespace Slaanesh {
 
-    class Hellstriders : public SlaaneshBase {
+    class HellstridersWithClawspears : public SlaaneshBase {
     public:
-
-        enum WeaponOption {
-            Claw_Spear,
-            Hellscourge
-        };
 
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
-        Hellstriders();
+        HellstridersWithClawspears();
 
-        ~Hellstriders() override;
+        ~HellstridersWithClawspears() override;
 
-        bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool bannerBearer, bool hornblower);
+        bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
     protected:
 
@@ -46,12 +35,12 @@ namespace Slaanesh {
 
         Rerolls hornblowerBattleshockReroll(const Unit *unit);
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_clawSpear,
                 m_clawSpearReaver,
-                m_hellscourge,
-                m_hellscourgeReaver,
                 m_poisonedTongue;
 
         lsignal::slot m_hornblowerSlot;
@@ -65,8 +54,6 @@ namespace Slaanesh {
 // Standard Banner                  Yes
 // Icon Banner                      Yes
 // Hornblower                       Yes
-// Soul Hunters                     TODO
+// Piercing Strike                  Yes
 //
 } // Slannesh
-
-#endif //HELLSTRIDERS_H

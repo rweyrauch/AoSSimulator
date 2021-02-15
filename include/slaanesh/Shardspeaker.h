@@ -29,6 +29,9 @@ namespace Slaanesh {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+        void onCastSpell(const Spell *spell, const Unit *target) override;
+        int toSaveModifier(const Weapon *weapon) const override;
 
     private:
 
@@ -41,9 +44,9 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Mist Lurkers                     TODO
+// Mist Lurkers                     Yes
 // Twisted Mirror                   TODO
-// Reflection Eternal               TODO
+// Reflection Eternal               Yes
 //
 
 } // Slannesh

@@ -11,7 +11,8 @@
 
 MysticShield::MysticShield(Unit *caster) :
         Spell(caster, "Mystic Shield", 6, 18.0) {
-    m_targetFriendly = true;
+    m_allowedTargets = Spell::Target::Friendly;
+    m_effect = EffectType::Buff;
 }
 
 Spell::Result MysticShield::cast(Unit *target, int round) {

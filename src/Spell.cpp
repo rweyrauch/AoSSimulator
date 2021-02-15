@@ -17,7 +17,8 @@ DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue
         m_damage(damage),
         m_castingValue2(castingValue2),
         m_damage2(damage2) {
-    m_targetFriendly = false;
+    m_allowedTargets = Spell::Target::Enemy;
+    m_effect = EffectType::Damage;
 }
 
 Spell::Result DamageSpell::cast(Unit *target, int /*round*/) {
@@ -75,7 +76,8 @@ AreaOfEffectSpell::AreaOfEffectSpell(Unit *caster, const std::string &name, int 
         m_damage(damage),
         m_radius(radius),
         m_affectedRoll(affectedRoll) {
-    m_targetFriendly = false;
+    m_allowedTargets = Spell::Target::Point;
+    m_effect = EffectType::AreaOfEffectDamage;
 }
 
 Spell::Result AreaOfEffectSpell::cast(double x, double y, int round) {
@@ -130,7 +132,8 @@ LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int 
         Spell(caster, name, castingValue, range),
         m_damage(damage),
         m_affectedRoll(affectedRoll) {
-    m_targetFriendly = false;
+    m_allowedTargets = Spell::Target::Point;
+    m_effect = EffectType::Damage;
 }
 
 Spell::Result LineOfEffectSpell::cast(double x, double y, int round) {
@@ -147,7 +150,8 @@ HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, do
         m_healing(healing),
         m_castingValue2(castingValue2),
         m_healing2(healing2) {
-    m_targetFriendly = true;
+    m_allowedTargets = Spell::Target::SelfAndFriendly;
+    m_effect = EffectType::Heal;
 }
 
 Spell::Result HealSpell::cast(Unit *target, int round) {
@@ -195,11 +199,12 @@ int HealSpell::getHealing(int castingRoll) const {
 }
 
 BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, double range,
-                                     BuffableAttribute which, int modifier, bool targetFriendly) :
+                                     BuffableAttribute which, int modifier, Target allowedTargets) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),
         m_modifier(modifier) {
-    m_targetFriendly = targetFriendly;
+    m_allowedTargets = allowedTargets;
+    m_effect = (m_modifier > 0) ? EffectType::Buff : EffectType::Debuff;
 }
 
 Spell::Result BuffModifierSpell::cast(Unit *target, int round) {
@@ -244,11 +249,12 @@ int BuffModifierSpell::getModifier(int /*castingRoll*/) const {
 }
 
 BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, double range,
-                                 BuffableAttribute which, Rerolls reroll, bool targetFriendly) :
+                                 BuffableAttribute which, Rerolls reroll, Target allowedTargets) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),
         m_reroll(reroll) {
-    m_targetFriendly = targetFriendly;
+    m_allowedTargets = allowedTargets;
+    m_effect = EffectType::Buff;
 }
 
 Spell::Result BuffRerollSpell::cast(Unit *target, int round) {

@@ -17,8 +17,8 @@ namespace DaughtersOfKhaine {
     static const int g_wounds = 2;
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
-    static const int g_pointsPerBlock = 140;
-    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool DoomfireWarlocks::s_registered = false;
 

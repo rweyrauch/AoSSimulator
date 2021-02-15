@@ -37,7 +37,10 @@ namespace GloomspiteGitz {
     };
 
     GreatGreenSpite::GreatGreenSpite(Unit *caster) :
-            Spell(caster, "The Great Green Spite", 7, 18.0) {}
+            Spell(caster, "The Great Green Spite", 7, 18.0) {
+        m_allowedTargets = Target::Enemy;
+        m_effect = EffectType::Damage;
+    }
 
     Spell::Result GreatGreenSpite::cast(Unit *target, int round) {
         if (target == nullptr) {

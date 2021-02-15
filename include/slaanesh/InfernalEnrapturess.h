@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef INFERNALENRAPTURESS_H
-#define INFERNALENRAPTURESS_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
@@ -46,10 +44,7 @@ namespace Slaanesh {
 // Abilities                    Implemented
 // -------------------------------------------
 // Discordant Disruption            TODO
-// Harmonic Alignment               TODO
 // Versatile Instrument             Yes
 //
 
 } // Slannesh
-
-#endif //INFERNALENRAPTURESS_H

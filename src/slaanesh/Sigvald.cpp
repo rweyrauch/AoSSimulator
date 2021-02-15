@@ -14,7 +14,7 @@
 namespace Slaanesh {
     static const int g_basesize = 50;
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 260;
 
     bool SigvaldPrinceOfSlaanesh::s_registered = false;
 

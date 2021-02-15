@@ -22,7 +22,7 @@ Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget) {
         if (*sip == nullptr) continue;
 
         auto units = Board::Instance()->getUnitsWithin(caster, GetEnemyId(caster->owningPlayer()), (*sip)->range());
-        if ((*sip)->targetFriendly()) {
+        if ((*sip)->allowedTargets() == Spell::Target::Friendly) {
             units = Board::Instance()->getUnitsWithin(caster, caster->owningPlayer(), (*sip)->range());
             units.push_back(caster);
         }

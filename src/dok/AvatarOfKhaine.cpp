@@ -12,7 +12,7 @@
 namespace DaughtersOfKhaine {
     static const int g_basesize = 40;
     static const int g_wounds = 9;
-    static const int g_pointsPerUnit = 140;
+    static const int g_pointsPerUnit = 130;
 
     bool AvatarOfKhaine::s_registered = false;
 

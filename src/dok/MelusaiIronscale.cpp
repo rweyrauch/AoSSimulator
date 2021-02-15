@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int g_basesize = 32;
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 100;
+    static const int g_pointsPerUnit = 110;
 
     bool MelusaiIronscale::s_registered = false;
 

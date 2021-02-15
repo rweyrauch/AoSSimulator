@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int g_basesize = 40;
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 140;
+    static const int g_pointsPerUnit = 100;
 
     bool BloodwrackMedusa::s_registered = false;
 

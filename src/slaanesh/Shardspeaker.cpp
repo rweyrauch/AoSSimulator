@@ -14,7 +14,7 @@
 namespace Slaanesh {
     static const int g_basesize = 32;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 150;
 
     bool ShardspeakerOfSlaanesh::s_registered = false;
 
@@ -36,8 +36,12 @@ namespace Slaanesh {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_staff);
+
+        m_claws.activate(false);
+
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Reflection Eternal", 6, 12.0, To_Wound_Melee, -1, Spell::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -94,6 +98,31 @@ namespace Slaanesh {
 
     int ShardspeakerOfSlaanesh::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void ShardspeakerOfSlaanesh::onCastSpell(const Spell *spell, const Unit *target) {
+        EventInterface::onCastSpell(spell, target);
+
+        // Turn on Mist Lurkers
+        m_claws.activate(true);
+    }
+
+    int ShardspeakerOfSlaanesh::toSaveModifier(const Weapon *weapon) const {
+        auto mod = Unit::toSaveModifier(weapon);
+
+        // Mist Lurkers
+        if (m_claws.isActive()) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    void ShardspeakerOfSlaanesh::onStartHero(PlayerId player) {
+        EventInterface::onStartHero(player);
+
+        // Turn off Mist Lurkers
+        if (player == owningPlayer())
+            m_claws.activate(false);
     }
 
 } // Slannesh

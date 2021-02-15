@@ -13,7 +13,7 @@
 namespace Slaanesh {
     static const int g_basesize = 100;
     static const int g_wounds = 18;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 400;
 
     struct TableEntry {
         int m_move;

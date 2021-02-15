@@ -12,7 +12,8 @@
 #include "slaanesh/Seekers.h"
 #include "slaanesh/Daemonettes.h"
 #include "slaanesh/KeeperOfSecrets.h"
-#include "slaanesh/Hellstriders.h"
+#include "slaanesh/HellstridersWithClawspears.h"
+#include "slaanesh/HellstridersWithHellscourges.h"
 #include "slaanesh/ShalaxiHelbane.h"
 #include "slaanesh/BladebringerExaltedChariot.h"
 #include "slaanesh/BladebringerHellflayer.h"
@@ -140,7 +141,8 @@ namespace Slaanesh {
         Fiends::Init();
         Seekers::Init();
         KeeperOfSecrets::Init();
-        Hellstriders::Init();
+        HellstridersWithClawspears::Init();
+        HellstridersWithHellscourges::Init();
         ShalaxiHelbane::Init();
         BladebringerOnExaltedChariot::Init();
         BladebringerOnHellflayer::Init();

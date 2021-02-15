@@ -131,6 +131,8 @@ public:
 
     virtual int castingModifier() const { return 0; }
 
+    virtual Rerolls castingRerolls() const { return No_Rerolls; }
+
     virtual int unbindingModifier() const { return 0; }
 
     virtual int woundModifier() const { return 0; }

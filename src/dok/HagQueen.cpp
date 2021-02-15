@@ -13,7 +13,7 @@
 namespace DaughtersOfKhaine {
     static const int g_basesize = 25;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 100;
+    static const int g_pointsPerUnit = 90;
 
     bool HagQueen::s_registered = false;
 

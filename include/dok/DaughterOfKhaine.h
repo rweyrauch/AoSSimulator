@@ -20,12 +20,14 @@ namespace DaughtersOfKhaine {
         Draichi_Ganeth,
         The_Kraith,
         Khailebron,
-        Zainthar_Kai
+        Zainthar_Kai,
+        Khelt_Nar
     };
 
     enum class CommandTrait : int {
         None,
 
+        // Paragons of Murder
         Bathed_In_Blood,
         Zealous_Orator,
         Bloody_Sacrificer,
@@ -33,10 +35,23 @@ namespace DaughtersOfKhaine {
         Mistress_Of_Poisons,
         True_Believer,
 
+        // Masters of Blood Magic
+        Arcane_Mastery,
+        Writhing_Coils,
+        Fearsome_Presence,
+
+        // Morathi's Right Hand
+        Veteran_Of_The_Cathirar_Dhule,
+        Impenentrable_Scales,
+        Fuelled_By_Revenge,
+
         // Temple specific
-        Devoted_Disciples,  // Hagg Nar
-        Murder_Of_Illusion, // Khailebron
+        Devoted_Disciple,  // Hagg Nar
+        Mistress_Of_Illusion, // Khailebron
         Curse_Of_The_Bloody_Handed, // Zainthar Kai
+        Bathe_In_Their_Blood, // The Kraith
+        The_Circling_Flock, // Khelt Nar
+        Victor_Of_Yaithril, // Draichi Ganeth
     };
 
     enum class Artefact : int {
@@ -44,17 +59,17 @@ namespace DaughtersOfKhaine {
 
         // Hero
         Crown_Of_Woe,
-        Cursed_Blade,
+        Shadracars_Fangs,
         Amulet_Of_Dark_Fire,
         Crone_Blade,
         Thousand_And_One_Dark_Blessings,
         Bloodbane_Venom,
 
-        // Wizard
+        // Bloodwrack Medusa
         Shadow_Stone,
         Rune_Of_Ulgu,
         The_Mirror_Glaive,
-        Seven_Fold_Shadow,
+        Sevenfold_Shadow,
         Crystal_Heart,
         Shade_Claw,
 
@@ -67,8 +82,12 @@ namespace DaughtersOfKhaine {
         Hagbrew,
 
         // Temple specific
+        The_Ulfuri,  // Hagg Nar
+        Whisperdeath, // Khailebron
         The_Darksword,  // Draichi Ganeth
         Venom_Of_Nagendra,  // The Kraith
+        Crimson_Talisman, // Zainthar Kai
+        Gaisas_Falx, // Khelt Nar
     };
 
     enum class Lore : int {
@@ -156,6 +175,13 @@ namespace DaughtersOfKhaine {
 // Venom of Nagendra                TODO
 // Concealment and Stealth          Yes
 // Mistress of Illusion             TODO
+// Bathe in Their Blood             TODO
+// The Circling Flock               TODO
+// Victor Of Yaithril               TODO
+// The Ulfuri                       TODO
+// Whisperdeath                     TODO
+// Crimson Talisman                 TODO
+// Gaisas FalX                      TODO
 //
 
     void Init();

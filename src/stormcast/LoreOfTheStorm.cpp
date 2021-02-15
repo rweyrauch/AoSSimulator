@@ -68,11 +68,11 @@ namespace StormcastEternals {
     }
 
     Spell *CreateCelestialBlades(Unit *caster) {
-        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18.0, To_Wound_Melee, 1, true);
+        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18.0, To_Wound_Melee, 1, Spell::Target::Friendly);
     }
 
     Spell *CreateSpeedOfLightning(Unit *caster) {
-        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9.0, Charge_Distance, Reroll_Failed, true);
+        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9.0, Charge_Distance, Reroll_Failed, Spell::Target::Friendly);
     }
 
     Spell *CreateLore(Lore which, Unit *caster) {

@@ -86,6 +86,10 @@ public:
         return m_interface->castingModifier();
     }
 
+    Rerolls castingRerolls() const override {
+        return m_interface->castingRerolls();
+    }
+
     int unbindingModifier() const override {
         return m_interface->unbindingModifier();
     }

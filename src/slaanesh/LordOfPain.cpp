@@ -14,7 +14,7 @@
 namespace Slaanesh {
     static const int g_basesize = 32;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 120;
+    static const int g_pointsPerUnit = 150;
 
     bool LordOfPain::s_registered = false;
 

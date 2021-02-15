@@ -49,7 +49,8 @@ public:
 
 PurifyingBlast::PurifyingBlast(Unit *caster) :
         Spell(caster, "Purifying Blast", 5, 6.0) {
-
+    m_allowedTargets = Target::Enemy;
+    m_effect = EffectType::Damage;
 }
 
 Spell::Result PurifyingBlast::cast(Unit * /*target*/, int round) {

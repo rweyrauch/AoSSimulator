@@ -22,6 +22,24 @@ public:
         Success,
     };
 
+    enum class Target {
+        None,
+        Point,
+        Friendly,
+        Enemy,
+        Self,
+        SelfAndFriendly
+    };
+
+    enum class EffectType {
+        Utility,
+        Damage,
+        AreaOfEffectDamage,
+        Heal,
+        Buff,
+        Debuff
+    };
+
     Spell(Unit *caster, std::string name, int castingValue, double range) :
             m_caster(caster),
             m_name(std::move(name)),
@@ -36,7 +54,7 @@ public:
 
     const std::string &name() const { return m_name; }
 
-    bool targetFriendly() const { return m_targetFriendly; }
+    Target allowedTargets() const { return m_allowedTargets; }
 
     virtual Result cast(Unit *target, int round) = 0;
 
@@ -49,7 +67,8 @@ protected:
     int m_castingValue = 0;
     double m_range = 0.0f;
 
-    bool m_targetFriendly = false;
+    Target m_allowedTargets = Target::None;
+    EffectType m_effect = EffectType::Utility;
 };
 
 class DamageSpell : public Spell {
@@ -131,7 +150,7 @@ protected:
 class BuffModifierSpell : public Spell {
 public:
     BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, double range,
-                      BuffableAttribute which, int modifier, bool targetFriendly);
+                      BuffableAttribute which, int modifier, Target allowedTargets);
 
     Result cast(Unit *target, int round) override;
 
@@ -148,7 +167,7 @@ protected:
 class BuffRerollSpell : public Spell {
 public:
     BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, double range, BuffableAttribute which,
-                    Rerolls reroll, bool targetFriendly);
+                    Rerolls reroll, Target allowedTargets);
 
     Result cast(Unit *target, int round) override;
 

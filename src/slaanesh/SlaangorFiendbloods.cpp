@@ -17,8 +17,8 @@ namespace Slaanesh {
     static const int g_wounds = 3;
     static const int g_minUnitSize = 3;
     static const int g_maxUnitSize = 9;
-    static const int g_pointsPerBlock = 0;
-    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 3;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool SlaangorFiendbloods::s_registered = false;
 

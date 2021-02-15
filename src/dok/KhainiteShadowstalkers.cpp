@@ -17,7 +17,7 @@ namespace DaughtersOfKhaine {
     static const int g_minUnitSize = 9;
     static const int g_maxUnitSize = 18;
     static const int g_pointsPerBlock = 100;
-    static const int g_pointsMaxUnitSize = 200;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool KhainiteShadowstalkers::s_registered = false;
 

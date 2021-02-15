@@ -17,7 +17,7 @@ namespace Slaanesh {
     static const int g_minUnitSize = 10;
     static const int g_maxUnitSize = 30;
     static const int g_pointsPerBlock = 110;
-    static const int g_pointsMaxUnitSize = 330;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
 
     bool Daemonettes::s_registered = false;

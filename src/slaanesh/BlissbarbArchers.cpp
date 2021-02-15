@@ -15,9 +15,9 @@ namespace Slaanesh {
     static const int g_basesize = 32;
     static const int g_wounds = 1;
     static const int g_minUnitSize = 11;
-    static const int g_maxUnitSize = 22;
-    static const int g_pointsPerBlock = 0;
-    static const int g_pointsMaxUnitSize = 0;
+    static const int g_maxUnitSize = 33;
+    static const int g_pointsPerBlock = 160;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool BlissbarbArchers::s_registered = false;
 

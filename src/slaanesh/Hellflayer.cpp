@@ -14,7 +14,7 @@
 namespace Slaanesh {
     static const int g_basesize = 120; // x92 oval
     static const int g_wounds = 7;
-    static const int g_pointsPerUnit = 140;
+    static const int g_pointsPerUnit = 130;
 
     bool Hellflayer::s_registered = false;
 

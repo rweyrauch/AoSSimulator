@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DAUGHTEROFKHAINEPRIVATE_H
-#define DAUGHTEROFKHAINEPRIVATE_H
+#pragma once
 
 #include <dok/DaughterOfKhaine.h>
 #include <array>
@@ -15,13 +13,14 @@
 
 namespace DaughtersOfKhaine {
 
-    constexpr std::array<int, 6> g_temple = {
+    constexpr std::array<int, 7> g_temple = {
             ToInteger(Temple::None),
             ToInteger(Temple::Hagg_Nar),
             ToInteger(Temple::Draichi_Ganeth),
             ToInteger(Temple::The_Kraith),
             ToInteger(Temple::Khailebron),
-            ToInteger(Temple::Zainthar_Kai)
+            ToInteger(Temple::Zainthar_Kai),
+            ToInteger(Temple::Khelt_Nar)
     };
 
     constexpr std::array<int, 7> g_commandTraits = {
@@ -37,7 +36,7 @@ namespace DaughtersOfKhaine {
     constexpr std::array<int, 7> g_heroArtefacts = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Crown_Of_Woe),
-            ToInteger(Artefact::Cursed_Blade),
+            ToInteger(Artefact::Shadracars_Fangs),
             ToInteger(Artefact::Amulet_Of_Dark_Fire),
             ToInteger(Artefact::Crone_Blade),
             ToInteger(Artefact::Thousand_And_One_Dark_Blessings),
@@ -49,7 +48,7 @@ namespace DaughtersOfKhaine {
             ToInteger(Artefact::Shadow_Stone),
             ToInteger(Artefact::Rune_Of_Ulgu),
             ToInteger(Artefact::The_Mirror_Glaive),
-            ToInteger(Artefact::Seven_Fold_Shadow),
+            ToInteger(Artefact::Sevenfold_Shadow),
             ToInteger(Artefact::Crystal_Heart),
             ToInteger(Artefact::Shade_Claw)
     };
@@ -85,5 +84,3 @@ namespace DaughtersOfKhaine {
     };
 
 } // namespace DaughtersOfKhaine
-
-#endif //DAUGHTEROFKHAINEPRIVATE_H

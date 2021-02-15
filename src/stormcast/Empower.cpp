@@ -11,7 +11,8 @@
 
 Empower::Empower(Unit *caster) :
         Spell(caster, "Empower", 6, 12.0) {
-    m_targetFriendly = true;
+    m_allowedTargets = Spell::Target::SelfAndFriendly;
+    m_effect = EffectType::Buff;
 }
 
 Spell::Result Empower::cast(Unit *target, int round) {

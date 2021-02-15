@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CONTORTEDEPITOME_H
-#define CONTORTEDEPITOME_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
@@ -33,6 +31,8 @@ namespace Slaanesh {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
+        // Gift of Power
+        Rerolls castingRerolls() const override { return Reroll_Failed; }
     private:
 
         Weapon m_ravagingClaws,
@@ -44,12 +44,10 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Gift of Power                    TODO
+// Gift of Power                    Yes
 // Swallow Energy                   Yes
 // Horrible Fascination             TODO
 // Overwhelming Acquiescence        TODO
 //
 
 } // Slannesh
-
-#endif //CONTORTEDEPITOME_H
