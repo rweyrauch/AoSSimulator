@@ -157,11 +157,12 @@ namespace Tzeentch {
         return 0;
     }
 
-    int LordOfChange::rollCasting() const {
+    int LordOfChange::rollCasting(int& unmodifiedRoll) const {
         // Mastery of Magic
         auto r0 = Dice::RollD6();
         auto r1 = Dice::RollD6();
-        return std::max(r0, r1) * 2 + castingModifier();
+        unmodifiedRoll = std::max(r0, r1) * 2;
+        return unmodifiedRoll + castingModifier();
     }
 
     int LordOfChange::ComputePoints(int /*numModels*/) {

@@ -11,6 +11,67 @@
 #include <Board.h>
 #include <MathUtils.h>
 
+Spell::Result Spell::cast(Unit *target, int round) {
+    if (target == nullptr) {
+        return Result::Failed;
+    }
+
+    // Distance to target
+    const double distance = m_caster->distanceTo(target);
+    if (distance > (double)Dice::RollSpecial(m_range)) {
+        return Result::Failed;
+    }
+
+    // Check for visibility to target
+    if (m_lineOfSiteRequired && !Board::Instance()->isVisible(m_caster, target)) {
+        return Result::Failed;
+    }
+
+    m_round = round;
+
+    Spell::Result result = Result::Failed;
+
+    int unmodifiedRoll;
+    const int castingRoll = m_caster->rollCasting(unmodifiedRoll);
+    if (castingRoll >= m_castingValue) {
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+        if (!unbound) {
+            result = apply(castingRoll, unmodifiedRoll, target);
+        } else {
+            result = Result::Unbound;
+        }
+    }
+
+    return result;
+}
+
+Spell::Result Spell::cast(double x, double y, int round) {
+    const Math::Point3 targetPoint(x, y, 0.0);
+
+    // Distance to point
+    const double distance = m_caster->position().distance(targetPoint);
+    if (distance > (double)Dice::RollSpecial(m_range)) {
+        return Result::Failed;
+    }
+
+    m_round = round;
+
+    Spell::Result result = Result::Failed;
+
+    int unmodifiedRoll;
+    const int castingRoll = m_caster->rollCasting(unmodifiedRoll);
+    if (castingRoll >= m_castingValue) {
+        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+        if (!unbound) {
+            result = apply(castingRoll, unmodifiedRoll, x, y);
+        } else {
+            result = Result::Unbound;
+        }
+    }
+
+    return result;
+}
+
 DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage,
                          int castingValue2, int damage2) :
         Spell(caster, name, castingValue, range),
@@ -21,49 +82,22 @@ DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue
     m_effect = EffectType::Damage;
 }
 
-Spell::Result DamageSpell::cast(Unit *target, int /*round*/) {
-    if (target == nullptr) {
-        return Result::Failed;
-    }
-
-    // Distance to target
-    const double distance = m_caster->distanceTo(target);
-    if (distance > (double)Dice::RollSpecial(m_range)) {
-        return Result::Failed;
-    }
-
-    // Check for visibility to target
-    if (!Board::Instance()->isVisible(m_caster, target)) {
-        return Result::Failed;
-    }
-
-    Spell::Result result = Result::Failed;
-
-    int mortalWounds = 0;
-    const int castingRoll = m_caster->rollCasting();
-    if (castingRoll >= m_castingValue) {
-        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-        if (!unbound) {
-            mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
-            target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
-            SimLog(Verbosity::Narrative,
-                   "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-                   m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
-                   target->name().c_str());
-            result = Result::Success;
-        } else {
-            result = Result::Unbound;
-        }
-    }
-
-    return result;
-}
-
 int DamageSpell::getDamage(int castingRoll) const {
     if ((m_castingValue2 > 0) && (castingRoll >= m_castingValue2)) {
         return m_damage2;
     }
     return m_damage;
+}
+
+Spell::Result DamageSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    auto mortalWounds = Dice::RollSpecial(getDamage(castingValue));
+    target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
+    SimLog(Verbosity::Narrative,
+           "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+           m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, mortalWounds,
+           target->name().c_str());
+
+    return Spell::Result::Success;
 }
 
 DamageSpell *CreateArcaneBolt(Unit *caster) {
@@ -72,124 +106,82 @@ DamageSpell *CreateArcaneBolt(Unit *caster) {
 
 AreaOfEffectSpell::AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, int range, int radius,
                                      int damage, int affectedRoll) :
-        Spell(caster, name, castingValue, range),
-        m_damage(damage),
-        m_radius(radius),
-        m_affectedRoll(affectedRoll) {
+    Spell(caster, name, castingValue, range),
+    m_damage(damage),
+    m_radius(radius),
+    m_affectedRoll(affectedRoll) {
     m_allowedTargets = Spell::Target::Point;
     m_effect = EffectType::AreaOfEffectDamage;
 }
 
-Spell::Result AreaOfEffectSpell::cast(double x, double y, int round) {
-    const Math::Point3 targetPoint(x, y, 0.0);
-
-    // Distance to point
-    const double distance = m_caster->position().distance(targetPoint);
-    if (distance > (double)Dice::RollSpecial(m_range)) {
-        return Result::Failed;
-    }
-
-    Spell::Result result = Result::Failed;
-
-    int mortalWounds = 0;
-    const int castingRoll = m_caster->rollCasting();
-    if (castingRoll >= m_castingValue) {
-        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-        if (!unbound) {
-            const auto radius = (double)Dice::RollSpecial(m_radius);
-            auto units = Board::Instance()->getUnitsWithin(targetPoint, GetEnemyId(m_caster->owningPlayer()), radius);
-            for (auto target : units) {
-                bool unitAffected = true;
-                if (m_affectedRoll != 0) {
-                    int roll = Dice::RollD6();
-                    unitAffected = (roll >= m_affectedRoll);
-                }
-
-                if (unitAffected) {
-                    mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
-                    target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
-                    secondaryEffect(target, round);
-                    SimLog(Verbosity::Narrative,
-                           "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-                           m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
-                           target->name().c_str());
-                }
-            }
-            result = Result::Success;
-        } else {
-            result = Result::Unbound;
-        }
-    }
-
-    return result;
-}
 
 int AreaOfEffectSpell::getDamage(int /*castingRoll*/) const {
     return m_damage;
 }
 
-LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage,
-                                     int affectedRoll) :
-        Spell(caster, name, castingValue, range),
-        m_damage(damage),
-        m_affectedRoll(affectedRoll) {
-    m_allowedTargets = Spell::Target::Point;
-    m_effect = EffectType::Damage;
+Spell::Result AreaOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+
+    const Math::Point3 targetPoint(x, y, 0.0);
+
+    const auto radius = (double)Dice::RollSpecial(m_radius);
+    auto units = Board::Instance()->getUnitsWithin(targetPoint, GetEnemyId(m_caster->owningPlayer()), radius);
+    for (auto target : units) {
+        bool unitAffected = true;
+        if (m_affectedRoll != 0) {
+            int roll = Dice::RollD6();
+            unitAffected = (roll >= m_affectedRoll);
+        }
+
+        if (unitAffected) {
+            auto mortalWounds = Dice::RollSpecial(getDamage(m_castingValue));
+            target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
+            secondaryEffect(target, m_round);
+            SimLog(Verbosity::Narrative,
+                   "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+                   m_caster->name().c_str(), name().c_str(), m_castingValue, m_castingValue, mortalWounds,
+                   target->name().c_str());
+        }
+    }
+    return Spell::Result::Success;
 }
 
-Spell::Result LineOfEffectSpell::cast(double x, double y, int round) {
+Spell::Result AreaOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    if (target != nullptr)
+        return apply(castingValue, unmodifiedCastingValue, target->x(), target->y());
     return Result::Failed;
+}
+
+LineOfEffectSpell::LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage,
+                                     int affectedRoll) :
+    Spell(caster, name, castingValue, range),
+    m_damage(damage),
+    m_affectedRoll(affectedRoll) {
+    m_allowedTargets = Spell::Target::Point;
+    m_effect = EffectType::Damage;
 }
 
 int LineOfEffectSpell::getDamage(int castingRoll) const {
     return m_damage;
 }
 
-HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, int range, int healing,
-                     int castingValue2, int healing2) :
-        Spell(caster, name, castingValue, range),
-        m_healing(healing),
-        m_castingValue2(castingValue2),
-        m_healing2(healing2) {
-    m_allowedTargets = Spell::Target::SelfAndFriendly;
-    m_effect = EffectType::Heal;
+Spell::Result LineOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+    return Spell::Result::Success;
 }
 
-Spell::Result HealSpell::cast(Unit *target, int round) {
-    if (target == nullptr) {
-        return Result::Failed;
-    }
+Spell::Result LineOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    if (target != nullptr)
+        return apply(castingValue, unmodifiedCastingValue, target->x(), target->y());
+    return Spell::Result::Failed;
+}
 
-    // Distance to target
-    const double distance = m_caster->distanceTo(target);
-    if (distance > (double)Dice::RollSpecial(m_range)) {
-        return Result::Failed;
-    }
-
-    // Check for visibility to target
-    if (!Board::Instance()->isVisible(m_caster, target)) {
-        return Result::Failed;
-    }
-
-    Spell::Result result = Result::Failed;
-
-    int wounds = 0;
-    const int castingRoll = m_caster->rollCasting();
-    if (castingRoll >= m_castingValue) {
-        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-        if (!unbound) {
-            wounds = Dice::RollSpecial(getHealing(castingRoll));
-            target->heal(wounds);
-            SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
-                   m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, wounds,
-                   target->name().c_str());
-            result = Result::Success;
-        } else {
-            result = Result::Unbound;
-        }
-    }
-
-    return result;
+HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, int range, int healing,
+                     int castingValue2, int healing2) :
+    Spell(caster, name, castingValue, range),
+    m_healing(healing),
+    m_castingValue2(castingValue2),
+    m_healing2(healing2) {
+    m_allowedTargets = Spell::Target::SelfAndFriendly;
+    m_effect = EffectType::Heal;
 }
 
 int HealSpell::getHealing(int castingRoll) const {
@@ -197,6 +189,17 @@ int HealSpell::getHealing(int castingRoll) const {
         return m_healing2;
     }
     return m_healing;
+}
+
+Spell::Result HealSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    if (target == nullptr)
+        return Result::Failed;
+
+    auto wounds = Dice::RollSpecial(getHealing(castingValue));
+    target->heal(wounds);
+    SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
+           m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, wounds, target->name().c_str());
+    return Spell::Result::Success;
 }
 
 BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
@@ -208,45 +211,17 @@ BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int 
     m_effect = (m_modifier > 0) ? EffectType::Buff : EffectType::Debuff;
 }
 
-Spell::Result BuffModifierSpell::cast(Unit *target, int round) {
-    if (target == nullptr) {
-        return Result::Failed;
-    }
-
-    // Distance to target
-    const double distance = m_caster->distanceTo(target);
-    if (distance > (double)Dice::RollSpecial(m_range)) {
-        return Result::Failed;
-    }
-
-    // Check for visibility to target
-    if (!Board::Instance()->isVisible(m_caster, target)) {
-        return Result::Failed;
-    }
-
-    Spell::Result result = Result::Failed;
-
-    const int castingRoll = m_caster->rollCasting();
-    if (castingRoll >= m_castingValue) {
-        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-        if (!unbound) {
-            target->buffModifier(m_attribute, m_modifier, {Phase::Hero, round + 1, m_caster->owningPlayer()});
-            result = Result::Success;
-        } else {
-            SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
-            result = Result::Unbound;
-        }
-    } else {
-        SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),
-               name().c_str(),
-               castingRoll, m_castingValue);
-    }
-
-    return result;
-}
-
 int BuffModifierSpell::getModifier(int /*castingRoll*/) const {
     return m_modifier;
+}
+
+Spell::Result BuffModifierSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    if (target == nullptr)
+        return Result::Failed;
+
+    target->buffModifier(m_attribute, m_modifier, {Phase::Hero, m_round + 1, m_caster->owningPlayer()});
+
+    return Spell::Result::Success;
 }
 
 BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range,
@@ -258,39 +233,11 @@ BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int cast
     m_effect = EffectType::Buff;
 }
 
-Spell::Result BuffRerollSpell::cast(Unit *target, int round) {
-    if (target == nullptr) {
+Spell::Result BuffRerollSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    if (target == nullptr)
         return Result::Failed;
-    }
 
-    // Distance to target
-    const double distance = m_caster->distanceTo(target);
-    if (distance > (double)Dice::RollSpecial(m_range)) {
-        return Result::Failed;
-    }
+    target->buffReroll(m_attribute, m_reroll, {Phase::Hero, m_round + 1, m_caster->owningPlayer()});
 
-    // Check for visibility to target
-    if (!Board::Instance()->isVisible(m_caster, target)) {
-        return Result::Failed;
-    }
-
-    Spell::Result result = Result::Failed;
-
-    const int castingRoll = m_caster->rollCasting();
-    if (castingRoll >= m_castingValue) {
-        bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-        if (!unbound) {
-            target->buffReroll(m_attribute, m_reroll, {Phase::Hero, round + 1, m_caster->owningPlayer()});
-            result = Result::Success;
-        } else {
-            SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
-            result = Result::Unbound;
-        }
-    } else {
-        SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),
-               name().c_str(),
-               castingRoll, m_castingValue);
-    }
-
-    return result;
+    return Spell::Result::Success;
 }

@@ -31,9 +31,10 @@ namespace GloomspiteGitz {
     public:
         explicit GreatGreenSpite(Unit *caster);
 
-        Result cast(Unit *target, int round) override;
+    protected:
 
-        Result cast(double x, double y, int round) override { return Result::Failed; }
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     GreatGreenSpite::GreatGreenSpite(Unit *caster) :
@@ -43,14 +44,8 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(GLOOMSPITE_GITZ);
     }
 
-    Spell::Result GreatGreenSpite::cast(Unit *target, int round) {
+    Spell::Result GreatGreenSpite::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
-            return Result::Failed;
-        }
-
-        // Distance to target
-        const double distance = m_caster->distanceTo(target);
-        if (distance > m_range) {
             return Result::Failed;
         }
 
@@ -61,8 +56,6 @@ namespace GloomspiteGitz {
             return Result::Failed;
         }
 
-        Spell::Result result = Result::Failed;
-
         int damage = 1;
         if (target->remainingModels() >= 20)
             damage = RAND_D6;
@@ -70,32 +63,24 @@ namespace GloomspiteGitz {
             damage = RAND_D3;
 
         int mortalWounds = 0;
-        const int castingRoll = m_caster->rollCasting();
-        if (castingRoll >= m_castingValue) {
-            bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-            if (!unbound) {
-                mortalWounds = Dice::RollSpecial(damage);
-                target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
-                SimLog(Verbosity::Narrative,
-                       "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-                       m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
-                       target->name().c_str());
-                result = Result::Success;
-            } else {
-                result = Result::Unbound;
-            }
-        }
+        mortalWounds = Dice::RollSpecial(damage);
+        target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
+        SimLog(Verbosity::Narrative,
+               "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+               m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, mortalWounds,
+               target->name().c_str());
 
-        return result;
+        return Result::Success;
     }
 
     class SquigLure : public Spell {
     public:
         explicit SquigLure(Unit *caster);
 
-        Result cast(Unit *target, int round) override;
+    protected:
 
-        Result cast(double x, double y, int round) override { return Result::Failed; }
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     SquigLure::SquigLure(Unit *caster) :
@@ -105,46 +90,17 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(SQUIG);
     }
 
-    Spell::Result SquigLure::cast(Unit *target, int round) {
+    Spell::Result SquigLure::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        auto squigs = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
+        auto numUnits = Dice::RollD3();
+        int numAffected = 0;
+        for (auto squig : squigs) {
+            squig->buffMovement(Run_And_Charge, true, {Phase::Hero, m_round + 1, m_caster->owningPlayer()});
 
-        // Distance to target
-        const double distance = m_caster->distanceTo(target);
-        if (distance > m_range) {
-            return Result::Failed;
+            numAffected++;
+            if (numAffected > numUnits) break;
         }
-
-        // Check for visibility to target
-        if (!Board::Instance()->isVisible(m_caster, target)) {
-            return Result::Failed;
-        }
-
-        Spell::Result result = Result::Failed;
-
-        const int castingRoll = m_caster->rollCasting();
-        if (castingRoll >= m_castingValue) {
-            bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
-            if (!unbound) {
-                auto squigs = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
-                auto numUnits = Dice::RollD3();
-                int numAffected = 0;
-                for (auto squig : squigs) {
-                    squig->buffMovement(Run_And_Charge, true, {Phase::Hero, round + 1, m_caster->owningPlayer()});
-
-                    numAffected++;
-                    if (numAffected > numUnits) break;
-                }
-                result = Result::Success;
-            } else {
-                SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
-                result = Result::Unbound;
-            }
-        } else {
-            SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),
-                   name().c_str(),
-                   castingRoll, m_castingValue);
-        }
-
-        return result;
+        return Result::Success;
     }
 
 

@@ -14,10 +14,9 @@ class MysticShield : public Spell {
 public:
     explicit MysticShield(Unit *caster);
 
-    Result cast(Unit *target, int round) override;
-
-    Result cast(double x, double y, int round) override { return Result::Failed; }
-
 protected:
+
+    Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+    Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
 
 };

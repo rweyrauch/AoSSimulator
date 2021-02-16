@@ -950,7 +950,7 @@ void Unit::makePrayer() {
             if (sip == nullptr) continue;
 
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), sip->range());
-            if (sip->targetFriendly()) {
+            if (sip->allowedTargets() == Prayer::Target::Friendly) {
                 units = Board::Instance()->getUnitsWithin(this, owningPlayer(), sip->range());
                 units.push_back(this);
             }
@@ -1378,8 +1378,9 @@ void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor) {
     }
 }
 
-int Unit::rollCasting() const {
-    return Dice::Roll2D6() + castingModifier();
+int Unit::rollCasting(int& unmodifiedRoll) const {
+    unmodifiedRoll = Dice::Roll2D6();
+    return unmodifiedRoll + castingModifier();
 }
 
 PlayerId Unit::owningPlayer() const {

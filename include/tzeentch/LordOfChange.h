@@ -39,7 +39,7 @@ namespace Tzeentch {
 
         bool configure(WeaponOption option);
 
-        int rollCasting() const override;
+        int rollCasting(int& unmodifiedRoll) const override;
 
     protected:
 

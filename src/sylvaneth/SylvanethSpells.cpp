@@ -14,6 +14,7 @@ public:
     explicit Metamorphosis(Unit *caster);
 
 protected:
+
     int getDamage(int castingRoll) const override;
 };
 
@@ -37,6 +38,7 @@ public:
         AreaOfEffectSpell(caster, "Unleash Spites", 5, 0, 9, 1, 0) {}
 
 protected:
+
     int getDamage(int castingRoll) const override {
         Dice::RollResult result;
         Dice::RollD6(castingRoll, result);

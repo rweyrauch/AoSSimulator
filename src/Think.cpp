@@ -45,7 +45,7 @@ Prayer *SelectPrayer(Unit *priest, AbilityTarget &outTarget) {
         if (*pip == nullptr) continue;
 
         auto units = Board::Instance()->getUnitsWithin(priest, GetEnemyId(priest->owningPlayer()), (*pip)->range());
-        if ((*pip)->targetFriendly()) {
+        if ((*pip)->allowedTargets() == Prayer::Target::Friendly) {
             units = Board::Instance()->getUnitsWithin(priest, priest->owningPlayer(), (*pip)->range());
             units.push_back(priest);
         }

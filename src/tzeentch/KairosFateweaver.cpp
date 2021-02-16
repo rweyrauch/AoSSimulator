@@ -120,11 +120,12 @@ namespace Tzeentch {
         return 0;
     }
 
-    int KairosFateweaver::rollCasting() const {
+    int KairosFateweaver::rollCasting(int& unmodifiedRoll) const {
         // Mastery of Magic
         auto r0 = Dice::RollD6();
         auto r1 = Dice::RollD6();
-        return std::max(r0, r1) * 2 + castingModifier();
+        unmodifiedRoll = std::max(r0, r1) * 2;
+        return unmodifiedRoll + castingModifier();
     }
 
     int KairosFateweaver::ComputePoints(int /*numModels*/) {

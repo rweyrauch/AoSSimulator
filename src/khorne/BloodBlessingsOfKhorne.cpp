@@ -25,15 +25,15 @@ namespace Khorne {
     Prayer *CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit *priest) {
         switch (which) {
             case BloodBlessingsOfKhorne::Bronzed_Flesh:
-                return new BuffModifierPrayer(priest, "Bronzed Flesh", 4, 16.0, To_Save, 1, true, 1);
+                return new BuffModifierPrayer(priest, "Bronzed Flesh", 4, 16, To_Save, 1, Prayer::Target::SelfAndFriendly, 1);
             case BloodBlessingsOfKhorne::Blood_Sacrifice:
-                return new DamagePrayer(priest, "Blood Sacrifice", 4, 8.0, RAND_D3, 1);
+                return new DamagePrayer(priest, "Blood Sacrifice", 4, 8, RAND_D3, 1);
             case BloodBlessingsOfKhorne::Resanguination:
-                return new HealPrayer(priest, "Resanguination", 4, 16.0, RAND_D3, 1);
+                return new HealPrayer(priest, "Resanguination", 4, 16, RAND_D3, 1);
             case BloodBlessingsOfKhorne::Brazen_Fury:
                 return nullptr;
             case BloodBlessingsOfKhorne::Killing_Frenzy:
-                return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16.0, To_Hit_Melee, 1, true, 1);
+                return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16, To_Hit_Melee, 1, Prayer::Target::SelfAndFriendly, 1);
             case BloodBlessingsOfKhorne::Spellbane_Hex:
                 return nullptr;
         }

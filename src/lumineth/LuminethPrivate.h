@@ -73,9 +73,10 @@ namespace LuminethRealmLords {
     public:
         explicit PowerOfHysh(Unit *caster);
 
-        Result cast(Unit *target, int round) override;
+    protected:
 
-        Result cast(double x, double y, int round) override { return Result::Failed; }
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
 
     };
 

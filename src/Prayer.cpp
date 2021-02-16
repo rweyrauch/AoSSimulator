@@ -9,14 +9,7 @@
 #include <Unit.h>
 #include "Prayer.h"
 
-DamagePrayer::DamagePrayer(Unit *priest, const std::string &name, int prayingValue, double range, int damage,
-                           int damageOn1) :
-        Prayer(priest, name, prayingValue, range, damageOn1),
-        m_damage(damage) {
-    m_targetFriendly = false;
-}
-
-bool DamagePrayer::pray(Unit *target, int round) {
+bool Prayer::pray(Unit *target, int round) {
     if (target == nullptr) {
         return false;
     }
@@ -34,104 +27,98 @@ bool DamagePrayer::pray(Unit *target, int round) {
 
     bool result = false;
 
-    int mortalWounds = 0;
     const int prayingRoll = Dice::RollD6();
     if (prayingRoll >= m_prayingValue) {
-        mortalWounds = Dice::RollSpecial(getDamage(target, prayingRoll));
-        target->applyDamage({0, mortalWounds, Wounds::Source::Prayer}, m_priest);
-        SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-               m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, mortalWounds,
-               target->name().c_str());
-        result = true;
+        result = apply(prayingRoll, target);
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
         m_priest->applyDamage({0, m_damageOn1}, m_priest);
     }
 
     return result;
+}
+
+bool Prayer::pray(double x, double y, int round) {
+    const Math::Point3 targetPoint(x, y, 0.0);
+
+    // Distance to point
+    const double distance = m_priest->position().distance(targetPoint);
+    if (distance > (double)Dice::RollSpecial(m_range)) {
+        return false;
+    }
+
+    m_round = round;
+
+    bool result = false;
+
+    const int prayingRoll = Dice::RollD6();
+    if (prayingRoll >= m_prayingValue) {
+        result = apply(prayingRoll, x, y);
+    } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
+        m_priest->applyDamage({0, m_damageOn1}, m_priest);
+    }
+
+    return result;
+}
+
+DamagePrayer::DamagePrayer(Unit *priest, const std::string &name, int prayingValue, double range, int damage,
+                           int damageOn1) :
+        Prayer(priest, name, prayingValue, range, damageOn1),
+        m_damage(damage) {
+    m_allowedTargets = Prayer::Target::Enemy;
+    m_effect = EffectType::Damage;
 }
 
 int DamagePrayer::getDamage(Unit *target, int prayingRoll) const {
     return m_damage;
 }
 
+bool DamagePrayer::apply(int prayingRoll, Unit *target) {
+    if (target == nullptr) {
+        return false;
+    }
+
+    int wounds = Dice::RollSpecial(getDamage(target, prayingRoll));
+    target->applyDamage({0, wounds}, m_priest);
+
+    return true;
+}
+
 HealPrayer::HealPrayer(Unit *priest, const std::string &name, int prayingValue, double range, int healing, int damageOn1)
         :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_healing(healing) {
-    m_targetFriendly = true;
+    m_allowedTargets = Prayer::Target::SelfAndFriendly;
+    m_effect = EffectType::Heal;
 }
 
-bool HealPrayer::pray(Unit *target, int round) {
+bool HealPrayer::apply(int prayingRoll, Unit *target) {
     if (target == nullptr) {
         return false;
     }
 
-    // Distance to target
-    const double distance = m_priest->distanceTo(target);
-    if (distance > m_range) {
-        return false;
-    }
+    int wounds = Dice::RollSpecial(getHealing(prayingRoll));
+    target->heal(wounds);
+    SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) heals %d wounds onto %s.\n",
+           m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, wounds, target->name().c_str());
 
-    // Check for visibility to target
-    if (!Board::Instance()->isVisible(m_priest, target)) {
-        return false;
-    }
-
-    bool result = false;
-
-    int wounds = 0;
-    const int prayingRoll = Dice::RollD6();
-    if (prayingRoll >= m_prayingValue) {
-        wounds = Dice::RollSpecial(getHealing(prayingRoll));
-        target->heal(wounds);
-        SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) heals %d wounds onto %s.\n",
-               m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, wounds, target->name().c_str());
-        result = true;
-    } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1}, m_priest);
-    }
-
-    return result;
+    return true;
 }
 
 BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
-                                       BuffableAttribute which, int modifier, bool targetFriendly, int damageOn1) :
+                                       BuffableAttribute which, int modifier, Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_modifier(modifier) {
-    m_targetFriendly = targetFriendly;
+    m_allowedTargets = allowedTargets;
+    m_effect = (m_modifier > 0) ? EffectType::Buff : EffectType::Debuff;
 }
 
-bool BuffModifierPrayer::pray(Unit *target, int round) {
+bool BuffModifierPrayer::apply(int prayingRoll, Unit *target) {
     if (target == nullptr) {
         return false;
     }
 
-    // Distance to target
-    const double distance = m_priest->distanceTo(target);
-    if (distance > m_range) {
-        return false;
-    }
-
-    // Check for visibility to target
-    if (!Board::Instance()->isVisible(m_priest, target)) {
-        return false;
-    }
-
-    bool result = false;
-
-    const int prayingRoll = Dice::RollD6();
-    if (prayingRoll >= m_prayingValue) {
-        target->buffModifier(m_attribute, m_modifier, {Phase::Hero, round + 1, m_priest->owningPlayer()});
-
-        SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) onto %s.\n",
-               m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, target->name().c_str());
-        result = true;
-    } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer}, m_priest);
-    }
-
-    return result;
+    return target->buffModifier(m_attribute, m_modifier, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
 }
 
 int BuffModifierPrayer::getModifier(int prayingRoll) const {
@@ -139,41 +126,18 @@ int BuffModifierPrayer::getModifier(int prayingRoll) const {
 }
 
 BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
-                                   BuffableAttribute which, Rerolls reroll, bool targetFriendly, int damageOn1) :
+                                   BuffableAttribute which, Rerolls reroll, Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_reroll(reroll) {
-    m_targetFriendly = targetFriendly;
+    m_allowedTargets = allowedTargets;
+    m_effect = EffectType::Buff;
 }
 
-bool BuffRerollPrayer::pray(Unit *target, int round) {
+bool BuffRerollPrayer::apply(int prayingRoll, Unit *target) {
     if (target == nullptr) {
         return false;
     }
 
-    // Distance to target
-    const double distance = m_priest->distanceTo(target);
-    if (distance > m_range) {
-        return false;
-    }
-
-    // Check for visibility to target
-    if (!Board::Instance()->isVisible(m_priest, target)) {
-        return false;
-    }
-
-    bool result = false;
-
-    const int prayingRoll = Dice::RollD6();
-    if (prayingRoll >= m_prayingValue) {
-        target->buffReroll(m_attribute, m_reroll, {Phase::Hero, round + 1, m_priest->owningPlayer()});
-
-        SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) onto %s.\n",
-               m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, target->name().c_str());
-        result = true;
-    } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer}, m_priest);
-    }
-
-    return result;
+    return target->buffReroll(m_attribute, m_reroll, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
 }
