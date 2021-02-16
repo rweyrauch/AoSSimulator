@@ -86,7 +86,7 @@ namespace Slaanesh {
         Hysterical_Frenzy,
         Soulslice_Shards,
         Phantasmagoria,
-        Bord_Of_Damnation,
+        Born_Of_Damnation,
 
         // Greater Daemon
         Paths_Of_The_Dark_Prince,

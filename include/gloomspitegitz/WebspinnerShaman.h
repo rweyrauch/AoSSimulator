@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WEBSPINNERSHAMAN_H
-#define WEBSPINNERSHAMAN_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -36,6 +34,8 @@ namespace GloomspiteGitz {
 
     protected:
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
     private:
 
         Weapon m_spiderGodStaff;
@@ -46,10 +46,8 @@ namespace GloomspiteGitz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Touched by the Spider God        TODO
-// Speed of the Spider God          TODO
+// Touched by the Spider God        Yes
+// Speed of the Spider God          Yes
 //
 
 } // namespace GloomspiteGitz
-
-#endif //WEBSPINNERSHAMAN_H

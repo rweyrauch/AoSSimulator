@@ -102,7 +102,7 @@ namespace Fyreslayers {
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Prayer") {
-            auto prayerName = magic_enum::enum_name((Prayer)parameter.intValue);
+            auto prayerName = magic_enum::enum_name((Blessing)parameter.intValue);
             return std::string(prayerName);
         }
 
@@ -122,7 +122,7 @@ namespace Fyreslayers {
         auto mount = magic_enum::enum_cast<MountTrait>(enumString);
         if (mount.has_value()) return (int)mount.value();
 
-        auto prayer = magic_enum::enum_cast<Prayer>(enumString);
+        auto prayer = magic_enum::enum_cast<Blessing>(enumString);
         if (prayer.has_value()) return (int)prayer.value();
 
         return 0;

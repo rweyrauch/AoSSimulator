@@ -42,8 +42,8 @@ namespace StormcastEternals {
 
     void Thundershock::secondaryEffect(Unit *target, int round) const {
         if (target) {
-            target->buffModifier(To_Hit_Melee, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
-            target->buffModifier(To_Hit_Missile, -1, {Phase::Hero, round + 1, m_caster->owningPlayer()});
+            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
         }
     }
 

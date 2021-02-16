@@ -44,7 +44,7 @@ namespace BeastsOfChaos {
 // Abilities                    Implemented
 // -------------------------------------------
 // Beneath the Tempest              TODO
-// Summon Lightning                 TODO
+// Summon Lightning                 Yes
 //
 
 } // namespace BeastsOfChaos

@@ -10,21 +10,123 @@
 
 namespace DaughtersOfKhaine {
 
+    class SteedOfShadows : public Spell {
+    public:
+        explicit SteedOfShadows(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    SteedOfShadows::SteedOfShadows(Unit *caster) :
+        Spell(caster, "Steed of Shadows", 6, 0) {
+        m_allowedTargets = Spell::Target::Self;
+        m_effect = Spell::EffectType::Buff;
+    }
+
+    Spell::Result SteedOfShadows::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr)
+            return Spell::Result::Failed;
+
+        target->buffModifier(Move_Distance, 16 - m_caster->move(), defaultDuration());
+        target->buffMovement(Fly, true, defaultDuration());
+
+        return Spell::Result::Success;
+    }
+
+    class PitOfShades : public Spell {
+    public:
+        explicit PitOfShades(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    PitOfShades::PitOfShades(Unit *caster) :
+        Spell(caster, "Pit of Shades", 7, 18) {
+        m_allowedTargets = Spell::Target::Enemy;
+        m_effect = Spell::EffectType::Damage;
+    }
+
+    Spell::Result PitOfShades::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr)
+            return Spell::Result::Failed;
+
+        auto roll = Dice::Roll2D6();
+        if (roll > target->move()) {
+            target->applyDamage({0, roll-target->move(), Wounds::Source::Spell}, m_caster);
+        }
+        return Spell::Result::Success;
+    }
+
+    class TheWithering : public Spell {
+    public:
+        explicit TheWithering(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    TheWithering::TheWithering(Unit *caster) :
+        Spell(caster, "The Withering", 7, 18) {
+        m_allowedTargets = Spell::Target::Enemy;
+        m_effect = Spell::EffectType::Debuff;
+    }
+
+    Spell::Result TheWithering::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr)
+            return Spell::Result::Failed;
+
+        target->buffModifier(Target_To_Wound_Melee, 1, defaultDuration());
+        target->buffModifier(Target_To_Wound_Missile, 1, defaultDuration());
+
+        return Spell::Result::Success;
+    }
+
+    class ShroudOfDespair : public Spell {
+    public:
+        explicit ShroudOfDespair(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    ShroudOfDespair::ShroudOfDespair(Unit *caster) :
+        Spell(caster, "Shroud of Despair", 4, 18) {
+        m_allowedTargets = Spell::Target::Enemy;
+        m_effect = Spell::EffectType::Debuff;
+    }
+
+    Spell::Result ShroudOfDespair::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr)
+            return Spell::Result::Failed;
+
+        auto modifier = 1;
+        if (castingValue >= 8) modifier = Dice::RollD3();
+
+        target->buffModifier(Bravery, modifier, defaultDuration());
+
+        return Spell::Result::Success;
+    }
+
     Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
             case Lore::Steed_Of_Shadows:
-                return new BuffModifierSpell(caster, "Steed of Shadows", 6, 0, Move_Distance, 16, Spell::Target::Self);
-                break;
+                return new SteedOfShadows(caster);
             case Lore::Pit_Of_Shades:
-                break;
+                return new PitOfShades(caster);
             case Lore::Mirror_Dance:
                 break;
             case Lore::The_Withering:
-                break;
+                return new TheWithering(caster);
             case Lore::Mindrazor:
                 break;
             case Lore::Shroud_Of_Despair:
-                break;
+                return new ShroudOfDespair(caster);
             default:
                 break;
         }

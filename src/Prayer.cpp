@@ -31,7 +31,7 @@ bool Prayer::pray(Unit *target, int round) {
     if (prayingRoll >= m_prayingValue) {
         result = apply(prayingRoll, target);
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1}, m_priest);
+        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer}, m_priest);
     }
 
     return result;
@@ -54,7 +54,7 @@ bool Prayer::pray(double x, double y, int round) {
     if (prayingRoll >= m_prayingValue) {
         result = apply(prayingRoll, x, y);
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
-        m_priest->applyDamage({0, m_damageOn1}, m_priest);
+        m_priest->applyDamage({0, m_damageOn1, Wounds::Source::Prayer}, m_priest);
     }
 
     return result;
@@ -78,7 +78,7 @@ bool DamagePrayer::apply(int prayingRoll, Unit *target) {
     }
 
     int wounds = Dice::RollSpecial(getDamage(target, prayingRoll));
-    target->applyDamage({0, wounds}, m_priest);
+    target->applyDamage({0, wounds, Wounds::Source::Prayer}, m_priest);
 
     return true;
 }

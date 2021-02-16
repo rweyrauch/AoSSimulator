@@ -20,7 +20,7 @@ Spell::Result MysticShield::apply(int castingValue, int unmodifiedCastingValue, 
         return Result::Failed;
     }
 
-    if (target->buffReroll(To_Save, Reroll_Ones, {Phase::Hero, m_round + 1, m_caster->owningPlayer()})) {
+    if (target->buffReroll(To_Save, Reroll_Ones, defaultDuration())) {
         return Result::Success;
     }
 

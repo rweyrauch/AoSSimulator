@@ -66,6 +66,8 @@ protected:
     virtual Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) = 0;
     virtual Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) = 0;
 
+    Duration defaultDuration() const;
+
     Unit *m_caster = nullptr;
     std::string m_name;
     int m_castingValue = 0;
@@ -135,7 +137,7 @@ protected:
 class HealSpell : public Spell {
 public:
     HealSpell(Unit *caster, const std::string &name, int castingValue, int range, int healing, int castingValue2 = -1,
-              int healing2 = -1);
+              int healing2 = -1, const std::vector<Keyword>& targetKeywords = {});
 
 protected:
 
@@ -152,7 +154,7 @@ protected:
 class BuffModifierSpell : public Spell {
 public:
     BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                      BuffableAttribute which, int modifier, Target allowedTargets);
+                      BuffableAttribute which, int modifier, Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
 
 protected:
 
@@ -168,7 +170,7 @@ protected:
 class BuffRerollSpell : public Spell {
 public:
     BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range, BuffableAttribute which,
-                    Rerolls reroll, Target allowedTargets);
+                    Rerolls reroll, Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
 

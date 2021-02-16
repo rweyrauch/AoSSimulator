@@ -12,6 +12,33 @@
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
+
+    class SummonLightning : public Spell {
+    public:
+        SummonLightning(Unit* caster);
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    SummonLightning::SummonLightning(Unit* caster) :
+        Spell(caster, "Summon Lightning", 7, 20) {
+        m_allowedTargets = Spell::Target::SelfAndFriendly;
+        m_targetKeywords.push_back(THUNDERSCORN);
+        m_effect = Spell::EffectType::Heal;
+    }
+
+    Spell::Result SummonLightning::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr)
+            return Spell::Result::Failed;
+
+        target->heal(Dice::RollD3());
+        target->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
+        target->buffReroll(To_Wound_Missile, Reroll_Failed, defaultDuration());
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 90; // x52 oval;
     static const int g_wounds = 10;
     static const int g_pointsPerUnit = 170;
@@ -39,6 +66,7 @@ namespace BeastsOfChaos {
 
         m_lore = lore;
 
+        m_knownSpells.push_back(std::make_unique<SummonLightning>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

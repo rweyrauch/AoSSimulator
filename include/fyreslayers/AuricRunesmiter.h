@@ -27,7 +27,7 @@ namespace Fyreslayers {
 
         ~AuricRunesmiter() override = default;
 
-        bool configure(Prayer prayer);
+        bool configure(Blessing blessing);
 
     protected:
 
@@ -36,7 +36,7 @@ namespace Fyreslayers {
         Weapon m_throwingAxe,
                 m_runicIron,
                 m_latchAxe;
-        Prayer m_prayer = Prayer::None;
+        Blessing m_prayer = Blessing::None;
 
         static bool s_registered;
     };

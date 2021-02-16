@@ -106,7 +106,7 @@ namespace Fyreslayers {
         Ash_Horn_Ancient
     };
 
-    enum class Prayer : int {
+    enum class Blessing : int {
         None,
 
         Molten_Infusion,

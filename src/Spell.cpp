@@ -5,7 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <algorithm>
 #include <Spell.h>
 #include <Unit.h>
 #include <Board.h>
@@ -70,6 +69,10 @@ Spell::Result Spell::cast(double x, double y, int round) {
     }
 
     return result;
+}
+
+Duration Spell::defaultDuration() const {
+    return {Phase::Hero, m_round + 1, m_caster->owningPlayer()};
 }
 
 DamageSpell::DamageSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage,
@@ -175,13 +178,14 @@ Spell::Result LineOfEffectSpell::apply(int castingValue, int unmodifiedCastingVa
 }
 
 HealSpell::HealSpell(Unit *caster, const std::string &name, int castingValue, int range, int healing,
-                     int castingValue2, int healing2) :
+                     int castingValue2, int healing2, const std::vector<Keyword>& targetKeywords) :
     Spell(caster, name, castingValue, range),
     m_healing(healing),
     m_castingValue2(castingValue2),
     m_healing2(healing2) {
     m_allowedTargets = Spell::Target::SelfAndFriendly;
     m_effect = EffectType::Heal;
+    m_targetKeywords = targetKeywords;
 }
 
 int HealSpell::getHealing(int castingRoll) const {
@@ -203,11 +207,12 @@ Spell::Result HealSpell::apply(int castingValue, int unmodifiedCastingValue, Uni
 }
 
 BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                                     BuffableAttribute which, int modifier, Target allowedTargets) :
+                                     BuffableAttribute which, int modifier, Target allowedTargets, const std::vector<Keyword>& targetKeyword) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),
-        m_modifier(modifier) {
+        m_modifier(modifier){
     m_allowedTargets = allowedTargets;
+    m_targetKeywords = targetKeyword;
     m_effect = (m_modifier > 0) ? EffectType::Buff : EffectType::Debuff;
 }
 
@@ -219,17 +224,18 @@ Spell::Result BuffModifierSpell::apply(int castingValue, int unmodifiedCastingVa
     if (target == nullptr)
         return Result::Failed;
 
-    target->buffModifier(m_attribute, m_modifier, {Phase::Hero, m_round + 1, m_caster->owningPlayer()});
+    target->buffModifier(m_attribute, m_modifier, defaultDuration());
 
     return Spell::Result::Success;
 }
 
 BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                                 BuffableAttribute which, Rerolls reroll, Target allowedTargets) :
+                                 BuffableAttribute which, Rerolls reroll, Target allowedTargets, const std::vector<Keyword>& targetKeyword) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),
         m_reroll(reroll) {
     m_allowedTargets = allowedTargets;
+    m_targetKeywords = targetKeyword;
     m_effect = EffectType::Buff;
 }
 
@@ -237,7 +243,7 @@ Spell::Result BuffRerollSpell::apply(int castingValue, int unmodifiedCastingValu
     if (target == nullptr)
         return Result::Failed;
 
-    target->buffReroll(m_attribute, m_reroll, {Phase::Hero, m_round + 1, m_caster->owningPlayer()});
+    target->buffReroll(m_attribute, m_reroll, defaultDuration());
 
     return Spell::Result::Success;
 }

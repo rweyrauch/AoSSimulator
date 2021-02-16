@@ -48,7 +48,7 @@ namespace Fyreslayers {
         m_hasMount = true;
     }
 
-    bool AuricRunesmiterOnMagmadroth::configure(Prayer prayer, MountTrait trait) {
+    bool AuricRunesmiterOnMagmadroth::configure(Blessing prayer, MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_fyrestream);
@@ -57,6 +57,8 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_latchAxe);
         model->addMeleeWeapon(&m_runicIron);
         addModel(model);
+
+        m_prayer = prayer;
 
         m_mountTrait = trait;
 
@@ -85,7 +87,7 @@ namespace Fyreslayers {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
+        auto prayer = (Blessing) GetEnumParam("Prayer", parameters, g_prayers[0]);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
 
         bool ok = unit->configure(prayer, mount);

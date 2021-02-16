@@ -22,7 +22,8 @@ public:
         Friendly,
         Enemy,
         Self,
-        SelfAndFriendly
+        SelfAndFriendly,
+        Any
     };
 
     enum class EffectType {

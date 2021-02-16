@@ -11,6 +11,39 @@
 
 namespace StormcastEternals {
 
+    class DivineLight : public Prayer {
+    public:
+        explicit DivineLight(Unit* priest);
+
+    protected:
+
+        bool apply(int prayingRoll, Unit* target) override;
+        bool apply(int prayingRoll, double x, double y) override { return false; }
+
+    };
+
+    DivineLight::DivineLight(Unit *priest) :
+        Prayer(priest, "Divine Light", 3, 18) {
+        m_allowedTargets = Prayer::Target::Any;
+        m_effect = Prayer::EffectType::Buff;
+    }
+
+    bool DivineLight::apply(int prayingRoll, Unit *target) {
+        if (target == nullptr)
+            return false;
+
+        const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
+        if (m_priest->isFriendly(target)) {
+            target->buffReroll(Target_To_Hit_Melee, Reroll_Sixes, duration);
+            target->buffReroll(Target_To_Hit_Missile,Reroll_Sixes, duration);
+        }
+        else {
+            target->buffReroll(Target_To_Hit_Melee, Reroll_Ones, duration);
+            target->buffReroll(Target_To_Hit_Missile, Reroll_Ones, duration);
+        }
+        return true;
+    }
+
     std::string ToString(PrayersOfTheStormhost which) {
         return std::string(magic_enum::enum_name(which));
     }
@@ -23,7 +56,7 @@ namespace StormcastEternals {
     }
 
     Prayer *CreateDivineLight(Unit *caster) {
-        return nullptr;
+        return new DivineLight(caster);
     }
 
     Prayer *CreateBlessWeapons(Unit *caster) {

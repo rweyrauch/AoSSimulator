@@ -5,14 +5,55 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <algorithm>
 #include <gloomspitegitz/WebspinnerShaman.h>
 #include <UnitFactory.h>
 #include <iostream>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
+    class SpeedOfTheSpiderGod : public Spell {
+    public:
+        SpeedOfTheSpiderGod(Unit *caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+    };
+
+    SpeedOfTheSpiderGod::SpeedOfTheSpiderGod(Unit *caster) :
+        Spell(caster, "Speed of the Spider God", 4, 24) {
+        m_allowedTargets = Spell::Target::SelfAndFriendly;
+        m_effect = EffectType::Buff;
+        m_targetKeywords.push_back(SPIDERFANG);
+    }
+
+    Spell::Result SpeedOfTheSpiderGod::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        target->buffMovement(Run_And_Shoot, true, defaultDuration());
+
+        if (castingValue >= 8) {
+            // Pick D3 additional units
+            auto additionalUnits = Dice::RollD3() - 1; // skip unit that was already buffed
+            auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
+            for (auto unit : units) {
+                if (!unit->hasKeyword(SPIDERFANG)) continue;
+
+                unit->buffMovement(Run_And_Shoot, true, defaultDuration());
+
+                additionalUnits--;
+                if (additionalUnits <= 0) continue;;
+            }
+        }
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 32;
     static const int g_wounds = 4;
     static const int g_pointsPerUnit = 80;
@@ -36,7 +77,7 @@ namespace GloomspiteGitz {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-        //m_knownSpells.push_back(std::make_unique<SpeedOfTheSpiderGod>(this));
+        m_knownSpells.push_back(std::make_unique<SpeedOfTheSpiderGod>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         addModel(model);
@@ -100,6 +141,21 @@ namespace GloomspiteGitz {
 
     int WebspinnerShaman::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds WebspinnerShaman::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        // Touched by the Spider God
+        Dice::RollResult woundSaves, mortalSaves;
+        Dice::RollD6(wounds.normal, woundSaves);
+        Dice::RollD6(wounds.mortal, mortalSaves);
+
+        Wounds totalWounds = wounds;
+        totalWounds.normal -= woundSaves.rollsGE(5);
+        totalWounds.normal = std::max(totalWounds.normal, 0);
+        totalWounds.mortal -= mortalSaves.rollsGE(5);
+        totalWounds.mortal = std::max(totalWounds.mortal, 0);
+
+        return totalWounds;
     }
 
 } // namespace GloomspiteGitz

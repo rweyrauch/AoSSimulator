@@ -27,12 +27,14 @@ namespace Fyreslayers {
         m_battleFieldRole = Leader;
     }
 
-    bool AuricRunesmiter::configure(Prayer prayer) {
+    bool AuricRunesmiter::configure(Blessing blessing) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_latchAxe);
         model->addMeleeWeapon(&m_runicIron);
         addModel(model);
+
+        m_prayer = blessing;
 
         m_points = g_pointsPerUnit;
 
@@ -54,7 +56,7 @@ namespace Fyreslayers {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
+        auto prayer = (Blessing) GetEnumParam("Prayer", parameters, g_prayers[0]);
 
         bool ok = unit->configure(prayer);
         if (!ok) {

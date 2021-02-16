@@ -94,14 +94,14 @@ namespace Fyreslayers {
     };
 
     constexpr std::array<int, 7> g_prayers = {
-            ToInteger(Prayer::None),
+            ToInteger(Blessing::None),
 
-            ToInteger(Prayer::Molten_Infusion),
-            ToInteger(Prayer::Searing_Heat),
-            ToInteger(Prayer::Prayer_Of_Ash),
-            ToInteger(Prayer::Ember_Storm),
-            ToInteger(Prayer::Prayer_Of_Grimnirs_Fury),
-            ToInteger(Prayer::Gilded_Claws)
+            ToInteger(Blessing::Molten_Infusion),
+            ToInteger(Blessing::Searing_Heat),
+            ToInteger(Blessing::Prayer_Of_Ash),
+            ToInteger(Blessing::Ember_Storm),
+            ToInteger(Blessing::Prayer_Of_Grimnirs_Fury),
+            ToInteger(Blessing::Gilded_Claws)
     };
 
 } // namespace Fyreslayers

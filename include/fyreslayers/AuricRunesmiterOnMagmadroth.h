@@ -27,7 +27,7 @@ namespace Fyreslayers {
 
         ~AuricRunesmiterOnMagmadroth() override = default;
 
-        bool configure(Prayer prayer, MountTrait trait);
+        bool configure(Blessing blessing, MountTrait trait);
 
     protected:
 
@@ -51,7 +51,7 @@ namespace Fyreslayers {
                 m_blazingMaw,
                 m_latchAxe,
                 m_runicIron;
-        Prayer m_prayer = Prayer::None;
+        Blessing m_prayer = Blessing::None;
         MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;

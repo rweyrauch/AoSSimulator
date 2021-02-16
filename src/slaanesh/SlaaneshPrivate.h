@@ -84,7 +84,7 @@ namespace Slaanesh {
             ToInteger(Lore::Hysterical_Frenzy),
             ToInteger(Lore::Soulslice_Shards),
             ToInteger(Lore::Phantasmagoria),
-            ToInteger(Lore::Bord_Of_Damnation),
+            ToInteger(Lore::Born_Of_Damnation),
     };
 
     constexpr std::array<int, 4> g_greaterDaemonLore = {
