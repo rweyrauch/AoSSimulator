@@ -8,7 +8,7 @@
 #include <gloomspitegitz/NikkitNikkit.h>
 
 NikkitNikkit::NikkitNikkit(Unit *caster) :
-        DamageSpell(caster, "Nikkit! Nikkit!", 8, 18.0, RAND_D3) {}
+        DamageSpell(caster, "Nikkit! Nikkit!", 8, 18, RAND_D3) {}
 
 int NikkitNikkit::getDamage(int castingRoll) const {
     if (castingRoll >= 10) {

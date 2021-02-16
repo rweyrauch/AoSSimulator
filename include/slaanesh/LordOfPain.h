@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDOFPAIN_H
-#define LORDOFPAIN_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
@@ -48,5 +46,3 @@ namespace Slaanesh {
 //
 
 } // Slannesh
-
-#endif //LORDOFPAIN_H

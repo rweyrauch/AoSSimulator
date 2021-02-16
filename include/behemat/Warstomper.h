@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef WARSTOMPER_H
-#define WARSTOMPER_H
+#pragma once
 
 #include <behemat/SonsOfBehemat.h>
 
@@ -68,5 +67,3 @@ namespace SonsOfBehemat {
 //
 
 } // namespace SonsOfBehemat
-
-#endif //WARSTOMPER_H

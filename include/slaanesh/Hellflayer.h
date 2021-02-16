@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef HELLFLAYER_H
-#define HELLFLAYER_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
@@ -53,5 +51,3 @@ namespace Slaanesh {
 //
 
 } // Slannesh
-
-#endif //HELLFLAYER_H

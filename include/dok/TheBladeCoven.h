@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THEBLADECOVEN_H
-#define THEBLADECOVEN_H
+#pragma once
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -49,5 +47,3 @@ namespace DaughtersOfKhaine {
 //
 
 } // namespace DaughtersOfKhaine
-
-#endif //THEBLADECOVEN_H

@@ -10,7 +10,7 @@
 #include <Board.h>
 
 Empower::Empower(Unit *caster) :
-        Spell(caster, "Empower", 6, 12.0) {
+        Spell(caster, "Empower", 6, 12) {
     m_allowedTargets = Spell::Target::SelfAndFriendly;
     m_effect = EffectType::Buff;
 }

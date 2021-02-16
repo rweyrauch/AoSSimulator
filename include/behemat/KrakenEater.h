@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef KRAKENEATER_H
-#define KRAKENEATER_H
+#pragma once
 
 #include <behemat/SonsOfBehemat.h>
 
@@ -67,5 +66,3 @@ namespace SonsOfBehemat {
 //
 
 } // namespace SonsOfBehemat
-
-#endif //KRAKENEATER_H

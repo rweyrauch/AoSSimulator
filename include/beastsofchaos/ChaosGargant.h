@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CHAOSGARGANT_H
-#define CHAOSGARGANT_H
+#pragma once
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -58,5 +56,3 @@ namespace BeastsOfChaos {
 //
 
 } // namespace GloomspiteGitz
-
-#endif //CHAOSGARGANT_H

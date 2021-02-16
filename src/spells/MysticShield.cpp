@@ -10,7 +10,7 @@
 #include <Board.h>
 
 MysticShield::MysticShield(Unit *caster) :
-        Spell(caster, "Mystic Shield", 6, 18.0) {
+        Spell(caster, "Mystic Shield", 6, 18) {
     m_allowedTargets = Spell::Target::Friendly;
     m_effect = EffectType::Buff;
 }

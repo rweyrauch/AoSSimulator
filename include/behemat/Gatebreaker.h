@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef GATEBREAKER_H
-#define GATEBREAKER_H
+#pragma once
 
 #include <behemat/SonsOfBehemat.h>
 
@@ -66,5 +65,3 @@ namespace SonsOfBehemat {
 //
 
 } // namespace SonsOfBehemat
-
-#endif //GATEBREAKER_H

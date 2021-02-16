@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SEEKERS_H
-#define SEEKERS_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
@@ -62,5 +60,3 @@ namespace Slaanesh {
 // Soul Hunters                     TODO
 
 } // Slannesh
-
-#endif //SEEKERS_H

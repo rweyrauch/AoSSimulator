@@ -5,10 +5,8 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AVERONSTORMSIRE_H
-#define AVERONSTORMSIRE_H
-
+#pragma once
+#pragma once
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
@@ -58,5 +56,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //AVERONSTORMSIRE_H

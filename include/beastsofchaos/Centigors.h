@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CENTIGORS_H
-#define CENTIGORS_H
+#pragma once
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -63,5 +61,3 @@ namespace BeastsOfChaos {
 //
 
 } // namespace BeastsOfChaos
-
-#endif //CENTIGORS_H

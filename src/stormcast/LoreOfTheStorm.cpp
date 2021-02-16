@@ -24,17 +24,17 @@ namespace StormcastEternals {
     }
 
     DamageSpell *CreateLightningBlast(Unit *caster) {
-        return new DamageSpell(caster, "Lightning Blast", 5, DBL_MAX, RAND_D3);
+        return new DamageSpell(caster, "Lightning Blast", 5, INT32_MAX, RAND_D3);
     }
 
     AreaOfEffectSpell *CreateStarfall(Unit *caster) {
-        return new AreaOfEffectSpell(caster, "Starfall", 5, 12.0, 3.0, 1, 4);
+        return new AreaOfEffectSpell(caster, "Starfall", 5, 12, 3, 1, 4);
     }
 
     class Thundershock : public AreaOfEffectSpell {
     public:
         explicit Thundershock(Unit *caster) :
-                AreaOfEffectSpell(caster, "Thundershock", 6, 0.0, 6.0, 1, 4) {}
+                AreaOfEffectSpell(caster, "Thundershock", 6, 0, 6, 1, 4) {}
 
     protected:
         void secondaryEffect(Unit *target, int round) const override;
@@ -52,7 +52,7 @@ namespace StormcastEternals {
     }
 
     AreaOfEffectSpell *CreateStormcaller(Unit *caster) {
-        return new AreaOfEffectSpell(caster, "Stormcaller", 7, 0.0, DBL_MAX, RAND_D3, 6);
+        return new AreaOfEffectSpell(caster, "Stormcaller", 7, 0, INT32_MAX, RAND_D3, 6);
     }
 
     Spell *CreateAzyriteHalo(Unit *caster) {
@@ -68,11 +68,11 @@ namespace StormcastEternals {
     }
 
     Spell *CreateCelestialBlades(Unit *caster) {
-        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18.0, To_Wound_Melee, 1, Spell::Target::Friendly);
+        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18, To_Wound_Melee, 1, Spell::Target::Friendly);
     }
 
     Spell *CreateSpeedOfLightning(Unit *caster) {
-        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9.0, Charge_Distance, Reroll_Failed, Spell::Target::Friendly);
+        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9, Charge_Distance, Reroll_Failed, Spell::Target::Friendly);
     }
 
     Spell *CreateLore(Lore which, Unit *caster) {

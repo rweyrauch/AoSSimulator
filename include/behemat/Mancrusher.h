@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef MANCRUSHER_H
-#define MANCRUSHER_H
+#pragma once
 
 #include <behemat/SonsOfBehemat.h>
 
@@ -60,5 +59,3 @@ namespace SonsOfBehemat {
 //
 
 } // namespace SonsOfBehemat
-
-#endif //MANCRUSHER_H

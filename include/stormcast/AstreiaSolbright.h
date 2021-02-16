@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ASTREIASOLBRIGHT_H
-#define ASTREIASOLBRIGHT_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
@@ -70,5 +68,3 @@ namespace StormcastEternals {
 // Soul Energy of the First Host    TODO
 
 } // namespace StormcastEternals
-
-#endif //ASTREIASOLBRIGHT_H

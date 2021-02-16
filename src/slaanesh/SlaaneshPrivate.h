@@ -89,7 +89,7 @@ namespace Slaanesh {
 
     constexpr std::array<int, 4> g_greaterDaemonLore = {
             ToInteger(Lore::None),
-            ToInteger(Lore::Song_Of_Secrets),
+            ToInteger(Lore::Paths_Of_The_Dark_Prince),
             ToInteger(Lore::Progeny_Of_Damnation),
             ToInteger(Lore::Slothful_Stupor)
     };
@@ -97,8 +97,8 @@ namespace Slaanesh {
     constexpr std::array<int, 4> g_mortalLore = {
             ToInteger(Lore::None),
             ToInteger(Lore::Battle_Rapture),
+            ToInteger(Lore::Judgement_Of_Excess),
             ToInteger(Lore::Dark_Delusions),
-            ToInteger(Lore::Hellshriek)
     };
 
 } // namespace Slaanesh

@@ -13,7 +13,7 @@ namespace DaughtersOfKhaine {
     Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
             case Lore::Steed_Of_Shadows:
-                return new BuffModifierSpell(caster, "Steed of Shadows", 6, 0.0f, Move_Distance, 16, Spell::Target::Self);
+                return new BuffModifierSpell(caster, "Steed of Shadows", 6, 0, Move_Distance, 16, Spell::Target::Self);
                 break;
             case Lore::Pit_Of_Shades:
                 break;

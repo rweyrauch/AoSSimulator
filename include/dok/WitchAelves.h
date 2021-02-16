@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WITCHAELVES_H
-#define WITCHAELVES_H
+#pragma once
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -60,5 +58,3 @@ namespace DaughtersOfKhaine {
 //
 
 } // namespace DaughtersOfKhaine
-
-#endif //WITCHAELVES_H

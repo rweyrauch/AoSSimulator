@@ -14,6 +14,7 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
     static const int g_basesize = 32;
     static const int g_wounds = 4;
     static const int g_pointsPerUnit = 90;
@@ -39,7 +40,7 @@ namespace GloomspiteGitz {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-        //m_knownSpells.push_back(std::make_unique<SporeMaws>(this));
+        m_knownSpells.push_back(std::make_unique<AreaOfEffectSpell>(this, "Spore Maws", 7, 0, RAND_D6, RAND_D3, 0));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         addModel(model);

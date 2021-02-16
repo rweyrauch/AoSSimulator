@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DOOMBULL_H
-#define DOOMBULL_H
+#pragma once
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -49,5 +47,3 @@ namespace BeastsOfChaos {
 //
 
 } // namespace BeastsOfChaos
-
-#endif //DOOMBULL_H

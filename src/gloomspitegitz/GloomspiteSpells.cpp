@@ -37,9 +37,10 @@ namespace GloomspiteGitz {
     };
 
     GreatGreenSpite::GreatGreenSpite(Unit *caster) :
-            Spell(caster, "The Great Green Spite", 7, 18.0) {
+            Spell(caster, "The Great Green Spite", 7, 18) {
         m_allowedTargets = Target::Enemy;
         m_effect = EffectType::Damage;
+        m_targetKeywords.push_back(GLOOMSPITE_GITZ);
     }
 
     Spell::Result GreatGreenSpite::cast(Unit *target, int round) {
@@ -88,6 +89,65 @@ namespace GloomspiteGitz {
         return result;
     }
 
+    class SquigLure : public Spell {
+    public:
+        explicit SquigLure(Unit *caster);
+
+        Result cast(Unit *target, int round) override;
+
+        Result cast(double x, double y, int round) override { return Result::Failed; }
+    };
+
+    SquigLure::SquigLure(Unit *caster) :
+        Spell(caster, "Squig Lure", 5, 18) {
+        m_allowedTargets = Target::Friendly;
+        m_effect = EffectType::Buff;
+        m_targetKeywords.push_back(SQUIG);
+    }
+
+    Spell::Result SquigLure::cast(Unit *target, int round) {
+
+        // Distance to target
+        const double distance = m_caster->distanceTo(target);
+        if (distance > m_range) {
+            return Result::Failed;
+        }
+
+        // Check for visibility to target
+        if (!Board::Instance()->isVisible(m_caster, target)) {
+            return Result::Failed;
+        }
+
+        Spell::Result result = Result::Failed;
+
+        const int castingRoll = m_caster->rollCasting();
+        if (castingRoll >= m_castingValue) {
+            bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
+            if (!unbound) {
+                auto squigs = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
+                auto numUnits = Dice::RollD3();
+                int numAffected = 0;
+                for (auto squig : squigs) {
+                    squig->buffMovement(Run_And_Charge, true, {Phase::Hero, round + 1, m_caster->owningPlayer()});
+
+                    numAffected++;
+                    if (numAffected > numUnits) break;
+                }
+                result = Result::Success;
+            } else {
+                SimLog(Verbosity::Narrative, "%s spell %s was unbound.\n", m_caster->name().c_str(), name().c_str());
+                result = Result::Unbound;
+            }
+        } else {
+            SimLog(Verbosity::Narrative, "%s spell %s failed with roll %d needing %d.\n", m_caster->name().c_str(),
+                   name().c_str(),
+                   castingRoll, m_castingValue);
+        }
+
+        return result;
+    }
+
+
     Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
             case Lore::None:
@@ -101,7 +161,7 @@ namespace GloomspiteGitz {
             case Lore::The_Hand_Of_Gork:
                 return nullptr;
             case Lore::Squig_Lure:
-                return nullptr;
+                return new SquigLure(caster);
             case Lore::Call_Da_Moon:
                 return nullptr;
             case Lore::Deadly_Webbing:

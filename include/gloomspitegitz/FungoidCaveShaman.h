@@ -54,7 +54,7 @@ namespace GloomspiteGitz {
 // Mouthpiece of Mork               Yes
 // Deffcap Mushroom                 TODO
 // Spore Squig                      Yes
-// Spore Maws                       TODO
+// Spore Maws                       Yes
 //
 
 } // namespace GloomspiteGitz

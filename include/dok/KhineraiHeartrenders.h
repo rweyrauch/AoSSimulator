@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KHINERAIHEARTRENDERS_H
-#define KHINERAIHEARTRENDERS_H
+#pragma once
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -60,5 +58,3 @@ namespace DaughtersOfKhaine {
 //
 
 } // namespace DaughtersOfKhaine
-
-#endif //KHINERAIHEARTRENDERS_H

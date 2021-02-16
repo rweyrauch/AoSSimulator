@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GORS_H
-#define GORS_H
+#pragma once
 
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Weapon.h>
@@ -56,5 +54,3 @@ namespace BeastsOfChaos {
 //
 
 } // namespace BeastsOfChaos
-
-#endif //GORS_H

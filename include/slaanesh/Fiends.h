@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FIENDS_H
-#define FIENDS_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
@@ -59,5 +57,3 @@ namespace Slaanesh {
 // Soporific Musk                   Yes
 
 } // Slannesh
-
-#endif //FIENDS_H

@@ -40,7 +40,7 @@ public:
         Debuff
     };
 
-    Spell(Unit *caster, std::string name, int castingValue, double range) :
+    Spell(Unit *caster, std::string name, int castingValue, int range) :
             m_caster(caster),
             m_name(std::move(name)),
             m_castingValue(castingValue),
@@ -50,11 +50,12 @@ public:
 
     int castingValue() const { return m_castingValue; }
 
-    double range() const { return m_range; }
+    int range() const { return m_range; }
 
     const std::string &name() const { return m_name; }
 
     Target allowedTargets() const { return m_allowedTargets; }
+    const std::vector<Keyword>& allowedTargetKeywords() const { return m_targetKeywords; }
 
     virtual Result cast(Unit *target, int round) = 0;
 
@@ -65,15 +66,16 @@ protected:
     Unit *m_caster = nullptr;
     std::string m_name;
     int m_castingValue = 0;
-    double m_range = 0.0f;
+    int m_range = 0;
 
     Target m_allowedTargets = Target::None;
     EffectType m_effect = EffectType::Utility;
+    std::vector<Keyword> m_targetKeywords;
 };
 
 class DamageSpell : public Spell {
 public:
-    DamageSpell(Unit *caster, const std::string &name, int castingValue, double range, int damage,
+    DamageSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage,
                 int castingValue2 = -1, int damage2 = -1);
 
     Result cast(Unit *target, int round) override;
@@ -93,7 +95,7 @@ DamageSpell *CreateArcaneBolt(Unit *caster);
 
 class AreaOfEffectSpell : public Spell {
 public:
-    AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, double radius, int damage,
+    AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, int range, int radius, int damage,
                       int affectedRoll);
 
     Result cast(Unit *target, int round) override { return Result::Failed; }
@@ -107,13 +109,13 @@ protected:
     virtual void secondaryEffect(Unit *target, int round) const {}
 
     int m_damage = 0;
-    double m_radius = 0.0f;
+    int m_radius = 0;
     int m_affectedRoll = 0;
 };
 
 class LineOfEffectSpell : public Spell {
 public:
-    LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, double range, int damage,
+    LineOfEffectSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage,
                       int affectedRoll);
 
     Result cast(Unit *target, int round) override { return Result::Failed; }
@@ -131,7 +133,7 @@ protected:
 
 class HealSpell : public Spell {
 public:
-    HealSpell(Unit *caster, const std::string &name, int castingValue, double range, int healing, int castingValue2 = -1,
+    HealSpell(Unit *caster, const std::string &name, int castingValue, int range, int healing, int castingValue2 = -1,
               int healing2 = -1);
 
     Result cast(Unit *target, int round) override;
@@ -149,7 +151,7 @@ protected:
 
 class BuffModifierSpell : public Spell {
 public:
-    BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, double range,
+    BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
                       BuffableAttribute which, int modifier, Target allowedTargets);
 
     Result cast(Unit *target, int round) override;
@@ -166,7 +168,7 @@ protected:
 
 class BuffRerollSpell : public Spell {
 public:
-    BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, double range, BuffableAttribute which,
+    BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range, BuffableAttribute which,
                     Rerolls reroll, Target allowedTargets);
 
     Result cast(Unit *target, int round) override;

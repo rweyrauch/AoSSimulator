@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MORATHISHADOWQUEEN_H
-#define MORATHISHADOWQUEEN_H
+#pragma once
 
 #include <dok/DaughterOfKhaine.h>
 #include <Weapon.h>
@@ -63,5 +61,3 @@ namespace DaughtersOfKhaine {
 //
 
 } // namespace DaughtersOfKhaine
-
-#endif //MORATHISHADOWQUEEN_H

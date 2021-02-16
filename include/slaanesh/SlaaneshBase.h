@@ -89,14 +89,14 @@ namespace Slaanesh {
         Bord_Of_Damnation,
 
         // Greater Daemon
-        Song_Of_Secrets,
+        Paths_Of_The_Dark_Prince,
         Progeny_Of_Damnation,
         Slothful_Stupor,
 
         // Mortal
         Battle_Rapture,
+        Judgement_Of_Excess,
         Dark_Delusions,
-        Hellshriek,
     };
 
     class SlaaneshBase : public Unit {
@@ -134,18 +134,36 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Feast of Depravites              TODO
+// Feast of Depravities             TODO
 // Locus of Diversion               TODO
 // Euphoric Killers                 Yes
 // Invaders
 //    Figureheads of the Dark Prince    TODO
 //    Escalating Havoc              TODO
+//    Best of the Best              TODO
+//    Glory Hog                     TODO
+//    Hurler of Obscenities         TODO
+//    Territorial                   TODO
+//    Skin-taker                    TODO
+//    Delusions of Infallibility    TODO
 // Pretenders
 //    Heir to the Throne            Yes
 //    Warlord Supreme               TODO
+//    Strength of Godhood           TODO
+//    Monarch of Lies               TODO
+//    Craving Stare                 TODO
+//    Strongest Alone               TODO
+//    Hunter of Godbeasts           TODO
+//    Inspirer                      TODO
 // Godseekers
 //    Thundering Cavalcade          Yes
 //    Maniacal Hunters              TODO
+//    Hunter Supreme                TODO
+//    Sweeping Slash                TODO
+//    Into the Fray                 TODO
+//    Trail-sniffer                 TODO
+//    Symphoniac                    TODO
+//    Speed-chaser                  TODO
 //
 
     void Init();
