@@ -93,12 +93,12 @@ namespace EldritchCouncil {
         return Reroll_Ones;
     }
 
-    Rerolls Swordmasters::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Swordmasters::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Deflect Shots
         if (weapon->isMissile()) {
             return Reroll_Failed;
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int Swordmasters::ComputePoints(int numModels) {

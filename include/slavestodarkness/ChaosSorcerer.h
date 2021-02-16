@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CHAOSSORCERER_H
-#define CHAOSSORCERER_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -43,10 +41,8 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Oracular Visions                 TODO
-// Deamonic Power                   TODO
+// Deamonic Power                   Yes
 // Mark of Chaos                    Yes
 //
 
 } // SlavesToDarkness
-
-#endif //CHAOSSORCERER_H

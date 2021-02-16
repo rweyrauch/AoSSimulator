@@ -6,10 +6,12 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "slavestodarkness/Belakor.h"
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
+
     static const int g_basesize = 50;
     static const int g_wounds = 8;
     static const int g_pointsPerUnit = 240;
@@ -68,12 +70,19 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, DAEMON_PRINCE, BELAKOR};
         m_weapons = {&m_blade};
         m_battleFieldRole = Leader;
+
+        m_totalUnbinds = 2;
+        m_totalSpells = 2;
     }
 
     bool Belakor::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         addModel(model);
+
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, To_Wound_Melee, -1, Spell::Target::Enemy));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

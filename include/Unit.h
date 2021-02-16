@@ -293,7 +293,7 @@ protected:
 
     int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    Rerolls toSaveRerolls(const Weapon *weapon) const override;
+    Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     int braveryModifier() const override;
 

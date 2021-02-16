@@ -132,13 +132,13 @@ namespace DaughtersOfKhaine {
         DaughterOfKhaine(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
-        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *unit) const override;
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         Rerolls runRerolls() const override;
 

@@ -71,12 +71,12 @@ namespace EldritchCouncil {
         }
     }
 
-    Rerolls Loremaster::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Loremaster::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Deflect Shots
         if (weapon->isMissile()) {
             return Reroll_Failed;
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int Loremaster::ComputePoints(int /*numModels*/) {

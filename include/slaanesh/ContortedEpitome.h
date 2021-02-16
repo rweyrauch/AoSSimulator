@@ -47,7 +47,7 @@ namespace Slaanesh {
 // Gift of Power                    Yes
 // Swallow Energy                   Yes
 // Horrible Fascination             TODO
-// Overwhelming Acquiescence        TODO
+// Overwhelming Acquiescence        Yes
 //
 
 } // Slannesh

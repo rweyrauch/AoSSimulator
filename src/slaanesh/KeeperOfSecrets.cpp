@@ -13,6 +13,34 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
+
+    class CacophonicChoir : public Spell {
+    public:
+        explicit CacophonicChoir(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override { return Result::Failed; }
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override;
+    };
+
+    CacophonicChoir::CacophonicChoir(Unit *caster) :
+            Spell(caster, "Cacophonic Choir", 4, 0) {
+        m_allowedTargets = Spell::Target::Point;
+        m_effect = Spell::EffectType::Damage;
+    }
+
+    Spell::Result CacophonicChoir::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+
+        const auto roll = Dice::Roll2D6();
+        auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
+        for (auto unit : units) {
+            if (unit->bravery() < roll) {
+                unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+            }
+        }
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 100;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 340;
@@ -65,6 +93,7 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_impalingClaws);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<CacophonicChoir>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

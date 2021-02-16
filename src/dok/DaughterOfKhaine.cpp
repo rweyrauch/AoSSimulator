@@ -64,13 +64,13 @@ namespace DaughtersOfKhaine {
         return Unit::toWoundRerolls(weapon, unit);
     }
 
-    Rerolls DaughterOfKhaine::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls DaughterOfKhaine::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Blood Rites - Unquenchable Fervour
         if (m_battleRound == 5) {
             return Reroll_Ones;
         }
 
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     Rerolls DaughterOfKhaine::runRerolls() const {

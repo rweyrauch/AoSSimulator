@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef EVOCATORSONDRACOLINES_H
-#define EVOCATORSONDRACOLINES_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
@@ -36,7 +34,7 @@ namespace StormcastEternals {
 
     protected:
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         int generateMortalWounds(const Unit *unit) override;
 
@@ -67,5 +65,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //EVOCATORSONDRACOLINES_H

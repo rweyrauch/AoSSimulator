@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SOULMASON_H
-#define SOULMASON_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -49,9 +47,8 @@ namespace OssiarchBonereapers {
 // Abilities                    Implemented
 // -------------------------------------------
 // Mortek Throne                    TODO
-// Soul-guide                       TODO
+// Soul-guide                       Yes
 //
 
 } // namespace OssiarchBonereapers
 
-#endif //SOULMASON_H

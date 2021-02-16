@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ETERNALGUARD_H
-#define ETERNALGUARD_H
+#pragma once
 
 #include <wanderers/Wanderer.h>
 #include <Weapon.h>
@@ -37,7 +35,7 @@ namespace Wanderers {
 
         int braveryModifier() const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
 
@@ -67,5 +65,3 @@ namespace Wanderers {
 //
 
 } // namespace Wanderers
-
-#endif //ETERNALGUARD_H

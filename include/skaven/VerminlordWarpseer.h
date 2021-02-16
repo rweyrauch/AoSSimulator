@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VERMINLORDWARPSEER_H
-#define VERMINLORDWARPSEER_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -35,7 +33,7 @@ namespace Skaven {
 
         void onStartHero(PlayerId player) override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         void onStartShooting(PlayerId player) override;
 
@@ -71,5 +69,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //VERMINLORDWARPSEER_H

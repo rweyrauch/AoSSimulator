@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ORRUKWARBOSSWYVERN_H
-#define ORRUKWARBOSSWYVERN_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -38,7 +36,7 @@ namespace Greenskinz {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         void onRestore() override;
 
@@ -63,5 +61,3 @@ namespace Greenskinz {
 //
 
 } // namespace Greenskinz
-
-#endif // ORRUKWARBOSSWYVERN_H

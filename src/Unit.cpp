@@ -743,14 +743,14 @@ int Unit::heal(int numWounds) {
     return numHealedWounds;
 }
 
-bool Unit::makeSave(const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll) {
-    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, target);
+bool Unit::makeSave(const Weapon *weapon, int weaponRend, Unit *attacker, int &saveRoll) {
+    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, attacker);
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save + saveModifiers - effectiveRend;
 
     saveRoll = Dice::RollD6();
     if (saveRoll < toSave) {
-        auto reroll = toSaveRerolls(weapon);
+        auto reroll = toSaveRerolls(weapon, attacker);
         if (reroll == Reroll_Failed) {
             saveRoll = Dice::RollD6();
         }
@@ -824,7 +824,7 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
 
                     // roll save
                     int saveRoll = 0;
-                    if (!target->makeSave(weapon, weaponRend(weapon, target, hitRoll, woundRoll), target,saveRoll)) {
+                    if (!target->makeSave(weapon, weaponRend(weapon, target, hitRoll, woundRoll), this,saveRoll)) {
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
 
@@ -1167,12 +1167,12 @@ int Unit::toSaveModifier(const Weapon *weapon) const {
     return modifier;
 }
 
-Rerolls Unit::toSaveRerolls(const Weapon *weapon) const {
-    auto globalRR = s_globalSaveReroll(this, weapon, this);
+Rerolls Unit::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+    auto globalRR = s_globalSaveReroll(this, weapon, attacker);
     if (globalRR != No_Rerolls)
         return globalRR;
 
-    auto baseRR = UnitModifierInterface::toSaveRerolls(weapon);
+    auto baseRR = UnitModifierInterface::toSaveRerolls(weapon, attacker);
     if (baseRR != No_Rerolls)
         return baseRR;
 

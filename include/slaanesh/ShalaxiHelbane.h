@@ -36,6 +36,8 @@ namespace Slaanesh {
 
         bool configure(WeaponOption weapon, Lore lore);
 
+        void enableRefineSenses() { m_refinedSensesActive = true; };
+
     protected:
 
         int getDamageTableIndex() const;
@@ -44,11 +46,22 @@ namespace Slaanesh {
 
         void onRestore() override;
 
+        void onStartHero(PlayerId player) override {
+            if (player == owningPlayer()) {
+                m_refinedSensesActive = false;
+            }
+        }
+
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+
     private:
+
+        bool m_refinedSensesActive = false;
 
         WeaponOption m_weapon = Shining_Aegis;
 
@@ -68,7 +81,7 @@ namespace Slaanesh {
 // Living Whip                      TODO
 // Shining Aegis                    Yes
 // The Killing Stroke               TODO
-// Refine Senses                    TODO
+// Refine Senses                    Yes
 //
 
 } // Slannesh

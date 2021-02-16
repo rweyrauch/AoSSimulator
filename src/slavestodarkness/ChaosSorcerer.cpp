@@ -11,6 +11,37 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
+
+    class DaemonicPower : public Spell {
+    public:
+        explicit DaemonicPower(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+    };
+
+    DaemonicPower::DaemonicPower(Unit *caster) :
+            Spell(caster, "Daemonic Power", 6, 18) {
+        m_allowedTargets = Spell::Target::SelfAndFriendly;
+        m_effect = Spell::EffectType::Buff;
+        m_targetKeywords.push_back(MORTAL);
+        m_targetKeywords.push_back(SLAVES_TO_DARKNESS);
+    }
+
+    Spell::Result DaemonicPower::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        target->buffReroll(To_Hit_Melee, Reroll_Failed, defaultDuration());
+        target->buffReroll(To_Hit_Missile, Reroll_Failed, defaultDuration());
+        target->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
+        target->buffReroll(To_Wound_Missile, Reroll_Failed, defaultDuration());
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 110;
@@ -78,6 +109,7 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<DaemonicPower>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef IRONGOLEMS_H
-#define IRONGOLEMS_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -33,7 +31,7 @@ namespace SlavesToDarkness {
 
         int braveryModifier() const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -52,5 +50,3 @@ namespace SlavesToDarkness {
 //
 
 } // SlavesToDarkness
-
-#endif //IRONGOLEMS_H

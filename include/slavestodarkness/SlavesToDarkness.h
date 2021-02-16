@@ -124,7 +124,7 @@ namespace SlavesToDarkness {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 

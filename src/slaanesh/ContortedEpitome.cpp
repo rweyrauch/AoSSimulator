@@ -9,9 +9,44 @@
 #include <slaanesh/ContortedEpitome.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
+
+    class OverwhelmingAcquiescence : public Spell {
+    public:
+        explicit OverwhelmingAcquiescence(Unit *caster);
+
+    protected:
+
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override { return Result::Failed; }
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override;
+    };
+
+    OverwhelmingAcquiescence::OverwhelmingAcquiescence(Unit *caster) :
+            Spell(caster, "Overwhelming Acquiescence", 7, 24) {
+        m_allowedTargets = Target::Point;
+        m_effect = EffectType::Debuff;
+    }
+
+    Spell::Result OverwhelmingAcquiescence::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
+
+        auto numUnits = Dice::RollD3();
+        int numAffected = 0;
+
+        for (auto unit : units) {
+            unit->buffReroll(Target_To_Hit_Missile, Reroll_Ones, defaultDuration());
+            unit->buffReroll(Target_To_Hit_Melee, Reroll_Ones, defaultDuration());
+
+            numAffected++;
+            if (numAffected > numUnits) break;
+        }
+        return Result::Success;
+    }
+
     static const int g_basesize = 25;
     static const int g_wounds = 7;
     static const int g_pointsPerUnit = 210;
@@ -37,6 +72,7 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_coiledTentacles);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<OverwhelmingAcquiescence>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -109,11 +109,11 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Gromril Shields
         if ((m_weaponOption == Ancestral_Weapon_And_Shield) && !weapon->isMissile()) return Reroll_Failed;
 
-        return CitizenOfSigmar::toSaveRerolls(weapon);
+        return CitizenOfSigmar::toSaveRerolls(weapon, attacker);
     }
 
     std::string Longbeards::ValueToString(const Parameter &parameter) {

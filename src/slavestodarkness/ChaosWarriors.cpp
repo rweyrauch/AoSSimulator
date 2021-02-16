@@ -216,11 +216,11 @@ namespace SlavesToDarkness {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Legions of Chaos
         if (remainingModels() >= 10)
             return Reroll_Failed;
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int ChaosWarriors::ComputePoints(int numModels) {

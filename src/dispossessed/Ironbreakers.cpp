@@ -109,13 +109,13 @@ namespace Dispossessed {
         }
     }
 
-    Rerolls Ironbreakers::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Ironbreakers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Gromril Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
                 return Reroll_Failed;
         }
-        return Dispossessed::toSaveRerolls(weapon);
+        return Dispossessed::toSaveRerolls(weapon, attacker);
     }
 
     int Ironbreakers::toSaveModifier(const Weapon *weapon) const {

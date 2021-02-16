@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CONCUSSORS_H
-#define CONCUSSORS_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -33,7 +31,7 @@ namespace StormcastEternals {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -54,5 +52,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //CONCUSSORS_H

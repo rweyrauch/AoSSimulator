@@ -11,6 +11,36 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
+
+    class ShardStorm : public Spell {
+    public:
+        explicit ShardStorm(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+    };
+
+    ShardStorm::ShardStorm(Unit *caster) :
+            Spell(caster, "Shard-storm", 5, 18) {
+        m_allowedTargets = Spell::Target::Enemy;
+        m_effect = Spell::EffectType::Damage;
+    }
+
+    Spell::Result ShardStorm::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        Dice::RollResult roll;
+        Dice::RollD6(target->remainingModels(), roll);
+
+        int totalWounds = roll.rollsGE(6);
+        target->applyDamage({0, totalWounds, Wounds::Source::Spell}, m_caster);
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 130;

@@ -164,12 +164,12 @@ namespace Greenskinz {
         return Unit::toWoundModifier(weapon, target);
     }
 
-    Rerolls OrrukBoarboys::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls OrrukBoarboys::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Tusker Shield
         if (!weapon->isMissile()) {
             return Reroll_Failed;
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int OrrukBoarboys::ComputePoints(int numModels) {

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef STEELHEARTSCHAMPIONS_H
-#define STEELHEARTSCHAMPIONS_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -34,7 +32,7 @@ namespace StormcastEternals {
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
@@ -58,5 +56,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //STEELHEARTSCHAMPIONS_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ARCHREVENANT_H
-#define ARCHREVENANT_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -33,7 +31,7 @@ namespace Sylvaneth {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         // Buff shields when not our combat phase.
         void onStartHero(PlayerId id) override { m_crescentShieldProtection = false; }
@@ -65,5 +63,3 @@ namespace Sylvaneth {
 //
 
 } // namespace Sylvaneth
-
-#endif //ARCHREVENANT_H

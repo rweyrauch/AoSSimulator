@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKULLTAKER_H
-#define SKULLTAKER_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -33,7 +31,7 @@ namespace Khorne {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
@@ -56,5 +54,3 @@ namespace Khorne {
 //
 
 } // namespace Khorne
-
-#endif //SKULLTAKER_H

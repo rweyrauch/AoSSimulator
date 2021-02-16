@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SWORDMASTERS_H
-#define SWORDMASTERS_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -34,7 +32,7 @@ namespace EldritchCouncil {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -52,5 +50,3 @@ namespace EldritchCouncil {
 //
 
 } // namespace EldritchCouncil
-
-#endif //SWORDMASTERS_H

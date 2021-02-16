@@ -116,13 +116,13 @@ namespace Dispossessed {
         return extra;
     }
 
-    Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Duardin Bucklers
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
                 return Reroll_Failed;
         }
-        return Dispossessed::toSaveRerolls(weapon);
+        return Dispossessed::toSaveRerolls(weapon, attacker);
     }
 
     std::string Quarrellers::ValueToString(const Parameter &parameter) {

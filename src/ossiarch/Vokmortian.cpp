@@ -11,6 +11,34 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
+
+    class MortalTouch : public Spell {
+    public:
+        explicit MortalTouch(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+    };
+
+    MortalTouch::MortalTouch(Unit *caster) :
+            Spell(caster, "Mortal Touch", 8, 1) {
+        m_allowedTargets = Spell::Target::Enemy;
+        m_effect = Spell::EffectType::Damage;
+    }
+
+    Spell::Result MortalTouch::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        if (Dice::RollD6() >= 5) {
+            target->slay(1);
+        }
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 40;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 180;
@@ -74,8 +102,8 @@ namespace OssiarchBonereapers {
 
         s_globalBraveryMod.connect(this, &Vokmortian::grimWarning, &m_connection);
 
-        m_totalSpells = 1;
-        m_totalUnbinds = 1;
+        m_totalSpells = 2;
+        m_totalUnbinds = 2;
     }
 
     Vokmortian::~Vokmortian() {
@@ -90,6 +118,7 @@ namespace OssiarchBonereapers {
 
         m_lore = lore;
 
+        m_knownSpells.push_back(std::make_unique<MortalTouch>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

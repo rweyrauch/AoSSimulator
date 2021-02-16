@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDCELESTANTONSTARDRAKE_H
-#define LORDCELESTANTONSTARDRAKE_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -48,7 +46,7 @@ namespace StormcastEternals {
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
@@ -91,5 +89,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //LORDCELESTANTONSTARDRAKE_H

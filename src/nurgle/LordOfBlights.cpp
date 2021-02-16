@@ -78,10 +78,10 @@ namespace Nurgle {
         return true;
     }
 
-    Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Vermid Shield
         if (!weapon->isMissile()) return Reroll_Ones;
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int LordOfBlights::ComputePoints(int /*numModels*/) {

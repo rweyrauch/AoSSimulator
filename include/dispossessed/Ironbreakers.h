@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef IRONBREAKERS_H
-#define IRONBREAKERS_H
+#pragma once
 
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
@@ -41,7 +39,7 @@ namespace Dispossessed {
 
     protected:
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         int toSaveModifier(const Weapon *weapon) const override;
 
@@ -73,5 +71,3 @@ namespace Dispossessed {
 //
 
 } // namespace Dispossessed
-
-#endif //IRONBREAKERS_H

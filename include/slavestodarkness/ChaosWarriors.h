@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CHAOSWARRIORS_H
-#define CHAOSWARRIORS_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -46,7 +44,7 @@ namespace SlavesToDarkness {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         int runModifier() const override;
 
@@ -83,5 +81,3 @@ namespace SlavesToDarkness {
 //
 
 } // SlavesToDarkness
-
-#endif //CHAOSWARRIORS_H

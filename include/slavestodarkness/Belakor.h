@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BELAKOR_H
-#define BELAKOR_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -46,9 +44,8 @@ namespace SlavesToDarkness {
 // The Dark Master                  TODO
 // Lord of Torment                  TODO
 // Shadow Form                      Yes
-// Enfeeble Foe                     TODO
+// Enfeeble Foe                     Yes
 //
 
 } // SlavesToDarkness
 
-#endif //BELAKOR_H

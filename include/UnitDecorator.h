@@ -70,8 +70,8 @@ public:
         return m_interface->targetSaveModifier(weapon, attacker);
     }
 
-    Rerolls toSaveRerolls(const Weapon *weapon) const override {
-        return m_interface->toSaveRerolls(weapon);
+    Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override {
+        return m_interface->toSaveRerolls(weapon, attacker);
     }
 
     int braveryModifier() const override {

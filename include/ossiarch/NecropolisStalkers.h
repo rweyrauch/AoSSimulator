@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef NECROPOLISSTALKERS_H
-#define NECROPOLISSTALKERS_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -41,7 +39,7 @@ namespace OssiarchBonereapers {
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
@@ -76,4 +74,3 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //NECROPOLISSTALKERS_H

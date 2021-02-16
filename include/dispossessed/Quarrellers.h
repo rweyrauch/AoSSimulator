@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef QUARRELLERS_H
-#define QUARRELLERS_H
+#pragma once
 
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
@@ -43,7 +41,7 @@ namespace Dispossessed {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         int rollRunDistance() const override;
 
@@ -71,5 +69,3 @@ namespace Dispossessed {
 //
 
 } // namespace Dispossessed
-
-#endif //QUARRELLERS_H

@@ -11,6 +11,40 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
+
+    class WindOfChaos : public Spell {
+    public:
+        explicit WindOfChaos(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+    };
+
+    WindOfChaos::WindOfChaos(Unit *caster) :
+            Spell(caster, "Wind of Chaos", 7, 18) {
+        m_allowedTargets = Spell::Target::Enemy;
+        m_effect = Spell::EffectType::Damage;
+    }
+
+    Spell::Result WindOfChaos::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        Dice::RollResult roll;
+        Dice::RollD6(target->remainingModels(), roll);
+
+        int totalWounds = roll.m_distribution[5];
+
+        for (auto i = 0; i < roll.m_distribution[6]; i++) {
+            totalWounds += Dice::RollD3();
+        }
+        target->applyDamage({0, totalWounds, Wounds::Source::Spell}, m_caster);
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 90; // x52 oval
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 260;
@@ -98,6 +132,7 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_tail);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<WindOfChaos>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BONESHAPER_H
-#define BONESHAPER_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -47,9 +45,8 @@ namespace OssiarchBonereapers {
 // Abilities                    Implemented
 // -------------------------------------------
 // Boneshaper                       TODO
-// Shard-storm                      TODO
+// Shard-storm                      Yes
 //
 
 } // namespace OssiarchBonereapers
 
-#endif //BONESHAPER_H

@@ -138,13 +138,13 @@ namespace Skaven {
         }
     }
 
-    Rerolls VerminlordWarpseer::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls VerminlordWarpseer::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         if (!m_usedOrb) {
             // Scry-orb
             return Reroll_Failed;
         }
 
-        return Skaventide::toSaveRerolls(weapon);
+        return Skaventide::toSaveRerolls(weapon, attacker);
     }
 
     void VerminlordWarpseer::onStartShooting(PlayerId player) {

@@ -131,12 +131,12 @@ namespace OssiarchBonereapers {
         m_artefact = artefact;
     }
 
-    Rerolls OssiarchBonereaperBase::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls OssiarchBonereaperBase::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Unstoppable Juggernauts
         if (m_legion == Legion::Petrifex_Elite) {
             return Reroll_Ones;
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int OssiarchBonereaperBase::theDreadLegion(const Unit *target) {

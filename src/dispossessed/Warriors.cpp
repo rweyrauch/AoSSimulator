@@ -113,13 +113,13 @@ namespace Dispossessed {
         }
     }
 
-    Rerolls Warriors::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Warriors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Duardin Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
                 return Reroll_Failed;
         }
-        return Dispossessed::toSaveRerolls(weapon);
+        return Dispossessed::toSaveRerolls(weapon, attacker);
     }
 
     Rerolls Warriors::toWoundRerolls(const Weapon *weapon, const Unit *target) const {

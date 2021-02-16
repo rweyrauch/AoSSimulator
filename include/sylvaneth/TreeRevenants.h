@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TREEREVENANTS_H
-#define TREEREVENANTS_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -39,7 +37,7 @@ namespace Sylvaneth {
 
         Rerolls battleshockRerolls() const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
@@ -74,5 +72,3 @@ namespace Sylvaneth {
 //
 
 } // namespace Sylvaneth
-
-#endif //TREEREVENANTS_H

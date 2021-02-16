@@ -79,7 +79,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls Skulltaker::toSaveRerolls(const Weapon * /*weapon*/) const {
+    Rerolls Skulltaker::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Cloak of Skulls
         return Reroll_Failed;
     }

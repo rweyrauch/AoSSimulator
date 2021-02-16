@@ -109,13 +109,13 @@ namespace Dispossessed {
         }
     }
 
-    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Gromril Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
                 return Reroll_Failed;
         }
-        return Dispossessed::toSaveRerolls(weapon);
+        return Dispossessed::toSaveRerolls(weapon, attacker);
     }
 
     std::string Longbeards::ValueToString(const Parameter &parameter) {

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CHAOSSORCERERONMANTICORE_H
-#define CHAOSSORCERERONMANTICORE_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -52,11 +50,9 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Oracular Visions                 TODO
-// Wind of Chaos                    TODO
+// Wind of Chaos                    Yes
 // Territorial Predator             Yes
 // Mark of Chaos                    Yes
 //
 
 } // SlavesToDarkness
-
-#endif //CHAOSSORCERERONMANTICORE_H

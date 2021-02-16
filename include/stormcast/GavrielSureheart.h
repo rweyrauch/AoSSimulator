@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GAVRIELSUREHEART_H
-#define GAVRIELSUREHEART_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -33,7 +31,7 @@ namespace StormcastEternals {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
@@ -53,5 +51,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //GAVRIELSUREHEART_H

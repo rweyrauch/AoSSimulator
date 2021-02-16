@@ -141,7 +141,9 @@ namespace Nurgle {
         totalWounds.mortal -= mortalSaves.rollsGE(5);
 
         // On each 6+, the attacking unit takes a mortal wound.
-        attackingUnit->applyDamage({0, mortalSaves.rollsGE(6) + woundSaves.rollsGE(6)}, this);
+        auto numReturnedMortals = mortalSaves.rollsGE(6) + woundSaves.rollsGE(6);
+        if (numReturnedMortals > 0)
+            attackingUnit->applyDamage({0, numReturnedMortals}, this);
 
         return totalWounds.clamp();
     }

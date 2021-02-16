@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef PLAGUEBEARERS_H
-#define PLAGUEBEARERS_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -35,7 +33,7 @@ namespace Nurgle {
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -54,5 +52,3 @@ namespace Nurgle {
 //
 
 } // Nurgle
-
-#endif //PLAGUEBEARERS_H

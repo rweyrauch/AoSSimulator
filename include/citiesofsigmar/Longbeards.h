@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LONGBEARDS_H
-#define LONGBEARDS_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -46,7 +44,7 @@ namespace CitiesOfSigmar {
 
         int braveryModifier() const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -70,5 +68,3 @@ namespace CitiesOfSigmar {
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //LONGBEARDS_H

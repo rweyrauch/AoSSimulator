@@ -277,12 +277,12 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, target);
     }
 
-    Rerolls Prosecutors::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Prosecutors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Sigmarite Shields
         if (m_weaponOption == Celestial_Hammer_And_Shield || m_weaponOption == Stormcall_Javelin_And_Shield) {
             return Reroll_Ones;
         }
-        return StormcastEternal::toSaveRerolls(weapon);
+        return StormcastEternal::toSaveRerolls(weapon, attacker);
     }
 
     int Prosecutors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

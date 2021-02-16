@@ -12,6 +12,31 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
+
+    class RefineSenses : public Spell {
+    public:
+        explicit RefineSenses(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    RefineSenses::RefineSenses(Unit *caster) :
+            Spell(caster, "Refine Senses", 4, 0) {
+        m_allowedTargets = Spell::Target::Self;
+        m_effect = Spell::EffectType::Buff;
+    }
+
+    Spell::Result RefineSenses::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+
+        auto shalaxi = dynamic_cast<ShalaxiHelbane*>(m_caster);
+        if (shalaxi) {
+            shalaxi->enableRefineSenses();
+        }
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 100;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 310;
@@ -62,6 +87,7 @@ namespace Slaanesh {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<RefineSenses>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -186,6 +212,20 @@ namespace Slaanesh {
 
     int ShalaxiHelbane::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Rerolls ShalaxiHelbane::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (m_refinedSensesActive && target->hasKeyword(HERO)) {
+            return Reroll_Failed;
+        }
+        return SlaaneshBase::toHitRerolls(weapon, target);
+    }
+
+    Rerolls ShalaxiHelbane::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+        if (m_refinedSensesActive && attacker->hasKeyword(HERO)) {
+            return Reroll_Failed;
+        }
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
 } // Slannesh

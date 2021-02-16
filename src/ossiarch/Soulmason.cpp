@@ -11,6 +11,34 @@
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
+
+    class SoulGuide : public Spell {
+    public:
+        explicit SoulGuide(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+    };
+
+    SoulGuide::SoulGuide(Unit *caster) :
+            Spell(caster, "Soul-guide", 6, 24) {
+        m_allowedTargets = Spell::Target::SelfAndFriendly;
+        m_effect = Spell::EffectType::Buff;
+        m_targetKeywords.push_back(OSSIARCH_BONEREAPERS);
+    }
+
+    Spell::Result SoulGuide::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        target->buffReroll(To_Hit_Melee, Reroll_Ones, defaultDuration());
+        target->buffReroll(To_Hit_Missile, Reroll_Ones, defaultDuration());
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 40;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 140;
@@ -91,6 +119,7 @@ namespace OssiarchBonereapers {
 
         m_lore = lore;
 
+        m_knownSpells.push_back(std::make_unique<SoulGuide>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -123,7 +123,7 @@ public:
 
     virtual int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
 
-    virtual Rerolls toSaveRerolls(const Weapon *weapon) const { return No_Rerolls; }
+    virtual Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const { return No_Rerolls; }
 
     virtual int braveryModifier() const { return 0; }
 

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDOFBLIGHTS_H
-#define LORDOFBLIGHTS_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -31,7 +29,7 @@ namespace Nurgle {
 
     protected:
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -51,5 +49,3 @@ namespace Nurgle {
 //
 
 } // Nurgle
-
-#endif //LORDOFBLIGHTS_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KNIGHTQUESTOR_H
-#define KNIGHTQUESTOR_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -33,7 +31,7 @@ namespace StormcastEternals {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
@@ -53,5 +51,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //KNIGHTQUESTOR_H

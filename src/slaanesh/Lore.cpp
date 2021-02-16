@@ -7,6 +7,7 @@
  */
 
 #include <slaanesh/Lore.h>
+#include <Board.h>
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
@@ -109,10 +110,10 @@ namespace Slaanesh {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        auto Dice::RollResult roll;
+        Dice::RollResult roll;
         Dice::RollD6(6, roll);
 
-        target->buffModifier(Bravery, roll.rollGE(5), defaultDuration());
+        target->buffModifier(Bravery, roll.rollsGE(5), defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -141,6 +142,63 @@ namespace Slaanesh {
         return Spell::Result::Success;
     }
 
+    class JudgementOfExcess : public Spell {
+    public:
+        explicit JudgementOfExcess(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    JudgementOfExcess::JudgementOfExcess(Unit *caster) :
+            Spell(caster, "Judgement of Excess", 5, 12) {
+        m_allowedTargets = Spell::Target::Enemy;
+        m_effect = Spell::EffectType::Damage;
+    }
+
+    Spell::Result JudgementOfExcess::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr)
+            return Spell::Result::Failed;
+
+        auto numWounds = (target->remainingModels() + 5)/5;
+        target->applyDamage({0, numWounds, Wounds::Source::Spell}, m_caster);
+
+        return Spell::Result::Success;
+    }
+
+    class BattleRapture : public Spell {
+    public:
+        explicit BattleRapture(Unit *caster);
+
+    protected:
+
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    BattleRapture::BattleRapture(Unit *caster) :
+            Spell(caster, "Battle Rapture", 5, 18) {
+        m_allowedTargets = Target::Friendly;
+        m_effect = EffectType::Buff;
+        m_targetKeywords.push_back(MORTAL);
+        m_targetKeywords.push_back(SLAANESH);
+    }
+
+    Spell::Result BattleRapture::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
+        auto numUnits = (castingValue >= 10) ? 3 : 1;
+        int numAffected = 0;
+        for (auto unit : units) {
+            if (unit->hasKeyword(MORTAL) && unit->hasKeyword(SLAANESH)) {
+                unit->buffModifier(Bravery, 10, defaultDuration());
+                numAffected++;
+            }
+            if (numAffected > numUnits) break;
+        }
+        return Result::Success;
+    }
+
     Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
             case Lore::Lash_Of_Slaanesh:
@@ -162,8 +220,9 @@ namespace Slaanesh {
             case Lore::Slothful_Stupor:
                 return nullptr;
             case Lore::Battle_Rapture:
-                return nullptr;
+                return new BattleRapture(caster);
             case Lore::Judgement_Of_Excess:
+                return new JudgementOfExcess(caster);
             case Lore::Dark_Delusions:
                 return nullptr;
             default:

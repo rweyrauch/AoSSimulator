@@ -94,13 +94,13 @@ namespace Sylvaneth {
         return SylvanethBase::toHitRerolls(weapon, unit);
     }
 
-    Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Crescent Shield
         if (m_crescentShieldProtection) {
             return Reroll_Ones;
         }
 
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int ArchRevenant::ComputePoints(int /*numModels*/) {

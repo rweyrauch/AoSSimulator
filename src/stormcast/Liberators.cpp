@@ -97,13 +97,13 @@ namespace StormcastEternals {
         return modifier;
     }
 
-    Rerolls Liberators::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Liberators::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Sigmarite Shields
         if (m_weaponOption == Warhammer || m_weaponOption == Warblade) {
             return Reroll_Ones;
         }
 
-        return StormcastEternal::toSaveRerolls(weapon);
+        return StormcastEternal::toSaveRerolls(weapon, attacker);
     }
 
     int Liberators::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {

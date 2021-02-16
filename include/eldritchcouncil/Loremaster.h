@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LOREMASTER_H
-#define LOREMASTER_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -32,7 +30,7 @@ namespace EldritchCouncil {
 
     protected:
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -49,5 +47,3 @@ namespace EldritchCouncil {
 //
 
 } // namespace EldritchCouncil
-
-#endif //LOREMASTER_H

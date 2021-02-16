@@ -5,10 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THEDDRASKULLSCRYER_H
-#define THEDDRASKULLSCRYER_H
-
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -47,9 +44,8 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Pact of Soul and Iron            Yes
-// Enfeeblement                     TODO
+// Enfeeblement                     Yes
 //
 
 } // SlavesToDarkness
 
-#endif //THEDDRASKULLSCRYER_H

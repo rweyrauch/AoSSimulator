@@ -131,12 +131,12 @@ namespace StormcastEternals {
         return attacks;
     }
 
-    Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Sigmarite Thundershield
         if (m_sigmariteThundershield) {
             return Reroll_Ones;
         }
-        return StormcastEternal::toSaveRerolls(weapon);
+        return StormcastEternal::toSaveRerolls(weapon, attacker);
     }
 
     Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {

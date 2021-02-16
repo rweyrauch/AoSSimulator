@@ -160,7 +160,7 @@ namespace SlavesToDarkness {
         return mod;
     }
 
-    Rerolls SlavesToDarknessBase::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls SlavesToDarknessBase::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Aura of Tzeentch
         if (hasKeyword(TZEENTCH)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
@@ -168,7 +168,7 @@ namespace SlavesToDarkness {
                 return Reroll_Ones;
             }
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     void Init() {

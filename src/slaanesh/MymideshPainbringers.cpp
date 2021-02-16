@@ -102,12 +102,12 @@ namespace Slaanesh {
         return UnitModifierInterface::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls MyrmideshPainbringers::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls MyrmideshPainbringers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Painbringer Shields
         if (!weapon->isMissile()) {
             return Reroll_Failed;
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
 } // namespace Slaanesh

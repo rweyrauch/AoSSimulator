@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "slavestodarkness/TheddraSkullScryer.h"
 #include "SlavesToDarknessPrivate.h"
 
@@ -70,6 +71,10 @@ namespace SlavesToDarkness {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_wand);
         addModel(model);
+
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeblement", 6, 12, To_Wound_Melee, -1, Spell::Target::Enemy));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

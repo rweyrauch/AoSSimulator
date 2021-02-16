@@ -75,7 +75,7 @@ namespace Slaanesh {
 // Living Whip                      TODO
 // Shining Aegis                    Yes
 // Sinistrous Hand                  Partial/TODO
-// Cacophonic Choir                 TODO
+// Cacophonic Choir                 Yes
 // Excess of Violence               TODO
 //
 

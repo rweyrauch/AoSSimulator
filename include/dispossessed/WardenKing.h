@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WARDENKING_H
-#define WARDENKING_H
+#pragma once
 
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
@@ -32,7 +30,7 @@ namespace Dispossessed {
     protected:
 
         // Ancestor Shield
-        Rerolls toSaveRerolls(const Weapon *weapon) const override { return Reroll_Failed; }
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override { return Reroll_Failed; }
 
     private:
 
@@ -50,5 +48,3 @@ namespace Dispossessed {
 //
 
 } // namespace Dispossessed
-
-#endif //WARDENKING_H

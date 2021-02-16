@@ -46,13 +46,13 @@ namespace StormcastEternals {
         return true;
     }
 
-    Rerolls StormsiresCursebreakers::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls StormsiresCursebreakers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Celestial Lightning Arc
         if (weapon->isMissile()) {
             return Reroll_Ones;
         }
 
-        return StormcastEternal::toSaveRerolls(weapon);
+        return StormcastEternal::toSaveRerolls(weapon, attacker);
     }
 
     int StormsiresCursebreakers::generateMortalWounds(const Unit *unit) {

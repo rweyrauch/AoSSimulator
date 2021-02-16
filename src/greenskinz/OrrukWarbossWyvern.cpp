@@ -116,12 +116,12 @@ namespace Greenskinz {
         onWounded();
     }
 
-    Rerolls OrrukWarbossOnWyvern::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls OrrukWarbossOnWyvern::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Boss Shield
         if (!m_pairedChoppas) {
             return Reroll_Failed;
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int

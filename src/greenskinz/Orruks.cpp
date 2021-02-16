@@ -221,12 +221,12 @@ namespace Greenskinz {
         return attacks;
     }
 
-    Rerolls Orruks::toSaveRerolls(const Weapon *weapon) const {
+    Rerolls Orruks::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Waaagh! Shield
         if (!weapon->isMissile() && (m_weaponOption == Choppa_And_Shield || m_weaponOption == Spear_And_Shield)) {
             return Reroll_Failed;
         }
-        return Unit::toSaveRerolls(weapon);
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     int Orruks::toHitModifier(const Weapon *weapon, const Unit *target) const {

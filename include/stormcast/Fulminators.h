@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FULMINATORS_H
-#define FULMINATORS_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -33,7 +31,7 @@ namespace StormcastEternals {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         int toSaveModifier(const Weapon *weapon) const override;
 
@@ -57,5 +55,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //FULMINATORS_H

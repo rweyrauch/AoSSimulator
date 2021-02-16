@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WARRIORS_H
-#define WARRIORS_H
+#pragma once
 
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
@@ -47,7 +45,7 @@ namespace Dispossessed {
 
     protected:
 
-        Rerolls toSaveRerolls(const Weapon *weapon) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
@@ -82,5 +80,3 @@ namespace Dispossessed {
 //
 
 } // namespace Dispossessed
-
-#endif //WARRIORS_H
