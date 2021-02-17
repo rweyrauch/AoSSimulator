@@ -10,30 +10,12 @@
 #include <string>
 #include <utility>
 #include "AgeOfSigmarSim.h"
+#include "Abilities.h"
 
 class Unit;
 
 class Prayer {
 public:
-
-    enum class Target {
-        None,
-        Point,
-        Friendly,
-        Enemy,
-        Self,
-        SelfAndFriendly,
-        Any
-    };
-
-    enum class EffectType {
-        Utility,
-        Damage,
-        AreaOfEffectDamage,
-        Heal,
-        Buff,
-        Debuff
-    };
 
     explicit Prayer(Unit *priest, std::string name, int prayingValue, double range, int damageOn1 = 0) :
             m_priest(priest),
@@ -54,7 +36,7 @@ public:
 
     const std::string &name() const { return m_name; }
 
-    Target allowedTargets() const { return m_allowedTargets; }
+    Abilities::Target allowedTargets() const { return m_allowedTargets; }
     const std::vector<Keyword>& allowedTargetKeywords() const { return m_targetKeywords; }
 
 protected:
@@ -71,8 +53,8 @@ protected:
     int m_damageOn1 = 0;
 
     bool m_lineOfSiteRequired = true;
-    Target m_allowedTargets = Target::None;
-    EffectType m_effect = EffectType::Utility;
+    Abilities::Target m_allowedTargets = Abilities::Target::None;
+    Abilities::EffectType m_effect = Abilities::EffectType::Utility;
     std::vector<Keyword> m_targetKeywords;
 
 };
@@ -113,7 +95,7 @@ protected:
 class BuffModifierPrayer : public Prayer {
 public:
     BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
-                       BuffableAttribute which, int modifier, Target allowedTargets, int damageOn1 = 0);
+                       BuffableAttribute which, int modifier, Abilities::Target allowedTargets, int damageOn1 = 0);
 
 protected:
 
@@ -129,7 +111,7 @@ protected:
 class BuffRerollPrayer : public Prayer {
 public:
     BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
-                     BuffableAttribute which, Rerolls reroll, Target allowedTargets, int damageOn1 = 0);
+                     BuffableAttribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1 = 0);
 
 protected:
 

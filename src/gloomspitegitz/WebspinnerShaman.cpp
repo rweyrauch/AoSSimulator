@@ -26,8 +26,8 @@ namespace GloomspiteGitz {
 
     SpeedOfTheSpiderGod::SpeedOfTheSpiderGod(Unit *caster) :
         Spell(caster, "Speed of the Spider God", 4, 24) {
-        m_allowedTargets = Spell::Target::SelfAndFriendly;
-        m_effect = EffectType::Buff;
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(SPIDERFANG);
     }
 

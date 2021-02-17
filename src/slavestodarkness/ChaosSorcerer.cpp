@@ -23,8 +23,8 @@ namespace SlavesToDarkness {
 
     DaemonicPower::DaemonicPower(Unit *caster) :
             Spell(caster, "Daemonic Power", 6, 18) {
-        m_allowedTargets = Spell::Target::SelfAndFriendly;
-        m_effect = Spell::EffectType::Buff;
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(MORTAL);
         m_targetKeywords.push_back(SLAVES_TO_DARKNESS);
     }

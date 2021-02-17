@@ -64,8 +64,8 @@ DamagePrayer::DamagePrayer(Unit *priest, const std::string &name, int prayingVal
                            int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_damage(damage) {
-    m_allowedTargets = Prayer::Target::Enemy;
-    m_effect = EffectType::Damage;
+    m_allowedTargets = Abilities::Target::Enemy;
+    m_effect = Abilities::EffectType::Damage;
 }
 
 int DamagePrayer::getDamage(Unit *target, int prayingRoll) const {
@@ -87,8 +87,8 @@ HealPrayer::HealPrayer(Unit *priest, const std::string &name, int prayingValue, 
         :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_healing(healing) {
-    m_allowedTargets = Prayer::Target::SelfAndFriendly;
-    m_effect = EffectType::Heal;
+    m_allowedTargets = Abilities::Target::SelfAndFriendly;
+    m_effect = Abilities::EffectType::Heal;
 }
 
 bool HealPrayer::apply(int prayingRoll, Unit *target) {
@@ -105,12 +105,12 @@ bool HealPrayer::apply(int prayingRoll, Unit *target) {
 }
 
 BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
-                                       BuffableAttribute which, int modifier, Target allowedTargets, int damageOn1) :
+                                       BuffableAttribute which, int modifier, Abilities::Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_modifier(modifier) {
     m_allowedTargets = allowedTargets;
-    m_effect = (m_modifier > 0) ? EffectType::Buff : EffectType::Debuff;
+    m_effect = (m_modifier > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
 }
 
 bool BuffModifierPrayer::apply(int prayingRoll, Unit *target) {
@@ -126,12 +126,12 @@ int BuffModifierPrayer::getModifier(int prayingRoll) const {
 }
 
 BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
-                                   BuffableAttribute which, Rerolls reroll, Target allowedTargets, int damageOn1) :
+                                   BuffableAttribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_reroll(reroll) {
     m_allowedTargets = allowedTargets;
-    m_effect = EffectType::Buff;
+    m_effect = Abilities::EffectType::Buff;
 }
 
 bool BuffRerollPrayer::apply(int prayingRoll, Unit *target) {

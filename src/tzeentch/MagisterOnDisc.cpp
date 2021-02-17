@@ -7,11 +7,48 @@
  */
 
 #include <UnitFactory.h>
+#include <Roster.h>
 #include <spells/MysticShield.h>
 #include "tzeentch/MagisterOnDisc.h"
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class BoltOfChange : public Spell {
+    public:
+        explicit BoltOfChange(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    BoltOfChange::BoltOfChange(Unit *caster) :
+            Spell(caster, "Bolt of Change", 7, 18) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
+    }
+
+    Spell::Result BoltOfChange::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        auto numSlain = target->applyDamage({0, Dice::RollSpecial(RAND_D3), Wounds::Source::Spell}, m_caster);
+        if (numSlain > 0) {
+            // Add a Chaos Spawn to this roster
+            auto factory = UnitFactory::LookupUnit("Chaos Spawn");
+            if (factory) {
+                if (m_caster->getRoster()) {
+                    auto unit = UnitFactory::Create("Chaos Spawn", factory->m_parameters);
+                    unit->deploy(m_caster->position(), m_caster->orientation());
+                    m_caster->getRoster()->addUnit(unit);
+                }
+            }
+        }
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 40;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 140;
@@ -79,6 +116,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BoltOfChange>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -24,8 +24,8 @@ namespace StormcastEternals {
 
     DivineLight::DivineLight(Unit *priest) :
         Prayer(priest, "Divine Light", 3, 18) {
-        m_allowedTargets = Prayer::Target::Any;
-        m_effect = Prayer::EffectType::Buff;
+        m_allowedTargets = Abilities::Target::Any;
+        m_effect = Abilities::EffectType::Buff;
     }
 
     bool DivineLight::apply(int prayingRoll, Unit *target) {

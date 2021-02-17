@@ -24,9 +24,9 @@ namespace Slaanesh {
     };
 
     CacophonicChoir::CacophonicChoir(Unit *caster) :
-            Spell(caster, "Cacophonic Choir", 4, 0) {
-        m_allowedTargets = Spell::Target::Point;
-        m_effect = Spell::EffectType::Damage;
+            Spell(caster, "Cacophonic Choir", 4, 6) {
+        m_allowedTargets = Abilities::Target::Point;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result CacophonicChoir::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {

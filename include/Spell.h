@@ -10,6 +10,7 @@
 #include <string>
 #include <utility>
 #include "AgeOfSigmarSim.h"
+#include "Abilities.h"
 
 class Unit;
 
@@ -20,24 +21,6 @@ public:
         Failed,
         Unbound,
         Success,
-    };
-
-    enum class Target {
-        None,
-        Point,
-        Friendly,
-        Enemy,
-        Self,
-        SelfAndFriendly
-    };
-
-    enum class EffectType {
-        Utility,
-        Damage,
-        AreaOfEffectDamage,
-        Heal,
-        Buff,
-        Debuff
     };
 
     Spell(Unit *caster, std::string name, int castingValue, int range) :
@@ -54,7 +37,7 @@ public:
 
     const std::string &name() const { return m_name; }
 
-    Target allowedTargets() const { return m_allowedTargets; }
+    Abilities::Target allowedTargets() const { return m_allowedTargets; }
     const std::vector<Keyword>& allowedTargetKeywords() const { return m_targetKeywords; }
 
     Result cast(Unit *target, int round);
@@ -75,8 +58,8 @@ protected:
     int m_range = 0;
 
     bool m_lineOfSiteRequired = true;
-    Target m_allowedTargets = Target::None;
-    EffectType m_effect = EffectType::Utility;
+    Abilities::Target m_allowedTargets = Abilities::Target::None;
+    Abilities::EffectType m_effect = Abilities::EffectType::Utility;
     std::vector<Keyword> m_targetKeywords;
 };
 
@@ -154,7 +137,7 @@ protected:
 class BuffModifierSpell : public Spell {
 public:
     BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                      BuffableAttribute which, int modifier, Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
+                      BuffableAttribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
 
 protected:
 
@@ -170,7 +153,7 @@ protected:
 class BuffRerollSpell : public Spell {
 public:
     BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range, BuffableAttribute which,
-                    Rerolls reroll, Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+                    Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
 

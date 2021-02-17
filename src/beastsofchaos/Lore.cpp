@@ -22,8 +22,8 @@ namespace BeastsOfChaos {
 
     Viletide::Viletide(Unit *caster) :
         Spell(caster, "Viletide", 6, 12) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result Viletide::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -50,8 +50,8 @@ namespace BeastsOfChaos {
 
     WildRampage::WildRampage(Unit *caster) :
         Spell(caster, "Wild Rampage", 6, 12) {
-        m_allowedTargets = Spell::Target::Friendly;
-        m_effect = Spell::EffectType::Buff;
+        m_allowedTargets = Abilities::Target::Friendly;
+        m_effect = Abilities::EffectType::Buff;
     }
 
     Spell::Result WildRampage::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -73,11 +73,11 @@ namespace BeastsOfChaos {
             case Lore::Savage_Dominion:
                 return nullptr;
             case Lore::Tendrils_Of_Atrophy:
-                return new BuffModifierSpell(caster, "Tendrils of Atrophy", 6, 12, To_Save, -1, Spell::Target::Enemy);
+                return new BuffModifierSpell(caster, "Tendrils of Atrophy", 6, 12, To_Save, -1, Abilities::Target::Enemy);
             case Lore::Wild_Rampage:
                 return new WildRampage(caster);
             case Lore::Titanic_Fury:
-                return new BuffModifierSpell(caster, "Titanic Fury", 7, 12, Attacks_Melee, 1, Spell::Target::Friendly, {BEASTS_OF_CHAOS, MONSTER});
+                return new BuffModifierSpell(caster, "Titanic Fury", 7, 12, Attacks_Melee, 1, Abilities::Target::Friendly, {BEASTS_OF_CHAOS, MONSTER});
             case Lore::Thunderwave:
                 return new AreaOfEffectSpell(caster, "Thunderwave", 7, 0, 3, RAND_D3, 0);
             case Lore::Hailstorm:

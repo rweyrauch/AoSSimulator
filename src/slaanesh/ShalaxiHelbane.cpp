@@ -24,8 +24,8 @@ namespace Slaanesh {
 
     RefineSenses::RefineSenses(Unit *caster) :
             Spell(caster, "Refine Senses", 4, 0) {
-        m_allowedTargets = Spell::Target::Self;
-        m_effect = Spell::EffectType::Buff;
+        m_allowedTargets = Abilities::Target::Self;
+        m_effect = Abilities::EffectType::Buff;
     }
 
     Spell::Result RefineSenses::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {

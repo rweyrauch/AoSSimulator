@@ -41,7 +41,7 @@ namespace Slaanesh {
 
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Reflection Eternal", 6, 12.0, To_Wound_Melee, -1, Spell::Target::Enemy));
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Reflection Eternal", 6, 12.0, To_Wound_Melee, -1, Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -23,9 +23,9 @@ namespace BeastsOfChaos {
 
     SummonLightning::SummonLightning(Unit* caster) :
         Spell(caster, "Summon Lightning", 7, 20) {
-        m_allowedTargets = Spell::Target::SelfAndFriendly;
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_targetKeywords.push_back(THUNDERSCORN);
-        m_effect = Spell::EffectType::Heal;
+        m_effect = Abilities::EffectType::Heal;
     }
 
     Spell::Result SummonLightning::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {

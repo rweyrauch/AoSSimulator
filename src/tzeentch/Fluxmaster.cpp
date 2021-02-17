@@ -11,6 +11,36 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class BlueFireOfTzeentch : public Spell {
+    public:
+        explicit BlueFireOfTzeentch(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    BlueFireOfTzeentch::BlueFireOfTzeentch(Unit *caster) :
+            Spell(caster, "Blue Fire of Tzeentch", 5, 18) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
+    }
+
+    Spell::Result BlueFireOfTzeentch::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        Dice::RollResult roll;
+        Dice::RollD6(9, roll);
+        if (roll.rollsGE(6) > 0) {
+            target->applyDamage({0, roll.rollsGE(6), Wounds::Source::Spell}, m_caster);
+        }
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 40;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 0;
@@ -82,12 +112,28 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BlueFireOfTzeentch>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 
         return true;
+    }
+
+    int FluxmasterHeraldOfTzeentchOnDisc::rollCasting(int &unmodifiedRoll) const {
+        auto roll = Unit::rollCasting(unmodifiedRoll);
+        if (!m_usedArcaneTome) {
+            int roll0 = Dice::RollD6();
+            int roll1 = Dice::RollD6();
+            int roll2 = Dice::RollD6();
+
+            unmodifiedRoll = std::max(roll0, std::max(roll1, roll2));
+            roll = unmodifiedRoll + castingModifier();
+
+            m_usedArcaneTome = true;
+        }
+        return roll;
     }
 
 } // namespace Tzeentch

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KAIROSFATEWEAVER_H
-#define KAIROSFATEWEAVER_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -31,6 +29,8 @@ namespace Tzeentch {
 
         int rollCasting(int& unmodifiedRoll) const override;
 
+        int getGiftOfChangeDamage() const;
+
     protected:
 
         void onWounded() override;
@@ -53,9 +53,8 @@ namespace Tzeentch {
 // Master of Magic                  Yes
 // Spell-eater                      TODO
 // Oracle of Eternity               TODO
-// Gift of Change                   TODO
+// Gift of Change                   Yes
 //
 
 } // namespace Tzeentch
 
-#endif //KAIROSFATEWEAVER_H

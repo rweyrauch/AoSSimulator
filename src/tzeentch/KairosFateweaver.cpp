@@ -7,11 +7,54 @@
  */
 
 #include <UnitFactory.h>
+#include <Roster.h>
 #include <spells/MysticShield.h>
 #include "tzeentch/KairosFateweaver.h"
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class GiftOfChange : public Spell {
+    public:
+        explicit GiftOfChange(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    GiftOfChange::GiftOfChange(Unit *caster) :
+            Spell(caster, "Gift of Change", 8, 18) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
+    }
+
+    Spell::Result GiftOfChange::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        auto kf = dynamic_cast<KairosFateweaver*>(m_caster);
+        if (kf == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        const int damage = kf->getGiftOfChangeDamage();
+        auto numSlain = target->applyDamage({0, Dice::RollSpecial(damage), Wounds::Source::Spell}, m_caster);
+        if (numSlain > 0) {
+            // Add a Chaos Spawn to this roster
+            auto factory = UnitFactory::LookupUnit("Chaos Spawn");
+            if (factory) {
+                if (kf->getRoster()) {
+                    auto unit = UnitFactory::Create("Chaos Spawn", factory->m_parameters);
+                    unit->deploy(kf->position(), kf->orientation());
+                    kf->getRoster()->addUnit(unit);
+                }
+            }
+        }
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 100;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 400;
@@ -130,6 +173,10 @@ namespace Tzeentch {
 
     int KairosFateweaver::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int KairosFateweaver::getGiftOfChangeDamage() const {
+        return g_damageTable[getDamageTableIndex()].m_giftOfChange;
     }
 
 } // Tzeentch

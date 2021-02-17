@@ -127,7 +127,9 @@ public:
 
     bool move(const Math::Point3 &pos, const Math::Vector3 &orientation);
 
-    const Math::Point3 &position() const { return m_position; };
+    const Math::Point3 &position() const { return m_position; }
+
+    const Math::Vector3 &orientation() const { return m_orientation; }
 
     double x() const { return m_position.x; }
 

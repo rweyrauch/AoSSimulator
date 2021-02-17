@@ -23,8 +23,8 @@ namespace SlavesToDarkness {
 
     WindOfChaos::WindOfChaos(Unit *caster) :
             Spell(caster, "Wind of Chaos", 7, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result WindOfChaos::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {

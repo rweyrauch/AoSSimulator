@@ -1,7 +1,7 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019-2020 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
@@ -14,13 +14,13 @@
 
 class Unit;
 
-class CommandAbility {
+class CommandTrait {
 public:
-    CommandAbility(Unit *source, const std::string &name) :
+    CommandTrait(Unit *source, const std::string &name) :
             m_source(source),
             m_name(name) {}
 
-    virtual ~CommandAbility() = default;
+    virtual ~CommandTrait() = default;
 
     virtual int apply(const Unit *target) = 0;
 

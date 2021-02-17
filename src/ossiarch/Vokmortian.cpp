@@ -23,8 +23,8 @@ namespace OssiarchBonereapers {
 
     MortalTouch::MortalTouch(Unit *caster) :
             Spell(caster, "Mortal Touch", 8, 1) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result MortalTouch::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {

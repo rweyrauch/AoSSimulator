@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BRANCHWYCH_H
-#define BRANCHWYCH_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -48,9 +46,7 @@ namespace Sylvaneth {
 // -------------------------------------------
 // Fury of the Forest               Yes
 // Quick Tempered                   Yes
-// Unleash Spites                   TODO
+// Unleash Spites                   Yes
 //
 
 } // namespace Sylvaneth
-
-#endif //BRANCHWYCH_H

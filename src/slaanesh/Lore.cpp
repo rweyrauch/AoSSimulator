@@ -23,8 +23,8 @@ namespace Slaanesh {
 
     PavaneOfSlaanesh::PavaneOfSlaanesh(Unit *caster) :
         Spell(caster, "Pavane of Slaanesh", 6, 6) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
         m_targetKeywords.push_back(HERO);
     }
 
@@ -50,8 +50,8 @@ namespace Slaanesh {
 
     HystericalFrenzy::HystericalFrenzy(Unit *caster) :
             Spell(caster, "Hysterical Frenzy", 6, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result HystericalFrenzy::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -76,8 +76,8 @@ namespace Slaanesh {
 
     SoulsliceShards::SoulsliceShards(Unit *caster) :
             Spell(caster, "Soulslice Shards", 5, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result SoulsliceShards::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -102,8 +102,8 @@ namespace Slaanesh {
 
     Phantasmagoria::Phantasmagoria(Unit *caster) :
             Spell(caster, "Phantasmagoria", 7, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Debuff;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Debuff;
     }
 
     Spell::Result Phantasmagoria::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -129,8 +129,8 @@ namespace Slaanesh {
 
     PathsOfTheDarkPrince::PathsOfTheDarkPrince(Unit *caster) :
         Spell(caster, "Paths of the Dark Prince", 7, 0) {
-        m_allowedTargets = Spell::Target::Self;
-        m_effect = Spell::EffectType::Buff;
+        m_allowedTargets = Abilities::Target::Self;
+        m_effect = Abilities::EffectType::Buff;
     }
 
     Spell::Result PathsOfTheDarkPrince::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -153,8 +153,8 @@ namespace Slaanesh {
 
     JudgementOfExcess::JudgementOfExcess(Unit *caster) :
             Spell(caster, "Judgement of Excess", 5, 12) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result JudgementOfExcess::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -179,8 +179,8 @@ namespace Slaanesh {
 
     BattleRapture::BattleRapture(Unit *caster) :
             Spell(caster, "Battle Rapture", 5, 18) {
-        m_allowedTargets = Target::Friendly;
-        m_effect = EffectType::Buff;
+        m_allowedTargets = Abilities::Target::Friendly;
+        m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(MORTAL);
         m_targetKeywords.push_back(SLAANESH);
     }

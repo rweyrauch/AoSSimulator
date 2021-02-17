@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef YLTHARI_H
-#define YLTHARI_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -44,9 +42,7 @@ namespace Sylvaneth {
 // Abilities                    Implemented
 // -------------------------------------------
 // Vigour and Wrath                 TODO
-// The Reaping                      TODO
+// The Reaping                      Yes
 //
 
 } // namespace Sylvaneth
-
-#endif //YLTHARI_H

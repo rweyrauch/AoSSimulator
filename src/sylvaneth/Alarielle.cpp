@@ -202,7 +202,7 @@ namespace Sylvaneth {
             if (factory) {
                 if (m_roster) {
                     auto unit = UnitFactory::Create("Kurnoth Hunters", factory->m_parameters);
-                    unit->deploy(position(), m_orientation);
+                    unit->deploy(position(), orientation());
                     m_roster->addUnit(unit);
                 }
                 m_usedSoulAmphorae = true;

@@ -12,6 +12,42 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class InfernalGateway : public Spell {
+    public:
+        explicit InfernalGateway(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    InfernalGateway::InfernalGateway(Unit *caster) :
+            Spell(caster, "Infernal Gateway", 7, 18) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
+    }
+
+    Spell::Result InfernalGateway::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        auto loc = dynamic_cast<LordOfChange*>(m_caster);
+        if (loc == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        Dice::RollResult roll;
+        Dice::RollD6(9, roll);
+        const int threshold = loc->getInfernalGatewayValue();
+        if (roll.rollsGE(threshold) > 0) {
+            target->applyDamage({0, roll.rollsGE(threshold), Wounds::Source::Spell}, m_caster);
+        }
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 100;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 380;
@@ -126,6 +162,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<InfernalGateway>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -167,6 +204,10 @@ namespace Tzeentch {
 
     int LordOfChange::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int LordOfChange::getInfernalGatewayValue() const {
+        return g_damageTable[getDamageTableIndex()].m_infernalGateway;
     }
 
 } // Tzeentch

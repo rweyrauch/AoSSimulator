@@ -17,7 +17,7 @@ namespace LuminethRealmLords {
 
     PowerOfHysh::PowerOfHysh(Unit *caster) :
             Spell(caster, "Power of Hysh", 6, 3) {
-        m_allowedTargets = Spell::Target::SelfAndFriendly;
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
     }
 
 } // namespace LuminethRealmLords

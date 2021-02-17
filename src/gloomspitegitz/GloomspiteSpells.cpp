@@ -39,8 +39,8 @@ namespace GloomspiteGitz {
 
     GreatGreenSpite::GreatGreenSpite(Unit *caster) :
             Spell(caster, "The Great Green Spite", 7, 18) {
-        m_allowedTargets = Target::Enemy;
-        m_effect = EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
         m_targetKeywords.push_back(GLOOMSPITE_GITZ);
     }
 
@@ -85,8 +85,8 @@ namespace GloomspiteGitz {
 
     SquigLure::SquigLure(Unit *caster) :
         Spell(caster, "Squig Lure", 5, 18) {
-        m_allowedTargets = Target::Friendly;
-        m_effect = EffectType::Buff;
+        m_allowedTargets = Abilities::Target::Friendly;
+        m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(SQUIG);
     }
 

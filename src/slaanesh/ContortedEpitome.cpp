@@ -26,8 +26,8 @@ namespace Slaanesh {
 
     OverwhelmingAcquiescence::OverwhelmingAcquiescence(Unit *caster) :
             Spell(caster, "Overwhelming Acquiescence", 7, 24) {
-        m_allowedTargets = Target::Point;
-        m_effect = EffectType::Debuff;
+        m_allowedTargets = Abilities::Target::Point;
+        m_effect = Abilities::EffectType::Debuff;
     }
 
     Spell::Result OverwhelmingAcquiescence::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {

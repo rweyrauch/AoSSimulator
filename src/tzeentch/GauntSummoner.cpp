@@ -13,6 +13,40 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class InfernalFlames : public Spell {
+    public:
+        explicit InfernalFlames(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    InfernalFlames::InfernalFlames(Unit *caster) :
+            Spell(caster, "Infernal Flames", 7, 12) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
+    }
+
+    Spell::Result InfernalFlames::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        Dice::RollResult roll;
+        int totalRolls = target->remainingModels();
+        if (target->hasKeyword(MONSTER) || target->hasKeyword(WAR_MACHINE)) {
+            totalRolls *= 3;
+        }
+        Dice::RollD6(totalRolls, roll);
+        if (roll.rollsGE(5) > 0) {
+            target->applyDamage({0, roll.rollsGE(5), Wounds::Source::Spell}, m_caster);
+        }
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 40;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 240;
@@ -75,6 +109,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<InfernalFlames>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

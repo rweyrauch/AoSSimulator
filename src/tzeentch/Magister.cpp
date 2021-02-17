@@ -12,6 +12,7 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 100;

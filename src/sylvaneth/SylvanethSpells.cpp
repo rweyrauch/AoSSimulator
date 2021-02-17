@@ -46,17 +46,72 @@ protected:
     }
 };
 
-
 Spell *CreateUnleashSpites(Unit *caster) {
     return new UnleashSpites(caster);
 }
 
+class PrimalTerror : public Spell {
+public:
+    explicit PrimalTerror(Unit* caster);
+
+protected:
+    Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override { return Result::Failed; }
+    Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override;
+};
+
+PrimalTerror::PrimalTerror(Unit *caster) :
+        Spell(caster, "Primal Terror", 6, 10) {
+    m_allowedTargets = Abilities::Target::Point;
+    m_effect = Abilities::EffectType::Damage;
+}
+
+Spell::Result PrimalTerror::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+
+    const auto roll = Dice::Roll2D6();
+    auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
+    for (auto unit : units) {
+        if (unit->bravery() < roll) {
+            unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+        }
+    }
+    return Spell::Result::Success;
+}
+
 Spell *CreatePrimalTerror(Unit *caster) {
-    return nullptr;
+    return new PrimalTerror(caster);
+}
+
+class TheReaping : public Spell {
+public:
+    explicit TheReaping(Unit* caster);
+
+protected:
+    Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+    Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+};
+
+TheReaping::TheReaping(Unit *caster) :
+        Spell(caster, "The Reaping", 6, 12) {
+    m_allowedTargets = Abilities::Target::Enemy;
+    m_effect = Abilities::EffectType::Damage;
+}
+
+Spell::Result TheReaping::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+    if (target == nullptr) {
+        return Spell::Result::Failed;
+    }
+
+    Dice::RollResult roll;
+    Dice::RollD6(6, roll);
+    if (roll.rollsGE(5) > 0) {
+        target->applyDamage({0, roll.rollsGE(5), Wounds::Source::Spell}, m_caster);
+    }
+
+    return Spell::Result::Success;
 }
 
 Spell *CreateTheReaping(Unit *caster) {
-    return nullptr;
+    return new TheReaping(caster);
 }
 
 Spell *CreateThroneOfVines(Unit *caster) {
@@ -67,8 +122,37 @@ Spell *CreateRegrowth(Unit *caster) {
     return new HealSpell(caster, "Regrowth", 5, 18, RAND_D6);
 }
 
+class TheDwellersBelow : public Spell {
+public:
+    explicit TheDwellersBelow(Unit* caster);
+
+protected:
+    Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+    Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+};
+
+TheDwellersBelow::TheDwellersBelow(Unit *caster) :
+        Spell(caster, "The Dwellers Below", 7, 10) {
+    m_allowedTargets = Abilities::Target::Enemy;
+    m_effect = Abilities::EffectType::Damage;
+}
+
+Spell::Result TheDwellersBelow::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+    if (target == nullptr) {
+        return Spell::Result::Failed;
+    }
+
+    Dice::RollResult roll;
+    Dice::RollD6(target->remainingModels(), roll);
+    if (roll.rollsGE(6) > 0) {
+        target->applyDamage({0, roll.rollsGE(6), Wounds::Source::Spell}, m_caster);
+    }
+
+    return Spell::Result::Success;
+}
+
 Spell *CreateTheDwellersBelow(Unit *caster) {
-    return nullptr;
+    return new TheDwellersBelow(caster);
 }
 
 Spell *CreateDeadlyHarvest(Unit *caster) {

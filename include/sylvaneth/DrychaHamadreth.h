@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DRYCHAHAMADRETH_H
-#define DRYCHAHAMADRETH_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -63,9 +61,7 @@ namespace Sylvaneth {
 // Deadly Infestation               Yes
 // Mercurial Aspect                 Yes
 // Song of Spite                    Yes
-// Primal Terror                    TODO
+// Primal Terror                    Yes
 //
 
 } // namespace Sylvaneth
-
-#endif //DRYCHAHAMADRETH_H

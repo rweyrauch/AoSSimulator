@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDOFCHANGE_H
-#define LORDOFCHANGE_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -41,6 +39,8 @@ namespace Tzeentch {
 
         int rollCasting(int& unmodifiedRoll) const override;
 
+        int getInfernalGatewayValue() const;
+
     protected:
 
         void onWounded() override;
@@ -65,10 +65,9 @@ namespace Tzeentch {
 // Master of Magic                  Yes
 // Spell-eater                      TODO
 // Spell-thief                      TODO
-// Infernal Gateway                 TODO
+// Infernal Gateway                 Yes
 // Beacon of Sorcery                TODO
 //
 
 } // namespace Tzeentch
 
-#endif //LORDOFCHANGE_H

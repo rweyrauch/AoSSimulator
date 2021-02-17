@@ -50,11 +50,11 @@ protected:
 
 PurifyingBlast::PurifyingBlast(Unit *caster) :
         Spell(caster, "Purifying Blast", 5, 6) {
-    m_allowedTargets = Target::Enemy;
-    m_effect = EffectType::Damage;
+    m_allowedTargets = Abilities::Target::Enemy;
+    m_effect = Abilities::EffectType::Damage;
 }
 
-Spell::Result PurifyingBlast::apply(int castingValue, int unmodifiedCastingValu, Unit * /*target*/) {
+Spell::Result PurifyingBlast::apply(int castingValue, int unmodifiedCastingValue, Unit * /*target*/) {
 
     auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
     for (auto ip : units) {

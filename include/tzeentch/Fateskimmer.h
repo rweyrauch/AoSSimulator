@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FATESKIMMER_H
-#define FATESKIMMER_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -49,9 +47,8 @@ namespace Tzeentch {
 // Arcane Tome                      TODO
 // Sky-shark                        Yes
 // Wake of Fire                     TODO
-// Tzeentch's Firestorm             TODO
+// Tzeentch's Firestorm             Yes
 //
 
 } // namespace Tzeentch
 
-#endif //FATESKIMMER_H

@@ -5,10 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FLUXMASTER_H
-#define FLUXMASTER_H
-
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -30,9 +27,18 @@ namespace Tzeentch {
 
         bool configure();
 
+        int rollCasting(int& unmodifiedRoll) const override;
+
     protected:
 
+        void onRestore() override {
+            TzeentchBase::onRestore();
+            m_usedArcaneTome = false;
+        }
+
     private:
+
+        mutable bool m_usedArcaneTome = false;
 
         Weapon m_flames,
                 m_staff,
@@ -44,10 +50,9 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Tome                      TODO
-// Blue Fire of Tzeentch            TODO
+// Arcane Tome                      Yes
+// Blue Fire of Tzeentch            Yes
 //
 
 } // namespace Tzeentch
 
-#endif //FLUXMASTER_H

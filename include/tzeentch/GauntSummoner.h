@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GAUNTSUMMONER_H
-#define GAUNTSUMMONER_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -52,9 +50,8 @@ namespace Tzeentch {
 // -------------------------------------------
 // Warptongue Blade                 Yes
 // Book of Profane Secrets          Yes
-// Infernal Flames                  TODO
+// Infernal Flames                  Yes
 //
 
 } // namespace Tzeentch
 
-#endif //GAUNTSUMMONER_H

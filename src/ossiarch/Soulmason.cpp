@@ -23,8 +23,8 @@ namespace OssiarchBonereapers {
 
     SoulGuide::SoulGuide(Unit *caster) :
             Spell(caster, "Soul-guide", 6, 24) {
-        m_allowedTargets = Spell::Target::SelfAndFriendly;
-        m_effect = Spell::EffectType::Buff;
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(OSSIARCH_BONEREAPERS);
     }
 

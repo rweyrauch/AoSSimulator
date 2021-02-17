@@ -22,7 +22,7 @@ Spell *SelectSpell(Unit *caster, AbilityTarget &outTarget) {
         if (*sip == nullptr) continue;
 
         auto units = Board::Instance()->getUnitsWithin(caster, GetEnemyId(caster->owningPlayer()), (*sip)->range());
-        if ((*sip)->allowedTargets() == Spell::Target::Friendly) {
+        if ((*sip)->allowedTargets() == Abilities::Target::Friendly) {
             units = Board::Instance()->getUnitsWithin(caster, caster->owningPlayer(), (*sip)->range());
             units.push_back(caster);
         }
@@ -45,7 +45,7 @@ Prayer *SelectPrayer(Unit *priest, AbilityTarget &outTarget) {
         if (*pip == nullptr) continue;
 
         auto units = Board::Instance()->getUnitsWithin(priest, GetEnemyId(priest->owningPlayer()), (*pip)->range());
-        if ((*pip)->allowedTargets() == Prayer::Target::Friendly) {
+        if ((*pip)->allowedTargets() == Abilities::Target::Friendly) {
             units = Board::Instance()->getUnitsWithin(priest, priest->owningPlayer(), (*pip)->range());
             units.push_back(priest);
         }
@@ -67,7 +67,7 @@ CommandAbility *SelectCommandAbility(Unit *commander, AbilityTarget &outTarget) 
 
         auto units = Board::Instance()->getUnitsWithin(commander, GetEnemyId(commander->owningPlayer()),
                                                        (*cip)->range());
-        if ((*cip)->targetFriendly()) {
+        if ((*cip)->allowedTargets() == Abilities::Target::Friendly) {
             units = Board::Instance()->getUnitsWithin(commander, commander->owningPlayer(), (*cip)->range());
             units.push_back(commander);
         }

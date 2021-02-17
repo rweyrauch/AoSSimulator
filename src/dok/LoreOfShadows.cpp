@@ -21,8 +21,8 @@ namespace DaughtersOfKhaine {
 
     SteedOfShadows::SteedOfShadows(Unit *caster) :
         Spell(caster, "Steed of Shadows", 6, 0) {
-        m_allowedTargets = Spell::Target::Self;
-        m_effect = Spell::EffectType::Buff;
+        m_allowedTargets = Abilities::Target::Self;
+        m_effect = Abilities::EffectType::Buff;
     }
 
     Spell::Result SteedOfShadows::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -46,8 +46,8 @@ namespace DaughtersOfKhaine {
 
     PitOfShades::PitOfShades(Unit *caster) :
         Spell(caster, "Pit of Shades", 7, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result PitOfShades::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -72,8 +72,8 @@ namespace DaughtersOfKhaine {
 
     TheWithering::TheWithering(Unit *caster) :
         Spell(caster, "The Withering", 7, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Debuff;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Debuff;
     }
 
     Spell::Result TheWithering::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
@@ -97,8 +97,8 @@ namespace DaughtersOfKhaine {
 
     ShroudOfDespair::ShroudOfDespair(Unit *caster) :
         Spell(caster, "Shroud of Despair", 4, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Debuff;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Debuff;
     }
 
     Spell::Result ShroudOfDespair::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {

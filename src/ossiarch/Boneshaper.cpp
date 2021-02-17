@@ -23,8 +23,8 @@ namespace OssiarchBonereapers {
 
     ShardStorm::ShardStorm(Unit *caster) :
             Spell(caster, "Shard-storm", 5, 18) {
-        m_allowedTargets = Spell::Target::Enemy;
-        m_effect = Spell::EffectType::Damage;
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
     }
 
     Spell::Result ShardStorm::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {

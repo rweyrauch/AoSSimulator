@@ -79,6 +79,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_bite);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<AreaOfEffectSpell>(this, "Tzeentch's Firestorm", 8, 0, 9, RAND_D3, 3));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
