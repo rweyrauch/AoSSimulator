@@ -16,6 +16,32 @@
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
+
+    class GhyransWrath : public CommandAbility {
+    public:
+        explicit GhyransWrath(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    GhyransWrath::GhyransWrath(Unit *source) :
+            CommandAbility(source, "Ghyran's Wrath", 14, 14, Phase::Combat) {
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords = {SYLVANETH};
+    }
+
+    bool GhyransWrath::apply(Unit* target, int round) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
+        for (auto unit : units) {
+            if (unit->hasKeyword(SYLVANETH)) {
+                unit->buffReroll(To_Wound_Melee, Reroll_Ones, {Phase::Combat, round, m_source->owningPlayer()});
+            }
+        }
+        return true;
+    }
+
     static const int g_basesize = 160;
     static const int g_wounds = 16;
     static const int g_pointsPerUnit = 600;
@@ -54,7 +80,6 @@ namespace Sylvaneth {
     }
 
     Alarielle::~Alarielle() {
-        m_ghyransWrathSlot.disconnect();
     }
 
     bool Alarielle::configure(Lore lore) {
@@ -67,6 +92,8 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateMetamorphosis(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_commandAbilities.push_back(std::make_unique<GhyransWrath>(this));
 
         m_points = g_pointsPerUnit;
 
@@ -176,23 +203,6 @@ namespace Sylvaneth {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    void Alarielle::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
-
-        m_ghyransWrathSlot.disconnect();
-
-        // Ghyran's Wrath
-        if (getCommandPoints() > 0) {
-            if (m_roster && m_roster->useCommandPoint()) {
-                // Buff Alarielle
-                buffReroll(To_Wound_Melee, Reroll_Ones, {Combat, m_battleRound + 1, owningPlayer()});
-
-                // Buff all friends with in 14".
-                s_globalToWoundReroll.connect(this, &Alarielle::ghyransWrathToWoundReroll, &m_ghyransWrathSlot);
-            }
-        }
-    }
-
     void Alarielle::onEndMovement(PlayerId player) {
         Unit::onEndMovement(player);
 
@@ -217,12 +227,6 @@ namespace Sylvaneth {
 
     int Alarielle::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
-    }
-
-    Rerolls Alarielle::ghyransWrathToWoundReroll(const Unit *attacker, const Weapon *weapon, const Unit *target) {
-        if (isFriendly(attacker) && attacker->hasKeyword(SYLVANETH) && (distanceTo(attacker) < 14.0))
-            return Reroll_Ones;
-        return No_Rerolls;
     }
 
 } // namespace Sylvaneth

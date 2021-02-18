@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KORGHOSKHUL_H
-#define KORGHOSKHUL_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -48,9 +46,7 @@ namespace Khorne {
 // Aqshy's Bane                     Yes
 // Collar of Khorne                 Yes
 // Reality-splitting Axe            TODO
-// Lord of the Goretide             TODO
+// Lord of the Goretide             Yes
 //
 
 } // namespace Khorne
-
-#endif //KORGHOSKHUL_H

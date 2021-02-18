@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ASPIRINGDEATHBRINGER_H
-#define ASPIRINGDEATHBRINGER_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -56,9 +54,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Bane of Cowards                  TODO
-// Slaughter Incarnate              TODO
+// Slaughter Incarnate              Yes
 //
 
 } // namespace Khorne
-
-#endif //ASPIRINGDEATHBRINGER_H

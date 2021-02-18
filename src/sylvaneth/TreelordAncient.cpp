@@ -10,9 +10,36 @@
 #include <sylvaneth/TreelordAncient.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
+
+    class HeedTheSpiritsong : public CommandAbility {
+    public:
+        explicit HeedTheSpiritsong(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    HeedTheSpiritsong::HeedTheSpiritsong(Unit *source) :
+            CommandAbility(source, "Heed the Spirit-song", 12, 12, Phase::Hero) {
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords = {SYLVANETH};
+    }
+
+    bool HeedTheSpiritsong::apply(Unit* target, int round) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
+        for (auto unit : units) {
+            if (unit->hasKeyword(SYLVANETH)) {
+                unit->buffReroll(To_Save, Reroll_Ones, {m_phase, round+1, m_source->owningPlayer()});
+            }
+        }
+        return true;
+    }
+
     static const int g_basesize = 105; // x70 oval
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 260;
@@ -58,6 +85,8 @@ namespace Sylvaneth {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_commandAbilities.push_back(std::make_unique<HeedTheSpiritsong>(this));
 
         m_points = g_pointsPerUnit;
 

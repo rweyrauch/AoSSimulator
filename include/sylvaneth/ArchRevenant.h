@@ -59,7 +59,7 @@ namespace Sylvaneth {
 // Crescent Shield                  Yes
 // Champion of Kurnoth              Yes
 // Ultimate Sacrifice               TODO
-// Call to Battle                   TODO
+// Call to Battle                   Yes
 //
 
 } // namespace Sylvaneth

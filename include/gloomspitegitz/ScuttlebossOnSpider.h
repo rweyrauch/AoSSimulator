@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SCUTTLEBOSSONSPIDER_H
-#define SCUTTLEBOSSONSPIDER_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -46,9 +44,7 @@ namespace GloomspiteGitz {
 // -------------------------------------------
 // Spider Venom                     Yes
 // Wall Crawler                     Yes
-// Ride'Em All Down!                TODO
+// Ride'Em All Down!                Partial
 //
 
 } // namespace GloomspiteGitz
-
-#endif //SCUTTLEBOSSONSPIDER_H

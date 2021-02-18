@@ -47,7 +47,7 @@ namespace StormcastEternals {
 // -------------------------------------------
 // Inescapable Vengeance            Yes
 // Sigmarite Thundershield          Yes
-// Once More, For Sigmar, Charge!   TODO
+// Once More, For Sigmar, Charge!   Yes
 //
 
 } // namespace StormcastEternals

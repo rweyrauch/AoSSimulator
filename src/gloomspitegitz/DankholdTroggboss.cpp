@@ -13,6 +13,32 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
+    class InstinctiveLeader : public CommandAbility {
+    public:
+        explicit InstinctiveLeader(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    InstinctiveLeader::InstinctiveLeader(Unit *source) :
+            CommandAbility(source, "Instinctive Leader", 18, 18, Phase::Combat) {
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords.push_back(TROGGOTH);
+    }
+
+    bool InstinctiveLeader::apply(Unit* target, int round) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
+        for (auto unit : units) {
+            if (unit->hasKeyword(TROGGOTH)) {
+                unit->buffReroll(To_Hit_Melee, Reroll_Ones, {m_phase, round, m_source->owningPlayer()});
+            }
+        }
+        return true;
+    }
+
     static const int g_basesize = 60;
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 250;
@@ -37,6 +63,8 @@ namespace GloomspiteGitz {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boulderClub);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<InstinctiveLeader>(this));
 
         m_points = g_pointsPerUnit;
 

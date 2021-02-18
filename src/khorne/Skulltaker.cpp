@@ -31,6 +31,11 @@ namespace Khorne {
         model->addMeleeWeapon(&m_slayerSword);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Heads Must Roll", 12, 12,
+                                                                                Phase::Combat, To_Wound_Melee, Reroll_Ones,
+                                                                                Abilities::Target::SelfAndFriendly,
+                                                                                std::vector<Keyword>{BLOODLETTER, BLOODLETTERS}));
+
         m_points = g_pointsPerUnit;
 
         return true;

@@ -53,6 +53,11 @@ namespace Khorne {
         model->addMeleeWeapon(&m_mightyAxeOfKhorne);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Blood Hunt", 16, 16,
+                                                                                Phase::Combat, To_Hit_Melee, Reroll_Failed,
+                                                                                Abilities::Target::SelfAndFriendly,
+                                                                                std::vector<Keyword>{KHORNE, DAEMON}));
+
         m_points = g_pointsPerUnit;
 
         return true;

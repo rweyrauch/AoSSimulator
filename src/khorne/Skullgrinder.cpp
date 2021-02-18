@@ -12,6 +12,7 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
+
     static const int g_basesize = 40;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 80;

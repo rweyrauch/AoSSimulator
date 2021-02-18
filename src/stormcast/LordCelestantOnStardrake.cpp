@@ -14,6 +14,7 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
+
     static const int g_basesize = 170; // x105 oval
     static const int g_wounds = 16;
     static const int g_pointsPerUnit = 500;
@@ -64,6 +65,10 @@ namespace StormcastEternals {
         }
         model->addMeleeWeapon(&m_greatClaws);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Celestial Host", INT32_MAX, INT32_MAX, Phase::Combat,
+                                                                                To_Wound_Melee, Reroll_Failed, Abilities::Target::SelfAndFriendly,
+                                                                                std::vector<Keyword>(STARDRAKE, DRACOTH)));
 
         m_points = g_pointsPerUnit;
 

@@ -101,6 +101,20 @@ namespace StormcastEternals {
         Godbeast_Plate // Astral Templars
     };
 
+    enum class Command : int {
+        None = 0,
+
+        // Stormhost
+        Soul_Of_The_Stormhost,  // Hammers of Sigmar
+        Holy_Crusaders, // Hallowed Knights
+        Righteous_Hatred, // Celestial Vindicators
+        Heroes_Of_Another_Age, // Anvils
+        No_Mercy,// Knights Excelsior
+        Astral_Conjunction, // Celestial Warbringers
+        Rousing_Oratory, // Tempest Lords
+        Cut_Off_The_Head // Astral Templars
+    };
+
     enum class Stormhost : int {
         None = 0,
 
@@ -165,11 +179,11 @@ namespace StormcastEternals {
 //   We Cannon Fail                 TODO
 // Hallowed Knights
 //   Only the Faithful              TODO
-//   Holy Crusaders                 TODO
+//   Holy Crusaders                 Yes
 //   Martyr's Strength              TODO
 // Celestial Vindicators
 //   Driven by Vengeance            Yes
-//   Righteous Hatred               TODO
+//   Righteous Hatred               Yes
 //   Single-minded Fury             TODO
 // Anvils of the Heldenhammer
 //   No True Death                  Yes
@@ -177,15 +191,15 @@ namespace StormcastEternals {
 //   Deathly Aura                   TODO
 // Knights Excelsior
 //   Storm of Annihilation          TODO
-//   No Mercy                       TODO
+//   No Mercy                       Yes
 //   Divine Executioner             TODO
 // Celestial Warbringers
 //   Fearless Foresight             TODO
-//   Astral Conjunction             TODO
+//   Astral Conjunction             Yes
 //   Portents and Omens             TODO
 // Tempest Lords
 //   Grand Strategists              Yes
-//   Rousing Oratory                TODO
+//   Rousing Oratory                Yes
 //   Bonds of Noble Duty            TODO
 // Astral Templars
 //   Beast Stalkers                 Yes

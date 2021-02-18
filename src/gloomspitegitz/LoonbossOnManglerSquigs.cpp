@@ -13,6 +13,32 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
+    class BiteDaMoon : public CommandAbility {
+    public:
+        explicit BiteDaMoon(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    BiteDaMoon::BiteDaMoon(Unit *source) :
+            CommandAbility(source, "Bite Da Moon!", 18, 18, Phase::Combat) {
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords.push_back(SQUIG);
+    }
+
+    bool BiteDaMoon::apply(Unit* target, int round) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
+        for (auto unit : units) {
+            if (unit->hasKeyword(SQUIG)) {
+                unit->buffModifier(To_Wound_Melee, 1, {m_phase, round, m_source->owningPlayer()});
+            }
+        }
+        return true;
+    }
+
     static const int g_basesize = 80;
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 280;
@@ -57,6 +83,8 @@ namespace GloomspiteGitz {
         model->addMeleeWeapon(&m_grotsBashinStikk);
 
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<BiteDaMoon>(this));
 
         m_points = g_pointsPerUnit;
 

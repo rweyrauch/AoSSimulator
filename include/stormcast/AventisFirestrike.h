@@ -63,6 +63,6 @@ namespace StormcastEternals {
 // Righteous Indignation            TODO
 // Pyroelectric Blast               Yes
 // Prime Electrids                  Yes
-// Fiery Orator                     TODO
+// Fiery Orator                     Yes
 
 } // namespace StormcastEternals

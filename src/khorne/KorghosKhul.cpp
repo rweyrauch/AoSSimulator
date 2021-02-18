@@ -8,9 +8,36 @@
 
 #include <khorne/KorghosKhul.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KhornePrivate.h"
 
 namespace Khorne {
+
+    class LordOfTheGoretide : public CommandAbility {
+    public:
+        explicit LordOfTheGoretide(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    LordOfTheGoretide::LordOfTheGoretide(Unit *source) :
+            CommandAbility(source, "Lord of the Goretide", 16, 16, Phase::Charge) {
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords = {GORETIDE};
+    }
+
+    bool LordOfTheGoretide::apply(Unit* target, int round) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
+        for (auto unit : units) {
+            if (unit->hasKeyword(GORETIDE)) {
+                unit->buffReroll(To_Hit_Melee, Reroll_Ones, {Phase::Combat, round, m_source->owningPlayer()});
+            }
+        }
+        return true;
+    }
+
     static const int g_basesize = 60;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 180;
@@ -37,6 +64,8 @@ namespace Khorne {
         model->addMeleeWeapon(&m_axeOfKhorne);
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<LordOfTheGoretide>(this));
 
         m_points = g_pointsPerUnit;
 

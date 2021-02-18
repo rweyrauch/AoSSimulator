@@ -38,6 +38,9 @@ namespace Sylvaneth {
         model->addMeleeWeapon(&m_tailPincers);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Call to Battle", 12, 9, Phase::Combat, Attacks_Melee, 1,
+                                                                                  Abilities::Target::SelfAndFriendly, std::vector<Keyword>{SYLVANETH}));
+
         m_points = g_pointsPerUnit;
 
         return true;

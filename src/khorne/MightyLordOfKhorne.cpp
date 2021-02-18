@@ -8,9 +8,35 @@
 
 #include <khorne/MightyLordOfKhorne.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KhornePrivate.h"
 
 namespace Khorne {
+    class Gorelord : public CommandAbility {
+    public:
+        explicit Gorelord(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    Gorelord::Gorelord(Unit *source) :
+            CommandAbility(source, "Gorelord", 16, 16, Phase::Charge) {
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords = {KHORNE, MORTAL};
+    }
+
+    bool Gorelord::apply(Unit* target, int round) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
+        for (auto unit : units) {
+            if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL)) {
+                unit->buffReroll(Charge_Distance, Reroll_Failed, {m_phase, round, m_source->owningPlayer()});
+            }
+        }
+        return true;
+    }
+
     static const int g_basesize = 60;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 140;
@@ -34,6 +60,8 @@ namespace Khorne {
         model->addMeleeWeapon(&m_axeOfKhorne);
         model->addMeleeWeapon(&m_bloodDarkClaws);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<Gorelord>(this));
 
         m_points = g_pointsPerUnit;
 

@@ -47,6 +47,10 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLightningOrb(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Swift of Wing", 18, 18, Phase::Movement,
+                                                        Run_Distance, 2, Abilities::Target::SelfAndFriendly,
+                                                                std::vector<Keyword>(SACROSANCT)));
+
         m_points = g_pointsPerUnit;
 
         return true;

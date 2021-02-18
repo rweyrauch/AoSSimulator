@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MIGHTYLORDOFKHORNE_H
-#define MIGHTYLORDOFKHORNE_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -44,9 +42,7 @@ namespace Khorne {
 // -------------------------------------------
 // Collar of Khorne                 Yes
 // Reality-splitting Axe            TODO
-// Gorelord                         TODO
+// Gorelord                         Yes
 //
 
 } // namespace Khorne
-
-#endif //MIGHTYLORDOFKHORNE_H

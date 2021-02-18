@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDCELESTANT_H
-#define LORDCELESTANT_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -53,9 +51,7 @@ namespace StormcastEternals {
 // -------------------------------------------
 // Inescapable Vengeance            Yes
 // Sigmarite Warcloak               Yes
-// Furious Retribution              TODO
+// Furious Retribution              Yes
 //
 
 } // namespace StormcastEternals
-
-#endif //LORDCELESTANT_H

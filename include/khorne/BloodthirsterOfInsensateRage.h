@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLOODTHIRSTEROFINSENSATERAGE_H
-#define BLOODTHIRSTEROFINSENSATERAGE_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -53,9 +51,7 @@ namespace Khorne {
 // -------------------------------------------
 // Rage Unbound                     Yes
 // Outrageous Carnage               Yes
-// Bloodthirsty Charge              TODO
+// Bloodthirsty Charge              Yes
 //
 
 } // namespace Khorne
-
-#endif //BLOODTHIRSTEROFINSENSATERAGE_H

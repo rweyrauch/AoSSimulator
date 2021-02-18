@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VANDUSHAMMERHAND_H
-#define VANDUSHAMMERHAND_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -56,9 +54,7 @@ namespace StormcastEternals {
 // Intolerable Damage               Yes
 // Storm Breath                     Yes
 // Lord of the Hammerhands          Yes
-// Vengeful Determination           TODO
+// Vengeful Determination           Yes
 //
 
 } // namespace StormcastEternals
-
-#endif //VANDUSHAMMERHAND_H

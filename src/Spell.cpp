@@ -92,12 +92,12 @@ int DamageSpell::getDamage(int castingRoll) const {
     return m_damage;
 }
 
-Spell::Result DamageSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
-    auto mortalWounds = Dice::RollSpecial(getDamage(castingValue));
+Spell::Result DamageSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+    auto mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
     target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
     SimLog(Verbosity::Narrative,
            "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-           m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, mortalWounds,
+           m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
            target->name().c_str());
 
     return Spell::Result::Success;
@@ -122,7 +122,7 @@ int AreaOfEffectSpell::getDamage(int /*castingRoll*/) const {
     return m_damage;
 }
 
-Spell::Result AreaOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+Spell::Result AreaOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) {
 
     const Math::Point3 targetPoint(x, y, 0.0);
 
@@ -136,21 +136,21 @@ Spell::Result AreaOfEffectSpell::apply(int castingValue, int unmodifiedCastingVa
         }
 
         if (unitAffected) {
-            auto mortalWounds = Dice::RollSpecial(getDamage(m_castingValue));
+            auto mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
             target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
             secondaryEffect(target, m_round);
             SimLog(Verbosity::Narrative,
                    "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-                   m_caster->name().c_str(), name().c_str(), m_castingValue, m_castingValue, mortalWounds,
+                   m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
                    target->name().c_str());
         }
     }
     return Spell::Result::Success;
 }
 
-Spell::Result AreaOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+Spell::Result AreaOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
     if (target != nullptr)
-        return apply(castingValue, unmodifiedCastingValue, target->x(), target->y());
+        return apply(castingRoll, unmodifiedCastingRoll, target->x(), target->y());
     return Result::Failed;
 }
 
@@ -167,13 +167,14 @@ int LineOfEffectSpell::getDamage(int castingRoll) const {
     return m_damage;
 }
 
-Spell::Result LineOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
-    return Spell::Result::Success;
+Spell::Result LineOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) {
+    // TODO: implement
+    return Spell::Result::Failed;
 }
 
-Spell::Result LineOfEffectSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+Spell::Result LineOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
     if (target != nullptr)
-        return apply(castingValue, unmodifiedCastingValue, target->x(), target->y());
+        return apply(castingRoll, unmodifiedCastingRoll, target->x(), target->y());
     return Spell::Result::Failed;
 }
 
@@ -195,14 +196,14 @@ int HealSpell::getHealing(int castingRoll) const {
     return m_healing;
 }
 
-Spell::Result HealSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+Spell::Result HealSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
 
-    auto wounds = Dice::RollSpecial(getHealing(castingValue));
+    auto wounds = Dice::RollSpecial(getHealing(castingRoll));
     target->heal(wounds);
     SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
-           m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, wounds, target->name().c_str());
+           m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, wounds, target->name().c_str());
     return Spell::Result::Success;
 }
 
@@ -220,11 +221,11 @@ int BuffModifierSpell::getModifier(int /*castingRoll*/) const {
     return m_modifier;
 }
 
-Spell::Result BuffModifierSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+Spell::Result BuffModifierSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
 
-    target->buffModifier(m_attribute, m_modifier, defaultDuration());
+    target->buffModifier(m_attribute, getModifier(castingRoll), defaultDuration());
 
     return Spell::Result::Success;
 }
@@ -239,7 +240,7 @@ BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int cast
     m_effect = Abilities::EffectType::Buff;
 }
 
-Spell::Result BuffRerollSpell::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+Spell::Result BuffRerollSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
 

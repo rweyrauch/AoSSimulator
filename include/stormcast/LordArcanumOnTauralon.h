@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDARCANUMONTAURALON_H
-#define LORDARCANUMONTAURALON_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
@@ -61,8 +59,6 @@ namespace StormcastEternals {
 // Spirit Flask                     Yes
 // Lightning Orb                    Yes
 // Prime Electrids                  Yes
-// Swift of Wing                    TODO
+// Swift of Wing                    Yes
 
 } // namespace StormcastEternals
-
-#endif //LORDARCANUMONTAURALON_H

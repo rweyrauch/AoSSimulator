@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TREELORDANCIENT_H
-#define TREELORDANCIENT_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -54,9 +52,7 @@ namespace Sylvaneth {
 // Impale                           Yes
 // Silent Communication             TODO
 // Awakening the Wood               TODO
-// Heed the Spirit-song             TODO
+// Heed the Spirit-song             Yes
 //
 
 } // namespace Sylvaneth
-
-#endif //TREELORDANCIENT_H

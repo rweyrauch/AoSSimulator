@@ -14,6 +14,35 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
+    class RideEmAllDown : public CommandAbility {
+    public:
+        explicit RideEmAllDown(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    RideEmAllDown::RideEmAllDown(Unit *source) :
+            CommandAbility(source, "Ride 'Em All Down", 18, 18, Phase::Charge) {
+        m_allowedTargets = Abilities::Target::Friendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords.push_back(SPIDERFANG);
+        m_targetKeywords.push_back(GROT);
+    }
+
+    bool RideEmAllDown::apply(Unit* target, int round) {
+        if (target == nullptr) {
+            return false;
+        }
+
+        target->buffReroll(Charge_Distance, Reroll_Failed, {Phase::Charge, round, m_source->owningPlayer()});
+
+        // TODO: only buff Crooked Spear
+        target->buffReroll(To_Hit_Melee, Reroll_Failed, {Phase::Combat, round, m_source->owningPlayer()});
+
+        return true;
+    }
+
     static const int g_basesize = 60;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 100;
@@ -35,6 +64,8 @@ namespace GloomspiteGitz {
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_fangs);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<RideEmAllDown>(this));
 
         m_points = g_pointsPerUnit;
 

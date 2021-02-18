@@ -11,6 +11,31 @@
 #include "KhornePrivate.h"
 
 namespace Khorne {
+    class SlaughterIncarnate : public CommandAbility {
+    public:
+        explicit SlaughterIncarnate(Unit *source);
+
+        bool apply(Unit* target, int round) override;
+    };
+
+    SlaughterIncarnate::SlaughterIncarnate(Unit *source) :
+            CommandAbility(source, "Slaughter Incarnate", 12, 12, Phase::Combat) {
+        m_allowedTargets = Abilities::Target::SelfAndFriendly;
+        m_effect = Abilities::EffectType::Buff;
+        m_targetKeywords = {KHORNE, MORTAL};
+    }
+
+    bool SlaughterIncarnate::apply(Unit* target, int round) {
+
+        auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
+        for (auto unit : units) {
+            if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL)) {
+                unit->buffModifier(Attacks_Melee, 1, {m_phase, round, m_source->owningPlayer()});
+            }
+        }
+        return true;
+    }
+
     static const int g_basesize = 40;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 80;
@@ -44,6 +69,8 @@ namespace Khorne {
             m_points = POINTS_PER_UNIT_WITH_GOREAXE;
         }
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<SlaughterIncarnate>(this));
 
         return true;
     }

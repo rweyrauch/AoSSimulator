@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WRATHOFKHORNEBLOODTHIRSTER_H
-#define WRATHOFKHORNEBLOODTHIRSTER_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -58,9 +56,7 @@ namespace Khorne {
 // Hellfire Breath                  Yes
 // Relentless Hunter                Yes
 // Rune-crown of Khorne             Yes
-// Lord of the Blood Hunt           TODO
+// Lord of the Blood Hunt           Yes
 //
 
 } // namespace Khorne
-
-#endif //WRATHOFKHORNEBLOODTHIRSTER_H

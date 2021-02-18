@@ -50,7 +50,7 @@ namespace Khorne {
 // Cloak of Skulls                  Yes
 // Decapitating Strike              Yes
 // Heroes' Bane                     Yes
-// Heads Must Roll                  TODO
+// Heads Must Roll                  Yes
 //
 
 } // namespace Khorne

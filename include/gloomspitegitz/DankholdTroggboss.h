@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DANKHOLDTROGGBOSS_H
-#define DANKHOLDTROGGBOSS_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -56,9 +54,7 @@ namespace GloomspiteGitz {
 // Reassuring Presence              Yes
 // Regeneration                     Yes
 // Squiggly-beast Followers         Yes
-// Instinctive Leader               TODO
+// Instinctive Leader               Yes
 //
 
 } // namespace GloomspiteGitz
-
-#endif //DANKHOLDTROGGBOSS_H

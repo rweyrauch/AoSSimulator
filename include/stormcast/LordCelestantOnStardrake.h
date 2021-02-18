@@ -85,7 +85,7 @@ namespace StormcastEternals {
 // Sigmarite Thundershield          Yes
 // Stormbound Blade                 Yes
 // Sweeping Tail                    Yes
-// Lord of the Celestial Host       TODO
+// Lord of the Celestial Host       Yes
 //
 
 } // namespace StormcastEternals

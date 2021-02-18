@@ -31,6 +31,10 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_starboundBlade);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Once More, For Sigmar, Charge!", 12, 12, Phase::Charge,
+                                                                        Charge_Distance, 3, Abilities::Target::SelfAndFriendly,
+                                                                        std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
+
         m_points = g_pointsPerUnit;
 
         return true;

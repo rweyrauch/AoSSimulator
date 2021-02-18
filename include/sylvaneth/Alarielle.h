@@ -31,8 +31,6 @@ namespace Sylvaneth {
 
         void onStartHero(PlayerId player) override;
 
-        void onStartCombat(PlayerId player) override;
-
         void onEndMovement(PlayerId player) override;
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
@@ -47,15 +45,11 @@ namespace Sylvaneth {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        Rerolls ghyransWrathToWoundReroll(const Unit *attacker, const Weapon *weapon, const Unit *target);
-
     private:
 
         Weapon m_spearOfKurnoth,
                 m_talonOfDwindling,
                 m_beetleGreatAntlers;
-
-        lsignal::slot m_ghyransWrathSlot;
 
         bool m_usedSoulAmphorae = false;
 

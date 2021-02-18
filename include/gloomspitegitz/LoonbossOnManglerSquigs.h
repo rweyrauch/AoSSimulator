@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LOONBOSSONMANGLERSQUIGS_H
-#define LOONBOSSONMANGLERSQUIGS_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -67,9 +65,7 @@ namespace GloomspiteGitz {
 // Ker-splat!                       Yes
 // Redcap Mushrooms                 Yes
 // Watch Out!                       Yes
-// Bit Da Moon!                     TODO
+// Bit Da Moon!                     Yes
 //
 
 } // namespace GloomspiteGitz
-
-#endif //LOONBOSSONMANGLERSQUIGS_H

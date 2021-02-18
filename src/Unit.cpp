@@ -938,7 +938,7 @@ void Unit::useCommandAbility() {
         CommandAbility *cip = SelectCommandAbility(this, target);
         if (cip) {
             if (target.m_targetUnit)
-                cip->apply(target.m_target);
+                cip->apply(target.m_target, m_battleRound);
         }
     }
 }

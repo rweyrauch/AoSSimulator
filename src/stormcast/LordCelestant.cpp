@@ -8,10 +8,33 @@
 
 #include <stormcast/LordCelestant.h>
 #include <iostream>
+#include <Board.h>
 #include "UnitFactory.h"
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
+
+    class FuriousRetribution : public BuffModifierCommandAbility {
+    public:
+        explicit FuriousRetribution(Unit *general);
+
+        bool canBeUsed() const override;
+    };
+
+    FuriousRetribution::FuriousRetribution(Unit *general) :
+            BuffModifierCommandAbility(general, "Furious Retribution", 12, 12, Phase::Combat, To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, {STORMCAST_ETERNAL}) {
+    }
+
+    bool FuriousRetribution::canBeUsed() const {
+        auto unit = Board::Instance()->getNearestUnit(m_source, GetEnemyId(m_source->owningPlayer()));
+        if (unit) {
+            if (m_source->distanceTo(unit) <= 3.0f) {
+                return true;
+            }
+        }
+        return CommandAbility::canBeUsed();
+    }
+
     static const int g_basesize = 40;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 100;
@@ -32,6 +55,8 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_runeblade);
         model->addMeleeWeapon(&m_warhammer);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<FuriousRetribution>(this));
 
         m_points = g_pointsPerUnit;
 

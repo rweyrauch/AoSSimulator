@@ -127,6 +127,20 @@ namespace StormcastEternals {
             ToInteger(PrayersOfTheStormhost::Translocation),
     };
 
+    constexpr std::array<int, 9> g_stormhostCommand = {
+            ToInteger(Command::None),
+            ToInteger(Command::Soul_Of_The_Stormhost),
+            ToInteger(Command::Holy_Crusaders),
+            ToInteger(Command::Righteous_Hatred),
+            ToInteger(Command::Heroes_Of_Another_Age),
+            ToInteger(Command::No_Mercy),
+            ToInteger(Command::Astral_Conjunction),
+            ToInteger(Command::Rousing_Oratory),
+            ToInteger(Command::Cut_Off_The_Head)
+    };
+
+    CommandAbility* CreateCommandAbility(Command which, Unit* source);
+
 } // namespace StormcastEternals
 
 #endif // STORMCASTETERNALSPRIVATE_H
