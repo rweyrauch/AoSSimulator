@@ -496,7 +496,7 @@ void Unit::movement(PlayerId player) {
     m_moved = false;
 
     // Unit cannot move
-    if (!m_canMove) return;
+    if (!canMove()) return;
 
     auto weapon = m_models.front()->preferredWeapon();
     assert(weapon);
@@ -1309,6 +1309,13 @@ bool Unit::canFly() const {
         return m_fly;
     else
         return m_movementRules[Fly].front().allowed;
+}
+
+bool Unit::canMove() const {
+    if (m_movementRules[Move].empty())
+        return m_canMove;
+    else
+        return m_movementRules[Move].front().allowed;
 }
 
 bool Unit::canRunAndShoot() const {

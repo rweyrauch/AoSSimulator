@@ -41,6 +41,8 @@ Spell::Result Spell::cast(Unit *target, int round) {
         }
     }
 
+    onCast(result);
+
     return result;
 }
 
@@ -67,6 +69,8 @@ Spell::Result Spell::cast(double x, double y, int round) {
             result = Result::Unbound;
         }
     }
+
+    onCast(result);
 
     return result;
 }

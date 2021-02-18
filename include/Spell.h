@@ -48,6 +48,7 @@ protected:
 
     virtual Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) = 0;
     virtual Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) = 0;
+    virtual void onCast(Result result) {}
 
     Duration defaultDuration() const;
 

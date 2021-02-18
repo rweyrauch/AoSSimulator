@@ -57,14 +57,24 @@ namespace SlavesToDarkness {
 
     std::string SlavesToDarknessBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Damned Legion") {
-            auto legionName = magic_enum::enum_name((DamnedLegion)parameter.intValue);
+            auto legionName = magic_enum::enum_name((DamnedLegion) parameter.intValue);
             return std::string(legionName);
-        } else if (std::string(parameter.name) == "Mark of Chaos") {
-            auto markName = magic_enum::enum_name((MarkOfChaos)parameter.intValue);
+        }
+        if (std::string(parameter.name) == "Mark of Chaos") {
+            auto markName = magic_enum::enum_name((MarkOfChaos) parameter.intValue);
             return std::string(markName);
-        } else if (std::string(parameter.name) == "Lore") {
+        }
+        if (std::string(parameter.name) == "Lore") {
             auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
             return std::string(loreName);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
         }
         return ParameterValueToString(parameter);
     }
@@ -78,6 +88,12 @@ namespace SlavesToDarkness {
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
         if (lore.has_value()) return (int)lore.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
 
         return 0;
     }

@@ -188,6 +188,8 @@ public:
 
     bool canFly() const;
 
+    bool canMove() const;
+
     bool canRunAndShoot() const;
 
     bool canRunAndCharge() const;

@@ -95,6 +95,7 @@ enum MovementRules {
     Run_And_Charge,
     Retreat_And_Shoot,
     Retreat_And_Charge,
+    Move,
 
     Num_Movement_Rules
 };
