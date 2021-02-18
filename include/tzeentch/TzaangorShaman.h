@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TZAANGORSHAMAN_H
-#define TZAANGORSHAMAN_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -50,9 +48,8 @@ namespace Tzeentch {
 // Sorcerous Elixir                 TODO
 // Visions of the Future            Yes
 // Visions of the Past              Yes
-// Boon of Mutation                 TODO
+// Boon of Mutation                 Yes
 //
 
 } // namespace Tzeentch
 
-#endif //TZAANGORSHAMAN_H

@@ -323,7 +323,6 @@ void Unit::restore() {
     m_prayersAttempted = 0;
 
     m_currentRecord.clear();
-    m_statistics.reset();
 
     for (auto list : m_attributeModifiers) {
         list.clear();
@@ -575,6 +574,13 @@ void Unit::movement(PlayerId player) {
     onEndMovement(player);
 }
 
+bool Unit::battleshockRequired() const {
+    if (m_abilityBuffs[Ignore_Battleshock].empty()) {
+        return true;
+    }
+    return m_abilityBuffs[Ignore_Battleshock].front().enabled;
+}
+
 int Unit::rollBattleshock() const {
     return Dice::RollD6();
 }
@@ -694,16 +700,16 @@ void Unit::battleshock(PlayerId player) {
 }
 
 int Unit::rollChargeDistance() const {
-    // TODO: implement rerolls for charges.
-
     m_unmodifiedChargeRoll = Dice::Roll2D6();
     return m_unmodifiedChargeRoll + chargeModifier();
 }
 
 int Unit::rollRunDistance() const {
-    // TODO: implement rerolls for run.
-
-    return Dice::RollD6() + runModifier();
+    int roll = Dice::RollD6();
+    if (m_abilityBuffs[Auto_Max_Run].empty()) {
+        roll = 6;
+    }
+    return roll + runModifier();
 }
 
 int Unit::slay(int numModels) {
@@ -810,6 +816,9 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
         if (modifiedHitRoll >= weapon->toHit()) {
             // apply hit modifiers (a single hit may result in multiple hits)
             int numHits = generateHits(hitRoll, weapon, target);
+            if (!m_abilityBuffs[Extra_Hit_On_6].empty()) {
+                if (hitRoll == 6) numHits++;
+            }
             for (auto h = 0; h < numHits; h++) {
                 // roll to wound
                 auto woundRoll = Dice::RollD6();
@@ -991,6 +1000,13 @@ bool Unit::buffMovement(MovementRules which, bool allowed, Duration duration) {
     return true;
 }
 
+bool Unit::buffAbility(BuffableAbility which, bool enabled, Duration duration) {
+    AbilityBuff buff = {enabled, duration};
+    m_abilityBuffs[which].push_back(buff);
+
+    return true;
+}
+
 const Model *Unit::nearestModel(const Model *model, const Unit *targetUnit) const {
     if (!targetUnit || targetUnit->m_models.empty()) { return nullptr; }
 
@@ -1062,6 +1078,16 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player) {
     }
 
     for (auto &list : m_movementRules) {
+        for (auto bi = list.begin(); bi != list.end();) {
+            if (Expired(bi->duration, currentPhase)) {
+                bi = list.erase(bi);
+            } else {
+                ++bi;
+            }
+        }
+    }
+
+    for (auto &list : m_abilityBuffs) {
         for (auto bi = list.begin(); bi != list.end();) {
             if (Expired(bi->duration, currentPhase)) {
                 bi = list.erase(bi);

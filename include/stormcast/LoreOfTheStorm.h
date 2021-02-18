@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LOREOFTHESTORM_H
-#define LOREOFTHESTORM_H
+#pragma once
 
 #include <Spell.h>
 
@@ -41,7 +39,7 @@ namespace StormcastEternals {
 
     Spell *CreateAzyriteHalo(Unit *caster);
 
-    AreaOfEffectSpell *CreateChainLightning(Unit *caster);
+    Spell *CreateChainLightning(Unit *caster);
 
     AreaOfEffectSpell *CreateStormcaller(Unit *caster);
 
@@ -54,5 +52,3 @@ namespace StormcastEternals {
     Spell *CreateLore(Lore which, Unit *caster);
 
 } // namespace StormcastEternals
-
-#endif //LOREOFTHESTORM_H

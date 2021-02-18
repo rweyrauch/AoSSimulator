@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef STORMCASTPRAYERS_H
-#define STORMCASTPRAYERS_H
+#pragma once
 
 #include <Prayer.h>
 
@@ -20,5 +18,3 @@ namespace StormcastEternals {
     Prayer *CreateLightningStorm(Unit *source);
 
 } // namespace StormcastEternals
-
-#endif // STORMCASTPRAYERS_H

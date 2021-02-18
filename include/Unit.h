@@ -213,6 +213,7 @@ public:
     bool hasShootingAttack(const Weapon** weapon) const;
 
     const UnitStatistics &getStatistics() const { return m_statistics; }
+    void clearStatistics() { m_statistics.reset(); }
 
     bool isGeneral() const { return m_isGeneral; }
 
@@ -221,6 +222,8 @@ public:
     bool buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration);
 
     bool buffMovement(MovementRules which, bool allowed, Duration duration);
+
+    bool buffAbility(BuffableAbility which, bool enabled, Duration duration);
 
     std::vector<std::unique_ptr<Spell>>::const_iterator spellBegin() const { return m_knownSpells.begin(); }
 
@@ -328,7 +331,7 @@ protected:
      * Does this unit need to take battleshock.
      * @return True if battleshock tests must be made for this unit.
      */
-    virtual bool battleshockRequired() const { return true; }
+    virtual bool battleshockRequired() const;
 
     virtual int rollBattleshock() const;
 
@@ -405,6 +408,7 @@ protected:
     std::list<ModifierBuff> m_attributeModifiers[Num_Buffable_Attributes];
     std::list<RerollBuff> m_rollModifiers[Num_Buffable_Attributes];
     std::list<MovementRuleBuff> m_movementRules[Num_Movement_Rules];
+    std::list<AbilityBuff> m_abilityBuffs[Num_Buffable_Abilities];
 
     static lsignal::signal<int(const Unit *)> s_globalMoveMod;
     static lsignal::signal<int(const Unit *)> s_globalRunMod;

@@ -44,6 +44,49 @@ namespace StormcastEternals {
         return true;
     }
 
+    class BlessWeapons : public Prayer {
+    public:
+        explicit BlessWeapons(Unit *priest) :
+                Prayer(priest, "Bless Weapons", 4, 18) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(int prayingRoll, Unit* target) override {
+            if (target == nullptr)
+                return false;
+
+            const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
+            target->buffAbility(Extra_Hit_On_6, true, duration);
+
+            return true;
+        }
+        bool apply(int prayingRoll, double x, double y) override { return false; }
+
+    };
+
+    class BolsterFaith : public Prayer {
+    public:
+        explicit BolsterFaith(Unit* priest) :
+                Prayer(priest, "Bolster Faith", 3, 9) {
+            m_allowedTargets = Abilities::Target::Friendly;
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(int prayingRoll, Unit* target) override {
+            if (target == nullptr)
+                return false;
+            const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
+            target->buffAbility(Ignore_Battleshock, true, duration);
+            return true;
+        }
+        bool apply(int prayingRoll, double x, double y) override { return false; }
+    };
+
     std::string ToString(PrayersOfTheStormhost which) {
         return std::string(magic_enum::enum_name(which));
     }
@@ -55,44 +98,44 @@ namespace StormcastEternals {
         return prayer.has_value();
     }
 
-    Prayer *CreateDivineLight(Unit *caster) {
-        return new DivineLight(caster);
+    Prayer *CreateDivineLight(Unit *priest) {
+        return new DivineLight(priest);
     }
 
-    Prayer *CreateBlessWeapons(Unit *caster) {
+    Prayer *CreateBlessWeapons(Unit *priest) {
+        return new BlessWeapons(priest);
+    }
+
+    Prayer *CreateBolsterFaith(Unit *priest) {
+        return new BolsterFaith(priest);
+    }
+
+    Prayer *CreateAbjuration(Unit *priest) {
         return nullptr;
     }
 
-    Prayer *CreateBolsterFaith(Unit *caster) {
+    Prayer *CreateGodKingsAspect(Unit *priest) {
         return nullptr;
     }
 
-    Prayer *CreateAbjuration(Unit *caster) {
+    Prayer *CreateTranslocation(Unit *priest) {
         return nullptr;
     }
 
-    Prayer *CreateGodKingsAspect(Unit *caster) {
-        return nullptr;
-    }
-
-    Prayer *CreateTranslocation(Unit *caster) {
-        return nullptr;
-    }
-
-    Prayer *CreatePrayerOfTheStormhost(PrayersOfTheStormhost which, Unit *caster) {
+    Prayer *CreatePrayerOfTheStormhost(PrayersOfTheStormhost which, Unit *priest) {
         switch (which) {
             case PrayersOfTheStormhost::Divine_Light:
-                return CreateDivineLight(caster);
+                return CreateDivineLight(priest);
             case PrayersOfTheStormhost::Bless_Weapons:
-                return CreateBlessWeapons(caster);
+                return CreateBlessWeapons(priest);
             case PrayersOfTheStormhost::Bolster_Faith:
-                return CreateBolsterFaith(caster);
+                return CreateBolsterFaith(priest);
             case PrayersOfTheStormhost::Abjuration:
-                return CreateAbjuration(caster);
+                return CreateAbjuration(priest);
             case PrayersOfTheStormhost::God_Kings_Aspect:
-                return CreateGodKingsAspect(caster);
+                return CreateGodKingsAspect(priest);
             case PrayersOfTheStormhost::Translocation:
-                return CreateTranslocation(caster);
+                return CreateTranslocation(priest);
             default:
                 return nullptr;
         }

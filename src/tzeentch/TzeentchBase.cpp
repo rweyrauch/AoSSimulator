@@ -8,6 +8,7 @@
 
 #include <tzeentch/TzeentchBase.h>
 #include <Board.h>
+#include <magic_enum.hpp>
 #include "tzeentch/KairicAcolytes.h"
 #include "tzeentch/HorrorsOfTzeentch.h"
 #include "tzeentch/TzaangorEnlightened.h"
@@ -38,25 +39,38 @@ namespace Tzeentch {
 
     std::string TzeentchBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Change Coven") {
-            if (parameter.intValue == (int)ChangeCoven::None) return "None";
-            else if (parameter.intValue == (int)ChangeCoven::Eternal_Conflagration) return "Eternal Conflagration";
-            else if (parameter.intValue == (int)ChangeCoven::Hosts_Duplicitous) return "Hosts Duplicitous";
-            else if (parameter.intValue == (int)ChangeCoven::Hosts_Arcanum) return "Hosts Arcanum";
-            else if (parameter.intValue == (int)ChangeCoven::Cult_Of_The_Transient_Form) return "Cult of the Transient Form";
-            else if (parameter.intValue == (int)ChangeCoven::Pyrofane_Cult) return "Pyrofane Cult";
-            else if (parameter.intValue == (int)ChangeCoven::Guild_Of_Summoners) return "Guild of Summoners";
+            auto coven = magic_enum::enum_name((ChangeCoven)parameter.intValue);
+            return std::string(coven);
         }
+        if (std::string(parameter.name) == "Lore") {
+            auto lore = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(lore);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
+
         return ParameterValueToString(parameter);
     }
 
     int TzeentchBase::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "None") return (int)ChangeCoven::None;
-        else if (enumString == "Eternal Conflagration") return (int)ChangeCoven::Eternal_Conflagration;
-        else if (enumString == "Hosts Duplicitous") return (int)ChangeCoven::Hosts_Duplicitous;
-        else if (enumString == "Hosts Arcanum") return (int)ChangeCoven::Hosts_Arcanum;
-        else if (enumString == "Cult of the Transient Form") return (int)ChangeCoven::Cult_Of_The_Transient_Form;
-        else if (enumString == "Pyrofane Cult") return (int)ChangeCoven::Pyrofane_Cult;
-        else if (enumString == "Guild of Summoners") return (int)ChangeCoven::Guild_Of_Summoners;
+
+        auto coven = magic_enum::enum_cast<ChangeCoven>(enumString);
+        if (coven.has_value()) return (int)coven.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
 
         return 0;
     }

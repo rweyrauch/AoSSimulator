@@ -81,6 +81,14 @@ enum BuffableAttribute {
     Num_Buffable_Attributes
 };
 
+enum BuffableAbility {
+    Ignore_Battleshock = 0,
+    Auto_Max_Run,
+    Extra_Hit_On_6,
+
+    Num_Buffable_Abilities
+};
+
 enum MovementRules {
     Fly = 0,
     Run_And_Shoot,
@@ -1117,6 +1125,11 @@ struct RerollBuff {
 
 struct MovementRuleBuff {
     bool allowed;
+    Duration duration;
+};
+
+struct AbilityBuff {
+    bool enabled;
     Duration duration;
 };
 

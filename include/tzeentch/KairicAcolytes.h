@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KAIRICACOLYTES_H
-#define KAIRICACOLYTES_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -40,6 +38,8 @@ namespace Tzeentch {
         bool configure(int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts,
                        int numVulcharcs);
 
+        void activateGestaltSorcery() { m_gestaltSorceryActive = true; }
+
     protected:
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
@@ -48,7 +48,16 @@ namespace Tzeentch {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
+        int weaponRend(const Weapon *weapon, const Unit *target,
+                       int hitRoll, int woundRoll) const override;
+
+        void onRestore() override;
+
+        void onStartHero(PlayerId player) override { m_gestaltSorceryActive = false; }
+
     private:
+
+        bool m_gestaltSorceryActive = false;
 
         WeaponOptions m_weaponOption = Cursed_Blade;
         int m_numCursedGlaives = 0;
@@ -68,12 +77,10 @@ namespace Tzeentch {
 // Abilities                    Implemented
 // -------------------------------------------
 // Arcanite Shields                 Yes
-// Gestalt Sorcery                  TODO
+// Gestalt Sorcery                  Yes
 // Paired Cursed Blades             Yes
 // Scroll of Dark Arts              Yes
 // Vulcharc                         TODO
 //
 
 } // Tzeentch
-
-#endif //KAIRICACOLYTES_H

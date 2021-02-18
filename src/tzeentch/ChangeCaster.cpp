@@ -85,6 +85,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_dagger);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<DamageSpell>(this, "Pink Fire of Tzeentch", 9, 18, RAND_D6));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

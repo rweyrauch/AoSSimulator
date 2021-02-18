@@ -8,10 +8,44 @@
 
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include "Roster.h"
 #include "tzeentch/TzaangorShaman.h"
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class BoonOfMutation : public Spell {
+    public:
+        explicit BoonOfMutation(Unit* caster) :
+                Spell(caster, "Boon of Mutation", 7, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr) {
+                return Spell::Result::Failed;
+            }
+
+            auto numSlain = target->applyDamage({0, Dice::RollSpecial(RAND_D3), Wounds::Source::Spell}, m_caster);
+            if (numSlain > 0) {
+                // Restore slain Tzaangor model to an existing unit
+                auto roster = m_caster->getRoster();
+                for (auto up = roster->unitBegin(); up != roster->unitEnd(); ++up) {
+                    auto unit = *up;
+                    if (unit->name() == "Tzaangor") {
+                        unit->returnModels(numSlain);
+                        break;
+                    }
+                }
+            }
+            return Spell::Result::Success;
+        }
+
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 40;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 150;
@@ -83,6 +117,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BoonOfMutation>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

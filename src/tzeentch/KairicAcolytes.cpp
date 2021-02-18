@@ -12,6 +12,33 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class GestaltSorcery : public Spell {
+    public:
+        explicit GestaltSorcery(Unit* caster) :
+            Spell(caster, "Gestalt Sorcery", 6, 9) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_effect = Abilities::EffectType::Buff;
+            m_targetKeywords.push_back(KAIRIC_ACOLYTES);
+        }
+
+    protected:
+        Spell::Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+            if (target == nullptr) {
+                return Spell::Result::Failed;
+            }
+            auto result = Spell::Result::Failed;
+
+            auto ka = dynamic_cast<KairicAcolytes*>(target);
+            if (ka) {
+                ka->activateGestaltSorcery();
+                result = Spell::Result::Success;;
+            }
+            return result;
+        }
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 1;
     static const int g_minUnitSize = 10;
@@ -75,6 +102,8 @@ namespace Tzeentch {
             model->addMeleeWeapon(&m_cursedBlade);
             addModel(model);
         }
+
+        m_knownSpells.push_back(std::make_unique<GestaltSorcery>(this));
 
         m_points = ComputePoints(numModels);
 
@@ -185,6 +214,20 @@ namespace Tzeentch {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    int KairicAcolytes::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        if (m_gestaltSorceryActive && (weapon->name() == m_sorcerousBolt.name())) {
+            return weapon->rend() - 1;
+        }
+        return TzeentchBase::weaponRend(weapon, target, hitRoll, woundRoll);
+    }
+
+    void KairicAcolytes::onRestore() {
+        TzeentchBase::onRestore();
+
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
 } //namespace Tzeentch

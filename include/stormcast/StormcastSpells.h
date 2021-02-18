@@ -5,28 +5,29 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef STORMCASTSPELLS_H
-#define STORMCASTSPELLS_H
+#pragma once
 
 #include <Spell.h>
 
-DamageSpell *CreatePrimeElectrids(Unit *caster);
+namespace StormcastEternals {
 
-DamageSpell *CreateSpiritStorm(Unit *caster);
+    DamageSpell *CreatePrimeElectrids(Unit *caster);
 
-LineOfEffectSpell *CreatePyroelectricBlast(Unit *caster);
+    DamageSpell *CreateSpiritStorm(Unit *caster);
 
-AreaOfEffectSpell *CreateLightningPulse(Unit *caster);
+    LineOfEffectSpell *CreatePyroelectricBlast(Unit *caster);
 
-AreaOfEffectSpell *CreateLightningOrb(Unit *caster);
+    AreaOfEffectSpell *CreateLightningPulse(Unit *caster);
 
-LineOfEffectSpell *CreateStormLance(Unit *caster);
+    AreaOfEffectSpell *CreateLightningOrb(Unit *caster);
 
-HealSpell *CreateHealingLight(Unit *caster);
+    LineOfEffectSpell *CreateStormLance(Unit *caster);
 
-Spell *CreatePurifyingBlast(Unit *caster);
+    HealSpell *CreateHealingLight(Unit *caster);
 
-Spell *CreateThunderclap(Unit *caster);
+    Spell *CreatePurifyingBlast(Unit *caster);
 
-#endif //STORMCASTSPELLS_H
+    Spell *CreateThunderclap(Unit *caster);
+
+    Spell *CreateStormsire(Unit *caster);
+}

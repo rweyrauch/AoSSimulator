@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MAGISTER_H
-#define MAGISTER_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -43,9 +41,8 @@ namespace Tzeentch {
 // Abilities                    Implemented
 // -------------------------------------------
 // Magic-touched                    TODO
-// Bolt of Change                   TODO
+// Bolt of Change                   Yes
 //
 
 } // namespace Tzeentch
 
-#endif //MAGISTERONDISC_H

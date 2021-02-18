@@ -132,6 +132,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<GiftOfChange>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

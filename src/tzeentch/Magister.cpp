@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/Magister.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
 
@@ -77,6 +78,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_sword);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateBoltOfChange(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -126,15 +126,18 @@ namespace KharadronOverlords {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_volleyGun);
             model->addMeleeWeapon(&m_gunButt);
+            addModel(model);
         }
         for (auto i = 0; i < numSkyhooks; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_skyhook);
             model->addMeleeWeapon(&m_gunButt);
+            addModel(model);
         }
         for (auto i = 0; i < numSkypikes; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_skypike);
+            addModel(model);
         }
 
         int currentModelCount = (int) m_models.size();

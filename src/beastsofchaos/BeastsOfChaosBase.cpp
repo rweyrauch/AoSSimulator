@@ -57,12 +57,34 @@ namespace BeastsOfChaos {
             auto frayName = magic_enum::enum_name((Greatfray)parameter.intValue);
             return std::string(frayName);
         }
+        if (std::string(parameter.name) == "Lore") {
+            auto lore = magic_enum::enum_name((Lore)parameter.intValue);
+            return std::string(lore);
+        }
+        if (std::string(parameter.name) == "Command Trait") {
+            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            return std::string(traitName);
+        }
+        if (std::string(parameter.name) == "Artefact") {
+            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            return std::string(artefactName);
+        }
         return ParameterValueToString(parameter);
     }
 
     int BeastsOfChaosBase::EnumStringToInt(const std::string &enumString) {
         auto fray = magic_enum::enum_cast<Greatfray>(enumString);
         if (fray.has_value()) return (int)fray.value();
+
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value()) return (int)lore.value();
+
+        auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
+        if (trait.has_value()) return (int)trait.value();
+
+        auto artefact = magic_enum::enum_cast<Artefact>(enumString);
+        if (artefact.has_value()) return (int)artefact.value();
+
         return 0;
     }
 

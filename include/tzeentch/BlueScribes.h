@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLUESCRIBES_H
-#define BLUESCRIBES_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -44,9 +42,8 @@ namespace Tzeentch {
 // -------------------------------------------
 // Frantic Scribbling               TODO
 // Scrolls of Sorcery               TODO
-// Boon of Tzeentch                 TODO
+// Boon of Tzeentch                 Yes
 //
 
 } // namespace Tzeentch
 
-#endif //BLUESCRIBES_H

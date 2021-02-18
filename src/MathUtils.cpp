@@ -860,6 +860,8 @@ namespace Math {
 
     bool PointOfIntersection(const Circle &c0, const Vector2 &motion0, const Circle &c1, double &poi) {
 
+        poi = 0.0;
+
         // Check for initial intersection
         IntersectInfo hitInfo;
         if (Intersect(c0, c1, hitInfo)) {

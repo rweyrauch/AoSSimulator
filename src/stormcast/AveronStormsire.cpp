@@ -14,6 +14,7 @@
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
+
     static const int g_basesize = 40;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 130;
@@ -38,11 +39,11 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateStormsire(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateSpiritStorm(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
-        // TODO: add Stormsire spell
 
         m_points = g_pointsPerUnit;
 

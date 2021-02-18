@@ -454,3 +454,8 @@ void ManoAMano::getStatistics(PlayerId which, UnitStatistics &stats) {
         stats = blueUnit()->getStatistics();
     }
 }
+
+void ManoAMano::clearStatistics() {
+    redUnit()->clearStatistics();
+    blueUnit()->clearStatistics();
+}

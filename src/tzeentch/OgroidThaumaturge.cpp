@@ -12,6 +12,35 @@
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {
+
+    class ChokingTendrils : public Spell {
+    public:
+        explicit ChokingTendrils(Unit* caster);
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    ChokingTendrils::ChokingTendrils(Unit *caster) :
+            Spell(caster, "Choking Tendrils", 7, 18) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
+    }
+
+    Spell::Result ChokingTendrils::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        auto numSlain = target->applyDamage({0, Dice::RollSpecial(RAND_D6), Wounds::Source::Spell}, m_caster);
+        if (numSlain > 0) {
+            m_caster->heal(numSlain);
+        }
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 50;
     static const int g_wounds = 8;
     static const int g_pointsPerUnit = 160;
@@ -76,6 +105,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_hooves);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<ChokingTendrils>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -5,10 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CHANGECASTER_H
-#define CHANGECASTER_H
-
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -46,9 +43,8 @@ namespace Tzeentch {
 // -------------------------------------------
 // Fortune and Fate                 TODO
 // Arcane Tome                      TODO
-// Pink Fire of Tzeentch            TODO
+// Pink Fire of Tzeentch            Yes
 //
 
 } // namespace Tzeentch
 
-#endif //CHANGECASTER_H

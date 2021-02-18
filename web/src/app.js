@@ -472,6 +472,7 @@ AoSSimulator().then(AoSSimulator => {
         }
 
         g_battle.combatants(g_red, g_blue);
+        g_battle.clearStatistics();
 
         console.log("Red Points: " + g_red.points() + "  Blue Points: " + g_blue.points());
 
@@ -554,19 +555,27 @@ AoSSimulator().then(AoSSimulator => {
 
     function updateStats(stats, team) {
 
-        var woundsTaken = new AoSSimulator.Wounds();
-        var woundsInflicted = new AoSSimulator.Wounds();
+        let woundsTaken = new AoSSimulator.Wounds();
+        let woundsInflicted = new AoSSimulator.Wounds();
         stats.totalWoundsInflicted(woundsInflicted);
         stats.totalWoundsTaken(woundsTaken);
-        var unit = g_red;
+        let unit = g_red;
         if (team === "blue") {
             unit = g_blue;
         }
 
+        const avgRoundsMoved = stats.numberOfRoundsMoved() / g_numIterations;
+        const avgRoundsRan = stats.numberOfRoundsRan() / g_numIterations;
+        const avgModelsSlain = stats.totalModelsSlain() / g_numIterations;
+        const avgModelsFled = stats.totalModelsFled() / g_numIterations;
+        const avgEnemyModelsSlain = stats.totalEnemyModelsSlain() / g_numIterations;
+        const avgWoundsTaken = (woundsTaken.normal + woundsTaken.mortal) / g_numIterations;
+        const avgWoundsInflicted = (woundsInflicted.normal + woundsInflicted.mortal) / g_numIterations;
+
         let elem = document.getElementById(`${team}-rounds-moved`);
-        if (elem) elem.innerHTML = stats.numberOfRoundsMoved().toString();
+        if (elem) elem.innerHTML = avgRoundsMoved.toString();
         elem = document.getElementById(`${team}-rounds-ran`);
-        if (elem) elem.innerHTML = stats.numberOfRoundsRan().toString();
+        if (elem) elem.innerHTML = avgRoundsRan.toString();
         elem = document.getElementById(`${team}-rounds-charged`);
         if (elem) elem.innerHTML = stats.numberOfRoundsCharged().toString();
         elem = document.getElementById(`${team}-total-movement`);
@@ -586,15 +595,15 @@ AoSSimulator().then(AoSSimulator => {
         elem = document.getElementById(`${team}-saves-failed`);
         if (elem) elem.innerHTML = stats.totalSavesFailed().toString();
         elem = document.getElementById(`${team}-enemy-models`);
-        if (elem) elem.innerHTML = stats.totalEnemyModelsSlain().toString();
+        if (elem) elem.innerHTML = avgEnemyModelsSlain.toString();
         elem = document.getElementById(`${team}-wounds-inflicted`);
-        if (elem) elem.innerHTML = (woundsInflicted.normal + woundsInflicted.mortal).toString();
+        if (elem) elem.innerHTML = avgWoundsInflicted.toString();
         elem = document.getElementById(`${team}-wounds-taken`);
-        if (elem) elem.innerHTML = (woundsTaken.normal + woundsTaken.mortal).toString();
+        if (elem) elem.innerHTML = avgWoundsTaken.toString();
         elem = document.getElementById(`${team}-models-fled`);
-        if (elem) elem.innerHTML = stats.totalModelsFled().toString();
+        if (elem) elem.innerHTML = avgModelsFled.toString();
         elem = document.getElementById(`${team}-casualties`);
-        if (elem) elem.innerHTML = stats.totalModelsSlain().toString();
+        if (elem) elem.innerHTML = avgModelsSlain.toString();
         elem = document.getElementById(`${team}-points-remaining`);
         if (elem) elem.innerHTML = unit.remainingPoints().toString();
     }

@@ -123,6 +123,7 @@ interface ManoAMano {
     boolean done();
     long currentRound();
     void getStatistics(PlayerId which, [Ref] UnitStatistics stats);
+    void clearStatistics();
     PlayerId getVictor();
     float getInitialRedX();
     float getInitialRedY();

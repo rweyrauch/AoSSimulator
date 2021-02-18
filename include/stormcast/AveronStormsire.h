@@ -6,7 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #pragma once
-#pragma once
+
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
@@ -52,7 +52,7 @@ namespace StormcastEternals {
 // -------------------------------------------
 // Voidstorm Scroll                 TODO
 // Spirit Flask                     Yes
-// Stormsire                        TODO
+// Stormsire                        Yes
 //
 
 } // namespace StormcastEternals

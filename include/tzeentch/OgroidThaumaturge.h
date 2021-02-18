@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef OGROIDTHAUMATURGE_H
-#define OGROIDTHAUMATURGE_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -45,9 +43,8 @@ namespace Tzeentch {
 // -------------------------------------------
 // Brutal Rage                      TODO
 // Mighty Bulk                      TODO
-// Choking Tendrils                 TODO
+// Choking Tendrils                 Yes
 //
 
 } // namespace Tzeentch
 
-#endif //OGROIDTHAUMATURGE_H

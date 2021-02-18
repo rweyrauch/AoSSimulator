@@ -5,31 +5,12 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <cfloat>
 #include <stormcast/LoreOfTheStorm.h>
 #include <Unit.h>
+#include <Board.h>
 #include "magic_enum.hpp"
 
 namespace StormcastEternals {
-
-    std::string ToString(Lore which) {
-        return std::string(magic_enum::enum_name(which));
-    }
-
-    bool FromString(const std::string &enumString, Lore &outLore) {
-        auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value())
-            outLore = lore.value();
-        return lore.has_value();
-    }
-
-    DamageSpell *CreateLightningBlast(Unit *caster) {
-        return new DamageSpell(caster, "Lightning Blast", 5, INT32_MAX, RAND_D3);
-    }
-
-    AreaOfEffectSpell *CreateStarfall(Unit *caster) {
-        return new AreaOfEffectSpell(caster, "Starfall", 5, 12, 3, 1, 4);
-    }
 
     class Thundershock : public AreaOfEffectSpell {
     public:
@@ -47,8 +28,62 @@ namespace StormcastEternals {
         }
     }
 
+    class ChainLightning : public Spell {
+    public:
+        explicit ChainLightning(Unit *caster);
+
+    protected:
+
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+    };
+
+    ChainLightning::ChainLightning(Unit *caster) :
+            Spell(caster, "Chain Lightning", 7, 24) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::AreaOfEffectDamage;
+    }
+
+    Spell::Result ChainLightning::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+        if (target == nullptr) {
+            return Spell::Result::Failed;
+        }
+
+        target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+
+        auto units = Board::Instance()->getUnitsWithin(target, target->owningPlayer(), 3.0);
+        for (auto unit : units) {
+            if (Dice::RollD6() >= 4) {
+                unit->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
+            }
+        }
+        return Spell::Result::Success;
+    }
+
+
+    std::string ToString(Lore which) {
+        return std::string(magic_enum::enum_name(which));
+    }
+
+    bool FromString(const std::string &enumString, Lore &outLore) {
+        auto lore = magic_enum::enum_cast<Lore>(enumString);
+        if (lore.has_value())
+            outLore = lore.value();
+        return lore.has_value();
+    }
+
+
+    DamageSpell *CreateLightningBlast(Unit *caster) {
+        return new DamageSpell(caster, "Lightning Blast", 5, INT32_MAX, RAND_D3);
+    }
+
+    AreaOfEffectSpell *CreateStarfall(Unit *caster) {
+        return new AreaOfEffectSpell(caster, "Starfall", 5, 12, 3, 1, 4);
+    }
+
     AreaOfEffectSpell *CreateThundershock(Unit *caster) {
-        return new class Thundershock(caster);
+        return new Thundershock(caster);
     }
 
     AreaOfEffectSpell *CreateStormcaller(Unit *caster) {
@@ -59,8 +94,8 @@ namespace StormcastEternals {
         return nullptr;
     }
 
-    AreaOfEffectSpell *CreateChainLightning(Unit *caster) {
-        return nullptr;
+    Spell *CreateChainLightning(Unit *caster) {
+        return new ChainLightning(caster);
     }
 
     Spell *CreateTerrifyingAspect(Unit *caster) {

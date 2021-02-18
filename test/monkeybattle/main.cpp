@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
 
     for (int i = 0; i < numIterations; i++)
     {
-        auto battle = new ManoAMano(numRounds);
+        auto battle = std::make_unique<ManoAMano>(numRounds);
 
         auto pRed = GenerateRandomUnit();
         auto pBlue = GenerateRandomUnit();
@@ -88,8 +88,6 @@ int main(int argc, char* argv[])
             std::cout << "Team Blue, " << pBlue->name() << ", was victorious." << std::endl;
         else
             std::cout << "Tie! " << std::endl;
-
-        delete battle;
     }
 
     return EXIT_SUCCESS;
