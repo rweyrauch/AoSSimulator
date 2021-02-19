@@ -34,7 +34,8 @@ namespace Sylvaneth {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(SYLVANETH)) {
-                unit->buffReroll(To_Save, Reroll_Ones, {m_phase, round+1, m_source->owningPlayer()});
+                unit->buffReroll(To_Save_Missile, Reroll_Ones, {m_phase, round+1, m_source->owningPlayer()});
+                unit->buffReroll(To_Save_Melee, Reroll_Ones, {m_phase, round+1, m_source->owningPlayer()});
             }
         }
         return true;

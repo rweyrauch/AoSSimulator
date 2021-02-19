@@ -142,11 +142,11 @@ namespace SlavesToDarkness {
                         // Allow save against magic
                     } else if (target->hasKeyword(NURGLE)) {
                         // Favour of Nurgle
-                        target->buffModifier(To_Save, 1, {Hero, m_battleRound + 1, player});
+                        target->buffModifier(To_Save_Missile, 1, {Hero, m_battleRound + 1, player});
+                        target->buffModifier(To_Save_Melee, 1, {Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(SLAANESH)) {
                         // Favour of Slanesh
-                        // Target does not take battle shock (implement with a large bravery modifier).
-                        target->buffModifier(Bravery, 200, {Hero, m_battleRound + 1, player});
+                        target->buffAbility(Ignore_Battleshock, 1, {Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(UNDIVIDED)) {
                         // Favour of Chaos
                         target->buffReroll(Charge_Distance, Reroll_Failed, {Hero, m_battleRound + 1, player});

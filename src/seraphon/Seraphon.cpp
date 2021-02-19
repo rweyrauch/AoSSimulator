@@ -37,6 +37,7 @@
 #include "seraphon/SkinkPriest.h"
 #include "seraphon/SlannStarmaster.h"
 #include "../AoSSimPrivate.h"
+#include "Board.h"
 
 namespace Seraphon {
 
@@ -210,6 +211,59 @@ namespace Seraphon {
         SkinkPriest::Init();
         SkinkStarpriest::Init();
         SlannStarmaster::Init();
+    }
+
+    class GiftFromTheHeavens : public CommandAbility {
+    public:
+        GiftFromTheHeavens(Unit *general) :
+                CommandAbility(general, "Gift from the Heavens", 18, 18, Phase::Hero) {
+            m_allowedTargets = Abilities::Target::Friendly;
+            m_targetKeywords = {SERAPHON};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+        bool apply(Unit* target, int round) override {
+            if (target == nullptr) return false;
+
+            target->buffMovement(Fly, true, defaultDuration());
+            target->buffModifier(To_Save_Missile, 1, defaultDuration());
+            return true;
+        }
+    };
+
+    CommandAbility *CreateGiftFromTheHeavens(Unit *general) {
+        return new GiftFromTheHeavens(general);
+    }
+
+
+    class CometsCall : public Spell {
+    public:
+        explicit CometsCall(Unit* caster) :
+                Spell(caster, "Comet's Call", 7, 1000) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::AreaOfEffectDamage;
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            return apply(castingRoll, unmodifiedCastingRoll, 0.0, 0.0);
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override {
+
+            auto units = Board::Instance()->getAllUnits(GetEnemyId(m_caster->owningPlayer()));
+            auto numTargets = (castingRoll >= 10) ? Dice::RollD6() : Dice::RollD3();
+            numTargets = std::min(numTargets, (int)units.size());
+
+            Wounds wounds{0, Dice::RollD3(), Wounds::Source::Spell};
+            for (int i = 0; i < numTargets; i++) {
+                units[i]->applyDamage(wounds, m_caster);
+            }
+            return Spell::Result::Success;
+        }
+    };
+
+    Spell* CreateCometsCall(Unit* caster) {
+        return new CometsCall(caster);
     }
 
 } //namespace Seraphon

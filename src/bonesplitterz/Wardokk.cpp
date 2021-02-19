@@ -111,8 +111,10 @@ namespace Bonesplitterz {
                     break;
                 } else if (unit->meleeTarget() != nullptr) {
                     // Glyphdokk Dance
-                    if (Dice::RollD6() >= 3)
-                        unit->buffModifier(To_Save, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                    if (Dice::RollD6() >= 3) {
+                        unit->buffModifier(To_Save_Missile, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                        unit->buffModifier(To_Save_Melee, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                    }
                     break;
                 }
             }

@@ -5,14 +5,16 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+#pragma once
 
-#ifndef SKAVENSPELLS_H
-#define SKAVENSPELLS_H
-
+#include "skaven/Skaventide.h"
 #include <Spell.h>
 
-DamageSpell *CreateWarpLightning(Unit *caster);
+namespace Skaven {
 
-AreaOfEffectSpell *CreateWarpLightningStorm(Unit *caster);
+    DamageSpell *CreateWarpLightning(Unit *caster);
 
-#endif //SKAVENSPELLS_H
+    AreaOfEffectSpell *CreateWarpLightningStorm(Unit *caster);
+
+    Spell* CreateLore(Lore which, Unit* caster);
+}

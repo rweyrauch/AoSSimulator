@@ -10,9 +10,43 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include <Roster.h>
+#include <Board.h>
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
+
+    class CelestialDeliverance : public Spell {
+    public:
+        explicit CelestialDeliverance(Unit* caster) :
+            Spell(caster, "Celestial Deliverance", 7, 10) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::AreaOfEffectDamage;
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            return apply(castingRoll, unmodifiedCastingRoll, 0.0, 0.0);
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override {
+
+            auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
+            auto unitsTargeted = 0;
+            for (auto unit : units) {
+
+                if (Dice::RollD6() >= 2) {
+                    Wounds wounds{0, Dice::RollD3(), Wounds::Source::Spell};
+                    if (unit->hasKeyword(CHAOS) && unit->hasKeyword(DAEMON)) {
+                        wounds.mortal = 3;
+                    }
+                    unit->applyDamage(wounds, m_caster);
+                }
+                unitsTargeted++;
+                if (unitsTargeted > 3) break;
+            }
+            return Spell::Result::Success;
+        }
+    };
+
     static const int g_basesize = 50;
     static const int g_wounds = 7;
     static const int g_pointsPerUnit = 320;
@@ -35,10 +69,12 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_barrier);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<CelestialDeliverance>(this)); // TODO: allow this spell to be cast up to 3 times
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateCometsCall(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-        //m_knownSpells.push_back(std::make_unique<CelestialDeliverance>(this));
-        //m_knownSpells.push_back(std::make_unique<CometsCall>(this));
+
+        m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateGiftFromTheHeavens(this)));
 
         m_points = ComputePoints(1);
 

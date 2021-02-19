@@ -176,4 +176,7 @@ namespace Seraphon {
 
     void Init();
 
+    CommandAbility *CreateGiftFromTheHeavens(Unit *general);
+    Spell* CreateCometsCall(Unit* caster);
+
 } // namespace Seraphon

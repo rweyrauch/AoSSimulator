@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKINKSTARPRIEST_H
-#define SKINKSTARPRIEST_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -46,9 +44,7 @@ namespace Seraphon {
 // -------------------------------------------
 // Astral Herald                    Yes
 // Serpent Staff                    TODO
-// Blazing Starlight                TODO
+// Blazing Starlight                Yes
 //
 
 } // namespace Seraphon
-
-#endif //SKINKSTARPRIEST_H

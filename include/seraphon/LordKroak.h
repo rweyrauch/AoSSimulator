@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDKROAK_H
-#define LORDKROAK_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -54,11 +52,9 @@ namespace Seraphon {
 // Dead for Innumerable Ages        Yes
 // Impeccable Foresight             Yes
 // Masters of Order                 Yes
-// Celestial Deliverance            TODO
-// Comet's Call                     TODO
-// Gift from the Heavens            TODO
+// Celestial Deliverance            Yes
+// Comet's Call                     Yes
+// Gift from the Heavens            Yes
 //
 
 } // namespace Seraphon
-
-#endif //LORDKROAK_H

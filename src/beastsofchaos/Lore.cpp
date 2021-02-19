@@ -59,7 +59,31 @@ namespace BeastsOfChaos {
             return Spell::Result::Failed;
 
         target->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
-        target->buffModifier(To_Save, -1, defaultDuration());
+        target->buffModifier(To_Save_Missile, -1, defaultDuration());
+        target->buffModifier(To_Save_Melee, -1, defaultDuration());
+
+        return Spell::Result::Success;
+    }
+
+    class TendrilsOfAtrophy : public Spell {
+    public:
+        explicit TendrilsOfAtrophy(Unit* caster) :
+                Spell(caster, "Tendrils of Atrophy", 6, 12) {
+            m_allowedTargets = Abilities::Target::Friendly;
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    Spell::Result TendrilsOfAtrophy::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+        if (target == nullptr)
+            return Spell::Result::Failed;
+
+        target->buffModifier(To_Save_Missile, -1, defaultDuration());
+        target->buffModifier(To_Save_Melee, -1, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -75,7 +99,7 @@ namespace BeastsOfChaos {
                 // TODO: Savage_Dominion
                 return nullptr;
             case Lore::Tendrils_Of_Atrophy:
-                return new BuffModifierSpell(caster, "Tendrils of Atrophy", 6, 12, To_Save, -1, Abilities::Target::Enemy);
+                return new TendrilsOfAtrophy(caster);
             case Lore::Wild_Rampage:
                 return new WildRampage(caster);
             case Lore::Titanic_Fury:

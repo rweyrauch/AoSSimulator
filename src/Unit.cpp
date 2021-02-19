@@ -1202,8 +1202,15 @@ Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
 
 int Unit::toSaveModifier(const Weapon *weapon) const {
     int modifier = s_globalSaveMod(this, weapon, accumulate);
-    for (auto bi : m_attributeModifiers[To_Save]) {
-        modifier += bi.modifier;
+    if (weapon->isMissile()) {
+        for (auto bi : m_attributeModifiers[To_Save_Missile]) {
+            modifier += bi.modifier;
+        }
+    }
+    else {
+        for (auto bi : m_attributeModifiers[To_Save_Melee]) {
+            modifier += bi.modifier;
+        }
     }
 
     modifier += UnitModifierInterface::toSaveModifier(weapon);
@@ -1220,9 +1227,15 @@ Rerolls Unit::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
     if (baseRR != No_Rerolls)
         return baseRR;
 
-    if (m_rollModifiers[To_Save].empty())
+    if (weapon->isMissile()) {
+        if (m_rollModifiers[To_Save_Missile].empty())
+            return No_Rerolls;
+        return m_rollModifiers[To_Save_Missile].front().rerolls;
+    }
+
+    if (m_rollModifiers[To_Save_Melee].empty())
         return No_Rerolls;
-    return m_rollModifiers[To_Save].front().rerolls;
+    return m_rollModifiers[To_Save_Melee].front().rerolls;
 }
 
 Rerolls Unit::battleshockRerolls() const {
@@ -1399,8 +1412,15 @@ int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const 
 int Unit::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = 0;
 
-    for (auto bi : m_attributeModifiers[Target_To_Save]) {
-        modifier += bi.modifier;
+    if (weapon->isMissile()) {
+        for (auto bi : m_attributeModifiers[Target_To_Save_Missile]) {
+            modifier += bi.modifier;
+        }
+    }
+    else {
+        for (auto bi : m_attributeModifiers[Target_To_Save_Melee]) {
+            modifier += bi.modifier;
+        }
     }
 
     modifier += UnitModifierInterface::targetSaveModifier(weapon, attacker);

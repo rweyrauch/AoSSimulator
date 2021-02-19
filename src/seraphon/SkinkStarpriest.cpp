@@ -10,9 +10,31 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
+#include <spells/MysticShield.h>
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
+
+    class BlazingStarlight : public Spell {
+    public:
+        explicit BlazingStarlight(Unit* caster) :
+                Spell(caster, "Blazing Starlight", 6, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Debuff;
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            if (target == nullptr) return Result::Failed;
+
+            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+
+            return Result::Success;
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 25;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 120;
@@ -26,6 +48,9 @@ namespace Seraphon {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARPRIEST};
         m_weapons = {&m_venombolt, &m_staff};
         m_battleFieldRole = Leader;
+
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
     }
 
     bool SkinkStarpriest::configure(Lore lore) {
@@ -33,6 +58,10 @@ namespace Seraphon {
         model->addMissileWeapon(&m_venombolt);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
+
+        m_knownSpells.push_back(std::make_unique<BlazingStarlight>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
 

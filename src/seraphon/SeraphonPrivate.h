@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SERAPHONPRIVATE_H
-#define SERAPHONPRIVATE_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include "../AoSSimPrivate.h"
@@ -94,5 +92,3 @@ namespace Seraphon {
     };
 
 } // namespace Seraphon
-
-#endif //SERAPHONPRIVATE_H

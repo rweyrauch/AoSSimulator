@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TROGLODON_H
-#define TROGLODON_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -65,9 +63,7 @@ namespace Seraphon {
 // Terror                           Yes
 // Venomous Spittle                 Yes
 // Drawn to the Screams             TODO
-// Comet's Call                     TODO
+// Comet's Call                     Yes
 //
 
 } // namespace Seraphon
-
-#endif //TROGLODON_H

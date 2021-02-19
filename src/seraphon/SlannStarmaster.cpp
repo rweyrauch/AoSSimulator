@@ -8,8 +8,8 @@
 
 #include <seraphon/SlannStarmaster.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include <Roster.h>
+#include <spells/MysticShield.h>
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
@@ -25,12 +25,21 @@ namespace Seraphon {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER};
         m_weapons = {&m_lightning};
         m_battleFieldRole = Leader;
+
+        m_totalSpells = 3;
+        m_totalUnbinds = 3;
     }
 
     bool SlannStarmaster::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_lightning);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateCometsCall(this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateGiftFromTheHeavens(this)));
 
         m_points = ComputePoints(1);
 

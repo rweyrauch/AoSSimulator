@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKINKSTARSEER_H
-#define SKINKSTARSEER_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -46,9 +44,7 @@ namespace Seraphon {
 // -------------------------------------------
 // Cosmic Herald                    Yes
 // Astromancer's Staff              TODO
-// Control Fate                     TODO
+// Control Fate                     Yes
 //
 
 } // namespace Seraphon
-
-#endif //SKINKSTARSEER_H

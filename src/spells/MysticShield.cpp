@@ -20,9 +20,8 @@ Spell::Result MysticShield::apply(int castingValue, int unmodifiedCastingValue, 
         return Result::Failed;
     }
 
-    if (target->buffReroll(To_Save, Reroll_Ones, defaultDuration())) {
-        return Result::Success;
-    }
+    target->buffReroll(To_Save_Missile, Reroll_Ones, defaultDuration());
+    target->buffReroll(To_Save_Melee, Reroll_Ones, defaultDuration());
 
-    return Result::Failed;
+    return Result::Success;
 }

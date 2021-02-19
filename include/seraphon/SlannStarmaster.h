@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SLANNSTARMASTER_H
-#define SLANNSTARMASTER_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -48,10 +46,8 @@ namespace Seraphon {
 // Arcane Vassal                    TODO
 // Foresight                        Yes
 // Masters of Order                 Yes
-// Comet's Call                     TODO
-// Gift from the Heavens            TODO
+// Comet's Call                     Yes
+// Gift from the Heavens            Yes
 //
 
 } // namespace Seraphon
-
-#endif //SLANNSTARMASTER_H

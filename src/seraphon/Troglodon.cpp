@@ -9,6 +9,7 @@
 #include <seraphon/Troglodon.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
@@ -47,6 +48,9 @@ namespace Seraphon {
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
 
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
+
         s_globalBraveryMod.connect(this, &Troglodon::terror, &m_connection);
     }
 
@@ -61,6 +65,10 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_forelimbs);
         model->addMeleeWeapon(&m_rod);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateCometsCall(this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
 
