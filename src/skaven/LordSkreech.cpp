@@ -8,6 +8,7 @@
 
 #include <skaven/LordSkreech.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "SkavenPrivate.h"
 
 namespace Skaven {
@@ -96,6 +97,10 @@ namespace Skaven {
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_plaguereaper);
         addModel(model);
+
+        //m_knownSpells.push_back(std::make_unique<DreadedThirteenthSpell>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

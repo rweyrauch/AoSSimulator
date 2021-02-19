@@ -8,9 +8,33 @@
 
 #include <skaven/GreySeer.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "SkavenPrivate.h"
 
 namespace Skaven {
+
+    class Wither : public Spell {
+    public:
+        explicit Wither(Unit *caster) :
+                Spell(caster, "Witherl", 7, 13) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) return Spell::Result::Failed;
+
+            if (Dice::RollD6() > target->wounds()) {
+                target->applyDamage({0, RAND_D3, Wounds::Source::Spell}, m_caster);
+                target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+            }
+            return Result::Success;
+        }
+
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 140;
@@ -74,6 +98,10 @@ namespace Skaven {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
+
+        m_knownSpells.push_back(std::make_unique<Wither>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

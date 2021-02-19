@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef REIKENORGRIMHAILER_H
-#define REIKENORGRIMHAILER_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -50,10 +48,8 @@ namespace Nighthaunt {
 // Corpse Candles                   TODO
 // Frightful Touch                  Yes
 // Reaped Like Corn                 Yes
-// Wraithstorm                      TODO
+// Wraithstorm                      Yes
 //
 
 
 } // namespace Nighthaunt
-
-#endif // REIKENORGRIMHAILER_H

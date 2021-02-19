@@ -165,3 +165,31 @@ protected:
     BuffableAttribute m_attribute = To_Hit_Melee;
     Rerolls m_reroll = No_Rerolls;
 };
+
+class BuffMovementSpell : public Spell {
+public:
+    BuffMovementSpell(Unit *caster, const std::string &name, int castingValue, int range, MovementRules which,
+                      bool allowed, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+
+protected:
+
+    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+    MovementRules m_attribute = Fly;
+    bool m_allowed = false;
+};
+
+class BuffAbilitySpell : public Spell {
+public:
+    BuffAbilitySpell(Unit *caster, const std::string &name, int castingValue, int range, BuffableAbility which,
+                     int value, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+
+protected:
+
+    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+    BuffableAbility m_attribute = Ignore_Battleshock;
+    int m_value = 1;
+};

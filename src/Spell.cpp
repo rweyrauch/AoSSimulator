@@ -241,7 +241,7 @@ BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int cast
         m_reroll(reroll) {
     m_allowedTargets = allowedTargets;
     m_targetKeywords = targetKeyword;
-    m_effect = Abilities::EffectType::Buff;
+    m_effect = (m_allowedTargets == Abilities::Target::Enemy) ? Abilities::EffectType::Debuff : Abilities::EffectType::Buff;
 }
 
 Spell::Result BuffRerollSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
@@ -249,6 +249,46 @@ Spell::Result BuffRerollSpell::apply(int castingRoll, int unmodifiedCastingRoll,
         return Result::Failed;
 
     target->buffReroll(m_attribute, m_reroll, defaultDuration());
+
+    return Spell::Result::Success;
+}
+
+BuffAbilitySpell::BuffAbilitySpell(Unit *caster, const std::string &name, int castingValue, int range,
+                                   BuffableAbility which, int value, Abilities::Target allowedTargets,
+                                   const std::vector<Keyword> &targetKeyword):
+        Spell(caster, name, castingValue, range),
+        m_attribute(which),
+        m_value(value) {
+    m_allowedTargets = allowedTargets;
+    m_targetKeywords = targetKeyword;
+    m_effect = (m_allowedTargets == Abilities::Target::Enemy) ? Abilities::EffectType::Debuff : Abilities::EffectType::Buff;
+}
+
+Spell::Result BuffAbilitySpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+    if (target == nullptr)
+        return Result::Failed;
+
+    target->buffAbility(m_attribute, m_value, defaultDuration());
+
+    return Spell::Result::Success;
+}
+
+BuffMovementSpell::BuffMovementSpell(Unit *caster, const std::string &name, int castingValue, int range,
+                                     MovementRules which, bool allowed, Abilities::Target allowedTargets,
+                                     const std::vector<Keyword> &targetKeyword) :
+        Spell(caster, name, castingValue, range),
+        m_attribute(which),
+        m_allowed(allowed) {
+    m_allowedTargets = allowedTargets;
+    m_targetKeywords = targetKeyword;
+    m_effect = (m_allowedTargets == Abilities::Target::Enemy) ? Abilities::EffectType::Debuff : Abilities::EffectType::Buff;
+}
+
+Spell::Result BuffMovementSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+    if (target == nullptr)
+        return Result::Failed;
+
+    target->buffMovement(m_attribute, m_allowed, defaultDuration());
 
     return Spell::Result::Success;
 }

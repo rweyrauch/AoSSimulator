@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LADYOLYNDER_H
-#define LADYOLYNDER_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -59,9 +57,9 @@ namespace Nighthaunt {
 // Mortarch of Grief                TODO
 // Wail of the Damned               Yes
 // No Rest For the Wicked           TODO
+// Grief-stricken                   Yes
 //
 
 
 } // namespace Nighthaunt
 
-#endif // LADYOLYNDER_H

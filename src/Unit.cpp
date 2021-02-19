@@ -521,8 +521,16 @@ void Unit::movement(PlayerId player) {
     if (closestTarget) {
         auto distance = distanceTo(closestTarget);
         double totalMoveDistance = 0;
+
+        double allowedMove = move();
+        if (!m_movementRules[Halve_Movement].empty()) {
+            if (m_movementRules[Halve_Movement].front().allowed) {
+                allowedMove = allowedMove/2;
+            }
+        }
+        const auto movement = allowedMove + (double)moveModifier();
+
         if (weapon && weapon->isMissile()) {
-            const auto movement = (double) (move() + moveModifier());
 
             // get into range (run or not?)
             if (distance > (double) weapon->range() + movement) {
@@ -545,7 +553,6 @@ void Unit::movement(PlayerId player) {
                 m_currentRecord.m_moved = 0;
             }
         } else {
-            const auto movement = (double) (move() + moveModifier());
 
             if (distance <= MIN_CHARGE_DISTANCE) {
                 // already in charge range - stand still
@@ -712,6 +719,11 @@ void Unit::battleshock(PlayerId player) {
 
 int Unit::rollChargeDistance() const {
     m_unmodifiedChargeRoll = Dice::Roll2D6();
+    if (!m_movementRules[Halve_Charge_Roll].empty()) {
+        if (m_movementRules[Halve_Charge_Roll].front().allowed) {
+            m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1)/2; // Round up
+        }
+    }
     return m_unmodifiedChargeRoll + chargeModifier();
 }
 
@@ -719,6 +731,11 @@ int Unit::rollRunDistance() const {
     int roll = Dice::RollD6();
     if (m_abilityBuffs[Auto_Max_Run].empty()) {
         roll = 6;
+    }
+    if (!m_movementRules[Halve_Run_Roll].empty()) {
+        if (m_movementRules[Halve_Run_Roll].front().allowed) {
+            roll = (roll + 1)/2; // Round up
+        }
     }
     return roll + runModifier();
 }
@@ -1343,10 +1360,10 @@ bool Unit::canFly() const {
 }
 
 bool Unit::canMove() const {
-    if (m_movementRules[Move].empty())
+    if (m_movementRules[Can_Move].empty())
         return m_canMove;
     else
-        return m_movementRules[Move].front().allowed;
+        return m_movementRules[Can_Move].front().allowed;
 }
 
 bool Unit::canRunAndShoot() const {

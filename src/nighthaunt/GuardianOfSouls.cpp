@@ -11,6 +11,34 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
+
+    class SpectralLure : public Spell {
+    public:
+        SpectralLure(Unit *caster) :
+                Spell(caster, "Spectral Lure", 6, 24) {
+            m_allowedTargets = Abilities::Target::Friendly;
+            m_effect = Abilities::EffectType::Heal;
+            m_targetKeywords = {SUMMONABLE, NIGHTHAUNT};
+        }
+
+    protected:
+
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            if (target == nullptr) return Result::Failed;
+
+            if (target->numOfWoundedModels()) {
+                target->heal(Dice::RollD6());
+            }
+            else {
+                int woundsRestored = Dice::RollD6();
+                int modelsRestored = woundsRestored / target->wounds();
+                target->returnModels(modelsRestored);
+            }
+            return Result::Success;
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 130;
@@ -77,6 +105,7 @@ namespace Nighthaunt {
         model->addMeleeWeapon(&m_maul);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<SpectralLure>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

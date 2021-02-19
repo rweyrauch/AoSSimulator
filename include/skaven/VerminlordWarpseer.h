@@ -64,7 +64,7 @@ namespace Skaven {
 // Protection of the Horned Rat     Yes
 // Scry-orb                         TODO
 // Terrifying                       Yes
-// Dreaded Warpgale                 TODO
+// Dreaded Warpgale                 Yes
 // Forth-forth, Children of the Horned Rat! TODO
 //
 

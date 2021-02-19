@@ -9,6 +9,7 @@
 #include <skaven/VerminlordWarbringer.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "SkavenPrivate.h"
 
 namespace Skaven {
@@ -101,6 +102,10 @@ namespace Skaven {
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_fist);
         addModel(model);
+
+        //m_knownSpells.push_back(std::make_unique<DreadedDeathFrenzy>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

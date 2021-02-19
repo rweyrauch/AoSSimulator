@@ -10,9 +10,35 @@
 #include <UnitFactory.h>
 #include <Roster.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "SkavenPrivate.h"
 
 namespace Skaven {
+
+    class DreadedWarpgale : public Spell {
+    public:
+        explicit DreadedWarpgale(Unit *caster) :
+                Spell(caster, "Dreaded Warpgale", 8, 26) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) return Spell::Result::Failed;
+
+            target->applyDamage({0, Dice::RollD6(), Wounds::Source::Spell}, m_caster);
+            target->buffMovement(Halve_Charge_Roll, true, defaultDuration());
+            target->buffMovement(Halve_Run_Roll, true, defaultDuration());
+            if (target->fly()) {
+                target->buffMovement(Fly, false, defaultDuration());
+            }
+            return Result::Success;
+        }
+
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+    };
+
     static const int g_basesize = 120; // x92 oval
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 320;
@@ -100,6 +126,10 @@ namespace Skaven {
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_glaive);
         addModel(model);
+
+        m_knownSpells.push_back(std::make_unique<DreadedWarpgale>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

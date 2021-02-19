@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GUARDIANOFSOULS_H
-#define GUARDIANOFSOULS_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -44,10 +42,8 @@ namespace Nighthaunt {
 // -------------------------------------------
 // Ethereal                         Yes
 // Nightmare Lantern                TODO
-// Spectral Lure                    TODO
+// Spectral Lure                    Yes
 //
 
 
 } // namespace Nighthaunt
-
-#endif // GUARDIANOFSOULS_H

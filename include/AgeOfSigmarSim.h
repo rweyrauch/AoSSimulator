@@ -62,6 +62,8 @@ enum BuffableAttribute {
     Move_Distance = 0,
     Run_Distance,
     Charge_Distance,
+    Pile_In_Distance,
+
     To_Hit_Missile,
     To_Hit_Melee,
     To_Wound_Missile,
@@ -90,6 +92,9 @@ enum BuffableAbility {
     Ignore_All_Wounds_On_Value,
     Extra_Mortal_Wound_On_Hit_Roll,
 
+    Fights_First,
+    Fights_Last,
+
     Num_Buffable_Abilities
 };
 
@@ -99,7 +104,12 @@ enum MovementRules {
     Run_And_Charge,
     Retreat_And_Shoot,
     Retreat_And_Charge,
-    Move,
+    Can_Move,
+    Can_Retreat,
+    Can_Charge,
+    Halve_Movement,
+    Halve_Charge_Roll,
+    Halve_Run_Roll,
 
     Num_Movement_Rules
 };

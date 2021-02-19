@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VERMINLORDCORRUPTOR_H
-#define VERMINLORDCORRUPTOR_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -62,10 +60,8 @@ namespace Skaven {
 // Plaguemaster                     Yes
 // Protection of the Horned Rat     Yes
 // Terrifying                       Yes
-// Dreaded Plague                   TODO
+// Dreaded Plague                   Yes
 // Lord of Pestilence               TODO
 //
 
 } // namespace Skaven
-
-#endif //VERMINLORDCORRUPTOR_H

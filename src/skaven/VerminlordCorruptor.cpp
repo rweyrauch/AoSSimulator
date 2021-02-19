@@ -9,9 +9,32 @@
 #include <skaven/VerminlordCorruptor.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "SkavenPrivate.h"
 
 namespace Skaven {
+
+    class DreadedPlague : public Spell {
+    public:
+        explicit DreadedPlague(Unit *caster) :
+                Spell(caster, "Dreaded Plague", 7, 13) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) return Spell::Result::Failed;
+
+            Dice::RollResult rolls;
+            Dice::RollD6(target->remainingModels(), rolls);
+            target->applyDamage({0, rolls.rollsGE(4), Wounds::Source::Spell}, m_caster);
+            return Result::Success;
+        }
+
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+    };
+
     static const int g_basesize = 120; // x92 oval
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 280;
@@ -99,6 +122,10 @@ namespace Skaven {
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_plaguereapers);
         addModel(model);
+
+        m_knownSpells.push_back(std::make_unique<DreadedPlague>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

@@ -12,6 +12,25 @@
 #include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
+
+    class GriefStricken : public Spell {
+    public:
+        GriefStricken(Unit *caster) :
+                Spell(caster, "Grief Stricken", 7, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Debuff;
+        }
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            if (target == nullptr) return Result::Failed;
+            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(Target_To_Hit_Melee, 1, defaultDuration());
+            return Result::Success;
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 60;
     static const int g_wounds = 7;
     static const int g_pointsPerUnit = 200;
@@ -69,6 +88,7 @@ namespace Nighthaunt {
         model->addMeleeWeapon(&m_claws);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<GriefStricken>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

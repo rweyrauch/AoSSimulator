@@ -33,6 +33,4 @@ private:
 
     Phase m_currentPhase = Phase::Initiative;
     std::list<Unit *>::iterator m_activatedUnit;
-
-    int m_commandPoints = 0;
 };

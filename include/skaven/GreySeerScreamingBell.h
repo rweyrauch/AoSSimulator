@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GREYSEERSCREAMINGBELL_H
-#define GREYSEERSCREAMINGBELL_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -74,9 +72,7 @@ namespace Skaven {
 //    Apocalyptic Doom              Yes
 //    Wall of Unholy Sound          Yes
 //    A Stirring Beyond the Veil    Partial
-// Cracks Call                      TODO
+// Cracks Call                      Yes
 //
 
 } // namespace Skaven
-
-#endif //GREYSEERSCREAMINGBELL_H

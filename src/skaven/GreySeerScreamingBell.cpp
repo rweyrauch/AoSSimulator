@@ -10,9 +10,32 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
+#include <spells/MysticShield.h>
 #include "SkavenPrivate.h"
 
 namespace Skaven {
+
+    class CracksCall : public Spell {
+    public:
+        explicit CracksCall(Unit *caster) :
+                Spell(caster, "Cracks Call", 6, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) return Spell::Result::Failed;
+
+            if (!target->fly()) {
+                target->applyDamage({0, target->move() - Dice::Roll2D6(), Wounds::Source::Spell}, m_caster);
+            }
+            return Result::Success;
+        }
+
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+    };
+
     static const int g_basesize = 120; // x92 oval
     static const int g_wounds = 13;
     static const int g_pointsPerUnit = 240;
@@ -108,6 +131,10 @@ namespace Skaven {
         model->addMeleeWeapon(&m_clawsAndFangs);
         model->addMeleeWeapon(&m_spikes);
         addModel(model);
+
+        m_knownSpells.push_back(std::make_unique<CracksCall>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 
