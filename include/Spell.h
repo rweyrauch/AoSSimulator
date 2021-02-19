@@ -10,6 +10,7 @@
 #include <string>
 #include <utility>
 #include "AgeOfSigmarSim.h"
+#include "AoSKeywords.h"
 #include "Abilities.h"
 
 class Unit;

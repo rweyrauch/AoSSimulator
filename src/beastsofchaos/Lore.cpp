@@ -69,8 +69,10 @@ namespace BeastsOfChaos {
             case Lore::Viletide:
                 return new Viletide(caster);
             case Lore::Vicious_Stanglethorns:
+                // TODO: Vicious_Stanglethorns
                 return nullptr;
             case Lore::Savage_Dominion:
+                // TODO: Savage_Dominion
                 return nullptr;
             case Lore::Tendrils_Of_Atrophy:
                 return new BuffModifierSpell(caster, "Tendrils of Atrophy", 6, 12, To_Save, -1, Abilities::Target::Enemy);
@@ -81,8 +83,10 @@ namespace BeastsOfChaos {
             case Lore::Thunderwave:
                 return new AreaOfEffectSpell(caster, "Thunderwave", 7, 0, 3, RAND_D3, 0);
             case Lore::Hailstorm:
+                // TODO: Hailstorm
                 return nullptr;
             case Lore::Sundering_Blades:
+                // TODO: Sundering_Blades
                 return nullptr;
             default:
                 return nullptr;

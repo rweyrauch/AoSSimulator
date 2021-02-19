@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LUMINETHPRIVATE_H
-#define LUMINETHPRIVATE_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <array>
@@ -75,11 +73,12 @@ namespace LuminethRealmLords {
 
     protected:
 
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
     };
 
+    Spell* CreateLore(Lore which, Unit* caster);
+
 } // namespace LuminethRealmLords
 
-#endif // LUMINETHPRIVATE_H

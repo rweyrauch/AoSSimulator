@@ -59,7 +59,7 @@ namespace StormcastEternals {
                 return false;
 
             const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
-            target->buffAbility(Extra_Hit_On_6, true, duration);
+            target->buffAbility(Extra_Hit_On_Value, 6, duration);
 
             return true;
         }
@@ -111,14 +111,17 @@ namespace StormcastEternals {
     }
 
     Prayer *CreateAbjuration(Unit *priest) {
+        // TODO: Abjuration
         return nullptr;
     }
 
     Prayer *CreateGodKingsAspect(Unit *priest) {
+        // TODO: God Kings Aspect
         return nullptr;
     }
 
     Prayer *CreateTranslocation(Unit *priest) {
+        // TODO: Translocation
         return nullptr;
     }
 

@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <AgeOfSigmarSim.h>
+#include <AoSKeywords.h>
 #include <TerrainFeature.h>
 #include "MathUtils.h"
 

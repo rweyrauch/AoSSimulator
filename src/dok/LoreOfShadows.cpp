@@ -120,10 +120,12 @@ namespace DaughtersOfKhaine {
             case Lore::Pit_Of_Shades:
                 return new PitOfShades(caster);
             case Lore::Mirror_Dance:
+                // TODO: Mirror_Dance
                 break;
             case Lore::The_Withering:
                 return new TheWithering(caster);
             case Lore::Mindrazor:
+                // TODO: Mindrazor
                 break;
             case Lore::Shroud_Of_Despair:
                 return new ShroudOfDespair(caster);

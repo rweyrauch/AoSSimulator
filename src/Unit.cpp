@@ -231,6 +231,17 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
     // apply wound/mortal wound save
     auto totalWounds = applyWoundSave(totalWoundsInflicted, attackingUnit);
 
+    if (!m_abilityBuffs[Ignore_All_Wounds_On_Value].empty()) {
+        const auto value = m_abilityBuffs[Ignore_All_Wounds_On_Value].front().value;
+        Dice::RollResult woundSaves, mortalSaves;
+        Dice::RollD6(totalWounds.normal, woundSaves);
+        Dice::RollD6(totalWounds.mortal, mortalSaves);
+
+        totalWounds.normal -= woundSaves.rollsGE(value);
+        totalWounds.mortal -= mortalSaves.rollsGE(value);
+        totalWounds.clamp();
+    }
+
     // apply both normal and mortal wounds
     int totalDamage = totalWounds.normal + totalWounds.mortal;
     int numSlain = 0;
@@ -578,7 +589,7 @@ bool Unit::battleshockRequired() const {
     if (m_abilityBuffs[Ignore_Battleshock].empty()) {
         return true;
     }
-    return m_abilityBuffs[Ignore_Battleshock].front().enabled;
+    return (m_abilityBuffs[Ignore_Battleshock].front().value > 0);
 }
 
 int Unit::rollBattleshock() const {
@@ -816,8 +827,9 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
         if (modifiedHitRoll >= weapon->toHit()) {
             // apply hit modifiers (a single hit may result in multiple hits)
             int numHits = generateHits(hitRoll, weapon, target);
-            if (!m_abilityBuffs[Extra_Hit_On_6].empty()) {
-                if (hitRoll == 6) numHits++;
+            if (!m_abilityBuffs[Extra_Hit_On_Value].empty()) {
+                const int value = m_abilityBuffs[Extra_Hit_On_Value].front().value;
+                if (hitRoll >= value) numHits++;
             }
             for (auto h = 0; h < numHits; h++) {
                 // roll to wound
@@ -836,6 +848,12 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                     if (!target->makeSave(weapon, weaponRend(weapon, target, hitRoll, woundRoll), this,saveRoll)) {
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
+
+                        if (!m_abilityBuffs[Extra_Mortal_Wound_On_Hit_Roll].empty()) {
+                            const int value = m_abilityBuffs[Extra_Mortal_Wound_On_Hit_Roll].front().value;
+                            if (hitRoll >= value)
+                                dam.mortal++;
+                        }
 
                         // modify damage
                         dam = target->targetAttackDamageModifier(dam, this, hitRoll, woundRoll);
@@ -1000,8 +1018,8 @@ bool Unit::buffMovement(MovementRules which, bool allowed, Duration duration) {
     return true;
 }
 
-bool Unit::buffAbility(BuffableAbility which, bool enabled, Duration duration) {
-    AbilityBuff buff = {enabled, duration};
+bool Unit::buffAbility(BuffableAbility which, int value, Duration duration) {
+    AbilityBuff buff = {value, duration};
     m_abilityBuffs[which].push_back(buff);
 
     return true;

@@ -68,16 +68,20 @@ namespace SlavesToDarkness {
     Spell* CreateLore(Lore which, Unit* caster) {
         switch (which) {
             case Lore::Binding_Damnation:
+                // TODO: Binding_Damnation
                 return nullptr;
             case Lore::Spite_Tongue_Curse:
                 return new SpiteTongueCurse(caster);
             case Lore::Whispers_Of_Chaos:
                 return new WhispersOfChaos(caster);
             case Lore::Mask_Of_Darkness:
+                // TODO: Mask_Of_Darkness
                 return nullptr;
             case Lore::Call_To_Glory:
+                // TODO: Call_To_Glory
                 return nullptr;
             case Lore::Ruinous_Vigour:
+                // TODO: Ruinous_Vigour
                 return nullptr;
             default:
                 break;

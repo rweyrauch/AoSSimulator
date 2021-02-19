@@ -26,7 +26,7 @@ namespace LuminethRealmLords {
             LuminethBase("Vanari Auralan Wardens", 6, g_wounds, 6, 4, false),
             m_championsBlade(Weapon::Type::Melee, "Champion's Blade", 1, 2, 3, 4, -1, 1),
             m_wardensPike(Weapon::Type::Melee, "Warden's Pike", 3, 2, 3, 4, 0, 1) {
-        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, AURALAN_WARDENS};
+        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, AURALAN_WARDENS, Sunmetal_Weapons};
         m_weapons = {&m_championsBlade, &m_wardensPike};
         m_battleFieldRole = Role::Battleline;
         m_totalSpells = 1;

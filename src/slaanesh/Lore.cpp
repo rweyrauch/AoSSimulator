@@ -218,12 +218,14 @@ namespace Slaanesh {
             case Lore::Progeny_Of_Damnation:
                 return new HealSpell(caster, "Progeny of Damnation", 5, 6, RAND_D3, 10, RAND_D6, {DAEMON, HEDONITE, HERO});
             case Lore::Slothful_Stupor:
+                // TODO: Slothful_Stupor
                 return nullptr;
             case Lore::Battle_Rapture:
                 return new BattleRapture(caster);
             case Lore::Judgement_Of_Excess:
                 return new JudgementOfExcess(caster);
             case Lore::Dark_Delusions:
+                // TODO: Dark_Delusions
                 return nullptr;
             default:
                 return nullptr;

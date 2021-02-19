@@ -43,7 +43,7 @@ namespace FleshEaterCourt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Royal Blood                      Yes
-// Black Hunger                     TODO
+// Black Hunger                     Yes
 // Summon Men-at-arms               TODO
 //
 

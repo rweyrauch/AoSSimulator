@@ -43,7 +43,7 @@ namespace FleshEaterCourt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Imperial Blood                   Yes
-// Ferocious Hunger                 TODO
+// Ferocious Hunger                 Yes
 // Summon Imperial Guard            TODO
 //
 

@@ -33,6 +33,8 @@ namespace FleshEaterCourt {
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Ferocious Hunger", 6, 24, Attacks_Melee, RAND_D3,
+                                                                    Abilities::Target::SelfAndFriendly, std::vector<Keyword>{FLESH_EATER_COURTS}));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

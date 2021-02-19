@@ -12,6 +12,28 @@
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
+
+    class UnholyVitality : public Spell {
+    public:
+        explicit UnholyVitality(Unit* caster) :
+                Spell(caster, "Unholy Vitality", 6, 24) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_effect = Abilities::EffectType::Buff;
+            m_targetKeywords = {FLESH_EATER_COURTS };
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            if (target == nullptr) {
+                return Spell::Result::Failed;
+            }
+            target->buffAbility(Ignore_All_Wounds_On_Value, 5, defaultDuration());
+            return Spell::Result::Success;
+        }
+
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 130;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 420;
@@ -59,6 +81,7 @@ namespace FleshEaterCourt {
         model->addMeleeWeapon(&m_fangedMaw);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<UnholyVitality>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

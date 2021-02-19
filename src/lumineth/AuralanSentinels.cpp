@@ -28,7 +28,7 @@ namespace LuminethRealmLords {
             m_bowLofted(Weapon::Type::Missile, "Auralan Bow: Lofted", 30, 1, 4, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Champion's Blade", 1, 2, 3, 4, -1, 1),
             m_dagger(Weapon::Type::Melee, "Vanari Dagger", 1, 1, 3, 4, 0, 1) {
-        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, AURALAN_SENTINELS};
+        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, AURALAN_SENTINELS, Sunmetal_Weapons};
         m_weapons = {&m_bowAimed, &m_bowLofted, &m_blade, &m_dagger};
         m_battleFieldRole = Role::Other;
         m_totalSpells = 1;

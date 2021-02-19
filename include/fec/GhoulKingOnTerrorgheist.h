@@ -61,7 +61,7 @@ namespace FleshEaterCourt {
 // Gaping Maw                       Yes
 // Infested                         Yes
 // Royal Blood                      Yes
-// Unholy Vitality                  TODO
+// Unholy Vitality                  Yes
 // Summon Royal Guard               TODO
 //
 

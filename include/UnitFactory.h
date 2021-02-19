@@ -10,7 +10,7 @@
 #include <map>
 #include <vector>
 #include "AgeOfSigmarSim.h"
-
+#include "AoSKeywords.h"
 
 enum ParamType {
     Boolean,

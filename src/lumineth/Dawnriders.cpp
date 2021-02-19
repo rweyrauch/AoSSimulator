@@ -26,7 +26,7 @@ namespace LuminethRealmLords {
             m_guardiansSword(Weapon::Type::Melee, "Guardian's Sword", 1, 2, 3, 4, -1, 1),
             m_lance(Weapon::Type::Melee, "Sunmetal Lance", 2, 1, 3, 4, 0, 1),
             m_hooves(Weapon::Type::Melee, "Dashing Hooves", 1, 2, 4, 4, 0, 1) {
-        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, DAWNRIDERS};
+        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, DAWNRIDERS, Sunmetal_Weapons};
         m_weapons = {&m_guardiansSword, &m_lance, &m_hooves};
         m_battleFieldRole = Role::Battleline;
         m_hasMount = true;

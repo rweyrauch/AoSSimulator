@@ -225,7 +225,7 @@ public:
 
     bool buffMovement(MovementRules which, bool allowed, Duration duration);
 
-    bool buffAbility(BuffableAbility which, bool enabled, Duration duration);
+    bool buffAbility(BuffableAbility which, int value, Duration duration);
 
     std::vector<std::unique_ptr<Spell>>::const_iterator spellBegin() const { return m_knownSpells.begin(); }
 

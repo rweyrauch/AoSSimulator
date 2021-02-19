@@ -8,9 +8,34 @@
 #include <fec/GhoulKingOnZombieDragon.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
+
+    class MaleficHunger : public Spell {
+    public:
+        explicit MaleficHunger(Unit* caster) :
+                Spell(caster, "Malefic Hunger", 6, 16) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_effect = Abilities::EffectType::Buff;
+            m_targetKeywords = {FLESH_EATER_COURTS};
+        }
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
+            for (auto unit : units) {
+                if (unit->hasKeyword(FLESH_EATER_COURTS)) {
+                    unit->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
+                }
+            }
+            return Spell::Result::Success;
+        }
+
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 130;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 440;
@@ -58,6 +83,7 @@ namespace FleshEaterCourt {
         model->addMeleeWeapon(&m_swordlikeClaws);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<MaleficHunger>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
