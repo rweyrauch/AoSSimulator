@@ -9,6 +9,7 @@
 #include <spells/MysticShield.h>
 #include "slavestodarkness/ChaosSorcerer.h"
 #include "SlavesToDarknessPrivate.h"
+#include "StDSpells.h"
 
 namespace SlavesToDarkness {
 
@@ -110,6 +111,7 @@ namespace SlavesToDarkness {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<DaemonicPower>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

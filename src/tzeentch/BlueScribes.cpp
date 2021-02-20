@@ -9,6 +9,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/BlueScribes.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
     static const int g_basesize = 40;
@@ -87,6 +88,7 @@ namespace Tzeentch {
 
         m_knownSpells.push_back(std::make_unique<BuffRerollSpell>(this, "Boon of Tzeentch", 4, 18, Casting_Roll, Reroll_Failed,
                                                                   Abilities::Target::Friendly, std::vector<Keyword>{TZEENTCH, WIZARD}));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

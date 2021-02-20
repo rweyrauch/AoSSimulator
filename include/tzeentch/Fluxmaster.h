@@ -25,7 +25,7 @@ namespace Tzeentch {
 
         ~FluxmasterHeraldOfTzeentchOnDisc() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
         int rollCasting(int& unmodifiedRoll) const override;
 

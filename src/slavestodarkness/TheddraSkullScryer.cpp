@@ -9,6 +9,7 @@
 #include <spells/MysticShield.h>
 #include "slavestodarkness/TheddraSkullScryer.h"
 #include "SlavesToDarknessPrivate.h"
+#include "StDSpells.h"
 
 namespace SlavesToDarkness {
     static const int g_basesize = 32;
@@ -73,6 +74,7 @@ namespace SlavesToDarkness {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeblement", 6, 12, To_Wound_Melee, -1, Abilities::Target::Enemy));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

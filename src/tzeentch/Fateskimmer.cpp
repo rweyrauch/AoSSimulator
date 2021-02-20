@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/Fateskimmer.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
     static const int g_basesize = 40;
@@ -27,7 +28,9 @@ namespace Tzeentch {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -71,7 +74,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool Fateskimmer::configure() {
+    bool Fateskimmer::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_magicalFlames);
         model->addMeleeWeapon(&m_staff);
@@ -80,6 +83,8 @@ namespace Tzeentch {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<AreaOfEffectSpell>(this, "Tzeentch's Firestorm", 8, 0, 9, RAND_D3, 3));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/Fatemaster.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
     static const int g_basesize = 40;
@@ -46,7 +47,6 @@ namespace Tzeentch {
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
                             EnumParameter("Command Trait", g_arcaniteCommandTraits[0], g_arcaniteCommandTraits),
                             EnumParameter("Artefact", g_arcaniteArtefacts[0], g_arcaniteArtefacts),
-                            EnumParameter("Lore", g_loreOfFate[0], g_loreOfFate),
                             BoolParameter("General")
                     },
                     CHAOS,

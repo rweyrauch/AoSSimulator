@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/LordOfChange.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
 
@@ -87,7 +88,9 @@ namespace Tzeentch {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapon);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
+
+        bool ok = unit->configure(weapon, lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -151,7 +154,7 @@ namespace Tzeentch {
         m_totalUnbinds = 2;
     }
 
-    bool LordOfChange::configure(LordOfChange::WeaponOption option) {
+    bool LordOfChange::configure(WeaponOption option, Lore lore) {
         auto model = new Model(g_basesize, wounds());
         if (option == Rod_Of_Sorcery)
             model->addMissileWeapon(&m_rodOfSorcery);
@@ -163,6 +166,7 @@ namespace Tzeentch {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<InfernalGateway>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

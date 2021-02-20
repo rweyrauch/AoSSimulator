@@ -25,7 +25,7 @@ namespace Tzeentch {
 
         ~TzaangorShaman() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

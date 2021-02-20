@@ -9,6 +9,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/Changecaster.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
     static const int g_basesize = 40;
@@ -32,7 +33,9 @@ namespace Tzeentch {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -78,7 +81,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool ChangecasterHeraldOfTzeentch::configure() {
+    bool ChangecasterHeraldOfTzeentch::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_flames);
         model->addMeleeWeapon(&m_staff);
@@ -86,6 +89,7 @@ namespace Tzeentch {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<DamageSpell>(this, "Pink Fire of Tzeentch", 9, 18, RAND_D6));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

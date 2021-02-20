@@ -25,7 +25,7 @@ namespace Tzeentch {
 
         ~Fateskimmer() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

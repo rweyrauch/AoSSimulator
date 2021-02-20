@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/OgroidThaumaturge.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
 
@@ -56,7 +57,9 @@ namespace Tzeentch {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -98,7 +101,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool OgroidThaumaturge::configure() {
+    bool OgroidThaumaturge::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_horns);
@@ -106,6 +109,7 @@ namespace Tzeentch {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<ChokingTendrils>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

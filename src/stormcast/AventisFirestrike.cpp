@@ -43,9 +43,9 @@ namespace StormcastEternals {
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePyroelectricBlast(this)));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Fiery Orator", 12, 12, Phase::Combat, To_Wound_Melee, 1,
                                                                                   Abilities::Target::Friendly));

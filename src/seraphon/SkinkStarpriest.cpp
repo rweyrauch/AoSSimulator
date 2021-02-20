@@ -12,6 +12,7 @@
 #include <Roster.h>
 #include <spells/MysticShield.h>
 #include "SeraphonPrivate.h"
+#include "SeraphonLore.h"
 
 namespace Seraphon {
 
@@ -60,6 +61,7 @@ namespace Seraphon {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<BlazingStarlight>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

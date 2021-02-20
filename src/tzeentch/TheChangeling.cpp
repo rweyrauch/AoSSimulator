@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/TheChangeling.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
     static const int g_basesize = 40;
@@ -80,6 +81,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -11,6 +11,7 @@
 #include <Board.h>
 #include <spells/MysticShield.h>
 #include "SeraphonPrivate.h"
+#include "SeraphonLore.h"
 
 namespace Seraphon {
     static const int g_basesize = 120; // x92 oval
@@ -58,7 +59,7 @@ namespace Seraphon {
         m_connection.disconnect();
     }
 
-    bool Troglodon::configure() {
+    bool Troglodon::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spittle);
         model->addMeleeWeapon(&m_jaws);
@@ -67,6 +68,7 @@ namespace Seraphon {
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateCometsCall(this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -87,6 +89,8 @@ namespace Seraphon {
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
 
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialManipulation[0]);
+
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
 
@@ -96,7 +100,7 @@ namespace Seraphon {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -116,6 +120,7 @@ namespace Seraphon {
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
                             EnumParameter("Command Trait", g_skinkCommandTrait[0], g_skinkCommandTrait),
                             EnumParameter("Artefact", g_vestmentsOfThePriesthood[0], g_vestmentsOfThePriesthood),
+                            EnumParameter("Lore", g_loreOfCelestialManipulation[0], g_loreOfCelestialManipulation),
                             BoolParameter("General")
                     },
                     ORDER,

@@ -9,6 +9,7 @@
 #include <slaanesh/SyllEsske.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <slaanesh/Lore.h>
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
@@ -40,6 +41,7 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_scourgingWhip);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

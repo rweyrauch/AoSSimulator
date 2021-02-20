@@ -11,6 +11,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include <Board.h>
+#include <sylvaneth/SylvanethSpells.h>
 #include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
@@ -84,6 +85,7 @@ namespace Sylvaneth {
         model->addMeleeWeapon(&m_massiveImpalingTalons);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

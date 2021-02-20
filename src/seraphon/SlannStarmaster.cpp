@@ -11,6 +11,7 @@
 #include <Roster.h>
 #include <spells/MysticShield.h>
 #include "SeraphonPrivate.h"
+#include "SeraphonLore.h"
 
 namespace Seraphon {
     static const int g_basesize = 50;
@@ -36,6 +37,7 @@ namespace Seraphon {
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateCometsCall(this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

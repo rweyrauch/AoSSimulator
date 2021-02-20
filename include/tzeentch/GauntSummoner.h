@@ -25,7 +25,7 @@ namespace Tzeentch {
 
         ~GauntSummonerOfTzeentch() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

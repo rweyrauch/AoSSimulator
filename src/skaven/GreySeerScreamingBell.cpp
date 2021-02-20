@@ -11,6 +11,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include <spells/MysticShield.h>
+#include <skaven/SkavenSpells.h>
 #include "SkavenPrivate.h"
 
 namespace Skaven {
@@ -133,6 +134,7 @@ namespace Skaven {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<CracksCall>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VORTEMIS_H
-#define VORTEMIS_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -27,7 +25,7 @@ namespace Tzeentch {
 
         ~VortemisTheAllSeeing() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
@@ -48,4 +46,3 @@ namespace Tzeentch {
 
 } // namespace Tzeentch
 
-#endif //VORTEMIS_H

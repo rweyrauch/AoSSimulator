@@ -25,7 +25,7 @@ namespace Seraphon {
 
         ~Troglodon() override;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 

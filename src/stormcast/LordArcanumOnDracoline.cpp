@@ -46,10 +46,10 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_monstrousClaws);
         addModel(model);
 
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));
-        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateStormLance(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

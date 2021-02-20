@@ -12,6 +12,7 @@
 #include <Roster.h>
 #include <Board.h>
 #include "SeraphonPrivate.h"
+#include "SeraphonLore.h"
 
 namespace Seraphon {
 
@@ -70,6 +71,7 @@ namespace Seraphon {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<CelestialDeliverance>(this)); // TODO: allow this spell to be cast up to 3 times
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateCometsCall(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

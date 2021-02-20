@@ -35,7 +35,7 @@ namespace Tzeentch {
 
         ~LordOfChange() override = default;
 
-        bool configure(WeaponOption option);
+        bool configure(WeaponOption option, Lore lore);
 
         int rollCasting(int& unmodifiedRoll) const override;
 
