@@ -39,9 +39,9 @@ namespace GloomspiteGitz {
         model->addMeleeWeapon(&m_squigsTeeth);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::make_unique<AreaOfEffectSpell>(this, "Spore Maws", 7, 0, RAND_D6, RAND_D3, 0));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         addModel(model);
 

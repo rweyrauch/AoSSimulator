@@ -34,10 +34,10 @@ namespace GloomspiteGitz {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonStaff);
 
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         //m_knownSpells.push_back(std::make_unique<NightShroud>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         addModel(model);
 

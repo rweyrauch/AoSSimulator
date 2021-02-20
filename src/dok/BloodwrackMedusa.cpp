@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "DaughterOfKhainePrivate.h"
+#include "LoreOfShadows.h"
 
 namespace DaughtersOfKhaine {
     static const int g_basesize = 40;
@@ -39,6 +40,9 @@ namespace DaughtersOfKhaine {
         model->addMeleeWeapon(&m_bloodwrackSpear);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeebling Foe", 5, 18, To_Wound_Melee, -1,
+                                                                    Abilities::Target::Enemy));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

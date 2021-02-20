@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include <Board.h>
 #include "DaughterOfKhainePrivate.h"
+#include "LoreOfShadows.h"
 
 namespace DaughtersOfKhaine {
     static const int g_basesize = 120; // x92 oval
@@ -59,6 +60,9 @@ namespace DaughtersOfKhaine {
         model->addMeleeWeapon(&m_goadstaves);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeebling Foe", 5, 18, To_Wound_Melee, -1,
+                                                                    Abilities::Target::Enemy));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "citiesofsigmar/Sorceress.h"
 #include "CitiesOfSigmarPrivate.h"
+#include "CoSLore.h"
 
 namespace CitiesOfSigmar {
     static const int g_basesize = 25;
@@ -88,6 +89,7 @@ namespace CitiesOfSigmar {
         model->addMeleeWeapon(&m_witchstaff);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

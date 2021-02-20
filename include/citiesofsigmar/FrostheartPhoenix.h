@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FROSTHEARTPHOENIX_H
-#define FROSTHEARTPHOENIX_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -31,7 +29,7 @@ namespace CitiesOfSigmar {
 
         ~FrostheartPhoenix() override;
 
-        bool configure(bool anointed, Lore lore);
+        bool configure(bool anointed);
 
     protected:
 
@@ -67,5 +65,3 @@ namespace CitiesOfSigmar {
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //FROSTHEARTPHOENIX_H

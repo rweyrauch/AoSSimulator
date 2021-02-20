@@ -11,6 +11,7 @@
 #include <Board.h>
 #include "mawtribes/Slaughtermaster.h"
 #include "MawtribesPrivate.h"
+#include "MawtribesLore.h"
 
 namespace OgorMawtribes {
     static const int g_basesize = 105; // x70 oval
@@ -88,9 +89,10 @@ namespace OgorMawtribes {
 
         addModel(model);
 
+        //m_knownSpells.push_back(std::make_unique<Rockchomper>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-        //m_knownSpells.push_back(std::make_unique<Rockchomper>(this));
 
         if (hasKeyword(BLOODGULLET)) {
             m_totalSpells++;

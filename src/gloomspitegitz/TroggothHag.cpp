@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
@@ -44,6 +45,9 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, FELLWATER, MONSTER, HERO, WIZARD, TROGGOTH_HAG};
         m_weapons = {&m_vomit, &m_staff, &m_bulk};
         m_battleFieldRole = Leader_Behemoth;
+
+        m_totalUnbinds = 1;
+        m_totalSpells = 1;
     }
 
     void TroggothHag::onRestore() {
@@ -57,6 +61,9 @@ namespace GloomspiteGitz {
         model->addMeleeWeapon(&m_bulk);
         model->addMissileWeapon(&m_vomit);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
 

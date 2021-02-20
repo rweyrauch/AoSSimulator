@@ -11,6 +11,7 @@
 #include <spells/MysticShield.h>
 #include "citiesofsigmar/CelestialHurricanum.h"
 #include "CitiesOfSigmarPrivate.h"
+#include "CoSLore.h"
 
 namespace CitiesOfSigmar {
     static const int g_basesize = 105;
@@ -134,6 +135,7 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         if (battlemage) {
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
             m_knownSpells.push_back(std::make_unique<MysticShield>(this));
             m_points = g_pointsPerUnitWithBattlemage;

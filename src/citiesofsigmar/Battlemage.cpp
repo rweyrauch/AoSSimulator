@@ -11,6 +11,7 @@
 #include <Board.h>
 #include "citiesofsigmar/Battlemage.h"
 #include "CitiesOfSigmarPrivate.h"
+#include "CoSLore.h"
 
 namespace CitiesOfSigmar {
     static const int g_basesize = 32;
@@ -94,6 +95,7 @@ namespace CitiesOfSigmar {
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

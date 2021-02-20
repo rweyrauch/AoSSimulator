@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "mawtribes/Firebelly.h"
 #include "MawtribesPrivate.h"
+#include "MawtribesLore.h"
 
 namespace OgorMawtribes {
     static const int g_basesize = 50;
@@ -77,9 +78,10 @@ namespace OgorMawtribes {
 
         addModel(model);
 
+        //m_knownSpells.push_back(std::make_unique<CascadingFireCloak>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-        //m_knownSpells.push_back(std::make_unique<CascadingFireCloak>(this));
 
         m_points = Firebelly::ComputePoints(1);
 

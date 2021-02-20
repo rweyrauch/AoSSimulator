@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FLAMESPYREPHOENIX_H
-#define FLAMESPYREPHOENIX_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -31,7 +29,7 @@ namespace CitiesOfSigmar {
 
         ~FlamespyrePhoenix() override = default;
 
-        bool configure(bool anointed, Lore lore);
+        bool configure(bool anointed);
 
     protected:
 
@@ -64,5 +62,3 @@ namespace CitiesOfSigmar {
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //FLAMESPYREPHOENIX_H

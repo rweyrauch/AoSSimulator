@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include "mawtribes/HuskardThundertusk.h"
 #include "MawtribesPrivate.h"
+#include "MawtribesLore.h"
 
 namespace OgorMawtribes {
     static const int g_basesize = 120; // x92 oval
@@ -135,6 +136,8 @@ namespace OgorMawtribes {
         model->addMeleeWeapon(&m_tusks);
 
         addModel(model);
+
+        m_knownPrayers.push_back(std::unique_ptr<::Prayer>(CreatePrayer(prayer, this)));
 
         m_points = HuskardOnThundertusk::ComputePoints(1);
 

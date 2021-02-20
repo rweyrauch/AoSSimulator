@@ -52,9 +52,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        bool ok = unit->configure(anointed, lore);
+        bool ok = unit->configure(anointed);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -100,7 +98,7 @@ namespace CitiesOfSigmar {
         m_battleFieldRole = Behemoth;
     }
 
-    bool FlamespyrePhoenix::configure(bool anointed, Lore lore) {
+    bool FlamespyrePhoenix::configure(bool anointed) {
         if (anointed) {
             addKeyword(HERO);
             m_battleFieldRole = Leader_Behemoth;

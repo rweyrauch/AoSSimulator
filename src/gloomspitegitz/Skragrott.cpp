@@ -38,10 +38,10 @@ namespace GloomspiteGitz {
         model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
         model->addMeleeWeapon(&m_daMoonOnnaStikk);
 
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::make_unique<NikkitNikkit>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         addModel(model);
 

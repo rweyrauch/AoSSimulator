@@ -52,9 +52,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        bool ok = unit->configure(anointed, lore);
+        bool ok = unit->configure(anointed);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -80,6 +78,8 @@ namespace CitiesOfSigmar {
                     {
                             EnumParameter("City", g_city[0], g_city),
                             BoolParameter("Anointed"),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     ORDER,
@@ -104,7 +104,7 @@ namespace CitiesOfSigmar {
         m_connection.disconnect();
     }
 
-    bool FrostheartPhoenix::configure(bool anointed, Lore lore) {
+    bool FrostheartPhoenix::configure(bool anointed) {
         if (anointed) {
             addKeyword(HERO);
             m_battleFieldRole = Leader_Behemoth;

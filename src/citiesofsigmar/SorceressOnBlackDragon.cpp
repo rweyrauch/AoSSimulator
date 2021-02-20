@@ -11,6 +11,7 @@
 #include <Board.h>
 #include "citiesofsigmar/SorceressOnBlackDragon.h"
 #include "CitiesOfSigmarPrivate.h"
+#include "CoSLore.h"
 
 namespace CitiesOfSigmar {
     static const int g_basesize = 105;
@@ -126,6 +127,7 @@ namespace CitiesOfSigmar {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
