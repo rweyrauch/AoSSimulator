@@ -30,7 +30,7 @@ namespace DaughtersOfKhaine {
             return Spell::Result::Failed;
 
         target->buffModifier(Move_Distance, 16 - m_caster->move(), defaultDuration());
-        target->buffMovement(Fly, true, defaultDuration());
+        target->buffMovement(Can_Fly, true, defaultDuration());
 
         return Spell::Result::Success;
     }

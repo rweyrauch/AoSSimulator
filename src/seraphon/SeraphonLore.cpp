@@ -23,7 +23,7 @@ namespace Seraphon {
     protected:
         Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
-            target->buffMovement(Fly, true, defaultDuration());
+            target->buffMovement(Can_Fly, true, defaultDuration());
             return Result::Success;
         }
 

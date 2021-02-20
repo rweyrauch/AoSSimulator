@@ -21,36 +21,55 @@ namespace LuminethRealmLords {
             ToInteger(GreatNation::Zaitrec)
     };
 
-    constexpr std::array<int, 11> g_commandTraits = {
+    constexpr std::array<int, 4> g_commandTraitsScinari = {
             ToInteger(CommandTrait::None),
-            ToInteger(CommandTrait::Lords_Of_Brilliance),
-            ToInteger(CommandTrait::Lords_Of_Stone),
             ToInteger(CommandTrait::Spellmaster),
             ToInteger(CommandTrait::Loremaster),
             ToInteger(CommandTrait::Warmaster),
-            ToInteger(CommandTrait::Majestic),
-            ToInteger(CommandTrait::Enduring),
-            ToInteger(CommandTrait::Almighty_Blow),
-            ToInteger(CommandTrait::Goading_Arrogance),
-            ToInteger(CommandTrait::Fast_Learner)
     };
 
-    constexpr std::array<int, 11> g_artefacts = {
+    constexpr std::array<int, 4> g_commandTraitsAlarith = {
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Majestic),
+            ToInteger(CommandTrait::Enduring),
+            ToInteger(CommandTrait::Loremaster),
+    };
+
+    constexpr std::array<int, 4> g_artefactsScinari = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Phoenix_Stone),
             ToInteger(Artefact::Silver_Wand),
             ToInteger(Artefact::Blade_Of_Leaping_Gold),
-            ToInteger(Artefact::Heartstone_Amulet),
-            ToInteger(Artefact::Ebony_Stone),
-            ToInteger(Artefact::Magmic_Hammer),
-            ToInteger(Artefact::Mountains_Gift),
-            ToInteger(Artefact::The_Perfect_Blade),
-            ToInteger(Artefact::Simulacra_Amulet),
-            ToInteger(Artefact::Gift_Of_Celennar)
     };
 
+    constexpr std::array<int, 4> g_artefactsAlarith = {
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Heartstone_Amulet),
+            ToInteger(Artefact::Ebony_Stone),
+            ToInteger(Artefact::Magmic_Hammer)
+    };
 
-    constexpr std::array<int, 14> g_lore = {
+    constexpr std::array<int, 7> g_loreOfHysh = {
+            ToInteger(Lore::None),
+            ToInteger(Lore::Speed_Of_Hysh),
+            ToInteger(Lore::Solar_Flare),
+            ToInteger(Lore::Lambent_Light),
+            ToInteger(Lore::Etheral_Blessing),
+            ToInteger(Lore::Total_Eclipse),
+            ToInteger(Lore::Protection_Of_Hysh),
+    };
+
+    constexpr std::array<int, 7> g_loreOfHighPeaks = {
+            ToInteger(Lore::None),
+            ToInteger(Lore::Unyielding_Calm),
+            ToInteger(Lore::Crippling_Vertigo),
+            ToInteger(Lore::Voice_Of_The_Mountains),
+            ToInteger(Lore::Living_Fissue),
+            ToInteger(Lore::Entomb),
+            ToInteger(Lore::Assault_Of_Stone),
+    };
+
+    constexpr std::array<int, 13> g_loreTeclis = {
             ToInteger(Lore::None),
             ToInteger(Lore::Speed_Of_Hysh),
             ToInteger(Lore::Solar_Flare),
@@ -63,8 +82,7 @@ namespace LuminethRealmLords {
             ToInteger(Lore::Voice_Of_The_Mountains),
             ToInteger(Lore::Living_Fissue),
             ToInteger(Lore::Entomb),
-            ToInteger(Lore::Assault_Of_Stone),
-            ToInteger(Lore::Overwhelming_Heat)
+            ToInteger(Lore::Assault_Of_Stone)
     };
 
     class PowerOfHysh : public Spell {

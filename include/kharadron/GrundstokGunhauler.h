@@ -71,7 +71,7 @@ namespace KharadronOverlords {
 // Escort Vessel                    TODO
 // Bomb Racks                       Yes
 // Disengage                        TODO
-// Fly High                         TODO
+// Can_Fly High                         TODO
 // Drill Cannon                     Yes
 // Sky Cannon                       TODO
 //

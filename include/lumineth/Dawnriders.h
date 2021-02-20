@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DAWNRIDERS_H
-#define DAWNRIDERS_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -63,4 +61,3 @@ namespace LuminethRealmLords {
 
 } // namespace LuminethRealmLords
 
-#endif // DAWNRIDERS_H

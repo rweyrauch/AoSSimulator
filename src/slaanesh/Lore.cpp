@@ -137,7 +137,7 @@ namespace Slaanesh {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        target->buffMovement(Fly, true, defaultDuration());
+        target->buffMovement(Can_Fly, true, defaultDuration());
 
         return Spell::Result::Success;
     }

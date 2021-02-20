@@ -9,6 +9,7 @@
 #include <spells/MysticShield.h>
 #include "nighthaunt/TheBriarQueen.h"
 #include "NighthauntPrivate.h"
+#include "NighthauntLore.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 32;
@@ -69,6 +70,7 @@ namespace Nighthaunt {
         model->addMeleeWeapon(&m_whip);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

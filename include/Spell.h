@@ -176,7 +176,7 @@ protected:
     Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
     Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
-    MovementRules m_attribute = Fly;
+    MovementRules m_attribute = Can_Fly;
     bool m_allowed = false;
 };
 

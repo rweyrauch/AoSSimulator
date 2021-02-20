@@ -9,8 +9,29 @@
 #include "LuminethPrivate.h"
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 
 namespace LuminethRealmLords {
+
+    class GraviticRedirection : public Spell {
+    public:
+        explicit GraviticRedirection(Unit* caster) :
+                Spell(caster, "Gravitic Redirection", 5, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, int unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr) return Result::Failed;
+
+            target->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
+            target->buffMovement(Halve_Movement, true, defaultDuration());
+            target->buffMovement(Can_Fly, false, defaultDuration());
+
+            return Result::Success;
+        }
+    };
 
     static const int g_basesize = 40;
     static const int g_wounds = 5;
@@ -24,10 +45,18 @@ namespace LuminethRealmLords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsAlarith[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
+        unit->setArtefact(artefact);
+
         auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
         unit->setNation(nation);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHighPeaks[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -48,6 +77,9 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             BoolParameter("General"),
+                            EnumParameter("Lore", g_loreOfHighPeaks[0], g_loreOfHighPeaks),
+                            EnumParameter("Command Trait", g_commandTraitsAlarith[0], g_commandTraitsAlarith),
+                            EnumParameter("Artefact", g_artefactsAlarith[0], g_artefactsAlarith),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,
@@ -68,17 +100,39 @@ namespace LuminethRealmLords {
         m_totalUnbinds = 1;
     }
 
-    bool AlarithStonemage::configure() {
+    bool AlarithStonemage::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
 
         return true;
+    }
+
+    void AlarithStonemage::onStartCombat(PlayerId player) {
+        LuminethBase::onStartCombat(player);
+        if (player != owningPlayer()) return;
+
+        // Stonemage Stance
+        if (meleeTarget() && distanceTo(meleeTarget()) < 3.0) {
+            buffMovement(Can_PileIn, false, {Phase::Combat, m_battleRound, player});
+            buffModifier(Weapon_Rend_Melee, -1, {Phase::Combat, m_battleRound, player});
+
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+            for (auto unit : units) {
+                if (unit->hasKeyword(STONEGUARD) && unit->hasKeyword(ALARITH)) {
+                    if (unit->meleeTarget() && unit->distanceTo(unit->meleeTarget()) < 1.0) {
+                        unit->buffMovement(Can_PileIn, false, {Phase::Combat, m_battleRound, player});
+                        unit->buffModifier(Weapon_Rend_Melee, -1, {Phase::Combat, m_battleRound, player});
+                    }
+                }
+            }
+        }
     }
 
 } // namespace LuminethRealmLords

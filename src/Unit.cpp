@@ -41,6 +41,7 @@ lsignal::signal<int(const Unit*, int roll)> Unit::s_globalBattleshockFleeModifie
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalRunReroll;
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalChargeReroll;
 
+lsignal::signal<Wounds(const Wounds &wounds, const Unit* target, const Unit* attacker)> Unit::s_globalWoundSave;
 
 static int accumulate(const std::vector<int> &v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
@@ -241,6 +242,10 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
         totalWounds.mortal -= mortalSaves.rollsGE(value);
         totalWounds.clamp();
     }
+
+    // apply global wound save(s)
+    // TOOD: allow more than one active global wound save by accumulating the wounds
+    totalWounds = s_globalWoundSave(totalWounds, this, attackingUnit);
 
     // apply both normal and mortal wounds
     int totalDamage = totalWounds.normal + totalWounds.mortal;
@@ -862,7 +867,19 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
 
                     // roll save
                     int saveRoll = 0;
-                    if (!target->makeSave(weapon, weaponRend(weapon, target, hitRoll, woundRoll), this,saveRoll)) {
+                    auto rend = weaponRend(weapon, target, hitRoll, woundRoll);
+                    if (weapon->isMissile()) {
+                        for (auto ri : m_attributeModifiers[Weapon_Rend_Missile]) {
+                            rend += ri.modifier;
+                        }
+                    }
+                    else {
+                        for (auto ri : m_attributeModifiers[Weapon_Rend_Melee]) {
+                            rend += ri.modifier;
+                        }
+                    }
+
+                    if (!target->makeSave(weapon, rend, this,saveRoll)) {
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
 
@@ -1060,13 +1077,24 @@ const Model *Unit::nearestModel(const Model *model, const Unit *targetUnit) cons
 void Unit::doPileIn() {
     if (!m_meleeTarget) return;
 
+    if (!m_movementRules[Can_PileIn].empty()) {
+        if (!m_movementRules[Can_PileIn].front().allowed) {
+            return;
+        }
+    }
+
+    auto pileInMove = m_pileInMove;
+      for (auto pi : m_attributeModifiers[Pile_In_Distance]) {
+          pileInMove += pi.modifier;
+    }
+
     // Pile in up to 3" towards nearest enemy model.
     for (auto &m : m_models) {
         // Find closest model in melee target unit.
         auto closestTarget = nearestModel(m.get(), m_meleeTarget);
         // Move toward that model if possible
         if (closestTarget) {
-            auto totalMoveDistance = std::min((double) m_pileInMove, Model::DistanceBetween(m.get(), closestTarget));
+            auto totalMoveDistance = std::min((double) pileInMove, Model::DistanceBetween(m.get(), closestTarget));
             const Math::Ray ray(m->position(), closestTarget->position());
             auto newPos = ray.pointAt(totalMoveDistance);
             m->setPosition(newPos);
@@ -1353,10 +1381,10 @@ Rerolls Unit::chargeRerolls() const {
 }
 
 bool Unit::canFly() const {
-    if (m_movementRules[Fly].empty())
+    if (m_movementRules[Can_Fly].empty())
         return m_fly;
     else
-        return m_movementRules[Fly].front().allowed;
+        return m_movementRules[Can_Fly].front().allowed;
 }
 
 bool Unit::canMove() const {

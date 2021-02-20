@@ -412,30 +412,31 @@ protected:
     std::list<MovementRuleBuff> m_movementRules[Num_Movement_Rules];
     std::list<AbilityBuff> m_abilityBuffs[Num_Buffable_Abilities];
 
-    static lsignal::signal<int(const Unit *)> s_globalMoveMod;
-    static lsignal::signal<int(const Unit *)> s_globalRunMod;
-    static lsignal::signal<int(const Unit *)> s_globalChargeMod;
+    static lsignal::signal<int(const Unit *unit)> s_globalMoveMod;
+    static lsignal::signal<int(const Unit *unit)> s_globalRunMod;
+    static lsignal::signal<int(const Unit *unit)> s_globalChargeMod;
 
-    static lsignal::signal<int(const Unit *)> s_globalBraveryMod;
-    static lsignal::signal<int(const Unit *, const Weapon *, const Unit *)> s_globalToHitMod;
-    static lsignal::signal<int(const Unit *, const Weapon *, const Unit *)> s_globalToWoundMod;
-    static lsignal::signal<int(const Unit *, const Weapon *)> s_globalSaveMod;
+    static lsignal::signal<int(const Unit *unit)> s_globalBraveryMod;
+    static lsignal::signal<int(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToHitMod;
+    static lsignal::signal<int(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToWoundMod;
+    static lsignal::signal<int(const Unit *unit, const Weapon *weapon)> s_globalSaveMod;
 
-    static lsignal::signal<int(const Unit *, const Model *, const Weapon *, const Unit *)> s_globalAttackMod;
+    static lsignal::signal<int(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target)> s_globalAttackMod;
 
-    static lsignal::signal<int(const Unit *)> s_globalCastMod;
-    static lsignal::signal<int(const Unit *)> s_globalUnbindMod;
+    static lsignal::signal<int(const Unit *caster)> s_globalCastMod;
+    static lsignal::signal<int(const Unit *unbinder)> s_globalUnbindMod;
 
-    static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalToHitReroll;
-    static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalToWoundReroll;
-    static lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> s_globalSaveReroll;
+    static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToHitReroll;
+    static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToWoundReroll;
+    static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalSaveReroll;
 
-    static lsignal::signal<Rerolls(const Unit *)> s_globalBattleshockReroll;
-    static lsignal::signal<int(const Unit*, int roll)> s_globalBattleshockFleeModifier;
+    static lsignal::signal<Rerolls(const Unit *unit)> s_globalBattleshockReroll;
+    static lsignal::signal<int(const Unit *unit, int roll)> s_globalBattleshockFleeModifier;
 
-    static lsignal::signal<Rerolls(const Unit *)> s_globalRunReroll;
-    static lsignal::signal<Rerolls(const Unit *)> s_globalChargeReroll;
+    static lsignal::signal<Rerolls(const Unit *unit)> s_globalRunReroll;
+    static lsignal::signal<Rerolls(const Unit *unit)> s_globalChargeReroll;
 
+    static lsignal::signal<Wounds(const Wounds &wounds, const Unit* target, const Unit* attacker)> s_globalWoundSave;
 };
 
 class CustomUnit : public Unit {

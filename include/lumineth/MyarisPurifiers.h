@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MYARISPURIFIERS_H
-#define MYARISPURIFIERS_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -52,5 +50,3 @@ namespace LuminethRealmLords {
 //
 
 } // namespace LuminethRealmLords
-
-#endif // MYARISPURIFIERS_H

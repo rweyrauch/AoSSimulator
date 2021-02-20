@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TECLIS_H
-#define TECLIS_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -27,7 +25,11 @@ namespace LuminethRealmLords {
 
         ~ArchmageTeclis() override;
 
-        bool configure();
+        bool configure(Lore lore);
+
+        int rollCasting(int& unmodifiedRoll) const override;
+
+        void enableProtectionOfTeclis();
 
     protected:
 
@@ -37,15 +39,22 @@ namespace LuminethRealmLords {
 
         int auraOfCelennar(const Unit *caster);
 
+        void onStartHero(PlayerId player) override;
+
+        Wounds protectionAuras(const Wounds& wounds, const Unit* target, const Unit* attacker);
+
     private:
 
         int getDamageTableIndex() const;
+
+        bool m_protectionOfTeclisEnabled = false;
 
         Weapon m_staff,
             m_sword,
             m_talons;
 
-        lsignal::slot m_auraConnection;
+        lsignal::slot m_auraConnection,
+            m_protectionConnection;
 
         static bool s_registered;
     };
@@ -53,14 +62,13 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Archmage                         TODO
+// Archmage                         Yes
 // Aura of Celennar                 Yes
 // Discs of the Aelementiri         TODO
-// Seeing Stone of Celennar         TODO
-// Protection of Teclis             TODO
-// Storm of Searing White Light     TODO
+// Seeing Stone of Celennar         Partial
+// Protection of Teclis             Yes
+// Storm of Searing White Light     Yes
 //
 
 } // namespace LuminethRealmLords
 
-#endif // TECLIS_H

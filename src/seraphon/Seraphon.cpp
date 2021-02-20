@@ -225,7 +225,7 @@ namespace Seraphon {
         bool apply(Unit* target, int round) override {
             if (target == nullptr) return false;
 
-            target->buffMovement(Fly, true, defaultDuration());
+            target->buffMovement(Can_Fly, true, defaultDuration());
             target->buffModifier(To_Save_Missile, 1, defaultDuration());
             return true;
         }

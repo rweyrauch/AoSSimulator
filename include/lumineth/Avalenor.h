@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AVALENOR_H
-#define AVALENOR_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -62,4 +60,3 @@ namespace LuminethRealmLords {
 
 } // namespace LuminethRealmLords
 
-#endif // AVALENOR_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef STONEMAGE_H
-#define STONEMAGE_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -27,9 +25,11 @@ namespace LuminethRealmLords {
 
         ~AlarithStonemage() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
+
+        void onStartCombat(PlayerId player) override;
 
     private:
 
@@ -41,10 +41,9 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Stonemage Stance                 TODO
-// Gravitic Redirection             TODO
+// Stonemage Stance                 Yes
+// Gravitic Redirection             Yes
 //
 
 } // namespace LuminethRealmLords
 
-#endif // STONEMAGE_H

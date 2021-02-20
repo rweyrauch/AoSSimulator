@@ -9,6 +9,7 @@
 #include <spells/MysticShield.h>
 #include "nighthaunt/ReikenorGrimhailer.h"
 #include "NighthauntPrivate.h"
+#include "NighthauntLore.h"
 
 namespace Nighthaunt {
 
@@ -93,6 +94,7 @@ namespace Nighthaunt {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<Wraithstorm>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

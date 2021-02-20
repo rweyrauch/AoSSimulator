@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MYARILGHTCALLER_H
-#define MYARILGHTCALLER_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -25,11 +23,17 @@ namespace LuminethRealmLords {
 
         MyariLigthcaller();
 
-        ~MyariLigthcaller() override = default;
+        ~MyariLigthcaller() override;
 
-        bool configure();
+        bool configure(Lore lore);
+
+        void enableDazzlingLight() {
+            m_lightConnection.set_lock(false);
+        }
 
     protected:
+
+        void onStartHero(PlayerId player) override;
 
         int castingModifier() const override {
             // Scryowl Familiar
@@ -41,7 +45,11 @@ namespace LuminethRealmLords {
             return (LuminethBase::castingModifier() + 1);
         }
 
+        int dazzlingLight(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
     private:
+
+        lsignal::slot m_lightConnection;
 
         Weapon m_beams,
             m_staff;
@@ -52,10 +60,9 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Scryowl Familar                  Yes
-// Dazzling Light                   TODO
+// Scryowl Familar                  Partial
+// Dazzling Light                   Yes
 //
 
 } // namespace LuminethRealmLords
 
-#endif // MYARILGHTCALLER_H

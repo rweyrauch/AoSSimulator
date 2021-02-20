@@ -24,10 +24,18 @@ namespace LuminethRealmLords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsScinari[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsScinari[0]);
+        unit->setArtefact(artefact);
+
         auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
         unit->setNation(nation);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -48,6 +56,9 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             BoolParameter("General"),
+                            EnumParameter("Lore", g_loreOfHysh[0], g_loreOfHysh),
+                            EnumParameter("Command Trait", g_commandTraitsScinari[0], g_commandTraitsScinari),
+                            EnumParameter("Artefact", g_artefactsScinari[0], g_artefactsScinari),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,
@@ -68,11 +79,12 @@ namespace LuminethRealmLords {
         m_totalUnbinds = 1;
     }
 
-    bool ScinariCathallar::configure() {
+    bool ScinariCathallar::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_touch);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

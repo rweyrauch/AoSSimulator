@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CATHALLAR_H
-#define CATHALLAR_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -27,7 +25,7 @@ namespace LuminethRealmLords {
 
         ~ScinariCathallar() override = default;
 
-        bool configure();
+        bool configure(Lore lore);
 
     protected:
 
@@ -47,4 +45,3 @@ namespace LuminethRealmLords {
 
 } // namespace LuminethRealmLords
 
-#endif // CATHALLAR_H

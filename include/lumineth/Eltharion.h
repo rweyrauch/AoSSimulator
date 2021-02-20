@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ELTHARION_H
-#define ELTHARION_H
+#pragma once
 
 #include <lumineth/LuminethRealmLords.h>
 #include <Weapon.h>
@@ -62,4 +60,3 @@ namespace LuminethRealmLords {
 
 } // namespace LuminethRealmLords
 
-#endif // ELTHARION_H

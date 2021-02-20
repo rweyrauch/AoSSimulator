@@ -27,7 +27,7 @@ namespace CitiesOfSigmar {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Run_Distance, 1, defaultDuration());
             target->buffModifier(Charge_Distance, 1, defaultDuration());
-            target->buffMovement(Fly, true, defaultDuration());
+            target->buffMovement(Can_Fly, true, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }

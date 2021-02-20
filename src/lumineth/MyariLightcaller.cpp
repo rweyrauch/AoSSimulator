@@ -13,6 +13,26 @@
 
 namespace LuminethRealmLords {
 
+    class DazzlingLight : public Spell {
+    public:
+        explicit DazzlingLight(Unit* caster) :
+            Spell(caster, "Dazzling Light", 6, 6) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_effect = Abilities::EffectType::Buff;
+        }
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override {
+            auto myari = dynamic_cast<MyariLigthcaller*>(m_caster);
+            if (myari) {
+                myari->enableDazzlingLight();
+            }
+            return Result::Success;
+        }
+        Result apply(int castingRoll, int unmodifiedCastingValue, Unit* target) override {
+            return apply(castingRoll, unmodifiedCastingValue, 0, 0);
+        }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 120;
@@ -27,7 +47,9 @@ namespace LuminethRealmLords {
 
         unit->setNation(GreatNation::Ymetrica);
 
-        bool ok = unit->configure();
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
+
+        bool ok = unit->configure(lore);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -48,6 +70,7 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             BoolParameter("General"),
+                            EnumParameter("Lore", g_loreOfHysh[0], g_loreOfHysh),
                     },
                     ORDER,
                     {LUMINETH_REALM_LORDS}
@@ -66,20 +89,47 @@ namespace LuminethRealmLords {
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
+
+        s_globalToHitMod.connect(this, &MyariLigthcaller::dazzlingLight, &m_lightConnection);
     }
 
-    bool MyariLigthcaller::configure() {
+    MyariLigthcaller::~MyariLigthcaller() {
+        m_lightConnection.disconnect();
+    }
+
+    bool MyariLigthcaller::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_beams);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<DazzlingLight>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
 
         return true;
+    }
+
+   void MyariLigthcaller::onStartHero(PlayerId player) {
+        LuminethBase::onStartHero(player);
+
+        if (player == owningPlayer()) {
+            // Disable 'Dazzling Light' at the start of hero phase.
+            m_lightConnection.set_lock(true);
+        }
+    }
+
+    int MyariLigthcaller::dazzlingLight(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        if (isFriendly(attacker) || !weapon->isMissile()) {
+            return 0;
+        }
+        if (isFriendly(target) && (distanceTo(target) <= 6.0)) {
+            return -1;
+        }
+        return 0;
     }
 
 } // namespace LuminethRealmLords

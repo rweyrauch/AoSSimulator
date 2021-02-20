@@ -81,7 +81,7 @@ namespace KharadronOverlords {
 // Aetheric Navigator/Endrinrigger  Yes
 // Bomb Racks                       Yes
 // Disengage                        TODO
-// Fly High                         TODO
+// Can_Fly High                         TODO
 // Great Skyhook                    Yes
 // Great Sky Cannon                 Yes
 //

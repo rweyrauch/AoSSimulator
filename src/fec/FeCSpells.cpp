@@ -47,7 +47,7 @@ namespace FleshEaterCourt {
             }
 
             if (!target->fly()) {
-                target->buffMovement(Fly, true, defaultDuration());
+                target->buffMovement(Can_Fly, true, defaultDuration());
             }
             else {
                 target->buffMovement(Run_And_Charge, true, defaultDuration());
@@ -61,7 +61,7 @@ namespace FleshEaterCourt {
                     if (unit == target) continue;
 
                     if (!unit->fly()) {
-                        unit->buffMovement(Fly, true, defaultDuration());
+                        unit->buffMovement(Can_Fly, true, defaultDuration());
                     }
                     else {
                         unit->buffMovement(Run_And_Charge, true, defaultDuration());

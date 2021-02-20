@@ -65,6 +65,12 @@ namespace LuminethRealmLords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsAlarith[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
+        unit->setArtefact(artefact);
+
         auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
         unit->setNation(nation);
 
@@ -85,6 +91,8 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             BoolParameter("General"),
+                            EnumParameter("Command Trait", g_commandTraitsAlarith[0], g_commandTraitsAlarith),
+                            EnumParameter("Artefact", g_artefactsAlarith[0], g_artefactsAlarith),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,

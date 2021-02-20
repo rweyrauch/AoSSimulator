@@ -58,6 +58,8 @@ enum Role {
     Artillery_Behemoth
 };
 
+const int Automatically_Cast_No_Unbind = 42;
+
 enum BuffableAttribute {
     Move_Distance = 0,
     Run_Distance,
@@ -79,8 +81,11 @@ enum BuffableAttribute {
     Target_To_Wound_Missile,
     Target_To_Save_Melee,
     Target_To_Save_Missile,
+
     Attacks_Melee,
     Attacks_Missile,
+    Weapon_Rend_Melee,
+    Weapon_Rend_Missile,
 
     Num_Buffable_Attributes
 };
@@ -99,14 +104,17 @@ enum BuffableAbility {
 };
 
 enum MovementRules {
-    Fly = 0,
+    Can_Fly = 0,
+    Can_Move,
+    Can_Retreat,
+    Can_Charge,
+    Can_PileIn,
+
     Run_And_Shoot,
     Run_And_Charge,
     Retreat_And_Shoot,
     Retreat_And_Charge,
-    Can_Move,
-    Can_Retreat,
-    Can_Charge,
+
     Halve_Movement,
     Halve_Charge_Roll,
     Halve_Run_Roll,

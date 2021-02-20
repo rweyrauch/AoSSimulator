@@ -59,7 +59,7 @@ namespace LuminethRealmLords {
             m_mallet(Weapon::Type::Melee, "Stone Mallet", 1, 3, 3, 3, -1, 1),
             m_greatsword(Weapon::Type::Melee, "Sunmetal Greatsword", 1, 2, 2, 2, -1, 1),
             m_dagger(Weapon::Type::Melee, "Vanari Dagger", 1, 1, 3, 4, 0, 1) {
-        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, YMETRICA, MYARIS_PURIFIERS};
+        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, YMETRICA, MYARIS_PURIFIERS, Sunmetal_Weapons};
         m_weapons = {&m_bow, &m_mallet, &m_greatsword, &m_dagger};
     }
 

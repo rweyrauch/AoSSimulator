@@ -90,7 +90,7 @@ namespace Skaven {
             target->buffMovement(Halve_Charge_Roll, true, defaultDuration());
             target->buffMovement(Halve_Run_Roll, true, defaultDuration());
             if (target->fly()) {
-                target->buffMovement(Fly, false, defaultDuration());
+                target->buffMovement(Can_Fly, false, defaultDuration());
             }
             return Result::Success;
         }
