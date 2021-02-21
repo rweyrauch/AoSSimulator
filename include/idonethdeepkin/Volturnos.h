@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VOLTURNOS_H
-#define VOLTURNOS_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -27,7 +25,7 @@ namespace IdonethDeepkin {
 
         ~Volturnos() override;
 
-        bool configure();
+        bool configure(MountTrait trait);
 
     protected:
 
@@ -61,4 +59,3 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // VOLTURNOS_H

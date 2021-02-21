@@ -19,7 +19,8 @@ namespace SlavesToDarkness {
         Ravagers,
         Cabalists,
         Despoilers,
-        Host_Of_The_Everchosen
+        Host_Of_The_Everchosen,
+        Idolators
     };
 
     enum class MarkOfChaos : int {
@@ -68,6 +69,14 @@ namespace SlavesToDarkness {
         Radiance_Of_Dark_Glory,
         Distorting_Miasma,
         Paragon_Of_Ruin,
+
+        // Idolators
+        //Bolstered_by_Hate,
+        //Lord_of_Terror,
+        //Favoured_of_the_Pantheon,
+        Fiery_Orator,
+        Bane_Of_False_Idols,
+        Smite_The_Unbeliever,
     };
 
     enum class Artefact : int {
@@ -96,6 +105,17 @@ namespace SlavesToDarkness {
         Diabolic_Mantle,
         Doombringer_Blade,
         Realmwarpers_Twist_Rune
+    };
+
+    enum class Prayer : int {
+        None,
+
+        // Idolators
+        Blessings_Of_Chaos_Undivided,
+        Blessings_Of_Nurgle,
+        Blessings_Of_Khorne,
+        Blessings_Of_Slaanesh,
+        Blessings_Of_Tzeentch
     };
 
     class SlavesToDarknessBase : public Unit {
@@ -158,6 +178,12 @@ namespace SlavesToDarkness {
 //    Fearless in His Presence      TODO
 //    The Will of the Everchosen    TODO
 //    Dark Prophecy                 TODO
+// Idolators
+//    Panoply of Ruin               TODO
+//    Blessed of Chaos              TODO
+//    Idolator Lords                TODO
+//    Destroy the False Idols       TODO
+//    Desecrate                     TODO
 //
 
 } // SlavesToDarkness

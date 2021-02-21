@@ -31,7 +31,7 @@ namespace IdonethDeepkin {
         m_hasMount = true;
     }
 
-    bool AkhelianKing::configure(WeaponOption weapon) {
+    bool AkhelianKing::configure(WeaponOption weapon, MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         if (weapon == Bladed_Polearm) {
             model->addMeleeWeapon(&m_bladedPolearm);
@@ -65,7 +65,9 @@ namespace IdonethDeepkin {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapon);
+        auto mountTrait = (MountTrait) GetBoolParam("Mount Trait", parameters, g_leviadonTrait[0]);
+
+        bool ok = unit->configure(weapon, mountTrait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -86,6 +88,7 @@ namespace IdonethDeepkin {
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_akhelianArtefacts[0], g_akhelianArtefacts),
+                            EnumParameter("Mount Trait", g_deepmareTrait[0], g_deepmareTrait),
                             BoolParameter("General")
                     },
                     ORDER,

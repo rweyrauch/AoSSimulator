@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef NAMARTITHRALLS_H
-#define NAMARTITHRALLS_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -44,4 +42,3 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // NAMARTITHRALLS_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SLAVESTODARKNESSPRIVATE_H
-#define SLAVESTODARKNESSPRIVATE_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <array>
@@ -15,11 +13,12 @@
 
 namespace SlavesToDarkness {
 
-    constexpr std::array<int, 4> g_damnedLegion = {
+    constexpr std::array<int, 5> g_damnedLegion = {
             ToInteger(DamnedLegion::Ravagers),
             ToInteger(DamnedLegion::Cabalists),
             ToInteger(DamnedLegion::Despoilers),
-            ToInteger(DamnedLegion::Host_Of_The_Everchosen)
+            ToInteger(DamnedLegion::Host_Of_The_Everchosen),
+            ToInteger(DamnedLegion::Idolators)
     };
 
     constexpr std::array<int, 5> g_markOfChaos = {
@@ -101,5 +100,3 @@ namespace SlavesToDarkness {
     };
 
 } // SlavesToDarkness
-
-#endif //SLAVESTODARKNESSPRIVATE_H

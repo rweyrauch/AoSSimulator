@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ISHARANNTIDECASTER_H
-#define ISHARANNTIDECASTER_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -29,8 +27,13 @@ namespace IdonethDeepkin {
 
         bool configure(Lore lore);
 
+        void setRiptideTarget(Unit* target) { m_riptideTarget = target; }
+
     protected:
 
+        void onStartHero(PlayerId player) override;
+
+        Unit* m_riptideTarget = nullptr;
 
     private:
 
@@ -44,9 +47,8 @@ namespace IdonethDeepkin {
 // -------------------------------------------
 // Spirit Guardians                 TODO
 // The Wide Ethersea                TODO
-// Riptide                          TODO
+// Riptide                          Yes
 //
 
 } // namespace IdonethDeepkin
 
-#endif // ISHARANNTIDECASTER_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CITIESOFSIGMARPRIVATE_H
-#define CITIESOFSIGMARPRIVATE_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <array>
@@ -15,17 +13,19 @@
 
 namespace CitiesOfSigmar {
 
-    constexpr std::array<int, 7> g_city = {
+    constexpr std::array<int, 9> g_city = {
             ToInteger(City::Hammerhal),
             ToInteger(City::Living_City),
             ToInteger(City::Greywater_Fastness),
             ToInteger(City::Phoenicium),
             ToInteger(City::Anvilgard),
             ToInteger(City::Hallowheart),
-            ToInteger(City::Tempests_Eye)
+            ToInteger(City::Tempests_Eye),
+            ToInteger(City::Misthåvn),
+            ToInteger(City::Har_Kuron)
     };
 
-    constexpr std::array<int, 22> g_commandTraits = {
+    constexpr std::array<int, 28> g_commandTraits = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Acadamae_Prodigy),
             ToInteger(CommandTrait::Blood_Of_The_Twelve),
@@ -47,10 +47,16 @@ namespace CitiesOfSigmar {
             ToInteger(CommandTrait::Famed_Spell_Hunter),
             ToInteger(CommandTrait::Aetherguard_Captain),
             ToInteger(CommandTrait::Hawk_Eyed),
-            ToInteger(CommandTrait::Swift_As_The_Wind)
+            ToInteger(CommandTrait::Swift_As_The_Wind),
+            ToInteger(CommandTrait::Shadowlord),
+            ToInteger(CommandTrait::Wily_Foe),
+            ToInteger(CommandTrait::Shade_Warlock),
+            ToInteger(CommandTrait::Bathed_In_Blood),
+            ToInteger(CommandTrait::Murderous_Zeal),
+            ToInteger(CommandTrait::Dark_Adept)
     };
 
-   constexpr std::array<int, 22> g_artefacts = {
+   constexpr std::array<int, 28> g_artefacts = {
            ToInteger(Artefact::None),
            ToInteger(Artefact::Armour_Of_Mallus),
            ToInteger(Artefact::Saints_Blade),
@@ -72,10 +78,16 @@ namespace CitiesOfSigmar {
            ToInteger(Artefact::Whitefire_Tome),
            ToInteger(Artefact::Patricians_Helm),
            ToInteger(Artefact::Seerstone_Amulet),
-           ToInteger(Artefact::Zephyrite_Banner)
-    };
+           ToInteger(Artefact::Zephyrite_Banner),
+           ToInteger(Artefact::Gloom_Bell),
+           ToInteger(Artefact::Stangler_Kelp_Noose),
+           ToInteger(Artefact::Shadowsilk_Armour),
+           ToInteger(Artefact::Lifetaker),
+           ToInteger(Artefact::Traitors_Banner),
+           ToInteger(Artefact::Nullstone_Vizard)
+   };
 
-    constexpr std::array<int, 25> g_lore = {
+    constexpr std::array<int, 28> g_lore = {
             ToInteger(Lore::None),
             ToInteger(Lore::Wings_Of_Fire),
             ToInteger(Lore::Cindercloud),
@@ -100,9 +112,20 @@ namespace CitiesOfSigmar {
             ToInteger(Lore::Ignite_Weapons),
             ToInteger(Lore::Aura_Of_Glory),
             ToInteger(Lore::Strike_Of_Eagles),
-            ToInteger(Lore::Celestial_Visions)
+            ToInteger(Lore::Celestial_Visions),
+            ToInteger(Lore::The_Withering),
+            ToInteger(Lore::Steed_Of_Shadows),
+            ToInteger(Lore::Pit_Of_Shades),
+    };
+
+    constexpr std::array<int, 7> g_narcotic = {
+            ToInteger(Narcotic::None),
+            ToInteger(Narcotic::Synesthalcum),
+            ToInteger(Narcotic::Witch_Mist),
+            ToInteger(Narcotic::Skiffers_Salve),
+            ToInteger(Narcotic::Float),
+            ToInteger(Narcotic::Sawfang_Dust),
+            ToInteger(Narcotic::Glatch_Ink)
     };
 
 } // namespace CitiesOfSigmar
-
-#endif // CITIESOFSIGMARPRIVATE_H

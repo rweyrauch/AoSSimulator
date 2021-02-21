@@ -84,6 +84,10 @@ namespace CitiesOfSigmar {
             auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
             return std::string(loreName);
         }
+        if (std::string(parameter.name) == "Narcotic") {
+            auto drugName = magic_enum::enum_name((Narcotic) parameter.intValue);
+            return std::string(drugName);
+        }
         return ParameterValueToString(parameter);
     }
 
@@ -100,6 +104,9 @@ namespace CitiesOfSigmar {
         auto lore = magic_enum::enum_cast<Lore>(enumString);
         if (lore.has_value()) return (int)lore.value();
 
+        auto drug = magic_enum::enum_cast<Narcotic>(enumString);
+        if (drug.has_value()) return (int)drug.value();
+
         return 0;
     }
 
@@ -111,6 +118,8 @@ namespace CitiesOfSigmar {
         removeKeyword(ANVILGARD);
         removeKeyword(HALLOWHEART);
         removeKeyword(TEMPESTS_EYE);
+        removeKeyword(MISTHÅVN);
+        removeKeyword(HAR_KURON);
 
         m_city = city;
         switch (city) {
@@ -135,6 +144,12 @@ namespace CitiesOfSigmar {
             case City::Tempests_Eye:
                 addKeyword(TEMPESTS_EYE);
                 break;
+            case City::Misthåvn:
+                addKeyword(MISTHÅVN);
+                break;
+            case City::Har_Kuron:
+                addKeyword(HAR_KURON);
+                break;
             default:
                 break;
         }
@@ -146,6 +161,10 @@ namespace CitiesOfSigmar {
 
     void CitizenOfSigmar::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    void CitizenOfSigmar::setNarcotic(Narcotic narcotic) {
+        m_narcotic = narcotic;
     }
 
     int CitizenOfSigmar::runModifier() const {

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AKHELIANKING_H
-#define AKHELIANKING_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -36,7 +34,7 @@ namespace IdonethDeepkin {
 
         ~AkhelianKing() override = default;
 
-        bool configure(WeaponOption weapon);
+        bool configure(WeaponOption weapon, MountTrait trait);
 
     protected:
 
@@ -67,4 +65,3 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // AKHELIANKING_H

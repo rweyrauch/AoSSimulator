@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef EIDOLONSEA_H
-#define EIDOLONSEA_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -51,10 +49,9 @@ namespace IdonethDeepkin {
 // Dormant Energies                 TODO
 // Stormshoal                       TODO
 // Tranquility of the Abyss         Yes
-// Cloying Sea Mists                TODO
-// Tsunami of Terror                TODO
+// Cloying Sea Mists                Yes
+// Tsunami of Terror                Yes
 //
 
 } // namespace IdonethDeepkin
 
-#endif // EIDOLONSEA_H

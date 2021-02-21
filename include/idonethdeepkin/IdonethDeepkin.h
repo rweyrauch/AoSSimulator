@@ -92,6 +92,20 @@ namespace IdonethDeepkin {
 
     };
 
+    enum class MountTrait : int {
+        None,
+
+        // Deepmare
+        Swift_Finned_Impaler,
+        Savage_Ferocity,
+        Voidchill_Darkness,
+
+        // Leviadon
+        Ancient,
+        Denizen_Of_The_Darkest_Depths,
+        Reverberating_Carapace,
+
+    };
     class IdonethDeepkinBase : public Unit {
     public:
 

@@ -7,10 +7,57 @@
  */
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "idonethdeepkin/EidolonSea.h"
 #include "IdonethDeepkinPrivate.h"
+#include "IdonethLore.h"
 
 namespace IdonethDeepkin {
+
+    class CloyingSeaMists : public Spell {
+    public:
+        CloyingSeaMists(Unit *caster) :
+                Spell(caster, "Cloying Sea Mists", 6, 12) {
+            m_allowedTargets = Abilities::Target::Any;
+            m_effect = Abilities::EffectType::Heal;
+        }
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            if (target == nullptr) return Result::Failed;
+            if (m_caster->isFriendly(target)) {
+                target->heal(Dice::RollD3());
+            }
+            else {
+                target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+            }
+            return Result::Success;
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    };
+
+    class TsunamiOfTerror : public Spell {
+    public:
+        TsunamiOfTerror(Unit *caster) :
+                Spell(caster, "TsunamiOfTerror", 7, 12) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Debuff;
+        }
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+             return apply(castingRoll, unmodifiedCastingRoll, 0, 0);
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override {
+            auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
+            auto numUnits = std::min(Dice::RollD6(), (int)units.size());
+            for (auto i = 0; i < numUnits; i++) {
+                units[i]->buffModifier(To_Hit_Missile, -1, defaultDuration());
+                units[i]->buffModifier(To_Hit_Melee, -1, defaultDuration());
+                units[i]->buffModifier(Bravery, -1, defaultDuration());
+            }
+            return Result::Success;
+        }
+    };
+
     static const int g_basesize = 100;
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 330;
@@ -76,8 +123,8 @@ namespace IdonethDeepkin {
 
         s_globalBraveryMod.connect(this, &EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss, &m_connection);
 
-        m_totalSpells = 1;
-        m_totalUnbinds = 1;
+        m_totalSpells = 2;
+        m_totalUnbinds = 2;
     }
 
     EidolonOfMathlannAspectOfTheSea::~EidolonOfMathlannAspectOfTheSea() {
@@ -93,6 +140,9 @@ namespace IdonethDeepkin {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<CloyingSeaMists>(this));
+        m_knownSpells.push_back(std::make_unique<TsunamiOfTerror>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

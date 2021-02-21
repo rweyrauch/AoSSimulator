@@ -205,6 +205,8 @@ namespace StormcastEternals {
 //   Beast Stalkers                 Yes
 //   Cut off the Head               TODO
 //   Dauntless Hunters              TODO
+// Shield of Civilization           TODO
+// Mortal Auxiliaries               TODO
 //
 
 } // namespace StormcastEternals

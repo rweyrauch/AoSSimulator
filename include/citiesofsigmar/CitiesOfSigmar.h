@@ -20,7 +20,9 @@ namespace CitiesOfSigmar {
         Phoenicium,
         Anvilgard,
         Hallowheart,
-        Tempests_Eye
+        Tempests_Eye,
+        Misthåvn,
+        Har_Kuron,
     };
 
     enum class CommandTrait : int {
@@ -61,6 +63,15 @@ namespace CitiesOfSigmar {
         Hawk_Eyed,
         Swift_As_The_Wind,
 
+        // Misthåvn
+        Shadowlord,
+        Wily_Foe,
+        Shade_Warlock,
+
+        // Har_Kuron
+        Bathed_In_Blood,
+        Murderous_Zeal,
+        Dark_Adept,
     };
 
     enum class Artefact : int {
@@ -100,6 +111,16 @@ namespace CitiesOfSigmar {
         Patricians_Helm,
         Seerstone_Amulet,
         Zephyrite_Banner,
+
+        // Misthåvn
+        Gloom_Bell,
+        Stangler_Kelp_Noose,
+        Shadowsilk_Armour,
+
+        // Har Kuron
+        Lifetaker,
+        Traitors_Banner,
+        Nullstone_Vizard,
 
     };
 
@@ -143,6 +164,24 @@ namespace CitiesOfSigmar {
         Aura_Of_Glory,
         Strike_Of_Eagles,
         Celestial_Visions,
+
+        // Har Kuron
+        //Sap_Strength,
+        The_Withering,
+        //Vitriolic_Spray,
+        Steed_Of_Shadows,
+        Pit_Of_Shades,
+        //Shadow_Daggers,
+    };
+
+    enum class Narcotic : int {
+        None,
+        Synesthalcum,
+        Witch_Mist,
+        Skiffers_Salve,
+        Float,
+        Sawfang_Dust,
+        Glatch_Ink
     };
 
     class CitizenOfSigmar : public Unit {
@@ -159,6 +198,7 @@ namespace CitiesOfSigmar {
 
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
+        void setNarcotic(Narcotic narcotic);
 
     protected:
         CitizenOfSigmar(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -174,6 +214,7 @@ namespace CitiesOfSigmar {
         City m_city = City::Hammerhal;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+        Narcotic m_narcotic = Narcotic::None;
     };
 
 //
@@ -214,6 +255,13 @@ namespace CitiesOfSigmar {
 //    Outriders of the Realms       Yes
 //    Standing Contracts            TODO
 //    Rapid Redeploy                TODO
+// Misthåvn
+//    Underhanded Tactics           TODO
+//    Narcotics                     TODO
+//    Shadowstrike                  TODO
+// Har_Kuron
+//    Incitement to Murder          TODO
+//    Make an Example of the Weak   TODO
 //
 
     void Init();

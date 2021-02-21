@@ -69,6 +69,7 @@ namespace CitiesOfSigmar {
                             EnumParameter("City", g_city[0], g_city),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Narcotic", g_narcotic[0], g_narcotic),
                             BoolParameter("General")
                     },
                     ORDER,

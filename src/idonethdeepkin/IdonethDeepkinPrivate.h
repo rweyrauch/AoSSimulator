@@ -85,6 +85,20 @@ namespace IdonethDeepkin {
             ToInteger(Lore::Arcane_Corrasion)
     };
 
+    constexpr std::array<int, 4> g_deepmareTrait = {
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Swift_Finned_Impaler),
+            ToInteger(MountTrait::Savage_Ferocity),
+            ToInteger(MountTrait::Voidchill_Darkness)
+    };
+
+    constexpr std::array<int, 4> g_leviadonTrait = {
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Ancient),
+            ToInteger(MountTrait::Denizen_Of_The_Darkest_Depths),
+            ToInteger(MountTrait::Reverberating_Carapace)
+    };
+
 } // namespace IdonethDeepkin
 
 #endif // IDONETHDEEPKINPRIVATE_H

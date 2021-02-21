@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ISHLAENGUARD_H
-#define ISHLAENGUARD_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -55,4 +53,3 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // ISHLAENGUARD_H

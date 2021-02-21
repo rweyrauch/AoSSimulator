@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AKHELIANLEVIADON_H
-#define AKHELIANLEVIADON_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <Weapon.h>
@@ -27,7 +25,7 @@ namespace IdonethDeepkin {
 
         ~AkhelianLeviadon() override;
 
-        bool configure();
+        bool configure(MountTrait trait);
 
         void onWounded() override;
 
@@ -65,4 +63,3 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // AKHELIANLEVIADON_H

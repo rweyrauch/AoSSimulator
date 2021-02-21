@@ -9,8 +9,33 @@
 #include <spells/MysticShield.h>
 #include "idonethdeepkin/IsharannTidecaster.h"
 #include "IdonethDeepkinPrivate.h"
+#include "IdonethLore.h"
 
 namespace IdonethDeepkin {
+
+    class Riptide : public Spell {
+    public:
+        explicit Riptide(Unit *caster) :
+                Spell(caster, "Riptide", 7, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Debuff;
+        }
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+            if (target == nullptr) return Result::Failed;
+            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+
+            auto tc = dynamic_cast<IsharannTidecaster*>(m_caster);
+            if (tc != nullptr) {
+                tc->setRiptideTarget(target);
+            }
+
+            return Result::Success;
+        }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 100;
@@ -81,6 +106,8 @@ namespace IdonethDeepkin {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<Riptide>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -91,6 +118,17 @@ namespace IdonethDeepkin {
 
     int IsharannTidecaster::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void IsharannTidecaster::onStartHero(PlayerId player) {
+        EventInterface::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if (m_riptideTarget != nullptr) {
+                m_riptideTarget->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, this);
+                m_riptideTarget = nullptr;
+            }
+        }
     }
 
 } //IdonethDeepkin

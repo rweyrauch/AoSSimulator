@@ -52,7 +52,7 @@ namespace IdonethDeepkin {
         m_voidDrumSaveSlot.disconnect();
     }
 
-    bool AkhelianLeviadon::configure() {
+    bool AkhelianLeviadon::configure(MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_harpoonLauncher);
         model->addMeleeWeapon(&m_crushingJaws);
@@ -72,7 +72,9 @@ namespace IdonethDeepkin {
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
-        bool ok = unit->configure();
+        auto trait = (MountTrait) GetBoolParam("Mount Trait", parameters, g_leviadonTrait[0]);
+
+        bool ok = unit->configure(trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -89,6 +91,7 @@ namespace IdonethDeepkin {
                     ComputePoints,
                     {
                             EnumParameter("Enclave", g_enclave[0], g_enclave),
+                            EnumParameter("Mount Trait", g_leviadonTrait[0], g_leviadonTrait)
                     },
                     ORDER,
                     {IDONETH_DEEPKIN}

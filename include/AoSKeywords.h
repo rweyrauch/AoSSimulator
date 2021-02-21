@@ -818,6 +818,7 @@ enum Keyword {
     CABALISTS,
     DESPOILERS,
     HOST_OF_THE_EVERCHOSEN,
+    IDOLATORS,
 
     // Free Agents (no faction)
     GOTREK_GURNISSON,
@@ -830,6 +831,8 @@ enum Keyword {
     ANVILGARD,
     HALLOWHEART,
     TEMPESTS_EYE,
+    MISTHÅVN,
+    HAR_KURON,
 
     ASSASSIN,
     ANOINTED,
@@ -873,6 +876,7 @@ enum Keyword {
     NOMAD_PRINCE,
     WILD_RIDERS,
     SORCERESS,
+    IDOLATOR_LORD,
 
     // Ogor Mawtribes
     OGOR,
