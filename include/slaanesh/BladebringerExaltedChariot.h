@@ -51,7 +51,7 @@ namespace Slaanesh {
 // -------------------------------------------
 // Excess of Blades                 Yes
 // Pungent Soulscent                Yes
-// Acquiescence                     TODO
+// Acquiescence                     Yes
 //
 
 } // Slannesh

@@ -16,7 +16,9 @@ namespace Khorne {
     public:
         explicit Gorelord(Unit *source);
 
-        bool apply(Unit* target, int round) override;
+    protected:
+        bool apply(Unit* target) override;
+        bool apply(double x, double y) override { return false; }
     };
 
     Gorelord::Gorelord(Unit *source) :
@@ -26,12 +28,12 @@ namespace Khorne {
         m_targetKeywords = {KHORNE, MORTAL};
     }
 
-    bool Gorelord::apply(Unit* target, int round) {
+    bool Gorelord::apply(Unit* target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL)) {
-                unit->buffReroll(Charge_Distance, Reroll_Failed, {m_phase, round, m_source->owningPlayer()});
+                unit->buffReroll(Charge_Distance, Reroll_Failed, defaultDuration());
             }
         }
         return true;

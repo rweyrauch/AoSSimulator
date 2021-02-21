@@ -232,4 +232,26 @@ namespace Slaanesh {
         }
     }
 
+    class Acquiescence : public Spell {
+    public:
+        explicit Acquiescence(Unit* caster) :
+                Spell(caster, "Acquiescence", 5, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Debuff;
+        }
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr) return Result::Failed;
+            target->buffReroll(Target_To_Hit_Melee, Reroll_Ones, defaultDuration());
+            target->buffReroll(Target_To_Hit_Missile, Reroll_Ones, defaultDuration());
+            return Result::Success;
+        }
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
+    Spell *CreateAcquiescence(Unit *caster) {
+        return new Acquiescence(caster);
+    }
+
 } //namespace Slaanesh

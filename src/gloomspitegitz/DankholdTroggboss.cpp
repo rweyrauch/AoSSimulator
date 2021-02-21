@@ -18,7 +18,9 @@ namespace GloomspiteGitz {
     public:
         explicit InstinctiveLeader(Unit *source);
 
-        bool apply(Unit* target, int round) override;
+    protected:
+        bool apply(Unit* target) override;
+        bool apply(double x, double y) override { return false; }
     };
 
     InstinctiveLeader::InstinctiveLeader(Unit *source) :
@@ -28,12 +30,12 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(TROGGOTH);
     }
 
-    bool InstinctiveLeader::apply(Unit* target, int round) {
+    bool InstinctiveLeader::apply(Unit* target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(TROGGOTH)) {
-                unit->buffReroll(To_Hit_Melee, Reroll_Ones, {m_phase, round, m_source->owningPlayer()});
+                unit->buffReroll(To_Hit_Melee, Reroll_Ones, defaultDuration());
             }
         }
         return true;

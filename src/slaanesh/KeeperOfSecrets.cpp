@@ -172,6 +172,8 @@ namespace Slaanesh {
     }
 
     void KeeperOfSecrets::onRestore() {
+        SlaaneshBase::onRestore();
+
         // Reset table-drive attributes
         onWounded();
     }

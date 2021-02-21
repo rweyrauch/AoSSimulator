@@ -42,8 +42,8 @@ namespace Slaanesh {
 // -------------------------------------------
 // Deadly Symbiosis                 TODO
 // Lithe and Swift                  Yes
-// Subvert                          TODO
-// Regal Authority                  TODO
+// Subvert                          Yes
+// Regal Authority                  Yes
 //
 
 } // Slannesh

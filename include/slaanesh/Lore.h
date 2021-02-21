@@ -16,4 +16,6 @@ namespace Slaanesh {
 
     Spell *CreateLore(Lore which, Unit *caster);
 
+    Spell *CreateAcquiescence(Unit* caster);
+
 } // namespace Slaanesh

@@ -100,6 +100,8 @@ enum BuffableAbility {
     Fights_First,
     Fights_Last,
 
+    Cannot_Use_Command_Abilities,
+
     Num_Buffable_Abilities
 };
 

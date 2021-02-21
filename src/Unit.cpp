@@ -716,6 +716,8 @@ void Unit::charge(PlayerId player) {
 
     if (m_charged)
         onCharged();
+
+    onEndCharge(player);
 }
 
 void Unit::battleshock(PlayerId player) {
@@ -999,7 +1001,9 @@ void Unit::useCommandAbility() {
         CommandAbility *cip = SelectCommandAbility(this, target);
         if (cip) {
             if (target.m_targetUnit)
-                cip->apply(target.m_target, m_battleRound);
+                cip->use(target.m_target, m_battleRound);
+            else
+                cip->use(target.m_x, target.m_y, m_battleRound);
         }
     }
 }
@@ -1394,6 +1398,13 @@ bool Unit::canMove() const {
         return m_movementRules[Can_Move].front().allowed;
 }
 
+bool Unit::canPileIn() const {
+    if (m_movementRules[Can_PileIn].empty())
+        return (m_pileInMove > 0.0);
+    else
+        return m_movementRules[Can_PileIn].front().allowed;
+}
+
 bool Unit::canRunAndShoot() const {
     if (m_movementRules[Run_And_Shoot].empty())
         return m_runAndShoot;
@@ -1420,6 +1431,13 @@ bool Unit::canRetreatAndCharge() const {
         return m_retreatAndCharge;
     else
         return m_movementRules[Retreat_And_Charge].front().allowed;
+}
+
+bool Unit::canUseCommandAbilities() const {
+    if (m_abilityBuffs[Cannot_Use_Command_Abilities].empty())
+        return true;
+    else
+        return (m_abilityBuffs[Cannot_Use_Command_Abilities].front().value > 0);
 }
 
 int Unit::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

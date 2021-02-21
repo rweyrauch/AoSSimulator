@@ -222,13 +222,15 @@ namespace Seraphon {
             m_effect = Abilities::EffectType::Buff;
         }
 
-        bool apply(Unit* target, int round) override {
+    protected:
+        bool apply(Unit* target) override {
             if (target == nullptr) return false;
 
             target->buffMovement(Can_Fly, true, defaultDuration());
             target->buffModifier(To_Save_Missile, 1, defaultDuration());
             return true;
         }
+        bool apply(double x, double y) override { return false; }
     };
 
     CommandAbility *CreateGiftFromTheHeavens(Unit *general) {

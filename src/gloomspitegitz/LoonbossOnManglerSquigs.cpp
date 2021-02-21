@@ -18,7 +18,9 @@ namespace GloomspiteGitz {
     public:
         explicit BiteDaMoon(Unit *source);
 
-        bool apply(Unit* target, int round) override;
+    protected:
+        bool apply(Unit* target) override;
+        bool apply(double x, double y) override { return false; }
     };
 
     BiteDaMoon::BiteDaMoon(Unit *source) :
@@ -28,12 +30,12 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(SQUIG);
     }
 
-    bool BiteDaMoon::apply(Unit* target, int round) {
+    bool BiteDaMoon::apply(Unit* target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(SQUIG)) {
-                unit->buffModifier(To_Wound_Melee, 1, {m_phase, round, m_source->owningPlayer()});
+                unit->buffModifier(To_Wound_Melee, 1, defaultDuration());
             }
         }
         return true;

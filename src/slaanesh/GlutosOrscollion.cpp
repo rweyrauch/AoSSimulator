@@ -128,6 +128,8 @@ namespace Slaanesh {
     }
 
     void GlutosOrscollion::onRestore() {
+        SlaaneshBase::onRestore();
+
         // Reset table-drive attributes
         onWounded();
 

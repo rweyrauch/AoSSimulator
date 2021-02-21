@@ -81,4 +81,44 @@ namespace Slaanesh {
         return g_pointsPerUnit;
     }
 
+    void TheMasque::onStartHero(PlayerId player) {
+        EventInterface::onStartHero(player);
+
+        // Staff of Masks
+        if (owningPlayer() == player) {
+            if (remainingWounds() < wounds()) {
+                heal(Dice::RollD3());
+            }
+            else {
+                buffModifier(Attacks_Melee, Dice::RollD3(), {Phase::Hero, m_battleRound+1, owningPlayer()});
+            }
+        }
+    }
+
+    Rerolls TheMasque::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // The Endless Dance
+        if (target->move() <= 5) return Reroll_Failed;
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    Rerolls TheMasque::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // The Endless Dance
+        if (target->move() <= 10) return Reroll_Failed;
+        return SlaaneshBase::toHitRerolls(weapon, target);
+    }
+
+    Wounds TheMasque::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        Wounds totalWounds = wounds;
+
+        // Inhuman Reflexes
+        Dice::RollResult woundSaves, mortalSaves;
+        Dice::RollD6(totalWounds.normal, woundSaves);
+        Dice::RollD6(totalWounds.mortal, mortalSaves);
+
+        totalWounds.normal -= woundSaves.rollsGE(4);
+        totalWounds.mortal -= mortalSaves.rollsGE(4);
+
+        return Unit::applyWoundSave(totalWounds, attackingUnit);
+    }
+
 } // Slannesh

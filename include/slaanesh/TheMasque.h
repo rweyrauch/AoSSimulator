@@ -29,6 +29,13 @@ namespace Slaanesh {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
     private:
 
         Weapon m_ravagingClaws;
@@ -39,10 +46,10 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Staff of Masks                   TODO
-// The Endless Dance                TODO
+// Staff of Masks                   Yes
+// The Endless Dance                Yes
 // Lithe and Swift                  Yes
-// Inhuman Reflexes                 TODO
+// Inhuman Reflexes                 Yes
 //
 
 } // Slannesh

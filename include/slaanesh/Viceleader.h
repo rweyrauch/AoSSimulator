@@ -43,7 +43,7 @@ namespace Slaanesh {
 // -------------------------------------------
 // Lightning Reflexes               Yes
 // Lithe and Swift                  Yes
-// Acquiescence                     TODO
+// Acquiescence                     Yes
 //
 
 } // Slannesh

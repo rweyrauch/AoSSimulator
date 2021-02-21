@@ -114,6 +114,13 @@ namespace Slaanesh {
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
 
+        int getDepravityPoints() const {
+            return m_depravityPoints;
+        }
+        void clearDepravityPoints() {
+            m_depravityPoints = 0;
+        }
+
     protected:
         SlaaneshBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
@@ -124,18 +131,27 @@ namespace Slaanesh {
 
         int chargeModifier() const override;
 
+        void onEndCharge(PlayerId player) override;
+
+        void onRestore() override {
+            Unit::onRestore();
+            clearDepravityPoints();
+        }
+
     protected:
 
         Host m_host = Host::Godseekers;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+
+        int m_depravityPoints = 0;
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
 // Feast of Depravities             TODO
-// Locus of Diversion               TODO
+// Locus of Diversion               Yes
 // Euphoric Killers                 Yes
 // Invaders
 //    Figureheads of the Dark Prince    TODO

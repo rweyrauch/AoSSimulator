@@ -19,7 +19,9 @@ namespace GloomspiteGitz {
     public:
         explicit RideEmAllDown(Unit *source);
 
-        bool apply(Unit* target, int round) override;
+    protected:
+        bool apply(Unit* target) override;
+        bool apply(double x, double y) override { return false; }
     };
 
     RideEmAllDown::RideEmAllDown(Unit *source) :
@@ -30,15 +32,15 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(GROT);
     }
 
-    bool RideEmAllDown::apply(Unit* target, int round) {
+    bool RideEmAllDown::apply(Unit* target) {
         if (target == nullptr) {
             return false;
         }
 
-        target->buffReroll(Charge_Distance, Reroll_Failed, {Phase::Charge, round, m_source->owningPlayer()});
+        target->buffReroll(Charge_Distance, Reroll_Failed, {Phase::Charge, m_round, m_source->owningPlayer()});
 
         // TODO: only buff Crooked Spear
-        target->buffReroll(To_Hit_Melee, Reroll_Failed, {Phase::Combat, round, m_source->owningPlayer()});
+        target->buffReroll(To_Hit_Melee, Reroll_Failed, {Phase::Combat, m_round, m_source->owningPlayer()});
 
         return true;
     }

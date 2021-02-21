@@ -21,17 +21,19 @@ namespace DaughtersOfKhaine {
             m_targetKeywords = {MELUSAI};
             m_effect = Abilities::EffectType::Buff;
         }
-        bool apply(Unit* target, int round) override {
+
+    protected:
+        bool apply(Unit* target) override {
             if (target == nullptr)
                 return false;
 
-            m_round = round;
             target->buffMovement(Run_And_Shoot, true, defaultDuration());
             target->buffMovement(Run_And_Charge, true, defaultDuration());
             target->buffModifier(Run_Distance, Dice::RollD6(), defaultDuration());
 
             return true;
         }
+        bool apply(double x, double y) override { return false; }
     };
 
     static const int g_basesize = 32;

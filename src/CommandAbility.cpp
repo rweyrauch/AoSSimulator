@@ -10,6 +10,16 @@
 #include "Unit.h"
 #include "CommandAbility.h"
 
+bool CommandAbility::use(Unit *target, int round) {
+    m_round = round;
+    return apply(target);
+}
+
+bool CommandAbility::use(double x, double y, int round) {
+    m_round = round;
+    return apply(x, y);
+}
+
 Duration CommandAbility::defaultDuration() const {
     return {m_phase, m_round, m_source->owningPlayer()};
 }
@@ -33,11 +43,9 @@ int BuffModifierCommandAbility::getModifier() const {
     return m_modifier;
 }
 
-bool BuffModifierCommandAbility::apply(Unit *target, int round) {
+bool BuffModifierCommandAbility::apply(Unit *target) {
     if (target == nullptr)
         return false;
-
-    m_round = round;
 
     target->buffModifier(m_attribute, getModifier(), defaultDuration());
 
@@ -56,13 +64,32 @@ BuffRerollCommandAbility::BuffRerollCommandAbility(Unit *general, const std::str
     m_effect = Abilities::EffectType::Buff;
 }
 
-bool BuffRerollCommandAbility::apply(Unit *target, int round) {
+bool BuffRerollCommandAbility::apply(Unit *target) {
     if (target == nullptr)
         return false;
 
-    m_round = round;
-
     target->buffReroll(m_attribute, m_reroll, defaultDuration());
+
+    return true;
+}
+
+BuffAbilityCommandAbility::BuffAbilityCommandAbility(Unit *general, const std::string &name, int rangeGeneral,
+                                                     int rangeHero, Phase phase, BuffableAbility which, int value,
+                                                     Abilities::Target allowedTargets,
+                                                     const std::vector<Keyword> &targetKeyword) :
+        CommandAbility(general, name, rangeGeneral, rangeHero, phase),
+        m_ability(which),
+        m_value(value) {
+    m_allowedTargets = allowedTargets;
+    m_targetKeywords = targetKeyword;
+    m_effect = Abilities::EffectType::Buff;
+}
+
+bool BuffAbilityCommandAbility::apply(Unit *target) {
+    if (target == nullptr)
+        return false;
+
+    target->buffAbility(m_ability, m_value, defaultDuration());
 
     return true;
 }

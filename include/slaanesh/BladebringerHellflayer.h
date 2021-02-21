@@ -48,7 +48,7 @@ namespace Slaanesh {
 // Abilities                    Implemented
 // -------------------------------------------
 // Soulscent                        Yes
-// Acquiescence                     TODO
+// Acquiescence                     Yes
 //
 
 } // Slannesh

@@ -31,6 +31,9 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_mace);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Paragon of Depravity", 12, 12, Phase::Combat,
+                                                                                To_Hit_Melee, Reroll_Failed, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{MORTAL, HEDONITE}));
+
         m_points = g_pointsPerUnit;
 
         return true;

@@ -15,7 +15,9 @@ namespace Khorne {
     public:
         explicit SlaughterIncarnate(Unit *source);
 
-        bool apply(Unit* target, int round) override;
+    protected:
+        bool apply(Unit* target) override;
+        bool apply(double x, double y) override { return false; }
     };
 
     SlaughterIncarnate::SlaughterIncarnate(Unit *source) :
@@ -25,12 +27,12 @@ namespace Khorne {
         m_targetKeywords = {KHORNE, MORTAL};
     }
 
-    bool SlaughterIncarnate::apply(Unit* target, int round) {
+    bool SlaughterIncarnate::apply(Unit* target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL)) {
-                unit->buffModifier(Attacks_Melee, 1, {m_phase, round, m_source->owningPlayer()});
+                unit->buffModifier(Attacks_Melee, 1, {m_phase, m_round, m_source->owningPlayer()});
             }
         }
         return true;

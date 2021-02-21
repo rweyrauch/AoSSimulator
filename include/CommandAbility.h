@@ -27,7 +27,10 @@ public:
     virtual ~CommandAbility() = default;
 
     virtual bool canBeUsed() const { return true; };
-    virtual bool apply(Unit *target, int round) = 0;
+
+    bool use(Unit *target, int round);
+
+    bool use(double x, double y, int round);
 
     int range() const;
 
@@ -39,6 +42,9 @@ public:
     Phase phase() const { return m_phase; }
 
 protected:
+
+    virtual bool apply(Unit *target) = 0;
+    virtual bool apply(double x, double y) = 0;
 
     Duration defaultDuration() const;
 
@@ -62,9 +68,11 @@ public:
                                BuffableAttribute which, int modifier, Abilities::Target allowedTargets,
                                const std::vector<Keyword>& targetKeywords = {});
 
-    bool apply(Unit* target, int round) override;
 
 protected:
+
+    bool apply(Unit* target) override;
+    bool apply(double x, double y) override { return false; }
 
     virtual int getModifier() const;
 
@@ -77,10 +85,25 @@ public:
     BuffRerollCommandAbility(Unit *caster, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAttribute which,
                              Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
-    bool apply(Unit* target, int round) override;
-
 protected:
+
+    bool apply(Unit* target) override;
+    bool apply(double x, double y) override { return false; }
 
     BuffableAttribute m_attribute = To_Hit_Melee;
     Rerolls m_reroll = No_Rerolls;
+};
+
+class BuffAbilityCommandAbility : public CommandAbility {
+public:
+    BuffAbilityCommandAbility(Unit *caster, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAbility which,
+                              int value, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+
+protected:
+
+    bool apply(Unit* target) override;
+    bool apply(double x, double y) override { return false; }
+
+    BuffableAbility m_ability = Ignore_Battleshock;
+    int m_value = 0;
 };

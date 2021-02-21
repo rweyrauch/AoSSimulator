@@ -58,6 +58,8 @@ public:
 
     virtual Wounds onEndShooting(PlayerId player) { return {0, 0}; }
 
+    virtual void onEndCharge(PlayerId player) {}
+
     virtual void onStartCombat(PlayerId player) {}
 
     virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }

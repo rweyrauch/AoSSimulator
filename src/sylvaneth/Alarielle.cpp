@@ -21,7 +21,9 @@ namespace Sylvaneth {
     public:
         explicit GhyransWrath(Unit *source);
 
-        bool apply(Unit* target, int round) override;
+    protected:
+        bool apply(Unit* target) override;
+        bool apply(double x, double y) override { return false; }
     };
 
     GhyransWrath::GhyransWrath(Unit *source) :
@@ -31,12 +33,12 @@ namespace Sylvaneth {
         m_targetKeywords = {SYLVANETH};
     }
 
-    bool GhyransWrath::apply(Unit* target, int round) {
+    bool GhyransWrath::apply(Unit* target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(SYLVANETH)) {
-                unit->buffReroll(To_Wound_Melee, Reroll_Ones, {Phase::Combat, round, m_source->owningPlayer()});
+                unit->buffReroll(To_Wound_Melee, Reroll_Ones, defaultDuration());
             }
         }
         return true;

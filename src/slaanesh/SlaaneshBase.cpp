@@ -8,6 +8,7 @@
 
 #include <magic_enum.hpp>
 #include <slaanesh/SlaaneshBase.h>
+#include <Board.h>
 #include "slaanesh/Fiends.h"
 #include "slaanesh/Seekers.h"
 #include "slaanesh/Daemonettes.h"
@@ -134,6 +135,24 @@ namespace Slaanesh {
 
     void SlaaneshBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    void SlaaneshBase::onEndCharge(PlayerId player) {
+        EventInterface::onEndCharge(player);
+
+        // Locus of Diversion
+        if (hasKeyword(HEDONITE) && hasKeyword(DAEMON) && hasKeyword(HERO)) {
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) <= 1.0)) {
+                if (unit->canPileIn()) {
+                    auto roll = Dice::RollD6();
+                    if (hasKeyword(GREATER_DAEMON)) roll++;
+                    if (roll >= 4) {
+                        unit->buffMovement(Can_PileIn, false, {Phase::Combat, m_battleRound, player});
+                    }
+                }
+            }
+        }
     }
 
     void Init() {

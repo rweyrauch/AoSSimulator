@@ -14,7 +14,9 @@ namespace StormcastEternals {
     public:
         explicit HolyCrusaders(Unit *source);
 
-        bool apply(Unit *target, int round) override;
+    protected:
+        bool apply(Unit *target) override;
+        bool apply(double x, double y) override { return false; }
     };
 
     HolyCrusaders::HolyCrusaders(Unit *source) :
@@ -24,13 +26,13 @@ namespace StormcastEternals {
         m_effect = Abilities::EffectType::Buff;
     }
 
-    bool HolyCrusaders::apply(Unit *target, int round) {
+    bool HolyCrusaders::apply(Unit *target) {
         if (target == nullptr)
             return false;
 
-        target->buffModifier(Run_Distance, 1, {Phase::Hero, round+1, m_source->owningPlayer()});
-        target->buffModifier(Charge_Distance, 1, {Phase::Hero, round+1, m_source->owningPlayer()});
-        target->buffMovement(Run_And_Charge, true, {Phase::Hero, round+1, m_source->owningPlayer()});
+        target->buffModifier(Run_Distance, 1, {Phase::Hero, m_round+1, m_source->owningPlayer()});
+        target->buffModifier(Charge_Distance, 1, {Phase::Hero, m_round+1, m_source->owningPlayer()});
+        target->buffMovement(Run_And_Charge, true, {Phase::Hero, m_round+1, m_source->owningPlayer()});
 
         return true;
     }

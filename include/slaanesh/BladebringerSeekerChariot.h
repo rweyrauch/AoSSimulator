@@ -44,8 +44,8 @@ namespace Slaanesh {
 // Abilities                    Implemented
 // -------------------------------------------
 // Impossibly Swift                 Yes
-// Multilating Blades               Yes
-// Acquiescence                     TODO
+// Mutilating Blades                Yes
+// Acquiescence                     Yes
 //
 
 } // Slannesh

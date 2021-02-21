@@ -158,6 +158,8 @@ namespace Slaanesh {
     }
 
     void ShalaxiHelbane::onRestore() {
+        SlaaneshBase::onRestore();
+
         // Reset table-drive attributes
         onWounded();
     }

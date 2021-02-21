@@ -191,6 +191,8 @@ public:
 
     bool canMove() const;
 
+    bool canPileIn() const;
+
     bool canRunAndShoot() const;
 
     bool canRunAndCharge() const;
@@ -200,6 +202,8 @@ public:
     bool canRetreatAndCharge() const;
 
     bool canRecastArcaneBoldAndMysticShield() const { return m_canRecastArcaneBoldAndMysticShield; }
+
+    bool canUseCommandAbilities() const;
 
     int slay(int numModels);
 
