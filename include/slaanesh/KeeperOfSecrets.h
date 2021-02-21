@@ -72,7 +72,7 @@ namespace Slaanesh {
 // Ritual Knife                     Yes
 // Dark Temptations                 Partial/TODO
 // Delicate Precision               Yes
-// Living Whip                      TODO
+// Living Whip                      Yes
 // Shining Aegis                    Yes
 // Sinistrous Hand                  Partial/TODO
 // Cacophonic Choir                 Yes

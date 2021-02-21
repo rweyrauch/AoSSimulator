@@ -185,8 +185,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int CitizenOfSigmar::toSaveModifier(const Weapon *weapon) const {
-        auto mod = Unit::toSaveModifier(weapon);
+    int CitizenOfSigmar::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Alert and Forewarned
         if ((m_city == City::Tempests_Eye) && (m_battleRound == 1)) mod++;

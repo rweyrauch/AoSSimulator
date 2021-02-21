@@ -162,8 +162,8 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int Stabbas::toSaveModifier(const Weapon *weapon) const {
-        int modifier = GloomspiteGitzBase::toSaveModifier(weapon);
+    int Stabbas::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = GloomspiteGitzBase::toSaveModifier(weapon, attacker);
         if (isNamedModelAlive(Model::IconBearer) && weapon->isMissile()) {
             modifier += 1;
         }

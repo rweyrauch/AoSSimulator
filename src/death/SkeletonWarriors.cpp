@@ -128,8 +128,8 @@ namespace Death {
         return LegionOfNagashBase::EnumStringToInt(enumString);
     }
 
-    int SkeletonWarriors::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int SkeletonWarriors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Crypt Shields
         if (weapon->rend() == 0) {

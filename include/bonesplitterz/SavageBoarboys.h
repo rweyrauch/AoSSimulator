@@ -54,9 +54,9 @@ namespace Bonesplitterz {
             return mod;
         }
 
-        int toSaveModifier(const Weapon *weapon) const override {
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override {
             // Bone Shield
-            int mod = Unit::toSaveModifier(weapon);
+            int mod = Unit::toSaveModifier(weapon, attacker);
             if (!weapon->isMissile()) {
                 mod++;
             }

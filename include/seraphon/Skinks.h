@@ -42,7 +42,7 @@ namespace Seraphon {
 
     protected:
 
-        int toSaveModifier(const Weapon *weapon) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

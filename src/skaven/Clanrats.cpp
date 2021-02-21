@@ -131,8 +131,8 @@ namespace Skaven {
         return 0;
     }
 
-    int Clanrats::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Skaventide::toSaveModifier(weapon);
+    int Clanrats::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Skaventide::toSaveModifier(weapon, attacker);
         // Clanshields
         if (m_clanshields && remainingModels() >= 10)
             modifier += 1;

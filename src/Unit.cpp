@@ -151,6 +151,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 }
 
 int Unit::applyBattleshock() {
+
     if (!battleshockRequired()) return 0;
     if (m_modelsSlain <= 0) return 0;
 
@@ -665,7 +666,11 @@ void Unit::charge(PlayerId player) {
 
     auto weapon = m_models.front()->preferredWeapon();
     assert(weapon);
-    if (weapon && weapon->isMissile()) return;
+    if (weapon && weapon->isMissile()) {
+        // Shooty unit does not want to charge
+        onEndCharge(player);
+        return;
+    }
 
     PlayerId otherPlayer = PlayerId::Red;
     if (player == PlayerId::Red)
@@ -675,6 +680,7 @@ void Unit::charge(PlayerId player) {
 
     if (m_ran && !canRunAndCharge()) {
         // Can't run and charge.
+        onEndCharge(player);
         return;
     }
 
@@ -721,7 +727,18 @@ void Unit::charge(PlayerId player) {
 }
 
 void Unit::battleshock(PlayerId player) {
+
     timeoutBuffs(Phase::Battleshock, player);
+
+    onStartBattleshock(player);
+
+    int numFleeing = applyBattleshock();
+    if (numFleeing > 0) {
+        SimLog(Verbosity::Narrative, "A total of %d %s from %s fled from battleshock.\n", numFleeing,
+               name().c_str(), PlayerIdToString(owningPlayer()).c_str());
+    }
+
+    onEndBattleshock(player);
 }
 
 int Unit::rollChargeDistance() const {
@@ -785,7 +802,7 @@ int Unit::heal(int numWounds) {
 }
 
 bool Unit::makeSave(const Weapon *weapon, int weaponRend, Unit *attacker, int &saveRoll) {
-    auto saveModifiers = toSaveModifier(weapon) + targetSaveModifier(weapon, attacker);
+    auto saveModifiers = toSaveModifier(weapon, attacker) + targetSaveModifier(weapon, attacker);
     auto effectiveRend = m_ignoreRend ? 0 : weaponRend;
     auto toSave = m_save + saveModifiers - effectiveRend;
 
@@ -1249,7 +1266,7 @@ Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
     return m_rollModifiers[which].front().rerolls;
 }
 
-int Unit::toSaveModifier(const Weapon *weapon) const {
+int Unit::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
     int modifier = s_globalSaveMod(this, weapon, accumulate);
     if (weapon->isMissile()) {
         for (auto bi : m_attributeModifiers[To_Save_Missile]) {
@@ -1262,7 +1279,7 @@ int Unit::toSaveModifier(const Weapon *weapon) const {
         }
     }
 
-    modifier += UnitModifierInterface::toSaveModifier(weapon);
+    modifier += UnitModifierInterface::toSaveModifier(weapon, attacker);
 
     return modifier;
 }

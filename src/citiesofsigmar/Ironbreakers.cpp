@@ -122,8 +122,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::toSaveRerolls(weapon, attacker);
     }
 
-    int Ironbreakers::toSaveModifier(const Weapon *weapon) const {
-        int modifier = CitizenOfSigmar::toSaveModifier(weapon);
+    int Ironbreakers::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = CitizenOfSigmar::toSaveModifier(weapon, attacker);
 
         // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.
         if (weapon->rend() == -1) {

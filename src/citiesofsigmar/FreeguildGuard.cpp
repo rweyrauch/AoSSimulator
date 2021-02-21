@@ -172,8 +172,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int FreeguildGuard::toSaveModifier(const Weapon *weapon) const {
-        auto mod = Unit::toSaveModifier(weapon);
+    int FreeguildGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Parry and Block
         if (weapon->name() == m_sword.name()) mod++;

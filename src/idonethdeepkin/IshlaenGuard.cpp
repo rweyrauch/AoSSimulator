@@ -111,8 +111,8 @@ namespace IdonethDeepkin {
         return Unit::chargeRerolls();
     }
 
-    int AkhelianIshlaenGuard::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int AkhelianIshlaenGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Biovoltaic Barrier
         if (m_charged) {

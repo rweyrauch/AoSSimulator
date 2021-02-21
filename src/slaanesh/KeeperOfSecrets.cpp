@@ -238,6 +238,15 @@ namespace Slaanesh {
             // TODO: give hero the choice
             hero->applyDamage({0, Dice::RollD3()}, this);
         }
+
+        // Living Whip
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
+        for (auto unit : units) {
+            if (unit->hasKeyword(MONSTER)) {
+                // TODO: pick a single melee weapon
+                unit->buffModifier(To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+            }
+        }
     }
 
     std::string KeeperOfSecrets::ValueToString(const Parameter &parameter) {

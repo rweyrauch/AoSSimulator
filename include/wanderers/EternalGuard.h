@@ -41,7 +41,7 @@ namespace Wanderers {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
 
-        int toSaveModifier(const Weapon *weapon) const override { return m_fortressModifier; }
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override { return m_fortressModifier; }
 
     private:
 

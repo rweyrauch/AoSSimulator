@@ -43,7 +43,7 @@ namespace BeastsOfChaos {
 
         int chargeModifier() const override;
 
-        int toSaveModifier(const Weapon *weapon) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

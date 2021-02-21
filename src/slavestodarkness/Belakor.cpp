@@ -91,7 +91,7 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    int Belakor::toSaveModifier(const Weapon *weapon) const {
+    int Belakor::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
         // Shadow Form - no save modifiers allowed.
         return 0;
     }

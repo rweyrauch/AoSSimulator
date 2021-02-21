@@ -64,4 +64,7 @@ public:
 
     virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
 
+    virtual void onStartBattleshock(PlayerId player) {}
+
+    virtual void onEndBattleshock(PlayerId player) {}
 };

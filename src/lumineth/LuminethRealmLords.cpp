@@ -153,8 +153,8 @@ namespace LuminethRealmLords {
         return Unit::toHitModifier(weapon, target);
     }
 
-    int LuminethBase::toSaveModifier(const Weapon *weapon) const {
-        return Unit::toSaveModifier(weapon);
+    int LuminethBase::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        return Unit::toSaveModifier(weapon, attacker);
     }
 
     int LuminethBase::castingModifier() const {

@@ -109,8 +109,8 @@ namespace Slaanesh {
         m_claws.activate(true);
     }
 
-    int ShardspeakerOfSlaanesh::toSaveModifier(const Weapon *weapon) const {
-        auto mod = Unit::toSaveModifier(weapon);
+    int ShardspeakerOfSlaanesh::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Mist Lurkers
         if (m_claws.isActive()) {

@@ -110,8 +110,8 @@ namespace GloomspiteGitz {
         return mod;
     }
 
-    int Gobbapalooza::toSaveModifier(const Weapon *weapon) const {
-        auto mod = Unit::toSaveModifier(weapon);
+    int Gobbapalooza::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Hallucinogenic Fungus Brews
         if (m_battleRound == 1) mod += 2;

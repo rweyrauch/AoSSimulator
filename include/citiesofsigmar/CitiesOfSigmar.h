@@ -206,7 +206,7 @@ namespace CitiesOfSigmar {
 
         int runModifier() const override;
         int moveModifier() const override;
-        int toSaveModifier(const Weapon *weapon) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
         void onStartHero(PlayerId player) override;
 
     protected:

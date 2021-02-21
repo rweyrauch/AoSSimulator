@@ -23,7 +23,7 @@ namespace Tzeentch {
         }
 
     protected:
-        Spell::Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+        Spell::Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }

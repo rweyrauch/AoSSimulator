@@ -112,8 +112,8 @@ namespace Death {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int BloodKnights::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int BloodKnights::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Bloodshields
         if (weapon->rend() == 0) {

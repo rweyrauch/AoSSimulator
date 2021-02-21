@@ -320,19 +320,6 @@ void ManoAMano::runBattleshockPhase() {
 
     m_rosters[(int) m_attackingPlayer]->doBattleshockPhase();
     m_rosters[(int) m_defendingPlayer]->doBattleshockPhase();
-
-    int numFleeing = attackingUnit()->applyBattleshock();
-    if (numFleeing > 0) {
-        SimLog(Verbosity::Narrative, "A total of %d %s from %s fled from battleshock.\n", numFleeing,
-               attackingUnit()->name().c_str(),
-               PlayerIdToString(m_attackingPlayer).c_str());
-    }
-    numFleeing = defendingUnit()->applyBattleshock();
-    if (numFleeing > 0) {
-        SimLog(Verbosity::Narrative, "A total of %d %s from %s fled from battleshock.\n", numFleeing,
-               defendingUnit()->name().c_str(),
-               PlayerIdToString(m_defendingPlayer).c_str());
-    }
 }
 
 ManoAMano::~ManoAMano() {

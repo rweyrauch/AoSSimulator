@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include <slaanesh/Lore.h>
+#include <Board.h>
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
@@ -230,6 +231,38 @@ namespace Slaanesh {
             return Reroll_Failed;
         }
         return Unit::toSaveRerolls(weapon, attacker);
+    }
+
+    int ShalaxiHelbane::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto modifier = Unit::toSaveModifier(weapon, attacker);
+
+        // Cloak of Constriction
+        if (!weapon->isMissile() && attacker->hasKeyword(HERO)) {
+            modifier++;
+        }
+
+        return modifier;
+    }
+
+    void ShalaxiHelbane::onStartCombat(PlayerId player) {
+        EventInterface::onStartCombat(player);
+
+        // Living Whip
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
+        for (auto unit : units) {
+            if (unit->hasKeyword(MONSTER)) {
+                // TODO: pick a single melee weapon
+                unit->buffModifier(To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+            }
+        }
+
+        // The Killing Stroke
+        if (meleeTarget() && (distanceTo(meleeTarget()) <= 3.0) && meleeTarget()->hasKeyword(HERO)) {
+            m_soulpiercer.setDamage(6);
+        }
+        else {
+            m_soulpiercer.setDamage(RAND_D6);
+        }
     }
 
 } // Slannesh

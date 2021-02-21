@@ -54,8 +54,8 @@ namespace CitiesOfSigmar {
             return Unit::toHitRerolls(weapon, target);
         }
 
-        int toSaveModifier(const Weapon *weapon) const override {
-            auto mod = Unit::toSaveModifier(weapon);
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override {
+            auto mod = Unit::toSaveModifier(weapon, attacker);
 
             // Tyrant Shield
             if (m_weaponOption == Lance_And_Shield || m_weaponOption == Exile_Blade_And_Shield) mod++;

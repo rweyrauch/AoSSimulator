@@ -145,8 +145,8 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, unit);
     }
 
-    int Bullgors::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int Bullgors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
         if (!m_pairedAxes) {
             modifier += 1;
         }

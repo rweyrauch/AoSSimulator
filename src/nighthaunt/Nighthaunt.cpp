@@ -63,8 +63,7 @@ namespace Nighthaunt {
         return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
-
-    int Nighthaunt::toSaveModifier(const Weapon *weapon) const {
+    int Nighthaunt::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
         // Ethereal - no save modifiers allowed.
         int modifier = 0;
 

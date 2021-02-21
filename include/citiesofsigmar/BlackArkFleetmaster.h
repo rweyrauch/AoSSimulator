@@ -35,9 +35,9 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        int toSaveModifier(const Weapon *weapon) const override {
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override {
             // Sea Dragon Cloak
-            auto mod = CitizenOfSigmar::toSaveModifier(weapon);
+            auto mod = CitizenOfSigmar::toSaveModifier(weapon, attacker);
             if (weapon->isMissile()) mod++;
             return mod;
         }

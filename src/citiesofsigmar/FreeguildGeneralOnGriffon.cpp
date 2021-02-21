@@ -128,8 +128,8 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon) const {
-        auto mod = Unit::toSaveModifier(weapon);
+    int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
         if (m_shield) mod++;
         return mod;
     }

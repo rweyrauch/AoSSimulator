@@ -28,7 +28,7 @@ namespace Slaanesh {
 
         GlutosOrscollion();
 
-        ~GlutosOrscollion() override = default;
+        ~GlutosOrscollion() override;
 
         bool configure(Lore lore);
 
@@ -40,11 +40,38 @@ namespace Slaanesh {
 
         void onRestore() override;
 
+        int castingModifier() const override;
+        int unbindingModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls chargeRerolls() const override;
+
+        void onStartHero(PlayerId player) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        int fogOfTemptation(const Unit *attacker, const Weapon *weapon, const Unit *target);
+        int aperitif(const Unit* unit);
+
+        void onBeginRound(int battleRound) override;
+
+        void onStartBattleshock(PlayerId player) override;
+
+        void onEndHero(PlayerId player) override;
+
+        Rerolls castingRerolls() const override;
+        Rerolls unbindingRerolls() const override;
+
     private:
 
         int woundsTaken() const {
             return wounds() - remainingWounds();
         }
+
+        bool m_protectedByDolece = false;
+
+        lsignal::slot m_fogConnection,
+            m_aperitifConnection;
 
         Weapon m_greatblade,
                 m_scourge,
@@ -57,15 +84,20 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Grand Gourmand               TODO
-// Fog of Temptation                TODO
-// The Leerstave of Loth'shar       TODO
+// The Grand Gourmand
+//   Aperitif                       Yes
+//   Starter                        Yes
+//   Main Course                    Yes
+//   Dessert                        Yes
+//   Digestif                       Yes
+// Fog of Temptation                Yes
+// The Leerstave of Loth'shar       Yes
 // Gorge on Excess                  TODO
-// Crippling Famishment             TODO
+// Crippling Famishment             Yes
 // Companions
-//  Painbringer Kyazu               TODO
-//  Lashmaster Vhyssk               TODO
-//  Priestess Dolece                TODO
+//  Painbringer Kyazu               Yes
+//  Lashmaster Vhyssk               Yes
+//  Priestess Dolece                Yes
 //
 
 } // Slannesh

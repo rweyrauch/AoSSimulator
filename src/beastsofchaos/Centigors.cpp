@@ -125,8 +125,8 @@ namespace BeastsOfChaos {
         return modifier;
     }
 
-    int Centigors::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int Centigors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Beastbucklers
         if (!weapon->isMissile()) {

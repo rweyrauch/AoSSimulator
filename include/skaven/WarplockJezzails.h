@@ -35,7 +35,7 @@ namespace Skaven {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        int toSaveModifier(const Weapon *weapon) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 

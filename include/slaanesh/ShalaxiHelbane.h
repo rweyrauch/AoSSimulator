@@ -52,12 +52,17 @@ namespace Slaanesh {
             }
         }
 
+        void onStartCombat(PlayerId player) override;
+
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 
@@ -75,12 +80,12 @@ namespace Slaanesh {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Cloak of Constriction            TODO
+// Cloak of Constriction            Yes
 // Delicate Precision               Yes
 // Irresistible Challenge           TODO
-// Living Whip                      TODO
+// Living Whip                      Yes
 // Shining Aegis                    Yes
-// The Killing Stroke               TODO
+// The Killing Stroke               yES
 // Refine Senses                    Yes
 //
 

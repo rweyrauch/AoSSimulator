@@ -29,7 +29,7 @@ namespace SlavesToDarkness {
 
     protected:
 
-        int toSaveModifier(const Weapon *weapon) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
     private:
 

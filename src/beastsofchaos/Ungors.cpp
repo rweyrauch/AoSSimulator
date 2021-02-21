@@ -136,8 +136,8 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int Ungors::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int Ungors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
         // Half-shields
         if (!weapon->isMissile()) {
             modifier += 1;

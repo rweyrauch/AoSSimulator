@@ -109,8 +109,8 @@ namespace DaughtersOfKhaine {
         return points;
     }
 
-    int KhineraiHeartrenders::toSaveModifier(const Weapon *weapon) const {
-        auto mod = Unit::toSaveModifier(weapon);
+    int KhineraiHeartrenders::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Heartpiercer Shield
         if (!weapon->isMissile()) mod++;

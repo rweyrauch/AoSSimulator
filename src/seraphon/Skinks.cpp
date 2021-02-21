@@ -148,8 +148,8 @@ namespace Seraphon {
         return SeraphonBase::EnumStringToInt(enumString);
     }
 
-    int Skinks::toSaveModifier(const Weapon *weapon) const {
-        int modifier = SeraphonBase::toSaveModifier(weapon);
+    int Skinks::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = SeraphonBase::toSaveModifier(weapon, attacker);
 
         if (m_weaponOption != Boltspitters_And_Clubs) {
             // Star-bucklers

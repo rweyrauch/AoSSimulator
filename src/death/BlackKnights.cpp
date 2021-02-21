@@ -123,8 +123,8 @@ namespace Death {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int BlackKnights::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int BlackKnights::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Crypt Shields
         if (weapon->rend() == 0) {

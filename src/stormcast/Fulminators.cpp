@@ -106,8 +106,8 @@ namespace StormcastEternals {
         return Reroll_Ones;
     }
 
-    int Fulminators::toSaveModifier(const Weapon *weapon) const {
-        int modifier = StormcastEternal::toSaveModifier(weapon);
+    int Fulminators::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = StormcastEternal::toSaveModifier(weapon, attacker);
         // Glaivewall
         if (weapon->isMissile()) {
             modifier += 1;

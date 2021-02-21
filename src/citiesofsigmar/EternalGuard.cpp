@@ -134,14 +134,13 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int EternalGuard::toSaveModifier(const Weapon *weapon) const {
-        auto mod = Unit::toSaveModifier(weapon);
+    int EternalGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Fortress of Boughs
         if (!m_moved) mod++;
 
         return mod;
-
     }
 
     int EternalGuard::ComputePoints(int numModels) {

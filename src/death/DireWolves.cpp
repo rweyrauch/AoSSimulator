@@ -93,8 +93,8 @@ namespace Death {
         return modifier;
     }
 
-    int DireWolves::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int DireWolves::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Vigour Necris
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);

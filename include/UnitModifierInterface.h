@@ -119,31 +119,33 @@ public:
     virtual int weaponRend(const Weapon *weapon, const Unit *target,
                            int hitRoll, int woundRoll) const { return weapon->rend(); }
 
-    virtual int toSaveModifier(const Weapon *weapon) const { return 0; }
+    virtual int toSaveModifier(const Weapon *weapon, const Unit* attacker) const { return 0; }
 
     virtual int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
 
     virtual Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const { return No_Rerolls; }
 
-    virtual int braveryModifier() const { return 0; }
+    [[nodiscard]] virtual int braveryModifier() const { return 0; }
 
-    virtual Rerolls battleshockRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls battleshockRerolls() const { return No_Rerolls; }
 
-    virtual int castingModifier() const { return 0; }
+    [[nodiscard]] virtual int castingModifier() const { return 0; }
 
-    virtual Rerolls castingRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls castingRerolls() const { return No_Rerolls; }
 
-    virtual int unbindingModifier() const { return 0; }
+    [[nodiscard]] virtual int unbindingModifier() const { return 0; }
 
-    virtual int woundModifier() const { return 0; }
+    [[nodiscard]] virtual Rerolls unbindingRerolls() const { return No_Rerolls; }
 
-    virtual int moveModifier() const { return 0; }
+    [[nodiscard]] virtual int woundModifier() const { return 0; }
 
-    virtual int runModifier() const { return 0; }
+    [[nodiscard]] virtual int moveModifier() const { return 0; }
 
-    virtual Rerolls runRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual int runModifier() const { return 0; }
 
-    virtual int chargeModifier() const { return 0; }
+    [[nodiscard]] virtual Rerolls runRerolls() const { return No_Rerolls; }
 
-    virtual Rerolls chargeRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual int chargeModifier() const { return 0; }
+
+    [[nodiscard]] virtual Rerolls chargeRerolls() const { return No_Rerolls; }
 };

@@ -105,8 +105,8 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int Gors::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int Gors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
         // Beastsheilds
         if (!m_pairedBlades) { modifier += 1; }
         return modifier;

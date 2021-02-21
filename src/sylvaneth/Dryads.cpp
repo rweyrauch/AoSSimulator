@@ -85,8 +85,8 @@ namespace Sylvaneth {
         }
     }
 
-    int Dryads::toSaveModifier(const Weapon *weapon) const {
-        int modifier = Unit::toSaveModifier(weapon);
+    int Dryads::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Impenetrable Thicket
         if (remainingModels() >= 10) modifier += 1;

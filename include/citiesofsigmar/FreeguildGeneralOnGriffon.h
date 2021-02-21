@@ -41,7 +41,7 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        int toSaveModifier(const Weapon *weapon) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

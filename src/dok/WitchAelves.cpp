@@ -126,8 +126,8 @@ namespace DaughtersOfKhaine {
         return DaughterOfKhaine::rollBattleshock();
     }
 
-    int WitchAelves::toSaveModifier(const Weapon *weapon) const {
-        int modifier = DaughterOfKhaine::toSaveModifier(weapon);
+    int WitchAelves::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        int modifier = DaughterOfKhaine::toSaveModifier(weapon, attacker);
         // Bladed Bucklers
         if (!m_pairedKnives) {
             modifier += 1;
