@@ -9,8 +9,31 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "DaughterOfKhainePrivate.h"
+#include "DoKCommands.h"
 
 namespace DaughtersOfKhaine {
+
+    class WrathOfTheScathborn : public CommandAbility {
+    public:
+        WrathOfTheScathborn(Unit* general) :
+            CommandAbility(general, "Wrath of the Scáthborn", 12, 12, Phase::Hero) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {MELUSAI};
+            m_effect = Abilities::EffectType::Buff;
+        }
+        bool apply(Unit* target, int round) override {
+            if (target == nullptr)
+                return false;
+
+            m_round = round;
+            target->buffMovement(Run_And_Shoot, true, defaultDuration());
+            target->buffMovement(Run_And_Charge, true, defaultDuration());
+            target->buffModifier(Run_Distance, Dice::RollD6(), defaultDuration());
+
+            return true;
+        }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 110;
@@ -35,6 +58,9 @@ namespace DaughtersOfKhaine {
         model->addMeleeWeapon(&m_keldrisaith);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<WrathOfTheScathborn>(this));
+        configureCommon();
+
         m_points = g_pointsPerUnit;
 
         return true;
@@ -46,7 +72,7 @@ namespace DaughtersOfKhaine {
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_melusaiCommandTraits[0]);
         unit->setCommandTrait(trait);
 
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
@@ -72,7 +98,7 @@ namespace DaughtersOfKhaine {
                     ComputePoints,
                     {
                             EnumParameter("Temple", g_temple[0], g_temple),
-                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Command Trait", g_melusaiCommandTraits[0], g_melusaiCommandTraits),
                             EnumParameter("Artefact", g_priestArtefacts[0], g_priestArtefacts),
                             BoolParameter("General")
                     },
@@ -85,6 +111,33 @@ namespace DaughtersOfKhaine {
 
     int MelusaiIronscale::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds MelusaiIronscale::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        Wounds totalWounds = wounds;
+        if (wounds.source == Wounds::Source::Spell) {
+            if (Dice::RollD6() >= 5) {
+                totalWounds.normal = 0;
+                totalWounds.mortal = 0;
+            }
+        }
+        return DaughterOfKhaine::applyWoundSave(totalWounds, attackingUnit);
+    }
+
+    Wounds MelusaiIronscale::onEndCombat(PlayerId player) {
+        auto wounds = Unit::onEndCombat(player);
+
+        // Turned to Crystal
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0f);
+            if (!units.empty()) {
+                auto unit = units.front();
+                Dice::RollResult result;
+                Dice::RollD6(unit->remainingModels(), result);
+                wounds.mortal += result.rollsGE(3);
+            }
+        }
+        return wounds;
     }
 
 } //namespace DaughtersOfKhaine

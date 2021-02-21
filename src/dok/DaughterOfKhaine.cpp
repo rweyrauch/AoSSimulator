@@ -28,28 +28,19 @@
 #include "dok/TheBladeCoven.h"
 #include "dok/KhainiteShadowstalkers.h"
 #include "dok/MelusaiIronscale.h"
+#include "DoKCommands.h"
 
 namespace DaughtersOfKhaine {
 
 
     int DaughterOfKhaine::toHitModifier(const Weapon *weapon, const Unit *unit) const {
         int modifier = Unit::toHitModifier(weapon, unit);
-
-        // Bladed Killers
-        if (hasKeyword(DRAICHI_GANETH) && m_charged) {
-            modifier += 1;
-        }
         return modifier;
     }
 
-
     Rerolls DaughterOfKhaine::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Blood Rites - Zealot's Rage
-        if (m_battleRound == 3) {
-            // Daughters of the First Temple
-            if (hasKeyword(HAGG_NAR)) {
-                return Reroll_Failed;
-            }
+        if (getBloodRiteRound() >= 3) {
             return Reroll_Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
@@ -57,7 +48,7 @@ namespace DaughtersOfKhaine {
 
     Rerolls DaughterOfKhaine::toWoundRerolls(const Weapon *weapon, const Unit *unit) const {
         // Blood Rites - Slaughterer's Strength
-        if (m_battleRound == 4) {
+        if (getBloodRiteRound() >= 4) {
             return Reroll_Ones;
         }
 
@@ -66,7 +57,7 @@ namespace DaughtersOfKhaine {
 
     Rerolls DaughterOfKhaine::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Blood Rites - Unquenchable Fervour
-        if (m_battleRound == 5) {
+        if (getBloodRiteRound() >= 5) {
             return Reroll_Ones;
         }
 
@@ -75,7 +66,7 @@ namespace DaughtersOfKhaine {
 
     Rerolls DaughterOfKhaine::runRerolls() const {
         // Blood Rites - Quickening Bloodlust
-        if (m_battleRound == 1) {
+        if (getBloodRiteRound() >= 1) {
             return Reroll_Ones;
         }
         return Unit::runRerolls();
@@ -83,7 +74,7 @@ namespace DaughtersOfKhaine {
 
     Rerolls DaughterOfKhaine::chargeRerolls() const {
         // Blood Rites - Headlong Fury
-        if (m_battleRound == 2) {
+        if (getBloodRiteRound() >= 2) {
             return Reroll_Ones;
         }
         return Unit::chargeRerolls();
@@ -162,11 +153,14 @@ namespace DaughtersOfKhaine {
         removeKeyword(THE_KRAITH);
         removeKeyword(KHAILEBRON);
         removeKeyword(ZAINTHAR_KAI);
+        removeKeyword(KHELT_NAR);
 
         m_temple = temple;
         switch (temple) {
             case Temple::Hagg_Nar:
                 addKeyword(HAGG_NAR);
+                // Daughters of the First Temple
+                m_bloodRiteModifier++;
                 break;
             case Temple::Draichi_Ganeth:
                 addKeyword(DRAICHI_GANETH);
@@ -179,6 +173,11 @@ namespace DaughtersOfKhaine {
                 break;
             case Temple::Zainthar_Kai:
                 addKeyword(ZAINTHAR_KAI);
+                break;
+            case Temple::Khelt_Nar:
+                addKeyword(KHELT_NAR);
+                // Strike and Fade
+                m_retreatAndCharge = true;
                 break;
             default:
                 break;
@@ -201,6 +200,26 @@ namespace DaughtersOfKhaine {
             mod++;
         }
         return mod;
+    }
+
+    int DaughterOfKhaine::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+        // Bladed Killers
+        if ((m_temple == Temple::Draichi_Ganeth) && charged()) {
+            if (hasKeyword(WITCH_AELVES) || hasKeyword(SISTERS_OF_SLAUGHTER)) {
+                rend--;
+            }
+        }
+        return rend;
+    }
+
+    void DaughterOfKhaine::configureCommon() {
+        if (m_temple != Temple::None) {
+            m_commandAbilities.push_back(std::unique_ptr<::CommandAbility>(CreateCommandAbility(m_temple, this)));
+        }
+        if (isGeneral()) {
+            m_trait = CreateCommandTrait(m_commandTrait, this);
+        }
     }
 
     void Init() {

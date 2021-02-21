@@ -13,6 +13,34 @@
 #include "DaughterOfKhainePrivate.h"
 
 namespace DaughtersOfKhaine {
+
+    class Doomfire : public Spell {
+    public:
+        explicit Doomfire(Unit* caster) :
+                Spell(caster, "Doomfire", 6, 12) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
+            if (m_caster->remainingModels() >= 10) {
+                wounds.mortal = 6;
+            }
+            else if (m_caster->remainingModels() >= 5) {
+                wounds.mortal = Dice::RollD6();
+            }
+            target->applyDamage(wounds, m_caster);
+
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 60; // x35 oval
     static const int g_wounds = 2;
     static const int g_minUnitSize = 5;
@@ -60,6 +88,7 @@ namespace DaughtersOfKhaine {
             addModel(model);
         }
 
+        m_knownSpells.push_back(std::make_unique<Doomfire>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

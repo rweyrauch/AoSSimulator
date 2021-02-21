@@ -43,7 +43,7 @@ namespace DaughtersOfKhaine {
 // Abilities                    Implemented
 // -------------------------------------------
 // Heartseekers                     Yes
-// Daughters of the First Temple    TODO
+// Zealots of the First Temple      TODO
 //
 
 } // namespace DaughtersOfKhaine

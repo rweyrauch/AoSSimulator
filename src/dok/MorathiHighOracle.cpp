@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "DaughterOfKhainePrivate.h"
 #include "LoreOfShadows.h"
+#include "DoKCommands.h"
 
 namespace DaughtersOfKhaine {
     static const int g_basesize = 40;
@@ -39,6 +40,8 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        configureCommon();
 
         m_points = g_pointsPerUnit;
 

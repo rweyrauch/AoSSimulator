@@ -58,7 +58,7 @@ namespace DaughtersOfKhaine {
 // Bladed Impact                    Yes
 // Bloodwrack Stare                 Yes
 // Aura of Agony                    Yes
-// Enfeebling Foe                   TODO
+// Enfeebling Foe                   Yes
 //
 
 } // namespace DaughtersOfKhaine

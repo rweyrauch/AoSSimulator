@@ -29,6 +29,10 @@ namespace DaughtersOfKhaine {
 
     protected:
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Wounds onEndCombat(PlayerId player) override;
+
     private:
 
         Weapon m_keldrisaithShooting,
@@ -40,10 +44,10 @@ namespace DaughtersOfKhaine {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blood of the Oracle              TODO
+// Blood of the Oracle              Yes
 // Gory Offering                    TODO
-// Turned to Crystal                TODO
-// Wrath of the Scathborn           TODO
+// Turned to Crystal                Yes
+// Wrath of the Scathborn           Yes
 //
 
 } // namespace DaughtersOfKhaine

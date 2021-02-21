@@ -48,7 +48,7 @@ namespace DaughtersOfKhaine {
 // Abilities                    Implemented
 // -------------------------------------------
 // Doomfire Coven                   Yes
-// Doomfire                         TODO
+// Doomfire                         Yes
 //
 
 } // namespace DaughtersOfKhaine

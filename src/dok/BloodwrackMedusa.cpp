@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "DaughterOfKhainePrivate.h"
 #include "LoreOfShadows.h"
+#include "DoKCommands.h"
 
 namespace DaughtersOfKhaine {
     static const int g_basesize = 40;
@@ -46,6 +47,8 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
+        configureCommon();
+
         m_points = g_pointsPerUnit;
 
         return true;
@@ -57,7 +60,7 @@ namespace DaughtersOfKhaine {
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_medusaCommandTraits[0]);
         unit->setCommandTrait(trait);
 
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
@@ -85,7 +88,7 @@ namespace DaughtersOfKhaine {
                     ComputePoints,
                     {
                             EnumParameter("Temple", g_temple[0], g_temple),
-                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Command Trait", g_medusaCommandTraits[0], g_medusaCommandTraits),
                             EnumParameter("Artefact", g_wizardArtefacts[0], g_wizardArtefacts),
                             EnumParameter("Lore", g_lore[0], g_lore),
                             BoolParameter("General")

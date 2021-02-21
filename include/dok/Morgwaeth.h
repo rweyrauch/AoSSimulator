@@ -44,7 +44,7 @@ namespace DaughtersOfKhaine {
 // Priestess of Khaine              Yes
 //    Rune of Khaine                Yes
 //    Touch of Death                Yes
-// Witchbrew                        TODO
+// Witchbrew                        Yes
 //
 
 } // namespace DaughtersOfKhaine

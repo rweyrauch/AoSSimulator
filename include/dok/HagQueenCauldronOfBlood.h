@@ -27,6 +27,9 @@ namespace DaughtersOfKhaine {
 
         bool configure(Prayer prayer);
 
+        void animate(bool animated);
+        bool isAnimated() const;
+
     protected:
 
         void onWounded() override;
@@ -60,12 +63,12 @@ namespace DaughtersOfKhaine {
 // -------------------------------------------
 // Bladed Impact                    Yes
 // Bloodshield                      Yes
-// Witchbrew                        TODO
+// Witchbrew                        Yes
 // Priestess of Khaine              Yes
 //    Rune of Khaine                Yes
 //    Touch of Death                Yes
-//    Wrath of Khaine               TODO
-// Animated                         TODO
+//    Wrath of Khaine               Yes
+// Animated                         Yes
 // Idol of Worship                  Yes
 //
 

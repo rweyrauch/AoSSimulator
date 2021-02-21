@@ -8,7 +8,10 @@
 #include <dok/SlaughterQueenCauldronOfBlood.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <dok/HagQueenCauldronOfBlood.h>
+#include <dok/AvatarOfKhaine.h>
 #include "DaughterOfKhainePrivate.h"
+#include "DoKCommands.h"
 
 namespace DaughtersOfKhaine {
     static const int g_basesize = 120; // x92 oval
@@ -67,6 +70,8 @@ namespace DaughtersOfKhaine {
         model->addMeleeWeapon(&m_sword);
         addModel(model);
 
+        configureCommon();
+
         m_points = g_pointsPerUnit;
 
         return true;
@@ -78,7 +83,7 @@ namespace DaughtersOfKhaine {
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
         unit->setCommandTrait(trait);
 
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
@@ -106,7 +111,7 @@ namespace DaughtersOfKhaine {
                     ComputePoints,
                     {
                             EnumParameter("Temple", g_temple[0], g_temple),
-                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Command Trait", g_aelfCommandTraits[0], g_aelfCommandTraits),
                             EnumParameter("Artefact", g_priestArtefacts[0], g_priestArtefacts),
                             EnumParameter("Prayer", g_prayers[0], g_prayers),
                             BoolParameter("General")
@@ -131,6 +136,9 @@ namespace DaughtersOfKhaine {
 
         // Restore table-driven attributes
         onWounded();
+
+        m_sword.activate(false);
+        m_burningBlood.activate(false);
     }
 
     int SlaughterQueenOnCauldronOfBlood::getDamageTableIndex() const {
@@ -179,24 +187,76 @@ namespace DaughtersOfKhaine {
 
         // Priestess of Khaine
         const auto roll = Dice::RollD6();
-        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && distanceTo(unit) <= 3.0) {
-            // Touch of Death
-            if (roll == 1) {
-                applyDamage({0, 1}, this);
-            } else if (roll >= 3) {
-                if (Dice::RollD6() >= 4) {
-                    unit->applyDamage({0, Dice::RollD3()}, this);
-                }
+
+        bool usedPrayer = false;
+
+        // Wrath of Khaine
+        auto avatars = Board::Instance()->getUnitsWithKeyword(owningPlayer(), AVATAR_OF_KHAINE);
+        for (auto unit : avatars) {
+            auto sgavatar = dynamic_cast<SlaughterQueenOnCauldronOfBlood*>(unit);
+            auto hgavatar = dynamic_cast<HagQueenOnCauldronOfBlood*>(unit);
+            auto avatar = dynamic_cast<AvatarOfKhaine*>(unit);
+            if (sgavatar && !sgavatar->isAnimated()) {
+                usedPrayer = true;
+                if (roll >= 3) sgavatar->animate(true);
             }
-        } else {
-            // Rune of Khorne
-            if (roll == 1) {
-                applyDamage({0, 1}, this);
-            } else if (roll >= 3) {
-                m_blade.setDamage(RAND_D3);
+            else if (hgavatar && !hgavatar->isAnimated()) {
+                usedPrayer = true;
+                if (roll >= 3) hgavatar->animate(true);
+            }
+            else if (avatar && !avatar->isAnimated()) {
+                usedPrayer = true;
+                if (roll >= 3) avatar->animate(true);
             }
         }
+
+        if (!usedPrayer) {
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && distanceTo(unit) <= 3.0) {
+                // Touch of Death
+                if (roll >= 3) {
+                    if (Dice::RollD6() >= 4) {
+                        unit->applyDamage({0, Dice::RollD3()}, this);
+                    }
+                }
+                usedPrayer = true;
+            }
+            else if (isAnimated()) {
+                // Rune of Khorne
+                if (roll >= 3) {
+                    m_blade.setDamage(RAND_D3);
+                }
+                usedPrayer = true;
+            }
+        }
+
+        if (usedPrayer && (roll == 1)) {
+            applyDamage({0, 1}, this);
+        }
+
+        // Witchbrew
+        auto friendlies = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12);
+        for (auto friendly : friendlies) {
+            auto dok = dynamic_cast<DaughterOfKhaine*>(friendly);
+            if (dok) {
+                auto bloodRightAdj = std::min(3, getBloodRiteRound() - 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
+                auto roll = Dice::RollD6() + bloodRightAdj;
+                if (roll >= 5) {
+                    const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
+                    dok->buffReroll(To_Wound_Melee, Reroll_Failed, duration);
+                    dok->buffAbility(Ignore_Battleshock, 1, duration);
+                }
+            }
+        }
+    }
+
+    void SlaughterQueenOnCauldronOfBlood::animate(bool animated) {
+        m_sword.activate(animated);
+        m_burningBlood.activate(animated);
+    }
+
+    bool SlaughterQueenOnCauldronOfBlood::isAnimated() const {
+        return m_sword.isActive();
     }
 
 } //namespace DaughtersOfKhaine

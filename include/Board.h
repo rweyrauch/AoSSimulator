@@ -65,6 +65,8 @@ public:
 
     Unit *getUnitWithKeyword(const Unit *unit, PlayerId fromPlayer, Keyword keyword, double distance);
 
+    std::vector<Unit *> getUnitsWithKeyword(PlayerId fromPlayer, Keyword keyword);
+
     void setRealm(Realm realm) {
         m_realm = realm;
     }

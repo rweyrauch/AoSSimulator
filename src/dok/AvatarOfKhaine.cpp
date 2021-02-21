@@ -84,5 +84,21 @@ namespace DaughtersOfKhaine {
         return g_pointsPerUnit;
     }
 
+    void AvatarOfKhaine::animate(bool animated) {
+        m_sword.activate(animated);
+        m_torrentOfBurningBlood.activate(animated);
+        m_canMove = animated;
+    }
+
+    bool AvatarOfKhaine::isAnimated() const {
+        return m_sword.isActive();
+    }
+
+    void AvatarOfKhaine::onRestore() {
+        m_sword.activate(false);
+        m_torrentOfBurningBlood.activate(false);
+        m_canMove = false;
+    }
+
 } //namespace DaughtersOfKhaine
 

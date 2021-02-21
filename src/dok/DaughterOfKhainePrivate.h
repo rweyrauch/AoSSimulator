@@ -23,14 +23,28 @@ namespace DaughtersOfKhaine {
             ToInteger(Temple::Khelt_Nar)
     };
 
-    constexpr std::array<int, 7> g_commandTraits = {
+    constexpr std::array<int, 7> g_aelfCommandTraits = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Bathed_In_Blood),
             ToInteger(CommandTrait::Zealous_Orator),
-            ToInteger(CommandTrait::Bloody_Sacrificer),
+            ToInteger(CommandTrait::Sacrificer_Overseer),
             ToInteger(CommandTrait::Terrifying_Beauty),
-            ToInteger(CommandTrait::Mistress_Of_Poisons),
+            ToInteger(CommandTrait::Master_Of_Poisons),
             ToInteger(CommandTrait::True_Believer)
+    };
+
+    constexpr std::array<int, 4> g_medusaCommandTraits = {
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Arcane_Mastery),
+            ToInteger(CommandTrait::Writhing_Coils),
+            ToInteger(CommandTrait::Fearsome_Presence)
+    };
+
+    constexpr std::array<int, 4> g_melusaiCommandTraits = {
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Veteran_Of_The_Cathirar_Dhule),
+            ToInteger(CommandTrait::Impenentrable_Scales),
+            ToInteger(CommandTrait::Fuelled_By_Revenge)
     };
 
     constexpr std::array<int, 7> g_heroArtefacts = {

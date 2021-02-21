@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "DaughterOfKhainePrivate.h"
+#include "DoKCommands.h"
 
 namespace DaughtersOfKhaine {
     static const int g_basesize = 25;
@@ -29,6 +30,8 @@ namespace DaughtersOfKhaine {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         addModel(model);
+
+        configureCommon();
 
         m_points = g_pointsPerUnit;
 
@@ -98,6 +101,21 @@ namespace DaughtersOfKhaine {
                 applyDamage({0, 1}, this);
             } else if (roll >= 3) {
                 m_glaive.setDamage(RAND_D3);
+            }
+        }
+
+        // Witchbrew
+        auto friendlies = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12);
+        for (auto friendly : friendlies) {
+            auto dok = dynamic_cast<DaughterOfKhaine*>(friendly);
+            if (dok) {
+                auto bloodRightAdj = std::min(3, getBloodRiteRound() - 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
+                auto roll = Dice::RollD6() + bloodRightAdj;
+                if (roll >= 5) {
+                    const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
+                    dok->buffReroll(To_Wound_Melee, Reroll_Failed, duration);
+                    dok->buffAbility(Ignore_Battleshock, 1, duration);
+                }
             }
         }
     }

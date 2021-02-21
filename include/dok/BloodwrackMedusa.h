@@ -45,7 +45,7 @@ namespace DaughtersOfKhaine {
 // Abilities                    Implemented
 // -------------------------------------------
 // Bloodwrack Stare                 Yes
-// Enfeebling Foe                   TODO
+// Enfeebling Foe                   Yes
 //
 
 } // namespace DaughtersOfKhaine

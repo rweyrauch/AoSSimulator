@@ -9,8 +9,10 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "DaughterOfKhainePrivate.h"
+#include "DoKCommands.h"
 
 namespace DaughtersOfKhaine {
+
     static const int g_basesize = 25;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 90;
@@ -30,6 +32,8 @@ namespace DaughtersOfKhaine {
         model->addMeleeWeapon(&m_bladeOfKhaine);
         addModel(model);
 
+        configureCommon();
+
         m_points = g_pointsPerUnit;
 
         return true;
@@ -41,7 +45,7 @@ namespace DaughtersOfKhaine {
         auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
         unit->setCommandTrait(trait);
 
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
@@ -69,7 +73,7 @@ namespace DaughtersOfKhaine {
                     ComputePoints,
                     {
                             EnumParameter("Temple", g_temple[0], g_temple),
-                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Command Trait", g_aelfCommandTraits[0], g_aelfCommandTraits),
                             EnumParameter("Artefact", g_priestArtefacts[0], g_priestArtefacts),
                             EnumParameter("Prayer", g_prayers[0], g_prayers),
                             BoolParameter("General")
@@ -108,6 +112,21 @@ namespace DaughtersOfKhaine {
                 applyDamage({0, 1}, this);
             } else if (roll >= 3) {
                 m_bladeOfKhaine.setDamage(RAND_D3);
+            }
+        }
+
+        // Witchbrew
+        auto friendlies = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12);
+        for (auto friendly : friendlies) {
+            auto dok = dynamic_cast<DaughterOfKhaine*>(friendly);
+            if (dok) {
+                auto bloodRightAdj = std::min(3, getBloodRiteRound() - 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
+                auto roll = Dice::RollD6() + bloodRightAdj;
+                if (roll >= 5) {
+                    const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
+                    dok->buffReroll(To_Wound_Melee, Reroll_Failed, duration);
+                    dok->buffAbility(Ignore_Battleshock, 1, duration);
+                }
             }
         }
     }

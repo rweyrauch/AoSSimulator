@@ -30,9 +30,9 @@ namespace DaughtersOfKhaine {
         // Paragons of Murder
         Bathed_In_Blood,
         Zealous_Orator,
-        Bloody_Sacrificer,
+        Sacrificer_Overseer,
         Terrifying_Beauty,
-        Mistress_Of_Poisons,
+        Master_Of_Poisons,
         True_Believer,
 
         // Masters of Blood Magic
@@ -128,6 +128,10 @@ namespace DaughtersOfKhaine {
 
         void setArtefact(Artefact artefact);
 
+        int getBloodRiteRound() const { return m_battleRound + m_bloodRiteModifier; }
+
+        void configureCommon();
+
     protected:
         DaughterOfKhaine(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
@@ -150,11 +154,15 @@ namespace DaughtersOfKhaine {
 
         int braveryModifier() const override;
 
+        int weaponRend(const Weapon *weapon, const Unit *target,
+                       int hitRoll, int woundRoll) const override;
+
     protected:
 
         Temple m_temple = Temple::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+        int m_bloodRiteModifier = 0;
     };
 
 //
@@ -167,21 +175,37 @@ namespace DaughtersOfKhaine {
 //    Zealot's Rage                 Yes
 //    Slaughter's Strength          Yes
 //    Unquenchable Fervour          Yes
-// Daughters of the First Temple    Yes
-// Devoted Disciple                 TODO
-// Bladed Killers                   Yes
-// The Darksword                    TODO
-// Disciples of Slaughter           TODO
-// Venom of Nagendra                TODO
-// Concealment and Stealth          Yes
-// Mistress of Illusion             TODO
-// Bathe in Their Blood             TODO
-// The Circling Flock               TODO
-// Victor Of Yaithril               TODO
-// The Ulfuri                       TODO
-// Whisperdeath                     TODO
-// Crimson Talisman                 TODO
-// Gaisas FalX                      TODO
+// Hagg Nar
+//   Daughters of the First Temple  Yes
+//   Devoted Disciple               TODO
+//   Send Forth the Cauldrons       TODO
+//   The Ulfuri                     TODO
+// Draichi Ganeth
+//   Bladed Killers                 Yes
+//   Victor Of Yaithril             TODO
+//   Death's Kiss                   TODO
+//   A Thousand Bladeforms          Yes
+// The Kraith
+//   Disciples of Slaughter         TODO
+//   Venom of Nagendra              TODO
+//   Bathe in Their Blood           TODO
+//   Inspired by Carnage            Yes
+// Khailebron
+//   Concealment and Stealth        Yes
+//   Mistress of Illusion           TODO
+//   Whisperdeath                   TODO
+//   Masters of the Shadowpaths     TODO
+// Khelt Nar
+//   Strike and Fade                Yes
+//   The Circling Flock             TODO
+//   Gaisas FalX                    TODO
+//   Bleed the Mind                 TODO
+// Zainthar Kai
+//   Khaine's Essence               Yes
+//   Vault of the First Brood       TODO
+//   Curse of the Bloody-Handed     TODO
+//   Power in the Blood             Yes
+//   Crimson Talisman               TODO
 //
 
     void Init();

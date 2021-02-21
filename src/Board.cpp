@@ -480,3 +480,32 @@ const Objective *Board::getNearestObjective(const Unit *unit) {
     }
     return nearestObjective;
 }
+
+std::vector<Unit *> Board::getUnitsWithKeyword(PlayerId which, Keyword keyword) {
+    std::vector<Unit *> units;
+    if (which == PlayerId::None) {
+        if (m_rosters[0] != nullptr) {
+            for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
+                if ((*ip)->hasKeyword(keyword)) {
+                    units.push_back(*ip);
+                }
+            }
+        }
+        if (m_rosters[1] != nullptr) {
+            for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
+                if ((*ip)->hasKeyword(keyword)) {
+                    units.push_back(*ip);
+                }
+            }
+        }
+    } else {
+        if (m_rosters[(int) which] != nullptr) {
+            for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip) {
+                if ((*ip)->hasKeyword(keyword)) {
+                    units.push_back(*ip);
+                }
+            }
+        }
+    }
+    return units;
+}

@@ -27,9 +27,14 @@ namespace DaughtersOfKhaine {
 
         bool configure();
 
+        void animate(bool animated);
+        bool isAnimated() const;
+
     protected:
 
         int idolOfWorship(const Unit *unit);
+
+        void onRestore() override;
 
     private:
 
@@ -44,7 +49,7 @@ namespace DaughtersOfKhaine {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Animated                         TODO
+// Animated                         Yes
 // Idol of Worship                  Yes
 //
 
