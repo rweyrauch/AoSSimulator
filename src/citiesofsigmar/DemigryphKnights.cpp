@@ -136,19 +136,19 @@ namespace CitiesOfSigmar {
     }
 
     int DemigryphKnights::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int DemigryphKnights::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int DemigryphKnights::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
@@ -163,7 +163,7 @@ namespace CitiesOfSigmar {
         if ((woundRoll == 6) && (weapon->name() == m_beakAndTalons.name())) {
             return {1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int DemigryphKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -171,7 +171,7 @@ namespace CitiesOfSigmar {
         if (m_charged && (weapon->name() == m_lance.name())) {
             return -2;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
     int DemigryphKnights::ComputePoints(int numModels) {

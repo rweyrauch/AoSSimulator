@@ -75,6 +75,7 @@ namespace Bonesplitterz {
                 }
             }
         }
+        Bonesplitterz::onModelSlain(source);
     }
 
     bool SavageBigStabbas::configure(int numModels) {
@@ -100,7 +101,7 @@ namespace Bonesplitterz {
         if (target->hasKeyword(MONSTER)) {
             return {Dice::RollSpecial(RAND_D6), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Bonesplitterz::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int SavageBigStabbas::ComputePoints(int numModels) {

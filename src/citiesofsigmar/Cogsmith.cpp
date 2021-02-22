@@ -118,7 +118,7 @@ namespace CitiesOfSigmar {
     }
 
     int Cogsmith::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Free Arm
         if ((m_weaponOption == Grudge_Raker) && (weapon->name() == m_grudgeRaker.name())) mod++;
@@ -128,7 +128,7 @@ namespace CitiesOfSigmar {
     }
 
     void Cogsmith::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        CitizenOfSigmar::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Master Engineer

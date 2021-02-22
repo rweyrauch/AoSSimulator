@@ -16,7 +16,7 @@ namespace GloomspiteGitz {
 
     class SpeedOfTheSpiderGod : public Spell {
     public:
-        SpeedOfTheSpiderGod(Unit *caster);
+        explicit SpeedOfTheSpiderGod(Unit *caster);
 
     protected:
         Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
@@ -48,7 +48,7 @@ namespace GloomspiteGitz {
                 unit->buffMovement(Run_And_Shoot, true, defaultDuration());
 
                 additionalUnits--;
-                if (additionalUnits <= 0) continue;;
+                if (additionalUnits <= 0) continue;
             }
         }
         return Spell::Result::Success;

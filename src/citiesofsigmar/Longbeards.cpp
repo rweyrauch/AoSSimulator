@@ -138,19 +138,19 @@ namespace CitiesOfSigmar {
     }
 
     int Longbeards::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Musician)) mod++;
         return mod;
     }
 
     int Longbeards::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Musician)) mod++;
         return mod;
     }
 
     int Longbeards::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }

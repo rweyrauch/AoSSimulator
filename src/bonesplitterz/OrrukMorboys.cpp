@@ -97,7 +97,7 @@ namespace Bonesplitterz {
     }
 
     int SavageOrrukMorboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = Bonesplitterz::extraAttacks(attackingModel, weapon, target);
         // Spirit of Gorkamorka
         if (remainingModels() >= 15) {
             extra++;
@@ -114,7 +114,7 @@ namespace Bonesplitterz {
     }
 
     int SavageOrrukMorboys::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = Bonesplitterz::toHitModifier(weapon, target);
 
         // Power of the Beast Spirit
         if (!weapon->isMissile()) {

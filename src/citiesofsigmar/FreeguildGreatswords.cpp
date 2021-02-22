@@ -107,19 +107,19 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildGreatswords::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int FreeguildGreatswords::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int FreeguildGreatswords::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
@@ -127,13 +127,13 @@ namespace CitiesOfSigmar {
     Wounds
     FreeguildGreatswords::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Swing
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
         if (hitRoll == 6) damage.mortal++;
         return damage;
     }
 
     int FreeguildGreatswords::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
         // Oathsworn Honour Guard
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 18.0);
         if (unit && unit->hasKeyword(FREEGUILD)) mod++;

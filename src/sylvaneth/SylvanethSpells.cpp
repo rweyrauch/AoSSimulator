@@ -89,10 +89,10 @@ namespace Sylvaneth {
         explicit TheReaping(Unit *caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit *target) override;
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override;
 
         Result
-        apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     TheReaping::TheReaping(Unit *caster) :
@@ -124,10 +124,10 @@ namespace Sylvaneth {
         explicit TheDwellersBelow(Unit *caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit *target) override;
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override;
 
         Result
-        apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     TheDwellersBelow::TheDwellersBelow(Unit *caster) :

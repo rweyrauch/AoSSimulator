@@ -15,7 +15,7 @@ namespace BeastsOfChaos {
 
     class SummonLightning : public Spell {
     public:
-        SummonLightning(Unit* caster);
+        explicit SummonLightning(Unit* caster);
     protected:
         Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
         Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }

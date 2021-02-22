@@ -144,11 +144,13 @@ namespace SlavesToDarkness {
     }
 
     void ChaosSorcererOnManticore::onRestore() {
+        SlavesToDarknessBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
     void ChaosSorcererOnManticore::onWounded() {
+        SlavesToDarknessBase::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_fangsAndClaws.setToWound(g_damageTable[damageIndex].m_fangsToWound);
         m_tail.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
@@ -170,7 +172,7 @@ namespace SlavesToDarkness {
         if ((weapon->name() == m_fangsAndClaws.name()) && (target->hasKeyword(MONSTER))) {
             return Reroll_Failed;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }
 
     int ChaosSorcererOnManticore::ComputePoints(int /*numModels*/) {

@@ -97,7 +97,7 @@ namespace SlavesToDarkness {
     }
 
     int IronGolems::braveryModifier() const {
-        int modifier = Unit::braveryModifier();
+        int modifier = SlavesToDarknessBase::braveryModifier();
         if (isNamedModelAlive("Signifer")) {
             modifier += 2;
         }
@@ -116,7 +116,7 @@ namespace SlavesToDarkness {
         // Iron Resilience
         if (!m_moved) return Reroll_Failed;
 
-        return Unit::toSaveRerolls(weapon, attacker);
+        return SlavesToDarknessBase::toSaveRerolls(weapon, attacker);
     }
 
 } //SlavesToDarkness

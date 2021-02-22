@@ -188,23 +188,23 @@ namespace SlavesToDarkness {
 
             return totalWounds;
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
     }
 
     int ChaosWarriors::runModifier() const {
-        auto modifier = Unit::runModifier();
+        auto modifier = SlavesToDarknessBase::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosWarriors::chargeModifier() const {
-        auto modifier = Unit::chargeModifier();
+        auto modifier = SlavesToDarknessBase::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosWarriors::braveryModifier() const {
-        auto modifier = Unit::braveryModifier();
+        auto modifier = SlavesToDarknessBase::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) modifier += 1;
         return modifier;
     }
@@ -213,14 +213,14 @@ namespace SlavesToDarkness {
         // Pair of Chaos Hand Weapons
         if (m_pairedWeapons)
             return Reroll_Ones;
-        return Unit::toHitRerolls(weapon, target);
+        return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }
 
     Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Legions of Chaos
         if (remainingModels() >= 10)
             return Reroll_Failed;
-        return Unit::toSaveRerolls(weapon, attacker);
+        return SlavesToDarknessBase::toSaveRerolls(weapon, attacker);
     }
 
     int ChaosWarriors::ComputePoints(int numModels) {

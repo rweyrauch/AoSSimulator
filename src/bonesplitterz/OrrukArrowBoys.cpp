@@ -100,7 +100,7 @@ namespace Bonesplitterz {
 
     int
     SavageOrrukArrowboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = Bonesplitterz::extraAttacks(attackingModel, weapon, target);
         // Loadsa Arrows
         if (weapon->name() == m_stingaBow.name() && remainingModels() >= 15) {
             extra++;
@@ -113,7 +113,7 @@ namespace Bonesplitterz {
         if (weapon->name() == m_stingaBow.name() && target->hasKeyword(MONSTER)) {
             return -1;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return Bonesplitterz::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
     int SavageOrrukArrowboys::ComputePoints(int numModels) {

@@ -107,19 +107,19 @@ namespace CitiesOfSigmar {
     }
 
     int PhoenixGuard::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int PhoenixGuard::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int PhoenixGuard::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
@@ -153,7 +153,7 @@ namespace CitiesOfSigmar {
         for (auto unit : units) {
             if (unit->hasKeyword(PHOENIX_TEMPLE) && unit->hasKeyword(HERO)) return false;
         }
-        return Unit::battleshockRequired();
+        return CitizenOfSigmar::battleshockRequired();
     }
 
 } // namespace CitiesOfSigmar

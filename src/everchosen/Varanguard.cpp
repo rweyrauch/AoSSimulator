@@ -119,7 +119,7 @@ namespace SlavesToDarkness {
     }
 
     Wounds Varanguard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         // Daemonbound
         if ((hitRoll == 6) && (weapon->name() == m_blade.name())) {
             damage.mortal++;
@@ -128,7 +128,7 @@ namespace SlavesToDarkness {
     }
 
     int Varanguard::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        auto rend = SlavesToDarknessBase::weaponRend(weapon, target, hitRoll, woundRoll);
 
         // Impaling Charge
         if (m_charged && (weapon->name() == m_fellspear.name())) {
@@ -138,7 +138,7 @@ namespace SlavesToDarkness {
     }
 
     int Varanguard::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = SlavesToDarknessBase::toWoundModifier(weapon, target);
 
         // Impaling Charge
         if (m_charged && (weapon->name() == m_fellspear.name())) {

@@ -106,19 +106,19 @@ namespace CitiesOfSigmar {
     }
 
     int Executioners::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int Executioners::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int Executioners::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
@@ -128,7 +128,7 @@ namespace CitiesOfSigmar {
         if (hitRoll == 6) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Executioners::ComputePoints(int numModels) {

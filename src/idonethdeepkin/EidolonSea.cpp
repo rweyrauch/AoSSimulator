@@ -16,7 +16,7 @@ namespace IdonethDeepkin {
 
     class CloyingSeaMists : public Spell {
     public:
-        CloyingSeaMists(Unit *caster) :
+        explicit CloyingSeaMists(Unit *caster) :
                 Spell(caster, "Cloying Sea Mists", 6, 12) {
             m_allowedTargets = Abilities::Target::Any;
             m_effect = Abilities::EffectType::Heal;
@@ -37,7 +37,7 @@ namespace IdonethDeepkin {
 
     class TsunamiOfTerror : public Spell {
     public:
-        TsunamiOfTerror(Unit *caster) :
+        explicit TsunamiOfTerror(Unit *caster) :
                 Spell(caster, "TsunamiOfTerror", 7, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;

@@ -142,25 +142,25 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildGuard::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int FreeguildGuard::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int FreeguildGuard::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 
     int FreeguildGuard::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Massed Ranks
         if (remainingModels() >= 20) mod += 2;
@@ -173,7 +173,7 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = CitizenOfSigmar::toSaveModifier(weapon, attacker);
 
         // Parry and Block
         if (weapon->name() == m_sword.name()) mod++;

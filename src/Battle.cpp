@@ -211,8 +211,8 @@ void Battle::runCombatPhase() {
 
             SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
                    PlayerIdToString(defendingPlayer).c_str(),
-                   unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
-                   PlayerIdToString(m_currentPlayer).c_str(), unit->meleeTarget()->name().c_str(),
+                   eunit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+                   PlayerIdToString(m_currentPlayer).c_str(), eunit->meleeTarget()->name().c_str(),
                    numSlain);
         }
 

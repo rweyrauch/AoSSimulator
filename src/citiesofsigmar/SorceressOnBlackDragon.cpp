@@ -138,6 +138,8 @@ namespace CitiesOfSigmar {
     }
 
     void SorceressOnBlackDragon::onRestore() {
+        CitizenOfSigmar::onRestore();
+
         // Restore table-driven attributes
         onWounded();
 
@@ -150,7 +152,7 @@ namespace CitiesOfSigmar {
         m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     int SorceressOnBlackDragon::getDamageTableIndex() const {
@@ -171,7 +173,7 @@ namespace CitiesOfSigmar {
             Dice::RollD6(target->remainingModels(), result);
             return {0, result.rollsGE(6)};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int SorceressOnBlackDragon::ComputePoints(int /*numModels*/) {
@@ -179,7 +181,7 @@ namespace CitiesOfSigmar {
     }
 
     void SorceressOnBlackDragon::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        CitizenOfSigmar::onStartHero(player);
 
         // Blood Sacrifice
         m_bloodSacrificeMod = 0;
@@ -193,7 +195,7 @@ namespace CitiesOfSigmar {
     }
 
     int SorceressOnBlackDragon::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = CitizenOfSigmar::castingModifier();
 
         mod += m_bloodSacrificeMod;
 

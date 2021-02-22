@@ -16,7 +16,7 @@ namespace Slaanesh {
 
     class CripplingFamishment : public Spell {
     public:
-        CripplingFamishment(Unit* caster) :
+        explicit CripplingFamishment(Unit* caster) :
             Spell(caster, "Crippling Famishment", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;

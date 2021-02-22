@@ -130,7 +130,7 @@ namespace Bonesplitterz {
 
     int SavageBoarboys::toHitModifier(const Weapon *weapon, const Unit *target) const {
         // Tusker Charge
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = Bonesplitterz::toHitModifier(weapon, target);
         if (m_charged && (weapon->name() == m_tusksAndHooves.name() || weapon->name() == m_stikka.name())) {
             mod++;
         }
@@ -139,7 +139,7 @@ namespace Bonesplitterz {
 
     int SavageBoarboys::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         // Tusker Charge
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = Bonesplitterz::toWoundModifier(weapon, target);
         if (m_charged && (weapon->name() == m_tusksAndHooves.name() || weapon->name() == m_stikka.name())) {
             mod++;
         }

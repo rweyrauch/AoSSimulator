@@ -103,7 +103,7 @@ namespace Bonesplitterz {
 
     int
     SavageBoarboyManiaks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = Bonesplitterz::extraAttacks(attackingModel, weapon, target);
         // Maniak Fury
         if (weapon->name() == m_chompas.name() && remainingModels() >= 5) {
             extra++;
@@ -113,7 +113,7 @@ namespace Bonesplitterz {
 
     int SavageBoarboyManiaks::toHitModifier(const Weapon *weapon, const Unit *target) const {
         // Tusker Charge
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = Bonesplitterz::toHitModifier(weapon, target);
         if (m_charged && weapon->name() == m_tusksAndHooves.name()) {
             mod++;
         }
@@ -122,7 +122,7 @@ namespace Bonesplitterz {
 
     int SavageBoarboyManiaks::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         // Tusker Charge
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = Bonesplitterz::toWoundModifier(weapon, target);
         if (m_charged && weapon->name() == m_tusksAndHooves.name()) {
             mod++;
         }

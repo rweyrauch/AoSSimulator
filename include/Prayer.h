@@ -18,7 +18,7 @@ class Unit;
 class Prayer {
 public:
 
-    explicit Prayer(Unit *priest, std::string name, int prayingValue, double range, int damageOn1 = 0) :
+    explicit Prayer(Unit *priest, std::string name, int prayingValue, int range, int damageOn1 = 0) :
             m_priest(priest),
             m_name(std::move(name)),
             m_prayingValue(prayingValue),
@@ -63,7 +63,7 @@ protected:
 
 class DamagePrayer : public Prayer {
 public:
-    DamagePrayer(Unit *priest, const std::string &name, int prayingValue, double range, int damage, int damageOn1 = 0);
+    DamagePrayer(Unit *priest, const std::string &name, int prayingValue, int range, int damage, int damageOn1 = 0);
 
 protected:
 
@@ -79,7 +79,7 @@ protected:
 
 class HealPrayer : public Prayer {
 public:
-    HealPrayer(Unit *priest, const std::string &name, int prayingValue, double range, int healing, int damageOn1 = 0);
+    HealPrayer(Unit *priest, const std::string &name, int prayingValue, int range, int healing, int damageOn1 = 0);
 
 protected:
 
@@ -95,7 +95,7 @@ protected:
 
 class BuffModifierPrayer : public Prayer {
 public:
-    BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
+    BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
                        BuffableAttribute which, int modifier, Abilities::Target allowedTargets, int damageOn1 = 0);
 
 protected:
@@ -111,7 +111,7 @@ protected:
 
 class BuffRerollPrayer : public Prayer {
 public:
-    BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
+    BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
                      BuffableAttribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1 = 0);
 
 protected:

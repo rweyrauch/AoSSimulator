@@ -10,6 +10,17 @@
 #include <list>
 #include <Unit.h>
 
+// Simple counting resources for Factions
+enum class Resource : int {
+    None = 0,
+    Khorne_Blood_Tithe,
+    Slaanesh_Depravity,
+    BeastsOfChaos_Primordial_Call,
+    Nurgle_Contagion,
+    Skaven_Warpstone_Spark,
+    Seraphon_Celestial_Conjuration,
+};
+
 class Roster {
 public:
     explicit Roster(PlayerId id) : m_id(id) {}
@@ -56,10 +67,20 @@ public:
 
     bool useCommandPoint();
 
+    Resource getResourceType() const { return m_factionResource; }
+    void incrementResource(int value) { m_resourceCount += value; }
+
+    int getAvailableResource() const { return m_resourceCount; }
+    void clearAvailableResource() { m_resourceCount = 0; }
+
 private:
     const PlayerId m_id;
     std::list<Unit *> m_units; // NOTE: using a list so that units may be added while iterating over the list
 
     int m_cp = 0;
+
+    // Faction-specific earned resources
+    Resource m_factionResource = Resource::None;
+    int m_resourceCount = 0;
 };
 

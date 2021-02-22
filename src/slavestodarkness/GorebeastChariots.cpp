@@ -135,7 +135,7 @@ namespace SlavesToDarkness {
     }
 
     int GorebeastChariots::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = SlavesToDarknessBase::toHitModifier(weapon, target);
 
         // Explosive Brutality
         if (m_charged && (m_unmodifiedChargeRoll >= 8)) mod++;
@@ -144,7 +144,7 @@ namespace SlavesToDarkness {
     }
 
     int GorebeastChariots::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = SlavesToDarknessBase::toWoundModifier(weapon, target);
 
         // Explosive Brutality
         if (m_charged && (m_unmodifiedChargeRoll >= 8)) mod++;
@@ -153,7 +153,7 @@ namespace SlavesToDarkness {
     }
 
     void GorebeastChariots::onCharged() {
-        Unit::onCharged();
+        SlavesToDarknessBase::onCharged();
 
         // Crashing Charge
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);

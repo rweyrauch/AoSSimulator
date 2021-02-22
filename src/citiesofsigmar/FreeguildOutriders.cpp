@@ -139,19 +139,19 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildOutriders::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Trumpeter)) mod++;
         return mod;
     }
 
     int FreeguildOutriders::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Trumpeter)) mod++;
         return mod;
     }
 
     int FreeguildOutriders::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extras = CitizenOfSigmar::extraAttacks(attackingModel, weapon, target);
         // Expert Gunners
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         if ((weapon->name() == m_handgun.name()) && units.empty()) {

@@ -15,7 +15,7 @@ namespace Nighthaunt {
 
     class Wraithstorm : public Spell {
     public:
-        Wraithstorm(Unit *caster) :
+        explicit Wraithstorm(Unit *caster) :
                 Spell(caster, "Wraithstorm", 7, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;

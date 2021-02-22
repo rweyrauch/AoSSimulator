@@ -16,7 +16,7 @@ namespace Nighthaunt {
 
     class GriefStricken : public Spell {
     public:
-        GriefStricken(Unit *caster) :
+        explicit GriefStricken(Unit *caster) :
                 Spell(caster, "Grief Stricken", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;

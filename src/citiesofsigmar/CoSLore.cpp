@@ -15,7 +15,7 @@ namespace CitiesOfSigmar {
 
     class WingsOfFire : public Spell {
     public:
-        WingsOfFire(Unit *caster) :
+        explicit WingsOfFire(Unit *caster) :
                 Spell(caster, "Wings of Fire", 6, INT32_MAX) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
@@ -35,7 +35,7 @@ namespace CitiesOfSigmar {
 
     class TwinTailedComet : public Spell {
     public:
-        TwinTailedComet(Unit *caster) :
+        explicit TwinTailedComet(Unit *caster) :
             Spell(caster, "Twin-tailed Comet", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -53,7 +53,7 @@ namespace CitiesOfSigmar {
 
     class IronoakSkin : public Spell {
     public:
-        IronoakSkin(Unit *caster) :
+        explicit IronoakSkin(Unit *caster) :
                 Spell(caster, "Ironoak Skin", 6, 18) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
@@ -72,7 +72,7 @@ namespace CitiesOfSigmar {
 
     class DescendingAshCloud : public Spell {
     public:
-        DescendingAshCloud(Unit *caster) :
+        explicit DescendingAshCloud(Unit *caster) :
                 Spell(caster, "Descending Ash Cloud", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
@@ -89,7 +89,7 @@ namespace CitiesOfSigmar {
 
     class ChokingFumes : public Spell {
     public:
-        ChokingFumes(Unit *caster) :
+        explicit ChokingFumes(Unit *caster) :
                 Spell(caster, "Choking Fumes", 6, 15) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -109,7 +109,7 @@ namespace CitiesOfSigmar {
 
     class AddCommandPoint : public Spell {
     public:
-        AddCommandPoint(Unit* caster, const std::string& name, int castingValue, int number) :
+        explicit AddCommandPoint(Unit* caster, const std::string& name, int castingValue, int number) :
             Spell(caster, name, castingValue, 0),
             m_number(number) {
         }

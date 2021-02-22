@@ -99,25 +99,25 @@ namespace CitiesOfSigmar {
     }
 
     int EternalGuard::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int EternalGuard::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int EternalGuard::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 
     int EternalGuard::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Form Fortress of Boughs
         if (!m_moved) mod++;
@@ -126,7 +126,7 @@ namespace CitiesOfSigmar {
     }
 
     int EternalGuard::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toWoundModifier(weapon, target);
 
         // Form Fortress of Boughs
         if (!m_moved) mod++;
@@ -135,7 +135,7 @@ namespace CitiesOfSigmar {
     }
 
     int EternalGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = CitizenOfSigmar::toSaveModifier(weapon, attacker);
 
         // Fortress of Boughs
         if (!m_moved) mod++;

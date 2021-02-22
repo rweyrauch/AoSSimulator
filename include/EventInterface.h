@@ -22,6 +22,7 @@ public:
     virtual void onRestore() {}
 
     virtual void onSlain() {}
+    virtual void onEnemySlain(const Unit* unit) {}
 
     virtual void onModelSlain(Wounds::Source source) {}
 

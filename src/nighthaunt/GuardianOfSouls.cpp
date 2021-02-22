@@ -15,7 +15,7 @@ namespace Nighthaunt {
 
     class SpectralLure : public Spell {
     public:
-        SpectralLure(Unit *caster) :
+        explicit SpectralLure(Unit *caster) :
                 Spell(caster, "Spectral Lure", 6, 24) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_effect = Abilities::EffectType::Heal;

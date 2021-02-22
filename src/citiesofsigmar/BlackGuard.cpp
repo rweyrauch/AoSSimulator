@@ -107,25 +107,25 @@ namespace CitiesOfSigmar {
     }
 
     int BlackGuard::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int BlackGuard::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Drummer)) mod++;
         return mod;
     }
 
     int BlackGuard::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 
     int BlackGuard::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
         // Elite Bodyguard
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 18.0);
         if (unit && unit->hasKeyword(DARKLING_COVENS)) mod++;

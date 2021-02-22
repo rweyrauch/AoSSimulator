@@ -110,7 +110,7 @@ namespace DaughtersOfKhaine {
     }
 
     int KhineraiHeartrenders::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = DaughterOfKhaine::toSaveModifier(weapon, attacker);
 
         // Heartpiercer Shield
         if (!weapon->isMissile()) mod++;
@@ -123,11 +123,11 @@ namespace DaughtersOfKhaine {
         if ((m_setupInRound == m_battleRound) && weapon->isMissile() &&
             (weapon->name() == m_barbedJavelinMissile.name()))
             return weapon->rend()-1;
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return DaughterOfKhaine::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
     void KhineraiHeartrenders::onRestore() {
-        Unit::onRestore();
+        DaughterOfKhaine::onRestore();
 
         m_setupInRound = 0;
     }

@@ -107,25 +107,25 @@ namespace CitiesOfSigmar {
     }
 
     int Dreadspears::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int Dreadspears::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int Dreadspears::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 
     int Dreadspears::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
         // Ranks of Cold Steel
         if (remainingModels() >= 10) mod++;
         return mod;
@@ -136,7 +136,7 @@ namespace CitiesOfSigmar {
         if (hitRoll == 6) {
             return -1;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
     int Dreadspears::ComputePoints(int numModels) {

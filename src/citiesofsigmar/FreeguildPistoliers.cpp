@@ -127,13 +127,13 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildPistoliers::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Trumpeter)) mod++;
         return mod;
     }
 
     int FreeguildPistoliers::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Trumpeter)) mod++;
         return mod;
     }

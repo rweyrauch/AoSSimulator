@@ -100,7 +100,7 @@ namespace OssiarchBonereapers {
     }
 
     void NecropolisStalkers::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        OssiarchBonereaperBase::onStartCombat(player);
 
         // Select active aspect (randomly for now)
         m_activeAspect = (Aspect) Dice::RollD4();
@@ -108,28 +108,28 @@ namespace OssiarchBonereapers {
 
     Rerolls NecropolisStalkers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_activeAspect == Blade_Strike) return Reroll_Failed;
-        return Unit::toHitRerolls(weapon, target);
+        return OssiarchBonereaperBase::toHitRerolls(weapon, target);
     }
 
     Rerolls NecropolisStalkers::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_activeAspect == Destroyer) return Reroll_Failed;
-        return Unit::toWoundRerolls(weapon, target);
+        return OssiarchBonereaperBase::toWoundRerolls(weapon, target);
     }
 
     Rerolls NecropolisStalkers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         if (m_activeAspect == Blade_Parry) return Reroll_Failed;
-        return Unit::toSaveRerolls(weapon, attacker);
+        return OssiarchBonereaperBase::toSaveRerolls(weapon, attacker);
     }
 
     Wounds
     NecropolisStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         if (m_activeAspect == Precision) damage.normal++;
         return damage;
     }
 
     int NecropolisStalkers::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        auto rend = OssiarchBonereaperBase::weaponRend(weapon, target, hitRoll, woundRoll);
         if (m_activeAspect == Precision) rend--;
         return rend;
     }

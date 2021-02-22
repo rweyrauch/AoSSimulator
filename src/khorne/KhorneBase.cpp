@@ -7,6 +7,7 @@
  */
 #include <khorne/KhorneBase.h>
 #include <Board.h>
+#include <Roster.h>
 #include <magic_enum.hpp>
 
 #include "khorne/Bloodreavers.h"
@@ -155,6 +156,20 @@ namespace Khorne {
 
     void KhorneBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    void KhorneBase::onSlain() {
+        Unit::onSlain();
+
+        // Add a Blood Tithe point
+        getRoster()->incrementResource(1);
+    }
+
+    void KhorneBase::onEnemySlain(const Unit *unit) {
+        Unit::onEnemySlain(unit);
+
+        // Add a Blood Tithe point
+        getRoster()->incrementResource(1);
     }
 
     void Init() {

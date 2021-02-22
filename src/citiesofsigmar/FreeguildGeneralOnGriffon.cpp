@@ -129,7 +129,7 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = CitizenOfSigmar::toSaveModifier(weapon, attacker);
         if (m_shield) mod++;
         return mod;
     }
@@ -140,24 +140,25 @@ namespace CitiesOfSigmar {
         if (m_charged && (weapon->name() == m_lance.name())) {
             return -2;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
     int FreeguildGeneralOnGriffon::runModifier() const {
         // Skilled Rider
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (!m_shield) mod++;
         return mod;
     }
 
     int FreeguildGeneralOnGriffon::chargeModifier() const {
         // Skilled Rider
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (!m_shield) mod++;
         return mod;
     }
 
     void FreeguildGeneralOnGriffon::onRestore() {
+        CitizenOfSigmar::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
@@ -168,7 +169,7 @@ namespace CitiesOfSigmar {
         m_beak.setDamage(g_damageTable[damageIndex].m_beakDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     int FreeguildGeneralOnGriffon::getDamageTableIndex() const {

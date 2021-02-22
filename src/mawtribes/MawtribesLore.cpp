@@ -15,7 +15,7 @@ namespace OgorMawtribes {
 
     class FleshcraveCurse : public Spell {
     public:
-        FleshcraveCurse(Unit *caster) :
+        explicit FleshcraveCurse(Unit *caster) :
                 Spell(caster, "Fleshcrave Curse", 6, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -32,7 +32,7 @@ namespace OgorMawtribes {
 
     class Ribcracker : public Spell {
     public:
-        Ribcracker(Unit *caster) :
+        explicit Ribcracker(Unit *caster) :
                 Spell(caster, "Ribcracker", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
@@ -49,7 +49,7 @@ namespace OgorMawtribes {
 
     class GreasyDeluge : public Spell {
     public:
-        GreasyDeluge(Unit *caster) :
+        explicit GreasyDeluge(Unit *caster) :
                 Spell(caster, "Greasy Deluge", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
@@ -66,7 +66,7 @@ namespace OgorMawtribes {
 
     class FieryWhirlwind : public Spell {
     public:
-        FieryWhirlwind(Unit *caster) :
+        explicit FieryWhirlwind(Unit *caster) :
                 Spell(caster, "Fiery Whirlwind", 6, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -117,7 +117,7 @@ namespace OgorMawtribes {
 
     class PulverisingHailstorm : public ::Prayer {
     public:
-        PulverisingHailstorm(Unit *priest) :
+        explicit PulverisingHailstorm(Unit *priest) :
                 Prayer(priest, "Pulverising Hailstorm", 4, 18, 0) {
             m_allowedTargets = Abilities::Target::Point;
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
@@ -141,7 +141,7 @@ namespace OgorMawtribes {
 
     class KeeningGale : public ::Prayer {
     public:
-        KeeningGale(Unit *priest) :
+        explicit KeeningGale(Unit *priest) :
                 Prayer(priest, "Keening Gale", 4, 18, 0) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_effect = Abilities::EffectType::Buff;
@@ -162,7 +162,7 @@ namespace OgorMawtribes {
 
     class CallOfTheBlizzard : public ::Prayer {
     public:
-        CallOfTheBlizzard(Unit *priest) :
+        explicit CallOfTheBlizzard(Unit *priest) :
                 Prayer(priest, "Call of the Blizzard", 4, 18, 0) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_effect = Abilities::EffectType::Heal;

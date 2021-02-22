@@ -126,6 +126,9 @@ namespace Khorne {
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
+        void onSlain() override;
+        void onEnemySlain(const Unit* unit) override;
+
     protected:
 
         SlaughterHost m_slaughterHost = SlaughterHost::None;

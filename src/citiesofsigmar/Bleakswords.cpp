@@ -107,19 +107,19 @@ namespace CitiesOfSigmar {
     }
 
     int Bleakswords::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int Bleakswords::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int Bleakswords::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
@@ -129,11 +129,11 @@ namespace CitiesOfSigmar {
         if (unmodifiedHitRoll == 6) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return CitizenOfSigmar::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int Bleakswords::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
         // Ranks of Cold Steel
         if (remainingModels() >= 10) mod++;
         return mod;

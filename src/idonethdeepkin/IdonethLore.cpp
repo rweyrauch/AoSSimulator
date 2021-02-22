@@ -14,7 +14,7 @@ namespace IdonethDeepkin {
 
     class VorpalMaelstrom : public Spell {
     public:
-        VorpalMaelstrom(Unit *caster) :
+        explicit VorpalMaelstrom(Unit *caster) :
                 Spell(caster, "Vorpal Maelstrom", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
@@ -38,7 +38,7 @@ namespace IdonethDeepkin {
 
     class PressureOfTheDeep : public Spell {
     public:
-        PressureOfTheDeep(Unit *caster) :
+        explicit PressureOfTheDeep(Unit *caster) :
                 Spell(caster, "Pressure of the Deep", 7, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -56,7 +56,7 @@ namespace IdonethDeepkin {
 
     class TideOfFear : public Spell {
     public:
-        TideOfFear(Unit *caster) :
+        explicit TideOfFear(Unit *caster) :
                 Spell(caster, "Tide of Fear", 6, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
@@ -74,7 +74,7 @@ namespace IdonethDeepkin {
 
     class ArcaneCorrasion : public Spell {
     public:
-        ArcaneCorrasion(Unit *caster) :
+        explicit ArcaneCorrasion(Unit *caster) :
                 Spell(caster, "Arcane Corrasion", 6, 48) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;

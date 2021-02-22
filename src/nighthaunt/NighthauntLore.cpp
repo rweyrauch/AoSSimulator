@@ -14,7 +14,7 @@ namespace Nighthaunt {
 
     class SoulCage : public Spell {
     public:
-        SoulCage(Unit *caster) :
+        explicit SoulCage(Unit *caster) :
                 Spell(caster, "Soul Cage", 6, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
@@ -31,7 +31,7 @@ namespace Nighthaunt {
 
     class SpiritDrain : public Spell {
     public:
-        SpiritDrain(Unit *caster) :
+        explicit SpiritDrain(Unit *caster) :
                 Spell(caster, "Spirit Drain", 4, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -49,7 +49,7 @@ namespace Nighthaunt {
 
     class Lifestealer : public Spell {
     public:
-        Lifestealer(Unit *caster) :
+        explicit Lifestealer(Unit *caster) :
                 Spell(caster, "Lifestealer", 7, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -67,7 +67,7 @@ namespace Nighthaunt {
 
     class Shademist : public Spell {
     public:
-        Shademist(Unit *caster) :
+        explicit Shademist(Unit *caster) :
                 Spell(caster, "Shademist", 6, 12) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;

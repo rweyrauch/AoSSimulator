@@ -215,7 +215,7 @@ namespace Seraphon {
 
     class GiftFromTheHeavens : public CommandAbility {
     public:
-        GiftFromTheHeavens(Unit *general) :
+        explicit GiftFromTheHeavens(Unit *general) :
                 CommandAbility(general, "Gift from the Heavens", 18, 18, Phase::Hero) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_targetKeywords = {SERAPHON};

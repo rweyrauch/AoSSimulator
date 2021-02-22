@@ -12,6 +12,15 @@ void Roster::addUnit(Unit *unit) {
     if (unit == nullptr) return;
     unit->setRoster(this);
     m_units.push_back(unit);
+
+    // Automatically set resource type based on unit's faction
+    if (unit->hasKeyword(KHORNE)) m_factionResource = Resource::Khorne_Blood_Tithe;
+    else if (unit->hasKeyword(SLAANESH)) m_factionResource = Resource::Slaanesh_Depravity;
+    else if (unit->hasKeyword(BEASTS_OF_CHAOS)) m_factionResource = Resource::BeastsOfChaos_Primordial_Call;
+    else if (unit->hasKeyword(NURGLE)) m_factionResource = Resource::Nurgle_Contagion;
+    else if (unit->hasKeyword(SKAVEN)) m_factionResource = Resource::Skaven_Warpstone_Spark;
+    else if (unit->hasKeyword(SERAPHON)) m_factionResource = Resource::Seraphon_Celestial_Conjuration;
+    else m_factionResource = Resource::None;
 }
 
 void Roster::doHeroPhase() {

@@ -111,26 +111,26 @@ namespace CitiesOfSigmar {
     }
 
     int FreeguildCrossbowmen::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Piper)) mod++;
         return mod;
     }
 
     int FreeguildCrossbowmen::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Piper)) mod++;
         return mod;
     }
 
     int FreeguildCrossbowmen::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 
     int
     FreeguildCrossbowmen::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extras = CitizenOfSigmar::extraAttacks(attackingModel, weapon, target);
         // Reload, Fire!
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         if (!m_moved && units.empty()) {

@@ -135,7 +135,7 @@ namespace CitiesOfSigmar {
     }
 
     int BlackArkCorsairs::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = CitizenOfSigmar::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }

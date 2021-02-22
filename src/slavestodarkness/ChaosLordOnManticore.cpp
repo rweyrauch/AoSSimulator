@@ -125,6 +125,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosLordOnManticore::onRestore() {
+        SlavesToDarknessBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
@@ -180,7 +181,7 @@ namespace SlavesToDarkness {
     }
 
     Wounds ChaosLordOnManticore::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
-        auto savedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto savedWounds = SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
         Dice::RollResult result;
         // Chaos Runeshield
         Dice::RollD6(savedWounds.mortal, result);
@@ -190,7 +191,7 @@ namespace SlavesToDarkness {
 
     Wounds
     ChaosLordOnManticore::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         // Daemonbound
         if ((hitRoll == 6) && (weapon->name() == m_blade.name())) {
             damage.mortal++;
@@ -203,7 +204,7 @@ namespace SlavesToDarkness {
     }
 
     Wounds ChaosLordOnManticore::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
-        auto damage = Unit::computeReturnedDamage(weapon, saveRoll);
+        auto damage = SlavesToDarknessBase::computeReturnedDamage(weapon, saveRoll);
 
         // Daggerfist
         if ((saveRoll == 6) && (!weapon->isMissile()) &&
@@ -214,7 +215,7 @@ namespace SlavesToDarkness {
     }
 
     int ChaosLordOnManticore::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        auto rend = SlavesToDarknessBase::weaponRend(weapon, target, hitRoll, woundRoll);
 
         // Chaos Lance
         if (m_charged && (weapon->name() == m_lance.name())) {
@@ -228,7 +229,7 @@ namespace SlavesToDarkness {
         if ((weapon->name() == m_fangsAndClaws.name()) && (target->hasKeyword(MONSTER))) {
             return Reroll_Failed;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }
 
     int ChaosLordOnManticore::ComputePoints(int /*numModels*/) {

@@ -114,6 +114,8 @@ namespace CitiesOfSigmar {
     }
 
     void SteamTank::onRestore() {
+        CitizenOfSigmar::onRestore();
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -124,7 +126,7 @@ namespace CitiesOfSigmar {
         m_steamGun.setToWound(g_damageTable[damageIndex].m_gunToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     int SteamTank::getDamageTableIndex() const {
@@ -138,7 +140,7 @@ namespace CitiesOfSigmar {
     }
 
     int SteamTank::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Bouncing Cannon Balls
         if ((weapon->name() == m_steamCannon.name()) && (target->remainingModels() >= 10)) mod++;
@@ -147,7 +149,7 @@ namespace CitiesOfSigmar {
     }
 
     void SteamTank::onCharged() {
-        Unit::onCharged();
+        CitizenOfSigmar::onCharged();
 
         // Steel Behemoth
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -159,7 +161,7 @@ namespace CitiesOfSigmar {
     }
 
     void SteamTank::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        CitizenOfSigmar::onStartHero(player);
 
         if (owningPlayer() == player) {
             m_overpressured = false;
@@ -175,7 +177,7 @@ namespace CitiesOfSigmar {
     }
 
     int SteamTank::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = CitizenOfSigmar::extraAttacks(attackingModel, weapon, target);
 
         if (m_overpressured) extra += 2;
 
@@ -183,7 +185,7 @@ namespace CitiesOfSigmar {
     }
 
     int SteamTank::moveModifier() const {
-        auto mod = Unit::moveModifier();
+        auto mod = CitizenOfSigmar::moveModifier();
 
         if (m_overpressured) mod += 2;
 

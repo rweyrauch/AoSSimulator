@@ -25,7 +25,7 @@ namespace SlavesToDarkness {
 
         ScionsOfTheFlame();
 
-        ~ScionsOfTheFlame() = default;
+        ~ScionsOfTheFlame() override = default;
 
         bool configure(int numModels);
 

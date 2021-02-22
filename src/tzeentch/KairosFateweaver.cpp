@@ -19,8 +19,8 @@ namespace Tzeentch {
         explicit GiftOfChange(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     GiftOfChange::GiftOfChange(Unit *caster) :

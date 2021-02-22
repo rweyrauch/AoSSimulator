@@ -60,7 +60,7 @@ bool Prayer::pray(double x, double y, int round) {
     return result;
 }
 
-DamagePrayer::DamagePrayer(Unit *priest, const std::string &name, int prayingValue, double range, int damage,
+DamagePrayer::DamagePrayer(Unit *priest, const std::string &name, int prayingValue, int range, int damage,
                            int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_damage(damage) {
@@ -83,7 +83,7 @@ bool DamagePrayer::apply(int prayingRoll, Unit *target) {
     return true;
 }
 
-HealPrayer::HealPrayer(Unit *priest, const std::string &name, int prayingValue, double range, int healing, int damageOn1)
+HealPrayer::HealPrayer(Unit *priest, const std::string &name, int prayingValue, int range, int healing, int damageOn1)
         :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_healing(healing) {
@@ -104,7 +104,7 @@ bool HealPrayer::apply(int prayingRoll, Unit *target) {
     return true;
 }
 
-BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
+BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
                                        BuffableAttribute which, int modifier, Abilities::Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
@@ -125,7 +125,7 @@ int BuffModifierPrayer::getModifier(int prayingRoll) const {
     return m_modifier;
 }
 
-BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, double range,
+BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
                                    BuffableAttribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
