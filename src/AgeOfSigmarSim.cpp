@@ -179,8 +179,8 @@ const std::string &FactionKeywordToString(Keyword faction) {
 }
 
 void SimLog(Verbosity verbosity, const char *format, ...) {
-    if ((int) verbosity >= (int) GetVerbosity())
-        return;
+    //if ((int) verbosity >= (int) GetVerbosity())
+    //    return;
 
     va_list args;
     va_start(args, format);

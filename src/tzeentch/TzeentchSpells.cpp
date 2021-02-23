@@ -38,7 +38,7 @@ namespace Tzeentch {
             auto factory = UnitFactory::LookupUnit("Chaos Spawn");
             if (factory) {
                 if (m_caster->getRoster()) {
-                    auto unit = UnitFactory::Create("Chaos Spawn", factory->m_parameters);
+                    auto unit = std::shared_ptr<Unit>(UnitFactory::Create("Chaos Spawn", factory->m_parameters));
                     unit->deploy(m_caster->position(), m_caster->orientation());
                     m_caster->getRoster()->addUnit(unit);
                 }

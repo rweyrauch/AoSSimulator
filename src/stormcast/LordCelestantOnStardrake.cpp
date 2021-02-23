@@ -215,7 +215,7 @@ namespace StormcastEternals {
 
             // find all enemy units within 3"
             for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip) {
-                auto dist = distanceTo(*ip);
+                auto dist = distanceTo(ip->get());
                 if (dist <= 3.0) {
                     auto roll = Dice::RollD6();
                     if (roll < (*ip)->remainingModels()) {

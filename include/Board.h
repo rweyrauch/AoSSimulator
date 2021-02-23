@@ -8,6 +8,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 #include <AgeOfSigmarSim.h>
 #include <AoSKeywords.h>
 #include <TerrainFeature.h>
@@ -33,13 +34,13 @@ public:
         m_depth = depth;
     }
 
-    void addFeature(TerrainFeature *feature);
+    void addFeature(std::shared_ptr<TerrainFeature> feature);
 
-    void addObjective(Objective *objective);
+    void addObjective(std::shared_ptr<Objective> objective);
 
     void moveObjective(int which, double x, double y);
 
-    void addRosters(Roster *pRedRoster, Roster *pBlueRoster);
+    void addRosters(std::shared_ptr<Roster> pRedRoster, std::shared_ptr<Roster> pBlueRoster);
 
     [[nodiscard]] double width() const { return m_width; }
 
@@ -47,15 +48,15 @@ public:
 
     [[nodiscard]] int getNumFeatures() const { return (int) m_features.size(); }
 
-    [[nodiscard]] const TerrainFeature *getFeature(int which) const { return m_features.at((size_t) which); }
+    [[nodiscard]] const TerrainFeature *getFeature(int which) const { return m_features.at((size_t) which).get(); }
 
     [[nodiscard]] int getNumObjectives() const { return (int) m_objectives.size(); }
 
-    [[nodiscard]] const Objective *getObjective(int which) const { return m_objectives.at((size_t) which); }
+    [[nodiscard]] const Objective *getObjective(int which) const { return m_objectives.at((size_t) which).get(); }
 
     const Objective *getNearestObjective(const Unit *unit);
 
-    Roster *getPlayerRoster(PlayerId which) { return m_rosters[(int) which]; }
+    Roster *getPlayerRoster(PlayerId which) { return m_rosters[(int) which].get(); }
 
     Unit *getNearestUnit(const Unit *unit, PlayerId fromPlayer);
 
@@ -106,9 +107,9 @@ protected:
 
 private:
     double m_width = 0.0f, m_depth = 0.0f;
-    std::vector<TerrainFeature *> m_features;
-    std::vector<Objective *> m_objectives;
-    Roster *m_rosters[2] = {nullptr, nullptr};
+    std::vector<std::shared_ptr<TerrainFeature>> m_features;
+    std::vector<std::shared_ptr<Objective>> m_objectives;
+    std::shared_ptr<Roster> m_rosters[2] = {nullptr, nullptr};
     Realm m_realm = Azyr;
 
     static Board *s_pInstance;

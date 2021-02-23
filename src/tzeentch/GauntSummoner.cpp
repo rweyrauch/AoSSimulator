@@ -152,7 +152,7 @@ namespace Tzeentch {
                 auto factory = UnitFactory::LookupUnit(SummonedUnitNames[which]);
                 if (factory) {
                     if (m_roster) {
-                        auto unit = UnitFactory::Create(SummonedUnitNames[which], factory->m_parameters);
+                        auto unit = std::shared_ptr<Unit>(UnitFactory::Create(SummonedUnitNames[which], factory->m_parameters));
                         unit->deploy(position(), m_orientation);
                         m_roster->addUnit(unit);
                     }

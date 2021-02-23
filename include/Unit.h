@@ -32,7 +32,7 @@ class Unit : public UnitModifierInterface, public EventInterface {
 public:
     Unit() = default;
 
-    virtual ~Unit() = default;
+    ~Unit() override = default;
 
     //
     // Immutable unit attributes.
@@ -87,7 +87,7 @@ public:
 
     int numModels() const { return (int) m_models.size(); }
 
-    const Model *getModel(int which) const { return m_models.at(which).get(); }
+    const Model *getModel(int which) const { return m_models.at((size_t)which).get(); }
 
     bool isNamedModelAlive(const std::string& name) const;
 

@@ -8,7 +8,7 @@
 #include <cfloat>
 #include <Roster.h>
 
-void Roster::addUnit(Unit *unit) {
+void Roster::addUnit(std::shared_ptr<Unit> unit) {
     if (unit == nullptr) return;
     unit->setRoster(this);
     m_units.push_back(unit);
@@ -69,13 +69,13 @@ Unit *Roster::nearestUnit(const Unit *unit) const {
     auto nearestUnit = m_units.front();
     auto minDistance = DBL_MAX;
     for (auto u : m_units) {
-        const auto dist = unit->distanceTo(u);
+        const auto dist = unit->distanceTo(u.get());
         if (dist < minDistance) {
             minDistance = dist;
             nearestUnit = u;
         }
     }
-    return nearestUnit;
+    return nearestUnit.get();
 }
 
 int Roster::totalPoints() const {
@@ -113,8 +113,18 @@ bool Roster::useCommandPoint() {
     return false;
 }
 
-Roster::~Roster() {
-    for (auto ip : m_units) {
-        delete ip;
+Roster::~Roster() = default;
+
+void Roster::restore() {
+    for (auto u : m_units) {
+        u->restore();
     }
+}
+
+int Roster::getPoints() const {
+    int totalPoints = 0;
+    for (auto u : m_units) {
+        totalPoints += u->points();
+    }
+    return totalPoints;
 }

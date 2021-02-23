@@ -13,6 +13,7 @@
 #include "Dice.h"
 
 enum Phase {
+    Deployment,
     Initiative,
     Hero,
     Movement,

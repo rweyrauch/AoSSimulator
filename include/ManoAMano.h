@@ -7,6 +7,7 @@
  */
 #pragma once
 
+#include <memory>
 #include <AgeOfSigmarSim.h>
 #include <Unit.h>
 
@@ -21,7 +22,7 @@ public:
 
     ~ManoAMano();
 
-    void combatants(Unit *red, Unit *blue);
+    void combatants(std::shared_ptr<Unit> red, std::shared_ptr<Unit> blue);
 
     void start();
 
@@ -85,7 +86,7 @@ protected:
 private:
 
     int m_numRounds = 5;
-    Roster *m_rosters[2] = {nullptr, nullptr};
+    std::shared_ptr<Roster> m_rosters[2] = {nullptr, nullptr};
     Math::Point3 m_initialPos[2];
 
     int m_cpAvailable[2] = {0, 0};

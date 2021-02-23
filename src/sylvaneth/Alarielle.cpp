@@ -214,7 +214,7 @@ namespace Sylvaneth {
             auto factory = UnitFactory::LookupUnit("Kurnoth Hunters");
             if (factory) {
                 if (m_roster) {
-                    auto unit = UnitFactory::Create("Kurnoth Hunters", factory->m_parameters);
+                    auto unit = std::shared_ptr<Unit>(UnitFactory::Create("Kurnoth Hunters", factory->m_parameters));
                     unit->deploy(position(), orientation());
                     m_roster->addUnit(unit);
                 }

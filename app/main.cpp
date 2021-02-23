@@ -11,12 +11,15 @@
 #include <Dice.h>
 #include <Battle.h>
 #include <UnitFactory.h>
+#include <AoSKeywords.h>
 #include <codecvt>
 #include "cxxopts.hpp"
 
 void displayUnits(Verbosity verbose, const std::string& faction);
 void displayWeapons(const std::string& unit);
-Unit* parseUnitDescription(const std::string& desc);
+void InitializeUnitMap();
+Unit* GenerateRandomUnit(Keyword faction);
+Keyword GenerateRandomFaction();
 
 int main(int argc, char* argv[])
 {
@@ -27,7 +30,7 @@ int main(int argc, char* argv[])
     std::string listWeapons("none");
 
     int numIterations = 1;
-    bool saveMaps = false;
+    bool saveMaps = true;
     std::string mapBaseName("battlemap");
 
     cxxopts::Options options(argv[0], "Age of Sigmar: Mano a Mano simulation.");
@@ -46,29 +49,24 @@ int main(int argc, char* argv[])
         ;
     auto result = options.parse(argc, argv);
 
-    if (result.count("help"))
-    {
+    if (result.count("help")) {
         std::cout << options.help() << std::endl;
         return EXIT_SUCCESS;
     }
-    if (result.count("list"))
-    {
+    if (result.count("list")) {
         listUnits = true;
     }
-    if (result.count("faction"))
-    {
+    if (result.count("faction")) {
         listFaction = result["faction"].as<std::string>();
     }
-    if (result.count("save"))
-    {
+    if (result.count("save")) {
         saveMaps = true;
     }
-    if (result.count("weapons"))
-    {
+    if (result.count("weapons")) {
         listWeapons = result["weapons"].as<std::string>();
     }
 
-    Verbosity verbosity = Verbosity::Normal;
+    Verbosity verbosity = Verbosity::Narrative;
     if (verboseLevel == 0)
         verbosity = Verbosity::Silence;
     else if (verboseLevel == 1)
@@ -80,14 +78,14 @@ int main(int argc, char* argv[])
 
     Initialize(verbosity);
 
-    if (listUnits)
-    {
+    InitializeUnitMap();
+
+    if (listUnits) {
         displayUnits(verbosity, listFaction);
         return EXIT_SUCCESS;
     }
 
-    if (listWeapons != "none")
-    {
+    if (listWeapons != "none") {
         displayWeapons(listWeapons);
         return EXIT_SUCCESS;
     }
@@ -97,47 +95,31 @@ int main(int argc, char* argv[])
 
     auto board = Board::Instance();
 
-    if (result.count("red") == 0)
-    {
-        std::cout << "Must define a unit for player 1 (red)." << std::endl;
-        return EXIT_FAILURE;
-    }
-    if (result.count("blue") == 0)
-    {
-        std::cout << "Must define a unit for player 2 (blue)." << std::endl;
-        return EXIT_FAILURE;
-    }
+    auto pRedRoster = std::make_shared<Roster>(PlayerId::Red);
+    auto pBlueRoster = std::make_shared<Roster>(PlayerId::Blue);
 
-    // parse red string
-    std::string redUnit = result["red"].as<std::string>();
-    auto pRed = parseUnitDescription(redUnit);
-    if (pRed == nullptr)
-    {
-        std::cout << "Failed to parse player 1 (red) unit description." << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    // parse blue string
-    std::string blueUnit = result["blue"].as<std::string>();
-    auto pBlue = parseUnitDescription(blueUnit);
-    if (pBlue == nullptr)
-    {
-        std::cout << "Failed to parse player 2 (blue) unit description." << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    auto pRedRoster = new Roster(PlayerId::Red);
-    pRedRoster->addUnit(pRed);
-    auto pRedPlayer = new Player(PlayerId::Red);
+    auto pRedPlayer = std::make_shared<Player>(PlayerId::Red);
     pRedPlayer->setRoster(pRedRoster);
 
-    auto pBlueRoster = new Roster(PlayerId::Blue);
-    pBlueRoster->addUnit(pBlue);
-    auto pBluePlayer = new Player(PlayerId::Blue);
+    auto pBluePlayer = std::make_shared<Player>(PlayerId::Blue);
     pBluePlayer->setRoster(pBlueRoster);
+
+    auto redFaction = GenerateRandomFaction();
+    auto blueFaction = GenerateRandomFaction();
+
+    for (auto i = 0; i < 10; i++) {
+        auto pRed = std::shared_ptr<Unit>(GenerateRandomUnit(redFaction));
+        auto pBlue = std::shared_ptr<Unit>(GenerateRandomUnit(blueFaction));
+        pRedRoster->addUnit(pRed);
+        pBlueRoster->addUnit(pBlue);
+    }
+
+    Board::Instance()->setSize(72, 48);
+    Board::Instance()->addRosters(pRedRoster, pBlueRoster);
+
     battle.addPlayers(pRedPlayer, pBluePlayer);
 
-    std::cout << "Red Points: " << pRed->points() << "   Blue Points: " << pBlue->points() << std::endl;
+    std::cout << "Red Points: " << pRedRoster->getPoints() << "   Blue Points: " << pBlueRoster->getPoints() << std::endl;
 
     std::stringstream fn;
 
@@ -145,28 +127,28 @@ int main(int argc, char* argv[])
     int blueVictories = 0;
     int ties = 0;
 
-    for (auto i = 0; i < numIterations; i++)
-    {
-        pRed->restore();
-        pBlue->restore();
+    SetVerbosity(verbosity);
+
+    battle.deployment();
+
+    if (saveMaps) {
+        fn.str("");
+        fn << mapBaseName << "_start.png";
+        board->render(fn.str());
+    }
+
+    for (auto i = 0; i < numIterations; i++) {
+        pRedRoster->restore();
+        pBlueRoster->restore();
 
         battle.start(PlayerId::Red);
 
-        if (saveMaps)
-        {
-            fn.str("");
-            fn << mapBaseName << "_start.png";
-            board->render(fn.str());
-        }
-
-        while (!battle.done())
-        {
+        while (!battle.done()) {
             battle.simulate();
 
             auto round = battle.currentRound();
 
-            if (saveMaps)
-            {
+            if (saveMaps && battle.currentPhase() == Phase::Battleshock) {
                 fn.str("");
                 fn << mapBaseName << "_round_" << round << ".png";
                 board->render(fn.str());
@@ -180,27 +162,21 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-void displayUnits(Verbosity verbose, const std::string& faction)
-{
+void displayUnits(Verbosity verbose, const std::string& faction) {
     bool listAll = (faction == "all");
 
     std::cout << "Supported Units in Faction(" << faction << "):" << std::endl;
-    for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
-    {
-        if (!listAll)
-        {
+    for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip) {
+        if (!listAll) {
             auto ki = FactionStringToKeyword(faction);
-            if (ki != UNKNOWN)
-            {
+            if (ki != UNKNOWN) {
                 // filter based on keyword
-                for (auto fip : ruip->second.m_factions)
-                {
+                for (auto fip : ruip->second.m_factions) {
                     if (ki != fip)
                         continue;
                 }
             }
-            else
-            {
+            else {
                 // not found
                 std::cout << "Faction " << faction << " not found." << std::endl;
                 break;
@@ -209,62 +185,50 @@ void displayUnits(Verbosity verbose, const std::string& faction)
 
         std::cout << "\t" << ruip->first << std::endl;
 
-        if (verbose == Verbosity::Normal)
-        {
-            if (ruip->second.m_parameters.empty())
-            {
+        if (verbose == Verbosity::Normal) {
+            if (ruip->second.m_parameters.empty()) {
                 std::cout << "\t  Parameters:  None" << std::endl;
                 continue;
             }
 
             std::cout << "\t  Parameters:" << std::endl;
-            for (auto pip : ruip->second.m_parameters)
-            {
-                if (pip.paramType == ParamType::Integer || pip.paramType == ParamType::Enum)
-                {
-                    if (ruip->second.m_paramToString == nullptr)
-                    {
-                        if (pip.increment > 0)
-                        {
+            for (auto pip : ruip->second.m_parameters) {
+                if (pip.paramType == ParamType::Integer || pip.paramType == ParamType::Enum) {
+                    if (ruip->second.m_paramToString == nullptr) {
+                        if (pip.increment > 0) {
                             std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
                                       << pip.intValue << "  Allowed Values: ";
-                            for (auto v = pip.minValue; v <= pip.maxValue; v += pip.increment)
-                            {
+                            for (auto v = pip.minValue; v <= pip.maxValue; v += pip.increment) {
                                 std::cout << v;
                                 if (v < pip.maxValue) std::cout << ", ";
                             }
                             std::cout << std::endl;
                         }
-                        else
-                        {
+                        else {
                             std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
                                       << pip.intValue
                                       << "  Min: " << pip.minValue << "  Max: " << pip.maxValue
                                       << std::endl;
                         }
                     }
-                    else if (pip.increment > 0)
-                    {
+                    else if (pip.increment > 0) {
                         std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
                                   << ruip->second.m_paramToString(pip) << "  Allowed Values: ";
                         Parameter parm(pip);
-                        for (auto v = pip.minValue; v <= pip.maxValue; v += pip.increment)
-                        {
+                        for (auto v = pip.minValue; v <= pip.maxValue; v += pip.increment) {
                             parm.intValue = v;
                             std::cout << ruip->second.m_paramToString(parm);
                             if (v < pip.maxValue) std::cout << ", ";
                         }
                         std::cout << std::endl;
                     }
-                    else
-                    {
+                    else {
                         std::cout << "\t\tName: " << std::string(pip.name) << " Type: Integer  Value: "
                                   << ruip->second.m_paramToString(pip) << "  Min: " << pip.minValue
                                   << "  Max: " << pip.maxValue << std::endl;
                     }
                 }
-                else if (pip.paramType == ParamType::Boolean)
-                {
+                else if (pip.paramType == ParamType::Boolean) {
                     std::cout << "\t\tName: " << std::string(pip.name) << " Type: Boolean  Value: "
                               << (pip.intValue ? "true" : "false") << std::endl;
                 }
@@ -273,8 +237,7 @@ void displayUnits(Verbosity verbose, const std::string& faction)
     }
 }
 
-std::vector<std::string> split(const std::string& str, char delim)
-{
+std::vector<std::string> split(const std::string& str, char delim) {
     std::stringstream ss(str);
     std::string item;
     std::vector<std::string> result;
@@ -285,91 +248,7 @@ std::vector<std::string> split(const std::string& str, char delim)
     return result;
 }
 
-Unit* parseUnitDescription(const std::string& desc)
-{
-    if (desc.empty())
-        return nullptr;
-
-    // <unit name>,<param1=value>,<param2=value>,<param3=value>,etc...
-    auto args = split(desc, ',');
-    if (args.empty())
-        return nullptr;
-
-    Unit* unit = nullptr;
-
-    std::string unitName = *args.begin();
-    auto factory = UnitFactory::LookupUnit(unitName);
-    if (factory)
-    {
-        std::vector<Parameter> defaultParams = factory->m_parameters;
-
-        auto ip = args.begin();
-        ip++; // skip name
-        for (; ip != args.end(); ++ip)
-        {
-            // split param from value : "param=value"
-            auto paramValue = split(*ip, '=');
-
-            if (paramValue.size() == 2)
-            {
-                // find param with name paramValue[0]
-                auto paramName = paramValue[0];
-                auto value = paramValue[1];
-                // infer type of value
-                auto paramType = ParamType::Integer;
-                if (value == "true" || value == "false")
-                    paramType = ParamType::Boolean;
-                try
-                {
-                    int temp = std::stoi(value);
-                    paramType = ParamType::Integer;
-                }
-                catch (std::invalid_argument)
-                {
-                    paramType = ParamType::Enum;
-                }
-
-                auto matchParam = [paramName](Parameter& p)->bool { return (std::string(p.name) == paramName); };
-                auto pv = std::find_if(defaultParams.begin(), defaultParams.end(), matchParam);
-                if (pv != defaultParams.end())
-                {
-                    if (pv->paramType != paramType)
-                    {
-                        // invalid parameter
-                        continue;
-                    }
-                    if (paramType == ParamType::Boolean)
-                    {
-                        if (value == "true")
-                            pv->intValue = Sim_True;
-                        else
-                            pv->intValue = Sim_False;
-                    }
-                    else if (paramType == ParamType::Integer)
-                    {
-                        try
-                        {
-                            pv->intValue = std::stoi(value);
-                        }
-                        catch (std::invalid_argument)
-                        {
-                            pv->intValue = factory->m_enumStringToInt(value);
-                        }
-                    }
-                    else if (paramType == ParamType::Enum)
-                    {
-                        pv->intValue = factory->m_enumStringToInt(value);
-                    }
-                }
-            }
-        }
-        unit = UnitFactory::Create(unitName, defaultParams);
-    }
-    return unit;
-}
-
-std::string damageToString(int damage)
-{
+std::string damageToString(int damage) {
     if (damage < 0)
     {
         switch (damage)
@@ -435,4 +314,123 @@ void displayWeapons(const std::string& unitName)
             }
         }
     }
+}
+
+std::map<int, std::string> g_unitMap;
+std::vector<Keyword> g_factions;
+
+void InitializeUnitMap()
+{
+    int unitId = 0;
+    for (auto ruip = UnitFactory::RegisteredUnitsBegin(); ruip != UnitFactory::RegisteredUnitsEnd(); ++ruip)
+    {
+        g_unitMap.insert(std::pair<int, std::string>(unitId, ruip->first));
+        unitId++;
+    }
+
+    g_factions = {STORMCAST_ETERNAL,
+            KHORNE,
+            SYLVANETH,
+            GLOOMSPITE_GITZ,
+            MOONCLAN,
+            NIGHTHAUNT,
+            DAUGHTERS_OF_KHAINE,
+            IDONETH_DEEPKIN,
+            BEASTS_OF_CHAOS,
+            SLAANESH,
+            TZEENTCH,
+            NURGLE,
+            SLAVES_TO_DARKNESS,
+            FLESH_EATER_COURTS,
+            BONESPLITTERZ,
+            GREENSKINZ,
+            IRONJAWZ,
+            FYRESLAYERS,
+            KHARADRON_OVERLORDS,
+            SERAPHON,
+            SKAVEN,
+            CITIES_OF_SIGMAR,
+            OGOR_MAWTRIBES,
+            OSSIARCH_BONEREAPERS,
+            LUMINETH_REALM_LORDS,
+            SONS_OF_BEHEMAT};
+}
+
+Unit* GenerateRandomUnit(Keyword faction) {
+    const auto numUnits = (int)g_unitMap.size();
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, numUnits-1);
+    std::uniform_int_distribution<int> allInts(0, INT32_MAX);
+
+    std::string name;
+    const FactoryMethod* factory = nullptr;
+    bool found = false;
+    while (!found) {
+        auto unitId = distribution(gen);
+        name = g_unitMap.at(unitId);
+        factory = UnitFactory::LookupUnit(name);
+        if (std::find(factory->m_factions.begin(), factory->m_factions.end(), faction) != std::end(factory->m_factions)) {
+            found = true;
+        }
+    }
+    auto parameters = factory->m_parameters;
+    for (auto& ip : parameters)
+    {
+        if (ip.paramType == ParamType::Boolean)
+        {
+            int value = allInts(gen) % 2;
+            ip.intValue = value;
+        }
+        else if (ip.paramType == ParamType::Integer)
+        {
+            int minValue = ip.minValue;
+            if (ip.increment != 0) minValue /= ip.increment;
+            int maxValue = ip.maxValue;
+            if (ip.increment != 0) maxValue /= ip.increment;
+
+            int valueRange = (maxValue - minValue);
+
+            int value = allInts(gen) % valueRange + minValue;
+            if (ip.increment != 0) value *= ip.increment;
+
+            ip.intValue = value;
+        }
+        else if (ip.paramType == ParamType::Enum)
+        {
+            int value = allInts(gen) % ip.numValues;
+            ip.intValue = value;
+        }
+    }
+
+    auto unit = UnitFactory::Create(name, parameters);
+    if (unit == nullptr)
+    {
+        for (auto& pp : parameters)
+        {
+            if (pp.paramType == ParamType::Integer && std::string(pp.name) != "Models")
+                pp.intValue = 0;
+        }
+
+        unit = UnitFactory::Create(name, parameters);
+        if (unit == nullptr)
+        {
+            std::cerr << "Failed to create unit " << name << "." << std::endl;
+            std::cerr << "\tParameters: " << std::endl;
+            for (auto &pp : parameters)
+            {
+                std::cerr << "\t\t" << std::string(pp.name) << ": " << pp.intValue << std::endl;
+            }
+        }
+    }
+    return unit;
+}
+
+Keyword GenerateRandomFaction() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> distribution(0, g_factions.size()-1);
+
+    return g_factions[distribution(gen)];
 }

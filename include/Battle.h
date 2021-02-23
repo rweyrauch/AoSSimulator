@@ -14,7 +14,7 @@ class Battle {
 public:
     Battle() = default;
 
-    void addPlayers(Player *player1, Player *player2);
+    void addPlayers(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2);
 
     void setNumRounds(int rounds) { m_numRounds = rounds; }
 
@@ -51,7 +51,7 @@ protected:
     void runBattleshockPhase();
 
 private:
-    Player *m_players[2] = {nullptr, nullptr};
+    std::shared_ptr<Player> m_players[2] = {nullptr, nullptr};
     int m_numRounds = 5;
 
     int m_round = 0;

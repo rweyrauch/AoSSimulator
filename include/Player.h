@@ -13,7 +13,7 @@ class Player {
 public:
     explicit Player(PlayerId id) : m_id(id) {}
 
-    void setRoster(Roster *roster) {
+    void setRoster(std::shared_ptr<Roster> roster) {
         m_roster = roster;
         if (m_roster)
             m_activatedUnit = m_roster->unitEnd();
@@ -29,8 +29,8 @@ public:
 
 private:
     const PlayerId m_id;
-    Roster *m_roster = nullptr;
+    std::shared_ptr<Roster> m_roster = nullptr;
 
     Phase m_currentPhase = Phase::Initiative;
-    std::list<Unit *>::iterator m_activatedUnit;
+    std::list<std::shared_ptr<Unit>>::iterator m_activatedUnit;
 };

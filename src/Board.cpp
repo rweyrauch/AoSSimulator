@@ -20,12 +20,12 @@
 
 Board *Board::s_pInstance = nullptr;
 
-void Board::addObjective(Objective *objective) {
+void Board::addObjective(std::shared_ptr<Objective> objective) {
     m_objectives.push_back(objective);
 }
 
 void Board::moveObjective(int id, double x, double y) {
-    auto matchId = [id](const Objective *obj) -> bool {
+    auto matchId = [id](const std::shared_ptr<Objective> obj) -> bool {
         return (obj->m_id == id);
     };
 
@@ -36,11 +36,11 @@ void Board::moveObjective(int id, double x, double y) {
     }
 }
 
-void Board::addFeature(TerrainFeature *feature) {
+void Board::addFeature(std::shared_ptr<TerrainFeature> feature) {
     m_features.push_back(feature);
 }
 
-void Board::addRosters(Roster *pRedRoster, Roster *pBlueRoster) {
+void Board::addRosters(std::shared_ptr<Roster> pRedRoster, std::shared_ptr<Roster> pBlueRoster) {
     m_rosters[(int) PlayerId::Red] = pRedRoster;
     m_rosters[(int) PlayerId::Blue] = pBlueRoster;
 }
@@ -82,10 +82,10 @@ void Board::render(const std::string &filename) const {
     cr->save();
     cr->set_line_width(1.0);
 
-    Roster *red = m_rosters[0];
+    auto red = m_rosters[0];
     for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
     {
-        const Unit *unit = *ip;
+        const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
 
@@ -112,10 +112,10 @@ void Board::render(const std::string &filename) const {
     cr->save();
     cr->set_line_width(1.0);
 
-    Roster *blue = m_rosters[1];
+    auto blue = m_rosters[1];
     for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip)
     {
-        const Unit *unit = *ip;
+        const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
 
@@ -141,7 +141,7 @@ void Board::render(const std::string &filename) const {
 
     for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
     {
-        const Unit *unit = *ip;
+        const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
 
@@ -159,7 +159,7 @@ void Board::render(const std::string &filename) const {
 
     for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip)
     {
-        const Unit *unit = *ip;
+        const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
 
@@ -184,35 +184,35 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, doub
     if (which == PlayerId::None) {
         if (m_rosters[0] != nullptr) {
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
-                if (*ip == unit) {
+                if (ip->get() == unit) {
                     continue;
                 }
-                double dist = unit->distanceTo(*ip);
+                double dist = unit->distanceTo(ip->get());
                 if (dist <= distance) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
         if (m_rosters[1] != nullptr) {
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
-                if (*ip == unit) {
+                if (ip->get() == unit) {
                     continue;
                 }
-                double dist = unit->distanceTo(*ip);
+                double dist = unit->distanceTo(ip->get());
                 if (dist <= distance) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
     } else {
         if (m_rosters[(int) which] != nullptr) {
             for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip) {
-                if (*ip == unit) {
+                if (ip->get() == unit) {
                     continue;
                 }
-                double dist = unit->distanceTo(*ip);
+                double dist = unit->distanceTo(ip->get());
                 if (dist <= distance) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -221,7 +221,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Unit *unit, PlayerId which, doub
 }
 
 Unit *Board::getNearestUnit(const Unit *unit, PlayerId fromPlayer) {
-    if (unit == nullptr) {
+    if ((unit == nullptr) || (m_rosters[0] == nullptr) || (m_rosters[1] == nullptr)) {
         return nullptr;
     }
     Unit *nearestUnit = nullptr;
@@ -279,14 +279,14 @@ std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId from
         if (m_rosters[0] != nullptr) {
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
                 if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position())) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
         if (m_rosters[1] != nullptr) {
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
                 if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position())) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -295,7 +295,7 @@ std::vector<Unit *> Board::getUnitWithin(Board::Quadrant quadrant, PlayerId from
             for (auto ip = m_rosters[(int) fromPlayer]->unitBegin();
                  ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip) {
                 if (inQuadrant(quadrant, northSouth, eastWest, (*ip)->position())) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -308,19 +308,19 @@ std::vector<Unit *> Board::getAllUnits(PlayerId fromPlayer) {
     if (fromPlayer == PlayerId::None) {
         if (m_rosters[0] != nullptr) {
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
-                units.push_back(*ip);
+                units.push_back(ip->get());
             }
         }
         if (m_rosters[1] != nullptr) {
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
-                units.push_back(*ip);
+                units.push_back(ip->get());
             }
         }
     } else {
         if (m_rosters[(int) fromPlayer] != nullptr) {
             for (auto ip = m_rosters[(int) fromPlayer]->unitBegin();
                  ip != m_rosters[(int) fromPlayer]->unitEnd(); ++ip) {
-                units.push_back(*ip);
+                units.push_back(ip->get());
             }
         }
     }
@@ -367,7 +367,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
                 double dist = point.distance((*ip)->position());
                 if (dist <= distance) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -375,7 +375,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
                 double dist = point.distance((*ip)->position());
                 if (dist <= distance) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -384,7 +384,7 @@ std::vector<Unit *> Board::getUnitsWithin(const Math::Point3 &point, PlayerId wh
             for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip) {
                 double dist = point.distance((*ip)->position());
                 if (dist <= distance) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -469,7 +469,7 @@ const Objective *Board::getNearestObjective(const Unit *unit) {
     if (unit == nullptr || m_objectives.empty()) {
         return nullptr;
     }
-    Objective *nearestObjective = m_objectives.front();
+    auto nearestObjective = m_objectives.front();
     auto minDistance = DBL_MAX;
     for (auto o : m_objectives) {
         double dist = unit->distanceTo(o->m_pos);
@@ -478,7 +478,7 @@ const Objective *Board::getNearestObjective(const Unit *unit) {
             nearestObjective = o;
         }
     }
-    return nearestObjective;
+    return nearestObjective.get();
 }
 
 std::vector<Unit *> Board::getUnitsWithKeyword(PlayerId which, Keyword keyword) {
@@ -487,14 +487,14 @@ std::vector<Unit *> Board::getUnitsWithKeyword(PlayerId which, Keyword keyword) 
         if (m_rosters[0] != nullptr) {
             for (auto ip = m_rosters[0]->unitBegin(); ip != m_rosters[0]->unitEnd(); ++ip) {
                 if ((*ip)->hasKeyword(keyword)) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
         if (m_rosters[1] != nullptr) {
             for (auto ip = m_rosters[1]->unitBegin(); ip != m_rosters[1]->unitEnd(); ++ip) {
                 if ((*ip)->hasKeyword(keyword)) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }
@@ -502,7 +502,7 @@ std::vector<Unit *> Board::getUnitsWithKeyword(PlayerId which, Keyword keyword) 
         if (m_rosters[(int) which] != nullptr) {
             for (auto ip = m_rosters[(int) which]->unitBegin(); ip != m_rosters[(int) which]->unitEnd(); ++ip) {
                 if ((*ip)->hasKeyword(keyword)) {
-                    units.push_back(*ip);
+                    units.push_back(ip->get());
                 }
             }
         }

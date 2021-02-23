@@ -18,16 +18,13 @@ ManoAMano::ManoAMano(int numRounds, Realm realm) :
     board->setRealm(realm);
 }
 
-void ManoAMano::combatants(Unit *red, Unit *blue) {
+void ManoAMano::combatants(std::shared_ptr<Unit> red, std::shared_ptr<Unit> blue) {
     auto board = Board::Instance();
 
-    delete m_rosters[0];
-    delete m_rosters[1];
-
-    m_rosters[0] = new Roster(PlayerId::Red);
+    m_rosters[0] = std::make_shared<Roster>(PlayerId::Red);
     m_rosters[0]->addUnit(red);
 
-    m_rosters[1] = new Roster(PlayerId::Blue);
+    m_rosters[1] = std::make_shared<Roster>(PlayerId::Blue);
     m_rosters[1]->addUnit(blue);
 
     // +-----------------------+
@@ -323,8 +320,6 @@ void ManoAMano::runBattleshockPhase() {
 }
 
 ManoAMano::~ManoAMano() {
-    delete m_rosters[0];
-    delete m_rosters[1];
 }
 
 PlayerId ManoAMano::getVictor() const {
@@ -398,12 +393,12 @@ void ManoAMano::logStatistics() const {
 
 Unit *ManoAMano::redUnit() {
     auto red = m_rosters[0]->unitBegin();
-    return *red;
+    return red->get();
 }
 
 Unit *ManoAMano::blueUnit() {
     auto blue = m_rosters[1]->unitBegin();
-    return *blue;
+    return blue->get();
 }
 
 Unit *ManoAMano::attackingUnit() {
@@ -426,12 +421,12 @@ Unit *ManoAMano::defendingUnit() {
 
 const Unit *ManoAMano::redUnit() const {
     const auto red = m_rosters[0]->unitBegin();
-    return *red;
+    return red->get();
 }
 
 const Unit *ManoAMano::blueUnit() const {
     const auto blue = m_rosters[1]->unitBegin();
-    return *blue;
+    return blue->get();
 }
 
 void ManoAMano::getStatistics(PlayerId which, UnitStatistics &stats) {

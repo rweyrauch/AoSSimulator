@@ -19,7 +19,7 @@ Unit* Player::startPhase(Phase phase) {
     m_currentPhase = phase;
     if (m_roster) {
         m_activatedUnit = m_roster->unitBegin();
-        return *m_activatedUnit;
+        return m_activatedUnit->get();
     }
     return nullptr;
 }
@@ -28,7 +28,7 @@ Unit *Player::advancePhase() {
     if (m_roster && (m_activatedUnit != m_roster->unitEnd())) {
         auto unit = *m_activatedUnit;
         ++m_activatedUnit;
-        return unit;
+        return unit.get();
     }
     return nullptr;
 }

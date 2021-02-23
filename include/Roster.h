@@ -7,6 +7,7 @@
  */
 #pragma once
 
+#include <memory>
 #include <list>
 #include <Unit.h>
 
@@ -29,7 +30,7 @@ public:
 
     [[nodiscard]] PlayerId getOwningPlayer() const { return m_id; }
 
-    void addUnit(Unit *unit);
+    void addUnit(std::shared_ptr<Unit> unit);
 
     void beginRound(int battleRound);
 
@@ -51,11 +52,15 @@ public:
 
     void doBattleshockPhase();
 
+    void restore();
+
+    int getPoints() const;
+
     Unit *nearestUnit(const Unit *unit) const;
 
-    std::list<Unit *>::iterator unitBegin() { return m_units.begin(); }
+    std::list<std::shared_ptr<Unit>>::iterator unitBegin() { return m_units.begin(); }
 
-    std::list<Unit *>::iterator unitEnd() { return m_units.end(); }
+    std::list<std::shared_ptr<Unit>>::iterator unitEnd() { return m_units.end(); }
 
     [[nodiscard]] int totalPoints() const;
 
@@ -75,7 +80,7 @@ public:
 
 private:
     const PlayerId m_id;
-    std::list<Unit *> m_units; // NOTE: using a list so that units may be added while iterating over the list
+    std::list<std::shared_ptr<Unit>> m_units; // NOTE: using a list so that units may be added while iterating over the list
 
     int m_cp = 0;
 

@@ -7,6 +7,7 @@
  */
 #include <Dice.h>
 #include <Battle.h>
+#include <Board.h>
 
 void Battle::start(PlayerId firstPlayer) {
     m_topOfRound = true;
@@ -18,6 +19,9 @@ void Battle::start(PlayerId firstPlayer) {
 void Battle::next() {
     // advance battle state machine
     switch (m_currentPhase) {
+        case Phase::Deployment:
+            m_currentPhase = Phase::Initiative;
+            break;
         case Phase::Initiative:
             m_currentPhase = Phase::Hero;
             break;
@@ -77,6 +81,8 @@ void Battle::simulate() {
 
     // run the simulation for the current state
     switch (m_currentPhase) {
+        case Phase::Deployment:
+            break;
         case Phase::Initiative:
             runInitiativePhase();
             break;
@@ -101,7 +107,7 @@ void Battle::simulate() {
     }
 }
 
-void Battle::addPlayers(Player *player1, Player *player2) {
+void Battle::addPlayers(std::shared_ptr<Player> player1, std::shared_ptr<Player> player2) {
     m_players[0] = player1;
     m_players[1] = player2;
 }
@@ -153,13 +159,14 @@ void Battle::runShootingPhase() {
 
         int numSlain = 0;
         auto totalDamage = unit->shoot(numSlain);
-        SimLog(Verbosity::Narrative, "%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
-                PlayerIdToString(m_currentPlayer).c_str(),
-                unit->name().c_str(),
-                (totalDamage.normal + totalDamage.mortal),
-                PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
-                unit->meleeTarget()->name().c_str(), numSlain);
-
+        if (unit->shootingTarget()) {
+            SimLog(Verbosity::Narrative, "%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
+                   PlayerIdToString(m_currentPlayer).c_str(),
+                   unit->name().c_str(),
+                   (totalDamage.normal + totalDamage.mortal),
+                   PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
+                   unit->shootingTarget()->name().c_str(), numSlain);
+        }
         unit = m_players[m_currentPlayer]->advancePhase();
     }
     m_players[m_currentPlayer]->endPhase();
@@ -171,11 +178,9 @@ void Battle::runChargePhase() {
         unit->charge(m_currentPlayer);
 
         if (unit->charged()) {
-            SimLog(Verbosity::Narrative, "%s:%s charged %s:%s.\n",
+            SimLog(Verbosity::Narrative, "%s:%s charged.\n",
                     PlayerIdToString(m_currentPlayer).c_str(),
-                    unit->name().c_str(),
-                    PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
-                    unit->meleeTarget()->name().c_str());
+                    unit->name().c_str());
         }
 
         unit = m_players[m_currentPlayer]->advancePhase();
@@ -197,11 +202,13 @@ void Battle::runCombatPhase() {
             int numSlain = 0;
             auto totalDamage = unit->fight(m_currentPlayer, numSlain);
 
-            SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
-                   PlayerIdToString(m_currentPlayer).c_str(),
-                   unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
-                   PlayerIdToString(defendingPlayer).c_str(), unit->meleeTarget()->name().c_str(),
-                   numSlain);
+            if (unit->meleeTarget()) {
+                SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+                       PlayerIdToString(m_currentPlayer).c_str(),
+                       unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+                       PlayerIdToString(defendingPlayer).c_str(), unit->meleeTarget()->name().c_str(),
+                       numSlain);
+            }
         }
         if (eunit) {
             eunit->combat(m_currentPlayer);
@@ -209,11 +216,13 @@ void Battle::runCombatPhase() {
             int numSlain = 0;
             auto totalDamage = eunit->fight(m_currentPlayer, numSlain);
 
-            SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
-                   PlayerIdToString(defendingPlayer).c_str(),
-                   eunit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
-                   PlayerIdToString(m_currentPlayer).c_str(), eunit->meleeTarget()->name().c_str(),
-                   numSlain);
+            if (eunit->meleeTarget()) {
+                SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+                       PlayerIdToString(defendingPlayer).c_str(),
+                       eunit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+                       PlayerIdToString(m_currentPlayer).c_str(), eunit->meleeTarget()->name().c_str(),
+                       numSlain);
+            }
         }
 
         // Advance to next units
@@ -245,8 +254,55 @@ void Battle::runBattleshockPhase() {
 
 void Battle::deployment() {
 
+    auto board = Board::Instance();
+
+    PlayerId firstPlayer = PlayerId::None;
     // initiative to select player deploying first
+    while (firstPlayer == PlayerId::None) {
+        auto redRoll = Dice::RollD6();
+        auto blueRoll = Dice::RollD6();
+        if (redRoll > blueRoll) firstPlayer = PlayerId::Red;
+        else if (blueRoll > redRoll) firstPlayer = PlayerId::Blue;
+    }
+    PlayerId secondPlayer = GetEnemyId(firstPlayer);
+
+    // +-----------------------+
+    // |                       |
+    // |                       |
+    // | first          second |
+    // |                       |
+    // |                       |
+    // +-----------------------+
+
+    double fX = board->width() / 10.0;
+    double fY = board->depth() / 2.0;
+
+    // left center
+    auto fPos = Math::Point3(fX, fY, 0.0);
+    auto fOrientation = Math::Vector3(1,0,0);
+
+    double sX = board->width() - (board->width() / 10.0);
+    double sY = board->depth() / 2.0;
+
+    // right center
+    auto sPos = Math::Point3(sX, sY, 0.0);
+    auto sOrientation = Math::Vector3(-1.0, 0.0, 0.0);
 
     // loop until all units have been deployed
+    auto unit = m_players[firstPlayer]->startPhase(Phase::Deployment);
+    auto eunit = m_players[secondPlayer]->startPhase(Phase::Deployment);
+    while (unit || eunit) {
+        if (unit) {
+            unit->deploy(fPos, fOrientation);
+        }
+        if (eunit) {
+            eunit->deploy(sPos, sOrientation);
+        }
 
+        // Advance to next units
+        unit = m_players[firstPlayer]->advancePhase();
+        eunit = m_players[secondPlayer]->advancePhase();
+    }
+    m_players[firstPlayer]->endPhase();
+    m_players[secondPlayer]->endPhase();
 }

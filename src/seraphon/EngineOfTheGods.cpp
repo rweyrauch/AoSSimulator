@@ -193,7 +193,7 @@ namespace Seraphon {
             auto factory = UnitFactory::LookupUnit("Saurus Warriors");
             if (factory) {
                 if (m_roster) {
-                    auto summonnedUnit = UnitFactory::Create("Saurus Warriors", factory->m_parameters);
+                    auto summonnedUnit = std::shared_ptr<Unit>(UnitFactory::Create("Saurus Warriors", factory->m_parameters));
                     summonnedUnit->deploy(position(), m_orientation);
                     m_roster->addUnit(summonnedUnit);
                 }
