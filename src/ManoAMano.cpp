@@ -21,6 +21,7 @@ ManoAMano::ManoAMano(int numRounds, Realm realm) :
 void ManoAMano::combatants(std::shared_ptr<Unit> red, std::shared_ptr<Unit> blue) {
     auto board = Board::Instance();
 
+
     m_rosters[0] = std::make_shared<Roster>(PlayerId::Red);
     m_rosters[0]->addUnit(red);
 
@@ -103,6 +104,8 @@ void ManoAMano::simulate() {
 
     // run the simulation for the current state
     switch (m_currentPhase) {
+        case Phase::Deployment:
+            break;
         case Phase::Initiative:
             runInitiativePhase();
             break;
@@ -131,6 +134,9 @@ void ManoAMano::next() {
 
     // advance fight state machine
     switch (m_currentPhase) {
+        case Phase::Deployment:
+            m_currentPhase = Phase::Initiative;
+            break;
         case Phase::Initiative:
             m_currentPhase = Phase::Hero;
             break;

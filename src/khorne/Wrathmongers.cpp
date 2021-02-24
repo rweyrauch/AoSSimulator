@@ -106,11 +106,10 @@ namespace Khorne {
     }
 
     int
-    Wrathmongers::crimsonHaze(const Unit * /*attacker*/, const Model * /*attackingModel*/, const Weapon * /*weapon*/,
+    Wrathmongers::crimsonHaze(const Unit *attacker, const Model * /*attackingModel*/, const Weapon * /*weapon*/,
                               const Unit *target) {
         // Crimson Haze
-        if (distanceTo(target) <= 8.0) {
-            // TODO: Does not apply for attacking WRATHMONGER models
+        if (!attacker->hasKeyword(WRATHMONGERS) && (distanceTo(target) <= 8.0)) {
             return 1;
         }
         return 0;

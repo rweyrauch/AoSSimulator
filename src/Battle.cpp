@@ -42,6 +42,9 @@ void Battle::next() {
             break;
         case Phase::Battleshock:
             if (m_topOfRound) {
+
+                m_players[(int) m_currentPlayer]->endTurn(m_round);
+
                 // Next players turn
                 m_topOfRound = false;
                 if (m_currentPlayer == PlayerId::Red) {
@@ -50,11 +53,13 @@ void Battle::next() {
                     m_currentPlayer = PlayerId::Red;
                 }
 
-                const auto playerIdx = (int) m_currentPlayer;
-                m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
+                m_players[(int) m_currentPlayer]->beginTurn(m_round, m_currentPlayer);
 
                 m_currentPhase = Phase::Hero;
             } else {
+
+                m_players[(int) m_currentPlayer]->endTurn(m_round);
+
                 // End of round.
                 m_currentPhase = Phase::Initiative;
                 m_topOfRound = true;

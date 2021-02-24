@@ -37,6 +37,8 @@ namespace Khorne {
 
         Rerolls chargeRerolls() const override;
 
+        void onModelSlain(Wounds::Source source) override;
+
     private:
 
         Weapon m_bellyMaw,
@@ -51,7 +53,7 @@ namespace Khorne {
 // -------------------------------------------
 // Redhand                          Yes
 // Gorefists                        Yes
-// No Respite                       TODO
+// No Respite                       Yes
 // Blood Scent                      Yes
 //
 

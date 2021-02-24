@@ -31,6 +31,8 @@ namespace Khorne {
 
     protected:
 
+        void onStartMovement(PlayerId player) override;
+
     private:
 
         Weapon m_tortureBlade,
@@ -42,7 +44,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Whipped to Fury                  TODO
+// Whipped to Fury                  Yes
 //
 
 } // namespace Khorne

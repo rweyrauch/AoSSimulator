@@ -51,7 +51,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Furious Assault                  Yes
-// Crimson Haze                     Partial/TODO
+// Crimson Haze                     Yes
 // Bloodfury                        Yes
 //
 

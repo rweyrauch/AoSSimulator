@@ -85,4 +85,19 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
+    void Bloodstoker::onStartMovement(PlayerId player) {
+        KhorneBase::onStartMovement(player);
+
+        if (owningPlayer() == player) {
+            // Whipped to Fury
+            auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), MORTAL, 8.0);
+            if (unit != nullptr) {
+                unit->buffModifier(Charge_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffModifier(Run_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffReroll(To_Wound_Melee, Reroll_Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffReroll(To_Wound_Missile, Reroll_Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+            }
+        }
+    }
+
 } // namespace Khorne

@@ -38,3 +38,9 @@ void Player::endPhase() {
         m_activatedUnit = m_roster->unitEnd();
     }
 }
+
+void Player::endTurn(int battleRound) {
+    if (m_roster) {
+        m_roster->endTurn(battleRound);
+    }
+}

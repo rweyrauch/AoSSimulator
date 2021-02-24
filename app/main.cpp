@@ -432,5 +432,5 @@ Keyword GenerateRandomFaction() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> distribution(0, g_factions.size()-1);
 
-    return g_factions[distribution(gen)];
+    return KHORNE; // g_factions[distribution(gen)];
 }

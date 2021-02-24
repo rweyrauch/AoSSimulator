@@ -37,6 +37,8 @@ namespace Khorne {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
+        void onModelSlain(Wounds::Source source) override;
+
     private:
 
         bool m_pairedGoreaxe = false;
@@ -52,7 +54,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearer                      Yes
-// No Respite                       TODO
+// No Respite                       Yes
 // Goreaxes                         Yes
 // Gorefists                        Yes
 

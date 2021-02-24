@@ -41,8 +41,8 @@ static int g_redAlliance = ORDER;
 static int g_blueAlliance = ORDER;
 
 static ManoAMano* g_battle = nullptr;
-static Unit* g_pRed = nullptr;
-static Unit* g_pBlue = nullptr;
+static std::shared_ptr<Unit> g_pRed = nullptr;
+static std::shared_ptr<Unit> g_pBlue = nullptr;
 
 static void runSimulation();
 
@@ -65,8 +65,8 @@ static void on_start_clicked()
     }
     SetVerbosity(g_verboseLevel);
     g_saveMaps = pSaveMaps->get_active();
-    g_pRed = createUnit(pRedUnits->get_active_text(), pRedUnitConfig);
-    g_pBlue = createUnit(pBlueUnits->get_active_text(), pBlueUnitConfig);
+    g_pRed = std::shared_ptr<Unit>(createUnit(pRedUnits->get_active_text(), pRedUnitConfig));
+    g_pBlue = std::shared_ptr<Unit>(createUnit(pBlueUnits->get_active_text(), pBlueUnitConfig));
     runSimulation();
 }
 

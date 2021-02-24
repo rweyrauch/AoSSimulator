@@ -86,6 +86,7 @@ int main(int argc, char* argv[])
             std::cout << "Team Blue, " << pBlue->name() << ", was victorious." << std::endl;
         else
             std::cout << "Tie! " << std::endl;
+
     }
 
     return EXIT_SUCCESS;

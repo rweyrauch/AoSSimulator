@@ -7,6 +7,17 @@
  */
 #include <cfloat>
 #include <Roster.h>
+#include "AoSSimPrivate.h"
+
+constexpr std::array<int, 7> g_factionResourceName = {
+        ToInteger(Resource::None),
+        ToInteger(Resource::Khorne_Blood_Tithe),
+        ToInteger(Resource::Slaanesh_Depravity),
+        ToInteger(Resource::BeastsOfChaos_Primordial_Call),
+        ToInteger(Resource::Nurgle_Contagion),
+        ToInteger(Resource::Skaven_Warpstone_Spark),
+        ToInteger(Resource::Seraphon_Celestial_Conjuration),
+};
 
 void Roster::addUnit(std::shared_ptr<Unit> unit) {
     if (unit == nullptr) return;
@@ -89,6 +100,12 @@ int Roster::totalPoints() const {
 void Roster::endTurn(int battleRound) {
     for (auto u : m_units) {
         u->endTurn(battleRound);
+    }
+
+    if (m_factionResource != Resource::None) {
+        SimLog(Narrative, "Player %s has %d %s after turn %d\n",
+               PlayerIdToString(m_id).c_str(), m_resourceCount,
+               std::string(magic_enum::enum_name(m_factionResource)).c_str(), battleRound);
     }
 }
 

@@ -109,4 +109,12 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
+    void MagoresFiends::onModelSlain(Wounds::Source source) {
+        KhorneBase::onModelSlain(source);
+
+        // No Respite
+        int numSlain = 0;
+        fight(1, m_meleeTarget, numSlain);
+    }
+
 } // namespace Khorne
