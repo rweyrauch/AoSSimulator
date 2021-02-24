@@ -15,7 +15,7 @@
 #include <codecvt>
 #include "cxxopts.hpp"
 
-void displayUnits(Verbosity verbose, const std::string& faction);
+void displayUnits(const std::string& faction);
 void displayWeapons(const std::string& unit);
 void InitializeUnitMap();
 Unit* GenerateRandomUnit(Keyword faction);
@@ -24,7 +24,7 @@ Keyword GenerateRandomFaction();
 int main(int argc, char* argv[])
 {
     int numRounds = 5;
-    int verboseLevel = 0; // Verbosity::Silence == 0
+    int verboseLevel = 0;
     bool listUnits = false;
     std::string listFaction("all");
     std::string listWeapons("none");
@@ -66,22 +66,12 @@ int main(int argc, char* argv[])
         listWeapons = result["weapons"].as<std::string>();
     }
 
-    Verbosity verbosity = Verbosity::Narrative;
-    if (verboseLevel == 0)
-        verbosity = Verbosity::Silence;
-    else if (verboseLevel == 1)
-        verbosity = Verbosity::Normal;
-    else if (verboseLevel == 2)
-        verbosity = Verbosity::Debug;
-    else if (verboseLevel == 3)
-        verbosity = Verbosity::Narrative;
-
-    Initialize(verbosity);
+    Initialize(plog::info);
 
     InitializeUnitMap();
 
     if (listUnits) {
-        displayUnits(verbosity, listFaction);
+        displayUnits(listFaction);
         return EXIT_SUCCESS;
     }
 
@@ -127,8 +117,6 @@ int main(int argc, char* argv[])
     int blueVictories = 0;
     int ties = 0;
 
-    SetVerbosity(verbosity);
-
     battle.deployment();
 
     if (saveMaps) {
@@ -162,7 +150,7 @@ int main(int argc, char* argv[])
     return EXIT_SUCCESS;
 }
 
-void displayUnits(Verbosity verbose, const std::string& faction) {
+void displayUnits(const std::string& faction) {
     bool listAll = (faction == "all");
 
     std::cout << "Supported Units in Faction(" << faction << "):" << std::endl;
@@ -185,7 +173,7 @@ void displayUnits(Verbosity verbose, const std::string& faction) {
 
         std::cout << "\t" << ruip->first << std::endl;
 
-        if (verbose == Verbosity::Normal) {
+        //if (verbose == Verbosity::Normal) {
             if (ruip->second.m_parameters.empty()) {
                 std::cout << "\t  Parameters:  None" << std::endl;
                 continue;
@@ -233,7 +221,7 @@ void displayUnits(Verbosity verbose, const std::string& faction) {
                               << (pip.intValue ? "true" : "false") << std::endl;
                 }
             }
-        }
+        //}
     }
 }
 

@@ -53,7 +53,7 @@ namespace GloomspiteGitz {
                     advanceOne();
                 }
 
-                SimLog(Verbosity::Narrative, "Bad Moon moves in round %d with a roll of %d.  Location: %d\n",
+                PLOG_INFO.printf("Bad Moon moves in round %d with a roll of %d.  Location: %d\n",
                        round, roll, m_location);
             }
         }

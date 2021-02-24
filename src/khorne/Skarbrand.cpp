@@ -126,7 +126,7 @@ namespace Khorne {
                 if (roll == 6)
                     mortals = 16;
 
-                SimLog(Verbosity::Narrative, "Skarbrand Total Carnage inflicts %d mortal wounds on to %s",
+                PLOG_INFO.printf("Skarbrand Total Carnage inflicts %d mortal wounds on to %s",
                        mortals, unit->name().c_str());
 
                 return mortals;
@@ -146,7 +146,7 @@ namespace Khorne {
                     Wounds wounds = {0, results.rollsGE(4)};
                     m_shootingTarget->applyDamage(wounds, this);
 
-                    SimLog(Verbosity::Narrative, "Skarbrand Roar of Total Rage inflicts %d mortal wounds on to %s",
+                    PLOG_INFO.printf("Skarbrand Roar of Total Rage inflicts %d mortal wounds on to %s",
                            wounds.mortal, m_shootingTarget->name().c_str());
                 }
                 m_attackedInPreviousRound = true;

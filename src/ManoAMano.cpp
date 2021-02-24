@@ -10,6 +10,7 @@
 #include <Roster.h>
 #include <Board.h>
 #include <gloomspitegitz/BadMoon.h>
+#include <plog/Log.h>
 
 ManoAMano::ManoAMano(int numRounds, Realm realm) :
         m_numRounds(numRounds) {
@@ -97,10 +98,10 @@ void ManoAMano::start() {
 }
 
 void ManoAMano::simulate() {
-    SimLog(Verbosity::Narrative, "Fight State:\n");
-    SimLog(Verbosity::Narrative, "\tRound: %d of %d.  Top of round: %d", m_round, m_numRounds, m_topOfRound);
-    SimLog(Verbosity::Narrative, "\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
-    SimLog(Verbosity::Narrative, "\tCurrent Unit: %s\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Fight State:\n");
+    PLOG_INFO.printf("\tRound: %d of %d.  Top of round: %d", m_round, m_numRounds, m_topOfRound);
+    PLOG_INFO.printf("\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
+    PLOG_INFO.printf("\tCurrent Unit: %s\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     // run the simulation for the current state
     switch (m_currentPhase) {
@@ -173,11 +174,11 @@ void ManoAMano::next() {
 
                 m_currentPhase = Phase::Hero;
             } else {
-                SimLog(Verbosity::Narrative, "At the end of round %d...\n", m_round);
-                SimLog(Verbosity::Narrative, "\tTeam %s has %d remaining models with %d wounds remaining.\n",
+                PLOG_INFO.printf("At the end of round %d...\n", m_round);
+                PLOG_INFO.printf("\tTeam %s has %d remaining models with %d wounds remaining.\n",
                        PlayerIdToString(PlayerId::Red).c_str(), redUnit()->remainingModels(),
                        redUnit()->remainingWounds());
-                SimLog(Verbosity::Narrative, "\tTeam %s has %d remaining models with %d wounds remaining.\n",
+                PLOG_INFO.printf("\tTeam %s has %d remaining models with %d wounds remaining.\n",
                        PlayerIdToString(PlayerId::Blue).c_str(), blueUnit()->remainingModels(),
                        blueUnit()->remainingWounds());
 
@@ -241,29 +242,29 @@ void ManoAMano::runInitiativePhase() {
     m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
     m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
 
-    SimLog(Verbosity::Narrative, "Player %s wins initiative. Dice rolls: Red: %d  Blue: %d.\n",
+    PLOG_INFO.printf("Player %s wins initiative. Dice rolls: Red: %d  Blue: %d.\n",
            PlayerIdToString(m_attackingPlayer).c_str(), p1, p2);
 }
 
 void ManoAMano::runHeroPhase() {
-    SimLog(Verbosity::Narrative, "Starting player %s hero phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s hero phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doHeroPhase();
 }
 
 void ManoAMano::runMovementPhase() {
-    SimLog(Verbosity::Narrative, "Starting player %s movement phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s movement phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doMovementPhase();
 
     if (attackingUnit()->ran()) {
-        SimLog(Verbosity::Narrative, "%s:%s ran.\n", PlayerIdToString(m_attackingPlayer).c_str(),
+        PLOG_INFO.printf("%s:%s ran.\n", PlayerIdToString(m_attackingPlayer).c_str(),
                attackingUnit()->name().c_str());
     }
 }
 
 void ManoAMano::runShootingPhase() {
-    SimLog(Verbosity::Narrative, "Starting player %s shooting phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s shooting phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     // Think...
     m_rosters[(int) m_attackingPlayer]->doShootingPhase();
@@ -272,26 +273,26 @@ void ManoAMano::runShootingPhase() {
     int numSlain = 0;
     auto totalDamage = attackingUnit()->shoot(numSlain);
 
-    SimLog(Verbosity::Narrative, "%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
+    PLOG_INFO.printf("%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
            PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str(),
            (totalDamage.normal + totalDamage.mortal),
            PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str(), numSlain);
 }
 
 void ManoAMano::runChargePhase() {
-    SimLog(Verbosity::Narrative, "Starting player %s charge phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s charge phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doChargePhase();
 
     if (attackingUnit()->charged()) {
-        SimLog(Verbosity::Narrative, "%s:%s charged %s:%s.\n", PlayerIdToString(m_attackingPlayer).c_str(),
+        PLOG_INFO.printf("%s:%s charged %s:%s.\n", PlayerIdToString(m_attackingPlayer).c_str(),
                attackingUnit()->name().c_str(),
                PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str());
     }
 }
 
 void ManoAMano::runCombatPhase() {
-    SimLog(Verbosity::Narrative, "Starting player %s combat phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s combat phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
 
     // Think.
     m_rosters[(int) m_attackingPlayer]->doCombatPhase();
@@ -301,7 +302,7 @@ void ManoAMano::runCombatPhase() {
     int numSlain = 0;
     auto totalDamage = attackingUnit()->fight(m_attackingPlayer, numSlain);
 
-    SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+    PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
            PlayerIdToString(m_attackingPlayer).c_str(),
            attackingUnit()->name().c_str(), (totalDamage.normal + totalDamage.mortal),
            PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str(),
@@ -310,7 +311,7 @@ void ManoAMano::runCombatPhase() {
     numSlain = 0;
     totalDamage = defendingUnit()->fight(-1, attackingUnit(), numSlain);
 
-    SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the counter attack.\n",
+    PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the counter attack.\n",
            PlayerIdToString(m_defendingPlayer).c_str(),
            defendingUnit()->name().c_str(), (totalDamage.normal + totalDamage.mortal),
            PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str(),
@@ -318,7 +319,7 @@ void ManoAMano::runCombatPhase() {
 }
 
 void ManoAMano::runBattleshockPhase() {
-    SimLog(Verbosity::Narrative, "Starting player %s battleshock phase.\n",
+    PLOG_INFO.printf("Starting player %s battleshock phase.\n",
            PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doBattleshockPhase();
@@ -356,45 +357,43 @@ static void logUnitStats(const UnitStatistics &stats) {
     Wounds woundsTaken, woundsInflicted;
     stats.totalWoundsInflicted(woundsInflicted);
     stats.totalWoundsTaken(woundsTaken);
-    SimLog(Verbosity::Narrative, "\tTotal Movement: %f  Rounds Moved: %d\n", stats.totalMovementDistance(),
+    PLOG_INFO.printf("\tTotal Movement: %f  Rounds Moved: %d\n", stats.totalMovementDistance(),
            stats.numberOfRoundsMoved());
-    SimLog(Verbosity::Narrative, "\tTotal Run Distance: %f  Rounds Ran: %d\n", stats.totalRunDistance(),
+    PLOG_INFO.printf("\tTotal Run Distance: %f  Rounds Ran: %d\n", stats.totalRunDistance(),
            stats.numberOfRoundsRan());
-    SimLog(Verbosity::Narrative, "\tTotal Charge Distance: %f  Rounds Charged: %d\n", stats.totalChargeDistance(),
+    PLOG_INFO.printf("\tTotal Charge Distance: %f  Rounds Charged: %d\n", stats.totalChargeDistance(),
            stats.numberOfRoundsCharged());
-    SimLog(Verbosity::Narrative, "\tTotal Enemy Models Slain: %d  Wounds Inflicted: {%d, %d}\n",
+    PLOG_INFO.printf("\tTotal Enemy Models Slain: %d  Wounds Inflicted: {%d, %d}\n",
            stats.totalEnemyModelsSlain(),
            woundsInflicted.normal, woundsInflicted.mortal);
-    SimLog(Verbosity::Narrative, "\tTotal Models Slain: %d  Wounds Taken: {%d, %d}\n", stats.totalModelsSlain(),
+    PLOG_INFO.printf("\tTotal Models Slain: %d  Wounds Taken: {%d, %d}\n", stats.totalModelsSlain(),
            woundsTaken.normal, woundsTaken.mortal);
-    SimLog(Verbosity::Narrative, "\tTotal Models Fled: %d\n", stats.totalModelsFled());
+    PLOG_INFO.printf("\tTotal Models Fled: %d\n", stats.totalModelsFled());
 }
 
 void ManoAMano::logStatistics() const {
     std::function<void(const TurnRecord &)> turnVistor = [](const TurnRecord &turn) {
-        SimLog(Verbosity::Narrative, "\tTurn %d  Player: %s\n", turn.m_round,
+        PLOG_INFO.printf("\tTurn %d  Player: %s\n", turn.m_round,
                PlayerIdToString(turn.m_playerWithTurn).c_str());
-        SimLog(Verbosity::Narrative, "\t\tMoved: %f  Ran: %f Charged: %f\n", turn.m_moved, turn.m_ran, turn.m_charged);
-        SimLog(Verbosity::Narrative, "\t\tAttacks Made: %d  Attacks Hit: %d\n", turn.m_attacksMade,
+        PLOG_INFO.printf("\t\tMoved: %f  Ran: %f Charged: %f\n", turn.m_moved, turn.m_ran, turn.m_charged);
+        PLOG_INFO.printf("\t\tAttacks Made: %d  Attacks Hit: %d\n", turn.m_attacksMade,
                turn.m_attacksHitting);
-        SimLog(Verbosity::Narrative, "\t\tEnemy Slain: %d  Wounds Inflicted: {%d, %d}\n", turn.m_enemyModelsSlain,
+        PLOG_INFO.printf("\t\tEnemy Slain: %d  Wounds Inflicted: {%d, %d}\n", turn.m_enemyModelsSlain,
                turn.m_woundsInflicted.normal, turn.m_woundsInflicted.mortal);
-        SimLog(Verbosity::Narrative, "\t\tSaves Made: %d  Failed: %d\n", turn.m_savesMade, turn.m_savesFailed);
-        SimLog(Verbosity::Narrative, "\t\tModel Slain: %d  Wounds Taken: {%d, %d}\n", turn.m_modelsSlain,
+        PLOG_INFO.printf("\t\tSaves Made: %d  Failed: %d\n", turn.m_savesMade, turn.m_savesFailed);
+        PLOG_INFO.printf("\t\tModel Slain: %d  Wounds Taken: {%d, %d}\n", turn.m_modelsSlain,
                turn.m_woundsTaken.normal, turn.m_woundsTaken.mortal);
     };
 
     auto redStats = redUnit()->getStatistics();
-    SimLog(Verbosity::Narrative, "Red Statistics:\n");
+    PLOG_INFO.printf("Red Statistics:\n");
     logUnitStats(redStats);
-    if (GetVerbosity() == Verbosity::Narrative)
-        redStats.visitTurn(turnVistor);
+    redStats.visitTurn(turnVistor);
 
     auto blueStats = blueUnit()->getStatistics();
-    SimLog(Verbosity::Narrative, "Blue Statistics:\n");
+    PLOG_INFO.printf("Blue Statistics:\n");
     logUnitStats(blueStats);
-    if (GetVerbosity() == Verbosity::Narrative)
-        blueStats.visitTurn(turnVistor);
+    blueStats.visitTurn(turnVistor);
 }
 
 Unit *ManoAMano::redUnit() {

@@ -18,14 +18,6 @@ enum PlayerId
     "Blue"
 };
 
-enum Verbosity
-{
-    "Silence",
-    "Normal",
-    "Narrative",
-    "Debug"
-};
-
 enum ParamType
 {
     "Boolean",
@@ -155,7 +147,6 @@ interface JSUnitInfo {
 
 interface JSInterface {
     static void Initialize();
-    static void SetVerbosity(Verbosity verbosity);
     static long GrandAllianceStringToKeyword(DOMString allianceName);
     static long FactionStringToKeyword(DOMString factionName);
     [Const] static DOMString GrandAllianceKeywordToString(long ga);

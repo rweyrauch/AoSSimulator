@@ -40,17 +40,7 @@ int main(int argc, char* argv[])
         return EXIT_SUCCESS;
     }
 
-    Verbosity verbosity = Verbosity::Normal;
-    if (verboseLevel == 0)
-        verbosity = Verbosity::Silence;
-    else if (verboseLevel == 1)
-        verbosity = Verbosity::Normal;
-    else if (verboseLevel == 2)
-        verbosity = Verbosity::Debug;
-    else if (verboseLevel == 3)
-        verbosity = Verbosity::Narrative;
-
-    Initialize(verbosity);
+    Initialize(plog::error);
 
     InitializeUnitMap();
 

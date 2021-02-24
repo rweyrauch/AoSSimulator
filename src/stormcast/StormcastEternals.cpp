@@ -291,14 +291,13 @@ namespace StormcastEternals {
 
                 auto numSlain = ip->applyDamage({0, mortalsTarget}, owner);
 
-                SimLog(Verbosity::Narrative,
-                       "%s shattered %d Spirit Flasks inflicting %d mortal wounds on %s slaying %d.\n",
+                PLOG_INFO.printf("%s shattered %d Spirit Flasks inflicting %d mortal wounds on %s slaying %d.\n",
                        owner->name().c_str(), numFlasks, mortalsTarget, ip->name().c_str(), numSlain);
             }
 
             int mortalsSelf = numFlasks;
             auto dead = owner->applyDamage({0, mortalsSelf}, owner);
-            SimLog(Verbosity::Narrative, "Spirit Flasks inflicted %s wounds on %s.  Slaying %d models.\n",
+            PLOG_INFO.printf("Spirit Flasks inflicted %s wounds on %s.  Slaying %d models.\n",
                    mortalsSelf, owner->name().c_str(), dead);
         }
 

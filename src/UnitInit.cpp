@@ -51,18 +51,12 @@
 
 #include "freeagents/GotrekGurnisson.h"
 
-static Verbosity g_verbosity = Verbosity::Normal;
+#include <plog/Log.h>
+#include <plog/Initializers/RollingFileInitializer.h>
 
-Verbosity GetVerbosity() {
-    return g_verbosity;
-}
+void Initialize(plog::Severity level) {
 
-void SetVerbosity(Verbosity verbosity) {
-    g_verbosity = verbosity;
-}
-
-void Initialize(Verbosity verbosity) {
-    g_verbosity = verbosity;
+    plog::init(level, "AosSimLog.txt");
 
     StormcastEternals::Init();
     GloomspiteGitz::Init();

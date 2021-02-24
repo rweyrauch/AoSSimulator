@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <cfloat>
+#include <plog/Log.h>
 #include <Roster.h>
 #include "AoSSimPrivate.h"
 
@@ -103,9 +104,7 @@ void Roster::endTurn(int battleRound) {
     }
 
     if (m_factionResource != Resource::None) {
-        SimLog(Narrative, "Player %s has %d %s after turn %d\n",
-               PlayerIdToString(m_id).c_str(), m_resourceCount,
-               std::string(magic_enum::enum_name(m_factionResource)).c_str(), battleRound);
+        PLOG_INFO << "Player " << PlayerIdToString(m_id) << ":  Resource Name: " << magic_enum::enum_name(m_factionResource) << "  Total: " << m_resourceCount;
     }
 }
 

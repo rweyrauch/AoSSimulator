@@ -133,8 +133,7 @@ namespace GloomspiteGitz {
                     int mortal = Dice::RollD3();
                     target->applyDamage({0, mortal}, this);
 
-                    SimLog(Verbosity::Narrative,
-                           "Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",
+                    PLOG_INFO.printf("Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",
                            mortal, target->name().c_str(), m_battleRound);
                 }
             }
@@ -147,7 +146,7 @@ namespace GloomspiteGitz {
         // Bad Moon Magic
         if (hasKeyword(WIZARD) && inLightOfTheBadMoon()) {
             modifier += 1;
-            SimLog(Verbosity::Narrative, "Gloomspite Gitz wizard, %s, is under the light of the Bad Moon.\n",
+            PLOG_INFO.printf("Gloomspite Gitz wizard, %s, is under the light of the Bad Moon.\n",
                    name().c_str());
         }
 

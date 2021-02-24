@@ -34,7 +34,6 @@ static Gtk::CheckButton *pVerbose = nullptr;
 static Gtk::CheckButton *pSaveMaps = nullptr;
 
 static int g_numRounds = 5;
-static Verbosity g_verboseLevel = Verbosity::Silence;
 static int g_numIterations = 1;
 static bool g_saveMaps = false;
 static int g_redAlliance = ORDER;
@@ -61,9 +60,7 @@ static void on_start_clicked()
     g_numIterations = (int)std::strtol(pNumIterations->get_text().c_str(), nullptr, 10);
     if (pVerbose->get_active())
     {
-        g_verboseLevel = Verbosity::Narrative;
     }
-    SetVerbosity(g_verboseLevel);
     g_saveMaps = pSaveMaps->get_active();
     g_pRed = std::shared_ptr<Unit>(createUnit(pRedUnits->get_active_text(), pRedUnitConfig));
     g_pBlue = std::shared_ptr<Unit>(createUnit(pBlueUnits->get_active_text(), pBlueUnitConfig));
@@ -274,7 +271,7 @@ int main(int argc, char *argv[])
 {
     auto app = Gtk::Application::create(argc, argv, "org.gtkmm.examples.base");
 
-    Initialize(Verbosity::Normal);
+    Initialize(plog::warning);
 
     g_battle = new ManoAMano(g_numRounds);
 

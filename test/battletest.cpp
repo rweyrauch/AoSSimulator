@@ -20,10 +20,10 @@ TEST(Battle, BallistaVsAlarielle)
 {
     Battle battle;
 
-    auto ballista0 = new StormcastEternals::CelestarBallista();
-    auto ballista1 = new StormcastEternals::CelestarBallista();
-    auto ballista2 = new StormcastEternals::CelestarBallista();
-    auto lordOrdinator = new StormcastEternals::LordOrdinator();
+    auto ballista0 = std::make_shared<StormcastEternals::CelestarBallista>();
+    auto ballista1 = std::make_shared<StormcastEternals::CelestarBallista>();
+    auto ballista2 = std::make_shared<StormcastEternals::CelestarBallista>();
+    auto lordOrdinator = std::make_shared<StormcastEternals::LordOrdinator>();
 
     bool ok = lordOrdinator->configure(StormcastEternals::LordOrdinator::Astral_Hammers);
     ASSERT_TRUE(ok);
@@ -45,27 +45,29 @@ TEST(Battle, BallistaVsAlarielle)
     //ballista1->buffToHitMissile(1);
     //ballista2->buffToHitMissile(1);
 
-    auto alarielle = new Sylvaneth::Alarielle();
+    auto alarielle = std::make_shared<Sylvaneth::Alarielle>();
     ok = alarielle->configure(Sylvaneth::Lore::None);
     ASSERT_TRUE(ok);
 
-    ballista0->setShootingTarget(alarielle);
-    ballista1->setShootingTarget(alarielle);
-    ballista2->setShootingTarget(alarielle);
+    ballista0->setShootingTarget(alarielle.get());
+    ballista1->setShootingTarget(alarielle.get());
+    ballista2->setShootingTarget(alarielle.get());
 
-    Roster roster1(PlayerId::Red), roster2(PlayerId::Blue);
-    roster1.addUnit(ballista0);
-    roster1.addUnit(ballista1);
-    roster1.addUnit(ballista2);
-    roster1.addUnit(lordOrdinator);
+    auto roster1 = std::make_shared<Roster>(PlayerId::Red);
+    auto roster2 = std::make_shared<Roster>(PlayerId::Blue);
+    roster1->addUnit(ballista0);
+    roster1->addUnit(ballista1);
+    roster1->addUnit(ballista2);
+    roster1->addUnit(lordOrdinator);
 
-    roster2.addUnit(alarielle);
+    roster2->addUnit(alarielle);
 
-    Player player1(PlayerId::Red), player2(PlayerId::Blue);
-    player1.setRoster(&roster1);
-    player2.setRoster(&roster2);
+    auto player1 = std::make_shared<Player>(PlayerId::Red);
+    auto player2 = std::make_shared<Player>(PlayerId::Blue);
+    player1->setRoster(roster1);
+    player2->setRoster(roster2);
 
-    battle.addPlayers(&player1, &player2);
+    battle.addPlayers(player1, player2);
 
     battle.setNumRounds(5);
     battle.start(PlayerId::Red);

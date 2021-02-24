@@ -88,7 +88,7 @@ namespace Khorne {
             if (roll >= 2) {
                 Wounds wounds = {0, Dice::RollD3()};
 
-                SimLog(Verbosity::Narrative, "%s Murderous Charge inflicted %d mortal wounds on %s\n",
+                PLOG_INFO.printf("%s Murderous Charge inflicted %d mortal wounds on %s\n",
                        name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
 
                 m_meleeTarget->applyDamage(wounds, this);

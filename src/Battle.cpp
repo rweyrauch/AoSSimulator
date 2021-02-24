@@ -79,10 +79,10 @@ bool Battle::done() const {
 }
 
 void Battle::simulate() {
-    SimLog(Verbosity::Narrative, "Battle State:\n");
-    SimLog(Verbosity::Narrative, "\tRound: %d of %d.  Top of round: %d\n", m_round, m_numRounds, m_topOfRound);
-    SimLog(Verbosity::Narrative, "\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
-    SimLog(Verbosity::Narrative, "\tCurrent Player: %s\n", PlayerIdToString(m_currentPlayer).c_str());
+    PLOG_INFO.printf("Battle State:\n");
+    PLOG_INFO.printf("\tRound: %d of %d.  Top of round: %d\n", m_round, m_numRounds, m_topOfRound);
+    PLOG_INFO.printf("\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
+    PLOG_INFO.printf("\tCurrent Player: %s\n", PlayerIdToString(m_currentPlayer).c_str());
 
     // run the simulation for the current state
     switch (m_currentPhase) {
@@ -133,7 +133,7 @@ void Battle::runInitiativePhase() {
     const auto playerIdx = (int) m_currentPlayer;
     m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
-    SimLog(Verbosity::Narrative, "Player %s wins initiative.  P1: %d P2: %d", PlayerIdToString(m_currentPlayer).c_str(),
+    PLOG_INFO.printf("Player %s wins initiative.  P1: %d P2: %d", PlayerIdToString(m_currentPlayer).c_str(),
            p1, p2);
 }
 
@@ -165,7 +165,7 @@ void Battle::runShootingPhase() {
         int numSlain = 0;
         auto totalDamage = unit->shoot(numSlain);
         if (unit->shootingTarget()) {
-            SimLog(Verbosity::Narrative, "%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
+            PLOG_INFO.printf("%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
                    PlayerIdToString(m_currentPlayer).c_str(),
                    unit->name().c_str(),
                    (totalDamage.normal + totalDamage.mortal),
@@ -183,7 +183,7 @@ void Battle::runChargePhase() {
         unit->charge(m_currentPlayer);
 
         if (unit->charged()) {
-            SimLog(Verbosity::Narrative, "%s:%s charged.\n",
+            PLOG_INFO.printf("%s:%s charged.\n",
                     PlayerIdToString(m_currentPlayer).c_str(),
                     unit->name().c_str());
         }
@@ -208,7 +208,7 @@ void Battle::runCombatPhase() {
             auto totalDamage = unit->fight(m_currentPlayer, numSlain);
 
             if (unit->meleeTarget()) {
-                SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+                PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
                        PlayerIdToString(m_currentPlayer).c_str(),
                        unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
                        PlayerIdToString(defendingPlayer).c_str(), unit->meleeTarget()->name().c_str(),
@@ -222,7 +222,7 @@ void Battle::runCombatPhase() {
             auto totalDamage = eunit->fight(m_currentPlayer, numSlain);
 
             if (eunit->meleeTarget()) {
-                SimLog(Verbosity::Narrative, "%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+                PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
                        PlayerIdToString(defendingPlayer).c_str(),
                        eunit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
                        PlayerIdToString(m_currentPlayer).c_str(), eunit->meleeTarget()->name().c_str(),

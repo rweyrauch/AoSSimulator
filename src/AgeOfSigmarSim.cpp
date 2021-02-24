@@ -11,37 +11,14 @@
 #include <algorithm>
 #include <sstream>
 #include <cstdarg>
+#include <magic_enum.hpp>
 
 std::string PhaseToString(Phase phase) {
-    switch (phase) {
-        case Phase::Initiative:
-            return "Initiative";
-        case Phase::Hero:
-            return "Hero";
-        case Phase::Movement:
-            return "Movement";
-        case Phase::Shooting:
-            return "Shooting";
-        case Phase::Charge:
-            return "Charge";
-        case Phase::Combat:
-            return "Combat";
-        case Phase::Battleshock:
-            return "Battleshock";
-    }
-    return "";
+    return std::string(magic_enum::enum_name(phase));
 }
 
 std::string PlayerIdToString(PlayerId id) {
-    switch (id) {
-        case PlayerId::None:
-            return "None";
-        case PlayerId::Red:
-            return "Red";
-        case PlayerId::Blue:
-            return "Blue";
-    }
-    return "";
+    return std::string(magic_enum::enum_name(id));
 }
 
 double AverageRandomValue(int value) {
@@ -178,17 +155,12 @@ const std::string &FactionKeywordToString(Keyword faction) {
     return g_notFound;
 }
 
-void SimLog(Verbosity verbosity, const char *format, ...) {
-    //if ((int) verbosity >= (int) GetVerbosity())
-    //    return;
-
-    va_list args;
-    va_start(args, format);
-    vfprintf(stdout, format, args);
-    va_end(args);
-}
-
 bool Expired(const Duration &duration, const Duration &current) {
     return ((duration.player == current.player) && (duration.round < current.round) &&
             (duration.phase == current.phase));
+}
+
+std::ostream &operator<<(std::ostream &os, const Wounds &wounds) {
+    os << "{ " << wounds.normal << ", " << wounds.mortal << "}: " << magic_enum::enum_name(wounds.source);
+    return os;
 }

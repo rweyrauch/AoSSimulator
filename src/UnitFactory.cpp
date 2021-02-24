@@ -96,7 +96,7 @@ LogUnitDescriptor(FactoryMethod *factory, const std::string &name, const std::ve
         }
     }
     descriptor << "\"";
-    SimLog(Verbosity::Debug, "%s\n", descriptor.str().c_str());
+    PLOG_INFO.printf("%s\n", descriptor.str().c_str());
 }
 
 std::map<std::string, FactoryMethod> UnitFactory::s_registeredUnits = {};

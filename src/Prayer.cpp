@@ -98,7 +98,7 @@ bool HealPrayer::apply(int prayingRoll, Unit *target) {
 
     int wounds = Dice::RollSpecial(getHealing(prayingRoll));
     target->heal(wounds);
-    SimLog(Verbosity::Narrative, "%s prays for %s with roll of %d (%d) heals %d wounds onto %s.\n",
+    PLOG_INFO.printf("%s prays for %s with roll of %d (%d) heals %d wounds onto %s.\n",
            m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, wounds, target->name().c_str());
 
     return true;

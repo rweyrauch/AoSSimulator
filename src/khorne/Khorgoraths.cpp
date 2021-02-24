@@ -86,7 +86,7 @@ namespace Khorne {
     Wounds Khorgoraths::onEndCombat(PlayerId player) {
         // Taker of Heads
         if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat) {
-            SimLog(Verbosity::Narrative, "%s slayed %d models this combat phase and heals 1 wound.\n",
+            PLOG_INFO.printf("%s slayed %d models this combat phase and heals 1 wound.\n",
                    name().c_str(), (m_currentRecord.m_enemyModelsSlain - m_modelsSlainAtStartOfCombat));
             heal(1);
         }

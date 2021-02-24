@@ -45,7 +45,6 @@ class JSInterface
 {
 public:
     static void Initialize();
-    static void SetVerbosity(Verbosity verbosity);
     static int GrandAllianceStringToKeyword(const char* allianceName);
     static int FactionStringToKeyword(const char* factionName);
     static const char* FactionKeywordToString(int faction);
@@ -65,18 +64,13 @@ public:
 
 void JSInterface::Initialize()
 {
-    ::Initialize(Verbosity::Normal);
+    ::Initialize(plog::error);
 
     for (auto ip = UnitFactory::RegisteredUnitsBegin(); ip != UnitFactory::RegisteredUnitsEnd(); ++ip)
     {
         auto name = ip->first;
         g_unitNames.push_back(name);
     }
-}
-
-void JSInterface::SetVerbosity(Verbosity verbosity)
-{
-    ::SetVerbosity(verbosity);
 }
 
 int JSInterface::GrandAllianceStringToKeyword(const char* allianceName)

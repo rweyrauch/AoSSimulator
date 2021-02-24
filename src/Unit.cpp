@@ -13,6 +13,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include <Think.h>
+#include <plog/Log.h>
 
 const double MAX_CHARGE_DISTANCE = 12.0;
 const double MIN_CHARGE_DISTANCE = 3.0;
@@ -109,8 +110,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     Wounds totalDamage = {0, 0};
     Wounds totalDamageReflected = {0, 0};
 
-    SimLog(Verbosity::Narrative, "%s attacking %s with %d models.\n", name().c_str(), targetUnit->name().c_str(),
-           numAttackingModels);
+    PLOG_INFO << name() << " attacking " << targetUnit->name() << " with " << numAttackingModels << " models.";
 
     for (auto i = 0; i < numAttackingModels; i++) {
         const auto model = m_models.at(i).get();
@@ -122,8 +122,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
             Wounds weaponDamage, reflectedDamage;
             attackWithWeapon(w, targetUnit, model, weaponDamage, reflectedDamage);
 
-            SimLog(Verbosity::Narrative, "\tModel[%d] attack with %s does damage {%d,%d}.\n",
-                   i, w->name().c_str(), weaponDamage.normal, weaponDamage.mortal);
+            PLOG_INFO  << "\tModel[" << i << "] attacks with " << w->name() << " doing damage " << weaponDamage;
 
             totalDamage += weaponDamage;
             totalDamageReflected += reflectedDamage;
@@ -738,8 +737,7 @@ void Unit::battleshock(PlayerId player) {
 
     int numFleeing = applyBattleshock();
     if (numFleeing > 0) {
-        SimLog(Verbosity::Narrative, "A total of %d %s from %s fled from battleshock.\n", numFleeing,
-               name().c_str(), PlayerIdToString(owningPlayer()).c_str());
+        PLOG_INFO << "A total of " << numFleeing << " " << name() << " from " << PlayerIdToString(owningPlayer()) << " due to battleshock.";
     }
 
     onEndBattleshock(player);
@@ -915,26 +913,26 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                         // modify damage
                         dam = target->targetAttackDamageModifier(dam, this, hitRoll, woundRoll);
 
-                        SimLog(Verbosity::Narrative, "Weapon, %s, inflicted wounds (%d, %d) on %s\n",
+                        PLOG_INFO.printf("Weapon, %s, inflicted wounds (%d, %d) on %s",
                                weapon->name().c_str(), dam.normal, dam.mortal, target->name().c_str());
 
                         totalWoundsInflicted += dam;
                     } else {
                         // made save
-                        SimLog(Verbosity::Narrative, "%s made a save again weapon %s rolling a %d.\n",
+                        PLOG_INFO.printf("%s made a save again weapon %s rolling a %d.",
                                target->name().c_str(), weapon->name().c_str(), saveRoll);
                     }
 
                     totalWoundsSuffered += target->computeReturnedDamage(weapon, saveRoll);
                 } else {
                     // failed to wound
-                    SimLog(Verbosity::Narrative, "Weapon, %s, failed to wound rolling a %d.\n", weapon->name().c_str(),
+                    PLOG_INFO.printf("Weapon, %s, failed to wound rolling a %d.\n", weapon->name().c_str(),
                            modifiedWoundRoll);
                 }
             }
         } else {
             // missed
-            SimLog(Verbosity::Narrative, "Weapon, %s, missed with a roll of %d.\n", weapon->name().c_str(),
+            PLOG_INFO.printf("Weapon, %s, missed with a roll of %d.\n", weapon->name().c_str(),
                    modifiedHitRoll);
         }
     }
@@ -972,12 +970,12 @@ bool Unit::unbind(Unit *caster, int castRoll) {
     if (m_spellsUnbound < m_totalUnbinds) {
         int unbindRoll = Dice::Roll2D6() + unbindingModifier();
         if (unbindRoll > castRoll) {
-            SimLog(Verbosity::Narrative, "%s unbound a spell cast by %s (%d) with a unbind roll of %d.\n",
+            PLOG_INFO.printf("%s unbound a spell cast by %s (%d) with a unbind roll of %d.\n",
                    name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
             unbound = true;
             onUnboundSpell(caster, castRoll);
         } else {
-            SimLog(Verbosity::Narrative, "%s failed to unbind a spell cast by %s (%d) with a unbind roll of %d.\n",
+            PLOG_INFO.printf("%s failed to unbind a spell cast by %s (%d) with a unbind roll of %d.\n",
                    name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
         }
         m_spellsUnbound++;
@@ -1004,7 +1002,7 @@ void Unit::castSpell() {
             for (auto ip : units) {
                 auto successful = sip->cast(ip, m_battleRound);
                 if (successful == Spell::Result::Success) {
-                    SimLog(Verbosity::Narrative, "%s successfully cast %s\n", m_name.c_str(), sip->name().c_str());
+                    PLOG_INFO.printf("%s successfully cast %s\n", m_name.c_str(), sip->name().c_str());
                     onCastSpell(sip.get(), ip);
                 }
                 m_spellsCast++;
@@ -1047,7 +1045,7 @@ void Unit::makePrayer() {
             for (auto ip : units) {
                 bool successful = sip->pray(ip, m_battleRound);
                 if (successful) {
-                    SimLog(Verbosity::Narrative, "%s successfully attempted %s\n", m_name.c_str(), sip->name().c_str());
+                    PLOG_INFO.printf("%s successfully attempted %s\n", m_name.c_str(), sip->name().c_str());
                 }
                 m_prayersAttempted++;
                 return;

@@ -121,7 +121,7 @@ namespace FreeAgent {
             int numSlain = 0;
             wounds += fight(-1, meleeTarget, numSlain);
             if (wounds.normal) {
-                SimLog(Verbosity::Narrative, "Gotrek attacks again for {%d, %d} wounds.", wounds.normal, wounds.mortal);
+                PLOG_INFO.printf("Gotrek attacks again for {%d, %d} wounds.", wounds.normal, wounds.mortal);
             }
         }
 

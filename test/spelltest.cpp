@@ -79,27 +79,27 @@ TEST(Spells, PrimeElectrids)
 
 TEST(Spells, Unbind)
 {
-    auto caster = new StormcastEternals::KnightIncantor();
+    auto caster = std::make_shared<StormcastEternals::KnightIncantor>();
     caster->configure(StormcastEternals::Lore::Azyrite_Halo);
     caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
-    auto red = new Roster(PlayerId::Red);
+    auto red = std::make_shared<Roster>(PlayerId::Red);
     red->addUnit(caster);
 
-    auto target = new StormcastEternals::KnightIncantor();
+    auto target = std::make_shared<StormcastEternals::KnightIncantor>();
     target->configure(StormcastEternals::Lore::Azyrite_Halo);
     target->deploy(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
 
-    auto blue = new Roster(PlayerId::Blue);
+    auto blue = std::make_shared<Roster>(PlayerId::Blue);
     blue->addUnit(target);
 
     Board::Instance()->addRosters(red, blue);
 
-    auto spell = std::unique_ptr<Spell>(CreateArcaneBolt(caster));
+    auto spell = std::unique_ptr<Spell>(CreateArcaneBolt(caster.get()));
 
     for (auto i = 0; i < 10; i++)
     {
-       auto ok = spell->cast(target, 1);
+       auto ok = spell->cast(target.get(), 1);
 
         if (ok == Spell::Result::Success)
         {
@@ -107,15 +107,13 @@ TEST(Spells, Unbind)
         }
         else if (ok == Spell::Result::Unbound)
         {
-            SimLog(Verbosity::Narrative, "Spell was unbound.\n");
+            PLOGD.printf("Spell was unbound.\n");
         }
         target->restore();
     }
 
     // Move target out of range
     target->deploy(Math::Point3(22,0,0), Math::Vector3(-1,0,0));
-    auto ok = spell->cast(target, 1);
+    auto ok = spell->cast(target.get(), 1);
     ASSERT_EQ(ok, Spell::Result::Failed);
-
-    delete blue; delete red;
 }

@@ -72,7 +72,7 @@ namespace StormcastEternals {
                 Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
                 int numSlain = ip->applyDamage(wounds, m_caster);
                 if (numSlain > 0) {
-                    SimLog(Verbosity::Narrative, "%s inflicts %d mortal wounds on unit %s.\n",
+                    PLOG_INFO.printf("%s inflicts %d mortal wounds on unit %s.\n",
                            m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
                 }
             }
@@ -119,7 +119,7 @@ namespace StormcastEternals {
 
             int numSlain = ip->applyDamage(wounds, m_caster);
             if (numSlain > 0) {
-                SimLog(Verbosity::Narrative, "%s inflicts %d mortal wounds on unit %s.\n",
+                PLOG_INFO.printf("%s inflicts %d mortal wounds on unit %s.\n",
                        m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
             }
 

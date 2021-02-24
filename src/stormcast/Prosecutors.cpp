@@ -116,7 +116,7 @@ namespace StormcastEternals {
                 numGrandhammers--;
                 break;
             default:
-                SimLog(Verbosity::Normal, "Unknown Prosecutor prime weapon %d", primeGrandWeapon);
+                PLOG_INFO.printf("Unknown Prosecutor prime weapon %d", primeGrandWeapon);
                 break;
         }
         addModel(prime);
@@ -153,7 +153,7 @@ namespace StormcastEternals {
                 model->addMeleeWeapon(&m_stormcallJavelin);
             }
             else {
-                SimLog(Verbosity::Normal, "Unknown Prosecutor weapon %d", m_weaponOption);
+                PLOG_INFO.printf( "Unknown Prosecutor weapon %d", m_weaponOption);
             }
             addModel(model);
         }

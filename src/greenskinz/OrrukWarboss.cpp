@@ -46,7 +46,7 @@ namespace Greenskinz {
                 addKeyword(TOTEM);
                 break;
             default:
-                SimLog(Verbosity::Narrative, "Unknown Orruk Warboss weapon %d", weapon);
+                PLOG_INFO.printf("Unknown Orruk Warboss weapon %d", weapon);
                 break;
         }
         if (warboar) {

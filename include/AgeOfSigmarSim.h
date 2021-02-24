@@ -10,6 +10,7 @@
 #include <cinttypes>
 #include <string>
 #include <vector>
+#include <plog/Log.h>
 #include "Dice.h"
 
 enum Phase {
@@ -164,13 +165,6 @@ struct AbilityBuff {
     Duration duration;
 };
 
-enum Verbosity : int {
-    Silence = 0,
-    Normal,
-    Narrative,
-    Debug
-};
-
 struct Wounds {
 
     enum class Source {
@@ -202,6 +196,8 @@ struct Wounds {
         mortal = std::max(0, mortal);
         return *this;
     }
+
+    friend std::ostream& operator<<(std::ostream& os, const Wounds& wounds);
 };
 
 std::string PhaseToString(Phase phase);
@@ -210,13 +206,7 @@ std::string PlayerIdToString(PlayerId id);
 
 PlayerId GetEnemyId(PlayerId friendlyId);
 
-void Initialize(Verbosity verbosity = Verbosity::Normal);
-
-void SetVerbosity(Verbosity verbosity);
-
-Verbosity GetVerbosity();
-
-void SimLog(Verbosity verbosity, const char *format, ...);
+void Initialize(plog::Severity level);
 
 double AverageRandomValue(int value);
 

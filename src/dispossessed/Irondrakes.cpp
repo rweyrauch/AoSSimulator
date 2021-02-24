@@ -59,7 +59,7 @@ namespace Dispossessed {
         }
         else {
             // Unknown weapon
-            SimLog(Verbosity::Normal, "Unknown Iron Warden weapon. %d\n", ironWardenWeapons);
+            PLOG_INFO.printf("Unknown Iron Warden weapon. %d\n", ironWardenWeapons);
         }
         addModel(ironwarden);
 

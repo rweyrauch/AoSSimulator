@@ -99,8 +99,7 @@ int DamageSpell::getDamage(int castingRoll) const {
 Spell::Result DamageSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
     auto mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
     target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
-    SimLog(Verbosity::Narrative,
-           "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+    PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
            m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
            target->name().c_str());
 
@@ -143,8 +142,7 @@ Spell::Result AreaOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRol
             auto mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
             target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
             secondaryEffect(target, m_round);
-            SimLog(Verbosity::Narrative,
-                   "%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
+            PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                    m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
                    target->name().c_str());
         }
@@ -206,7 +204,7 @@ Spell::Result HealSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit 
 
     auto wounds = Dice::RollSpecial(getHealing(castingRoll));
     target->heal(wounds);
-    SimLog(Verbosity::Narrative, "%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
+    PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) heals %d wounds onto %s.\n",
            m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, wounds, target->name().c_str());
     return Spell::Result::Success;
 }
