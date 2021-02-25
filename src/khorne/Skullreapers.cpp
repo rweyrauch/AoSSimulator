@@ -120,8 +120,8 @@ namespace Khorne {
         return points;
     }
 
-    void Skullreapers::onModelSlain(Wounds::Source source) {
-        Unit::onModelSlain(source);
+    void Skullreapers::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, source);
 
         // Murderous to the Last
         if (source == Wounds::Source::Weapon_Melee) {

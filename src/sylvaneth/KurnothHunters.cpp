@@ -142,8 +142,8 @@ namespace Sylvaneth {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Wounds KurnothHunters::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void KurnothHunters::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Trample Underfoot
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
@@ -153,9 +153,7 @@ namespace Sylvaneth {
             Dice::RollD6(unit->remainingModels(), result);
             Wounds trampleWounds = {0, result.rollsGE(4)};
             unit->applyDamage(trampleWounds, this);
-            wounds += trampleWounds;
         }
-        return wounds;
     }
 
     int KurnothHunters::ComputePoints(int numModels) {

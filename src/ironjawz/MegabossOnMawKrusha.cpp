@@ -158,14 +158,14 @@ namespace Ironjawz {
         Ironjawz::onStartCombat(player);
     }
 
-    Wounds MegabossOnMawKrusha::onEndCombat(PlayerId player) {
+    void MegabossOnMawKrusha::onEndCombat(PlayerId player) {
         // Strength from Victory
         if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat) {
             heal(1);
             m_hackaAndChoppa.setAttacks(m_hackaAndChoppa.attacks() + 1);
             m_ripToofFist.setAttacks(m_ripToofFist.attacks() + 1);
         }
-        return Ironjawz::onEndCombat(player);
+        Ironjawz::onEndCombat(player);
     }
 
     Wounds MegabossOnMawKrusha::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {

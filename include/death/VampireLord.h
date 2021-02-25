@@ -35,7 +35,7 @@ namespace Death {
 
         void onRestore() override;
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
     private:
 

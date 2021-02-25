@@ -37,7 +37,7 @@ namespace Death {
 
         int rollChargeDistance() const override;
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
         int standardBearerBraveryMod(const Unit *unit);
 

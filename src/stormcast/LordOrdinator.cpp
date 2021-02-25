@@ -129,8 +129,8 @@ namespace StormcastEternals {
         m_meteoricSlam.clear();
     }
 
-    Wounds LordOrdinator::onEndCombat(PlayerId player) {
-        auto wounds = StormcastEternal::onEndCombat(player);
+    void LordOrdinator::onEndCombat(PlayerId player) {
+        StormcastEternal::onEndCombat(player);
 
         // Meteoric Slam
         if (m_meteoricSlam.size() > 1) {
@@ -139,11 +139,8 @@ namespace StormcastEternals {
             if (m_meteoricSlam.front() == m_meleeTarget) {
                 Wounds slamWounds = {0, Dice::RollD3()};
                 m_meleeTarget->applyDamage(slamWounds, this);
-                wounds += slamWounds;
             }
-        }
-
-        return wounds;
+        };
     }
 
     int LordOrdinator::arcaneEngineer(const Unit * /*attacker*/, const Weapon * /*weapon*/, const Unit *target) {

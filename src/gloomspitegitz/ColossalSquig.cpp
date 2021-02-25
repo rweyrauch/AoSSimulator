@@ -46,6 +46,8 @@ namespace GloomspiteGitz {
     }
 
     void ColossalSquig::onRestore() {
+        GloomspiteGitzBase::onRestore();
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -63,13 +65,15 @@ namespace GloomspiteGitz {
     }
 
     void ColossalSquig::onWounded() {
+        GloomspiteGitzBase::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_enormousJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
         m_tramplingFeet.setAttacks(g_damageTable[damageIndex].m_tramplingAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    void ColossalSquig::onSlain() {
+    void ColossalSquig::onFriendlyUnitSlain() {
+        GloomspiteGitzBase::onFriendlyUnitSlain();
         // Fungoid Squig Explosion
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {
@@ -137,6 +141,7 @@ namespace GloomspiteGitz {
     }
 
     void ColossalSquig::onCharged() {
+        GloomspiteGitzBase::onCharged();
         // Crazed Charge
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1);
         for (auto ip : units) {

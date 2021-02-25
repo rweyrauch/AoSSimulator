@@ -42,6 +42,9 @@ namespace Khorne {
         }
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Brutal Command", 18, 18, Phase::Battleshock, Ignore_Battleshock,
+                1, Abilities::Target::Friendly, std::vector<Keyword>{MORTAL, KHORNE}));
+
         m_points = g_pointsPerUnit;
 
         return true;

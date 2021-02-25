@@ -29,7 +29,7 @@ namespace DaughtersOfKhaine {
 
     protected:
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
     private:
 

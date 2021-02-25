@@ -83,14 +83,14 @@ namespace Khorne {
         KhorneBase::onStartCombat(player);
     }
 
-    Wounds Khorgoraths::onEndCombat(PlayerId player) {
+    void Khorgoraths::onEndCombat(PlayerId player) {
         // Taker of Heads
         if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat) {
             PLOG_INFO.printf("%s slayed %d models this combat phase and heals 1 wound.\n",
                    name().c_str(), (m_currentRecord.m_enemyModelsSlain - m_modelsSlainAtStartOfCombat));
             heal(1);
         }
-        return KhorneBase::onEndCombat(player);
+        KhorneBase::onEndCombat(player);
     }
 
     int Khorgoraths::ComputePoints(int numModels) {

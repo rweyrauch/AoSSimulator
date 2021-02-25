@@ -147,8 +147,8 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    void OssiarchBonereaperBase::onModelSlain(Wounds::Source source) {
-        Unit::onModelSlain(source);
+    void OssiarchBonereaperBase::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, source);
 
         // Immoliate
         if ((source == Wounds::Source::Weapon_Melee) && (m_legion == Legion::Crematorians)) {

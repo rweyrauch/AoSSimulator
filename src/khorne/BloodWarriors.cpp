@@ -149,12 +149,12 @@ namespace Khorne {
         return points;
     }
 
-    void BloodWarriors::onModelSlain(Wounds::Source source) {
-        KhorneBase::onModelSlain(source);
+    void BloodWarriors::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
+        KhorneBase::onFriendlyModelSlain(numSlain, source);
 
         // No Respite
-        int numSlain = 0;
-        fight(1, m_meleeTarget, numSlain);
+        int numAdditionalSlain = 0;
+        fight(1, m_meleeTarget, numAdditionalSlain);
     }
 
 } // namespace Khorne

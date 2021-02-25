@@ -126,8 +126,8 @@ namespace DaughtersOfKhaine {
         return DaughterOfKhaine::applyWoundSave(totalWounds, attackingUnit);
     }
 
-    Wounds MelusaiIronscale::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void MelusaiIronscale::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Turned to Crystal
         if (owningPlayer() == player) {
@@ -136,10 +136,9 @@ namespace DaughtersOfKhaine {
                 auto unit = units.front();
                 Dice::RollResult result;
                 Dice::RollD6(unit->remainingModels(), result);
-                wounds.mortal += result.rollsGE(3);
+                unit->applyDamage({0, result.rollsGE(3), Wounds::Source::Ability}, this);
             }
         }
-        return wounds;
     }
 
 } //namespace DaughtersOfKhaine

@@ -49,7 +49,7 @@ namespace StormcastEternals {
 
         void onStartCombat(PlayerId player) override;
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

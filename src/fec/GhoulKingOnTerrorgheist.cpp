@@ -154,6 +154,7 @@ namespace FleshEaterCourt {
     }
 
     void AbhorrantGhoulKingOnTerrorgheist::onStartHero(PlayerId player) {
+        FleshEaterCourts::onStartHero(player);
         // Royal Blood
         if (player == owningPlayer()) {
             if (remainingWounds() < g_wounds && remainingWounds() > 0) {
@@ -176,18 +177,20 @@ namespace FleshEaterCourt {
     }
 
     void AbhorrantGhoulKingOnTerrorgheist::onWounded() {
+        FleshEaterCourts::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_skeletalClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void AbhorrantGhoulKingOnTerrorgheist::onRestore() {
+        FleshEaterCourts::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
-    void AbhorrantGhoulKingOnTerrorgheist::onSlain() {
-        FleshEaterCourts::onSlain();
+    void AbhorrantGhoulKingOnTerrorgheist::onFriendlyUnitSlain() {
+        FleshEaterCourts::onFriendlyUnitSlain();
 
         // Infested
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);

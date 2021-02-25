@@ -37,7 +37,7 @@ namespace Skaven {
 
         Rerolls battleshockRerolls() const override;
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
     private:
 

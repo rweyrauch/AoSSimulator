@@ -200,8 +200,8 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds LordCelestantOnStardrake::onEndCombat(PlayerId player) {
-        auto wounds = StormcastEternal::onEndCombat(player);
+    void LordCelestantOnStardrake::onEndCombat(PlayerId player) {
+        StormcastEternal::onEndCombat(player);
 
         // Sweeping Tail
         {
@@ -223,12 +223,10 @@ namespace StormcastEternals {
                         roll = Dice::RollD3();
                         Wounds mortalWounds = {0, roll};
                         (*ip)->applyDamage(mortalWounds, this);
-                        wounds += mortalWounds;
                     }
                 }
             }
         }
-        return wounds;
     }
 
     void LordCelestantOnStardrake::onStartShooting(PlayerId player) {

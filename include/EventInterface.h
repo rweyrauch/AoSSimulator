@@ -21,10 +21,11 @@ public:
 
     virtual void onRestore() {}
 
-    virtual void onSlain() {}
-    virtual void onEnemySlain(const Unit* unit) {}
+    virtual void onFriendlyUnitSlain() {}
+    virtual void onEnemyUnitSlain(const Unit* enemyUnit) {}
 
-    virtual void onModelSlain(Wounds::Source source) {}
+    virtual void onFriendlyModelSlain(int numSlain, Wounds::Source source) {}
+    virtual void onEnemyModelSlain(int numSlain, const Unit* enemyUnit, Wounds::Source source) {}
 
     virtual void onWounded() {}
 
@@ -37,7 +38,6 @@ public:
     virtual void onUnboundSpell(Unit *caster, int castRoll) {}
 
     virtual void onCastSpell(const Spell *spell, const Unit *target) {}
-
 
     virtual void onBeginRound(int battleRound) {}
 
@@ -57,13 +57,13 @@ public:
 
     virtual void onStartShooting(PlayerId player) {}
 
-    virtual Wounds onEndShooting(PlayerId player) { return {0, 0}; }
+    virtual void onEndShooting(PlayerId player) {}
 
     virtual void onEndCharge(PlayerId player) {}
 
     virtual void onStartCombat(PlayerId player) {}
 
-    virtual Wounds onEndCombat(PlayerId player) { return {0, 0}; }
+    virtual void onEndCombat(PlayerId player) {}
 
     virtual void onStartBattleshock(PlayerId player) {}
 

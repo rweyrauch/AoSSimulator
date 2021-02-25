@@ -179,11 +179,11 @@ namespace Death {
         }
     }
 
-    Wounds VampireLordOnZombieDragon::onEndCombat(PlayerId player) {
+    void VampireLordOnZombieDragon::onEndCombat(PlayerId player) {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        return Unit::onEndCombat(player);
+        Unit::onEndCombat(player);
     }
 
     Wounds VampireLordOnZombieDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,

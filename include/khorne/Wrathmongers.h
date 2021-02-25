@@ -33,7 +33,7 @@ namespace Khorne {
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        void onModelSlain(Wounds::Source source) override;
+        void onFriendlyModelSlain(int numSlain, Wounds::Source source) override;
 
         int crimsonHaze(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
 

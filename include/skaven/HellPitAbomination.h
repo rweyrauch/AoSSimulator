@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef HELLPITABOMINATION_H
-#define HELLPITABOMINATION_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -35,7 +33,7 @@ namespace Skaven {
 
         int generateMortalWounds(const Unit *unit) override;
 
-        void onSlain() override;
+        void onFriendlyUnitSlain() override;
 
         int terrifying(const Unit *unit);
 
@@ -67,5 +65,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //HELLPITABOMINATION_H

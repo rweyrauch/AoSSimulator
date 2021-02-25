@@ -128,18 +128,20 @@ namespace FleshEaterCourt {
     }
 
     void RoyalTerrorgheist::onWounded() {
+        FleshEaterCourts::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_skeletalClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void RoyalTerrorgheist::onRestore() {
+        FleshEaterCourts::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
-    void RoyalTerrorgheist::onSlain() {
-        FleshEaterCourts::onSlain();
+    void RoyalTerrorgheist::onFriendlyUnitSlain() {
+        FleshEaterCourts::onFriendlyUnitSlain();
 
         // Infested
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
@@ -154,7 +156,7 @@ namespace FleshEaterCourt {
     }
 
     void RoyalTerrorgheist::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        FleshEaterCourts::onStartShooting(player);
 
         // Death Shriek
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

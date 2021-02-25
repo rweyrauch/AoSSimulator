@@ -88,14 +88,13 @@ namespace Skaven {
         m_moreMoreFailed = false;
     }
 
-    Wounds RatlingGun::onEndShooting(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void RatlingGun::onEndShooting(PlayerId player) {
+        Unit::onEndCombat(player);
 
         if (m_moreMoreFailed) {
             slay(1);
             m_moreMoreFailed = false;
         }
-        return wounds;
     }
 
     int RatlingGun::ComputePoints(int /*numModels*/) {

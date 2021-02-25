@@ -95,16 +95,14 @@ namespace Skaven {
         m_moreMoreFailed = false;
     }
 
-    Wounds WarlockEngineer::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void WarlockEngineer::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         if (m_moreMoreFailed) {
             Wounds overloadWounds = {0, Dice::RollD6()};
             applyDamage(overloadWounds, this);
-            wounds += overloadWounds;
             m_moreMoreFailed = false;
         }
-        return wounds;
     }
 
     Wounds WarlockEngineer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef EXALTEDDEATHBRINGER_H
-#define EXALTEDDEATHBRINGER_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -67,9 +65,7 @@ namespace Khorne {
 // Runemarked Shield                Yes
 // Skullgouger                      Yes
 // Brutal Impalement                Yes
-// Brutal Command                   TODO
+// Brutal Command                   Yes
 //
 
 } // namespace Khorne
-
-#endif //EXALTEDDEATHBRINGER_H

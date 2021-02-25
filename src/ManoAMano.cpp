@@ -98,10 +98,10 @@ void ManoAMano::start() {
 }
 
 void ManoAMano::simulate() {
-    PLOG_INFO.printf("Fight State:\n");
+    PLOG_INFO.printf("Fight State:");
     PLOG_INFO.printf("\tRound: %d of %d.  Top of round: %d", m_round, m_numRounds, m_topOfRound);
-    PLOG_INFO.printf("\tPhase: %s\n", PhaseToString(m_currentPhase).c_str());
-    PLOG_INFO.printf("\tCurrent Unit: %s\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("\tPhase: %s", PhaseToString(m_currentPhase).c_str());
+    PLOG_INFO.printf("\tCurrent Unit: %s", PlayerIdToString(m_attackingPlayer).c_str());
 
     // run the simulation for the current state
     switch (m_currentPhase) {
@@ -174,11 +174,11 @@ void ManoAMano::next() {
 
                 m_currentPhase = Phase::Hero;
             } else {
-                PLOG_INFO.printf("At the end of round %d...\n", m_round);
-                PLOG_INFO.printf("\tTeam %s has %d remaining models with %d wounds remaining.\n",
+                PLOG_INFO.printf("At the end of round %d...", m_round);
+                PLOG_INFO.printf("\tTeam %s has %d remaining models with %d wounds remaining.",
                        PlayerIdToString(PlayerId::Red).c_str(), redUnit()->remainingModels(),
                        redUnit()->remainingWounds());
-                PLOG_INFO.printf("\tTeam %s has %d remaining models with %d wounds remaining.\n",
+                PLOG_INFO.printf("\tTeam %s has %d remaining models with %d wounds remaining.",
                        PlayerIdToString(PlayerId::Blue).c_str(), blueUnit()->remainingModels(),
                        blueUnit()->remainingWounds());
 
@@ -242,23 +242,23 @@ void ManoAMano::runInitiativePhase() {
     m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
     m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
 
-    PLOG_INFO.printf("Player %s wins initiative. Dice rolls: Red: %d  Blue: %d.\n",
+    PLOG_INFO.printf("Player %s wins initiative. Dice rolls: Red: %d  Blue: %d.",
            PlayerIdToString(m_attackingPlayer).c_str(), p1, p2);
 }
 
 void ManoAMano::runHeroPhase() {
-    PLOG_INFO.printf("Starting player %s hero phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s hero phase.", PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doHeroPhase();
 }
 
 void ManoAMano::runMovementPhase() {
-    PLOG_INFO.printf("Starting player %s movement phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s movement phase.", PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doMovementPhase();
 
     if (attackingUnit()->ran()) {
-        PLOG_INFO.printf("%s:%s ran.\n", PlayerIdToString(m_attackingPlayer).c_str(),
+        PLOG_INFO.printf("%s:%s ran.", PlayerIdToString(m_attackingPlayer).c_str(),
                attackingUnit()->name().c_str());
     }
 }
@@ -271,28 +271,28 @@ void ManoAMano::runShootingPhase() {
 
     // Act...
     int numSlain = 0;
-    auto totalDamage = attackingUnit()->shoot(numSlain);
+    auto totalDamage = attackingUnit()->shoot(m_attackingPlayer, numSlain);
 
-    PLOG_INFO.printf("%s:%s did %d shooting damage to %s:%s slaying %d models.\n",
+    PLOG_INFO.printf("%s:%s did %d shooting damage to %s:%s slaying %d models.",
            PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str(),
            (totalDamage.normal + totalDamage.mortal),
            PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str(), numSlain);
 }
 
 void ManoAMano::runChargePhase() {
-    PLOG_INFO.printf("Starting player %s charge phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s charge phase.", PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doChargePhase();
 
     if (attackingUnit()->charged()) {
-        PLOG_INFO.printf("%s:%s charged %s:%s.\n", PlayerIdToString(m_attackingPlayer).c_str(),
+        PLOG_INFO.printf("%s:%s charged %s:%s.", PlayerIdToString(m_attackingPlayer).c_str(),
                attackingUnit()->name().c_str(),
                PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str());
     }
 }
 
 void ManoAMano::runCombatPhase() {
-    PLOG_INFO.printf("Starting player %s combat phase.\n", PlayerIdToString(m_attackingPlayer).c_str());
+    PLOG_INFO.printf("Starting player %s combat phase.", PlayerIdToString(m_attackingPlayer).c_str());
 
     // Think.
     m_rosters[(int) m_attackingPlayer]->doCombatPhase();
@@ -302,7 +302,7 @@ void ManoAMano::runCombatPhase() {
     int numSlain = 0;
     auto totalDamage = attackingUnit()->fight(m_attackingPlayer, numSlain);
 
-    PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the combat phase.\n",
+    PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the combat phase.",
            PlayerIdToString(m_attackingPlayer).c_str(),
            attackingUnit()->name().c_str(), (totalDamage.normal + totalDamage.mortal),
            PlayerIdToString(m_defendingPlayer).c_str(), defendingUnit()->name().c_str(),
@@ -311,7 +311,7 @@ void ManoAMano::runCombatPhase() {
     numSlain = 0;
     totalDamage = defendingUnit()->fight(-1, attackingUnit(), numSlain);
 
-    PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the counter attack.\n",
+    PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the counter attack.",
            PlayerIdToString(m_defendingPlayer).c_str(),
            defendingUnit()->name().c_str(), (totalDamage.normal + totalDamage.mortal),
            PlayerIdToString(m_attackingPlayer).c_str(), attackingUnit()->name().c_str(),
@@ -319,7 +319,7 @@ void ManoAMano::runCombatPhase() {
 }
 
 void ManoAMano::runBattleshockPhase() {
-    PLOG_INFO.printf("Starting player %s battleshock phase.\n",
+    PLOG_INFO.printf("Starting player %s battleshock phase.",
            PlayerIdToString(m_attackingPlayer).c_str());
 
     m_rosters[(int) m_attackingPlayer]->doBattleshockPhase();
@@ -357,41 +357,41 @@ static void logUnitStats(const UnitStatistics &stats) {
     Wounds woundsTaken, woundsInflicted;
     stats.totalWoundsInflicted(woundsInflicted);
     stats.totalWoundsTaken(woundsTaken);
-    PLOG_INFO.printf("\tTotal Movement: %f  Rounds Moved: %d\n", stats.totalMovementDistance(),
+    PLOG_INFO.printf("\tTotal Movement: %f  Rounds Moved: %d", stats.totalMovementDistance(),
            stats.numberOfRoundsMoved());
-    PLOG_INFO.printf("\tTotal Run Distance: %f  Rounds Ran: %d\n", stats.totalRunDistance(),
+    PLOG_INFO.printf("\tTotal Run Distance: %f  Rounds Ran: %d", stats.totalRunDistance(),
            stats.numberOfRoundsRan());
-    PLOG_INFO.printf("\tTotal Charge Distance: %f  Rounds Charged: %d\n", stats.totalChargeDistance(),
+    PLOG_INFO.printf("\tTotal Charge Distance: %f  Rounds Charged: %d", stats.totalChargeDistance(),
            stats.numberOfRoundsCharged());
-    PLOG_INFO.printf("\tTotal Enemy Models Slain: %d  Wounds Inflicted: {%d, %d}\n",
+    PLOG_INFO.printf("\tTotal Enemy Models Slain: %d  Wounds Inflicted: {%d, %d}",
            stats.totalEnemyModelsSlain(),
            woundsInflicted.normal, woundsInflicted.mortal);
-    PLOG_INFO.printf("\tTotal Models Slain: %d  Wounds Taken: {%d, %d}\n", stats.totalModelsSlain(),
+    PLOG_INFO.printf("\tTotal Models Slain: %d  Wounds Taken: {%d, %d}", stats.totalModelsSlain(),
            woundsTaken.normal, woundsTaken.mortal);
-    PLOG_INFO.printf("\tTotal Models Fled: %d\n", stats.totalModelsFled());
+    PLOG_INFO.printf("\tTotal Models Fled: %d", stats.totalModelsFled());
 }
 
 void ManoAMano::logStatistics() const {
     std::function<void(const TurnRecord &)> turnVistor = [](const TurnRecord &turn) {
-        PLOG_INFO.printf("\tTurn %d  Player: %s\n", turn.m_round,
+        PLOG_INFO.printf("\tTurn %d  Player: %s", turn.m_round,
                PlayerIdToString(turn.m_playerWithTurn).c_str());
-        PLOG_INFO.printf("\t\tMoved: %f  Ran: %f Charged: %f\n", turn.m_moved, turn.m_ran, turn.m_charged);
-        PLOG_INFO.printf("\t\tAttacks Made: %d  Attacks Hit: %d\n", turn.m_attacksMade,
+        PLOG_INFO.printf("\t\tMoved: %f  Ran: %f Charged: %f", turn.m_moved, turn.m_ran, turn.m_charged);
+        PLOG_INFO.printf("\t\tAttacks Made: %d  Attacks Hit: %d", turn.m_attacksMade,
                turn.m_attacksHitting);
-        PLOG_INFO.printf("\t\tEnemy Slain: %d  Wounds Inflicted: {%d, %d}\n", turn.m_enemyModelsSlain,
+        PLOG_INFO.printf("\t\tEnemy Slain: %d  Wounds Inflicted: {%d, %d}", turn.m_enemyModelsSlain,
                turn.m_woundsInflicted.normal, turn.m_woundsInflicted.mortal);
-        PLOG_INFO.printf("\t\tSaves Made: %d  Failed: %d\n", turn.m_savesMade, turn.m_savesFailed);
-        PLOG_INFO.printf("\t\tModel Slain: %d  Wounds Taken: {%d, %d}\n", turn.m_modelsSlain,
+        PLOG_INFO.printf("\t\tSaves Made: %d  Failed: %d", turn.m_savesMade, turn.m_savesFailed);
+        PLOG_INFO.printf("\t\tModel Slain: %d  Wounds Taken: {%d, %d}", turn.m_modelsSlain,
                turn.m_woundsTaken.normal, turn.m_woundsTaken.mortal);
     };
 
     auto redStats = redUnit()->getStatistics();
-    PLOG_INFO.printf("Red Statistics:\n");
+    PLOG_INFO.printf("Red Statistics:");
     logUnitStats(redStats);
     redStats.visitTurn(turnVistor);
 
     auto blueStats = blueUnit()->getStatistics();
-    PLOG_INFO.printf("Blue Statistics:\n");
+    PLOG_INFO.printf("Blue Statistics:");
     logUnitStats(blueStats);
     blueStats.visitTurn(turnVistor);
 }

@@ -118,7 +118,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    void ManglerSquigs::onSlain() {
+    void ManglerSquigs::onFriendlyUnitSlain() {
         // Watch Out!
         // get all units within 6" (friend and foe)
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0);
@@ -130,7 +130,7 @@ namespace GloomspiteGitz {
             }
         }
 
-        GloomspiteGitzBase::onSlain();
+        GloomspiteGitzBase::onFriendlyUnitSlain();
     }
 
     int ManglerSquigs::ComputePoints(int /*numModels*/) {

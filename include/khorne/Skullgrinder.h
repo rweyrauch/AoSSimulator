@@ -35,7 +35,7 @@ namespace Khorne {
 
     protected:
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
         int favouredByKhorne(const Unit *unit);
 

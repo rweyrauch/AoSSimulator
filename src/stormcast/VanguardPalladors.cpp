@@ -130,8 +130,8 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    Wounds VanguardPalladors::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void VanguardPalladors::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         if (isNamedModelAlive("Prime")) {
             // Lunar Blade
@@ -140,11 +140,9 @@ namespace StormcastEternals {
                 if (roll >= 2) {
                     Wounds bladeWounds = {0, 1};
                     m_meleeTarget->applyDamage(bladeWounds, this);
-                    wounds += bladeWounds;
                 }
             }
         }
-        return wounds;
     }
 
     Wounds VanguardPalladors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

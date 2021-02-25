@@ -95,8 +95,8 @@ namespace Khorne {
         return 0;
     }
 
-    Wounds Skullgrinder::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void Skullgrinder::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Fiery Anvil
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0);
@@ -105,12 +105,10 @@ namespace Khorne {
                 if (Dice::RollD6() >= 2) {
                     Wounds anvilWounds = {0, Dice::RollD3()};
                     unit->applyDamage(anvilWounds, this);
-                    wounds += anvilWounds;
                     break;
                 }
             }
         }
-        return wounds;
     }
 
     int Skullgrinder::ComputePoints(int /*numModels*/) {

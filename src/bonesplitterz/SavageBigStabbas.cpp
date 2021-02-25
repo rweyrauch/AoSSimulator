@@ -63,7 +63,7 @@ namespace Bonesplitterz {
         m_runAndCharge = true;
     }
 
-    void SavageBigStabbas::onModelSlain(Wounds::Source source) {
+    void SavageBigStabbas::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
         // Da Final Fling
         if (source == Wounds::Source::Weapon_Melee) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -75,7 +75,7 @@ namespace Bonesplitterz {
                 }
             }
         }
-        Bonesplitterz::onModelSlain(source);
+        Bonesplitterz::onFriendlyModelSlain(numSlain, source);
     }
 
     bool SavageBigStabbas::configure(int numModels) {

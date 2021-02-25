@@ -93,13 +93,13 @@ namespace Ironjawz {
         Ironjawz::onStartCombat(player);
     }
 
-    Wounds OrrukMegaboss::onEndCombat(PlayerId player) {
+    void OrrukMegaboss::onEndCombat(PlayerId player) {
         // Strength from Victory
         if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat) {
             heal(1);
             m_bossChoppaAndFist.setAttacks(m_bossChoppaAndFist.attacks() + 1);
         }
-        return Ironjawz::onEndCombat(player);
+        Ironjawz::onEndCombat(player);
     }
 
     int OrrukMegaboss::ComputePoints(int /*numModels*/) {

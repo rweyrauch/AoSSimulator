@@ -78,17 +78,24 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // Apply all of the wounds to the target.  Target apply wound save and return
     // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage, this);
+    if (numSlain > 0) {
+        onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
+    }
 
     if (targetUnit->remainingModels() == 0) {
-        targetUnit->onSlain();
-        onEnemySlain(targetUnit);
+        targetUnit->onFriendlyUnitSlain();
+        onEnemyUnitSlain(targetUnit);
     }
 
     // apply returned damage to this unit
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
+    if (numSlainByReturnedDamage > 0) {
+        targetUnit->onEnemyModelSlain(numSlain, this, totalDamageReflected.source);
+    }
+
     if (remainingModels() == 0) {
-        onSlain();
-        targetUnit->onEnemySlain(this);
+        onFriendlyUnitSlain();
+        targetUnit->onEnemyUnitSlain(this);
     }
 
     m_currentRecord.m_woundsInflicted += totalDamage;
@@ -135,11 +142,23 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // Apply all of the wounds to the target.  Target apply wound save and return
     // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage, this);
+    if (numSlain > 0) {
+        onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
+    }
+
+    if (targetUnit->remainingModels() == 0) {
+        targetUnit->onFriendlyUnitSlain();
+        onEnemyUnitSlain(targetUnit);
+    }
 
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
+    if (numSlainByReturnedDamage > 0) {
+        targetUnit->onEnemyModelSlain(numSlainByReturnedDamage, this, totalDamageReflected.source);
+    }
+
     if (remainingModels() == 0) {
-        onSlain();
-        targetUnit->onEnemySlain(this);
+        onFriendlyUnitSlain();
+        targetUnit->onEnemyUnitSlain(this);
     }
 
     m_currentRecord.m_woundsInflicted += totalDamage;
@@ -264,7 +283,7 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
             totalDamage = 0;
         }
         if (remainingWounds == 0) {
-            onModelSlain(totalWounds.source);
+            onFriendlyModelSlain(1, totalWounds.source);
             numSlain++;
         }
     }
@@ -276,8 +295,8 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
     m_currentRecord.m_woundsTaken += totalWounds;
 
     if (remainingModels() == 0) {
-        onSlain();
-        attackingUnit->onEnemySlain(this);
+        onFriendlyUnitSlain();
+        attackingUnit->onEnemyUnitSlain(this);
     }
 
     return numSlain;
@@ -612,12 +631,16 @@ int Unit::rollBattleshock() const {
     return Dice::RollD6();
 }
 
-Wounds Unit::shoot(int &numSlain) {
+Wounds Unit::shoot(PlayerId player, int &numSlain) {
     if (m_shootingTarget == nullptr) {
         numSlain = 0;
         return {0, 0};
     }
-    return shoot(-1, m_shootingTarget, numSlain);
+    auto wounds = shoot(-1, m_shootingTarget, numSlain);
+
+    onEndShooting(player);
+
+    return wounds;
 }
 
 Wounds Unit::fight(PlayerId player, int &numSlain) {
@@ -627,7 +650,7 @@ Wounds Unit::fight(PlayerId player, int &numSlain) {
     }
     auto wounds = fight(-1, m_meleeTarget, numSlain);
 
-    wounds += onEndCombat(player);
+    onEndCombat(player);
 
     return wounds;
 }
@@ -926,13 +949,13 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                     totalWoundsSuffered += target->computeReturnedDamage(weapon, saveRoll);
                 } else {
                     // failed to wound
-                    PLOG_INFO.printf("Weapon, %s, failed to wound rolling a %d.\n", weapon->name().c_str(),
+                    PLOG_INFO.printf("Weapon, %s, failed to wound rolling a %d.", weapon->name().c_str(),
                            modifiedWoundRoll);
                 }
             }
         } else {
             // missed
-            PLOG_INFO.printf("Weapon, %s, missed with a roll of %d.\n", weapon->name().c_str(),
+            PLOG_INFO.printf("Weapon, %s, missed with a roll of %d.", weapon->name().c_str(),
                    modifiedHitRoll);
         }
     }
@@ -970,12 +993,12 @@ bool Unit::unbind(Unit *caster, int castRoll) {
     if (m_spellsUnbound < m_totalUnbinds) {
         int unbindRoll = Dice::Roll2D6() + unbindingModifier();
         if (unbindRoll > castRoll) {
-            PLOG_INFO.printf("%s unbound a spell cast by %s (%d) with a unbind roll of %d.\n",
+            PLOG_INFO.printf("%s unbound a spell cast by %s (%d) with a unbind roll of %d.",
                    name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
             unbound = true;
             onUnboundSpell(caster, castRoll);
         } else {
-            PLOG_INFO.printf("%s failed to unbind a spell cast by %s (%d) with a unbind roll of %d.\n",
+            PLOG_INFO.printf("%s failed to unbind a spell cast by %s (%d) with a unbind roll of %d.",
                    name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
         }
         m_spellsUnbound++;
@@ -1002,7 +1025,7 @@ void Unit::castSpell() {
             for (auto ip : units) {
                 auto successful = sip->cast(ip, m_battleRound);
                 if (successful == Spell::Result::Success) {
-                    PLOG_INFO.printf("%s successfully cast %s\n", m_name.c_str(), sip->name().c_str());
+                    PLOG_INFO.printf("%s successfully cast %s", m_name.c_str(), sip->name().c_str());
                     onCastSpell(sip.get(), ip);
                 }
                 m_spellsCast++;
@@ -1045,7 +1068,7 @@ void Unit::makePrayer() {
             for (auto ip : units) {
                 bool successful = sip->pray(ip, m_battleRound);
                 if (successful) {
-                    PLOG_INFO.printf("%s successfully attempted %s\n", m_name.c_str(), sip->name().c_str());
+                    PLOG_INFO.printf("%s successfully attempted %s", m_name.c_str(), sip->name().c_str());
                 }
                 m_prayersAttempted++;
                 return;

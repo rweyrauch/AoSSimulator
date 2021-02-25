@@ -45,7 +45,7 @@ namespace StormcastEternals {
 
         void onStartCombat(PlayerId player) override;
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
         int arcaneEngineer(const Unit *attacker, const Weapon *weapon, const Unit *target);
 

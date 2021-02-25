@@ -53,10 +53,13 @@
 
 #include <plog/Log.h>
 #include <plog/Initializers/RollingFileInitializer.h>
+#include <plog/Appenders/ColorConsoleAppender.h>
+#include <plog/Formatters/MessageOnlyFormatter.h>
 
 void Initialize(plog::Severity level) {
 
-    plog::init(level, "AosSimLog.txt");
+    static plog::ColorConsoleAppender<plog::MessageOnlyFormatter> consoleAppender;
+    plog::init(level, "AosSimLog.txt").addAppender(&consoleAppender);
 
     StormcastEternals::Init();
     GloomspiteGitz::Init();

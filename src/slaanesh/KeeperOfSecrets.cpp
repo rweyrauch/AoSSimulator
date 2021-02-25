@@ -178,8 +178,8 @@ namespace Slaanesh {
         onWounded();
     }
 
-    Wounds KeeperOfSecrets::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void KeeperOfSecrets::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         auto target = m_meleeTarget;
         if (target == nullptr) {
@@ -199,7 +199,6 @@ namespace Slaanesh {
                 knifeWounds = {0, 1};
             }
             target->applyDamage(knifeWounds, this);
-            wounds += knifeWounds;
         }
 
         // Sinistrous Hand
@@ -207,7 +206,6 @@ namespace Slaanesh {
             // TODO: keep track of heroes slain to heal D6
             heal(Dice::RollD3());
         }
-        return wounds;
     }
 
     Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {

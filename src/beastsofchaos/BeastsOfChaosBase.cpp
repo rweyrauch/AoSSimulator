@@ -88,15 +88,13 @@ namespace BeastsOfChaos {
         return 0;
     }
 
-    Wounds BeastsOfChaosBase::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void BeastsOfChaosBase::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Bloodgorge
         if (m_currentRecord.m_enemyUnitsSlain) {
             heal(Dice::RollD3());
         }
-
-        return wounds;
     }
 
     void BeastsOfChaosBase::setArtefact(Artefact artefact) {

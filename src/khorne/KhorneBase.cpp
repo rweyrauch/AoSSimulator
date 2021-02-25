@@ -158,15 +158,15 @@ namespace Khorne {
         m_artefact = artefact;
     }
 
-    void KhorneBase::onSlain() {
-        Unit::onSlain();
+    void KhorneBase::onFriendlyUnitSlain() {
+        Unit::onFriendlyUnitSlain();
 
         // Add a Blood Tithe point
         getRoster()->incrementResource(1);
     }
 
-    void KhorneBase::onEnemySlain(const Unit *unit) {
-        Unit::onEnemySlain(unit);
+    void KhorneBase::onEnemyUnitSlain(const Unit *unit) {
+        Unit::onEnemyUnitSlain(unit);
 
         // Add a Blood Tithe point
         getRoster()->incrementResource(1);

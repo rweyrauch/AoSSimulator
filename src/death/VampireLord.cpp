@@ -133,11 +133,11 @@ namespace Death {
         m_usedChaliceOfBlood = false;
     }
 
-    Wounds VampireLord::onEndCombat(PlayerId player) {
+    void VampireLord::onEndCombat(PlayerId player) {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        return Unit::onEndCombat(player);
+        Unit::onEndCombat(player);
     }
 
 } // namespace Death

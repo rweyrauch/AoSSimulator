@@ -38,11 +38,11 @@ namespace Greenskinz {
 
         void onRestore() override;
 
-        void onSlain() override;
+        void onFriendlyUnitSlain() override;
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

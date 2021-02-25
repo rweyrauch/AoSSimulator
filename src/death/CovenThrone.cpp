@@ -147,11 +147,11 @@ namespace Death {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Wounds CovenThrone::onEndCombat(PlayerId player) {
+    void CovenThrone::onEndCombat(PlayerId player) {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        return Unit::onEndCombat(player);
+        Unit::onEndCombat(player);
     }
 
     void CovenThrone::onStartHero(PlayerId player) {

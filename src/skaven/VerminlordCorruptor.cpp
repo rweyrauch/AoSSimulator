@@ -163,8 +163,8 @@ namespace Skaven {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Wounds VerminlordCorruptor::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void VerminlordCorruptor::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Plaguemaster
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
@@ -172,11 +172,8 @@ namespace Skaven {
             if (Dice::RollD6() >= 4) {
                 Wounds plague = {0, Dice::RollD3()};
                 unit->applyDamage(plague, this);
-                wounds += plague;
             }
         }
-
-        return wounds;
     }
 
     void VerminlordCorruptor::onWounded() {

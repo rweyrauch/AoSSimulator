@@ -103,7 +103,7 @@ namespace FreeAgent {
         return wounds;
     }
 
-    Wounds GotrekGurnisson::onEndCombat(PlayerId player) {
+    void GotrekGurnisson::onEndCombat(PlayerId player) {
         Unit *meleeTarget = m_meleeTarget;
         if (!meleeTarget) {
             meleeTarget = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -124,10 +124,7 @@ namespace FreeAgent {
                 PLOG_INFO.printf("Gotrek attacks again for {%d, %d} wounds.", wounds.normal, wounds.mortal);
             }
         }
-
-        wounds += Unit::onEndCombat(player);
-
-        return wounds;
+        Unit::onEndCombat(player);
     }
 
     int GotrekGurnisson::ComputePoints(int /*numModels*/) {

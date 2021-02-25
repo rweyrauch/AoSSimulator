@@ -149,7 +149,7 @@ public:
     //
     Wounds shoot(int numAttackingModels, Unit *targetUnit, int &numSlain);
 
-    Wounds shoot(int &numSlain);
+    Wounds shoot(PlayerId player, int &numSlain);
 
     Wounds fight(int numAttackingModels, Unit *targetUnit, int &numSlain);
 

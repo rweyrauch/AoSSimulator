@@ -96,8 +96,8 @@ namespace Fyreslayers {
         }
     }
 
-    Wounds AuricRunefather::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void AuricRunefather::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Weapon-breaker
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
@@ -107,7 +107,6 @@ namespace Fyreslayers {
                 unit->buffModifier(To_Hit_Melee, -1, {Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
             }
         }
-        return wounds;
     }
 
 } // namespace Fyreslayers

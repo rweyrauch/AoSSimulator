@@ -117,12 +117,12 @@ namespace Bonesplitterz {
         }
     }
 
-    Wounds Bonesplitterz::onEndCombat(PlayerId player) {
+    void Bonesplitterz::onEndCombat(PlayerId player) {
         m_pileInMove = 3;
         m_stabStabStab = false;
         m_berserkStrength = false;
 
-        return Unit::onEndCombat(player);
+        Unit::onEndCombat(player);
     }
 
     Wounds Bonesplitterz::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

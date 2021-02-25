@@ -90,16 +90,15 @@ namespace Skaven {
         return true;
     }
 
-    Wounds ArchWarlock::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void ArchWarlock::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
+        // TODO: check damage on enemy
         if (m_moreMoreFailed) {
             Wounds overloadWounds = {0, Dice::RollD6()};
             applyDamage(overloadWounds, this);
-            wounds += overloadWounds;
             m_moreMoreFailed = false;
         }
-        return wounds;
     }
 
     Wounds ArchWarlock::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

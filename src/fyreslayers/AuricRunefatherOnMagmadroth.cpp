@@ -150,9 +150,8 @@ namespace Fyreslayers {
         }
     }
 
-
-    Wounds AuricRunefatherOnMagmadroth::onEndCombat(PlayerId player) {
-        auto wounds = Fyreslayer::onEndCombat(player);
+    void AuricRunefatherOnMagmadroth::onEndCombat(PlayerId player) {
+        Fyreslayer::onEndCombat(player);
 
         // Lashing Tail
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
@@ -160,7 +159,6 @@ namespace Fyreslayers {
             if (Dice::RollD6() < ip->remainingModels()) {
                 Wounds tailWounds = {0, Dice::RollD3()};
                 ip->applyDamage(tailWounds, this);
-                wounds += tailWounds;
             }
         }
 
@@ -172,8 +170,6 @@ namespace Fyreslayers {
                 unit->buffModifier(To_Hit_Melee, -1, {Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
             }
         }
-
-        return wounds;
     }
 
     Wounds AuricRunefatherOnMagmadroth::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {

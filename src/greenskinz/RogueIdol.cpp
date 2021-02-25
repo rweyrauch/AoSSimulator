@@ -105,7 +105,7 @@ namespace Greenskinz {
         Unit::onWounded();
     }
 
-    void RogueIdol::onSlain() {
+    void RogueIdol::onFriendlyUnitSlain() {
         // Avalanche!
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
         for (auto ip : units) {
@@ -115,7 +115,7 @@ namespace Greenskinz {
             }
         }
 
-        Unit::onSlain();
+        Unit::onFriendlyUnitSlain();
     }
 
     Wounds RogueIdol::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
@@ -131,8 +131,8 @@ namespace Greenskinz {
         return modifiedWounds;
     }
 
-    Wounds RogueIdol::onEndCombat(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void RogueIdol::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Rubble and Ruin
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
@@ -141,10 +141,8 @@ namespace Greenskinz {
             if (roll >= 4) {
                 Wounds rubbleRuins = {0, 0};
                 ip->applyDamage(rubbleRuins, this);
-                wounds += rubbleRuins;
             }
         }
-        return wounds;
     }
 
     Rerolls RogueIdol::toHitRerolls(const Weapon *weapon, const Unit *target) const {

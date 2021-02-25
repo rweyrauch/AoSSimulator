@@ -167,7 +167,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    void LoonbossOnManglerSquigs::onSlain() {
+    void LoonbossOnManglerSquigs::onFriendlyUnitSlain() {
         // Watch Out!
         // get all units within 6" (friend and foe)
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0);
@@ -178,10 +178,12 @@ namespace GloomspiteGitz {
                 ip->applyDamage({0, mortalWounds}, this);
             }
         }
-        GloomspiteGitzBase::onSlain();
+        GloomspiteGitzBase::onFriendlyUnitSlain();
     }
 
     void LoonbossOnManglerSquigs::onStartHero(PlayerId player) {
+        GloomspiteGitzBase::onStartHero(player);
+
         if (player == owningPlayer()) {
             // Redcap Mushrooms
             m_toHitRerolls = No_Rerolls;

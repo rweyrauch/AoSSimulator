@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
 
         void onWounded() override;
 
-        void onSlain() override;
+        void onFriendlyUnitSlain() override;
 
         void onRestore() override;
 

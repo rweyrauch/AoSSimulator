@@ -33,7 +33,7 @@ namespace Fyreslayers {
 
         void onStartHero(PlayerId player) override;
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
     private:
 

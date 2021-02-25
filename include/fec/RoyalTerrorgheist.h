@@ -28,7 +28,7 @@ namespace FleshEaterCourt {
 
         bool configure();
 
-        void onSlain() override;
+        void onFriendlyUnitSlain() override;
 
     protected:
 

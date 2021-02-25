@@ -142,11 +142,11 @@ namespace Death {
         if (owningPlayer() == player) deathlyInvocations(4, 18.0);
     }
 
-    Wounds MannfredMortarchOfNight::onEndCombat(PlayerId player) {
+    void MannfredMortarchOfNight::onEndCombat(PlayerId player) {
         // Feaster of Souls
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(2);
 
-        return Unit::onEndCombat(player);
+        Unit::onEndCombat(player);
     }
 
 } // namespace Death

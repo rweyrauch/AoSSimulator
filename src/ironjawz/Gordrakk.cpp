@@ -150,14 +150,14 @@ namespace Ironjawz {
         Ironjawz::onStartCombat(player);
     }
 
-    Wounds GordrakkTheFistOfGork::onEndCombat(PlayerId player) {
+    void GordrakkTheFistOfGork::onEndCombat(PlayerId player) {
         // Strength from Victory
         if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat) {
             heal(1);
             m_smasha.setAttacks(m_smasha.attacks() + 1);
             m_kunnin.setAttacks(m_kunnin.attacks() + 1);
         }
-        return Ironjawz::onEndCombat(player);
+        Ironjawz::onEndCombat(player);
     }
 
     int GordrakkTheFistOfGork::ComputePoints(int /*numModels*/) {

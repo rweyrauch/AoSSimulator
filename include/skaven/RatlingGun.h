@@ -35,7 +35,7 @@ namespace Skaven {
 
         void onRestore() override;
 
-        Wounds onEndShooting(PlayerId player) override;
+        void onEndShooting(PlayerId player) override;
 
     private:
 

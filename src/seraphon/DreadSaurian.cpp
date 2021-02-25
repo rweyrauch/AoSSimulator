@@ -141,8 +141,8 @@ namespace Seraphon {
         }
     }
 
-    void DreadSaurian::onSlain() {
-        Unit::onSlain();
+    void DreadSaurian::onFriendlyUnitSlain() {
+        SeraphonBase::onFriendlyUnitSlain();
 
         // Death Throes
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);

@@ -123,7 +123,7 @@ namespace BeastsOfChaos {
         BeastsOfChaosBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
-        Wounds onEndCombat(PlayerId player) override;
+        void onEndCombat(PlayerId player) override;
 
     protected:
 

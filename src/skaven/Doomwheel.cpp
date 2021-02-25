@@ -91,16 +91,14 @@ namespace Skaven {
         m_moreMoreFailed = false;
     }
 
-    Wounds Doomwheel::onEndShooting(PlayerId player) {
-        auto wounds = Unit::onEndCombat(player);
+    void Doomwheel::onEndShooting(PlayerId player) {
+        Unit::onEndShooting(player);
 
         if (m_moreMoreFailed) {
             Wounds overchargeWounds = {0, Dice::Roll2D6()};
             applyDamage(overchargeWounds, this);
-            wounds += overchargeWounds;
             m_moreMoreFailed = false;
         }
-        return wounds;
     }
 
     int Doomwheel::ComputePoints(int /*numModels*/) {

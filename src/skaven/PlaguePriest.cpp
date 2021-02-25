@@ -77,8 +77,8 @@ namespace Skaven {
         return true;
     }
 
-    Wounds PlaguePriest::onEndCombat(PlayerId player) {
-        Wounds wounds = Unit::onEndCombat(player);
+    void PlaguePriest::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
 
         // Poisonous Fumes
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
@@ -90,10 +90,8 @@ namespace Skaven {
                 else if (roll >= 4) mortalWounds = 1;
 
                 unit->applyDamage({0, mortalWounds}, this);
-                wounds.mortal += mortalWounds;
             }
         }
-        return wounds;
     }
 
     int PlaguePriest::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

@@ -103,8 +103,8 @@ namespace Slaanesh {
         return attacks;
     }
 
-    Wounds SlaangorFiendbloods::onEndCombat(PlayerId player) {
-        auto wounds = EventInterface::onEndCombat(player);
+    void SlaangorFiendbloods::onEndCombat(PlayerId player) {
+        SlaaneshBase::onEndCombat(player);
 
         // Obsessive Violence
         auto target = m_meleeTarget;
@@ -121,7 +121,6 @@ namespace Slaanesh {
             Dice::RollD6(remainingModels(), result);
             target->applyDamage({0, result.rollsGE(4)}, this);
         }
-        return wounds;
     }
 
 } // namespace Slaanesh
