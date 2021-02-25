@@ -29,6 +29,9 @@ namespace BeastsOfChaos {
 
     protected:
 
+        void onFriendlyUnitSlain() override;
+        void onEnemyUnitSlain(const Unit* unit) override;
+
     private:
 
         Weapon m_freakingMutations;

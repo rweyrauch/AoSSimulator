@@ -49,16 +49,21 @@ static int accumulate(const std::vector<int> &v) {
 }
 
 Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
+    if (remainingModels() == 0) {
+        return {0, 0, Wounds::Source::Weapon_Missile};
+    }
     if (m_ran && !canRunAndShoot()) {
-        return {0, 0};
+        return {0, 0, Wounds::Source::Weapon_Missile};
     }
 
     if ((numAttackingModels == -1) || (numAttackingModels > (int) m_models.size())) {
         numAttackingModels = (int) m_models.size();
     }
 
-    Wounds totalDamage = {0, 0};
-    Wounds totalDamageReflected = {0, 0};
+    PLOG_INFO << name() << " stooting at " << targetUnit->name() << " with " << numAttackingModels << " model(s).";
+
+    Wounds totalDamage = {0, 0, Wounds::Source::Weapon_Missile};
+    Wounds totalDamageReflected = {0, 0, Wounds::Source::Weapon_Missile};
 
     for (auto i = 0; i < numAttackingModels; i++) {
         auto model = m_models.at(i).get();
@@ -70,6 +75,10 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
             Wounds weaponDamage, reflectedDamage;
             attackWithWeapon(w, targetUnit, model, weaponDamage, reflectedDamage);
 
+            if (!weaponDamage.zero()) {
+                PLOG_INFO << "\tModel[" << i << "] shoots with " << w->name() << " doing damage " << weaponDamage;
+            }
+
             totalDamage += weaponDamage;
             totalDamageReflected += reflectedDamage;
         }
@@ -79,10 +88,12 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage, this);
     if (numSlain > 0) {
+        PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name() << " in shooting phase.";
         onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
     }
 
     if (targetUnit->remainingModels() == 0) {
+        PLOG_INFO << name() << " slays enemy unit " << targetUnit->name() << " in shooting phase.";
         targetUnit->onFriendlyUnitSlain();
         onEnemyUnitSlain(targetUnit);
     }
@@ -90,10 +101,12 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // apply returned damage to this unit
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
     if (numSlainByReturnedDamage > 0) {
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays " << numSlain << " friently model(s) from " << name() << " with returned shooting damage.";
         targetUnit->onEnemyModelSlain(numSlain, this, totalDamageReflected.source);
     }
 
     if (remainingModels() == 0) {
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name() << " with returned shooting damage.";
         onFriendlyUnitSlain();
         targetUnit->onEnemyUnitSlain(this);
     }
@@ -108,16 +121,20 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
 
 Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
+    if (remainingModels() == 0) {
+        return {0, 0, Wounds::Source::Weapon_Melee};
+    }
+
     if ((numAttackingModels == -1) || (numAttackingModels > (int) m_models.size())) {
         numAttackingModels = (int) m_models.size();
     }
 
     doPileIn();
 
-    Wounds totalDamage = {0, 0};
-    Wounds totalDamageReflected = {0, 0};
+    Wounds totalDamage = {0, 0, Wounds::Source::Weapon_Melee};
+    Wounds totalDamageReflected = {0, 0, Wounds::Source::Weapon_Melee};
 
-    PLOG_INFO << name() << " attacking " << targetUnit->name() << " with " << numAttackingModels << " models.";
+    PLOG_INFO << name() << " attacking " << targetUnit->name() << " with " << numAttackingModels << " model(s).";
 
     for (auto i = 0; i < numAttackingModels; i++) {
         const auto model = m_models.at(i).get();
@@ -129,7 +146,9 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
             Wounds weaponDamage, reflectedDamage;
             attackWithWeapon(w, targetUnit, model, weaponDamage, reflectedDamage);
 
-            PLOG_INFO  << "\tModel[" << i << "] attacks with " << w->name() << " doing damage " << weaponDamage;
+            if (!weaponDamage.zero()) {
+                PLOG_INFO << "\tModel[" << i << "] attacks with " << w->name() << " doing damage " << weaponDamage;
+            }
 
             totalDamage += weaponDamage;
             totalDamageReflected += reflectedDamage;
@@ -143,20 +162,24 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage, this);
     if (numSlain > 0) {
+        PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name() << " in combat phase.";
         onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
     }
 
     if (targetUnit->remainingModels() == 0) {
+        PLOG_INFO << name() << " slays enemy unit " << targetUnit->name() << " in combat phase.";
         targetUnit->onFriendlyUnitSlain();
         onEnemyUnitSlain(targetUnit);
     }
 
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
     if (numSlainByReturnedDamage > 0) {
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays " << numSlain << " friently model(s) from " << name() << " with returned damage.";
         targetUnit->onEnemyModelSlain(numSlainByReturnedDamage, this, totalDamageReflected.source);
     }
 
     if (remainingModels() == 0) {
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name() << " with returned damage.";
         onFriendlyUnitSlain();
         targetUnit->onEnemyUnitSlain(this);
     }
@@ -175,6 +198,7 @@ int Unit::applyBattleshock() {
 
     if (!battleshockRequired()) return 0;
     if (m_modelsSlain <= 0) return 0;
+    if (remainingModels() == 0) return 0;
 
     // TODO: implement rerolls for battleshock.
     auto roll = rollBattleshock();
@@ -191,14 +215,22 @@ int Unit::applyBattleshock() {
         numFleeing--;
     }
 
-    if (numFled > 0)
+    if (numFled > 0) {
+        PLOG_INFO << name() << " failed battleshock rolling " << roll << ".  " << numFled << " flee.";
         onFlee(numFled);
+    }
 
     m_currentRecord.m_numFled += numFled;
 
     // restore models
     if (numRestored > 0) {
+        PLOG_INFO << name() << " restored " << numRestored << " models during battleshock.";
         restoreModels(numRestored);
+    }
+
+    if (remainingModels() == 0) {
+        PLOG_INFO << name() << " is slain in battleshock phase.";
+        onFriendlyUnitSlain();
     }
 
     return numFled;
@@ -267,7 +299,8 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
 
     // apply global wound save(s)
     // TOOD: allow more than one active global wound save by accumulating the wounds
-    totalWounds = s_globalWoundSave(totalWounds, this, attackingUnit);
+    // TODO: FIXME: always returning 0 wounds.
+    //totalWounds = s_globalWoundSave(totalWounds, this, attackingUnit);
 
     // apply both normal and mortal wounds
     int totalDamage = totalWounds.normal + totalWounds.mortal;
@@ -644,7 +677,7 @@ Wounds Unit::shoot(PlayerId player, int &numSlain) {
 }
 
 Wounds Unit::fight(PlayerId player, int &numSlain) {
-    if (m_meleeTarget == nullptr) {
+    if (hasFought() || (m_meleeTarget == nullptr) || m_meleeTarget->remainingModels() == 0) {
         numSlain = 0;
         return {0, 0};
     }
@@ -658,14 +691,18 @@ Wounds Unit::fight(PlayerId player, int &numSlain) {
 void Unit::shooting(PlayerId player) {
     timeoutBuffs(Phase::Shooting, player);
 
-    auto board = Board::Instance();
+    // TODO: unit that is currently in combat must shoot at the combat unit
+    auto enemyUnits = Board::Instance()->getAllUnits(GetEnemyId(player));
+    m_shootingTarget = nullptr;
+    double closestDistance = DBL_MAX;
+    for (auto unit : enemyUnits) {
+        if (unit->remainingModels() <= 0) continue;
 
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
-
-    m_shootingTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+        if (distanceTo(unit) < closestDistance) {
+            m_shootingTarget = unit;
+            closestDistance = distanceTo(unit);
+        }
+    }
 
     onStartShooting(player);
 }
@@ -673,14 +710,17 @@ void Unit::shooting(PlayerId player) {
 void Unit::combat(PlayerId player) {
     timeoutBuffs(Phase::Combat, player);
 
-    auto board = Board::Instance();
+    auto enemyUnits = Board::Instance()->getAllUnits(GetEnemyId(player));
+    m_meleeTarget = nullptr;
+    double closestDistance = DBL_MAX;
+    for (auto unit : enemyUnits) {
+        if (unit->remainingModels() <= 0) continue;
 
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
-
-    m_meleeTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+        if (distanceTo(unit) < closestDistance) {
+            m_meleeTarget = unit;
+            closestDistance = distanceTo(unit);
+        }
+    }
 
     onStartCombat(player);
 }
@@ -698,10 +738,7 @@ void Unit::charge(PlayerId player) {
         return;
     }
 
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
+    auto otherRoster = board->getPlayerRoster(GetEnemyId(player));
     auto closestTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
 
     if (m_ran && !canRunAndCharge()) {

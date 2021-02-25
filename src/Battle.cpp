@@ -164,7 +164,7 @@ void Battle::runShootingPhase() {
 
         int numSlain = 0;
         auto totalDamage = unit->shoot(m_currentPlayer, numSlain);
-        if (unit->shootingTarget()) {
+        if (unit->shootingTarget() && !totalDamage.zero()) {
             PLOG_INFO.printf("%s:%s did %d shooting damage to %s:%s slaying %d models.",
                    PlayerIdToString(m_currentPlayer).c_str(),
                    unit->name().c_str(),
@@ -207,8 +207,8 @@ void Battle::runCombatPhase() {
             int numSlain = 0;
             auto totalDamage = unit->fight(m_currentPlayer, numSlain);
 
-            if (unit->meleeTarget()) {
-                PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the combat phase.",
+            if (unit->meleeTarget() && !totalDamage.zero()) {
+                PLOG_INFO.printf("%s: %s did %d damage to %s:%s slaying %d models in the combat phase.",
                        PlayerIdToString(m_currentPlayer).c_str(),
                        unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
                        PlayerIdToString(defendingPlayer).c_str(), unit->meleeTarget()->name().c_str(),
@@ -221,8 +221,8 @@ void Battle::runCombatPhase() {
             int numSlain = 0;
             auto totalDamage = eunit->fight(m_currentPlayer, numSlain);
 
-            if (eunit->meleeTarget()) {
-                PLOG_INFO.printf("%s:%s did %d damage to %s:%s slaying %d models in the combat phase.",
+            if (eunit->meleeTarget() && !totalDamage.zero()) {
+                PLOG_INFO.printf("%s: %s did %d damage to %s:%s slaying %d models in the combat phase.",
                        PlayerIdToString(defendingPlayer).c_str(),
                        eunit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
                        PlayerIdToString(m_currentPlayer).c_str(), eunit->meleeTarget()->name().c_str(),

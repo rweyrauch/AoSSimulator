@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/ChaosSpawn.h>
 #include <UnitFactory.h>
+#include <Roster.h>
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
@@ -83,6 +84,24 @@ namespace BeastsOfChaos {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    void ChaosSpawn::onFriendlyUnitSlain() {
+        Unit::onFriendlyUnitSlain();
+
+        if (hasKeyword(KHORNE)) {
+            // Add a Blood Tithe point
+            getRoster()->incrementResource(1);
+        }
+    }
+
+    void ChaosSpawn::onEnemyUnitSlain(const Unit *unit) {
+        Unit::onEnemyUnitSlain(unit);
+
+        if (hasKeyword(KHORNE)) {
+            // Add a Blood Tithe point
+            getRoster()->incrementResource(1);
+        }
     }
 
 } // namespace BeastsOfChaos

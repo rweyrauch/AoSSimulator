@@ -25,7 +25,7 @@ public:
     virtual void onEnemyUnitSlain(const Unit* enemyUnit) {}
 
     virtual void onFriendlyModelSlain(int numSlain, Wounds::Source source) {}
-    virtual void onEnemyModelSlain(int numSlain, const Unit* enemyUnit, Wounds::Source source) {}
+    virtual void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) {}
 
     virtual void onWounded() {}
 

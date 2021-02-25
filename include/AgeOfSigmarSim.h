@@ -197,6 +197,8 @@ struct Wounds {
         return *this;
     }
 
+    bool zero() const { return (mortal + normal == 0) ? true : false; }
+
     friend std::ostream& operator<<(std::ostream& os, const Wounds& wounds);
 };
 

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLOODMASTER_H
-#define BLOODMASTER_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -33,7 +31,13 @@ namespace Khorne {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartCombat(PlayerId player) override;
+
+        void onEndCombat(PlayerId player) override;
+
     private:
+
+        bool m_usedBloodMustFlow = false;
 
         Weapon m_bladeOfBlood;
 
@@ -44,9 +48,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Decapitating Strike              Yes
-// The Blood Must Flow              TODO
+// The Blood Must Flow              Yes
 //
 
 } // namespace Khorne
-
-#endif //BLOODMASTER_H

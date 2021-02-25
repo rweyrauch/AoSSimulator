@@ -92,7 +92,7 @@ namespace Khorne {
     }
 
     int SkullCannons::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto modifier = Unit::toHitModifier(weapon, target);
+        auto modifier = KhorneBase::toHitModifier(weapon, target);
 
         // Burning Skulls
         if ((weapon->name() == m_burningSkulls.name()) && (target->remainingModels() >= 10)) {
@@ -107,6 +107,22 @@ namespace Khorne {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    void SkullCannons::onEnemyModelSlain(int numModels, Unit *enemyUnit, Wounds::Source source) {
+        if (numModels && !m_hasFoughtTwice) {
+            // Grind Their Bones, Seize Their Skulls
+            int numSlain;
+            fight(-1, m_meleeTarget, numSlain);
+            m_hasFoughtTwice = true;
+        }
+        KhorneBase::onEnemyModelSlain(numModels, enemyUnit, source);
+    }
+
+    void SkullCannons::onStartCombat(PlayerId player) {
+        KhorneBase::onStartCombat(player);
+
+        m_hasFoughtTwice = false;
     }
 
 } // namespace Khorne

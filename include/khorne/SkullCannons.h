@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKULLCANNONS_H
-#define SKULLCANNONS_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -35,7 +33,13 @@ namespace Khorne {
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
+        void onStartCombat(PlayerId player) override;
+
+        void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
+
     private:
+
+        bool m_hasFoughtTwice = false;
 
         Weapon m_burningSkulls,
                 m_hellblades,
@@ -48,10 +52,8 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Burning Skulls                   Yes
-// Grind their Bones, Seize their Skulls    TODO
+// Grind their Bones, Seize their Skulls    Yes
 // Decapitating Blow                Yes
 //
 
 } // namespace Khorne
-
-#endif //SKULLCANNONS_H

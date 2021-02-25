@@ -146,6 +146,9 @@ namespace SlavesToDarkness {
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
+        void onFriendlyUnitSlain() override;
+        void onEnemyUnitSlain(const Unit* unit) override;
+
     private:
 
         DamnedLegion m_legion = DamnedLegion::Ravagers;

@@ -49,6 +49,13 @@ namespace Khorne {
                      &m_brassPlatedTail};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+
+        s_globalCastMod.connect(this, &VorgarothAndSkalok::wingsOfFury, &m_wingOfFuryConnection);
+        s_globalUnbindMod.connect(this, &VorgarothAndSkalok::wingsOfFury, &m_wingOfFuryConnection);
+    }
+
+    VorgarothAndSkalok::~VorgarothAndSkalok() {
+        m_wingOfFuryConnection.disconnect();
     }
 
     bool VorgarothAndSkalok::configure() {
@@ -163,6 +170,30 @@ namespace Khorne {
 
     int VorgarothAndSkalok::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int VorgarothAndSkalok::wingsOfFury(const Unit *caster) {
+        if (!isFriendly(caster) && (distanceTo(caster) <= 18.0)) {
+            return -3;
+        }
+        return 0;
+    }
+
+    void VorgarothAndSkalok::onStartHero(PlayerId player) {
+        KhorneBase::onStartHero(player);
+
+        // Fuelled by Death
+        if (owningPlayer() == player) {
+            if (remainingWounds() < wounds()) {
+                auto unit = Board::Instance()->getNearestUnit(this, owningPlayer());
+                if (unit && (distanceTo(unit) < 3.0)) {
+                    if (Dice::RollD6() >= unit->wounds()) {
+                        unit->slay(1);
+                        heal(unit->wounds());
+                    }
+                }
+            }
+        }
     }
 
 } // namespace Khorne

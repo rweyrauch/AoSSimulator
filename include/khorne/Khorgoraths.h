@@ -35,6 +35,8 @@ namespace Khorne {
 
         void onEndCombat(PlayerId player) override;
 
+        void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
+
     private:
 
         int m_modelsSlainAtStartOfCombat = 0;
@@ -48,7 +50,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Horrific Predator                TODO
+// Horrific Predator                Yes
 // Taker of Heads                   Yes
 //
 

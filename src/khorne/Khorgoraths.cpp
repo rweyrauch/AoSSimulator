@@ -101,5 +101,14 @@ namespace Khorne {
         return points;
     }
 
+    void Khorgoraths::onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) {
+        KhorneBase::onEnemyModelSlain(numSlain, enemyUnit, source);
+
+        // Horrific Predators
+        if ((numSlain > 0) && (enemyUnit != nullptr)) {
+            enemyUnit->buffModifier(Bravery, 1, {Phase::Battleshock, m_battleRound, m_currentRecord.m_playerWithTurn});
+        }
+    }
+
 } //namespace Khorne
 

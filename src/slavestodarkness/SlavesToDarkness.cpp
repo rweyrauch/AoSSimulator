@@ -9,6 +9,7 @@
 #include <magic_enum.hpp>
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Board.h>
+#include <Roster.h>
 
 #include "slavestodarkness/ChaosChosen.h"
 #include "slavestodarkness/ChaosKnights.h"
@@ -185,6 +186,24 @@ namespace SlavesToDarkness {
             }
         }
         return Unit::toSaveRerolls(weapon, attacker);
+    }
+
+    void SlavesToDarknessBase::onFriendlyUnitSlain() {
+        Unit::onFriendlyUnitSlain();
+
+        if (hasKeyword(KHORNE)) {
+            // Add a Blood Tithe point
+            getRoster()->incrementResource(1);
+        }
+    }
+
+    void SlavesToDarknessBase::onEnemyUnitSlain(const Unit *unit) {
+        Unit::onEnemyUnitSlain(unit);
+
+        if (hasKeyword(KHORNE)) {
+            // Add a Blood Tithe point
+            getRoster()->incrementResource(1);
+        }
     }
 
     void Init() {

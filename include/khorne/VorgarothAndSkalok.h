@@ -25,7 +25,7 @@ namespace Khorne {
 
         VorgarothAndSkalok();
 
-        ~VorgarothAndSkalok() override = default;
+        ~VorgarothAndSkalok() override;
 
         bool configure();
 
@@ -45,7 +45,13 @@ namespace Khorne {
 
         void onRestore() override;
 
+        int wingsOfFury(const Unit *caster);
+
+        void onStartHero(PlayerId player) override;
+
     private:
+
+        lsignal::slot m_wingOfFuryConnection;
 
         Weapon m_balefire,
                 m_skullCleaverAxeOfKhorne,
@@ -63,8 +69,8 @@ namespace Khorne {
 // Crushing Bulk                    Yes
 // Eternal Hunt                     TODO
 // Fettered Servitude               TODO
-// Fuelled by Death                 TODO
-// Wings of Fury                    TODO
+// Fuelled by Death                 Yes
+// Wings of Fury                    Yes
 //
 
 } // namespace Khorne
