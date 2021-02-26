@@ -90,6 +90,13 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     if (numSlain > 0) {
         PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name() << " in shooting phase.";
         onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
+
+        if (targetUnit->hasKeyword(MONSTER)) {
+            m_currentRecord.m_monstersSlain++;
+        }
+        if (targetUnit->hasKeyword(HERO)) {
+            m_currentRecord.m_herosSlain++;
+        }
     }
 
     if (targetUnit->remainingModels() == 0) {
@@ -124,7 +131,6 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     if (remainingModels() == 0) {
         return {0, 0, Wounds::Source::Weapon_Melee};
     }
-
     if ((numAttackingModels == -1) || (numAttackingModels > (int) m_models.size())) {
         numAttackingModels = (int) m_models.size();
     }
@@ -164,6 +170,13 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     if (numSlain > 0) {
         PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name() << " in combat phase.";
         onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
+
+        if (targetUnit->hasKeyword(MONSTER)) {
+            m_currentRecord.m_monstersSlain++;
+        }
+        if (targetUnit->hasKeyword(HERO)) {
+            m_currentRecord.m_herosSlain++;
+        }
     }
 
     if (targetUnit->remainingModels() == 0) {
@@ -973,26 +986,26 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                         // modify damage
                         dam = target->targetAttackDamageModifier(dam, this, hitRoll, woundRoll);
 
-                        PLOG_INFO.printf("Weapon, %s, inflicted wounds (%d, %d) on %s",
+                        PLOG_INFO.printf("\tWeapon, %s, inflicted wounds (%d, %d) on %s",
                                weapon->name().c_str(), dam.normal, dam.mortal, target->name().c_str());
 
                         totalWoundsInflicted += dam;
                     } else {
                         // made save
-                        PLOG_INFO.printf("%s made a save again weapon %s rolling a %d.",
+                        PLOG_INFO.printf("\t%s made a save again weapon %s rolling a %d.",
                                target->name().c_str(), weapon->name().c_str(), saveRoll);
                     }
 
                     totalWoundsSuffered += target->computeReturnedDamage(weapon, saveRoll);
                 } else {
                     // failed to wound
-                    PLOG_INFO.printf("Weapon, %s, failed to wound rolling a %d.", weapon->name().c_str(),
+                    PLOG_INFO.printf("\tWeapon, %s, failed to wound rolling a %d.", weapon->name().c_str(),
                            modifiedWoundRoll);
                 }
             }
         } else {
             // missed
-            PLOG_INFO.printf("Weapon, %s, missed with a roll of %d.", weapon->name().c_str(),
+            PLOG_INFO.printf("\tWeapon, %s, missed with a roll of %d.", weapon->name().c_str(),
                    modifiedHitRoll);
         }
     }

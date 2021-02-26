@@ -131,6 +131,7 @@ namespace Khorne {
     void VorgarothAndSkalok::onRestore() {
         // Restore table-drive attributes
         onWounded();
+        KhorneBase::onRestore();
     }
 
     Rerolls VorgarothAndSkalok::toWoundRerolls(const Weapon *weapon, const Unit *target) const {

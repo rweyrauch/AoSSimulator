@@ -155,6 +155,7 @@ namespace Khorne {
     void BloodthirsterOfInsensateRage::onRestore() {
         // Restore table-drive attributes
         onWounded();
+        KhorneBase::onRestore();
     }
 
     Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,

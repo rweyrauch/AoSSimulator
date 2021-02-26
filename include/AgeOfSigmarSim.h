@@ -137,6 +137,8 @@ enum Realm {
     Ulgu
 };
 
+const int DurationRestOfGame = 9999;
+
 struct Duration {
     Phase phase;
     int round;

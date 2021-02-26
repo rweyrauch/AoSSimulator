@@ -136,6 +136,7 @@ namespace Khorne {
     void WrathOfKhorneBloodthirster::onRestore() {
         // Restore table-driven attributes
         onWounded();
+        KhorneBase::onRestore();
     }
 
     Wounds WrathOfKhorneBloodthirster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,

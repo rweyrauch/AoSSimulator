@@ -118,6 +118,18 @@ namespace Khorne {
             ToInteger(BloodBlessingsOfKhorne::Spellbane_Hex)
     };
 
+    // Blood Tithe Rewards
+    constexpr std::array<int, 9> g_bloodTitheRewards = {
+            ToInteger(BloodTitheReward::None),
+            ToInteger(BloodTitheReward::Bloody_Examplar),
+            ToInteger(BloodTitheReward::Spelleater_Curse),
+            ToInteger(BloodTitheReward::Murderlust),
+            ToInteger(BloodTitheReward::Apoplectic_Frenzy),
+            ToInteger(BloodTitheReward::Brass_Skull_Meteor),
+            ToInteger(BloodTitheReward::Relentless_Fury),
+            ToInteger(BloodTitheReward::Crimson_Rain)
+    };
+
 } // namespace Khorne
 
 #endif // KHORNEPRIVATE_H

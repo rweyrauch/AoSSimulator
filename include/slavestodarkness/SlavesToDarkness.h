@@ -144,12 +144,38 @@ namespace SlavesToDarkness {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         void onFriendlyUnitSlain() override;
         void onEnemyUnitSlain(const Unit* unit) override;
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls runRerolls() const override;
+        Rerolls chargeRerolls() const override;
+
+        void onEndCombat(PlayerId player) override;
+
+        void onRestore() override;
+
     private:
+
+        bool m_haveDarkApotheosis = false;
+        bool m_haveDaemonicLegions  = false;
+        bool m_haveUnholyResilience = false;
+        bool m_haveFlamesOfChaos = false;
+        bool m_haveIronFlesh = false;
+        bool m_haveMurderousMutation  = false;
+        bool m_haveSlaughtersStrength  = false;
+        bool m_haveSpawndom  = false;
 
         DamnedLegion m_legion = DamnedLegion::Ravagers;
         MarkOfChaos m_markOfChaos = MarkOfChaos::Undivided;
@@ -162,11 +188,20 @@ namespace SlavesToDarkness {
 // -------------------------------------------
 // Aura of Chaos
 //    Aura of Khorne                Yes
-//    Aura of Tzeentch              Partial/TODO
-//    Aura of Nurgle                TODO
-//    Aura of Slaanesh              TODO
-//    Aura of Chaos Undivided       TODO
-// Eye of the Gods                  TODO
+//    Aura of Tzeentch              Yes
+//    Aura of Nurgle                Yes
+//    Aura of Slaanesh              Yes
+//    Aura of Chaos Undivided       Yes
+// Eye of the Gods
+//    Dark Apotheosis               TODO
+//    Daemonic Legions              Yes
+//    Unholy Resilience             Yes
+//    Snubbed by the Gods           Yes
+//    Flames of Chaos               Yes
+//    Iron Flesh                    Yes
+//    Murderous Mutation            TODO
+//    Slaughter's Strength          TODO
+//    Spawndom                      Yes
 // Ravagers
 //    Glory for the Taking          TODO
 //    Rally the Tribes              TODO

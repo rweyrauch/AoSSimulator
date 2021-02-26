@@ -46,7 +46,17 @@ namespace SlavesToDarkness {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        void onRestore() override;
+
+        void onEndCombat(PlayerId player) override;
+
     private:
+
+        bool m_usedRelentlessKillers = false;
 
         Weapon m_ensorcelledWeapon,
                 m_fellspear,
@@ -59,12 +69,12 @@ namespace SlavesToDarkness {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Mark of Chaos                    TODO
+// Mark of Chaos                    Yes
 // Daemonbound                      Yes
-// Favoured of the Everchosen       TODO
+// Favoured of the Everchosen       Yes
 // Impaling Charge                  Yes
-// Relentless Killers               TODO
-// Warpsteel Shields                TODO
+// Relentless Killers               Yes
+// Warpsteel Shields                Yes
 //
 
 } // namespace SlavesToDarkness

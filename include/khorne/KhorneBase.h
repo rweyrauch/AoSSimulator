@@ -103,6 +103,30 @@ namespace Khorne {
         Crowncleaver    // Skullfiend
     };
 
+    // Available rewards and their cost( == enum value)
+    enum class BloodTitheReward : int {
+        None = 0,
+        Bloody_Examplar,
+        Spelleater_Curse,
+        Murderlust,
+        Apoplectic_Frenzy,
+        Brass_Skull_Meteor,
+        Relentless_Fury,
+        Crimson_Rain,
+        Slaughter_Triumphant,
+
+        Summon_Wrath_Of_Khorne_Bloodthirster,
+        Summon_Bloodthirster_Of_Unfettered_Fury,
+        Summon_Bloodthirster_Of_Insensate_Rage,
+        Summon_Bloodletters,
+        Summon_Flesh_Hounds,
+        Summon_Skull_Cannon,
+        Summon_Bloodcrushers,
+        Summon_Blood_Throne,
+        Summon_Skullmaster,
+        Summon_Bloodmaster
+    };
+
     class KhorneBase : public Unit {
     public:
 
@@ -129,7 +153,25 @@ namespace Khorne {
         void onFriendlyUnitSlain() override;
         void onEnemyUnitSlain(const Unit* unit) override;
 
+        void onStartHero(PlayerId player) override;
+
+        void onRestore() override;
+
+        void onFriendlyModelSlain(int numSlain, Wounds::Source source) override;
+
+        void onBeginTurn(int battleRound) override;
+
+    private:
+        bool selectBloodTitheReward(BloodTitheReward& selectedReward);
+        void dropMeteor();
+
     protected:
+
+        static bool s_claimedBloodTithe;
+        static BloodTitheReward s_currentBloodTithe;
+
+        static bool s_slaughterTriumphantActive;
+        static bool s_crimsonRainActive;
 
         SlaughterHost m_slaughterHost = SlaughterHost::None;
         CommandTrait m_commandTrait = CommandTrait::None;
@@ -159,14 +201,14 @@ namespace Khorne {
 //    For the Brass Citadel         TODO
 //    Master Decapitator            TODO
 // Blood for the Blood God          TODO
-//    Bloody Exemplar               TODO
+//    Bloody Exemplar               Yes
 //    Spelleater Curse              TODO
 //    Murderlust                    TODO
 //    Apoplectic Frenzy             TODO
-//    Brass Skull Meteor            TODO
-//    Relentless Fury               TODO
-//    Crimson Rain                  TODO
-//    Slaughter Triumphant          TODO
+//    Brass Skull Meteor            Yes
+//    Relentless Fury               Yes
+//    Crimson Rain                  Yes
+//    Slaughter Triumphant          Yes
 // Summon Daemons of Khorne         TODO
 //
 

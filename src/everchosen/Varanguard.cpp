@@ -9,6 +9,7 @@
 #include "everchosen/Varanguard.h"
 #include "../slavestodarkness/SlavesToDarknessPrivate.h"
 #include <array>
+#include <Board.h>
 
 namespace SlavesToDarkness {
     static const int g_basesize = 75; //x42 oval
@@ -154,6 +155,54 @@ namespace SlavesToDarkness {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    Wounds Varanguard::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
+
+        if (wounds.source == Wounds::Source::Spell) {
+            // Warpsteel Shields
+            if (Dice::RollD6() >= 5) {
+                totalWounds.mortal = 0;
+            }
+        }
+        return totalWounds;
+    }
+
+    int Varanguard::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = SlavesToDarknessBase::toHitModifier(weapon, target);
+
+        // Favoured of the Everchosen
+        auto units = Board::Instance()->getAllUnits(owningPlayer());
+        for (auto unit : units) {
+            if (unit->isGeneral() && unit->isNamedModelAlive("Archaon")) {
+                mod++;
+            }
+        }
+        return mod;
+    }
+
+    void Varanguard::onEndCombat(PlayerId player) {
+        SlavesToDarknessBase::onEndCombat(player);
+
+        // Relentless Killers
+        if (!m_usedRelentlessKillers) {
+            if (meleeTarget() && (distanceTo(meleeTarget()) <= 3.0f)) {
+                int numSlain;
+                auto wounds = fight(-1, meleeTarget(), numSlain);
+                if (!wounds.zero()) {
+                    PLOG_INFO << name() << " using Relentless Killers, fights again inflicting " << wounds
+                              << " wounds.  Slaying " << numSlain;
+                }
+                m_usedRelentlessKillers = true;
+            }
+        }
+    }
+
+    void Varanguard::onRestore() {
+        SlavesToDarknessBase::onRestore();
+
+        m_usedRelentlessKillers = false;
     }
 
 } //namespace SlavesToDarkness

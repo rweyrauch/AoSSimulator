@@ -46,6 +46,11 @@
 
 namespace Khorne {
 
+    bool KhorneBase::s_claimedBloodTithe = false;
+    BloodTitheReward KhorneBase::s_currentBloodTithe = BloodTitheReward::None;
+    bool KhorneBase::s_slaughterTriumphantActive = false;
+    bool KhorneBase::s_crimsonRainActive = false;
+
     void KhorneBase::setSlaughterHost(SlaughterHost host) {
         removeKeyword(REAPERS_OF_VENGEANCE);
         removeKeyword(BLOODLORDS);
@@ -170,6 +175,153 @@ namespace Khorne {
 
         // Add a Blood Tithe point
         getRoster()->incrementResource(1);
+    }
+
+    void KhorneBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        // Blood Tithe check
+        if (!s_claimedBloodTithe && (getRoster()->getPoints() > 0)) {
+
+            // TODO: Determine what/if to use a reward
+            s_claimedBloodTithe = selectBloodTitheReward(s_currentBloodTithe);
+            if (s_claimedBloodTithe) {
+                switch (s_currentBloodTithe) {
+                    case BloodTitheReward::None:
+                        break;
+                    case BloodTitheReward::Bloody_Examplar:
+                        getRoster()->addCommandPoints(1);
+                        break;
+                    case BloodTitheReward::Spelleater_Curse:
+                        break;
+                    case BloodTitheReward::Murderlust:
+                        break;
+                    case BloodTitheReward::Apoplectic_Frenzy:
+                        break;
+                    case BloodTitheReward::Brass_Skull_Meteor:
+                        dropMeteor();
+                        break;
+                    case BloodTitheReward::Relentless_Fury:
+                        // Nothing else to do - the current tithe is set to Relentless_Fury
+                        break;
+                    case BloodTitheReward::Crimson_Rain:
+                        s_crimsonRainActive = true;
+                        break;
+                    case BloodTitheReward::Slaughter_Triumphant:
+                        auto khorneUnits = Board::Instance()->getAllUnits(owningPlayer());
+                        for (auto unit : khorneUnits) {
+                            if (unit->hasKeyword(KHORNE)) {
+                                unit->buffAbility(Extra_Hit_On_Value, 6, {Phase::Hero, DurationRestOfGame, owningPlayer()});
+                            }
+                        }
+                        s_slaughterTriumphantActive = true;
+                        break;
+                }
+            }
+
+            // Bloody Exemplar
+
+            if (s_claimedBloodTithe) {
+                PLOG_INFO << "KHORE:  Claming Blood Tithe reward " << magic_enum::enum_name(s_currentBloodTithe);
+                getRoster()->clearAvailableResource();
+            }
+        }
+
+        if (s_crimsonRainActive) {
+            if (hasKeyword(KHORNE)) {
+                heal(Dice::RollD3());
+            }
+        }
+    }
+
+    void KhorneBase::onRestore() {
+        Unit::onRestore();
+
+        s_claimedBloodTithe = false;
+        s_currentBloodTithe = BloodTitheReward::None;
+        s_slaughterTriumphantActive = false;
+        s_crimsonRainActive = false;
+    }
+
+    void KhorneBase::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, source);
+
+        // Relentless Fury
+        if (s_currentBloodTithe == BloodTitheReward::Relentless_Fury) {
+            int numEnemySlain = 0;
+            if (meleeTarget() != nullptr) {
+                doPileIn();
+                fight(numSlain, meleeTarget(), numEnemySlain);
+            }
+        }
+    }
+
+    void KhorneBase::onBeginTurn(int battleRound) {
+        Unit::onBeginTurn(battleRound);
+
+        // BeginTurn happens before any the hero phase starts - can safely clear the static flags here
+        s_currentBloodTithe = BloodTitheReward::None;
+        s_claimedBloodTithe = false;
+    }
+
+    bool KhorneBase::selectBloodTitheReward(BloodTitheReward& selectedReward) {
+        selectedReward = BloodTitheReward::None;
+
+        if ((getRoster()->getCommandPoints() <= 1) && (getRoster()->getPoints() == 1)) {
+            getRoster()->addCommandPoints(1);
+            selectedReward = BloodTitheReward::Bloody_Examplar;
+            return true;
+        }
+
+        // Slaughter Triumphant
+        if (!s_slaughterTriumphantActive && (getRoster()->getPoints() >= 8)) {
+            selectedReward = BloodTitheReward::Slaughter_Triumphant;
+            return true;
+        }
+
+        // Crimson Rain
+        if (!s_crimsonRainActive && (getRoster()->getPoints() >= 7)) {
+            selectedReward = BloodTitheReward::Crimson_Rain;
+            return true;
+        }
+
+        // Relentless Fury
+        if (getRoster()->getPoints() >= 6) {
+            selectedReward = BloodTitheReward::Relentless_Fury;
+            return true;
+        }
+
+        // Brass Skull Meteor
+        if (getRoster()->getPoints() >= 5) {
+            selectedReward = BloodTitheReward::Brass_Skull_Meteor;
+            return true;
+        }
+
+        return false;
+    }
+
+    void KhorneBase::dropMeteor() {
+        auto units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
+        Unit* bestTarget = nullptr;
+        int bestUnitCount = 0;
+        for (auto unit : units) {
+            auto closestUnits = Board::Instance()->getUnitsWithin(unit, unit->owningPlayer(), 8.0);
+            if ((int)closestUnits.size() > bestUnitCount) {
+                bestTarget = unit;
+                bestUnitCount = (int)closestUnits.size();
+            }
+        }
+        if (bestTarget) {
+            if (Dice::RollD6() >= 3) {
+                bestTarget->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+            }
+            auto enemies = Board::Instance()->getUnitsWithin(bestTarget, bestTarget->owningPlayer(), 8.0);
+            for (auto enemy : enemies) {
+                if (Dice::RollD6() == 6) {
+                    enemy->applyDamage({0, 1, Wounds::Source::Ability}, this);
+                }
+            }
+        }
     }
 
     void Init() {

@@ -206,6 +206,226 @@ namespace SlavesToDarkness {
         }
     }
 
+    Wounds SlavesToDarknessBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        // Aura of Tzeentch
+        if (hasKeyword(TZEENTCH)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
+            if (hero && hero->hasKeyword(TZEENTCH)) {
+                totalWounds.mortal = 0;
+            }
+        }
+        // Aura of Chaos Undivided
+        if (hasKeyword(UNDIVIDED)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
+            if (hero && hero->hasKeyword(UNDIVIDED)) {
+                Dice::RollResult woundRoll;
+                Dice::RollResult mortalRoll;
+
+                Dice::RollD6(totalWounds.normal, woundRoll);
+                Dice::RollD6(totalWounds.mortal, mortalRoll);
+                totalWounds.normal -= woundRoll.rollsGE(6);
+                totalWounds.mortal -= mortalRoll.rollsGE(6);
+            }
+        }
+
+        if (m_haveFlamesOfChaos) {
+            if (Dice::RollD6() >= 4) {
+                totalWounds.mortal = 0;
+            }
+        }
+
+        if (m_haveUnholyResilience) {
+            Dice::RollResult woundRoll;
+            Dice::RollResult mortalRoll;
+
+            Dice::RollD6(totalWounds.normal, woundRoll);
+            Dice::RollD6(totalWounds.mortal, mortalRoll);
+            totalWounds.normal -= woundRoll.rollsGE(5);
+            totalWounds.mortal -= mortalRoll.rollsGE(5);
+        }
+
+        return totalWounds;
+    }
+
+    Wounds
+    SlavesToDarknessBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+
+        // Aura of Nurgle
+        if (hasKeyword(NURGLE) && (hitRoll == 6)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
+            if (hero && hero->hasKeyword(NURGLE)) {
+                damage.normal++;
+            }
+        }
+        return damage;
+    }
+
+    int SlavesToDarknessBase::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        int mod = Unit::targetHitModifier(weapon, attacker);
+
+        // Aura of Nurgle
+        if (hasKeyword(NURGLE)  && weapon->isMissile()) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
+            if (hero && hero->hasKeyword(NURGLE) && hero->isGeneral()) {
+                mod--;
+            }
+        }
+        return mod;
+    }
+
+    int SlavesToDarknessBase::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        int extra = Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+
+        // Aura of Slaanesh
+        if (hasKeyword(SLAANESH) && (unmodifiedHitRoll == 6)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
+            if (hero && hero->hasKeyword(SLAANESH)) {
+                extra++;
+            }
+        }
+        return extra;
+    }
+
+    Rerolls SlavesToDarknessBase::runRerolls() const {
+        // Aura of Slaanesh
+        if (hasKeyword(SLAANESH)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
+            if (hero && hero->hasKeyword(SLAANESH) && hero->isGeneral()) {
+                return Reroll_Failed;
+            }
+        }
+        return Unit::runRerolls();
+    }
+
+    Rerolls SlavesToDarknessBase::chargeRerolls() const {
+        // Aura of Slaanesh
+        if (hasKeyword(SLAANESH)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
+            if (hero && hero->hasKeyword(SLAANESH) && hero->isGeneral()) {
+                return Reroll_Failed;
+            }
+        }
+        return Unit::chargeRerolls();
+    }
+
+    void SlavesToDarknessBase::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
+
+        // Eye of the Gods
+        if ((m_currentRecord.m_herosSlain > 0) || (m_currentRecord.m_monstersSlain > 0)) {
+            if (hasKeyword(HERO) && hasKeyword(EYE_OF_THE_GODS) && hasKeyword(SLAVES_TO_DARKNESS)) {
+                auto roll = Dice::Roll2D6();
+                if ((roll >= 11) && !m_haveDarkApotheosis) {
+                    // Dark Apotheosis
+                    m_haveDarkApotheosis = true;
+                }
+                else if ((roll >= 9) && !m_haveDaemonicLegions) {
+                    // Daemonic Legions
+                    auto unitName("");
+                    auto numModels = 0;
+                    switch (m_markOfChaos) {
+                        case MarkOfChaos::Khorne:
+                            unitName = "Bloodletters";
+                            numModels = 10;
+                            break;
+                        case MarkOfChaos::Nurgle:
+                            unitName = "Plaguebearers";
+                            numModels = 10;
+                            break;
+                        case MarkOfChaos::Slaanesh:
+                            unitName = "Daemonettes";
+                            numModels = 10;
+                            break;
+                        case MarkOfChaos::Tzeentch:
+                            unitName = "Pink Horrors";
+                            numModels = 10;
+                            break;
+                        case MarkOfChaos::Undivided:
+                            unitName = "Furies";
+                            numModels = 6;
+                            break;
+                    }
+
+                    if (numModels) {
+                        auto factory = UnitFactory::LookupUnit(unitName);
+                        if (factory) {
+                            if (m_roster) {
+                                auto parameters = factory->m_parameters;
+                                for (auto& ip : parameters) {
+                                    if ((ip.paramType == ParamType::Integer) && (ip.name == std::string("Models"))) {
+                                        ip.intValue = numModels;
+                                    }
+                                }
+                                auto unit = std::shared_ptr<Unit>(UnitFactory::Create(unitName, parameters));
+                                unit->deploy(position(), orientation());
+                                m_roster->addUnit(unit);
+                            }
+                        }
+                    }
+                    m_haveDaemonicLegions = true;
+                }
+                else if ((roll == 8) && !m_haveUnholyResilience) {
+                    // Unholy Resilience
+                    m_haveUnholyResilience = true;
+                }
+                else if (roll == 7) {
+                    // Snubbed by the Gods
+                }
+                else if ((roll == 6) && !m_haveFlamesOfChaos) {
+                    // Flames of Chaos
+                    m_haveFlamesOfChaos = true;
+                }
+                else if ((roll == 5) && !m_haveIronFlesh) {
+                    // Iron Flesh
+                    m_haveIronFlesh = true;
+                }
+                else if ((roll == 4) && !m_haveMurderousMutation) {
+                    // Murderous Mutation
+                    m_haveMurderousMutation = true;
+                }
+                else if ((roll == 3) && !m_haveSlaughtersStrength) {
+                    // Slaughter's Strength
+                    m_haveSlaughtersStrength = true;
+                }
+                else if ((roll == 2) && !m_haveSpawndom) {
+                    // Spawndom
+                    auto factory = UnitFactory::LookupUnit("Chaos Spawn");
+                    if (factory) {
+                        if (m_roster) {
+                            auto unit = std::shared_ptr<Unit>(UnitFactory::Create("Chaos Spawn", factory->m_parameters));
+                            unit->deploy(position(), orientation());
+                            m_roster->addUnit(unit);
+                        }
+                    }
+                    m_haveSpawndom = true;
+                }
+            }
+        }
+    }
+
+    void SlavesToDarknessBase::onRestore() {
+        Unit::onRestore();
+
+        m_haveDarkApotheosis = false;
+        m_haveDaemonicLegions  = false;
+        m_haveUnholyResilience = false;
+        m_haveFlamesOfChaos = false;
+        m_haveIronFlesh = false;
+        m_haveMurderousMutation  = false;
+        m_haveSlaughtersStrength  = false;
+        m_haveSpawndom  = false;
+    }
+
+    int SlavesToDarknessBase::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+
+        if (m_haveIronFlesh) mod++;
+
+        return mod;
+    }
+
     void Init() {
         Archaon::Init();
         Varanguard::Init();

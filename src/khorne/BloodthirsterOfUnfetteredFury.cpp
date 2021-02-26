@@ -111,6 +111,7 @@ namespace Khorne {
     void BloodthirsterOfUnfetteredFury::onRestore() {
         // Restore table-driven attributes
         onWounded();
+        KhorneBase::onRestore();
     }
 
     void BloodthirsterOfUnfetteredFury::onWounded() {

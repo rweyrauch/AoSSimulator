@@ -62,6 +62,7 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_dorgharsClaws);
         model->addMeleeWeapon(&m_dorgharsTails);
         model->addMeleeWeapon(&m_dorgharsHeads);
+        model->setName("Archaon");
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

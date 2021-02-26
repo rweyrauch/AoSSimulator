@@ -35,6 +35,9 @@ struct TurnRecord {
     int m_modelsSlain = 0;
     Wounds m_woundsTaken = {0, 0};
 
+    int m_herosSlain = 0;
+    int m_monstersSlain = 0;
+
     int m_numFled = 0;
 };
 
