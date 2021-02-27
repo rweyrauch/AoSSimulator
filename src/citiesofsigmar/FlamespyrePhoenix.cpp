@@ -145,21 +145,12 @@ namespace CitiesOfSigmar {
     }
 
     Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = CitizenOfSigmar::applyWoundSave(wounds, attackingUnit);
         if (hasKeyword(HERO)) {
             // Witness to Destiny
-            Dice::RollResult woundSaves, mortalSaves;
-            Dice::RollD6(wounds.normal, woundSaves);
-            Dice::RollD6(wounds.mortal, mortalSaves);
-
-            Wounds totalWounds = wounds;
-            totalWounds.normal -= woundSaves.rollsGE(4);
-            totalWounds.normal = std::max(totalWounds.normal, 0);
-            totalWounds.mortal -= mortalSaves.rollsGE(4);
-            totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-            return totalWounds;
+            totalWounds = ignoreWounds(totalWounds, 4);
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return totalWounds;
     }
 
     int FlamespyrePhoenix::ComputePoints(int /*numModels*/) {

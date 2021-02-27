@@ -112,17 +112,7 @@ namespace GloomspiteGitz {
 
     Wounds Skragrott::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Loonking's Crown
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(4);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(4);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+        return ignoreWounds(wounds, 4);
     }
 
     void Skragrott::onStartHero(PlayerId playerId) {

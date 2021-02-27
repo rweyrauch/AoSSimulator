@@ -115,13 +115,8 @@ namespace Khorne {
 
         // Brass-clad Shield
         if (totalWounds.source == Wounds::Source::Spell) {
-            Dice::RollResult result;
-            Dice::RollD6(totalWounds.normal, result);
-            totalWounds.normal -= result.rollsGE(5);
-            Dice::RollD6(totalWounds.mortal, result);
-            totalWounds.mortal -= result.rollsGE(5);
+            totalWounds = ignoreWounds(totalWounds, 5);
         }
-
         return totalWounds;
     }
 

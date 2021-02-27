@@ -8,7 +8,7 @@
 #pragma once
 
 #include "CommandAbility.h"
-#include "CommandTrait.h"
+#include "CommandTraitAbility.h"
 #include <dok/DaughterOfKhaine.h>
 
 namespace DaughtersOfKhaine {
@@ -22,7 +22,7 @@ namespace DaughtersOfKhaine {
 
     CommandAbility* CreateCommandAbility(Temple temple, Unit* hero);
 
-    ::CommandTrait *CreateCommandTrait(CommandTrait which, Unit* general);
-    ::CommandTrait *CreateCommandTrait(Temple temple, Unit* general);
+    CommandTraitAbility *CreateCommandTrait(CommandTrait which, Unit* general);
+    CommandTraitAbility *CreateCommandTrait(Temple temple, Unit* general);
 
 }

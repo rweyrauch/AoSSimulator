@@ -61,3 +61,9 @@ aossim_glue.js
 web/dist
 web/node_modules
 cmake-emscripten
+
+# External project
+test/googletest-build
+test/googletest-download
+test/googletest-src
+

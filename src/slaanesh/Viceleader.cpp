@@ -96,17 +96,8 @@ namespace Slaanesh {
 
     Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Lightning Reflexes
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(5);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(5);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+        Wounds totalWounds = ignoreWounds(wounds, 5);
+        return Unit::applyWoundSave(totalWounds, attackingUnit);
     }
 
     int ViceleaderHeraldOfSlaanesh::ComputePoints(int /*numModels*/) {

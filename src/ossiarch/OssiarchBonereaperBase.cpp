@@ -111,14 +111,7 @@ namespace OssiarchBonereapers {
         Wounds totalWounds = wounds;
 
         if (hasKeyword(HEKATOS) || hekatos || hero) {
-            Dice::RollResult woundSaves, mortalSaves;
-            Dice::RollD6(wounds.normal, woundSaves);
-            Dice::RollD6(wounds.mortal, mortalSaves);
-
-            totalWounds.normal -= woundSaves.rollsGE(6);
-            totalWounds.normal = std::max(totalWounds.normal, 0);
-            totalWounds.mortal -= mortalSaves.rollsGE(6);
-            totalWounds.mortal = std::max(totalWounds.mortal, 0);
+            totalWounds = ignoreWounds(totalWounds, 6);
         }
         return totalWounds;
     }

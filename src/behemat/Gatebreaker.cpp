@@ -170,4 +170,37 @@ namespace SonsOfBehemat {
         return 0;
     }
 
+    int Gatebreaker::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = SonsOfBehematBase::extraAttacks(attackingModel, weapon, target);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Louder_Than_Words) &&
+           (weapon->name() == m_flail.name())) attacks += 2;
+        return attacks;
+    }
+
+    Wounds Gatebreaker::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        if (m_artefact == Artefact::Enchanted_Portcullis) {
+            totalWounds = ignoreWounds(totalWounds, 6);
+        }
+        return totalWounds;
+    }
+
+    Rerolls Gatebreaker::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (m_artefact == Artefact::Kingslaughter_Cowl) {
+            if (target->isGeneral()) return Reroll_Failed;
+            else if (target->hasKeyword(HERO)) return Reroll_Ones;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    Wounds Gatebreaker::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage =  SonsOfBehematBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        if (m_artefact == Artefact::The_Great_Wrecka) {
+            if ((hitRoll == 6) && (weapon->name() == m_flail.name())) {
+                damage.mortal++;
+            }
+        }
+        return damage;
+    }
+
 } // namespace SonsOfBehemat

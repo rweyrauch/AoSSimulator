@@ -68,6 +68,8 @@ public:
 
     std::vector<Unit *> getUnitsWithKeyword(PlayerId fromPlayer, Keyword keyword);
 
+    bool isUnitWithinDeploymentZone(const Unit* unit, PlayerId which) const;
+
     void setRealm(Realm realm) {
         m_realm = realm;
     }

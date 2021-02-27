@@ -219,13 +219,7 @@ namespace SlavesToDarkness {
         if (hasKeyword(UNDIVIDED)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(UNDIVIDED)) {
-                Dice::RollResult woundRoll;
-                Dice::RollResult mortalRoll;
-
-                Dice::RollD6(totalWounds.normal, woundRoll);
-                Dice::RollD6(totalWounds.mortal, mortalRoll);
-                totalWounds.normal -= woundRoll.rollsGE(6);
-                totalWounds.mortal -= mortalRoll.rollsGE(6);
+                totalWounds = ignoreWounds(totalWounds, 6);
             }
         }
 
@@ -236,13 +230,7 @@ namespace SlavesToDarkness {
         }
 
         if (m_haveUnholyResilience) {
-            Dice::RollResult woundRoll;
-            Dice::RollResult mortalRoll;
-
-            Dice::RollD6(totalWounds.normal, woundRoll);
-            Dice::RollD6(totalWounds.mortal, mortalRoll);
-            totalWounds.normal -= woundRoll.rollsGE(5);
-            totalWounds.mortal -= mortalRoll.rollsGE(5);
+            totalWounds = ignoreWounds(totalWounds, 5);
         }
 
         return totalWounds;

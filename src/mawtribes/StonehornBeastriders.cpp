@@ -154,17 +154,7 @@ namespace OgorMawtribes {
 
     Wounds StonehornBeastriders::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Stone Skeleton
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(5);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(5);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+        return ignoreWounds(wounds, 5);
     }
 
     void StonehornBeastriders::onStartShooting(PlayerId player) {

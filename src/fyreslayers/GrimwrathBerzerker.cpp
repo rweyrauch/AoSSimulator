@@ -77,19 +77,11 @@ namespace Fyreslayers {
 
     Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Unstoppable Berserker
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
         int threshold = 6;
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= 3.0)) threshold--;
 
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(threshold);
-        totalWounds.mortal -= mortalSaves.rollsGE(threshold);
-
-        return totalWounds.clamp();
+        return ignoreWounds(wounds, threshold);
     }
 
     int GrimwrathBerzerker::ComputePoints(int /*numModels*/) {

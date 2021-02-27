@@ -168,17 +168,7 @@ namespace Slaanesh {
     Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         if (m_weapon == Shining_Aegis) {
             // Shining Aegis
-            Dice::RollResult woundSaves, mortalSaves;
-            Dice::RollD6(wounds.normal, woundSaves);
-            Dice::RollD6(wounds.mortal, mortalSaves);
-
-            Wounds totalWounds = wounds;
-            totalWounds.normal -= woundSaves.rollsGE(6);
-            totalWounds.normal = std::max(totalWounds.normal, 0);
-            totalWounds.mortal -= mortalSaves.rollsGE(6);
-            totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-            return totalWounds;
+            return ignoreWounds(wounds, 6);
         }
         return Unit::applyWoundSave(wounds, attackingUnit);
     }

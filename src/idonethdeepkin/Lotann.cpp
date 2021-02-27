@@ -84,17 +84,7 @@ namespace IdonethDeepkin {
     }
 
     Wounds Lotann::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
-        Dice::RollResult normalSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, normalSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= normalSaves.rollsGE(5);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(5);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+        return ignoreWounds(wounds, 5);
     }
 
     int Lotann::catalogueOfSouls(const Unit *target) {

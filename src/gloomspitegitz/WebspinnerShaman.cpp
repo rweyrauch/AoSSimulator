@@ -145,17 +145,7 @@ namespace GloomspiteGitz {
 
     Wounds WebspinnerShaman::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Touched by the Spider God
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(5);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(5);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+        return ignoreWounds(wounds, 5);
     }
 
 } // namespace GloomspiteGitz

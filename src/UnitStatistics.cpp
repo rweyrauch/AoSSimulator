@@ -121,7 +121,7 @@ int UnitStatistics::totalSavesFailed() const {
     return totalSaves;
 }
 
-void UnitStatistics::visitTurn(std::function<void(const TurnRecord &)> &visitor) {
+void UnitStatistics::visitTurn(std::function<void(const TurnRecord &)> &visitor) const {
     for (auto ip : m_actions) {
         visitor(ip);
     }

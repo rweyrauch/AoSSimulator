@@ -115,17 +115,7 @@ namespace FleshEaterCourt {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(FLESH_EATER_COURTS) && ip->hasKeyword(HERO)) {
-                Dice::RollResult woundSaves, mortalSaves;
-                Dice::RollD6(wounds.normal, woundSaves);
-                Dice::RollD6(wounds.mortal, mortalSaves);
-
-                Wounds totalWounds = wounds;
-                totalWounds.normal -= woundSaves.rollsGE(6);
-                totalWounds.normal = std::max(totalWounds.normal, 0);
-                totalWounds.mortal -= mortalSaves.rollsGE(6);
-                totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-                return totalWounds;
+                return ignoreWounds(wounds, 6);
             }
         }
 

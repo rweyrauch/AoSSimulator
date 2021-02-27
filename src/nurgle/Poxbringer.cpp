@@ -79,15 +79,7 @@ namespace Nurgle {
 
     Wounds PoxbringerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Disgustingly Resilient
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(5);
-        totalWounds.mortal -= mortalSaves.rollsGE(5);
-
-        return totalWounds.clamp();
+        return ignoreWounds(wounds, 5);
     }
 
     int PoxbringerHeraldOfNurgle::ComputePoints(int /*numModels*/) {

@@ -114,14 +114,7 @@ namespace Skaven {
         auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
-        Dice::RollResult resultNormal, resultMortal;
-
-        Dice::RollD6(wounds.normal, resultNormal);
-        Dice::RollD6(wounds.mortal, resultMortal);
-
-        Wounds negatedWounds = {resultNormal.rollsGE(5), resultNormal.rollsGE(5)};
-        totalWounds -= negatedWounds;
-        return totalWounds.clamp();
+        return ignoreWounds(totalWounds, 5);
     }
 
     void ThanquolOnBoneripper::onWounded() {

@@ -138,6 +138,10 @@ namespace Slaanesh {
             clearDepravityPoints();
         }
 
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        void onEndCombat(PlayerId player) override;
+
     protected:
 
         Host m_host = Host::Godseekers;

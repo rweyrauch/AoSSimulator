@@ -14,13 +14,13 @@
 
 class Unit;
 
-class CommandTrait {
+class CommandTraitAbility {
 public:
-    CommandTrait(Unit *source, const std::string &name) :
+    CommandTraitAbility(Unit *source, const std::string &name) :
             m_source(source),
             m_name(name) {}
 
-    virtual ~CommandTrait() = default;
+    virtual ~CommandTraitAbility() = default;
 
     virtual int apply(const Unit *target) = 0;
 

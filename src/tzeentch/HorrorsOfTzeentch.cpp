@@ -166,14 +166,7 @@ namespace Tzeentch {
 
         // Ectoplasmic Elasticity
         // TODO: only applies when the unit has Pink Horrors
-        Dice::RollResult resultNormal, resultMortal;
-
-        Dice::RollD6(wounds.normal, resultNormal);
-        Dice::RollD6(wounds.mortal, resultMortal);
-
-        Wounds negatedWounds = {resultNormal.rollsGE(6), resultNormal.rollsGE(6)};
-        totalWounds -= negatedWounds;
-        return totalWounds.clamp();
+        return ignoreWounds(totalWounds, 6);
     }
 
 } //namespace Tzeentch

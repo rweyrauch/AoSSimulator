@@ -108,16 +108,8 @@ namespace Slaanesh {
     }
 
     Wounds TheMasque::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        Wounds totalWounds = wounds;
-
         // Inhuman Reflexes
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(totalWounds.normal, woundSaves);
-        Dice::RollD6(totalWounds.mortal, mortalSaves);
-
-        totalWounds.normal -= woundSaves.rollsGE(4);
-        totalWounds.mortal -= mortalSaves.rollsGE(4);
-
+        Wounds totalWounds = ignoreWounds(wounds, 4);
         return Unit::applyWoundSave(totalWounds, attackingUnit);
     }
 

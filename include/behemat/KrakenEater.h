@@ -26,7 +26,7 @@ namespace SonsOfBehemat {
 
         bool configure();
 
-    private:
+    protected:
 
         int getDamageTableIndex() const;
 
@@ -40,6 +40,9 @@ namespace SonsOfBehemat {
 
         int terror(const Unit *unit);
 
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+    private:
         Weapon m_debris,
             m_stomp,
             m_grip,
@@ -63,6 +66,13 @@ namespace SonsOfBehemat {
 // Son of Behemat                   TODO
 // Terror                           Yes
 // Timberrrrr!                      TODO
+// Artefacts
+//   Jaws of the Mogalodon          TODO
+//   Wallopin' Tentacle             TODO
+//   Jar of Burny Grog              TODO
+//   Net of the Beast-reaver        TODO
+//   Glowy Lantern                  Yes
+//   Krakenskin Sandals             TODO
 //
 
 } // namespace SonsOfBehemat

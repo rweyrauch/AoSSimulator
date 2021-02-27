@@ -133,17 +133,17 @@ namespace SlavesToDarkness {
     }
 
     Wounds Archaon::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
-        return Unit::computeReturnedDamage(weapon, saveRoll);
+        return SlavesToDarknessBase::computeReturnedDamage(weapon, saveRoll);
     }
 
     Wounds Archaon::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
-        auto modifiedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto modifiedWounds = SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
 
         return modifiedWounds;
     }
 
     Wounds Archaon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto wounds = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         // The Slayer of Kings
         if ((woundRoll == 6) && (target->hasKeyword(HERO)) && (weapon->name() == m_slayerOfKings.name())) {
             m_slayerOfKingsSixesThisCombat++;
@@ -157,13 +157,13 @@ namespace SlavesToDarkness {
     }
 
     void Archaon::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        SlavesToDarknessBase::onStartCombat(player);
 
         m_slayerOfKingsSixesThisCombat = 0;
     }
 
     void Archaon::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SlavesToDarknessBase::onStartHero(player);
 
         // Warlord Without Equal
         if (owningPlayer() == player) {

@@ -139,14 +139,7 @@ namespace Seraphon {
         auto totalWounds = SeraphonBase::applyWoundSave(wounds, attackingUnit);
 
         // Dead for Innumerable Ages
-        Dice::RollResult resultNormal, resultMortal;
-
-        Dice::RollD6(wounds.normal, resultNormal);
-        Dice::RollD6(wounds.mortal, resultMortal);
-
-        Wounds negatedWounds = {resultNormal.rollsGE(4), resultNormal.rollsGE(4)};
-        totalWounds -= negatedWounds;
-        return totalWounds.clamp();
+        return ignoreWounds(totalWounds, 4);
     }
 
     void LordKroak::onStartHero(PlayerId player) {

@@ -81,6 +81,26 @@ namespace SonsOfBehemat {
             default:
                 break;
         }
+
+         return mod;
+    }
+
+    int SonsOfBehematBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Monstrously_Tough)) mod += 5;
+        return mod;
+    }
+
+    Rerolls SonsOfBehematBase::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Old_And_Gnarly)) return Reroll_Ones;
+        return Unit::toSaveRerolls(weapon, attacker);
+    }
+
+    int SonsOfBehematBase::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Extremely_Intimidating)) {
+            if (distanceTo(attacker) < 3.0) mod--;
+        }
         return mod;
     }
 

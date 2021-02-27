@@ -90,18 +90,9 @@ namespace DaughtersOfKhaine {
     }
 
     Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
         // Fanatical Faith
-        Dice::RollResult mortalSaves, normalSaves;
-        Dice::RollD6(wounds.mortal, mortalSaves);
-        Dice::RollD6(wounds.normal, normalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= normalSaves.rollsGE(6);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(6);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+        return ignoreWounds(totalWounds, 6);
     }
 
     std::string DaughterOfKhaine::ValueToString(const Parameter &parameter) {

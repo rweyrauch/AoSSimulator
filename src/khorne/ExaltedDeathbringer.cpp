@@ -140,13 +140,8 @@ namespace Khorne {
     Wounds ExaltedDeathbringer::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         if (m_weaponOption == Bloodbite_Axe_And_Runemarked_Shield) {
             auto totalWounds = KhorneBase::applyWoundSave(wounds, attackingUnit);
-
             if (totalWounds.source == Wounds::Source::Spell) {
-                Dice::RollResult result;
-                Dice::RollD6(totalWounds.normal, result);
-                totalWounds.normal -= result.rollsGE(2);
-                Dice::RollD6(totalWounds.mortal, result);
-                totalWounds.mortal -= result.rollsGE(2);
+                totalWounds = ignoreWounds(totalWounds, 2);
             }
             return totalWounds;
         }

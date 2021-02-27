@@ -219,12 +219,7 @@ namespace Slaanesh {
     Wounds GlutosOrscollion::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = wounds;
         if (m_protectedByDolece) {
-            Dice::RollResult woundSaves, mortalSaves;
-            Dice::RollD6(wounds.normal, woundSaves);
-            Dice::RollD6(wounds.mortal, mortalSaves);
-
-            totalWounds.normal -= woundSaves.rollsGE(6);
-            totalWounds.mortal -= mortalSaves.rollsGE(6);
+            totalWounds = ignoreWounds(totalWounds, 6);
         }
         return Unit::applyWoundSave(totalWounds, attackingUnit);
     }

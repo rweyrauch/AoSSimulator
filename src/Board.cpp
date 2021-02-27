@@ -509,3 +509,8 @@ std::vector<Unit *> Board::getUnitsWithKeyword(PlayerId which, Keyword keyword) 
     }
     return units;
 }
+
+bool Board::isUnitWithinDeploymentZone(const Unit *unit, PlayerId player) const {
+    // TODO: implement this based on location of deployment zones
+    return false;
+}

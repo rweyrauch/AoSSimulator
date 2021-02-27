@@ -102,15 +102,7 @@ namespace Slaanesh {
     Wounds SymbareshTwinsouls::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (m_fiendishReflexesActive) {
             // Fiendish Reflexes
-            Dice::RollResult woundSaves, mortalSaves;
-            Dice::RollD6(wounds.normal, woundSaves);
-            Dice::RollD6(wounds.mortal, mortalSaves);
-
-            Wounds totalWounds = wounds;
-            totalWounds.normal -= woundSaves.rollsGE(5);
-            totalWounds.mortal -= mortalSaves.rollsGE(5);
-
-            return totalWounds;
+            return ignoreWounds(wounds, 5);
         }
         return Unit::applyWoundSave(wounds, attackingUnit);
     }

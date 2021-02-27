@@ -87,7 +87,7 @@ public:
         m_actions.clear();
     }
 
-    void visitTurn(std::function<void(const TurnRecord &)> &visitor);
+    void visitTurn(std::function<void(const TurnRecord &)> &visitor) const;
 
 private:
 

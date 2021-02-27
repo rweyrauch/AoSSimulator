@@ -26,7 +26,7 @@
 #include <lsignal.h>
 
 class Roster;
-class CommandTrait;
+class CommandTraitAbility;
 
 class Unit : public UnitModifierInterface, public EventInterface {
 public:
@@ -281,6 +281,8 @@ protected:
 
     int computeFormation() const;
 
+    Wounds ignoreWounds(const Wounds& wounds, int ignoreOnRoll) const;
+
 protected:
 
     //
@@ -403,7 +405,7 @@ protected:
     std::vector<std::unique_ptr<Spell>> m_knownSpells;
     std::vector<std::unique_ptr<Prayer>> m_knownPrayers;
     std::vector<std::unique_ptr<CommandAbility>> m_commandAbilities;
-    CommandTrait* m_trait = nullptr;
+    CommandTraitAbility* m_trait = nullptr;
 
     std::vector<const Weapon *> m_weapons;
 

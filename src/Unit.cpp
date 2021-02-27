@@ -49,7 +49,7 @@ static int accumulate(const std::vector<int> &v) {
 }
 
 Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
-    if (remainingModels() == 0) {
+    if ((targetUnit == nullptr) || (remainingModels() == 0)) {
         return {0, 0, Wounds::Source::Weapon_Missile};
     }
     if (m_ran && !canRunAndShoot()) {
@@ -128,7 +128,12 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
 
 Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
+    if (targetUnit == nullptr) {
+        numSlain = 0;
+        return {0, 0, Wounds::Source::Weapon_Melee};
+    }
     if (remainingModels() == 0) {
+        numSlain = 0;
         return {0, 0, Wounds::Source::Weapon_Melee};
     }
     if ((numAttackingModels == -1) || (numAttackingModels > (int) m_models.size())) {
@@ -1698,6 +1703,18 @@ bool Unit::isNamedModelAlive(const std::string& name) const {
         return !(m->slain() || m->fled());
     }
     return false;
+}
+
+Wounds Unit::ignoreWounds(const Wounds& wounds, int ignoreOnRoll) const {
+    auto totalWounds = wounds;
+
+    Dice::RollResult result;
+    Dice::RollD6(totalWounds.normal, result);
+    totalWounds.normal -= result.rollsGE(ignoreOnRoll);
+    Dice::RollD6(totalWounds.mortal, result);
+    totalWounds.mortal -= result.rollsGE(ignoreOnRoll);
+
+    return totalWounds.clamp();
 }
 
 CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,

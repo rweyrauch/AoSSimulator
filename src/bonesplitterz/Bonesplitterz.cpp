@@ -86,14 +86,7 @@ namespace Bonesplitterz {
         auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Warpaint
-        Dice::RollResult normalResult, mortalResult;
-        Dice::RollD6(totalWounds.normal, normalResult);
-        Dice::RollD6(totalWounds.mortal, mortalResult);
-
-        totalWounds.normal -= normalResult.rollsGE(6);
-        totalWounds.mortal -= mortalResult.rollsGE(6);
-
-        return totalWounds;
+        return ignoreWounds(totalWounds, 6);
     }
 
     void Bonesplitterz::onStartCombat(PlayerId player) {

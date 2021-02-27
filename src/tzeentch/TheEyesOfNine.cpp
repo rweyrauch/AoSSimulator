@@ -95,11 +95,7 @@ namespace Tzeentch {
 
         // Arcanite Shield
         if (isNamedModelAlive("Narvia") || isNamedModelAlive("Turosh")) {
-            Dice::RollResult normalSaves, mortalSaves;
-            Dice::RollD6(totalWounds.normal, normalSaves);
-            Dice::RollD6(totalWounds.mortal, mortalSaves);
-            totalWounds.normal -= normalSaves.rollsGE(6);
-            totalWounds.mortal -= mortalSaves.rollsGE(6);
+            totalWounds = ignoreWounds(totalWounds, 6);
         }
         return totalWounds;
     }

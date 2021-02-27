@@ -51,7 +51,7 @@ namespace DaughtersOfKhaine {
         return nullptr;
     }
 
-    ::CommandTrait *CreateCommandTrait(CommandTrait which, Unit* general) {
+    CommandTraitAbility *CreateCommandTrait(CommandTrait which, Unit* general) {
         switch (which) {
         case CommandTrait::Bathed_In_Blood:
             return nullptr;
@@ -95,7 +95,7 @@ namespace DaughtersOfKhaine {
         return nullptr;
     }
 
-    ::CommandTrait *CreateCommandTrait(Temple temple, Unit* general) {
+    CommandTraitAbility *CreateCommandTrait(Temple temple, Unit* general) {
         switch (temple) {
             case Temple::Hagg_Nar:
                 return CreateCommandTrait(CommandTrait::Devoted_Disciple, general);

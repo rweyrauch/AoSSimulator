@@ -9,6 +9,7 @@
 #include <behemat/KrakenEater.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <spells/MysticShield.h>
 #include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
@@ -56,6 +57,12 @@ namespace SonsOfBehemat {
         model->addMeleeWeapon(&m_grip);
         addModel(model);
 
+        if (m_artefact == Artefact::Glowy_Lantern) {
+            m_totalSpells = 1;
+            m_totalUnbinds = 1;
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+            m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+        }
         m_points = g_pointsPerUnit;
 
         return true;
@@ -115,14 +122,14 @@ namespace SonsOfBehemat {
     }
 
     void KrakenEater::onRestore() {
-        Unit::onRestore();
+        SonsOfBehematBase::onRestore();
 
         // Reset table-driven attributes
         onWounded();
     }
 
     void KrakenEater::onWounded() {
-        Unit::onWounded();
+        SonsOfBehematBase::onWounded();
 
         m_move = g_damageTable[getDamageTableIndex()].m_move;
         m_debris.setRange(g_damageTable[getDamageTableIndex()].m_debrisRange);
@@ -138,7 +145,7 @@ namespace SonsOfBehemat {
         if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
             return Reroll_Ones;
 
-        return Unit::toHitRerolls(weapon, target);
+        return SonsOfBehematBase::toHitRerolls(weapon, target);
     }
 
     void KrakenEater::onCharged() {
@@ -153,7 +160,7 @@ namespace SonsOfBehemat {
                 unit->applyDamage({0, mortal}, this);
             }
         }
-        Unit::onCharged();
+        SonsOfBehematBase::onCharged();
     }
 
     int KrakenEater::terror(const Unit *unit) {
@@ -163,6 +170,13 @@ namespace SonsOfBehemat {
         }
 
         return 0;
+    }
+
+    int KrakenEater::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = SonsOfBehematBase::extraAttacks(attackingModel, weapon, target);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Louder_Than_Words) &&
+                (weapon->name() == m_warclub.name())) attacks++;
+        return attacks;
     }
 
 } // namespace SonsOfBehemat

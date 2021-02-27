@@ -88,15 +88,7 @@ namespace Slaanesh {
 
     Wounds SigvaldPrinceOfSlaanesh::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // The Mirror Shield
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(4);
-        totalWounds.mortal -= mortalSaves.rollsGE(4);
-
-        return totalWounds;
+        return ignoreWounds(wounds, 4);
      }
 
 } // Slannesh

@@ -115,6 +115,9 @@ namespace SonsOfBehemat {
                 Unit(name, move, wounds, bravery, save, fly) {}
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+        int woundModifier() const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
     protected:
 
@@ -144,6 +147,21 @@ namespace SonsOfBehemat {
 //   Wannabes                       Yes
 //   Piggybackers                   Yes
 // Get Rid of 'Em!                  TODO
+// Monstrously Tough                Yes
+// Old and Gnarly                   Yes
+// Louder than Words                Yes
+// Irascible Old Bullies
+//   Strong Right Foot              TODO
+//   Very Acquisitive               TODO
+//   Extermely Intimidating         Yes
+// Veterans of One-Sided Battle
+//   Inescapable Grip               TODO
+//   Very Shouty                    Yes
+//   Eager for the Fight            TODO
+// Unstoppable Besiegers
+//   Extremely Bitter               TODO
+//   Smasher                        TODO
+//   Sees_Red                       TODO
 // Net of the Beast-Reaver          TODO
 // More Stuff For Me Collection     TODO
 //

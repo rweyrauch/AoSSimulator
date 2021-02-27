@@ -26,7 +26,7 @@ namespace SonsOfBehemat {
 
         bool configure();
 
-    private:
+    protected:
 
         int getDamageTableIndex() const;
 
@@ -42,6 +42,11 @@ namespace SonsOfBehemat {
 
         int terror(const Unit *unit);
 
+        void onBeginRound(int battleRound) override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
+
+    private:
         Weapon m_grip,
             m_jump,
             m_club;
@@ -64,6 +69,10 @@ namespace SonsOfBehemat {
 // Terror                           Yes
 // Timberrrrr!                      TODO
 // Titanic Boulderclub              TODO
+// Artefacts
+//   Ironweld Cestus                Partial/TODO
+//   Club of the First Oak          TODO
+//   Mantle of the Destroyer        TODO
 //
 
 } // namespace SonsOfBehemat

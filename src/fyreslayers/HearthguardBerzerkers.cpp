@@ -123,10 +123,6 @@ namespace Fyreslayers {
 
     Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Duty Unto Death
-        Dice::RollResult woundSaves, mortalSaves;
-        Dice::RollD6(wounds.normal, woundSaves);
-        Dice::RollD6(wounds.mortal, mortalSaves);
-
         int saveValue = 6;
 
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 10.0);
@@ -135,14 +131,7 @@ namespace Fyreslayers {
                 saveValue -= 2;
             }
         }
-
-        Wounds totalWounds = wounds;
-        totalWounds.normal -= woundSaves.rollsGE(saveValue);
-        totalWounds.normal = std::max(totalWounds.normal, 0);
-        totalWounds.mortal -= mortalSaves.rollsGE(saveValue);
-        totalWounds.mortal = std::max(totalWounds.mortal, 0);
-
-        return totalWounds;
+        return ignoreWounds(wounds, saveValue);
     }
 
     int HearthguardBerzerkers::ComputePoints(int numModels) {

@@ -9,6 +9,7 @@
 #include <behemat/Warstomper.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include <Roster.h>
 #include "SonsOfBehehmetPrivate.h"
 
 namespace SonsOfBehemat {
@@ -39,7 +40,7 @@ namespace SonsOfBehemat {
             SonsOfBehematBase("Warstomper Mega-Gargant", 10, g_wounds, 7, 4, false),
             m_grip(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
             m_jump(Weapon::Type::Melee, "Jump Up and Down", 3, 4, 3, 3, -2, RAND_D3),
-            m_club(Weapon::Type::Melee, "Titanic Boulderclub", 3, 1, 3, 3, -2, 2) {
+            m_club(Weapon::Type::Melee, "Titanic Boulderclub", 3, 0, 3, 3, -2, 2) {
         m_weapons = {&m_grip, &m_jump, &m_club};
         m_battleFieldRole = Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, WARSTOMPER};
@@ -128,10 +129,12 @@ namespace SonsOfBehemat {
     int Warstomper::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
 
-        // TODO: limit number of models in range
         attacks += target->remainingModels() + g_damageTable[getDamageTableIndex()].m_clubExtraAttacks;
 
-        return attacks;
+        if (isGeneral() && (m_commandTrait == CommandTrait::Louder_Than_Words) &&
+                (weapon->name() == m_club.name())) attacks++;
+
+        return std::min(10, attacks);
     }
 
     Rerolls Warstomper::toHitRerolls(const Weapon *weapon, const Unit *target) const {
@@ -168,6 +171,22 @@ namespace SonsOfBehemat {
         }
 
         return 0;
+    }
+
+    void Warstomper::onBeginRound(int battleRound) {
+        SonsOfBehematBase::onBeginRound(battleRound);
+
+        // Very Shouty
+        if (isGeneral() && (m_commandTrait == CommandTrait::Very_Shouty) && (battleRound == 1)) {
+            getRoster()->addCommandPoints(Dice::RollD3());
+        }
+    }
+
+    Rerolls Warstomper::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+        if (m_artefact == Artefact::Ironweld_Cestus) {
+            return Reroll_Failed;
+        }
+        return SonsOfBehematBase::toSaveRerolls(weapon, attacker);
     }
 
 } // namespace SonsOfBehemat

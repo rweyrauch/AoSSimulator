@@ -26,7 +26,7 @@ namespace SonsOfBehemat {
 
         bool configure();
 
-    private:
+    protected:
 
         int getDamageTableIndex() const;
 
@@ -40,6 +40,15 @@ namespace SonsOfBehemat {
 
         int terror(const Unit *unit);
 
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+    private:
         Weapon m_boulder,
             m_stomp,
             m_grip,
@@ -62,6 +71,10 @@ namespace SonsOfBehemat {
 // Son of Behemat                   TODO
 // Terror                           Yes
 // Timberrrrr!                      TODO
+// Artefacts
+//   Enchanted Portcullis           Yes
+//   The Great Wrecka               Yes
+//   Kingslaughter Cowl             Yes
 //
 
 } // namespace SonsOfBehemat

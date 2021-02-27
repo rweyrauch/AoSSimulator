@@ -9,6 +9,8 @@
 #include <magic_enum.hpp>
 #include <slaanesh/SlaaneshBase.h>
 #include <Board.h>
+#include <Roster.h>
+
 #include "slaanesh/Fiends.h"
 #include "slaanesh/Seekers.h"
 #include "slaanesh/Daemonettes.h"
@@ -153,6 +155,38 @@ namespace Slaanesh {
                 }
             }
         }
+    }
+
+    Rerolls SlaaneshBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Best_Of_The_Best)) {
+            auto heros = Board::Instance()->getUnitsWithKeyword(owningPlayer(), HERO);
+            for (auto hero : heros) {
+                if ((hero->remainingModels() > 0) && distanceTo(hero) < 6.0) {
+                    return Reroll_Failed;
+                }
+            }
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    void SlaaneshBase::onEndCombat(PlayerId player) {
+
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Glory_Hog)) {
+            auto friendlyUnits = Board::Instance()->getAllUnits(owningPlayer());
+            int numUnitsSlain = 0;
+            for (auto unit : friendlyUnits) {
+                 std::function<void(const TurnRecord&)> turnVisitor = [this,&numUnitsSlain](const TurnRecord& record) {
+                    if (record.m_round == this->m_battleRound) {
+                        numUnitsSlain += record.m_enemyUnitsSlain;
+                    }
+                };
+                unit->getStatistics().visitTurn(turnVisitor);
+            }
+            if (numUnitsSlain > 0) {
+                getRoster()->addCommandPoints(1);
+            }
+        }
+        Unit::onEndCombat(player);
     }
 
     void Init() {
