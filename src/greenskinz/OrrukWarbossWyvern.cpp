@@ -42,6 +42,8 @@ namespace Greenskinz {
         m_weapons = {&m_bossChoppa, &m_hornsClawsAndTeeth, &m_barbedTail};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_hornsClawsAndTeeth.setMount(true);
+        m_barbedTail.setMount(true);
     }
 
     bool OrrukWarbossOnWyvern::configure(bool pairedChoppas) {

@@ -64,6 +64,7 @@ namespace Nighthaunt {
         m_weapons = {&m_dreadblade, &m_hoovesAndTeeth};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_hoovesAndTeeth.setMount(true);
     }
 
     bool DreadbladeHarrow::configure() {

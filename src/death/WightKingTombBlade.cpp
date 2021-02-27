@@ -81,6 +81,7 @@ namespace Death {
         model->addMeleeWeapon(&m_balefulTombBlade);
         if (m_hasSteed) {
             model->addMeleeWeapon(&m_steedsHoovesAndTeeth);
+            m_steedsHoovesAndTeeth.setMount(true);
             m_move = 12;
         }
         addModel(model);

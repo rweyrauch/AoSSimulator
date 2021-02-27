@@ -63,6 +63,8 @@ namespace Slaanesh {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, WIZARD, GLUTOS_ORSCOLLION};
         m_weapons = {&m_greatblade, &m_scourge, &m_dagger, &m_claws};
         m_battleFieldRole = Leader;
+        m_hasMount = true;
+        m_claws.setMount(true);
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

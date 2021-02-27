@@ -28,6 +28,7 @@ namespace Death {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, BLOOD_KNIGHTS};
         m_weapons = {&m_templarLanceOrBlade, &m_templarLanceOrBladeKastellan, &m_hoovesAndTeeth};
         m_hasMount = true;
+        m_hoovesAndTeeth.setMount(true);
 
         s_globalBraveryMod.connect(this, &BloodKnights::standardBearerBraveryMod, &m_standardSlot);
     }

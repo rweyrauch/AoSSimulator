@@ -69,7 +69,7 @@ namespace Tzeentch {
         m_weapons = {&m_magicalFlames, &m_staff, &m_dagger, &m_bite};
         m_battleFieldRole = Leader;
         m_hasMount = true;
-
+        m_bite.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

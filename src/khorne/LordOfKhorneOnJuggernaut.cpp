@@ -25,6 +25,7 @@ namespace Khorne {
         m_weapons = {&m_wrathforgedAxe, &m_brazenHooves};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_brazenHooves.setMount(true);
     }
 
     bool LordOfKhorneOnJuggernaut::configure() {

@@ -44,6 +44,8 @@ namespace Seraphon {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, BASTILADON};
         m_weapons = {&m_beam, &m_javelins, &m_ark, &m_tail};
         m_battleFieldRole = Behemoth;
+        m_hasMount = true;
+        m_tail.setMount(true);
     }
 
     bool Bastiladon::configure() {

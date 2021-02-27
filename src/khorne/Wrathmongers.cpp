@@ -115,8 +115,8 @@ namespace Khorne {
         return 0;
     }
 
-    void Wrathmongers::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
-        Unit::onFriendlyModelSlain(numSlain, source);
+    void Wrathmongers::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, attacker, source);
 
         // Bloodfury
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);

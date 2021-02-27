@@ -73,6 +73,7 @@ namespace SlavesToDarkness {
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted,
                      &m_hooves};
         m_hasMount = true;
+        m_hooves.setMount(true);
     }
 
     bool ChaosChariots::configure(int numModels, WeaponOption weapons) {

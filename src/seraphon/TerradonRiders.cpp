@@ -31,6 +31,7 @@ namespace Seraphon {
         m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, TERRADON_RIDERS};
         m_weapons = {&m_javelin, &m_javelinLeader, &m_bolas, &m_bolasLeader, &m_jaws};
         m_hasMount = true;
+        m_jaws.setMount(true);
     }
 
     bool TerradonRiders::configure(int numModels, WeaponOption option) {

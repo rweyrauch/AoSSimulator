@@ -27,6 +27,7 @@ namespace Khorne {
         m_weapons = {&m_bladeOfBlood, &m_hellblades, &m_gnashingMaw};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_gnashingMaw.setMount(true);
     }
 
     bool HeraldOfKhorneOnBloodThrone::configure() {

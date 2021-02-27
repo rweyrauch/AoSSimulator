@@ -78,6 +78,7 @@ namespace SlavesToDarkness {
         m_weapons = {&m_javelinMissile, &m_axe, &m_flail, &m_javelin, &m_axeMaster, &m_flailMaster, &m_javelinMaster,
                      &m_hooves};
         m_hasMount = true;
+        m_hooves.setMount(true);
 
         s_globalBraveryMod.connect(this, &ChaosMarauderHorsemen::iconBearer, &m_connection);
 

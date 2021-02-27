@@ -60,7 +60,9 @@ namespace Nurgle {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, WIZARD, BLOAB_ROTSPAWNED};
         m_weapons = {&m_bile, &m_scythe, &m_claws};
         m_battleFieldRole = Leader_Behemoth;
-
+        m_hasMount = true;
+        m_claws.setMount(true);
+        m_bile.setMount(true);
         m_totalUnbinds = 1;
         m_totalSpells = 1;
 

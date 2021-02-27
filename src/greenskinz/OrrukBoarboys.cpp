@@ -31,6 +31,7 @@ namespace Greenskinz {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUK_BOARBOYS};
         m_weapons = {&m_choppa, &m_pigstikkaSpear, &m_warBoarsTusks, &m_choppaBoss, &m_pigstikkaSpearBoss};
         m_hasMount = true;
+        m_warBoarsTusks.setMount(true);
     }
 
     bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBearer, bool horns) {

@@ -74,6 +74,7 @@ namespace GloomspiteGitz {
         m_weapons = {&m_hugeFangFilledGob, &m_moonCutta, &m_ballsAndChains, &m_grotsBashinStikk};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_hugeFangFilledGob.setMount(true);
     }
 
     bool LoonbossOnManglerSquigs::configure() {
@@ -167,7 +168,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    void LoonbossOnManglerSquigs::onFriendlyUnitSlain() {
+    void LoonbossOnManglerSquigs::onFriendlyUnitSlain(const Unit *attacker) {
         // Watch Out!
         // get all units within 6" (friend and foe)
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0);
@@ -178,7 +179,7 @@ namespace GloomspiteGitz {
                 ip->applyDamage({0, mortalWounds}, this);
             }
         }
-        GloomspiteGitzBase::onFriendlyUnitSlain();
+        GloomspiteGitzBase::onFriendlyUnitSlain(nullptr);
     }
 
     void LoonbossOnManglerSquigs::onStartHero(PlayerId player) {

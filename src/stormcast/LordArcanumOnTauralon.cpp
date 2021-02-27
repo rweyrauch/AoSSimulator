@@ -30,12 +30,15 @@ namespace StormcastEternals {
         m_weapons = {&m_aetherstave, &m_hornsAndHooves};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_hornsAndHooves.setMount(true);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }
 
-    bool LordArcanumOnTauralon::configure(Lore lore) {
+    bool LordArcanumOnTauralon::configure(Lore lore, MountTrait trait) {
+
+        m_mountTrait = trait;
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
@@ -59,6 +62,7 @@ namespace StormcastEternals {
     Unit *LordArcanumOnTauralon::Create(const ParameterList &parameters) {
         auto unit = new LordArcanumOnTauralon();
         auto lore = (Lore) GetEnumParam("Lore of the Storm", parameters,  g_lore[0]);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -66,7 +70,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
+        bool ok = unit->configure(lore, trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -85,6 +89,7 @@ namespace StormcastEternals {
                             EnumParameter("Lore", g_lore[0], g_lore),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
+                            EnumParameter("Mount Trait", g_tauralonMountTrait[0], g_tauralonMountTrait),
                             BoolParameter("General")
                     },
                     ORDER,

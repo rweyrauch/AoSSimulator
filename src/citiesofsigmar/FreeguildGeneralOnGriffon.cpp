@@ -103,7 +103,8 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_runesword, &m_greathammer, &m_lance, &m_claws, &m_beak};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_claws.setMount(true);
+        m_beak.setMount(true);
         s_globalBraveryMod.connect(this, &FreeguildGeneralOnGriffon::piercingBloodroar, &m_connection);
     }
 

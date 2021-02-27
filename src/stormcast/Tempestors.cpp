@@ -30,6 +30,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, TEMPESTORS};
         m_weapons = {&m_stormBlast, &m_volleystormCrossbow, &m_warblade, &m_clawsAndFangs};
         m_hasMount = true;
+        m_clawsAndFangs.setMount(true);
     }
 
     bool Tempestors::configure(int numModels) {

@@ -102,7 +102,7 @@ namespace Tzeentch {
         m_weapons = {&m_staff, &m_dagger, &m_teethAndHorns};
         m_battleFieldRole = Leader;
         m_hasMount = true;
-
+        m_teethAndHorns.setMount(true);
         s_globalToHitMod.connect(this, &TzaangorShaman::visionsToHitMod, &m_visionsSlot);
 
         m_totalSpells = 1;

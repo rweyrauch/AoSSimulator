@@ -148,7 +148,7 @@ namespace SlavesToDarkness {
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
         void onEnemyUnitSlain(const Unit* unit) override;
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;

@@ -76,6 +76,7 @@ namespace OssiarchBonereapers {
         m_weapons = {&m_blade, &m_shield, &m_hoovesAndTeeth};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_hoovesAndTeeth.setMount(true);
     }
 
     bool LiegeKavalos::configure() {

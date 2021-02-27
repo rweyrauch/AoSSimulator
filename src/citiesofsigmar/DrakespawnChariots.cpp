@@ -71,6 +71,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, DRAKESPAWN_CHARIOTS};
         m_weapons = {&m_crossbow, &m_spear, &m_jaws};
         m_hasMount = true;
+        m_jaws.setMount(true);
     }
 
     bool DrakespawnChariots::configure(int numModels) {

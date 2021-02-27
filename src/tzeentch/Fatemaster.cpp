@@ -64,6 +64,7 @@ namespace Tzeentch {
         m_weapons = {&m_glaive, &m_teethAndHorns};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_teethAndHorns.setMount(true);
     }
 
     bool Fatemaster::configure() {

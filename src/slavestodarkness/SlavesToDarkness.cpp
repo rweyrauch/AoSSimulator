@@ -188,8 +188,8 @@ namespace SlavesToDarkness {
         return Unit::toSaveRerolls(weapon, attacker);
     }
 
-    void SlavesToDarknessBase::onFriendlyUnitSlain() {
-        Unit::onFriendlyUnitSlain();
+    void SlavesToDarknessBase::onFriendlyUnitSlain(const Unit *attacker) {
+        Unit::onFriendlyUnitSlain(nullptr);
 
         if (hasKeyword(KHORNE)) {
             // Add a Blood Tithe point

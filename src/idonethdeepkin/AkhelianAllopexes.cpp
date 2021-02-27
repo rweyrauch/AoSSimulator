@@ -29,6 +29,7 @@ namespace IdonethDeepkin {
          m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, MONSTER, ALLOPEX};
         m_weapons = {&m_harpoonLauncher, &m_netLauncher, &m_hooksAndBlades, &m_allopexBite};
         m_hasMount = true;
+        m_allopexBite.setMount(true);
     }
 
     bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons) {

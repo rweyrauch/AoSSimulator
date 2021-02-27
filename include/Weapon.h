@@ -77,7 +77,13 @@ public:
 
     void setDamage(int d) { m_damage = d; }
 
+    void setMount(bool isMount) { m_isMount = isMount; }
+
+    bool isMount() const { return m_isMount; }
+
     bool isMissile() const { return (m_type == Type::Missile); }
+
+    bool isMelee() const { return (m_type == Type::Melee); }
 
     void activate(bool isActive = true) { m_isActive = isActive; }
 
@@ -102,6 +108,7 @@ private:
     int m_toWound = 4;
     int m_rend = 0;
     int m_damage = 1;
+    bool m_isMount = false;
 
     int m_hitsPerAttack = 1;
     bool m_isActive = true;

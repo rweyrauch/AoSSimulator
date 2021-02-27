@@ -46,6 +46,7 @@ namespace StormcastEternals {
         m_weapons = {&m_celestineHammer, &m_stormboundBlade, &m_greatClaws};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_greatClaws.setMount(true);
 
         s_globalCastMod.connect(this, &LordCelestantOnStardrake::arcaneLineage, &m_connection);
     }
@@ -54,8 +55,9 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    bool LordCelestantOnStardrake::configure(WeaponOption weapons) {
+    bool LordCelestantOnStardrake::configure(WeaponOption weapons, MountTrait trait) {
         m_weaponOption = weapons;
+        m_mountTrait = trait;
 
         auto model = new Model(g_basesize, wounds());
         if (weapons == Celestine_Hammer) {
@@ -78,6 +80,7 @@ namespace StormcastEternals {
     Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters) {
         auto unit = new LordCelestantOnStardrake();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Celestine_Hammer);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -85,7 +88,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapons);
+        bool ok = unit->configure(weapons, trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -105,6 +108,7 @@ namespace StormcastEternals {
                             EnumParameter("Weapon", Celestine_Hammer, weapons),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
+                            EnumParameter("Mount Trait", g_stardrakeMountTrait[0], g_stardrakeMountTrait),
                             BoolParameter("General")
                     },
                     ORDER,

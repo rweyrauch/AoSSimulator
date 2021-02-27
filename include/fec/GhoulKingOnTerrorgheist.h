@@ -28,7 +28,7 @@ namespace FleshEaterCourt {
 
         bool configure(Lore lore, MountTrait trait);
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
 
     protected:
 

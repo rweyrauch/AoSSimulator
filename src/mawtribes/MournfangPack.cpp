@@ -68,6 +68,8 @@ namespace OgorMawtribes {
             m_tusks(Weapon::Type::Melee, "Tusks", 1, 4, 4, 3, -1, 1) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MOURNFANG_PACK};
         m_weapons = {&m_pistol, &m_clubOrHacker, &m_gargantHacker, &m_tusks};
+        m_hasMount = true;
+        m_tusks.setMount(true);
     }
 
     bool MournfangPack::configure(int numModels, WeaponOption weaponOption, bool hornblower, bool bannerBearer) {

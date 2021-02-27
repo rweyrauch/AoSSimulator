@@ -112,6 +112,8 @@ namespace OgorMawtribes {
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_hooves.setMount(true);
+        m_horns.setMount(true);
     }
 
     bool HuskardOnStonehorn::configure(WeaponOption option, MountTrait mountTrait) {

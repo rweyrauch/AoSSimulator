@@ -32,7 +32,7 @@ namespace Seraphon {
         m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws,
                      &m_coldOneJaws};
         m_hasMount = true;
-
+        m_coldOneJaws.setMount(true);
         s_globalBraveryMod.connect(this, &SaurusKnights::stardrakeIcon, &m_connection);
     }
 

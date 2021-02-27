@@ -46,7 +46,8 @@ namespace Seraphon {
         m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_jaws.setMount(true);
+        m_forelimbs.setMount(true);
         s_globalBraveryMod.connect(this, &SaurusOldbloodOnCarnosaur::terror, &m_connection);
     }
 

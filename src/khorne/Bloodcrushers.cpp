@@ -28,7 +28,7 @@ namespace Khorne {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, BLOODCRUSHERS};
         m_weapons = {&m_hellblade, &m_hellbladeHunter, &m_brazenHooves};
         m_hasMount = true;
-
+        m_brazenHooves.setMount(true);
         s_globalBattleshockReroll.connect(this, &Bloodcrushers::hornblowerBattleshockReroll, &m_hornblowerSlot);
     }
 

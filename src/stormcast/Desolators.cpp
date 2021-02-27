@@ -28,6 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, DESOLATORS};
         m_weapons = {&m_stormBlast, &m_thunderAxe, &m_clawsAndFangs};
         m_hasMount = true;
+        m_clawsAndFangs.setMount(true);
     }
 
     bool Desolators::configure(int numModels) {

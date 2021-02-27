@@ -31,6 +31,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, TZAANGOR_SKYFIRES};
         m_weapons = {&m_arrowOfFate, &m_arrowOfFateAviarch, &m_bowStave, &m_viciousBeak, &m_teethAndHorns};
         m_hasMount = true;
+        m_teethAndHorns.setMount(true);
     }
 
     bool TzaangorSkyfires::configure(int numModels) {

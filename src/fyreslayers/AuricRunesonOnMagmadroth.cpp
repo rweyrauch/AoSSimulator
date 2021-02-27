@@ -48,6 +48,8 @@ namespace Fyreslayers {
                      &m_javelinMelee};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_clawsAndHorns.setMount(true);
+        m_blazingMaw.setMount(true);
     }
 
     bool AuricRunesonOnMagmadroth::configure(MountTrait trait) {

@@ -63,6 +63,7 @@ namespace Nighthaunt {
         m_weapons = {&m_sword, &m_hoovesAndTeeth};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_hoovesAndTeeth.setMount(true);
     }
 
     bool KnightOfShroudsOnEtherealSteed::configure() {

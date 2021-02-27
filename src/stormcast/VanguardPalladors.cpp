@@ -32,6 +32,7 @@ namespace StormcastEternals {
         m_weapons = {&m_boltstormPistol, &m_starstrikeJavelinMissile, &m_shockHandaxe, &m_starstrikeJavelin,
                      &m_beakAndClaws};
         m_hasMount = true;
+        m_beakAndClaws.setMount(true);
     }
 
     bool VanguardPalladors::configure(int numModels, WeaponOption weapons) {

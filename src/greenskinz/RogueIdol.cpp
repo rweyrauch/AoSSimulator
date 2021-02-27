@@ -105,7 +105,7 @@ namespace Greenskinz {
         Unit::onWounded();
     }
 
-    void RogueIdol::onFriendlyUnitSlain() {
+    void RogueIdol::onFriendlyUnitSlain(const Unit *attacker) {
         // Avalanche!
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);
         for (auto ip : units) {
@@ -115,7 +115,7 @@ namespace Greenskinz {
             }
         }
 
-        Unit::onFriendlyUnitSlain();
+        Unit::onFriendlyUnitSlain(nullptr);
     }
 
     Wounds RogueIdol::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {

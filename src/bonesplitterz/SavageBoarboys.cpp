@@ -70,6 +70,7 @@ namespace Bonesplitterz {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, BOARBOYS, SAVAGE_BOARBOYS};
         m_weapons = {&m_chompa, &m_stikka, &m_tusksAndHooves, &m_chompaBoss, &m_stikkaBoss};
         m_hasMount = true;
+        m_tusksAndHooves.setMount(true);
     }
 
     bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer) {

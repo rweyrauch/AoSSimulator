@@ -121,7 +121,8 @@ namespace SlavesToDarkness {
         m_weapons = {&m_staff, &m_fangsAndClaws, &m_tail};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_fangsAndClaws.setMount(true);
+        m_tail.setMount(true);
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

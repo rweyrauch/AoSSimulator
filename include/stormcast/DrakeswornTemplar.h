@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DRAKESWORNTEMPLAR_H
-#define DRAKESWORNTEMPLAR_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -37,7 +35,7 @@ namespace StormcastEternals {
 
         ~DrakeswornTemplar() override;
 
-        bool configure(WeaponOption weapons, bool skyboltBow);
+        bool configure(WeaponOption weapons, bool skyboltBow, MountTrait trait);
 
     protected:
 
@@ -90,5 +88,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //DRAKESWORNTEMPLAR_H

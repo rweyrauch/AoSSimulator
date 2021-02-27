@@ -26,6 +26,7 @@ namespace Seraphon {
         m_weapons = {&m_skyblade, &m_jaws};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_jaws.setMount(true);
     }
 
     bool RipperdactylChief::configure() {

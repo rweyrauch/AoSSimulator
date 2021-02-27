@@ -30,6 +30,7 @@ namespace Khorne {
         m_weapons = {&m_burningSkulls, &m_hellblades, &m_gnashingMaw};
         m_battleFieldRole = Artillery;
         m_hasMount = true;
+        m_gnashingMaw.setMount(true);
     }
 
     bool SkullCannons::configure(int numModels) {

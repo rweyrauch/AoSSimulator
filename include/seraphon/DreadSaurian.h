@@ -35,7 +35,7 @@ namespace Seraphon {
 
         void onCharged() override;
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
 
         int getDamageTableIndex() const;
 

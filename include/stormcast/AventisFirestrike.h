@@ -30,7 +30,7 @@ namespace StormcastEternals {
 
         ~AventisFirestrike() override = default;
 
-        bool configure(Lore lore);
+        bool configure(Lore lore, MountTrait trait);
 
     protected:
 

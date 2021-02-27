@@ -150,14 +150,14 @@ namespace Khorne {
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
         void onEnemyUnitSlain(const Unit* unit) override;
 
         void onStartHero(PlayerId player) override;
 
         void onRestore() override;
 
-        void onFriendlyModelSlain(int numSlain, Wounds::Source source) override;
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
 
         void onBeginTurn(int battleRound) override;
 

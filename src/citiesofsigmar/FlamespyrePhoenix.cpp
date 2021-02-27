@@ -97,6 +97,8 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
         m_weapons = {&m_talons, &m_halberd};
         m_battleFieldRole = Behemoth;
+        m_hasMount = true;
+        m_talons.setMount(true);
     }
 
     bool FlamespyrePhoenix::configure(bool anointed) {

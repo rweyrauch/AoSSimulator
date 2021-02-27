@@ -97,6 +97,8 @@ namespace OgorMawtribes {
         m_weapons = {&m_spear, &m_kicks, &m_horns, &m_hooves};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_hooves.setMount(true);
+        m_horns.setMount(true);
     }
 
     bool FrostlordOnStonehorn::configure(MountTrait mountTrait) {

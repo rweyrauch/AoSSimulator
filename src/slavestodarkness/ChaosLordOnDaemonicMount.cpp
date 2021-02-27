@@ -63,6 +63,7 @@ namespace SlavesToDarkness {
         m_weapons = {&m_hammer, &m_hooves};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_hooves.setMount(true);
     }
 
     bool ChaosLordOnDaemonicMount::configure() {

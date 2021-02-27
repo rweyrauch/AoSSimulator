@@ -46,6 +46,8 @@ namespace Fyreslayers {
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_latchAxe, &m_runicIron};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_clawsAndHorns.setMount(true);
+        m_blazingMaw.setMount(true);
     }
 
     bool AuricRunesmiterOnMagmadroth::configure(Blessing prayer, MountTrait trait) {

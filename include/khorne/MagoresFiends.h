@@ -37,7 +37,7 @@ namespace Khorne {
 
         Rerolls chargeRerolls() const override;
 
-        void onFriendlyModelSlain(int numSlain, Wounds::Source source) override;
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
 
     private:
 

@@ -88,7 +88,8 @@ namespace OssiarchBonereapers {
         m_weapons = {&m_zefetKar, &m_khenashAn, &m_claws, &m_clawsAndDaggers};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_claws.setMount(true);
+        m_clawsAndDaggers.setMount(true);
         m_totalSpells = 3;
         m_totalUnbinds = 3;
     }

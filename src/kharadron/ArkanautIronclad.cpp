@@ -140,11 +140,13 @@ namespace KharadronOverlords {
     }
 
     void ArkanautIronclad::onRestore() {
+        KharadronBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
 
     void ArkanautIronclad::onWounded() {
+        KharadronBase::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_boardingWeapons.setAttacks(g_damageTable[damageIndex].m_boardingAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -161,7 +163,7 @@ namespace KharadronOverlords {
     }
 
     void ArkanautIronclad::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        KharadronBase::onStartShooting(player);
 
         if (m_weaponOption == Great_Sky_Cannon) {
             auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -174,7 +176,7 @@ namespace KharadronOverlords {
     }
 
     int ArkanautIronclad::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = KharadronBase::chargeModifier();
 
         if (m_weaponOption == Great_Skyhook) mod += 2;
 
@@ -182,7 +184,7 @@ namespace KharadronOverlords {
     }
 
     void ArkanautIronclad::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        KharadronBase::onStartHero(player);
 
         // Aetheric Navigator/Endrinrigger
         if (player == owningPlayer()) {
@@ -196,7 +198,7 @@ namespace KharadronOverlords {
     }
 
     void ArkanautIronclad::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        KharadronBase::onStartCombat(player);
 
         // Bomb Racks
         auto nearestUnit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

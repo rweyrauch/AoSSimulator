@@ -49,6 +49,9 @@ namespace Khorne {
                      &m_brassPlatedTail};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_evisceratingClaws.setMount(true);
+        m_cavernousJaws.setMount(true);
+        m_brassPlatedTail.setMount(true);
 
         s_globalCastMod.connect(this, &VorgarothAndSkalok::wingsOfFury, &m_wingOfFuryConnection);
         s_globalUnbindMod.connect(this, &VorgarothAndSkalok::wingsOfFury, &m_wingOfFuryConnection);

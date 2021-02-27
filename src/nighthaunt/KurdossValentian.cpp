@@ -53,6 +53,8 @@ namespace Nighthaunt {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KURDOSS_VALENTIAN};
         m_weapons = {&m_sceptre, &m_claws};
         m_battleFieldRole = Leader;
+        m_hasMount = true;
+        m_claws.setMount(true);
     }
 
     bool KurdossValentian::configure() {

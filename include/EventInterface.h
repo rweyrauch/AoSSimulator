@@ -21,10 +21,10 @@ public:
 
     virtual void onRestore() {}
 
-    virtual void onFriendlyUnitSlain() {}
+    virtual void onFriendlyUnitSlain(const Unit *attacker) {}
     virtual void onEnemyUnitSlain(const Unit* enemyUnit) {}
 
-    virtual void onFriendlyModelSlain(int numSlain, Wounds::Source source) {}
+    virtual void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {}
     virtual void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) {}
 
     virtual void onWounded() {}

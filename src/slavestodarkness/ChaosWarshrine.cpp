@@ -76,6 +76,8 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, TOTEM, PRIEST, MARK_OF_CHAOS, CHAOS_WARSHRINE};
         m_weapons = {&m_blade, &m_fists};
         m_battleFieldRole = Behemoth;
+        m_hasMount = true;
+        m_fists.setMount(true);
     }
 
     bool ChaosWarshrine::configure() {

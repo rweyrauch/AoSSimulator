@@ -31,6 +31,7 @@ namespace Ironjawz {
         m_weapons = {&m_pigironChoppa, &m_jaggedGorehacka, &m_tusksAndHooves, &m_bossPigironChoppa,
                      &m_bossJaggedGorehacka};
         m_hasMount = true;
+        m_tusksAndHooves.setMount(true);
     }
 
     bool OrrukGoreGruntas::configure(int numModels, WeaponOption weapons) {

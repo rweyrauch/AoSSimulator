@@ -29,6 +29,7 @@ namespace GloomspiteGitz {
         m_weapons = {&m_massiveFangFilledGob, &m_moonCutta, &m_moonclanStabba};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_massiveFangFilledGob.setMount(true);
     }
 
     bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon) {

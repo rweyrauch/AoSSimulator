@@ -28,6 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, DRACOTHIAN_GUARD, CONCUSSORS};
         m_weapons = {&m_stormBlast, &m_lightningHammer, &m_clawsAndFangs};
         m_hasMount = true;
+        m_clawsAndFangs.setMount(true);
     }
 
     bool Concussors::configure(int numModels) {

@@ -30,6 +30,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, DAEMON, FLAMER, EXALTED_FLAMERS, HORROR, TZEENTCH, BURNING_CHARIOTS};
         m_weapons = {&m_warpflame, &m_bite, &m_jabs, &m_flamingMaw};
         m_hasMount = true;
+        m_bite.setMount(true);
     }
 
     bool BurningChariotsOfTzeentch::configure(int numModels) {

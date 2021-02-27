@@ -86,6 +86,8 @@ namespace Death {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, NEFERATA};
         m_weapons = {&m_akmetHar, &m_akenSeth, &m_skeletalClaws, &m_clawsAndDaggers};
         m_battleFieldRole = Leader_Behemoth;
+        m_hasMount = true;
+        m_skeletalClaws.setMount(true);
         m_totalSpells = 2;
         m_totalUnbinds = 2;
     }

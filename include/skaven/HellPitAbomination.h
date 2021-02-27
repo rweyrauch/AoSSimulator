@@ -33,7 +33,7 @@ namespace Skaven {
 
         int generateMortalWounds(const Unit *unit) override;
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
 
         int terrifying(const Unit *unit);
 

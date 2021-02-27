@@ -69,6 +69,9 @@ namespace Nighthaunt {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, BLACK_COACH};
         m_weapons = {&m_graspMissile, &m_scythe, &m_grasp, &m_claws, &m_hoovesAndTeeth};
         m_battleFieldRole = Behemoth;
+        m_hasMount = true;
+        m_claws.setMount(true);
+        m_hoovesAndTeeth.setMount(true);
     }
 
     bool BlackCoach::configure() {

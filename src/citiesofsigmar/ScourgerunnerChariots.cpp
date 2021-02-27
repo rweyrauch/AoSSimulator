@@ -73,6 +73,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, SCOURGERUNNER_CHARIOTS};
         m_weapons = {&m_harpoon, &m_crossbow, &m_hookSpear, &m_bite, &m_harpoonMaster, &m_crossbowMaster};
         m_hasMount = true;
+        m_bite.setMount(true);
     }
 
     bool ScourgerunnerChariots::configure(int numModels) {

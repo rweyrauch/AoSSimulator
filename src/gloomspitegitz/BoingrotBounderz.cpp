@@ -28,6 +28,7 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, BOINGROT_BOUNDERZ};
         m_weapons = {&m_fangFilledGob, &m_pokinLance, &m_pokinLanceBoss};
         m_hasMount = true;
+        m_fangFilledGob.setMount(true);
     }
 
     bool BoingrotBounderz::configure(int numModels) {

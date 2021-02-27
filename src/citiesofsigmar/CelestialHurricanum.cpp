@@ -106,6 +106,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, CELESTIAL_HURRICANUM};
         m_weapons = {&m_stormOfShemtek, &m_wizardStaff, &m_arcaneTools, &m_hooves};
         m_hasMount = true;
+        m_hooves.setMount(true);
         m_battleFieldRole = Behemoth;
 
         s_globalCastMod.connect(this, &CelestialHurricanum::locusOfAzyr, &m_locusConnection);

@@ -84,7 +84,7 @@ namespace StormcastEternals {
         if ((woundRoll == 6) && (weapon->name() == m_beakAndTalonsMissile.name())) {
             return -3;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponRend(weapon, target, hitRoll, woundRoll);
     }
 
     int KnightVenator::ComputePoints(int /*numModels*/) {

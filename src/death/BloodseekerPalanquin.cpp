@@ -96,6 +96,7 @@ namespace Death {
         m_battleFieldRole = Leader_Behemoth;
 
         m_hasMount = true;
+        m_etherealWeapons.setMount(true);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

@@ -69,6 +69,8 @@ namespace FleshEaterCourt {
                       WIZARD, ABHORRANT_GHOUL_KING};
         m_weapons = {&m_pestilentialBreath, &m_goryTalonsAndFangs, &m_snappingMaw, &m_swordlikeClaws};
         m_hasMount = true;
+        m_snappingMaw.setMount(true);
+        m_swordlikeClaws.setMount(true);
         m_battleFieldRole = Leader_Behemoth;
 
         m_totalUnbinds = 1;

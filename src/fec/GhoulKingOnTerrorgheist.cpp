@@ -67,6 +67,8 @@ namespace FleshEaterCourt {
                       WIZARD, ABHORRANT_GHOUL_KING};
         m_weapons = {&m_deathShriek, &m_goryTalonsAndFangs, &m_skeletalClaws, &m_fangedMaw};
         m_hasMount = true;
+        m_skeletalClaws.setMount(true);
+        m_fangedMaw.setMount(true);
         m_battleFieldRole = Leader_Behemoth;
 
         m_totalUnbinds = 1;
@@ -189,8 +191,8 @@ namespace FleshEaterCourt {
         onWounded();
     }
 
-    void AbhorrantGhoulKingOnTerrorgheist::onFriendlyUnitSlain() {
-        FleshEaterCourts::onFriendlyUnitSlain();
+    void AbhorrantGhoulKingOnTerrorgheist::onFriendlyUnitSlain(const Unit *attacker) {
+        FleshEaterCourts::onFriendlyUnitSlain(nullptr);
 
         // Infested
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);

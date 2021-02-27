@@ -47,7 +47,9 @@ namespace Seraphon {
         m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_jaws.setMount(true);
+        m_stomps.setMount(true);
+        m_horns.setMount(true);
         s_globalBattleshockReroll.connect(this, &EngineOfTheGods::steadfastMajestyBraveryReroll, &m_steadfastSlot);
         s_globalChargeReroll.connect(this, &EngineOfTheGods::cosmicEngineChargeReroll, &m_cosmicEngineChargeSlot);
         s_globalAttackMod.connect(this, &EngineOfTheGods::cosmicEngineAttackMod, &m_cosmicEngineAttackSlot);

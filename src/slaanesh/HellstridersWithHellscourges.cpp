@@ -28,7 +28,7 @@ namespace Slaanesh {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HELLSTRIDERS};
         m_weapons = {&m_hellscourge, &m_hellscourgeReaver, &m_poisonedTongue};
         m_hasMount = true;
-
+        m_poisonedTongue.setMount(true);
         s_globalBattleshockReroll.connect(this, &HellstridersWithHellscourges::hornblowerBattleshockReroll, &m_hornblowerSlot);
     }
 

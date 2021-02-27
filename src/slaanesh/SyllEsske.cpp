@@ -27,7 +27,8 @@ namespace Slaanesh {
                       THE_VENGEFUL_ALLEGIANCE};
         m_weapons = {&m_axeOfDominion, &m_scourgingWhip};
         m_battleFieldRole = Leader;
-
+        m_hasMount = true;
+        m_axeOfDominion.setMount(true);
         // Lithe and Swift
         m_runAndCharge = true;
 

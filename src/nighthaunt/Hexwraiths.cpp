@@ -27,6 +27,7 @@ namespace Nighthaunt {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, HEXWRAITHS};
         m_weapons = {&m_spectralScythe, &m_spectralScytheHellwraith, &m_hoovesAndTeeth};
         m_hasMount = true;
+        m_hoovesAndTeeth.setMount(true);
     }
 
     bool Hexwraiths::configure(int numModels) {

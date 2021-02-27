@@ -28,6 +28,8 @@ namespace Slaanesh {
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, SEEKERS, SLICKBLADE_SEEKERS};
         m_weapons = {&m_glaive, &m_glaiveHunter, &m_poisonedTongue};
+        m_hasMount = true;
+        m_poisonedTongue.setMount(true);
     }
 
     bool SlickbladeSeekers::configure(int numModels) {

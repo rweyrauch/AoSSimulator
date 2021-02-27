@@ -30,12 +30,15 @@ namespace StormcastEternals {
         m_weapons = {&m_staffOfHammerhal, &m_hornsAndHooves};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_hornsAndHooves.setMount(true);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }
 
-    bool AventisFirestrike::configure(Lore lore) {
+    bool AventisFirestrike::configure(Lore lore, MountTrait trait) {
+
+        m_mountTrait = trait;
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staffOfHammerhal);
@@ -57,13 +60,14 @@ namespace StormcastEternals {
     Unit *AventisFirestrike::Create(const ParameterList &parameters) {
         auto unit = new AventisFirestrike();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
 
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
+        bool ok = unit->configure(lore, trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -80,6 +84,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
+                            EnumParameter("Mount Trait", g_tauralonMountTrait[0], g_tauralonMountTrait),
                             BoolParameter("General")
                     },
                     ORDER,

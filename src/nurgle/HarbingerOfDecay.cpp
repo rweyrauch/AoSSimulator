@@ -64,6 +64,8 @@ namespace Nurgle {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, HARBINGER_OF_DECAY};
         m_weapons = {&m_scythe, &m_bite};
         m_battleFieldRole = Leader;
+        m_hasMount = true;
+        m_bite.setMount(true);
     }
 
     bool HarbingerOfDecay::configure() {

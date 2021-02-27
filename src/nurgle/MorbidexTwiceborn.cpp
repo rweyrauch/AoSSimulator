@@ -55,7 +55,9 @@ namespace Nurgle {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, MORBIDEX_TWICEBORN};
         m_weapons = {&m_tongues, &m_scythe, &m_claws};
         m_battleFieldRole = Leader_Behemoth;
-
+        m_hasMount = true;
+        m_tongues.setMount(true);
+        m_claws.setMount(true);
         s_globalToWoundMod.connect(this, &MorbidexTwiceborn::maliciousMitesWoundMod, &m_maliciousMitesSlot);
     }
 

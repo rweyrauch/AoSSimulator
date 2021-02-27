@@ -133,6 +133,20 @@ namespace KharadronOverlords {
         m_artefact = artefact;
     }
 
+    Rerolls KharadronBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    int KharadronBase::braveryModifier() const {
+        return Unit::braveryModifier();
+    }
+
+    void KharadronBase::onRestore() {
+        Unit::onRestore();
+
+        m_aetherGold = 1;
+    }
+
     void Init() {
         AethericNavigator::Init();
         AetherKhemist::Init();

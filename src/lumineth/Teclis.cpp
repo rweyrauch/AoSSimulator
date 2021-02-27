@@ -137,6 +137,7 @@ namespace LuminethRealmLords {
         m_totalUnbinds = INT32_MAX;
         m_totalSpells = 4;
         m_hasMount = true;
+        m_talons.setMount(true);
         m_battleFieldRole = Role::Leader;
 
         s_globalCastMod.connect(this, &ArchmageTeclis::auraOfCelennar, &m_auraConnection);

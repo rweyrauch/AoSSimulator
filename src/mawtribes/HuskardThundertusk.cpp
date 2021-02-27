@@ -114,6 +114,7 @@ namespace OgorMawtribes {
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, PRIEST,
                       HUSKARD};
         m_hasMount = true;
+        m_tusks.setMount(true);
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
         m_battleFieldRole = Leader_Behemoth;
     }

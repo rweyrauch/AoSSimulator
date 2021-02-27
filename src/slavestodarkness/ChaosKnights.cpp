@@ -79,7 +79,7 @@ namespace SlavesToDarkness {
         m_weapons = {&m_ensorcelledWeapon, &m_lance, &m_ensorcelledWeaponLeader, &m_lanceLeader, &m_flailLeader,
                      &m_hooves};
         m_hasMount = true;
-
+        m_hooves.setMount(true);
         s_globalBraveryMod.connect(this, &ChaosKnights::terrifyingChampions, &m_terrifyingSlot);
     }
 

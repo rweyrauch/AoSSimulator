@@ -32,6 +32,7 @@ namespace StormcastEternals {
         m_weapons = {&m_tempestBladeAndStave, &m_tempestBladeAndStavePrime, &m_grandStave, &m_grandStavePrime,
                      &m_monstrousClaws};
         m_hasMount = true;
+        m_monstrousClaws.setMount(true);
 
         s_globalBraveryMod.connect(this, &EvocatorsOnCelestialDracolines::supernaturalRoar, &m_connection);
 

@@ -87,6 +87,8 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO,
                       CHAOS_LORD};
         m_hasMount = true;
+        m_fangsAndClaws.setMount(true);
+        m_tail.setMount(true);
         m_weapons = {&m_blade, &m_lance, &m_flail, &m_fangsAndClaws, &m_tail};
         m_battleFieldRole = Leader_Behemoth;
     }

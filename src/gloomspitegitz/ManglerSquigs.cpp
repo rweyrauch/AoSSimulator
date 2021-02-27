@@ -43,6 +43,7 @@ namespace GloomspiteGitz {
         m_weapons = {&m_hugeFangFilledGob, &m_ballsAndChains, &m_grotsBashinStikk};
         m_battleFieldRole = Behemoth;
         m_hasMount = true;
+        m_hugeFangFilledGob.setMount(true);
     }
 
     void ManglerSquigs::onRestore() {
@@ -118,7 +119,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    void ManglerSquigs::onFriendlyUnitSlain() {
+    void ManglerSquigs::onFriendlyUnitSlain(const Unit *attacker) {
         // Watch Out!
         // get all units within 6" (friend and foe)
         auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0);
@@ -130,7 +131,7 @@ namespace GloomspiteGitz {
             }
         }
 
-        GloomspiteGitzBase::onFriendlyUnitSlain();
+        GloomspiteGitzBase::onFriendlyUnitSlain(nullptr);
     }
 
     int ManglerSquigs::ComputePoints(int /*numModels*/) {

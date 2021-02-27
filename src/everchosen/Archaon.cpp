@@ -45,6 +45,10 @@ namespace SlavesToDarkness {
                       HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
         m_weapons = {&m_slayerOfKings, &m_dorgharsClaws, &m_dorgharsTails, &m_dorgharsHeads};
         m_battleFieldRole = Leader_Behemoth;
+        m_hasMount = true;
+        m_dorgharsClaws.setMount(true);
+        m_dorgharsHeads.setMount(true);
+        m_dorgharsTails.setMount(true);
 
         s_globalBraveryMod.connect(this, &Archaon::crownOfDomination, &m_connection);
 

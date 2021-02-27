@@ -48,7 +48,9 @@ namespace Seraphon {
         m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_spittle.setMount(true);
+        m_jaws.setMount(true);
+        m_forelimbs.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 

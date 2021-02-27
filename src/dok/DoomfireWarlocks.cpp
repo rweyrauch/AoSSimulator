@@ -60,6 +60,7 @@ namespace DaughtersOfKhaine {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WIZARD, DOOMFIRE_WARLOCKS};
         m_weapons = {&m_crossBow, &m_scimitar, &m_crossBowMaster, &m_scimitarMaster, &m_steedsBite};
         m_hasMount = true;
+        m_steedsBite.setMount(true);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

@@ -38,7 +38,7 @@ namespace Greenskinz {
 
         void onRestore() override;
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

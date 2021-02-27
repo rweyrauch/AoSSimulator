@@ -82,7 +82,7 @@ namespace Nighthaunt {
         m_weapons = {&m_fellreaper, &m_hoovesAndTeeth};
         m_battleFieldRole = Leader;
         m_hasMount = true;
-
+        m_hoovesAndTeeth.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

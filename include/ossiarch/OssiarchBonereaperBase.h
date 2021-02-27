@@ -117,7 +117,7 @@ namespace OssiarchBonereapers {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
-        void onFriendlyModelSlain(int numSlain, Wounds::Source source) override;
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
         bool battleshockRequired() const override;
         int theDreadLegion(const Unit *target);
 

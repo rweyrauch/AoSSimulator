@@ -149,8 +149,8 @@ namespace Khorne {
         return points;
     }
 
-    void BloodWarriors::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
-        KhorneBase::onFriendlyModelSlain(numSlain, source);
+    void BloodWarriors::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        KhorneBase::onFriendlyModelSlain(numSlain, attacker, source);
 
         // No Respite
         int numAdditionalSlain = 0;

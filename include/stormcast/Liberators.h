@@ -46,6 +46,8 @@ namespace StormcastEternals {
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
+        void onEndMovement(PlayerId player) override;
+
     private:
 
         WeaponOption m_weaponOption = Warhammer;

@@ -34,7 +34,7 @@ namespace StormcastEternals {
 
         ~LordCelestantOnStardrake() override;
 
-        bool configure(WeaponOption weapons);
+        bool configure(WeaponOption weapons, MountTrait trait);
 
     protected:
 

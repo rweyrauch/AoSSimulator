@@ -188,4 +188,18 @@ namespace StormcastEternals {
         return points;
     }
 
+    void Liberators::onEndMovement(PlayerId player) {
+        StormcastEternal::onEndMovement(player);
+
+        if (owningPlayer() == player) {
+            // Shield of Civilisation
+            if (!m_moved) {
+                // Stand fast
+                buffModifier(To_Hit_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(To_Save_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(To_Save_Missile, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+            }
+        }
+    }
+
 } // namespace StormcastEternals

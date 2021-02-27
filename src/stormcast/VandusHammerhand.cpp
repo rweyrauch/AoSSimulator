@@ -10,6 +10,7 @@
 #include <iostream>
 #include <Board.h>
 #include "UnitFactory.h"
+#include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int g_basesize = 90; // x52 oval
@@ -27,6 +28,7 @@ namespace StormcastEternals {
         m_weapons = {&m_heldensen, &m_clawsAndFangs};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_clawsAndFangs.setMount(true);
 
         s_globalBraveryMod.connect(this, &VandusHammerhand::lordOfTheHammerhandsBraveryMod, &m_lordSlot);
     }
@@ -35,7 +37,10 @@ namespace StormcastEternals {
         m_lordSlot.disconnect();
     }
 
-    bool VandusHammerhand::configure() {
+    bool VandusHammerhand::configure(MountTrait trait) {
+
+        m_mountTrait = trait;
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_heldensen);
         model->addMeleeWeapon(&m_clawsAndFangs);
@@ -52,13 +57,14 @@ namespace StormcastEternals {
 
     Unit *VandusHammerhand::Create(const ParameterList &parameters) {
         auto unit = new VandusHammerhand();
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
 
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
+        bool ok = unit->configure(trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -74,7 +80,8 @@ namespace StormcastEternals {
                     StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Mount Trait", g_dracothMountTrait[0], g_dracothMountTrait),
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}

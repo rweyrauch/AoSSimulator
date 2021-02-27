@@ -32,7 +32,10 @@ namespace Nurgle {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUE_DRONES};
         m_weapons = {&m_plaguesword, &m_plagueswordPlaguebringer, &m_deathsHead, &m_proboscis, &m_mouthparts,
                      &m_venemousSting};
-
+        m_hasMount = true;
+        m_proboscis.setMount(true);
+        m_mouthparts.setMount(true);
+        m_venemousSting.setMount(true);
         s_globalBattleshockReroll.connect(this, &PlagueDrones::bellTollersBattleshockReroll, &m_bellTollerSlot);
     }
 

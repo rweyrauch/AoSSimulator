@@ -29,6 +29,7 @@ namespace StormcastEternals {
         m_weapons = {&m_aetherstave, &m_monstrousClaws};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_monstrousClaws.setMount(true);
 
         s_globalBraveryMod.connect(this, &AstreiaSolbright::supernaturalRoar, &m_connection);
 
@@ -40,7 +41,9 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    bool AstreiaSolbright::configure(Lore lore) {
+    bool AstreiaSolbright::configure(Lore lore, MountTrait trait) {
+
+        m_mountTrait = trait;
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
@@ -60,13 +63,14 @@ namespace StormcastEternals {
     Unit *AstreiaSolbright::Create(const ParameterList &parameters) {
         auto unit = new AstreiaSolbright();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
 
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
+        bool ok = unit->configure(lore, trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -83,6 +87,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
+                            EnumParameter("Mount Trait", g_dracolineMountTrait[0], g_dracolineMountTrait),
                             BoolParameter("General")
                     },
                     ORDER,

@@ -47,6 +47,7 @@ namespace StormcastEternals {
         m_weapons = {&m_skyboltBow, &m_tempestAxe, &m_arcHammer, &m_stormlance, &m_greatClaws};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_greatClaws.setMount(true);
 
         s_globalCastMod.connect(this, &DrakeswornTemplar::arcaneLineage, &m_connection);
     }
@@ -55,8 +56,9 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow) {
+    bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow, MountTrait trait) {
         m_weaponOption = weapons;
+        m_mountTrait = trait;
 
         auto model = new Model(g_basesize, wounds());
         if (skyboltBow) {
@@ -81,6 +83,7 @@ namespace StormcastEternals {
         auto unit = new DrakeswornTemplar();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Tempest_Axe);
         auto skyboltBow = GetBoolParam("Skybolt Bow", parameters, true);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -88,7 +91,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapons, skyboltBow);
+        bool ok = unit->configure(weapons, skyboltBow, trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -108,6 +111,7 @@ namespace StormcastEternals {
                             EnumParameter("Weapon", Tempest_Axe, weapons),
                             BoolParameter("Skybolt Bow"),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
+                            EnumParameter("Mount Trait", g_stardrakeMountTrait[0], g_stardrakeMountTrait),
                             BoolParameter("General")
                     },
                     ORDER,

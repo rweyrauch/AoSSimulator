@@ -48,6 +48,8 @@ namespace GloomspiteGitz {
         m_weapons = {&m_spiderBows, &m_spiderGodStaff, &m_chitinousLegs, &m_monstrousFangs, &m_crookedSpears};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_chitinousLegs.setMount(true);
+        m_monstrousFangs.setMount(true);
 
         s_globalCastMod.connect(this, &WebspinnerShamanOnArachnarokSpider::catchwebSpidershrine, &m_shrineConnection);
         s_globalBraveryMod.connect(this, &WebspinnerShamanOnArachnarokSpider::prophetOfTheSpiderGod,

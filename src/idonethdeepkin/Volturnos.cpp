@@ -26,6 +26,8 @@ namespace IdonethDeepkin {
         m_weapons = {&m_theAstraSolus, &m_deepmareJawsTalons, &m_deepmareTails};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_deepmareTails.setMount(true);
+        m_deepmareJawsTalons.setMount(true);
 
         s_globalBraveryMod.connect(this, &Volturnos::crestOfTheHighKings, &m_connection);
     }

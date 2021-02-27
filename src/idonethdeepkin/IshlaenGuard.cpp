@@ -29,6 +29,8 @@ namespace IdonethDeepkin {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, AKHELIAN_GUARD, ISHLAEN_GUARD};
         m_weapons = {&m_helsabre, &m_helsabrePrince, &m_fangmoraFangedMaw, &m_fangmoraLashingTail};
         m_hasMount = true;
+        m_fangmoraFangedMaw.setMount(true);
+        m_fangmoraLashingTail.setMount(true);
     }
 
     bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool musicians) {

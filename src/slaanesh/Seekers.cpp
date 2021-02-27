@@ -28,7 +28,8 @@ namespace Slaanesh {
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTES, SLAANESH, HEDONITE, SEEKERS};
         m_weapons = {&m_piercingClaws, &m_piercingClawsHeartseeker, &m_poisonedTongue};
-
+        m_hasMount = true;
+        m_poisonedTongue.setMount(true);
         // Quicksilver Speed
         m_runAndCharge = true;
 

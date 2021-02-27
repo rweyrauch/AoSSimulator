@@ -29,6 +29,8 @@ namespace IdonethDeepkin {
         m_battleFieldRole = Leader;
 
         m_hasMount = true;
+        m_deepmareJawsTalons.setMount(true);
+        m_deepmareTails.setMount(true);
     }
 
     bool AkhelianKing::configure(WeaponOption weapon, MountTrait trait) {

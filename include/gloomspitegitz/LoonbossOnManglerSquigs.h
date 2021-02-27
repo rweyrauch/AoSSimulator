@@ -39,7 +39,7 @@ namespace GloomspiteGitz {
 
         void onRestore() override;
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
 
         void onStartHero(PlayerId player) override;
 

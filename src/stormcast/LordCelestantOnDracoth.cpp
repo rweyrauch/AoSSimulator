@@ -30,11 +30,13 @@ namespace StormcastEternals {
         m_weapons = {&m_stormstrikeGlaive, &m_lightningHammer, &m_thunderaxe, &m_tempestosHammer, &m_clawsAndFangs};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_clawsAndFangs.setMount(true);
     }
 
-    bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield) {
+    bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield, MountTrait trait) {
         m_weapon = weapons;
         m_sigmariteThundershield = sigmariteThundershield;
+        m_mountTrait = trait;
 
         auto model = new Model(g_basesize, wounds());
         if (m_weapon == Stormstrike_Glaive) {
@@ -59,6 +61,7 @@ namespace StormcastEternals {
         auto unit = new LordCelestantOnDracoth();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Lightning_Hammer);
         bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -66,7 +69,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapons, sigmariteThundershield);
+        bool ok = unit->configure(weapons, sigmariteThundershield, trait);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -87,6 +90,7 @@ namespace StormcastEternals {
                             BoolParameter("Sigmarite Thundershield"),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
+                            EnumParameter("Mount Trait", g_dracothMountTrait[0], g_dracothMountTrait),
                             BoolParameter("General")
                     },
                     ORDER,

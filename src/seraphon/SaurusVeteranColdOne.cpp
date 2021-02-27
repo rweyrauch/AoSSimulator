@@ -27,6 +27,7 @@ namespace Seraphon {
         m_weapons = {&m_warpick, &m_jaws, &m_coldOneJaws};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_coldOneJaws.setMount(true);
     }
 
     bool SaurusScarVeteranOnColdOne::configure() {

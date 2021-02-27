@@ -55,6 +55,9 @@ namespace Nurgle {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, ORGHOTTS_DAEMONSPEW};
         m_weapons = {&m_tongue, &m_rotaxes, &m_claws};
         m_battleFieldRole = Leader_Behemoth;
+        m_hasMount = true;
+        m_claws.setMount(true);
+        m_tongue.setMount(true);
     }
 
     bool OrghottsDaemonspew::configure() {

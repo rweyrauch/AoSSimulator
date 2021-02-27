@@ -30,6 +30,8 @@ namespace Slaanesh {
         m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_piercingClaws.setMount(true);
+        m_poisonedTongues.setMount(true);
 
         // Impossibly Swift
         m_retreatAndCharge = true;

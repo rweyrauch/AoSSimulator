@@ -95,6 +95,7 @@ namespace Death {
         m_weapons = {&m_bite, &m_stiletto, &m_poniards, &m_etherealWeapons};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_etherealWeapons.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

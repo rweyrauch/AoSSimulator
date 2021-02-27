@@ -101,7 +101,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     if (targetUnit->remainingModels() == 0) {
         PLOG_INFO << name() << " slays enemy unit " << targetUnit->name() << " in shooting phase.";
-        targetUnit->onFriendlyUnitSlain();
+        targetUnit->onFriendlyUnitSlain(nullptr);
         onEnemyUnitSlain(targetUnit);
     }
 
@@ -114,7 +114,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     if (remainingModels() == 0) {
         PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name() << " with returned shooting damage.";
-        onFriendlyUnitSlain();
+        onFriendlyUnitSlain(nullptr);
         targetUnit->onEnemyUnitSlain(this);
     }
 
@@ -186,7 +186,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     if (targetUnit->remainingModels() == 0) {
         PLOG_INFO << name() << " slays enemy unit " << targetUnit->name() << " in combat phase.";
-        targetUnit->onFriendlyUnitSlain();
+        targetUnit->onFriendlyUnitSlain(nullptr);
         onEnemyUnitSlain(targetUnit);
     }
 
@@ -198,7 +198,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     if (remainingModels() == 0) {
         PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name() << " with returned damage.";
-        onFriendlyUnitSlain();
+        onFriendlyUnitSlain(nullptr);
         targetUnit->onEnemyUnitSlain(this);
     }
 
@@ -248,7 +248,7 @@ int Unit::applyBattleshock() {
 
     if (remainingModels() == 0) {
         PLOG_INFO << name() << " is slain in battleshock phase.";
-        onFriendlyUnitSlain();
+        onFriendlyUnitSlain(nullptr);
     }
 
     return numFled;
@@ -334,7 +334,7 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
             totalDamage = 0;
         }
         if (remainingWounds == 0) {
-            onFriendlyModelSlain(1, totalWounds.source);
+            onFriendlyModelSlain(1, attackingUnit, totalWounds.source);
             numSlain++;
         }
     }
@@ -346,7 +346,7 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
     m_currentRecord.m_woundsTaken += totalWounds;
 
     if (remainingModels() == 0) {
-        onFriendlyUnitSlain();
+        onFriendlyUnitSlain(attackingUnit);
         attackingUnit->onEnemyUnitSlain(this);
     }
 

@@ -139,6 +139,56 @@ namespace StormcastEternals {
             ToInteger(Command::Cut_Off_The_Head)
     };
 
+    constexpr std::array<int, 7> g_dracothMountTrait = {
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Lithe_Limbed),
+            ToInteger(MountTrait::Keen_Clawed),
+            ToInteger(MountTrait::Savage_Loyalty),
+            ToInteger(MountTrait::Drake_Kin),
+            ToInteger(MountTrait::Thunder_Caller),
+            ToInteger(MountTrait::Pack_Leader)
+    };
+
+    constexpr std::array<int, 7> g_stardrakeMountTrait = {
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Lithe_Limbed),
+            ToInteger(MountTrait::Keen_Clawed),
+            ToInteger(MountTrait::Savage_Loyalty),
+            ToInteger(MountTrait::Storm_Winged),
+            ToInteger(MountTrait::Thunderlord),
+            ToInteger(MountTrait::Star_Branded)
+    };
+
+    constexpr std::array<int, 7> g_gryphChargerMountTrait = {
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Lithe_Limbed),
+            ToInteger(MountTrait::Keen_Clawed),
+            ToInteger(MountTrait::Savage_Loyalty),
+            ToInteger(MountTrait::Wind_Runner),
+            ToInteger(MountTrait::Aethereal_Stalker),
+            ToInteger(MountTrait::Indefatigable)
+    };
+
+    constexpr std::array<int, 7> g_tauralonMountTrait = {
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Lithe_Limbed),
+            ToInteger(MountTrait::Keen_Clawed),
+            ToInteger(MountTrait::Savage_Loyalty),
+            ToInteger(MountTrait::Swiftwing),
+            ToInteger(MountTrait::Lashing_Tail),
+            ToInteger(MountTrait::Steel_Pinions)
+    };
+
+    constexpr std::array<int, 7> g_dracolineMountTrait = {
+            ToInteger(MountTrait::None),
+            ToInteger(MountTrait::Lithe_Limbed),
+            ToInteger(MountTrait::Keen_Clawed),
+            ToInteger(MountTrait::Savage_Loyalty),
+            ToInteger(MountTrait::Bounding_Leap),
+            ToInteger(MountTrait::Pride_Leader),
+            ToInteger(MountTrait::Ear_Bursting_Roar)
+    };
+
     CommandAbility* CreateCommandAbility(Command which, Unit* source);
 
 } // namespace StormcastEternals

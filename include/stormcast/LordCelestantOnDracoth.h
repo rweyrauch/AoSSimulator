@@ -36,7 +36,7 @@ namespace StormcastEternals {
 
         ~LordCelestantOnDracoth() override = default;
 
-        bool configure(WeaponOption weapons, bool sigmariteThundershield);
+        bool configure(WeaponOption weapons, bool sigmariteThundershield, MountTrait trait);
 
     protected:
 

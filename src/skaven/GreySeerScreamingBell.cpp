@@ -113,7 +113,7 @@ namespace Skaven {
         m_weapons = {&m_staff, &m_clawsAndFangs, &m_spikes};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_clawsAndFangs.setMount(true);
         s_globalBraveryMod.connect(this, &GreySeerOnScreamingBell::altarOfTheHornedRat, &m_connection);
         s_globalToHitMod.connect(this, &GreySeerOnScreamingBell::wallOfUnholySound, &m_unholySoundConnection);
 

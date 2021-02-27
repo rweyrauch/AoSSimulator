@@ -26,6 +26,7 @@ namespace Greenskinz {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUK_BOAR_CHARIOTS};
         m_weapons = {&m_pigstikkaSpears, &m_warBoarsTusks};
         m_hasMount = true;
+        m_warBoarsTusks.setMount(true);
     }
 
     bool OrrukBoarChariots::configure(int numModels) {

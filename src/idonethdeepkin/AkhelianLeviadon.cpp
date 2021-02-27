@@ -42,6 +42,8 @@ namespace IdonethDeepkin {
         m_weapons = {&m_harpoonLauncher, &m_crushingJaws, &m_scythedFins, &m_spearAndHarpoons};
         m_battleFieldRole = Behemoth;
         m_hasMount = true;
+        m_scythedFins.setMount(true);
+        m_crushingJaws.setMount(true);
 
         s_globalSaveMod.connect(this, &AkhelianLeviadon::voidDrumSaveMod, &m_voidDrumSaveSlot);
         s_globalToHitMod.connect(this, &AkhelianLeviadon::voidDrumToHitMod, &m_voidDrumHitSlot);

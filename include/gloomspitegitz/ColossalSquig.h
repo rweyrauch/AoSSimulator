@@ -33,7 +33,7 @@ namespace GloomspiteGitz {
 
         void onWounded() override;
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
 
         void onCharged() override;
 

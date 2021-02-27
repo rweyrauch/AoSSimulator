@@ -97,6 +97,7 @@ namespace OgorMawtribes {
         m_weapons = {&m_ice, &m_spear, &m_kicks, &m_tusks};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_tusks.setMount(true);
     }
 
     bool FrostlordOnThundertusk::configure(MountTrait mountTrait) {

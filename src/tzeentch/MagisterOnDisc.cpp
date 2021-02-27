@@ -72,6 +72,7 @@ namespace Tzeentch {
                      &m_teethAndHorns};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_teethAndHorns.setMount(true);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

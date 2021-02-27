@@ -76,6 +76,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, DARK_RIDERS};
         m_weapons = {&m_crossbow, &m_spear, &m_bite, &m_crossbowHerald};
         m_hasMount = true;
+        m_bite.setMount(true);
 
         s_globalBraveryMod.connect(this, &DarkRiders::sowTerrorAndConfusion, &m_connection);
     }

@@ -163,8 +163,8 @@ namespace Khorne {
         m_artefact = artefact;
     }
 
-    void KhorneBase::onFriendlyUnitSlain() {
-        Unit::onFriendlyUnitSlain();
+    void KhorneBase::onFriendlyUnitSlain(const Unit *attacker) {
+        Unit::onFriendlyUnitSlain(nullptr);
 
         // Add a Blood Tithe point
         getRoster()->incrementResource(1);
@@ -207,14 +207,18 @@ namespace Khorne {
                     case BloodTitheReward::Crimson_Rain:
                         s_crimsonRainActive = true;
                         break;
-                    case BloodTitheReward::Slaughter_Triumphant:
-                        auto khorneUnits = Board::Instance()->getAllUnits(owningPlayer());
-                        for (auto unit : khorneUnits) {
-                            if (unit->hasKeyword(KHORNE)) {
-                                unit->buffAbility(Extra_Hit_On_Value, 6, {Phase::Hero, DurationRestOfGame, owningPlayer()});
+                    case BloodTitheReward::Slaughter_Triumphant: {
+                            auto khorneUnits = Board::Instance()->getAllUnits(owningPlayer());
+                            for (auto unit : khorneUnits) {
+                                if (unit->hasKeyword(KHORNE)) {
+                                    unit->buffAbility(Extra_Hit_On_Value, 6,
+                                                      {Phase::Hero, DurationRestOfGame, owningPlayer()});
+                                }
                             }
+                            s_slaughterTriumphantActive = true;
                         }
-                        s_slaughterTriumphantActive = true;
+                        break;
+                    default:
                         break;
                 }
             }
@@ -243,8 +247,8 @@ namespace Khorne {
         s_crimsonRainActive = false;
     }
 
-    void KhorneBase::onFriendlyModelSlain(int numSlain, Wounds::Source source) {
-        Unit::onFriendlyModelSlain(numSlain, source);
+    void KhorneBase::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, attacker, source);
 
         // Relentless Fury
         if (s_currentBloodTithe == BloodTitheReward::Relentless_Fury) {

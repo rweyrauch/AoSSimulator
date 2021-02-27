@@ -94,6 +94,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, MARK_OF_CHAOS, VARANGUARD};
         m_weapons = {&m_ensorcelledWeapon, &m_fellspear, &m_blade, &m_fangs};
         m_hasMount = true;
+        m_fangs.setMount(true);
     }
 
     bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon) {

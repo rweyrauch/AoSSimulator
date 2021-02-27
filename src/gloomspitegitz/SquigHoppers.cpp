@@ -27,6 +27,7 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HOPPERS};
         m_weapons = {&m_fangFilledGob, &m_slitta, &m_slittaBoss};
         m_hasMount = true;
+        m_fangFilledGob.setMount(true);
     }
 
     bool SquiqHoppers::configure(int numModels) {

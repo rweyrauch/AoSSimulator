@@ -30,6 +30,7 @@ namespace LuminethRealmLords {
         m_weapons = {&m_guardiansSword, &m_lance, &m_hooves};
         m_battleFieldRole = Role::Battleline;
         m_hasMount = true;
+        m_hooves.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

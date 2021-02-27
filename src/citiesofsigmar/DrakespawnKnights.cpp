@@ -74,6 +74,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, DRAKESPAWN_KNIGHTS};
         m_weapons = {&m_lance, &m_lanceDreadKnight, &m_jaws};
         m_hasMount = true;
+        m_jaws.setMount(true);
     }
 
     bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornblower) {

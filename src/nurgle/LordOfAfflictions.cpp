@@ -66,6 +66,9 @@ namespace Nurgle {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, LORD_OF_AFFLICTIONS};
         m_weapons = {&m_festerspike, &m_mouthparts, &m_sting, &m_tocsin};
         m_battleFieldRole = Leader;
+        m_hasMount = true;
+        m_mouthparts.setMount(true);
+        m_sting.setMount(true);
         s_globalToHitReroll.connect(this, &LordOfAfflictions::plagueVectorToHitRerolls, &m_plagueVectorSlot);
     }
 

@@ -104,6 +104,8 @@ namespace Death {
         m_weapons = {&m_breath, &m_deathlance, &m_maw, &m_claws};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_maw.setMount(true);
+        m_claws.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

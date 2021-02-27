@@ -28,6 +28,9 @@ namespace Nurgle {
             m_venemousSting(Weapon::Type::Melee, "Venomous String", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, PUSGOYLE_BLIGHTLORDS};
         m_weapons = {&m_blightedWeapon, &m_dolorousTocsin, &m_mouthparts, &m_venemousSting};
+        m_hasMount = true;
+        m_mouthparts.setMount(true);
+        m_venemousSting.setMount(true);
     }
 
     bool PusgoyleBlightlords::configure(int numModels, int numTocsins) {

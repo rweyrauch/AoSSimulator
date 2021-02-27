@@ -138,8 +138,8 @@ namespace Skaven {
         }
     }
 
-    void HellPitAbomination::onFriendlyUnitSlain() {
-        Skaventide::onFriendlyUnitSlain();
+    void HellPitAbomination::onFriendlyUnitSlain(const Unit *attacker) {
+        Skaventide::onFriendlyUnitSlain(nullptr);
 
         // Too Horrible to Die
         if (!m_beenSlain) {

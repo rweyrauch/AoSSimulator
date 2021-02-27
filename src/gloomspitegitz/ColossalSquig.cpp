@@ -72,8 +72,8 @@ namespace GloomspiteGitz {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    void ColossalSquig::onFriendlyUnitSlain() {
-        GloomspiteGitzBase::onFriendlyUnitSlain();
+    void ColossalSquig::onFriendlyUnitSlain(const Unit *attacker) {
+        GloomspiteGitzBase::onFriendlyUnitSlain(nullptr);
         // Fungoid Squig Explosion
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {

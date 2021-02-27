@@ -32,7 +32,7 @@ namespace StormcastEternals {
 
         ~LordArcanumOnDracoline() override;
 
-        bool configure(Lore lore);
+        bool configure(Lore lore, MountTrait trait);
 
     protected:
 

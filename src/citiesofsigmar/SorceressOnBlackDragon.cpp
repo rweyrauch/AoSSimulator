@@ -109,6 +109,8 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_noxiousBreath, &m_rod, &m_sword, &m_lash, &m_jaws, &m_claws};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_jaws.setMount(true);
+        m_claws.setMount(true);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

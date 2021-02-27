@@ -59,6 +59,7 @@ namespace GloomspiteGitz {
         m_weapons = {&m_spear, &m_fangs};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_fangs.setMount(true);
     }
 
     bool ScuttlebossOnGiganticSpider::configure() {

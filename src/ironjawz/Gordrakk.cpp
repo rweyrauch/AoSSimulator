@@ -44,6 +44,7 @@ namespace Ironjawz {
         m_keywords = {DESTRUCTION, ORRUK, MAW_KRUSHA, IRONJAWZ, MONSTER, HERO, MEGABOSS, GORDRAKK};
         m_weapons = {&m_bellow, &m_smasha, &m_kunnin, &m_fistsAndTail};
         m_hasMount = true;
+        m_fistsAndTail.setMount(true);
         m_battleFieldRole = Leader_Behemoth;
     }
 

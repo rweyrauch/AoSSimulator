@@ -87,6 +87,7 @@ namespace OssiarchBonereapers {
         m_weapons = {&m_blade, &m_spear, &m_bladeHekatos, &m_spearHekatos, &m_hoovesAndTeeth};
         m_battleFieldRole = Battleline;
         m_hasMount = true;
+        m_hoovesAndTeeth.setMount(true);
     }
 
     bool KavalosDeathriders::configure(int numModels, WeaponOption option, bool necrophoros) {

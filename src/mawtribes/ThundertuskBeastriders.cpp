@@ -96,6 +96,7 @@ namespace OgorMawtribes {
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
         m_battleFieldRole = Behemoth;
         m_hasMount = true;
+        m_tusks.setMount(true);
     }
 
     bool ThundertuskBeastriders::configure(WeaponOption option) {

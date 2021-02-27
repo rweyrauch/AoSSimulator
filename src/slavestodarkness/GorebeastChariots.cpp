@@ -72,6 +72,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, GOREBEAST_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted, &m_fists};
         m_hasMount = true;
+        m_fists.setMount(true);
     }
 
     bool GorebeastChariots::configure(int numModels, WeaponOption weapons) {

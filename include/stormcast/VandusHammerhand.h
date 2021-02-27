@@ -25,7 +25,7 @@ namespace StormcastEternals {
 
         ~VandusHammerhand() override;
 
-        bool configure();
+        bool configure(MountTrait trait);
 
     protected:
 

@@ -25,6 +25,9 @@ namespace Slaanesh {
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HELLFLAYER};
         m_weapons = {&m_flensingWhips, &m_piercingClaws, &m_poisonedTongues};
+        m_hasMount = true;
+        m_piercingClaws.setMount(true);
+        m_poisonedTongues.setMount(true);
     }
 
     bool Hellflayer::configure() {

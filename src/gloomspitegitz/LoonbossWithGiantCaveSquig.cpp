@@ -27,6 +27,8 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_moonProdderMissile, &m_moonProdder, &m_massiveFangFilledGob};
         m_battleFieldRole = Leader;
+        m_hasMount = true;
+        m_massiveFangFilledGob.setMount(true);
     }
 
     bool LoonbossWithGiantCaveSquig::configure() {

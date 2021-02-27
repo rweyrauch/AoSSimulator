@@ -83,7 +83,7 @@ namespace Skaven {
         m_weapons = {&m_projectors, &m_staff, &m_braziers, &m_blows};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
-
+        m_blows.setMount(true);
         m_totalSpells = 2;
         m_totalUnbinds = 2;
     }

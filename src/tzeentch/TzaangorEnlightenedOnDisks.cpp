@@ -31,6 +31,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, TZAANGOR_ENLIGHTENED};
         m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak, &m_teethAndHorns};
         m_hasMount = true;
+        m_teethAndHorns.setMount(true);
     }
 
     bool TzaangorEnlightenedOnDisks::configure(int numModels) {

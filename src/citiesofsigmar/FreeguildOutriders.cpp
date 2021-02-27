@@ -95,6 +95,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_OUTRIDERS};
         m_weapons = {&m_blunderbuss, &m_pistols, &m_handgun, &m_sabre, &m_hooves, &m_sabreSharpshooter};
         m_hasMount = true;
+        m_hooves.setMount(true);
 
         // Skilled Riders
         m_runAndShoot = true;

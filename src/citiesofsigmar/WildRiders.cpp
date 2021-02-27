@@ -74,6 +74,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WILD_RIDERS};
         m_weapons = {&m_spear, &m_hooves, &m_spearHunter};
         m_hasMount = true;
+        m_hooves.setMount(true);
     }
 
     bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower) {

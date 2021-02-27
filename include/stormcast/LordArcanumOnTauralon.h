@@ -30,7 +30,7 @@ namespace StormcastEternals {
 
         ~LordArcanumOnTauralon() override = default;
 
-        bool configure(Lore lore);
+        bool configure(Lore lore, MountTrait trait);
 
     protected:
 

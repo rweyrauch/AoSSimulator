@@ -31,7 +31,7 @@ namespace Bonesplitterz {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        void onFriendlyModelSlain(int numSlain, Wounds::Source source) override;
+        void onFriendlyModelSlain(int numSlain, Unit* attacker, Wounds::Source source) override;
 
     private:
 

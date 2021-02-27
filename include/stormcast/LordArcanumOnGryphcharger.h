@@ -32,7 +32,7 @@ namespace StormcastEternals {
 
         ~LordArcanumOnGryphcharger() override = default;
 
-        bool configure(Lore lore);
+        bool configure(Lore lore, MountTrait trait);
 
     protected:
 

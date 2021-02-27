@@ -101,6 +101,8 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_beastStaff, &m_twinBeaks, &m_razorClaws};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_razorClaws.setMount(true);
+        m_twinBeaks.setMount(true);
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

@@ -92,6 +92,14 @@ namespace StormcastEternals {
             modifier += 1;
         }
 
+        // Shield of Civilisation
+        auto liberators = Board::Instance()->getUnitsWithKeyword(owningPlayer(), LIBERATORS);
+        for (auto unit : liberators) {
+            if (distanceTo(unit) < 12.0) {
+                modifier += 1;
+                break;
+            }
+        }
         return modifier;
     }
 
@@ -162,6 +170,10 @@ namespace StormcastEternals {
             auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
             return std::string(artefactName);
         }
+        if (std::string(parameter.name) == "Mount Trait") {
+            auto traitName = magic_enum::enum_name((MountTrait)parameter.intValue);
+            return std::string(traitName);
+        }
         return ParameterValueToString(parameter);
     }
 
@@ -177,6 +189,9 @@ namespace StormcastEternals {
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
         if (artefact.has_value()) return (int)artefact.value();
+
+        auto mount = magic_enum::enum_cast<MountTrait>(enumString);
+        if (mount.has_value()) return (int)mount.value();
 
         return 0;
     }
@@ -198,6 +213,29 @@ namespace StormcastEternals {
 
     void StormcastEternal::setCommandTrait(CommandTrait commandTrait) {
         m_commandTrait = commandTrait;
+    }
+
+    int StormcastEternal::moveModifier() const {
+        auto mod = Unit::moveModifier();
+        if (m_mountTrait == MountTrait::Lithe_Limbed) mod++;
+        return mod;
+    }
+
+    int StormcastEternal::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        if ((m_mountTrait == MountTrait::Keen_Clawed) && (weapon->isMount()) && (woundRoll == 6)) {
+            return -3;
+        }
+        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+    }
+
+    void StormcastEternal::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, attacker, source);
+
+        if ((source == Wounds::Source::Weapon_Melee) && (m_mountTrait == MountTrait::Savage_Loyalty)) {
+            if (Dice::RollD6() >= 4) {
+                attacker->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+            }
+        }
     }
 
     void Init() {

@@ -54,7 +54,8 @@ namespace Nurgle {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, HORTICULOUS_SLIMUX};
         m_weapons = {&m_shears, &m_jaws};
         m_battleFieldRole = Leader;
-
+        m_hasMount = true;
+        m_jaws.setMount(true);
         s_globalChargeReroll.connect(this, &HorticulousSlimux::beastHandlerChargeReroll, &m_beastHandlerChargeSlot);
         s_globalToHitReroll.connect(this, &HorticulousSlimux::beastHandlerToHitRerolls, &m_beastHandlerToHitSlot);
     }

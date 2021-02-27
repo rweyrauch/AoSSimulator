@@ -194,6 +194,12 @@ namespace KharadronOverlords {
         KharadronBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int braveryModifier() const override;
+
+        void onRestore() override;
+
     protected:
 
         Skyport m_skyport = Skyport::None;
@@ -205,6 +211,8 @@ namespace KharadronOverlords {
 
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+
+        int m_aetherGold = 1;
     };
 
 //

@@ -66,6 +66,8 @@ namespace SlavesToDarkness {
         m_weapons = {&m_battleAxe, &m_blade, &m_hornsAndClaws, &m_tail};
         m_battleFieldRole = Leader;
         m_hasMount = true;
+        m_hornsAndClaws.setMount(true);
+        m_tail.setMount(true);
     }
 
     bool ChaosLordOnKarkadrak::configure() {

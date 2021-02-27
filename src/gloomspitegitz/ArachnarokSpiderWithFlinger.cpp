@@ -45,6 +45,9 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, MONSTER};
         m_weapons = {&m_spiderBows, &m_flinger, &m_chitinousLegs, &m_monstrousFangs, &m_crookedSpears};
         m_battleFieldRole = Behemoth;
+        m_hasMount = true;
+        m_chitinousLegs.setMount(true);
+        m_monstrousFangs.setMount(true);
     }
 
     bool ArachnarokSpiderWithFlinger::configure() {

@@ -98,6 +98,8 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FROSTHEART_PHOENIX};
         m_weapons = {&m_talons, &m_halberd};
         m_battleFieldRole = Behemoth;
+        m_hasMount = true;
+        m_talons.setMount(true);
         s_globalToWoundMod.connect(this, &FrostheartPhoenix::blizzardAura, &m_connection);
     }
 

@@ -68,6 +68,8 @@ namespace OgorMawtribes {
         m_keywords = {DESTRUCTION, OGOR, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, IRONBLASTER};
         m_weapons = {&m_cannonBall, &m_hailShot, &m_clubber, &m_horns, &m_blade};
         m_battleFieldRole = Artillery;
+        m_hasMount = true;
+        m_horns.setMount(true);
     }
 
     bool Ironblaster::configure() {

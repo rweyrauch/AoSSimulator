@@ -28,6 +28,7 @@ namespace Death {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
         m_weapons = {&m_barrowLance, &m_barrowLanceKnight, &m_hoovesAndTeeth};
         m_hasMount = true;
+        m_hoovesAndTeeth.setMount(true);
 
         s_globalBraveryMod.connect(this, &BlackKnights::standardBearerBraveryMod, &m_standardSlot);
     }

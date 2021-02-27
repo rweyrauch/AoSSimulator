@@ -29,7 +29,7 @@ namespace BeastsOfChaos {
 
     protected:
 
-        void onFriendlyUnitSlain() override;
+        void onFriendlyUnitSlain(const Unit *attacker) override;
         void onEnemyUnitSlain(const Unit* unit) override;
 
     private:

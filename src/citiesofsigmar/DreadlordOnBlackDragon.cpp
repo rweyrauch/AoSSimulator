@@ -127,6 +127,9 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_crossbow, &m_noxiousBreath, &m_blade, &m_lance, &m_jaws, &m_claws};
         m_battleFieldRole = Leader_Behemoth;
         m_hasMount = true;
+        m_jaws.setMount(true);
+        m_claws.setMount(true);
+        m_noxiousBreath.setMount(true);
     }
 
     bool DreadlordOnBlackDragon::configure(WeaponOption weapon) {

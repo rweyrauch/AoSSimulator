@@ -140,8 +140,8 @@ namespace FleshEaterCourt {
         onWounded();
     }
 
-    void RoyalTerrorgheist::onFriendlyUnitSlain() {
-        FleshEaterCourts::onFriendlyUnitSlain();
+    void RoyalTerrorgheist::onFriendlyUnitSlain(const Unit *attacker) {
+        FleshEaterCourts::onFriendlyUnitSlain(nullptr);
 
         // Infested
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);

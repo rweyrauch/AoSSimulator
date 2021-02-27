@@ -29,6 +29,7 @@ namespace Seraphon {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, RIPPERDACTYL_RIDERS};
         m_weapons = {&m_spear, &m_spearAlpha, &m_jaws};
         m_hasMount = true;
+        m_jaws.setMount(true);
     }
 
     bool RipperdactylRiders::configure(int numModels) {

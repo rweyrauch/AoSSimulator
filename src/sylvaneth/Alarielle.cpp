@@ -76,7 +76,8 @@ namespace Sylvaneth {
         m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
         m_weapons = {&m_spearOfKurnoth, &m_talonOfDwindling, &m_beetleGreatAntlers};
         m_battleFieldRole = Leader_Behemoth;
-
+        m_hasMount = true;
+        m_beetleGreatAntlers.setMount(true);
         m_totalUnbinds = 3;
         m_totalSpells = 3;
     }

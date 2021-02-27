@@ -50,7 +50,9 @@ namespace Seraphon {
         m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_warspear, &m_horns, &m_jaws, &m_stomps};
         m_battleFieldRole = Behemoth;
         m_hasMount = true;
-
+        m_jaws.setMount(true);
+        m_horns.setMount(true);
+        m_stomps.setMount(true);
         s_globalBattleshockReroll.connect(this, &Stegadon::steadfastMajestyBraveryReroll, &m_steadfastSlot);
     }
 

@@ -29,7 +29,8 @@ namespace Slaanesh {
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, SEEKERS, BLISSBARB_SEEKERS};
         m_weapons = {&m_bow, &m_bowTempter, &m_blade, &m_poisonedTongue};
-
+        m_hasMount = true;
+        m_poisonedTongue.setMount(true);
         // Flawless Accuracy
         m_runAndCharge = true;
     }

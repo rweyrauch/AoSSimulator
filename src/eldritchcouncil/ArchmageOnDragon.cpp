@@ -43,6 +43,8 @@ namespace EldritchCouncil {
         m_keywords = {ORDER, AELF, DRAGON, ELDRITCH_COUNCIL, HERO, WIZARD, MONSTER, ARCHMAGE};
         m_weapons = {&m_magestaff, &m_sorcerousBlade, &m_dragonClaws, &m_dragonJaws};
         m_hasMount = true;
+        m_dragonClaws.setMount(true);
+        m_dragonJaws.setMount(true);
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

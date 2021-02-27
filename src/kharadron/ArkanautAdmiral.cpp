@@ -91,14 +91,14 @@ namespace KharadronOverlords {
         // If You Want A Job Done...
         if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Reroll_Ones;
 
-        return Unit::toHitRerolls(weapon, target);
+        return KharadronBase::toHitRerolls(weapon, target);
     }
 
     Rerolls ArkanautAdmiral::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // If You Want A Job Done...
         if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Reroll_Ones;
 
-        return Unit::toWoundRerolls(weapon, target);
+        return KharadronBase::toWoundRerolls(weapon, target);
     }
 
     int ArkanautAdmiral::ComputePoints(int /*numModels*/) {
