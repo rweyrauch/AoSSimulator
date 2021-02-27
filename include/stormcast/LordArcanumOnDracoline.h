@@ -5,26 +5,20 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+#pragma once
 
-#ifndef LORDARCANUMONDRACOLINE_H
-#define LORDARCANUMONDRACOLINE_H
-
-#include <stormcast/StormcastEternals.h>
+#include <stormcast/MountedStormcast.h>
 #include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class LordArcanumOnDracoline : public StormcastEternal {
+    class LordArcanumOnDracoline : public MountedStormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
-
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 
@@ -70,5 +64,3 @@ namespace StormcastEternals {
 // Spirit Flask                     Yes
 
 } // namespace StormcastEternals
-
-#endif //LORDARCANUMONDRACOLINE_H

@@ -38,7 +38,7 @@ namespace StormcastEternals {
     bool LordCelestantOnStardrake::s_registered = false;
 
     LordCelestantOnStardrake::LordCelestantOnStardrake() :
-            StormcastEternal("Lord-Celestant on Stardrake", 12, g_wounds, 9, 3, true),
+            MountedStormcastEternal("Lord-Celestant on Stardrake", 12, g_wounds, 9, 3, true),
             m_celestineHammer(Weapon::Type::Melee, "Celestine Hammer", 2, 3, 3, 2, -1, RAND_D3),
             m_stormboundBlade(Weapon::Type::Melee, "Stormbound Blade", 2, 3, 3, 4, -1, 2),
             m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3) {
@@ -144,6 +144,8 @@ namespace StormcastEternals {
 
     int LordCelestantOnStardrake::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
+        if (m_mountTrait == MountTrait::Star_Branded) woundsInflicted--;
+
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
@@ -241,7 +243,8 @@ namespace StormcastEternals {
         bool preferRainOfStars = true;
         if (m_shootingTarget) {
             auto range = distanceTo(m_shootingTarget);
-            if (range <= 18.0) {
+            const auto roilingThunderRange = (m_mountTrait == MountTrait::Thunderlord) ? 24.0 : 18.0;
+            if (range <= roilingThunderRange) {
                 // Roiling Thunder
                 preferRainOfStars = false;
             }

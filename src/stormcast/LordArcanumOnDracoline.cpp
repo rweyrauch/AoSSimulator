@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool LordArcanumOnDracoline::s_registered = false;
 
     LordArcanumOnDracoline::LordArcanumOnDracoline() :
-            StormcastEternal("Lord-Arcanum on Celestial Dracoline", 12, g_wounds, 9, 3, false),
+            MountedStormcastEternal("Lord-Arcanum on Celestial Dracoline", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
@@ -100,13 +100,6 @@ namespace StormcastEternals {
         }
     }
 
-    std::string LordArcanumOnDracoline::ValueToString(const Parameter &parameter) {
-        return StormcastEternal::ValueToString(parameter);
-    }
-
-    int LordArcanumOnDracoline::EnumStringToInt(const std::string &enumString) {
-        return StormcastEternal::EnumStringToInt(enumString);
-    }
 
     Wounds
     LordArcanumOnDracoline::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -114,7 +107,7 @@ namespace StormcastEternals {
         if (m_charged && weapon->name() == m_monstrousClaws.name()) {
             return {Dice::RollD3(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls LordArcanumOnDracoline::chargeRerolls() const {
@@ -122,7 +115,8 @@ namespace StormcastEternals {
         return Reroll_Failed;
     }
 
-    void LordArcanumOnDracoline::onStartCombat(PlayerId /*player*/) {
+    void LordArcanumOnDracoline::onStartCombat(PlayerId player) {
+        MountedStormcastEternal::onStartCombat(player);
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);

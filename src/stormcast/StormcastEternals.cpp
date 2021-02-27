@@ -215,29 +215,6 @@ namespace StormcastEternals {
         m_commandTrait = commandTrait;
     }
 
-    int StormcastEternal::moveModifier() const {
-        auto mod = Unit::moveModifier();
-        if (m_mountTrait == MountTrait::Lithe_Limbed) mod++;
-        return mod;
-    }
-
-    int StormcastEternal::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        if ((m_mountTrait == MountTrait::Keen_Clawed) && (weapon->isMount()) && (woundRoll == 6)) {
-            return -3;
-        }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
-    }
-
-    void StormcastEternal::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
-        Unit::onFriendlyModelSlain(numSlain, attacker, source);
-
-        if ((source == Wounds::Source::Weapon_Melee) && (m_mountTrait == MountTrait::Savage_Loyalty)) {
-            if (Dice::RollD6() >= 4) {
-                attacker->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
-            }
-        }
-    }
-
     void Init() {
         CelestantPrime::Init();
         AventisFirestrike::Init();

@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool AstreiaSolbright::s_registered = false;
 
     AstreiaSolbright::AstreiaSolbright() :
-            StormcastEternal("Astreia Solblight", 12, g_wounds, 9, 3, false),
+            MountedStormcastEternal("Astreia Solblight", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
@@ -82,8 +82,8 @@ namespace StormcastEternals {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    ValueToString,
-                    EnumStringToInt,
+                    StormcastEternal::ValueToString,
+                    StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
@@ -96,14 +96,6 @@ namespace StormcastEternals {
 
             s_registered = UnitFactory::Register("Astreia Solblight", factoryMethod);
         }
-    }
-
-    std::string AstreiaSolbright::ValueToString(const Parameter &parameter) {
-        return StormcastEternal::ValueToString(parameter);
-    }
-
-    int AstreiaSolbright::EnumStringToInt(const std::string &enumString) {
-        return StormcastEternal::EnumStringToInt(enumString);
     }
 
     Wounds AstreiaSolbright::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

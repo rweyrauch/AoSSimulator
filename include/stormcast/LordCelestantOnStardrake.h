@@ -7,12 +7,12 @@
  */
 #pragma once
 
-#include <stormcast/StormcastEternals.h>
+#include <stormcast/MountedStormcast.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class LordCelestantOnStardrake : public StormcastEternal {
+    class LordCelestantOnStardrake : public MountedStormcastEternal {
     public:
 
         enum WeaponOption {

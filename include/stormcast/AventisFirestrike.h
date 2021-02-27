@@ -7,22 +7,18 @@
  */
 #pragma once
 
-#include <stormcast/StormcastEternals.h>
+#include <stormcast/MountedStormcast.h>
 #include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class AventisFirestrike : public StormcastEternal {
+    class AventisFirestrike : public MountedStormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
-
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 

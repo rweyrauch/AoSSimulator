@@ -5,24 +5,18 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+#pragma once
 
-#ifndef LORDARCANUMONGRYPHCHARGER_H
-#define LORDARCANUMONGRYPHCHARGER_H
-
-#include <stormcast/StormcastEternals.h>
+#include <stormcast/MountedStormcast.h>
 #include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class LordArcanumOnGryphcharger : public StormcastEternal {
+    class LordArcanumOnGryphcharger : public MountedStormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
-
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
 
         static void Init();
 
@@ -63,5 +57,3 @@ namespace StormcastEternals {
 // Soul Energy                      TODO
 
 } // namespace StormcastEternals
-
-#endif //LORDARCANUMONGRYPHCHARGER_H

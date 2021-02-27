@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool VandusHammerhand::s_registered = false;
 
     VandusHammerhand::VandusHammerhand() :
-            StormcastEternal("Vandus Hammerhand", 10, g_wounds, 9, 3, false),
+            MountedStormcastEternal("Vandus Hammerhand", 10, g_wounds, 9, 3, false),
             m_heldensen(Weapon::Type::Melee, "Heldensen", 2, 3, 3, 2, -1, 3),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT,
@@ -92,7 +92,7 @@ namespace StormcastEternals {
     }
 
     int VandusHammerhand::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
+        int attacks = MountedStormcastEternal::extraAttacks(attackingModel, weapon, target);
 
         // Heldensen
         if (m_charged && weapon->name() == m_heldensen.name()) {
@@ -107,7 +107,7 @@ namespace StormcastEternals {
             // D6 instead of 1
             return {Dice::RollD6(), 0};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int VandusHammerhand::lordOfTheHammerhandsBraveryMod(const Unit *unit) {
@@ -120,7 +120,7 @@ namespace StormcastEternals {
     }
 
     void VandusHammerhand::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        MountedStormcastEternal::onStartShooting(player);
 
         // Storm Breath
         if (owningPlayer() == player) {

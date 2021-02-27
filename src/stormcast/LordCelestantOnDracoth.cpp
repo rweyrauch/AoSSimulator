@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool LordCelestantOnDracoth::s_registered = false;
 
     LordCelestantOnDracoth::LordCelestantOnDracoth() :
-            StormcastEternal("Lord-Celestant on Dracoth", 10, g_wounds, 9, 3, false),
+            MountedStormcastEternal("Lord-Celestant on Dracoth", 10, g_wounds, 9, 3, false),
             m_stormstrikeGlaive(Weapon::Type::Melee, "Stormstrike Glaive", 2, 4, 3, 4, -1, 1),
             m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
             m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 3, 3, 3, -1, 2),
@@ -117,7 +117,7 @@ namespace StormcastEternals {
 
     int
     LordCelestantOnDracoth::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
+        int attacks = MountedStormcastEternal::extraAttacks(attackingModel, weapon, target);
 
         // Tempestos Hammer
         if (m_charged && weapon->name() == m_tempestosHammer.name()) {
@@ -140,11 +140,11 @@ namespace StormcastEternals {
         if (m_sigmariteThundershield) {
             return Reroll_Ones;
         }
-        return StormcastEternal::toSaveRerolls(weapon, attacker);
+        return MountedStormcastEternal::toSaveRerolls(weapon, attacker);
     }
 
     Wounds LordCelestantOnDracoth::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
-        auto wounds = StormcastEternal::computeReturnedDamage(weapon, saveRoll);
+        auto wounds = MountedStormcastEternal::computeReturnedDamage(weapon, saveRoll);
         // Sigmarite Thundershield
         if (m_sigmariteThundershield) {
             // 1 mortal wound for each save of a 6
@@ -185,7 +185,7 @@ namespace StormcastEternals {
             return {weapon->damage() + 2, 0};
         }
 
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int LordCelestantOnDracoth::ComputePoints(int /*numModels*/) {
@@ -193,7 +193,7 @@ namespace StormcastEternals {
     }
 
     void LordCelestantOnDracoth::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        MountedStormcastEternal::onStartShooting(player);
 
         // Storm Breath
         if (owningPlayer() == player) {

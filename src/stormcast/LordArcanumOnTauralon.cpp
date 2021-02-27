@@ -22,7 +22,7 @@ namespace StormcastEternals {
     bool LordArcanumOnTauralon::s_registered = false;
 
     LordArcanumOnTauralon::LordArcanumOnTauralon() :
-            StormcastEternal("Lord-Arcanum on Tauralon", 14, g_wounds, 9, 3, true),
+            MountedStormcastEternal("Lord-Arcanum on Tauralon", 14, g_wounds, 9, 3, true),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD,
@@ -82,8 +82,8 @@ namespace StormcastEternals {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    ValueToString,
-                    EnumStringToInt,
+                    StormcastEternal::ValueToString,
+                    StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
@@ -99,16 +99,8 @@ namespace StormcastEternals {
         }
     }
 
-    std::string LordArcanumOnTauralon::ValueToString(const Parameter &parameter) {
-        return StormcastEternal::ValueToString(parameter);
-    }
-
-    int LordArcanumOnTauralon::EnumStringToInt(const std::string &enumString) {
-        return StormcastEternal::EnumStringToInt(enumString);
-    }
-
     void LordArcanumOnTauralon::onCharged() {
-        StormcastEternal::onCharged();
+        MountedStormcastEternal::onCharged();
 
         // Meteoric Strike
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
@@ -120,7 +112,8 @@ namespace StormcastEternals {
         }
     }
 
-    void LordArcanumOnTauralon::onStartCombat(PlayerId /*player*/) {
+    void LordArcanumOnTauralon::onStartCombat(PlayerId player) {
+        MountedStormcastEternal::onStartCombat(player);
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);

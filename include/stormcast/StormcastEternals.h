@@ -191,19 +191,11 @@ namespace StormcastEternals {
 
         void onStartHero(PlayerId player) override;
 
-        int moveModifier() const override;
-
-        int weaponRend(const Weapon *weapon, const Unit *target,
-                       int hitRoll, int woundRoll) const override;
-
-        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
-
     protected:
 
         Stormhost m_stormHost = Stormhost::None;
         Artefact m_artefact = Artefact::None;
         CommandTrait m_commandTrait = CommandTrait::None;
-        MountTrait m_mountTrait = MountTrait::None;
     };
 
     void Init();
@@ -249,25 +241,6 @@ namespace StormcastEternals {
 //   Dauntless Hunters              TODO
 // Shield of Civilization           Yes
 // Mortal Auxiliaries               TODO
-// Mount Traits
-//    Lithe_Limbed                  Yes
-//    Keen_Clawed                   Yes
-//    Savage_Loyalty                Yes
-//    Drake_Kin                     TODO
-//    Thunder_Caller                TODO
-//    Pack_Leader                   TODO
-//    Storm_Winged                  TODO
-//    Thunderlord                   TODO
-//    Star_Branded                  TODO
-//    Wind_Runner                   TODO
-//    Aethereal_Stalker             TODO
-//    Indefatigable                 TODO
-//    Swiftwing                     TODO
-//    Lashing_Tail                  TODO
-//    Steel_Pinions                 TODO
-//    Bounding_Leap                 TODO
-//    Pride_Leader                  TODO
-//    Ear_Bursting_Roar             TODO
 //
 
 } // namespace StormcastEternals

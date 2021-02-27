@@ -37,7 +37,7 @@ namespace StormcastEternals {
     bool DrakeswornTemplar::s_registered = false;
 
     DrakeswornTemplar::DrakeswornTemplar() :
-            StormcastEternal("Drakesworn Templar", 12, g_wounds, 9, 3, true),
+            MountedStormcastEternal("Drakesworn Templar", 12, g_wounds, 9, 3, true),
             m_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1),
             m_tempestAxe(Weapon::Type::Melee, "Tempest Axe", 2, 6, 3, 3, 0, 1),
             m_arcHammer(Weapon::Type::Melee, "Arc Hammer", 1, 2, 3, 3, -1, 3),
@@ -137,6 +137,7 @@ namespace StormcastEternals {
 
 
     void DrakeswornTemplar::onWounded() {
+        MountedStormcastEternal::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_greatClaws.setToHit(g_damageTable[damageIndex].m_greatClawsToHit);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -144,12 +145,15 @@ namespace StormcastEternals {
 
 
     void DrakeswornTemplar::onRestore() {
+        MountedStormcastEternal::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
 
     int DrakeswornTemplar::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
+        if (m_mountTrait == MountTrait::Star_Branded) woundsInflicted--;
+
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
@@ -159,7 +163,7 @@ namespace StormcastEternals {
     }
 
     void DrakeswornTemplar::onStartCombat(PlayerId player) {
-        StormcastEternal::onStartCombat(player);
+        MountedStormcastEternal::onStartCombat(player);
 
         // Cavernous Jaws
         if (m_meleeTarget) {
@@ -176,7 +180,7 @@ namespace StormcastEternals {
     }
 
     void DrakeswornTemplar::onEndCombat(PlayerId player) {
-        StormcastEternal::onEndCombat(player);
+        MountedStormcastEternal::onEndCombat(player);
 
         // Sweeping Tail
         {
@@ -205,14 +209,15 @@ namespace StormcastEternals {
     }
 
     void DrakeswornTemplar::onStartShooting(PlayerId player) {
-        StormcastEternal::onStartShooting(player);
+        MountedStormcastEternal::onStartShooting(player);
 
         // Lord of the Heavens
         // Decide: 'Roiling Thunder' or 'Rain of Stars'?
         bool preferRainOfStars = true;
         if (m_shootingTarget) {
             auto range = distanceTo(m_shootingTarget);
-            if (range <= 18.0) {
+            const auto roilingThunderRange = (m_mountTrait == MountTrait::Thunderlord) ? 24.0 : 18.0;
+            if (range <= roilingThunderRange) {
                 // Roiling Thunder
                 preferRainOfStars = false;
             }
@@ -265,14 +270,14 @@ namespace StormcastEternals {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_arcHammer.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return MountedStormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     Wounds DrakeswornTemplar::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((hitRoll == 6) && (weapon->name() == m_stormlance.name()) && (target->hasKeyword(MONSTER))) {
             return {0, Dice::RollD6()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int DrakeswornTemplar::arcaneLineage(const Unit *target) {

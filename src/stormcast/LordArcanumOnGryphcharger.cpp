@@ -22,7 +22,7 @@ namespace StormcastEternals {
     bool LordArcanumOnGryphcharger::s_registered = false;
 
     LordArcanumOnGryphcharger::LordArcanumOnGryphcharger() :
-            StormcastEternal("Lord-Arcanum on Gryph-charger", 12, g_wounds, 9, 3, false),
+            MountedStormcastEternal("Lord-Arcanum on Gryph-charger", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD,
@@ -78,8 +78,8 @@ namespace StormcastEternals {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    ValueToString,
-                    EnumStringToInt,
+                    StormcastEternal::ValueToString,
+                    StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
@@ -96,24 +96,17 @@ namespace StormcastEternals {
         }
     }
 
-    std::string LordArcanumOnGryphcharger::ValueToString(const Parameter &parameter) {
-        return StormcastEternal::ValueToString(parameter);
-    }
-
-    int LordArcanumOnGryphcharger::EnumStringToInt(const std::string &enumString) {
-        return StormcastEternal::EnumStringToInt(enumString);
-    }
-
     Wounds LordArcanumOnGryphcharger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Aethereal Strike
         if ((hitRoll == 6) && (weapon->name() == m_beakAndClaws.name())) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    void LordArcanumOnGryphcharger::onStartCombat(PlayerId /*player*/) {
+    void LordArcanumOnGryphcharger::onStartCombat(PlayerId player) {
+        StormcastEternal::onStartCombat(player);
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);

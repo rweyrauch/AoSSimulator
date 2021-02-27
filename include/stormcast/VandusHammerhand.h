@@ -7,12 +7,12 @@
  */
 #pragma once
 
-#include <stormcast/StormcastEternals.h>
+#include <stormcast/MountedStormcast.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class VandusHammerhand : public StormcastEternal {
+    class VandusHammerhand : public MountedStormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
