@@ -132,7 +132,7 @@ namespace Tzeentch {
     }
 
     void GauntSummonerOfTzeentch::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        TzeentchBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Book of Profane Secrets
@@ -163,7 +163,7 @@ namespace Tzeentch {
     }
 
     void GauntSummonerOfTzeentch::onRestore() {
-        Unit::onRestore();
+        TzeentchBase::onRestore();
 
         m_usedBookOfSecrets = false;
     }

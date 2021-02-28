@@ -354,6 +354,8 @@ protected:
 
     virtual Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) { return wounds; }
 
+    virtual double unbindingDistance() const { return 30.0; }
+
 protected:
     std::string m_name;
     int m_move = 0;

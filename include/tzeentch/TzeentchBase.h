@@ -12,6 +12,7 @@
 #include <UnitFactory.h>
 #include <Weapon.h>
 #include <array>
+#include "../../src/tzeentch/DestinyDice.h"
 
 namespace Tzeentch {
 
@@ -147,12 +148,37 @@ namespace Tzeentch {
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
+        void onStartHero(PlayerId player) override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        double unbindingDistance() const override;
+
+        Rerolls castingRerolls() const override;
+
+        Rerolls unbindingRerolls() const override;
+
+        int braveryModifier() const override;
+
+        void onRestore() override {
+            m_usedDaemonspark = false;
+            s_destinyDice.clear();
+            s_destinyDice.initialize();
+        }
+
+        bool battleshockRequired() const override;
+
     private:
 
         ChangeCoven m_coven = ChangeCoven::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
 
+        bool m_usedDaemonspark = false;
+
+        static DestinyDice s_destinyDice;
     };
 
     void Init();
@@ -172,11 +198,11 @@ namespace Tzeentch {
 // The Eternal Conflagration
 //    Twisters of Materiality       Yes
 //    Infernos of Mutation          TODO
-//    Coruscating Flames            TODO
+//    Coruscating Flames            Yes
 // The Hosts Duplicitous
 //    Ranks of Mischievous Mirages  TODO
 //    Impossible to Anticipate      TODO
-//    Will of the Phantom Lord      TODO
+//    Will of the Phantom Lord      Yes
 // The Hosts Arcanum
 //    Thieves of all Things Arcane  TODO
 //    Entourage of Sky-sharks       TODO
@@ -184,15 +210,38 @@ namespace Tzeentch {
 // The Cult of the Transient Form
 //    The Change-gift               TODO
 //    Fate of Transmutation         TODO
-//    Defiant in their Pursuit      TODO
+//    Defiant in their Pursuit      Yes
 // The Pyrofane Cult
 //    Arrows of Tzeentch            Partial
 //    Immolate                      TODO
-//    Shrouded in Unnatural Flame   TODO
+//    Shrouded in Unnatural Flame   Yes
 // The Guild of Summoners
 //    Scions of the Exiled          TODO
 //    Will of the Arcane Lords      TODO
-//    Prophet of the Ostensible     TODO
+//    Prophet of the Ostensible     Yes
+// The Unbound Flux
+//    Maddening Cascade             TODO
+//    Fuelled by Mayhem             TODO
+//    Aegis of Insanity             TODO
+//    The Enlightener               TODO
+// A Cult of a Thousand Eyes
+//    Marked for Death              TODO
+//    Eyes Everywhere               TODO
+//    Tzeentch is Pleased           TODO
+//    Crown of Whispers             TODO
+// Command Traits
+//    Arch_Sorcerer                 TODO
+//    Nexus_Of_Fate                 Yes
+//    Magical_Supremancy            Yes
+//    Boundless_Mutation            Yes
+//    Cult_Demagogue                TODO
+//    Arcane_Sacrifice              TODO
+//    Soul_Burn                     TODO
+//    Illusionist                   TODO
+//    Daemonspark                   Yes
+//    Incorporeal_Form              Yes
+//    Aether_Tether                 Yes
 //
+
 
 } // Tzeentch

@@ -1045,18 +1045,21 @@ int Unit::remainingPoints() const {
 
 bool Unit::unbind(Unit *caster, int castRoll) {
     bool unbound = false;
-    if (m_spellsUnbound < m_totalUnbinds) {
-        int unbindRoll = Dice::Roll2D6() + unbindingModifier();
-        if (unbindRoll > castRoll) {
-            PLOG_INFO.printf("%s unbound a spell cast by %s (%d) with a unbind roll of %d.",
-                   name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
-            unbound = true;
-            onUnboundSpell(caster, castRoll);
-        } else {
-            PLOG_INFO.printf("%s failed to unbind a spell cast by %s (%d) with a unbind roll of %d.",
-                   name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
+
+    if (distanceTo(caster) <= unbindingDistance()) {
+        if (m_spellsUnbound < m_totalUnbinds) {
+            int unbindRoll = Dice::Roll2D6() + unbindingModifier();
+            if (unbindRoll > castRoll) {
+                PLOG_INFO.printf("%s unbound a spell cast by %s (%d) with a unbind roll of %d.",
+                                 name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
+                unbound = true;
+                onUnboundSpell(caster, castRoll);
+            } else {
+                PLOG_INFO.printf("%s failed to unbind a spell cast by %s (%d) with a unbind roll of %d.",
+                                 name().c_str(), caster->name().c_str(), castRoll, unbindRoll);
+            }
+            m_spellsUnbound++;
         }
-        m_spellsUnbound++;
     }
     return unbound;
 }

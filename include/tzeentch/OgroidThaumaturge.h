@@ -29,6 +29,12 @@ namespace Tzeentch {
 
     protected:
 
+        void onCharged() override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
     private:
 
         Weapon m_staff,
@@ -41,8 +47,8 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Brutal Rage                      TODO
-// Mighty Bulk                      TODO
+// Brutal Rage                      Yes
+// Mighty Rampage                   Yes
 // Choking Tendrils                 Yes
 //
 

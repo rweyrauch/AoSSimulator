@@ -82,4 +82,27 @@ namespace Tzeentch {
         return g_pointsPerUnit;
     }
 
+    Wounds Fatemaster::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = wounds;
+
+        // Soulbound Shield
+        if (wounds.source == Wounds::Source::Spell) {
+            if (Dice::RollD6() >= 4) {
+                totalWounds.normal = 0;
+                totalWounds.mortal = 0;
+            }
+        }
+        return TzeentchBase::applyWoundSave(totalWounds, attackingUnit);
+    }
+
+    int Fatemaster::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = TzeentchBase::toSaveModifier(weapon, attacker);
+
+        // Hovering Disc of Tzeentch
+        if (weapon->isMelee() && !attacker->canFly() && !attacker->hasKeyword(MONSTER)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
 } // Tzeentch

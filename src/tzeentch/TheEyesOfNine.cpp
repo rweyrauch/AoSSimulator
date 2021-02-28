@@ -91,7 +91,7 @@ namespace Tzeentch {
     }
 
     Wounds TheEyesOfTheNine::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
-        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         // Arcanite Shield
         if (isNamedModelAlive("Narvia") || isNamedModelAlive("Turosh")) {

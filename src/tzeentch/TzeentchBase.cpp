@@ -8,6 +8,7 @@
 
 #include <tzeentch/TzeentchBase.h>
 #include <Board.h>
+#include <Roster.h>
 #include <magic_enum.hpp>
 #include "tzeentch/KairicAcolytes.h"
 #include "tzeentch/HorrorsOfTzeentch.h"
@@ -36,6 +37,8 @@
 #include "tzeentch/TheEyesOfNine.h"
 
 namespace Tzeentch {
+
+    DestinyDice TzeentchBase::s_destinyDice;
 
     std::string TzeentchBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Change Coven") {
@@ -147,6 +150,21 @@ namespace Tzeentch {
                 }
             }
         }
+
+        // Coruscating Flames
+        if (weapon->isMissile() && hasKeyword(ETERNAL_CONFLAGRATION) && hasKeyword(DAEMON)) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
+                auto tzeench = dynamic_cast<TzeentchBase*>(general);
+                if (tzeench && (tzeench->m_commandTrait == CommandTrait::Coruscating_Flames))
+                    mod--;
+            }
+        }
+
+        if (isGeneral() && weapon->isMissile() && (m_commandTrait == CommandTrait::Shrouded_In_Unnatural_Flame)) {
+            mod--;
+        }
+
         return mod;
     }
 
@@ -156,6 +174,131 @@ namespace Tzeentch {
 
     void TzeentchBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    void TzeentchBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (remainingModels() > 0)) {
+                if (m_commandTrait == CommandTrait::Boundless_Mutation) {
+                    if (Dice::RollD6() >= 2)
+                        heal(Dice::RollD3());
+                }
+
+                if (!m_usedDaemonspark && (m_commandTrait == CommandTrait::Daemonspark)) {
+                    getRoster()->incrementResource(3);
+                    m_usedDaemonspark = true;
+                }
+
+                if (m_commandTrait == CommandTrait::Nexus_Of_Fate) {
+                    int roll = Dice::RollD6();
+                    if ((roll >= 5) || (roll == 1)) {
+                        // Discard 2's, 3's and 4's.
+                        if (s_destinyDice.have(2)) {
+                            s_destinyDice.replace(2, roll);
+                        }
+                        else if (s_destinyDice.have(3)) {
+                            s_destinyDice.replace(3, roll);
+                        }
+                        else if (s_destinyDice.have(4)) {
+                            s_destinyDice.replace(4, roll);
+                        }
+                    }
+                }
+
+                if (m_commandTrait == CommandTrait::Prophet_Of_The_Ostensible) {
+                    if (Dice::RollD6() >= 4)
+                        getRoster()->addCommandPoints(1);
+                }
+            }
+        }
+    }
+
+    int TzeentchBase::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Aether_Tether)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    Wounds TzeentchBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = wounds;
+
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Incorporeal_Form)) {
+            if (wounds.source == Wounds::Source::Spell) {
+                totalWounds.normal = 0;
+                totalWounds.mortal = 0;
+            }
+        }
+
+        return Unit::applyWoundSave(totalWounds, attackingUnit);
+    }
+
+    double TzeentchBase::unbindingDistance() const {
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Magical_Supremancy)) {
+            return Unit::unbindingDistance() + 12.0;
+        }
+        return Unit::unbindingDistance();
+    }
+
+    Rerolls TzeentchBase::castingRerolls() const {
+        // Will of the Phantom Lord
+        if (hasKeyword(HOSTS_DUPLICITOUS) && hasKeyword(DAEMON) && hasKeyword(WIZARD)) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && (distanceTo(general) < 9.0)) {
+                auto tzeentch = dynamic_cast<TzeentchBase*>(general);
+                if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Will_Of_The_Phantom_Lord)) {
+                    return Reroll_Failed;
+                }
+            }
+        }
+        return Unit::castingRerolls();
+    }
+
+    Rerolls TzeentchBase::unbindingRerolls() const {
+        // Will of the Phantom Lord
+        if (hasKeyword(HOSTS_DUPLICITOUS) && hasKeyword(DAEMON) && hasKeyword(WIZARD)) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && (distanceTo(general) < 9.0)) {
+                auto tzeentch = dynamic_cast<TzeentchBase*>(general);
+                if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Will_Of_The_Phantom_Lord)) {
+                    return Reroll_Failed;
+                }
+            }
+        }
+        return Unit::unbindingRerolls();
+    }
+
+    int TzeentchBase::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+        // Defiant in their Pursuit
+        if (hasKeyword(CULT_OF_THE_TRANSIENT_FORM)) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
+                auto tzeentch = dynamic_cast<TzeentchBase*>(general);
+                if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Defiant_In_Their_Pursuit)) {
+                    mod += 2;
+                }
+            }
+        }
+        return mod;
+    }
+
+    bool TzeentchBase::battleshockRequired() const {
+        // Aegis of Insanity
+        if (hasKeyword(UNBOUND_FLUX) && (hasKeyword(DAEMON))) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && (distanceTo(general) < 9.0)) {
+                auto tzeentch = dynamic_cast<TzeentchBase *>(general);
+                if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Aegis_Of_Insanity)) {
+                    return false;
+                }
+            }
+        }
+        return Unit::battleshockRequired();
     }
 
     void Init() {

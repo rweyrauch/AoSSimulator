@@ -176,6 +176,7 @@ namespace Tzeentch {
     }
 
     void LordOfChange::onRestore() {
+        TzeentchBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }

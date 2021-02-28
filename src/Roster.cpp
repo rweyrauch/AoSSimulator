@@ -10,7 +10,7 @@
 #include <Roster.h>
 #include "AoSSimPrivate.h"
 
-constexpr std::array<int, 7> g_factionResourceName = {
+constexpr std::array<int, 8> g_factionResourceName = {
         ToInteger(Resource::None),
         ToInteger(Resource::Khorne_Blood_Tithe),
         ToInteger(Resource::Slaanesh_Depravity),
@@ -18,6 +18,7 @@ constexpr std::array<int, 7> g_factionResourceName = {
         ToInteger(Resource::Nurgle_Contagion),
         ToInteger(Resource::Skaven_Warpstone_Spark),
         ToInteger(Resource::Seraphon_Celestial_Conjuration),
+        ToInteger(Resource::Tzeentch_Fate_Points),
 };
 
 void Roster::addUnit(std::shared_ptr<Unit> unit) {
@@ -32,6 +33,7 @@ void Roster::addUnit(std::shared_ptr<Unit> unit) {
     else if (unit->hasKeyword(NURGLE)) m_factionResource = Resource::Nurgle_Contagion;
     else if (unit->hasKeyword(SKAVEN)) m_factionResource = Resource::Skaven_Warpstone_Spark;
     else if (unit->hasKeyword(SERAPHON)) m_factionResource = Resource::Seraphon_Celestial_Conjuration;
+    else if (unit->hasKeyword(TZEENTCH)) m_factionResource = Resource::Tzeentch_Fate_Points;
     else m_factionResource = Resource::None;
 }
 
@@ -143,4 +145,11 @@ int Roster::getPoints() const {
         totalPoints += u->points();
     }
     return totalPoints;
+}
+
+Unit *Roster::getGeneral() const {
+    for (auto u : m_units) {
+        if (u->isGeneral()) return u.get();
+    }
+    return nullptr;
 }

@@ -122,4 +122,32 @@ namespace Tzeentch {
         return g_pointsPerUnit;
     }
 
+    void OgroidThaumaturge::onCharged() {
+        // Mighty Rampage
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
+            int roll = Dice::RollD6();
+            if (roll >= 2) {
+                Wounds wounds = {0, Dice::RollD3()};
+                m_meleeTarget->applyDamage(wounds, this);
+            }
+        }
+        TzeentchBase::onCharged();
+    }
+
+    Rerolls OgroidThaumaturge::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // Brutal Rage
+        if (!m_currentRecord.m_woundsTaken.zero() && weapon->isMelee()) {
+            return Reroll_Failed;
+        }
+        return TzeentchBase::toWoundRerolls(weapon, target);
+    }
+
+    Rerolls OgroidThaumaturge::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        // Brutal Rage
+        if (!m_currentRecord.m_woundsTaken.zero() && weapon->isMelee()) {
+            return Reroll_Failed;
+        }
+        return TzeentchBase::toHitRerolls(weapon, target);
+    }
+
 } // Tzeentch

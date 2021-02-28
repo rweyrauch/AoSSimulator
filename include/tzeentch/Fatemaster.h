@@ -31,6 +31,10 @@ namespace Tzeentch {
 
     protected:
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
     private:
 
         Weapon m_glaive,
@@ -42,8 +46,8 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Hovering Disc of Tzeentch        TODO
-// Soulbound Shield                 TODO
+// Hovering Disc of Tzeentch        Yes
+// Soulbound Shield                 Yes
 // Lord of Fate                     TODO
 //
 

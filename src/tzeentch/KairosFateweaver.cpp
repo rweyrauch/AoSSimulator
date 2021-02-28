@@ -142,6 +142,7 @@ namespace Tzeentch {
     }
 
     void KairosFateweaver::onRestore() {
+        TzeentchBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }

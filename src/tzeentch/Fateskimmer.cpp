@@ -98,7 +98,7 @@ namespace Tzeentch {
         if (target->hasKeyword(MONSTER) && (weapon->name() == m_bite.name())) {
             return {Dice::RollD3(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Fateskimmer::ComputePoints(int /*numModels*/) {

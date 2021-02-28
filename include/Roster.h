@@ -20,6 +20,7 @@ enum class Resource : int {
     Nurgle_Contagion,
     Skaven_Warpstone_Spark,
     Seraphon_Celestial_Conjuration,
+    Tzeentch_Fate_Points,
 };
 
 class Roster {
@@ -77,6 +78,8 @@ public:
 
     int getAvailableResource() const { return m_resourceCount; }
     void clearAvailableResource() { m_resourceCount = 0; }
+
+    Unit* getGeneral() const;
 
 private:
     const PlayerId m_id;

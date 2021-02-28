@@ -127,7 +127,7 @@ namespace Tzeentch {
     }
 
     int FluxmasterHeraldOfTzeentchOnDisc::rollCasting(int &unmodifiedRoll) const {
-        auto roll = Unit::rollCasting(unmodifiedRoll);
+        auto roll = TzeentchBase::rollCasting(unmodifiedRoll);
         if (!m_usedArcaneTome) {
             int roll0 = Dice::RollD6();
             int roll1 = Dice::RollD6();

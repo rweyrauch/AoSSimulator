@@ -160,7 +160,7 @@ namespace Tzeentch {
 
     Wounds Tzaangors::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         // Arcanite Shield
-        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         if (m_weaponOption == Savage_Blade_And_Shield) {
             totalWounds = ignoreWounds(totalWounds, 6);
