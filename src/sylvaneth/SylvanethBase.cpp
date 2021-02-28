@@ -156,12 +156,55 @@ namespace Sylvaneth {
         return mod;
     }
 
+    int SylvanethBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Regal_Old_Growth)) mod += 1;
+        return mod;
+    }
+
     void SylvanethBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
     }
 
     void SylvanethBase::setCommandTrait(CommandTrait commandTrait) {
         m_commandTrait = commandTrait;
+    }
+
+    void SylvanethBase::onCastSpell(const Spell *spell, const Unit *target) {
+        Unit::onCastSpell(spell, target);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Nurtured_By_Magic)) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
+            for (auto unit : units) {
+                if (unit->remainingWounds() < unit->wounds()) {
+                    unit->heal(Dice::RollD3());
+                    break;
+                }
+            }
+        }
+    }
+
+    void SylvanethBase::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, attacker, source);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Legacy_Of_Valour)) {
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) < 1.0)) {
+                auto roll = Dice::RollD6();
+                Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Ability};
+                if (roll == 6) {
+                    wounds.mortal = Dice::RollD6();
+                }
+                unit->applyDamage(wounds, this);
+            }
+        }
+    }
+
+    Rerolls SylvanethBase::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Mere_Rainfall) && weapon->isMissile()) {
+            return Reroll_Failed;
+        }
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     void Init() {

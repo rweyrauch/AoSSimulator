@@ -141,6 +141,14 @@ namespace Sylvaneth {
 
         int braveryModifier() const override;
 
+        int woundModifier() const override;
+
+        void onCastSpell(const Spell *spell, const Unit *target) override;
+
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
+
     protected:
 
         Glade m_glade = Glade::None;
@@ -157,27 +165,27 @@ namespace Sylvaneth {
 // Navigate Realmroots              TODO
 // Places of Power                  TODO
 // Oakenbrow
-//   Our Roots Run Deep             TODO
+//   Our Roots Run Deep             Yes
 //   Yield to None                  TODO
-//   Regal Old-growth               TODO
+//   Regal Old-growth               Yes
 // Gnarlroot
 //   Shield the Arcane              Yes
 //   The Earth Defends              TODO
-//   Nurtured by Magic              TODO
+//   Nurtured by Magic              Yes
 // Heartwood
 //   Courage For Kurnoth            Yes
 //   Lord of the Hunt               TODO
-//   Legacy of Valour               TODO
+//   Legacy of Valour               Yes
 // Ironbark
 //   Stubborn and Taciturn          Yes
 //   Stand Firm                     TODO
-//   Mere Rainfall                  TODO
+//   Mere Rainfall                  Yes
 // Winterleaf
 //   Winter's Bite                  Yes
 //   Branch Blizzard                TODO
 //   My Heart is Ice                TODO
 // Dreadwood
-//   Malicious Tormentors           TODO
+//   Malicious Tormentors           Yes
 //   Sinister Ambush                TODO
 //   Paragon of Terror              TODO
 // Harvestboon
