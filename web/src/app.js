@@ -17,11 +17,9 @@ AoSSimulator().then(AoSSimulator => {
 
     const sim = AoSSimulator.JSInterface.prototype;
 
-    let g_verboseLevel = AoSSimulator.Normal;
     let g_numRounds = 5;
     let g_saveMaps = false;
     let g_numIterations = 5;
-    let g_battle = null;
     let g_red = null;
     let g_blue = null;
 
@@ -293,13 +291,13 @@ AoSSimulator().then(AoSSimulator => {
         refreshPoints(team, defaultModelCount);
     }
 
-    function createUnit(unitName, unitUI) {
+    function createUnit(team, unitName, unitUI) {
         var factory = new AoSSimulator.JSUnitInfo();
         sim.GetUnitInfoByName(unitName, factory);
 
         if (!unitUI) return null;
 
-        sim.ClearUnitParameters();
+        sim.ClearUnitParameters(team);
 
         // extract parameters from UI
         for (let ip of unitUI.childNodes) {
@@ -315,7 +313,7 @@ AoSSimulator().then(AoSSimulator => {
                             param.minValue = +input.min;
                             param.maxValue = +input.max;
                             param.increment = +input.step;
-                            sim.AddUnitParameter(param);
+                            sim.AddUnitParameter(team, param);
                         } else if (input.type === "checkbox") {
                             let param = new AoSSimulator.Parameter();
                             param.paramType = AoSSimulator.Boolean;
@@ -324,7 +322,7 @@ AoSSimulator().then(AoSSimulator => {
                             param.minValue = 0;
                             param.maxValue = 1;
                             param.increment = 1;
-                            sim.AddUnitParameter(param);
+                            sim.AddUnitParameter(team, param);
                         }
                     }
                     else if (iip instanceof HTMLSelectElement) {
@@ -335,13 +333,15 @@ AoSSimulator().then(AoSSimulator => {
                         param.intValue = select.selectedIndex;
                         param.minValue = 0;
                         param.maxValue = select.children.length - 1;
-                        sim.AddUnitParameter(param);
+                        sim.AddUnitParameter(team, param);
                     }
                 }
             }
         }
 
-        let unit = sim.CreateUnit(unitName);
+        sim.CreateUnit(team, unitName);
+
+        let unit = sim.GetUnit(team);
 
         console.log("Unit points: " + unit.points() +  "  Models: " + unit.remainingModels());
 
@@ -467,12 +467,8 @@ AoSSimulator().then(AoSSimulator => {
 
     function runSimulation() {
 
-        if (!g_battle || !g_red || !g_blue) {
-            return;
-        }
-
-        g_battle.combatants(g_red, g_blue);
-        g_battle.clearStatistics();
+        sim.BattleStart(g_numRounds);
+        sim.ClearStatistics();
 
         console.log("Red Points: " + g_red.points() + "  Blue Points: " + g_blue.points());
 
@@ -481,26 +477,20 @@ AoSSimulator().then(AoSSimulator => {
         let ties = 0;
 
         for (let i = 0; i < g_numIterations; i++) {
-            g_red.restore();
-            g_blue.restore();
-
-            g_battle.start();
+            sim.BattleStart();
 
             if (g_saveMaps) {
             }
 
-            while (!g_battle.done()) {
-                g_battle.simulate();
+            while (!sim.BattleDone()) {
+                sim.BattleSimulate();
 
-                const round = g_battle.currentRound();
+                const round = sim.BattleCurrentRound();
 
-                if (g_saveMaps) {
-                }
-
-                g_battle.next();
+                sim.BattleNext();
             }
 
-            const victor = g_battle.getVictor();
+            const victor = sim.GetVictor();
 
             if (victor == AoSSimulator.Blue)
                 blueVictories++;
@@ -525,10 +515,6 @@ AoSSimulator().then(AoSSimulator => {
         const numIterationsInput = document.getElementById("number-of-iterations");
         g_numIterations = +numIterationsInput.value;
 
-        const verboseCheckbox = document.getElementById("verbose-flag");
-        if (verboseCheckbox.checked) g_verboseLevel = AoSSimulator.Narrative;
-        sim.SetVerbosity(g_verboseLevel);
-
         const saveCheckbox = document.getElementById("savemaps-flag");
         g_saveMaps = saveCheckbox.checked;
 
@@ -536,14 +522,14 @@ AoSSimulator().then(AoSSimulator => {
         const redUnitRoot = document.getElementById("red-unit-desc");
         if (redUnitSelect && redUnitRoot) {
             const unitName = redUnitSelect.selectedOptions[0].text;
-            g_red = createUnit(unitName, redUnitRoot);
+            g_red = createUnit(AoSSimulator.Red, unitName, redUnitRoot);
         }
 
         const blueUnitSelect = document.getElementById("blue-unit-select");
         const blueUnitRoot = document.getElementById("blue-unit-desc");
         if (blueUnitSelect && blueUnitRoot) {
             const unitName = blueUnitSelect.selectedOptions[0].text;
-            g_blue = createUnit(unitName, blueUnitRoot);
+            g_blue = createUnit(AoSSimulator.Blue, unitName, blueUnitRoot);
         }
 
         refreshPoints();
@@ -610,11 +596,11 @@ AoSSimulator().then(AoSSimulator => {
 
     function fillInStatistics() {
         var redStats = new AoSSimulator.UnitStatistics();
-        g_battle.getStatistics(AoSSimulator.Red, redStats);
+        sim.GetStatistics(AoSSimulator.Red, redStats);
         updateStats(redStats, "red");
 
         var blueStats = new AoSSimulator.UnitStatistics();
-        g_battle.getStatistics(AoSSimulator.Blue, blueStats);
+        sim.GetStatistics(AoSSimulator.Blue, blueStats);
         updateStats(blueStats, "blue");
     }
 
@@ -677,9 +663,6 @@ AoSSimulator().then(AoSSimulator => {
     function render(canvas) {
         if (!canvas) return;
 
-        //console.log("Canvas Size: " + canvas.width + ", " + canvas.height +
-        //    "  X: " + g_battle.getInitialRedX() +"  Y: " + g_battle.getInitialRedY());
-
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
@@ -687,11 +670,11 @@ AoSSimulator().then(AoSSimulator => {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         if (g_red) {
-            renderUnit(ctx, g_red, "red", "darkred", g_battle.getInitialRedX(), g_battle.getInitialRedY());
+            renderUnit(ctx, g_red, "red", "darkred", sim.GetInitialRedX(), sim.GetInitialRedY());
         }
 
         if (g_blue) {
-            renderUnit(ctx, g_blue, "blue", "darkblue", g_battle.getInitialBlueX(), g_battle.getInitialBlueY());
+            renderUnit(ctx, g_blue, "blue", "darkblue", sim.GetInitialBlueX(), sim.GetInitialBlueY());
         }
 
         if (g_red) {
@@ -705,11 +688,9 @@ AoSSimulator().then(AoSSimulator => {
 
     console.log("App is starting....");
 
-    sim.Initialize(sim.Debug);
+    sim.Initialize();
 
     console.log("Initializing AoS module.");
-
-    g_battle = new AoSSimulator.ManoAMano(5);
 
     plumbCallbacks();
 

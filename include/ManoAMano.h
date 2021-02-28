@@ -8,8 +8,11 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+#include <string>
 #include <AgeOfSigmarSim.h>
 #include <Unit.h>
+#include <UnitFactory.h>
 
 class Roster;
 

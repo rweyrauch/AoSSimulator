@@ -106,25 +106,6 @@ interface UnitStatistics {
     long totalModelsFled();
 };
 
-interface ManoAMano {
-    void ManoAMano(long numRounds, Realm realm);
-    void combatants(Unit red, Unit blue);
-    void start();
-    void simulate();
-    void next();
-    boolean done();
-    long currentRound();
-    void getStatistics(PlayerId which, [Ref] UnitStatistics stats);
-    void clearStatistics();
-    PlayerId getVictor();
-    float getInitialRedX();
-    float getInitialRedY();
-    float getInitialBlueX();
-    float getInitialBlueY();
-    float getBoardWidth();
-    float getBoardDepth();
-};
-
 interface Parameter {
     void Parameter();
     attribute ParamType paramType;
@@ -152,9 +133,26 @@ interface JSInterface {
     [Const] static DOMString GrandAllianceKeywordToString(long ga);
     [Const] static DOMString FactionKeywordToString(long faction);
 
-    static Unit CreateUnit(DOMString name);
-    static long AddUnitParameter([Ref] Parameter parameter);
-    static void ClearUnitParameters();
+    static void CreateUnit(PlayerId which, DOMString name);
+    static long AddUnitParameter(PlayerId which, [Ref] Parameter parameter);
+    static void ClearUnitParameters(PlayerId which);
+
+    static void BattleStart(long numRounds);
+    static void BattleSimulate();
+    static void BattleNext();
+    static boolean BattleDone();
+    static long BattleCurrentRound();
+    static void GetStatistics(PlayerId which, [Ref] UnitStatistics stats);
+    static void ClearStatistics();
+    static PlayerId GetVictor();
+    static float GetInitialRedX();
+    static float GetInitialRedY();
+    static float GetInitialBlueX();
+    static float GetInitialBlueY();
+    static float GetBoardWidth();
+    static float GetBoardDepth();
+    static Unit GetUnit(PlayerId which);
+
     static long GetNumberOfAvailableUnits();
     static void GetUnitInfo(long which, [Ref] JSUnitInfo info);
     static void GetUnitInfoByName([Const] DOMString name, [Ref] JSUnitInfo info);
