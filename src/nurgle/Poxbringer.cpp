@@ -29,6 +29,9 @@ namespace Nurgle {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        unit->setLegion(legion);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
 
         bool ok = unit->configure(lore);
@@ -50,6 +53,7 @@ namespace Nurgle {
                             EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
                             EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
                             EnumParameter("Lore", g_daemonLore[0], g_daemonLore),
+                            EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
                             BoolParameter("General")
                     },
                     CHAOS,

@@ -22,7 +22,11 @@ namespace Tzeentch {
         Hosts_Arcanum,
         Cult_Of_The_Transient_Form,
         Pyrofane_Cult,
-        Guild_Of_Summoners
+        Guild_Of_Summoners,
+
+        // Subfactions
+        Unbound_Flux,
+        Cult_Of_A_Thousand_Eyes,
     };
 
     enum class CommandTrait : int {
@@ -55,7 +59,9 @@ namespace Tzeentch {
         Spell_Hunters,  // Hosts Arcanum
         Defiant_In_Their_Pursuit,   // Transient Form
         Shrouded_In_Unnatural_Flame,    // Pyrofane Cult
-        Prophet_Of_The_Ostensible  // Guild of Summoners
+        Prophet_Of_The_Ostensible,  // Guild of Summoners
+        Aegis_Of_Insanity, // Unbound Flux
+        Tzeentch_Is_Pleased, // Cult of a Thousand Eyes
     };
 
     enum class Artefact : int {
@@ -91,7 +97,9 @@ namespace Tzeentch {
         The_Fanged_Circlet, // Hosts Arcanum
         Chaotica_Amulet,    // Transient Form
         Chainfire_Amulet,   // Pyrofane Cult
-        Brimstone_Familiar // Guild of Summoners
+        Brimstone_Familiar, // Guild of Summoners
+        The_Enlightener, // Unbound Flux
+        Crown_Of_Whispers, // Cult of a Thousand Eyes
     };
 
     enum class Lore : int {

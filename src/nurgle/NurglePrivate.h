@@ -15,6 +15,14 @@
 
 namespace Nurgle {
 
+    constexpr std::array<int, 5> g_plagueLegions = {
+        ToInteger(PlagueLegion::None),
+        ToInteger(PlagueLegion::Munificent_Wanderers),
+        ToInteger(PlagueLegion::Drowning_Guard),
+        ToInteger(PlagueLegion::Blessed_Sons),
+        ToInteger(PlagueLegion::Drowned_Men)
+    };
+
     constexpr std::array<int, 19> g_commandTraits = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Grandfathers_Blessing),

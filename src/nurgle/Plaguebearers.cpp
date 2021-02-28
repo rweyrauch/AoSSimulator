@@ -9,6 +9,7 @@
 #include <nurgle/Plaguebearers.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int g_basesize = 32;
@@ -65,6 +66,9 @@ namespace Nurgle {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool pipers = GetBoolParam("Pipers", parameters, false);
 
+        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        unit->setLegion(legion);
+
         bool ok = unit->configure(numModels, iconBearer, pipers);
         if (!ok) {
             delete unit;
@@ -84,6 +88,7 @@ namespace Nurgle {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Piper"),
+                            EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
                     },
                     CHAOS,
                     {NURGLE}

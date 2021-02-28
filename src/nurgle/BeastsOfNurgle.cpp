@@ -7,6 +7,7 @@
  */
 
 #include <nurgle/BeastsOfNurgle.h>
+#include "NurglePrivate.h"
 #include <UnitFactory.h>
 #include <Board.h>
 
@@ -53,6 +54,9 @@ namespace Nurgle {
         auto unit = new BeastsOfNurgle();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
+        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        unit->setLegion(legion);
+
         bool ok = unit->configure(numModels);
         if (!ok) {
             delete unit;
@@ -70,6 +74,7 @@ namespace Nurgle {
                     BeastsOfNurgle::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
                     },
                     CHAOS,
                     {NURGLE}

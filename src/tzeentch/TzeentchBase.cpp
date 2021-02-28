@@ -82,6 +82,8 @@ namespace Tzeentch {
         removeKeyword(CULT_OF_THE_TRANSIENT_FORM);
         removeKeyword(PYROFANE_CULT);
         removeKeyword(GUILD_OF_SUMMONERS);
+        removeKeyword(UNBOUND_FLUX);
+        removeKeyword(CULT_OF_A_THOUSAND_EYES);
 
         m_coven = coven;
         switch (coven) {
@@ -102,6 +104,12 @@ namespace Tzeentch {
                 break;
             case ChangeCoven::Guild_Of_Summoners:
                 addKeyword(GUILD_OF_SUMMONERS);
+                break;
+            case ChangeCoven::Unbound_Flux:
+                addKeyword(UNBOUND_FLUX);
+                break;
+            case ChangeCoven::Cult_Of_A_Thousand_Eyes:
+                addKeyword(CULT_OF_A_THOUSAND_EYES);
                 break;
             default:
                 break;

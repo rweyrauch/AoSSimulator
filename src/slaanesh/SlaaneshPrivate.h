@@ -15,10 +15,13 @@
 
 namespace Slaanesh {
 
-    constexpr std::array<int, 3> g_host = {
+    constexpr std::array<int, 6> g_host = {
             ToInteger(Host::Invaders),
             ToInteger(Host::Pretenders),
-            ToInteger(Host::Godseekers)
+            ToInteger(Host::Godseekers),
+            ToInteger(Host::Lurid_Haze_Invaders),
+            ToInteger(Host::Faultless_Blades_Pretenders),
+            ToInteger(Host::Scarlet_Cavalcade_Godseekers)
     };
 
     constexpr std::array<int, 19> g_commandTraits = {

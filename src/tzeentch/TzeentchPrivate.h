@@ -15,14 +15,16 @@
 
 namespace Tzeentch {
 
-    constexpr std::array<int, 7> g_changeCoven = {
+    constexpr std::array<int, 9> g_changeCoven = {
             ToInteger(ChangeCoven::None),
             ToInteger(ChangeCoven::Eternal_Conflagration),
             ToInteger(ChangeCoven::Hosts_Duplicitous),
             ToInteger(ChangeCoven::Hosts_Arcanum),
             ToInteger(ChangeCoven::Cult_Of_The_Transient_Form),
             ToInteger(ChangeCoven::Pyrofane_Cult),
-            ToInteger(ChangeCoven::Guild_Of_Summoners)
+            ToInteger(ChangeCoven::Guild_Of_Summoners),
+            ToInteger(ChangeCoven::Unbound_Flux),
+            ToInteger(ChangeCoven::Cult_Of_A_Thousand_Eyes)
     };
 
     constexpr std::array<int, 7> g_arcaniteCommandTraits = {

@@ -16,12 +16,14 @@
 
 namespace Khorne {
 
-    constexpr std::array<int, 5> g_slaughterHost = {
+    constexpr std::array<int, 7> g_slaughterHost = {
             ToInteger(SlaughterHost::None),
             ToInteger(SlaughterHost::Reapers_Of_Vengeance),
             ToInteger(SlaughterHost::Bloodlords),
             ToInteger(SlaughterHost::Goretide),
-            ToInteger(SlaughterHost::Skullfiend_Tribe)
+            ToInteger(SlaughterHost::Skullfiend_Tribe),
+            ToInteger(SlaughterHost::Baleful_Lords),
+            ToInteger(SlaughterHost::Flayed)
     };
 
     constexpr std::array<int, 7> g_mortalbloodboundCommandTraits = {

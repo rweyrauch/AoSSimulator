@@ -7,6 +7,8 @@
  */
 
 #include <magic_enum.hpp>
+#include <nurgle/Nurgle.h>
+
 #include "nurgle/BeastsOfNurgle.h"
 #include "nurgle/BloabRotspawned.h"
 #include "nurgle/Epidemius.h"
@@ -37,6 +39,10 @@
 namespace Nurgle {
 
     std::string NurgleBase::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Plague Legion") {
+            auto legionName = magic_enum::enum_name((PlagueLegion)parameter.intValue);
+            return std::string(legionName);
+        }
         if (std::string(parameter.name) == "Command Trait") {
             auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
             return std::string(traitName);
@@ -53,6 +59,9 @@ namespace Nurgle {
     }
 
     int NurgleBase::EnumStringToInt(const std::string &enumString) {
+        auto legion = magic_enum::enum_cast<PlagueLegion>(enumString);
+        if (legion.has_value()) return (int)legion.value();
+
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
         if (trait.has_value()) return (int)trait.value();
 
@@ -63,6 +72,31 @@ namespace Nurgle {
         if (lore.has_value()) return (int)lore.value();
 
         return 0;
+    }
+
+    void NurgleBase::setLegion(PlagueLegion legion) {
+        removeKeyword(MUNIFICENT_WANDERERS);
+        removeKeyword(DRONING_GUARD);
+        removeKeyword(BLESSED_SONS);
+        removeKeyword(DROWNED_MEN);
+
+        m_plagueLegion = legion;
+        switch (m_plagueLegion) {
+            case PlagueLegion::Munificent_Wanderers:
+                addKeyword(MUNIFICENT_WANDERERS);
+                break;
+            case PlagueLegion::Drowning_Guard:
+                addKeyword(DRONING_GUARD);
+                break;
+            case PlagueLegion::Blessed_Sons:
+                addKeyword(BLESSED_SONS);
+                break;
+            case PlagueLegion::Drowned_Men:
+                addKeyword(DROWNED_MEN);
+                break;
+            default:
+                break;
+        }
     }
 
     void Init() {

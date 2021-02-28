@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "nurgle/Gutrot.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int g_basesize = 40;
@@ -21,6 +22,9 @@ namespace Nurgle {
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
+
+        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        unit->setLegion(legion);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -38,7 +42,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     GutrotSpume::ComputePoints,
                     {
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
                     },
                     CHAOS,
                     {NURGLE}

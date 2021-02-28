@@ -20,7 +20,11 @@ namespace Khorne {
         Reapers_Of_Vengeance,
         Bloodlords,
         Goretide,
-        Skullfiend_Tribe
+        Skullfiend_Tribe,
+
+        // Subfactions
+        Baleful_Lords,
+        Flayed
     };
 
     enum class CommandTrait : int {
@@ -54,7 +58,9 @@ namespace Khorne {
         Mage_Eater, // Reapers
         Slaughterers_Thirst,    // Bloodlords
         Hew_The_Foe,    // Goretide
-        Master_Decapitator  // Skullfiend
+        Master_Decapitator,  // Skullfiend
+        Vessel_Of_Butchery, // Flayed
+        Thirst_For_Carnage, // Baleful Lords
     };
 
     enum class Artefact : int {
@@ -100,7 +106,9 @@ namespace Khorne {
         Skullshard_Mantle,  // Reapers
         Halo_Of_Blood,  // Bloodlords
         Thronebreakers_Torc,    // Goretide
-        Crowncleaver    // Skullfiend
+        Crowncleaver,    // Skullfiend
+        The_Slaughterhelm, // Flayed
+        Black_Brass_Crown, // Baleful Lords
     };
 
     // Available rewards and their cost( == enum value)

@@ -19,6 +19,10 @@ namespace Slaanesh {
         Invaders,
         Pretenders,
         Godseekers,
+
+        Lurid_Haze_Invaders,
+        Faultless_Blades_Pretenders,
+        Scarlet_Cavalcade_Godseekers,
     };
 
     enum class CommandTrait : int {
@@ -47,6 +51,15 @@ namespace Slaanesh {
         Trail_Sniffer,
         Symphoniac,
         Speed_Chaser,
+
+        // Lurid Haze
+        Feverish_Anticipation,
+
+        // Faultless Blade
+        Contest_Of_Cruelty,
+
+        // Scarlet Cavalcade
+        Embodiment_Of_Haste,
     };
 
     enum class Artefact : int {
@@ -75,6 +88,15 @@ namespace Slaanesh {
         Lash_Of_Despair,
         Enrapturing_Circlet,
         Binding_Of_Slaanesh,
+
+        // Lurid Haze
+        Oil_Of_Exultation,
+
+        // Faultless Blades
+        Contemptuous_Brand,
+
+        // Scarlet Cavalcade
+        Helm_Of_The_Last_Rider,
     };
 
     enum class Lore : int {

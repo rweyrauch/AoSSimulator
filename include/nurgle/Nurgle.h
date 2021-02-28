@@ -14,6 +14,14 @@
 
 namespace Nurgle {
 
+    enum class PlagueLegion : int {
+        None,
+        Munificent_Wanderers,
+        Drowning_Guard,
+        Blessed_Sons,
+        Drowned_Men
+    };
+
     enum class CommandTrait : int {
         None,
 
@@ -41,6 +49,11 @@ namespace Nurgle {
         Overpowering_Stench,
         Virulent_Contagion,
 
+        // Legion
+        One_Last_Gift, // Munificent Wanderers
+        Rotwing_Commander, // Droning Guard
+        Degraded_And_Defiled, // Blessed Sons
+        Kneel_Before_The_Plague, // Drowned Men
     };
 
     enum class Artefact : int {
@@ -69,6 +82,12 @@ namespace Nurgle {
         The_Eye_Of_Nurgle,
         The_Carrion_Dirge,
         The_Shield_Of_Growths,
+
+        // Legion
+        Mucktalon, // Munificent Wanderers
+        Cloak_Of_Flies, // Drowning Guard
+        Blotshell_Bileplate, // Blessed Sons
+        Rot_Kraken_Hide, // Drowned Men
     };
 
     enum class Lore : int {
@@ -101,6 +120,8 @@ namespace Nurgle {
 
         ~NurgleBase() override = default;
 
+        void setLegion(PlagueLegion legion);
+
         void setCommandTrait(CommandTrait trait) { m_commandTrait = trait; }
         void setArtefact(Artefact artefact) { m_artefact = artefact; }
 
@@ -109,6 +130,7 @@ namespace Nurgle {
         NurgleBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        PlagueLegion m_plagueLegion = PlagueLegion::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
     };

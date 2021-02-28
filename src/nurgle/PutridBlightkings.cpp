@@ -9,6 +9,7 @@
 #include <nurgle/PutridBlightkings.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int g_basesize = 40;
@@ -60,6 +61,9 @@ namespace Nurgle {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool sonorousTocsin = GetBoolParam("Sonorous Tocsin", parameters, false);
 
+        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        unit->setLegion(legion);
+
         bool ok = unit->configure(numModels, iconBearer, sonorousTocsin);
         if (!ok) {
             delete unit;
@@ -79,6 +83,7 @@ namespace Nurgle {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Sonorous Tocsin"),
+                            EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
                     },
                     CHAOS,
                     {NURGLE}

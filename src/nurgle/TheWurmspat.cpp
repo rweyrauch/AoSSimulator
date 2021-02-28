@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "nurgle/TheWurmspat.h"
+#include "NurglePrivate.h"
 
 namespace Nurgle {
     static const int g_basesize = 40;
@@ -18,6 +19,10 @@ namespace Nurgle {
 
     Unit *TheWurmspat::Create(const ParameterList &parameters) {
         auto unit = new TheWurmspat();
+
+        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        unit->setLegion(legion);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -34,6 +39,7 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     TheWurmspat::ComputePoints,
                     {
+                            EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
                     },
                     CHAOS,
                     {NURGLE}

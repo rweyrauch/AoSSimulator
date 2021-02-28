@@ -47,6 +47,9 @@ namespace Slaanesh {
         removeKeyword(INVADERS);
         removeKeyword(PRETENDERS);
         removeKeyword(GODSEEKERS);
+        removeKeyword(LURID_HAZE_INVADERS_HOST);
+        removeKeyword(FAULTLESS_BLADES_PRETENDERS_HOST);
+        removeKeyword(SCARLET_CAVALCADE_GODSEEKERS_HOST);
 
         m_host = host;
         switch (m_host) {
@@ -57,6 +60,18 @@ namespace Slaanesh {
                 addKeyword(PRETENDERS);
                 break;
             case Host::Godseekers:
+                addKeyword(GODSEEKERS);
+                break;
+            case Host::Lurid_Haze_Invaders:
+                addKeyword(LURID_HAZE_INVADERS_HOST);
+                addKeyword(INVADERS);
+                break;
+            case Host::Faultless_Blades_Pretenders:
+                addKeyword(FAULTLESS_BLADES_PRETENDERS_HOST);
+                addKeyword(PRETENDERS);
+                break;
+            case Host::Scarlet_Cavalcade_Godseekers:
+                addKeyword(SCARLET_CAVALCADE_GODSEEKERS_HOST);
                 addKeyword(GODSEEKERS);
                 break;
             default:
