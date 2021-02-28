@@ -112,7 +112,7 @@ namespace Khorne {
     }
 
     Wounds LordOfKhorneOnJuggernaut::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
-        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto totalWounds = KhorneBase::applyWoundSave(wounds, attackingUnit);
 
         // Brass-clad Shield
         if (totalWounds.source == Wounds::Source::Spell) {

@@ -148,6 +148,59 @@ namespace Nurgle {
 //    Rampant Disease               TODO
 // The Garden of Nurgle             TODO
 // Summon Daemons of Nurgle         TODO
+// Command Traits
+//    Grandfathers_Blessing         TODO
+//    Living_Plague                 TODO
+//    Hulking_Physique              TODO
+//    Bloated_With_Corruption       TODO
+//    Avalanch_Of_Rotten_Flesh      TODO
+//    Resilient                     TODO
+//    Tainted_Corruptor             TODO
+//    Nurgling_Infestation          TODO
+//    Pestilent_Breath              TODO
+//    Hideous_Visage                TODO
+//    Overpowering_Stench           TODO
+//    Virulent_Contagion            TODO
+// Artefacts
+//    The_Splithorn_Helm            TODO
+//    Muttergrub                    TODO
+//    Rustfang                      TODO
+//    Flesh_Pealer                  TODO
+//    The_Bileheart                 TODO
+//    The_Fecund_Flask              TODO
+//    Noxious_Nexus                 TODO
+//    Nurgles_Nail                  TODO
+//    The_Bountiful_Swarm           TODO
+//    The_Witherstave               TODO
+//    Tome_Of_A_Thousand_Poxes      TODO
+//    The_Endless_Gift              TODO
+//    The_Virulent_Blade            TODO
+//    The_Foetid_Shroud             TODO
+//    Sublucus_Stenchplate          TODO
+//    The_Eye_Of_Nurgle             TODO
+//    The_Carrion_Dirge             TODO
+//    The_Shield_Of_Growths         TODO
+// The Munificent Wanderers
+//   Locus of Corrosion             TODO
+//   Infested with Wonders          TODO
+//   One Last Gift                  TODO
+//   Mucktalon                      TODO
+// The Droning Guard
+//   Locus of Corrosion             TODO
+//   Twice-blessed Rotspawn         TODO
+//   Rotwing Commander              TODO
+//   Cloak of Flies                 TODO
+// The Blessed Sons
+//   Nurgle's Embrace               TODO
+//   Foul Conqueror                 TODO
+//   Degraded and Defiled           TODO
+//   Blotshell Bileplate            TODO
+// The Drowned Men
+//   Nurgle's Embrace               TODO
+//   Bloated Raider                 TODO
+//   Kneel Before the Plague!       TODO
+//   Rot-kraken Hide                TODO
+//
 
     void Init();
 

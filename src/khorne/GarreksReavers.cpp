@@ -118,7 +118,7 @@ namespace Khorne {
         if ((hitRoll == 6) && (weapon->name() == m_garreksAxe.name())) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int GarreksReavers::ComputePoints(int /*numModels*/) {

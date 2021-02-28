@@ -102,7 +102,7 @@ namespace Khorne {
         if (unit) {
             return Reroll_Failed;
         }
-        return Unit::chargeRerolls();
+        return KhorneBase::chargeRerolls();
     }
 
     int MagoresFiends::ComputePoints(int /*numModels*/) {

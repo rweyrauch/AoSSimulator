@@ -100,7 +100,7 @@ namespace Khorne {
     }
 
     int FleshHounds::unbindingModifier() const {
-        auto mod = Unit::unbindingModifier();
+        auto mod = KhorneBase::unbindingModifier();
         // Collars of Khorne
         if (remainingModels() >= 10) mod++;
         return mod;

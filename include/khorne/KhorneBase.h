@@ -31,36 +31,36 @@ namespace Khorne {
         None,
 
         // Khorne Mortals
-        Arch_Slaughterer,
-        Unrivalled_Battle_Lust,
-        Slaughterborn,
-        Hungry_For_Glory,
-        Berserker_Lord,
-        Violent_Urgency,
+        Arch_Slaughterer,           // Yes
+        Unrivalled_Battle_Lust,     // TODO
+        Slaughterborn,              // Yes
+        Hungry_For_Glory,           // Yes
+        Berserker_Lord,             // Yes
+        Violent_Urgency,            // Yes
 
         // Khorne Bloodbound
         //Arch_Slaughterer,
         //Unrivalled_Battle_Lust,
         //Slaughterborn,
-        Mark_Of_The_Cannibal,
-        Bloodsworn,
-        Disciple_Of_Khorne,
+        Mark_Of_The_Cannibal,       // Yes
+        Bloodsworn,                 // TODO
+        Disciple_Of_Khorne,         // Yes
 
         // Khorne Daemons
         //Arch_Slaughterer,
         //Unrivalled_Battle_Lust,
         //Slaughterborn,
-        Rage_Unchained,
-        Aspect_Of_Death,
-        Devastating_Blow,
+        Rage_Unchained,             // Yes
+        Aspect_Of_Death,            // TODO
+        Devastating_Blow,           // TODO
 
         // Slaughterhost specific
-        Mage_Eater, // Reapers
-        Slaughterers_Thirst,    // Bloodlords
-        Hew_The_Foe,    // Goretide
-        Master_Decapitator,  // Skullfiend
-        Vessel_Of_Butchery, // Flayed
-        Thirst_For_Carnage, // Baleful Lords
+        Mage_Eater,                 // Reapers TODO
+        Slaughterers_Thirst,        // Bloodlords
+        Hew_The_Foe,                // Goretide
+        Master_Decapitator,         // Skullfiend
+        Vessel_Of_Butchery,         // Flayed
+        Thirst_For_Carnage,         // Baleful Lords
     };
 
     enum class Artefact : int {
@@ -167,7 +167,25 @@ namespace Khorne {
 
         void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
 
+        void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
+
         void onBeginTurn(int battleRound) override;
+
+        Rerolls chargeRerolls() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        void onEndCombat(PlayerId player) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls prayerRerolls() const override;
+
+        int chargeModifier() const override;
+
+        int moveModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
         bool selectBloodTitheReward(BloodTitheReward& selectedReward);
@@ -208,6 +226,16 @@ namespace Khorne {
 //    Skull Hunters                 Yes
 //    For the Brass Citadel         TODO
 //    Master Decapitator            TODO
+// The Flayed
+//    Blood-woken Runes             TODO
+//    Wrathspeaker                  TODO
+//    Vessel of Butchery            TODO
+//    The Slaughter Helm            TODO
+// The Baleful Lords
+//    Unbound Slaughter             TODO
+//    Frenzied Annihilator          TODO
+//    Thirst for Carnage            TODO
+//    Blass Brass Crown             TODO
 // Blood for the Blood God          TODO
 //    Bloody Exemplar               Yes
 //    Spelleater Curse              TODO

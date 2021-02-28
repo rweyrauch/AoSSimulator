@@ -166,7 +166,7 @@ namespace Khorne {
 
     Rerolls Bloodletters::chargeRerolls() const {
         if (isNamedModelAlive(Model::StandardBearer)) return Reroll_Failed;
-        return Unit::chargeRerolls();
+        return KhorneBase::chargeRerolls();
     }
 
     Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit) {

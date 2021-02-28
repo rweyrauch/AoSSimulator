@@ -27,7 +27,14 @@ bool Prayer::pray(Unit *target, int round) {
 
     bool result = false;
 
-    const int prayingRoll = Dice::RollD6();
+    const auto reroll = m_priest->prayerRerolls();
+    int prayingRoll = Dice::RollD6();
+    if ((prayingRoll == 1) && (reroll == Reroll_Ones)) {
+        prayingRoll = Dice::RollD6();
+    }
+    else if ((prayingRoll < m_prayingValue) && (reroll == Reroll_Failed)) {
+        prayingRoll = Dice::RollD6();
+    }
     if (prayingRoll >= m_prayingValue) {
         result = apply(prayingRoll, target);
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {
@@ -50,7 +57,14 @@ bool Prayer::pray(double x, double y, int round) {
 
     bool result = false;
 
-    const int prayingRoll = Dice::RollD6();
+    const auto reroll = m_priest->prayerRerolls();
+    int prayingRoll = Dice::RollD6();
+    if ((prayingRoll == 1) && (reroll == Reroll_Ones)) {
+        prayingRoll = Dice::RollD6();
+    }
+    else if ((prayingRoll < m_prayingValue) && (reroll == Reroll_Failed)) {
+        prayingRoll = Dice::RollD6();
+    }
     if (prayingRoll >= m_prayingValue) {
         result = apply(prayingRoll, x, y);
     } else if ((prayingRoll == 1) && (m_damageOn1 != 0)) {

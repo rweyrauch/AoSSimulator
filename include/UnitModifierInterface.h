@@ -137,6 +137,8 @@ public:
 
     [[nodiscard]] virtual Rerolls unbindingRerolls() const { return No_Rerolls; }
 
+    [[nodiscard]] virtual Rerolls prayerRerolls() const { return No_Rerolls; }
+
     [[nodiscard]] virtual int woundModifier() const { return 0; }
 
     [[nodiscard]] virtual int moveModifier() const { return 0; }

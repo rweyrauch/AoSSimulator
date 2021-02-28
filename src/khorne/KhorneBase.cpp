@@ -97,10 +97,15 @@ namespace Khorne {
                 }
             }
         }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hungry_For_Glory)) {
+            if (target->hasKeyword(MONSTER) || target->hasKeyword(HERO)) {
+                return Reroll_Failed;
+            }
+        }
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
+    Rerolls KhorneBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Skull Hunters
         if (m_slaughterHost == SlaughterHost::Skullfiend_Tribe) {
             if (hasKeyword(MORTAL)) {
@@ -123,7 +128,17 @@ namespace Khorne {
                 }
             }
         }
-        return Unit::toHitRerolls(weapon, unit);
+
+        if (isGeneral() && (weapon->isMelee() && (m_commandTrait == CommandTrait::Slaughterborn))) {
+            return Reroll_Failed;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hungry_For_Glory)) {
+            if (target->hasKeyword(MONSTER) || target->hasKeyword(HERO)) {
+                return Reroll_Failed;
+            }
+        }
+
+        return Unit::toHitRerolls(weapon, target);
     }
 
     std::string KhorneBase::ValueToString(const Parameter &parameter) {
@@ -326,6 +341,111 @@ namespace Khorne {
                 }
             }
         }
+    }
+
+    void KhorneBase::onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) {
+        Unit::onEnemyModelSlain(numSlain, enemyUnit, source);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Arch_Slaughterer)) {
+            if ((source == Wounds::Source::Weapon_Melee) && ((enemyUnit->hasKeyword(MONSTER)) || (enemyUnit->hasKeyword(HERO)))) {
+                // Get an extra Blood Tithe point for MONSTERS and HEROS.
+                getRoster()->incrementResource(1);
+            }
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Master_Decapitator)) {
+            if (enemyUnit->hasKeyword(HERO)) {
+                // Get an extra Blood Tithe point for HEROS.
+                getRoster()->incrementResource(1);
+            }
+        }
+    }
+
+    Rerolls KhorneBase::chargeRerolls() const {
+        auto general = getRoster()->getGeneral();
+        if (general && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
+            auto khorne = dynamic_cast<KhorneBase*>(general);
+            if (khorne && (khorne->m_commandTrait == CommandTrait::Violent_Urgency)) {
+                return Reroll_Failed;
+            }
+        }
+        if (isGeneral() && hasKeyword(BLOODLORDS) && (m_commandTrait == CommandTrait::Slaughterers_Thirst)) {
+            return Reroll_Failed;
+        }
+        return Unit::chargeRerolls();
+    }
+
+    Wounds KhorneBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = wounds;
+        if (isGeneral() && (m_commandTrait == CommandTrait::Berserker_Lord)) {
+            totalWounds = ignoreWounds(totalWounds, 5);
+        }
+        return Unit::applyWoundSave(totalWounds, attackingUnit);
+    }
+
+    void KhorneBase::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Mark_Of_The_Cannibal) && (m_currentRecord.m_enemyModelsSlain > 0)) {
+            heal(1);
+        }
+    }
+
+    int KhorneBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Disciple_Of_Khorne)) {
+            attacks += 2;
+        }
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Rage_Unchained)) {
+            attacks += 1;
+        }
+
+        return attacks;
+    }
+
+    Rerolls KhorneBase::prayerRerolls() const {
+        if (hasKeyword(FLAYED) && hasKeyword(PRIEST)) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && (distanceTo(general) < 8.0)) {
+                auto khorne = dynamic_cast<KhorneBase*>(general);
+                if (khorne && (khorne->m_commandTrait == CommandTrait::Vessel_Of_Butchery)) {
+                    return Reroll_Ones;
+                }
+            }
+        }
+        return Unit::prayerRerolls();
+    }
+
+    int KhorneBase::chargeModifier() const {
+        auto mod = Unit::chargeModifier();
+        if (hasKeyword(BALEFUL_LORDS) && hasKeyword(BLOODTHIRSTER)) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && (distanceTo(general) < 8.0)) {
+                auto khorne = dynamic_cast<KhorneBase*>(general);
+                if (khorne && (khorne->m_commandTrait == CommandTrait::Thirst_For_Carnage)) {
+                    mod++;
+                }
+            }
+        }
+        return mod;
+    }
+
+    int KhorneBase::moveModifier() const {
+        auto mod = Unit::moveModifier();
+
+        if (isGeneral() && hasKeyword(BLOODLORDS) && (m_commandTrait == CommandTrait::Slaughterers_Thirst)) {
+            mod += 4;
+        }
+        return mod;
+    }
+
+    Wounds KhorneBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+
+        if (isGeneral() && weapon->isMelee() && hasKeyword(GORETIDE) && (m_commandTrait == CommandTrait::Hew_The_Foe)) {
+            damage.normal++;
+        }
+        return damage;
     }
 
     void Init() {

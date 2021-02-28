@@ -102,7 +102,7 @@ namespace Khorne {
     }
 
     void Karanak::onUnboundSpell(Unit *caster, int castRoll) {
-        Unit::onUnboundSpell(caster, castRoll);
+        KhorneBase::onUnboundSpell(caster, castRoll);
 
         // Brass Collar of Bloody Vengeance
         caster->applyDamage({0, Dice::RollD3()}, this);

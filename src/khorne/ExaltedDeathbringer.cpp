@@ -121,7 +121,7 @@ namespace Khorne {
     }
 
     int ExaltedDeathbringer::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = KhorneBase::extraAttacks(attackingModel, weapon, target);
 
         // Blooded Lieutenant
         if (!isGeneral()) {
@@ -154,7 +154,7 @@ namespace Khorne {
         if ((woundRoll == 6) && (weapon->name() == m_impalingSpear.name())) {
             return {weapon->damage(), Dice::RollD3()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Wounds ExaltedDeathbringer::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
@@ -162,7 +162,7 @@ namespace Khorne {
         if ((saveRoll == 6) && (m_weaponOption == Ruinous_Axe_And_Skullgouger)) {
             return {0, Dice::RollD3()};
         }
-        return Unit::computeReturnedDamage(weapon, saveRoll);
+        return KhorneBase::computeReturnedDamage(weapon, saveRoll);
     }
 
     int ExaltedDeathbringer::ComputePoints(int /*numModels*/) {

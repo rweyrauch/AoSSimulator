@@ -169,7 +169,7 @@ namespace Khorne {
     }
 
     Wounds VorgarothAndSkalok::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return KhorneBase::applyWoundSave(wounds, attackingUnit);
     }
 
     int VorgarothAndSkalok::ComputePoints(int /*numModels*/) {

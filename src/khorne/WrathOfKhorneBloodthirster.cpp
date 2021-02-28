@@ -147,7 +147,7 @@ namespace Khorne {
                 return {0, Dice::RollD3()};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int WrathOfKhorneBloodthirster::ComputePoints(int /*numModels*/) {

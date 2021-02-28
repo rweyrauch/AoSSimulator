@@ -96,7 +96,7 @@ namespace Khorne {
     }
 
     void Skullgrinder::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        KhorneBase::onEndCombat(player);
 
         // Fiery Anvil
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 2.0);

@@ -76,7 +76,7 @@ namespace Khorne {
         if (m_charged && (weapon->name() == m_slaupnir.name())) {
             return {RAND_D3, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int ValkiaTheBloody::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
@@ -84,7 +84,7 @@ namespace Khorne {
         if (!weapon->isMissile()) {
             return -1;
         }
-        return Unit::targetWoundModifier(weapon, attacker);
+        return KhorneBase::targetWoundModifier(weapon, attacker);
     }
 
     int ValkiaTheBloody::ComputePoints(int /*numModels*/) {
