@@ -55,6 +55,9 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        unit->setNarcotic(drug);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;

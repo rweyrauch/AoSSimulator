@@ -11,6 +11,7 @@
 #include <spells/MysticShield.h>
 #include <stormcast/StormcastSpells.h>
 #include <Board.h>
+#include <Roster.h>
 #include "UnitFactory.h"
 #include "StormcastEternalsPrivate.h"
 
@@ -120,6 +121,13 @@ namespace StormcastEternals {
         // Thunderhead Crown
         if (player == owningPlayer()) {
             heal(1);
+        }
+
+        // The Magister of Hammerhal
+        if (m_battleRound == 1) {
+            if (isGeneral() && (hasKeyword(HAMMERHAL))) {
+                getRoster()->addCommandPoints(1);
+            }
         }
     }
 

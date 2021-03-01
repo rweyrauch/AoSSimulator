@@ -993,9 +993,6 @@ enum Keyword {
     ZAITREC,
     YMETRICA,
 
-    // Internally Used Lumineth
-    Sunmetal_Weapons,
-
     // Sons of Behemat
     MANCRUSHER,
     MEGA_GARGANT,
@@ -1016,6 +1013,11 @@ enum Keyword {
     SCARLET_CAVALCADE_GODSEEKERS_HOST,
     LEGION_OF_THE_FIRST_PRINCE,
     KNIGHTS_OF_THE_EMPTY_THRONE,
+
+    // Internally Used
+    Sunmetal_Weapons,   // Lumineth
+    Banners,
+
 };
 
 Keyword GrandAllianceStringToKeyword(const std::string &allianceName);

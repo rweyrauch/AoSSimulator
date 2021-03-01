@@ -7,6 +7,8 @@
  */
 
 #include <magic_enum.hpp>
+#include <Board.h>
+#include "Roster.h"
 #include "citiesofsigmar/CitiesOfSigmar.h"
 
 #include "citiesofsigmar/Anointed.h"
@@ -201,6 +203,31 @@ namespace CitiesOfSigmar {
         if ((owningPlayer() == player) && (m_city == City::Living_City)) {
             heal(1);
         }
+
+        // Banners Held High
+        if ((owningPlayer() == player) && (m_city == City::Hammerhal)) {
+            if (m_battleRound != m_bannersHeldHigh) {
+                auto units = Board::Instance()->getAllUnits(owningPlayer());
+                int numBanners = 0;
+                for (auto unit : units) {
+                    if (unit->hasKeyword(Banners)) {
+                        numBanners++;
+                    }
+                }
+                Dice::RollResult rolls;
+                Dice::RollD6(numBanners, rolls);
+                getRoster()->addCommandPoints(rolls.rollsGE(6));
+                m_bannersHeldHigh = m_battleRound;
+            }
+        }
+    }
+
+    bool CitizenOfSigmar::battleshockRequired() const {
+        // The Pride of Hammerhal
+        if (hasKeyword(HAMMERHAL) && Board::Instance()->isUnitWithinDeploymentZone(this, owningPlayer())) {
+            return false;
+        }
+        return Unit::battleshockRequired();
     }
 
     void Init() {

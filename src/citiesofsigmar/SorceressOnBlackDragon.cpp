@@ -55,6 +55,9 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        unit->setNarcotic(drug);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(weapon, lore);

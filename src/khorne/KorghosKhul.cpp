@@ -118,5 +118,10 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
+    void KorghosKhul::onEndCombat(PlayerId player) {
+
+        KhorneBase::onEndCombat(player);
+    }
+
 
 } // namespace Khorne

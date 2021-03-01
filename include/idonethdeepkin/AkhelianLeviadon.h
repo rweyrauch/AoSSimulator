@@ -40,6 +40,8 @@ namespace IdonethDeepkin {
         int voidDrumSaveMod(const Unit *unit, const Weapon *weapon);
         int voidDrumToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
+        void onCharged() override;
+
     private:
 
         lsignal::slot m_voidDrumSaveSlot,
@@ -56,7 +58,7 @@ namespace IdonethDeepkin {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Crushing Charge                  TODO
+// Crushing Charge                  Yes
 // Jaws of Death                    Yes
 // Void Drum                        Yes
 //

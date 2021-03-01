@@ -209,12 +209,16 @@ namespace CitiesOfSigmar {
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
         void onStartHero(PlayerId player) override;
 
+        bool battleshockRequired() const override;
+
     protected:
 
         City m_city = City::Hammerhal;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
         Narcotic m_narcotic = Narcotic::None;
+
+        int m_bannersHeldHigh = 0;
     };
 
 //
@@ -224,9 +228,9 @@ namespace CitiesOfSigmar {
 // Loyal Shields                    TODO
 // Wise Council                     TODO
 // Hammerhal
-//    Banners Held High             TODO
-//    The Magister of Hammerhal     TODO
-//    The Pride of Hammerhal        TODO
+//    Banners Held High             Yes
+//    The Magister of Hammerhal     Yes
+//    The Pride of Hammerhal        Yes
 //    Righteous Purpose             TODO
 // Living City
 //    Hunters of the Hidden Paths   TODO

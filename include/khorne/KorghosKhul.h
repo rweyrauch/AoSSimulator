@@ -31,6 +31,8 @@ namespace Khorne {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
+        void onEndCombat(PlayerId player) override;
+
     private:
 
         Weapon m_axeOfKhorne,

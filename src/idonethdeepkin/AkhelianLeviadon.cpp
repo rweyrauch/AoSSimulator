@@ -157,4 +157,18 @@ namespace IdonethDeepkin {
         return mod;
     }
 
+    void AkhelianLeviadon::onCharged() {
+        // Crushing Charge
+        if (meleeTarget() && (distanceTo(meleeTarget()) <= 1.0)) {
+            if (Dice::RollD6() >= 2) {
+                Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Ability};
+                if (meleeTarget()->wounds() == 1) {
+                    wounds.mortal = Dice::RollD6();
+                }
+                meleeTarget()->applyDamage(wounds, this);
+            }
+        }
+        IdonethDeepkinBase::onCharged();
+    }
+
 } //namespace IdonethDeepkin
