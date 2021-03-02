@@ -70,6 +70,8 @@ public:
 
     bool isUnitWithinDeploymentZone(const Unit* unit, PlayerId which) const;
 
+    bool isModelWithinDeploymentZone(const Model* model, PlayerId which) const;
+
     void setRealm(Realm realm) {
         m_realm = realm;
     }

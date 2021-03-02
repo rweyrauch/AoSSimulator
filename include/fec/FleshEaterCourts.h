@@ -159,6 +159,10 @@ namespace FleshEaterCourt {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
+
+        void onStartHero(PlayerId player) override;
+
     protected:
 
         GrandCourt m_grandCourt = GrandCourt::None;
@@ -173,28 +177,28 @@ namespace FleshEaterCourt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Feeding Frenzy                   TODO
-// Deathless Coutiers               TODO
+// Deathless Coutiers               Yes
 // Delusion
-//    Crusading Army                TODO
-//    The Royal Hunt                TODO
+//    Crusading Army                Yes
+//    The Royal Hunt                Yes
 //    The Feast Day                 TODO
-//    A Matter of Honour            TODO
-//    The Grand Tournament          TODO
-//    Defenders of the Realm        TODO
+//    A Matter of Honour            Yes
+//    The Grand Tournament          Yes
+//    Defenders of the Realm        Yes
 // Mourgaunt
-//    Blood Loyalty                 TODO
+//    Blood Loyalty                 Yes
 //    Heaving Masses                TODO
-//    Savage Chivalry               TODO
+//    Savage Chivalry               Yes
 // Hollowmourne
-//    Shattering Charge             TODO
+//    Shattering Charge             Yes
 //    Ravenous Crusaders            TODO
 //    Grave Robber                  TODO
 // Blisterskin
-//    Blistering Speed              TODO
+//    Blistering Speed              Yes
 //    Lords of the Burning Skies    TODO
-//    Hellish Orator                TODO
+//    Hellish Orator                Yes
 // Gristlegore
-//    Peerless Ferocity             TODO
+//    Peerless Ferocity             Yes
 //    Call to War                   TODO
 //    Savage Strike                 TODO
 //

@@ -514,3 +514,8 @@ bool Board::isUnitWithinDeploymentZone(const Unit *unit, PlayerId player) const 
     // TODO: implement this based on location of deployment zones
     return false;
 }
+
+bool Board::isModelWithinDeploymentZone(const Model *model, PlayerId which) const {
+    // TODO: implement this based on location of deployment zones
+    return false;
+}

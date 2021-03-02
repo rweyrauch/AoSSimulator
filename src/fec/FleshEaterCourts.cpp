@@ -9,6 +9,7 @@
 #include <magic_enum.hpp>
 #include <fec/FleshEaterCourts.h>
 #include <Board.h>
+#include <Roster.h>
 
 #include "fec/CryptHorrors.h"
 #include "fec/CryptGhouls.h"
@@ -49,6 +50,15 @@ namespace FleshEaterCourt {
                     if (ip->hasKeyword(MORGAUNT) && ip->hasKeyword(SERFS)) {
                         return Reroll_Ones;
                     }
+                }
+            }
+        }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Savage_Chivalry)) {
+            auto serfs = Board::Instance()->getUnitsWithKeyword(owningPlayer(), SERFS);
+            for (auto serf : serfs) {
+                if (distanceTo(serf) < 12.0) {
+                    return Reroll_Ones;
                 }
             }
         }
@@ -192,6 +202,31 @@ namespace FleshEaterCourt {
                 break;
             default:
                 break;
+        }
+    }
+
+    Rerolls FleshEaterCourts::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+        if (m_delusion == Delusion::Defenders_Of_The_Realm) {
+            // Defenders of the Realm
+            int numModelsIn = 0;
+            for (const auto& model : m_models) {
+                if (Board::Instance()->isModelWithinDeploymentZone(model.get(), owningPlayer())) {
+                    numModelsIn++;
+                }
+            }
+            if (numModelsIn >= remainingModels()/2)
+                return Reroll_Ones;
+        }
+        return Unit::toSaveRerolls(weapon, attacker);
+    }
+
+    void FleshEaterCourts::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Hellish_Orator)) {
+            if (Dice::RollD6() >= 4) {
+                getRoster()->addCommandPoints(1);
+            }
         }
     }
 
