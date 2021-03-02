@@ -157,12 +157,20 @@ namespace DaughtersOfKhaine {
         int weaponRend(const Weapon *weapon, const Unit *target,
                        int hitRoll, int woundRoll) const override;
 
+        void onEndCombat(PlayerId player) override;
+
+        void onEndMovement(PlayerId player) override;
+
+        void onRestore() override;
+
     protected:
 
         Temple m_temple = Temple::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
         int m_bloodRiteModifier = 0;
+
+        bool m_usedCirclingFlock = false;
     };
 
 //
@@ -177,33 +185,33 @@ namespace DaughtersOfKhaine {
 //    Unquenchable Fervour          Yes
 // Hagg Nar
 //   Daughters of the First Temple  Yes
-//   Devoted Disciple               TODO
+//   Devoted Disciple               Yes
 //   Send Forth the Cauldrons       TODO
 //   The Ulfuri                     TODO
 // Draichi Ganeth
 //   Bladed Killers                 Yes
-//   Victor Of Yaithril             TODO
+//   Victor Of Yaithril             Yes
 //   Death's Kiss                   TODO
 //   A Thousand Bladeforms          Yes
 // The Kraith
-//   Disciples of Slaughter         TODO
+//   Disciples of Slaughter         Yes
 //   Venom of Nagendra              TODO
 //   Bathe in Their Blood           TODO
 //   Inspired by Carnage            Yes
 // Khailebron
 //   Concealment and Stealth        Yes
-//   Mistress of Illusion           TODO
+//   Mistress of Illusion           Yes
 //   Whisperdeath                   TODO
 //   Masters of the Shadowpaths     TODO
 // Khelt Nar
 //   Strike and Fade                Yes
-//   The Circling Flock             TODO
+//   The Circling Flock             Yes
 //   Gaisas FalX                    TODO
 //   Bleed the Mind                 TODO
 // Zainthar Kai
 //   Khaine's Essence               Yes
 //   Vault of the First Brood       TODO
-//   Curse of the Bloody-Handed     TODO
+//   Curse of the Bloody-Handed     Yes
 //   Power in the Blood             Yes
 //   Crimson Talisman               TODO
 //

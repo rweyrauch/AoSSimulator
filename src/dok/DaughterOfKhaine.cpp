@@ -7,6 +7,8 @@
  */
 #include <dok/DaughterOfKhaine.h>
 #include <magic_enum.hpp>
+#include <Board.h>
+#include <Roster.h>
 
 #include "dok/WitchAelves.h"
 #include "dok/BloodSisters.h"
@@ -86,13 +88,27 @@ namespace DaughtersOfKhaine {
         // Concealment and Stealth
         if (hasKeyword(KHAILEBRON) && weapon->isMissile()) mod--;
 
+        // Mistress of Illusion
+        if (isGeneral() && (m_commandTrait == CommandTrait::Mistress_Of_Illusion) && weapon->isMelee()) {
+            mod--;
+        }
         return mod;
     }
 
     Wounds DaughterOfKhaine::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
         auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+
+        int ignoreOnRoll = 6;
+
+        // Devoted Disciple
+        if (hasKeyword(HAGG_NAR)) {
+            auto general = getRoster()->getGeneral();
+            if (general && general->hasKeyword(HAGG_NAR) && (general->remainingModels() > 0) && (distanceTo(general) < 12)) {
+                ignoreOnRoll = 5;
+            }
+        }
         // Fanatical Faith
-        return ignoreWounds(totalWounds, 6);
+        return ignoreWounds(totalWounds, ignoreOnRoll);
     }
 
     std::string DaughterOfKhaine::ValueToString(const Parameter &parameter) {
@@ -190,6 +206,14 @@ namespace DaughtersOfKhaine {
         if ((m_temple == Temple::Zainthar_Kai) && (hasKeyword(MELUSAI) || hasKeyword(KHINERAI_HARPIES))) {
             mod++;
         }
+
+        // Victor of Yaith'ril
+        if (m_temple == Temple::Draichi_Ganeth) {
+            auto general = getRoster()->getGeneral();
+            if (general && general->hasKeyword(DRAICHI_GANETH) && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
+                mod++;
+            }
+        }
         return mod;
     }
 
@@ -210,6 +234,51 @@ namespace DaughtersOfKhaine {
         }
         if (isGeneral()) {
             m_trait = CreateCommandTrait(m_commandTrait, this);
+        }
+    }
+
+    void DaughterOfKhaine::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
+
+        // Diciples of Slaughter
+        if ((m_temple == Temple::The_Kraith) && m_hasFought) {
+            if (Dice::RollD6() >= 5) {
+                int numSlain = 0;
+                fight(-1, meleeTarget(), numSlain);
+            }
+        }
+
+        // Curse of the Bloody Handed
+        if (isGeneral() && (m_commandTrait == CommandTrait::Curse_Of_The_Bloody_Handed)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+            for (auto unit : units) {
+                unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+            }
+        }
+    }
+
+    void DaughterOfKhaine::onRestore() {
+        Unit::onRestore();
+        m_usedCirclingFlock = false;
+    }
+
+    void DaughterOfKhaine::onEndMovement(PlayerId player) {
+        Unit::onEndMovement(player);
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (m_commandTrait == CommandTrait::The_Circling_Flock) && !m_usedCirclingFlock) {
+                // Summon Khinerai Harpies
+                std::string unitName = (Dice::RollD6() > 3) ? "Khinerai Lifetakers" : "Khinerai Heartrenders";
+                auto factory = UnitFactory::LookupUnit(unitName);
+                if (factory) {
+                    if (m_roster) {
+                        auto unit = std::shared_ptr<Unit>(UnitFactory::Create(unitName, factory->m_parameters));
+                        unit->deploy(position(), orientation());
+                        m_roster->addUnit(unit);
+                    }
+                    m_usedCirclingFlock = true;
+                }
+            }
         }
     }
 
