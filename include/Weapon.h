@@ -10,6 +10,7 @@
 #include <string>
 #include <AgeOfSigmarSim.h>
 #include <Dice.h>
+#include <bitset>
 
 struct Hits {
     Hits(int n, const Dice::RollResult &r) : m_numHits(n), m_rolls(r) {}
@@ -32,6 +33,11 @@ public:
     enum class Type {
         Missile,
         Melee
+    };
+
+    enum FlagBit {
+        Artefact = 0,
+        Preferred,
     };
 
     Weapon() = default;
@@ -89,6 +95,16 @@ public:
 
     bool isActive() const { return m_isActive; }
 
+    void setFlag(FlagBit bit) {
+        m_flags.set(bit);
+    }
+    void clearFlag(FlagBit bit) {
+        m_flags.reset(bit);
+    }
+    bool isFlagSet(FlagBit bit) const {
+        return m_flags[bit];
+    }
+
     // Returns/computes the weapon's relative 'strength' heuristic.  The larger the 'strength'
     // value the more powerful the weapon is.
     double strength() const;
@@ -112,6 +128,8 @@ private:
 
     int m_hitsPerAttack = 1;
     bool m_isActive = true;
+
+    std::bitset<64> m_flags;
 
     mutable double m_strength = -1.0;
 };

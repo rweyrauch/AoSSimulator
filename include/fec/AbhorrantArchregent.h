@@ -44,7 +44,7 @@ namespace FleshEaterCourt {
 // -------------------------------------------
 // Imperial Blood                   Yes
 // Ferocious Hunger                 Yes
-// Summon Imperial Guard            TODO
+// Summon Imperial Guard            Yes
 //
 
 } // namespace FleshEaterCourt

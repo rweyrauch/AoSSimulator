@@ -91,4 +91,21 @@ namespace FleshEaterCourt {
         return g_pointsPerUnit;
     }
 
+    void CryptGhastCourtier::onStartHero(PlayerId playerId) {
+        FleshEaterCourts::onStartHero(playerId);
+
+        // Muster Serf
+        auto courtiers = Board::Instance()->getUnitsWithKeyword(owningPlayer(), CRYPT_GHAST_COURTIER);
+        Dice::RollResult rolls;
+        for (auto c = 0u; c < courtiers.size(); c++) {
+            Dice::RollD6(6, rolls);
+            auto serfs = Board::Instance()->getUnitsWithKeyword(owningPlayer(), SERFS);
+            for (auto serf : serfs) {
+                if (Board::Instance()->getUnitWithKeyword(serf, owningPlayer(), CRYPT_GHAST_COURTIER, 10.0)) {
+                    serf->returnModels(rolls.rollsGE(2));
+                }
+            }
+        }
+    }
+
 } // namespace FleshEaterCourt

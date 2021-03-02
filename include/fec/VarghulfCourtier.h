@@ -30,6 +30,8 @@ namespace FleshEaterCourt {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_immenseClaws,
@@ -42,9 +44,9 @@ namespace FleshEaterCourt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Feed on Dark Magic               TODO
-// King;s Champion                  TODO
+// King's Champion                  TODO
 // Victory Feast                    TODO
-// Muster Royal Household           TODO
+// Muster Royal Household           Yes
 //
 
 } // namespace FleshEaterCourt

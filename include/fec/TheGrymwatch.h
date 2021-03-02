@@ -28,6 +28,10 @@ namespace FleshEaterCourt {
 
         bool configure();
 
+    protected:
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_weaponsAndClaws,
@@ -39,8 +43,8 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Royal Retinue                    TODO
-// Quest to Slay the Monster        TODO
+// Royal Retinue                    Yes (see DukeCrackmarrow)
+// Quest to Slay the Monster        Yes
 //
 
 } // namespace FleshEaterCourt

@@ -27,6 +27,14 @@ namespace FleshEaterCourt {
 
         bool configure();
 
+    protected:
+
+        void onStartHero(PlayerId player) override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_halberd;
@@ -37,8 +45,8 @@ namespace FleshEaterCourt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Gallant Champion                 TODO
-// Muster the Grymwatch             TODO
+// Gallant Champion                 Yes
+// Muster the Grymwatch             Yes
 //
 
 } // namespace FleshEaterCourt

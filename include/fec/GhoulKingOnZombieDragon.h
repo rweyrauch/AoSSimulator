@@ -58,7 +58,7 @@ namespace FleshEaterCourt {
 // Pestilential Breath              Yes
 // Royal Blood                      Yes
 // Malefic Hunger                   Yes
-// Summon Courtier                  TODO
+// Summon Courtier                  Yes
 //
 
 } // namespace FleshEaterCourt

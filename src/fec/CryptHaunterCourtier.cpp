@@ -88,10 +88,23 @@ namespace FleshEaterCourt {
     }
 
     void CryptHaunterCourtier::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        FleshEaterCourts::onStartHero(player);
 
         // Noble Blood
         if (owningPlayer() == player) heal(1);
+
+        // Muster King's Chosen
+        auto courtiers = Board::Instance()->getUnitsWithKeyword(owningPlayer(), CRYPT_HAUNTER_COURTIER);
+        Dice::RollResult rolls;
+        for (auto c = 0u; c < courtiers.size(); c++) {
+            Dice::RollD6(6, rolls);
+            auto horrors = Board::Instance()->getUnitsWithKeyword(owningPlayer(), CRYPT_HORRORS);
+            for (auto horror : horrors) {
+                if (Board::Instance()->getUnitWithKeyword(horror, owningPlayer(), CRYPT_HAUNTER_COURTIER, 10.0)) {
+                    horror->returnModels(rolls.rollsGE(5));
+                }
+            }
+        }
     }
 
     Rerolls CryptHaunterCourtier::toHitRerolls(const Weapon *weapon, const Unit *target) const {

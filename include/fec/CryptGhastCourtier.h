@@ -30,6 +30,8 @@ namespace FleshEaterCourt {
 
     protected:
 
+        void onStartHero(PlayerId playerId) override;
+
     private:
 
         Weapon m_boneClub,
@@ -42,7 +44,7 @@ namespace FleshEaterCourt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Trophy Hunter                    TODO
-// Muster Serfs                     TODO
+// Muster Serfs                     Yes
 //
 
 } // namespace FleshEaterCourt

@@ -25,6 +25,7 @@ namespace Abilities {
         AreaOfEffectDamage,
         Heal,
         Buff,
-        Debuff
+        Debuff,
+        Summon
     };
 }

@@ -47,7 +47,7 @@ namespace FleshEaterCourt {
 // -------------------------------------------
 // Noble Blood                      Yes
 // Chosen of the King               Yes
-// Muster King's Chosen             TODO
+// Muster King's Chosen             Yes
 //
 
 } // namespace FleshEaterCourt

@@ -74,4 +74,35 @@ namespace FleshEaterCourt {
         return g_pointsPerUnit;
     }
 
+    void DukeCrakmarrow::onStartHero(PlayerId player) {
+        FleshEaterCourts::onStartHero(player);
+
+        // Muster the Grymwatch
+        auto grymwatch = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), GRYMWATCH, 3.0);
+        if (grymwatch) {
+            Dice::RollResult rolls;
+            Dice::RollD6(6, rolls);
+            grymwatch->returnModels(rolls.rollsGE(4));
+        }
+    }
+
+    Wounds DukeCrakmarrow::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto grymwatch = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), GRYMWATCH, 3.0);
+        if (grymwatch) {
+            if (Dice::RollD6() >= 4) {
+                grymwatch->applyDamage(wounds, attackingUnit);
+                return {0, 0, wounds.source};
+            }
+        }
+        return FleshEaterCourts::applyWoundSave(wounds, attackingUnit);
+    }
+
+    Wounds DukeCrakmarrow::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Gallent Champion
+        if (target->hasKeyword(MONSTER)) {
+            return {weapon->damage()+1, 0, Wounds::Source::Weapon_Melee};
+        }
+        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
 } // namespace FleshEaterCourt

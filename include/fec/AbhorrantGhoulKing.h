@@ -44,7 +44,7 @@ namespace FleshEaterCourt {
 // -------------------------------------------
 // Royal Blood                      Yes
 // Black Hunger                     Yes
-// Summon Men-at-arms               TODO
+// Summon Men-at-arms               Yes
 //
 
 } // namespace FleshEaterCourt

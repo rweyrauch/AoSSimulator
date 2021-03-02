@@ -10,6 +10,7 @@
 #include <Board.h>
 #include <spells/MysticShield.h>
 #include "FleshEaterCourtsPrivate.h"
+#include "SummonAbility.h"
 
 namespace FleshEaterCourt {
 
@@ -86,6 +87,11 @@ namespace FleshEaterCourt {
         m_knownSpells.push_back(std::make_unique<UnholyVitality>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        SummonedUnitDesc unitDesc;
+        unitDesc.push_back({"Crypt Flayers", 3});
+        unitDesc.push_back({"Crypt Horrors", 3});
+        m_commandAbilities.push_back(std::make_unique<SummonAbility>(this, getRoster(), "Summon Royal Guard", unitDesc));
 
         m_points = g_pointsPerUnit;
 

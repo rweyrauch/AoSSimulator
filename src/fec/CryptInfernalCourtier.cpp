@@ -102,4 +102,21 @@ namespace FleshEaterCourt {
         return g_pointsPerUnit;
     }
 
+    void CryptInfernalCourtier::onStartHero(PlayerId playerId) {
+        FleshEaterCourts::onStartHero(playerId);
+
+        // Muster Royal Guard
+        auto courtiers = Board::Instance()->getUnitsWithKeyword(owningPlayer(), CRYPT_INFERNAL_COURTIER);
+        Dice::RollResult rolls;
+        for (auto c = 0u; c < courtiers.size(); c++) {
+            Dice::RollD6(6, rolls);
+            auto flayers = Board::Instance()->getUnitsWithKeyword(owningPlayer(), CRYPT_FLAYERS);
+            for (auto flayer : flayers) {
+                if (Board::Instance()->getUnitWithKeyword(flayer, owningPlayer(), CRYPT_INFERNAL_COURTIER, 10.0)) {
+                    flayer->returnModels(rolls.rollsGE(5));
+                }
+            }
+        }
+    }
+
 } // namespace FleshEaterCourt

@@ -10,6 +10,7 @@
 #include <Spell.h>
 #include <spells/MysticShield.h>
 #include "FleshEaterCourtsPrivate.h"
+#include "SummonAbility.h"
 
 namespace FleshEaterCourt {
     static const int g_basesize = 40;
@@ -37,6 +38,17 @@ namespace FleshEaterCourt {
                                                                     Abilities::Target::SelfAndFriendly, std::vector<Keyword>{FLESH_EATER_COURTS}));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        SummonedUnitDesc unitDesc;
+        unitDesc.push_back({"Crypt Ghouls", 20});
+        unitDesc.push_back({"Crypt Flayers", 3});
+        unitDesc.push_back({"Crypt Horrors", 3});
+        unitDesc.push_back({"Varghulf Courtier", 1});
+        unitDesc.push_back({"Crypt Ghast Courtier", 1});
+        unitDesc.push_back({"Crypt Infernal Courtier", 1});
+        unitDesc.push_back({"Crypt Haunter Courtier", 1});
+
+        m_commandAbilities.push_back(std::make_unique<SummonAbility>(this, getRoster(), "Summon Imperial Guard", unitDesc));
 
         m_points = g_pointsPerUnit;
 

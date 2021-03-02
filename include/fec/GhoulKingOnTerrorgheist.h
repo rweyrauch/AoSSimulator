@@ -62,7 +62,7 @@ namespace FleshEaterCourt {
 // Infested                         Yes
 // Royal Blood                      Yes
 // Unholy Vitality                  Yes
-// Summon Royal Guard               TODO
+// Summon Royal Guard               Yes
 //
 
 } // namespace FleshEaterCourt

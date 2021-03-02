@@ -32,6 +32,8 @@ namespace FleshEaterCourt {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onStartHero(PlayerId playerId) override;
+
     private:
 
         Weapon m_foetidBreath,
@@ -44,7 +46,7 @@ namespace FleshEaterCourt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Skewering Strike                 Yes
-// Muster Royal Guard               TODO
+// Muster Royal Guard               Yes
 //
 
 } // namespace FleshEaterCourt
