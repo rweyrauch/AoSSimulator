@@ -193,7 +193,7 @@ namespace SlavesToDarkness {
 //    Aura of Slaanesh              Yes
 //    Aura of Chaos Undivided       Yes
 // Eye of the Gods
-//    Dark Apotheosis               TODO
+//    Dark Apotheosis               Yes
 //    Daemonic Legions              Yes
 //    Unholy Resilience             Yes
 //    Snubbed by the Gods           Yes

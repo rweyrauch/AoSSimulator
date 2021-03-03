@@ -306,7 +306,33 @@ namespace SlavesToDarkness {
             if (hasKeyword(HERO) && hasKeyword(EYE_OF_THE_GODS) && hasKeyword(SLAVES_TO_DARKNESS)) {
                 auto roll = Dice::Roll2D6();
                 if ((roll >= 11) && !m_haveDarkApotheosis) {
-                    // Dark Apotheosis
+                    // Can heal D3 wounds to this hero or replace this hero with a Daemon Prince
+                    if (Dice::RollD6() > 5) {
+                        heal(Dice::RollD3());
+                    }
+                    else {
+                        // Dark Apotheosis
+                        auto factory = UnitFactory::LookupUnit("Daemon Prince");
+                        if (factory) {
+                            if (m_roster) {
+                                auto parameters = factory->m_parameters;
+                                for (auto &ip : parameters) {
+                                    if ((ip.paramType == ParamType::Enum) &&
+                                        (ip.name == std::string("Mark of Chaos"))) {
+                                        ip.intValue = (int) m_markOfChaos;
+                                    }
+                                }
+                                auto unit = std::shared_ptr<Unit>(UnitFactory::Create("Daemon Prince", parameters));
+                                unit->deploy(position(), orientation());
+                                m_roster->addUnit(unit);
+                            }
+                        }
+                        // TODO: This model is removed from play and replaced by the Daemon Prince.  The removed
+                        // hero does not count as having fled or been slain. (Add a deployed state?)
+                        m_models.front()->flee();
+
+                        // TODO: The new daemon prince has the same artefacts/spells/etc. as the hero being replaced.
+                    }
                     m_haveDarkApotheosis = true;
                 }
                 else if ((roll >= 9) && !m_haveDaemonicLegions) {

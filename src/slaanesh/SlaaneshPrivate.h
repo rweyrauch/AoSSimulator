@@ -33,19 +33,19 @@ namespace Slaanesh {
             ToInteger(CommandTrait::Hurler_Of_Obscenities),
             ToInteger(CommandTrait::Territorial),
             ToInteger(CommandTrait::Skin_Taker),
-            ToInteger(CommandTrait::Extra_Wound),
+            ToInteger(CommandTrait::Delusions_Of_Infallibility),
 
             // Pretenders
             ToInteger(CommandTrait::Strength_Of_Godhood),
             ToInteger(CommandTrait::Monarch_Of_Lies),
-            ToInteger(CommandTrait::True_Child_Of_Slaanesh),
+            ToInteger(CommandTrait::Craving_Stare),
             ToInteger(CommandTrait::Strongest_Alone),
             ToInteger(CommandTrait::Hunter_Of_Godbeasts),
             ToInteger(CommandTrait::Inspirer),
 
             // Godseekers
             ToInteger(CommandTrait::Hunter_Supreme),
-            ToInteger(CommandTrait::Thrill_Seeker),
+            ToInteger(CommandTrait::Sweeping_Slash),
             ToInteger(CommandTrait::Into_The_Fray),
             ToInteger(CommandTrait::Trail_Sniffer),
             ToInteger(CommandTrait::Symphoniac),

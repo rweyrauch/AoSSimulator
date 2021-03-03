@@ -34,19 +34,19 @@ namespace Slaanesh {
         Hurler_Of_Obscenities,
         Territorial,
         Skin_Taker,
-        Extra_Wound,
+        Delusions_Of_Infallibility,
 
         // Pretenders
         Strength_Of_Godhood,
         Monarch_Of_Lies,
-        True_Child_Of_Slaanesh,
+        Craving_Stare,
         Strongest_Alone,
         Hunter_Of_Godbeasts,
         Inspirer,
 
         // Godseekers
         Hunter_Supreme,
-        Thrill_Seeker,
+        Sweeping_Slash,
         Into_The_Fray,
         Trail_Sniffer,
         Symphoniac,
@@ -164,6 +164,22 @@ namespace Slaanesh {
 
         void onEndCombat(PlayerId player) override;
 
+        void onStartCombat(PlayerId player) override;
+
+        int woundModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls runRerolls() const override;
+
+        Rerolls battleshockRerolls() const override;
+
+        void onCharged() override;
+
+        void onBeginRound(int battleRound) override;
+
+        void onEndBattleshock(PlayerId player) override;
+
     protected:
 
         Host m_host = Host::Godseekers;
@@ -181,31 +197,43 @@ namespace Slaanesh {
 // Euphoric Killers                 Yes
 // Invaders
 //    Figureheads of the Dark Prince    TODO
-//    Escalating Havoc              TODO
-//    Best of the Best              TODO
-//    Glory Hog                     TODO
-//    Hurler of Obscenities         TODO
-//    Territorial                   TODO
+//    Escalating Havoc              Yes
+//    Best of the Best              Yes
+//    Glory Hog                     Yes
+//    Hurler of Obscenities         Yes
+//    Territorial                   Yes
 //    Skin-taker                    TODO
-//    Delusions of Infallibility    TODO
+//    Delusions of Infallibility    Yes
 // Pretenders
 //    Heir to the Throne            Yes
-//    Warlord Supreme               TODO
+//    Warlord Supreme               Yes
 //    Strength of Godhood           TODO
-//    Monarch of Lies               TODO
+//    Monarch of Lies               Yes
 //    Craving Stare                 TODO
-//    Strongest Alone               TODO
-//    Hunter of Godbeasts           TODO
-//    Inspirer                      TODO
+//    Strongest Alone               Yes
+//    Hunter of Godbeasts           Yes
+//    Inspirer                      Yes
 // Godseekers
 //    Thundering Cavalcade          Yes
-//    Maniacal Hunters              TODO
-//    Hunter Supreme                TODO
-//    Sweeping Slash                TODO
+//    Maniacal Hunters              Yes
+//    Hunter Supreme                Yes
+//    Sweeping Slash                Yes
 //    Into the Fray                 TODO
 //    Trail-sniffer                 TODO
 //    Symphoniac                    TODO
-//    Speed-chaser                  TODO
+//    Speed-chaser                  Yes
+// Lurid Haze
+//    Billowing Mists               TODO
+//    Feverish Anticipation         Yes
+//    Intoxicating Pall             TODO
+// Faultless Blades
+//    Contest of Cruelty            TODO
+//    Send Me Your Best             TODO
+//    Armour of Arrogance           TODO
+// Scarlet Cavalcade
+//    Excessive Swiftness           TODO
+//    Embodiment of Haste           Yes
+//    Vicious Spurs                 TODO
 //
 
     void Init();

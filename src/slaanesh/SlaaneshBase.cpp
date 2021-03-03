@@ -133,6 +133,21 @@ namespace Slaanesh {
         if ((m_host == Host::Pretenders) && (remainingModels() >= 10)) {
             return Reroll_Ones;
         }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Territorial) && Board::Instance()->isUnitWithinDeploymentZone(this, owningPlayer())) {
+            return Reroll_Failed;
+        }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hunter_Supreme) && charged()) {
+            return Reroll_Ones;
+        }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Strongest_Alone)) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6.0);
+            if (units.empty()) {
+                return Reroll_Failed;
+            }
+        }
         return Unit::toHitRerolls(weapon, target);
     }
 
@@ -170,6 +185,18 @@ namespace Slaanesh {
                 }
             }
         }
+
+        // Maniacal Hunters
+        if (isGeneral() && (m_host == Host::Godseekers) && charged()) {
+            getRoster()->incrementResource(Dice::RollD3());
+            auto units = Board::Instance()->getAllUnits(owningPlayer());
+            for (auto unit : units) {
+                if (unit->charged()) {
+                    getRoster()->incrementResource(1);
+                    break;
+                }
+            }
+        }
     }
 
     Rerolls SlaaneshBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
@@ -181,6 +208,10 @@ namespace Slaanesh {
                 }
             }
         }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hunter_Supreme) && charged()) {
+            return Reroll_Ones;
+        }
+
         return Unit::toWoundRerolls(weapon, target);
     }
 
@@ -202,6 +233,124 @@ namespace Slaanesh {
             }
         }
         Unit::onEndCombat(player);
+    }
+
+    void SlaaneshBase::onStartCombat(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hurler_Of_Obscenities)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0);
+            if (hero) {
+                hero->buffModifier(To_Save_Melee, -1, {Phase::Combat, m_battleRound, player});
+                hero->buffModifier(To_Hit_Melee, 1, {Phase::Combat, m_battleRound, player});
+            }
+        }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Monarch_Of_Lies)) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
+            if (hero) {
+                hero->buffModifier(To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+            }
+        }
+
+    }
+
+    int SlaaneshBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Delusions_Of_Infallibility)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    Wounds SlaaneshBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hunter_Of_Godbeasts)) {
+            damage.normal++;
+        }
+        return damage;
+    }
+
+    Rerolls SlaaneshBase::runRerolls() const {
+        // Feverish Anticipation
+        if (m_host == Host::Lurid_Haze_Invaders) {
+            auto general = getRoster()->getGeneral();
+            if (general && distanceTo(general) < 12) {
+                auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
+                if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Feverish_Anticipation)) {
+                    return Reroll_Failed;
+                }
+            }
+        }
+        return Unit::runRerolls();
+    }
+
+    Rerolls SlaaneshBase::battleshockRerolls() const {
+        // Embodiment of Hate
+        if (m_host == Host::Scarlet_Cavalcade_Godseekers) {
+            auto general = getRoster()->getGeneral();
+            if (general && distanceTo(general) < 12) {
+                auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
+                if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Embodiment_Of_Haste)) {
+                    return Reroll_Failed;
+                }
+            }
+        }
+
+        if (m_host == Host::Pretenders) {
+            auto general = getRoster()->getGeneral();
+            if (general && distanceTo(general) < 12) {
+                auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
+                if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Inspirer)) {
+                    return Reroll_Failed;
+                }
+            }
+        }
+        return Unit::battleshockRerolls();
+    }
+
+    void SlaaneshBase::onCharged() {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Sweeping_Slash)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
+            for (auto unit : units) {
+                if (Dice::RollD6() >= 2) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                }
+            }
+        }
+        Unit::onCharged();
+    }
+
+    void SlaaneshBase::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Speed_Chaser)) {
+            m_retreatAndCharge = true;
+        }
+    }
+
+    void SlaaneshBase::onEndBattleshock(PlayerId player) {
+        Unit::onEndBattleshock(player);
+
+        // Warlord Supreme
+        if (isGeneral() && (m_host == Host::Pretenders)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+            if (units.size() >= 2) {
+                getRoster()->incrementResource(Dice::RollD3());
+            }
+            else if (units.size() == 1) {
+                getRoster()->incrementResource(1);
+            }
+        }
+
+        // Escalating Havoc
+        if (isGeneral() && (m_host == Host::Invaders)) {
+            if (Board::Instance()->isUnitWithinDeploymentZone(this, GetEnemyId(owningPlayer()))) {
+                getRoster()->incrementResource(1);
+            }
+            // TODO: Handle the case if the roster has more than one general.
+        }
     }
 
     void Init() {
