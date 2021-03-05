@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FYRESLAYERPRIVATE_H
-#define FYRESLAYERPRIVATE_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <array>
@@ -105,5 +103,3 @@ namespace Fyreslayers {
     };
 
 } // namespace Fyreslayers
-
-#endif //FYRESLAYERPRIVATE_H

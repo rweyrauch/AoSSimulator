@@ -84,7 +84,8 @@ namespace Tzeentch {
             ToInteger(Artefact::Aspect_Of_Tzeentch)
     };
 
-    constexpr std::array<int, 6> g_loreOfFate = {
+    constexpr std::array<int, 7> g_loreOfFate = {
+            ToInteger(Lore::None),
             ToInteger(Lore::Bolt_Of_Tzeentch),
             ToInteger(Lore::Arcane_Suggestion),
             ToInteger(Lore::Glimpse_The_Future),
@@ -93,7 +94,8 @@ namespace Tzeentch {
             ToInteger(Lore::Treacherous_Bond)
     };
 
-    constexpr std::array<int, 6> g_loreOfChange = {
+    constexpr std::array<int, 7> g_loreOfChange = {
+            ToInteger(Lore::None),
             ToInteger(Lore::Bolt_Of_Tzeentch),
             ToInteger(Lore::Treason_Of_Tzeentch),
             ToInteger(Lore::Arcane_Transformation),

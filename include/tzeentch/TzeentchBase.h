@@ -104,6 +104,8 @@ namespace Tzeentch {
     };
 
     enum class Lore : int {
+        None,
+
         // Lore of Fate
         Bolt_Of_Tzeentch,
         Arcane_Suggestion,

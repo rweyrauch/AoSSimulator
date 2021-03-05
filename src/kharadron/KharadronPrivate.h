@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KHARADRONPRIVATE_H
-#define KHARADRONPRIVATE_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <array>
@@ -25,19 +23,22 @@ namespace KharadronOverlords {
             ToInteger(Skyport::Barak_Thryng)
     };
 
-    constexpr std::array<int, 3> g_artycles = {
+    constexpr std::array<int, 4> g_artycles = {
+            ToInteger(Artycle::None),
             ToInteger(Artycle::Honour_Is_Everything),
             ToInteger(Artycle::Master_The_Skies),
             ToInteger(Artycle::Settle_The_Grudges)
     };
 
-    constexpr std::array<int, 3> g_amendments = {
+    constexpr std::array<int, 4> g_amendments = {
+            ToInteger(Amendment::None),
             ToInteger(Amendment::Always_Take_What_You_Are_Owed),
             ToInteger(Amendment::Prosecute_Wars_With_All_Haste),
             ToInteger(Amendment::Trust_To_Your_Guns)
     };
 
-    constexpr std::array<int, 3> g_footnotes = {
+    constexpr std::array<int, 4> g_footnotes = {
+            ToInteger(Footnote::None),
             ToInteger(Footnote::Theres_No_Reward_Without_Risk),
             ToInteger(Footnote::Theres_No_Trading_With_Some_People),
             ToInteger(Footnote::Without_Our_Ships_We_Are_Naught)
@@ -146,5 +147,3 @@ namespace KharadronOverlords {
     };
 
 } // namespace KharadronOverlords
-
-#endif // KHARADRONPRIVATE_H

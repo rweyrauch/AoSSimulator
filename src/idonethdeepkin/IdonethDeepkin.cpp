@@ -42,7 +42,10 @@ namespace IdonethDeepkin {
             auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
             return std::string(loreName);
         }
-
+        if (std::string(parameter.name) == "Mount Trait") {
+            auto traitName = magic_enum::enum_name((MountTrait)parameter.intValue);
+            return std::string(traitName);
+        }
         return ParameterValueToString(parameter);
     }
 
@@ -58,6 +61,9 @@ namespace IdonethDeepkin {
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
         if (lore.has_value()) return (int)lore.value();
+
+        auto mtrait = magic_enum::enum_cast<MountTrait>(enumString);
+        if (mtrait.has_value()) return (int)mtrait.value();
 
         return 0;
     }
