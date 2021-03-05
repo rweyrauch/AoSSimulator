@@ -24,38 +24,42 @@ namespace Fyreslayers {
     };
 
     enum class Rune : int {
+        None,
+
         Of_Fury,
         Of_Searing_Heat,
         Of_Awakened_Steel,
         Of_Fiery_Determination,
         Of_Relentless_Zeal,
-        Of_Farsight
+        Of_Farsight,
+
+        Num_Runes
     };
 
     enum class CommandTrait : int {
         None,
 
         // Inheritance of Grimnir
-        Fury_Of_The_Fyreslayers,
-        Honour_Of_The_Ancestors,
-        Spirit_Of_Grimnir,
-        Blood_Of_The_Berserker,
-        Iron_Will_Of_The_Guardian,
-        Destroyer_Of_Foes,
+        Fury_Of_The_Fyreslayers,        // Yes
+        Honour_Of_The_Ancestors,        // Yes
+        Spirit_Of_Grimnir,              // Yes
+        Blood_Of_The_Berserker,         // TODO
+        Iron_Will_Of_The_Guardian,      // Yes
+        Destroyer_Of_Foes,              // Yes
 
         // Magmic Empowerments
-        Fyremantle,
-        Wisdom_And_Authority,
-        Oathsayer,
-        Ash_Beard,
-        Fyresteel_Weaponsmith,
-        Master_Priest,
+        Fyremantle,                     // TODO
+        Wisdom_And_Authority,           // Yes
+        Oathsayer,                      // TODO
+        Ash_Beard,                      // TODO
+        Fyresteel_Weaponsmith,          // Yes
+        Master_Priest,                  // TODO
 
         // Lodge specific
-        Fiery_Endurance,    // Vostarg
-        Battle_Scarred_Veteran, // Greyfyrd
-        Warrior_Indominate, // Hermdar
-        Explosive_Charge    // Lofnir
+        Fiery_Endurance,                // Vostarg TODO
+        Battle_Scarred_Veteran,         // Greyfyrd TODO
+        Warrior_Indominate,             // Hermdar TODO
+        Explosive_Charge                // Lofnir
     };
 
     enum class Artefact : int {
@@ -136,6 +140,8 @@ namespace Fyreslayers {
         Fyreslayer(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        void onBeginRound(int battleRound) override;
+
         void onEndRound(int battleRound) override;
 
         void onStartHero(PlayerId player) override;
@@ -144,7 +150,29 @@ namespace Fyreslayers {
 
         int rollRunDistance() const override;
 
+        void onRestore() override;
+
         void activateRune();
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int braveryModifier() const override;
+
+        bool battleshockRequired() const override;
+
+        int moveModifier() const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
     protected:
 
@@ -152,8 +180,9 @@ namespace Fyreslayers {
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
 
-        bool m_activatedRune = false;
-        std::map<Rune, bool> m_availableRunes;
+        static Rune s_activeRune;
+        static bool s_enhancedRuneActive;
+        static std::map<Rune, bool> s_availableRunes;
 
     };
 
@@ -161,12 +190,12 @@ namespace Fyreslayers {
 // Abilities                    Implemented
 // -------------------------------------------
 // Ur-Gold Runes
-//    Rune of Fury                  TODO
-//    Rune of Searing Heat          TODO
-//    Rune of Awakened Steel        TODO
-//    Rune of Fiery Determination   TODO
-//    Rune of Relentless Zeal       TODO
-//    Rune of Farsight              TODO
+//    Rune of Fury                  Yes
+//    Rune of Searing Heat          Yes
+//    Rune of Awakened Steel        Yes
+//    Rune of Fiery Determination   Yes
+//    Rune of Relentless Zeal       Yes
+//    Rune of Farsight              Yes
 // Vostarg
 //    Fearsome Surge                Yes
 //    Honour Our Ancestors          TODO

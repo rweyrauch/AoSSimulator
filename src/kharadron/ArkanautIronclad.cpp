@@ -47,8 +47,9 @@ namespace KharadronOverlords {
         unit->setCode(artycle, amendment, footnote);
 
         auto endrinwork = (Endrinwork) GetEnumParam("Endrinwork", parameters, g_ironcladEndrinworks[0]);
+        unit->setEndrinwork(endrinwork);
 
-        bool ok = unit->configure(option, endrinwork);
+        bool ok = unit->configure(option);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -115,7 +116,7 @@ namespace KharadronOverlords {
         m_battleFieldRole = Behemoth;
     }
 
-    bool ArkanautIronclad::configure(WeaponOption option, Endrinwork endrinwork) {
+    bool ArkanautIronclad::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
         if (option == Great_Sky_Cannon) {
             model->addMissileWeapon(&m_cannonShrapnel);
@@ -132,7 +133,6 @@ namespace KharadronOverlords {
         addModel(model);
 
         m_weaponOption = option;
-        m_endrinwork = endrinwork;
 
         m_points = g_pointsPerUnit;
 

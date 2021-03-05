@@ -26,6 +26,8 @@ namespace KharadronOverlords {
     };
 
     enum class Artycle : int {
+        None,
+
         Honour_Is_Everything,
         Master_The_Skies,
         Settle_The_Grudges,
@@ -40,6 +42,8 @@ namespace KharadronOverlords {
     };
 
     enum class Amendment : int {
+        None,
+
         Always_Take_What_You_Are_Owed,
         Prosecute_Wars_With_All_Haste,
         Trust_To_Your_Guns,
@@ -54,7 +58,9 @@ namespace KharadronOverlords {
     };
 
     enum class Footnote : int {
-        Theres_No_Reward_Without_Risk,
+        None,
+
+        Theres_No_Reward_Without_Risk,  //
         Theres_No_Trading_With_Some_People,
         Without_Our_Ships_We_Are_Naught,
 
@@ -71,44 +77,44 @@ namespace KharadronOverlords {
         None,
 
         // Admiral
-        Wealthy,
-        Tough_As_Old_Boots,
-        Grudgebearer,
-        Cunning_Fleetmaster,
-        War_Wounds,
-        A_Scholar_And_An_Arkanaut,
+        Wealthy,                    // Yes
+        Tough_As_Old_Boots,         // Yes
+        Grudgebearer,               // TODO
+        Cunning_Fleetmaster,        // TODO
+        War_Wounds,                 // TODO
+        A_Scholar_And_An_Arkanaut,  // TODO
 
         // Endrinmaster
         // Wealthy,
         // Tough_as_Old_Boots,
         // Grudgebearer,
-        Grandmaster,
-        Great_Tinkerer,
-        Endrinprofessor,
+        Grandmaster,                // TODO
+        Great_Tinkerer,             // TODO
+        Endrinprofessor,            // TODO
 
         // Navigatgor
         // Wealthy,
         // Tough_as_Old_Boots,
-        Stormcaller,
-        Ride_The_Winds,
-        Sceptic,
-        Diviner,
+        Stormcaller,                // TODO
+        Ride_The_Winds,             // TODO
+        Sceptic,                    // TODO
+        Diviner,                    // TODO
 
         // Khemist
         // Wealthy,
         // Tough_as_Old_Boots,
         // Grudgebearer,
-        A_Nose_For_Gold,
-        Genius_In_The_Making,
-        Collector,
+        A_Nose_For_Gold,            // TODO
+        Genius_In_The_Making,       // TODO
+        Collector,                  // TODO
 
         // Skyport
-        Champion_Of_Progress, // Barak-Nar
-        Master_Commander, // Barak-Zilfin
-        Bearer_Of_The_Ironstar, // Barak-Zon
-        Khemist_Supreme, // Barak-Urbaz
-        Opportunistic_Privateer, // Barak-Mhornar
-        Supremely_Stubborn, // Barak-Thryng
+        Champion_Of_Progress,       // Barak-Nar TODO
+        Master_Commander,           // Barak-Zilfin TODO
+        Bearer_Of_The_Ironstar,     // Barak-Zon TODO
+        Khemist_Supreme,            // Barak-Urbaz TODO
+        Opportunistic_Privateer,    // Barak-Mhornar TODO
+        Supremely_Stubborn,         // Barak-Thryng TODO
     };
 
     enum class Artefact : int {
@@ -155,22 +161,22 @@ namespace KharadronOverlords {
         None,
 
         // Ironclad
-        The_Last_Word,
-        Hegsson_Solutions_Old_Reliable_Hullplates,
-        Ebullient_Buoyancy_Aid,
-        Prudency_Chutes,
-        Magnificent_Omniscope,
-        Zonbarcorp_Dealbreaker_Battle_Ram,
+        The_Last_Word,              // TODO
+        Hegsson_Solutions_Old_Reliable_Hullplates, // Yes
+        Ebullient_Buoyancy_Aid,     // TODO
+        Prudency_Chutes,            // TODO
+        Magnificent_Omniscope,      // Yes
+        Zonbarcorp_Dealbreaker_Battle_Ram, // TODO
 
         // Frigate
         //Prudency_Chutes,
         //Magnificent_Omniscope,
-        Malefic_Skymines,
+        Malefic_Skymines,           // TODO
 
         // Gunhauler
-        Iggrind_Kaz_Surge_Injection_Endrin_Mk_Iv,
-        Zonbarcorp_Debtsettler_Spar_Torpedo,
-        Coalbeards_Collapsible_Compartments,
+        Iggrind_Kaz_Surge_Injection_Endrin_Mk_Iv, // TODO
+        Zonbarcorp_Debtsettler_Spar_Torpedo, // TODO
+        Coalbeards_Collapsible_Compartments, // TODO
     };
 
     class KharadronBase : public Unit {
@@ -189,6 +195,7 @@ namespace KharadronOverlords {
         void setCode(Artycle artycle, Amendment amendment, Footnote footnote);
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
+        void setEndrinwork(Endrinwork endrinwork);
 
     protected:
         KharadronBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -200,18 +207,32 @@ namespace KharadronOverlords {
 
         void onRestore() override;
 
+        void onBeginRound(int battleRound) override;
+
+        int woundModifier() const override;
+
+        int moveModifier() const override;
+
+        Rerolls chargeRerolls() const override;
+
+        void onEndShooting(PlayerId player) override;
+
+        void onEndCombat(PlayerId player) override;
+
     protected:
 
         Skyport m_skyport = Skyport::None;
 
         // Code for Custom Skyport
-        Artycle m_artycle = Artycle::Honour_Is_Everything;
-        Amendment m_amendment = Amendment::Always_Take_What_You_Are_Owed;
-        Footnote m_footnote = Footnote::Theres_No_Reward_Without_Risk;
+        Artycle m_artycle = Artycle::None;
+        Amendment m_amendment = Amendment::None;
+        Footnote m_footnote = Footnote::None;
 
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+        Endrinwork m_endrinwork = Endrinwork::None;
 
+        static bool s_usedFootnote;
         int m_aetherGold = 1;
     };
 
@@ -221,11 +242,10 @@ namespace KharadronOverlords {
 // Aether-Gold                      TODO
 // Stick to the Code
 // Artycle
-//   Honour is Everything           TODO
-//   Master the Skies               TODO
+//   Honour is Everything           Yes
+//   Master the Skies               Yes
 //   Settle the Grudges             TODO
 //   Respect Your Commanders        TODO
-//   Honour is Everything           TODO
 //   Seek New Prospects             TODO
 //   Chronicle of Grudges           TODO
 // Ammendment
@@ -237,9 +257,9 @@ namespace KharadronOverlords {
 //   Leave No Duardin Behind        TODO
 //   Take Help Where You Can Get It TODO
 // Footnote
-//   There's No Reward Without Risk TODO
+//   There's No Reward Without Risk Yes
 //   There's No Trading With Some People    TODO
-//   Without Our Ships, We Are Naught   TODO
+//   Without Our Ships, We Are Naught   Yes
 //   Through Knowledge Power        TODO
 //   Theres Always a Breeze         TODO
 //   Show Them_Your_Steel           TODO

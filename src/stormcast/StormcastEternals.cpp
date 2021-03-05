@@ -205,6 +205,12 @@ namespace StormcastEternals {
                 m_roster->addCommandPoints(1);
             }
         }
+
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Consummate_Commander)) {
+            if (Dice::RollD6() >= 4) {
+                m_roster->addCommandPoints(1);
+            }
+        }
     }
 
     void StormcastEternal::setArtefact(Artefact artefact) {
@@ -213,6 +219,50 @@ namespace StormcastEternals {
 
     void StormcastEternal::setCommandTrait(CommandTrait commandTrait) {
         m_commandTrait = commandTrait;
+    }
+
+    Wounds StormcastEternal::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = wounds;
+        if (isGeneral() && (m_commandTrait == CommandTrait::Shielded_By_Faith)) {
+            Dice::RollResult rolls;
+            Dice::RollD6(wounds.mortal, rolls);
+            totalWounds.mortal -= rolls.rollsGE(5);
+        }
+
+        // We Cannot Fail
+        if (m_stormHost == Stormhost::Hammers_Of_Sigmar) {
+            auto general = getRoster()->getGeneral();
+            if (general && general->hasKeyword(HAMMERS_OF_SIGMAR)) {
+                auto sceGeneral = dynamic_cast<StormcastEternal*>(general);
+                if (sceGeneral && (sceGeneral->remainingModels() > 0) &&
+                    (sceGeneral->m_commandTrait == CommandTrait::We_Cannot_Fail) && distanceTo(general) < 9.0) {
+                    totalWounds = ignoreWounds(totalWounds, 6);
+                }
+            }
+        }
+
+        // Only the Faithful
+        if ((m_stormHost == Stormhost::Hallowed_Knights) && (wounds.source == Wounds::Source::Spell)) {
+            Dice::RollResult rolls;
+            Dice::RollD6(wounds.mortal, rolls);
+            totalWounds.mortal -= rolls.rollsGE(6);
+        }
+
+        return Unit::applyWoundSave(totalWounds, attackingUnit);
+    }
+
+    Wounds StormcastEternal::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        Wounds damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        // Single-minded Fury
+        if (isGeneral() && (m_stormHost == Stormhost::Celestial_Vindicators) && (hitRoll == 6)) {
+            damage.normal++;
+        }
+
+        // Devine Executioner
+        if (isGeneral() && (m_stormHost == Stormhost::Knights_Excelsior) && target->hasKeyword(HERO)) {
+            damage.normal++;
+        }
+        return damage;
     }
 
     void Init() {

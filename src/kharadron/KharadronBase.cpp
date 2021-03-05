@@ -25,6 +25,8 @@
 
 namespace KharadronOverlords {
 
+    bool KharadronBase::s_usedFootnote = false;
+
     std::string KharadronBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Skyport") {
             auto portName = magic_enum::enum_name((Skyport)parameter.intValue);
@@ -134,6 +136,13 @@ namespace KharadronOverlords {
     }
 
     Rerolls KharadronBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if ((m_artycle == Artycle::Honour_Is_Everything) && hasKeyword(HERO) &&
+                (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
+            return Reroll_Ones;
+        }
+        if ((m_artycle == Artycle::Master_The_Skies) && hasKeyword(SKYVESSEL) && target->canFly()) {
+            return Reroll_Ones;
+        }
         return Unit::toHitRerolls(weapon, target);
     }
 
@@ -144,7 +153,71 @@ namespace KharadronOverlords {
     void KharadronBase::onRestore() {
         Unit::onRestore();
 
+        s_usedFootnote = false;
         m_aetherGold = 1;
+    }
+
+    void KharadronBase::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        if (isGeneral() && (battleRound == 1) && (m_commandTrait == CommandTrait::Wealthy)) {
+            m_aetherGold++;
+        }
+    }
+
+    int KharadronBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+
+        if (m_endrinwork == Endrinwork::Hegsson_Solutions_Old_Reliable_Hullplates) {
+            mod += 2;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Tough_As_Old_Boots)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    void KharadronBase::setEndrinwork(Endrinwork endrinwork) {
+        m_endrinwork = endrinwork;
+    }
+
+    int KharadronBase::moveModifier() const {
+        auto mod = Unit::moveModifier();
+
+        if (m_endrinwork == Endrinwork::Magnificent_Omniscope) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    Rerolls KharadronBase::chargeRerolls() const {
+        if (!s_usedFootnote && (m_footnote == Footnote::Theres_No_Reward_Without_Risk)) {
+            s_usedFootnote = true;
+            return Reroll_Failed;
+        }
+        return Unit::chargeRerolls();
+    }
+
+    void KharadronBase::onEndShooting(PlayerId player) {
+        Unit::onEndShooting(player);
+
+        if (hasKeyword(SKYVESSEL) && (m_footnote == Footnote::Without_Our_Ships_We_Are_Naught) && !s_usedFootnote) {
+            if (remainingWounds() < wounds()) {
+                heal(Dice::RollD3());
+                s_usedFootnote = true;
+            }
+        }
+    }
+
+    void KharadronBase::onEndCombat(PlayerId player) {
+        Unit::onEndCombat(player);
+
+        if (hasKeyword(SKYVESSEL) && (m_footnote == Footnote::Without_Our_Ships_We_Are_Naught) && !s_usedFootnote) {
+            if (remainingWounds() < wounds()) {
+                heal(Dice::RollD3());
+                s_usedFootnote = true;
+            }
+        }
     }
 
     void Init() {

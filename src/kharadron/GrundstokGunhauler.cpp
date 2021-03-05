@@ -30,8 +30,9 @@ namespace KharadronOverlords {
         unit->setCode(artycle, amendment, footnote);
 
         auto endrinwork = (Endrinwork) GetEnumParam("Endrinwork", parameters, g_gunhaulerEndrinworks[0]);
+        unit->setEndrinwork(endrinwork);
 
-        bool ok = unit->configure(option, endrinwork);
+        bool ok = unit->configure(option);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -91,7 +92,7 @@ namespace KharadronOverlords {
                      &m_boardingWeapons};
     }
 
-    bool GrundstokGunhauler::configure(WeaponOption option, Endrinwork endrinwork) {
+    bool GrundstokGunhauler::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
         if (option == Sky_Cannon) {
             model->addMissileWeapon(&m_cannonShrapnel);
@@ -103,8 +104,6 @@ namespace KharadronOverlords {
         model->addMissileWeapon(&m_carbines);
         model->addMeleeWeapon(&m_boardingWeapons);
         addModel(model);
-
-        m_endrinwork = endrinwork;
 
         m_points = g_pointsPerUnit;
 

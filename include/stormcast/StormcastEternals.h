@@ -191,6 +191,10 @@ namespace StormcastEternals {
 
         void onStartHero(PlayerId player) override;
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     protected:
 
         Stormhost m_stormHost = Stormhost::None;
@@ -207,18 +211,25 @@ namespace StormcastEternals {
 // -------------------------------------------
 // Scions of the Storm              TODO
 // Shock and Awe                    TODO
+// Command Traits
+//   Shielded_By_Faith              Yes
+//   Consummate_Commander           Yes
+//   Cunning_Strategist             TODO
+//   Zealous_Crusader
+//   Staunch_Defender
+//   Champion_Of_The_Realms
 // Hammers of Sigmar
 //   First to be Forged             Yes
 //   Soul of the Stormhost          TODO
-//   We Cannon Fail                 TODO
+//   We Cannot Fail                 Yes
 // Hallowed Knights
-//   Only the Faithful              TODO
+//   Only the Faithful              Yes
 //   Holy Crusaders                 Yes
 //   Martyr's Strength              TODO
 // Celestial Vindicators
 //   Driven by Vengeance            Yes
 //   Righteous Hatred               Yes
-//   Single-minded Fury             TODO
+//   Single-minded Fury             Yes
 // Anvils of the Heldenhammer
 //   No True Death                  Yes
 //   Heroes of Another Age          TODO
@@ -226,7 +237,7 @@ namespace StormcastEternals {
 // Knights Excelsior
 //   Storm of Annihilation          TODO
 //   No Mercy                       Yes
-//   Divine Executioner             TODO
+//   Divine Executioner             Yes
 // Celestial Warbringers
 //   Fearless Foresight             TODO
 //   Astral Conjunction             Yes

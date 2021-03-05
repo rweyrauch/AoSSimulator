@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GRUNDSTOKGUNHAULER_H
-#define GRUNDSTOKGUNHAULER_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -36,7 +34,7 @@ namespace KharadronOverlords {
 
         ~GrundstokGunhauler() override = default;
 
-        bool configure(WeaponOption option, Endrinwork endrinwork);
+        bool configure(WeaponOption option);
 
     protected:
 
@@ -59,8 +57,6 @@ namespace KharadronOverlords {
                 m_carbines,
                 m_boardingWeapons;
 
-        Endrinwork m_endrinwork = Endrinwork::None;
-
         static bool s_registered;
     };
 
@@ -78,4 +74,3 @@ namespace KharadronOverlords {
 
 } // namespace KharadronOverlords
 
-#endif //GRUNDSTOKGUNHAULER_H

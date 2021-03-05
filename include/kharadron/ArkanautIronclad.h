@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ARKANAUTIRONCLAD_H
-#define ARKANAUTIRONCLAD_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -37,7 +35,7 @@ namespace KharadronOverlords {
 
         ~ArkanautIronclad() override = default;
 
-        bool configure(WeaponOption option, Endrinwork endrinwork);
+        bool configure(WeaponOption option);
 
     protected:
 
@@ -69,8 +67,6 @@ namespace KharadronOverlords {
                 m_carbines,
                 m_boardingWeapons;
 
-        Endrinwork m_endrinwork = Endrinwork::None;
-
         static bool s_registered;
     };
 
@@ -88,4 +84,3 @@ namespace KharadronOverlords {
 
 } // namespace KharadronOverlords
 
-#endif //ARKANAUTIRONCLAD_H

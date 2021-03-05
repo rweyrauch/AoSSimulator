@@ -7,6 +7,8 @@
  */
 #include <fyreslayers/Fyreslayer.h>
 #include <magic_enum.hpp>
+#include <Board.h>
+#include <Roster.h>
 
 #include "fyreslayers/AuricHearthguard.h"
 #include "fyreslayers/Battlesmith.h"
@@ -40,6 +42,20 @@ namespace Fyreslayers {
         AuricRunesonOnMagmadroth::Init();
     }
 
+    // Sorted in the order the runes are used.
+    constexpr std::array<Rune, 6> g_runes = {
+            Rune::Of_Relentless_Zeal,
+            Rune::Of_Farsight,
+            Rune::Of_Fury,
+            Rune::Of_Searing_Heat,
+            Rune::Of_Awakened_Steel,
+            Rune::Of_Fiery_Determination
+    };
+
+    Rune Fyreslayer::s_activeRune = Rune::None;
+    bool Fyreslayer::s_enhancedRuneActive = false;
+    std::map<Rune, bool> Fyreslayer::s_availableRunes;
+
     void Fyreslayer::setLodge(Lodge lodge) {
         removeKeyword(VOSTARG);
         removeKeyword(GREYFYRD);
@@ -72,7 +88,18 @@ namespace Fyreslayers {
         if (m_lodge == Lodge::Vostarg) {
             modifier += 1;
         }
-
+        if (s_enhancedRuneActive && (s_activeRune == Rune::Of_Relentless_Zeal)) {
+            modifier += 2;
+        }
+        auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
+        if (general && (distanceTo(general) < 18.0) && (general->m_commandTrait == CommandTrait::Fury_Of_The_Fyreslayers)) {
+            modifier += 1;
+        }
+        if (hasKeyword(LOFNIR) && hasKeyword(MAGMADROTH)) {
+            if (general && (distanceTo(general) < 12.0) && (general->m_commandTrait == CommandTrait::Explosive_Charge)) {
+                modifier += 1;
+            }
+        }
         return modifier;
     }
 
@@ -130,20 +157,46 @@ namespace Fyreslayers {
 
     void Fyreslayer::activateRune() {
         // Select a rune activate
+        for (auto rune : g_runes) {
+            if (s_availableRunes[rune]) {
+                auto roll = Dice::RollD6();
+
+                auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
+                if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Spirit_Of_Grimnir)) {
+                    roll++;
+                }
+
+                if (roll >= 5) {
+                    s_activeRune = rune;
+                    s_enhancedRuneActive = (roll >= 6);
+                    s_availableRunes[rune] = false;
+                }
+            }
+        }
     }
 
     void Fyreslayer::onEndRound(int battleRound) {
         Unit::onEndRound(battleRound);
 
-        m_activatedRune = false;
+        s_activeRune = Rune::None;
     }
 
     void Fyreslayer::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (!m_activatedRune) {
+        if (s_activeRune == Rune::None) {
             activateRune();
-            m_activatedRune = true;
+
+            // Only applied once
+            if (s_enhancedRuneActive && (s_activeRune == Rune::Of_Searing_Heat)) {
+                auto units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
+                for (auto unit : units) {
+                    auto fs = Board::Instance()->getUnitsWithin(unit, owningPlayer(), 3.0);
+                    if (!fs.empty()) {
+                        unit->applyDamage({0, 1, Wounds::Source::Ability}, fs.front());
+                    }
+                }
+            }
         }
     }
 
@@ -153,6 +206,116 @@ namespace Fyreslayers {
 
     void Fyreslayer::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    void Fyreslayer::onRestore() {
+        Unit::onRestore();
+
+        s_activeRune = Rune::None;
+        s_enhancedRuneActive = false;
+        for (auto rune : g_runes) {
+            s_availableRunes[rune] = true;
+        }
+    }
+
+    Rerolls Fyreslayer::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (s_activeRune == Rune::Of_Fury) {
+            return Reroll_Ones;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    int Fyreslayer::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        if ((s_activeRune == Rune::Of_Fury) && s_enhancedRuneActive) {
+            attacks++;
+        }
+        return attacks;
+    }
+
+    Wounds Fyreslayer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        if (s_activeRune == Rune::Of_Searing_Heat) {
+            if (hitRoll == 6) damage.normal++;
+        }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Destroyer_Of_Foes) && (weapon->isMelee())) {
+            damage.normal++;
+        }
+        return damage;
+    }
+
+    int Fyreslayer::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        if ((s_activeRune == Rune::Of_Awakened_Steel) && weapon->isMelee()) {
+            rend--;
+            if (s_enhancedRuneActive) rend--;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Fyresteel_Weaponsmith)) {
+            rend--;
+        }
+        return rend;
+    }
+
+    int Fyreslayer::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+        if (s_activeRune == Rune::Of_Fiery_Determination) {
+            mod++;
+        }
+        return mod;
+    }
+
+    bool Fyreslayer::battleshockRequired() const {
+        if (s_enhancedRuneActive && (s_activeRune == Rune::Of_Fiery_Determination)) {
+            return false;
+        }
+
+        auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
+        if (general && (distanceTo(general) < 12.0) && (general->m_commandTrait == CommandTrait::Honour_Of_The_Ancestors)) {
+            return false;
+        }
+        return Unit::battleshockRequired();
+    }
+
+    int Fyreslayer::moveModifier() const {
+        auto mod = Unit::moveModifier();
+        if (s_activeRune == Rune::Of_Relentless_Zeal) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int Fyreslayer::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+        if (s_activeRune == Rune::Of_Farsight) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Fyreslayer::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+        if (s_enhancedRuneActive && (s_activeRune == Rune::Of_Farsight)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Fyreslayer::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Iron_Will_Of_The_Guardian)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    void Fyreslayer::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Wisdom_And_Authority) && (battleRound == 1)) {
+            getRoster()->addCommandPoints(Dice::RollD3());
+        }
     }
 
 } // namespace Fyreslayers
