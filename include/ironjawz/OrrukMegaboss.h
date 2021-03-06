@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ORRUKMEGABOSS_H
-#define ORRUKMEGABOSS_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 
@@ -47,11 +45,9 @@ namespace Ironjawz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Go on Ladz, Get Stuck In!        TODO
+// Go on Ladz, Get Stuck In!        Yes
 // Strength from Victory            Yes
 // Rip-toof Fist                    Yes
 //
 
 } // namespace Ironjawz
-
-#endif //ORRUKMEGABOSS_H

@@ -988,6 +988,17 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                                 dam.mortal++;
                         }
 
+                        if (weapon->isMissile()) {
+                            for (auto ri : m_attributeModifiers[Weapon_Damage_Missile]) {
+                                dam.normal += ri.modifier;
+                            }
+                        }
+                        else {
+                            for (auto ri : m_attributeModifiers[Weapon_Damage_Melee]) {
+                                dam.normal += ri.modifier;
+                            }
+                        }
+
                         // modify damage
                         dam = target->targetAttackDamageModifier(dam, this, hitRoll, woundRoll);
 

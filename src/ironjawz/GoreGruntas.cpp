@@ -131,4 +131,38 @@ namespace Ironjawz {
         return points;
     }
 
+    void OrrukGoreGruntas::onCharged() {
+        // Gore-grunta Charge
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
+            Dice::RollResult rolls;
+            Dice::RollD6(remainingModels(), rolls);
+            Wounds wounds = {0, 0};
+            wounds.mortal = rolls.rollsGE(4);
+
+            PLOG_INFO.printf("%s Gore-grunta Charge inflicted %d mortal wounds on %s\n",
+                             name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
+
+            m_meleeTarget->applyDamage(wounds, this);
+        }
+        Ironjawz::onCharged();
+    }
+
+    int OrrukGoreGruntas::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        // Gore-grunta Charge
+        auto mod = Ironjawz::toHitModifier(weapon, target);
+        if (m_charged && (weapon->name() == m_tusksAndHooves.name() || weapon->name() == m_jaggedGorehacka.name())) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int OrrukGoreGruntas::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        // Gore-grunta Charge
+        auto mod = Ironjawz::toWoundModifier(weapon, target);
+        if (m_charged && (weapon->name() == m_tusksAndHooves.name() || weapon->name() == m_jaggedGorehacka.name())) {
+            mod++;
+        }
+        return mod;
+    }
+
 } // namespace Ironjawz

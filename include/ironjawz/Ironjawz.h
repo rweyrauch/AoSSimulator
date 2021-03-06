@@ -69,10 +69,10 @@ namespace Ironjawz {
     enum class MountTrait : int {
         None,
 
-        Big_Un,         // TODO
-        Fast_Un,        // TODO
-        Mean_Un,        // TODO
-        Heavy_Un,       // TODO
+        Big_Un,         // Yes
+        Fast_Un,        // Yes
+        Mean_Un,        // Yes
+        Heavy_Un,       // Yes
         Loud_Un,        // TODO
         Weird_Un,       // TODO
     };
@@ -88,12 +88,12 @@ namespace Ironjawz {
     enum class Lore : int {
         None,
 
-        Brain_Bursta,
-        Mighty_Eadbutt,
-        Da_Blazin_Eyes,
-        Da_Great_Big_Green_Hand_Of_Gork,
-        Bash_Em_Ladz,
-        Wrath_Of_Gork
+        Brain_Bursta,       // TODO
+        Mighty_Eadbutt,     // TODO
+        Da_Blazin_Eyes,     // TODO
+        Da_Great_Big_Green_Hand_Of_Gork,    // TODO
+        Bash_Em_Ladz,       // TODO
+        Wrath_Of_Gork       // TODO
     };
 
     class Ironjawz : public Unit {
@@ -109,6 +109,9 @@ namespace Ironjawz {
         void setWarclan(Warclan warclan);
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
+        void setMountTrait(MountTrait trait) {
+            m_mountTrait = trait;
+        }
 
     protected:
         Ironjawz(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -134,11 +137,16 @@ namespace Ironjawz {
 
         int braveryModifier() const override;
 
+        int woundModifier() const override;
+
+        int moveModifier() const override;
+
     protected:
 
         Warclan m_warclan = Warclan::Ironsunz;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+        MountTrait m_mountTrait = MountTrait::None;
     };
 
 //

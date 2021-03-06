@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GORDRAKK_H
-#define GORDRAKK_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 
@@ -63,9 +61,7 @@ namespace Ironjawz {
 // Kunnin                           Yes
 // Smasha                           Yes
 // Strength from Victory            Yes
-// Voice of Gork                    TODO
+// Voice of Gork                    Yes
 //
 
 } // namespace Ironjawz
-
-#endif //GORDRAKK_H

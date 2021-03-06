@@ -30,6 +30,8 @@ namespace Ironjawz {
         model->addMeleeWeapon(&m_bossChoppaAndFist);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Go on Ladz, Get Stuck In!", 12, 12, Phase::Combat,
+                                                                                  To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{IRONJAWZ}));
         m_points = g_pointsPerUnit;
 
         return true;

@@ -192,6 +192,22 @@ namespace Ironjawz {
         return mod;
     }
 
+    int Ironjawz::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (m_mountTrait == MountTrait::Big_Un) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Ironjawz::moveModifier() const {
+        auto mod = Unit::moveModifier();
+        if (m_mountTrait == MountTrait::Fast_Un) {
+            mod += 2;
+        }
+        return mod;
+    }
+
     void Init() {
         OrrukArdboys::Init();
         OrrukBrutes::Init();

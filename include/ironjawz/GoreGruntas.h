@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GOREGRUNTAS_H
-#define GOREGRUNTAS_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 
@@ -39,6 +37,12 @@ namespace Ironjawz {
 
     protected:
 
+        void onCharged() override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
     protected:
 
         Weapon m_pigironChoppa,
@@ -53,9 +57,7 @@ namespace Ironjawz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Gore-grunta Charge               TODO
+// Gore-grunta Charge               Yes
 //
 
 } // namespace Ironjawz
-
-#endif //GOREGRUNTAS_H

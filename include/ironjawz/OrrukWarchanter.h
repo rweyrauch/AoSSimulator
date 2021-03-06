@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ORRUKWARCHANTER_H
-#define ORRUKWARCHANTER_H
+#pragma once
 
 #include "Ironjawz.h"
 #include <Weapon.h>
@@ -31,6 +29,10 @@ namespace Ironjawz {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
     private:
 
         Weapon m_stikks;
@@ -42,9 +44,7 @@ namespace Ironjawz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Rhythm of Destruction            TODO
-// Violent Fury                     TODO
+// Rhythm of Destruction            Yes
+// Violent Fury                     Yes
 
 } // namespace Ironjawz
-
-#endif // ORRUKWARCHANTER_H

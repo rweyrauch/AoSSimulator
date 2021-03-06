@@ -12,6 +12,30 @@
 #include "IronjawzPrivate.h"
 
 namespace Ironjawz {
+
+    class VoiceOfGork : public CommandAbility {
+    public:
+        VoiceOfGork(Unit *source) :
+            CommandAbility(source, "Voice of Gork", 24, 24, Phase::Combat) {
+            m_allowedTargets = Abilities::Target::Point;
+            m_targetKeywords = {DESTRUCTION};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit* target) override { return false; }
+        bool apply(double x, double y) override {
+            auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
+            for (auto unit : units) {
+                if ((unit->remainingModels() > 0) && unit->hasKeyword(DESTRUCTION)) {
+                    unit->buffModifier(To_Hit_Melee, 1, defaultDuration());
+                }
+            }
+            return true;
+        }
+    };
+
     static const int g_basesize = 160;
     static const int g_wounds = 16;
     static const int g_pointsPerUnit = 540;
@@ -56,6 +80,8 @@ namespace Ironjawz {
         model->addMeleeWeapon(&m_fistsAndTail);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<VoiceOfGork>(this));
+
         m_points = g_pointsPerUnit;
 
         return true;
@@ -69,6 +95,9 @@ namespace Ironjawz {
 
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
+
+        auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
+        unit->setMountTrait(mount);
 
         bool ok = unit->configure();
         if (!ok) {
@@ -87,6 +116,7 @@ namespace Ironjawz {
                     GordrakkTheFistOfGork::ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
+                            EnumParameter("Mount Trait", g_mountTrait[0], g_mountTrait),
                             BoolParameter("General")
                     },
                     DESTRUCTION,
@@ -97,11 +127,13 @@ namespace Ironjawz {
     }
 
     void GordrakkTheFistOfGork::onRestore() {
+        Ironjawz::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
     void GordrakkTheFistOfGork::onWounded() {
+        Ironjawz::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_fistsAndTail.setAttacks(g_damageTable[damageIndex].m_fistsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -118,15 +150,16 @@ namespace Ironjawz {
     }
 
     void GordrakkTheFistOfGork::onCharged() {
-        Unit::onCharged();
+        Ironjawz::onCharged();
 
         // Massively Destructive Bulk
+        const int threshold = (m_mountTrait == MountTrait::Heavy_Un) ? 4 : 5;
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         if (!units.empty()) {
             auto unit = units.front();
             Dice::RollResult result;
             Dice::RollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
-            Wounds bulkWounds = {0, result.rollsGE(5)};
+            Wounds bulkWounds = {0, result.rollsGE(threshold)};
             unit->applyDamage(bulkWounds, this);
         }
     }
@@ -142,7 +175,13 @@ namespace Ironjawz {
                 return {0, Dice::RollD3()};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = Ironjawz::weaponDamage(weapon, target, hitRoll, woundRoll);
+        if (m_mountTrait == MountTrait::Mean_Un) {
+            if (weapon->name() == m_fistsAndTail.name()) {
+                damage.normal++;
+            }
+        }
+        return damage;
     }
 
     void GordrakkTheFistOfGork::onStartCombat(PlayerId player) {

@@ -48,7 +48,7 @@ namespace Ironjawz {
         m_battleFieldRole = Leader_Behemoth;
     }
 
-    bool MegabossOnMawKrusha::configure(WeaponOption weapons, MountTrait trait) {
+    bool MegabossOnMawKrusha::configure(WeaponOption weapons) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bellow);
 
@@ -61,8 +61,10 @@ namespace Ironjawz {
 
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Go on Ladz, Get Stuck In!", 18, 18, Phase::Combat,
+                                                                                  To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{IRONJAWZ}));
+
         m_weaponOption = weapons;
-        m_mountTrait = trait;
 
         m_points = g_pointsPerUnit;
 
@@ -86,8 +88,9 @@ namespace Ironjawz {
         unit->setGeneral(general);
 
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
+        unit->setMountTrait(mount);
 
-        bool ok = unit->configure(weapons, mount);
+        bool ok = unit->configure(weapons);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -119,11 +122,13 @@ namespace Ironjawz {
     }
 
     void MegabossOnMawKrusha::onRestore() {
+        Ironjawz::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
     void MegabossOnMawKrusha::onWounded() {
+        Ironjawz::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_fistsAndTail.setAttacks(g_damageTable[damageIndex].m_fistsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -140,15 +145,16 @@ namespace Ironjawz {
     }
 
     void MegabossOnMawKrusha::onCharged() {
-        Unit::onCharged();
+        Ironjawz::onCharged();
 
         // Destructive Bulk
+        const int threshold = (m_mountTrait == MountTrait::Heavy_Un) ? 4 : 5;
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
         if (!units.empty()) {
             auto unit = units.front();
             Dice::RollResult result;
             Dice::RollD6(g_damageTable[getDamageTableIndex()].m_bulkDice, result);
-            Wounds bulkWounds = {0, result.rollsGE(5)};
+            Wounds bulkWounds = {0, result.rollsGE(threshold)};
             unit->applyDamage(bulkWounds, this);
         }
     }
@@ -201,6 +207,17 @@ namespace Ironjawz {
 
     int MegabossOnMawKrusha::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds
+    MegabossOnMawKrusha::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Ironjawz::weaponDamage(weapon, target, hitRoll, woundRoll);
+        if (m_mountTrait == MountTrait::Mean_Un) {
+            if (weapon->name() == m_fistsAndTail.name()) {
+                damage.normal++;
+            }
+        }
+        return damage;
     }
 
 } //namespace Ironjawz

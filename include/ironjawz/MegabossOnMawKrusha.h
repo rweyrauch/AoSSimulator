@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MEGABOSSONMAWKRUSHA_H
-#define MEGABOSSONMAWKRUSHA_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 
@@ -35,7 +33,7 @@ namespace Ironjawz {
 
         ~MegabossOnMawKrusha() override = default;
 
-        bool configure(WeaponOption weapons, MountTrait trait);
+        bool configure(WeaponOption weapons);
 
     protected:
 
@@ -51,6 +49,8 @@ namespace Ironjawz {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         int getDamageTableIndex() const;
@@ -63,8 +63,6 @@ namespace Ironjawz {
                 m_ripToofFist,
                 m_fistsAndTail;
 
-        MountTrait m_mountTrait = MountTrait::None;
-
         static bool s_registered;
     };
 
@@ -74,9 +72,7 @@ namespace Ironjawz {
 // Destructive Bulk                 Yes
 // Rip-toof Fist                    Yes
 // Strength from Victory            Yes
-// Go on Ladz, Get Stuck In         TODO
+// Go on Ladz, Get Stuck In         Yes
 //
 
 } // namespace Ironjawz
-
-#endif //MEGABOSSONMAWKRUSHA_H

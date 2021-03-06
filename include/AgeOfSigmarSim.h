@@ -88,6 +88,8 @@ enum BuffableAttribute {
     Attacks_Missile,
     Weapon_Rend_Melee,
     Weapon_Rend_Missile,
+    Weapon_Damage_Melee,
+    Weapon_Damage_Missile,
 
     Num_Buffable_Attributes
 };

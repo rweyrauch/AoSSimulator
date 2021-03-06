@@ -79,4 +79,27 @@ namespace Ironjawz {
         return g_pointsPerUnit;
     }
 
+    void OrrukWarchanter::onStartHero(PlayerId player) {
+        Ironjawz::onStartHero(player);
+
+        // Violent Fury
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 15.0);
+            for (auto unit : units) {
+                if (unit->hasKeyword(IRONJAWZ) && (unit->remainingModels() > 0)) {
+                    unit->buffModifier(Weapon_Damage_Melee, 1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                }
+            }
+        }
+    }
+
+    int OrrukWarchanter::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        auto hits = Ironjawz::generateHits(unmodifiedHitRoll, weapon, unit);
+        // Rhythm of Destruction
+        if ((unmodifiedHitRoll == 6) && (weapon->name() == m_stikks.name())) {
+            return 2;
+        }
+        return hits;
+    }
+
 } // namespace Ironjawz

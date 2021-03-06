@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WEIRDNOBSHAMAN_H
-#define WEIRDNOBSHAMAN_H
+#pragma once
 
 #include "Ironjawz.h"
 #include <Weapon.h>
@@ -31,6 +29,8 @@ namespace Ironjawz {
 
     protected:
 
+        void onEndHero(PlayerId player) override;
+
     private:
 
         Weapon m_staff;
@@ -41,9 +41,8 @@ namespace Ironjawz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Brutal Power                     TODO
-// Green Puke                       TODO
+// Brutal Power                     Yes
+// Green Puke                       Yes
 
 } // namespace Ironjawz
 
-#endif //WEIRDNOBSHAMAN_H
