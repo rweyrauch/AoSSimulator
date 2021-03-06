@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef BOARBOYMANIAKS_H
-#define BOARBOYMANIAKS_H
+#pragma once
 
 #include "bonesplitterz/Bonesplitterz.h"
 
@@ -70,5 +69,3 @@ namespace Bonesplitterz {
 //
 
 } // namespace Bonesplitterz
-
-#endif //BOARBOYMANIAKS_H

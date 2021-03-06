@@ -83,6 +83,8 @@ namespace Bonesplitterz {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffAbilitySpell>(this, "Bone Spirit", 7, 12, Extra_Hit_On_Value, 6,
+                                                                   Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -93,6 +95,46 @@ namespace Bonesplitterz {
 
     int ManiakWeirdnob::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int ManiakWeirdnob::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        // Tusker Charge
+        auto mod = Bonesplitterz::toHitModifier(weapon, target);
+        if (m_charged && weapon->name() == m_tusksAndHooves.name()) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int ManiakWeirdnob::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        // Tusker Charge
+        auto mod = Bonesplitterz::toWoundModifier(weapon, target);
+        if (m_charged && weapon->name() == m_tusksAndHooves.name()) {
+            mod++;
+        }
+        return mod;
+    }
+
+    void ManiakWeirdnob::onBeginTurn(int battleRound) {
+        Bonesplitterz::onBeginTurn(battleRound);
+
+        m_usedWeirdSquig = false;
+    }
+
+    Rerolls ManiakWeirdnob::castingRerolls() const {
+        if (!m_usedWeirdSquig) {
+            m_usedWeirdSquig = true;
+            return Reroll_Failed;
+        }
+        return Bonesplitterz::castingRerolls();
+    }
+
+    Rerolls ManiakWeirdnob::unbindingRerolls() const {
+        if (!m_usedWeirdSquig) {
+            m_usedWeirdSquig = true;
+            return Reroll_Failed;
+        }
+        return Bonesplitterz::unbindingRerolls();
     }
 
 } // namespace Bonesplitterz

@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef ORRUKARROWBOYS_H
-#define ORRUKARROWBOYS_H
+#pragma once
 
 #include "bonesplitterz/Bonesplitterz.h"
 
@@ -68,5 +67,3 @@ namespace Bonesplitterz {
 //
 
 } // namespace Bonesplitterz
-
-#endif //ORRUKARROWBOYS_H

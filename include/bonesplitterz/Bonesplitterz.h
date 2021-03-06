@@ -25,22 +25,22 @@ namespace Bonesplitterz {
         None,
 
         // Prophet and Big Boss
-        Killa_Instinkt,
-        Waaagh_Monger,
-        Great_Hunter,
-        Power_Of_The_Beast,
-        Voice_Of_Da_Gods,
-        Monsta_Killa,
+        Killa_Instinkt,         // Yes
+        Waaagh_Monger,          // Yes
+        Great_Hunter,           // TODO
+        Power_Of_The_Beast,     // Yes
+        Voice_Of_Da_Gods,       // Yes
+        Monsta_Killa,           // TODO
 
         // Wizard
-        Dead_Kunnin,
-        Master_Of_The_Weird,
-        Fuelled_By_The_Spirits,
+        Dead_Kunnin,            // Yes
+        Master_Of_The_Weird,    // Yes
+        Fuelled_By_The_Spirits, // TODO
 
         // Clan specific
-        A_Right_Monster, // Bonegrinz
+        A_Right_Monster, // Bonegrinz TODO
         Purebred_War_Boar, // Icebone
-        Fireball, // Drakkfoot
+        Fireball, // Drakkfoot TODO
     };
 
     enum class Artefact : int {
@@ -108,6 +108,22 @@ namespace Bonesplitterz {
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartHero(PlayerId player) override;
+
+        int woundModifier() const override;
+
+        void onBeginRound(int battleRound) override;
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        int braveryModifier() const override;
+
+        int moveModifier() const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
     protected:
 

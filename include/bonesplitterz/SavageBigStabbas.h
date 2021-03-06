@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef SAVAGEBIGSTABBAS_H
-#define SAVAGEBIGSTABBAS_H
+#pragma once
 
 #include "bonesplitterz/Bonesplitterz.h"
 
@@ -49,5 +48,3 @@ namespace Bonesplitterz {
 //
 
 } // namespace Bonesplitterz
-
-#endif //SAVAGEBIGSTABBAS_H

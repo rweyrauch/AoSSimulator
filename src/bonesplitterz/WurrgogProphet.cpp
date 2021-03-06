@@ -12,6 +12,36 @@
 #include "BonesplitterzPrivate.h"
 
 namespace Bonesplitterz {
+
+    class FistsOfGork : public Spell {
+    public:
+        explicit FistsOfGork(Unit* caster);
+
+    protected:
+        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    };
+
+    FistsOfGork::FistsOfGork(Unit *caster) :
+            Spell(caster, "Fists of Gork", 5, 24) {
+        m_allowedTargets = Abilities::Target::Enemy;
+        m_effect = Abilities::EffectType::Damage;
+    }
+
+    Spell::Result FistsOfGork::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+        if (target == nullptr) return Spell::Result::Failed;
+
+        Dice::RollResult rolls;
+        Dice::RollD6(target->remainingModels(), rolls);
+        auto threshold = 6;
+        if (castingRoll >= 10) {
+            threshold = 4;
+        }
+        target->applyDamage({0, rolls.rollsGE(threshold), Wounds::Source::Spell}, m_caster);
+
+        return Spell::Result::Success;
+    }
+
     static const int g_basesize = 32;
     static const int g_wounds = 7;
     static const int g_pointsPerUnit = 120;
@@ -81,6 +111,7 @@ namespace Bonesplitterz {
         model->addMeleeWeapon(&m_fangedMaw);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<FistsOfGork>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

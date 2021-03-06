@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef WARDOKK_H
-#define WARDOKK_H
+#pragma once
 
 #include "bonesplitterz/Bonesplitterz.h"
 
@@ -48,5 +47,3 @@ namespace Bonesplitterz {
 //
 
 } // namespace Bonesplitterz
-
-#endif //WARDOKK_H

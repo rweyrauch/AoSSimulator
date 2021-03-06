@@ -8,6 +8,7 @@
 
 #include <bonesplitterz/Bonesplitterz.h>
 #include <Board.h>
+#include <Roster.h>
 #include <magic_enum.hpp>
 
 #include "bonesplitterz/BoarboyManiaks.h"
@@ -125,6 +126,9 @@ namespace Bonesplitterz {
             wounds.mortal++;
         }
 
+        if (isGeneral() && (m_commandTrait == CommandTrait::Killa_Instinkt) && (woundRoll == 6) && weapon->isMelee()) {
+            wounds.mortal++;
+        }
         return wounds;
     }
 
@@ -133,6 +137,9 @@ namespace Bonesplitterz {
 
         if (m_stabStabStab && target->hasKeyword(MONSTER)) mod++;
 
+        if (isGeneral() && (weapon->name() == "Tusks and Hooves") && (m_commandTrait == CommandTrait::Purebred_War_Boar)) {
+            mod += 2;
+        }
         return mod;
     }
 
@@ -149,6 +156,78 @@ namespace Bonesplitterz {
 
     void Bonesplitterz::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    void Bonesplitterz::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Waaagh_Monger)) {
+                if (Dice::RollD6() >= 4)
+                    getRoster()->addCommandPoints(1);
+            }
+        }
+    }
+
+    int Bonesplitterz::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Power_Of_The_Beast)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    void Bonesplitterz::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        if (isGeneral() && (battleRound == 1) && (m_commandTrait == CommandTrait::Dead_Kunnin)) {
+            getRoster()->addCommandPoints(Dice::RollD3());
+        }
+    }
+
+    int Bonesplitterz::castingModifier() const {
+        auto mod = Unit::castingModifier();
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Master_Of_The_Weird)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Bonesplitterz::unbindingModifier() const {
+        auto mod = Unit::unbindingModifier();
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Master_Of_The_Weird)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Bonesplitterz::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+
+        if (hasKeyword(BONESPLITTERZ)) {
+            auto general = dynamic_cast<Bonesplitterz *>(getRoster()->getGeneral());
+            if (general && (distanceTo(general) < 18.0) &&
+                (general->m_commandTrait == CommandTrait::Voice_Of_Da_Gods)) {
+                mod += 2;
+            }
+        }
+        return mod;
+    }
+
+    int Bonesplitterz::moveModifier() const {
+        auto mod = Unit::moveModifier();
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Purebred_War_Boar)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int Bonesplitterz::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+        if (isGeneral() && (weapon->name() == "Tusks and Hooves") && (m_commandTrait == CommandTrait::Purebred_War_Boar)) {
+            mod += 2;
+        }
+        return mod;
     }
 
     void Init() {

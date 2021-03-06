@@ -64,7 +64,7 @@ protected:
 
 class BuffModifierCommandAbility : public CommandAbility {
 public:
-    BuffModifierCommandAbility(Unit *general, const std::string &name, int rangeGeneral, int rangeHero, Phase phase,
+    BuffModifierCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase,
                                BuffableAttribute which, int modifier, Abilities::Target allowedTargets,
                                const std::vector<Keyword>& targetKeywords = {});
 
@@ -82,7 +82,7 @@ protected:
 
 class BuffRerollCommandAbility : public CommandAbility {
 public:
-    BuffRerollCommandAbility(Unit *caster, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAttribute which,
+    BuffRerollCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAttribute which,
                              Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
@@ -96,7 +96,7 @@ protected:
 
 class BuffAbilityCommandAbility : public CommandAbility {
 public:
-    BuffAbilityCommandAbility(Unit *caster, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAbility which,
+    BuffAbilityCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAbility which,
                               int value, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:

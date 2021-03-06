@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef SAVAGEBIGBOSS_H
-#define SAVAGEBIGBOSS_H
+#pragma once
 
 #include "bonesplitterz/Bonesplitterz.h"
 
@@ -40,9 +39,7 @@ namespace Bonesplitterz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Let Me at 'Em                    TODO
-// Savage Attack                    TODO
+// Savage Attack                    Yes
 //
 
 } // namespace Bonesplitterz
-
-#endif //SAVAGEBIGBOSS_H

@@ -121,9 +121,12 @@ namespace Ironjawz {
     void Ironjawz::onBeginRound(int battleRound) {
         Unit::onBeginRound(battleRound);
 
-        // Right First of Dakkbad
-        if ((battleRound == 1) && (m_warclan == Warclan::Ironsunz))
+        if (isGeneral() && (battleRound == 1) && (m_commandTrait == CommandTrait::Right_Fist_Of_Dakkbad)) {
             m_roster->addCommandPoints(1);
+        }
+        if (isGeneral() && (battleRound == 1) && (m_commandTrait == CommandTrait::Dead_Kunnin)) {
+            getRoster()->addCommandPoints(Dice::RollD3());
+        }
     }
 
     void Ironjawz::setCommandTrait(CommandTrait trait) {
@@ -132,6 +135,61 @@ namespace Ironjawz {
 
     void Ironjawz::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    void Ironjawz::onCharged() {
+        Unit::onCharged();
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hulking_Muscle_Bound_Brute)) {
+            if (meleeTarget() && distanceTo(meleeTarget()) < 1.0) {
+                if (Dice::RollD6() >= 2) {
+                    meleeTarget()->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                }
+            }
+        }
+    }
+
+    Rerolls Ironjawz::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (charged() && (m_commandTrait == CommandTrait::Live_To_Fight)) {
+            return Reroll_Failed;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    int Ironjawz::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Ironclad)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Ironjawz::castingModifier() const {
+        auto mod = Unit::castingModifier();
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Master_Of_The_Weird)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Ironjawz::unbindingModifier() const {
+        auto mod = Unit::unbindingModifier();
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Master_Of_The_Weird)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int Ironjawz::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+
+        if (hasKeyword(CHOPPAS)) {
+            auto general = dynamic_cast<Ironjawz *>(getRoster()->getGeneral());
+            if (general && (distanceTo(general) < 18.0) && (general->m_commandTrait == CommandTrait::Checked_Out)) {
+                mod += 2;
+            }
+        }
+        return mod;
     }
 
     void Init() {

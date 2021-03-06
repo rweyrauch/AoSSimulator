@@ -26,21 +26,21 @@ namespace Ironjawz {
         None,
 
         // Megaboss
-        Hulking_Muscle_Bound_Brute,
-        Live_To_Fight,
-        Brutish_Cunning,
-        Ironclad,
-        Bestial_Charisma,
-        Mighty_Waaagh,
+        Hulking_Muscle_Bound_Brute,     // Yes
+        Live_To_Fight,                  // Yes
+        Brutish_Cunning,                // TODO
+        Ironclad,                       // Yes
+        Bestial_Charisma,               // TODO
+        Mighty_Waaagh,                  // TODO
 
         // Shaman
-        Dead_Kunnin,
-        Master_Of_The_Weird,
-        Bursting_With_Power,
+        Dead_Kunnin,                    // Yes
+        Master_Of_The_Weird,            // Yes
+        Bursting_With_Power,            // TODO
 
         // Clan specific
         Right_Fist_Of_Dakkbad, // Ironsunz
-        Get_Da_Realmgate, // Bloodtoof
+        Get_Da_Realmgate, // Bloodtoof TODO
         Checked_Out, // Da Choppas
     };
 
@@ -69,20 +69,20 @@ namespace Ironjawz {
     enum class MountTrait : int {
         None,
 
-        Big_Un,
-        Fast_Un,
-        Mean_Un,
-        Heavy_Un,
-        Loud_Un,
-        Weird_Un,
+        Big_Un,         // TODO
+        Fast_Un,        // TODO
+        Mean_Un,        // TODO
+        Heavy_Un,       // TODO
+        Loud_Un,        // TODO
+        Weird_Un,       // TODO
     };
 
     enum class Warbeat : int {
         None,
 
-        Get_Em_Beat,
-        Fixin_Beat,
-        Killa_Beat,
+        Get_Em_Beat,    // TODO
+        Fixin_Beat,     // TODO
+        Killa_Beat,     // TODO
     };
 
     enum class Lore : int {
@@ -121,6 +121,18 @@ namespace Ironjawz {
         int runModifier() const override;
 
         void onBeginRound(int battleRound) override;
+
+        void onCharged() override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        int braveryModifier() const override;
 
     protected:
 

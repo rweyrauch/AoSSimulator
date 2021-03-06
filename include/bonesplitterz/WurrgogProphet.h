@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef WURRGOGPROPHET_H
-#define WURRGOGPROPHET_H
+#pragma once
 
 #include "bonesplitterz/Bonesplitterz.h"
 
@@ -46,9 +45,7 @@ namespace Bonesplitterz {
 // -------------------------------------------
 // Beast Mask                       Yes
 // Prophet of Da Waaagh!            Yes
-// Fists of Gork                    TODO
+// Fists of Gork                    Yes
 //
 
 } // namespace Bonesplitterz
-
-#endif //WURRGOGPROPHET_H

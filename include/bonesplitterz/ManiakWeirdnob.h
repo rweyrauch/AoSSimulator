@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef MANIAKWEIRDNOB_H
-#define MANIAKWEIRDNOB_H
+#pragma once
 
 #include "bonesplitterz/Bonesplitterz.h"
 
@@ -29,8 +28,19 @@ namespace Bonesplitterz {
 
     protected:
 
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        void onBeginTurn(int battleRound) override;
+
+        Rerolls castingRerolls() const override;
+
+        Rerolls unbindingRerolls() const override;
 
     private:
+
+        mutable bool m_usedWeirdSquig = false;
 
         Weapon m_bonebeastStaff,
                 m_tusksAndHooves;
@@ -41,11 +51,9 @@ namespace Bonesplitterz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Tusker Charge                    TODO
-// Weird Squig                      TODO
-// Bone Spirit                      TODO
+// Tusker Charge                    Yes
+// Weird Squig                      Yes
+// Bone Spirit                      Yes
 //
 
 } // namespace Bonesplitterz
-
-#endif //MANIAKWEIRDNOB_H
