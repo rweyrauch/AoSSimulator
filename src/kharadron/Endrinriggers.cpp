@@ -7,6 +7,7 @@
  */
 #include <kharadron/Endrinriggers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
@@ -181,6 +182,23 @@ namespace KharadronOverlords {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    void Endrinriggers::onStartHero(PlayerId player) {
+        KharadronBase::onStartHero(player);
+
+        // Endrincraft
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 1.0);
+            for (auto unit : units) {
+                if (unit->hasKeyword(SKYVESSEL) && (unit->remainingWounds() < unit->wounds())) {
+                    Dice::RollResult rolls;
+                    Dice::RollD6(remainingModels(), rolls);
+                    unit->heal(rolls.rollsGE(4));
+                    break;
+                }
+            }
+        }
     }
 
 } //KharadronOverlords

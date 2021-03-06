@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ENDRINMASTERWITHHARNESS_H
-#define ENDRINMASTERWITHHARNESS_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -31,6 +29,10 @@ namespace KharadronOverlords {
 
     protected:
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_gaze,
@@ -42,11 +44,10 @@ namespace KharadronOverlords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Endrinmaster                     TODO
-// Endrinharness                    TODO
+// Endrinmaster                     Yes
+// Endrinharness                    Yes
 // By Grungni, I Have My Eye On You!    TODO
 //
 
 } // namespace KharadronOverlords
 
-#endif //ENDRINMASTERWITHHARNESS_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef NIGHTHAUNTPRIVATE_H
-#define NIGHTHAUNTPRIVATE_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <array>
@@ -58,5 +56,3 @@ namespace Nighthaunt {
     };
 
 } // namespace Nighthaunt
-
-#endif // NIGHTHAUNT_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef IRONJAWZPRIVATE_H
-#define IRONJAWZPRIVATE_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 #include <array>
@@ -84,5 +82,3 @@ namespace Ironjawz {
     };
 
 } // namespace Ironjawz
-
-#endif // IRONJAWZPRIVATE_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef PLAGUECENSERBEARERS_H
-#define PLAGUECENSERBEARERS_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -55,5 +53,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //PLAGUECENSERBEARERS_H

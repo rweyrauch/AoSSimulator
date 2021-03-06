@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SLAANESHPRIVATE_H
-#define SLAANESHPRIVATE_H
+#pragma once
 
 #include <slaanesh/SlaaneshBase.h>
 #include <array>
@@ -105,5 +103,3 @@ namespace Slaanesh {
     };
 
 } // namespace Slaanesh
-
-#endif //SLAANESHPRIVATE_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THANQUOLBONERIPPER_H
-#define THANQUOLBONERIPPER_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -62,5 +60,3 @@ namespace Skaven {
 // Power Behind the Throne          TODO
 
 } // namespace Skaven
-
-#endif //THANQUOLBONERIPPER_H

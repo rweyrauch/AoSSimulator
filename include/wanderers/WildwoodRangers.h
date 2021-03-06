@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WILDWOODRANGERS_H
-#define WILDWOODRANGERS_H
+#pragma once
 
 #include <wanderers/Wanderer.h>
 #include <Weapon.h>
@@ -54,5 +52,3 @@ namespace Wanderers {
 //
 
 } // namespace Wanderers
-
-#endif //WILDWOODRANGERS_H

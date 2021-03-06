@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ENDRINMASTERWITHSUIT_H
-#define ENDRINMASTERWITHSUIT_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -31,6 +29,8 @@ namespace KharadronOverlords {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_aethercannon,
@@ -44,11 +44,10 @@ namespace KharadronOverlords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Endrinmaster                     TODO
+// Endrinmaster                     Yes
 // Hitcher                          TODO
 // By Grungni, I Have My Eye On You!    TODO
 //
 
 } // namespace KharadronOverlords
 
-#endif //ENDRINMASTERWITHSUIT_H

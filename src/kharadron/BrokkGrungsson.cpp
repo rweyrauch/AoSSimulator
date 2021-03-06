@@ -77,4 +77,26 @@ namespace KharadronOverlords {
         return g_pointsPerUnit;
     }
 
+    void BrokkGrungsson::onCharged() {
+        KharadronBase::onCharged();
+        // Custom-built Dirigable Suit
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
+            if (Dice::RollD6() >= 2) {
+                Wounds wounds = {0, 0};
+                wounds.mortal += Dice::RollD3();
+                m_meleeTarget->applyDamage(wounds, this);
+            }
+        }
+    }
+
+    Wounds BrokkGrungsson::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = KharadronBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        // Endrinharness
+        if ((hitRoll == 6) && weapon->isMelee()) {
+            damage.normal = 0;
+            damage.mortal = Dice::RollD3();
+        }
+        return damage;
+    }
+
 } //KharadronOverlords

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LIEGEKAVALOS_H
-#define LIEGEKAVALOS_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -54,4 +52,3 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //LIEGEKAVALOS_H

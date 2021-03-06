@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SONSOFBEHEHMETPRIVATE_H
-#define SONSOFBEHEHMETPRIVATE_H
+#pragma once
 
 #include <behemat/SonsOfBehemat.h>
 #include "../AoSSimPrivate.h"
@@ -86,5 +84,3 @@ namespace SonsOfBehemat {
     };
 
 } // namespace SonsOfBehemat
-
-#endif //SONSOFBEHEHMETPRIVATE_H

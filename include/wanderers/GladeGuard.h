@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GLADEGUARD_H
-#define GLADEGUARD_H
+#pragma once
 
 #include <wanderers/Wanderer.h>
 #include <Weapon.h>
@@ -60,5 +58,3 @@ namespace Wanderers {
 //
 
 } // namespace Wanderers
-
-#endif //GLADEGUARD_H

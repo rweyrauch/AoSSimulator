@@ -5,9 +5,8 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+#pragma once
 
-#ifndef DOOMFLAYER_H
-#define DOOMFLAYER_H
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -57,5 +56,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //DOOMFLAYER_H

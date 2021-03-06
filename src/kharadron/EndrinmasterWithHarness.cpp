@@ -7,6 +7,7 @@
  */
 #include <kharadron/EndrinmasterWithHarness.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
@@ -89,6 +90,30 @@ namespace KharadronOverlords {
 
     int EndrinmasterWithEndrinharness::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds EndrinmasterWithEndrinharness::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+                                                       int woundRoll) const {
+        auto damage = KharadronBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        // Endrinharness
+        if ((hitRoll == 6) && weapon->isMelee()) {
+            damage.normal = 0;
+            damage.mortal = Dice::RollD3();
+        }
+        return damage;
+    }
+
+    void EndrinmasterWithEndrinharness::onStartHero(PlayerId player) {
+        KharadronBase::onStartHero(player);
+
+        // Endrinmaster
+        auto vessels = Board::Instance()->getUnitsWithin(this, owningPlayer(), 1.0);
+        for (auto vessel : vessels) {
+            if (vessel->hasKeyword(SKYVESSEL) && (vessel->remainingWounds() < vessel->wounds())) {
+                heal(3);
+                break;
+            }
+        }
     }
 
 } //KharadronOverlords

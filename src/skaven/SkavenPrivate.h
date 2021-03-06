@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKAVENPRIVATE_H
-#define SKAVENPRIVATE_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <array>
@@ -153,5 +151,3 @@ namespace Skaven {
     };
 
 } // namespace Skaven
-
-#endif //SKAVENPRIVATE_H

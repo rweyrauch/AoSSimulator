@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ENDRINRIGGERS_H
-#define ENDRINRIGGERS_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -39,6 +37,8 @@ namespace KharadronOverlords {
 
         int chargeModifier() const override;
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_volleyGun,
@@ -57,7 +57,7 @@ namespace KharadronOverlords {
 // Abilities                    Implemented
 // -------------------------------------------
 // Drill Launcher                   Yes
-// Endrincraft                      TODO
+// Endrincraft                      Yes
 // Grapnel Launcher                 TODO
 // Hitchers                         TODO
 // Skyhook                          Yes
@@ -65,4 +65,3 @@ namespace KharadronOverlords {
 
 } // namespace KharadronOverlords
 
-#endif //ENDRINRIGGERS_H

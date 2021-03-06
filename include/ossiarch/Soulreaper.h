@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SOULREAPER_H
-#define SOULREAPER_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -57,4 +55,3 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //SOULREAPER_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AETHERICNAVIGATOR_H
-#define AETHERICNAVIGATOR_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -31,6 +29,8 @@ namespace KharadronOverlords {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_pistol,
@@ -43,10 +43,9 @@ namespace KharadronOverlords {
 // Abilities                    Implemented
 // -------------------------------------------
 // Aethersight                      Yes
-// Aetherstorm                      TODO
+// Aetherstorm                      Yes
 // Read the Winds                   TODO
 //
 
 } // namespace KharadronOverlords
 
-#endif //AETHERICNAVIGATOR_H

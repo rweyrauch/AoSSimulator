@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef STORMCASTETERNALSPRIVATE_H
-#define STORMCASTETERNALSPRIVATE_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/PrayersOfTheStormhosts.h>
@@ -192,5 +190,3 @@ namespace StormcastEternals {
     CommandAbility* CreateCommandAbility(Command which, Unit* source);
 
 } // namespace StormcastEternals
-
-#endif // STORMCASTETERNALSPRIVATE_H

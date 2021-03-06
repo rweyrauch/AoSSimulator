@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LEGIONOFNAGASHPRIVATE_H
-#define LEGIONOFNAGASHPRIVATE_H
+#pragma once
 
 #include <death/LegionOfNagash.h>
 #include <array>
@@ -131,5 +129,3 @@ namespace Death {
     };
 
 } // namespace Death
-
-#endif //LEGIONOFNAGASHPRIVATE_H

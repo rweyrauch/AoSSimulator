@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef IDONETHDEEPKINPRIVATE_H
-#define IDONETHDEEPKINPRIVATE_H
+#pragma once
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <array>
@@ -101,4 +99,3 @@ namespace IdonethDeepkin {
 
 } // namespace IdonethDeepkin
 
-#endif // IDONETHDEEPKINPRIVATE_H

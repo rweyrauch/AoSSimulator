@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BROKKGRUNGSSON_H
-#define BROKKGRUNGSSON_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -31,6 +29,10 @@ namespace KharadronOverlords {
 
     protected:
 
+        void onCharged() override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_boast,
@@ -44,12 +46,11 @@ namespace KharadronOverlords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Custom-built Dirigible Suit      TODO
-// Endrinharness                    TODO
+// Custom-built Dirigible Suit      Yes
+// Endrinharness                    Yes
 // Hitcher                          TODO
 // First Rule of Grungsson          TODO
 //
 
 } // namespace KharadronOverlords
 
-#endif //BROKKGRUNGSSON_H

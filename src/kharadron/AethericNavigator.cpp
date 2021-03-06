@@ -7,6 +7,7 @@
  */
 #include <kharadron/AethericNavigator.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
@@ -92,6 +93,25 @@ namespace KharadronOverlords {
 
     int AethericNavigator::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void AethericNavigator::onStartHero(PlayerId player) {
+        KharadronBase::onStartHero(player);
+
+        // Aetherstorm
+        auto flyers = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 36.0);
+        for (auto unit : flyers) {
+            if (unit->canFly() && unit->remainingModels() > 0) {
+                auto roll = Dice::RollD6();
+                if (roll == 6) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                }
+                if (roll >= 3) {
+                    unit->buffMovement(Halve_Movement, true, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                }
+                break;
+            }
+        }
     }
 
 } //KharadronOverlords

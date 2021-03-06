@@ -102,12 +102,12 @@ namespace Fyreslayers {
         None,
 
         // Magmadroth
-        Cinder_Crest_Youngblood,
-        Flame_Scale_Youngblood,
-        Fire_Claw_Adult,
-        Lava_Tongue_Adult,
-        Coal_Heart_Ancient,
-        Ash_Horn_Ancient
+        Cinder_Crest_Youngblood,    // TODO
+        Flame_Scale_Youngblood,     // TODO
+        Fire_Claw_Adult,            // TODO
+        Lava_Tongue_Adult,          // TODO
+        Coal_Heart_Ancient,         // TODO
+        Ash_Horn_Ancient            // TODO
     };
 
     enum class Blessing : int {

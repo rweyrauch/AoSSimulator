@@ -220,6 +220,36 @@ namespace KharadronOverlords {
         }
     }
 
+    int KharadronBase::unbindingModifier() const {
+        auto mod = Unit::unbindingModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Sceptic)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    void KharadronBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (m_commandTrait == CommandTrait::A_Nose_For_Gold)) {
+                if (Dice::RollD6() >= 5) {
+                    m_aetherGold++;
+                }
+            }
+        }
+    }
+
+    int KharadronBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Great_Tinkerer)) {
+            if (weapon->name() == "Gaze of Grungni") {
+                attacks += 2;
+            }
+        }
+        return attacks;
+    }
+
     void Init() {
         AethericNavigator::Init();
         AetherKhemist::Init();

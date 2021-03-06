@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BONESPLITTERZPRIVATE_H
-#define BONESPLITTERZPRIVATE_H
+#pragma once
 
 #include <bonesplitterz/Bonesplitterz.h>
 #include <array>
@@ -67,5 +65,3 @@ namespace Bonesplitterz {
     };
 
 } // namespace Bonesplitterz
-
-#endif // BONESPLITTERZPRIVATE_H

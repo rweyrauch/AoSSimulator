@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DOOMWHEEL_H
-#define DOOMWHEEL_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -57,5 +55,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //DOOMWHEEL_H

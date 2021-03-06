@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MORTEKCRAWLER_H
-#define MORTEKCRAWLER_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -59,4 +57,3 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //MORTEKCRAWLER_H

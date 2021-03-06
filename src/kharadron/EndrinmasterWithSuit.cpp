@@ -7,6 +7,7 @@
  */
 #include <kharadron/EndrinmasterWithSuit.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
@@ -94,6 +95,19 @@ namespace KharadronOverlords {
 
     int EndrinmasterWithDirigibleSuit::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void EndrinmasterWithDirigibleSuit::onStartHero(PlayerId player) {
+        KharadronBase::onStartHero(player);
+
+        // Endrinmaster
+        auto vessels = Board::Instance()->getUnitsWithin(this, owningPlayer(), 1.0);
+        for (auto vessel : vessels) {
+            if (vessel->hasKeyword(SKYVESSEL) && (vessel->remainingWounds() < vessel->wounds())) {
+                heal(3);
+                break;
+            }
+        }
     }
 
 } //KharadronOverlords

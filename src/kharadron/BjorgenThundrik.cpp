@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "kharadron/BjorgenThundrik.h"
 
 namespace KharadronOverlords {
@@ -60,6 +61,11 @@ namespace KharadronOverlords {
                       AETHER_KHEMIST, BJORGEN_THUNDRIK};
         m_weapons = {&m_anatomiser, &m_instruments};
         m_battleFieldRole = Leader;
+        s_globalToHitMod.connect(this, &BjorgenThundrik::atmosphericIsolation, &m_connection);
+    }
+
+    BjorgenThundrik::~BjorgenThundrik() {
+        m_connection.disconnect();
     }
 
     bool BjorgenThundrik::configure() {
@@ -71,6 +77,26 @@ namespace KharadronOverlords {
         m_points = BjorgenThundrik::ComputePoints(1);
 
         return true;
+    }
+
+    void BjorgenThundrik::onStartHero(PlayerId player) {
+        KharadronBase::onStartHero(player);
+
+        // Aetheric Augmentation
+        auto skyfarers = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+        for (auto unit : skyfarers) {
+            if (unit->hasKeyword(SKYFARER)) {
+                unit->buffReroll(To_Wound_Melee, Reroll_Ones, {Phase::Hero, m_battleRound+1, owningPlayer()});
+            }
+        }
+    }
+
+    int BjorgenThundrik::atmosphericIsolation(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        // Atmospheric Isolation
+        if ((target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 3.0)) {
+            return -1;
+        }
+        return 0;
     }
 
 } // namespace KharadronOverlords

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TZEENTCHPRIVATE_H
-#define TZEENTCHPRIVATE_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <array>
@@ -105,5 +103,3 @@ namespace Tzeentch {
     };
 
 } // Tzeentch
-
-#endif //TZEENTCHPRIVATE_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef NURGLEPRIVATE_H
-#define NURGLEPRIVATE_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <array>
@@ -133,5 +131,3 @@ namespace Nurgle {
     };
 
 } // namespace Nurgle
-
-#endif //NURGLEPRIVATE_H

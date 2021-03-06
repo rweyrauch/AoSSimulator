@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KAVALOSZANDTOS_H
-#define KAVALOSZANDTOS_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include <Weapon.h>
@@ -60,4 +58,3 @@ namespace OssiarchBonereapers {
 
 } // namespace OssiarchBonereapers
 
-#endif //KAVALOSZANDTOS_H

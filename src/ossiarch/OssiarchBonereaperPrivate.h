@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef OSSIARCHPRIVATE_H
-#define OSSIARCHPRIVATE_H
+#pragma once
 
 #include <ossiarch/OssiarchBonereaperBase.h>
 #include "../AoSSimPrivate.h"
@@ -86,5 +84,3 @@ namespace OssiarchBonereapers {
     };
 
 } // namespace OssiarchBonereapers
-
-#endif // OSSIARCHPRIVATE_H

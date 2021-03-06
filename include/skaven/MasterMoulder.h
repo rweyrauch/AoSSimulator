@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MASTERMOULDER_H
-#define MASTERMOULDER_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -61,5 +59,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //MASTERMOULDER_H

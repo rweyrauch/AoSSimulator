@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SYLVANETHPRIVATE_H
-#define SYLVANETHPRIVATE_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <array>
@@ -89,5 +87,3 @@ namespace Sylvaneth {
     };
 
 } // namespace Sylvaneth
-
-#endif // SYLVANETHPRIVATE_H

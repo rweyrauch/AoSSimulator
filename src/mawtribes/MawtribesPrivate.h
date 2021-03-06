@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MAWTRIBEPRIVATE_H
-#define MAWTRIBEPRIVATE_H
+#pragma once
 
 #include <mawtribes/MawtribesBase.h>
 #include <array>
@@ -147,5 +145,3 @@ namespace OgorMawtribes {
     };
 
 } // namespace OgorMawtribes
-
-#endif // MAWTRIBESPRIVATE_H

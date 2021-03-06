@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AETHERKHEMIST_H
-#define AETHERKHEMIST_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -31,6 +29,8 @@ namespace KharadronOverlords {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
         int atmosphericIsolation(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
     private:
@@ -46,10 +46,9 @@ namespace KharadronOverlords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Aetheric Augmentation            TODO
+// Aetheric Augmentation            Yes
 // Atmospheric Isolation            Yes
 //
 
 } // namespace KharadronOverlords
 
-#endif //AETHERKHEMIST_H

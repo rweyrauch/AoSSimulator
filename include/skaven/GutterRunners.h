@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GUTTERRUNNERS_H
-#define GUTTERRUNNERS_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -49,5 +47,3 @@ namespace Skaven {
 // Throwing Stars                   Yes
 
 } // namespace Skaven
-
-#endif //GUTTERRUNNERS_H

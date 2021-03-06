@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BJORGENTHUNDRIK_H
-#define BJORGENTHUNDRIK_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -25,16 +23,22 @@ namespace KharadronOverlords {
 
         BjorgenThundrik();
 
-        ~BjorgenThundrik() override = default;
+        ~BjorgenThundrik() override;
 
         bool configure();
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
+        int atmosphericIsolation(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
     private:
 
         Weapon m_anatomiser,
                 m_instruments;
+
+        lsignal::slot m_connection;
 
         static bool s_registered;
     };
@@ -42,10 +46,9 @@ namespace KharadronOverlords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Aetheric Augmentation            TODO
-// Atmospheric Isolation            TODO
+// Aetheric Augmentation            Yes
+// Atmospheric Isolation            Yes
 //
 
 } // namespace KharadronOverlords
 
-#endif //BJORGENTHUNDRIK_H

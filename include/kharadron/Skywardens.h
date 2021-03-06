@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKYWARDENS_H
-#define SKYWARDENS_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -66,4 +64,3 @@ namespace KharadronOverlords {
 
 } // namespace KharadronOverlords
 
-#endif //SKYWARDENS_H

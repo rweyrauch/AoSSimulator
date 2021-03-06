@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef GLOOMSPITEPRIVATE_H
-#define GLOOMSPITEPRIVATE_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <gloomspitegitz/GloomspiteSpells.h>
@@ -111,5 +110,3 @@ namespace GloomspiteGitz {
     };
 
 } // namespace GloomspiteGitz
-
-#endif //GLOOMSPITEPRIVATE_H

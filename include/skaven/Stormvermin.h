@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef STORMVERMIN_H
-#define STORMVERMIN_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -55,5 +53,3 @@ namespace Skaven {
 // Clanshields                      Yes
 
 } // namespace Skaven
-
-#endif //STORMVERMIN_H

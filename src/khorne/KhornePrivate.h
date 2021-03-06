@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KHORNEPRIVATE_H
-#define KHORNEPRIVATE_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <khorne/BloodBlessingsOfKhorne.h>
@@ -133,5 +131,3 @@ namespace Khorne {
     };
 
 } // namespace Khorne
-
-#endif // KHORNEPRIVATE_H

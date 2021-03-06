@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ARKANAUTCOMPANY_H
-#define ARKANAUTCOMPANY_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -67,4 +65,3 @@ namespace KharadronOverlords {
 
 } // namespace KharadronOverlords
 
-#endif //ARKANAUTCOMPANY_H

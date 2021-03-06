@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GIANTRATS_H
-#define GIANTRATS_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -51,5 +49,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //GIANTRATS_H

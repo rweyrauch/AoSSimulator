@@ -7,6 +7,7 @@
  */
 #include <kharadron/AetherKhemist.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KharadronPrivate.h"
 
 namespace KharadronOverlords {
@@ -105,6 +106,18 @@ namespace KharadronOverlords {
 
     int AetherKhemist::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void AetherKhemist::onStartHero(PlayerId player) {
+        KharadronBase::onStartHero(player);
+
+        // Aetheric Augmentation
+        auto skyfarers = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+        for (auto unit : skyfarers) {
+            if (unit->hasKeyword(SKYFARER)) {
+                unit->buffReroll(To_Wound_Melee, Reroll_Ones, {Phase::Hero, m_battleRound+1, owningPlayer()});
+            }
+        }
     }
 
 } //KharadronOverlords

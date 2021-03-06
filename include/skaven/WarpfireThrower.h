@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WARPFIRETHROWER_H
-#define WARPFIRETHROWER_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -49,5 +47,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //WARPFIRETHROWER_H

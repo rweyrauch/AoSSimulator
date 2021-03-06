@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CLANRATS_H
-#define CLANRATS_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -66,5 +64,3 @@ namespace Skaven {
 // Clanshields                      Yes
 
 } // namespace Skaven
-
-#endif //CLANRATS_H

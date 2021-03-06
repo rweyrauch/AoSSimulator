@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKRITCHSPITECLAW_H
-#define SKRITCHSPITECLAW_H
+#pragma once
 
 #include <skaven/Skaventide.h>
 #include <Weapon.h>
@@ -46,5 +44,3 @@ namespace Skaven {
 //
 
 } // namespace Skaven
-
-#endif //SKRITCHSPITECLAW_H

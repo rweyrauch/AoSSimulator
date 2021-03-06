@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FLESHEATERCOURTSPRIVATE_H
-#define FLESHEATERCOURTSPRIVATE_H
+#pragma once
 
 #include <fec/FleshEaterCourts.h>
 #include <array>
@@ -103,5 +101,3 @@ namespace FleshEaterCourt {
     };
 
 } // namespace FleshEaterCourt
-
-#endif // FLESHEATERCOURTSPRIVATE_H

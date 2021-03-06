@@ -89,7 +89,7 @@ namespace KharadronOverlords {
         // Tough_as_Old_Boots,
         // Grudgebearer,
         Grandmaster,                // TODO
-        Great_Tinkerer,             // TODO
+        Great_Tinkerer,             // Yes
         Endrinprofessor,            // TODO
 
         // Navigatgor
@@ -97,14 +97,14 @@ namespace KharadronOverlords {
         // Tough_as_Old_Boots,
         Stormcaller,                // TODO
         Ride_The_Winds,             // TODO
-        Sceptic,                    // TODO
+        Sceptic,                    // Yes
         Diviner,                    // TODO
 
         // Khemist
         // Wealthy,
         // Tough_as_Old_Boots,
         // Grudgebearer,
-        A_Nose_For_Gold,            // TODO
+        A_Nose_For_Gold,            // Yes
         Genius_In_The_Making,       // TODO
         Collector,                  // TODO
 
@@ -218,6 +218,12 @@ namespace KharadronOverlords {
         void onEndShooting(PlayerId player) override;
 
         void onEndCombat(PlayerId player) override;
+
+        int unbindingModifier() const override;
+
+        void onStartHero(PlayerId player) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
     protected:
 

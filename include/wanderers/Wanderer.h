@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WANDERER_H
-#define WANDERER_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -45,5 +43,3 @@ namespace Wanderers {
     void Init();
 
 } // namespace Wanderers
-
-#endif //WANDERER_H
