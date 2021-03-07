@@ -18,8 +18,8 @@ namespace Bonesplitterz {
         explicit FistsOfGork(Unit* caster);
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     FistsOfGork::FistsOfGork(Unit *caster) :
@@ -28,7 +28,7 @@ namespace Bonesplitterz {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result FistsOfGork::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+    Spell::Result FistsOfGork::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) return Spell::Result::Failed;
 
         Dice::RollResult rolls;

@@ -33,8 +33,8 @@ namespace GloomspiteGitz {
 
     protected:
 
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     GreatGreenSpite::GreatGreenSpite(Unit *caster) :
@@ -44,7 +44,7 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(GLOOMSPITE_GITZ);
     }
 
-    Spell::Result GreatGreenSpite::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result GreatGreenSpite::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
             return Result::Failed;
         }
@@ -78,8 +78,8 @@ namespace GloomspiteGitz {
 
     protected:
 
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     SquigLure::SquigLure(Unit *caster) :
@@ -89,7 +89,7 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(SQUIG);
     }
 
-    Spell::Result SquigLure::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result SquigLure::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         auto squigs = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
         auto numUnits = Dice::RollD3();
         int numAffected = 0;

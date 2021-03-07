@@ -73,8 +73,8 @@ namespace Ironjawz {
         Fast_Un,        // Yes
         Mean_Un,        // Yes
         Heavy_Un,       // Yes
-        Loud_Un,        // TODO
-        Weird_Un,       // TODO
+        Loud_Un,        // Yes
+        Weird_Un,       // Yes
     };
 
     enum class Warbeat : int {
@@ -88,12 +88,12 @@ namespace Ironjawz {
     enum class Lore : int {
         None,
 
-        Brain_Bursta,       // TODO
-        Mighty_Eadbutt,     // TODO
-        Da_Blazin_Eyes,     // TODO
+        Brain_Bursta,       // Yes
+        Mighty_Eadbutt,     // Yes
+        Da_Blazin_Eyes,     // Yes
         Da_Great_Big_Green_Hand_Of_Gork,    // TODO
         Bash_Em_Ladz,       // TODO
-        Wrath_Of_Gork       // TODO
+        Wrath_Of_Gork       // Yes
     };
 
     class Ironjawz : public Unit {
@@ -141,12 +141,22 @@ namespace Ironjawz {
 
         int moveModifier() const override;
 
+        void onRestore() override {
+            Unit::onRestore();
+            m_usedLoudUn = false;
+        }
+
+        void onStartCombat(PlayerId player) override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
     protected:
 
         Warclan m_warclan = Warclan::Ironsunz;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
         MountTrait m_mountTrait = MountTrait::None;
+        bool m_usedLoudUn = false;
     };
 
 //

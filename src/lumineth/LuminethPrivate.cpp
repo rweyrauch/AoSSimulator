@@ -17,7 +17,7 @@ namespace LuminethRealmLords {
         m_targetKeywords = {Sunmetal_Weapons};
     }
 
-    Spell::Result PowerOfHysh::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+    Spell::Result PowerOfHysh::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Result::Failed;
         }
@@ -35,14 +35,14 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
             target->buffModifier(Move_Distance, target->move(), defaultDuration());
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class ProtectionOfHysh : public Spell {
@@ -54,7 +54,7 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -62,7 +62,7 @@ namespace LuminethRealmLords {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class UnyieldingCalm : public Spell {
@@ -75,7 +75,7 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -83,7 +83,7 @@ namespace LuminethRealmLords {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class Entomb : public Spell {
@@ -95,7 +95,7 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             auto roll = Dice::RollD6();
@@ -107,7 +107,7 @@ namespace LuminethRealmLords {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class VoiceOfTheMountain : public Spell {
@@ -119,7 +119,7 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -129,7 +129,7 @@ namespace LuminethRealmLords {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class AssaultOfStone : public Spell {
@@ -141,7 +141,7 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             Wounds wounds{0, 0, Wounds::Source::Spell};
@@ -156,7 +156,7 @@ namespace LuminethRealmLords {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class OverwhelmingHeat : public Spell {
@@ -168,7 +168,7 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -178,7 +178,7 @@ namespace LuminethRealmLords {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     Spell* CreateLore(Lore which, Unit* caster) {

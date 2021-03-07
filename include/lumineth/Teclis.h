@@ -27,7 +27,7 @@ namespace LuminethRealmLords {
 
         bool configure(Lore lore);
 
-        int rollCasting(int& unmodifiedRoll) const override;
+        int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
 
         void enableProtectionOfTeclis();
 

@@ -20,11 +20,11 @@ namespace IdonethDeepkin {
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             return apply(castingRoll, unmodifiedCastingRoll, target->x(), target->y());
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override {
 
             auto units = Board::Instance()->getUnitsWithin({x, y, 0}, GetEnemyId(m_caster->owningPlayer()), 3.0);
             for (auto unit : units) {
@@ -44,14 +44,14 @@ namespace IdonethDeepkin {
             m_effect = Abilities::EffectType::Damage;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             if (Dice::RollD6() > target->wounds()) {
                 target->slay(1);
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     class TideOfFear : public Spell {
@@ -62,14 +62,14 @@ namespace IdonethDeepkin {
             m_effect = Abilities::EffectType::Debuff;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(To_Hit_Melee, -1, defaultDuration());
             target->buffModifier(To_Hit_Missile, -1, defaultDuration());
             target->buffModifier(Bravery, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     class ArcaneCorrasion : public Spell {
@@ -80,7 +80,7 @@ namespace IdonethDeepkin {
             m_effect = Abilities::EffectType::Damage;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             const auto distance = m_caster->distanceTo(target);
             int mortalWounds = 1;
@@ -90,7 +90,7 @@ namespace IdonethDeepkin {
             target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     Spell* CreateLore(Lore which, Unit* caster) {

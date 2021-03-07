@@ -607,6 +607,17 @@ void Unit::movement(PlayerId player) {
                 allowedMove = allowedMove/2;
             }
         }
+        if (!m_movementRules[Double_Movement].empty()) {
+            if (m_movementRules[Double_Movement].front().allowed) {
+                allowedMove = allowedMove*2;
+            }
+        }
+        if (!m_movementRules[Triple_Movement].empty()) {
+            if (m_movementRules[Triple_Movement].front().allowed) {
+                allowedMove = allowedMove*3;
+            }
+        }
+
         const auto movement = allowedMove + (double)moveModifier();
 
         if (weapon && weapon->isMissile()) {
@@ -1623,8 +1634,9 @@ void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor) {
     }
 }
 
-int Unit::rollCasting(int& unmodifiedRoll) const {
-    unmodifiedRoll = Dice::Roll2D6();
+int Unit::rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const {
+    unmodifiedRoll.d1 = Dice::RollD6();
+    unmodifiedRoll.d2 = Dice::RollD6();
     return unmodifiedRoll + castingModifier();
 }
 

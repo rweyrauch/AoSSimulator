@@ -16,8 +16,8 @@ namespace BeastsOfChaos {
        explicit Viletide(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
    };
 
     Viletide::Viletide(Unit *caster) :
@@ -26,7 +26,7 @@ namespace BeastsOfChaos {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result Viletide::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result Viletide::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -44,8 +44,8 @@ namespace BeastsOfChaos {
         explicit WildRampage(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
     };
 
     WildRampage::WildRampage(Unit *caster) :
@@ -54,7 +54,7 @@ namespace BeastsOfChaos {
         m_effect = Abilities::EffectType::Buff;
     }
 
-    Spell::Result WildRampage::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result WildRampage::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -74,11 +74,11 @@ namespace BeastsOfChaos {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
     };
 
-    Spell::Result TendrilsOfAtrophy::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result TendrilsOfAtrophy::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 

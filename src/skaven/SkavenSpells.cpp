@@ -20,7 +20,7 @@ namespace Skaven {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             Dice::RollResult rolls;
@@ -29,7 +29,7 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class Splinter : public Spell {
@@ -41,7 +41,7 @@ namespace Skaven {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             if (Dice::RollD6() > target->wounds()) {
@@ -50,7 +50,7 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class Plague : public Spell {
@@ -62,7 +62,7 @@ namespace Skaven {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             Dice::RollResult rolls;
@@ -71,7 +71,7 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class Warpgale : public Spell {
@@ -83,7 +83,7 @@ namespace Skaven {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
@@ -95,7 +95,7 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class ChainWarpLightning : public Spell {
@@ -107,7 +107,7 @@ namespace Skaven {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
             int numUnitAffected = Dice::RollD6();
             numUnitAffected = std::min(numUnitAffected, (int)units.size());
@@ -117,7 +117,7 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override {
             return apply(castingRoll, unmodifiedCastingRoll, nullptr);
         }
     };

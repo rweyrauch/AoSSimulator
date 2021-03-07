@@ -19,8 +19,8 @@ namespace Tzeentch {
         explicit ChokingTendrils(Unit* caster);
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     ChokingTendrils::ChokingTendrils(Unit *caster) :
@@ -29,7 +29,7 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result ChokingTendrils::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+    Spell::Result ChokingTendrils::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

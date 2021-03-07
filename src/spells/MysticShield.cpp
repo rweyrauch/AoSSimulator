@@ -15,7 +15,7 @@ MysticShield::MysticShield(Unit *caster) :
     m_effect = Abilities::EffectType::Buff;
 }
 
-Spell::Result MysticShield::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+Spell::Result MysticShield::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) {
     if (target == nullptr) {
         return Result::Failed;
     }

@@ -91,8 +91,8 @@ namespace LuminethRealmLords {
 
     protected:
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
     };
 

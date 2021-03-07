@@ -38,9 +38,9 @@ namespace Bonesplitterz {
         Fuelled_By_The_Spirits, // TODO
 
         // Clan specific
-        A_Right_Monster, // Bonegrinz TODO
-        Purebred_War_Boar, // Icebone
-        Fireball, // Drakkfoot TODO
+        A_Right_Monster,        // Bonegrinz TODO
+        Purebred_War_Boar,      // Icebone
+        Fireball,               // Drakkfoot TODO
     };
 
     enum class Artefact : int {

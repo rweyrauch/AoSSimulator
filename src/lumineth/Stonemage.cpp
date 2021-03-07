@@ -21,8 +21,8 @@ namespace LuminethRealmLords {
             m_effect = Abilities::EffectType::Damage;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
-        Result apply(int castingRoll, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) return Result::Failed;
 
             target->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);

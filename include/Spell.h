@@ -47,8 +47,8 @@ public:
 
 protected:
 
-    virtual Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) = 0;
-    virtual Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) = 0;
+    virtual Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) = 0;
+    virtual Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) = 0;
     virtual void onCast(Result result) {}
 
     Duration defaultDuration() const;
@@ -72,8 +72,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
     virtual int getDamage(int castingRoll) const;
 
@@ -91,8 +91,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override;
 
     virtual int getDamage(int castingRoll) const;
     virtual void secondaryEffect(Unit *target, int round) const {}
@@ -109,8 +109,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override;
 
     virtual int getDamage(int castingRoll) const;
 
@@ -126,8 +126,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
     virtual int getHealing(int castingRoll) const;
 
@@ -140,16 +140,15 @@ class BuffModifierSpell : public Spell {
 public:
     BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
                       BuffableAttribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
+    BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
+                      std::vector<std::pair<BuffableAttribute, int>> modifiers, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
-    virtual int getModifier(int castingRoll) const;
-
-    BuffableAttribute m_attribute = To_Hit_Melee;
-    int m_modifier = 0;
+    std::vector<std::pair<BuffableAttribute, int>> m_modifiers;
 };
 
 class BuffRerollSpell : public Spell {
@@ -159,8 +158,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
     BuffableAttribute m_attribute = To_Hit_Melee;
     Rerolls m_reroll = No_Rerolls;
@@ -173,8 +172,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
     MovementRules m_attribute = Can_Fly;
     bool m_allowed = false;
@@ -187,8 +186,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
     BuffableAbility m_attribute = Ignore_Battleshock;
     int m_value = 1;

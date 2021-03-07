@@ -37,7 +37,7 @@ namespace Tzeentch {
 
         bool configure(WeaponOption option, Lore lore);
 
-        int rollCasting(int& unmodifiedRoll) const override;
+        int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
 
         int getInfernalGatewayValue() const;
 

@@ -17,8 +17,8 @@ namespace OssiarchBonereapers {
         explicit SoulGuide(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
     };
 
     SoulGuide::SoulGuide(Unit *caster) :
@@ -28,7 +28,7 @@ namespace OssiarchBonereapers {
         m_targetKeywords.push_back(OSSIARCH_BONEREAPERS);
     }
 
-    Spell::Result SoulGuide::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+    Spell::Result SoulGuide::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

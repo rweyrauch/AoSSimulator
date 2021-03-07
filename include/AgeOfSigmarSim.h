@@ -125,6 +125,9 @@ enum MovementRules {
     Halve_Charge_Roll,
     Halve_Run_Roll,
 
+    Double_Movement,
+    Triple_Movement,
+
     Num_Movement_Rules
 };
 
@@ -201,9 +204,16 @@ struct Wounds {
         return *this;
     }
 
-    bool zero() const { return (mortal + normal == 0) ? true : false; }
+    [[nodiscard]] bool zero() const { return (mortal + normal == 0) ? true : false; }
 
     friend std::ostream& operator<<(std::ostream& os, const Wounds& wounds);
+};
+
+class UnmodifiedCastingRoll {
+public:
+    int d1, d2;
+    operator int() const { return d1 + d2; }
+    bool isDouble() const { return d1 == d2; }
 };
 
 std::string PhaseToString(Phase phase);

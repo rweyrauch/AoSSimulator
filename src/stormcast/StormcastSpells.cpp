@@ -45,9 +45,9 @@ namespace StormcastEternals {
 
     protected:
 
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit *target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
 
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
             return apply(castingValue, unmodifiedCastingValue, nullptr);
         }
 
@@ -59,7 +59,7 @@ namespace StormcastEternals {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result PurifyingBlast::apply(int castingValue, int unmodifiedCastingValue, Unit * /*target*/) {
+    Spell::Result PurifyingBlast::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit * /*target*/) {
 
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
         for (auto ip : units) {
@@ -94,9 +94,9 @@ namespace StormcastEternals {
 
     protected:
 
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit *target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
 
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
             return apply(castingValue, unmodifiedCastingValue, nullptr);
         }
 
@@ -108,7 +108,7 @@ namespace StormcastEternals {
         m_effect = Abilities::EffectType::AreaOfEffectDamage;
     }
 
-    Spell::Result Stormsire::apply(int castingValue, int unmodifiedCastingValue, Unit * /*target*/) {
+    Spell::Result Stormsire::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit * /*target*/) {
 
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
         for (auto ip : units) {

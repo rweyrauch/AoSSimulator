@@ -24,7 +24,7 @@ namespace Nighthaunt {
 
     protected:
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
 
             if (target->numOfWoundedModels()) {
@@ -37,7 +37,7 @@ namespace Nighthaunt {
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 32;

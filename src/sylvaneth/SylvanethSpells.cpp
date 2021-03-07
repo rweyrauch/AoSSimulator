@@ -57,9 +57,9 @@ namespace Sylvaneth {
         explicit PrimalTerror(Unit *caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit *target) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override { return Result::Failed; }
 
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override;
     };
 
     PrimalTerror::PrimalTerror(Unit *caster) :
@@ -68,7 +68,7 @@ namespace Sylvaneth {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result PrimalTerror::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+    Spell::Result PrimalTerror::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) {
 
         const auto roll = Dice::Roll2D6();
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
@@ -89,10 +89,10 @@ namespace Sylvaneth {
         explicit TheReaping(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
 
         Result
-        apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     TheReaping::TheReaping(Unit *caster) :
@@ -101,7 +101,7 @@ namespace Sylvaneth {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result TheReaping::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+    Spell::Result TheReaping::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -124,10 +124,10 @@ namespace Sylvaneth {
         explicit TheDwellersBelow(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
 
         Result
-        apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     TheDwellersBelow::TheDwellersBelow(Unit *caster) :
@@ -136,7 +136,7 @@ namespace Sylvaneth {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result TheDwellersBelow::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+    Spell::Result TheDwellersBelow::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

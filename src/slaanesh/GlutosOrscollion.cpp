@@ -23,14 +23,14 @@ namespace Slaanesh {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             target->buffMovement(Halve_Movement, true, defaultDuration());
             target->buffMovement(Halve_Run_Roll, true, defaultDuration());
             target->buffMovement(Halve_Charge_Roll, true, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 100;

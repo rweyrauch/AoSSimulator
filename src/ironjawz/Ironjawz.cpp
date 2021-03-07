@@ -9,6 +9,7 @@
 #include <Roster.h>
 #include <ironjawz/Ironjawz.h>
 #include <magic_enum.hpp>
+#include <Board.h>
 
 #include "ironjawz/OrrukArdboys.h"
 #include "ironjawz/OrrukBrutes.h"
@@ -206,6 +207,31 @@ namespace Ironjawz {
             mod += 2;
         }
         return mod;
+    }
+
+    void Ironjawz::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        if (!m_usedLoudUn) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+            if (!units.empty()) {
+                for (auto unit : units) {
+                    unit->buffModifier(To_Hit_Melee, -1, {Phase::Combat, m_battleRound, owningPlayer()});
+                }
+                m_usedLoudUn = true;
+            }
+        }
+    }
+
+    Wounds Ironjawz::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = wounds;
+        if ((m_mountTrait == MountTrait::Weird_Un) && (wounds.source == Wounds::Source::Spell)) {
+            if (Dice::RollD6() >= 4) {
+                totalWounds.mortal = 0;
+                totalWounds.normal = 0;
+            }
+        }
+        return Unit::applyWoundSave(totalWounds, attackingUnit);
     }
 
     void Init() {

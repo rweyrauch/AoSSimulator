@@ -21,13 +21,13 @@ namespace OgorMawtribes {
             m_effect = Abilities::EffectType::Damage;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             target->applyDamage({0, Dice::RollD6(), Wounds::Source::Spell}, m_caster);
             target->buffModifier(Attacks_Melee, 1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     class Ribcracker : public Spell {
@@ -38,13 +38,13 @@ namespace OgorMawtribes {
             m_effect = Abilities::EffectType::Debuff;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(To_Save_Melee, -1, defaultDuration());
             target->buffModifier(To_Save_Missile, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     class GreasyDeluge : public Spell {
@@ -55,13 +55,13 @@ namespace OgorMawtribes {
             m_effect = Abilities::EffectType::Debuff;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(To_Hit_Melee, -1, defaultDuration());
             target->buffModifier(To_Hit_Missile, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     class FieryWhirlwind : public Spell {
@@ -72,7 +72,7 @@ namespace OgorMawtribes {
             m_effect = Abilities::EffectType::Damage;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             int numRolls = target->remainingModels();
             if (numRolls == 1) numRolls = 3;
@@ -81,7 +81,7 @@ namespace OgorMawtribes {
             target->applyDamage({0, rolls.rollsGE(4), Wounds::Source::Spell}, m_caster);
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {

@@ -15,8 +15,8 @@ namespace DaughtersOfKhaine {
         explicit SteedOfShadows(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     SteedOfShadows::SteedOfShadows(Unit *caster) :
@@ -25,7 +25,7 @@ namespace DaughtersOfKhaine {
         m_effect = Abilities::EffectType::Buff;
     }
 
-    Spell::Result SteedOfShadows::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result SteedOfShadows::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -40,8 +40,8 @@ namespace DaughtersOfKhaine {
         explicit PitOfShades(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     PitOfShades::PitOfShades(Unit *caster) :
@@ -50,7 +50,7 @@ namespace DaughtersOfKhaine {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result PitOfShades::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result PitOfShades::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -66,8 +66,8 @@ namespace DaughtersOfKhaine {
         explicit TheWithering(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     TheWithering::TheWithering(Unit *caster) :
@@ -76,7 +76,7 @@ namespace DaughtersOfKhaine {
         m_effect = Abilities::EffectType::Debuff;
     }
 
-    Spell::Result TheWithering::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result TheWithering::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -91,8 +91,8 @@ namespace DaughtersOfKhaine {
         explicit ShroudOfDespair(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     ShroudOfDespair::ShroudOfDespair(Unit *caster) :
@@ -101,7 +101,7 @@ namespace DaughtersOfKhaine {
         m_effect = Abilities::EffectType::Debuff;
     }
 
-    Spell::Result ShroudOfDespair::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result ShroudOfDespair::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 

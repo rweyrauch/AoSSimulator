@@ -23,7 +23,7 @@ namespace Skaven {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             if (Dice::RollD6() > target->wounds()) {
@@ -33,7 +33,7 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     static const int g_basesize = 32;

@@ -16,7 +16,7 @@ public:
 
 protected:
 
-    Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-    Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+    Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
 
 };

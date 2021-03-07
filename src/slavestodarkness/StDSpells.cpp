@@ -18,7 +18,7 @@ namespace SlavesToDarkness {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -27,7 +27,7 @@ namespace SlavesToDarkness {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
 
         void onCast(Result result) override {
             if (result != Result::Success) {
@@ -45,7 +45,7 @@ namespace SlavesToDarkness {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -62,7 +62,7 @@ namespace SlavesToDarkness {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     Spell* CreateLore(Lore which, Unit* caster) {

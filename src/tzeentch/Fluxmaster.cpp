@@ -18,8 +18,8 @@ namespace Tzeentch {
         explicit BlueFireOfTzeentch(Unit* caster);
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     BlueFireOfTzeentch::BlueFireOfTzeentch(Unit *caster) :
@@ -28,7 +28,7 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result BlueFireOfTzeentch::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+    Spell::Result BlueFireOfTzeentch::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -126,14 +126,13 @@ namespace Tzeentch {
         return true;
     }
 
-    int FluxmasterHeraldOfTzeentchOnDisc::rollCasting(int &unmodifiedRoll) const {
+    int FluxmasterHeraldOfTzeentchOnDisc::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {
         auto roll = TzeentchBase::rollCasting(unmodifiedRoll);
         if (!m_usedArcaneTome) {
-            int roll0 = Dice::RollD6();
-            int roll1 = Dice::RollD6();
-            int roll2 = Dice::RollD6();
-
-            unmodifiedRoll = std::max(roll0, std::max(roll1, roll2));
+            std::vector<int> rolls = {Dice::RollD6(), Dice::RollD6(), Dice::RollD6()};
+            std::sort(rolls.begin(), rolls.end());
+            unmodifiedRoll.d1 = rolls[2];
+            unmodifiedRoll.d2 = rolls[1];
             roll = unmodifiedRoll + castingModifier();
 
             m_usedArcaneTome = true;

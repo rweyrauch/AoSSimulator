@@ -24,7 +24,7 @@ namespace Tzeentch {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -44,7 +44,7 @@ namespace Tzeentch {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 40;

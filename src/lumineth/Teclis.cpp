@@ -21,14 +21,14 @@ namespace LuminethRealmLords {
             m_effect = Abilities::EffectType::Buff;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
             auto teclis = dynamic_cast<ArchmageTeclis*>(m_caster);
             if (teclis) {
                 teclis->enableProtectionOfTeclis();
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             return apply(castingRoll, unmodifiedCastingValue, 0, 0);
         }
     };
@@ -42,7 +42,7 @@ namespace LuminethRealmLords {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -58,7 +58,7 @@ namespace LuminethRealmLords {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 100;
@@ -254,16 +254,19 @@ namespace LuminethRealmLords {
         m_protectionOfTeclisEnabled = true;
     }
 
-    int ArchmageTeclis::rollCasting(int &unmodifiedRoll) const {
+    int ArchmageTeclis::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {
         // Teclis ignores all casting modifiers.
         if (m_totalSpells >= 4) {
-            unmodifiedRoll = 10;
+            unmodifiedRoll.d1 = 5;
+            unmodifiedRoll.d2 = 5;
         }
         else if (m_totalSpells >= 2) {
-            unmodifiedRoll = 12;
+            unmodifiedRoll.d1 = 6;
+            unmodifiedRoll.d2 = 6;
         }
         else { // m_totalSpells == 1
-            unmodifiedRoll = Automatically_Cast_No_Unbind;
+            unmodifiedRoll.d1 = Automatically_Cast_No_Unbind;
+            unmodifiedRoll.d2 = 0;
         }
         return unmodifiedRoll;
     }

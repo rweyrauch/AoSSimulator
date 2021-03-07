@@ -20,8 +20,8 @@ namespace Slaanesh {
         explicit CacophonicChoir(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override { return Result::Failed; }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override;
     };
 
     CacophonicChoir::CacophonicChoir(Unit *caster) :
@@ -30,7 +30,7 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result CacophonicChoir::apply(int castingValue, int unmodifiedCastingValue, double x, double y) {
+    Spell::Result CacophonicChoir::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) {
 
         const auto roll = Dice::Roll2D6();
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);

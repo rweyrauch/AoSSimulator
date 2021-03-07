@@ -247,10 +247,10 @@ namespace Seraphon {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             return apply(castingRoll, unmodifiedCastingRoll, 0.0, 0.0);
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override {
 
             auto units = Board::Instance()->getAllUnits(GetEnemyId(m_caster->owningPlayer()));
             auto numTargets = (castingRoll >= 10) ? Dice::RollD6() : Dice::RollD3();

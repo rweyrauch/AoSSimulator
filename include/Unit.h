@@ -248,7 +248,7 @@ public:
 
     int numOfWoundedModels() const;
 
-    virtual int rollCasting(int& unmodifiedRoll) const;
+    virtual int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const;
 
     int returnModels(int numModels);
 

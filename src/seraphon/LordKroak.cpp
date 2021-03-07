@@ -25,10 +25,10 @@ namespace Seraphon {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             return apply(castingRoll, unmodifiedCastingRoll, 0.0, 0.0);
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override {
 
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
             auto unitsTargeted = 0;

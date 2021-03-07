@@ -21,13 +21,13 @@ namespace Seraphon {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
             target->buffMovement(Can_Fly, true, defaultDuration());
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class StellarTempest : public Spell {
@@ -39,7 +39,7 @@ namespace Seraphon {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             Dice::RollResult rolls;
@@ -48,7 +48,7 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class CelestialHarmony : public Spell {
@@ -60,7 +60,7 @@ namespace Seraphon {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
             target->buffAbility(Ignore_Battleshock, 1, defaultDuration());
             if (castingRoll >= 10) {
@@ -73,7 +73,7 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class HandOfGlory : public Spell {
@@ -85,14 +85,14 @@ namespace Seraphon {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
             target->buffReroll(To_Hit_Melee, Reroll_Ones, defaultDuration());
             target->buffReroll(To_Hit_Missile, Reroll_Ones, defaultDuration());
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     class TideOfSerpents : public Spell {
@@ -104,7 +104,7 @@ namespace Seraphon {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
 
             Dice::RollResult rolls;
@@ -113,7 +113,7 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {

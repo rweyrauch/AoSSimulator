@@ -17,8 +17,8 @@ namespace Tzeentch {
         explicit BoltOfChange(Unit* caster);
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     BoltOfChange::BoltOfChange(Unit *caster) :
@@ -27,7 +27,7 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result BoltOfChange::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+    Spell::Result BoltOfChange::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -56,7 +56,7 @@ namespace Tzeentch {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             m_caster->buffModifier(To_Hit_Melee, 1, defaultDuration());
             m_caster->buffModifier(To_Hit_Missile, 1, defaultDuration());
             m_caster->buffModifier(To_Wound_Melee, 1, defaultDuration());
@@ -64,7 +64,7 @@ namespace Tzeentch {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class TreasonOfTzeentch : public Spell {
@@ -76,7 +76,7 @@ namespace Tzeentch {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -92,7 +92,7 @@ namespace Tzeentch {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class UncheckedMutation : public Spell {
@@ -104,7 +104,7 @@ namespace Tzeentch {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -117,7 +117,7 @@ namespace Tzeentch {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class TzeentchsFirestorm : public Spell {
@@ -129,7 +129,7 @@ namespace Tzeentch {
         }
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -143,7 +143,7 @@ namespace Tzeentch {
             target->applyDamage(wounds, m_caster);
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     Spell* CreateBoltOfChange(Unit* caster) {

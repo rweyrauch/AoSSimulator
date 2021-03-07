@@ -22,14 +22,14 @@ namespace Nighthaunt {
             m_effect = Abilities::EffectType::Debuff;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(To_Hit_Melee, -1, defaultDuration());
             target->buffModifier(To_Hit_Missile, -1, defaultDuration());
             target->buffModifier(Target_To_Hit_Melee, 1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 60;

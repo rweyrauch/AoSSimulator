@@ -10,6 +10,8 @@
 #include <Board.h>
 #include <MathUtils.h>
 
+#include <utility>
+
 Spell::Result Spell::cast(Unit *target, int round) {
     if (target == nullptr) {
         return Result::Failed;
@@ -30,7 +32,7 @@ Spell::Result Spell::cast(Unit *target, int round) {
 
     Spell::Result result = Result::Failed;
 
-    int unmodifiedRoll;
+    UnmodifiedCastingRoll unmodifiedRoll;
     const int castingRoll = m_caster->rollCasting(unmodifiedRoll);
     if (castingRoll >= m_castingValue) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
@@ -59,7 +61,7 @@ Spell::Result Spell::cast(double x, double y, int round) {
 
     Spell::Result result = Result::Failed;
 
-    int unmodifiedRoll;
+    UnmodifiedCastingRoll unmodifiedRoll;
     const int castingRoll = m_caster->rollCasting(unmodifiedRoll);
     if (castingRoll >= m_castingValue) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
@@ -96,7 +98,7 @@ int DamageSpell::getDamage(int castingRoll) const {
     return m_damage;
 }
 
-Spell::Result DamageSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+Spell::Result DamageSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     auto mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
     target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
     PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.",
@@ -125,7 +127,7 @@ int AreaOfEffectSpell::getDamage(int /*castingRoll*/) const {
     return m_damage;
 }
 
-Spell::Result AreaOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) {
+Spell::Result AreaOfEffectSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) {
 
     const Math::Point3 targetPoint(x, y, 0.0);
 
@@ -150,7 +152,7 @@ Spell::Result AreaOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRol
     return Spell::Result::Success;
 }
 
-Spell::Result AreaOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+Spell::Result AreaOfEffectSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     if (target != nullptr)
         return apply(castingRoll, unmodifiedCastingRoll, target->x(), target->y());
     return Result::Failed;
@@ -169,12 +171,12 @@ int LineOfEffectSpell::getDamage(int castingRoll) const {
     return m_damage;
 }
 
-Spell::Result LineOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) {
+Spell::Result LineOfEffectSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) {
     // TODO: implement
     return Spell::Result::Failed;
 }
 
-Spell::Result LineOfEffectSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+Spell::Result LineOfEffectSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     if (target != nullptr)
         return apply(castingRoll, unmodifiedCastingRoll, target->x(), target->y());
     return Spell::Result::Failed;
@@ -198,7 +200,7 @@ int HealSpell::getHealing(int castingRoll) const {
     return m_healing;
 }
 
-Spell::Result HealSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+Spell::Result HealSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
 
@@ -212,24 +214,32 @@ Spell::Result HealSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit 
 BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
                                      BuffableAttribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword) :
         Spell(caster, name, castingValue, range),
-        m_attribute(which),
-        m_modifier(modifier){
+        m_modifiers({{which, modifier}}) {
     m_allowedTargets = allowedTargets;
     m_targetKeywords = targetKeyword;
-    m_effect = (m_modifier > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
+    m_effect = (modifier > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
 }
 
-int BuffModifierSpell::getModifier(int /*castingRoll*/) const {
-    return m_modifier;
-}
-
-Spell::Result BuffModifierSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+Spell::Result BuffModifierSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
 
-    target->buffModifier(m_attribute, getModifier(castingRoll), defaultDuration());
-
+    for (auto mod : m_modifiers) {
+        target->buffModifier(mod.first, mod.second, defaultDuration());
+    }
     return Spell::Result::Success;
+}
+
+BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
+                                     std::vector<std::pair<BuffableAttribute, int>> modifiers,
+                                     Abilities::Target allowedTargets, const std::vector<Keyword> &targetKeywords) :
+        Spell(caster, name, castingValue, range),
+        m_modifiers(std::move(modifiers)) {
+    m_allowedTargets = allowedTargets;
+    m_targetKeywords = targetKeywords;
+    if (!m_modifiers.empty()) {
+        m_effect = (m_modifiers.front().second > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
+    }
 }
 
 BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range,
@@ -242,7 +252,7 @@ BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int cast
     m_effect = (m_allowedTargets == Abilities::Target::Enemy) ? Abilities::EffectType::Debuff : Abilities::EffectType::Buff;
 }
 
-Spell::Result BuffRerollSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+Spell::Result BuffRerollSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
 
@@ -262,7 +272,7 @@ BuffAbilitySpell::BuffAbilitySpell(Unit *caster, const std::string &name, int ca
     m_effect = (m_allowedTargets == Abilities::Target::Enemy) ? Abilities::EffectType::Debuff : Abilities::EffectType::Buff;
 }
 
-Spell::Result BuffAbilitySpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+Spell::Result BuffAbilitySpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
     if (target == nullptr)
         return Result::Failed;
 
@@ -282,7 +292,7 @@ BuffMovementSpell::BuffMovementSpell(Unit *caster, const std::string &name, int 
     m_effect = (m_allowedTargets == Abilities::Target::Enemy) ? Abilities::EffectType::Debuff : Abilities::EffectType::Buff;
 }
 
-Spell::Result BuffMovementSpell::apply(int castingRoll, int unmodifiedCastingRoll, Unit *target) {
+Spell::Result BuffMovementSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
 

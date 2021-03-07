@@ -19,8 +19,8 @@ namespace GloomspiteGitz {
         explicit SpeedOfTheSpiderGod(Unit *caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
 
     };
 
@@ -31,7 +31,7 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(SPIDERFANG);
     }
 
-    Spell::Result SpeedOfTheSpiderGod::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result SpeedOfTheSpiderGod::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

@@ -15,7 +15,7 @@ Empower::Empower(Unit *caster) :
     m_effect = Abilities::EffectType::Buff;
 }
 
-Spell::Result Empower::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+Spell::Result Empower::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
     if (target == nullptr) {
         return Result::Failed;
     }

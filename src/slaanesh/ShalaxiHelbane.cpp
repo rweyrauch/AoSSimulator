@@ -20,8 +20,8 @@ namespace Slaanesh {
         explicit RefineSenses(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     RefineSenses::RefineSenses(Unit *caster) :
@@ -30,7 +30,7 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Buff;
     }
 
-    Spell::Result RefineSenses::apply(int castingValue, int unmodifiedCastingValue, Unit *target) {
+    Spell::Result RefineSenses::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
 
         auto shalaxi = dynamic_cast<ShalaxiHelbane*>(m_caster);
         if (shalaxi) {

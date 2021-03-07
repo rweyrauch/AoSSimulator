@@ -19,7 +19,7 @@ namespace FleshEaterCourt {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
 
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
             for (auto target : units) {
@@ -29,7 +29,7 @@ namespace FleshEaterCourt {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class SpectralHost : public Spell {
@@ -41,7 +41,7 @@ namespace FleshEaterCourt {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -73,7 +73,7 @@ namespace FleshEaterCourt {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class MiasmalShroud : public Spell {
@@ -85,7 +85,7 @@ namespace FleshEaterCourt {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -112,7 +112,7 @@ namespace FleshEaterCourt {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     class DerangedTransformation : public Spell {
@@ -124,7 +124,7 @@ namespace FleshEaterCourt {
         }
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -153,7 +153,7 @@ namespace FleshEaterCourt {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
     };
 
     Spell* CreateLore(Lore which, Unit* caster) {

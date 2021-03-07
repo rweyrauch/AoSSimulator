@@ -20,8 +20,8 @@ namespace Tzeentch {
         explicit InfernalFlames(Unit* caster);
 
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, int unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
     };
 
     InfernalFlames::InfernalFlames(Unit *caster) :
@@ -30,7 +30,7 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result InfernalFlames::apply(int castingRoll, int unmodifiedCastingRoll, Unit* target) {
+    Spell::Result InfernalFlames::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

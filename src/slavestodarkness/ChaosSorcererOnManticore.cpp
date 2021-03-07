@@ -18,8 +18,8 @@ namespace SlavesToDarkness {
         explicit WindOfChaos(Unit* caster);
 
     protected:
-        Result apply(int castingValue, int unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, int unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
     };
 
     WindOfChaos::WindOfChaos(Unit *caster) :
@@ -28,7 +28,7 @@ namespace SlavesToDarkness {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result WindOfChaos::apply(int castingValue, int unmodifiedCastingValue, Unit* target) {
+    Spell::Result WindOfChaos::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

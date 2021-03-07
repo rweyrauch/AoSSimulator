@@ -21,14 +21,14 @@ namespace LuminethRealmLords {
             m_effect = Abilities::EffectType::Buff;
         }
     protected:
-        Result apply(int castingRoll, int unmodifiedCastingValue, double x, double y) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
             auto myari = dynamic_cast<MyariLigthcaller*>(m_caster);
             if (myari) {
                 myari->enableDazzlingLight();
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, int unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             return apply(castingRoll, unmodifiedCastingValue, 0, 0);
         }
     };
