@@ -18,6 +18,7 @@ void Model::addMeleeWeapon(const Weapon *weapon) {
         preStr = m_preferredWeapon->strength();
     }
     if (weapon->strength() > preStr) {
+        weapon->setFlag(Weapon::Preferred);
         m_preferredWeapon = weapon;
     }
 }
@@ -33,6 +34,7 @@ void Model::addMissileWeapon(const Weapon *weapon) {
         preStr = m_preferredWeapon->strength();
     }
     if (weapon->strength() > preStr) {
+        weapon->setFlag(Weapon::Preferred);
         m_preferredWeapon = weapon;
     }
 }

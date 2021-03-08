@@ -169,9 +169,9 @@ namespace StormcastEternals {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        StormcastEternal() = default;
+        StormcastEternal();
 
-        ~StormcastEternal() override = default;
+        ~StormcastEternal() override;
 
         void setStormhost(Stormhost host);
         void setArtefact(Artefact artefact);
@@ -195,11 +195,24 @@ namespace StormcastEternals {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        Rerolls chargeRerolls() const override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int deathlyAura(const Unit *unit);
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
     protected:
 
         Stormhost m_stormHost = Stormhost::None;
         Artefact m_artefact = Artefact::None;
         CommandTrait m_commandTrait = CommandTrait::None;
+
+        lsignal::slot m_deathlyAuraConnection;
+
     };
 
     void Init();
@@ -215,9 +228,9 @@ namespace StormcastEternals {
 //   Shielded_By_Faith              Yes
 //   Consummate_Commander           Yes
 //   Cunning_Strategist             TODO
-//   Zealous_Crusader
-//   Staunch_Defender
-//   Champion_Of_The_Realms
+//   Zealous_Crusader               Yes
+//   Staunch_Defender               Yes
+//   Champion_Of_The_Realms         Yes
 // Hammers of Sigmar
 //   First to be Forged             Yes
 //   Soul of the Stormhost          TODO
@@ -233,7 +246,7 @@ namespace StormcastEternals {
 // Anvils of the Heldenhammer
 //   No True Death                  Yes
 //   Heroes of Another Age          TODO
-//   Deathly Aura                   TODO
+//   Deathly Aura                   Yes
 // Knights Excelsior
 //   Storm of Annihilation          TODO
 //   No Mercy                       Yes
@@ -245,7 +258,7 @@ namespace StormcastEternals {
 // Tempest Lords
 //   Grand Strategists              Yes
 //   Rousing Oratory                Yes
-//   Bonds of Noble Duty            TODO
+//   Bonds of Noble Duty            Yes
 // Astral Templars
 //   Beast Stalkers                 Yes
 //   Cut off the Head               TODO

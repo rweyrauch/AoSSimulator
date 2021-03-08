@@ -60,9 +60,19 @@
 #include "stormcast/TheFarstriders.h"
 #include "stormcast/StormsiresCursebreakers.h"
 #include "stormcast/AveronStormsire.h"
+#include "stormcast/LynusGhalmorian.h"
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
+
+    StormcastEternal::StormcastEternal() :
+        Unit() {
+        s_globalBraveryMod.connect(this, &StormcastEternal::deathlyAura, &m_deathlyAuraConnection);
+    }
+
+    StormcastEternal::~StormcastEternal() {
+        m_deathlyAuraConnection.disconnect();
+    }
 
     int StormcastEternal::toHitModifier(const Weapon *weapon, const Unit *unit) const {
         int modifier = Unit::toHitModifier(weapon, unit);
@@ -265,6 +275,53 @@ namespace StormcastEternals {
         return damage;
     }
 
+    Rerolls StormcastEternal::chargeRerolls() const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Zealous_Crusader)) {
+            return Reroll_Failed;
+        }
+        return Unit::chargeRerolls();
+    }
+
+    int StormcastEternal::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+
+        // Staunch Defender
+        if (!charged()) {
+            auto general = dynamic_cast<StormcastEternal*>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) &&
+               (general->m_commandTrait == CommandTrait::Staunch_Defender) && (distanceTo(general) < 9.0)) {
+                mod++;
+            }
+        }
+        return mod;
+    }
+
+    int StormcastEternal::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Champion_Of_The_Realms) && weapon->isFlagSet(Weapon::Preferred)) {
+            attacks++;
+        }
+        return attacks;
+    }
+
+    int StormcastEternal::deathlyAura(const Unit *unit) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Deathly_Aura) && (distanceTo(unit) < 6)) {
+            return -1;
+        }
+        return 0;
+    }
+
+    int StormcastEternal::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Bonds_Of_Noble_Duty) && weapon->isMelee()) {
+            auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), TEMPEST_LORDS, 6.0);
+            if (unit && (distanceTo(unit) < 6.0)) {
+                mod++;
+            }
+        }
+        return mod;
+    }
+
     void Init() {
         CelestantPrime::Init();
         AventisFirestrike::Init();
@@ -318,6 +375,7 @@ namespace StormcastEternals {
         Sequitors::Init();
         Evocators::Init();
         EvocatorsOnCelestialDracolines::Init();
+        LynusGhalmorianOnGryphcharger::Init();
     }
 
     bool DoSpiritFlasks(Unit *owner) {

@@ -162,6 +162,7 @@ enum Keyword {
     THE_FARSTRIDERS,
     AVERON_STORMSIRE,
     STORMSIRES_CURSEBREAKERS,
+    LYNUS_GHALMORIAN,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,

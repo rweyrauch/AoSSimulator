@@ -95,7 +95,7 @@ public:
 
     bool isActive() const { return m_isActive; }
 
-    void setFlag(FlagBit bit) {
+    void setFlag(FlagBit bit) const {
         m_flags.set(bit);
     }
     void clearFlag(FlagBit bit) {
@@ -129,7 +129,7 @@ private:
     int m_hitsPerAttack = 1;
     bool m_isActive = true;
 
-    std::bitset<64> m_flags;
+    mutable std::bitset<64> m_flags;
 
     mutable double m_strength = -1.0;
 };
