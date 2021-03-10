@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KNIGHTVENATOR_H
-#define KNIGHTVENATOR_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -33,9 +31,21 @@ namespace StormcastEternals {
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onRestore() override {
+            StormcastEternal::onRestore();
+            m_usedStarFatedArrow = false;
+        }
+
+        void onStartShooting(PlayerId player) override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
+        bool m_usedStarFatedArrow = false;
+
         Weapon m_realmhuntersBow,
+                m_starFatedArrow,
                 m_beakAndTalonsMissile,
                 m_bowStave,
                 m_beakAndTalons;
@@ -47,9 +57,7 @@ namespace StormcastEternals {
 // Abilities                    Implemented
 // -------------------------------------------
 // Celestial Strike                 Yes
-// Star-fated Arrow                 TODO
+// Star-fated Arrow                 Yes
 //
 
 } // namespace StormcastEternals
-
-#endif //KNIGHTVENATOR_H

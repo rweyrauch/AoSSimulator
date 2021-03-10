@@ -148,7 +148,7 @@ namespace Fyreslayers {
 
         int chargeModifier() const override;
 
-        int rollRunDistance() const override;
+        int rollRunDistance() override;
 
         void onRestore() override;
 

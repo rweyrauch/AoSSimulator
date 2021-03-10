@@ -145,7 +145,7 @@ namespace Death {
         return 0;
     }
 
-    int Zombies::rollChargeDistance() const {
+    int Zombies::rollChargeDistance() {
         // Noise Maker
         auto dist = Unit::rollChargeDistance();
         if (isNamedModelAlive("Noisemaker")) {

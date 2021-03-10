@@ -8,7 +8,7 @@
 
 #include <magic_enum.hpp>
 #include <Board.h>
-#include "Roster.h"
+#include <Roster.h>
 #include "citiesofsigmar/CitiesOfSigmar.h"
 
 #include "citiesofsigmar/Anointed.h"
@@ -193,6 +193,10 @@ namespace CitiesOfSigmar {
         // Alert and Forewarned
         if ((m_city == City::Tempests_Eye) && (m_battleRound == 1)) mod++;
 
+        if (isGeneral() && (m_commandTrait == CommandTrait::Ironoak_Artisan)) {
+            mod++;
+        }
+
         return mod;
     }
 
@@ -220,6 +224,15 @@ namespace CitiesOfSigmar {
                 m_bannersHeldHigh = m_battleRound;
             }
         }
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (remainingModels() > 0) &&
+                ((m_commandTrait == CommandTrait::Seat_On_The_Council) || (m_commandTrait == CommandTrait::Warden_Of_The_Flame))) {
+                if (Dice::RollD6() >= 4) {
+                    getRoster()->addCommandPoints(1);
+                }
+            }
+        }
     }
 
     bool CitizenOfSigmar::battleshockRequired() const {
@@ -228,6 +241,60 @@ namespace CitiesOfSigmar {
             return false;
         }
         return Unit::battleshockRequired();
+    }
+
+    void CitizenOfSigmar::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        if ((battleRound == 1) && isGeneral() && (m_commandTrait == CommandTrait::Acadamae_Prodigy)) {
+            getRoster()->addCommandPoints(1);
+        }
+    }
+
+    int CitizenOfSigmar::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Acadamae_Prodigy)) {
+            attacks++;
+        }
+        return attacks;
+    }
+
+    int CitizenOfSigmar::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+
+        if (hasKeyword(HAMMERHAL)) {
+            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
+            if (general && general->charged() && (general->m_commandTrait == CommandTrait::Aggressive_General) && (distanceTo(general) < 12.0)) {
+                mod++;
+            }
+        }
+
+        if (target->hasKeyword(MONSTER) && isGeneral() && (m_commandTrait == CommandTrait::Slayer_Of_Monsters)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    Rerolls CitizenOfSigmar::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (hasKeyword(HAMMERHAL)) {
+            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
+            if (general && general->charged() && (general->m_commandTrait == CommandTrait::Blood_Of_The_Twelve) && (distanceTo(general) < 12.0)) {
+                return Reroll_Ones;
+            }
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    int CitizenOfSigmar::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Ironoak_Artisan)) {
+            mod++;
+        }
+        if (target->hasKeyword(MONSTER) && isGeneral() && (m_commandTrait == CommandTrait::Slayer_Of_Monsters)) {
+            mod++;
+        }
+        return mod;
     }
 
     void Init() {

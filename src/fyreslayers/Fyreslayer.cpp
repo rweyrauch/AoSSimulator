@@ -103,7 +103,7 @@ namespace Fyreslayers {
         return modifier;
     }
 
-    int Fyreslayer::rollRunDistance() const {
+    int Fyreslayer::rollRunDistance() {
         // Fearsome Surge
         if ((m_lodge == Lodge::Vostarg) && (m_battleRound == 1)) {
             return 6;

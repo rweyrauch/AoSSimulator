@@ -58,7 +58,7 @@ namespace CitiesOfSigmar {
 // Phoenix Reborn                   TODO
 // Wake of Fire                     TODO
 // Witness to Destiny               Yes
-// Captain of the Phoenix Guard     TODO
+// Captain of the Phoenix Guard     Yes
 //
 
 } // namespace CitiesOfSigmar

@@ -59,6 +59,15 @@ public:
             return rolls;
         }
 
+        int rollsLT(int roll) const {
+            if (roll < 1 || roll > 6) return 0;
+
+            int rolls = 0;
+            for (auto i = 1; i < roll; i++)
+                rolls += m_distribution[i];
+            return rolls;
+        }
+
         void clearLT(int roll) {
             if (roll < 1 || roll > 6) return;
             for (auto i = 1; i < roll; i++) {

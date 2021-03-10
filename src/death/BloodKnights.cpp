@@ -132,7 +132,7 @@ namespace Death {
         return points;
     }
 
-    int BloodKnights::rollChargeDistance() const {
+    int BloodKnights::rollChargeDistance() {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
         return std::max(6, dist);

@@ -85,7 +85,7 @@ namespace SlavesToDarkness {
         Unit::onStartHero(player);
     }
 
-    int FomoroidCrusher::rollChargeDistance() const {
+    int FomoroidCrusher::rollChargeDistance() {
         m_lastChargeDistance = Unit::rollChargeDistance();
         return m_lastChargeDistance;
     }

@@ -174,7 +174,7 @@ namespace Dispossessed {
         return Dispossessed::EnumStringToInt(enumString);
     }
 
-    int Warriors::rollRunDistance() const {
+    int Warriors::rollRunDistance() {
         // Sound the Advance
         if (isNamedModelAlive(Model::Hornblower)) {
             return 4;

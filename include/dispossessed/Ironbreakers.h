@@ -45,7 +45,7 @@ namespace Dispossessed {
 
         void onStartShooting(PlayerId player) override;
 
-        int rollRunDistance() const override;
+        int rollRunDistance() override;
 
     private:
 

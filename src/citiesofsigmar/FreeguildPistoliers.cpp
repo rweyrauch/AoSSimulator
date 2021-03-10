@@ -157,4 +157,16 @@ namespace CitiesOfSigmar {
         return points;
     }
 
+    void FreeguildPistoliers::onCharged() {
+        CitizenOfSigmar::onCharged();
+
+        // Hail of Bullets
+        if (shootingTarget()) {
+            m_handgun.activate(false);
+            int numSlain;
+            shoot(-1, shootingTarget(), numSlain);
+            m_handgun.activate(true);
+        }
+    }
+
 } // namespace CitiesOfSigmar

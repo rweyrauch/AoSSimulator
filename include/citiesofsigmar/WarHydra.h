@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef WARHYDRA_H
-#define WARHYDRA_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -39,9 +37,15 @@ namespace CitiesOfSigmar {
 
         void onRestore() override;
 
+        void onStartHero(PlayerId player) override;
+
+        int rollChargeDistance() override;
+
     private:
 
         int getDamageTableIndex() const;
+
+        bool useQuickWithTheLash() const;
 
         Weapon m_fieryBreath,
                 m_fangs,
@@ -54,11 +58,9 @@ namespace CitiesOfSigmar {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Quick with the Lash              TODO
+// Quick with the Lash              Yes
 // Sever One Head, Another
-//    Takes Its Place               TODO
+//    Takes Its Place               Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //WARHYDRA_H

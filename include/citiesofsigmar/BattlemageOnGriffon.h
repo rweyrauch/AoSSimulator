@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BATTLEMAGEONGRIFFON_H
-#define BATTLEMAGEONGRIFFON_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -59,10 +57,8 @@ namespace CitiesOfSigmar {
 // -------------------------------------------
 // Amber Battlemage                 Yes
 // Two-headed                       Yes
-// Amber Spear                      TODO
-// Wildform                         TODO
+// Amber Spear                      Yes
+// Wildform                         Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //BATTLEMAGEONGRIFFON_H

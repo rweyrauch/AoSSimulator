@@ -101,7 +101,7 @@ namespace Dispossessed {
         return true;
     }
 
-    int Hammerers::rollRunDistance() const {
+    int Hammerers::rollRunDistance() {
         // Sound the Advance
         if (isNamedModelAlive(Model::Musician)) {
             return 4;

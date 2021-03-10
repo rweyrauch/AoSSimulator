@@ -50,7 +50,7 @@ namespace Dispossessed {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        int rollRunDistance() const override;
+        int rollRunDistance() override;
 
     private:
 

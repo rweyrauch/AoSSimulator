@@ -13,6 +13,51 @@
 #include "CoSLore.h"
 
 namespace CitiesOfSigmar {
+
+    class WordOfPain : public Spell {
+    public:
+        WordOfPain(Unit* caster) :
+                Spell(caster, "Word of Pain", 7, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            target->applyDamage( {0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    class CommandUnderlings : public CommandAbility {
+    public:
+        CommandUnderlings(Unit *source) :
+                CommandAbility(source, "Command Underlings", 12, 12, Phase::Hero) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {DARKLING_COVENS};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit* target) override {
+            if (target == nullptr)
+                return false;
+            target->buffMovement(Run_And_Shoot, true, defaultDuration());
+            target->buffMovement(Run_And_Charge, true, defaultDuration());
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 25;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 90;
@@ -93,9 +138,12 @@ namespace CitiesOfSigmar {
         model->addMeleeWeapon(&m_witchstaff);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<WordOfPain>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_commandAbilities.push_back(std::make_unique<CommandUnderlings>(this));
 
         m_points = g_pointsPerUnit;
 

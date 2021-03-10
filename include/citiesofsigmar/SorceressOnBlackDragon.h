@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SORCERESSONBLACKDRAGON_H
-#define SORCERESSONBLACKDRAGON_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -71,11 +69,9 @@ namespace CitiesOfSigmar {
 // -------------------------------------------
 // Blood Sacrifice                  Yes
 // Noxious Breath                   Yes
-// Bladewind                        TODO
-// Command Underlings               TODO
-// Inspire Hatred                   TODO
+// Bladewind                        Yes
+// Command Underlings               Yes
+// Inspire Hatred                   Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //SORCERESSONBLACKDRAGON_H

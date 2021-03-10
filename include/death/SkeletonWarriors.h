@@ -46,7 +46,7 @@ namespace Death {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        int rollChargeDistance() const override;
+        int rollChargeDistance() override;
 
         int standardBearerBraveryMod(const Unit *unit);
 

@@ -174,7 +174,7 @@ namespace Death {
         return points;
     }
 
-    int SkeletonWarriors::rollChargeDistance() const {
+    int SkeletonWarriors::rollChargeDistance() {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
         if (isNamedModelAlive(Model::Hornblower))

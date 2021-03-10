@@ -33,7 +33,7 @@ namespace SlavesToDarkness {
 
         void onCharged() override;
 
-        int rollChargeDistance() const override;
+        int rollChargeDistance() override;
 
         void onStartHero(PlayerId player) override;
 

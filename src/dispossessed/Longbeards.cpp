@@ -139,7 +139,7 @@ namespace Dispossessed {
         return Dispossessed::EnumStringToInt(enumString);
     }
 
-    int Longbeards::rollRunDistance() const {
+    int Longbeards::rollRunDistance() {
         // Sound the Advance
         if (isNamedModelAlive(Model::Musician)) {
             return 4;

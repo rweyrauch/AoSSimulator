@@ -832,7 +832,7 @@ void Unit::battleshock(PlayerId player) {
     onEndBattleshock(player);
 }
 
-int Unit::rollChargeDistance() const {
+int Unit::rollChargeDistance() {
     m_unmodifiedChargeRoll = Dice::Roll2D6();
     if (!m_movementRules[Halve_Charge_Roll].empty()) {
         if (m_movementRules[Halve_Charge_Roll].front().allowed) {
@@ -842,7 +842,7 @@ int Unit::rollChargeDistance() const {
     return m_unmodifiedChargeRoll + chargeModifier();
 }
 
-int Unit::rollRunDistance() const {
+int Unit::rollRunDistance() {
     int roll = Dice::RollD6();
     if (m_abilityBuffs[Auto_Max_Run].empty()) {
         roll = 6;

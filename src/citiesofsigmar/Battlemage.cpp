@@ -14,6 +14,103 @@
 #include "CoSLore.h"
 
 namespace CitiesOfSigmar {
+
+    class ChainLightning : public Spell {
+    public:
+        ChainLightning(Unit* caster) :
+                Spell(caster, "Chain Lightning", 6, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+            auto units = Board::Instance()->getUnitsWithin(target, target->owningPlayer(), 6.0);
+            for (auto unit : units) {
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+                }
+            }
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    class Fireball : public Spell {
+    public:
+        Fireball(Unit* caster) :
+                Spell(caster, "Fireball", 5, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            Wounds wounds = {0, 1, Wounds::Source::Spell};
+            if (target->remainingModels() >= 10) {
+                wounds.mortal = Dice::RollD6();
+            }
+            else if (target->remainingModels() >= 2) {
+                wounds.mortal = Dice::RollD3();
+            }
+            target->applyDamage(wounds, m_caster);
+
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    class MystifyingMiasma : public Spell {
+    public:
+        MystifyingMiasma(Unit* caster) :
+                Spell(caster, "Mystifying Miasma", 4, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Debuff;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            target->buffMovement(Can_Run, false, defaultDuration());
+            target->buffModifier(Charge_Distance, -2, defaultDuration());
+
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    class TransmutationOfLead : public Spell {
+    public:
+        TransmutationOfLead(Unit* caster) :
+                Spell(caster, "Transmutation of Lead", 7, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Debuff;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            target->buffMovement(Halve_Movement, true, defaultDuration());
+            if (target->save() <= 4) {
+                target->buffReroll(Target_To_Hit_Missile, Reroll_Ones, defaultDuration());
+                target->buffReroll(Target_To_Hit_Melee, Reroll_Ones, defaultDuration());
+            }
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 110;
@@ -99,6 +196,33 @@ namespace CitiesOfSigmar {
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        switch (realm) {
+            case Azyr:
+                m_knownSpells.push_back(std::make_unique<ChainLightning>(this));
+                break;
+            case Aqshy:
+                m_knownSpells.push_back(std::make_unique<Fireball>(this));
+                break;
+            case Ulgu:
+                m_knownSpells.push_back(std::make_unique<MystifyingMiasma>(this));
+                break;
+            case Shyish:
+                m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pall of Doom", 6, 18, Bravery, -2, Abilities::Target::Enemy));
+                break;
+            case Hysh:
+                m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pha's Protection", 5, 18,
+                                                                            std::vector<std::pair<BuffableAttribute, int>>{{Target_To_Hit_Missile, -1},{Target_To_Hit_Melee, -1}}, Abilities::Target::SelfAndFriendly));
+                break;
+            case Ghyran:
+                break;
+            case Chamon:
+                m_knownSpells.push_back(std::make_unique<TransmutationOfLead>(this));
+                break;
+            case Ghur:
+                m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Wildform", 5, 12,
+                                                                            std::vector<std::pair<BuffableAttribute, int>>{{Run_Distance, 2},{Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
+                break;
+        }
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

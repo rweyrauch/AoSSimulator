@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CELESTIALHURRICANUM_H
-#define CELESTIALHURRICANUM_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -69,10 +67,8 @@ namespace CitiesOfSigmar {
 // Locus of Azyr                    Yes
 // Portents of Battle               Yes
 // Storm of Shemtek                 Yes
-// Chain Lightning                  TODO
-// Comet of Casandora               TODO
+// Chain Lightning                  Yes
+// Comet of Casandora               Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //CELESTIALHURRICANUM_H

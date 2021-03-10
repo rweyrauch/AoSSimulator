@@ -14,6 +14,51 @@
 #include "CoSLore.h"
 
 namespace CitiesOfSigmar {
+
+    class Bladewind : public Spell {
+    public:
+        Bladewind(Unit* caster) :
+                Spell(caster, "Bladewind", 6, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            Dice::RollResult rolls;
+            Dice::RollD6(9, rolls);
+            target->applyDamage({0,rolls.rollsLT(target->save()), Wounds::Source::Spell}, m_caster);
+
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    class CommandUnderlings2 : public CommandAbility {
+    public:
+        CommandUnderlings2(Unit *source) :
+                CommandAbility(source, "Command Underlings", 12, 12, Phase::Hero) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {DARKLING_COVENS};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit* target) override {
+            if (target == nullptr)
+                return false;
+            target->buffMovement(Run_And_Shoot, true, defaultDuration());
+            target->buffMovement(Run_And_Charge, true, defaultDuration());
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 105;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 300;
@@ -133,10 +178,14 @@ namespace CitiesOfSigmar {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<Bladewind>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
+        m_commandAbilities.push_back(std::make_unique<CommandUnderlings2>(this));
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Inspire Hatred", 12, 12, Phase::Combat, To_Wound_Melee,
+                Reroll_Ones, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{DARKLING_COVENS}));
         m_points = g_pointsPerUnit;
 
         return true;

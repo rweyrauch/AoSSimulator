@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FREEGUILDPISTOLIERS_H
-#define FREEGUILDPISTOLIERS_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -48,6 +46,8 @@ namespace CitiesOfSigmar {
 
         Rerolls chargeRerolls() const override;
 
+        void onCharged() override;
+
     private:
 
         Weapon m_pistols,
@@ -63,10 +63,8 @@ namespace CitiesOfSigmar {
 // Abilities                    Implemented
 // -------------------------------------------
 // Trumpeter                        Yes
-// Hail of Bullets                  TODO
+// Hail of Bullets                  Yes
 // Reckless Riders                  Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //FREEGUILDPISTOLIERS_H

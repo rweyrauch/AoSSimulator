@@ -7,10 +7,46 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/FreeguildGeneralOnGriffon.h"
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
+
+    class RousingBattleCry : public CommandAbility {
+    public:
+        RousingBattleCry(Unit *source) :
+            CommandAbility(source, "Rousing Battle Cry", 12, 12, Phase::Charge) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {FREEGUILD};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+
+    protected:
+
+        bool apply(Unit* target) override {
+            if (target == nullptr)
+                return false;
+
+            m_source->buffModifier(Charge_Distance, 1, defaultDuration());
+            m_source->buffModifier(To_Hit_Melee, 1, defaultDuration());
+
+            auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
+            for (auto unit : units) {
+                if (unit == m_source) continue;
+
+                if (unit->hasKeyword(FREEGUILD) && (unit->remainingModels() > 0)) {
+                    unit->buffModifier(Charge_Distance, 1, defaultDuration());
+                    unit->buffModifier(To_Hit_Melee, 1, defaultDuration());
+                }
+            }
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 105;
     static const int g_wounds = 13;
     static const int g_pointsPerUnit = 320;
@@ -126,6 +162,8 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         m_shield = hasShield;
+
+        m_commandAbilities.push_back(std::make_unique<RousingBattleCry>(this));
 
         m_points = g_pointsPerUnit;
 

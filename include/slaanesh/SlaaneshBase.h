@@ -33,13 +33,13 @@ namespace Slaanesh {
         Glory_Hog,
         Hurler_Of_Obscenities,
         Territorial,
-        Skin_Taker,
+        Skin_Taker,                 // TODO
         Delusions_Of_Infallibility,
 
         // Pretenders
-        Strength_Of_Godhood,
+        Strength_Of_Godhood,        // TODO
         Monarch_Of_Lies,
-        Craving_Stare,
+        Craving_Stare,              // TODO
         Strongest_Alone,
         Hunter_Of_Godbeasts,
         Inspirer,
@@ -47,16 +47,16 @@ namespace Slaanesh {
         // Godseekers
         Hunter_Supreme,
         Sweeping_Slash,
-        Into_The_Fray,
-        Trail_Sniffer,
-        Symphoniac,
+        Into_The_Fray,              // TODO
+        Trail_Sniffer,              // TODO
+        Symphoniac,                 // TODO
         Speed_Chaser,
 
         // Lurid Haze
         Feverish_Anticipation,
 
         // Faultless Blade
-        Contest_Of_Cruelty,
+        Contest_Of_Cruelty,         // TODO
 
         // Scarlet Cavalcade
         Embodiment_Of_Haste,

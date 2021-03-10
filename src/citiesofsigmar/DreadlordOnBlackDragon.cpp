@@ -7,10 +7,45 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/DreadlordOnBlackDragon.h"
 #include "CitiesOfSigmarPrivate.h"
 
 namespace CitiesOfSigmar {
+
+    class DoNotDisappointMe : public CommandAbility {
+    public:
+        DoNotDisappointMe(Unit *source) :
+                CommandAbility(source, "Do Not Disappoint Me", 18, 18, Phase::Combat) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {ORDER_SERPENTIS};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+
+    protected:
+
+        bool apply(Unit* target) override {
+            if (target == nullptr)
+                return false;
+
+            m_source->buffModifier(Charge_Distance, 1, defaultDuration());
+            m_source->buffModifier(To_Hit_Melee, 1, defaultDuration());
+
+            auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
+            for (auto unit : units) {
+                if (unit == m_source) continue;
+
+                if (unit->hasKeyword(ORDER_SERPENTIS) && (unit->remainingModels() > 0)) {
+                    unit->buffModifier(To_Wound_Melee, 1, defaultDuration());
+                }
+            }
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 105;
     static const int g_wounds = 14;
     static const int g_pointsPerUnit = 300;
@@ -153,6 +188,8 @@ namespace CitiesOfSigmar {
             model->addMissileWeapon(&m_crossbow);
         }
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<DoNotDisappointMe>(this));
 
         m_weaponOption = weapon;
         m_points = g_pointsPerUnit;

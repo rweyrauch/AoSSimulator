@@ -148,7 +148,7 @@ namespace Death {
         return 0;
     }
 
-    int BlackKnights::rollChargeDistance() const {
+    int BlackKnights::rollChargeDistance() {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
         if (isNamedModelAlive(Model::Hornblower)) {

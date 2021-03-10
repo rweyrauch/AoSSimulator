@@ -44,7 +44,7 @@ namespace Death {
 
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
-        int rollChargeDistance() const override;
+        int rollChargeDistance() override;
 
         int standardBearerBraveryMod(const Unit *unit);
 

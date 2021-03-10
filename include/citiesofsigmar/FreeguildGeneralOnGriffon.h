@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FREEGUILDGENERALONGRIFFON_H
-#define FREEGUILDGENERALONGRIFFON_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -79,9 +77,7 @@ namespace CitiesOfSigmar {
 // Freeguild Shield                 Yes
 // Skilled Rider                    Yes
 // Piercing Bloodroar               Yes
-// Rousing Battle Cry               TODO
+// Rousing Battle Cry               Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //FREEGUILDGENERALONGRIFFON_H

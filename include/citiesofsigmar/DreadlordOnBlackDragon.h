@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DREADLORDONBLACKDRAGON_H
-#define DREADLORDONBLACKDRAGON_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -90,9 +88,7 @@ namespace CitiesOfSigmar {
 // Noxious Breath                   Yes
 // Paired Exile Blades              Yes
 // Tyrant Shield                    Yes
-// Do Not Disappoint Me             TODO
+// Do Not Disappoint Me             Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //DREADLORDONBLACKDRAGON_H

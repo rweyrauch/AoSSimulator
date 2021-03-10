@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KNIGHTHERALDOR_H
-#define KNIGHTHERALDOR_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -31,6 +29,8 @@ namespace StormcastEternals {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_broadsword;
@@ -41,10 +41,8 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Onwards to Glory                 TODO
+// Onwards to Glory                 Yes
 // Thunderblast                     TODO
 //
 
 } // namespace StormcastEternals
-
-#endif //KNIGHTHERALDOR_H

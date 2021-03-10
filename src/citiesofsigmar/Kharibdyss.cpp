@@ -104,6 +104,8 @@ namespace CitiesOfSigmar {
     }
 
     void Kharibdyss::onRestore() {
+        CitizenOfSigmar::onRestore();
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -114,7 +116,7 @@ namespace CitiesOfSigmar {
         m_tail.setToWound(g_damageTable[damageIndex].m_tailToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     int Kharibdyss::getDamageTableIndex() const {
@@ -138,6 +140,39 @@ namespace CitiesOfSigmar {
 
     int Kharibdyss::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void Kharibdyss::onEndCombat(PlayerId player) {
+        CitizenOfSigmar::onEndCombat(player);
+
+        // Feast of Bones
+        if (m_currentRecord.m_enemyModelsSlain > 0) {
+            heal(Dice::RollD3());
+        }
+    }
+
+    int Kharibdyss::rollChargeDistance()  {
+        if (useQuickWithTheLash()) {
+            auto rolls = Dice::RollD6(3);
+            std::sort(rolls.begin(), rolls.end());
+
+            m_unmodifiedChargeRoll = rolls[1] + rolls[2];
+            if (!m_movementRules[Halve_Charge_Roll].empty()) {
+                if (m_movementRules[Halve_Charge_Roll].front().allowed) {
+                    m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1) / 2; // Round up
+                }
+            }
+            if ((rolls[0] == rolls[1]) && (rolls[0] == rolls[2])) {
+                // take a mortal wound
+                applyDamage({0, 1, Wounds::Source::Ability}, this);
+            }
+            return m_unmodifiedChargeRoll + chargeModifier();
+        }
+        return CitizenOfSigmar::rollChargeDistance();
+    }
+
+    bool Kharibdyss::useQuickWithTheLash() const {
+        return (remainingWounds() > 3);
     }
 
 } // namespace CitiesOfSigmar

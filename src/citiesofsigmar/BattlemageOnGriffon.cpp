@@ -119,6 +119,9 @@ namespace CitiesOfSigmar {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Wildform", 5, 12,
+                                                                    std::vector<std::pair<BuffableAttribute, int>>{{Run_Distance, 2},{Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
+        m_knownSpells.push_back(std::make_unique<LineOfEffectSpell>(this, "Amber Spear", 7, 18, RAND_D3, 2));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

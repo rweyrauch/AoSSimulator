@@ -152,7 +152,7 @@ namespace Dispossessed {
         return Dispossessed::EnumStringToInt(enumString);
     }
 
-    int Thunderers::rollRunDistance() const {
+    int Thunderers::rollRunDistance() {
         // Sound the Advance
         if (isNamedModelAlive(Model::Drummer)) {
             return 4;

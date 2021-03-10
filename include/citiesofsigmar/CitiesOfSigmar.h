@@ -35,43 +35,43 @@ namespace CitiesOfSigmar {
 
         // Living City
         Ironoak_Artisan,
-        Forest_Strider,
-        Druid_Of_The_Everspring,
+        Forest_Strider,             // TODO
+        Druid_Of_The_Everspring,    // TODO
 
         // Greywater Fastness
         Seat_On_The_Council,
-        Drillmaster,
-        Ghoul_Mere_Ranger,
+        Drillmaster,                // TODO
+        Ghoul_Mere_Ranger,          // TODO
 
         // Phoenicium
-        Seeder_Of_Vengeance,
-        One_With_Fire_And_Ice,
-        Aura_Of_Serenity,
+        Seeder_Of_Vengeance,        // TODO
+        One_With_Fire_And_Ice,      // TODO
+        Aura_Of_Serenity,           // TODO
 
         // Anvilgard
-        Blackfang_Crimelord,
+        Blackfang_Crimelord,        // TODO
         Slayer_Of_Monsters,
-        Secretive_Warlock,
+        Secretive_Warlock,          // TODO
 
         // Hallowheart
-        Veteran_Of_The_Blazing_Crusade,
+        Veteran_Of_The_Blazing_Crusade,    // TODO
         Warden_Of_The_Flame,
-        Famed_Spell_Hunter,
+        Famed_Spell_Hunter,         // TODO
 
         // Tempests Eye
-        Aetherguard_Captain,
-        Hawk_Eyed,
-        Swift_As_The_Wind,
+        Aetherguard_Captain,        // TODO
+        Hawk_Eyed,                  // TODO
+        Swift_As_The_Wind,          // TODO
 
         // Misthåvn
-        Shadowlord,
-        Wily_Foe,
-        Shade_Warlock,
+        Shadowlord,                 // TODO
+        Wily_Foe,                   // TODO
+        Shade_Warlock,              // TODO
 
         // Har_Kuron
-        Bathed_In_Blood,
-        Murderous_Zeal,
-        Dark_Adept,
+        Bathed_In_Blood,            // TODO
+        Murderous_Zeal,             // TODO
+        Dark_Adept,                 // TODO
     };
 
     enum class Artefact : int {
@@ -176,12 +176,12 @@ namespace CitiesOfSigmar {
 
     enum class Narcotic : int {
         None,
-        Synesthalcum,
-        Witch_Mist,
-        Skiffers_Salve,
-        Float,
-        Sawfang_Dust,
-        Glatch_Ink
+        Synesthalcum,       // TODO
+        Witch_Mist,         // TODO
+        Skiffers_Salve,     // TODO
+        Float,              // TODO
+        Sawfang_Dust,       // TODO
+        Glatch_Ink          // TODO
     };
 
     class CitizenOfSigmar : public Unit {
@@ -205,11 +205,24 @@ namespace CitiesOfSigmar {
                 Unit(name, move, wounds, bravery, save, fly) {}
 
         int runModifier() const override;
+
         int moveModifier() const override;
+
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
         void onStartHero(PlayerId player) override;
 
         bool battleshockRequired() const override;
+
+        void onBeginRound(int battleRound) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
     protected:
 

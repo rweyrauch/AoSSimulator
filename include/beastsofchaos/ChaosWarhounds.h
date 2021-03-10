@@ -29,7 +29,7 @@ namespace BeastsOfChaos {
 
     protected:
 
-        int rollRunDistance() const override;
+        int rollRunDistance() override;
 
     private:
 

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef NOMADPRINCE_H
-#define NOMADPRINCE_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -35,6 +33,7 @@ namespace CitiesOfSigmar {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
 
     private:
 
@@ -46,10 +45,8 @@ namespace CitiesOfSigmar {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Harrying Bird of Prey            TODO
-// Lord of the Deepwood Host        TODO
+// Harrying Bird of Prey            Yes
+// Lord of the Deepwood Host        Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //NOMADPRINCE_H

@@ -33,7 +33,7 @@ namespace Dispossessed {
 
         bool battleshockRequired() const override;
 
-        int rollRunDistance() const override;
+        int rollRunDistance() override;
 
         void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 

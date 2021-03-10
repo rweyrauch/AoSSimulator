@@ -85,7 +85,7 @@ namespace BeastsOfChaos {
         return points;
     }
 
-    int ChaosWarhounds::rollRunDistance() const {
+    int ChaosWarhounds::rollRunDistance() {
         // Outrunners of Chaos
         return 6 + runModifier();
     }

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BATTLEMAGE_H
-#define BATTLEMAGE_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -49,16 +47,14 @@ namespace CitiesOfSigmar {
 // Abilities                    Implemented
 // -------------------------------------------
 // Magic of the Realms              Yes
-// Chain Lightning                  TODO
-// Fireball                         TODO
-// Mystifying Miasma                TODO
-// Pall of Doom                     TODO
-// Pha's Protection                 TODO
+// Chain Lightning                  Yes
+// Fireball                         Yes
+// Mystifying Miasma                Yes
+// Pall of Doom                     Yes
+// Pha's Protection                 Yes
 // Shield of Thorns                 TODO
-// Transmutation of Lead            TODO
-// Wildform                         TODO
+// Transmutation of Lead            Yes
+// Wildform                         Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //BATTLEMAGE_H

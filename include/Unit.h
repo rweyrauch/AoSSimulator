@@ -346,9 +346,9 @@ protected:
 
     virtual void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const;
 
-    virtual int rollRunDistance() const;
+    virtual int rollRunDistance();
 
-    virtual int rollChargeDistance() const;
+    virtual int rollChargeDistance();
 
     virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0}; }
 

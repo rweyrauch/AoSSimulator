@@ -170,7 +170,7 @@ namespace OgorMawtribes {
 
         void onStartHero(PlayerId player) override;
 
-        int rollChargeDistance() const override;
+        int rollChargeDistance() override;
 
         int moveModifier() const override;
 

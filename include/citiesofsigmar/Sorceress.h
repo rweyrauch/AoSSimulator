@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SORCERESS_H
-#define SORCERESS_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -47,10 +45,8 @@ namespace CitiesOfSigmar {
 // Abilities                    Implemented
 // -------------------------------------------
 // Blood Sacrifice                  TODO
-// Word of Pain                     TODO
-// Command Underlings               TODO
+// Word of Pain                     Yes
+// Command Underlings               Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //SORCERESS_H

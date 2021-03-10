@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "citiesofsigmar/NomadPrince.h"
 #include "CitiesOfSigmarPrivate.h"
 
@@ -85,6 +86,12 @@ namespace CitiesOfSigmar {
         model->addMeleeWeapon(&m_spear);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Lord of the Deepwood Host",
+                                                                                  12, 12, Phase::Shooting, To_Hit_Missile, 1, Abilities::Target::SelfAndFriendly,
+                                                                                  std::vector<Keyword>{WANDERER}));
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Lord of the Deepwood Host",
+                                                                                  12, 12, Phase::Combat, To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly,
+                                                                                  std::vector<Keyword>{WANDERER}));
         m_points = g_pointsPerUnit;
 
         return true;
@@ -92,6 +99,21 @@ namespace CitiesOfSigmar {
 
     int NomadPrince::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void NomadPrince::onStartHero(PlayerId player) {
+        CitizenOfSigmar::onStartHero(player);
+
+        // Harrying Bird of Prey
+        if (owningPlayer() == player) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 16.0);
+            if (hero) {
+                hero->buffModifier(Casting_Roll, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                hero->buffModifier(Unbinding_Roll, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                hero->buffModifier(To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                hero->buffModifier(To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+            }
+        }
     }
 
 } // namespace CitiesOfSigmar

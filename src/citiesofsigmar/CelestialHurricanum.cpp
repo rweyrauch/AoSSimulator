@@ -14,6 +14,57 @@
 #include "CoSLore.h"
 
 namespace CitiesOfSigmar {
+
+    class ChainLightning : public Spell {
+    public:
+        ChainLightning(Unit* caster) :
+                Spell(caster, "Chain Lightning", 6, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+            auto units = Board::Instance()->getUnitsWithin(target, target->owningPlayer(), 6.0);
+            for (auto unit : units) {
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+                }
+            }
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
+    class CometOfCasandora : public Spell {
+    public:
+        CometOfCasandora(Unit* caster) :
+                Spell(caster, "Comet of Casandora", 6, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+            if (target == nullptr)
+                return Spell::Result::Failed;
+
+            Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
+            auto roll = Dice::Roll2D6();
+            if (roll > target->move()) {
+                wounds.mortal = Dice::RollD6();
+            }
+            target->applyDamage(wounds, m_caster);
+
+            return Spell::Result::Success;
+        }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+    };
+
     static const int g_basesize = 105;
     static const int g_wounds = 11;
     static const int g_pointsPerUnit = 220;
@@ -140,6 +191,8 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         if (battlemage) {
+            m_knownSpells.push_back(std::make_unique<ChainLightning>(this));
+            m_knownSpells.push_back(std::make_unique<CometOfCasandora>(this));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
             m_knownSpells.push_back(std::make_unique<MysticShield>(this));

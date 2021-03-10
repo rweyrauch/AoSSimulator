@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LUMINARKOFHYSH_H
-#define LUMINARKOFHYSH_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -64,10 +62,8 @@ namespace CitiesOfSigmar {
 // Locus of Hysh                    Yes
 // Searing Beam of Light            TODO
 // White Battlemage                 Yes
-// Burning Gaze                     TODO
-// Pha's Protection                 TODO
+// Burning Gaze                     Yes
+// Pha's Protection                 Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //LUMINARKOFHYSH_H

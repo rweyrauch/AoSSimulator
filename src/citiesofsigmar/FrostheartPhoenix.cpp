@@ -124,6 +124,8 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         if (anointed) {
+            m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Captain of the Phoenix Guard", 12, 12, Phase::Combat, To_Wound_Melee, Reroll_Failed,
+                                                                                    Abilities::Target::SelfAndFriendly, std::vector<Keyword>{PHOENIX_TEMPLE}));
             m_points = g_pointsPerUnitWithAnointed;
         } else {
             m_points = g_pointsPerUnit;

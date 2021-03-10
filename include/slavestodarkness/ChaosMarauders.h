@@ -50,7 +50,7 @@ namespace SlavesToDarkness {
 
         int iconBearer(const Unit *unit);
 
-        int rollChargeDistance() const override;
+        int rollChargeDistance() override;
 
     protected:
 

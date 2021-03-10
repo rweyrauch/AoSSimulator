@@ -126,7 +126,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int MawtribesBase::rollChargeDistance() const {
+    int MawtribesBase::rollChargeDistance() {
         m_unmodifiedChargeRoll = Dice::Roll2D6();
         return m_unmodifiedChargeRoll + chargeModifier();
     }

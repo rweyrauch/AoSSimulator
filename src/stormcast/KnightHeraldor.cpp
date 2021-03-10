@@ -8,6 +8,7 @@
 
 #include <stormcast/KnightHeraldor.h>
 #include <iostream>
+#include <Board.h>
 #include "UnitFactory.h"
 #include "StormcastEternalsPrivate.h"
 
@@ -75,6 +76,20 @@ namespace StormcastEternals {
 
     int KnightHeraldor::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void KnightHeraldor::onStartHero(PlayerId player) {
+        StormcastEternal::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+            for (auto unit : units) {
+                if ((unit->remainingModels() > 0) && unit->hasKeyword(STORMCAST_ETERNAL)) {
+                    unit->buffMovement(Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
+                    unit->buffMovement(Retreat_And_Charge,true, {Phase::Combat, m_battleRound, owningPlayer()});
+                }
+            }
+        }
     }
 
 

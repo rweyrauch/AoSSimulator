@@ -98,6 +98,8 @@ namespace CitiesOfSigmar {
     }
 
     void WarHydra::onRestore() {
+        CitizenOfSigmar::onRestore();
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -108,7 +110,7 @@ namespace CitiesOfSigmar {
         m_fangs.setAttacks(g_damageTable[damageIndex].m_fangAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     int WarHydra::getDamageTableIndex() const {
@@ -123,6 +125,39 @@ namespace CitiesOfSigmar {
 
     int WarHydra::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void WarHydra::onStartHero(PlayerId player) {
+        CitizenOfSigmar::onStartHero(player);
+
+        // Sever One Head, Another Takes Its Place
+        if (owningPlayer() == player) {
+            heal(Dice::RollD3());
+        }
+    }
+
+    int WarHydra::rollChargeDistance()  {
+        if (useQuickWithTheLash()) {
+            auto rolls = Dice::RollD6(3);
+            std::sort(rolls.begin(), rolls.end());
+
+            m_unmodifiedChargeRoll = rolls[1] + rolls[2];
+            if (!m_movementRules[Halve_Charge_Roll].empty()) {
+                if (m_movementRules[Halve_Charge_Roll].front().allowed) {
+                    m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1) / 2; // Round up
+                }
+            }
+            if ((rolls[0] == rolls[1]) && (rolls[0] == rolls[2])) {
+                // take a mortal wound
+                applyDamage({0, 1, Wounds::Source::Ability}, this);
+            }
+            return m_unmodifiedChargeRoll + chargeModifier();
+        }
+        return CitizenOfSigmar::rollChargeDistance();
+    }
+
+    bool WarHydra::useQuickWithTheLash() const {
+        return (remainingWounds() > 3);
     }
 
 } // namespace CitiesOfSigmar

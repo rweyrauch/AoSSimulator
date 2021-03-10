@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KHARIBDYSS_H
-#define KHARIBDYSS_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -41,9 +39,15 @@ namespace CitiesOfSigmar {
 
         int abyssalHowl(const Unit *target);
 
+        void onEndCombat(PlayerId player) override;
+
+        int rollChargeDistance() override;
+
     private:
 
         int getDamageTableIndex() const;
+
+        bool useQuickWithTheLash() const;
 
         Weapon m_tentacles,
                 m_tail,
@@ -59,10 +63,8 @@ namespace CitiesOfSigmar {
 // Abilities                    Implemented
 // -------------------------------------------
 // Abyssal Howl                     Yes
-// Feast of Bones                   TODO
-// Quick With The Lash              TODO
+// Feast of Bones                   Yes
+// Quick With The Lash              Yes
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //KHARIBDYSS_H

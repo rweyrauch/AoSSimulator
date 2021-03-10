@@ -197,7 +197,7 @@ namespace Dispossessed {
         return Dispossessed::EnumStringToInt(enumString);
     }
 
-    int Irondrakes::rollRunDistance() const {
+    int Irondrakes::rollRunDistance() {
         // Sound the Advance
         if (isNamedModelAlive(Model::Hornblower)) {
             return 4;

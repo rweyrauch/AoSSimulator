@@ -156,7 +156,7 @@ namespace Death {
         return points;
     }
 
-    int GraveGuard::rollChargeDistance() const {
+    int GraveGuard::rollChargeDistance() {
         // Hornblower
         auto dist = Unit::rollChargeDistance();
         if (isNamedModelAlive(Model::Hornblower))

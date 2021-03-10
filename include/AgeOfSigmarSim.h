@@ -112,6 +112,7 @@ enum BuffableAbility {
 enum MovementRules {
     Can_Fly = 0,
     Can_Move,
+    Can_Run,
     Can_Retreat,
     Can_Charge,
     Can_PileIn,

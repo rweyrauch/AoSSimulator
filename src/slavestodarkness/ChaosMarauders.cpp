@@ -197,7 +197,7 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    int ChaosMarauders::rollChargeDistance() const {
+    int ChaosMarauders::rollChargeDistance() {
         // Boundless Ferocity
         auto roll1 = Dice::RollD6();
         auto roll2 = Dice::RollD6();
