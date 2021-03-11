@@ -7,6 +7,7 @@
  */
 
 #include <string>
+#include <magic_enum.hpp>
 #include "Unit.h"
 #include "CommandAbility.h"
 
@@ -47,6 +48,9 @@ bool BuffModifierCommandAbility::apply(Unit *target) {
     if (target == nullptr)
         return false;
 
+    PLOG_INFO << m_source->name() << " uses command ability " << name() << " on to " << target->name();
+    PLOG_INFO << "\tBuffing Modifier: " << magic_enum::enum_name(m_attribute) << ": " << getModifier();
+
     target->buffModifier(m_attribute, getModifier(), defaultDuration());
 
     return true;
@@ -68,6 +72,9 @@ bool BuffRerollCommandAbility::apply(Unit *target) {
     if (target == nullptr)
         return false;
 
+    PLOG_INFO << m_source->name() << " uses command ability " << name() << " on to " << target->name();
+    PLOG_INFO << "\tBuffing Reroll: " << magic_enum::enum_name(m_attribute) << ": " << magic_enum::enum_name(m_reroll);
+
     target->buffReroll(m_attribute, m_reroll, defaultDuration());
 
     return true;
@@ -88,6 +95,9 @@ BuffAbilityCommandAbility::BuffAbilityCommandAbility(Unit *general, const std::s
 bool BuffAbilityCommandAbility::apply(Unit *target) {
     if (target == nullptr)
         return false;
+
+    PLOG_INFO << m_source->name() << " uses command ability " << name() << " on to " << target->name();
+    PLOG_INFO << "\tBuffing Ability: " << magic_enum::enum_name(m_ability) << ": " << m_value;
 
     target->buffAbility(m_ability, m_value, defaultDuration());
 

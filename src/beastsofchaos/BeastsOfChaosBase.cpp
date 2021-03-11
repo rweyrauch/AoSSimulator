@@ -7,6 +7,7 @@
  */
 #include <magic_enum.hpp>
 #include <beastsofchaos/BeastsOfChaosBase.h>
+#include <Roster.h>
 #include "beastsofchaos/Gors.h"
 #include "beastsofchaos/Ghorgon.h"
 #include "beastsofchaos/Ungors.h"
@@ -103,6 +104,40 @@ namespace BeastsOfChaos {
 
     void BeastsOfChaosBase::setCommandTrait(CommandTrait commandTrait) {
         m_commandTrait = commandTrait;
+    }
+
+    int BeastsOfChaosBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Indomitable_Beast)) {
+            mod += 1;
+        }
+        return mod;
+    }
+
+    Rerolls BeastsOfChaosBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Apex_Predator)) {
+            return Reroll_Ones;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Tempestuous_Tyrant) && target->hasKeyword(MONSTER)) {
+            return Reroll_Failed;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    int BeastsOfChaosBase::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Adamantine_Scales)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    void BeastsOfChaosBase::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        if ((m_battleRound == 1) && isGeneral() && (m_commandTrait == CommandTrait::Ancient_Beyond_Knowledge)) {
+            getRoster()->addCommandPoints(Dice::RollD3());
+        }
     }
 
     void Init() {

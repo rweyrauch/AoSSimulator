@@ -107,6 +107,29 @@ namespace Nighthaunt {
         m_artefact = artefact;
     }
 
+    Rerolls Nighthaunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Hatred_Of_The_Living) && !target->hasKeyword(DEATH)) {
+            return Reroll_Failed;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    int Nighthaunt::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Lingering_Spirit)) {
+            mod += 1;
+        }
+        return mod;
+    }
+
+    int Nighthaunt::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
+        if (isGeneral() && weapon->isMissile() && (m_commandTrait == CommandTrait::Cloaked_In_Shadow)) {
+            mod--;
+        }
+        return mod;
+    }
+
     void Init() {
         ChainraspHorde::Init();
         GrimghastReapers::Init();

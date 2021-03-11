@@ -19,11 +19,11 @@ namespace Nighthaunt {
         None,
 
         Hatred_Of_The_Living,
-        Terrifying_Entity,
+        Terrifying_Entity,          // TODO
         Lingering_Spirit,
-        Spiteful_Spirit,
+        Spiteful_Spirit,            // TODO
         Cloaked_In_Shadow,
-        Ruler_Of_The_Spirit_Hosts,
+        Ruler_Of_The_Spirit_Hosts,  // TODO
 
     };
 
@@ -88,6 +88,12 @@ namespace Nighthaunt {
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
         int auraOfDread(const Unit *unit);
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int woundModifier() const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
     protected:
         CommandTrait m_commandTrait = CommandTrait::None;

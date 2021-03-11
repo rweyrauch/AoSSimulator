@@ -11,6 +11,7 @@
 #include <MathUtils.h>
 
 #include <utility>
+#include <magic_enum.hpp>
 
 Spell::Result Spell::cast(Unit *target, int round) {
     if (target == nullptr) {
@@ -224,7 +225,9 @@ Spell::Result BuffModifierSpell::apply(int castingRoll, const UnmodifiedCastingR
     if (target == nullptr)
         return Result::Failed;
 
+    PLOG_INFO << m_caster->name() << " casts " << name() << " with a casting roll of " << castingRoll << "(" << m_castingValue << ") on to " << target->name();
     for (auto mod : m_modifiers) {
+        PLOG_INFO << "\tBuffing Modifier: " << magic_enum::enum_name(mod.first) << ": " << mod.second;
         target->buffModifier(mod.first, mod.second, defaultDuration());
     }
     return Spell::Result::Success;
@@ -256,6 +259,9 @@ Spell::Result BuffRerollSpell::apply(int castingRoll, const UnmodifiedCastingRol
     if (target == nullptr)
         return Result::Failed;
 
+    PLOG_INFO << m_caster->name() << " casts " << name() << " with a casting roll of " << castingRoll << "(" << m_castingValue << ") on to " << target->name();
+    PLOG_INFO << "\tBuffing Reroll: " << magic_enum::enum_name(m_attribute) << ": " << magic_enum::enum_name(m_reroll);
+
     target->buffReroll(m_attribute, m_reroll, defaultDuration());
 
     return Spell::Result::Success;
@@ -276,6 +282,9 @@ Spell::Result BuffAbilitySpell::apply(int castingRoll, const UnmodifiedCastingRo
     if (target == nullptr)
         return Result::Failed;
 
+    PLOG_INFO << m_caster->name() << " casts " << name() << " with a casting roll of " << castingRoll << "(" << m_castingValue << ") on to " << target->name();
+    PLOG_INFO << "\tBuffing Ability: " << magic_enum::enum_name(m_attribute) << ": " << m_value;
+
     target->buffAbility(m_attribute, m_value, defaultDuration());
 
     return Spell::Result::Success;
@@ -295,6 +304,9 @@ BuffMovementSpell::BuffMovementSpell(Unit *caster, const std::string &name, int 
 Spell::Result BuffMovementSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     if (target == nullptr)
         return Result::Failed;
+
+    PLOG_INFO << m_caster->name() << " casts " << name() << " with a casting roll of " << castingRoll << "(" << m_castingValue << ") on to " << target->name();
+    PLOG_INFO << "\tBuffing Movement: " << magic_enum::enum_name(m_attribute) << ": " << m_allowed;
 
     target->buffMovement(m_attribute, m_allowed, defaultDuration());
 

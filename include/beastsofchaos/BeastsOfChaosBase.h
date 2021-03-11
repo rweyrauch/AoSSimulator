@@ -24,33 +24,33 @@ namespace BeastsOfChaos {
         None,
 
         // Brayherd Alphabeast
-        Beastial_Cunning,
+        Beastial_Cunning,           // TODO
         Indomitable_Beast,
         Apex_Predator,
-        Malevolent_Despoiler,
-        Oracle_Of_The_Dark_Tongue,
-        Shadowpelt,
+        Malevolent_Despoiler,       // TODO
+        Oracle_Of_The_Dark_Tongue,  // TODO
+        Shadowpelt,                 // TODO
 
         // Warherd Alphabeast
-        Eater_Of_Heroes,
-        Rampant_Juggernaut,
-        Gorger,
-        Gouge_Tusks,
-        Roaring_Brute,
-        Rugged_Hide,
+        Eater_Of_Heroes,            // TODO
+        Rampant_Juggernaut,         // TODO
+        Gorger,                     // TODO
+        Gouge_Tusks,                // TODO
+        Roaring_Brute,              // TODO
+        Rugged_Hide,                // TODO
 
         // Thunderscorn
         Tempestuous_Tyrant,
-        Magnetic_Monstrosity,
-        Father_Of_The_Storm,
-        Lightning_Fast_Monstrosity,
+        Magnetic_Monstrosity,       // TODO
+        Father_Of_The_Storm,        // TODO
+        Lightning_Fast_Monstrosity, // TODO
         Adamantine_Scales,
         Ancient_Beyond_Knowledge,
 
         // Fray-specific
-        Dominator, // Allherd
-        Nomadic_Leader, // Darkwalkers
-        Unraveling_Aura, // Gavespawn
+        Dominator, // Allherd TODO
+        Nomadic_Leader, // Darkwalkers TODO
+        Unraveling_Aura, // Gavespawn TODO
     };
 
     enum class Artefact : int {
@@ -124,6 +124,14 @@ namespace BeastsOfChaos {
                 Unit(name, move, wounds, bravery, save, fly) {}
 
         void onEndCombat(PlayerId player) override;
+
+        int woundModifier() const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
+        void onBeginRound(int battleRound) override;
 
     protected:
 
