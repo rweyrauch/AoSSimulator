@@ -140,7 +140,7 @@ namespace BeastsOfChaos {
 
     Rerolls Bullgors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         if (m_pairedAxes) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }

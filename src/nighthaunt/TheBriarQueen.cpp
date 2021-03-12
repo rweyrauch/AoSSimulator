@@ -58,7 +58,7 @@ namespace Nighthaunt {
             m_whip(Weapon::Type::Melee, "Briar Whip", 3, 1, 3, 3, 2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MIRRORGHAST_BANSHEE, THE_BRIAR_QUEEN};
         m_weapons = {&m_scream, &m_whip};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

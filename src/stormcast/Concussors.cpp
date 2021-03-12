@@ -104,7 +104,7 @@ namespace StormcastEternals {
 
     Rerolls Concussors::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Sigmarite Shields
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     int Concussors::ComputePoints(int numModels) {

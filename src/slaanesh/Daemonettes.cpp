@@ -28,7 +28,7 @@ namespace Slaanesh {
             m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws", 1, 3, 4, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
         m_weapons = {&m_piercingClaws, &m_piercingClawsAlluress};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
 
         // Lithe and Swift
         m_runAndCharge = true;
@@ -133,7 +133,7 @@ namespace Slaanesh {
 
     Rerolls Daemonettes::chargeRerolls() const {
         if (isNamedModelAlive("Banner Bearer")) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -147,9 +147,9 @@ namespace Slaanesh {
     }
 
     Rerolls Daemonettes::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
 } // namespace Slaanesh

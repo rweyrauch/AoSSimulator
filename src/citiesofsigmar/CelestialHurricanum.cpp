@@ -161,7 +161,7 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_stormOfShemtek, &m_wizardStaff, &m_arcaneTools, &m_hooves};
         m_hasMount = true;
         m_hooves.setMount(true);
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
 
         s_globalCastMod.connect(this, &CelestialHurricanum::locusOfAzyr, &m_locusConnection);
         s_globalToHitMod.connect(this, &CelestialHurricanum::portentsOfBattle, &m_portentsConnection);
@@ -176,7 +176,7 @@ namespace CitiesOfSigmar {
         if (battlemage) {
             addKeyword(WIZARD);
             addKeyword(HERO);
-            m_battleFieldRole = Leader_Behemoth;
+            m_battleFieldRole = Role::Leader_Behemoth;
             m_totalSpells = 1;
             m_totalUnbinds = 1;
         }
@@ -247,7 +247,7 @@ namespace CitiesOfSigmar {
         auto mod = Unit::castingModifier();
 
         // Celestial Battlemage
-        if (Board::Instance()->getRealm() == Azyr) mod++;
+        if (Board::Instance()->getRealm() == Realm::Azyr) mod++;
 
         return mod;
     }

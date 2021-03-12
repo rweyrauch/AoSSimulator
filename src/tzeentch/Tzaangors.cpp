@@ -32,7 +32,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, GOR, TZEENTCH, ARCANITE, TZAANGORS};
         m_weapons = {&m_savageBlade, &m_savageBladeTwistbray, &m_savageGreatblade, &m_savageGreatbladeTwistbray,
                      &m_viciousBeak, &m_viciousBeakTwistbray};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,

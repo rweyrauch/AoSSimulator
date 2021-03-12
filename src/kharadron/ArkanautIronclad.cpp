@@ -113,7 +113,7 @@ namespace KharadronOverlords {
                      &m_torpedoes,
                      &m_carbines,
                      &m_boardingWeapons};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool ArkanautIronclad::configure(WeaponOption option) {
@@ -194,7 +194,7 @@ namespace KharadronOverlords {
 
     Rerolls ArkanautIronclad::runRerolls() const {
         // Aetheric Navigator/Endrinrigger
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     void ArkanautIronclad::onStartCombat(PlayerId player) {

@@ -98,7 +98,7 @@ namespace Khorne {
     Rerolls Skullreapers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Trial of skulls.
         if (target->remainingModels() >= 5) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }

@@ -75,7 +75,7 @@ namespace Tzeentch {
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, CHANGECASTER};
         m_weapons = {&m_flames, &m_staff, &m_dagger};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

@@ -26,7 +26,7 @@ namespace StormcastEternals {
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
         m_weapons = {&m_aetherstave, &m_monstrousClaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_monstrousClaws.setMount(true);
 
@@ -112,7 +112,7 @@ namespace StormcastEternals {
 
     Rerolls LordArcanumOnDracoline::chargeRerolls() const {
         // Thunderous Pounce
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     void LordArcanumOnDracoline::onStartCombat(PlayerId player) {

@@ -41,7 +41,7 @@ namespace GloomspiteGitz {
             m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
         m_weapons = {&m_chitinousLegs, &m_monstrousFangs};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool SkitterstrandArachnarok::configure() {

@@ -23,7 +23,7 @@ namespace Slaanesh {
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, THE_MASQUE};
         m_weapons = {&m_ravagingClaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Lithe and Swift
         m_runAndCharge = true;
@@ -90,20 +90,20 @@ namespace Slaanesh {
                 heal(Dice::RollD3());
             }
             else {
-                buffModifier(Attacks_Melee, Dice::RollD3(), {Phase::Hero, m_battleRound+1, owningPlayer()});
+                buffModifier(Attribute::Attacks_Melee, Dice::RollD3(), {Phase::Hero, m_battleRound+1, owningPlayer()});
             }
         }
     }
 
     Rerolls TheMasque::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // The Endless Dance
-        if (target->move() <= 5) return Reroll_Failed;
+        if (target->move() <= 5) return Rerolls::Failed;
         return Unit::toWoundRerolls(weapon, target);
     }
 
     Rerolls TheMasque::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // The Endless Dance
-        if (target->move() <= 10) return Reroll_Failed;
+        if (target->move() <= 10) return Rerolls::Failed;
         return SlaaneshBase::toHitRerolls(weapon, target);
     }
 

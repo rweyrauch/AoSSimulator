@@ -43,7 +43,7 @@ namespace Fyreslayers {
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_grandAxe};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_clawsAndHorns.setMount(true);
         m_blazingMaw.setMount(true);
@@ -169,7 +169,7 @@ namespace Fyreslayers {
         if (unit) {
             if (Dice::RollD6() == 6) {
                 // TODO: buff only affects a single weapon
-                unit->buffModifier(To_Hit_Melee, -1, {Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
+                unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
             }
         }
     }
@@ -195,7 +195,7 @@ namespace Fyreslayers {
             // Stare Down
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
-                unit->buffModifier(Bravery, -Dice::RollD3(), {Hero, m_battleRound + 1, owningPlayer()});
+                unit->buffModifier(Attribute::Bravery, -Dice::RollD3(), {Phase::Hero, m_battleRound + 1, owningPlayer()});
             }
         }
     }

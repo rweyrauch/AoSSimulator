@@ -42,7 +42,7 @@ namespace FleshEaterCourt {
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 3, 3, 4, 3, -2, RAND_D6) {
         m_keywords = {DEATH, FLESH_EATER_COURTS, MENAGERIE, MONSTER, ROYAL_TERRORGHEIST};
         m_weapons = {&m_deathShriek, &m_skeletalClaws, &m_fangedMaw};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool RoyalTerrorgheist::configure() {

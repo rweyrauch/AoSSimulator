@@ -28,6 +28,12 @@ namespace SlavesToDarkness {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure();
         if (!ok) {
             delete unit;
@@ -46,6 +52,8 @@ namespace SlavesToDarkness {
                     {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     CHAOS,
@@ -60,7 +68,7 @@ namespace SlavesToDarkness {
             m_blades(Weapon::Type::Melee, "Rune-etched Blades", 1, RAND_D6, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS};
         m_weapons = {&m_blades};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool ExaltedHeroOfChaos::configure() {

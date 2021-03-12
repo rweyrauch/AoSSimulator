@@ -32,7 +32,7 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL)) {
-                unit->buffModifier(Attacks_Melee, 1, {m_phase, m_round, m_source->owningPlayer()});
+                unit->buffModifier(Attribute::Attacks_Melee, 1, {m_phase, m_round, m_source->owningPlayer()});
             }
         }
         return true;
@@ -53,7 +53,7 @@ namespace Khorne {
             m_skullhammer(Weapon::Type::Melee, "Skullhammer", 3, 3, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, ASPIRING_DEATHBRINGER};
         m_weapons = {&m_bloodAxe, &m_wrathHammer, &m_goreaxe, &m_skullhammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool AspiringDeathbringer::configure(WeaponOption weapon) {

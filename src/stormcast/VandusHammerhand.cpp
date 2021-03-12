@@ -26,7 +26,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT,
                       VANDUS_HAMMERHAND};
         m_weapons = {&m_heldensen, &m_clawsAndFangs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_clawsAndFangs.setMount(true);
 
@@ -47,7 +47,7 @@ namespace StormcastEternals {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Vengeful Determination", 12, 12, Phase::Combat,
-                                                                Attacks_Melee, 1, Abilities::Target::SelfAndFriendly,
+                                                                                  Attribute::Attacks_Melee, 1, Abilities::Target::SelfAndFriendly,
                                                                 std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
 
         m_points = g_pointsPerUnit;

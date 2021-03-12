@@ -98,7 +98,7 @@ namespace CitiesOfSigmar {
             m_gunButt(Weapon::Type::Melee, "Gun Butt", 1, 1, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, HERO, ENGINEER, COGSMITH};
         m_weapons = {&m_grudgeRaker, &m_pistols, &m_cogAxe, &m_gunButt};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Cogsmith::configure(WeaponOption weapon) {

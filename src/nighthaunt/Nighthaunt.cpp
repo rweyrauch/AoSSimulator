@@ -109,7 +109,7 @@ namespace Nighthaunt {
 
     Rerolls Nighthaunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Hatred_Of_The_Living) && !target->hasKeyword(DEATH)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }

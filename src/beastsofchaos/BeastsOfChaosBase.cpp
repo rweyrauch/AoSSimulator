@@ -8,6 +8,7 @@
 #include <magic_enum.hpp>
 #include <beastsofchaos/BeastsOfChaosBase.h>
 #include <Roster.h>
+#include <Board.h>
 #include "beastsofchaos/Gors.h"
 #include "beastsofchaos/Ghorgon.h"
 #include "beastsofchaos/Ungors.h"
@@ -96,6 +97,22 @@ namespace BeastsOfChaos {
         if (m_currentRecord.m_enemyUnitsSlain) {
             heal(Dice::RollD3());
         }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Gouge_Tusks)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+            for (auto unit : units) {
+                if (unit->remainingModels() > 0) {
+                    auto roll = Dice::RollD6();
+                    if (roll == 6) {
+                        unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                    }
+                    else if (roll >= 2) {
+                        unit->applyDamage({0, 1, Wounds::Source::Ability}, this);
+                    }
+                    break;
+                }
+            }
+        }
     }
 
     void BeastsOfChaosBase::setArtefact(Artefact artefact) {
@@ -116,10 +133,10 @@ namespace BeastsOfChaos {
 
     Rerolls BeastsOfChaosBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         if (isGeneral() && (m_commandTrait == CommandTrait::Apex_Predator)) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Tempestuous_Tyrant) && target->hasKeyword(MONSTER)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toWoundRerolls(weapon, target);
     }
@@ -138,6 +155,30 @@ namespace BeastsOfChaos {
         if ((m_battleRound == 1) && isGeneral() && (m_commandTrait == CommandTrait::Ancient_Beyond_Knowledge)) {
             getRoster()->addCommandPoints(Dice::RollD3());
         }
+    }
+
+    int BeastsOfChaosBase::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Shadowpelt) && distanceTo(attacker) > 3.0) {
+            mod--;
+        }
+        return mod;
+    }
+
+    Rerolls BeastsOfChaosBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Eater_Of_Heroes) && target->hasKeyword(HERO)) {
+            return Rerolls::Failed;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    int BeastsOfChaosBase::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Rugged_Hide)) {
+            rend++;
+        }
+        return rend;
     }
 
     void Init() {

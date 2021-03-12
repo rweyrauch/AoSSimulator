@@ -71,7 +71,7 @@ namespace SlavesToDarkness {
             m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDERS};
         m_weapons = {&m_axe, &m_flail, &m_axeChieftain, &m_flailChieftain};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &ChaosMarauders::iconBearer, &m_connection);
     }

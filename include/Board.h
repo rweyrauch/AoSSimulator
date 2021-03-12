@@ -114,7 +114,7 @@ private:
     std::vector<std::shared_ptr<TerrainFeature>> m_features;
     std::vector<std::shared_ptr<Objective>> m_objectives;
     std::shared_ptr<Roster> m_rosters[2] = {nullptr, nullptr};
-    Realm m_realm = Azyr;
+    Realm m_realm = Realm::None;
 
     static Board *s_pInstance;
 };

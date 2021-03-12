@@ -70,7 +70,7 @@ namespace SlavesToDarkness {
             m_blade(Weapon::Type::Melee, "Blade of Shadows", 1, 6, 3, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, DAEMON_PRINCE, BELAKOR};
         m_weapons = {&m_blade};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;
@@ -81,7 +81,7 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, To_Wound_Melee, -1, Abilities::Target::Enemy));
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, Attribute::To_Wound_Melee, -1, Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

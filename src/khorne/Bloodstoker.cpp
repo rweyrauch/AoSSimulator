@@ -24,7 +24,7 @@ namespace Khorne {
             m_bloodWhip(Weapon::Type::Melee, "Blood Whip", 3, 3, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, BLOODSTOKER};
         m_weapons = {&m_tortureBlade, &m_bloodWhip};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Bloodstoker::configure() {
@@ -92,10 +92,10 @@ namespace Khorne {
             // Whipped to Fury
             auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), MORTAL, 8.0);
             if (unit != nullptr) {
-                unit->buffModifier(Charge_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                unit->buffModifier(Run_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                unit->buffReroll(To_Wound_Melee, Reroll_Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                unit->buffReroll(To_Wound_Missile, Reroll_Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffModifier(Attribute::Charge_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffModifier(Attribute::Run_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
             }
         }
     }

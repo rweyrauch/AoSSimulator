@@ -65,7 +65,7 @@ protected:
 class BuffModifierCommandAbility : public CommandAbility {
 public:
     BuffModifierCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase,
-                               BuffableAttribute which, int modifier, Abilities::Target allowedTargets,
+                               Attribute which, int modifier, Abilities::Target allowedTargets,
                                const std::vector<Keyword>& targetKeywords = {});
 
 
@@ -76,13 +76,13 @@ protected:
 
     virtual int getModifier() const;
 
-    BuffableAttribute m_attribute = To_Hit_Melee;
+    Attribute m_attribute = Attribute::To_Hit_Melee;
     int m_modifier = 0;
 };
 
 class BuffRerollCommandAbility : public CommandAbility {
 public:
-    BuffRerollCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAttribute which,
+    BuffRerollCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, Attribute which,
                              Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
@@ -90,13 +90,13 @@ protected:
     bool apply(Unit* target) override;
     bool apply(double x, double y) override { return false; }
 
-    BuffableAttribute m_attribute = To_Hit_Melee;
-    Rerolls m_reroll = No_Rerolls;
+    Attribute m_attribute = Attribute::To_Hit_Melee;
+    Rerolls m_reroll = Rerolls::None;
 };
 
 class BuffAbilityCommandAbility : public CommandAbility {
 public:
-    BuffAbilityCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, BuffableAbility which,
+    BuffAbilityCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, Ability which,
                               int value, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
@@ -104,6 +104,6 @@ protected:
     bool apply(Unit* target) override;
     bool apply(double x, double y) override { return false; }
 
-    BuffableAbility m_ability = Ignore_Battleshock;
+    Ability m_ability = Ability::Ignore_Battleshock;
     int m_value = 0;
 };

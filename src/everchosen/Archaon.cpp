@@ -44,7 +44,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, KHORNE, TZEENTCH, NURGLE, SLAANESH,
                       HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
         m_weapons = {&m_slayerOfKings, &m_dorgharsClaws, &m_dorgharsTails, &m_dorgharsHeads};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_dorgharsClaws.setMount(true);
         m_dorgharsHeads.setMount(true);

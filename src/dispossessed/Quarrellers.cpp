@@ -120,7 +120,7 @@ namespace Dispossessed {
         // Duardin Bucklers
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
-                return Reroll_Failed;
+                return Rerolls::Failed;
         }
         return Dispossessed::toSaveRerolls(weapon, attacker);
     }

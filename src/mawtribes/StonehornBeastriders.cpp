@@ -94,7 +94,7 @@ namespace OgorMawtribes {
             m_hooves(Weapon::Type::Melee, "Crushing Hooves", 1, RAND_D6, 3, 2, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, STONEHORN_BEASTRIDERS};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_hooves.setMount(true);
         m_horns.setMount(true);

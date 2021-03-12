@@ -72,7 +72,7 @@ namespace CitiesOfSigmar {
             m_swordLordling(Weapon::Type::Melee, "Darkling Sword", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLEAKSWORDS};
         m_weapons = {&m_sword, &m_swordLordling};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower) {

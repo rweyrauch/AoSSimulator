@@ -68,7 +68,7 @@ namespace Nurgle {
             m_staff(Weapon::Type::Melee, "Rotwood Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, WIZARD, SORCERER};
         m_weapons = {&m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

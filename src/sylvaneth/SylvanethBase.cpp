@@ -72,14 +72,14 @@ namespace Sylvaneth {
     Rerolls SylvanethBase::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Vibrant Surge
         if (hasKeyword(HARVESTBOON) && m_charged) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         // Shield the Arcane
         else if (hasKeyword(GNARLROOT)) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(GNARLROOT) && ip->hasKeyword(WIZARD)) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         }
@@ -133,7 +133,7 @@ namespace Sylvaneth {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(HERO) && ip->hasKeyword(IRONBARK)) {
-                    return Reroll_Failed;
+                    return Rerolls::Failed;
                 }
             }
         }
@@ -202,7 +202,7 @@ namespace Sylvaneth {
 
     Rerolls SylvanethBase::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         if (isGeneral() && (m_commandTrait == CommandTrait::Mere_Rainfall) && weapon->isMissile()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toSaveRerolls(weapon, attacker);
     }

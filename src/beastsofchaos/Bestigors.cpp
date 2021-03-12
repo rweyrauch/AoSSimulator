@@ -108,7 +108,7 @@ namespace BeastsOfChaos {
     Rerolls Bestigors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Despoilers
         if (unit->hasKeyword(ORDER)) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }

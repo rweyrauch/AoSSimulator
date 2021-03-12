@@ -43,7 +43,7 @@ namespace DaughtersOfKhaine {
             m_tail(Weapon::Type::Melee, "Envenomed Tail", 3, 1, 3, 3, -2, 6) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, MONSTER, HERO, THE_SHADOW_QUEEN};
         m_weapons = {&m_gaze, &m_heartrender, &m_crown, &m_tail};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalAttackMod.connect(this, &MorathiTheShadowQueen::furyOfTheShadowQueen, &m_furySlot);
     }

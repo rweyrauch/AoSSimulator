@@ -138,10 +138,10 @@ namespace KharadronOverlords {
     Rerolls KharadronBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if ((m_artycle == Artycle::Honour_Is_Everything) && hasKeyword(HERO) &&
                 (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         if ((m_artycle == Artycle::Master_The_Skies) && hasKeyword(SKYVESSEL) && target->canFly()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -193,7 +193,7 @@ namespace KharadronOverlords {
     Rerolls KharadronBase::chargeRerolls() const {
         if (!s_usedFootnote && (m_footnote == Footnote::Theres_No_Reward_Without_Risk)) {
             s_usedFootnote = true;
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }

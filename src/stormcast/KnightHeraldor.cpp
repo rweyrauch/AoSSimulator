@@ -24,7 +24,7 @@ namespace StormcastEternals {
             m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
         m_weapons = {&m_broadsword};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool KnightHeraldor::configure() {
@@ -85,8 +85,8 @@ namespace StormcastEternals {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if ((unit->remainingModels() > 0) && unit->hasKeyword(STORMCAST_ETERNAL)) {
-                    unit->buffMovement(Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
-                    unit->buffMovement(Retreat_And_Charge,true, {Phase::Combat, m_battleRound, owningPlayer()});
+                    unit->buffMovement(MovementRule::Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
+                    unit->buffMovement(MovementRule::Retreat_And_Charge,true, {Phase::Combat, m_battleRound, owningPlayer()});
                 }
             }
         }

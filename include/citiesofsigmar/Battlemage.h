@@ -38,7 +38,7 @@ namespace CitiesOfSigmar {
     private:
 
         Weapon m_staff;
-        Realm m_realm = Azyr;
+        Realm m_realm = Realm::None;
 
         static bool s_registered;
     };

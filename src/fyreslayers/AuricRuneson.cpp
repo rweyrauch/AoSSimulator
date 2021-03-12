@@ -25,7 +25,7 @@ namespace Fyreslayers {
             m_javelinMelee(Weapon::Type::Melee, "Wyrmslayer Javelin", 3, 1, 3, 3, -1, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNESON};
         m_weapons = {&m_throwingAxe, &m_javelin, &m_warAxe, &m_javelinMelee};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool AuricRuneson::configure() {
@@ -87,7 +87,7 @@ namespace Fyreslayers {
     Rerolls AuricRuneson::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6.0);
         for (auto unit : units) {
-            if (unit->hasKeyword(AURIC_RUNESON)) return Reroll_Failed;
+            if (unit->hasKeyword(AURIC_RUNESON)) return Rerolls::Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }

@@ -213,7 +213,7 @@ Spell::Result HealSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unm
 }
 
 BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                                     BuffableAttribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword) :
+                                     Attribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword) :
         Spell(caster, name, castingValue, range),
         m_modifiers({{which, modifier}}) {
     m_allowedTargets = allowedTargets;
@@ -234,7 +234,7 @@ Spell::Result BuffModifierSpell::apply(int castingRoll, const UnmodifiedCastingR
 }
 
 BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                                     std::vector<std::pair<BuffableAttribute, int>> modifiers,
+                                     std::vector<std::pair<Attribute, int>> modifiers,
                                      Abilities::Target allowedTargets, const std::vector<Keyword> &targetKeywords) :
         Spell(caster, name, castingValue, range),
         m_modifiers(std::move(modifiers)) {
@@ -246,7 +246,7 @@ BuffModifierSpell::BuffModifierSpell(Unit *caster, const std::string &name, int 
 }
 
 BuffRerollSpell::BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                                 BuffableAttribute which, Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword) :
+                                 Attribute which, Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),
         m_reroll(reroll) {
@@ -268,7 +268,7 @@ Spell::Result BuffRerollSpell::apply(int castingRoll, const UnmodifiedCastingRol
 }
 
 BuffAbilitySpell::BuffAbilitySpell(Unit *caster, const std::string &name, int castingValue, int range,
-                                   BuffableAbility which, int value, Abilities::Target allowedTargets,
+                                   Ability which, int value, Abilities::Target allowedTargets,
                                    const std::vector<Keyword> &targetKeyword):
         Spell(caster, name, castingValue, range),
         m_attribute(which),
@@ -291,7 +291,7 @@ Spell::Result BuffAbilitySpell::apply(int castingRoll, const UnmodifiedCastingRo
 }
 
 BuffMovementSpell::BuffMovementSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                                     MovementRules which, bool allowed, Abilities::Target allowedTargets,
+                                     MovementRule which, bool allowed, Abilities::Target allowedTargets,
                                      const std::vector<Keyword> &targetKeyword) :
         Spell(caster, name, castingValue, range),
         m_attribute(which),

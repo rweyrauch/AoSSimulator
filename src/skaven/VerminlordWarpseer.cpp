@@ -28,10 +28,10 @@ namespace Skaven {
             if (target == nullptr) return Spell::Result::Failed;
 
             target->applyDamage({0, Dice::RollD6(), Wounds::Source::Spell}, m_caster);
-            target->buffMovement(Halve_Charge_Roll, true, defaultDuration());
-            target->buffMovement(Halve_Run_Roll, true, defaultDuration());
+            target->buffMovement(MovementRule::Halve_Charge_Roll, true, defaultDuration());
+            target->buffMovement(MovementRule::Halve_Run_Roll, true, defaultDuration());
             if (target->fly()) {
-                target->buffMovement(Can_Fly, false, defaultDuration());
+                target->buffMovement(MovementRule::Can_Fly, false, defaultDuration());
             }
             return Result::Success;
         }
@@ -109,7 +109,7 @@ namespace Skaven {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, MASTERCLAN, MONSTER, HERO, WIZARD,
                       VERMINLORD_WARPSEER};
         m_weapons = {&m_tails, &m_glaive};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &VerminlordWarpseer::terrifying, &m_connection);
 
@@ -164,7 +164,7 @@ namespace Skaven {
     Rerolls VerminlordWarpseer::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         if (!m_usedOrb) {
             // Scry-orb
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return Skaventide::toSaveRerolls(weapon, attacker);

@@ -46,7 +46,7 @@ namespace Fyreslayers {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_javelin, &m_warAxe,
                      &m_javelinMelee};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_clawsAndHorns.setMount(true);
         m_blazingMaw.setMount(true);
@@ -183,7 +183,7 @@ namespace Fyreslayers {
     Rerolls AuricRunesonOnMagmadroth::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Vying for Glory
         if (Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AURIC_RUNESON, 6.0)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Fyreslayer::toHitRerolls(weapon, target);
     }

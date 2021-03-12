@@ -23,7 +23,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, LORD_CELESTANT,
                       GAVRIEL_SUREHEART};
         m_weapons = {&m_starboundBlade};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool GavrielSureheart::configure() {
@@ -32,7 +32,7 @@ namespace StormcastEternals {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Once More, For Sigmar, Charge!", 12, 12, Phase::Charge,
-                                                                        Charge_Distance, 3, Abilities::Target::SelfAndFriendly,
+                                                                        Attribute::Charge_Distance, 3, Abilities::Target::SelfAndFriendly,
                                                                         std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
 
         m_points = g_pointsPerUnit;
@@ -76,7 +76,7 @@ namespace StormcastEternals {
 
     Rerolls GavrielSureheart::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Sigmarite Thundershield
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     Wounds GavrielSureheart::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {

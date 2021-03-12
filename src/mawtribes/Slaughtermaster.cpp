@@ -74,7 +74,7 @@ namespace OgorMawtribes {
             m_assortedWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 3, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER, SLAUGHTERMASTER};
         m_weapons = {&m_stumpBlades, &m_bite, &m_assortedWeapons};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
@@ -149,7 +149,7 @@ namespace OgorMawtribes {
                 {
                     auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), OGOR, 12.0);
                     if (unit) {
-                        unit->buffModifier(BuffableAttribute::To_Hit_Melee, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                        unit->buffModifier(Attribute::To_Hit_Melee, 1, {Phase::Hero, m_battleRound + 1, owningPlayer()});
                     }
                 }
                     break;

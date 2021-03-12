@@ -94,7 +94,7 @@ namespace GloomspiteGitz {
         auto numUnits = Dice::RollD3();
         int numAffected = 0;
         for (auto squig : squigs) {
-            squig->buffMovement(Run_And_Charge, true, defaultDuration());
+            squig->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
 
             numAffected++;
             if (numAffected > numUnits) break;

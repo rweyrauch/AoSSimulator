@@ -25,9 +25,9 @@ namespace CitiesOfSigmar {
 
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(Run_Distance, 1, defaultDuration());
-            target->buffModifier(Charge_Distance, 1, defaultDuration());
-            target->buffMovement(Can_Fly, true, defaultDuration());
+            target->buffModifier(Attribute::Run_Distance, 1, defaultDuration());
+            target->buffModifier(Attribute::Charge_Distance, 1, defaultDuration());
+            target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -63,8 +63,8 @@ namespace CitiesOfSigmar {
 
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(Target_To_Wound_Missile, -1, defaultDuration());
-            target->buffModifier(Target_To_Wound_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::Target_To_Wound_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::Target_To_Wound_Melee, -1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -80,8 +80,8 @@ namespace CitiesOfSigmar {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -149,9 +149,9 @@ namespace CitiesOfSigmar {
             case Lore::Choking_Fumes:
                 return new ChokingFumes(caster);
             case Lore::Amber_Tide:
-                return new BuffMovementSpell(caster, "Amber Tide", 6, 18, Halve_Movement, true, Abilities::Target::Enemy);
+                return new BuffMovementSpell(caster, "Amber Tide", 6, 18, MovementRule::Halve_Movement, true, Abilities::Target::Enemy);
             case Lore::Phoenix_Cry:
-                return new BuffModifierSpell(caster, "Phoenix Cry", 5, 18, Bravery, -1, Abilities::Target::Enemy);
+                return new BuffModifierSpell(caster, "Phoenix Cry", 5, 18, Attribute::Bravery, -1, Abilities::Target::Enemy);
             case Lore::Golden_Mist:
                 return new HealSpell(caster, "Golden Mist", 6, 12, RAND_D3, -1, -1, {PHOENICIUM});
             case Lore::Sap_Strength:

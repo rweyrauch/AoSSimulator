@@ -40,7 +40,7 @@ namespace Khorne {
             m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
         m_weapons = {&m_slaughter, &m_carnage};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool Skarbrand::configure() {
@@ -108,7 +108,7 @@ namespace Khorne {
 
     Rerolls Skarbrand::chargeRerolls() const {
         // Inescapable Wrath
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     int Skarbrand::generateMortalWounds(const Unit *unit) {

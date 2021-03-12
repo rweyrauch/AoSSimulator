@@ -48,8 +48,8 @@ namespace GloomspiteGitz {
         int getDamageTableIndex() const;
 
         bool m_eatenRedcapMushroom = false;
-        Rerolls m_toHitRerolls = No_Rerolls;
-        Rerolls m_toWoundRerolls = No_Rerolls;
+        Rerolls m_toHitRerolls = Rerolls::None;
+        Rerolls m_toWoundRerolls = Rerolls::None;
 
         Weapon m_hugeFangFilledGob,
                 m_moonCutta,

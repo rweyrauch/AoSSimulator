@@ -27,7 +27,7 @@ namespace Nurgle {
             m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
         m_weapons = {&m_plaguesword, &m_plagueswordPlagueRidden};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers) {
@@ -125,7 +125,7 @@ namespace Nurgle {
         // Locus of Fecundity
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0);
         for (auto unit : units) {
-            if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) return Reroll_Ones;
+            if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) return Rerolls::Ones;
         }
         return Unit::toSaveRerolls(weapon, attacker);
     }

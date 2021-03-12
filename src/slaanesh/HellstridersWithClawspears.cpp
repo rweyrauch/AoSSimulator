@@ -112,7 +112,7 @@ namespace Slaanesh {
 
     Rerolls HellstridersWithClawspears::chargeRerolls() const {
         if (isNamedModelAlive("Banner Bearer")) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -134,9 +134,9 @@ namespace Slaanesh {
     }
 
     Rerolls HellstridersWithClawspears::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     Wounds HellstridersWithClawspears::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,

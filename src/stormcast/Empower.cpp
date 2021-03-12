@@ -20,8 +20,8 @@ Spell::Result Empower::apply(int castingValue, const UnmodifiedCastingRoll &unmo
         return Result::Failed;
     }
 
-    target->buffReroll(To_Wound_Melee, Reroll_Ones, defaultDuration());
-    target->buffReroll(To_Wound_Missile, Reroll_Ones, defaultDuration());
+    target->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones, defaultDuration());
+    target->buffReroll(Attribute::To_Wound_Missile, Rerolls::Ones, defaultDuration());
 
     return Spell::Result::Success;
 }

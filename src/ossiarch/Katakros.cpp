@@ -69,7 +69,7 @@ namespace OssiarchBonereapers {
             m_spiritDagger(Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1) {
         m_keywords = {DEATH, DEATHLORDS, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, KATAKROS};
         m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Katakros::configure() {

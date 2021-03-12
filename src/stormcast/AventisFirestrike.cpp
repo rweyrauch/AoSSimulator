@@ -29,7 +29,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
                       MONSTER, WIZARD, LORD_ARCANUM, AVENTIS_FIRESTRIKE};
         m_weapons = {&m_staffOfHammerhal, &m_hornsAndHooves};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_hornsAndHooves.setMount(true);
 
@@ -51,7 +51,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePyroelectricBlast(this)));
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Fiery Orator", 12, 12, Phase::Combat, To_Wound_Melee, 1,
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Fiery Orator", 12, 12, Phase::Combat, Attribute::To_Wound_Melee, 1,
                                                                                   Abilities::Target::Friendly));
         m_points = g_pointsPerUnit;
 

@@ -104,12 +104,12 @@ namespace IdonethDeepkin {
     }
 
     Rerolls AkhelianMorrsarrGuard::battleshockRerolls() const {
-        if (isNamedModelAlive(Model::StandardBearer)) { return Reroll_Failed; }
+        if (isNamedModelAlive(Model::StandardBearer)) { return Rerolls::Failed; }
         return Unit::battleshockRerolls();
     }
 
     Rerolls AkhelianMorrsarrGuard::chargeRerolls() const {
-        if (isNamedModelAlive(Model::Musician)) { return Reroll_Failed; }
+        if (isNamedModelAlive(Model::Musician)) { return Rerolls::Failed; }
         return Unit::chargeRerolls();
     }
 

@@ -47,10 +47,10 @@ namespace FleshEaterCourt {
             }
 
             if (!target->fly()) {
-                target->buffMovement(Can_Fly, true, defaultDuration());
+                target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
             }
             else {
-                target->buffMovement(Run_And_Charge, true, defaultDuration());
+                target->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
             }
 
             if (castingRoll >= 10) {
@@ -61,10 +61,10 @@ namespace FleshEaterCourt {
                     if (unit == target) continue;
 
                     if (!unit->fly()) {
-                        unit->buffMovement(Can_Fly, true, defaultDuration());
+                        unit->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
                     }
                     else {
-                        unit->buffMovement(Run_And_Charge, true, defaultDuration());
+                        unit->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
                     }
 
                     if (unitsAffected >= 2 ) break;
@@ -100,14 +100,14 @@ namespace FleshEaterCourt {
             target->applyDamage(wounds, m_caster);
 
             if ((roll0 == roll1) && (roll0 == roll2)) {
-                target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-                target->buffModifier(To_Hit_Missile, -1, defaultDuration());
-                target->buffModifier(To_Wound_Melee, -1, defaultDuration());
-                target->buffModifier(To_Wound_Missile, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Wound_Melee, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Wound_Missile, -1, defaultDuration());
             }
             else if ((roll0 == roll1) || (roll0 == roll2) || (roll1 == roll2)) {
-                target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-                target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             }
 
             return Spell::Result::Success;
@@ -133,7 +133,7 @@ namespace FleshEaterCourt {
                 return Spell::Result::Failed;
             }
 
-            target->buffModifier(Move_Distance, target->wounds(), defaultDuration());
+            target->buffModifier(Attribute::Move_Distance, target->wounds(), defaultDuration());
 
             if (castingRoll >= 10) {
                 // Can affect 2 additional units
@@ -143,7 +143,7 @@ namespace FleshEaterCourt {
                     if (unit == target) continue;
 
                     if (unit->wounds() <= 6) {
-                        unit->buffModifier(Move_Distance, unit->wounds(), defaultDuration());
+                        unit->buffModifier(Attribute::Move_Distance, unit->wounds(), defaultDuration());
                         unitsAffected++;
                     }
 

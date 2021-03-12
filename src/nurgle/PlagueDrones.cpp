@@ -202,9 +202,9 @@ namespace Nurgle {
     Rerolls PlagueDrones::bellTollersBattleshockReroll(const Unit *unit) {
         // Bell Tollers
         if (isNamedModelAlive("Bell Tollers") && !isFriendly(unit)) {
-            if (distanceTo(unit) <= 6.0) return Reroll_Ones;
+            if (distanceTo(unit) <= 6.0) return Rerolls::Ones;
         }
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
 } // namespace Nurgle

@@ -81,7 +81,7 @@ namespace CitiesOfSigmar {
             m_goadsAndWhips(Weapon::Type::Melee, "Cruel Goads and Whips", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, MONSTER, KHARIBDYSS};
         m_weapons = {&m_tentacles, &m_tail, &m_limbs, &m_goadsAndWhips};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
 
         s_globalBraveryMod.connect(this, &Kharibdyss::abyssalHowl, &m_connection);
     }
@@ -157,9 +157,11 @@ namespace CitiesOfSigmar {
             std::sort(rolls.begin(), rolls.end());
 
             m_unmodifiedChargeRoll = rolls[1] + rolls[2];
-            if (!m_movementRules[Halve_Charge_Roll].empty()) {
-                if (m_movementRules[Halve_Charge_Roll].front().allowed) {
-                    m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1) / 2; // Round up
+            if (m_movementRules.contains(MovementRule::Halve_Charge_Roll)) {
+                if (!m_movementRules.at(MovementRule::Halve_Charge_Roll).empty()) {
+                    if (m_movementRules.at(MovementRule::Halve_Charge_Roll).front().allowed) {
+                        m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1) / 2; // Round up
+                    }
                 }
             }
             if ((rolls[0] == rolls[1]) && (rolls[0] == rolls[2])) {

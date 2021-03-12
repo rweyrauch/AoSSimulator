@@ -43,7 +43,7 @@ namespace BeastsOfChaos {
 // Abilities                    Implemented
 // -------------------------------------------
 // Bloodgreed                       Yes
-// Slaughterer's Call               TODO
+// Slaughterer's Call               Yes
 //
 
 } // namespace BeastsOfChaos

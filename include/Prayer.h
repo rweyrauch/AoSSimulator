@@ -96,7 +96,7 @@ protected:
 class BuffModifierPrayer : public Prayer {
 public:
     BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
-                       BuffableAttribute which, int modifier, Abilities::Target allowedTargets, int damageOn1 = 0);
+                       Attribute which, int modifier, Abilities::Target allowedTargets, int damageOn1 = 0);
 
 protected:
 
@@ -105,20 +105,20 @@ protected:
 
     virtual int getModifier(int prayingRoll) const;
 
-    BuffableAttribute m_attribute = To_Hit_Melee;
+    Attribute m_attribute = Attribute::To_Hit_Melee;
     int m_modifier = 0;
 };
 
 class BuffRerollPrayer : public Prayer {
 public:
     BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
-                     BuffableAttribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1 = 0);
+                     Attribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1 = 0);
 
 protected:
 
     bool apply(int prayingRoll, Unit* target) override;
     bool apply(int prayingRoll, double x, double y) override { return false; }
 
-    BuffableAttribute m_attribute = To_Hit_Melee;
-    Rerolls m_reroll = No_Rerolls;
+    Attribute m_attribute = Attribute::To_Hit_Melee;
+    Rerolls m_reroll = Rerolls::None;
 };

@@ -116,7 +116,7 @@ namespace OgorMawtribes {
         m_hasMount = true;
         m_tusks.setMount(true);
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool HuskardOnThundertusk::configure(WeaponOption option, MountTrait mountTrait, Prayer prayer) {

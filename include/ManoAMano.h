@@ -21,7 +21,7 @@ public:
     static const int s_boardWidth = 48;
     static const int s_boardDepth = 36;
 
-    explicit ManoAMano(int numRounds, Realm realm = Azyr);
+    explicit ManoAMano(int numRounds, Realm realm = Realm::None);
 
     ~ManoAMano();
 

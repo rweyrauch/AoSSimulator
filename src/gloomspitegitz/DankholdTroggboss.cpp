@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(TROGGOTH)) {
-                unit->buffReroll(To_Hit_Melee, Reroll_Ones, defaultDuration());
+                unit->buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, defaultDuration());
             }
         }
         return true;
@@ -52,7 +52,7 @@ namespace GloomspiteGitz {
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
         m_weapons = {&m_boulderClub};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &DankholdTroggboss::reassuringPresence, &m_connection);
     }

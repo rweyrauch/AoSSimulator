@@ -93,7 +93,7 @@ namespace Death {
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, BLOODSEEKER_PALANQUIN};
         m_weapons = {&m_wail, &m_blade, &m_etherealWeapons};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_hasMount = true;
         m_etherealWeapons.setMount(true);

@@ -23,7 +23,7 @@ namespace GloomspiteGitz {
             m_cavernousMaw(Weapon::Type::Melee, "Cavernous Maw", 2, 3, 3, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SQUIG, MOONCLAN, MONSTER, SQUIG_GOBBA};
         m_weapons = {&m_spitSquigs, &m_bashinSticks, &m_cavernousMaw};
-        m_battleFieldRole = Artillery;
+        m_battleFieldRole = Role::Artillery;
     }
 
     bool SquigGobba::configure() {

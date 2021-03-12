@@ -27,7 +27,7 @@ namespace GloomspiteGitz {
             m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
         m_weapons = {&m_moonSickle, &m_squigsTeeth};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
@@ -52,7 +52,7 @@ namespace GloomspiteGitz {
 
     Unit *FungoidCaveShaman::Create(const ParameterList &parameters) {
         auto unit = new FungoidCaveShaman();
-        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, None);
+        auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
         unit->setCommandTrait(trait);

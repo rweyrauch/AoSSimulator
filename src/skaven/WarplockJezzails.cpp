@@ -63,7 +63,7 @@ namespace Skaven {
             m_knives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WARPLOCK_JEZZAILS};
         m_weapons = {&m_jezzail, &m_knives};
-        m_battleFieldRole = Artillery;
+        m_battleFieldRole = Role::Artillery;
     }
 
     bool WarplockJezzails::configure(int numModels) {
@@ -93,7 +93,7 @@ namespace Skaven {
     Rerolls WarplockJezzails::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pavise
         if (!m_moved && (weapon->name() == m_jezzail.name())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }

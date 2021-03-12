@@ -220,7 +220,7 @@ namespace Fyreslayers {
 
     Rerolls Fyreslayer::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (s_activeRune == Rune::Of_Fury) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }

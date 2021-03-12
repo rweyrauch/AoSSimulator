@@ -139,21 +139,21 @@ protected:
 class BuffModifierSpell : public Spell {
 public:
     BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                      BuffableAttribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
+                      Attribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
     BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                      std::vector<std::pair<BuffableAttribute, int>> modifiers, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
+                      std::vector<std::pair<Attribute, int>> modifiers, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
 
 protected:
 
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
-    std::vector<std::pair<BuffableAttribute, int>> m_modifiers;
+    std::vector<std::pair<Attribute, int>> m_modifiers;
 };
 
 class BuffRerollSpell : public Spell {
 public:
-    BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range, BuffableAttribute which,
+    BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range, Attribute which,
                     Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
@@ -161,13 +161,13 @@ protected:
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
-    BuffableAttribute m_attribute = To_Hit_Melee;
-    Rerolls m_reroll = No_Rerolls;
+    Attribute m_attribute = Attribute::To_Hit_Melee;
+    Rerolls m_reroll = Rerolls::None;
 };
 
 class BuffMovementSpell : public Spell {
 public:
-    BuffMovementSpell(Unit *caster, const std::string &name, int castingValue, int range, MovementRules which,
+    BuffMovementSpell(Unit *caster, const std::string &name, int castingValue, int range, MovementRule which,
                       bool allowed, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
@@ -175,13 +175,13 @@ protected:
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
-    MovementRules m_attribute = Can_Fly;
+    MovementRule m_attribute = MovementRule::Can_Fly;
     bool m_allowed = false;
 };
 
 class BuffAbilitySpell : public Spell {
 public:
-    BuffAbilitySpell(Unit *caster, const std::string &name, int castingValue, int range, BuffableAbility which,
+    BuffAbilitySpell(Unit *caster, const std::string &name, int castingValue, int range, Ability which,
                      int value, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
 
 protected:
@@ -189,6 +189,6 @@ protected:
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
 
-    BuffableAbility m_attribute = Ignore_Battleshock;
+    Ability m_attribute = Ability::Ignore_Battleshock;
     int m_value = 1;
 };

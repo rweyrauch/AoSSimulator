@@ -156,7 +156,7 @@ namespace GloomspiteGitz {
     Rerolls GloomspiteGitzBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Moonclan Fungus Brew
         if (hasKeyword(MOONCLAN) && hasKeyword(GROT) && inLightOfTheBadMoon()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -186,7 +186,7 @@ namespace GloomspiteGitz {
 
         // Lunar Squigs
         if (hasKeyword(SQUIG) && inLightOfTheBadMoon()) {
-            buffMovement(Run_And_Charge, true, {Phase::Hero, m_battleRound + 1, owningPlayer()});
+            buffMovement(MovementRule::Run_And_Charge, true, {Phase::Hero, m_battleRound + 1, owningPlayer()});
         }
     }
 

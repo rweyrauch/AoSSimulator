@@ -63,7 +63,7 @@ namespace CitiesOfSigmar {
             m_crewsTools(Weapon::Type::Melee, "Crew's Tools", 1, 3, 5, 5, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, HELSTORM_ROCKET_BATTERY};
         m_weapons = {&m_rocketSalvo, &m_crewsTools};
-        m_battleFieldRole = Artillery;
+        m_battleFieldRole = Role::Artillery;
     }
 
     bool HelstormRocketBattery::configure() {
@@ -90,7 +90,7 @@ namespace CitiesOfSigmar {
         // Calculated Trajectory
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto unit : units) {
-            if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return Reroll_Ones;
+            if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }

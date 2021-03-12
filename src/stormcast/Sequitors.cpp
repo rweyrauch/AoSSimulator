@@ -106,9 +106,9 @@ namespace StormcastEternals {
             for (auto ip = m->meleeWeaponBegin(); ip != m->meleeWeaponEnd(); ++ip) {
                 if ((*ip)->name() == m_stormsmiteMaul.name() || (*ip)->name() == m_tempestBlade.name()) {
                     if (m_aethericChannellingWeapons || isMissile) {
-                        return Reroll_Ones; // weapons empowered
+                        return Rerolls::Ones; // weapons empowered
                     } else {
-                        return Reroll_Failed;
+                        return Rerolls::Failed;
                     } // shields empowered
                 }
             }
@@ -120,7 +120,7 @@ namespace StormcastEternals {
     Rerolls Sequitors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Aetheric Channeling
         if (m_aethericChannellingWeapons) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return StormcastEternal::toHitRerolls(weapon, unit);
     }

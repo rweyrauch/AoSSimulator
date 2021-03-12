@@ -14,9 +14,9 @@
 namespace FleshEaterCourt {
 
     SummonAbility::SummonAbility(Unit *leader, Roster* roster, const std::string &name, const SummonedUnitDesc& summonableUnits) :
-        CommandAbility(leader, name, 0, 0, Phase::Movement),
-        m_roster(roster),
-        m_summonedUnitDesc(summonableUnits) {
+            CommandAbility(leader, name, 0, 0, Phase::Movement),
+            m_summonedUnitDesc(summonableUnits),
+            m_roster(roster) {
         m_allowedTargets = Abilities::Target::Self;
         m_effect = Abilities::EffectType::Summon;
     }
@@ -37,5 +37,6 @@ namespace FleshEaterCourt {
                 m_roster->addUnit(unit);
             }
         }
+        return true;
     }
 }

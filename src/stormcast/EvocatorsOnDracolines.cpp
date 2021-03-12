@@ -95,7 +95,7 @@ namespace StormcastEternals {
     Rerolls EvocatorsOnCelestialDracolines::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Celestial Lightning Arc
         if (weapon->isMissile()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return StormcastEternal::toSaveRerolls(weapon, attacker);
@@ -159,7 +159,7 @@ namespace StormcastEternals {
 
     Rerolls EvocatorsOnCelestialDracolines::chargeRerolls() const {
         if (m_charged)
-            return Reroll_Failed;
+            return Rerolls::Failed;
         return StormcastEternal::chargeRerolls();
     }
 

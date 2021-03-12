@@ -81,6 +81,12 @@ namespace SlavesToDarkness {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -102,6 +108,8 @@ namespace SlavesToDarkness {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                             EnumParameter("Lore", g_lore[0], g_lore),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     CHAOS,
@@ -119,7 +127,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO,
                       WIZARD, CHAOS_SORCERER_LORD};
         m_weapons = {&m_staff, &m_fangsAndClaws, &m_tail};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_fangsAndClaws.setMount(true);
         m_tail.setMount(true);
@@ -171,7 +179,7 @@ namespace SlavesToDarkness {
     Rerolls ChaosSorcererOnManticore::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Territorial Predator
         if ((weapon->name() == m_fangsAndClaws.name()) && (target->hasKeyword(MONSTER))) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }

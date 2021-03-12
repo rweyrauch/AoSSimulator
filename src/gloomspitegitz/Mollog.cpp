@@ -59,7 +59,7 @@ namespace GloomspiteGitz {
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, MOLLOG};
         m_weapons = {&m_jabbertoad, &m_club};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &Mollog::reassuringPresence, &m_connection);
     }
@@ -181,7 +181,7 @@ namespace GloomspiteGitz {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
                 if (Dice::RollD6() >= 5) {
-                    unit->buffModifier(BuffableAttribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
                 }
             }
         }

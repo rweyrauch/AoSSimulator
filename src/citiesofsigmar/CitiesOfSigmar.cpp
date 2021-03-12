@@ -279,7 +279,7 @@ namespace CitiesOfSigmar {
         if (hasKeyword(HAMMERHAL)) {
             auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
             if (general && general->charged() && (general->m_commandTrait == CommandTrait::Blood_Of_The_Twelve) && (distanceTo(general) < 12.0)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
         return Unit::toWoundRerolls(weapon, target);

@@ -136,7 +136,7 @@ namespace Skaven {
     Rerolls PlagueMonks::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pair of Foetid Blades
         if ((m_weaponOption == Paired_Foetid_Blades) && (weapon->name() == m_foetidBlade.name())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Skaventide::toHitRerolls(weapon, target);
     }

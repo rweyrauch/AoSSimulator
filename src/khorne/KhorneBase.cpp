@@ -80,7 +80,7 @@ namespace Khorne {
         // Slay the Mighty
         if (m_slaughterHost == SlaughterHost::Bloodlords) {
             if (hasKeyword(DAEMON) && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
         // Tireless Conquerors
@@ -91,7 +91,7 @@ namespace Khorne {
                     const auto obj = Board::Instance()->getObjective(i);
                     if (obj) {
                         if (position().distance(obj->m_pos) <= 12.0) {
-                            return Reroll_Ones;
+                            return Rerolls::Ones;
                         }
                     }
                 }
@@ -99,7 +99,7 @@ namespace Khorne {
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Hungry_For_Glory)) {
             if (target->hasKeyword(MONSTER) || target->hasKeyword(HERO)) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
         return Unit::toWoundRerolls(weapon, target);
@@ -111,7 +111,7 @@ namespace Khorne {
             if (hasKeyword(MORTAL)) {
                 auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 12.0);
                 if (hero) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         }
@@ -121,20 +121,20 @@ namespace Khorne {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 16.0);
             for (auto ip : units) {
                 if (ip->hasKeyword(GREATER_DAEMON)) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
                 if (ip->hasKeyword(DAEMON) && distanceTo(ip) <= 12.0) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         }
 
         if (isGeneral() && (weapon->isMelee() && (m_commandTrait == CommandTrait::Slaughterborn))) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Hungry_For_Glory)) {
             if (target->hasKeyword(MONSTER) || target->hasKeyword(HERO)) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
 
@@ -226,7 +226,7 @@ namespace Khorne {
                             auto khorneUnits = Board::Instance()->getAllUnits(owningPlayer());
                             for (auto unit : khorneUnits) {
                                 if (unit->hasKeyword(KHORNE)) {
-                                    unit->buffAbility(Extra_Hit_On_Value, 6,
+                                    unit->buffAbility(Ability::Extra_Hit_On_Value, 6,
                                                       {Phase::Hero, DurationRestOfGame, owningPlayer()});
                                 }
                             }
@@ -365,11 +365,11 @@ namespace Khorne {
         if (general && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
             auto khorne = dynamic_cast<KhorneBase*>(general);
             if (khorne && (khorne->m_commandTrait == CommandTrait::Violent_Urgency)) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
         if (isGeneral() && hasKeyword(BLOODLORDS) && (m_commandTrait == CommandTrait::Slaughterers_Thirst)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -409,7 +409,7 @@ namespace Khorne {
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 8.0)) {
                 auto khorne = dynamic_cast<KhorneBase*>(general);
                 if (khorne && (khorne->m_commandTrait == CommandTrait::Vessel_Of_Butchery)) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         }

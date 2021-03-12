@@ -8,6 +8,7 @@
 
 #include <beastsofchaos/Jabberslythe.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
@@ -24,7 +25,7 @@ namespace BeastsOfChaos {
             m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, JABBERSLYTHE};
         m_weapons = {&m_slytheyTongue, &m_vorpalClaws, &m_spikedTail};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool Jabberslythe::configure() {
@@ -84,6 +85,29 @@ namespace BeastsOfChaos {
         }
 
         return totalWounds;
+    }
+
+    void Jabberslythe::onStartHero(PlayerId player) {
+        BeastsOfChaosBase::onStartHero(player);
+
+        // Aura of Madness
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
+            for (auto unit : units) {
+                if (unit->remainingModels() > 0) {
+                    if (Dice::RollD6() == 6) {
+                        const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
+                        unit->buffMovement(MovementRule::Can_Move, false, duration);
+                        unit->buffMovement(MovementRule::Can_PileIn, false, duration);
+                        unit->buffMovement(MovementRule::Can_Charge, false, duration);
+                        unit->buffMovement(MovementRule::Can_Retreat, false, duration);
+                        unit->buffAbility(Ability::Can_Attack, 0, duration);
+                        unit->buffAbility(Ability::Cast_Spells, 0, duration);
+                        unit->buffAbility(Ability::Unbind_Spells, 0, duration);
+                    }
+                }
+            }
+        }
     }
 
 } // namespace BeastsOfChaos

@@ -177,7 +177,7 @@ namespace StormcastEternals {
         auto unit = new Prosecutors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Celestial_Hammer_And_Shield);
-        GrandWeaponOption primeGrandWeapon = (GrandWeaponOption) GetEnumParam("Prime Grand Weapon", parameters, None);
+        GrandWeaponOption primeGrandWeapon = (GrandWeaponOption) GetEnumParam("Prime Grand Weapon", parameters, No_Grand_Weapon);
         int numTridents = GetIntParam("Stormsurge Tridents", parameters, 0);
         int numGrandaxes = GetIntParam("Grandaxes", parameters, 0);
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
@@ -272,7 +272,7 @@ namespace StormcastEternals {
 
     Rerolls Prosecutors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if ((m_weaponOption == Paired_Celestial_Hammers) && (weapon->name() == m_celestialHammers.name())) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return StormcastEternal::toHitRerolls(weapon, target);
     }
@@ -280,7 +280,7 @@ namespace StormcastEternals {
     Rerolls Prosecutors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Sigmarite Shields
         if (m_weaponOption == Celestial_Hammer_And_Shield || m_weaponOption == Stormcall_Javelin_And_Shield) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return StormcastEternal::toSaveRerolls(weapon, attacker);
     }

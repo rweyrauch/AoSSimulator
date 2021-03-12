@@ -131,21 +131,21 @@ namespace Slaanesh {
     Rerolls SlaaneshBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Heir to the Throne
         if ((m_host == Host::Pretenders) && (remainingModels() >= 10)) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Territorial) && Board::Instance()->isUnitWithinDeploymentZone(this, owningPlayer())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Hunter_Supreme) && charged()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Strongest_Alone)) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 6.0);
             if (units.empty()) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
         return Unit::toHitRerolls(weapon, target);
@@ -180,7 +180,7 @@ namespace Slaanesh {
                     auto roll = Dice::RollD6();
                     if (hasKeyword(GREATER_DAEMON)) roll++;
                     if (roll >= 4) {
-                        unit->buffMovement(Can_PileIn, false, {Phase::Combat, m_battleRound, player});
+                        unit->buffMovement(MovementRule::Can_PileIn, false, {Phase::Combat, m_battleRound, player});
                     }
                 }
             }
@@ -204,12 +204,12 @@ namespace Slaanesh {
             auto heros = Board::Instance()->getUnitsWithKeyword(owningPlayer(), HERO);
             for (auto hero : heros) {
                 if ((hero->remainingModels() > 0) && distanceTo(hero) < 6.0) {
-                    return Reroll_Failed;
+                    return Rerolls::Failed;
                 }
             }
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Hunter_Supreme) && charged()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Unit::toWoundRerolls(weapon, target);
@@ -241,15 +241,15 @@ namespace Slaanesh {
         if (isGeneral() && (m_commandTrait == CommandTrait::Hurler_Of_Obscenities)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0);
             if (hero) {
-                hero->buffModifier(To_Save_Melee, -1, {Phase::Combat, m_battleRound, player});
-                hero->buffModifier(To_Hit_Melee, 1, {Phase::Combat, m_battleRound, player});
+                hero->buffModifier(Attribute::To_Save_Melee, -1, {Phase::Combat, m_battleRound, player});
+                hero->buffModifier(Attribute::To_Hit_Melee, 1, {Phase::Combat, m_battleRound, player});
             }
         }
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Monarch_Of_Lies)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
             if (hero) {
-                hero->buffModifier(To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+                hero->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
             }
         }
 
@@ -279,7 +279,7 @@ namespace Slaanesh {
             if (general && distanceTo(general) < 12) {
                 auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
                 if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Feverish_Anticipation)) {
-                    return Reroll_Failed;
+                    return Rerolls::Failed;
                 }
             }
         }
@@ -293,7 +293,7 @@ namespace Slaanesh {
             if (general && distanceTo(general) < 12) {
                 auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
                 if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Embodiment_Of_Haste)) {
-                    return Reroll_Failed;
+                    return Rerolls::Failed;
                 }
             }
         }
@@ -303,7 +303,7 @@ namespace Slaanesh {
             if (general && distanceTo(general) < 12) {
                 auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
                 if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Inspirer)) {
-                    return Reroll_Failed;
+                    return Rerolls::Failed;
                 }
             }
         }

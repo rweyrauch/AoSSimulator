@@ -57,7 +57,7 @@ namespace OgorMawtribes {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, WINTERBITE, HERO, ICEBROW_HUNTER,
                       HROTHGORN};
         m_weapons = {&m_trapLauncher, &m_knife, &m_bite};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Hrothgorn::configure() {

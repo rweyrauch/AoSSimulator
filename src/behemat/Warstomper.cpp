@@ -42,7 +42,7 @@ namespace SonsOfBehemat {
             m_jump(Weapon::Type::Melee, "Jump Up and Down", 3, 4, 3, 3, -2, RAND_D3),
             m_club(Weapon::Type::Melee, "Titanic Boulderclub", 3, 0, 3, 3, -2, 2) {
         m_weapons = {&m_grip, &m_jump, &m_club};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, WARSTOMPER};
 
         s_globalBraveryMod.connect(this, &Warstomper::terror, &m_connection);
@@ -140,11 +140,11 @@ namespace SonsOfBehemat {
     Rerolls Warstomper::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Almighty Jump
         if ((weapon->name() == m_jump.name()) && (!target->hasKeyword(MONSTER)))
-            return Reroll_Ones_And_Twos;
+            return Rerolls::Ones_And_Twos;
 
         // Death Grip
         if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
         return Unit::toHitRerolls(weapon, target);
     }
@@ -184,7 +184,7 @@ namespace SonsOfBehemat {
 
     Rerolls Warstomper::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         if (m_artefact == Artefact::Ironweld_Cestus) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return SonsOfBehematBase::toSaveRerolls(weapon, attacker);
     }

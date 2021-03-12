@@ -47,7 +47,7 @@ namespace CitiesOfSigmar {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override {
             if ((m_weaponOption == Pair_Exile_Blades) && (weapon->name() == m_blade.name())) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
             return Unit::toHitRerolls(weapon, target);
         }

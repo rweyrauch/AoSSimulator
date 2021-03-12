@@ -27,7 +27,7 @@ namespace FleshEaterCourt {
             m_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, SERFS, CRYPT_GHOULS};
         m_weapons = {&m_teethAndClaws, &m_teethAndClawsGhast};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool CryptGhouls::configure(int numModels) {
@@ -103,7 +103,7 @@ namespace FleshEaterCourt {
         // Royal Approval
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0);
         if (unit != nullptr) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }

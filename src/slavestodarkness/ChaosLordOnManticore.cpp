@@ -47,6 +47,12 @@ namespace SlavesToDarkness {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure(weapon);
         if (!ok) {
             delete unit;
@@ -68,6 +74,8 @@ namespace SlavesToDarkness {
                             EnumParameter("Weapon", Blade_And_Shield, weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     CHAOS,
@@ -90,7 +98,7 @@ namespace SlavesToDarkness {
         m_fangsAndClaws.setMount(true);
         m_tail.setMount(true);
         m_weapons = {&m_blade, &m_lance, &m_flail, &m_fangsAndClaws, &m_tail};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool ChaosLordOnManticore::configure(WeaponOption weapon) {
@@ -229,7 +237,7 @@ namespace SlavesToDarkness {
     Rerolls ChaosLordOnManticore::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Territorial Predator
         if ((weapon->name() == m_fangsAndClaws.name()) && (target->hasKeyword(MONSTER))) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }

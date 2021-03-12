@@ -47,7 +47,7 @@ namespace Khorne {
                       VORGAROTH_THE_SCARRED_AND_SKALOK_THE_SKULL_HOST_OF_KHORNE};
         m_weapons = {&m_balefire, &m_skullCleaverAxeOfKhorne, &m_evisceratingClaws, &m_cavernousJaws,
                      &m_brassPlatedTail};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_evisceratingClaws.setMount(true);
         m_cavernousJaws.setMount(true);
@@ -141,7 +141,7 @@ namespace Khorne {
         // Monstrous Trophies
         if (weapon->name() == m_skullCleaverAxeOfKhorne.name()) {
             if (target->hasKeyword(MONSTER)) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
         return KhorneBase::toWoundRerolls(weapon, target);

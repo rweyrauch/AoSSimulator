@@ -25,7 +25,7 @@ namespace FleshEaterCourt {
             m_filthyClaws(Weapon::Type::Melee, "Filthy Claws", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_GHAST_COURTIER};
         m_weapons = {&m_boneClub, &m_filthyClaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool CryptGhastCourtier::configure() {

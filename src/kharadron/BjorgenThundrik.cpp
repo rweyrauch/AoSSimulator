@@ -60,7 +60,7 @@ namespace KharadronOverlords {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, MARINE,
                       AETHER_KHEMIST, BJORGEN_THUNDRIK};
         m_weapons = {&m_anatomiser, &m_instruments};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         s_globalToHitMod.connect(this, &BjorgenThundrik::atmosphericIsolation, &m_connection);
     }
 
@@ -86,7 +86,7 @@ namespace KharadronOverlords {
         auto skyfarers = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto unit : skyfarers) {
             if (unit->hasKeyword(SKYFARER)) {
-                unit->buffReroll(To_Wound_Melee, Reroll_Ones, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones, {Phase::Hero, m_battleRound+1, owningPlayer()});
             }
         }
     }

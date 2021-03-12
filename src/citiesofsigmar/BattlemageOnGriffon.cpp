@@ -102,7 +102,7 @@ namespace CitiesOfSigmar {
             m_razorClaws(Weapon::Type::Melee, "Razor Claws", 2, 6, 4, 3, -1, 2) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, MONSTER, HERO, WIZARD, BATTLEMAGE};
         m_weapons = {&m_beastStaff, &m_twinBeaks, &m_razorClaws};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_razorClaws.setMount(true);
         m_twinBeaks.setMount(true);
@@ -120,7 +120,7 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Wildform", 5, 12,
-                                                                    std::vector<std::pair<BuffableAttribute, int>>{{Run_Distance, 2},{Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
+                                                                    std::vector<std::pair<Attribute, int>>{{Attribute::Run_Distance, 2},{Attribute::Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
         m_knownSpells.push_back(std::make_unique<LineOfEffectSpell>(this, "Amber Spear", 7, 18, RAND_D3, 2));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -167,7 +167,7 @@ namespace CitiesOfSigmar {
         auto mod = Unit::castingModifier();
 
         // Amber Battlemage
-        if (Board::Instance()->getRealm() == Ghur) mod++;
+        if (Board::Instance()->getRealm() == Realm::Ghur) mod++;
 
         return mod;
     }

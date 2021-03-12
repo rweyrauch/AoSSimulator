@@ -23,7 +23,7 @@ namespace Slaanesh {
             m_shardslash(Weapon::Type::Melee, "Shardslash", 1, 5, 2, 3, -2, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, SIGVALD};
         m_weapons = {&m_shardslash};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool SigvaldPrinceOfSlaanesh::configure() {

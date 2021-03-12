@@ -21,8 +21,8 @@ namespace Fyreslayers {
 
         bool apply(int prayingRoll, Unit* target) override {
             if (target == nullptr) return false;
-            target->buffModifier(To_Save_Missile, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
-            target->buffModifier(To_Save_Melee, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Save_Missile, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Save_Melee, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
             return true;
         }
         bool apply(int prayingRoll, double x, double y) override { return false; }
@@ -34,7 +34,7 @@ namespace Fyreslayers {
                 // TODO: Molten_Infusion
                 return nullptr;
             case Blessing::Searing_Heat:
-                return new BuffModifierPrayer(priest, "Searing Heat", 3, 18, To_Hit_Melee, -1, Abilities::Target::Enemy); // TODO: Also debuff To_Hit_Missile
+                return new BuffModifierPrayer(priest, "Searing Heat", 3, 18, Attribute::To_Hit_Melee, -1, Abilities::Target::Enemy); // TODO: Also debuff To_Hit_Missile
             case Blessing::Prayer_Of_Ash:
                 return new PrayerOfAsh(priest);
             case Blessing::Ember_Storm:

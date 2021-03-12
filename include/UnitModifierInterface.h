@@ -59,7 +59,7 @@ public:
      * @param target Unit being attacked
      * @return To-hit re-roll.
      */
-    virtual Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const { return No_Rerolls; }
+    virtual Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const { return Rerolls::None; }
 
     /*!
      * To-wound modifier (buffs) when this unit uses the given weapon to attack the target.
@@ -83,7 +83,7 @@ public:
      * @param target Unit being attacked
      * @return To-wound re-roll.
      */
-    virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const { return No_Rerolls; }
+    virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const { return Rerolls::None; }
 
     /*!
      * Compute the weapon damage on the given target with the hit and wound rolls.
@@ -123,21 +123,21 @@ public:
 
     virtual int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
 
-    virtual Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const { return No_Rerolls; }
+    virtual Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const { return Rerolls::None; }
 
     [[nodiscard]] virtual int braveryModifier() const { return 0; }
 
-    [[nodiscard]] virtual Rerolls battleshockRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls battleshockRerolls() const { return Rerolls::None; }
 
     [[nodiscard]] virtual int castingModifier() const { return 0; }
 
-    [[nodiscard]] virtual Rerolls castingRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls castingRerolls() const { return Rerolls::None; }
 
     [[nodiscard]] virtual int unbindingModifier() const { return 0; }
 
-    [[nodiscard]] virtual Rerolls unbindingRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls unbindingRerolls() const { return Rerolls::None; }
 
-    [[nodiscard]] virtual Rerolls prayerRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls prayerRerolls() const { return Rerolls::None; }
 
     [[nodiscard]] virtual int woundModifier() const { return 0; }
 
@@ -145,9 +145,9 @@ public:
 
     [[nodiscard]] virtual int runModifier() const { return 0; }
 
-    [[nodiscard]] virtual Rerolls runRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls runRerolls() const { return Rerolls::None; }
 
     [[nodiscard]] virtual int chargeModifier() const { return 0; }
 
-    [[nodiscard]] virtual Rerolls chargeRerolls() const { return No_Rerolls; }
+    [[nodiscard]] virtual Rerolls chargeRerolls() const { return Rerolls::None; }
 };

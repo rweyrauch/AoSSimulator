@@ -42,7 +42,7 @@ namespace BeastsOfChaos {
             m_mightyKick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3) {
         m_keywords = {CHAOS, GARGANT, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHAOS_GARGANT};
         m_weapons = {&m_eadbutt, &m_massiveClub, &m_mightyKick};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool ChaosGargant::configure() {
@@ -126,7 +126,7 @@ namespace BeastsOfChaos {
             }
             if (heroesNearby) {
                 applyDamage({0, 1}, this);
-                buffModifier(BuffableAttribute::Attacks_Melee, 1, {Combat, m_battleRound, player});
+                buffModifier(Attribute::Attacks_Melee, 1, {Phase::Combat, m_battleRound, player});
             }
         }
 

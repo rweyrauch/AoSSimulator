@@ -22,7 +22,7 @@ namespace StormcastEternals {
     };
 
     FuriousRetribution::FuriousRetribution(Unit *general) :
-            BuffModifierCommandAbility(general, "Furious Retribution", 12, 12, Phase::Combat, To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, {STORMCAST_ETERNAL}) {
+            BuffModifierCommandAbility(general, "Furious Retribution", 12, 12, Phase::Combat, Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, {STORMCAST_ETERNAL}) {
     }
 
     bool FuriousRetribution::canBeUsed() const {
@@ -47,7 +47,7 @@ namespace StormcastEternals {
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
         m_weapons = {&m_runeblade, &m_warhammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool LordCelestant::configure() {

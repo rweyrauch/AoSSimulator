@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
             m_spear(Weapon::Type::Melee, "Starlight Spear", 2, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, HERO, NOMAD_PRINCE};
         m_weapons = {&m_spear};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool NomadPrince::configure() {
@@ -87,10 +87,10 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Lord of the Deepwood Host",
-                                                                                  12, 12, Phase::Shooting, To_Hit_Missile, 1, Abilities::Target::SelfAndFriendly,
+                                                                                  12, 12, Phase::Shooting, Attribute::To_Hit_Missile, 1, Abilities::Target::SelfAndFriendly,
                                                                                   std::vector<Keyword>{WANDERER}));
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Lord of the Deepwood Host",
-                                                                                  12, 12, Phase::Combat, To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly,
+                                                                                  12, 12, Phase::Combat, Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly,
                                                                                   std::vector<Keyword>{WANDERER}));
         m_points = g_pointsPerUnit;
 
@@ -108,10 +108,10 @@ namespace CitiesOfSigmar {
         if (owningPlayer() == player) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 16.0);
             if (hero) {
-                hero->buffModifier(Casting_Roll, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
-                hero->buffModifier(Unbinding_Roll, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
-                hero->buffModifier(To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
-                hero->buffModifier(To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                hero->buffModifier(Attribute::Casting_Roll, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                hero->buffModifier(Attribute::Unbinding_Roll, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                hero->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                hero->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
             }
         }
     }

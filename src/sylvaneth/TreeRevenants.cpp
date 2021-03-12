@@ -111,7 +111,7 @@ namespace Sylvaneth {
     Rerolls TreeRevenants::runRerolls() const {
         if (m_moveRerollAvailable) {
             m_moveRerollAvailable = false;
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return SylvanethBase::runRerolls();
     }
@@ -119,7 +119,7 @@ namespace Sylvaneth {
     Rerolls TreeRevenants::chargeRerolls() const {
         if (m_moveRerollAvailable) {
             m_moveRerollAvailable = false;
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return SylvanethBase::chargeRerolls();
     }

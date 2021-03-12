@@ -86,7 +86,7 @@ namespace OgorMawtribes {
             m_clubOrBladeCrusher(Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, OGOR_GLUTTONS};
         m_weapons = {&m_clubOrBlade, &m_bite, &m_clubOrBladeCrusher};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &OgorGluttons::bellower, &m_connection);
     }
@@ -146,7 +146,7 @@ namespace OgorMawtribes {
     Rerolls OgorGluttons::chargeRerolls() const {
         // Beast Skull Bearer
         if (isNamedModelAlive("Skull Bearer")) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }

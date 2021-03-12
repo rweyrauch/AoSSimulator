@@ -106,7 +106,7 @@ namespace Khorne {
 
         // Horrific Predators
         if ((numSlain > 0) && (enemyUnit != nullptr)) {
-            enemyUnit->buffModifier(Bravery, 1, {Phase::Battleshock, m_battleRound, m_currentRecord.m_playerWithTurn});
+            enemyUnit->buffModifier(Attribute::Bravery, 1, {Phase::Battleshock, m_battleRound, m_currentRecord.m_playerWithTurn});
         }
     }
 

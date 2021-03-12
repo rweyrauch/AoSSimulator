@@ -58,9 +58,9 @@ namespace BeastsOfChaos {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        target->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
-        target->buffModifier(To_Save_Missile, -1, defaultDuration());
-        target->buffModifier(To_Save_Melee, -1, defaultDuration());
+        target->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, defaultDuration());
+        target->buffModifier(Attribute::To_Save_Missile, -1, defaultDuration());
+        target->buffModifier(Attribute::To_Save_Melee, -1, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -82,8 +82,8 @@ namespace BeastsOfChaos {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        target->buffModifier(To_Save_Missile, -1, defaultDuration());
-        target->buffModifier(To_Save_Melee, -1, defaultDuration());
+        target->buffModifier(Attribute::To_Save_Missile, -1, defaultDuration());
+        target->buffModifier(Attribute::To_Save_Melee, -1, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -103,7 +103,7 @@ namespace BeastsOfChaos {
             case Lore::Wild_Rampage:
                 return new WildRampage(caster);
             case Lore::Titanic_Fury:
-                return new BuffModifierSpell(caster, "Titanic Fury", 7, 12, Attacks_Melee, 1, Abilities::Target::Friendly, {BEASTS_OF_CHAOS, MONSTER});
+                return new BuffModifierSpell(caster, "Titanic Fury", 7, 12, Attribute::Attacks_Melee, 1, Abilities::Target::Friendly, {BEASTS_OF_CHAOS, MONSTER});
             case Lore::Thunderwave:
                 return new AreaOfEffectSpell(caster, "Thunderwave", 7, 0, 3, RAND_D3, 0);
             case Lore::Hailstorm:

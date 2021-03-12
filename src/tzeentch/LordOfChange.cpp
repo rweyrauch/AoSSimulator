@@ -148,7 +148,7 @@ namespace Tzeentch {
                      &m_staff,
                      &m_sword,
                      &m_beakAndTalons};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

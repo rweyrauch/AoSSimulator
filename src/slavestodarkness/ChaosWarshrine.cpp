@@ -75,7 +75,7 @@ namespace SlavesToDarkness {
             m_fists(Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, TOTEM, PRIEST, MARK_OF_CHAOS, CHAOS_WARSHRINE};
         m_weapons = {&m_blade, &m_fists};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_fists.setMount(true);
     }
@@ -138,20 +138,20 @@ namespace SlavesToDarkness {
                 if (roll >= 3) {
                     if (target->hasKeyword(KHORNE)) {
                         // Favour of Khorne
-                        target->buffReroll(Attacks_Melee, Reroll_Failed, {Hero, m_battleRound + 1, player});
+                        target->buffReroll(Attribute::Attacks_Melee, Rerolls::Failed, {Phase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(TZEENTCH)) {
                         // TODO: Favour of Tzeentch
                         // Allow save against magic
                     } else if (target->hasKeyword(NURGLE)) {
                         // Favour of Nurgle
-                        target->buffModifier(To_Save_Missile, 1, {Hero, m_battleRound + 1, player});
-                        target->buffModifier(To_Save_Melee, 1, {Hero, m_battleRound + 1, player});
+                        target->buffModifier(Attribute::To_Save_Missile, 1, {Phase::Hero, m_battleRound + 1, player});
+                        target->buffModifier(Attribute::To_Save_Melee, 1, {Phase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(SLAANESH)) {
                         // Favour of Slanesh
-                        target->buffAbility(Ignore_Battleshock, 1, {Hero, m_battleRound + 1, player});
+                        target->buffAbility(Ability::Ignore_Battleshock, 1, {Phase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(UNDIVIDED)) {
                         // Favour of Chaos
-                        target->buffReroll(Charge_Distance, Reroll_Failed, {Hero, m_battleRound + 1, player});
+                        target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, {Phase::Hero, m_battleRound + 1, player});
                     }
                 }
             }

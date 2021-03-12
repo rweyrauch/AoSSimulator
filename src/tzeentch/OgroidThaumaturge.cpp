@@ -95,7 +95,7 @@ namespace Tzeentch {
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 4, 4, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, WIZARD, OGROID_THAUMATURGE};
         m_weapons = {&m_staff, &m_horns, &m_hooves};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
@@ -137,7 +137,7 @@ namespace Tzeentch {
     Rerolls OgroidThaumaturge::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Brutal Rage
         if (!m_currentRecord.m_woundsTaken.zero() && weapon->isMelee()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return TzeentchBase::toWoundRerolls(weapon, target);
     }
@@ -145,7 +145,7 @@ namespace Tzeentch {
     Rerolls OgroidThaumaturge::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Brutal Rage
         if (!m_currentRecord.m_woundsTaken.zero() && weapon->isMelee()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return TzeentchBase::toHitRerolls(weapon, target);
     }

@@ -24,7 +24,7 @@ namespace Fyreslayers {
             m_doomseekerAxe(Weapon::Type::Melee, "Doomseeker Axe", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, DOOMSEEKER};
         m_weapons = {&m_throwingAxe, &m_warIron, &m_doomseekerAxe};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Doomseeker::configure() {

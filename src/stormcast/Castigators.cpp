@@ -125,7 +125,7 @@ namespace StormcastEternals {
     Rerolls Castigators::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         if (weapon->name() == m_thunderheadGreatbow.name()) {
             if (!m_aethericChannellingPower) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
         return StormcastEternal::toHitRerolls(weapon, unit);

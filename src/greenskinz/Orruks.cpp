@@ -207,7 +207,7 @@ namespace Greenskinz {
     Rerolls Orruks::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Choppas
         if ((m_weaponOption == Paired_Choppas) && (weapon->name() == m_choppa.name())) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -224,7 +224,7 @@ namespace Greenskinz {
     Rerolls Orruks::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Waaagh! Shield
         if (!weapon->isMissile() && (m_weaponOption == Choppa_And_Shield || m_weaponOption == Spear_And_Shield)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toSaveRerolls(weapon, attacker);
     }

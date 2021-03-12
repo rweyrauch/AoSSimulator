@@ -23,7 +23,7 @@ namespace FleshEaterCourt {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
                       ABHORRANT_GHOUL_KING};
         m_weapons = {&m_goryTalonsAndFangs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
@@ -34,7 +34,7 @@ namespace FleshEaterCourt {
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Black Hunger", 5, 24, Attacks_Melee, 1,
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Black Hunger", 5, 24, Attribute::Attacks_Melee, 1,
                                                                     Abilities::Target::SelfAndFriendly, std::vector<Keyword>{FLESH_EATER_COURTS}));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

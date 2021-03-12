@@ -105,7 +105,7 @@ namespace Skaven {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, NURGLE, CLANS_PESTILENS, MONSTER, HERO,
                       WIZARD, VERMINLORD_CORRUPTOR};
         m_weapons = {&m_tails, &m_plaguereapers};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &VerminlordCorruptor::terrifying, &m_connection);
 

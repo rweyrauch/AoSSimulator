@@ -29,15 +29,15 @@ namespace CitiesOfSigmar {
             if (target == nullptr)
                 return false;
 
-            m_source->buffModifier(Charge_Distance, 1, defaultDuration());
-            m_source->buffModifier(To_Hit_Melee, 1, defaultDuration());
+            m_source->buffModifier(Attribute::Charge_Distance, 1, defaultDuration());
+            m_source->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
 
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {
                 if (unit == m_source) continue;
 
                 if (unit->hasKeyword(ORDER_SERPENTIS) && (unit->remainingModels() > 0)) {
-                    unit->buffModifier(To_Wound_Melee, 1, defaultDuration());
+                    unit->buffModifier(Attribute::To_Wound_Melee, 1, defaultDuration());
                 }
             }
             return true;
@@ -163,7 +163,7 @@ namespace CitiesOfSigmar {
             m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, HERO, DREADLORD, DRAGON};
         m_weapons = {&m_crossbow, &m_noxiousBreath, &m_blade, &m_lance, &m_jaws, &m_claws};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_jaws.setMount(true);
         m_claws.setMount(true);

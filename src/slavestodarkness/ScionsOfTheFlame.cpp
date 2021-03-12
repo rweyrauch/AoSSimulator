@@ -114,7 +114,7 @@ namespace SlavesToDarkness {
     Rerolls ScionsOfTheFlame::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (weapon->name() == m_pots.name()) {
             if (isNamedModelAlive("Inferno Priest"))
-                return Reroll_Ones;
+                return Rerolls::Ones;
         }
         return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }

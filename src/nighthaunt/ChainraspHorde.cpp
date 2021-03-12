@@ -25,7 +25,7 @@ namespace Nighthaunt {
             m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE};
         m_weapons = {&m_malignantWeapon, &m_malignantWeaponWarden};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool ChainraspHorde::configure(int numModels) {
@@ -81,7 +81,7 @@ namespace Nighthaunt {
     Rerolls ChainraspHorde::toWoundRerolls(const Weapon *weapon, const Unit *unit) const {
         // Chilling Horde
         if (remainingModels() >= 10) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Nighthaunt::toHitRerolls(weapon, unit);

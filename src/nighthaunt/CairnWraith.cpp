@@ -65,7 +65,7 @@ namespace Nighthaunt {
             m_scythe(Weapon::Type::Melee, "Reaper Scythe", 2, 3, 4, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, CAIRN_WRAITH};
         m_weapons = {&m_scythe};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool CairnWraith::configure() {
@@ -87,7 +87,7 @@ namespace Nighthaunt {
     Rerolls CairnWraith::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Reaped Like Corn
         if (weapon->name() == m_scythe.name() && unit->remainingModels() >= 5) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toHitRerolls(weapon, unit);
     }

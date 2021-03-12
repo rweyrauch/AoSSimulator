@@ -67,7 +67,7 @@ namespace IdonethDeepkin {
             m_fangs(Weapon::Type::Melee, "Sharp Fangs", 3, RAND_2D6, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, EIDOLON, HERO, ASPECT_OF_THE_STORM};
         m_weapons = {&m_spear, &m_crulhook, &m_fangs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_retreatAndCharge = true;
     }
 
@@ -87,7 +87,7 @@ namespace IdonethDeepkin {
     Rerolls EidolonOfMathlannAspectOfTheStorm::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Crashing Upon the Foe
         if (m_charged && (weapon->name() == m_spear.name())) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Unit::toHitRerolls(weapon, target);

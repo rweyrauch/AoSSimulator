@@ -25,7 +25,7 @@ namespace DaughtersOfKhaine {
             m_wings(Weapon::Type::Melee, "Bladed Wings", 2, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, WIZARD, MORATHI_KHAINE};
         m_weapons = {&m_heartrender, &m_wings};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 3;
         m_totalUnbinds = 2;

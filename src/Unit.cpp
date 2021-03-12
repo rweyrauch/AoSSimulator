@@ -48,6 +48,25 @@ static int accumulate(const std::vector<int> &v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
 }
 
+
+Unit::Unit() {
+    // Populate all buff/ability maps with empty lists
+    constexpr auto& attributeEntries = magic_enum::enum_entries<Attribute>();
+    constexpr auto& movementEntries = magic_enum::enum_entries<MovementRule>();
+    constexpr auto& abilityEntries = magic_enum::enum_entries<Ability>();
+
+    for (auto entry : attributeEntries) {
+        m_attributeModifiers[entry.first] = std::list<ModifierBuff>();
+        m_rollModifiers[entry.first] = std::list<RerollBuff>();
+    }
+    for (auto entry : movementEntries) {
+        m_movementRules[entry.first] = std::list<MovementRuleBuff>();
+    }
+    for (auto entry : abilityEntries) {
+        m_abilityBuffs[entry.first] = std::list<AbilityBuff>();
+    }
+}
+
 Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     if ((targetUnit == nullptr) || (remainingModels() == 0)) {
         return {0, 0, Wounds::Source::Weapon_Missile};
@@ -60,7 +79,7 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
         numAttackingModels = (int) m_models.size();
     }
 
-    PLOG_INFO << name() << " stooting at " << targetUnit->name() << " with " << numAttackingModels << " model(s).";
+    PLOG_INFO << name() << " shooting at " << targetUnit->name() << " with " << numAttackingModels << " model(s).";
 
     Wounds totalDamage = {0, 0, Wounds::Source::Weapon_Missile};
     Wounds totalDamageReflected = {0, 0, Wounds::Source::Weapon_Missile};
@@ -304,8 +323,8 @@ int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
     // apply wound/mortal wound save
     auto totalWounds = applyWoundSave(totalWoundsInflicted, attackingUnit);
 
-    if (!m_abilityBuffs[Ignore_All_Wounds_On_Value].empty()) {
-        const auto value = m_abilityBuffs[Ignore_All_Wounds_On_Value].front().value;
+    if (!m_abilityBuffs[Ability::Ignore_All_Wounds_On_Value].empty()) {
+        const auto value = m_abilityBuffs[Ability::Ignore_All_Wounds_On_Value].front().value;
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(totalWounds.normal, woundSaves);
         Dice::RollD6(totalWounds.mortal, mortalSaves);
@@ -390,8 +409,10 @@ void Unit::removeKeyword(Keyword word) {
 
 int Unit::braveryModifier() const {
     int modifier = remainingModels() / 10 + s_globalBraveryMod(this, accumulate);
-    for (auto bi : m_attributeModifiers[Bravery]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(Attribute::Bravery)) {
+        for (auto &bi : m_attributeModifiers.at(Attribute::Bravery)) {
+            modifier += bi.modifier;
+        }
     }
     return modifier;
 }
@@ -415,13 +436,13 @@ void Unit::restore() {
     m_currentRecord.clear();
 
     for (auto list : m_attributeModifiers) {
-        list.clear();
+        list.second.clear();
     }
     for (auto list : m_rollModifiers) {
-        list.clear();
+        list.second.clear();
     }
     for (auto list : m_movementRules) {
-        list.clear();
+        list.second.clear();
     }
 
     onRestore();
@@ -602,18 +623,18 @@ void Unit::movement(PlayerId player) {
         double totalMoveDistance = 0;
 
         double allowedMove = move();
-        if (!m_movementRules[Halve_Movement].empty()) {
-            if (m_movementRules[Halve_Movement].front().allowed) {
+        if (!m_movementRules[MovementRule::Halve_Movement].empty()) {
+            if (m_movementRules[MovementRule::Halve_Movement].front().allowed) {
                 allowedMove = allowedMove/2;
             }
         }
-        if (!m_movementRules[Double_Movement].empty()) {
-            if (m_movementRules[Double_Movement].front().allowed) {
+        if (!m_movementRules[MovementRule::Double_Movement].empty()) {
+            if (m_movementRules[MovementRule::Double_Movement].front().allowed) {
                 allowedMove = allowedMove*2;
             }
         }
-        if (!m_movementRules[Triple_Movement].empty()) {
-            if (m_movementRules[Triple_Movement].front().allowed) {
+        if (!m_movementRules[MovementRule::Triple_Movement].empty()) {
+            if (m_movementRules[MovementRule::Triple_Movement].front().allowed) {
                 allowedMove = allowedMove*3;
             }
         }
@@ -626,7 +647,7 @@ void Unit::movement(PlayerId player) {
             if (distance > (double) weapon->range() + movement) {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
-                if ((runDist < 3) && (runRerolls() != No_Rerolls))
+                if ((runDist < 3) && (runRerolls() != Rerolls::None))
                     runDist = rollRunDistance();
                 totalMoveDistance = movement + runDist;
                 m_ran = true;
@@ -651,7 +672,7 @@ void Unit::movement(PlayerId player) {
             if (weapon && (distance > (double) weapon->range() + movement)) {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
-                if ((runDist < 3) && (runRerolls() != No_Rerolls))
+                if ((runDist < 3) && (runRerolls() != Rerolls::None))
                     runDist = rollRunDistance();
                 totalMoveDistance = movement + runDist;
                 m_ran = true;
@@ -683,10 +704,13 @@ void Unit::movement(PlayerId player) {
 }
 
 bool Unit::battleshockRequired() const {
-    if (m_abilityBuffs[Ignore_Battleshock].empty()) {
-        return true;
+    if (m_abilityBuffs.contains(Ability::Ignore_Battleshock)) {
+        if (m_abilityBuffs.at(Ability::Ignore_Battleshock).empty()) {
+            return true;
+        }
+        return (m_abilityBuffs.at(Ability::Ignore_Battleshock).front().value > 0);
     }
-    return (m_abilityBuffs[Ignore_Battleshock].front().value > 0);
+    return true;
 }
 
 int Unit::rollBattleshock() const {
@@ -789,7 +813,7 @@ void Unit::charge(PlayerId player) {
                 Math::Ray ray(position(), closestTarget->position());
                 auto newPos = ray.pointAt(chargeDist);
                 move(newPos, ray.getDirection());
-            } else if (chargeRerolls() != No_Rerolls) {
+            } else if (chargeRerolls() != Rerolls::None) {
                 chargeDist = (double) rollChargeDistance();
                 if (chargeDist >= distance) {
                     m_charged = true;
@@ -834,8 +858,8 @@ void Unit::battleshock(PlayerId player) {
 
 int Unit::rollChargeDistance() {
     m_unmodifiedChargeRoll = Dice::Roll2D6();
-    if (!m_movementRules[Halve_Charge_Roll].empty()) {
-        if (m_movementRules[Halve_Charge_Roll].front().allowed) {
+    if (!m_movementRules[MovementRule::Halve_Charge_Roll].empty()) {
+        if (m_movementRules[MovementRule::Halve_Charge_Roll].front().allowed) {
             m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1)/2; // Round up
         }
     }
@@ -844,11 +868,11 @@ int Unit::rollChargeDistance() {
 
 int Unit::rollRunDistance() {
     int roll = Dice::RollD6();
-    if (m_abilityBuffs[Auto_Max_Run].empty()) {
+    if (m_abilityBuffs[Ability::Auto_Max_Run].empty()) {
         roll = 6;
     }
-    if (!m_movementRules[Halve_Run_Roll].empty()) {
-        if (m_movementRules[Halve_Run_Roll].front().allowed) {
+    if (!m_movementRules[MovementRule::Halve_Run_Roll].empty()) {
+        if (m_movementRules[MovementRule::Halve_Run_Roll].front().allowed) {
             roll = (roll + 1)/2; // Round up
         }
     }
@@ -900,13 +924,13 @@ bool Unit::makeSave(const Weapon *weapon, int weaponRend, Unit *attacker, int &s
     saveRoll = Dice::RollD6();
     if (saveRoll < toSave) {
         auto reroll = toSaveRerolls(weapon, attacker);
-        if (reroll == Reroll_Failed) {
+        if (reroll == Rerolls::Failed) {
             saveRoll = Dice::RollD6();
         }
-        else if ((reroll == Reroll_Ones) && (saveRoll == 1)) {
+        else if ((reroll == Rerolls::Ones) && (saveRoll == 1)) {
             saveRoll = Dice::RollD6();
         }
-        else if ((reroll == Reroll_Ones_And_Twos) && (saveRoll == 1 || saveRoll == 2)) {
+        else if ((reroll == Rerolls::Ones_And_Twos) && (saveRoll == 1 || saveRoll == 2)) {
             saveRoll = Dice::RollD6();
         }
     }
@@ -959,8 +983,8 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
         if (modifiedHitRoll >= weapon->toHit()) {
             // apply hit modifiers (a single hit may result in multiple hits)
             int numHits = generateHits(hitRoll, weapon, target);
-            if (!m_abilityBuffs[Extra_Hit_On_Value].empty()) {
-                const int value = m_abilityBuffs[Extra_Hit_On_Value].front().value;
+            if (!m_abilityBuffs[Ability::Extra_Hit_On_Value].empty()) {
+                const int value = m_abilityBuffs[Ability::Extra_Hit_On_Value].front().value;
                 if (hitRoll >= value) numHits++;
             }
             for (auto h = 0; h < numHits; h++) {
@@ -979,12 +1003,12 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                     int saveRoll = 0;
                     auto rend = weaponRend(weapon, target, hitRoll, woundRoll);
                     if (weapon->isMissile()) {
-                        for (auto ri : m_attributeModifiers[Weapon_Rend_Missile]) {
+                        for (auto ri : m_attributeModifiers[Attribute::Weapon_Rend_Missile]) {
                             rend += ri.modifier;
                         }
                     }
                     else {
-                        for (auto ri : m_attributeModifiers[Weapon_Rend_Melee]) {
+                        for (auto ri : m_attributeModifiers[Attribute::Weapon_Rend_Melee]) {
                             rend += ri.modifier;
                         }
                     }
@@ -993,19 +1017,19 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
 
-                        if (!m_abilityBuffs[Extra_Mortal_Wound_On_Hit_Roll].empty()) {
-                            const int value = m_abilityBuffs[Extra_Mortal_Wound_On_Hit_Roll].front().value;
+                        if (!m_abilityBuffs[Ability::Extra_Mortal_Wound_On_Hit_Roll].empty()) {
+                            const int value = m_abilityBuffs[Ability::Extra_Mortal_Wound_On_Hit_Roll].front().value;
                             if (hitRoll >= value)
                                 dam.mortal++;
                         }
 
                         if (weapon->isMissile()) {
-                            for (auto ri : m_attributeModifiers[Weapon_Damage_Missile]) {
+                            for (auto ri : m_attributeModifiers[Attribute::Weapon_Damage_Missile]) {
                                 dam.normal += ri.modifier;
                             }
                         }
                         else {
-                            for (auto ri : m_attributeModifiers[Weapon_Damage_Melee]) {
+                            for (auto ri : m_attributeModifiers[Attribute::Weapon_Damage_Melee]) {
                                 dam.normal += ri.modifier;
                             }
                         }
@@ -1040,13 +1064,13 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
 
 int Unit::rerolling(int initialRoll, Rerolls reroll) const {
     int roll = initialRoll;
-    if (reroll == Reroll_Failed) {
+    if (reroll == Rerolls::Failed) {
         roll = Dice::RollD6();
     }
-    if ((reroll == Reroll_Ones) && (initialRoll == 1)) {
+    if ((reroll == Rerolls::Ones) && (initialRoll == 1)) {
         roll = Dice::RollD6();
     }
-    if ((reroll == Reroll_Ones_And_Twos) && ((initialRoll == 1) || (initialRoll == 2))) {
+    if ((reroll == Rerolls::Ones_And_Twos) && ((initialRoll == 1) || (initialRoll == 2))) {
         roll = Dice::RollD6();
     }
     return roll;
@@ -1157,28 +1181,28 @@ void Unit::makePrayer() {
     }
 }
 
-bool Unit::buffModifier(BuffableAttribute which, int modifier, Duration duration) {
+bool Unit::buffModifier(Attribute which, int modifier, Duration duration) {
     ModifierBuff buff = {modifier, duration};
     m_attributeModifiers[which].push_back(buff);
 
     return true;
 }
 
-bool Unit::buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration) {
+bool Unit::buffReroll(Attribute which, Rerolls reroll, Duration duration) {
     RerollBuff buff = {reroll, duration};
     m_rollModifiers[which].push_back(buff);
 
     return true;
 }
 
-bool Unit::buffMovement(MovementRules which, bool allowed, Duration duration) {
+bool Unit::buffMovement(MovementRule which, bool allowed, Duration duration) {
     MovementRuleBuff buff = {allowed, duration};
     m_movementRules[which].push_back(buff);
 
     return true;
 }
 
-bool Unit::buffAbility(BuffableAbility which, int value, Duration duration) {
+bool Unit::buffAbility(Ability which, int value, Duration duration) {
     AbilityBuff buff = {value, duration};
     m_abilityBuffs[which].push_back(buff);
 
@@ -1203,14 +1227,14 @@ const Model *Unit::nearestModel(const Model *model, const Unit *targetUnit) cons
 void Unit::doPileIn() {
     if (!m_meleeTarget) return;
 
-    if (!m_movementRules[Can_PileIn].empty()) {
-        if (!m_movementRules[Can_PileIn].front().allowed) {
+    if (!m_movementRules[MovementRule::Can_PileIn].empty()) {
+        if (!m_movementRules[MovementRule::Can_PileIn].front().allowed) {
             return;
         }
     }
 
     auto pileInMove = m_pileInMove;
-      for (auto pi : m_attributeModifiers[Pile_In_Distance]) {
+      for (auto pi : m_attributeModifiers[Attribute::Pile_In_Distance]) {
           pileInMove += pi.modifier;
     }
 
@@ -1247,9 +1271,9 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player) {
 
     // Remove all buffs that expire in the player's given phase
     for (auto &list : m_attributeModifiers) {
-        for (auto bi = list.begin(); bi != list.end();) {
+        for (auto bi = list.second.begin(); bi != list.second.end();) {
             if (Expired(bi->duration, currentPhase)) {
-                bi = list.erase(bi);
+                bi = list.second.erase(bi);
             } else {
                 ++bi;
             }
@@ -1257,9 +1281,9 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player) {
     }
 
     for (auto &list : m_rollModifiers) {
-        for (auto bi = list.begin(); bi != list.end();) {
+        for (auto bi = list.second.begin(); bi != list.second.end();) {
             if (Expired(bi->duration, currentPhase)) {
-                bi = list.erase(bi);
+                bi = list.second.erase(bi);
             } else {
                 ++bi;
             }
@@ -1267,9 +1291,9 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player) {
     }
 
     for (auto &list : m_movementRules) {
-        for (auto bi = list.begin(); bi != list.end();) {
+        for (auto bi = list.second.begin(); bi != list.second.end();) {
             if (Expired(bi->duration, currentPhase)) {
-                bi = list.erase(bi);
+                bi = list.second.erase(bi);
             } else {
                 ++bi;
             }
@@ -1277,9 +1301,9 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player) {
     }
 
     for (auto &list : m_abilityBuffs) {
-        for (auto bi = list.begin(); bi != list.end();) {
+        for (auto bi = list.second.begin(); bi != list.second.end();) {
             if (Expired(bi->duration, currentPhase)) {
-                bi = list.erase(bi);
+                bi = list.second.erase(bi);
             } else {
                 ++bi;
             }
@@ -1290,14 +1314,15 @@ void Unit::timeoutBuffs(Phase phase, PlayerId player) {
 int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
     int extra = s_globalAttackMod(this, attackingModel, weapon, target, accumulate);
 
-    BuffableAttribute which = Attacks_Melee;
+    Attribute which = Attribute::Attacks_Melee;
     if (weapon->isMissile())
-        which = Attacks_Missile;
+        which = Attribute::Attacks_Missile;
 
-    for (auto bi : m_attributeModifiers[which]) {
-        extra += bi.modifier;
+    if (m_attributeModifiers.contains(which)) {
+        for (auto bi : m_attributeModifiers.at(which)) {
+            extra += bi.modifier;
+        }
     }
-
     extra += UnitModifierInterface::extraAttacks(attackingModel, weapon, target);
 
     return extra;
@@ -1306,14 +1331,15 @@ int Unit::extraAttacks(const Model *attackingModel, const Weapon *weapon, const 
 int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const {
     int modifier = s_globalToHitMod(this, weapon, target, accumulate);
 
-    BuffableAttribute which = To_Hit_Melee;
+    Attribute which = Attribute::To_Hit_Melee;
     if (weapon->isMissile())
-        which = To_Hit_Missile;
+        which = Attribute::To_Hit_Missile;
 
-    for (auto bi : m_attributeModifiers[which]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(which)) {
+        for (auto bi : m_attributeModifiers.at(which)) {
+            modifier += bi.modifier;
+        }
     }
-
     modifier += UnitModifierInterface::toHitModifier(weapon, target);
 
     return modifier;
@@ -1322,68 +1348,74 @@ int Unit::toHitModifier(const Weapon *weapon, const Unit *target) const {
 int Unit::toWoundModifier(const Weapon *weapon, const Unit *target) const {
     int modifier = s_globalToWoundMod(this, weapon, target, accumulate);
 
-    BuffableAttribute which = To_Wound_Melee;
+    Attribute which = Attribute::To_Wound_Melee;
     if (weapon->isMissile())
-        which = To_Wound_Missile;
+        which = Attribute::To_Wound_Missile;
 
-    for (auto bi : m_attributeModifiers[which]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(which)) {
+        for (auto bi : m_attributeModifiers.at(which)) {
+            modifier += bi.modifier;
+        }
     }
-
     modifier += UnitModifierInterface::toWoundModifier(weapon, target);
 
     return modifier;
 }
 
 Rerolls Unit::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-    BuffableAttribute which = To_Hit_Melee;
+    Attribute which = Attribute::To_Hit_Melee;
     if (weapon->isMissile())
-        which = To_Hit_Missile;
+        which = Attribute::To_Hit_Missile;
 
     auto globalRR = s_globalToHitReroll(this, weapon, target);
-    if (globalRR != No_Rerolls)
+    if (globalRR != Rerolls::None)
         return globalRR;
 
     auto baseRR = UnitModifierInterface::toHitRerolls(weapon, target);
-    if (baseRR != No_Rerolls)
+    if (baseRR != Rerolls::None)
         return baseRR;
 
-    if (m_rollModifiers[which].empty())
-        return No_Rerolls;
-    return m_rollModifiers[which].front().rerolls;
+    if (m_rollModifiers.contains(which)) {
+        if (m_rollModifiers.at(which).empty())
+            return Rerolls::None;
+        return m_rollModifiers.at(which).front().rerolls;
+    }
+    return Rerolls::None;
 }
 
 Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
-    BuffableAttribute which = To_Wound_Melee;
+    Attribute which = Attribute::To_Wound_Melee;
     if (weapon->isMissile())
-        which = To_Wound_Missile;
+        which = Attribute::To_Wound_Missile;
 
     auto globalRR = s_globalToWoundReroll(this, weapon, target);
-    if (globalRR != No_Rerolls)
+    if (globalRR != Rerolls::None)
         return globalRR;
 
     auto baseRR = UnitModifierInterface::toWoundRerolls(weapon, target);
-    if (baseRR != No_Rerolls)
+    if (baseRR != Rerolls::None)
         return baseRR;
 
-    if (m_rollModifiers[which].empty())
-        return No_Rerolls;
-    return m_rollModifiers[which].front().rerolls;
+    if (m_rollModifiers.contains(which)) {
+        if (m_rollModifiers.at(which).empty())
+            return Rerolls::None;
+        return m_rollModifiers.at(which).front().rerolls;
+    }
+    return Rerolls::None;
 }
 
 int Unit::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
     int modifier = s_globalSaveMod(this, weapon, accumulate);
-    if (weapon->isMissile()) {
-        for (auto bi : m_attributeModifiers[To_Save_Missile]) {
-            modifier += bi.modifier;
-        }
-    }
-    else {
-        for (auto bi : m_attributeModifiers[To_Save_Melee]) {
-            modifier += bi.modifier;
-        }
-    }
 
+    auto which = Attribute::To_Save_Missile;
+    if (weapon->isMelee())
+        which = Attribute::To_Save_Melee;
+
+    if (m_attributeModifiers.contains(which)) {
+        for (auto bi : m_attributeModifiers.at(which)) {
+            modifier += bi.modifier;
+        }
+    }
     modifier += UnitModifierInterface::toSaveModifier(weapon, attacker);
 
     return modifier;
@@ -1391,42 +1423,48 @@ int Unit::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
 
 Rerolls Unit::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
     auto globalRR = s_globalSaveReroll(this, weapon, attacker);
-    if (globalRR != No_Rerolls)
+    if (globalRR != Rerolls::None)
         return globalRR;
 
     auto baseRR = UnitModifierInterface::toSaveRerolls(weapon, attacker);
-    if (baseRR != No_Rerolls)
+    if (baseRR != Rerolls::None)
         return baseRR;
 
-    if (weapon->isMissile()) {
-        if (m_rollModifiers[To_Save_Missile].empty())
-            return No_Rerolls;
-        return m_rollModifiers[To_Save_Missile].front().rerolls;
-    }
+    auto which = Attribute::To_Save_Missile;
+    if (weapon->isMelee())
+        which = Attribute::To_Save_Melee;
 
-    if (m_rollModifiers[To_Save_Melee].empty())
-        return No_Rerolls;
-    return m_rollModifiers[To_Save_Melee].front().rerolls;
+    if (m_rollModifiers.contains(which)) {
+        if (m_rollModifiers.at(which).empty())
+            return Rerolls::None;
+        return m_rollModifiers.at(which).front().rerolls;
+    }
+    return Rerolls::None;
 }
 
 Rerolls Unit::battleshockRerolls() const {
     auto globalRR = s_globalBattleshockReroll(this);
-    if (globalRR != No_Rerolls)
+    if (globalRR != Rerolls::None)
         return globalRR;
 
     auto baseRR = UnitModifierInterface::battleshockRerolls();
-    if (baseRR != No_Rerolls)
+    if (baseRR != Rerolls::None)
         return baseRR;
 
-    if (m_rollModifiers[Bravery].empty())
-        return No_Rerolls;
-    return m_rollModifiers[Bravery].front().rerolls;
+    if (m_rollModifiers.contains(Attribute::Bravery)) {
+        if (m_rollModifiers.at(Attribute::Bravery).empty())
+            return Rerolls::None;
+        return m_rollModifiers.at(Attribute::Bravery).front().rerolls;
+    }
+    return Rerolls::None;
 }
 
 int Unit::castingModifier() const {
     int modifier = s_globalCastMod(this, accumulate);
-    for (auto bi : m_attributeModifiers[Casting_Roll]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(Attribute::Casting_Roll)) {
+        for (auto bi : m_attributeModifiers.at(Attribute::Casting_Roll)) {
+            modifier += bi.modifier;
+        }
     }
 
     modifier += UnitModifierInterface::castingModifier();
@@ -1436,10 +1474,11 @@ int Unit::castingModifier() const {
 
 int Unit::unbindingModifier() const {
     int modifier = s_globalCastMod(this, accumulate);
-    for (auto bi : m_attributeModifiers[Unbinding_Roll]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(Attribute::Unbinding_Roll)) {
+        for (auto bi : m_attributeModifiers.at(Attribute::Unbinding_Roll)) {
+            modifier += bi.modifier;
+        }
     }
-
     modifier += UnitModifierInterface::unbindingModifier();
 
     return modifier;
@@ -1447,8 +1486,10 @@ int Unit::unbindingModifier() const {
 
 int Unit::moveModifier() const {
     int modifier = s_globalMoveMod(this, accumulate);
-    for (auto bi : m_attributeModifiers[Move_Distance]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(Attribute::Move_Distance)) {
+        for (auto bi : m_attributeModifiers.at(Attribute::Move_Distance)) {
+            modifier += bi.modifier;
+        }
     }
 
     modifier += UnitModifierInterface::moveModifier();
@@ -1458,8 +1499,10 @@ int Unit::moveModifier() const {
 
 int Unit::runModifier() const {
     int modifier = s_globalRunMod(this, accumulate);
-    for (auto bi : m_attributeModifiers[Run_Distance]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(Attribute::Run_Distance)) {
+        for (auto bi : m_attributeModifiers.at(Attribute::Run_Distance)) {
+            modifier += bi.modifier;
+        }
     }
 
     modifier += UnitModifierInterface::runModifier();
@@ -1469,8 +1512,10 @@ int Unit::runModifier() const {
 
 int Unit::chargeModifier() const {
     int modifier = s_globalChargeMod(this, accumulate);
-    for (auto bi : m_attributeModifiers[Charge_Distance]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(Attribute::Charge_Distance)) {
+        for (auto bi : m_attributeModifiers.at(Attribute::Charge_Distance)) {
+            modifier += bi.modifier;
+        }
     }
 
     modifier += UnitModifierInterface::chargeModifier();
@@ -1480,99 +1525,130 @@ int Unit::chargeModifier() const {
 
 Rerolls Unit::runRerolls() const {
     auto globalRR = s_globalRunReroll(this);
-    if (globalRR != No_Rerolls)
+    if (globalRR != Rerolls::None)
         return globalRR;
 
     auto baseRR = UnitModifierInterface::runRerolls();
-    if (baseRR != No_Rerolls)
+    if (baseRR != Rerolls::None)
         return baseRR;
 
-    if (m_rollModifiers[Run_Distance].empty())
-        return No_Rerolls;
-    return m_rollModifiers[Run_Distance].front().rerolls;
+    if (m_rollModifiers.contains(Attribute::Run_Distance)) {
+        if (m_rollModifiers.at(Attribute::Run_Distance).empty())
+            return Rerolls::None;
+        return m_rollModifiers.at(Attribute::Run_Distance).front().rerolls;
+    }
+    return Rerolls::None;
 }
 
 Rerolls Unit::chargeRerolls() const {
     auto globalRR = s_globalChargeReroll(this);
-    if (globalRR != No_Rerolls)
+    if (globalRR != Rerolls::None)
         return globalRR;
 
     auto baseRR = UnitModifierInterface::chargeRerolls();
-    if (baseRR != No_Rerolls)
+    if (baseRR != Rerolls::None)
         return baseRR;
 
-    if (m_rollModifiers[Charge_Distance].empty())
-        return No_Rerolls;
-    return m_rollModifiers[Charge_Distance].front().rerolls;
+    if (m_rollModifiers.contains(Attribute::Charge_Distance)) {
+        if (m_rollModifiers.at(Attribute::Charge_Distance).empty())
+            return Rerolls::None;
+        return m_rollModifiers.at(Attribute::Charge_Distance).front().rerolls;
+    }
+    return Rerolls::None;
 }
 
 bool Unit::canFly() const {
-    if (m_movementRules[Can_Fly].empty())
-        return m_fly;
-    else
-        return m_movementRules[Can_Fly].front().allowed;
+    if (m_movementRules.contains(MovementRule::Can_Fly)) {
+        if (m_movementRules.at(MovementRule::Can_Fly).empty())
+            return m_fly;
+        else
+            return m_movementRules.at(MovementRule::Can_Fly).front().allowed;
+    }
+    return m_fly;
 }
 
 bool Unit::canMove() const {
-    if (m_movementRules[Can_Move].empty())
-        return m_canMove;
-    else
-        return m_movementRules[Can_Move].front().allowed;
+    if (m_movementRules.contains(MovementRule::Can_Move)) {
+        if (m_movementRules.at(MovementRule::Can_Move).empty())
+            return m_canMove;
+        else
+            return m_movementRules.at(MovementRule::Can_Move).front().allowed;
+    }
+    return m_canMove;
 }
 
 bool Unit::canPileIn() const {
-    if (m_movementRules[Can_PileIn].empty())
-        return (m_pileInMove > 0.0);
-    else
-        return m_movementRules[Can_PileIn].front().allowed;
+    if (m_movementRules.contains(MovementRule::Can_PileIn)) {
+        if (m_movementRules.at(MovementRule::Can_PileIn).empty())
+            return (m_pileInMove > 0.0);
+        else
+            return m_movementRules.at(MovementRule::Can_PileIn).front().allowed;
+    }
+    return (m_pileInMove > 0.0);
 }
 
 bool Unit::canRunAndShoot() const {
-    if (m_movementRules[Run_And_Shoot].empty())
-        return m_runAndShoot;
-    else
-        return m_movementRules[Run_And_Shoot].front().allowed;
+    if (m_movementRules.contains(MovementRule::Run_And_Shoot)) {
+        if (m_movementRules.at(MovementRule::Run_And_Shoot).empty())
+            return m_runAndShoot;
+        else
+            return m_movementRules.at(MovementRule::Run_And_Shoot).front().allowed;
+    }
+    return m_runAndShoot;
 }
 
 bool Unit::canRunAndCharge() const {
-    if (m_movementRules[Run_And_Charge].empty())
-        return m_runAndCharge;
-    else
-        return m_movementRules[Run_And_Charge].front().allowed;
+    if (m_movementRules.contains(MovementRule::Run_And_Charge)) {
+        if (m_movementRules.at(MovementRule::Run_And_Charge).empty())
+            return m_runAndCharge;
+        else
+            return m_movementRules.at(MovementRule::Run_And_Charge).front().allowed;
+    }
+    return m_runAndCharge;
 }
 
 bool Unit::canRetreatAndShoot() const {
-    if (m_movementRules[Retreat_And_Shoot].empty())
-        return m_retreatAndShoot;
-    else
-        return m_movementRules[Retreat_And_Shoot].front().allowed;
+    if (m_movementRules.contains(MovementRule::Retreat_And_Shoot)) {
+        if (m_movementRules.at(MovementRule::Retreat_And_Shoot).empty())
+            return m_retreatAndShoot;
+        else
+            return m_movementRules.at(MovementRule::Retreat_And_Shoot).front().allowed;
+    }
+    return m_retreatAndShoot;
 }
 
 bool Unit::canRetreatAndCharge() const {
-    if (m_movementRules[Retreat_And_Charge].empty())
-        return m_retreatAndCharge;
-    else
-        return m_movementRules[Retreat_And_Charge].front().allowed;
+    if (m_movementRules.contains(MovementRule::Retreat_And_Charge)) {
+        if (m_movementRules.at(MovementRule::Retreat_And_Charge).empty())
+            return m_retreatAndCharge;
+        else
+            return m_movementRules.at(MovementRule::Retreat_And_Charge).front().allowed;
+    }
+    return m_retreatAndCharge;
 }
 
 bool Unit::canUseCommandAbilities() const {
-    if (m_abilityBuffs[Cannot_Use_Command_Abilities].empty())
-        return true;
-    else
-        return (m_abilityBuffs[Cannot_Use_Command_Abilities].front().value > 0);
+    if (m_abilityBuffs.contains(Ability::Cannot_Use_Command_Abilities)) {
+        if (m_abilityBuffs.at(Ability::Cannot_Use_Command_Abilities).empty())
+            return true;
+        else
+            return (m_abilityBuffs.at(Ability::Cannot_Use_Command_Abilities).front().value > 0);
+    }
+    return true;
 }
 
 int Unit::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = 0;
 
-    BuffableAttribute which = Target_To_Hit_Melee;
+    Attribute which = Attribute::Target_To_Hit_Melee;
     if (weapon->isMissile())
-        which = Target_To_Hit_Missile;
+        which = Attribute::Target_To_Hit_Missile;
 
-    for (auto bi : m_attributeModifiers[which]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(which)) {
+        for (auto &bi : m_attributeModifiers.at(which)) {
+            modifier += bi.modifier;
+        }
     }
-
     modifier += UnitModifierInterface::targetHitModifier(weapon, attacker);
 
     return modifier;
@@ -1581,14 +1657,15 @@ int Unit::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
 int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = 0;
 
-    BuffableAttribute which = Target_To_Wound_Melee;
+    Attribute which = Attribute::Target_To_Wound_Melee;
     if (weapon->isMissile())
-        which = Target_To_Wound_Missile;
+        which = Attribute::Target_To_Wound_Missile;
 
-    for (auto bi : m_attributeModifiers[which]) {
-        modifier += bi.modifier;
+    if (m_attributeModifiers.contains(which)) {
+        for (auto &bi : m_attributeModifiers.at(which)) {
+            modifier += bi.modifier;
+        }
     }
-
     modifier += UnitModifierInterface::targetWoundModifier(weapon, attacker);
 
     return modifier;
@@ -1597,17 +1674,15 @@ int Unit::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const 
 int Unit::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = 0;
 
-    if (weapon->isMissile()) {
-        for (auto bi : m_attributeModifiers[Target_To_Save_Missile]) {
-            modifier += bi.modifier;
-        }
-    }
-    else {
-        for (auto bi : m_attributeModifiers[Target_To_Save_Melee]) {
-            modifier += bi.modifier;
-        }
-    }
+    Attribute which = Attribute::Target_To_Save_Melee;
+    if (weapon->isMissile())
+        which = Attribute::Target_To_Save_Missile;
 
+    if (m_attributeModifiers.contains(which)) {
+        for (auto &bi : m_attributeModifiers.at(which)) {
+            modifier += bi.modifier;
+        }
+    }
     modifier += UnitModifierInterface::targetSaveModifier(weapon, attacker);
 
     return modifier;
@@ -1643,7 +1718,7 @@ int Unit::rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const {
 PlayerId Unit::owningPlayer() const {
     if (m_roster)
         return m_roster->getOwningPlayer();
-    return None;
+    return PlayerId::None;
 }
 
 int Unit::getCommandPoints() const {

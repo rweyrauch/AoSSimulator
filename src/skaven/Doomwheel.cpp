@@ -23,7 +23,7 @@ namespace Skaven {
             m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, 6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, DOOMWHEEL};
         m_weapons = {&m_warpBolts, &m_grindingWheel, &m_teethAndKnives};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool Doomwheel::configure() {

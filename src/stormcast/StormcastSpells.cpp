@@ -123,8 +123,8 @@ namespace StormcastEternals {
                        m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
             }
 
-            ip->buffModifier(Run_Distance, -1, defaultDuration());
-            ip->buffModifier(Charge_Distance, -1, defaultDuration());
+            ip->buffModifier(Attribute::Run_Distance, -1, defaultDuration());
+            ip->buffModifier(Attribute::Charge_Distance, -1, defaultDuration());
         }
         return Result::Success;
     }

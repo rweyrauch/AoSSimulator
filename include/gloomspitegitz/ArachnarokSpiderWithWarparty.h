@@ -39,12 +39,12 @@ namespace GloomspiteGitz {
 
         Rerolls runRerolls() const override {
             // Voracious Predator
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         Rerolls chargeRerolls() const override {
             // Voracious Predator
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         void onCharged() override;

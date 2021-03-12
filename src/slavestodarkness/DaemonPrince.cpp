@@ -30,6 +30,12 @@ namespace SlavesToDarkness {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
         bool ok = unit->configure(weapon);
         if (!ok) {
             delete unit;
@@ -75,6 +81,8 @@ namespace SlavesToDarkness {
                             EnumParameter("Weapon", Daemonic_Axe, weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     CHAOS,
@@ -91,7 +99,7 @@ namespace SlavesToDarkness {
             m_talons(Weapon::Type::Melee, "Malefic Talons", 1, 3, 3, 3, 0, 2) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, HERO, MARK_OF_CHAOS, DAEMON_PRINCE};
         m_weapons = {&m_axe, &m_sword, &m_talons};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool DaemonPrince::configure(WeaponOption option) {

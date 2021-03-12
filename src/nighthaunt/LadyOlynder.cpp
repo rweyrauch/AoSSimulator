@@ -24,9 +24,9 @@ namespace Nighthaunt {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
-            target->buffModifier(Target_To_Hit_Melee, 1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::Target_To_Hit_Melee, 1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -78,7 +78,7 @@ namespace Nighthaunt {
             m_claws(Weapon::Type::Melee, "Banshee Handmaidens' Spectral Claws", 1, 6, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MORTARCH, LADY_OLYNDER};
         m_weapons = {&m_staff, &m_claws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_claws.setMount(true);
         m_totalSpells = 2;

@@ -46,7 +46,7 @@ namespace Seraphon {
             m_rod(Weapon::Type::Melee, "Divining Rod", 1, 2, 4, 4, -1, RAND_D3) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, HERO, WIZARD, TROGLODON, ORACLE};
         m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_spittle.setMount(true);
         m_jaws.setMount(true);

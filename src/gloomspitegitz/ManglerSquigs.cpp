@@ -41,7 +41,7 @@ namespace GloomspiteGitz {
             m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, MANGLER_SQUIG};
         m_weapons = {&m_hugeFangFilledGob, &m_ballsAndChains, &m_grotsBashinStikk};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_hugeFangFilledGob.setMount(true);
     }

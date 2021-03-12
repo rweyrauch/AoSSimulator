@@ -57,7 +57,7 @@ namespace KharadronOverlords {
             m_saw(Weapon::Type::Melee, "Aethermatic Saw", 1, 4, 3, 2, -2, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, BROKK_GRUNGSSON};
         m_weapons = {&m_boast, &m_charter, &m_aetherblasters, &m_saw};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool BrokkGrungsson::configure() {

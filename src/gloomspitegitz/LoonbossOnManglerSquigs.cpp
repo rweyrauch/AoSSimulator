@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(SQUIG)) {
-                unit->buffModifier(To_Wound_Melee, 1, defaultDuration());
+                unit->buffModifier(Attribute::To_Wound_Melee, 1, defaultDuration());
             }
         }
         return true;
@@ -72,7 +72,7 @@ namespace GloomspiteGitz {
             m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, LOONBOSS, MANGLER_SQUIG};
         m_weapons = {&m_hugeFangFilledGob, &m_moonCutta, &m_ballsAndChains, &m_grotsBashinStikk};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_hugeFangFilledGob.setMount(true);
     }
@@ -187,15 +187,15 @@ namespace GloomspiteGitz {
 
         if (player == owningPlayer()) {
             // Redcap Mushrooms
-            m_toHitRerolls = No_Rerolls;
-            m_toWoundRerolls = No_Rerolls;
+            m_toHitRerolls = Rerolls::None;
+            m_toWoundRerolls = Rerolls::None;
 
             if (!m_eatenRedcapMushroom) {
                 if (m_meleeTarget) {
                     std::cout << "Eating the Redcap Mushroom!" << std::endl;
                     m_eatenRedcapMushroom = true;
-                    m_toHitRerolls = Reroll_Failed;
-                    m_toWoundRerolls = Reroll_Failed;
+                    m_toHitRerolls = Rerolls::Failed;
+                    m_toWoundRerolls = Rerolls::Failed;
                 }
             }
         }

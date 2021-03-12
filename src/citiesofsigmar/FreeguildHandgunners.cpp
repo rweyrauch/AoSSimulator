@@ -95,7 +95,7 @@ namespace CitiesOfSigmar {
             m_handgunMarksman(Weapon::Type::Missile, "Freeguild Handgun", 16, 1, 2, 3, -1, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_HANDGUNNERS};
         m_weapons = {&m_freeguildHandgun, &m_dagger, &m_longRifle, &m_repeaterHandgun, &m_handgunMarksman};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon) {

@@ -29,7 +29,7 @@ namespace Khorne {
             m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOOD_WARRIORS};
         m_weapons = {&m_goreaxe, &m_goreaxeChampion, &m_goreglaive};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
 
@@ -76,7 +76,7 @@ namespace Khorne {
     Rerolls BloodWarriors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Goreaxes
         if (m_pairedGoreaxe && (weapon->name() == m_goreaxe.name())) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return KhorneBase::toHitRerolls(weapon, unit);

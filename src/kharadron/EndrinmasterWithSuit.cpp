@@ -77,7 +77,7 @@ namespace KharadronOverlords {
             m_saw(Weapon::Type::Melee, "Aethermatic Saw", 1, 3, 3, 2, -2, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, ENDRINMASTER};
         m_weapons = {&m_aethercannon, &m_weaponBattery, &m_gaze, &m_saw};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool EndrinmasterWithDirigibleSuit::configure() {

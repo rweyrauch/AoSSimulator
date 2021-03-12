@@ -67,7 +67,7 @@ namespace Tzeentch {
             m_bite(Weapon::Type::Melee, "Lamprey Bite", 1, 6, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, FATESKIMMER};
         m_weapons = {&m_magicalFlames, &m_staff, &m_dagger, &m_bite};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_bite.setMount(true);
         m_totalSpells = 1;

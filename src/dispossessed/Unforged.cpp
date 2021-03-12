@@ -68,7 +68,7 @@ namespace Dispossessed {
 
     Rerolls Unforged::toHitRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // Runic Axes
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     Wounds Unforged::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

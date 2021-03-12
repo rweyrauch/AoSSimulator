@@ -121,10 +121,10 @@ int sum_acc(const std::vector<int>& v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
 }
 Rerolls rr1(int x) {
-    return Reroll_Ones;
+    return Rerolls::Ones;
 }
 Rerolls rrf(int x) {
-    return Reroll_Failed;
+    return Rerolls::Failed;
 }
 
 TEST(Dice, SignalTest)
@@ -151,10 +151,10 @@ TEST(Dice, SignalTest)
     auto rfc = roller.connect(rrf);
 
     auto rr = roller(1);
-    ASSERT_EQ(rr, Reroll_Failed);
+    ASSERT_EQ(rr, Rerolls::Failed);
 
     roller.disconnect(rfc);
 
     auto rf = roller(2);
-    ASSERT_EQ(rf, Reroll_Ones);
+    ASSERT_EQ(rf, Rerolls::Ones);
 }

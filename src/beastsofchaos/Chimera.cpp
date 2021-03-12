@@ -44,7 +44,7 @@ namespace BeastsOfChaos {
             m_maulingClaws(Weapon::Type::Melee, "Mauling Claws", 2, 6, 4, 3, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHIMERA};
         m_weapons = {&m_fieryBreath, &m_avianHead, &m_draconicHead, &m_leonineHead, &m_maulingClaws};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool Chimera::configure() {

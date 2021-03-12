@@ -39,8 +39,8 @@ namespace Slaanesh {
         int numAffected = 0;
 
         for (auto unit : units) {
-            unit->buffReroll(Target_To_Hit_Missile, Reroll_Ones, defaultDuration());
-            unit->buffReroll(Target_To_Hit_Melee, Reroll_Ones, defaultDuration());
+            unit->buffReroll(Attribute::Target_To_Hit_Missile, Rerolls::Ones, defaultDuration());
+            unit->buffReroll(Attribute::Target_To_Hit_Melee, Rerolls::Ones, defaultDuration());
 
             numAffected++;
             if (numAffected > numUnits) break;
@@ -61,7 +61,7 @@ namespace Slaanesh {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH,
                       THE_CONTORTED_EPITOME};
         m_weapons = {&m_ravagingClaws, &m_coiledTentacles};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

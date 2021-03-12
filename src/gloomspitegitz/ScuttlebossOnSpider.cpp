@@ -37,10 +37,10 @@ namespace GloomspiteGitz {
             return false;
         }
 
-        target->buffReroll(Charge_Distance, Reroll_Failed, {Phase::Charge, m_round, m_source->owningPlayer()});
+        target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, {Phase::Charge, m_round, m_source->owningPlayer()});
 
         // TODO: only buff Crooked Spear
-        target->buffReroll(To_Hit_Melee, Reroll_Failed, {Phase::Combat, m_round, m_source->owningPlayer()});
+        target->buffReroll(Attribute::To_Hit_Melee, Rerolls::Failed, {Phase::Combat, m_round, m_source->owningPlayer()});
 
         return true;
     }
@@ -57,7 +57,7 @@ namespace GloomspiteGitz {
             m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
         m_weapons = {&m_spear, &m_fangs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_fangs.setMount(true);
     }

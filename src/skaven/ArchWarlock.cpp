@@ -68,7 +68,7 @@ namespace Skaven {
             m_claw(Weapon::Type::Melee, "Piston Claw", 1, 1, 4, 3, -2, 3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, HERO, WIZARD, WARLOCK_ENGINEER, ARCH_WARLOCK};
         m_weapons = {&m_halberd, &m_claw};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 1;

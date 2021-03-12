@@ -66,7 +66,7 @@ namespace OssiarchBonereapers {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, ARCH_KAVALOS_ZANDTOS};
         m_weapons = {&m_lance, &m_shield, &m_hoovesAndTeeth};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
     }
@@ -95,9 +95,9 @@ namespace OssiarchBonereapers {
     Rerolls ArchKavalosZandtos::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Hatred of the Living
         if (target->hasKeyword(ORDER) || target->hasKeyword(DESTRUCTION)) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         } else if (target->hasKeyword(CHAOS)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toWoundRerolls(weapon, target);
     }

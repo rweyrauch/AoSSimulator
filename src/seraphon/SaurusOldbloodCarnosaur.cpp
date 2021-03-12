@@ -44,7 +44,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, OLDBLOOD};
         m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_jaws.setMount(true);
         m_forelimbs.setMount(true);

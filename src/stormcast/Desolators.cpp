@@ -99,7 +99,7 @@ namespace StormcastEternals {
 
     Rerolls Desolators::toSaveRerolls(const Weapon */*weapon*/, const Unit* attacker) const {
         // Sigmarite Shields
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     int Desolators::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

@@ -43,7 +43,7 @@ namespace Nurgle {
             m_nurglings(Weapon::Type::Melee, "Host of Nurglings", 1, 3, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, NURGLE, MONSTER, HERO, WIZARD, GREAT_UNCLEAN_ONE, ROTIGUS};
         m_weapons = {&m_gnarlrod, &m_fangedMaw, &m_nurglings};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;

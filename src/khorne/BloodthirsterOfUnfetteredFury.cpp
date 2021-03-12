@@ -41,7 +41,7 @@ namespace Khorne {
             m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_UNFETTERED_FURY};
         m_weapons = {&m_lashOfKhorne, &m_mightyAxeOfKhorne};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool BloodthirsterOfUnfetteredFury::configure() {

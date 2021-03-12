@@ -23,7 +23,7 @@ namespace Skaven {
             m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, RAND_D6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, WARP_LIGHTNING_CANNON};
         m_weapons = {&m_warpLightningBlast, &m_teethAndKnives};
-        m_battleFieldRole = Artillery;
+        m_battleFieldRole = Role::Artillery;
     }
 
     bool WarpLightningCannon::configure() {

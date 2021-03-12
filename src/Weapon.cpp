@@ -47,13 +47,13 @@ Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const {
     const int toHit = m_toHit - modifier;
 
     int numHits = 0;
-    if (rerolls == Reroll_Ones) {
+    if (rerolls == Rerolls::Ones) {
         Dice::RollD6(totalAttacks, 1, rollResult);
         numHits = rollResult.rollsGE(toHit);
-    } else if (rerolls == Reroll_Ones_And_Twos) {
+    } else if (rerolls == Rerolls::Ones_And_Twos) {
         Dice::RollD6(totalAttacks, 2, rollResult);
         numHits = rollResult.rollsGE(toHit);
-    } else if (rerolls == Reroll_Failed) {
+    } else if (rerolls == Rerolls::Failed) {
         Dice::RollD6(totalAttacks, rollResult);
         numHits = rollResult.rollsGE(toHit);
         int numFails = totalAttacks - numHits;
@@ -87,13 +87,13 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
 
     int numWoundingHits;
 
-    if (rerolls == Reroll_Ones) {
+    if (rerolls == Rerolls::Ones) {
         Dice::RollD6(totalHits, 1, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
-    } else if (rerolls == Reroll_Ones_And_Twos) {
+    } else if (rerolls == Rerolls::Ones_And_Twos) {
         Dice::RollD6(totalHits, 2, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
-    } else if (rerolls == Reroll_Failed) {
+    } else if (rerolls == Rerolls::Failed) {
         Dice::RollD6(totalHits, rollResult);
         numWoundingHits = rollResult.rollsGE(toWound);
         int numFails = totalHits - numWoundingHits;

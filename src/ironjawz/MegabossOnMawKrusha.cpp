@@ -45,7 +45,7 @@ namespace Ironjawz {
         m_weapons = {&m_bellow, &m_hackaAndChoppa, &m_ripToofFist, &m_fistsAndTail};
         m_hasMount = true;
         m_fistsAndTail.setMount(true);
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool MegabossOnMawKrusha::configure(WeaponOption weapons) {
@@ -62,7 +62,7 @@ namespace Ironjawz {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Go on Ladz, Get Stuck In!", 18, 18, Phase::Combat,
-                                                                                  To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{IRONJAWZ}));
+                                                                                  Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{IRONJAWZ}));
 
         m_weaponOption = weapons;
 

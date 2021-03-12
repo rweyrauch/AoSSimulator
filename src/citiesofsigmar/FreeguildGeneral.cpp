@@ -77,7 +77,7 @@ namespace CitiesOfSigmar {
             m_zweihander(Weapon::Type::Melee, "Zweihander", 1, 3, 3, 3, -2, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, HERO, FREEGUILD_GENERAL};
         m_weapons = {&m_zweihander};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &FreeguildGeneral::inspiringLeader, &m_connection);
     }

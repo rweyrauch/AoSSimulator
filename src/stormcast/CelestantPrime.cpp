@@ -68,7 +68,7 @@ namespace StormcastEternals {
             m_ghalMaraz(Weapon::Type::Melee, "Ghal Maraz, the Hammer of Sigmar", 2, 3, 3, 2, -3, 3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, CELESTANT_PRIME};
         m_weapons = {&m_ghalMaraz};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &CelestantPrime::bearerOfTheWarhammer, &m_connection);
     }

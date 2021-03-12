@@ -23,7 +23,7 @@ namespace Khorne {
             m_slayerSword(Weapon::Type::Melee, "The Slayer Sword", 1, 3, 3, 3, -1, 3) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLTAKER};
         m_weapons = {&m_slayerSword};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Skulltaker::configure() {
@@ -32,7 +32,7 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Heads Must Roll", 12, 12,
-                                                                                Phase::Combat, To_Wound_Melee, Reroll_Ones,
+                                                                                Phase::Combat, Attribute::To_Wound_Melee, Rerolls::Ones,
                                                                                 Abilities::Target::SelfAndFriendly,
                                                                                 std::vector<Keyword>{BLOODLETTER, BLOODLETTERS}));
 
@@ -86,13 +86,13 @@ namespace Khorne {
 
     Rerolls Skulltaker::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Cloak of Skulls
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     Rerolls Skulltaker::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Heroes' Bane
         if (target->hasKeyword(HERO)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -100,7 +100,7 @@ namespace Khorne {
     Rerolls Skulltaker::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Heroes' Bane
         if (target->hasKeyword(HERO)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toWoundRerolls(weapon, target);
     }

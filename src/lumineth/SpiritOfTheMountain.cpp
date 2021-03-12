@@ -155,7 +155,7 @@ namespace LuminethRealmLords {
             for (auto ip : units) {
                 const Weapon* missileWeapon = nullptr;
                 if (ip->hasShootingAttack(&missileWeapon)) {
-                    ip->buffModifier(To_Hit_Missile, -1, {Shooting, m_battleRound, player});
+                    ip->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Shooting, m_battleRound, player});
                     break;
                 }
             }
@@ -168,7 +168,7 @@ namespace LuminethRealmLords {
         // Stoneheart Shockwave
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_shockwave);
         for (auto ip : units) {
-            ip->buffModifier(To_Hit_Melee, -1, {Combat, m_battleRound, player});
+            ip->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
             break;
         }
     }

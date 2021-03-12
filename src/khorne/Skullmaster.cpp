@@ -24,7 +24,7 @@ namespace Khorne {
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLMASTER};
         m_weapons = {&m_bladeOfBlood, &m_brazenHooves};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Skullmaster::configure() {
@@ -114,7 +114,7 @@ namespace Khorne {
     Rerolls Skullmaster::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Slaughter and Ruin
         if (m_charged) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }

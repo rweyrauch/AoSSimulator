@@ -21,7 +21,7 @@ namespace LuminethRealmLords {
         if (target == nullptr) {
             return Result::Failed;
         }
-        target->buffAbility(Extra_Mortal_Wound_On_Hit_Roll, 5, defaultDuration());
+        target->buffAbility(Ability::Extra_Mortal_Wound_On_Hit_Roll, 5, defaultDuration());
 
         return Result::Success;
     }
@@ -39,7 +39,7 @@ namespace LuminethRealmLords {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
-            target->buffModifier(Move_Distance, target->move(), defaultDuration());
+            target->buffModifier(Attribute::Move_Distance, target->move(), defaultDuration());
             return Spell::Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
@@ -58,7 +58,7 @@ namespace LuminethRealmLords {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
-            target->buffAbility(Ignore_All_Wounds_On_Value, 5, defaultDuration());
+            target->buffAbility(Ability::Ignore_All_Wounds_On_Value, 5, defaultDuration());
             return Spell::Result::Success;
         }
 
@@ -79,7 +79,7 @@ namespace LuminethRealmLords {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
-            target->buffAbility(Ignore_Battleshock, 1, defaultDuration());
+            target->buffAbility(Ability::Ignore_Battleshock, 1, defaultDuration());
             return Spell::Result::Success;
         }
 
@@ -123,8 +123,8 @@ namespace LuminethRealmLords {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
-            target->buffModifier(Bravery, -1, defaultDuration()); // Until your next Hero phase
-            target->buffModifier(Bravery, -1, {Phase::Battleshock, m_round, m_caster->owningPlayer()}); // Until end of this turn
+            target->buffModifier(Attribute::Bravery, -1, defaultDuration()); // Until your next Hero phase
+            target->buffModifier(Attribute::Bravery, -1, {Phase::Battleshock, m_round, m_caster->owningPlayer()}); // Until end of this turn
 
             return Spell::Result::Success;
         }
@@ -172,7 +172,7 @@ namespace LuminethRealmLords {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
-            target->buffModifier(Move_Distance, -target->move()/2, defaultDuration());
+            target->buffModifier(Attribute::Move_Distance, -target->move()/2, defaultDuration());
             if (Dice::RollD6() >= target->save()) {
                 target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
             }
@@ -189,7 +189,7 @@ namespace LuminethRealmLords {
                 // TODO: Solar_Flare
                 return nullptr;
             case Lore::Lambent_Light:
-                return new BuffRerollSpell(caster, "Lambent Light", 5, 18, Target_To_Hit_Missile, Reroll_Failed, Abilities::Target::Enemy);
+                return new BuffRerollSpell(caster, "Lambent Light", 5, 18, Attribute::Target_To_Hit_Missile, Rerolls::Failed, Abilities::Target::Enemy);
             case Lore::Etheral_Blessing:
                 // TODO: Etheral_Blessing
                 return nullptr;

@@ -71,7 +71,7 @@ namespace Bonesplitterz {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, MANIAK_WEIRDNOB};
         m_weapons = {&m_bonebeastStaff, &m_tusksAndHooves};
         m_hasMount = true;
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }
@@ -83,7 +83,7 @@ namespace Bonesplitterz {
 
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffAbilitySpell>(this, "Bone Spirit", 7, 12, Extra_Hit_On_Value, 6,
+        m_knownSpells.push_back(std::make_unique<BuffAbilitySpell>(this, "Bone Spirit", 7, 12, Ability::Extra_Hit_On_Value, 6,
                                                                    Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -124,7 +124,7 @@ namespace Bonesplitterz {
     Rerolls ManiakWeirdnob::castingRerolls() const {
         if (!m_usedWeirdSquig) {
             m_usedWeirdSquig = true;
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Bonesplitterz::castingRerolls();
     }
@@ -132,7 +132,7 @@ namespace Bonesplitterz {
     Rerolls ManiakWeirdnob::unbindingRerolls() const {
         if (!m_usedWeirdSquig) {
             m_usedWeirdSquig = true;
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Bonesplitterz::unbindingRerolls();
     }

@@ -102,7 +102,7 @@ namespace StormcastEternals {
 
     Rerolls Tempestors::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Sigmarite Shields
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     int Tempestors::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

@@ -84,7 +84,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, WAR_MACHINE, HERO, PRIEST,
                       PLAGUE_FURNACE, PLAGUE_PRIEST};
         m_weapons = {&m_censer, &m_staff, &m_blades, &m_spikes};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &PlaguePriestOnPlagueFurnace::altarOfTheHornedRat, &m_connection);
     }
@@ -205,13 +205,13 @@ namespace Skaven {
                 // Success - select prayer (randomly)
                 if (Dice::RollD6() >= 4) {
                     // Filth-filth!
-                    unit->buffReroll(BuffableAttribute::To_Wound_Melee, Reroll_Failed,
+                    unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed,
                                      {Phase::Hero, m_battleRound + 1, owningPlayer()});
-                    unit->buffReroll(BuffableAttribute::To_Wound_Missile, Reroll_Failed,
+                    unit->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed,
                                      {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 } else {
                     // Rabid-rabid!
-                    unit->buffModifier(BuffableAttribute::Attacks_Melee, 1,
+                    unit->buffModifier(Attribute::Attacks_Melee, 1,
                                        {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }

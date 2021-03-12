@@ -62,7 +62,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, DREADBLADE_HARROW};
         m_weapons = {&m_dreadblade, &m_hoovesAndTeeth};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
     }
@@ -97,7 +97,7 @@ namespace Nighthaunt {
     Rerolls DreadbladeHarrow::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), KNIGHT_OF_SHROUDS, 9.0);
         if (unit && (weapon->name() == m_dreadblade.name())) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toWoundRerolls(weapon, target);
     }

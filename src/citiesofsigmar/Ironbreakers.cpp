@@ -29,7 +29,7 @@ namespace CitiesOfSigmar {
             m_axeOrHammerIronbeard(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONBREAKERS};
         m_weapons = {&m_drakefirePistol, &m_drakefirePistolMelee, &m_axeOrHammer, &m_axeOrHammerIronbeard};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer) {
@@ -117,7 +117,7 @@ namespace CitiesOfSigmar {
         // Gromril Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
-                return Reroll_Failed;
+                return Rerolls::Failed;
         }
         return CitizenOfSigmar::toSaveRerolls(weapon, attacker);
     }

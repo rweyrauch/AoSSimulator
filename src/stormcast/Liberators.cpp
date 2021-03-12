@@ -31,7 +31,7 @@ namespace StormcastEternals {
             m_grandblade(Weapon::Type::Melee, "Grandblade", 1, 2, 3, 4, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
         m_weapons = {&m_warhammer, &m_warhammerPrime, &m_warblade, &m_warbladePrime, &m_grandhammer, &m_grandblade};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool
@@ -100,7 +100,7 @@ namespace StormcastEternals {
     Rerolls Liberators::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Sigmarite Shields
         if (m_weaponOption == Warhammer || m_weaponOption == Warblade) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return StormcastEternal::toSaveRerolls(weapon, attacker);
@@ -195,9 +195,9 @@ namespace StormcastEternals {
             // Shield of Civilisation
             if (!m_moved) {
                 // Stand fast
-                buffModifier(To_Hit_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                buffModifier(To_Save_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                buffModifier(To_Save_Missile, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(Attribute::To_Hit_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(Attribute::To_Save_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(Attribute::To_Save_Missile, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
             }
         }
     }

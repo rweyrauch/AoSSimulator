@@ -103,7 +103,7 @@ namespace BeastsOfChaos {
     Rerolls TuskgorChariots::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Despoilers
         if (unit->hasKeyword(ORDER)) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }
@@ -119,7 +119,7 @@ namespace BeastsOfChaos {
 
     Rerolls TuskgorChariots::chargeRerolls() const {
         // Tuskgor Charge
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     int TuskgorChariots::ComputePoints(int numModels) {

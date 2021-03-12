@@ -32,7 +32,7 @@ namespace Slaanesh {
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         // Gift of Power
-        Rerolls castingRerolls() const override { return Reroll_Failed; }
+        Rerolls castingRerolls() const override { return Rerolls::Failed; }
     private:
 
         Weapon m_ravagingClaws,

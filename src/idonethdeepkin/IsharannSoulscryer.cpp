@@ -66,7 +66,7 @@ namespace IdonethDeepkin {
             m_claw(Weapon::Type::Melee, "Finger-claw", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, PRIEST, SOULSCRYER};
         m_weapons = {&m_shoal, &m_claw};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool IsharannSoulscryer::configure() {

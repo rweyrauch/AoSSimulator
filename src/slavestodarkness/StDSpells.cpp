@@ -57,7 +57,7 @@ namespace SlavesToDarkness {
                 auto numSlain = target->applyDamage(wounds, m_caster);
                 if (numSlain > 0) {
                     // unit cannot move until next turn
-                    target->buffMovement(Can_Move, false, defaultDuration());
+                    target->buffMovement(MovementRule::Can_Move, false, defaultDuration());
                 }
             }
             return Spell::Result::Success;

@@ -33,8 +33,8 @@ TEST(Weapon, Attacks)
     {
         for (auto w : weapons)
         {
-            auto hits = w.rollToHit(0, No_Rerolls, 0);
-            auto totalWounds = w.rollToWound(hits.m_numHits, 0, No_Rerolls);
+            auto hits = w.rollToHit(0, Rerolls::None, 0);
+            auto totalWounds = w.rollToWound(hits.m_numHits, 0, Rerolls::None);
             auto totalDamage = totalWounds.m_numWoundingHit * w.damage();
             if (hits.m_numHits > 0)
             {

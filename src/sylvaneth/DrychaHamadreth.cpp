@@ -43,7 +43,7 @@ namespace Sylvaneth {
             m_slashingTalons(Weapon::Type::Melee, "Slashing Talons", 2, 6, 4, 3, -2, 2) {
         m_keywords = {ORDER, SYLVANETH, OUTCASTS, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
         m_weapons = {&m_colonyOfFlitterfuries, &m_swarmOfSquirmlings, &m_slashingTalons};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         s_globalToWoundReroll.connect(this, &DrychaHamadreth::songOfSpiteToWoundRerolls, &m_songSlot);
 
@@ -162,9 +162,9 @@ namespace Sylvaneth {
     Rerolls DrychaHamadreth::songOfSpiteToWoundRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
 
         if (isFriendly(attacker) && attacker->hasKeyword(SPITE_REVENANTS) && (distanceTo(attacker) < 16.0))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
 } // namespace Sylvaneth

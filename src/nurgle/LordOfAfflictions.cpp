@@ -69,7 +69,7 @@ namespace Nurgle {
             m_tocsin(Weapon::Type::Melee, "Dolorous Tocsin", 1, 1, 4, 3, -2, 2) {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, LORD_OF_AFFLICTIONS};
         m_weapons = {&m_festerspike, &m_mouthparts, &m_sting, &m_tocsin};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_mouthparts.setMount(true);
         m_sting.setMount(true);
@@ -129,9 +129,9 @@ namespace Nurgle {
     LordOfAfflictions::plagueVectorToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
                                                 const Unit * /*target*/) {
         if (isFriendly(attacker) && attacker->hasKeyword(ROTBRINGER) && (distanceTo(attacker) <= 7.0))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     int LordOfAfflictions::ComputePoints(int /*numModels*/) {

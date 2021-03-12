@@ -40,7 +40,7 @@ namespace BeastsOfChaos {
             m_massiveHorns(Weapon::Type::Melee, "Massive Horns", 2, 8, 4, 3, -1, 1) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, CYGOR};
         m_weapons = {&m_desecratedBoulder, &m_massiveHorns};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool Cygor::configure() {
@@ -114,7 +114,7 @@ namespace BeastsOfChaos {
     Rerolls Cygor::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Ghostsight
         if (target->hasKeyword(WIZARD))
-            return Reroll_Failed;
+            return Rerolls::Failed;
         return Unit::toHitRerolls(weapon, target);
     }
 

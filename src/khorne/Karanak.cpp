@@ -74,7 +74,7 @@ namespace Khorne {
     Rerolls Karanak::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Prey of the Blood God
         if (m_pQuarry && (m_pQuarry->name() == target->name())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -82,7 +82,7 @@ namespace Khorne {
     Rerolls Karanak::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Prey of the Blood God
         if (m_pQuarry && (m_pQuarry->name() == target->name())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toWoundRerolls(weapon, target);
     }

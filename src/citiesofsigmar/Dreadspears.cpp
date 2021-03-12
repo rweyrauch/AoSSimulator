@@ -72,7 +72,7 @@ namespace CitiesOfSigmar {
             m_spearLordling(Weapon::Type::Melee, "Darkling Spear", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, DREADSPEARS};
         m_weapons = {&m_spear, &m_spearLordling};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Dreadspears::configure(int numModels, bool standardBearer, bool hornblower) {

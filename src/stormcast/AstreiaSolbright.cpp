@@ -27,7 +27,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
                       WIZARD, LORD_ARCANUM, ASTREIA_SOLBRIGHT};
         m_weapons = {&m_aetherstave, &m_monstrousClaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_monstrousClaws.setMount(true);
 
@@ -108,7 +108,7 @@ namespace StormcastEternals {
 
     Rerolls AstreiaSolbright::chargeRerolls() const {
         // Thunderous Pounce
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     void AstreiaSolbright::onStartCombat(PlayerId /*player*/) {

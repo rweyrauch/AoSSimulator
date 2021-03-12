@@ -23,7 +23,7 @@ namespace DaughtersOfKhaine {
             m_glaive(Weapon::Type::Melee, "Glaive of Khaine", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN, MORGWAETH_THE_BLOODIED};
         m_weapons = {&m_glaive};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool MorgwaethTheBloodied::configure(Prayer prayer) {
@@ -113,8 +113,8 @@ namespace DaughtersOfKhaine {
                 auto roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
                     const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
-                    dok->buffReroll(To_Wound_Melee, Reroll_Failed, duration);
-                    dok->buffAbility(Ignore_Battleshock, 1, duration);
+                    dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);
+                    dok->buffAbility(Ability::Ignore_Battleshock, 1, duration);
                 }
             }
         }

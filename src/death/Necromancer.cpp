@@ -23,7 +23,7 @@ namespace Death {
             m_staff(Weapon::Type::Melee, "Necromancer's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
         m_weapons = {&m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }

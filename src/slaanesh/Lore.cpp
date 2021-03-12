@@ -113,7 +113,7 @@ namespace Slaanesh {
         Dice::RollResult roll;
         Dice::RollD6(6, roll);
 
-        target->buffModifier(Bravery, roll.rollsGE(5), defaultDuration());
+        target->buffModifier(Attribute::Bravery, roll.rollsGE(5), defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -137,7 +137,7 @@ namespace Slaanesh {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        target->buffMovement(Can_Fly, true, defaultDuration());
+        target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -191,7 +191,7 @@ namespace Slaanesh {
         int numAffected = 0;
         for (auto unit : units) {
             if (unit->hasKeyword(MORTAL) && unit->hasKeyword(SLAANESH)) {
-                unit->buffModifier(Bravery, 10, defaultDuration());
+                unit->buffModifier(Attribute::Bravery, 10, defaultDuration());
                 numAffected++;
             }
             if (numAffected > numUnits) break;
@@ -243,8 +243,8 @@ namespace Slaanesh {
     protected:
         Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffReroll(Target_To_Hit_Melee, Reroll_Ones, defaultDuration());
-            target->buffReroll(Target_To_Hit_Missile, Reroll_Ones, defaultDuration());
+            target->buffReroll(Attribute::Target_To_Hit_Melee, Rerolls::Ones, defaultDuration());
+            target->buffReroll(Attribute::Target_To_Hit_Missile, Rerolls::Ones, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }

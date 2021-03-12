@@ -57,8 +57,8 @@ namespace StormcastEternals {
     }
 
     Rerolls MountedStormcastEternal::runRerolls() const {
-        if (m_mountTrait == MountTrait::Indefatigable) return Reroll_Failed;
-        if (m_mountTrait == MountTrait::Swiftwing) return Reroll_Failed;
+        if (m_mountTrait == MountTrait::Indefatigable) return Rerolls::Failed;
+        if (m_mountTrait == MountTrait::Swiftwing) return Rerolls::Failed;
         return StormcastEternal::runRerolls();
     }
 

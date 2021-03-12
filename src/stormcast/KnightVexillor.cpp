@@ -23,7 +23,7 @@ namespace StormcastEternals {
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 4, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VEXILLOR};
         m_weapons = {&m_warhammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalChargeReroll.connect(this, &KnightVexillor::iconOfWarChargeReroll, &m_iconOfWarSlot);
     }
@@ -80,8 +80,8 @@ namespace StormcastEternals {
     }
 
     Rerolls KnightVexillor::iconOfWarChargeReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0)) return Reroll_Failed;
-        return No_Rerolls;
+        if (isFriendly(unit) && unit->hasKeyword(STORMCAST_ETERNAL) && (distanceTo(unit) <= 18.0)) return Rerolls::Failed;
+        return Rerolls::None;
     }
 
     int KnightVexillor::ComputePoints(int /*numModels*/) {

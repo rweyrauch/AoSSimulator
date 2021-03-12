@@ -25,9 +25,9 @@ namespace Slaanesh {
     protected:
         Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffMovement(Halve_Movement, true, defaultDuration());
-            target->buffMovement(Halve_Run_Roll, true, defaultDuration());
-            target->buffMovement(Halve_Charge_Roll, true, defaultDuration());
+            target->buffMovement(MovementRule::Halve_Movement, true, defaultDuration());
+            target->buffMovement(MovementRule::Halve_Run_Roll, true, defaultDuration());
+            target->buffMovement(MovementRule::Halve_Charge_Roll, true, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
@@ -62,7 +62,7 @@ namespace Slaanesh {
             m_claws(Weapon::Type::Melee, "Crushing Claws", 1, 6, 3, 3, -1, 3) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, WIZARD, GLUTOS_ORSCOLLION};
         m_weapons = {&m_greatblade, &m_scourge, &m_dagger, &m_claws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_claws.setMount(true);
 
@@ -201,7 +201,7 @@ namespace Slaanesh {
     Rerolls GlutosOrscollion::chargeRerolls() const {
         // Lashmaster Vhyssk
         if (m_scourge.isActive()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -253,7 +253,7 @@ namespace Slaanesh {
         // Main Course
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto unit : units) {
-            unit->buffAbility(Ignore_Battleshock, true, {Phase::Battleshock, m_battleRound, player});
+            unit->buffAbility(Ability::Ignore_Battleshock, true, {Phase::Battleshock, m_battleRound, player});
         }
     }
 
@@ -269,11 +269,11 @@ namespace Slaanesh {
 
     Rerolls GlutosOrscollion::castingRerolls() const {
         // Digestif
-        return (m_battleRound >= 5) ? Reroll_Failed : Unit::castingRerolls();
+        return (m_battleRound >= 5) ? Rerolls::Failed : Unit::castingRerolls();
     }
     Rerolls GlutosOrscollion::unbindingRerolls() const {
         // Digestif
-        return (m_battleRound >= 5) ? Reroll_Failed : Unit::unbindingRerolls();
+        return (m_battleRound >= 5) ? Rerolls::Failed : Unit::unbindingRerolls();
     }
 
 } // Slannesh

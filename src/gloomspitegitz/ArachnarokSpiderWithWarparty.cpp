@@ -43,7 +43,7 @@ namespace GloomspiteGitz {
             m_crookedSpears(Weapon::Type::Melee, "Crooked Spears", 1, 10, 5, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, MONSTER};
         m_weapons = {&m_spiderBows, &m_chitinousLegs, &m_monstrousFangs, &m_crookedSpears};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_monstrousFangs.setMount(true);
         m_chitinousLegs.setMount(true);

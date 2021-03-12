@@ -73,7 +73,7 @@ namespace KharadronOverlords {
             m_skalfhammer(Weapon::Type::Melee, "Skalfhammer", 1, 3, 3, 2, -2, 2) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, ARKANAUT_ADMIRAL};
         m_weapons = {&m_pistol, &m_skalfhammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool ArkanautAdmiral::configure() {
@@ -89,14 +89,14 @@ namespace KharadronOverlords {
 
     Rerolls ArkanautAdmiral::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // If You Want A Job Done...
-        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Reroll_Ones;
+        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Rerolls::Ones;
 
         return KharadronBase::toHitRerolls(weapon, target);
     }
 
     Rerolls ArkanautAdmiral::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // If You Want A Job Done...
-        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Reroll_Ones;
+        if (!weapon->isMissile() && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) return Rerolls::Ones;
 
         return KharadronBase::toWoundRerolls(weapon, target);
     }

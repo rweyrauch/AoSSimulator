@@ -117,7 +117,7 @@ namespace Dispossessed {
         // Duardin Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
-                return Reroll_Failed;
+                return Rerolls::Failed;
         }
         return Dispossessed::toSaveRerolls(weapon, attacker);
     }
@@ -126,9 +126,9 @@ namespace Dispossessed {
         // Resolute in Defence
         if (m_opponentsCombat) {
             if (remainingModels() >= 20)
-                return Reroll_Failed;
+                return Rerolls::Failed;
             else
-                return Reroll_Ones;
+                return Rerolls::Ones;
         }
         return Dispossessed::toWoundRerolls(weapon, target);
     }

@@ -141,12 +141,12 @@ namespace CitiesOfSigmar {
 
     Rerolls FreeguildPistoliers::runRerolls() const {
         // Reckless Riders
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     Rerolls FreeguildPistoliers::chargeRerolls() const {
         // Reckless Riders
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     int FreeguildPistoliers::ComputePoints(int numModels) {

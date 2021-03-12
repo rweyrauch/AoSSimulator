@@ -92,7 +92,7 @@ namespace SlavesToDarkness {
 
     Rerolls CorvusCabal::chargeRerolls() const {
         if (isNamedModelAlive("Shrike Talon")) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::chargeRerolls();
     }

@@ -70,7 +70,7 @@ namespace Bonesplitterz {
             m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};
         m_weapons = {&m_bonebeastStikk};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }
@@ -107,13 +107,13 @@ namespace Bonesplitterz {
                 } else if (unit->hasKeyword(WIZARD) && unit->hasKeyword(BONESPLITTERZ)) {
                     // Weirddokk Dance
                     if (Dice::RollD6() >= 3)
-                        unit->buffModifier(Casting_Roll, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                        unit->buffModifier(Attribute::Casting_Roll, 1, {Phase::Hero, m_battleRound + 1, owningPlayer()});
                     break;
                 } else if (unit->meleeTarget() != nullptr) {
                     // Glyphdokk Dance
                     if (Dice::RollD6() >= 3) {
-                        unit->buffModifier(To_Save_Missile, 1, {Hero, m_battleRound + 1, owningPlayer()});
-                        unit->buffModifier(To_Save_Melee, 1, {Hero, m_battleRound + 1, owningPlayer()});
+                        unit->buffModifier(Attribute::To_Save_Missile, 1, {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                        unit->buffModifier(Attribute::To_Save_Melee, 1, {Phase::Hero, m_battleRound + 1, owningPlayer()});
                     }
                     break;
                 }

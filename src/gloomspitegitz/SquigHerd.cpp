@@ -90,7 +90,7 @@ namespace GloomspiteGitz {
     Rerolls SquiqHerd::runRerolls() const {
         // Go Dat Way!
         if (hasHerder()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return GloomspiteGitzBase::runRerolls();
@@ -99,7 +99,7 @@ namespace GloomspiteGitz {
     Rerolls SquiqHerd::chargeRerolls() const {
         // Go Dat Way!
         if (hasHerder()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return GloomspiteGitzBase::chargeRerolls();

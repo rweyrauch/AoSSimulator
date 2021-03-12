@@ -24,7 +24,7 @@ namespace OgorMawtribes {
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
             target->applyDamage({0, Dice::RollD6(), Wounds::Source::Spell}, m_caster);
-            target->buffModifier(Attacks_Melee, 1, defaultDuration());
+            target->buffModifier(Attribute::Attacks_Melee, 1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -40,8 +40,8 @@ namespace OgorMawtribes {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(To_Save_Melee, -1, defaultDuration());
-            target->buffModifier(To_Save_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Save_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Save_Missile, -1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -57,8 +57,8 @@ namespace OgorMawtribes {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -89,7 +89,7 @@ namespace OgorMawtribes {
             case Lore::Fleshcrave_Curse:
                 return new FleshcraveCurse(caster);
             case Lore::Blood_Feast:
-                return new BuffModifierSpell(caster, "Blood Feast", 7, 18, Attacks_Melee, 1, Abilities::Target::SelfAndFriendly, {OGOR});
+                return new BuffModifierSpell(caster, "Blood Feast", 7, 18, Attribute::Attacks_Melee, 1, Abilities::Target::SelfAndFriendly, {OGOR});
             case Lore::Ribcracker:
                 return new Ribcracker(caster);
             case Lore::Blubbergrub_Stench:
@@ -153,7 +153,7 @@ namespace OgorMawtribes {
             }
 
             if (target->hasKeyword(MONSTER) || target->hasKeyword(MOURNFANG_PACK)) {
-                target->buffModifier(Move_Distance, 3, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+                target->buffModifier(Attribute::Move_Distance, 3, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
             }
             return true;
         }

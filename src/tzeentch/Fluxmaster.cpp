@@ -102,7 +102,7 @@ namespace Tzeentch {
         m_weapons = {&m_flames, &m_staff, &m_dagger, &m_teethAndHorns};
         m_hasMount = true;
         m_teethAndHorns.setMount(true);
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

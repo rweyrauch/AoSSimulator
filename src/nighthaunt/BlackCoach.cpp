@@ -68,7 +68,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmares' Hooves and Teeth", 1, 8, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, BLACK_COACH};
         m_weapons = {&m_graspMissile, &m_scythe, &m_grasp, &m_claws, &m_hoovesAndTeeth};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_claws.setMount(true);
         m_hoovesAndTeeth.setMount(true);
@@ -184,12 +184,12 @@ namespace Nighthaunt {
     Rerolls BlackCoach::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Reaped Like Corn
         if ((target->remainingModels() >= 5) && (weapon->name() == m_scythe.name())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         // Unholy Vigour
         if ((m_powerLevel >= 2) && (!weapon->isMissile())) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }

@@ -38,7 +38,7 @@ namespace Tzeentch {
                      &m_talonedHandsBlue,
                      &m_talonedHandsBrimstone,
                      &m_talonedHandsIridescent};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

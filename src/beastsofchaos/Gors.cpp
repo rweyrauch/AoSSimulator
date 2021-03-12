@@ -26,7 +26,7 @@ namespace BeastsOfChaos {
             m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS};
         m_weapons = {&m_gorBlade, &m_gorBladeFoeRender};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer) {
@@ -101,7 +101,7 @@ namespace BeastsOfChaos {
 
     Rerolls Gors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Rend and Tear
-        if (m_pairedBlades) { return Reroll_Ones; }
+        if (m_pairedBlades) { return Rerolls::Ones; }
         return Unit::toHitRerolls(weapon, target);
     }
 

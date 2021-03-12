@@ -33,7 +33,7 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL)) {
-                unit->buffReroll(Charge_Distance, Reroll_Failed, defaultDuration());
+                unit->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, defaultDuration());
             }
         }
         return true;
@@ -51,7 +51,7 @@ namespace Khorne {
             m_bloodDarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MIGHTY_LORD_OF_KHORNE};
         m_weapons = {&m_axeOfKhorne, &m_bloodDarkClaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Collar of Khorne
         m_totalUnbinds = 1;

@@ -43,7 +43,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Blood Rites - Zealot's Rage
         if (getBloodRiteRound() >= 3) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, unit);
     }
@@ -51,7 +51,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::toWoundRerolls(const Weapon *weapon, const Unit *unit) const {
         // Blood Rites - Slaughterer's Strength
         if (getBloodRiteRound() >= 4) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Unit::toWoundRerolls(weapon, unit);
@@ -60,7 +60,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Blood Rites - Unquenchable Fervour
         if (getBloodRiteRound() >= 5) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Unit::toSaveRerolls(weapon, attacker);
@@ -69,7 +69,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::runRerolls() const {
         // Blood Rites - Quickening Bloodlust
         if (getBloodRiteRound() >= 1) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::runRerolls();
     }
@@ -77,7 +77,7 @@ namespace DaughtersOfKhaine {
     Rerolls DaughterOfKhaine::chargeRerolls() const {
         // Blood Rites - Headlong Fury
         if (getBloodRiteRound() >= 2) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::chargeRerolls();
     }

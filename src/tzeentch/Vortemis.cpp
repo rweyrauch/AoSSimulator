@@ -62,7 +62,7 @@ namespace Tzeentch {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, CULT_OF_THE_TRANSIENT_FORM, HERO, WIZARD, MAGISTER,
                       VORTEMIS_THE_ALL_SEEING};
         m_weapons = {&m_staffMissile, &m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

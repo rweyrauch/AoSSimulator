@@ -58,7 +58,7 @@ namespace Nurgle {
             m_jaws(Weapon::Type::Melee, "Mulch's Slime-encrusted Jaws", 1, RAND_D3, 3, 3, -2, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, HORTICULOUS_SLIMUX};
         m_weapons = {&m_shears, &m_jaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_jaws.setMount(true);
         s_globalChargeReroll.connect(this, &HorticulousSlimux::beastHandlerChargeReroll, &m_beastHandlerChargeSlot);
@@ -88,18 +88,18 @@ namespace Nurgle {
 
     Rerolls HorticulousSlimux::beastHandlerChargeReroll(const Unit *unit) {
         if (isFriendly(unit) && (distanceTo(unit) <= 7.0)) {
-            if (unit->hasKeyword(BEASTS_OF_NURGLE)) return Reroll_Ones;
+            if (unit->hasKeyword(BEASTS_OF_NURGLE)) return Rerolls::Ones;
         }
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     Rerolls
     HorticulousSlimux::beastHandlerToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
                                                 const Unit * /*target*/) {
         if (isFriendly(attacker) && (distanceTo(attacker) <= 7.0)) {
-            if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return Reroll_Ones;
+            if (attacker->hasKeyword(BEASTS_OF_NURGLE)) return Rerolls::Ones;
         }
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     int HorticulousSlimux::ComputePoints(int /*numModels*/) {

@@ -26,7 +26,7 @@ namespace GloomspiteGitz {
             m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_moonProdderMissile, &m_moonProdder, &m_massiveFangFilledGob};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_massiveFangFilledGob.setMount(true);
     }

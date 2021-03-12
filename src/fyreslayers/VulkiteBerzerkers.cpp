@@ -28,7 +28,7 @@ namespace Fyreslayers {
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, VULKITE_BERZERKERS};
         m_weapons = {&m_handaxe, &m_handaxeKarl, &m_warpick, &m_warpickKarl, &m_throwingAxe};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool hornOfGrimnir) {
@@ -121,7 +121,7 @@ namespace Fyreslayers {
 
     Rerolls VulkiteBerzerkers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if ((weapon->name() == m_handaxe.name()) && (m_weaponOption == Paired_Handaxes)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Fyreslayer::toHitRerolls(weapon, target);
     }

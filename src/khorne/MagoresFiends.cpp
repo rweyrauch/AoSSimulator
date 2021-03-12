@@ -82,7 +82,7 @@ namespace Khorne {
 
     Rerolls MagoresFiends::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (target->hasKeyword(STORMCAST_ETERNAL)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }
@@ -100,7 +100,7 @@ namespace Khorne {
         // Blood Scent
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), RIPTOOTH, 3.0);
         if (unit) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::chargeRerolls();
     }

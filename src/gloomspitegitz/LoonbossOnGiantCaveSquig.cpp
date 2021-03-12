@@ -27,7 +27,7 @@ namespace GloomspiteGitz {
             m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_massiveFangFilledGob, &m_moonCutta, &m_moonclanStabba};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_massiveFangFilledGob.setMount(true);
     }
@@ -108,15 +108,15 @@ namespace GloomspiteGitz {
     void LoonbossOnGiantCaveSquig::onStartHero(PlayerId player) {
         if (player == owningPlayer()) {
             // Redcap Mushrooms
-            m_toHitRerolls = No_Rerolls;
-            m_toWoundRerolls = No_Rerolls;
+            m_toHitRerolls = Rerolls::None;
+            m_toWoundRerolls = Rerolls::None;
 
             if (!m_eatenRedcapMushroom) {
                 if (m_meleeTarget) {
                     std::cout << "Eating the Redcap Mushroom!" << std::endl;
                     m_eatenRedcapMushroom = true;
-                    m_toHitRerolls = Reroll_Failed;
-                    m_toWoundRerolls = Reroll_Failed;
+                    m_toHitRerolls = Rerolls::Failed;
+                    m_toWoundRerolls = Rerolls::Failed;
                 }
             }
         }

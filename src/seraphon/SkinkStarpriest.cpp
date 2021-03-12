@@ -28,8 +28,8 @@ namespace Seraphon {
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
 
-            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
-            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
 
             return Result::Success;
         }
@@ -48,7 +48,7 @@ namespace Seraphon {
             m_staff(Weapon::Type::Melee, "Serpent Staff", 1, 2, 4, 3, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARPRIEST};
         m_weapons = {&m_venombolt, &m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

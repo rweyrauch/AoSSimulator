@@ -40,7 +40,7 @@ namespace Greenskinz {
             m_stompinFeet(Weapon::Type::Melee, "Stompin' Feet", 2, 10, 3, 3, -2, 2) {
         m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
         m_weapons = {&m_boulderFists, &m_stompinFeet};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool RogueIdol::configure() {
@@ -148,7 +148,7 @@ namespace Greenskinz {
     Rerolls RogueIdol::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Spirit of the Waaagh!
         if (m_charged) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }

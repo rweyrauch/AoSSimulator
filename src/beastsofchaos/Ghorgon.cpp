@@ -40,7 +40,7 @@ namespace BeastsOfChaos {
             m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON};
         m_weapons = {&m_butcheringBlades, &m_hugeSlaveringMaw};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool Ghorgon::configure() {

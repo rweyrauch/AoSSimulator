@@ -23,7 +23,7 @@ namespace Fyreslayers {
             m_battleAxe(Weapon::Type::Melee, "Ancestral Battle-axe", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, TOTEM, BATTLESMITH};
         m_weapons = {&m_throwingAxe, &m_battleAxe};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Battlesmith::configure() {

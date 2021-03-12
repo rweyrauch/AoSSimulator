@@ -74,7 +74,7 @@ namespace KharadronOverlords {
             m_hammer(Weapon::Type::Melee, "Aethermight Hammer", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, ENDRINMASTER};
         m_weapons = {&m_gaze, &m_hammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool EndrinmasterWithEndrinharness::configure() {

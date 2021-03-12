@@ -35,10 +35,10 @@ namespace SlavesToDarkness {
             return Spell::Result::Failed;
         }
 
-        target->buffReroll(To_Hit_Melee, Reroll_Failed, defaultDuration());
-        target->buffReroll(To_Hit_Missile, Reroll_Failed, defaultDuration());
-        target->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
-        target->buffReroll(To_Wound_Missile, Reroll_Failed, defaultDuration());
+        target->buffReroll(Attribute::To_Hit_Melee, Rerolls::Failed, defaultDuration());
+        target->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed, defaultDuration());
+        target->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, defaultDuration());
+        target->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -61,6 +61,12 @@ namespace SlavesToDarkness {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        unit->setArtefact(artefact);
+
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         bool ok = unit->configure(lore);
@@ -82,6 +88,8 @@ namespace SlavesToDarkness {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                             EnumParameter("Lore", g_lore[0], g_lore),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     CHAOS,
@@ -98,7 +106,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, WIZARD,
                       CHAOS_SORCERER_LORD};
         m_weapons = {&m_staff, &m_blade};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

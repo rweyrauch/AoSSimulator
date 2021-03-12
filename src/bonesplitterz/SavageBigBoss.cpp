@@ -65,7 +65,7 @@ namespace Bonesplitterz {
             m_chompasBoss(Weapon::Type::Melee, "Boss Chompa", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, SAVAGE_BIG_BOSS};
         m_weapons = {&m_chompasBoss};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool SavageBigBoss::configure() {
@@ -73,7 +73,7 @@ namespace Bonesplitterz {
         model->addMeleeWeapon(&m_chompasBoss);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Savage Attack", 12, 12, Phase::Combat, Extra_Hit_On_Value,
+        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Savage Attack", 12, 12, Phase::Combat, Ability::Extra_Hit_On_Value,
                                                                                  6, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{BONESPLITTERZ}));
 
         m_points = g_pointsPerUnit;

@@ -29,7 +29,7 @@ namespace Ironjawz {
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {
                 if ((unit->remainingModels() > 0) && unit->hasKeyword(DESTRUCTION)) {
-                    unit->buffModifier(To_Hit_Melee, 1, defaultDuration());
+                    unit->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
                 }
             }
             return true;
@@ -69,7 +69,7 @@ namespace Ironjawz {
         m_weapons = {&m_bellow, &m_smasha, &m_kunnin, &m_fistsAndTail};
         m_hasMount = true;
         m_fistsAndTail.setMount(true);
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool GordrakkTheFistOfGork::configure() {

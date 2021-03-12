@@ -28,8 +28,8 @@ namespace CitiesOfSigmar {
                 return Spell::Result::Failed;
 
             target->applyDamage( {0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
-            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
 
             return Spell::Result::Success;
         }
@@ -50,8 +50,8 @@ namespace CitiesOfSigmar {
         bool apply(Unit* target) override {
             if (target == nullptr)
                 return false;
-            target->buffMovement(Run_And_Shoot, true, defaultDuration());
-            target->buffMovement(Run_And_Charge, true, defaultDuration());
+            target->buffMovement(MovementRule::Run_And_Shoot, true, defaultDuration());
+            target->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
             return true;
         }
 
@@ -127,7 +127,7 @@ namespace CitiesOfSigmar {
             m_witchstaff(Weapon::Type::Melee, "Witchstaff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, HERO, WIZARD, SORCERESS};
         m_weapons = {&m_witchstaff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

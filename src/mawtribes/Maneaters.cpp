@@ -118,16 +118,16 @@ namespace OgorMawtribes {
     Rerolls Maneaters::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_ability == Brawlers) {
             if (!weapon->isMissile()) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             } else if (m_ability == Crack_Shots) {
                 if (weapon->isMissile()) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         } else {
             if (m_ability == Crack_Shots) {
                 if (weapon->isMissile()) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         }

@@ -28,7 +28,7 @@ namespace FleshEaterCourt {
             auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
             for (auto unit : units) {
                 if (unit->hasKeyword(FLESH_EATER_COURTS)) {
-                    unit->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
+                    unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, defaultDuration());
                 }
             }
             return Spell::Result::Success;
@@ -72,7 +72,7 @@ namespace FleshEaterCourt {
         m_hasMount = true;
         m_snappingMaw.setMount(true);
         m_swordlikeClaws.setMount(true);
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

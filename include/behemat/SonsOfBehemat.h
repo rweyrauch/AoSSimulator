@@ -153,7 +153,7 @@ namespace SonsOfBehemat {
 // Irascible Old Bullies
 //   Strong Right Foot              TODO
 //   Very Acquisitive               TODO
-//   Extermely Intimidating         Yes
+//   Extremely Intimidating         Yes
 // Veterans of One-Sided Battle
 //   Inescapable Grip               TODO
 //   Very Shouty                    Yes

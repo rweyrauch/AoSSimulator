@@ -26,7 +26,7 @@ namespace Slaanesh {
             m_lyreEuphonicBlast(Weapon::Type::Missile, "Heartstring Lyre: Euphonic Blast", 24, 1, 2, 3, -3, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, INFERNAL_ENRAPTURESS};
         m_weapons = {&m_ravagingClaw, &m_lyreCacophonousMelody, &m_lyreEuphonicBlast};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Discordant Disruption
         m_totalUnbinds = 1;

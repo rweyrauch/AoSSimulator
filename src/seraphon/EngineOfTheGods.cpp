@@ -45,7 +45,7 @@ namespace Seraphon {
             m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2) {
         m_keywords = {ORDER, SERAPHON, STEGADON, SKINK, MONSTER, HERO, ENGINE_OF_THE_GODS};
         m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_jaws.setMount(true);
         m_stomps.setMount(true);
@@ -206,8 +206,8 @@ namespace Seraphon {
     }
 
     Rerolls EngineOfTheGods::steadfastMajestyBraveryReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return Reroll_Failed;
-        return No_Rerolls;
+        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return Rerolls::Failed;
+        return Rerolls::None;
     }
 
     int EngineOfTheGods::ComputePoints(int /*numModels*/) {
@@ -216,8 +216,8 @@ namespace Seraphon {
 
     Rerolls EngineOfTheGods::cosmicEngineChargeReroll(const Unit *unit) {
         if (m_timeStoodStill && isFriendly(unit) && unit->hasKeyword(SERAPHON) && (distanceTo(unit) <= 24.0))
-            return Reroll_Failed;
-        return No_Rerolls;
+            return Rerolls::Failed;
+        return Rerolls::None;
     }
 
     int EngineOfTheGods::cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,

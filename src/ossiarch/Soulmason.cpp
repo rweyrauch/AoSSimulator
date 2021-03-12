@@ -33,8 +33,8 @@ namespace OssiarchBonereapers {
             return Spell::Result::Failed;
         }
 
-        target->buffReroll(To_Hit_Melee, Reroll_Ones, defaultDuration());
-        target->buffReroll(To_Hit_Missile, Reroll_Ones, defaultDuration());
+        target->buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, defaultDuration());
+        target->buffReroll(Attribute::To_Hit_Missile, Rerolls::Ones, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -105,7 +105,7 @@ namespace OssiarchBonereapers {
             m_claws(Weapon::Type::Melee, "Ossified Claws", 1, 2, 4, 3, -1, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULMASON};
         m_weapons = {&m_staff, &m_claws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

@@ -49,7 +49,7 @@ namespace StormcastEternals {
     Rerolls StormsiresCursebreakers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Celestial Lightning Arc
         if (weapon->isMissile()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return StormcastEternal::toSaveRerolls(weapon, attacker);
@@ -73,7 +73,7 @@ namespace StormcastEternals {
 
     Unit *StormsiresCursebreakers::Create(const ParameterList &parameters) {
         auto *evos = new StormsiresCursebreakers();
-        auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, None);
+        auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, g_loreOfInvigoration[0]);
 
         evos->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
@@ -114,7 +114,7 @@ namespace StormcastEternals {
     Rerolls StormsiresCursebreakers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Blessed Banishment
         if (target->hasKeyword(DEATH) || target->hasKeyword(CHAOS)) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return StormcastEternal::toHitRerolls(weapon, target);
     }

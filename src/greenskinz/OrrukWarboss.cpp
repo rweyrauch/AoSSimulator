@@ -25,7 +25,7 @@ namespace Greenskinz {
             m_boarTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, ORRUK_WARBOSS};
         m_weapons = {&m_bossChoppa, &m_massiveChoppa, &m_greatWaaaghBanner, &m_boarTusks};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool OrrukWarboss::configure(WeaponOption weapon, bool warboar) {
@@ -137,7 +137,7 @@ namespace Greenskinz {
     Rerolls OrrukWarboss::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Boss Shield
         if (m_weapon == Boss_Choppa_And_Shield) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toSaveRerolls(weapon, attacker);
     }

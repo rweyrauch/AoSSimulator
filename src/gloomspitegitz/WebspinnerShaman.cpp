@@ -36,7 +36,7 @@ namespace GloomspiteGitz {
             return Spell::Result::Failed;
         }
 
-        target->buffMovement(Run_And_Shoot, true, defaultDuration());
+        target->buffMovement(MovementRule::Run_And_Shoot, true, defaultDuration());
 
         if (castingValue >= 8) {
             // Pick D3 additional units
@@ -45,7 +45,7 @@ namespace GloomspiteGitz {
             for (auto unit : units) {
                 if (!unit->hasKeyword(SPIDERFANG)) continue;
 
-                unit->buffMovement(Run_And_Shoot, true, defaultDuration());
+                unit->buffMovement(MovementRule::Run_And_Shoot, true, defaultDuration());
 
                 additionalUnits--;
                 if (additionalUnits <= 0) continue;
@@ -65,7 +65,7 @@ namespace GloomspiteGitz {
             m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, WIZARD, WEBSPINNER_SHAMAN};
         m_weapons = {&m_spiderGodStaff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

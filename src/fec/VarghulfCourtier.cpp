@@ -25,7 +25,7 @@ namespace FleshEaterCourt {
             m_daggerlikeFangs(Weapon::Type::Melee, "Dagger-like Fangs", 1, 1, 3, 2, -2, RAND_D3) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, COURTIER, HERO, VARGHULF_COURTIER};
         m_weapons = {&m_immenseClaws, &m_daggerlikeFangs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool VarghulfCourtier::configure() {

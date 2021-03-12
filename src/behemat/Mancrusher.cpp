@@ -45,7 +45,7 @@ namespace SonsOfBehemat {
             m_kick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3),
             m_rocks(Weapon::Type::Missile, "Chuck Rocks", 18, RAND_D3, 4, 3, -1, RAND_D3) {
         m_weapons = {&m_eadbutt, &m_club, &m_kick, &m_rocks};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MONSTER, MANCRUSHER};
     }
 

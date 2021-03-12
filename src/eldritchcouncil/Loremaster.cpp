@@ -74,7 +74,7 @@ namespace EldritchCouncil {
     Rerolls Loremaster::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Deflect Shots
         if (weapon->isMissile()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toSaveRerolls(weapon, attacker);
     }

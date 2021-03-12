@@ -51,8 +51,8 @@ namespace CitiesOfSigmar {
         bool apply(Unit* target) override {
             if (target == nullptr)
                 return false;
-            target->buffMovement(Run_And_Shoot, true, defaultDuration());
-            target->buffMovement(Run_And_Charge, true, defaultDuration());
+            target->buffMovement(MovementRule::Run_And_Shoot, true, defaultDuration());
+            target->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
             return true;
         }
 
@@ -155,7 +155,7 @@ namespace CitiesOfSigmar {
             m_claws(Weapon::Type::Melee, "Razor-sharp Claws", 2, 6, 4, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, MONSTER, HERO, WIZARD, SORCERESS, DRAGON};
         m_weapons = {&m_noxiousBreath, &m_rod, &m_sword, &m_lash, &m_jaws, &m_claws};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_jaws.setMount(true);
         m_claws.setMount(true);
@@ -184,8 +184,8 @@ namespace CitiesOfSigmar {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_commandAbilities.push_back(std::make_unique<CommandUnderlings2>(this));
-        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Inspire Hatred", 12, 12, Phase::Combat, To_Wound_Melee,
-                Reroll_Ones, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{DARKLING_COVENS}));
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Inspire Hatred", 12, 12, Phase::Combat, Attribute::To_Wound_Melee,
+                Rerolls::Ones, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{DARKLING_COVENS}));
         m_points = g_pointsPerUnit;
 
         return true;

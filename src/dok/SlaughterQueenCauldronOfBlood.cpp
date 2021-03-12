@@ -47,7 +47,7 @@ namespace DaughtersOfKhaine {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, TOTEM, HERO, PRIEST, WITCH_AELVES, SLAUGHTER_QUEEN,
                       AVATAR_OF_KHAINE, CAULDRON_OF_BLOOD};
         m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_deathsword, &m_sword};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         // Pact of Blood
         m_totalUnbinds = 1;
@@ -243,8 +243,8 @@ namespace DaughtersOfKhaine {
                 auto roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
                     const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
-                    dok->buffReroll(To_Wound_Melee, Reroll_Failed, duration);
-                    dok->buffAbility(Ignore_Battleshock, 1, duration);
+                    dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);
+                    dok->buffAbility(Ability::Ignore_Battleshock, 1, duration);
                 }
             }
         }

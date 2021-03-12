@@ -157,7 +157,7 @@ namespace LuminethRealmLords {
     }
 
     Rerolls Dawnriders::battleshockRerolls() const {
-        if (isNamedModelAlive(Model::StandardBearer)) return Reroll_Failed;
+        if (isNamedModelAlive(Model::StandardBearer)) return Rerolls::Failed;
         return Unit::battleshockRerolls();
     }
 

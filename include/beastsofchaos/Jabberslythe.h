@@ -31,6 +31,8 @@ namespace BeastsOfChaos {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_slytheyTongue,
@@ -43,7 +45,7 @@ namespace BeastsOfChaos {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Madness                  TODO
+// Aura of Madness                  Yes
 // Spurting Bile Blood              Yes
 //
 

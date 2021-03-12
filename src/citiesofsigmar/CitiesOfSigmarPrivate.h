@@ -13,6 +13,18 @@
 
 namespace CitiesOfSigmar {
 
+    constexpr std::array<int, 9> g_realm = {
+            ToInteger(Realm::None),
+            ToInteger(Realm::Aqshy),
+            ToInteger(Realm::Azyr),
+            ToInteger(Realm::Chamon),
+            ToInteger(Realm::Ghur),
+            ToInteger(Realm::Ghyran),
+            ToInteger(Realm::Hysh),
+            ToInteger(Realm::Shyish),
+            ToInteger(Realm::Ulgu)
+    };
+
     constexpr std::array<int, 9> g_city = {
             ToInteger(City::Hammerhal),
             ToInteger(City::Living_City),

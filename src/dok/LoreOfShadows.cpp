@@ -29,8 +29,8 @@ namespace DaughtersOfKhaine {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        target->buffModifier(Move_Distance, 16 - m_caster->move(), defaultDuration());
-        target->buffMovement(Can_Fly, true, defaultDuration());
+        target->buffModifier(Attribute::Move_Distance, 16 - m_caster->move(), defaultDuration());
+        target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -80,8 +80,8 @@ namespace DaughtersOfKhaine {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        target->buffModifier(Target_To_Wound_Melee, 1, defaultDuration());
-        target->buffModifier(Target_To_Wound_Missile, 1, defaultDuration());
+        target->buffModifier(Attribute::Target_To_Wound_Melee, 1, defaultDuration());
+        target->buffModifier(Attribute::Target_To_Wound_Missile, 1, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -108,7 +108,7 @@ namespace DaughtersOfKhaine {
         auto modifier = 1;
         if (castingValue >= 8) modifier = Dice::RollD3();
 
-        target->buffModifier(Bravery, modifier, defaultDuration());
+        target->buffModifier(Attribute::Bravery, modifier, defaultDuration());
 
         return Spell::Result::Success;
     }

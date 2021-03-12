@@ -74,7 +74,7 @@ namespace KharadronOverlords {
             m_zephyrscope(Weapon::Type::Melee, "Zephyrscope", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHERIC_NAVIGATOR};
         m_weapons = {&m_pistol, &m_zephyrscope};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Aethersight
         m_totalUnbinds = 1;
@@ -107,7 +107,7 @@ namespace KharadronOverlords {
                     unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
                 }
                 if (roll >= 3) {
-                    unit->buffMovement(Halve_Movement, true, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffMovement(MovementRule::Halve_Movement, true, {Phase::Hero, m_battleRound+1, owningPlayer()});
                 }
                 break;
             }

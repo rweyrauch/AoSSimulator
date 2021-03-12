@@ -42,7 +42,7 @@ namespace Sylvaneth {
             m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1) {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, MONSTER, TREELORD};
         m_weapons = {&m_strangleroots, &m_sweepingBlows, &m_massiveImpalingTalons};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool Treelord::configure() {

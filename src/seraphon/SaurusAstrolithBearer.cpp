@@ -24,7 +24,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, TOTEM, ASTROLITH_BEARER};
         m_weapons = {&m_warpick, &m_jaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool SaurusAstrolithBearer::configure() {

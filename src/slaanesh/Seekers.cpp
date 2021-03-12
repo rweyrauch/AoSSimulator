@@ -136,7 +136,7 @@ namespace Slaanesh {
 
     Rerolls Seekers::chargeRerolls() const {
         if (isNamedModelAlive("Banner Bearer")) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -155,9 +155,9 @@ namespace Slaanesh {
     }
 
     Rerolls Seekers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
 } // namespace Slaanesh

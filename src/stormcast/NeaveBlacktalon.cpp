@@ -24,7 +24,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, KNIGHT_ZEPHYROS,
                       NEAVE_BLACKTALON};
         m_weapons = {&m_boltstormPistol, &m_whirlwindAxes};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Tireless hunter
         m_runAndShoot = true;

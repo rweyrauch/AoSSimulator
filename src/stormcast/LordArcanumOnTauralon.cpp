@@ -28,7 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD,
                       LORD_ARCANUM};
         m_weapons = {&m_aetherstave, &m_hornsAndHooves};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hornsAndHooves.setMount(true);
 
@@ -51,7 +51,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Swift of Wing", 18, 18, Phase::Movement,
-                                                        Run_Distance, 2, Abilities::Target::SelfAndFriendly,
+                                                        Attribute::Run_Distance, 2, Abilities::Target::SelfAndFriendly,
                                                                 std::vector<Keyword>(SACROSANCT)));
 
         m_points = g_pointsPerUnit;

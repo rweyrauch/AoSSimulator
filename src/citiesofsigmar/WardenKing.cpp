@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
             m_runeWeapon(Weapon::Type::Melee, "Rune Hammer", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
         m_weapons = {&m_runeWeapon};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool WardenKing::configure() {

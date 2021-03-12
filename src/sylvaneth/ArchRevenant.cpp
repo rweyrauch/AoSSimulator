@@ -23,7 +23,7 @@ namespace Sylvaneth {
             m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, HERO, ARCH_REVENANT};
         m_weapons = {&m_glaive, &m_tailPincers};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalToHitReroll.connect(this, &ArchRevenant::championOfKurnothToHitRerolls, &m_championsSlot);
     }
@@ -38,7 +38,7 @@ namespace Sylvaneth {
         model->addMeleeWeapon(&m_tailPincers);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Call to Battle", 12, 9, Phase::Combat, Attacks_Melee, 1,
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Call to Battle", 12, 9, Phase::Combat, Attribute::Attacks_Melee, 1,
                                                                                   Abilities::Target::SelfAndFriendly, std::vector<Keyword>{SYLVANETH}));
 
         m_points = g_pointsPerUnit;
@@ -92,7 +92,7 @@ namespace Sylvaneth {
     Rerolls ArchRevenant::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Crescent Shield
         if (!m_crescentShieldProtection) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return SylvanethBase::toHitRerolls(weapon, unit);
     }
@@ -100,7 +100,7 @@ namespace Sylvaneth {
     Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Crescent Shield
         if (m_crescentShieldProtection) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Unit::toSaveRerolls(weapon, attacker);
@@ -113,8 +113,8 @@ namespace Sylvaneth {
     Rerolls
     ArchRevenant::championOfKurnothToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target) {
         if (isFriendly(attacker) && attacker->hasKeyword(KURNOTH_HUNTERS) && (distanceTo(attacker) <= 12.0))
-            return Reroll_Ones;
-        return No_Rerolls;
+            return Rerolls::Ones;
+        return Rerolls::None;
     }
 
 } // namespace Sylvaneth

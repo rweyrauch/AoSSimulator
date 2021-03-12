@@ -73,7 +73,7 @@ namespace Slaanesh {
             m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5) {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, SLAANESH, HEDONITE, MONSTER, HERO, WIZARD, KEEPER_OF_SECRETS};
         m_weapons = {&m_livingWhip, &m_ritualKnifeOrHand, &m_greatblade, &m_impalingClaws};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
@@ -232,7 +232,7 @@ namespace Slaanesh {
         for (auto unit : units) {
             if (unit->hasKeyword(MONSTER)) {
                 // TODO: pick a single melee weapon
-                unit->buffModifier(To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+                unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
             }
         }
     }

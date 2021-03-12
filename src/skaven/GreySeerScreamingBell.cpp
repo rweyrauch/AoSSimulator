@@ -111,7 +111,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, WAR_MACHINE, HERO, WIZARD, SCREAMING_BELL,
                       GREY_SEER};
         m_weapons = {&m_staff, &m_clawsAndFangs, &m_spikes};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_clawsAndFangs.setMount(true);
         s_globalBraveryMod.connect(this, &GreySeerOnScreamingBell::altarOfTheHornedRat, &m_connection);
@@ -212,7 +212,7 @@ namespace Skaven {
                 }
             } else if (roll <= 4) {
                 // Unholy Clamour
-                buffModifier(BuffableAttribute::Move_Distance, Dice::RollD6(),
+                buffModifier(Attribute::Move_Distance, Dice::RollD6(),
                              {Phase::Hero, m_battleRound + 1, owningPlayer()});
             } else if (roll <= 6) {
                 // Deafening Peals
@@ -228,7 +228,7 @@ namespace Skaven {
                 auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(),
                                                                g_damageTable[getDamageTableIndex()].m_pealRange);
                 for (auto unit : units) {
-                    unit->buffModifier(BuffableAttribute::Casting_Roll, 1,
+                    unit->buffModifier(Attribute::Casting_Roll, 1,
                                        {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             } else if (roll <= 9) {

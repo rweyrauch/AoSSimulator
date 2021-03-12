@@ -29,7 +29,7 @@ namespace Seraphon {
             m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_WARRIORS};
         m_weapons = {&m_celestiteClub, &m_celestiteClubAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &SaurusWarriors::stardrakeIcon, &m_connection);
     }
@@ -166,7 +166,7 @@ namespace Seraphon {
     }
 
     Rerolls SaurusWarriors::chargeRerolls() const {
-        if (isNamedModelAlive("Wardrum")) return Reroll_Failed;
+        if (isNamedModelAlive("Wardrum")) return Rerolls::Failed;
 
         return SeraphonBase::chargeRerolls();
     }

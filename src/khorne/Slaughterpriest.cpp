@@ -24,7 +24,7 @@ namespace Khorne {
             m_wrathHammer(Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, PRIEST, SLAUGHTERPRIEST};
         m_weapons = {&m_bloodbathedAxe, &m_hackblade, &m_wrathHammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Scorn of Sorcery
         m_totalUnbinds = 1;

@@ -81,7 +81,7 @@ namespace Skaven {
             m_blows(Weapon::Type::Melee, "Crushing Blows", 2, 6, 4, 3, -1, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, MONSTER, HERO, WIZARD, GREY_SEER, THANQUOL};
         m_weapons = {&m_projectors, &m_staff, &m_braziers, &m_blows};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_blows.setMount(true);
         m_totalSpells = 2;

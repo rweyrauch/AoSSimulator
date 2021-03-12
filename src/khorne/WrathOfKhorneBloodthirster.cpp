@@ -41,7 +41,7 @@ namespace Khorne {
             m_breath(Weapon::Type::Missile, "Hellfire Breath", 8, 1, 0, 0, 0, 0) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
         m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne, &m_breath};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalUnbinds = 1;
     }
@@ -54,7 +54,7 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Blood Hunt", 16, 16,
-                                                                                Phase::Combat, To_Hit_Melee, Reroll_Failed,
+                                                                                Phase::Combat, Attribute::To_Hit_Melee, Rerolls::Failed,
                                                                                 Abilities::Target::SelfAndFriendly,
                                                                                 std::vector<Keyword>{KHORNE, DAEMON}));
 
@@ -128,7 +128,7 @@ namespace Khorne {
     Rerolls WrathOfKhorneBloodthirster::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Relentless Hunter
         if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }

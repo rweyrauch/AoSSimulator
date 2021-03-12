@@ -23,7 +23,7 @@ namespace StormcastEternals {
             m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_QUESTOR};
         m_weapons = {&m_warblade};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool KnightQuestor::configure() {
@@ -76,14 +76,14 @@ namespace StormcastEternals {
     Rerolls KnightQuestor::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Heroic Challenge
         if (unit->hasKeyword(HERO)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return StormcastEternal::toHitRerolls(weapon, unit);
     }
 
     Rerolls KnightQuestor::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Sigmarite Shield
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

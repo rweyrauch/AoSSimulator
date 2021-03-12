@@ -28,7 +28,7 @@ namespace FleshEaterCourt {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
-            target->buffAbility(Ignore_All_Wounds_On_Value, 5, defaultDuration());
+            target->buffAbility(Ability::Ignore_All_Wounds_On_Value, 5, defaultDuration());
             return Spell::Result::Success;
         }
 
@@ -70,7 +70,7 @@ namespace FleshEaterCourt {
         m_hasMount = true;
         m_skeletalClaws.setMount(true);
         m_fangedMaw.setMount(true);
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

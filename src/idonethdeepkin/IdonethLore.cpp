@@ -64,9 +64,9 @@ namespace IdonethDeepkin {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-            target->buffModifier(To_Hit_Missile, -1, defaultDuration());
-            target->buffModifier(Bravery, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::Bravery, -1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }

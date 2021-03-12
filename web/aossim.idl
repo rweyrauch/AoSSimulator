@@ -1,21 +1,22 @@
 
 enum Realm
 {
-    "Aqshy",
-    "Azyr",
-    "Chamon",
-    "Ghur",
-    "Ghyran",
-    "Hysh",
-    "Shyish",
-    "Ulgu"
+    "Realm::None",
+    "Realm::Aqshy",
+    "Realm::Azyr",
+    "Realm::Chamon",
+    "Realm::Ghur",
+    "Realm::Ghyran",
+    "Realm::Hysh",
+    "Realm::Shyish",
+    "Realm::Ulgu"
 };
 
 enum PlayerId
 {
-    "None",
-    "Red",
-    "Blue"
+    "PlayerId::None",
+    "PlayerId::Red",
+    "PlayerId::Blue"
 };
 
 enum ParamType

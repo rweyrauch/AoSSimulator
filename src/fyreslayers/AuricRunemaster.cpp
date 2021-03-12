@@ -24,7 +24,7 @@ namespace Fyreslayers {
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, PRIEST, AURIC_RUNEMASTER};
         m_weapons = {&m_throwingAxe, &m_brazierStaff, &m_runicIron};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalToHitReroll.connect(this, &AuricRunemaster::holySeekerToHitRerolls, &m_holySeekerToHitSlot);
         s_globalToWoundReroll.connect(this, &AuricRunemaster::holySeekerToWoundRerolls, &m_holySeekerToWoundSlot);
@@ -130,10 +130,10 @@ namespace Fyreslayers {
 
         if (m_holySeekerToHit && (target == m_holySeekerTarget)) {
             if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     Rerolls
@@ -141,10 +141,10 @@ namespace Fyreslayers {
 
         if (m_holySeekerToWound && (target == m_holySeekerTarget)) {
             if (isFriendly(attacker) && attacker->hasKeyword(FYRESLAYERS)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
 } // namespace Fyreslayers

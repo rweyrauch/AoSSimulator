@@ -65,7 +65,7 @@ namespace Nurgle {
             m_marotter(Weapon::Type::Melee, "Marotter", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SLOPPITY_BILEPIPER, HERALD_OF_NURGLE};
         m_weapons = {&m_marotter};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &SloppityBilepiperHeraldOfNurgle::diseaseOfMirthBraveryMod,
                                    &m_diseaseOfMirthSlot);
@@ -105,9 +105,9 @@ namespace Nurgle {
 
     Rerolls SloppityBilepiperHeraldOfNurgle::jollyGutpipesChargeReroll(const Unit *unit) {
         if ((unit->hasKeyword(NURGLINGS) || unit->hasKeyword(GREAT_UNCLEAN_ONE)) && (distanceTo(unit) <= 7.0))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     int SloppityBilepiperHeraldOfNurgle::ComputePoints(int /*numModels*/) {

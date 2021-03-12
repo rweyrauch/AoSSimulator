@@ -48,34 +48,34 @@ namespace SlavesToDarkness {
 
         // Ravagers
         Bolstered_By_Hate,
-        Unquestioned_Resolve,
-        Favoured_Of_The_Pantheon,
+        Unquestioned_Resolve,           // TODO
+        Favoured_Of_The_Pantheon,       // TODO
         Eternal_Vendetta,
         Flames_Of_Spite,
         Master_Of_Deception,
 
         // Cabalists
         //Bolstered_by_Hate,
-        Lord_Of_Terror,
+        Lord_Of_Terror,                 // TODO
         //Favoured_of_the_Pantheon,
-        Mighty_Ritualist,
-        Blasphemous_Influence,
-        All_For_One,
+        Mighty_Ritualist,               // TODO
+        Blasphemous_Influence,          // TODO
+        All_For_One,                    // TODO
 
         // Despoilers
         //Bolstered_by_Hate,
         //Lord_of_Terror,
         Lightning_Reflexes,
-        Radiance_Of_Dark_Glory,
-        Distorting_Miasma,
-        Paragon_Of_Ruin,
+        Radiance_Of_Dark_Glory,         // TODO
+        Distorting_Miasma,              // TODO
+        Paragon_Of_Ruin,                // TODO
 
         // Idolators
         //Bolstered_by_Hate,
         //Lord_of_Terror,
         //Favoured_of_the_Pantheon,
-        Fiery_Orator,
-        Bane_Of_False_Idols,
+        Fiery_Orator,                   // TODO
+        Bane_Of_False_Idols,            // TODO
         Smite_The_Unbeliever,
     };
 
@@ -133,6 +133,10 @@ namespace SlavesToDarkness {
 
         void setMarkOfChaos(MarkOfChaos mark);
 
+        bool setCommandTrait(CommandTrait trait);
+
+        bool setArtefact(Artefact artefact);
+
     protected:
 
         SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -149,6 +153,7 @@ namespace SlavesToDarkness {
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 
         void onFriendlyUnitSlain(const Unit *attacker) override;
+
         void onEnemyUnitSlain(const Unit* unit) override;
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
@@ -160,11 +165,20 @@ namespace SlavesToDarkness {
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
         Rerolls runRerolls() const override;
+
         Rerolls chargeRerolls() const override;
 
         void onEndCombat(PlayerId player) override;
 
         void onRestore() override;
+
+        int woundModifier() const override;
+
+        int rollChargeDistance() override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
     private:
 
@@ -179,6 +193,9 @@ namespace SlavesToDarkness {
 
         DamnedLegion m_legion = DamnedLegion::Ravagers;
         MarkOfChaos m_markOfChaos = MarkOfChaos::Undivided;
+
+        CommandTrait m_commandTrait = CommandTrait::None;
+        Artefact m_artefact = Artefact::None;
     };
 
     void Init();

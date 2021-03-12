@@ -73,7 +73,7 @@ namespace Ironjawz {
             m_staff(Weapon::Type::Melee, "Waaagh! Staff", 1, 3, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, WIZARD, WEIRDNOB_SHAMAN};
         m_weapons = {&m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

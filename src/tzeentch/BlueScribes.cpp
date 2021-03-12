@@ -76,7 +76,7 @@ namespace Tzeentch {
         m_weapons = {&m_quills, &m_teethAndHorns};
         m_hasMount = true;
         m_teethAndHorns.setMount(true);
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
     }
@@ -87,7 +87,7 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffRerollSpell>(this, "Boon of Tzeentch", 4, 18, Casting_Roll, Reroll_Failed,
+        m_knownSpells.push_back(std::make_unique<BuffRerollSpell>(this, "Boon of Tzeentch", 4, 18, Attribute::Casting_Roll, Rerolls::Failed,
                                                                   Abilities::Target::Friendly, std::vector<Keyword>{TZEENTCH, WIZARD}));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

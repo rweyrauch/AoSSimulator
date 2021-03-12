@@ -27,9 +27,9 @@ namespace DaughtersOfKhaine {
             if (target == nullptr)
                 return false;
 
-            target->buffMovement(Run_And_Shoot, true, defaultDuration());
-            target->buffMovement(Run_And_Charge, true, defaultDuration());
-            target->buffModifier(Run_Distance, Dice::RollD6(), defaultDuration());
+            target->buffMovement(MovementRule::Run_And_Shoot, true, defaultDuration());
+            target->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
+            target->buffModifier(Attribute::Run_Distance, Dice::RollD6(), defaultDuration());
 
             return true;
         }
@@ -48,7 +48,7 @@ namespace DaughtersOfKhaine {
             m_keldrisaith(Weapon::Type::Melee, "Keldrisaith", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, HERO, MELUSAI_IRONSCALE};
         m_weapons = {&m_keldrisaithShooting, &m_keldrisaith};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Pact of Blood
         m_totalUnbinds = 1;

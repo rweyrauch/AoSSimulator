@@ -26,7 +26,7 @@ namespace Death {
             m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
         m_weapons = {&m_zombieBite};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &Zombies::standardBearerBraveryMod, &m_standardSlot);
     }

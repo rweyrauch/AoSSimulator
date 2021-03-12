@@ -29,16 +29,16 @@ namespace CitiesOfSigmar {
             if (target == nullptr)
                 return false;
 
-            m_source->buffModifier(Charge_Distance, 1, defaultDuration());
-            m_source->buffModifier(To_Hit_Melee, 1, defaultDuration());
+            m_source->buffModifier(Attribute::Charge_Distance, 1, defaultDuration());
+            m_source->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
 
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {
                 if (unit == m_source) continue;
 
                 if (unit->hasKeyword(FREEGUILD) && (unit->remainingModels() > 0)) {
-                    unit->buffModifier(Charge_Distance, 1, defaultDuration());
-                    unit->buffModifier(To_Hit_Melee, 1, defaultDuration());
+                    unit->buffModifier(Attribute::Charge_Distance, 1, defaultDuration());
+                    unit->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
                 }
             }
             return true;
@@ -140,7 +140,7 @@ namespace CitiesOfSigmar {
             m_beak(Weapon::Type::Melee, "Deadly Beak", 2, 2, 3, 3, -2, 4) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, MONSTER, HERO, FREEGUILD_GENERAL};
         m_weapons = {&m_runesword, &m_greathammer, &m_lance, &m_claws, &m_beak};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_claws.setMount(true);
         m_beak.setMount(true);

@@ -25,7 +25,7 @@ namespace FleshEaterCourt {
             m_rancidTalons(Weapon::Type::Melee, "Rancid Talons", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_HAUNTER_COURTIER};
         m_weapons = {&m_massiveBoneClub, &m_rancidTalons};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool CryptHaunterCourtier::configure() {
@@ -111,7 +111,7 @@ namespace FleshEaterCourt {
         // Chosen of the King
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
         for (auto unit : units) {
-            if (unit->hasKeyword(ABHORRANT)) return Reroll_Failed;
+            if (unit->hasKeyword(ABHORRANT)) return Rerolls::Failed;
         }
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }

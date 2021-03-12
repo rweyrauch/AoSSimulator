@@ -80,7 +80,7 @@ namespace Nighthaunt {
     Rerolls GrimghastReapers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Reaped Like Corn
         if (weapon->name() == "Slasher Scythe" && unit->remainingModels() >= 5) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return Nighthaunt::toHitRerolls(weapon, unit);

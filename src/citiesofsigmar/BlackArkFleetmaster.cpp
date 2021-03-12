@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
             m_murderHook(Weapon::Type::Melee, "Murder Hook", 1, 2, 4, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, HERO, BLACK_ARK_FLEETMASTER};
         m_weapons = {&m_cutlass, &m_murderHook};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool BlackArkFleetmaster::configure() {

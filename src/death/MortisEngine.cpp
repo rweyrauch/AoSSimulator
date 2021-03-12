@@ -77,7 +77,7 @@ namespace Death {
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, DEATHMAGES, MORTIS_ENGINE};
         m_weapons = {&m_wail, &m_staff, &m_etherealWeapons};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool MortisEngine::configure() {

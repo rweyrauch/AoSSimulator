@@ -59,7 +59,7 @@ namespace Nurgle {
             m_claws(Weapon::Type::Melee, "Monstrous Claws", 3, 5, 4, 2, -1, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, MONSTER, HERO, MORBIDEX_TWICEBORN};
         m_weapons = {&m_tongues, &m_scythe, &m_claws};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_tongues.setMount(true);
         m_claws.setMount(true);

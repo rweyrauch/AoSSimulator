@@ -92,7 +92,7 @@ namespace Skaven {
     Rerolls PlagueCenserBearers::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Plaque Disciples
         auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
-        if (monks) return Reroll_Failed;
+        if (monks) return Rerolls::Failed;
 
         return Unit::toHitRerolls(weapon, target);
     }
@@ -100,7 +100,7 @@ namespace Skaven {
     Rerolls PlagueCenserBearers::battleshockRerolls() const {
         // Plaque Disciples
         auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
-        if (monks) return Reroll_Failed;
+        if (monks) return Rerolls::Failed;
 
         return Unit::battleshockRerolls();
     }

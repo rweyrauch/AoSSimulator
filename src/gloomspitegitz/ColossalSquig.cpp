@@ -42,7 +42,7 @@ namespace GloomspiteGitz {
             m_tramplingFeet(Weapon::Type::Melee, "Trampling Feet", 1, 10, 5, 3, -1, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, COLOSSAL_SQUIG};
         m_weapons = {&m_puffSpores, &m_enormousJaws, &m_tramplingFeet};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     void ColossalSquig::onRestore() {

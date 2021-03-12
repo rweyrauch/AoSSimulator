@@ -67,7 +67,7 @@ namespace Nurgle {
             m_hammer(Weapon::Type::Melee, "Bubotic Hammer", 1, 3, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_BLIGHTS};
         m_weapons = {&m_ripenedDeathsHead, &m_bountyDeathsHead, &m_hammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool LordOfBlights::configure() {
@@ -84,7 +84,7 @@ namespace Nurgle {
 
     Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Vermid Shield
-        if (!weapon->isMissile()) return Reroll_Ones;
+        if (!weapon->isMissile()) return Rerolls::Ones;
         return Unit::toSaveRerolls(weapon, attacker);
     }
 

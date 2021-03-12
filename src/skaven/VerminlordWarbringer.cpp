@@ -84,7 +84,7 @@ namespace Skaven {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, CLANS_VERMINUS, MONSTER, HERO, WIZARD,
                       VERMINLORD_WARBRINGER};
         m_weapons = {&m_tails, &m_glaive, &m_fist};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &VerminlordWarbringer::terrifying, &m_connection);
 
@@ -146,7 +146,7 @@ namespace Skaven {
             }
         }
         if (totalModels >= 13)
-            return Reroll_Failed;
+            return Rerolls::Failed;
 
         return Unit::toWoundRerolls(weapon, target);
     }

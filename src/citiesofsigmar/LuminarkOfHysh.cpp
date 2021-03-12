@@ -137,7 +137,7 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_beamOfLight, &m_wizardsStaff, &m_arcaneTools, &m_hooves};
         m_hasMount = true;
         m_hooves.setMount(true);
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
 
         s_globalUnbindMod.connect(this, &LuminarkOfHysh::locusOfHysh, &m_locusSlot);
     }
@@ -150,7 +150,7 @@ namespace CitiesOfSigmar {
         if (battlemage) {
             addKeyword(WIZARD);
             addKeyword(HERO);
-            m_battleFieldRole = Leader_Behemoth;
+            m_battleFieldRole = Role::Leader_Behemoth;
             m_totalSpells = 1;
             m_totalUnbinds = 1;
         }
@@ -167,7 +167,7 @@ namespace CitiesOfSigmar {
         if (battlemage) {
             m_knownSpells.push_back(std::make_unique<BurningGaze>(this));
             m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pha's Protection", 5, 18,
-                                                                        std::vector<std::pair<BuffableAttribute, int>>{{Target_To_Hit_Missile, -1},{Target_To_Hit_Melee, -1}}, Abilities::Target::SelfAndFriendly));
+                                                                        std::vector<std::pair<Attribute, int>>{{Attribute::Target_To_Hit_Missile, -1},{Attribute::Target_To_Hit_Melee, -1}}, Abilities::Target::SelfAndFriendly));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
             m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -204,7 +204,7 @@ namespace CitiesOfSigmar {
         auto mod = Unit::castingModifier();
 
         // White Battlemage
-        if (Board::Instance()->getRealm() == Hysh) mod++;
+        if (Board::Instance()->getRealm() == Realm::Hysh) mod++;
 
         return mod;
     }

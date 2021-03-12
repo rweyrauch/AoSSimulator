@@ -31,7 +31,7 @@ namespace Khorne {
             m_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
         m_weapons = {&m_reaverBlades, &m_reaverBladesChieftain, &m_meatripperAxe, &m_meatripperAxeChieftain};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
 
@@ -79,7 +79,7 @@ namespace Khorne {
     Rerolls Bloodreavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Reaver Blades
         if (m_weaponOption == Reaver_Blades) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return KhorneBase::toHitRerolls(weapon, unit);

@@ -33,8 +33,8 @@ namespace BeastsOfChaos {
             return Spell::Result::Failed;
 
         target->heal(Dice::RollD3());
-        target->buffReroll(To_Wound_Melee, Reroll_Failed, defaultDuration());
-        target->buffReroll(To_Wound_Missile, Reroll_Failed, defaultDuration());
+        target->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, defaultDuration());
+        target->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -52,7 +52,7 @@ namespace BeastsOfChaos {
             m_talonedForelimbs(Weapon::Type::Melee, "Taloned Forelimbs", 1, 2, 3, 3, -1, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, THUNDERSCORN, DRAGON_OGOR, MONSTER, HERO, WIZARD, SHAGGOTH};
         m_weapons = {&m_stormWroughtAxe, &m_sweepingTail, &m_talonedForelimbs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }

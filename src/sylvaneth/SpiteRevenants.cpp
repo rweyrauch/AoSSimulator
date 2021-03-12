@@ -90,7 +90,7 @@ namespace Sylvaneth {
     Rerolls SpiteRevenants::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Malicious Tormentors
         if (hasKeyword(DREADWOOD)) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return SylvanethBase::toHitRerolls(weapon, target);
     }

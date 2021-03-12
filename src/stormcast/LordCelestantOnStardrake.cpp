@@ -44,7 +44,7 @@ namespace StormcastEternals {
             m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STARDRAKE, STORMCAST_ETERNAL, HERO, MONSTER, LORD_CELESTANT};
         m_weapons = {&m_celestineHammer, &m_stormboundBlade, &m_greatClaws};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_greatClaws.setMount(true);
 
@@ -69,7 +69,7 @@ namespace StormcastEternals {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Celestial Host", INT32_MAX, INT32_MAX, Phase::Combat,
-                                                                                To_Wound_Melee, Reroll_Failed, Abilities::Target::SelfAndFriendly,
+                                                                                Attribute::To_Wound_Melee, Rerolls::Failed, Abilities::Target::SelfAndFriendly,
                                                                                 std::vector<Keyword>(STARDRAKE, DRACOTH)));
 
         m_points = g_pointsPerUnit;
@@ -176,7 +176,7 @@ namespace StormcastEternals {
 
     Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Sigmarite Thundershield
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     Wounds LordCelestantOnStardrake::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {

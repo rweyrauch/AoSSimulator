@@ -23,7 +23,7 @@ namespace Slaanesh {
             m_mace(Weapon::Type::Melee, "Soulpiercer Mace", 2, 5, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, LORD_OF_PAIN};
         m_weapons = {&m_mace};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool LordOfPain::configure() {
@@ -32,7 +32,7 @@ namespace Slaanesh {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Paragon of Depravity", 12, 12, Phase::Combat,
-                                                                                To_Hit_Melee, Reroll_Failed, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{MORTAL, HEDONITE}));
+                                                                                Attribute::To_Hit_Melee, Rerolls::Failed, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{MORTAL, HEDONITE}));
 
         m_points = g_pointsPerUnit;
 

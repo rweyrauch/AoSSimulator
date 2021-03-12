@@ -88,7 +88,7 @@ namespace StormcastEternals {
     Rerolls StormcastEternal::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Driven by Vengeance
         if (hasKeyword(CELESTIAL_VINDICATORS) && m_charged) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Unit::toHitRerolls(weapon, unit);
@@ -116,7 +116,7 @@ namespace StormcastEternals {
     Rerolls StormcastEternal::battleshockRerolls() const {
         // No True Death
         if (hasKeyword(ANVILS_OF_THE_HELDENHAMMER)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return Unit::battleshockRerolls();
@@ -277,7 +277,7 @@ namespace StormcastEternals {
 
     Rerolls StormcastEternal::chargeRerolls() const {
         if (isGeneral() && (m_commandTrait == CommandTrait::Zealous_Crusader)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }

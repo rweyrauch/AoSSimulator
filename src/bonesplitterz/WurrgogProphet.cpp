@@ -100,7 +100,7 @@ namespace Bonesplitterz {
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, WURRGOG_PROPHET};
         m_weapons = {&m_staffAndShiv, &m_fangedMaw};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 2;
         m_totalSpells = 2;
     }

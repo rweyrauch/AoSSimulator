@@ -251,7 +251,7 @@ namespace Tzeentch {
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 9.0)) {
                 auto tzeentch = dynamic_cast<TzeentchBase*>(general);
                 if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Will_Of_The_Phantom_Lord)) {
-                    return Reroll_Failed;
+                    return Rerolls::Failed;
                 }
             }
         }
@@ -265,7 +265,7 @@ namespace Tzeentch {
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 9.0)) {
                 auto tzeentch = dynamic_cast<TzeentchBase*>(general);
                 if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Will_Of_The_Phantom_Lord)) {
-                    return Reroll_Failed;
+                    return Rerolls::Failed;
                 }
             }
         }

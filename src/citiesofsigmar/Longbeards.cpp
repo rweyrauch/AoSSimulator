@@ -29,7 +29,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, LONGBEARDS};
         m_weapons = {&m_ancestralAxeHammer, &m_ancestralGreatAxe, &m_ancestralAxeHammerOldGuard,
                      &m_ancestralGreatAxeOldGuard};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Longbeards::configure(int numModels, WeaponOptions weapons, bool standardBearer, bool musician) {
@@ -111,7 +111,7 @@ namespace CitiesOfSigmar {
 
     Rerolls Longbeards::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Gromril Shields
-        if ((m_weaponOption == Ancestral_Weapon_And_Shield) && !weapon->isMissile()) return Reroll_Failed;
+        if ((m_weaponOption == Ancestral_Weapon_And_Shield) && !weapon->isMissile()) return Rerolls::Failed;
 
         return CitizenOfSigmar::toSaveRerolls(weapon, attacker);
     }

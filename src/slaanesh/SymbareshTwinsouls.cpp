@@ -94,7 +94,7 @@ namespace Slaanesh {
     Rerolls SymbareshTwinsouls::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Ego-driven Excess
         if (!m_fiendishReflexesActive && !weapon->isMissile()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return SlaaneshBase::toHitRerolls(weapon, target);
     }

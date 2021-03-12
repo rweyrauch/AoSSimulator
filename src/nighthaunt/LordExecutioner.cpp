@@ -62,7 +62,7 @@ namespace Nighthaunt {
             m_greataxe(Weapon::Type::Melee, "Decapitating Greataxe", 1, 3, 3, 3, -2, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, LORD_EXECUTIONER};
         m_weapons = {&m_greataxe};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool LordExecutioner::configure() {
@@ -89,7 +89,7 @@ namespace Nighthaunt {
         // Staring Death in the Face
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (unit) {
-            unit->buffModifier(To_Hit_Melee, -1, {Phase::Battleshock, m_battleRound, player});
+            unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Battleshock, m_battleRound, player});
         }
 
     }

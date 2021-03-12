@@ -99,7 +99,7 @@ namespace CitiesOfSigmar {
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
         m_weapons = {&m_talons, &m_halberd};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_talons.setMount(true);
     }
@@ -107,7 +107,7 @@ namespace CitiesOfSigmar {
     bool FlamespyrePhoenix::configure(bool anointed) {
         if (anointed) {
             addKeyword(HERO);
-            m_battleFieldRole = Leader_Behemoth;
+            m_battleFieldRole = Role::Leader_Behemoth;
         }
 
         auto model = new Model(g_basesize, wounds());
@@ -118,7 +118,7 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         if (anointed) {
-            m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Captain of the Phoenix Guard", 12, 12, Phase::Combat, To_Wound_Melee, Reroll_Failed,
+            m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Captain of the Phoenix Guard", 12, 12, Phase::Combat, Attribute::To_Wound_Melee, Rerolls::Failed,
                                                                                     Abilities::Target::SelfAndFriendly, std::vector<Keyword>{PHOENIX_TEMPLE}));
             m_points = g_pointsPerUnitWithAnointed;
         } else {

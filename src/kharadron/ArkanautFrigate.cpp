@@ -108,7 +108,7 @@ namespace KharadronOverlords {
                      &m_skyhook,
                      &m_carbines,
                      &m_boardingWeapons};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool ArkanautFrigate::configure(WeaponOption option) {
@@ -188,7 +188,7 @@ namespace KharadronOverlords {
 
     Rerolls ArkanautFrigate::runRerolls() const {
         // Aetheric Navigator/Endrinrigger
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     void ArkanautFrigate::onStartCombat(PlayerId player) {

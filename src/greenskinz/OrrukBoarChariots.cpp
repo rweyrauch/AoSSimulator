@@ -76,11 +76,12 @@ namespace Greenskinz {
     }
 
     int OrrukBoarChariots::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
         // Tusker Charge
         if (m_charged && weapon->name() == m_warBoarsTusks.name()) {
-            return Reroll_Failed;
+            mod++;
         }
-        return Unit::toWoundModifier(weapon, target);
+        return mod;
     }
 
     void OrrukBoarChariots::onCharged() {

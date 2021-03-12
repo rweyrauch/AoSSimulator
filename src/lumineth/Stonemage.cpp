@@ -26,8 +26,8 @@ namespace LuminethRealmLords {
             if (target == nullptr) return Result::Failed;
 
             target->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
-            target->buffMovement(Halve_Movement, true, defaultDuration());
-            target->buffMovement(Can_Fly, false, defaultDuration());
+            target->buffMovement(MovementRule::Halve_Movement, true, defaultDuration());
+            target->buffMovement(MovementRule::Can_Fly, false, defaultDuration());
 
             return Result::Success;
         }
@@ -120,15 +120,15 @@ namespace LuminethRealmLords {
 
         // Stonemage Stance
         if (meleeTarget() && distanceTo(meleeTarget()) < 3.0) {
-            buffMovement(Can_PileIn, false, {Phase::Combat, m_battleRound, player});
-            buffModifier(Weapon_Rend_Melee, -1, {Phase::Combat, m_battleRound, player});
+            buffMovement(MovementRule::Can_PileIn, false, {Phase::Combat, m_battleRound, player});
+            buffModifier(Attribute::Weapon_Rend_Melee, -1, {Phase::Combat, m_battleRound, player});
 
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(STONEGUARD) && unit->hasKeyword(ALARITH)) {
                     if (unit->meleeTarget() && unit->distanceTo(unit->meleeTarget()) < 1.0) {
-                        unit->buffMovement(Can_PileIn, false, {Phase::Combat, m_battleRound, player});
-                        unit->buffModifier(Weapon_Rend_Melee, -1, {Phase::Combat, m_battleRound, player});
+                        unit->buffMovement(MovementRule::Can_PileIn, false, {Phase::Combat, m_battleRound, player});
+                        unit->buffModifier(Attribute::Weapon_Rend_Melee, -1, {Phase::Combat, m_battleRound, player});
                     }
                 }
             }

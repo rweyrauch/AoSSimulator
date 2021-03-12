@@ -93,7 +93,7 @@ namespace FleshEaterCourt {
         // Chosen of the King
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ABHORRANT, 18.0);
         if (unit != nullptr) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }

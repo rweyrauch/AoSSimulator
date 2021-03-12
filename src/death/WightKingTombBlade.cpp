@@ -24,7 +24,7 @@ namespace Death {
             m_steedsHoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
         m_weapons = {&m_balefulTombBlade, &m_steedsHoovesAndTeeth};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     Unit *WightKingWithBalefulTombBlade::Create(const ParameterList &parameters) {

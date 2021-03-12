@@ -34,7 +34,7 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(GORETIDE)) {
-                unit->buffReroll(To_Hit_Melee, Reroll_Ones, {Phase::Combat, m_round, m_source->owningPlayer()});
+                unit->buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, {Phase::Combat, m_round, m_source->owningPlayer()});
             }
         }
         return true;
@@ -52,7 +52,7 @@ namespace Khorne {
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 4, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, HERO, MIGHTY_LORD_OF_KHORNE, KORGHOS_KHUL};
         m_weapons = {&m_axeOfKhorne, &m_clawsAndFangs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Collar of Khorne
         m_totalUnbinds = 1;
@@ -111,7 +111,7 @@ namespace Khorne {
 
     Rerolls KorghosKhul::toHitRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // Favoured of Khorne
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     int KorghosKhul::ComputePoints(int /*numModels*/) {

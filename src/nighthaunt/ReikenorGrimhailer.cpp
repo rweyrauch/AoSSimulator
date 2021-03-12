@@ -80,7 +80,7 @@ namespace Nighthaunt {
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, REIKENOR_THE_GRIMHAILER};
         m_weapons = {&m_fellreaper, &m_hoovesAndTeeth};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
         m_totalSpells = 1;
@@ -116,7 +116,7 @@ namespace Nighthaunt {
     Rerolls ReikenorTheGrimhailer::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Reaped Like Corn
         if ((target->remainingModels() >= 5) && (weapon->name() == m_fellreaper.name())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return Unit::toHitRerolls(weapon, target);

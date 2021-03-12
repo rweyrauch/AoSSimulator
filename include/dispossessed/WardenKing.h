@@ -30,7 +30,7 @@ namespace Dispossessed {
     protected:
 
         // Ancestor Shield
-        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override { return Reroll_Failed; }
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override { return Rerolls::Failed; }
 
     private:
 

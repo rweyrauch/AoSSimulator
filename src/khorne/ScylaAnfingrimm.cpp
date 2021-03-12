@@ -24,7 +24,7 @@ namespace Khorne {
             m_serpentineTail(Weapon::Type::Melee, "Serpentine Tail", 3, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SCYLA_ANFINGRIMM};
         m_weapons = {&m_brutalFists, &m_serpentineTail};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Brass Collar of Khorne
         m_totalUnbinds = 1;

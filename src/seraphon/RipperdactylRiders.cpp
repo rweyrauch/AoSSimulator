@@ -111,7 +111,7 @@ namespace Seraphon {
     Rerolls RipperdactylRiders::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (!m_usedToad && (weapon->name() == m_jaws.name())) {
             m_usedToad = true;
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return Unit::toHitRerolls(weapon, target);

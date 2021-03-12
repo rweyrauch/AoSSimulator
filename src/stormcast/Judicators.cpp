@@ -94,7 +94,7 @@ namespace StormcastEternals {
     Rerolls Judicators::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // External Judgement
         if (unit->hasKeyword(CHAOS) && weapon->isMissile()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return StormcastEternal::toHitRerolls(weapon, unit);
     }

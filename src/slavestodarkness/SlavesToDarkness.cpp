@@ -104,6 +104,7 @@ namespace SlavesToDarkness {
         removeKeyword(CABALISTS);
         removeKeyword(DESPOILERS);
         removeKeyword(HOST_OF_THE_EVERCHOSEN);
+        removeKeyword(IDOLATORS);
 
         m_legion = legion;
         switch (legion) {
@@ -118,6 +119,9 @@ namespace SlavesToDarkness {
                 break;
             case DamnedLegion::Host_Of_The_Everchosen:
                 addKeyword(HOST_OF_THE_EVERCHOSEN);
+                break;
+            case DamnedLegion::Idolators:
+                addKeyword(IDOLATORS);
                 break;
             default:
                 break;
@@ -157,8 +161,12 @@ namespace SlavesToDarkness {
         if (hasKeyword(KHORNE)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(KHORNE)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
+        }
+
+        if (isGeneral() && target->hasKeyword(ORDER) && (m_commandTrait == CommandTrait::Eternal_Vendetta)) {
+            return Rerolls::Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -182,7 +190,7 @@ namespace SlavesToDarkness {
         if (hasKeyword(TZEENTCH)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(TZEENTCH)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
         return Unit::toSaveRerolls(weapon, attacker);
@@ -247,6 +255,10 @@ namespace SlavesToDarkness {
                 damage.normal++;
             }
         }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Flames_Of_Spite) && (hitRoll == 6)) {
+            damage.mortal++;
+        }
         return damage;
     }
 
@@ -259,6 +271,13 @@ namespace SlavesToDarkness {
             if (hero && hero->hasKeyword(NURGLE) && hero->isGeneral()) {
                 mod--;
             }
+        }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Master_Of_Deception) && weapon->isMelee()) {
+            mod--;
+        }
+        if (isGeneral() && weapon->isMissile() && (m_commandTrait == CommandTrait::Lightning_Reflexes)) {
+            mod--;
         }
         return mod;
     }
@@ -281,7 +300,7 @@ namespace SlavesToDarkness {
         if (hasKeyword(SLAANESH)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(SLAANESH) && hero->isGeneral()) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
         return Unit::runRerolls();
@@ -292,7 +311,7 @@ namespace SlavesToDarkness {
         if (hasKeyword(SLAANESH)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(SLAANESH) && hero->isGeneral()) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
         return Unit::chargeRerolls();
@@ -438,6 +457,57 @@ namespace SlavesToDarkness {
         if (m_haveIronFlesh) mod++;
 
         return mod;
+    }
+
+    int SlavesToDarknessBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Bolstered_By_Hate)) {
+            mod += 1;
+        }
+        return mod;
+    }
+
+    int SlavesToDarknessBase::rollChargeDistance() {
+        if (hasKeyword(IDOLATORS) && hasKeyword(CULTISTS)) {
+            // Panoply of Pain
+            auto roll1 = Dice::RollD6();
+            auto roll2 = Dice::RollD6();
+            if (roll1 < roll2) roll1 = 6;
+            else if (roll2 < roll1) roll2 = 6;
+            else roll1 = 6;
+
+            m_unmodifiedChargeRoll = roll1 + roll2;
+            return m_unmodifiedChargeRoll + chargeModifier();
+        }
+        return Unit::rollChargeDistance();
+    }
+
+    bool SlavesToDarknessBase::setCommandTrait(CommandTrait trait) {
+        // Verify against legion
+        m_commandTrait = trait;
+        return true;
+    }
+
+    bool SlavesToDarknessBase::setArtefact(Artefact artefact) {
+        // Verify against legion
+        m_artefact = artefact;
+        return true;
+    }
+
+    Rerolls SlavesToDarknessBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Eternal_Vendetta)) {
+            return Rerolls::Failed;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    int
+    SlavesToDarknessBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Smite_The_Unbeliever)) {
+            attacks += 2;
+        }
+        return attacks;
     }
 
     void Init() {

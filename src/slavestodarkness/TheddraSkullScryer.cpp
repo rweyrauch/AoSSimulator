@@ -65,7 +65,7 @@ namespace SlavesToDarkness {
             m_wand(Weapon::Type::Melee, "Darkoath Wand", 1, 2, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, WIZARD, GOD_SPEAKER, THEDDRA_SKULL_SCRYER};
         m_weapons = {&m_wand};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool TheddraSkullscryer::configure(Lore lore) {
@@ -73,7 +73,7 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_wand);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeblement", 6, 12, To_Wound_Melee, -1, Abilities::Target::Enemy));
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeblement", 6, 12, Attribute::To_Wound_Melee, -1, Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -85,12 +85,12 @@ namespace SlavesToDarkness {
 
     Rerolls TheddraSkullscryer::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     Rerolls TheddraSkullscryer::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        if (target->hasKeyword(STORMCAST_ETERNAL)) return Reroll_Failed;
+        if (target->hasKeyword(STORMCAST_ETERNAL)) return Rerolls::Failed;
         return Unit::toWoundRerolls(weapon, target);
     }
 

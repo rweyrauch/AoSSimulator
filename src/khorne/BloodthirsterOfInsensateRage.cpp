@@ -32,7 +32,7 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(DAEMON) && (unit->hasKeyword(KHORNE))) {
-                unit->buffReroll(Charge_Distance, Reroll_Failed, defaultDuration());
+                unit->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, defaultDuration());
             }
         }
         return true;
@@ -67,7 +67,7 @@ namespace Khorne {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO,
                       BLOODTHIRSTER_OF_INSENSATE_RAGE};
         m_weapons = {&m_greatAxeOfKhorne};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
     }
 
     bool BloodthirsterOfInsensateRage::configure() {
@@ -138,7 +138,7 @@ namespace Khorne {
     Rerolls BloodthirsterOfInsensateRage::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Rage Unbound
         if (m_charged) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return KhorneBase::toHitRerolls(weapon, target);
     }

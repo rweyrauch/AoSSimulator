@@ -81,7 +81,7 @@ namespace SlavesToDarkness {
             m_maw(Weapon::Type::Melee, "Betentacled Maw", 2, RAND_3D6, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, MONSTER, MUTALITH_VORTEX_BEAST};
         m_weapons = {&m_claws, &m_maw};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool MutalithVortexBeast::configure() {
@@ -109,15 +109,15 @@ namespace SlavesToDarkness {
                 switch (roll) {
                     case 1:
                         // Hideous Disfigurement
-                        unit->buffModifier(BuffableAttribute::Bravery, -1, {Phase::Hero, INT_MAX, player});
+                        unit->buffModifier(Attribute::Bravery, -1, {Phase::Hero, INT_MAX, player});
                         break;
                     case 2:
                         // Troggbrains
-                        unit->buffModifier(BuffableAttribute::Run_Distance, -1, {Phase::Hero, INT_MAX, player});
+                        unit->buffModifier(Attribute::Run_Distance, -1, {Phase::Hero, INT_MAX, player});
                         break;
                     case 3:
                         // Gift of Mutations
-                        unit->buffModifier(BuffableAttribute::Move_Distance, -1, {Phase::Hero, INT_MAX, player});
+                        unit->buffModifier(Attribute::Move_Distance, -1, {Phase::Hero, INT_MAX, player});
                         break;
                     case 4:
                         // Tide of Transmogrification

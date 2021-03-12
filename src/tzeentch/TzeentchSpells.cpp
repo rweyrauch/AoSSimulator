@@ -57,10 +57,10 @@ namespace Tzeentch {
 
     protected:
         Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
-            m_caster->buffModifier(To_Hit_Melee, 1, defaultDuration());
-            m_caster->buffModifier(To_Hit_Missile, 1, defaultDuration());
-            m_caster->buffModifier(To_Wound_Melee, 1, defaultDuration());
-            m_caster->buffModifier(To_Wound_Missile, 1, defaultDuration());
+            m_caster->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
+            m_caster->buffModifier(Attribute::To_Hit_Missile, 1, defaultDuration());
+            m_caster->buffModifier(Attribute::To_Wound_Melee, 1, defaultDuration());
+            m_caster->buffModifier(Attribute::To_Wound_Missile, 1, defaultDuration());
 
             return Spell::Result::Success;
         }
@@ -86,8 +86,8 @@ namespace Tzeentch {
             if (rolls.rollsGE(6) > 0) {
                 int numSlain = target->applyDamage({0, rolls.rollsGE(6), Wounds::Source::Spell}, m_caster);
                 if (numSlain > 0) {
-                    target->buffModifier(To_Hit_Missile, -1, defaultDuration());
-                    target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+                    target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
+                    target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
                 }
             }
             return Spell::Result::Success;

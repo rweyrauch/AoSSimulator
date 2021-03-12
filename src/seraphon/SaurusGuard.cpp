@@ -117,7 +117,7 @@ namespace Seraphon {
     }
 
     Rerolls SaurusGuard::chargeRerolls() const {
-        if (isNamedModelAlive("Wardrum")) return Reroll_Failed;
+        if (isNamedModelAlive("Wardrum")) return Rerolls::Failed;
 
         return SeraphonBase::chargeRerolls();
     }

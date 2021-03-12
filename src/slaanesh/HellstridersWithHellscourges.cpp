@@ -111,7 +111,7 @@ namespace Slaanesh {
 
     Rerolls HellstridersWithHellscourges::chargeRerolls() const {
         if (isNamedModelAlive("Banner Bearer")) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
     }
@@ -133,9 +133,9 @@ namespace Slaanesh {
     }
 
     Rerolls HellstridersWithHellscourges::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Reroll_Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     int HellstridersWithHellscourges::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

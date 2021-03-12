@@ -138,7 +138,7 @@ namespace BeastsOfChaos {
     Rerolls Centigors::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Charging Spear
         if (m_charged && (weapon->name() == m_centigorSpear.name())) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toWoundRerolls(weapon, target);
     }

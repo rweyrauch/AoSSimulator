@@ -28,7 +28,7 @@ namespace BeastsOfChaos {
             m_gnarledShortspearHalfhorn(Weapon::Type::Melee, "Gnarled Shortspear", 2, 2, 5, 4, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, UNGORS};
         m_weapons = {&m_ungorBlade, &m_ungorBladeHalfhorn, &m_gnarledShortspear, &m_gnarledShortspearHalfhorn};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool Ungors::configure(int numModels, WeaponOptions weapons,
@@ -129,9 +129,9 @@ namespace BeastsOfChaos {
     Rerolls Ungors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Braying Hatred
         if (remainingModels() >= 30) {
-            return Reroll_Ones_And_Twos;
+            return Rerolls::Ones_And_Twos;
         } else if (remainingModels() >= 20) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }

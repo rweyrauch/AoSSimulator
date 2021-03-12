@@ -68,7 +68,7 @@ namespace OgorMawtribes {
             m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, HERO, ICEBROW_HUNTER};
         m_weapons = {&m_spear, &m_crossbow, &m_club, &m_bite};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool IcebrowHunter::configure() {

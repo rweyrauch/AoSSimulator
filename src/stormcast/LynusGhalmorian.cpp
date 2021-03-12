@@ -40,8 +40,8 @@ namespace StormcastEternals {
         }
 
         target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
-        target->buffModifier(To_Hit_Melee, -1, defaultDuration());
-        target->buffModifier(To_Hit_Missile, -1, defaultDuration());
+        target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+        target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
 
         return Spell::Result::Success;
     }
@@ -59,11 +59,11 @@ namespace StormcastEternals {
 
         bool apply(Unit* target) override {
 
-            m_source->buffModifier(To_Hit_Melee, 1, defaultDuration());
+            m_source->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {
                 if ((unit->remainingModels() > 0) && unit->hasKeyword(ANVILS_OF_THE_HELDENHAMMER)) {
-                    unit->buffModifier(To_Hit_Melee, 1, defaultDuration());
+                    unit->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
                 }
             }
             return true;
@@ -85,7 +85,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD,
                       ANVILS_OF_THE_HELDENHAMMER, LORD_ARCANUM, LYNUS_GHALMORIAN};
         m_weapons = {&m_aetherstave, &m_beakAndClaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_beakAndClaws.setMount(true);
 
@@ -182,9 +182,9 @@ namespace StormcastEternals {
     Rerolls LynusGhalmorianOnGryphcharger::shieldOfThePaleKnight(const Unit *attacker, const Weapon *weapon,
                                                                  const Unit *target) {
         if (target->hasKeyword(ANVILS_OF_THE_HELDENHAMMER) && isFriendly(target) && (distanceTo(target) < 12) && weapon->isMissile()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
 } // namespace StormcastEternals

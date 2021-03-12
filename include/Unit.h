@@ -22,15 +22,17 @@
 #include "Spell.h"
 #include "Prayer.h"
 #include "CommandAbility.h"
+#include "magic_enum.hpp"
 
 #include <lsignal.h>
+#include <map>
 
 class Roster;
 class CommandTraitAbility;
 
 class Unit : public UnitModifierInterface, public EventInterface {
 public:
-    Unit() = default;
+    Unit();
 
     ~Unit() override = default;
 
@@ -224,13 +226,13 @@ public:
 
     bool isGeneral() const { return m_isGeneral; }
 
-    bool buffModifier(BuffableAttribute which, int modifier, Duration duration);
+    bool buffModifier(Attribute which, int modifier, Duration duration);
 
-    bool buffReroll(BuffableAttribute which, Rerolls reroll, Duration duration);
+    bool buffReroll(Attribute which, Rerolls reroll, Duration duration);
 
-    bool buffMovement(MovementRules which, bool allowed, Duration duration);
+    bool buffMovement(MovementRule which, bool allowed, Duration duration);
 
-    bool buffAbility(BuffableAbility which, int value, Duration duration);
+    bool buffAbility(Ability which, int value, Duration duration);
 
     std::vector<std::unique_ptr<Spell>>::const_iterator spellBegin() const { return m_knownSpells.begin(); }
 
@@ -417,10 +419,10 @@ protected:
     TurnRecord m_currentRecord;
     UnitStatistics m_statistics;
 
-    std::list<ModifierBuff> m_attributeModifiers[Num_Buffable_Attributes];
-    std::list<RerollBuff> m_rollModifiers[Num_Buffable_Attributes];
-    std::list<MovementRuleBuff> m_movementRules[Num_Movement_Rules];
-    std::list<AbilityBuff> m_abilityBuffs[Num_Buffable_Abilities];
+    std::map<Attribute, std::list<ModifierBuff>> m_attributeModifiers;
+    std::map<Attribute, std::list<RerollBuff>> m_rollModifiers;
+    std::map<MovementRule, std::list<MovementRuleBuff>> m_movementRules;
+    std::map<Ability, std::list<AbilityBuff>> m_abilityBuffs;
 
     static lsignal::signal<int(const Unit *unit)> s_globalMoveMod;
     static lsignal::signal<int(const Unit *unit)> s_globalRunMod;

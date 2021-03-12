@@ -104,7 +104,7 @@ namespace StormcastEternals {
 
     Rerolls Fulminators::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
         // Sigmarite Shields
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     int Fulminators::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {

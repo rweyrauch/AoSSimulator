@@ -59,7 +59,7 @@ namespace StormcastEternals {
 
     Rerolls SteelheartsChampions::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Sigmarite Shields
-        if (isNamedModelAlive("Angharad")) return Reroll_Ones;
+        if (isNamedModelAlive("Angharad")) return Rerolls::Ones;
 
         return StormcastEternal::toSaveRerolls(weapon, attacker);
     }
@@ -95,7 +95,7 @@ namespace StormcastEternals {
 
     Rerolls SteelheartsChampions::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (weapon->name() == m_broadSword.name() && target->remainingModels() >= 5) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return StormcastEternal::toHitRerolls(weapon, target);
     }

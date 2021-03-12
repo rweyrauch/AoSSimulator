@@ -28,7 +28,7 @@ namespace Skaven {
 
             if (Dice::RollD6() > target->wounds()) {
                 target->applyDamage({0, RAND_D3, Wounds::Source::Spell}, m_caster);
-                target->buffModifier(To_Hit_Melee, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
             }
             return Result::Success;
         }
@@ -89,7 +89,7 @@ namespace Skaven {
             m_staff(Weapon::Type::Melee, "Warpstone Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, HERO, WIZARD, GREY_SEER};
         m_weapons = {&m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;

@@ -13,7 +13,7 @@
 #include <plog/Log.h>
 #include "Dice.h"
 
-enum Phase {
+enum class Phase : int {
     Deployment,
     Initiative,
     Hero,
@@ -33,25 +33,25 @@ enum RandomNumber {
     RAND_2D3 = -6,
 };
 
-enum PlayerId {
+enum class PlayerId : int {
     None = -1,
     Red = 0,
     Blue = 1
 };
 
-enum Rerolls {
-    No_Rerolls = 0,
-    Reroll_Ones,
-    Reroll_Ones_And_Twos,
-    Reroll_Sixes,
-    Reroll_Failed,
-    Reroll_Successful
+enum class Rerolls {
+    None = 0,
+    Ones,
+    Ones_And_Twos,
+    Sixes,
+    Failed,
+    Successful
 };
 
 const int NoSave = 7;
 
-enum Role {
-    Battleline,
+enum class Role : int {
+    Battleline = 0,
     Leader,
     Other,
     Behemoth,
@@ -62,7 +62,7 @@ enum Role {
 
 const int Automatically_Cast_No_Unbind = 42;
 
-enum BuffableAttribute {
+enum class Attribute : int {
     Move_Distance = 0,
     Run_Distance,
     Charge_Distance,
@@ -91,10 +91,10 @@ enum BuffableAttribute {
     Weapon_Damage_Melee,
     Weapon_Damage_Missile,
 
-    Num_Buffable_Attributes
+    Num_Attributes
 };
 
-enum BuffableAbility {
+enum class Ability : int {
     Ignore_Battleshock = 0,
     Auto_Max_Run,
     Extra_Hit_On_Value,
@@ -106,10 +106,14 @@ enum BuffableAbility {
 
     Cannot_Use_Command_Abilities,
 
-    Num_Buffable_Abilities
+    Cast_Spells,
+    Unbind_Spells,
+    Can_Attack,
+
+    Num_Abilities
 };
 
-enum MovementRules {
+enum class MovementRule : int {
     Can_Fly = 0,
     Can_Move,
     Can_Run,
@@ -132,7 +136,8 @@ enum MovementRules {
     Num_Movement_Rules
 };
 
-enum Realm {
+enum class Realm : int {
+    None = 0,
     Aqshy,
     Azyr,
     Chamon,

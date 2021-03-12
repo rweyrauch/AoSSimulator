@@ -138,27 +138,27 @@ void Battle::runInitiativePhase() {
 }
 
 void Battle::runHeroPhase() {
-    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Hero);
+    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Hero);
     while (unit) {
         unit->hero(m_currentPlayer);
 
-        unit = m_players[m_currentPlayer]->advancePhase();
+        unit = m_players[(int)m_currentPlayer]->advancePhase();
     }
-    m_players[m_currentPlayer]->endPhase();
+    m_players[(int)m_currentPlayer]->endPhase();
 }
 
 void Battle::runMovementPhase() {
-    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Movement);
+    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Movement);
     while (unit) {
         unit->movement(m_currentPlayer);
 
-        unit = m_players[m_currentPlayer]->advancePhase();
+        unit = m_players[(int)m_currentPlayer]->advancePhase();
     }
-    m_players[m_currentPlayer]->endPhase();
+    m_players[(int)m_currentPlayer]->endPhase();
 }
 
 void Battle::runShootingPhase() {
-    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Shooting);
+    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Shooting);
     while (unit) {
         unit->shooting(m_currentPlayer);
 
@@ -172,13 +172,13 @@ void Battle::runShootingPhase() {
                    PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
                    unit->shootingTarget()->name().c_str(), numSlain);
         }
-        unit = m_players[m_currentPlayer]->advancePhase();
+        unit = m_players[(int)m_currentPlayer]->advancePhase();
     }
-    m_players[m_currentPlayer]->endPhase();
+    m_players[(int)m_currentPlayer]->endPhase();
 }
 
 void Battle::runChargePhase() {
-    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Charge);
+    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Charge);
     while (unit) {
         unit->charge(m_currentPlayer);
 
@@ -188,18 +188,18 @@ void Battle::runChargePhase() {
                     unit->name().c_str());
         }
 
-        unit = m_players[m_currentPlayer]->advancePhase();
+        unit = m_players[(int)m_currentPlayer]->advancePhase();
     }
-    m_players[m_currentPlayer]->endPhase();
+    m_players[(int)m_currentPlayer]->endPhase();
 }
 
 void Battle::runCombatPhase() {
 
     // Combine/sort activated units
     // TODO: Some abilities move enemy units to attack first
-    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Combat);
+    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Combat);
     const auto defendingPlayer = GetEnemyId(m_currentPlayer);
-    auto eunit = m_players[defendingPlayer]->startPhase(Phase::Combat);
+    auto eunit = m_players[(int)defendingPlayer]->startPhase(Phase::Combat);
     while (unit || eunit) {
         if (unit) {
             unit->combat(m_currentPlayer);
@@ -231,30 +231,30 @@ void Battle::runCombatPhase() {
         }
 
         // Advance to next units
-        unit = m_players[m_currentPlayer]->advancePhase();
-        eunit = m_players[GetEnemyId(m_currentPlayer)]->advancePhase();
+        unit = m_players[(int)m_currentPlayer]->advancePhase();
+        eunit = m_players[(int)GetEnemyId(m_currentPlayer)]->advancePhase();
     }
 
-    m_players[m_currentPlayer]->endPhase();
-    m_players[GetEnemyId(m_currentPlayer)]->endPhase();
+    m_players[(int)m_currentPlayer]->endPhase();
+    m_players[(int)GetEnemyId(m_currentPlayer)]->endPhase();
 }
 
 void Battle::runBattleshockPhase() {
-    auto unit = m_players[m_currentPlayer]->startPhase(Phase::Battleshock);
+    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Battleshock);
     while (unit) {
         unit->battleshock(m_currentPlayer);
 
-        unit = m_players[m_currentPlayer]->advancePhase();
+        unit = m_players[(int)m_currentPlayer]->advancePhase();
     }
-    unit = m_players[GetEnemyId(m_currentPlayer)]->startPhase(Phase::Battleshock);
+    unit = m_players[(int)GetEnemyId(m_currentPlayer)]->startPhase(Phase::Battleshock);
     while (unit) {
         unit->battleshock(m_currentPlayer);
 
-        unit = m_players[GetEnemyId(m_currentPlayer)]->advancePhase();
+        unit = m_players[(int)GetEnemyId(m_currentPlayer)]->advancePhase();
     }
 
-    m_players[m_currentPlayer]->endPhase();
-    m_players[GetEnemyId(m_currentPlayer)]->endPhase();
+    m_players[(int)m_currentPlayer]->endPhase();
+    m_players[(int)GetEnemyId(m_currentPlayer)]->endPhase();
 }
 
 void Battle::deployment() {
@@ -294,8 +294,8 @@ void Battle::deployment() {
     auto sOrientation = Math::Vector3(-1.0, 0.0, 0.0);
 
     // loop until all units have been deployed
-    auto unit = m_players[firstPlayer]->startPhase(Phase::Deployment);
-    auto eunit = m_players[secondPlayer]->startPhase(Phase::Deployment);
+    auto unit = m_players[(int)firstPlayer]->startPhase(Phase::Deployment);
+    auto eunit = m_players[(int)secondPlayer]->startPhase(Phase::Deployment);
     while (unit || eunit) {
         if (unit) {
             unit->deploy(fPos, fOrientation);
@@ -305,9 +305,9 @@ void Battle::deployment() {
         }
 
         // Advance to next units
-        unit = m_players[firstPlayer]->advancePhase();
-        eunit = m_players[secondPlayer]->advancePhase();
+        unit = m_players[(int)firstPlayer]->advancePhase();
+        eunit = m_players[(int)secondPlayer]->advancePhase();
     }
-    m_players[firstPlayer]->endPhase();
-    m_players[secondPlayer]->endPhase();
+    m_players[(int)firstPlayer]->endPhase();
+    m_players[(int)secondPlayer]->endPhase();
 }

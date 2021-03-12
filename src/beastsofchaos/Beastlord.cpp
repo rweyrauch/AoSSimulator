@@ -22,7 +22,7 @@ namespace BeastsOfChaos {
             m_pairedAxes(Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
         m_weapons.push_back(&m_pairedAxes);
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Beastlord::configure() {
@@ -80,7 +80,7 @@ namespace BeastsOfChaos {
     Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Dual Axes
         if (weapon->name() == m_pairedAxes.name()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Unit::toHitRerolls(weapon, target);
     }
@@ -88,7 +88,7 @@ namespace BeastsOfChaos {
     Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Hatred of Heroes
         if (target->hasKeyword(HERO)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toWoundRerolls(weapon, target);
     }

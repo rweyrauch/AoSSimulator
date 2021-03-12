@@ -70,7 +70,7 @@ namespace Tzeentch {
         m_weapons = {&m_staff,
                      &m_sword,
                      &m_teethAndHorns};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_teethAndHorns.setMount(true);
 

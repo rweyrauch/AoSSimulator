@@ -77,7 +77,7 @@ namespace Sylvaneth {
 
     Rerolls YltharisGuardians::toWoundRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {
         // Vigour and Wrath
-        return Reroll_Ones;
+        return Rerolls::Ones;
     }
 
     int YltharisGuardians::ComputePoints(int /*numModels*/) {

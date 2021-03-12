@@ -38,7 +38,7 @@ namespace Sylvaneth {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(SYLVANETH)) {
-                unit->buffReroll(To_Wound_Melee, Reroll_Ones, defaultDuration());
+                unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones, defaultDuration());
             }
         }
         return true;
@@ -75,7 +75,7 @@ namespace Sylvaneth {
             m_beetleGreatAntlers(Weapon::Type::Melee, "Great Antlers", 2, 5, 4, 3, -2, 5) {
         m_keywords = {ORDER, SYLVANETH, MONSTER, HERO, WIZARD, ALARIELLE_THE_EVERQUEEN};
         m_weapons = {&m_spearOfKurnoth, &m_talonOfDwindling, &m_beetleGreatAntlers};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_beetleGreatAntlers.setMount(true);
         m_totalUnbinds = 3;

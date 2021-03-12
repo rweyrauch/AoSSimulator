@@ -97,7 +97,7 @@ namespace KharadronOverlords {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, SKYFARER, MARINE, ARKANAUT_COMPANY};
         m_weapons = {&m_privateerPistol, &m_volleyGun, &m_skyhook, &m_aetherflarePistol, &m_volleyPistol, &m_cutter,
                      &m_gunButt, &m_skypike};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool ArkanautCompany::configure(int numModels, int numVolleyGuns, int numSkyhooks, int numSkypikes,
@@ -176,7 +176,7 @@ namespace KharadronOverlords {
         // Glory-seekers
         auto obj = Board::Instance()->getNearestObjective(this);
         if (obj && (distanceTo(obj->m_pos) <= 9.0)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return Unit::battleshockRerolls();

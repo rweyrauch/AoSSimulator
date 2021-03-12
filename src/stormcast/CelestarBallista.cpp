@@ -32,7 +32,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE,
                       CELESTAR_BALLISTA};
         m_weapons = {&m_stormboltsSingle, &m_stormboltsRapid, &m_sigmariteBlades};
-        m_battleFieldRole = Artillery;
+        m_battleFieldRole = Role::Artillery;
     }
 
     bool CelestarBallista::configure() {

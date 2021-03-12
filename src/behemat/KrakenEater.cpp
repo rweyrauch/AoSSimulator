@@ -43,7 +43,7 @@ namespace SonsOfBehemat {
             m_grip(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
             m_warclub(Weapon::Type::Melee, "Shipwrecka Warclub", 3, 8, 3, 3, -2, 2) {
         m_weapons = {&m_debris, &m_stomp, &m_grip, &m_warclub};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, KRAKEN_EATER};
 
         s_globalBraveryMod.connect(this, &KrakenEater::terror, &m_connection);
@@ -139,11 +139,11 @@ namespace SonsOfBehemat {
     Rerolls KrakenEater::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Almighty Stomp
         if ((weapon->name() == m_stomp.name()) && (!target->hasKeyword(MONSTER)))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
         // Death Grip
         if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
         return SonsOfBehematBase::toHitRerolls(weapon, target);
     }

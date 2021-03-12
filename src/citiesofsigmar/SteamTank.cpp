@@ -91,7 +91,7 @@ namespace CitiesOfSigmar {
             m_sword(Weapon::Type::Melee, "Sword or Rod", 1, 2, 5, 4, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, STEAM_TANK};
         m_weapons = {&m_steamCannon, &m_steamGun, &m_longRifle, &m_handgun, &m_crushingWheels, &m_sword};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool SteamTank::configure(bool commander) {
@@ -107,7 +107,7 @@ namespace CitiesOfSigmar {
             model->addMissileWeapon(&m_longRifle);
             model->addMissileWeapon(&m_handgun);
             model->addMeleeWeapon(&m_sword);
-            m_battleFieldRole = Leader_Behemoth;
+            m_battleFieldRole = Role::Leader_Behemoth;
             m_points += g_pointsForCommander;
         }
         addModel(model);

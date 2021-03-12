@@ -13,11 +13,11 @@ namespace DaughtersOfKhaine {
         return nullptr;
     }
     CommandAbility *CreateAThousandBladeforms(Unit *hero) {
-        return new BuffModifierCommandAbility(hero, "A Thousand Bladeforms", 12, 12, Phase::Combat, To_Hit_Melee, 1,
+        return new BuffModifierCommandAbility(hero, "A Thousand Bladeforms", 12, 12, Phase::Combat, Attribute::To_Hit_Melee, 1,
                                               Abilities::Target::Friendly, {WITCH_AELVES, SISTERS_OF_SLAUGHTER});
     }
     CommandAbility *CreateInspiredByCarnage(Unit* hero) {
-        return new BuffModifierCommandAbility(hero, "Inspired by Carnage", 12, 12, Phase::Combat, To_Wound_Melee, 1,
+        return new BuffModifierCommandAbility(hero, "Inspired by Carnage", 12, 12, Phase::Combat, Attribute::To_Wound_Melee, 1,
                                               Abilities::Target::Friendly, {SISTERS_OF_SLAUGHTER});
     }
     CommandAbility *CreateMastersOfTheShadowpaths(Unit* hero) {
@@ -27,7 +27,7 @@ namespace DaughtersOfKhaine {
         return nullptr;
     }
     CommandAbility *CreatePowerInTheBlood(Unit* hero) {
-        return new BuffModifierCommandAbility(hero, "Power in the Blood", 12, 12, Phase::Combat, Attacks_Melee, 1,
+        return new BuffModifierCommandAbility(hero, "Power in the Blood", 12, 12, Phase::Combat, Attribute::Attacks_Melee, 1,
                                               Abilities::Target::Friendly, {MELUSAI, KHINERAI_HARPIES});
     }
 

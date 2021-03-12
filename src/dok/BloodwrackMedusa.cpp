@@ -27,7 +27,7 @@ namespace DaughtersOfKhaine {
             m_bloodwrackSpear(Weapon::Type::Melee, "Bloodwrack Spear", 2, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, MELUSAI, DAUGHTERS_OF_KHAINE, HERO, WIZARD, BLOODWRACK_MEDUSA};
         m_weapons = {&m_bloodwrackStare, &m_whisperclaw, &m_tailOfSerpents, &m_bloodwrackSpear};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
@@ -41,7 +41,7 @@ namespace DaughtersOfKhaine {
         model->addMeleeWeapon(&m_bloodwrackSpear);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeebling Foe", 5, 18, To_Wound_Melee, -1,
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeebling Foe", 5, 18, Attribute::To_Wound_Melee, -1,
                                                                     Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

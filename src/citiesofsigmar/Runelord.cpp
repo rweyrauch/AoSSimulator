@@ -23,7 +23,7 @@ namespace CitiesOfSigmar {
             m_forgehammer(Weapon::Type::Melee, "Forgehammer", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, PRIEST, RUNELORD};
         m_weapons = {&m_runeStaff, &m_forgehammer};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Runes of Spellbreaking
         m_totalUnbinds = 1;

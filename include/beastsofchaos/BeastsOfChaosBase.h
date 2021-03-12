@@ -29,15 +29,15 @@ namespace BeastsOfChaos {
         Apex_Predator,
         Malevolent_Despoiler,       // TODO
         Oracle_Of_The_Dark_Tongue,  // TODO
-        Shadowpelt,                 // TODO
+        Shadowpelt,
 
         // Warherd Alphabeast
-        Eater_Of_Heroes,            // TODO
+        Eater_Of_Heroes,
         Rampant_Juggernaut,         // TODO
         Gorger,                     // TODO
-        Gouge_Tusks,                // TODO
+        Gouge_Tusks,
         Roaring_Brute,              // TODO
-        Rugged_Hide,                // TODO
+        Rugged_Hide,
 
         // Thunderscorn
         Tempestuous_Tyrant,
@@ -132,6 +132,12 @@ namespace BeastsOfChaos {
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
         void onBeginRound(int battleRound) override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     protected:
 

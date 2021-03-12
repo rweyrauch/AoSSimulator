@@ -25,7 +25,7 @@ namespace StormcastEternals {
             m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR};
         m_weapons = {&m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
@@ -49,7 +49,7 @@ namespace StormcastEternals {
 
     Unit *KnightIncantor::Create(const ParameterList &parameters) {
         auto unit = new KnightIncantor();
-        auto lore = (Lore) GetEnumParam("Lore", parameters, None);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);

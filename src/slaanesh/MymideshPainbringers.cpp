@@ -105,7 +105,7 @@ namespace Slaanesh {
     Rerolls MyrmideshPainbringers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Painbringer Shields
         if (!weapon->isMissile()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Unit::toSaveRerolls(weapon, attacker);
     }

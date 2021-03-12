@@ -37,8 +37,8 @@ namespace Sylvaneth {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(SYLVANETH)) {
-                unit->buffReroll(To_Save_Missile, Reroll_Ones, {m_phase, m_round+1, m_source->owningPlayer()});
-                unit->buffReroll(To_Save_Melee, Reroll_Ones, {m_phase, m_round+1, m_source->owningPlayer()});
+                unit->buffReroll(Attribute::To_Save_Missile, Rerolls::Ones, {m_phase, m_round+1, m_source->owningPlayer()});
+                unit->buffReroll(Attribute::To_Save_Melee, Rerolls::Ones, {m_phase, m_round+1, m_source->owningPlayer()});
             }
         }
         return true;
@@ -74,7 +74,7 @@ namespace Sylvaneth {
             m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1) {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, MONSTER, HERO, WIZARD, TREELORD_ANCIENT};
         m_weapons = {&m_doomTendrilStaff, &m_sweepingBlows, &m_massiveImpalingTalons};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;

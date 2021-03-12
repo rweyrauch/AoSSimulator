@@ -161,9 +161,9 @@ namespace Khorne {
     }
 
     Rerolls Bloodcrushers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
+        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
 } // namespace Khorne

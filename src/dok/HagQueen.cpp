@@ -24,7 +24,7 @@ namespace DaughtersOfKhaine {
             m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN};
         m_weapons = {&m_bladeOfKhaine};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool HagQueen::configure(Prayer prayer) {
@@ -124,8 +124,8 @@ namespace DaughtersOfKhaine {
                 auto roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
                     const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
-                    dok->buffReroll(To_Wound_Melee, Reroll_Failed, duration);
-                    dok->buffAbility(Ignore_Battleshock, 1, duration);
+                    dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);
+                    dok->buffAbility(Ability::Ignore_Battleshock, 1, duration);
                 }
             }
         }

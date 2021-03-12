@@ -32,15 +32,15 @@ namespace FleshEaterCourt {
     Rerolls FleshEaterCourts::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_delusion == Delusion::The_Royal_Hunt) {
             if (target->hasKeyword(MONSTER)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         } else if (m_delusion == Delusion::A_Matter_Of_Honour) {
             if (target->hasKeyword(HERO)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         } else if (m_delusion == Delusion::The_Grand_Tournament) {
             if (!isGeneral()) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         } else {
             // Morgaunt Court - Blood Loyalty
@@ -48,7 +48,7 @@ namespace FleshEaterCourt {
                 auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
                 for (auto ip : units) {
                     if (ip->hasKeyword(MORGAUNT) && ip->hasKeyword(SERFS)) {
-                        return Reroll_Ones;
+                        return Rerolls::Ones;
                     }
                 }
             }
@@ -58,7 +58,7 @@ namespace FleshEaterCourt {
             auto serfs = Board::Instance()->getUnitsWithKeyword(owningPlayer(), SERFS);
             for (auto serf : serfs) {
                 if (distanceTo(serf) < 12.0) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         }
@@ -68,17 +68,17 @@ namespace FleshEaterCourt {
     Rerolls FleshEaterCourts::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_delusion == Delusion::The_Royal_Hunt) {
             if (target->hasKeyword(MONSTER)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         } else if (m_delusion == Delusion::A_Matter_Of_Honour) {
             if (target->isGeneral()) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         } else {
             // Hollowmourne - Shattering Charge
             if (hasKeyword(HOLLOWMOURNE) && (hasKeyword(COURTIER) || hasKeyword(KNIGHTS))) {
                 if (charged()) {
-                    return Reroll_Ones;
+                    return Rerolls::Ones;
                 }
             }
         }
@@ -215,7 +215,7 @@ namespace FleshEaterCourt {
                 }
             }
             if (numModelsIn >= remainingModels()/2)
-                return Reroll_Ones;
+                return Rerolls::Ones;
         }
         return Unit::toSaveRerolls(weapon, attacker);
     }

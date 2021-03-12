@@ -98,12 +98,12 @@ namespace SlavesToDarkness {
 
     Rerolls GodswornHunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        return Reroll_Failed;
+        return Rerolls::Failed;
     }
 
     Rerolls GodswornHunt::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
-        if (target->hasKeyword(STORMCAST_ETERNAL)) return Reroll_Failed;
+        if (target->hasKeyword(STORMCAST_ETERNAL)) return Rerolls::Failed;
         return Unit::toWoundRerolls(weapon, target);
     }
 

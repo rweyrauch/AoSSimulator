@@ -29,13 +29,13 @@ namespace Seraphon {
 
             if (m_caster->isFriendly(target)) {
                 if (target->hasKeyword(SERAPHON)) {
-                    target->buffModifier(To_Save_Melee, 1, defaultDuration());
-                    target->buffModifier(To_Save_Missile, 1, defaultDuration());
+                    target->buffModifier(Attribute::To_Save_Melee, 1, defaultDuration());
+                    target->buffModifier(Attribute::To_Save_Missile, 1, defaultDuration());
                 }
             }
             else {
-                target->buffModifier(To_Save_Melee, -1, defaultDuration());
-                target->buffModifier(To_Save_Missile, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Save_Melee, -1, defaultDuration());
+                target->buffModifier(Attribute::To_Save_Missile, -1, defaultDuration());
             }
             return Result::Success;
         }
@@ -54,7 +54,7 @@ namespace Seraphon {
             m_staff(Weapon::Type::Melee, "Astromancer's Staff", 2, 2, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARSEER};
         m_weapons = {&m_astralBolt, &m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;

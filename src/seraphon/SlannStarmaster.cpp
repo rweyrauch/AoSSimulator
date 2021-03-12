@@ -25,7 +25,7 @@ namespace Seraphon {
             m_lightning(Weapon::Type::Melee, "Azure Lightning", 3, 6, 4, 3, -1, 1) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER};
         m_weapons = {&m_lightning};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 3;
         m_totalUnbinds = 3;

@@ -80,8 +80,8 @@ namespace CitiesOfSigmar {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
-            target->buffMovement(Can_Run, false, defaultDuration());
-            target->buffModifier(Charge_Distance, -2, defaultDuration());
+            target->buffMovement(MovementRule::Can_Run, false, defaultDuration());
+            target->buffModifier(Attribute::Charge_Distance, -2, defaultDuration());
 
             return Spell::Result::Success;
         }
@@ -101,10 +101,10 @@ namespace CitiesOfSigmar {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
-            target->buffMovement(Halve_Movement, true, defaultDuration());
+            target->buffMovement(MovementRule::Halve_Movement, true, defaultDuration());
             if (target->save() <= 4) {
-                target->buffReroll(Target_To_Hit_Missile, Reroll_Ones, defaultDuration());
-                target->buffReroll(Target_To_Hit_Melee, Reroll_Ones, defaultDuration());
+                target->buffReroll(Attribute::Target_To_Hit_Missile, Rerolls::Ones, defaultDuration());
+                target->buffReroll(Attribute::Target_To_Hit_Melee, Rerolls::Ones, defaultDuration());
             }
             return Spell::Result::Success;
         }
@@ -120,7 +120,7 @@ namespace CitiesOfSigmar {
     Unit *Battlemage::Create(const ParameterList &parameters) {
         auto unit = new Battlemage();
 
-        auto realm = (Realm) GetEnumParam("Realm", parameters, Azyr);
+        auto realm = (Realm) GetEnumParam("Realm", parameters, g_realm[0]);
 
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
@@ -157,16 +157,13 @@ namespace CitiesOfSigmar {
 
     void Battlemage::Init() {
         if (!s_registered) {
-            static const std::array<int, 8> realm = {Aqshy,Azyr,
-                                                     Chamon,Ghur,Ghyran,Hysh,
-                                                     Shyish,Ulgu};
             static FactoryMethod factoryMethod = {
                     Battlemage::Create,
                     Battlemage::ValueToString,
                     Battlemage::EnumStringToInt,
                     Battlemage::ComputePoints,
                     {
-                            EnumParameter("Realm", Azyr, realm),
+                            EnumParameter("Realm", g_realm[0], g_realm),
                             EnumParameter("City", g_city[0], g_city),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
@@ -186,7 +183,7 @@ namespace CitiesOfSigmar {
             m_staff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, HERO, WIZARD, BATTLEMAGE};
         m_weapons = {&m_staff};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
     }
@@ -197,30 +194,32 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         switch (realm) {
-            case Azyr:
+            case Realm::Azyr:
                 m_knownSpells.push_back(std::make_unique<ChainLightning>(this));
                 break;
-            case Aqshy:
+            case Realm::Aqshy:
                 m_knownSpells.push_back(std::make_unique<Fireball>(this));
                 break;
-            case Ulgu:
+            case Realm::Ulgu:
                 m_knownSpells.push_back(std::make_unique<MystifyingMiasma>(this));
                 break;
-            case Shyish:
-                m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pall of Doom", 6, 18, Bravery, -2, Abilities::Target::Enemy));
+            case Realm::Shyish:
+                m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pall of Doom", 6, 18, Attribute::Bravery, -2, Abilities::Target::Enemy));
                 break;
-            case Hysh:
+            case Realm::Hysh:
                 m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pha's Protection", 5, 18,
-                                                                            std::vector<std::pair<BuffableAttribute, int>>{{Target_To_Hit_Missile, -1},{Target_To_Hit_Melee, -1}}, Abilities::Target::SelfAndFriendly));
+                                                                            std::vector<std::pair<Attribute, int>>{{Attribute::Target_To_Hit_Missile, -1},{Attribute::Target_To_Hit_Melee, -1}}, Abilities::Target::SelfAndFriendly));
                 break;
-            case Ghyran:
+            case Realm::Ghyran:
                 break;
-            case Chamon:
+            case Realm::Chamon:
                 m_knownSpells.push_back(std::make_unique<TransmutationOfLead>(this));
                 break;
-            case Ghur:
+            case Realm::Ghur:
                 m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Wildform", 5, 12,
-                                                                            std::vector<std::pair<BuffableAttribute, int>>{{Run_Distance, 2},{Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
+                                                                            std::vector<std::pair<Attribute, int>>{{Attribute::Run_Distance, 2},{Attribute::Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
+                break;
+            default:
                 break;
         }
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));

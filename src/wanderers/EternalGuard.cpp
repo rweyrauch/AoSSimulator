@@ -94,7 +94,7 @@ namespace Wanderers {
 
     Rerolls EternalGuard::runRerolls() const {
         if (isNamedModelAlive(Model::Hornblower)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Wanderer::runRerolls();
     }
@@ -112,7 +112,7 @@ namespace Wanderers {
     Rerolls EternalGuard::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         if (m_gladeShields) {
             // if (Board::Instance()->unitInCover(this)) { return RerollOnesAndTwos; }
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
         return Wanderer::toSaveRerolls(weapon, attacker);
     }

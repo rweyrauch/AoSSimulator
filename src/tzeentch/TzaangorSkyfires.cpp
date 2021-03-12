@@ -102,7 +102,7 @@ namespace Tzeentch {
         for (auto ip : units) {
             enemyHasFought |= ip->hasFought();
         }
-        if (!enemyHasFought) return Reroll_Failed;
+        if (!enemyHasFought) return Rerolls::Failed;
 
         return TzeentchBase::toHitRerolls(weapon, target);
     }
@@ -114,7 +114,7 @@ namespace Tzeentch {
         for (auto ip : units) {
             enemyHasFought |= ip->hasFought();
         }
-        if (!enemyHasFought) return Reroll_Failed;
+        if (!enemyHasFought) return Rerolls::Failed;
 
         return TzeentchBase::toWoundRerolls(weapon, target);
     }

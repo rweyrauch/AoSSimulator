@@ -39,6 +39,27 @@ namespace SlavesToDarkness {
             ToInteger(Lore::Ruinous_Vigour)
     };
 
+    constexpr std::array<int, 18> g_commandTraits = {
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Bolstered_By_Hate),
+            ToInteger(CommandTrait::Unquestioned_Resolve),
+            ToInteger(CommandTrait::Favoured_Of_The_Pantheon),
+            ToInteger(CommandTrait::Eternal_Vendetta),
+            ToInteger(CommandTrait::Flames_Of_Spite),
+            ToInteger(CommandTrait::Master_Of_Deception),
+            ToInteger(CommandTrait::Lord_Of_Terror),
+            ToInteger(CommandTrait::Mighty_Ritualist),
+            ToInteger(CommandTrait::Blasphemous_Influence),
+            ToInteger(CommandTrait::All_For_One),
+            ToInteger(CommandTrait::Lightning_Reflexes),
+            ToInteger(CommandTrait::Radiance_Of_Dark_Glory),
+            ToInteger(CommandTrait::Distorting_Miasma),
+            ToInteger(CommandTrait::Paragon_Of_Ruin),
+            ToInteger(CommandTrait::Fiery_Orator),
+            ToInteger(CommandTrait::Bane_Of_False_Idols),
+            ToInteger(CommandTrait::Smite_The_Unbeliever)
+    };
+
     constexpr std::array<int, 7> g_ravagersCommandTraits = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Bolstered_By_Hate),
@@ -69,6 +90,38 @@ namespace SlavesToDarkness {
             ToInteger(CommandTrait::Paragon_Of_Ruin)
     };
 
+    constexpr std::array<int, 7> g_idolatorCommandTraits = {
+            ToInteger(CommandTrait::None),
+            ToInteger(CommandTrait::Bolstered_By_Hate),
+            ToInteger(CommandTrait::Lord_Of_Terror),
+            ToInteger(CommandTrait::Favoured_Of_The_Pantheon),
+            ToInteger(CommandTrait::Fiery_Orator),
+            ToInteger(CommandTrait::Bane_Of_False_Idols),
+            ToInteger(CommandTrait::Smite_The_Unbeliever)
+    };
+
+    constexpr std::array<int, 19> g_artefacts = {
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Hellfire_Sword),
+            ToInteger(Artefact::Blasphemous_Cuirass),
+            ToInteger(Artefact::Helm_Of_The_Oppressor),
+            ToInteger(Artefact::Cloak_Of_The_Relentless_Conqueror),
+            ToInteger(Artefact::Mark_Of_The_High_Favoured),
+            ToInteger(Artefact::Desecrator_Gauntlets),
+            ToInteger(Artefact::Soul_Feeder),
+            ToInteger(Artefact::Black_Athame),
+            ToInteger(Artefact::Infernal_Puppet),
+            ToInteger(Artefact::Spelleater_Pendant),
+            ToInteger(Artefact::Scroll_Of_Dark_Unravelling),
+            ToInteger(Artefact::Spell_Familiar),
+            ToInteger(Artefact::Crown_Of_Hellish_Adoration),
+            ToInteger(Artefact::Helm_Of_Many_Eyes),
+            ToInteger(Artefact::Armour_Of_Tortured_Souls),
+            ToInteger(Artefact::Diabolic_Mantle),
+            ToInteger(Artefact::Doombringer_Blade),
+            ToInteger(Artefact::Realmwarpers_Twist_Rune)
+    };
+
     constexpr std::array<int, 7> g_ravagerArtefacts = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Hellfire_Sword),
@@ -97,6 +150,15 @@ namespace SlavesToDarkness {
             ToInteger(Artefact::Diabolic_Mantle),
             ToInteger(Artefact::Doombringer_Blade),
             ToInteger(Artefact::Realmwarpers_Twist_Rune)
+    };
+
+    constexpr std::array<int, 6> g_idolatorPrayers = {
+            ToInteger(Prayer::None),
+            ToInteger(Prayer::Blessings_Of_Chaos_Undivided),
+            ToInteger(Prayer::Blessings_Of_Nurgle),
+            ToInteger(Prayer::Blessings_Of_Khorne),
+            ToInteger(Prayer::Blessings_Of_Slaanesh),
+            ToInteger(Prayer::Blessings_Of_Tzeentch)
     };
 
 } // SlavesToDarkness

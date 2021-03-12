@@ -24,7 +24,7 @@ namespace FleshEaterCourt {
             m_halberd(Weapon::Type::Melee, "Halberd", 2, 3, 3, 3, -1, 2) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HOLLOWMOURNE, HERO, COURTIER, DUKE_CRAKMARROW};
         m_weapons = {&m_halberd};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool DukeCrakmarrow::configure() {

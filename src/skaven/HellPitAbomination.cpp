@@ -41,7 +41,7 @@ namespace Skaven {
             m_avalancheOfFlesh(Weapon::Type::Melee, "Avalanche of Flesh", 1, 0, 0, 0, 0, 0) {
         m_keywords = {CHAOS, SKAVENTIDE, CLANS_MOULDER, FIGHTING_BEAST, MONSTER, HELL_PIT_ABOMINATION};
         m_weapons = {&m_gnashingTeath, &m_flailingFists, &m_avalancheOfFlesh};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
 
         s_globalBraveryMod.connect(this, &HellPitAbomination::terrifying, &m_connection);
     }

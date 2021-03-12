@@ -28,7 +28,7 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD,
                       LORD_ARCANUM};
         m_weapons = {&m_aetherstave, &m_beakAndClaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_beakAndClaws.setMount(true);
 

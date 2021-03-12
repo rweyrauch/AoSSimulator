@@ -23,7 +23,7 @@ namespace Ironjawz {
             m_stikks(Weapon::Type::Melee, "Gorkstikk and Morkstikk", 1, 6, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, TOTEM, WARCHANTER};
         m_weapons = {&m_stikks};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool OrrukWarchanter::configure(Warbeat warbeat) {
@@ -87,7 +87,7 @@ namespace Ironjawz {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 15.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(IRONJAWZ) && (unit->remainingModels() > 0)) {
-                    unit->buffModifier(Weapon_Damage_Melee, 1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffModifier(Attribute::Weapon_Damage_Melee, 1, {Phase::Hero, m_battleRound+1, owningPlayer()});
                 }
             }
         }

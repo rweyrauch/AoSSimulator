@@ -25,7 +25,7 @@ namespace Seraphon {
             m_coldOneJaws(Weapon::Type::Melee, "Snapping Jaws", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, COLD_ONE, SCAR_VETERAN};
         m_weapons = {&m_warpick, &m_jaws, &m_coldOneJaws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_coldOneJaws.setMount(true);
     }

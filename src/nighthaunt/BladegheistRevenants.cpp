@@ -80,7 +80,7 @@ namespace Nighthaunt {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(SPIRIT_TORMENT) || ip->hasKeyword(CHAINGHASTS)) {
-                return Reroll_Failed;
+                return Rerolls::Failed;
             }
         }
 

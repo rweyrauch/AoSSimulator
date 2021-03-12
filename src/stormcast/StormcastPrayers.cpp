@@ -45,8 +45,8 @@ namespace StormcastEternals {
 
     void LightningStorm::secondaryEffect(Unit *target, int round) const {
         if (target) {
-            target->buffModifier(To_Hit_Melee, -1, {Phase::Hero, round + 1, m_priest->owningPlayer()});
-            target->buffModifier(To_Hit_Missile, -1, {Phase::Hero, round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, round + 1, m_priest->owningPlayer()});
         }
     }
 

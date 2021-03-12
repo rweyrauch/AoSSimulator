@@ -28,7 +28,7 @@ namespace Khorne {
             m_hellbladeReaper(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
         m_weapons = {&m_hellblade, &m_hellbladeReaper};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
         s_globalBattleshockReroll.connect(this, &Bloodletters::hornblowerBattleshockReroll, &m_hornblowerSlot);
     }
 
@@ -131,7 +131,7 @@ namespace Khorne {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(DAEMON) && ip->hasKeyword(KHORNE) && ip->hasKeyword(HERO)) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
         return KhorneBase::toHitRerolls(weapon, target);
@@ -165,14 +165,14 @@ namespace Khorne {
     }
 
     Rerolls Bloodletters::chargeRerolls() const {
-        if (isNamedModelAlive(Model::StandardBearer)) return Reroll_Failed;
+        if (isNamedModelAlive(Model::StandardBearer)) return Rerolls::Failed;
         return KhorneBase::chargeRerolls();
     }
 
     Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit) {
-        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Reroll_Ones;
+        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
 } // namespace Khorne

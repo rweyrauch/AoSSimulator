@@ -151,7 +151,7 @@ namespace Ironjawz {
     Rerolls OrrukBrutes::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Duff Up da Big Thing
         if (target->wounds() >= 4) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Ironjawz::toHitRerolls(weapon, target);
     }

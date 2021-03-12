@@ -41,7 +41,7 @@ namespace GloomspiteGitz {
             m_mightyKick(Weapon::Type::Melee, "Mighty Kick", 3, 1, 3, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, GARGANT, GLOOMSPITE_GITZ, ALEGUZZLER, MONSTER};
         m_weapons = {&m_eadbutt, &m_massiveClub, &m_mightyKick};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
     }
 
     bool AleguzzlerGargant::configure() {

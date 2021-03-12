@@ -22,7 +22,7 @@ namespace Ironjawz {
             m_bossChoppaAndFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, MEGABOSS};
         m_weapons = {&m_bossChoppaAndFist};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool OrrukMegaboss::configure() {
@@ -31,7 +31,7 @@ namespace Ironjawz {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Go on Ladz, Get Stuck In!", 12, 12, Phase::Combat,
-                                                                                  To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{IRONJAWZ}));
+                                                                                  Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{IRONJAWZ}));
         m_points = g_pointsPerUnit;
 
         return true;

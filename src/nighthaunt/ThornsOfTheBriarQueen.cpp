@@ -23,7 +23,7 @@ namespace Nighthaunt {
             m_malignantWeaponVarclav(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, CHAINRASP_HORDE, THORNS_OF_THE_BRIAR_QUEEN};
         m_weapons = {&m_malignantWeapon, &m_malignantWeaponVarclav};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool ThornsOfTheBriarQueen::configure() {
@@ -74,7 +74,7 @@ namespace Nighthaunt {
     Rerolls ThornsOfTheBriarQueen::toWoundRerolls(const Weapon *weapon, const Unit *unit) const {
         // Chilling Horde
         if (remainingModels() >= 10) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return Nighthaunt::toHitRerolls(weapon, unit);

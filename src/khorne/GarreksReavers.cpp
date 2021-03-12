@@ -93,7 +93,7 @@ namespace Khorne {
     Rerolls GarreksReavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // Reaver Blades
         if (weapon->name() == m_blades.name()) {
-            return Reroll_Ones;
+            return Rerolls::Ones;
         }
 
         return KhorneBase::toHitRerolls(weapon, unit);

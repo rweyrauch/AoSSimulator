@@ -24,8 +24,8 @@ namespace Khorne {
 
         bool apply(int prayingRoll, Unit* target) override {
             if (target == nullptr) return false;
-            target->buffModifier(To_Save_Missile, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
-            target->buffModifier(To_Save_Melee, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Save_Missile, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Save_Melee, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
             return true;
         }
         bool apply(int prayingRoll, double x, double y) override { return false; }
@@ -55,7 +55,7 @@ namespace Khorne {
                 // TODO: Brazen_Fury
                 return nullptr;
             case BloodBlessingsOfKhorne::Killing_Frenzy:
-                return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16, To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, 1);
+                return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16, Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, 1);
             case BloodBlessingsOfKhorne::Spellbane_Hex:
                 // TODO: Spellbane_Hez
                 return nullptr;

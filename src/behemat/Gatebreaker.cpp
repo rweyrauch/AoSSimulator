@@ -43,7 +43,7 @@ namespace SonsOfBehemat {
             m_grip(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
             m_flail(Weapon::Type::Melee, "Fortcrusha Flail", 3, 10, 4, 3, -3, 3) {
         m_weapons = {&m_boulder, &m_stomp, &m_grip, &m_flail};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, GATEBREAKER};
 
         s_globalBraveryMod.connect(this, &Gatebreaker::terror, &m_connection);
@@ -137,11 +137,11 @@ namespace SonsOfBehemat {
     Rerolls Gatebreaker::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Almighty Stomp
         if ((weapon->name() == m_stomp.name()) && (!target->hasKeyword(MONSTER)))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
         // Death Grip
         if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
         return Unit::toHitRerolls(weapon, target);
     }
@@ -187,8 +187,8 @@ namespace SonsOfBehemat {
 
     Rerolls Gatebreaker::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         if (m_artefact == Artefact::Kingslaughter_Cowl) {
-            if (target->isGeneral()) return Reroll_Failed;
-            else if (target->hasKeyword(HERO)) return Reroll_Ones;
+            if (target->isGeneral()) return Rerolls::Failed;
+            else if (target->hasKeyword(HERO)) return Rerolls::Ones;
         }
         return Unit::toWoundRerolls(weapon, target);
     }

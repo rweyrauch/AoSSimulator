@@ -22,8 +22,8 @@ namespace Nighthaunt {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffMovement(Can_Retreat, false, defaultDuration());
-            target->buffAbility(Fights_Last, 1, defaultDuration());
+            target->buffMovement(MovementRule::Can_Retreat, false, defaultDuration());
+            target->buffAbility(Ability::Fights_Last, 1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
@@ -76,8 +76,8 @@ namespace Nighthaunt {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
             if (target == nullptr) return Result::Failed;
-            target->buffModifier(Target_To_Wound_Melee, -1, defaultDuration());
-            target->buffModifier(Target_To_Wound_Missile, -1, defaultDuration());
+            target->buffModifier(Attribute::Target_To_Wound_Melee, -1, defaultDuration());
+            target->buffModifier(Attribute::Target_To_Wound_Missile, -1, defaultDuration());
             return Result::Success;
         }
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }

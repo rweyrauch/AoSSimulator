@@ -46,7 +46,7 @@ namespace DaughtersOfKhaine {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, WITCH_AELVES, HAG_QUEEN, AVATAR_OF_KHAINE,
                       CAULDRON_OF_BLOOD};
         m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_sword};
-        m_battleFieldRole = Leader_Behemoth;
+        m_battleFieldRole = Role::Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &HagQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
         s_globalSaveMod.connect(this, &HagQueenOnCauldronOfBlood::bloodShield, &m_bloodshieldSlot);
@@ -241,8 +241,8 @@ namespace DaughtersOfKhaine {
                 auto roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
                     const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
-                    dok->buffReroll(To_Wound_Melee, Reroll_Failed, duration);
-                    dok->buffAbility(Ignore_Battleshock, 1, duration);
+                    dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);
+                    dok->buffAbility(Ability::Ignore_Battleshock, 1, duration);
                 }
             }
         }

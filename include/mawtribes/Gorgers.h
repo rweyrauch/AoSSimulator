@@ -32,7 +32,7 @@ namespace OgorMawtribes {
     protected:
 
         // Instatiable Hunger
-        Rerolls chargeRerolls() const override { return Reroll_Failed; }
+        Rerolls chargeRerolls() const override { return Rerolls::Failed; }
 
     private:
 

@@ -64,7 +64,7 @@ namespace Skaven {
             m_claws(Weapon::Type::Melee, "Fighting Claws", 1, 7, 3, 3, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, HERO, DEATHMASTER};
         m_weapons = {&m_stars, &m_blades, &m_claws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Running Death
         m_runAndShoot = true;

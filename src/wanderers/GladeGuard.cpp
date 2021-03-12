@@ -106,7 +106,7 @@ namespace Wanderers {
 
     Rerolls GladeGuard::runRerolls() const {
         if (isNamedModelAlive(Model::Hornblower)) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
         return Wanderer::runRerolls();
     }

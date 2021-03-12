@@ -29,10 +29,10 @@ bool Prayer::pray(Unit *target, int round) {
 
     const auto reroll = m_priest->prayerRerolls();
     int prayingRoll = Dice::RollD6();
-    if ((prayingRoll == 1) && (reroll == Reroll_Ones)) {
+    if ((prayingRoll == 1) && (reroll == Rerolls::Ones)) {
         prayingRoll = Dice::RollD6();
     }
-    else if ((prayingRoll < m_prayingValue) && (reroll == Reroll_Failed)) {
+    else if ((prayingRoll < m_prayingValue) && (reroll == Rerolls::Failed)) {
         prayingRoll = Dice::RollD6();
     }
     if (prayingRoll >= m_prayingValue) {
@@ -59,10 +59,10 @@ bool Prayer::pray(double x, double y, int round) {
 
     const auto reroll = m_priest->prayerRerolls();
     int prayingRoll = Dice::RollD6();
-    if ((prayingRoll == 1) && (reroll == Reroll_Ones)) {
+    if ((prayingRoll == 1) && (reroll == Rerolls::Ones)) {
         prayingRoll = Dice::RollD6();
     }
-    else if ((prayingRoll < m_prayingValue) && (reroll == Reroll_Failed)) {
+    else if ((prayingRoll < m_prayingValue) && (reroll == Rerolls::Failed)) {
         prayingRoll = Dice::RollD6();
     }
     if (prayingRoll >= m_prayingValue) {
@@ -119,7 +119,7 @@ bool HealPrayer::apply(int prayingRoll, Unit *target) {
 }
 
 BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
-                                       BuffableAttribute which, int modifier, Abilities::Target allowedTargets, int damageOn1) :
+                                       Attribute which, int modifier, Abilities::Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_modifier(modifier) {
@@ -140,7 +140,7 @@ int BuffModifierPrayer::getModifier(int prayingRoll) const {
 }
 
 BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
-                                   BuffableAttribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1) :
+                                   Attribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_reroll(reroll) {

@@ -31,7 +31,7 @@ namespace Bonesplitterz {
             }
             auto numSlain = target->applyDamage(wounds, m_caster);
             if (numSlain) {
-                m_caster->buffModifier(Casting_Roll, 1, {Phase::Hero, DurationRestOfGame, m_caster->owningPlayer()});
+                m_caster->buffModifier(Attribute::Casting_Roll, 1, {Phase::Hero, DurationRestOfGame, m_caster->owningPlayer()});
             }
             return Spell::Result::Success;
         }
@@ -53,12 +53,12 @@ namespace Bonesplitterz {
                 return Spell::Result::Failed;
 
             if (unmodifiedCastingValue.isDouble()) {
-                target->buffMovement(Triple_Movement, true, defaultDuration());
+                target->buffMovement(MovementRule::Triple_Movement, true, defaultDuration());
             }
             else {
-                target->buffMovement(Double_Movement, true, defaultDuration());
+                target->buffMovement(MovementRule::Double_Movement, true, defaultDuration());
             }
-            target->buffMovement(Can_Fly, true, defaultDuration());
+            target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
 
             return Spell::Result::Success;
         }
@@ -79,19 +79,19 @@ namespace Bonesplitterz {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
-            target->buffModifier(Run_Distance, 1, defaultDuration());
-            target->buffModifier(Charge_Distance, 1, defaultDuration());
-            target->buffModifier(To_Hit_Melee, 1, defaultDuration());
-            target->buffModifier(To_Hit_Missile, 1, defaultDuration());
+            target->buffModifier(Attribute::Run_Distance, 1, defaultDuration());
+            target->buffModifier(Attribute::Charge_Distance, 1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
+            target->buffModifier(Attribute::To_Hit_Missile, 1, defaultDuration());
             if (unmodifiedCastingValue.isDouble()) {
                 auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), 24.0);
                 for (auto unit : units) {
                     if (unit == target) continue;
                     if ((unit->remainingModels() > 0) && unit->hasKeyword(BONESPLITTERZ)) {
-                        unit->buffModifier(Run_Distance, 1, defaultDuration());
-                        unit->buffModifier(Charge_Distance, 1, defaultDuration());
-                        unit->buffModifier(To_Hit_Melee, 1, defaultDuration());
-                        unit->buffModifier(To_Hit_Missile, 1, defaultDuration());
+                        unit->buffModifier(Attribute::Run_Distance, 1, defaultDuration());
+                        unit->buffModifier(Attribute::Charge_Distance, 1, defaultDuration());
+                        unit->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
+                        unit->buffModifier(Attribute::To_Hit_Missile, 1, defaultDuration());
                         break;
                     }
                 }
@@ -142,7 +142,7 @@ namespace Bonesplitterz {
                 return Spell::Result::Failed;
 
             target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
-            target->buffAbility(Fights_Last, true, defaultDuration());
+            target->buffAbility(Ability::Fights_Last, true, defaultDuration());
 
             return Spell::Result::Success;
         }
@@ -161,7 +161,7 @@ namespace Bonesplitterz {
                 return new BoneKrusha(caster);
             case Lore::Kunnin_Beast_Spirits:
                 return new BuffModifierSpell(caster, "Kunnin' Beast Spirits", 6, 24,
-                                             {{To_Save_Melee, 1}, {To_Save_Missile, 1}},
+                                             {{Attribute::To_Save_Melee, 1}, {Attribute::To_Save_Missile, 1}},
                                              Abilities::Target::SelfAndFriendly, std::vector<Keyword>{BONESPLITTERZ});
             case Lore::Gorkamorkas_War_Cry:
                 return new GorkamorkasWarCry(caster);

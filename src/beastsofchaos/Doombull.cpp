@@ -23,7 +23,7 @@ namespace BeastsOfChaos {
             m_slaughtererAxe(Weapon::Type::Melee, "Slaughterer's Axe", 1, 3, 3, 3, -2, 3) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, HERO, DOOMBULL};
         m_weapons = {&m_bullgorHorns, &m_slaughtererAxe};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
     }
 
     bool Doombull::configure() {
@@ -31,6 +31,9 @@ namespace BeastsOfChaos {
         model->addMeleeWeapon(&m_bullgorHorns);
         model->addMeleeWeapon(&m_slaughtererAxe);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Slaughter's Call", 12, 12, Phase::Combat, Attribute::To_Wound_Melee, 1,
+                                                                                  Abilities::Target::SelfAndFriendly, std::vector<Keyword>{WARHERD}));
 
         m_points = g_pointsPerUnit;
 

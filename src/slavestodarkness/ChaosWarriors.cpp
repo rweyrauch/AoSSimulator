@@ -75,7 +75,7 @@ namespace SlavesToDarkness {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_WARRIORS};
         m_weapons = {&m_handWeapons, &m_halberd, &m_greatBlade, &m_handWeaponsChampion, &m_halberdChampion,
                      &m_greatBladeChampion};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
     }
 
     bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower) {
@@ -212,14 +212,14 @@ namespace SlavesToDarkness {
     Rerolls ChaosWarriors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Pair of Chaos Hand Weapons
         if (m_pairedWeapons)
-            return Reroll_Ones;
+            return Rerolls::Ones;
         return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }
 
     Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
         // Legions of Chaos
         if (remainingModels() >= 10)
-            return Reroll_Failed;
+            return Rerolls::Failed;
         return SlavesToDarknessBase::toSaveRerolls(weapon, attacker);
     }
 

@@ -29,7 +29,7 @@ namespace Death {
             m_ancientSpearChampion(Weapon::Type::Melee, "Ancient Spear", 2, 2, 5, 4, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, SKELETON_WARRIORS};
         m_weapons = {&m_ancientBlade, &m_ancientBladeChampion, &m_ancientSpear, &m_ancientSpearChampion};
-        m_battleFieldRole = Battleline;
+        m_battleFieldRole = Role::Battleline;
         s_globalBraveryMod.connect(this, &SkeletonWarriors::standardBearerBraveryMod, &m_standardSlot);
     }
 

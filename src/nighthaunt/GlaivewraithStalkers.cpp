@@ -83,7 +83,7 @@ namespace Nighthaunt {
     Rerolls GlaivewraithStalkers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
         // The Point of Death
         if (m_charged || unit->charged()) {
-            return Reroll_Failed;
+            return Rerolls::Failed;
         }
 
         return Nighthaunt::toHitRerolls(weapon, unit);

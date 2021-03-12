@@ -92,7 +92,7 @@ namespace SonsOfBehemat {
     }
 
     Rerolls SonsOfBehematBase::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
-        if (isGeneral() && (m_commandTrait == CommandTrait::Old_And_Gnarly)) return Reroll_Ones;
+        if (isGeneral() && (m_commandTrait == CommandTrait::Old_And_Gnarly)) return Rerolls::Ones;
         return Unit::toSaveRerolls(weapon, attacker);
     }
 

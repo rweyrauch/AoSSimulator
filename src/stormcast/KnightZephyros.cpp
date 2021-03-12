@@ -24,7 +24,7 @@ namespace StormcastEternals {
             m_tempestAxes(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_ZEPHYROS};
         m_weapons = {&m_boltstormPistol, &m_tempestAxes};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         // Tireless hunder
         m_runAndShoot = true;

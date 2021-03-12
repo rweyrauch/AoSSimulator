@@ -48,7 +48,7 @@ namespace Seraphon {
             m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, STEGADON};
         m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_warspear, &m_horns, &m_jaws, &m_stomps};
-        m_battleFieldRole = Behemoth;
+        m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_jaws.setMount(true);
         m_horns.setMount(true);
@@ -180,8 +180,8 @@ namespace Seraphon {
     }
 
     Rerolls Stegadon::steadfastMajestyBraveryReroll(const Unit *unit) {
-        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return Reroll_Failed;
-        return No_Rerolls;
+        if (isFriendly(unit) && unit->hasKeyword(SKINK) && (distanceTo(unit) <= 18.0)) return Rerolls::Failed;
+        return Rerolls::None;
     }
 
     int Stegadon::ComputePoints(int /*numModels*/) {

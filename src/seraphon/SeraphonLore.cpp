@@ -23,7 +23,7 @@ namespace Seraphon {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
-            target->buffMovement(Can_Fly, true, defaultDuration());
+            target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
             return Result::Success;
         }
 
@@ -62,12 +62,12 @@ namespace Seraphon {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
-            target->buffAbility(Ignore_Battleshock, 1, defaultDuration());
+            target->buffAbility(Ability::Ignore_Battleshock, 1, defaultDuration());
             if (castingRoll >= 10) {
                 auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
                 for (auto unit : units) {
                     if (unit == target) continue;
-                    unit->buffAbility(Ignore_Battleshock, 1, defaultDuration());
+                    unit->buffAbility(Ability::Ignore_Battleshock, 1, defaultDuration());
                 }
             }
             return Result::Success;
@@ -87,8 +87,8 @@ namespace Seraphon {
     protected:
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Spell::Result::Failed;
-            target->buffReroll(To_Hit_Melee, Reroll_Ones, defaultDuration());
-            target->buffReroll(To_Hit_Missile, Reroll_Ones, defaultDuration());
+            target->buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, defaultDuration());
+            target->buffReroll(Attribute::To_Hit_Missile, Rerolls::Ones, defaultDuration());
             return Result::Success;
         }
 

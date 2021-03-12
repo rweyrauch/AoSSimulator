@@ -111,9 +111,9 @@ namespace BeastsOfChaos {
         // Baying Anger
         if (weapon->isMissile()) {
             if (remainingModels() >= 30) {
-                return Reroll_Ones_And_Twos;
+                return Rerolls::Ones_And_Twos;
             } else if (remainingModels() >= 20) {
-                return Reroll_Ones;
+                return Rerolls::Ones;
             }
         }
         return Unit::toHitRerolls(weapon, target);

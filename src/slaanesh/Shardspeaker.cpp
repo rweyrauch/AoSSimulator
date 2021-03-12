@@ -25,7 +25,7 @@ namespace Slaanesh {
             m_claws(Weapon::Type::Melee, "Shadow-cloaked Claws", 2, 4, 3, 3, -2, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, WIZARD, SHARDSPEAKER};
         m_weapons = {&m_staff, &m_claws};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         m_claws.activate(false);
 
@@ -42,7 +42,7 @@ namespace Slaanesh {
 
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Reflection Eternal", 6, 12.0, To_Wound_Melee, -1, Abilities::Target::Enemy));
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Reflection Eternal", 6, 12.0, Attribute::To_Wound_Melee, -1, Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

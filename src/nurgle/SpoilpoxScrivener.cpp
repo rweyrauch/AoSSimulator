@@ -66,7 +66,7 @@ namespace Nurgle {
             m_maw(Weapon::Type::Melee, "Distended Maw", 2, 2, 3, 4, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SPOILPOX_SCRIVENER, HERALD_OF_NURGLE};
         m_weapons = {&m_sneeze, &m_maw};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalChargeReroll.connect(this, &SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls,
                                      &m_keepCountingChargeSlot);
@@ -97,18 +97,18 @@ namespace Nurgle {
 
     Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls(const Unit *unit) {
         if ((unit->hasKeyword(PLAGUEBEARER) || unit->hasKeyword(PLAGUEBEARERS)) && (distanceTo(unit) <= 7.0))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
                                                                       const Unit * /*target*/) {
         if ((attacker->hasKeyword(PLAGUEBEARER) || attacker->hasKeyword(PLAGUEBEARERS)) &&
             (distanceTo(attacker) <= 7.0))
-            return Reroll_Ones;
+            return Rerolls::Ones;
 
-        return No_Rerolls;
+        return Rerolls::None;
     }
 
     int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(int /*numModels*/) {

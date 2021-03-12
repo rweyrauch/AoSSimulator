@@ -50,9 +50,9 @@ namespace IdonethDeepkin {
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
             auto numUnits = std::min(Dice::RollD6(), (int)units.size());
             for (auto i = 0; i < numUnits; i++) {
-                units[i]->buffModifier(To_Hit_Missile, -1, defaultDuration());
-                units[i]->buffModifier(To_Hit_Melee, -1, defaultDuration());
-                units[i]->buffModifier(Bravery, -1, defaultDuration());
+                units[i]->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
+                units[i]->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
+                units[i]->buffModifier(Attribute::Bravery, -1, defaultDuration());
             }
             return Result::Success;
         }
@@ -119,7 +119,7 @@ namespace IdonethDeepkin {
             m_fangs(Weapon::Type::Melee, "Sharp Fangs", 3, RAND_2D6, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, EIDOLON, HERO, WIZARD, ASPECT_OF_THE_SEA};
         m_weapons = {&m_abyssalEnergy, &m_trident, &m_sceptre, &m_fangs};
-        m_battleFieldRole = Leader;
+        m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss, &m_connection);
 
