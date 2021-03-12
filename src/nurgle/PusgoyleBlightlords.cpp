@@ -64,7 +64,7 @@ namespace Nurgle {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numTocsins = GetIntParam("Dolorous Tocsin", parameters, 0);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, numTocsins);
@@ -94,7 +94,7 @@ namespace Nurgle {
         }
     }
 
-    Wounds PusgoyleBlightlords::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds PusgoyleBlightlords::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
     }

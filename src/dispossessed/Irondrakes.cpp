@@ -56,8 +56,7 @@ namespace Dispossessed {
         } else if (ironWardenWeapons == Grudgehammer_Torpedo) {
             ironwarden->addMissileWeapon(&m_grudgehammerTorpedo);
             ironwarden->addMeleeWeapon(&m_mailedFist);
-        }
-        else {
+        } else {
             // Unknown weapon
             PLOG_INFO.printf("Unknown Iron Warden weapon. %d\n", ironWardenWeapons);
         }
@@ -70,8 +69,7 @@ namespace Dispossessed {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -121,7 +119,7 @@ namespace Dispossessed {
         }
     }
 
-    int Irondrakes::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Irondrakes::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Dispossessed::toSaveModifier(weapon, attacker);
 
         // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.

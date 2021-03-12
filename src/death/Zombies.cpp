@@ -47,8 +47,7 @@ namespace Death {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (noiseMaker) {
+            } else if (noiseMaker) {
                 model->setName("Noisemaker");
                 noiseMaker = false;
             }

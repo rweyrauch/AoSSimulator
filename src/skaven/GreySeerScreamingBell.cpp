@@ -34,7 +34,8 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     static const int g_basesize = 120; // x92 oval
@@ -143,7 +144,7 @@ namespace Skaven {
         return true;
     }
 
-    Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
@@ -261,7 +262,8 @@ namespace Skaven {
                 auto factory = UnitFactory::LookupUnit(VerminlordUnitNames[which]);
                 if (factory) {
                     if (m_roster) {
-                        auto unit = std::shared_ptr<Unit>(UnitFactory::Create(VerminlordUnitNames[which], factory->m_parameters));
+                        auto unit = std::shared_ptr<Unit>(
+                                UnitFactory::Create(VerminlordUnitNames[which], factory->m_parameters));
                         unit->deploy(position(), m_orientation);
                         m_roster->addUnit(unit);
                     }

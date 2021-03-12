@@ -79,7 +79,7 @@ namespace SlavesToDarkness {
         immolator->setName("Immolator");
         addModel(immolator);
 
-        auto champion = new Model(g_basesize, wounds()+1);
+        auto champion = new Model(g_basesize, wounds() + 1);
         champion->addMissileWeapon(&m_pots);
         champion->addMeleeWeapon(&m_scionWeapons);
         champion->setName("Brazen Champion");

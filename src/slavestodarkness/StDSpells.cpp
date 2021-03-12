@@ -11,14 +11,14 @@ namespace SlavesToDarkness {
 
     class SpiteTongueCurse : public Spell {
     public:
-        explicit SpiteTongueCurse(Unit* caster) :
+        explicit SpiteTongueCurse(Unit *caster) :
                 Spell(caster, "Spite-tongue Curse", 3, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -27,7 +27,9 @@ namespace SlavesToDarkness {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
 
         void onCast(Result result) override {
             if (result != Result::Success) {
@@ -38,14 +40,14 @@ namespace SlavesToDarkness {
 
     class WhispersOfChaos : public Spell {
     public:
-        explicit WhispersOfChaos(Unit* caster) :
+        explicit WhispersOfChaos(Unit *caster) :
                 Spell(caster, "Whispers of Chaos", 7, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -62,10 +64,12 @@ namespace SlavesToDarkness {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
-    Spell* CreateLore(Lore which, Unit* caster) {
+    Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
             case Lore::Binding_Damnation:
                 // TODO: Binding_Damnation

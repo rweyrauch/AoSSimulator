@@ -17,24 +17,26 @@ namespace CitiesOfSigmar {
 
     class Bladewind : public Spell {
     public:
-        Bladewind(Unit* caster) :
+        Bladewind(Unit *caster) :
                 Spell(caster, "Bladewind", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
             Dice::RollResult rolls;
             Dice::RollD6(9, rolls);
-            target->applyDamage({0,rolls.rollsLT(target->save()), Wounds::Source::Spell}, m_caster);
+            target->applyDamage({0, rolls.rollsLT(target->save()), Wounds::Source::Spell}, m_caster);
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class CommandUnderlings2 : public CommandAbility {
@@ -48,7 +50,7 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        bool apply(Unit* target) override {
+        bool apply(Unit *target) override {
             if (target == nullptr)
                 return false;
             target->buffMovement(MovementRule::Run_And_Shoot, true, defaultDuration());
@@ -100,7 +102,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
@@ -184,8 +186,11 @@ namespace CitiesOfSigmar {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_commandAbilities.push_back(std::make_unique<CommandUnderlings2>(this));
-        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Inspire Hatred", 12, 12, Phase::Combat, Attribute::To_Wound_Melee,
-                Rerolls::Ones, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{DARKLING_COVENS}));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffRerollCommandAbility>(this, "Inspire Hatred", 12, 12, Phase::Combat,
+                                                           Attribute::To_Wound_Melee,
+                                                           Rerolls::Ones, Abilities::Target::SelfAndFriendly,
+                                                           std::vector<Keyword>{DARKLING_COVENS}));
         m_points = g_pointsPerUnit;
 
         return true;

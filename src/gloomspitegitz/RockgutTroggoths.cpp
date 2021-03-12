@@ -98,7 +98,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    Wounds RockgutTroggoths::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds RockgutTroggoths::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Stony Skin
         return ignoreWounds(wounds, 5);
     }

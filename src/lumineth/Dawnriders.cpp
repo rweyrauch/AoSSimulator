@@ -69,7 +69,7 @@ namespace LuminethRealmLords {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto standard = GetBoolParam("Standard Bearer", parameters, true);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         bool ok = unit->configure(numModels, standard);

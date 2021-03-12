@@ -154,7 +154,7 @@ namespace OgorMawtribes {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Wounds StonehornBeastriders::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds StonehornBeastriders::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Stone Skeleton
         return ignoreWounds(wounds, 5);
     }

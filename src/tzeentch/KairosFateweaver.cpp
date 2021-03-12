@@ -16,11 +16,13 @@ namespace Tzeentch {
 
     class GiftOfChange : public Spell {
     public:
-        explicit GiftOfChange(Unit* caster);
+        explicit GiftOfChange(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     GiftOfChange::GiftOfChange(Unit *caster) :
@@ -29,12 +31,13 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result GiftOfChange::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
+    Spell::Result
+    GiftOfChange::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
 
-        auto kf = dynamic_cast<KairosFateweaver*>(m_caster);
+        auto kf = dynamic_cast<KairosFateweaver *>(m_caster);
         if (kf == nullptr) {
             return Spell::Result::Failed;
         }
@@ -165,7 +168,7 @@ namespace Tzeentch {
         return 0;
     }
 
-    int KairosFateweaver::rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const {
+    int KairosFateweaver::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {
         // Mastery of Magic
         auto r0 = Dice::RollD6();
         auto r1 = Dice::RollD6();

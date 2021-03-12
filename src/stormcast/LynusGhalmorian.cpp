@@ -23,8 +23,10 @@ namespace StormcastEternals {
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
 
     };
 
@@ -34,7 +36,8 @@ namespace StormcastEternals {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result AmethystGale::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
+    Spell::Result
+    AmethystGale::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -49,7 +52,7 @@ namespace StormcastEternals {
     class SombreExemplar : public CommandAbility {
     public:
         SombreExemplar(Unit *source) :
-            CommandAbility(source, "Sombre Exemplar", 12, 12, Phase::Combat) {
+                CommandAbility(source, "Sombre Exemplar", 12, 12, Phase::Combat) {
             m_allowedTargets = Abilities::Target::Self;
             m_targetKeywords = {ANVILS_OF_THE_HELDENHAMMER};
             m_effect = Abilities::EffectType::Buff;
@@ -57,7 +60,7 @@ namespace StormcastEternals {
 
     protected:
 
-        bool apply(Unit* target) override {
+        bool apply(Unit *target) override {
 
             m_source->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
@@ -69,6 +72,7 @@ namespace StormcastEternals {
             return true;
 
         }
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -123,7 +127,7 @@ namespace StormcastEternals {
     Unit *LynusGhalmorianOnGryphcharger::Create(const ParameterList &parameters) {
         auto unit = new LynusGhalmorianOnGryphcharger();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         unit->setStormhost(Stormhost::Anvils_Of_The_Heldenhammer);
 
@@ -159,7 +163,7 @@ namespace StormcastEternals {
     }
 
     Wounds LynusGhalmorianOnGryphcharger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
-                                                   int woundRoll) const {
+                                                       int woundRoll) const {
         // Aethereal Strike
         if ((hitRoll == 6) && (weapon->name() == m_beakAndClaws.name())) {
             return {0, 1};
@@ -181,7 +185,8 @@ namespace StormcastEternals {
 
     Rerolls LynusGhalmorianOnGryphcharger::shieldOfThePaleKnight(const Unit *attacker, const Weapon *weapon,
                                                                  const Unit *target) {
-        if (target->hasKeyword(ANVILS_OF_THE_HELDENHAMMER) && isFriendly(target) && (distanceTo(target) < 12) && weapon->isMissile()) {
+        if (target->hasKeyword(ANVILS_OF_THE_HELDENHAMMER) && isFriendly(target) && (distanceTo(target) < 12) &&
+            weapon->isMissile()) {
             return Rerolls::Ones;
         }
         return Rerolls::None;

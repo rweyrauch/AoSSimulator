@@ -66,15 +66,15 @@ namespace SlavesToDarkness {
             return std::string(markName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         return ParameterValueToString(parameter);
@@ -82,19 +82,19 @@ namespace SlavesToDarkness {
 
     int SlavesToDarknessBase::EnumStringToInt(const std::string &enumString) {
         auto legion = magic_enum::enum_cast<DamnedLegion>(enumString);
-        if (legion.has_value()) return (int)legion.value();
+        if (legion.has_value()) return (int) legion.value();
 
         auto mark = magic_enum::enum_cast<MarkOfChaos>(enumString);
-        if (mark.has_value()) return (int)mark.value();
+        if (mark.has_value()) return (int) mark.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         return 0;
     }
@@ -185,7 +185,7 @@ namespace SlavesToDarkness {
         return mod;
     }
 
-    Rerolls SlavesToDarknessBase::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls SlavesToDarknessBase::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Aura of Tzeentch
         if (hasKeyword(TZEENTCH)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
@@ -266,7 +266,7 @@ namespace SlavesToDarkness {
         int mod = Unit::targetHitModifier(weapon, attacker);
 
         // Aura of Nurgle
-        if (hasKeyword(NURGLE)  && weapon->isMissile()) {
+        if (hasKeyword(NURGLE) && weapon->isMissile()) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(NURGLE) && hero->isGeneral()) {
                 mod--;
@@ -328,8 +328,7 @@ namespace SlavesToDarkness {
                     // Can heal D3 wounds to this hero or replace this hero with a Daemon Prince
                     if (Dice::RollD6() > 5) {
                         heal(Dice::RollD3());
-                    }
-                    else {
+                    } else {
                         // Dark Apotheosis
                         auto factory = UnitFactory::LookupUnit("Daemon Prince");
                         if (factory) {
@@ -353,8 +352,7 @@ namespace SlavesToDarkness {
                         // TODO: The new daemon prince has the same artefacts/spells/etc. as the hero being replaced.
                     }
                     m_haveDarkApotheosis = true;
-                }
-                else if ((roll >= 9) && !m_haveDaemonicLegions) {
+                } else if ((roll >= 9) && !m_haveDaemonicLegions) {
                     // Daemonic Legions
                     auto unitName("");
                     auto numModels = 0;
@@ -386,7 +384,7 @@ namespace SlavesToDarkness {
                         if (factory) {
                             if (m_roster) {
                                 auto parameters = factory->m_parameters;
-                                for (auto& ip : parameters) {
+                                for (auto &ip : parameters) {
                                     if ((ip.paramType == ParamType::Integer) && (ip.name == std::string("Models"))) {
                                         ip.intValue = numModels;
                                     }
@@ -398,36 +396,30 @@ namespace SlavesToDarkness {
                         }
                     }
                     m_haveDaemonicLegions = true;
-                }
-                else if ((roll == 8) && !m_haveUnholyResilience) {
+                } else if ((roll == 8) && !m_haveUnholyResilience) {
                     // Unholy Resilience
                     m_haveUnholyResilience = true;
-                }
-                else if (roll == 7) {
+                } else if (roll == 7) {
                     // Snubbed by the Gods
-                }
-                else if ((roll == 6) && !m_haveFlamesOfChaos) {
+                } else if ((roll == 6) && !m_haveFlamesOfChaos) {
                     // Flames of Chaos
                     m_haveFlamesOfChaos = true;
-                }
-                else if ((roll == 5) && !m_haveIronFlesh) {
+                } else if ((roll == 5) && !m_haveIronFlesh) {
                     // Iron Flesh
                     m_haveIronFlesh = true;
-                }
-                else if ((roll == 4) && !m_haveMurderousMutation) {
+                } else if ((roll == 4) && !m_haveMurderousMutation) {
                     // Murderous Mutation
                     m_haveMurderousMutation = true;
-                }
-                else if ((roll == 3) && !m_haveSlaughtersStrength) {
+                } else if ((roll == 3) && !m_haveSlaughtersStrength) {
                     // Slaughter's Strength
                     m_haveSlaughtersStrength = true;
-                }
-                else if ((roll == 2) && !m_haveSpawndom) {
+                } else if ((roll == 2) && !m_haveSpawndom) {
                     // Spawndom
                     auto factory = UnitFactory::LookupUnit("Chaos Spawn");
                     if (factory) {
                         if (m_roster) {
-                            auto unit = std::shared_ptr<Unit>(UnitFactory::Create("Chaos Spawn", factory->m_parameters));
+                            auto unit = std::shared_ptr<Unit>(
+                                    UnitFactory::Create("Chaos Spawn", factory->m_parameters));
                             unit->deploy(position(), orientation());
                             m_roster->addUnit(unit);
                         }
@@ -442,16 +434,16 @@ namespace SlavesToDarkness {
         Unit::onRestore();
 
         m_haveDarkApotheosis = false;
-        m_haveDaemonicLegions  = false;
+        m_haveDaemonicLegions = false;
         m_haveUnholyResilience = false;
         m_haveFlamesOfChaos = false;
         m_haveIronFlesh = false;
-        m_haveMurderousMutation  = false;
-        m_haveSlaughtersStrength  = false;
-        m_haveSpawndom  = false;
+        m_haveMurderousMutation = false;
+        m_haveSlaughtersStrength = false;
+        m_haveSpawndom = false;
     }
 
-    int SlavesToDarknessBase::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int SlavesToDarknessBase::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = Unit::toSaveModifier(weapon, attacker);
 
         if (m_haveIronFlesh) mod++;

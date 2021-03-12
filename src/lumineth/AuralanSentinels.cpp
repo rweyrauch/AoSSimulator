@@ -67,7 +67,7 @@ namespace LuminethRealmLords {
         auto unit = new AuralanSentinels();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         bool ok = unit->configure(numModels);
@@ -124,7 +124,8 @@ namespace LuminethRealmLords {
         auto hitRollThreshold = 6;
         if (m_powerOfHyshActive) hitRollThreshold = 5;
 
-        if ((hitRoll >= hitRollThreshold) && ((weapon->name() == m_bowLofted.name()) || (weapon->name() == m_bowAimed.name()))) {
+        if ((hitRoll >= hitRollThreshold) &&
+            ((weapon->name() == m_bowLofted.name()) || (weapon->name() == m_bowAimed.name()))) {
             return {0, 1};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);

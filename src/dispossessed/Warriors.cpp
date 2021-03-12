@@ -57,12 +57,10 @@ namespace Dispossessed {
             if (standard == StandardOptions::Clan_Banner) {
                 model->setName("Clan Banner");
                 standard = StandardOptions::None;
-            }
-            else if (standard == StandardOptions::Runic_Icon) {
+            } else if (standard == StandardOptions::Runic_Icon) {
                 model->setName("Runic Icon");
                 standard = StandardOptions::None;
-            }
-            else if (hornblowers) {
+            } else if (hornblowers) {
                 model->setName(Model::Hornblower);
                 hornblowers = false;
             }
@@ -92,7 +90,8 @@ namespace Dispossessed {
 
     void Warriors::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = {Warriors::Duardin_Axe_Or_Hammer, Warriors::Double_Handed_Duardin_Axe};
+            static const std::array<int, 2> weapons = {Warriors::Duardin_Axe_Or_Hammer,
+                                                       Warriors::Double_Handed_Duardin_Axe};
             static FactoryMethod factoryMethod = {
                     Warriors::Create,
                     Warriors::ValueToString,
@@ -113,7 +112,7 @@ namespace Dispossessed {
         }
     }
 
-    Rerolls Warriors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Warriors::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Duardin Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())

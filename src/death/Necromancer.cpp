@@ -87,7 +87,7 @@ namespace Death {
         }
     }
 
-    Wounds Necromancer::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Necromancer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         return Unit::applyWoundSave(wounds, attackingUnit);
     }
 

@@ -57,8 +57,7 @@ namespace Dispossessed {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (musician) {
+            } else if (musician) {
                 model->setName(Model::Musician);
                 musician = false;
             }
@@ -109,7 +108,7 @@ namespace Dispossessed {
         }
     }
 
-    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Gromril Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())

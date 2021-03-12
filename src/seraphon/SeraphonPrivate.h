@@ -33,21 +33,21 @@ namespace Seraphon {
             ToInteger(CommandTrait::Great_Rememberer)
     };
 
-    const std::array<int, 4> g_saurusCommandTrait {
+    const std::array<int, 4> g_saurusCommandTrait{
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Disciplined_Fury),
             ToInteger(CommandTrait::Thickly_Scaled_Hide),
             ToInteger(CommandTrait::Mighty_Warleader)
     };
 
-    const std::array<int, 4> g_skinkCommandTrait {
+    const std::array<int, 4> g_skinkCommandTrait{
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Master_Of_Star_Rituals),
             ToInteger(CommandTrait::Nimble),
             ToInteger(CommandTrait::Cunning)
     };
 
-    const std::array<int, 7> g_treasuresOfTheOldOnes {
+    const std::array<int, 7> g_treasuresOfTheOldOnes{
             ToInteger(Artefact::None),
             ToInteger(Artefact::Zoetic_Dial),
             ToInteger(Artefact::Light_Of_Dracothian),
@@ -57,14 +57,14 @@ namespace Seraphon {
             ToInteger(Artefact::Throne_Of_The_Lost_Gods)
     };
 
-    const std::array<int, 4> g_celestialRelicsOfTheWarrior {
+    const std::array<int, 4> g_celestialRelicsOfTheWarrior{
             ToInteger(Artefact::None),
             ToInteger(Artefact::Blade_Of_Realities),
             ToInteger(Artefact::Sigils_Of_The_Prime_Hunter),
             ToInteger(Artefact::Blood_Rage_Pendant)
     };
 
-    const std::array<int, 4> g_vestmentsOfThePriesthood {
+    const std::array<int, 4> g_vestmentsOfThePriesthood{
             ToInteger(Artefact::None),
             ToInteger(Artefact::Incandescent_Rectrices),
             ToInteger(Artefact::Cloak_Of_Feathers),

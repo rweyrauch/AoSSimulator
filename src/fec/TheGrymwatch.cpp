@@ -81,7 +81,7 @@ namespace FleshEaterCourt {
     Wounds TheGrymwatch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Quest to Slay the Monster
         if (target->hasKeyword(MONSTER)) {
-            return {weapon->damage()+1, 0, Wounds::Source::Weapon_Melee};
+            return {weapon->damage() + 1, 0, Wounds::Source::Weapon_Melee};
         }
         return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
     }

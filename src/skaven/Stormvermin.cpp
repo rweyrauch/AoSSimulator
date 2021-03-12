@@ -94,7 +94,7 @@ namespace Skaven {
         }
     }
 
-    int Stormvermin::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Stormvermin::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Skaventide::toSaveModifier(weapon, attacker);
         // Clanshields
         if (m_clanshields && remainingModels() >= 10)

@@ -15,14 +15,17 @@ namespace LuminethRealmLords {
 
     class GraviticRedirection : public Spell {
     public:
-        explicit GraviticRedirection(Unit* caster) :
+        explicit GraviticRedirection(Unit *caster) :
                 Spell(caster, "Gravitic Redirection", 5, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) return Result::Failed;
 
             target->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
@@ -51,7 +54,7 @@ namespace LuminethRealmLords {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
         unit->setArtefact(artefact);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHighPeaks[0]);

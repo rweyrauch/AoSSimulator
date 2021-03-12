@@ -21,7 +21,8 @@ namespace Sylvaneth {
         explicit HeedTheSpiritsong(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -32,13 +33,15 @@ namespace Sylvaneth {
         m_targetKeywords = {SYLVANETH};
     }
 
-    bool HeedTheSpiritsong::apply(Unit* target) {
+    bool HeedTheSpiritsong::apply(Unit *target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(SYLVANETH)) {
-                unit->buffReroll(Attribute::To_Save_Missile, Rerolls::Ones, {m_phase, m_round+1, m_source->owningPlayer()});
-                unit->buffReroll(Attribute::To_Save_Melee, Rerolls::Ones, {m_phase, m_round+1, m_source->owningPlayer()});
+                unit->buffReroll(Attribute::To_Save_Missile, Rerolls::Ones,
+                                 {m_phase, m_round + 1, m_source->owningPlayer()});
+                unit->buffReroll(Attribute::To_Save_Melee, Rerolls::Ones,
+                                 {m_phase, m_round + 1, m_source->owningPlayer()});
             }
         }
         return true;

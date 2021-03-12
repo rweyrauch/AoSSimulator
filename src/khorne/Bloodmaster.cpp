@@ -92,7 +92,7 @@ namespace Khorne {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if ((unit->meleeTarget() != nullptr) && (unit->distanceTo(unit->meleeTarget()) <= 3.0) &&
-                     unit->hasKeyword(BLOODLETTERS) && !unit->hasFought()) {
+                    unit->hasKeyword(BLOODLETTERS) && !unit->hasFought()) {
                     int numSlain;
                     unit->fight(player, numSlain);
                     m_usedBloodMustFlow = true;

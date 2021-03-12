@@ -107,7 +107,8 @@ namespace KharadronOverlords {
                     unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
                 }
                 if (roll >= 3) {
-                    unit->buffMovement(MovementRule::Halve_Movement, true, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffMovement(MovementRule::Halve_Movement, true,
+                                       {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 }
                 break;
             }

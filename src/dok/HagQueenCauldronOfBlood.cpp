@@ -78,7 +78,7 @@ namespace DaughtersOfKhaine {
     Unit *HagQueenOnCauldronOfBlood::Create(const ParameterList &parameters) {
         auto unit = new HagQueenOnCauldronOfBlood();
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
@@ -191,18 +191,16 @@ namespace DaughtersOfKhaine {
         // Wrath of Khaine
         auto avatars = Board::Instance()->getUnitsWithKeyword(owningPlayer(), AVATAR_OF_KHAINE);
         for (auto unit : avatars) {
-            auto sgavatar = dynamic_cast<SlaughterQueenOnCauldronOfBlood*>(unit);
-            auto hgavatar = dynamic_cast<HagQueenOnCauldronOfBlood*>(unit);
-            auto avatar = dynamic_cast<AvatarOfKhaine*>(unit);
+            auto sgavatar = dynamic_cast<SlaughterQueenOnCauldronOfBlood *>(unit);
+            auto hgavatar = dynamic_cast<HagQueenOnCauldronOfBlood *>(unit);
+            auto avatar = dynamic_cast<AvatarOfKhaine *>(unit);
             if (sgavatar && !sgavatar->isAnimated()) {
                 usedPrayer = true;
                 if (roll >= 3) sgavatar->animate(true);
-            }
-            else if (hgavatar && !hgavatar->isAnimated()) {
+            } else if (hgavatar && !hgavatar->isAnimated()) {
                 usedPrayer = true;
                 if (roll >= 3) hgavatar->animate(true);
-            }
-            else if (avatar && !avatar->isAnimated()) {
+            } else if (avatar && !avatar->isAnimated()) {
                 usedPrayer = true;
                 if (roll >= 3) avatar->animate(true);
             }
@@ -218,8 +216,7 @@ namespace DaughtersOfKhaine {
                     }
                 }
                 usedPrayer = true;
-            }
-            else if (isAnimated()) {
+            } else if (isAnimated()) {
                 // Rune of Khorne
                 if (roll >= 3) {
                     m_blade.setDamage(RAND_D3);
@@ -235,12 +232,13 @@ namespace DaughtersOfKhaine {
         // Witchbrew
         auto friendlies = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12);
         for (auto friendly : friendlies) {
-            auto dok = dynamic_cast<DaughterOfKhaine*>(friendly);
+            auto dok = dynamic_cast<DaughterOfKhaine *>(friendly);
             if (dok) {
-                auto bloodRightAdj = std::min(3, getBloodRiteRound() - 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
+                auto bloodRightAdj = std::min(3, getBloodRiteRound() -
+                                                 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
                 auto roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
-                    const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
+                    const Duration duration = {Phase::Hero, m_battleRound + 1, owningPlayer()};
                     dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);
                     dok->buffAbility(Ability::Ignore_Battleshock, 1, duration);
                 }

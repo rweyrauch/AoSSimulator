@@ -60,7 +60,7 @@ namespace LuminethRealmLords {
         auto unit = new AuralanWardens();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         bool ok = unit->configure(numModels);

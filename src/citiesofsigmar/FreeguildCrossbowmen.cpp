@@ -97,8 +97,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (piper) {
+            } else if (piper) {
                 model->setName(Model::Piper);
                 piper = false;
             }

@@ -74,7 +74,7 @@ namespace Sylvaneth {
         if (hasKeyword(HARVESTBOON) && m_charged) {
             return Rerolls::Ones;
         }
-        // Shield the Arcane
+            // Shield the Arcane
         else if (hasKeyword(GNARLROOT)) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
@@ -88,16 +88,16 @@ namespace Sylvaneth {
 
     std::string SylvanethBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Glade") {
-            auto gladeName = magic_enum::enum_name((Glade)parameter.intValue);
+            auto gladeName = magic_enum::enum_name((Glade) parameter.intValue);
             return std::string(gladeName);
         } else if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         } else if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         } else if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         return ParameterValueToString(parameter);
@@ -105,16 +105,16 @@ namespace Sylvaneth {
 
     int SylvanethBase::EnumStringToInt(const std::string &enumString) {
         auto glade = magic_enum::enum_cast<Glade>(enumString);
-        if (glade.has_value()) return (int)glade.value();
+        if (glade.has_value()) return (int) glade.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         return 0;
     }

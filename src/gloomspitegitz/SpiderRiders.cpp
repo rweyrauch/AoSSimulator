@@ -54,8 +54,7 @@ namespace GloomspiteGitz {
             if (drummers) {
                 model->setName(Model::Drummer);
                 drummers = false;
-            }
-            else if (totemBearers) {
+            } else if (totemBearers) {
                 model->setName(Model::TotemBearer);
                 totemBearers = false;
             }

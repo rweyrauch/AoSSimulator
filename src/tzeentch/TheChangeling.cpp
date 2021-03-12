@@ -22,7 +22,7 @@ namespace Tzeentch {
     Unit *TheChangeling::Create(const ParameterList &parameters) {
         auto unit = new TheChangeling();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);

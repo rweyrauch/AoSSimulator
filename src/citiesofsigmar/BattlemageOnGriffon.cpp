@@ -52,7 +52,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
@@ -120,7 +120,9 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Wildform", 5, 12,
-                                                                    std::vector<std::pair<Attribute, int>>{{Attribute::Run_Distance, 2},{Attribute::Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
+                                                                    std::vector<std::pair<Attribute, int>>{{Attribute::Run_Distance,    2},
+                                                                                                           {Attribute::Charge_Distance, 2}},
+                                                                    Abilities::Target::SelfAndFriendly));
         m_knownSpells.push_back(std::make_unique<LineOfEffectSpell>(this, "Amber Spear", 7, 18, RAND_D3, 2));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));

@@ -59,8 +59,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (drummer) {
+            } else if (drummer) {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
@@ -93,7 +92,8 @@ namespace CitiesOfSigmar {
 
     void Ironbreakers::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {Ironbreaker_Axe_Or_Hammer, Drakefire_Pistol_And_Cinderblast_Bomb, Paired_Drakefire_Pistols};
+            static const std::array<int, 3> weapons = {Ironbreaker_Axe_Or_Hammer, Drakefire_Pistol_And_Cinderblast_Bomb,
+                                                       Paired_Drakefire_Pistols};
             static FactoryMethod factoryMethod = {
                     Ironbreakers::Create,
                     Ironbreakers::ValueToString,
@@ -113,7 +113,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Rerolls Ironbreakers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Ironbreakers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Gromril Shields
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())
@@ -122,7 +122,7 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::toSaveRerolls(weapon, attacker);
     }
 
-    int Ironbreakers::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Ironbreakers::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = CitizenOfSigmar::toSaveModifier(weapon, attacker);
 
         // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.

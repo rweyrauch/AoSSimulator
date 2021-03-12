@@ -74,8 +74,8 @@ namespace GloomspiteGitz {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
-                        BoolParameter("General")
+                            EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -110,7 +110,7 @@ namespace GloomspiteGitz {
         return Unit::unbindingModifier() + 1;
     }
 
-    Wounds Skragrott::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Skragrott::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Loonking's Crown
         return ignoreWounds(wounds, 4);
     }

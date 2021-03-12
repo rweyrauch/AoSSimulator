@@ -29,12 +29,12 @@ namespace Slaanesh {
     }
 
     bool TheDreadPageant::configure() {
-        auto vasillac = new Model(g_basesize, wounds()+2);
+        auto vasillac = new Model(g_basesize, wounds() + 2);
         vasillac->setName("Vasillac");
         vasillac->addMeleeWeapon(&m_harpoon);
         addModel(vasillac);
 
-        auto slakeslash = new Model(g_basesize, wounds()+2);
+        auto slakeslash = new Model(g_basesize, wounds() + 2);
         slakeslash->setName("Slakeslash");
         slakeslash->addMeleeWeapon(&m_clawAndWeapon);
         addModel(slakeslash);
@@ -89,7 +89,7 @@ namespace Slaanesh {
         return g_pointsPerUnit;
     }
 
-    Wounds TheDreadPageant::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds TheDreadPageant::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         Wounds totalWounds = wounds;
 
         if (isNamedModelAlive("Vasillac")) {

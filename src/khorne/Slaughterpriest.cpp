@@ -88,9 +88,11 @@ namespace Khorne {
                     Slaughterpriest::ComputePoints,
                     {
                             EnumParameter("Weapon", Bloodbathed_Axe, weapons),
-                            EnumParameter("Blood Blessings of Khorne", g_bloodBlessingsOfKhorne[0], g_bloodBlessingsOfKhorne),
+                            EnumParameter("Blood Blessings of Khorne", g_bloodBlessingsOfKhorne[0],
+                                          g_bloodBlessingsOfKhorne),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
-                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
                             BoolParameter("General")
                     },

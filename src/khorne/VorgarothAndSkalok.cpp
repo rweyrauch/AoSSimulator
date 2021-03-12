@@ -168,7 +168,7 @@ namespace Khorne {
         KhorneBase::onCharged();
     }
 
-    Wounds VorgarothAndSkalok::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds VorgarothAndSkalok::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         return KhorneBase::applyWoundSave(wounds, attackingUnit);
     }
 

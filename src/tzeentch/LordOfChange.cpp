@@ -16,11 +16,13 @@ namespace Tzeentch {
 
     class InfernalGateway : public Spell {
     public:
-        explicit InfernalGateway(Unit* caster);
+        explicit InfernalGateway(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     InfernalGateway::InfernalGateway(Unit *caster) :
@@ -29,12 +31,13 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result InfernalGateway::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
+    Spell::Result
+    InfernalGateway::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
 
-        auto loc = dynamic_cast<LordOfChange*>(m_caster);
+        auto loc = dynamic_cast<LordOfChange *>(m_caster);
         if (loc == nullptr) {
             return Spell::Result::Failed;
         }
@@ -76,7 +79,7 @@ namespace Tzeentch {
         auto unit = new LordOfChange();
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Baleful_Sword);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
@@ -199,7 +202,7 @@ namespace Tzeentch {
         return 0;
     }
 
-    int LordOfChange::rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const {
+    int LordOfChange::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {
         // Mastery of Magic
         auto r0 = Dice::RollD6();
         auto r1 = Dice::RollD6();

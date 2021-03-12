@@ -39,27 +39,27 @@ namespace OgorMawtribes {
 
     std::string MawtribesBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Mawtribe") {
-            auto tribeName = magic_enum::enum_name((Mawtribe)parameter.intValue);
+            auto tribeName = magic_enum::enum_name((Mawtribe) parameter.intValue);
             return std::string(tribeName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         if (std::string(parameter.name) == "Prayer") {
-            auto prayerName = magic_enum::enum_name((Prayer)parameter.intValue);
+            auto prayerName = magic_enum::enum_name((Prayer) parameter.intValue);
             return std::string(prayerName);
         }
         if (std::string(parameter.name) == "Mount Trait") {
-            auto traitName = magic_enum::enum_name((MountTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((MountTrait) parameter.intValue);
             return std::string(traitName);
         }
 
@@ -68,22 +68,22 @@ namespace OgorMawtribes {
 
     int MawtribesBase::EnumStringToInt(const std::string &enumString) {
         auto tribe = magic_enum::enum_cast<Mawtribe>(enumString);
-        if (tribe.has_value()) return (int)tribe.value();
+        if (tribe.has_value()) return (int) tribe.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto prayer = magic_enum::enum_cast<Prayer>(enumString);
-        if (prayer.has_value()) return (int)prayer.value();
+        if (prayer.has_value()) return (int) prayer.value();
 
         auto mount = magic_enum::enum_cast<MountTrait>(enumString);
-        if (mount.has_value()) return (int)mount.value();
+        if (mount.has_value()) return (int) mount.value();
 
         return 0;
     }

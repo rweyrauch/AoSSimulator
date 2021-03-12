@@ -83,7 +83,7 @@ namespace StormcastEternals {
         auto unit = new DrakeswornTemplar();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Tempest_Axe);
         auto skyboltBow = GetBoolParam("Skybolt Bow", parameters, true);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);

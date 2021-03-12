@@ -19,14 +19,17 @@ namespace Nighthaunt {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffMovement(MovementRule::Can_Retreat, false, defaultDuration());
             target->buffAbility(Ability::Fights_Last, 1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class SpiritDrain : public Spell {
@@ -36,15 +39,18 @@ namespace Nighthaunt {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             Dice::RollResult rolls;
             Dice::RollD6(target->wounds(), rolls);
             target->applyDamage({0, rolls.rollsGE(6), Wounds::Source::Spell}, m_caster);
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class Lifestealer : public Spell {
@@ -54,15 +60,18 @@ namespace Nighthaunt {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             auto mortalWounds = Dice::RollD6();
             target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
             m_caster->heal(mortalWounds);
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class Shademist : public Spell {
@@ -73,14 +82,17 @@ namespace Nighthaunt {
             m_effect = Abilities::EffectType::Buff;
             m_targetKeywords = {NIGHTHAUNT};
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::Target_To_Wound_Melee, -1, defaultDuration());
             target->buffModifier(Attribute::Target_To_Wound_Missile, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {

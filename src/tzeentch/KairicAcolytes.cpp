@@ -15,28 +15,31 @@ namespace Tzeentch {
 
     class GestaltSorcery : public Spell {
     public:
-        explicit GestaltSorcery(Unit* caster) :
-            Spell(caster, "Gestalt Sorcery", 6, 9) {
+        explicit GestaltSorcery(Unit *caster) :
+                Spell(caster, "Gestalt Sorcery", 6, 9) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
             m_targetKeywords.push_back(KAIRIC_ACOLYTES);
         }
 
     protected:
-        Spell::Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Spell::Result
+        apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
             auto result = Spell::Result::Failed;
 
-            auto ka = dynamic_cast<KairicAcolytes*>(target);
+            auto ka = dynamic_cast<KairicAcolytes *>(target);
             if (ka) {
                 ka->activateGestaltSorcery();
                 result = Spell::Result::Success;;
             }
             return result;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 32;
@@ -110,7 +113,7 @@ namespace Tzeentch {
         return true;
     }
 
-    Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         // Arcanite Shield

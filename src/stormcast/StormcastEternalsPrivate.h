@@ -27,7 +27,7 @@ namespace StormcastEternals {
             ToInteger(Stormhost::Astral_Templars),
     };
 
-    constexpr std::array<int, 6> g_commandTrait {
+    constexpr std::array<int, 6> g_commandTrait{
             ToInteger(CommandTrait::Shielded_By_Faith),
             ToInteger(CommandTrait::Consummate_Commander),
             ToInteger(CommandTrait::Cunning_Strategist),
@@ -187,6 +187,6 @@ namespace StormcastEternals {
             ToInteger(MountTrait::Ear_Bursting_Roar)
     };
 
-    CommandAbility* CreateCommandAbility(Command which, Unit* source);
+    CommandAbility *CreateCommandAbility(Command which, Unit *source);
 
 } // namespace StormcastEternals

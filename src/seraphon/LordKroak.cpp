@@ -18,16 +18,17 @@ namespace Seraphon {
 
     class CelestialDeliverance : public Spell {
     public:
-        explicit CelestialDeliverance(Unit* caster) :
-            Spell(caster, "Celestial Deliverance", 7, 10) {
+        explicit CelestialDeliverance(Unit *caster) :
+                Spell(caster, "Celestial Deliverance", 7, 10) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             return apply(castingRoll, unmodifiedCastingRoll, 0.0, 0.0);
         }
+
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override {
 
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
@@ -70,7 +71,8 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_barrier);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<CelestialDeliverance>(this)); // TODO: allow this spell to be cast up to 3 times
+        m_knownSpells.push_back(
+                std::make_unique<CelestialDeliverance>(this)); // TODO: allow this spell to be cast up to 3 times
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateCometsCall(this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
@@ -135,7 +137,7 @@ namespace Seraphon {
         return extra;
     }
 
-    Wounds LordKroak::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds LordKroak::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = SeraphonBase::applyWoundSave(wounds, attackingUnit);
 
         // Dead for Innumerable Ages

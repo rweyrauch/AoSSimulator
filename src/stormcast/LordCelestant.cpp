@@ -22,7 +22,8 @@ namespace StormcastEternals {
     };
 
     FuriousRetribution::FuriousRetribution(Unit *general) :
-            BuffModifierCommandAbility(general, "Furious Retribution", 12, 12, Phase::Combat, Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, {STORMCAST_ETERNAL}) {
+            BuffModifierCommandAbility(general, "Furious Retribution", 12, 12, Phase::Combat, Attribute::To_Hit_Melee,
+                                       1, Abilities::Target::SelfAndFriendly, {STORMCAST_ETERNAL}) {
     }
 
     bool FuriousRetribution::canBeUsed() const {

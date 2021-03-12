@@ -21,15 +21,18 @@ namespace Nighthaunt {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
             target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             target->buffModifier(Attribute::Target_To_Hit_Melee, 1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 60;
@@ -62,8 +65,8 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     LadyOlynder::ComputePoints,
                     {
-                        EnumParameter("Lore", g_lore[0], g_lore),
-                        BoolParameter("General")
+                            EnumParameter("Lore", g_lore[0], g_lore),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {NIGHTHAUNT}

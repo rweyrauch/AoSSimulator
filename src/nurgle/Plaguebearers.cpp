@@ -46,8 +46,7 @@ namespace Nurgle {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (pipers) {
+            } else if (pipers) {
                 model->setName(Model::Piper);
                 pipers = false;
             }
@@ -66,7 +65,7 @@ namespace Nurgle {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool pipers = GetBoolParam("Pipers", parameters, false);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, iconBearer, pipers);
@@ -97,7 +96,7 @@ namespace Nurgle {
         }
     }
 
-    Wounds Plaguebearers::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Plaguebearers::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
     }
@@ -121,7 +120,7 @@ namespace Nurgle {
         return points;
     }
 
-    Rerolls Plaguebearers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Plaguebearers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Locus of Fecundity
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0);
         for (auto unit : units) {

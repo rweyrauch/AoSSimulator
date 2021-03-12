@@ -31,8 +31,11 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_mace);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Paragon of Depravity", 12, 12, Phase::Combat,
-                                                                                Attribute::To_Hit_Melee, Rerolls::Failed, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{MORTAL, HEDONITE}));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffRerollCommandAbility>(this, "Paragon of Depravity", 12, 12, Phase::Combat,
+                                                           Attribute::To_Hit_Melee, Rerolls::Failed,
+                                                           Abilities::Target::SelfAndFriendly,
+                                                           std::vector<Keyword>{MORTAL, HEDONITE}));
 
         m_points = g_pointsPerUnit;
 
@@ -78,7 +81,7 @@ namespace Slaanesh {
         return g_pointsPerUnit;
     }
 
-    Wounds LordOfPain::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds LordOfPain::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto unsavedWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Share the Pain

@@ -81,7 +81,9 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, Attribute::To_Wound_Melee, -1, Abilities::Target::Enemy));
+        m_knownSpells.push_back(
+                std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, Attribute::To_Wound_Melee, -1,
+                                                    Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -91,7 +93,7 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    int Belakor::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Belakor::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         // Shadow Form - no save modifiers allowed.
         return 0;
     }

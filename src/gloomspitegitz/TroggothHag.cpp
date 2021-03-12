@@ -127,9 +127,10 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     TroggothHag::ComputePoints,
                     {
-                        EnumParameter("Command Trait", g_fortuitousTroggbossTraits[0], g_fortuitousTroggbossTraits),
-                        EnumParameter("Artefact", g_glintyGubbinzThatTroggothsFound[0], g_glintyGubbinzThatTroggothsFound),
-                        BoolParameter("General")
+                            EnumParameter("Command Trait", g_fortuitousTroggbossTraits[0], g_fortuitousTroggbossTraits),
+                            EnumParameter("Artefact", g_glintyGubbinzThatTroggothsFound[0],
+                                          g_glintyGubbinzThatTroggothsFound),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

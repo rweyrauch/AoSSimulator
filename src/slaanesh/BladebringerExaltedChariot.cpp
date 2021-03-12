@@ -136,7 +136,8 @@ namespace Slaanesh {
         }
     }
 
-    int BladebringerOnExaltedChariot::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+    int BladebringerOnExaltedChariot::extraAttacks(const Model *attackingModel, const Weapon *weapon,
+                                                   const Unit *target) const {
         auto extras = Unit::extraAttacks(attackingModel, weapon, target);
 
         // Pungent Soulscent

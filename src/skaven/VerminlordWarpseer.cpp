@@ -36,7 +36,8 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     static const int g_basesize = 120; // x92 oval
@@ -136,7 +137,7 @@ namespace Skaven {
         return true;
     }
 
-    Wounds VerminlordWarpseer::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds VerminlordWarpseer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
@@ -161,7 +162,7 @@ namespace Skaven {
         }
     }
 
-    Rerolls VerminlordWarpseer::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls VerminlordWarpseer::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         if (!m_usedOrb) {
             // Scry-orb
             return Rerolls::Failed;

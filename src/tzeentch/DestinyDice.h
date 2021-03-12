@@ -17,15 +17,19 @@ namespace Tzeentch {
     class DestinyDice final {
     public:
         DestinyDice();
+
         ~DestinyDice() = default;
 
         void initialize();
 
         bool addOne(int roll);
+
         bool add(int numRolls);
+
         bool replace(int roll, int with);
 
         int use(int roll);
+
         void clear();
 
         bool have(int roll) const {
@@ -33,14 +37,16 @@ namespace Tzeentch {
                 return (m_dice.m_distribution[roll] >= 0);
             return false;
         }
+
         int total() const { return m_dice.rollsGE(1); }
+
         int count(int roll) const {
             if (validRoll(roll))
                 return m_dice.m_distribution[roll];
             return 0;
         }
 
-        const Dice::RollResult& getAll() const { return m_dice; }
+        const Dice::RollResult &getAll() const { return m_dice; }
 
     protected:
 

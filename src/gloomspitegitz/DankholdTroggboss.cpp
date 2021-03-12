@@ -19,7 +19,8 @@ namespace GloomspiteGitz {
         explicit InstinctiveLeader(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -30,7 +31,7 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(TROGGOTH);
     }
 
-    bool InstinctiveLeader::apply(Unit* target) {
+    bool InstinctiveLeader::apply(Unit *target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
@@ -102,7 +103,8 @@ namespace GloomspiteGitz {
                     ComputePoints,
                     {
                             EnumParameter("Command Trait", g_fortuitousTroggbossTraits[0], g_fortuitousTroggbossTraits),
-                            EnumParameter("Artefact", g_glintyGubbinzThatTroggothsFound[0], g_glintyGubbinzThatTroggothsFound),
+                            EnumParameter("Artefact", g_glintyGubbinzThatTroggothsFound[0],
+                                          g_glintyGubbinzThatTroggothsFound),
                             BoolParameter("General")
                     },
                     DESTRUCTION,
@@ -165,7 +167,7 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Wounds DankholdTroggboss::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds DankholdTroggboss::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
             if (Dice::RollD6() >= 4) {

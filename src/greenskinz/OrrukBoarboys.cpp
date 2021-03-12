@@ -70,8 +70,7 @@ namespace Greenskinz {
             if (horns) {
                 model->setName("Waaagh Horn");
                 horns = false;
-            }
-            else if (glyphBearer) {
+            } else if (glyphBearer) {
                 model->setName("Glyph Bearer");
                 glyphBearer = false;
             }
@@ -166,7 +165,7 @@ namespace Greenskinz {
         return mod;
     }
 
-    Rerolls OrrukBoarboys::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls OrrukBoarboys::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Tusker Shield
         if (!weapon->isMissile()) {
             return Rerolls::Failed;

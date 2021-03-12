@@ -10,6 +10,7 @@
 #include <ironjawz/Ironjawz.h>
 
 class Unit;
+
 class Spell;
 
 namespace Ironjawz {

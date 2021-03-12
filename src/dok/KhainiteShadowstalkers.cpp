@@ -17,7 +17,7 @@ namespace DaughtersOfKhaine {
     static const int g_minUnitSize = 9;
     static const int g_maxUnitSize = 18;
     static const int g_pointsPerBlock = 100;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool KhainiteShadowstalkers::s_registered = false;
 
@@ -35,7 +35,7 @@ namespace DaughtersOfKhaine {
             return false;
         }
 
-        auto queen = new Model(g_basesize, wounds()+2);
+        auto queen = new Model(g_basesize, wounds() + 2);
         queen->addMissileWeapon(&m_cursedMissiles);
         queen->addMeleeWeapon(&m_umbralBlades);
         queen->setName("Shroud Queen");
@@ -57,7 +57,7 @@ namespace DaughtersOfKhaine {
         auto unit = new KhainiteShadowstalkers();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         bool ok = unit->configure(numModels);
@@ -86,7 +86,8 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    Wounds KhainiteShadowstalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds
+    KhainiteShadowstalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Cursed Missiles
         if ((hitRoll == 6) && (weapon->name() == m_cursedMissiles.name())) {
             return {0, 1};

@@ -17,14 +17,14 @@ namespace CitiesOfSigmar {
 
     class ChainLightning : public Spell {
     public:
-        ChainLightning(Unit* caster) :
+        ChainLightning(Unit *caster) :
                 Spell(caster, "Chain Lightning", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -37,46 +37,49 @@ namespace CitiesOfSigmar {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class Fireball : public Spell {
     public:
-        Fireball(Unit* caster) :
+        Fireball(Unit *caster) :
                 Spell(caster, "Fireball", 5, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
             Wounds wounds = {0, 1, Wounds::Source::Spell};
             if (target->remainingModels() >= 10) {
                 wounds.mortal = Dice::RollD6();
-            }
-            else if (target->remainingModels() >= 2) {
+            } else if (target->remainingModels() >= 2) {
                 wounds.mortal = Dice::RollD3();
             }
             target->applyDamage(wounds, m_caster);
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class MystifyingMiasma : public Spell {
     public:
-        MystifyingMiasma(Unit* caster) :
+        MystifyingMiasma(Unit *caster) :
                 Spell(caster, "Mystifying Miasma", 4, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -85,19 +88,21 @@ namespace CitiesOfSigmar {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class TransmutationOfLead : public Spell {
     public:
-        TransmutationOfLead(Unit* caster) :
+        TransmutationOfLead(Unit *caster) :
                 Spell(caster, "Transmutation of Lead", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -108,7 +113,9 @@ namespace CitiesOfSigmar {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     static const int g_basesize = 32;
@@ -134,7 +141,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
@@ -204,11 +211,15 @@ namespace CitiesOfSigmar {
                 m_knownSpells.push_back(std::make_unique<MystifyingMiasma>(this));
                 break;
             case Realm::Shyish:
-                m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pall of Doom", 6, 18, Attribute::Bravery, -2, Abilities::Target::Enemy));
+                m_knownSpells.push_back(
+                        std::make_unique<BuffModifierSpell>(this, "Pall of Doom", 6, 18, Attribute::Bravery, -2,
+                                                            Abilities::Target::Enemy));
                 break;
             case Realm::Hysh:
                 m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pha's Protection", 5, 18,
-                                                                            std::vector<std::pair<Attribute, int>>{{Attribute::Target_To_Hit_Missile, -1},{Attribute::Target_To_Hit_Melee, -1}}, Abilities::Target::SelfAndFriendly));
+                                                                            std::vector<std::pair<Attribute, int>>{{Attribute::Target_To_Hit_Missile, -1},
+                                                                                                                   {Attribute::Target_To_Hit_Melee,   -1}},
+                                                                            Abilities::Target::SelfAndFriendly));
                 break;
             case Realm::Ghyran:
                 break;
@@ -217,7 +228,9 @@ namespace CitiesOfSigmar {
                 break;
             case Realm::Ghur:
                 m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Wildform", 5, 12,
-                                                                            std::vector<std::pair<Attribute, int>>{{Attribute::Run_Distance, 2},{Attribute::Charge_Distance, 2}}, Abilities::Target::SelfAndFriendly));
+                                                                            std::vector<std::pair<Attribute, int>>{{Attribute::Run_Distance,    2},
+                                                                                                                   {Attribute::Charge_Distance, 2}},
+                                                                            Abilities::Target::SelfAndFriendly));
                 break;
             default:
                 break;

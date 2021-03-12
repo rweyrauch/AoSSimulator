@@ -26,7 +26,7 @@ namespace IdonethDeepkin {
             m_netLauncher(Weapon::Type::Missile, "Retarius Net Launcher", 18, 1, 3, 3, 0, 3),
             m_hooksAndBlades(Weapon::Type::Melee, "Barbed Hooks and Blades", 1, 5, 3, 4, 0, 1),
             m_allopexBite(Weapon::Type::Melee, "Ferocious Bite", 1, 3, 3, 3, -2, 2) {
-         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, MONSTER, ALLOPEX};
+        m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, AKHELIAN, MONSTER, ALLOPEX};
         m_weapons = {&m_harpoonLauncher, &m_netLauncher, &m_hooksAndBlades, &m_allopexBite};
         m_hasMount = true;
         m_allopexBite.setMount(true);

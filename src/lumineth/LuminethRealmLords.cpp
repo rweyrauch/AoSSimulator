@@ -25,19 +25,19 @@ namespace LuminethRealmLords {
 
     std::string LuminethBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Nation") {
-            auto nationName = magic_enum::enum_name((GreatNation)parameter.intValue);
+            auto nationName = magic_enum::enum_name((GreatNation) parameter.intValue);
             return std::string(nationName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
 
@@ -46,16 +46,16 @@ namespace LuminethRealmLords {
 
     int LuminethBase::EnumStringToInt(const std::string &enumString) {
         auto nation = magic_enum::enum_cast<GreatNation>(enumString);
-        if (nation.has_value()) return (int)nation.value();
+        if (nation.has_value()) return (int) nation.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         return 0;
     }
@@ -130,8 +130,7 @@ namespace LuminethRealmLords {
         if (m_commandTrait == CommandTrait::Majestic) {
             if (isFriendly(unit)) {
                 if (distanceTo(unit) <= 12.0f) mod++;
-            }
-            else {
+            } else {
                 if (distanceTo(unit) <= 18.0f) mod--;
             }
         }
@@ -153,7 +152,7 @@ namespace LuminethRealmLords {
         return Unit::toHitModifier(weapon, target);
     }
 
-    int LuminethBase::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int LuminethBase::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         return Unit::toSaveModifier(weapon, attacker);
     }
 
@@ -174,6 +173,6 @@ namespace LuminethRealmLords {
         ScinariCathallar::Init();
         MyariLigthcaller::Init();
         MyarisPurifiers::Init();
-     }
+    }
 
 } //namespace LuminethRealmLords

@@ -100,7 +100,9 @@ namespace Ironjawz {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(IRONJAWZ) && (unit->remainingModels() >= 10)) {
-                    auto matchName = [](std::unique_ptr<Spell>& spell) -> bool { return (spell->name() == "Green Puke"); };
+                    auto matchName = [](std::unique_ptr<Spell> &spell) -> bool {
+                        return (spell->name() == "Green Puke");
+                    };
                     auto sip = std::find_if(m_knownSpells.begin(), m_knownSpells.end(), matchName);
                     if (sip != m_knownSpells.end()) {
                         auto target = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

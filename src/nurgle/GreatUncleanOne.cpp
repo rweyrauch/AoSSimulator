@@ -90,7 +90,7 @@ namespace Nurgle {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
@@ -178,7 +178,7 @@ namespace Nurgle {
         return NurgleBase::EnumStringToInt(enumString);
     }
 
-    Wounds GreatUncleanOne::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds GreatUncleanOne::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto unsavedWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Blubber and Bile

@@ -134,7 +134,7 @@ namespace Greenskinz {
         return attacks;
     }
 
-    Rerolls OrrukWarboss::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls OrrukWarboss::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Boss Shield
         if (m_weapon == Boss_Choppa_And_Shield) {
             return Rerolls::Failed;

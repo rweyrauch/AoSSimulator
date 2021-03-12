@@ -88,9 +88,9 @@ namespace Slaanesh {
         if (owningPlayer() == player) {
             if (remainingWounds() < wounds()) {
                 heal(Dice::RollD3());
-            }
-            else {
-                buffModifier(Attribute::Attacks_Melee, Dice::RollD3(), {Phase::Hero, m_battleRound+1, owningPlayer()});
+            } else {
+                buffModifier(Attribute::Attacks_Melee, Dice::RollD3(),
+                             {Phase::Hero, m_battleRound + 1, owningPlayer()});
             }
         }
     }

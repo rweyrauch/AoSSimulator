@@ -10,12 +10,12 @@
 #include <Board.h>
 
 MysticShield::MysticShield(Unit *caster) :
-    Spell(caster, "Mystic Shield", 6, 18) {
+        Spell(caster, "Mystic Shield", 6, 18) {
     m_allowedTargets = Abilities::Target::Friendly;
     m_effect = Abilities::EffectType::Buff;
 }
 
-Spell::Result MysticShield::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) {
+Spell::Result MysticShield::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
     if (target == nullptr) {
         return Result::Failed;
     }

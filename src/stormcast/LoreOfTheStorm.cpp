@@ -34,8 +34,10 @@ namespace StormcastEternals {
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
 
     };
 
@@ -45,7 +47,8 @@ namespace StormcastEternals {
         m_effect = Abilities::EffectType::AreaOfEffectDamage;
     }
 
-    Spell::Result ChainLightning::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
+    Spell::Result
+    ChainLightning::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -103,11 +106,13 @@ namespace StormcastEternals {
     }
 
     Spell *CreateCelestialBlades(Unit *caster) {
-        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18, Attribute::To_Wound_Melee, 1, Abilities::Target::Friendly);
+        return new BuffModifierSpell(caster, "Celestial Blades", 5, 18, Attribute::To_Wound_Melee, 1,
+                                     Abilities::Target::Friendly);
     }
 
     Spell *CreateSpeedOfLightning(Unit *caster) {
-        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9, Attribute::Charge_Distance, Rerolls::Failed, Abilities::Target::Friendly);
+        return new BuffRerollSpell(caster, "Speed of Lightning", 5, 9, Attribute::Charge_Distance, Rerolls::Failed,
+                                   Abilities::Target::Friendly);
     }
 
     Spell *CreateLore(Lore which, Unit *caster) {

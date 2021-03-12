@@ -16,29 +16,30 @@ namespace DaughtersOfKhaine {
 
     class Doomfire : public Spell {
     public:
-        explicit Doomfire(Unit* caster) :
+        explicit Doomfire(Unit *caster) :
                 Spell(caster, "Doomfire", 6, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
             Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
             if (m_caster->remainingModels() >= 10) {
                 wounds.mortal = 6;
-            }
-            else if (m_caster->remainingModels() >= 5) {
+            } else if (m_caster->remainingModels() >= 5) {
                 wounds.mortal = Dice::RollD6();
             }
             target->applyDamage(wounds, m_caster);
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 60; // x35 oval
@@ -46,7 +47,7 @@ namespace DaughtersOfKhaine {
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
     static const int g_pointsPerBlock = 120;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool DoomfireWarlocks::s_registered = false;
 
@@ -103,7 +104,7 @@ namespace DaughtersOfKhaine {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool crossbows = GetBoolParam("Crossbows", parameters, false);
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         bool ok = unit->configure(numModels, crossbows);

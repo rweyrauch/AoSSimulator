@@ -101,7 +101,8 @@ namespace StormcastEternals {
         m_realmhuntersBow.activate(true);
 
         if ((owningPlayer() == player) && !m_usedStarFatedArrow) {
-            auto targets = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), m_starFatedArrow.range());
+            auto targets = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
+                                                             m_starFatedArrow.range());
             for (auto unit : targets) {
                 if ((unit->remainingModels() > 0) && (unit->hasKeyword(MONSTER) || unit->hasKeyword(HERO))) {
                     m_starFatedArrow.activate(true);
@@ -117,8 +118,7 @@ namespace StormcastEternals {
         if (weapon->name() == m_starFatedArrow.name()) {
             if ((target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
                 return {Dice::RollD6() + 3, 0, Wounds::Source::Weapon_Missile};
-            }
-            else {
+            } else {
                 return {Dice::RollD3() + 3, 0, Wounds::Source::Weapon_Missile};
             }
         }

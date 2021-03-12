@@ -62,7 +62,7 @@ namespace StormcastEternals {
     Unit *LordArcanumOnDracoline::Create(const ParameterList &parameters) {
         auto unit = new LordArcanumOnDracoline();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);

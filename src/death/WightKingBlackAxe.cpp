@@ -78,7 +78,7 @@ namespace Death {
         }
     }
 
-    Wounds WightKingWithBlackAxe::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds WightKingWithBlackAxe::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Barrow Armour
         return {(wounds.normal + 1) / 2, wounds.mortal};
     }

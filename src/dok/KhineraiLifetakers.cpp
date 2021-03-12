@@ -17,7 +17,7 @@ namespace DaughtersOfKhaine {
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
     static const int g_pointsPerBlock = 80;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool KhineraiLifetakers::s_registered = false;
 
@@ -53,7 +53,7 @@ namespace DaughtersOfKhaine {
         auto unit = new KhineraiLifetakers();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         bool ok = unit->configure(numModels);
@@ -116,7 +116,7 @@ namespace DaughtersOfKhaine {
         return points;
     }
 
-    int KhineraiLifetakers::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int KhineraiLifetakers::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Heartpiercer Shield

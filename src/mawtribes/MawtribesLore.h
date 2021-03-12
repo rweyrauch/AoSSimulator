@@ -10,12 +10,15 @@
 #include <mawtribes/MawtribesBase.h>
 
 class Unit;
+
 class Spell;
+
 class Prayer;
 
 namespace OgorMawtribes {
 
     Spell *CreateLore(Lore which, Unit *caster);
-    ::Prayer* CreatePrayer(Prayer which, Unit* priest);
+
+    ::Prayer *CreatePrayer(Prayer which, Unit *priest);
 
 } // namespace OgorMawtribes

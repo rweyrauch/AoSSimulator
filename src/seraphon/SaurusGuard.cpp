@@ -55,8 +55,7 @@ namespace Seraphon {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (wardrum) {
+            } else if (wardrum) {
                 model->setName("Wardrum");
                 wardrum = false;
             }
@@ -96,7 +95,7 @@ namespace Seraphon {
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Stardrake Icon"),
-                            BoolParameter( "Wardrum"),
+                            BoolParameter("Wardrum"),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation)
                     },
@@ -124,7 +123,8 @@ namespace Seraphon {
 
     int SaurusGuard::stardrakeIcon(const Unit *target) {
         // Icon Bearer
-        if (isNamedModelAlive(Model::IconBearer) && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive(Model::IconBearer) && (target->owningPlayer() != owningPlayer()) &&
+            (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

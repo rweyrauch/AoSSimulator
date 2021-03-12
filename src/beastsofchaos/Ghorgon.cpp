@@ -81,7 +81,7 @@ namespace BeastsOfChaos {
                     BeastsOfChaosBase::EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
+                            EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,
                     {BEASTS_OF_CHAOS}

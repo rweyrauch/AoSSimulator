@@ -62,8 +62,8 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore),
-                        BoolParameter("General")
+                            EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}
@@ -110,7 +110,7 @@ namespace Skaven {
         return true;
     }
 
-    Wounds ThanquolOnBoneripper::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ThanquolOnBoneripper::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat

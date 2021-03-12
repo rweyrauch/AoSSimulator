@@ -16,21 +16,23 @@ namespace Slaanesh {
 
     class CripplingFamishment : public Spell {
     public:
-        explicit CripplingFamishment(Unit* caster) :
-            Spell(caster, "Crippling Famishment", 7, 18) {
+        explicit CripplingFamishment(Unit *caster) :
+                Spell(caster, "Crippling Famishment", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffMovement(MovementRule::Halve_Movement, true, defaultDuration());
             target->buffMovement(MovementRule::Halve_Run_Roll, true, defaultDuration());
             target->buffMovement(MovementRule::Halve_Charge_Roll, true, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 100;
@@ -233,7 +235,7 @@ namespace Slaanesh {
         return 0;
     }
 
-    int GlutosOrscollion::aperitif(const Unit* unit) {
+    int GlutosOrscollion::aperitif(const Unit *unit) {
         if (isFriendly(unit) && unit->hasKeyword(MORTAL) && unit->hasKeyword(HEDONITE) && (distanceTo(unit) <= 6.0)) {
             return 1;
         }
@@ -271,6 +273,7 @@ namespace Slaanesh {
         // Digestif
         return (m_battleRound >= 5) ? Rerolls::Failed : Unit::castingRerolls();
     }
+
     Rerolls GlutosOrscollion::unbindingRerolls() const {
         // Digestif
         return (m_battleRound >= 5) ? Rerolls::Failed : Unit::unbindingRerolls();

@@ -17,7 +17,8 @@ namespace Khorne {
         explicit BloodthirstyCharge(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -28,7 +29,7 @@ namespace Khorne {
         m_targetKeywords = {KHORNE, DAEMON};
     }
 
-    bool BloodthirstyCharge::apply(Unit* target) {
+    bool BloodthirstyCharge::apply(Unit *target) {
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(DAEMON) && (unit->hasKeyword(KHORNE))) {

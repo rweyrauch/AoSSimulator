@@ -29,7 +29,8 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class Splinter : public Spell {
@@ -50,7 +51,8 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class Plague : public Spell {
@@ -71,7 +73,8 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class Warpgale : public Spell {
@@ -95,7 +98,8 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class ChainWarpLightning : public Spell {
@@ -110,7 +114,7 @@ namespace Skaven {
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
             int numUnitAffected = Dice::RollD6();
-            numUnitAffected = std::min(numUnitAffected, (int)units.size());
+            numUnitAffected = std::min(numUnitAffected, (int) units.size());
             for (auto i = 0; i < numUnitAffected; i++) {
                 units[i]->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
             }
@@ -133,7 +137,7 @@ namespace Skaven {
         return new AreaOfEffectSpell(caster, "Warp Lightning Storm", 7, 0, 13, RAND_D3, 0);
     }
 
-    Spell* CreateLore(Lore which, Unit* caster) {
+    Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
             case Lore::Scorch:
                 return new Scorch(caster);

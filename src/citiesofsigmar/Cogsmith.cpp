@@ -35,7 +35,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         bool ok = unit->configure(weapon);
@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
 
     void Cogsmith::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapon =  {Cogsmith::Grudge_Raker, Cogsmith::Cog_Axe};
+            static const std::array<int, 2> weapon = {Cogsmith::Grudge_Raker, Cogsmith::Cog_Axe};
             static FactoryMethod factoryMethod = {
                     Cogsmith::Create,
                     Cogsmith::ValueToString,

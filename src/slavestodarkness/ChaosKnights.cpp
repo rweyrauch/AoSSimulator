@@ -170,7 +170,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    Wounds ChaosKnights::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ChaosKnights::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Chaos Runeshield
         Dice::RollResult mortalSaves;
         Dice::RollD6(wounds.mortal, mortalSaves);

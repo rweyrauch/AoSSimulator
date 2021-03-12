@@ -13,11 +13,13 @@ namespace Ironjawz {
 
     class BrainBursta : public Spell {
     public:
-        explicit BrainBursta(Unit* caster);
+        explicit BrainBursta(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     BrainBursta::BrainBursta(Unit *caster) :
@@ -26,13 +28,14 @@ namespace Ironjawz {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result BrainBursta::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    BrainBursta::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        Wounds wounds = { 0, Dice::RollD3(),Wounds::Source::Spell };
+        Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
         if (Dice::Roll2D6() > target->bravery()) {
-            wounds = { 0, Dice::RollD6(),Wounds::Source::Spell };
+            wounds = {0, Dice::RollD6(), Wounds::Source::Spell};
         }
         target->applyDamage(wounds, m_caster);
 
@@ -41,39 +44,41 @@ namespace Ironjawz {
 
     class MightyEadbutt : public Spell {
     public:
-        MightyEadbutt(Unit* caster) :
-            Spell(caster, "Mighty 'Eadbutt", 5, 16) {
+        MightyEadbutt(Unit *caster) :
+                Spell(caster, "Mighty 'Eadbutt", 5, 16) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
             m_targetKeywords = {HERO, WIZARD};
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
-            Wounds wounds = { 0, Dice::RollD3(),Wounds::Source::Spell };
+            Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
             if (target->hasKeyword(WIZARD)) {
-                wounds = { 0, Dice::RollD6(),Wounds::Source::Spell };
+                wounds = {0, Dice::RollD6(), Wounds::Source::Spell};
             }
             target->applyDamage(wounds, m_caster);
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class WrathOfGork : public Spell {
     public:
-        WrathOfGork(Unit* caster) :
+        WrathOfGork(Unit *caster) :
                 Spell(caster, "Wrath of Gork", 8, 16) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -85,13 +90,15 @@ namespace Ironjawz {
                 }
             }
             Dice::RollResult rolls;
-            Dice::RollD6(count*2, rolls);
-            Wounds wounds = { 0, rolls.rollsGE(2),Wounds::Source::Spell };
+            Dice::RollD6(count * 2, rolls);
+            Wounds wounds = {0, rolls.rollsGE(2), Wounds::Source::Spell};
             target->applyDamage(wounds, m_caster);
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {

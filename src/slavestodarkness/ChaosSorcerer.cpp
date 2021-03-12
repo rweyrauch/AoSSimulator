@@ -15,11 +15,13 @@ namespace SlavesToDarkness {
 
     class DaemonicPower : public Spell {
     public:
-        explicit DaemonicPower(Unit* caster);
+        explicit DaemonicPower(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     DaemonicPower::DaemonicPower(Unit *caster) :
@@ -30,7 +32,8 @@ namespace SlavesToDarkness {
         m_targetKeywords.push_back(SLAVES_TO_DARKNESS);
     }
 
-    Spell::Result DaemonicPower::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) {
+    Spell::Result
+    DaemonicPower::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

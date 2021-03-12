@@ -17,7 +17,7 @@ namespace Slaanesh {
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
     static const int g_pointsPerBlock = 150;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool MyrmideshPainbringers::s_registered = false;
 
@@ -94,7 +94,8 @@ namespace Slaanesh {
         return points;
     }
 
-    Wounds MyrmideshPainbringers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds
+    MyrmideshPainbringers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Dance of the Wailing Blade
         if ((woundRoll == 6) && !weapon->isMissile()) {
             return {0, 1};
@@ -102,7 +103,7 @@ namespace Slaanesh {
         return UnitModifierInterface::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls MyrmideshPainbringers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls MyrmideshPainbringers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Painbringer Shields
         if (!weapon->isMissile()) {
             return Rerolls::Failed;

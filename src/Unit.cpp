@@ -38,11 +38,11 @@ lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> Unit::s_glo
 
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalBattleshockReroll;
 
-lsignal::signal<int(const Unit*, int roll)> Unit::s_globalBattleshockFleeModifier;
+lsignal::signal<int(const Unit *, int roll)> Unit::s_globalBattleshockFleeModifier;
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalRunReroll;
 lsignal::signal<Rerolls(const Unit *)> Unit::s_globalChargeReroll;
 
-lsignal::signal<Wounds(const Wounds &wounds, const Unit* target, const Unit* attacker)> Unit::s_globalWoundSave;
+lsignal::signal<Wounds(const Wounds &wounds, const Unit *target, const Unit *attacker)> Unit::s_globalWoundSave;
 
 static int accumulate(const std::vector<int> &v) {
     return std::accumulate(v.cbegin(), v.cend(), 0);
@@ -51,9 +51,9 @@ static int accumulate(const std::vector<int> &v) {
 
 Unit::Unit() {
     // Populate all buff/ability maps with empty lists
-    constexpr auto& attributeEntries = magic_enum::enum_entries<Attribute>();
-    constexpr auto& movementEntries = magic_enum::enum_entries<MovementRule>();
-    constexpr auto& abilityEntries = magic_enum::enum_entries<Ability>();
+    constexpr auto &attributeEntries = magic_enum::enum_entries<Attribute>();
+    constexpr auto &movementEntries = magic_enum::enum_entries<MovementRule>();
+    constexpr auto &abilityEntries = magic_enum::enum_entries<Ability>();
 
     for (auto entry : attributeEntries) {
         m_attributeModifiers[entry.first] = std::list<ModifierBuff>();
@@ -107,7 +107,8 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage, this);
     if (numSlain > 0) {
-        PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name() << " in shooting phase.";
+        PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name()
+                  << " in shooting phase.";
         onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
 
         if (targetUnit->hasKeyword(MONSTER)) {
@@ -127,12 +128,14 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // apply returned damage to this unit
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
     if (numSlainByReturnedDamage > 0) {
-        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays " << numSlain << " friently model(s) from " << name() << " with returned shooting damage.";
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays " << numSlain << " friently model(s) from "
+                  << name() << " with returned shooting damage.";
         targetUnit->onEnemyModelSlain(numSlain, this, totalDamageReflected.source);
     }
 
     if (remainingModels() == 0) {
-        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name() << " with returned shooting damage.";
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name()
+                  << " with returned shooting damage.";
         onFriendlyUnitSlain(nullptr);
         targetUnit->onEnemyUnitSlain(this);
     }
@@ -192,7 +195,8 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // number of slain models.
     numSlain = targetUnit->applyDamage(totalDamage, this);
     if (numSlain > 0) {
-        PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name() << " in combat phase.";
+        PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name()
+                  << " in combat phase.";
         onEnemyModelSlain(numSlain, targetUnit, totalDamage.source);
 
         if (targetUnit->hasKeyword(MONSTER)) {
@@ -211,12 +215,14 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     int numSlainByReturnedDamage = applyDamage(totalDamageReflected, targetUnit);
     if (numSlainByReturnedDamage > 0) {
-        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays " << numSlain << " friently model(s) from " << name() << " with returned damage.";
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays " << numSlain << " friently model(s) from "
+                  << name() << " with returned damage.";
         targetUnit->onEnemyModelSlain(numSlainByReturnedDamage, this, totalDamageReflected.source);
     }
 
     if (remainingModels() == 0) {
-        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name() << " with returned damage.";
+        PLOG_INFO << "Enemy unit " << targetUnit->name() << " slays friendly unit " << name()
+                  << " with returned damage.";
         onFriendlyUnitSlain(nullptr);
         targetUnit->onEnemyUnitSlain(this);
     }
@@ -319,7 +325,7 @@ void Unit::addModel(Model *model) {
     m_basesizeMm = (double) model->basesize();
 }
 
-int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit* attackingUnit) {
+int Unit::applyDamage(const Wounds &totalWoundsInflicted, Unit *attackingUnit) {
     // apply wound/mortal wound save
     auto totalWounds = applyWoundSave(totalWoundsInflicted, attackingUnit);
 
@@ -625,21 +631,21 @@ void Unit::movement(PlayerId player) {
         double allowedMove = move();
         if (!m_movementRules[MovementRule::Halve_Movement].empty()) {
             if (m_movementRules[MovementRule::Halve_Movement].front().allowed) {
-                allowedMove = allowedMove/2;
+                allowedMove = allowedMove / 2;
             }
         }
         if (!m_movementRules[MovementRule::Double_Movement].empty()) {
             if (m_movementRules[MovementRule::Double_Movement].front().allowed) {
-                allowedMove = allowedMove*2;
+                allowedMove = allowedMove * 2;
             }
         }
         if (!m_movementRules[MovementRule::Triple_Movement].empty()) {
             if (m_movementRules[MovementRule::Triple_Movement].front().allowed) {
-                allowedMove = allowedMove*3;
+                allowedMove = allowedMove * 3;
             }
         }
 
-        const auto movement = allowedMove + (double)moveModifier();
+        const auto movement = allowedMove + (double) moveModifier();
 
         if (weapon && weapon->isMissile()) {
 
@@ -850,7 +856,8 @@ void Unit::battleshock(PlayerId player) {
 
     int numFleeing = applyBattleshock();
     if (numFleeing > 0) {
-        PLOG_INFO << "A total of " << numFleeing << " " << name() << " from " << PlayerIdToString(owningPlayer()) << " due to battleshock.";
+        PLOG_INFO << "A total of " << numFleeing << " " << name() << " from " << PlayerIdToString(owningPlayer())
+                  << " due to battleshock.";
     }
 
     onEndBattleshock(player);
@@ -860,7 +867,7 @@ int Unit::rollChargeDistance() {
     m_unmodifiedChargeRoll = Dice::Roll2D6();
     if (!m_movementRules[MovementRule::Halve_Charge_Roll].empty()) {
         if (m_movementRules[MovementRule::Halve_Charge_Roll].front().allowed) {
-            m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1)/2; // Round up
+            m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1) / 2; // Round up
         }
     }
     return m_unmodifiedChargeRoll + chargeModifier();
@@ -873,7 +880,7 @@ int Unit::rollRunDistance() {
     }
     if (!m_movementRules[MovementRule::Halve_Run_Roll].empty()) {
         if (m_movementRules[MovementRule::Halve_Run_Roll].front().allowed) {
-            roll = (roll + 1)/2; // Round up
+            roll = (roll + 1) / 2; // Round up
         }
     }
     return roll + runModifier();
@@ -926,11 +933,9 @@ bool Unit::makeSave(const Weapon *weapon, int weaponRend, Unit *attacker, int &s
         auto reroll = toSaveRerolls(weapon, attacker);
         if (reroll == Rerolls::Failed) {
             saveRoll = Dice::RollD6();
-        }
-        else if ((reroll == Rerolls::Ones) && (saveRoll == 1)) {
+        } else if ((reroll == Rerolls::Ones) && (saveRoll == 1)) {
             saveRoll = Dice::RollD6();
-        }
-        else if ((reroll == Rerolls::Ones_And_Twos) && (saveRoll == 1 || saveRoll == 2)) {
+        } else if ((reroll == Rerolls::Ones_And_Twos) && (saveRoll == 1 || saveRoll == 2)) {
             saveRoll = Dice::RollD6();
         }
     }
@@ -1006,14 +1011,13 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                         for (auto ri : m_attributeModifiers[Attribute::Weapon_Rend_Missile]) {
                             rend += ri.modifier;
                         }
-                    }
-                    else {
+                    } else {
                         for (auto ri : m_attributeModifiers[Attribute::Weapon_Rend_Melee]) {
                             rend += ri.modifier;
                         }
                     }
 
-                    if (!target->makeSave(weapon, rend, this,saveRoll)) {
+                    if (!target->makeSave(weapon, rend, this, saveRoll)) {
                         // compute damage
                         auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
 
@@ -1027,8 +1031,7 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                             for (auto ri : m_attributeModifiers[Attribute::Weapon_Damage_Missile]) {
                                 dam.normal += ri.modifier;
                             }
-                        }
-                        else {
+                        } else {
                             for (auto ri : m_attributeModifiers[Attribute::Weapon_Damage_Melee]) {
                                 dam.normal += ri.modifier;
                             }
@@ -1038,26 +1041,26 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                         dam = target->targetAttackDamageModifier(dam, this, hitRoll, woundRoll);
 
                         PLOG_INFO.printf("\tWeapon, %s, inflicted wounds (%d, %d) on %s",
-                               weapon->name().c_str(), dam.normal, dam.mortal, target->name().c_str());
+                                         weapon->name().c_str(), dam.normal, dam.mortal, target->name().c_str());
 
                         totalWoundsInflicted += dam;
                     } else {
                         // made save
                         PLOG_INFO.printf("\t%s made a save again weapon %s rolling a %d.",
-                               target->name().c_str(), weapon->name().c_str(), saveRoll);
+                                         target->name().c_str(), weapon->name().c_str(), saveRoll);
                     }
 
                     totalWoundsSuffered += target->computeReturnedDamage(weapon, saveRoll);
                 } else {
                     // failed to wound
                     PLOG_INFO.printf("\tWeapon, %s, failed to wound rolling a %d.", weapon->name().c_str(),
-                           modifiedWoundRoll);
+                                     modifiedWoundRoll);
                 }
             }
         } else {
             // missed
             PLOG_INFO.printf("\tWeapon, %s, missed with a roll of %d.", weapon->name().c_str(),
-                   modifiedHitRoll);
+                             modifiedHitRoll);
         }
     }
 }
@@ -1234,8 +1237,8 @@ void Unit::doPileIn() {
     }
 
     auto pileInMove = m_pileInMove;
-      for (auto pi : m_attributeModifiers[Attribute::Pile_In_Distance]) {
-          pileInMove += pi.modifier;
+    for (auto pi : m_attributeModifiers[Attribute::Pile_In_Distance]) {
+        pileInMove += pi.modifier;
     }
 
     // Pile in up to 3" towards nearest enemy model.
@@ -1404,7 +1407,7 @@ Rerolls Unit::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
     return Rerolls::None;
 }
 
-int Unit::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+int Unit::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
     int modifier = s_globalSaveMod(this, weapon, accumulate);
 
     auto which = Attribute::To_Save_Missile;
@@ -1709,7 +1712,7 @@ void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor) {
     }
 }
 
-int Unit::rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const {
+int Unit::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {
     unmodifiedRoll.d1 = Dice::RollD6();
     unmodifiedRoll.d2 = Dice::RollD6();
     return unmodifiedRoll + castingModifier();
@@ -1778,7 +1781,7 @@ int Unit::computeFormation() const {
         avgWeaponRange += getModel(i)->preferredWeapon() ? getModel(i)->preferredWeapon()->range() : 0;
     }
     avgWeaponRange /= numModels();
-    auto weaponRanks = std::min(4, (int)ceil(avgWeaponRange / basesizeInches()));
+    auto weaponRanks = std::min(4, (int) ceil(avgWeaponRange / basesizeInches()));
 
     int modelsPerRank = 10;
     if (basesizeInches() <= 30) modelsPerRank = 20;
@@ -1788,7 +1791,7 @@ int Unit::computeFormation() const {
     return std::max(numRanks, weaponRanks);
 }
 
-bool Unit::hasShootingAttack(const Weapon** weapon) const {
+bool Unit::hasShootingAttack(const Weapon **weapon) const {
     for (auto w : m_weapons) {
         *weapon = w;
         if (w->isMissile()) return true;
@@ -1796,8 +1799,8 @@ bool Unit::hasShootingAttack(const Weapon** weapon) const {
     return false;
 }
 
-bool Unit::isNamedModelAlive(const std::string& name) const {
-    for (const auto& m : m_models) {
+bool Unit::isNamedModelAlive(const std::string &name) const {
+    for (const auto &m : m_models) {
         if (m->getName() != name) {
             continue;
         }
@@ -1806,7 +1809,7 @@ bool Unit::isNamedModelAlive(const std::string& name) const {
     return false;
 }
 
-Wounds Unit::ignoreWounds(const Wounds& wounds, int ignoreOnRoll) const {
+Wounds Unit::ignoreWounds(const Wounds &wounds, int ignoreOnRoll) const {
     auto totalWounds = wounds;
 
     Dice::RollResult result;

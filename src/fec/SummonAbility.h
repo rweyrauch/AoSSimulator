@@ -20,15 +20,16 @@ namespace FleshEaterCourt {
 
     class SummonAbility : public CommandAbility {
     public:
-        SummonAbility(Unit *leader, Roster* roster, const std::string &name, const SummonedUnitDesc& summonableUnits);
+        SummonAbility(Unit *leader, Roster *roster, const std::string &name, const SummonedUnitDesc &summonableUnits);
 
     protected:
 
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
 
         SummonedUnitDesc m_summonedUnitDesc;
-        Roster* m_roster = nullptr;
+        Roster *m_roster = nullptr;
     };
 
 }

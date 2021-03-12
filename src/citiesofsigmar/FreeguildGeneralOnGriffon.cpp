@@ -16,7 +16,7 @@ namespace CitiesOfSigmar {
     class RousingBattleCry : public CommandAbility {
     public:
         RousingBattleCry(Unit *source) :
-            CommandAbility(source, "Rousing Battle Cry", 12, 12, Phase::Charge) {
+                CommandAbility(source, "Rousing Battle Cry", 12, 12, Phase::Charge) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {FREEGUILD};
             m_effect = Abilities::EffectType::Buff;
@@ -25,7 +25,7 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        bool apply(Unit* target) override {
+        bool apply(Unit *target) override {
             if (target == nullptr)
                 return false;
 
@@ -88,7 +88,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         bool ok = unit->configure(weapon, shield);
@@ -170,7 +170,7 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = CitizenOfSigmar::toSaveModifier(weapon, attacker);
         if (m_shield) mod++;
         return mod;

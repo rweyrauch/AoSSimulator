@@ -42,8 +42,11 @@ namespace Khorne {
         }
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Brutal Command", 18, 18, Phase::Battleshock, Ability::Ignore_Battleshock,
-                1, Abilities::Target::Friendly, std::vector<Keyword>{MORTAL, KHORNE}));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffAbilityCommandAbility>(this, "Brutal Command", 18, 18, Phase::Battleshock,
+                                                            Ability::Ignore_Battleshock,
+                                                            1, Abilities::Target::Friendly,
+                                                            std::vector<Keyword>{MORTAL, KHORNE}));
 
         m_points = g_pointsPerUnit;
 
@@ -76,7 +79,8 @@ namespace Khorne {
 
     void ExaltedDeathbringer::Init() {
         if (!s_registered) {
-            static const std::array<int, 3> weapons = {Ruinous_Axe_And_Skullgouger, Bloodbite_Axe_And_Runemarked_Shield, Impaling_Spear};
+            static const std::array<int, 3> weapons = {Ruinous_Axe_And_Skullgouger, Bloodbite_Axe_And_Runemarked_Shield,
+                                                       Impaling_Spear};
             static FactoryMethod factoryMethod = {
                     ExaltedDeathbringer::Create,
                     ExaltedDeathbringer::ValueToString,
@@ -85,7 +89,8 @@ namespace Khorne {
                     {
                             EnumParameter("Weapon", Ruinous_Axe_And_Skullgouger, weapons),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
-                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
                             BoolParameter("General")
                     },
@@ -137,7 +142,7 @@ namespace Khorne {
         return extra;
     }
 
-    Wounds ExaltedDeathbringer::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ExaltedDeathbringer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (m_weaponOption == Bloodbite_Axe_And_Runemarked_Shield) {
             auto totalWounds = KhorneBase::applyWoundSave(wounds, attackingUnit);
             if (totalWounds.source == Wounds::Source::Spell) {

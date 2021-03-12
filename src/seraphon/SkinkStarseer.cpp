@@ -17,14 +17,14 @@ namespace Seraphon {
 
     class ControlFate : public Spell {
     public:
-        explicit ControlFate(Unit* caster) :
+        explicit ControlFate(Unit *caster) :
                 Spell(caster, "Control Fate", 7, 18) {
             m_allowedTargets = Abilities::Target::Any;
             m_effect = Abilities::EffectType::Buff;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
 
             if (m_caster->isFriendly(target)) {
@@ -32,14 +32,15 @@ namespace Seraphon {
                     target->buffModifier(Attribute::To_Save_Melee, 1, defaultDuration());
                     target->buffModifier(Attribute::To_Save_Missile, 1, defaultDuration());
                 }
-            }
-            else {
+            } else {
                 target->buffModifier(Attribute::To_Save_Melee, -1, defaultDuration());
                 target->buffModifier(Attribute::To_Save_Missile, -1, defaultDuration());
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 50;

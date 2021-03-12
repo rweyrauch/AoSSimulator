@@ -81,7 +81,7 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    Wounds ExaltedHeroOfChaos::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ExaltedHeroOfChaos::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Dark Blessings
         Dice::RollResult mortalSaves;
         Dice::RollD6(wounds.mortal, mortalSaves);

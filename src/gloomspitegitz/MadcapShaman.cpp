@@ -75,10 +75,10 @@ namespace GloomspiteGitz {
                     MadcapShaman::EnumStringToInt,
                     MadcapShaman::ComputePoints,
                     {
-                        EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
+                            EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
                             EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
                             EnumParameter("Artefact", g_foetidFetishes[0], g_foetidFetishes),
-                        BoolParameter("General")
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

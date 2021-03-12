@@ -6,12 +6,14 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #pragma once
+
 #include <idonethdeepkin/IdonethDeepkin.h>
 
 class Spell;
+
 class Unit;
 
 namespace IdonethDeepkin {
 
-    Spell* CreateLore(Lore which, Unit* caster);
+    Spell *CreateLore(Lore which, Unit *caster);
 }

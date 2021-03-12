@@ -17,7 +17,8 @@ namespace Khorne {
         explicit Gorelord(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -28,7 +29,7 @@ namespace Khorne {
         m_targetKeywords = {KHORNE, MORTAL};
     }
 
-    bool Gorelord::apply(Unit* target) {
+    bool Gorelord::apply(Unit *target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
@@ -102,7 +103,8 @@ namespace Khorne {
                     MightyLordOfKhorne::ComputePoints,
                     {
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
-                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
                             BoolParameter("General")
                     },

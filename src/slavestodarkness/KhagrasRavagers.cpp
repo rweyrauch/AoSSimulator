@@ -91,9 +91,10 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    Wounds KhagrasRavagers::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds KhagrasRavagers::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Check for alive model with shield
-        if (isNamedModelAlive("Khagra the Usuper") || isNamedModelAlive("Dour Cragen") || isNamedModelAlive("Razek Godblessed")) {
+        if (isNamedModelAlive("Khagra the Usuper") || isNamedModelAlive("Dour Cragen") ||
+            isNamedModelAlive("Razek Godblessed")) {
             // Chaos Runeshield
             Dice::RollResult mortalSaves;
             Dice::RollD6(wounds.mortal, mortalSaves);

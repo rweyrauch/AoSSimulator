@@ -67,8 +67,7 @@ namespace Seraphon {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (wardrum) {
+            } else if (wardrum) {
                 model->setName("Wardrum");
                 wardrum = false;
             }
@@ -158,7 +157,8 @@ namespace Seraphon {
 
     int SaurusWarriors::stardrakeIcon(const Unit *target) {
         // Icon Bearer
-        if (isNamedModelAlive(Model::IconBearer) && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive(Model::IconBearer) && (target->owningPlayer() != owningPlayer()) &&
+            (distanceTo(target) <= 6.0)) {
             return -1;
         }
 

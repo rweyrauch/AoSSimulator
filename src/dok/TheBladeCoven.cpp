@@ -28,7 +28,7 @@ namespace DaughtersOfKhaine {
 
     bool TheBladeCoven::configure() {
 
-        auto kyrae = new Model(g_basesize, wounds()+1);
+        auto kyrae = new Model(g_basesize, wounds() + 1);
         kyrae->addMissileWeapon(&m_heartseekerBow);
         kyrae->addMeleeWeapon(&m_sacrificialWeapons);
         kyrae->setName("Kyrae");

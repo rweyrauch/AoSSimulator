@@ -97,7 +97,7 @@ namespace StormcastEternals {
         return modifier;
     }
 
-    Rerolls Liberators::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Liberators::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Sigmarite Shields
         if (m_weaponOption == Warhammer || m_weaponOption == Warblade) {
             return Rerolls::Ones;
@@ -146,7 +146,7 @@ namespace StormcastEternals {
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", Warhammer, weapons),
-                            BoolParameter( "Paired Weapons"),
+                            BoolParameter("Paired Weapons"),
                             IntegerParameter("Grandhammers", 0, 0, g_maxUnitSize / 5, 1),
                             IntegerParameter("Grandblades", 0, 0, g_maxUnitSize / 5, 1),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)

@@ -73,7 +73,7 @@ namespace Dispossessed {
 
     std::string Dispossessed::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Grudge") {
-            auto grudgeName = magic_enum::enum_name((Grudge)parameter.intValue);
+            auto grudgeName = magic_enum::enum_name((Grudge) parameter.intValue);
             return std::string(grudgeName);
         }
         return ParameterValueToString(parameter);
@@ -81,7 +81,7 @@ namespace Dispossessed {
 
     int Dispossessed::EnumStringToInt(const std::string &enumString) {
         auto grudge = magic_enum::enum_cast<Grudge>(enumString);
-        if (grudge.has_value()) return (int)grudge.value();
+        if (grudge.has_value()) return (int) grudge.value();
         return 0;
     }
 

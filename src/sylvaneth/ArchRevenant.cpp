@@ -38,8 +38,11 @@ namespace Sylvaneth {
         model->addMeleeWeapon(&m_tailPincers);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Call to Battle", 12, 9, Phase::Combat, Attribute::Attacks_Melee, 1,
-                                                                                  Abilities::Target::SelfAndFriendly, std::vector<Keyword>{SYLVANETH}));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Call to Battle", 12, 9, Phase::Combat,
+                                                             Attribute::Attacks_Melee, 1,
+                                                             Abilities::Target::SelfAndFriendly,
+                                                             std::vector<Keyword>{SYLVANETH}));
 
         m_points = g_pointsPerUnit;
 
@@ -97,7 +100,7 @@ namespace Sylvaneth {
         return SylvanethBase::toHitRerolls(weapon, unit);
     }
 
-    Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls ArchRevenant::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Crescent Shield
         if (m_crescentShieldProtection) {
             return Rerolls::Ones;

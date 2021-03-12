@@ -30,8 +30,8 @@ namespace SonsOfBehemat {
     static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {2, 10, 4},
-                    {3, 9, 3},
-                    {4, 8, 3},
+                    {3, 9,  3},
+                    {4, 8,  3},
                     {5, 6,  2},
                     {6, 4,  1}
             };

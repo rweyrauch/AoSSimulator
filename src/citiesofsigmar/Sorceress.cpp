@@ -16,24 +16,26 @@ namespace CitiesOfSigmar {
 
     class WordOfPain : public Spell {
     public:
-        WordOfPain(Unit* caster) :
+        WordOfPain(Unit *caster) :
                 Spell(caster, "Word of Pain", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
-            target->applyDamage( {0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+            target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
             target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
             target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class CommandUnderlings : public CommandAbility {
@@ -47,7 +49,7 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        bool apply(Unit* target) override {
+        bool apply(Unit *target) override {
             if (target == nullptr)
                 return false;
             target->buffMovement(MovementRule::Run_And_Shoot, true, defaultDuration());
@@ -79,7 +81,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);

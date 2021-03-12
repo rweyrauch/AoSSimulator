@@ -29,9 +29,9 @@ namespace SonsOfBehemat {
             {
                     {11, 7, 24},
                     {10, 7, 21},
-                    {9, 7, 18},
-                    {8, 6,  15},
-                    {7, 5,  12}
+                    {9,  7, 18},
+                    {8,  6, 15},
+                    {7,  5, 12}
             };
 
     bool KrakenEater::s_registered = false;
@@ -142,7 +142,7 @@ namespace SonsOfBehemat {
             return Rerolls::Ones;
 
         // Death Grip
-        if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
+        if ((weapon->name() == m_grip.name()) && (target - hasKeyword(MONSTER)))
             return Rerolls::Ones;
 
         return SonsOfBehematBase::toHitRerolls(weapon, target);
@@ -175,7 +175,8 @@ namespace SonsOfBehemat {
     int KrakenEater::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = SonsOfBehematBase::extraAttacks(attackingModel, weapon, target);
         if (isGeneral() && (m_commandTrait == CommandTrait::Louder_Than_Words) &&
-                (weapon->name() == m_warclub.name())) attacks++;
+            (weapon->name() == m_warclub.name()))
+            attacks++;
         return attacks;
     }
 

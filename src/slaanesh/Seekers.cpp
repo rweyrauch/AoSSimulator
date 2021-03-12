@@ -17,7 +17,7 @@ namespace Slaanesh {
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
     static const int g_pointsPerBlock = 150;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool Seekers::s_registered = false;
 
@@ -58,12 +58,10 @@ namespace Slaanesh {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (standardBearer) {
+            } else if (standardBearer) {
                 model->setName(Model::BannerBearer);
                 standardBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -155,7 +153,8 @@ namespace Slaanesh {
     }
 
     Rerolls Seekers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Rerolls::Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0))
+            return Rerolls::Ones;
 
         return Rerolls::None;
     }

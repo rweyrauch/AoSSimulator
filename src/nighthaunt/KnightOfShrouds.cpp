@@ -44,9 +44,9 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     KnightOfShrouds::ComputePoints,
                     {
-                        EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
-                        EnumParameter("Artefact", g_artefacts[0], g_artefacts),
-                        BoolParameter("General")
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            BoolParameter("General")
                     },
                     DEATH,
                     {NIGHTHAUNT}

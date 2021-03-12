@@ -91,8 +91,7 @@ namespace OgorMawtribes {
             if (runeMawBearer) {
                 model->setName("Rune Maw Bearer");
                 runeMawBearer = false;
-            }
-            else if (bellower) {
+            } else if (bellower) {
                 model->setName("Bellower");
                 bellower = false;
             }
@@ -115,7 +114,8 @@ namespace OgorMawtribes {
 
     int Ironguts::bellower(const Unit *target) {
         // Bellower
-        if (isNamedModelAlive("Bellower") && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive("Bellower") && (target->owningPlayer() != owningPlayer()) &&
+            (distanceTo(target) <= 6.0)) {
             return -1;
         }
         return 0;

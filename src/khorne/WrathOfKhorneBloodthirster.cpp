@@ -54,7 +54,8 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Blood Hunt", 16, 16,
-                                                                                Phase::Combat, Attribute::To_Hit_Melee, Rerolls::Failed,
+                                                                                Phase::Combat, Attribute::To_Hit_Melee,
+                                                                                Rerolls::Failed,
                                                                                 Abilities::Target::SelfAndFriendly,
                                                                                 std::vector<Keyword>{KHORNE, DAEMON}));
 

@@ -138,7 +138,8 @@ namespace SlavesToDarkness {
                                 if (m_roster) {
                                     auto factory = UnitFactory::LookupUnit("Chaos Spawn");
                                     if (factory) {
-                                        auto spawn = std::shared_ptr<Unit>(UnitFactory::Create("Chaos Spawn", factory->m_parameters));
+                                        auto spawn = std::shared_ptr<Unit>(
+                                                UnitFactory::Create("Chaos Spawn", factory->m_parameters));
                                         spawn->deploy(position(), m_orientation);
                                         m_roster->addUnit(spawn);
                                     }

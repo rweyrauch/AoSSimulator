@@ -63,7 +63,7 @@ namespace StormcastEternals {
     Unit *AstreiaSolbright::Create(const ParameterList &parameters) {
         auto unit = new AstreiaSolbright();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 

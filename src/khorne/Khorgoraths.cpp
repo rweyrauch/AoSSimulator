@@ -87,7 +87,7 @@ namespace Khorne {
         // Taker of Heads
         if (m_currentRecord.m_enemyModelsSlain > m_modelsSlainAtStartOfCombat) {
             PLOG_INFO.printf("%s slayed %d models this combat phase and heals 1 wound.\n",
-                   name().c_str(), (m_currentRecord.m_enemyModelsSlain - m_modelsSlainAtStartOfCombat));
+                             name().c_str(), (m_currentRecord.m_enemyModelsSlain - m_modelsSlainAtStartOfCombat));
             heal(1);
         }
         KhorneBase::onEndCombat(player);
@@ -106,7 +106,8 @@ namespace Khorne {
 
         // Horrific Predators
         if ((numSlain > 0) && (enemyUnit != nullptr)) {
-            enemyUnit->buffModifier(Attribute::Bravery, 1, {Phase::Battleshock, m_battleRound, m_currentRecord.m_playerWithTurn});
+            enemyUnit->buffModifier(Attribute::Bravery, 1,
+                                    {Phase::Battleshock, m_battleRound, m_currentRecord.m_playerWithTurn});
         }
     }
 

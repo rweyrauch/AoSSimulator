@@ -32,9 +32,12 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Heads Must Roll", 12, 12,
-                                                                                Phase::Combat, Attribute::To_Wound_Melee, Rerolls::Ones,
+                                                                                Phase::Combat,
+                                                                                Attribute::To_Wound_Melee,
+                                                                                Rerolls::Ones,
                                                                                 Abilities::Target::SelfAndFriendly,
-                                                                                std::vector<Keyword>{BLOODLETTER, BLOODLETTERS}));
+                                                                                std::vector<Keyword>{BLOODLETTER,
+                                                                                                     BLOODLETTERS}));
 
         m_points = g_pointsPerUnit;
 
@@ -84,7 +87,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls Skulltaker::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
+    Rerolls Skulltaker::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {
         // Cloak of Skulls
         return Rerolls::Failed;
     }

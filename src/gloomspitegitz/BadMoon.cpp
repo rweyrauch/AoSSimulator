@@ -54,7 +54,7 @@ namespace GloomspiteGitz {
                 }
 
                 PLOG_INFO.printf("Bad Moon moves in round %d with a roll of %d.  Location: %d\n",
-                       round, roll, m_location);
+                                 round, roll, m_location);
             }
         }
         m_round = round;

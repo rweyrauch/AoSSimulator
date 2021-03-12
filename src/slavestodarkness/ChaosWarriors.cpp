@@ -42,7 +42,8 @@ namespace SlavesToDarkness {
 
     void ChaosWarriors::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {Hand_Weapon_And_Shield, Halberd_And_Shield, Great_Blade, Paired_Hand_Weapons};
+            static const std::array<int, 4> weapons = {Hand_Weapon_And_Shield, Halberd_And_Shield, Great_Blade,
+                                                       Paired_Hand_Weapons};
 
             static FactoryMethod factoryMethod = {
                     ChaosWarriors::Create,
@@ -176,7 +177,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ChaosWarriors::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (m_hasShields) {
             // Chaos Runeshield
             Dice::RollResult mortalSaves;
@@ -216,7 +217,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }
 
-    Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls ChaosWarriors::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Legions of Chaos
         if (remainingModels() >= 10)
             return Rerolls::Failed;

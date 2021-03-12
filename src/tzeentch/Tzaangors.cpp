@@ -80,8 +80,7 @@ namespace Tzeentch {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (brayhorns) {
+            } else if (brayhorns) {
                 model->setName("Brayhorn");
                 brayhorns = false;
             }
@@ -102,7 +101,7 @@ namespace Tzeentch {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool brayhorns = GetBoolParam("Brayhorns", parameters, false);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns);
@@ -158,7 +157,7 @@ namespace Tzeentch {
         return TzeentchBase::EnumStringToInt(enumString);
     }
 
-    Wounds Tzaangors::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Tzaangors::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Arcanite Shield
         auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 

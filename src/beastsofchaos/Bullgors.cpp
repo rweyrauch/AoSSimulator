@@ -60,8 +60,7 @@ namespace BeastsOfChaos {
             if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (drummer) {
+            } else if (drummer) {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
@@ -145,7 +144,7 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, unit);
     }
 
-    int Bullgors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Bullgors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
         if (!m_pairedAxes) {
             modifier += 1;

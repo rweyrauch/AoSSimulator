@@ -116,12 +116,10 @@ namespace OgorMawtribes {
             if (skullBearer) {
                 model->setName("Skull Bearer");
                 skullBearer = false;
-            }
-            else if (bannerBearer) {
+            } else if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (bellower) {
+            } else if (bellower) {
                 model->setName("Bellower");
                 bellower = false;
             }
@@ -178,14 +176,15 @@ namespace OgorMawtribes {
 
     int OgorGluttons::bellower(const Unit *target) {
         // Bellower
-        if (isNamedModelAlive("Bellower") && (target->owningPlayer() != owningPlayer()) && (distanceTo(target) <= 6.0)) {
+        if (isNamedModelAlive("Bellower") && (target->owningPlayer() != owningPlayer()) &&
+            (distanceTo(target) <= 6.0)) {
             return -1;
         }
 
         return 0;
     }
 
-    Wounds OgorGluttons::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds OgorGluttons::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Lookout Gnoblar

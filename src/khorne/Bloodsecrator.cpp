@@ -74,7 +74,8 @@ namespace Khorne {
                     Bloodsecrator::ComputePoints,
                     {
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
-                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_totemArtefacts[0], g_totemArtefacts),
                             BoolParameter("General")
                     },

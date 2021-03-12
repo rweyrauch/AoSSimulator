@@ -65,7 +65,7 @@ namespace Ironjawz {
                     OrrukWarchanter::ComputePoints,
                     {
                             EnumParameter("Warclan", g_warclan[0], g_warclan),
-                             EnumParameter("Warbeat", g_warbeats[0], g_warbeats),
+                            EnumParameter("Warbeat", g_warbeats[0], g_warbeats),
                             BoolParameter("General")
                     },
                     DESTRUCTION,
@@ -87,7 +87,8 @@ namespace Ironjawz {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 15.0);
             for (auto unit : units) {
                 if (unit->hasKeyword(IRONJAWZ) && (unit->remainingModels() > 0)) {
-                    unit->buffModifier(Attribute::Weapon_Damage_Melee, 1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffModifier(Attribute::Weapon_Damage_Melee, 1,
+                                       {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }
         }

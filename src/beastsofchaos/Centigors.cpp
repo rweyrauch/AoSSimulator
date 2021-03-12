@@ -48,8 +48,7 @@ namespace BeastsOfChaos {
             if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (brayhorn) {
+            } else if (brayhorn) {
                 model->setName("Brayhorn");
                 brayhorn = false;
             }
@@ -125,7 +124,7 @@ namespace BeastsOfChaos {
         return modifier;
     }
 
-    int Centigors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Centigors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Beastbucklers

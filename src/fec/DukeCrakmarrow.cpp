@@ -61,7 +61,7 @@ namespace FleshEaterCourt {
                     FleshEaterCourts::EnumStringToInt,
                     DukeCrakmarrow::ComputePoints,
                     {
-                             BoolParameter("General")
+                            BoolParameter("General")
                     },
                     DEATH,
                     {FLESH_EATER_COURTS}
@@ -100,7 +100,7 @@ namespace FleshEaterCourt {
     Wounds DukeCrakmarrow::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Gallent Champion
         if (target->hasKeyword(MONSTER)) {
-            return {weapon->damage()+1, 0, Wounds::Source::Weapon_Melee};
+            return {weapon->damage() + 1, 0, Wounds::Source::Weapon_Melee};
         }
         return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
     }

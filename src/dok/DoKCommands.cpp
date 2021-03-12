@@ -12,26 +12,34 @@ namespace DaughtersOfKhaine {
     CommandAbility *CreateSendForthTheCauldrons(Unit *hero) {
         return nullptr;
     }
+
     CommandAbility *CreateAThousandBladeforms(Unit *hero) {
-        return new BuffModifierCommandAbility(hero, "A Thousand Bladeforms", 12, 12, Phase::Combat, Attribute::To_Hit_Melee, 1,
+        return new BuffModifierCommandAbility(hero, "A Thousand Bladeforms", 12, 12, Phase::Combat,
+                                              Attribute::To_Hit_Melee, 1,
                                               Abilities::Target::Friendly, {WITCH_AELVES, SISTERS_OF_SLAUGHTER});
     }
-    CommandAbility *CreateInspiredByCarnage(Unit* hero) {
-        return new BuffModifierCommandAbility(hero, "Inspired by Carnage", 12, 12, Phase::Combat, Attribute::To_Wound_Melee, 1,
+
+    CommandAbility *CreateInspiredByCarnage(Unit *hero) {
+        return new BuffModifierCommandAbility(hero, "Inspired by Carnage", 12, 12, Phase::Combat,
+                                              Attribute::To_Wound_Melee, 1,
                                               Abilities::Target::Friendly, {SISTERS_OF_SLAUGHTER});
     }
-    CommandAbility *CreateMastersOfTheShadowpaths(Unit* hero) {
+
+    CommandAbility *CreateMastersOfTheShadowpaths(Unit *hero) {
         return nullptr;
     }
-    CommandAbility *CreateBleedTheMind(Unit* hero) {
+
+    CommandAbility *CreateBleedTheMind(Unit *hero) {
         return nullptr;
     }
-    CommandAbility *CreatePowerInTheBlood(Unit* hero) {
-        return new BuffModifierCommandAbility(hero, "Power in the Blood", 12, 12, Phase::Combat, Attribute::Attacks_Melee, 1,
+
+    CommandAbility *CreatePowerInTheBlood(Unit *hero) {
+        return new BuffModifierCommandAbility(hero, "Power in the Blood", 12, 12, Phase::Combat,
+                                              Attribute::Attacks_Melee, 1,
                                               Abilities::Target::Friendly, {MELUSAI, KHINERAI_HARPIES});
     }
 
-    CommandAbility* CreateCommandAbility(Temple temple, Unit* hero) {
+    CommandAbility *CreateCommandAbility(Temple temple, Unit *hero) {
         switch (temple) {
             case Temple::Hagg_Nar:
                 return CreateSendForthTheCauldrons(hero);
@@ -51,51 +59,51 @@ namespace DaughtersOfKhaine {
         return nullptr;
     }
 
-    CommandTraitAbility *CreateCommandTrait(CommandTrait which, Unit* general) {
+    CommandTraitAbility *CreateCommandTrait(CommandTrait which, Unit *general) {
         switch (which) {
-        case CommandTrait::Bathed_In_Blood:
-            return nullptr;
-        case CommandTrait::Zealous_Orator:
-            return nullptr;
-        case CommandTrait::Sacrificer_Overseer:
-            return nullptr;
-        case CommandTrait::Terrifying_Beauty:
-            return nullptr;
-        case CommandTrait::Master_Of_Poisons:
-            return nullptr;
-        case CommandTrait::True_Believer:
-            return nullptr;
-        case CommandTrait::Arcane_Mastery:
-            return nullptr;
-        case CommandTrait::Writhing_Coils:
-            return nullptr;
-        case CommandTrait::Fearsome_Presence:
-            return nullptr;
-        case CommandTrait::Veteran_Of_The_Cathirar_Dhule:
-            return nullptr;
-        case CommandTrait::Impenentrable_Scales:
-            return nullptr;
-        case CommandTrait::Fuelled_By_Revenge:
-            return nullptr;
-        case CommandTrait::Devoted_Disciple:
-            return nullptr;
-        case CommandTrait::Mistress_Of_Illusion:
-            return nullptr;
-        case CommandTrait::Curse_Of_The_Bloody_Handed:
-            return nullptr;
-        case CommandTrait::Bathe_In_Their_Blood:
-            return nullptr;
-        case CommandTrait::The_Circling_Flock:
-            return nullptr;
-        case CommandTrait::Victor_Of_Yaithril:
-            return nullptr;
+            case CommandTrait::Bathed_In_Blood:
+                return nullptr;
+            case CommandTrait::Zealous_Orator:
+                return nullptr;
+            case CommandTrait::Sacrificer_Overseer:
+                return nullptr;
+            case CommandTrait::Terrifying_Beauty:
+                return nullptr;
+            case CommandTrait::Master_Of_Poisons:
+                return nullptr;
+            case CommandTrait::True_Believer:
+                return nullptr;
+            case CommandTrait::Arcane_Mastery:
+                return nullptr;
+            case CommandTrait::Writhing_Coils:
+                return nullptr;
+            case CommandTrait::Fearsome_Presence:
+                return nullptr;
+            case CommandTrait::Veteran_Of_The_Cathirar_Dhule:
+                return nullptr;
+            case CommandTrait::Impenentrable_Scales:
+                return nullptr;
+            case CommandTrait::Fuelled_By_Revenge:
+                return nullptr;
+            case CommandTrait::Devoted_Disciple:
+                return nullptr;
+            case CommandTrait::Mistress_Of_Illusion:
+                return nullptr;
+            case CommandTrait::Curse_Of_The_Bloody_Handed:
+                return nullptr;
+            case CommandTrait::Bathe_In_Their_Blood:
+                return nullptr;
+            case CommandTrait::The_Circling_Flock:
+                return nullptr;
+            case CommandTrait::Victor_Of_Yaithril:
+                return nullptr;
             default:
                 break;
         }
         return nullptr;
     }
 
-    CommandTraitAbility *CreateCommandTrait(Temple temple, Unit* general) {
+    CommandTraitAbility *CreateCommandTrait(Temple temple, Unit *general) {
         switch (temple) {
             case Temple::Hagg_Nar:
                 return CreateCommandTrait(CommandTrait::Devoted_Disciple, general);

@@ -102,12 +102,12 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls Fulminators::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
+    Rerolls Fulminators::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {
         // Sigmarite Shields
         return Rerolls::Ones;
     }
 
-    int Fulminators::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Fulminators::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = StormcastEternal::toSaveModifier(weapon, attacker);
         // Glaivewall
         if (weapon->isMissile()) {

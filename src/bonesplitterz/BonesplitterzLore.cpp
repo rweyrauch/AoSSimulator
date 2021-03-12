@@ -13,7 +13,7 @@ namespace Bonesplitterz {
 
     class SquigglyCurse : public Spell {
     public:
-        SquigglyCurse(Unit* caster) :
+        SquigglyCurse(Unit *caster) :
                 Spell(caster, "Squiggly Curse", 6, 3) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -21,7 +21,7 @@ namespace Bonesplitterz {
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -31,16 +31,19 @@ namespace Bonesplitterz {
             }
             auto numSlain = target->applyDamage(wounds, m_caster);
             if (numSlain) {
-                m_caster->buffModifier(Attribute::Casting_Roll, 1, {Phase::Hero, DurationRestOfGame, m_caster->owningPlayer()});
+                m_caster->buffModifier(Attribute::Casting_Roll, 1,
+                                       {Phase::Hero, DurationRestOfGame, m_caster->owningPlayer()});
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class BreathOfGorkamorka : public Spell {
     public:
-        BreathOfGorkamorka(Unit* caster) :
+        BreathOfGorkamorka(Unit *caster) :
                 Spell(caster, "Breath of Gorkamorka", 6, 24) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
@@ -48,26 +51,27 @@ namespace Bonesplitterz {
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
             if (unmodifiedCastingValue.isDouble()) {
                 target->buffMovement(MovementRule::Triple_Movement, true, defaultDuration());
-            }
-            else {
+            } else {
                 target->buffMovement(MovementRule::Double_Movement, true, defaultDuration());
             }
             target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class BrutalBeastSpirits : public Spell {
     public:
-        BrutalBeastSpirits(Unit* caster) :
+        BrutalBeastSpirits(Unit *caster) :
                 Spell(caster, "BrutalBeastSpirits", 6, 24) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
@@ -75,7 +79,7 @@ namespace Bonesplitterz {
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -98,19 +102,21 @@ namespace Bonesplitterz {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class BoneKrusha : public Spell {
     public:
-        BoneKrusha(Unit* caster) :
+        BoneKrusha(Unit *caster) :
                 Spell(caster, "Bone Krusha", 6, 24) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -118,26 +124,27 @@ namespace Bonesplitterz {
             const auto dist = m_caster->distanceTo(target);
             if (dist < 6) {
                 wounds.mortal = Dice::RollD6();
-            }
-            else if (dist < 12) {
+            } else if (dist < 12) {
                 wounds.mortal = Dice::RollD3();
             }
             target->applyDamage(wounds, m_caster);
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class GorkamorkasWarCry : public Spell {
     public:
-        GorkamorkasWarCry(Unit* caster) :
+        GorkamorkasWarCry(Unit *caster) :
                 Spell(caster, "Gorkamorka's War Cry", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -146,11 +153,13 @@ namespace Bonesplitterz {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {
-        switch(which) {
+        switch (which) {
             case Lore::Squiggly_Curse:
                 return new SquigglyCurse(caster);
             case Lore::Breath_Of_Gorkamorka:
@@ -161,7 +170,8 @@ namespace Bonesplitterz {
                 return new BoneKrusha(caster);
             case Lore::Kunnin_Beast_Spirits:
                 return new BuffModifierSpell(caster, "Kunnin' Beast Spirits", 6, 24,
-                                             {{Attribute::To_Save_Melee, 1}, {Attribute::To_Save_Missile, 1}},
+                                             {{Attribute::To_Save_Melee,   1},
+                                              {Attribute::To_Save_Missile, 1}},
                                              Abilities::Target::SelfAndFriendly, std::vector<Keyword>{BONESPLITTERZ});
             case Lore::Gorkamorkas_War_Cry:
                 return new GorkamorkasWarCry(caster);

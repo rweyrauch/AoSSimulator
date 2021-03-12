@@ -58,7 +58,7 @@ namespace Sylvaneth {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
-        auto trait = (CommandTrait)  GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
 
         unit->setCommandTrait(trait);
         unit->setArtefact(artefact);

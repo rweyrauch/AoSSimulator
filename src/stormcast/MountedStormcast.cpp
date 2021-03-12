@@ -11,7 +11,8 @@
 
 namespace StormcastEternals {
 
-    MountedStormcastEternal::MountedStormcastEternal(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+    MountedStormcastEternal::MountedStormcastEternal(const std::string &name, int move, int wounds, int bravery,
+                                                     int save, bool fly) :
             StormcastEternal(name, move, wounds, bravery, save, fly) {
         s_globalToHitMod.connect(this, &MountedStormcastEternal::prideLeader, &m_prideLeaderConnection);
     }
@@ -26,7 +27,8 @@ namespace StormcastEternals {
         return mod;
     }
 
-    int MountedStormcastEternal::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int
+    MountedStormcastEternal::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((m_mountTrait == MountTrait::Keen_Clawed) && (weapon->isMount()) && (woundRoll == 6)) {
             return -3;
         }

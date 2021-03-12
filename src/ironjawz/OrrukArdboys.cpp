@@ -62,8 +62,7 @@ namespace Ironjawz {
                 else if (standard == StandardOption::GlyphBearer)
                     model->setName("Glyph Bearer");
                 standard = StandardOption::None;
-            }
-            else if (drummer) {
+            } else if (drummer) {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
@@ -139,7 +138,7 @@ namespace Ironjawz {
         return modifier;
     }
 
-    Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds OrrukArdboys::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Orruk-forged Shields
         if (m_numShields > 0) {
             Dice::RollResult result;

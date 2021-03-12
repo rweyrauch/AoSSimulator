@@ -107,12 +107,13 @@ namespace DaughtersOfKhaine {
         // Witchbrew
         auto friendlies = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12);
         for (auto friendly : friendlies) {
-            auto dok = dynamic_cast<DaughterOfKhaine*>(friendly);
+            auto dok = dynamic_cast<DaughterOfKhaine *>(friendly);
             if (dok) {
-                auto bloodRightAdj = std::min(3, getBloodRiteRound() - 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
+                auto bloodRightAdj = std::min(3, getBloodRiteRound() -
+                                                 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
                 auto roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
-                    const Duration duration = {Phase::Hero, m_battleRound+1, owningPlayer()};
+                    const Duration duration = {Phase::Hero, m_battleRound + 1, owningPlayer()};
                     dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);
                     dok->buffAbility(Ability::Ignore_Battleshock, 1, duration);
                 }

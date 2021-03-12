@@ -15,20 +15,24 @@ namespace BeastsOfChaos {
 
     class SummonLightning : public Spell {
     public:
-        explicit SummonLightning(Unit* caster);
+        explicit SummonLightning(Unit *caster);
+
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
-    SummonLightning::SummonLightning(Unit* caster) :
-        Spell(caster, "Summon Lightning", 7, 20) {
+    SummonLightning::SummonLightning(Unit *caster) :
+            Spell(caster, "Summon Lightning", 7, 20) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_targetKeywords.push_back(THUNDERSCORN);
         m_effect = Abilities::EffectType::Heal;
     }
 
-    Spell::Result SummonLightning::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    SummonLightning::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 

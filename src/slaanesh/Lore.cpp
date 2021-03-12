@@ -14,38 +14,43 @@ namespace Slaanesh {
 
     class PavaneOfSlaanesh : public Spell {
     public:
-       explicit PavaneOfSlaanesh(Unit* caster);
+        explicit PavaneOfSlaanesh(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
-   };
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
+    };
 
     PavaneOfSlaanesh::PavaneOfSlaanesh(Unit *caster) :
-        Spell(caster, "Pavane of Slaanesh", 6, 6) {
+            Spell(caster, "Pavane of Slaanesh", 6, 6) {
         m_allowedTargets = Abilities::Target::Enemy;
         m_effect = Abilities::EffectType::Damage;
         m_targetKeywords.push_back(HERO);
     }
 
-    Spell::Result PavaneOfSlaanesh::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    PavaneOfSlaanesh::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
         Dice::RollResult roll;
         Dice::RollD6(target->move(), roll);
-        target->applyDamage({ 0, roll.rollsGE(5),Wounds::Source::Spell }, m_caster);
+        target->applyDamage({0, roll.rollsGE(5), Wounds::Source::Spell}, m_caster);
 
         return Spell::Result::Success;
     }
 
     class HystericalFrenzy : public Spell {
     public:
-        explicit HystericalFrenzy(Unit* caster);
+        explicit HystericalFrenzy(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     HystericalFrenzy::HystericalFrenzy(Unit *caster) :
@@ -54,24 +59,27 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result HystericalFrenzy::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    HystericalFrenzy::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
         Dice::RollResult roll;
         Dice::RollD6(target->remainingModels(), roll);
-        target->applyDamage({ 0, roll.rollsGE(6),Wounds::Source::Spell }, m_caster);
+        target->applyDamage({0, roll.rollsGE(6), Wounds::Source::Spell}, m_caster);
 
         return Spell::Result::Success;
     }
 
     class SoulsliceShards : public Spell {
     public:
-        explicit SoulsliceShards(Unit* caster);
+        explicit SoulsliceShards(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     SoulsliceShards::SoulsliceShards(Unit *caster) :
@@ -80,7 +88,8 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result SoulsliceShards::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    SoulsliceShards::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -93,11 +102,13 @@ namespace Slaanesh {
 
     class Phantasmagoria : public Spell {
     public:
-        explicit Phantasmagoria(Unit* caster);
+        explicit Phantasmagoria(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     Phantasmagoria::Phantasmagoria(Unit *caster) :
@@ -106,7 +117,8 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Debuff;
     }
 
-    Spell::Result Phantasmagoria::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    Phantasmagoria::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -120,20 +132,23 @@ namespace Slaanesh {
 
     class PathsOfTheDarkPrince : public Spell {
     public:
-        explicit PathsOfTheDarkPrince(Unit* caster);
+        explicit PathsOfTheDarkPrince(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     PathsOfTheDarkPrince::PathsOfTheDarkPrince(Unit *caster) :
-        Spell(caster, "Paths of the Dark Prince", 7, 0) {
+            Spell(caster, "Paths of the Dark Prince", 7, 0) {
         m_allowedTargets = Abilities::Target::Self;
         m_effect = Abilities::EffectType::Buff;
     }
 
-    Spell::Result PathsOfTheDarkPrince::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    PathsOfTheDarkPrince::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -144,11 +159,13 @@ namespace Slaanesh {
 
     class JudgementOfExcess : public Spell {
     public:
-        explicit JudgementOfExcess(Unit* caster);
+        explicit JudgementOfExcess(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     JudgementOfExcess::JudgementOfExcess(Unit *caster) :
@@ -157,11 +174,12 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result JudgementOfExcess::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    JudgementOfExcess::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        auto numWounds = (target->remainingModels() + 5)/5;
+        auto numWounds = (target->remainingModels() + 5) / 5;
         target->applyDamage({0, numWounds, Wounds::Source::Spell}, m_caster);
 
         return Spell::Result::Success;
@@ -173,8 +191,10 @@ namespace Slaanesh {
 
     protected:
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     BattleRapture::BattleRapture(Unit *caster) :
@@ -185,7 +205,8 @@ namespace Slaanesh {
         m_targetKeywords.push_back(SLAANESH);
     }
 
-    Spell::Result BattleRapture::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    BattleRapture::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
         auto numUnits = (castingValue >= 10) ? 3 : 1;
         int numAffected = 0;
@@ -216,7 +237,8 @@ namespace Slaanesh {
             case Lore::Paths_Of_The_Dark_Prince:
                 return new PathsOfTheDarkPrince(caster);
             case Lore::Progeny_Of_Damnation:
-                return new HealSpell(caster, "Progeny of Damnation", 5, 6, RAND_D3, 10, RAND_D6, {DAEMON, HEDONITE, HERO});
+                return new HealSpell(caster, "Progeny of Damnation", 5, 6, RAND_D3, 10, RAND_D6,
+                                     {DAEMON, HEDONITE, HERO});
             case Lore::Slothful_Stupor:
                 // TODO: Slothful_Stupor
                 return nullptr;
@@ -234,20 +256,22 @@ namespace Slaanesh {
 
     class Acquiescence : public Spell {
     public:
-        explicit Acquiescence(Unit* caster) :
+        explicit Acquiescence(Unit *caster) :
                 Spell(caster, "Acquiescence", 5, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffReroll(Attribute::Target_To_Hit_Melee, Rerolls::Ones, defaultDuration());
             target->buffReroll(Attribute::Target_To_Hit_Missile, Rerolls::Ones, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     Spell *CreateAcquiescence(Unit *caster) {

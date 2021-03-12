@@ -29,7 +29,7 @@ namespace Nurgle {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -48,7 +48,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     LordOfBlights::ComputePoints,
                     {
-                            EnumParameter("Command Trait", g_mortalRotbringerCommandTraits[0], g_mortalRotbringerCommandTraits),
+                            EnumParameter("Command Trait", g_mortalRotbringerCommandTraits[0],
+                                          g_mortalRotbringerCommandTraits),
                             EnumParameter("Artefact", g_mortalRotbringerArtefacts[0], g_mortalRotbringerArtefacts),
                             EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
                             BoolParameter("General")
@@ -82,7 +83,7 @@ namespace Nurgle {
         return true;
     }
 
-    Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Vermid Shield
         if (!weapon->isMissile()) return Rerolls::Ones;
         return Unit::toSaveRerolls(weapon, attacker);

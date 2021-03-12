@@ -10,5 +10,5 @@
 
 namespace FleshEaterCourt {
 
-    Spell* CreateLore(Lore which, Unit* caster);
+    Spell *CreateLore(Lore which, Unit *caster);
 }

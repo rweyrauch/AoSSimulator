@@ -76,8 +76,7 @@ namespace Nurgle {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (bellTollers) {
+            } else if (bellTollers) {
                 model->setName("Bell Tollers");
                 bellTollers = false;
             }
@@ -97,7 +96,7 @@ namespace Nurgle {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bells = GetBoolParam("Bell Tollers", parameters, false);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels, weapons, iconBearer, bells);
@@ -130,7 +129,7 @@ namespace Nurgle {
         }
     }
 
-    Wounds PlagueDrones::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds PlagueDrones::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
     }

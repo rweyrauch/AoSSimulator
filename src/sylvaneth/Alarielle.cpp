@@ -22,7 +22,8 @@ namespace Sylvaneth {
         explicit GhyransWrath(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -33,7 +34,7 @@ namespace Sylvaneth {
         m_targetKeywords = {SYLVANETH};
     }
 
-    bool GhyransWrath::apply(Unit* target) {
+    bool GhyransWrath::apply(Unit *target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {

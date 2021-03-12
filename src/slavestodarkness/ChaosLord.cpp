@@ -53,7 +53,7 @@ namespace SlavesToDarkness {
                     ChaosLord::EnumStringToInt,
                     ChaosLord::ComputePoints,
                     {
-                            EnumParameter( "Weapon", Reaperblade, weapons),
+                            EnumParameter("Weapon", Reaperblade, weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),

@@ -70,7 +70,8 @@ namespace StormcastEternals {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Prayers of the Stormhost", g_prayersOfTheStormhost[0], g_prayersOfTheStormhost),
+                            EnumParameter("Prayers of the Stormhost", g_prayersOfTheStormhost[0],
+                                          g_prayersOfTheStormhost),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
                             BoolParameter("General")

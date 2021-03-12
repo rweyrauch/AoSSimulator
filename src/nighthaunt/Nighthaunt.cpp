@@ -44,7 +44,7 @@ namespace Nighthaunt {
         m_auraOfDreadSlot.disconnect();
     }
 
-    Wounds Nighthaunt::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Nighthaunt::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Deathless Spirits
         auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
         if (hero && hero->hasKeyword(NIGHTHAUNT)) {
@@ -53,7 +53,7 @@ namespace Nighthaunt {
         return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
-    int Nighthaunt::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Nighthaunt::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         // Ethereal - no save modifiers allowed.
         int modifier = 0;
 
@@ -72,15 +72,15 @@ namespace Nighthaunt {
 
     std::string Nighthaunt::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         return ParameterValueToString(parameter);
@@ -88,13 +88,13 @@ namespace Nighthaunt {
 
     int Nighthaunt::EnumStringToInt(const std::string &enumString) {
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         return 0;
     }
@@ -108,7 +108,8 @@ namespace Nighthaunt {
     }
 
     Rerolls Nighthaunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Hatred_Of_The_Living) && !target->hasKeyword(DEATH)) {
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Hatred_Of_The_Living) &&
+            !target->hasKeyword(DEATH)) {
             return Rerolls::Failed;
         }
         return Unit::toHitRerolls(weapon, target);

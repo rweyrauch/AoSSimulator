@@ -28,6 +28,7 @@
 #include <map>
 
 class Roster;
+
 class CommandTraitAbility;
 
 class Unit : public UnitModifierInterface, public EventInterface {
@@ -89,9 +90,9 @@ public:
 
     int numModels() const { return (int) m_models.size(); }
 
-    const Model *getModel(int which) const { return m_models.at((size_t)which).get(); }
+    const Model *getModel(int which) const { return m_models.at((size_t) which).get(); }
 
-    bool isNamedModelAlive(const std::string& name) const;
+    bool isNamedModelAlive(const std::string &name) const;
 
     /*!
      * Restore a unit to its initial condition, as it was at the start of the battle.
@@ -161,7 +162,7 @@ public:
 
     bool makeSave(const Weapon *weapon, int weaponRend, Unit *target, int &saveRoll);
 
-    int applyDamage(const Wounds &totalWounds, Unit* attackingUnit);
+    int applyDamage(const Wounds &totalWounds, Unit *attackingUnit);
 
     int initialModels() const { return (int) m_models.size(); }
 
@@ -219,9 +220,10 @@ public:
 
     const Weapon *getWeapon(int which) const { return m_weapons[which]; }
 
-    bool hasShootingAttack(const Weapon** weapon) const;
+    bool hasShootingAttack(const Weapon **weapon) const;
 
     const UnitStatistics &getStatistics() const { return m_statistics; }
+
     void clearStatistics() { m_statistics.reset(); }
 
     bool isGeneral() const { return m_isGeneral; }
@@ -250,7 +252,7 @@ public:
 
     int numOfWoundedModels() const;
 
-    virtual int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const;
+    virtual int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const;
 
     int returnModels(int numModels);
 
@@ -283,7 +285,7 @@ protected:
 
     int computeFormation() const;
 
-    Wounds ignoreWounds(const Wounds& wounds, int ignoreOnRoll) const;
+    Wounds ignoreWounds(const Wounds &wounds, int ignoreOnRoll) const;
 
 protected:
 
@@ -305,11 +307,11 @@ protected:
 
     Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-    int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+    int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
     int targetSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-    Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+    Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
     int braveryModifier() const override;
 
@@ -354,7 +356,7 @@ protected:
 
     virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0}; }
 
-    virtual Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) { return wounds; }
+    virtual Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) { return wounds; }
 
     virtual double unbindingDistance() const { return 30.0; }
 
@@ -409,7 +411,7 @@ protected:
     std::vector<std::unique_ptr<Spell>> m_knownSpells;
     std::vector<std::unique_ptr<Prayer>> m_knownPrayers;
     std::vector<std::unique_ptr<CommandAbility>> m_commandAbilities;
-    CommandTraitAbility* m_trait = nullptr;
+    CommandTraitAbility *m_trait = nullptr;
 
     std::vector<const Weapon *> m_weapons;
 
@@ -433,13 +435,15 @@ protected:
     static lsignal::signal<int(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToWoundMod;
     static lsignal::signal<int(const Unit *unit, const Weapon *weapon)> s_globalSaveMod;
 
-    static lsignal::signal<int(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target)> s_globalAttackMod;
+    static lsignal::signal<int(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
+                               const Unit *target)> s_globalAttackMod;
 
     static lsignal::signal<int(const Unit *caster)> s_globalCastMod;
     static lsignal::signal<int(const Unit *unbinder)> s_globalUnbindMod;
 
     static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToHitReroll;
-    static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToWoundReroll;
+    static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon,
+                                   const Unit *target)> s_globalToWoundReroll;
     static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalSaveReroll;
 
     static lsignal::signal<Rerolls(const Unit *unit)> s_globalBattleshockReroll;
@@ -448,7 +452,7 @@ protected:
     static lsignal::signal<Rerolls(const Unit *unit)> s_globalRunReroll;
     static lsignal::signal<Rerolls(const Unit *unit)> s_globalChargeReroll;
 
-    static lsignal::signal<Wounds(const Wounds &wounds, const Unit* target, const Unit* attacker)> s_globalWoundSave;
+    static lsignal::signal<Wounds(const Wounds &wounds, const Unit *target, const Unit *attacker)> s_globalWoundSave;
 };
 
 class CustomUnit : public Unit {

@@ -57,7 +57,7 @@ namespace StormcastEternals {
         return modifier;
     }
 
-    Rerolls SteelheartsChampions::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls SteelheartsChampions::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Sigmarite Shields
         if (isNamedModelAlive("Angharad")) return Rerolls::Ones;
 

@@ -17,7 +17,7 @@ namespace Slaanesh {
     static const int g_minUnitSize = 10;
     static const int g_maxUnitSize = 30;
     static const int g_pointsPerBlock = 110;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
 
     bool Daemonettes::s_registered = false;
@@ -56,12 +56,10 @@ namespace Slaanesh {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (bannerBearer) {
+            } else if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -99,7 +97,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Banner Bearer"),
                             BoolParameter("Hornblower"),
@@ -147,7 +145,8 @@ namespace Slaanesh {
     }
 
     Rerolls Daemonettes::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Rerolls::Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0))
+            return Rerolls::Ones;
 
         return Rerolls::None;
     }

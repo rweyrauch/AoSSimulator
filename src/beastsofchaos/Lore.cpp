@@ -13,15 +13,17 @@ namespace BeastsOfChaos {
 
     class Viletide : public Spell {
     public:
-       explicit Viletide(Unit* caster);
+        explicit Viletide(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
-   };
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
+    };
 
     Viletide::Viletide(Unit *caster) :
-        Spell(caster, "Viletide", 6, 12) {
+            Spell(caster, "Viletide", 6, 12) {
         m_allowedTargets = Abilities::Target::Enemy;
         m_effect = Abilities::EffectType::Damage;
     }
@@ -30,7 +32,7 @@ namespace BeastsOfChaos {
         if (target == nullptr)
             return Spell::Result::Failed;
 
-        Wounds wounds = { 0, Dice::RollD3(),Wounds::Source::Spell };
+        Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
         if (m_caster->distanceTo(target) <= 6.0) {
             wounds.mortal = Dice::RollD6();
         }
@@ -41,20 +43,23 @@ namespace BeastsOfChaos {
 
     class WildRampage : public Spell {
     public:
-        explicit WildRampage(Unit* caster);
+        explicit WildRampage(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     WildRampage::WildRampage(Unit *caster) :
-        Spell(caster, "Wild Rampage", 6, 12) {
+            Spell(caster, "Wild Rampage", 6, 12) {
         m_allowedTargets = Abilities::Target::Friendly;
         m_effect = Abilities::EffectType::Buff;
     }
 
-    Spell::Result WildRampage::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    WildRampage::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -67,18 +72,21 @@ namespace BeastsOfChaos {
 
     class TendrilsOfAtrophy : public Spell {
     public:
-        explicit TendrilsOfAtrophy(Unit* caster) :
+        explicit TendrilsOfAtrophy(Unit *caster) :
                 Spell(caster, "Tendrils of Atrophy", 6, 12) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_effect = Abilities::EffectType::Buff;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
-    Spell::Result TendrilsOfAtrophy::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    TendrilsOfAtrophy::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -103,7 +111,8 @@ namespace BeastsOfChaos {
             case Lore::Wild_Rampage:
                 return new WildRampage(caster);
             case Lore::Titanic_Fury:
-                return new BuffModifierSpell(caster, "Titanic Fury", 7, 12, Attribute::Attacks_Melee, 1, Abilities::Target::Friendly, {BEASTS_OF_CHAOS, MONSTER});
+                return new BuffModifierSpell(caster, "Titanic Fury", 7, 12, Attribute::Attacks_Melee, 1,
+                                             Abilities::Target::Friendly, {BEASTS_OF_CHAOS, MONSTER});
             case Lore::Thunderwave:
                 return new AreaOfEffectSpell(caster, "Thunderwave", 7, 0, 3, RAND_D3, 0);
             case Lore::Hailstorm:

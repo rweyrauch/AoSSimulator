@@ -16,15 +16,15 @@ namespace FleshEaterCourt {
 
     class UnholyVitality : public Spell {
     public:
-        explicit UnholyVitality(Unit* caster) :
+        explicit UnholyVitality(Unit *caster) :
                 Spell(caster, "Unholy Vitality", 6, 24) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
-            m_targetKeywords = {FLESH_EATER_COURTS };
+            m_targetKeywords = {FLESH_EATER_COURTS};
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -32,7 +32,8 @@ namespace FleshEaterCourt {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 130;
@@ -91,7 +92,8 @@ namespace FleshEaterCourt {
         SummonedUnitDesc unitDesc;
         unitDesc.push_back({"Crypt Flayers", 3});
         unitDesc.push_back({"Crypt Horrors", 3});
-        m_commandAbilities.push_back(std::make_unique<SummonAbility>(this, getRoster(), "Summon Royal Guard", unitDesc));
+        m_commandAbilities.push_back(
+                std::make_unique<SummonAbility>(this, getRoster(), "Summon Royal Guard", unitDesc));
 
         m_points = g_pointsPerUnit;
 

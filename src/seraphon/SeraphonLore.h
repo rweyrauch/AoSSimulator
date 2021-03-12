@@ -10,6 +10,7 @@
 #include <seraphon/Seraphon.h>
 
 class Unit;
+
 class Spell;
 
 namespace Seraphon {

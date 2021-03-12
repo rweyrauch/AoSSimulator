@@ -55,11 +55,11 @@ namespace GloomspiteGitz {
             return ToString((Lore) parameter.intValue);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         return ParameterValueToString(parameter);
@@ -70,10 +70,10 @@ namespace GloomspiteGitz {
         if (FromString(enumString, lore)) return ToInteger(lore);
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         return 0;
     }
@@ -134,7 +134,7 @@ namespace GloomspiteGitz {
                     target->applyDamage({0, mortal}, this);
 
                     PLOG_INFO.printf("Gloomspite Gitz Bad Moon inflicts %d mortal wounds on %s in round %d.\n",
-                           mortal, target->name().c_str(), m_battleRound);
+                                     mortal, target->name().c_str(), m_battleRound);
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace GloomspiteGitz {
         if (hasKeyword(WIZARD) && inLightOfTheBadMoon()) {
             modifier += 1;
             PLOG_INFO.printf("Gloomspite Gitz wizard, %s, is under the light of the Bad Moon.\n",
-                   name().c_str());
+                             name().c_str());
         }
 
         return modifier;

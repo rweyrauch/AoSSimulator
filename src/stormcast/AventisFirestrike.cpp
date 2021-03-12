@@ -51,8 +51,10 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePyroelectricBlast(this)));
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Fiery Orator", 12, 12, Phase::Combat, Attribute::To_Wound_Melee, 1,
-                                                                                  Abilities::Target::Friendly));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Fiery Orator", 12, 12, Phase::Combat,
+                                                             Attribute::To_Wound_Melee, 1,
+                                                             Abilities::Target::Friendly));
         m_points = g_pointsPerUnit;
 
         return true;
@@ -61,7 +63,7 @@ namespace StormcastEternals {
     Unit *AventisFirestrike::Create(const ParameterList &parameters) {
         auto unit = new AventisFirestrike();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 

@@ -50,7 +50,7 @@ namespace Skaven {
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             IntegerParameter("Warpfire Guns", g_minUnitSize / 2, g_minUnitSize / 2,
-                             g_maxUnitSize / 2, g_minUnitSize / 2),
+                                             g_maxUnitSize / 2, g_minUnitSize / 2),
                     },
                     CHAOS,
                     {SKAVEN}

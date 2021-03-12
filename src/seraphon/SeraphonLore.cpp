@@ -27,7 +27,8 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class StellarTempest : public Spell {
@@ -48,7 +49,8 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class CelestialHarmony : public Spell {
@@ -73,7 +75,8 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class HandOfGlory : public Spell {
@@ -92,7 +95,8 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     class TideOfSerpents : public Spell {
@@ -113,7 +117,8 @@ namespace Seraphon {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {

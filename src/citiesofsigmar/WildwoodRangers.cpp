@@ -43,8 +43,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }

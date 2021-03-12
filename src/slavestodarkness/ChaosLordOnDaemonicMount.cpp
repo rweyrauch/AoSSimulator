@@ -85,7 +85,7 @@ namespace SlavesToDarkness {
         return true;
     }
 
-    Wounds ChaosLordOnDaemonicMount::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ChaosLordOnDaemonicMount::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto savedWounds = Unit::applyWoundSave(wounds, attackingUnit);
         Dice::RollResult result;
         // Chaos Runeshield

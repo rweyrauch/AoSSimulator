@@ -104,7 +104,7 @@ namespace Khorne {
             }
 
             PLOG_INFO.printf("%s Murderous Charge inflicted %d mortal wounds on %s\n",
-                   name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
+                             name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
 
             m_meleeTarget->applyDamage(wounds, this);
         }

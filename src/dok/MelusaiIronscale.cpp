@@ -15,15 +15,15 @@ namespace DaughtersOfKhaine {
 
     class WrathOfTheScathborn : public CommandAbility {
     public:
-        explicit WrathOfTheScathborn(Unit* general) :
-            CommandAbility(general, "Wrath of the Scáthborn", 12, 12, Phase::Hero) {
+        explicit WrathOfTheScathborn(Unit *general) :
+                CommandAbility(general, "Wrath of the Scáthborn", 12, 12, Phase::Hero) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {MELUSAI};
             m_effect = Abilities::EffectType::Buff;
         }
 
     protected:
-        bool apply(Unit* target) override {
+        bool apply(Unit *target) override {
             if (target == nullptr)
                 return false;
 
@@ -33,6 +33,7 @@ namespace DaughtersOfKhaine {
 
             return true;
         }
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -71,7 +72,7 @@ namespace DaughtersOfKhaine {
     Unit *MelusaiIronscale::Create(const ParameterList &parameters) {
         auto unit = new MelusaiIronscale();
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_melusaiCommandTraits[0]);

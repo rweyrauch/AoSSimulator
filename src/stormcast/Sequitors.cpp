@@ -97,7 +97,7 @@ namespace StormcastEternals {
         return true;
     }
 
-    Rerolls Sequitors::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Sequitors::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         const bool isMissile = weapon->isMissile();
 
         // Soulshields Shields

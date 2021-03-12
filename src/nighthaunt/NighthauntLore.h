@@ -10,6 +10,7 @@
 #include <nighthaunt/Nighthaunt.h>
 
 class Unit;
+
 class Spell;
 
 namespace Nighthaunt {

@@ -29,7 +29,7 @@ namespace Nurgle {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
@@ -50,7 +50,8 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     SorcererOfNurgle::ComputePoints,
                     {
-                            EnumParameter("Command Trait", g_mortalRotbringerCommandTraits[0], g_mortalRotbringerCommandTraits),
+                            EnumParameter("Command Trait", g_mortalRotbringerCommandTraits[0],
+                                          g_mortalRotbringerCommandTraits),
                             EnumParameter("Artefact", g_mortalRotbringerArtefacts[0], g_mortalRotbringerArtefacts),
                             EnumParameter("Lore", g_mortalRotbringerLore[0], g_mortalRotbringerLore),
                             EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),

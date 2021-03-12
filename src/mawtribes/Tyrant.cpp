@@ -68,7 +68,7 @@ namespace OgorMawtribes {
     void Tyrant::Init() {
         if (!s_registered) {
             static const std::array<int, 6> bignames = {Deathcheater, Brawlerguts, Fateseeker,
-                                                                   Longstrider, Giantbreaker, Wallcrusher};
+                                                        Longstrider, Giantbreaker, Wallcrusher};
             static FactoryMethod factoryMethod = {
                     Tyrant::Create,
                     Tyrant::ValueToString,

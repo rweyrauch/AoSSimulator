@@ -31,9 +31,12 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_starboundBlade);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Once More, For Sigmar, Charge!", 12, 12, Phase::Charge,
-                                                                        Attribute::Charge_Distance, 3, Abilities::Target::SelfAndFriendly,
-                                                                        std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Once More, For Sigmar, Charge!", 12, 12,
+                                                             Phase::Charge,
+                                                             Attribute::Charge_Distance, 3,
+                                                             Abilities::Target::SelfAndFriendly,
+                                                             std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
 
         m_points = g_pointsPerUnit;
 
@@ -74,7 +77,7 @@ namespace StormcastEternals {
         }
     }
 
-    Rerolls GavrielSureheart::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
+    Rerolls GavrielSureheart::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {
         // Sigmarite Thundershield
         return Rerolls::Ones;
     }

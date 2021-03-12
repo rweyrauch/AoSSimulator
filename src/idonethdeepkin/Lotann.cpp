@@ -83,7 +83,7 @@ namespace IdonethDeepkin {
         return true;
     }
 
-    Wounds Lotann::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Lotann::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         return ignoreWounds(wounds, 5);
     }
 

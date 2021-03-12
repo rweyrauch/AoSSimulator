@@ -70,19 +70,19 @@ namespace Ironjawz {
 
     std::string Ironjawz::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Warclan") {
-            auto clanName = magic_enum::enum_name((Warclan)parameter.intValue);
+            auto clanName = magic_enum::enum_name((Warclan) parameter.intValue);
             return std::string(clanName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         if (std::string(parameter.name) == "Mount Trait") {
@@ -99,22 +99,22 @@ namespace Ironjawz {
 
     int Ironjawz::EnumStringToInt(const std::string &enumString) {
         auto clan = magic_enum::enum_cast<Warclan>(enumString);
-        if (clan.has_value()) return (int)clan.value();
+        if (clan.has_value()) return (int) clan.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto mount = magic_enum::enum_cast<MountTrait>(enumString);
-        if (mount.has_value()) return (int)mount.value();
+        if (mount.has_value()) return (int) mount.value();
 
         auto beat = magic_enum::enum_cast<Warbeat>(enumString);
-        if (beat.has_value()) return (int)beat.value();
+        if (beat.has_value()) return (int) beat.value();
 
         return 0;
     }

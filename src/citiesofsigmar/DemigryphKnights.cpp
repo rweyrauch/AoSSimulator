@@ -62,7 +62,7 @@ namespace CitiesOfSigmar {
 
     void DemigryphKnights::Init() {
         if (!s_registered) {
-            static const std::array<int, 2> weapons = { DemigryphKnights::Halberd, DemigryphKnights::Lance};
+            static const std::array<int, 2> weapons = {DemigryphKnights::Halberd, DemigryphKnights::Lance};
             static FactoryMethod factoryMethod = {
                     DemigryphKnights::Create,
                     DemigryphKnights::ValueToString,
@@ -123,8 +123,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }

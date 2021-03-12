@@ -128,8 +128,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (drummer) {
+            } else if (drummer) {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
@@ -172,7 +171,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int FreeguildGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int FreeguildGuard::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = CitizenOfSigmar::toSaveModifier(weapon, attacker);
 
         // Parry and Block

@@ -46,10 +46,10 @@ namespace GloomspiteGitz {
     Unit *LoonbossWithGiantCaveSquig::Create(const ParameterList &parameters) {
         auto unit = new LoonbossWithGiantCaveSquig();
 
-        auto trait = (CommandTrait)GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
         unit->setCommandTrait(trait);
 
-        auto artefact = (Artefact)GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
         unit->setArtefact(artefact);
 
         auto general = GetBoolParam("General", parameters, false);

@@ -17,11 +17,14 @@ namespace Slaanesh {
 
     class CacophonicChoir : public Spell {
     public:
-        explicit CacophonicChoir(Unit* caster);
+        explicit CacophonicChoir(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override { return Result::Failed; }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue,
+                     Unit *target) override { return Result::Failed; }
+
+        Result
+        apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override;
     };
 
     CacophonicChoir::CacophonicChoir(Unit *caster) :
@@ -30,7 +33,8 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result CacophonicChoir::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) {
+    Spell::Result
+    CacophonicChoir::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) {
 
         const auto roll = Dice::Roll2D6();
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
@@ -208,7 +212,7 @@ namespace Slaanesh {
         }
     }
 
-    Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (m_weapon == Shining_Aegis) {
             // Shining Aegis
             return ignoreWounds(wounds, 6);

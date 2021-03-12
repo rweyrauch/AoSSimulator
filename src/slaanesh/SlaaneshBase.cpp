@@ -81,19 +81,19 @@ namespace Slaanesh {
 
     std::string SlaaneshBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Host") {
-            auto hostName = magic_enum::enum_name((Host)parameter.intValue);
+            auto hostName = magic_enum::enum_name((Host) parameter.intValue);
             return std::string(hostName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         return ParameterValueToString(parameter);
@@ -101,16 +101,16 @@ namespace Slaanesh {
 
     int SlaaneshBase::EnumStringToInt(const std::string &enumString) {
         auto host = magic_enum::enum_cast<Host>(enumString);
-        if (host.has_value()) return (int)host.value();
+        if (host.has_value()) return (int) host.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         return 0;
     }
@@ -134,7 +134,8 @@ namespace Slaanesh {
             return Rerolls::Ones;
         }
 
-        if (isGeneral() && (m_commandTrait == CommandTrait::Territorial) && Board::Instance()->isUnitWithinDeploymentZone(this, owningPlayer())) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Territorial) &&
+            Board::Instance()->isUnitWithinDeploymentZone(this, owningPlayer())) {
             return Rerolls::Failed;
         }
 
@@ -221,7 +222,7 @@ namespace Slaanesh {
             auto friendlyUnits = Board::Instance()->getAllUnits(owningPlayer());
             int numUnitsSlain = 0;
             for (auto unit : friendlyUnits) {
-                 std::function<void(const TurnRecord&)> turnVisitor = [this,&numUnitsSlain](const TurnRecord& record) {
+                std::function<void(const TurnRecord &)> turnVisitor = [this, &numUnitsSlain](const TurnRecord &record) {
                     if (record.m_round == this->m_battleRound) {
                         numUnitsSlain += record.m_enemyUnitsSlain;
                     }
@@ -277,7 +278,7 @@ namespace Slaanesh {
         if (m_host == Host::Lurid_Haze_Invaders) {
             auto general = getRoster()->getGeneral();
             if (general && distanceTo(general) < 12) {
-                auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
+                auto slaaneshGeneral = dynamic_cast<SlaaneshBase *>(general);
                 if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Feverish_Anticipation)) {
                     return Rerolls::Failed;
                 }
@@ -291,7 +292,7 @@ namespace Slaanesh {
         if (m_host == Host::Scarlet_Cavalcade_Godseekers) {
             auto general = getRoster()->getGeneral();
             if (general && distanceTo(general) < 12) {
-                auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
+                auto slaaneshGeneral = dynamic_cast<SlaaneshBase *>(general);
                 if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Embodiment_Of_Haste)) {
                     return Rerolls::Failed;
                 }
@@ -301,7 +302,7 @@ namespace Slaanesh {
         if (m_host == Host::Pretenders) {
             auto general = getRoster()->getGeneral();
             if (general && distanceTo(general) < 12) {
-                auto slaaneshGeneral = dynamic_cast<SlaaneshBase*>(general);
+                auto slaaneshGeneral = dynamic_cast<SlaaneshBase *>(general);
                 if (slaaneshGeneral && (slaaneshGeneral->m_commandTrait == CommandTrait::Inspirer)) {
                     return Rerolls::Failed;
                 }
@@ -338,8 +339,7 @@ namespace Slaanesh {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             if (units.size() >= 2) {
                 getRoster()->incrementResource(Dice::RollD3());
-            }
-            else if (units.size() == 1) {
+            } else if (units.size() == 1) {
                 getRoster()->incrementResource(1);
             }
         }

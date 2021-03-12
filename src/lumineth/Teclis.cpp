@@ -15,34 +15,37 @@ namespace LuminethRealmLords {
 
     class ProtectionOfTeclis : public Spell {
     public:
-        explicit ProtectionOfTeclis(Unit* caster) :
-            Spell(caster, "Protection of Teclis", 10, 18) {
+        explicit ProtectionOfTeclis(Unit *caster) :
+                Spell(caster, "Protection of Teclis", 10, 18) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
-            auto teclis = dynamic_cast<ArchmageTeclis*>(m_caster);
+        Result
+        apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+            auto teclis = dynamic_cast<ArchmageTeclis *>(m_caster);
             if (teclis) {
                 teclis->enableProtectionOfTeclis();
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             return apply(castingRoll, unmodifiedCastingValue, 0, 0);
         }
     };
 
     class StormOfSearingWhiteLight : public Spell {
     public:
-        explicit StormOfSearingWhiteLight(Unit* caster) :
+        explicit StormOfSearingWhiteLight(Unit *caster) :
                 Spell(caster, "StormOfSearingWhiteLight", 10, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -51,14 +54,15 @@ namespace LuminethRealmLords {
                 auto roll = Dice::RollD6();
                 if (roll >= 5) {
                     unit->applyDamage({0, Dice::RollD6(), Wounds::Source::Spell}, m_caster);
-                }
-                else if (roll >= 2) {
+                } else if (roll >= 2) {
                     unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
                 }
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 100;
@@ -76,10 +80,10 @@ namespace LuminethRealmLords {
     const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 6, 16},
-                    {10,  5,  12},
-                    {8,  4,  8},
-                    {6,  3,  6},
-                    {4,  2,  4}
+                    {10, 5, 12},
+                    {8,  4, 8},
+                    {6,  3, 6},
+                    {4,  2, 4}
             };
 
     bool ArchmageTeclis::s_registered = false;
@@ -90,7 +94,7 @@ namespace LuminethRealmLords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreTeclis[0]);
@@ -196,13 +200,14 @@ namespace LuminethRealmLords {
     int ArchmageTeclis::auraOfCelennar(const Unit *caster) {
         // Aura of Celennar
         if (caster->hasKeyword(LUMINETH_REALM_LORDS) &&
-            (caster->owningPlayer() == owningPlayer()) && (distanceTo(caster) <= g_damageTable[getDamageTableIndex()].m_auraRange)) {
+            (caster->owningPlayer() == owningPlayer()) &&
+            (distanceTo(caster) <= g_damageTable[getDamageTableIndex()].m_auraRange)) {
             return 1;
         }
         return 0;
     }
 
-    Wounds ArchmageTeclis::protectionAuras(const Wounds& wounds, const Unit* target, const Unit* attacker) {
+    Wounds ArchmageTeclis::protectionAuras(const Wounds &wounds, const Unit *target, const Unit *attacker) {
         Wounds totalWounds = wounds;
 
         if (!isFriendly(attacker)) {
@@ -259,12 +264,10 @@ namespace LuminethRealmLords {
         if (m_totalSpells >= 4) {
             unmodifiedRoll.d1 = 5;
             unmodifiedRoll.d2 = 5;
-        }
-        else if (m_totalSpells >= 2) {
+        } else if (m_totalSpells >= 2) {
             unmodifiedRoll.d1 = 6;
             unmodifiedRoll.d2 = 6;
-        }
-        else { // m_totalSpells == 1
+        } else { // m_totalSpells == 1
             unmodifiedRoll.d1 = Automatically_Cast_No_Unbind;
             unmodifiedRoll.d2 = 0;
         }

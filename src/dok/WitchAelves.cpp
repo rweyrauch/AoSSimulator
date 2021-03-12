@@ -18,7 +18,7 @@ namespace DaughtersOfKhaine {
     static const int g_minUnitSize = 10;
     static const int g_maxUnitSize = 30;
     static const int g_pointsPerBlock = 100;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool WitchAelves::s_registered = false;
 
@@ -49,8 +49,7 @@ namespace DaughtersOfKhaine {
             if (standardBearers) {
                 witch->setName(Model::StandardBearer);
                 standardBearers = false;
-            }
-            else if (hornblowers) {
+            } else if (hornblowers) {
                 witch->setName(Model::Hornblower);
                 hornblowers = false;
             }
@@ -69,7 +68,7 @@ namespace DaughtersOfKhaine {
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         bool ok = unit->configure(numModels, pairedKnives, hornblowers, standardBearers);
@@ -126,7 +125,7 @@ namespace DaughtersOfKhaine {
         return DaughterOfKhaine::rollBattleshock();
     }
 
-    int WitchAelves::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int WitchAelves::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = DaughterOfKhaine::toSaveModifier(weapon, attacker);
         // Bladed Bucklers
         if (!m_pairedKnives) {

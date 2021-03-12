@@ -106,7 +106,8 @@ void Roster::endTurn(int battleRound) {
     }
 
     if (m_factionResource != Resource::None) {
-        PLOG_INFO << "Player " << PlayerIdToString(m_id) << ":  Resource Name: " << magic_enum::enum_name(m_factionResource) << "  Total: " << m_resourceCount;
+        PLOG_INFO << "Player " << PlayerIdToString(m_id) << ":  Resource Name: "
+                  << magic_enum::enum_name(m_factionResource) << "  Total: " << m_resourceCount;
     }
 }
 

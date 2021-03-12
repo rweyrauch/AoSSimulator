@@ -139,7 +139,8 @@ namespace SlavesToDarkness {
 
     int ChaosChosen::iconBearer(const Unit *unit) {
         // Icon Bearer
-        if (isNamedModelAlive(Model::IconBearer) && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
+        if (isNamedModelAlive(Model::IconBearer) && (unit->owningPlayer() != owningPlayer()) &&
+            (distanceTo(unit) <= 6.0)) {
             return -1;
         }
         return 0;

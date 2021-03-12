@@ -12,44 +12,45 @@ namespace FleshEaterCourt {
 
     class Bonestorm : public Spell {
     public:
-        explicit Bonestorm(Unit* caster) :
+        explicit Bonestorm(Unit *caster) :
                 Spell(caster, "Bonestorm", 5, 12) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
 
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
             for (auto target : units) {
-                 if (Dice::RollD6() >= 2) {
+                if (Dice::RollD6() >= 2) {
                     target->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
                 }
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class SpectralHost : public Spell {
     public:
-        explicit SpectralHost(Unit* caster) :
+        explicit SpectralHost(Unit *caster) :
                 Spell(caster, "Spectral Host", 6, 12) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
 
             if (!target->fly()) {
                 target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
-            }
-            else {
+            } else {
                 target->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
             }
 
@@ -62,30 +63,31 @@ namespace FleshEaterCourt {
 
                     if (!unit->fly()) {
                         unit->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
-                    }
-                    else {
+                    } else {
                         unit->buffMovement(MovementRule::Run_And_Charge, true, defaultDuration());
                     }
 
-                    if (unitsAffected >= 2 ) break;
+                    if (unitsAffected >= 2) break;
                 }
             }
 
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class MiasmalShroud : public Spell {
     public:
-        explicit MiasmalShroud(Unit* caster) :
+        explicit MiasmalShroud(Unit *caster) :
                 Spell(caster, "Miasmal Shroud", 5, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -104,27 +106,28 @@ namespace FleshEaterCourt {
                 target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
                 target->buffModifier(Attribute::To_Wound_Melee, -1, defaultDuration());
                 target->buffModifier(Attribute::To_Wound_Missile, -1, defaultDuration());
-            }
-            else if ((roll0 == roll1) || (roll0 == roll2) || (roll1 == roll2)) {
+            } else if ((roll0 == roll1) || (roll0 == roll2) || (roll1 == roll2)) {
                 target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
                 target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             }
 
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class DerangedTransformation : public Spell {
     public:
-        explicit DerangedTransformation(Unit* caster) :
+        explicit DerangedTransformation(Unit *caster) :
                 Spell(caster, "Deranged Transformation", 6, 24) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_effect = Abilities::EffectType::Buff;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -147,16 +150,18 @@ namespace FleshEaterCourt {
                         unitsAffected++;
                     }
 
-                    if (unitsAffected >= 2 ) break;
+                    if (unitsAffected >= 2) break;
                 }
             }
 
             return Spell::Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
-    Spell* CreateLore(Lore which, Unit* caster) {
+    Spell *CreateLore(Lore which, Unit *caster) {
         switch (which) {
             case Lore::Bonestorm:
                 return new Bonestorm(caster);

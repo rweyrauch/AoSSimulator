@@ -28,10 +28,10 @@ namespace LuminethRealmLords {
     const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {30, 5, 12},
-                    {25,  4,  10},
-                    {20,  3,  8},
-                    {15,  2,  6},
-                    {10,  1,  4}
+                    {25, 4, 10},
+                    {20, 3, 8},
+                    {15, 2, 6},
+                    {10, 1, 4}
             };
 
     bool AlarithSpiritOfTheMountain::s_registered = false;
@@ -71,7 +71,7 @@ namespace LuminethRealmLords {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
         unit->setArtefact(artefact);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         bool ok = unit->configure();
@@ -137,7 +137,8 @@ namespace LuminethRealmLords {
         return 0;
     }
 
-    int AlarithSpiritOfTheMountain::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+    int AlarithSpiritOfTheMountain::extraAttacks(const Model *attackingModel, const Weapon *weapon,
+                                                 const Unit *target) const {
         auto extra = Unit::extraAttacks(attackingModel, weapon, target);
 
         // All but Immovable
@@ -151,9 +152,10 @@ namespace LuminethRealmLords {
 
         // Stoneheart Shockwave
         if (player != owningPlayer()) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_shockwave);
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
+                                                           g_damageTable[getDamageTableIndex()].m_shockwave);
             for (auto ip : units) {
-                const Weapon* missileWeapon = nullptr;
+                const Weapon *missileWeapon = nullptr;
                 if (ip->hasShootingAttack(&missileWeapon)) {
                     ip->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Shooting, m_battleRound, player});
                     break;
@@ -166,7 +168,8 @@ namespace LuminethRealmLords {
         Unit::onStartCombat(player);
 
         // Stoneheart Shockwave
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), g_damageTable[getDamageTableIndex()].m_shockwave);
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
+                                                       g_damageTable[getDamageTableIndex()].m_shockwave);
         for (auto ip : units) {
             ip->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
             break;

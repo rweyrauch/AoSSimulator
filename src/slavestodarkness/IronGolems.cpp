@@ -112,7 +112,7 @@ namespace SlavesToDarkness {
         return points;
     }
 
-    Rerolls IronGolems::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls IronGolems::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Iron Resilience
         if (!m_moved) return Rerolls::Failed;
 

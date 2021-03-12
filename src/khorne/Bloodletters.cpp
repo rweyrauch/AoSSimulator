@@ -53,12 +53,10 @@ namespace Khorne {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (iconBearer) {
+            } else if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (hornblowers) {
+            } else if (hornblowers) {
                 model->setName(Model::Hornblower);
                 hornblowers = false;
             }
@@ -170,7 +168,8 @@ namespace Khorne {
     }
 
     Rerolls Bloodletters::hornblowerBattleshockReroll(const Unit *unit) {
-        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Rerolls::Ones;
+        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0))
+            return Rerolls::Ones;
 
         return Rerolls::None;
     }

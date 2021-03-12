@@ -66,7 +66,7 @@
 namespace StormcastEternals {
 
     StormcastEternal::StormcastEternal() :
-        Unit() {
+            Unit() {
         s_globalBraveryMod.connect(this, &StormcastEternal::deathlyAura, &m_deathlyAuraConnection);
     }
 
@@ -164,24 +164,25 @@ namespace StormcastEternals {
     }
 
     std::string StormcastEternal::ValueToString(const Parameter &parameter) {
-        if ((std::string(parameter.name) == "Lore of the Storm") || (std::string(parameter.name) == "Lore of Invigoration") ||
+        if ((std::string(parameter.name) == "Lore of the Storm") ||
+            (std::string(parameter.name) == "Lore of Invigoration") ||
             (std::string(parameter.name) == "Lore")) {
             return ToString((Lore) parameter.intValue);
         }
         if (std::string(parameter.name) == "Stormhost") {
-            auto hostName = magic_enum::enum_name((Stormhost)parameter.intValue);
+            auto hostName = magic_enum::enum_name((Stormhost) parameter.intValue);
             return std::string(hostName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Mount Trait") {
-            auto traitName = magic_enum::enum_name((MountTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((MountTrait) parameter.intValue);
             return std::string(traitName);
         }
         return ParameterValueToString(parameter);
@@ -192,16 +193,16 @@ namespace StormcastEternals {
         if (FromString(enumString, lore)) return ToInteger(lore);
 
         auto stormhost = magic_enum::enum_cast<Stormhost>(enumString);
-        if (stormhost.has_value()) return (int)stormhost.value();
+        if (stormhost.has_value()) return (int) stormhost.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto mount = magic_enum::enum_cast<MountTrait>(enumString);
-        if (mount.has_value()) return (int)mount.value();
+        if (mount.has_value()) return (int) mount.value();
 
         return 0;
     }
@@ -243,7 +244,7 @@ namespace StormcastEternals {
         if (m_stormHost == Stormhost::Hammers_Of_Sigmar) {
             auto general = getRoster()->getGeneral();
             if (general && general->hasKeyword(HAMMERS_OF_SIGMAR)) {
-                auto sceGeneral = dynamic_cast<StormcastEternal*>(general);
+                auto sceGeneral = dynamic_cast<StormcastEternal *>(general);
                 if (sceGeneral && (sceGeneral->remainingModels() > 0) &&
                     (sceGeneral->m_commandTrait == CommandTrait::We_Cannot_Fail) && distanceTo(general) < 9.0) {
                     totalWounds = ignoreWounds(totalWounds, 6);
@@ -287,9 +288,9 @@ namespace StormcastEternals {
 
         // Staunch Defender
         if (!charged()) {
-            auto general = dynamic_cast<StormcastEternal*>(getRoster()->getGeneral());
+            auto general = dynamic_cast<StormcastEternal *>(getRoster()->getGeneral());
             if (general && (general->remainingModels() > 0) &&
-               (general->m_commandTrait == CommandTrait::Staunch_Defender) && (distanceTo(general) < 9.0)) {
+                (general->m_commandTrait == CommandTrait::Staunch_Defender) && (distanceTo(general) < 9.0)) {
                 mod++;
             }
         }
@@ -298,7 +299,8 @@ namespace StormcastEternals {
 
     int StormcastEternal::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
-        if (isGeneral() && (m_commandTrait == CommandTrait::Champion_Of_The_Realms) && weapon->isFlagSet(Weapon::Preferred)) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Champion_Of_The_Realms) &&
+            weapon->isFlagSet(Weapon::Preferred)) {
             attacks++;
         }
         return attacks;
@@ -415,13 +417,13 @@ namespace StormcastEternals {
                 auto numSlain = ip->applyDamage({0, mortalsTarget}, owner);
 
                 PLOG_INFO.printf("%s shattered %d Spirit Flasks inflicting %d mortal wounds on %s slaying %d.\n",
-                       owner->name().c_str(), numFlasks, mortalsTarget, ip->name().c_str(), numSlain);
+                                 owner->name().c_str(), numFlasks, mortalsTarget, ip->name().c_str(), numSlain);
             }
 
             int mortalsSelf = numFlasks;
             auto dead = owner->applyDamage({0, mortalsSelf}, owner);
             PLOG_INFO.printf("Spirit Flasks inflicted %s wounds on %s.  Slaying %d models.\n",
-                   mortalsSelf, owner->name().c_str(), dead);
+                             mortalsSelf, owner->name().c_str(), dead);
         }
 
         return (numFlasks != 0);

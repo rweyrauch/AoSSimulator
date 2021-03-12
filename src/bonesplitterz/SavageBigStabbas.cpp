@@ -63,7 +63,7 @@ namespace Bonesplitterz {
         m_runAndCharge = true;
     }
 
-    void SavageBigStabbas::onFriendlyModelSlain(int numSlain, Unit* attacker, Wounds::Source source) {
+    void SavageBigStabbas::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
         // Da Final Fling
         if (source == Wounds::Source::Weapon_Melee) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

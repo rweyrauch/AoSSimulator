@@ -10,6 +10,7 @@
 #include <citiesofsigmar/CitiesOfSigmar.h>
 
 class Unit;
+
 class Spell;
 
 namespace CitiesOfSigmar {

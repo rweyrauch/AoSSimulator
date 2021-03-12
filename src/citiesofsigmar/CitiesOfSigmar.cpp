@@ -71,19 +71,19 @@ namespace CitiesOfSigmar {
 
     std::string CitizenOfSigmar::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "City") {
-            auto cityName = magic_enum::enum_name((City)parameter.intValue);
+            auto cityName = magic_enum::enum_name((City) parameter.intValue);
             return std::string(cityName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         if (std::string(parameter.name) == "Narcotic") {
@@ -95,19 +95,19 @@ namespace CitiesOfSigmar {
 
     int CitizenOfSigmar::EnumStringToInt(const std::string &enumString) {
         auto city = magic_enum::enum_cast<City>(enumString);
-        if (city.has_value()) return (int)city.value();
+        if (city.has_value()) return (int) city.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto drug = magic_enum::enum_cast<Narcotic>(enumString);
-        if (drug.has_value()) return (int)drug.value();
+        if (drug.has_value()) return (int) drug.value();
 
         return 0;
     }
@@ -187,7 +187,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int CitizenOfSigmar::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int CitizenOfSigmar::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Alert and Forewarned
@@ -227,7 +227,8 @@ namespace CitiesOfSigmar {
 
         if (owningPlayer() == player) {
             if (isGeneral() && (remainingModels() > 0) &&
-                ((m_commandTrait == CommandTrait::Seat_On_The_Council) || (m_commandTrait == CommandTrait::Warden_Of_The_Flame))) {
+                ((m_commandTrait == CommandTrait::Seat_On_The_Council) ||
+                 (m_commandTrait == CommandTrait::Warden_Of_The_Flame))) {
                 if (Dice::RollD6() >= 4) {
                     getRoster()->addCommandPoints(1);
                 }
@@ -263,8 +264,9 @@ namespace CitiesOfSigmar {
         auto mod = Unit::toHitModifier(weapon, target);
 
         if (hasKeyword(HAMMERHAL)) {
-            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
-            if (general && general->charged() && (general->m_commandTrait == CommandTrait::Aggressive_General) && (distanceTo(general) < 12.0)) {
+            auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
+            if (general && general->charged() && (general->m_commandTrait == CommandTrait::Aggressive_General) &&
+                (distanceTo(general) < 12.0)) {
                 mod++;
             }
         }
@@ -277,8 +279,9 @@ namespace CitiesOfSigmar {
 
     Rerolls CitizenOfSigmar::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         if (hasKeyword(HAMMERHAL)) {
-            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
-            if (general && general->charged() && (general->m_commandTrait == CommandTrait::Blood_Of_The_Twelve) && (distanceTo(general) < 12.0)) {
+            auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
+            if (general && general->charged() && (general->m_commandTrait == CommandTrait::Blood_Of_The_Twelve) &&
+                (distanceTo(general) < 12.0)) {
                 return Rerolls::Ones;
             }
         }

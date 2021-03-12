@@ -17,11 +17,13 @@ namespace Slaanesh {
 
     class RefineSenses : public Spell {
     public:
-        explicit RefineSenses(Unit* caster);
+        explicit RefineSenses(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     RefineSenses::RefineSenses(Unit *caster) :
@@ -30,9 +32,10 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Buff;
     }
 
-    Spell::Result RefineSenses::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    RefineSenses::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
 
-        auto shalaxi = dynamic_cast<ShalaxiHelbane*>(m_caster);
+        auto shalaxi = dynamic_cast<ShalaxiHelbane *>(m_caster);
         if (shalaxi) {
             shalaxi->enableRefineSenses();
         }
@@ -165,7 +168,7 @@ namespace Slaanesh {
         onWounded();
     }
 
-    Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ShalaxiHelbane::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (m_weapon == Shining_Aegis) {
             // Shining Aegis
             return ignoreWounds(wounds, 6);
@@ -249,8 +252,7 @@ namespace Slaanesh {
         // The Killing Stroke
         if (meleeTarget() && (distanceTo(meleeTarget()) <= 3.0) && meleeTarget()->hasKeyword(HERO)) {
             m_soulpiercer.setDamage(6);
-        }
-        else {
+        } else {
             m_soulpiercer.setDamage(RAND_D6);
         }
     }

@@ -70,7 +70,8 @@ namespace Khorne {
                     Bloodstoker::ComputePoints,
                     {
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
-                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
                             BoolParameter("General")
                     },
@@ -94,8 +95,10 @@ namespace Khorne {
             if (unit != nullptr) {
                 unit->buffModifier(Attribute::Charge_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
                 unit->buffModifier(Attribute::Run_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                unit->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed,
+                                 {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed,
+                                 {Phase::Movement, m_battleRound + 1, owningPlayer()});
             }
         }
     }

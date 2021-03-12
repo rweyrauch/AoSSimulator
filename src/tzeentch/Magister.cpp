@@ -23,7 +23,7 @@ namespace Tzeentch {
     Unit *Magister::Create(const ParameterList &parameters) {
         auto unit = new Magister();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         auto general = GetBoolParam("General", parameters, false);

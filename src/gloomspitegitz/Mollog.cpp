@@ -105,7 +105,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    Wounds Mollog::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Mollog::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
 
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {

@@ -23,32 +23,38 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::Run_Distance, 1, defaultDuration());
             target->buffModifier(Attribute::Charge_Distance, 1, defaultDuration());
             target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class TwinTailedComet : public Spell {
     public:
         explicit TwinTailedComet(Unit *caster) :
-            Spell(caster, "Twin-tailed Comet", 7, 18) {
+                Spell(caster, "Twin-tailed Comet", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
-            target->applyDamage({0, (target->remainingModels() >= 10) ? Dice::RollD6() : Dice::RollD3(), Wounds::Source::Spell}, m_caster);
+            target->applyDamage(
+                    {0, (target->remainingModels() >= 10) ? Dice::RollD6() : Dice::RollD3(), Wounds::Source::Spell},
+                    m_caster);
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class IronoakSkin : public Spell {
@@ -61,13 +67,15 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::Target_To_Wound_Missile, -1, defaultDuration());
             target->buffModifier(Attribute::Target_To_Wound_Melee, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class DescendingAshCloud : public Spell {
@@ -77,14 +85,17 @@ namespace CitiesOfSigmar {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
             target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class ChokingFumes : public Spell {
@@ -97,30 +108,34 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             Dice::RollResult rolls;
             Dice::RollD6(target->remainingModels(), rolls);
             target->applyDamage({0, rolls.rollsGE(5), Wounds::Source::Spell}, m_caster);
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class AddCommandPoint : public Spell {
     public:
-        explicit AddCommandPoint(Unit* caster, const std::string& name, int castingValue, int number) :
-            Spell(caster, name, castingValue, 0),
-            m_number(number) {
+        explicit AddCommandPoint(Unit *caster, const std::string &name, int castingValue, int number) :
+                Spell(caster, name, castingValue, 0),
+                m_number(number) {
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->getRoster()->addCommandPoints(m_number);
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
 
         int m_number = 0;
     };
@@ -149,9 +164,11 @@ namespace CitiesOfSigmar {
             case Lore::Choking_Fumes:
                 return new ChokingFumes(caster);
             case Lore::Amber_Tide:
-                return new BuffMovementSpell(caster, "Amber Tide", 6, 18, MovementRule::Halve_Movement, true, Abilities::Target::Enemy);
+                return new BuffMovementSpell(caster, "Amber Tide", 6, 18, MovementRule::Halve_Movement, true,
+                                             Abilities::Target::Enemy);
             case Lore::Phoenix_Cry:
-                return new BuffModifierSpell(caster, "Phoenix Cry", 5, 18, Attribute::Bravery, -1, Abilities::Target::Enemy);
+                return new BuffModifierSpell(caster, "Phoenix Cry", 5, 18, Attribute::Bravery, -1,
+                                             Abilities::Target::Enemy);
             case Lore::Golden_Mist:
                 return new HealSpell(caster, "Golden Mist", 6, 12, RAND_D3, -1, -1, {PHOENICIUM});
             case Lore::Sap_Strength:

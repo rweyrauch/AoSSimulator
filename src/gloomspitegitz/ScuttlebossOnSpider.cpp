@@ -20,7 +20,8 @@ namespace GloomspiteGitz {
         explicit RideEmAllDown(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -32,15 +33,17 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(GROT);
     }
 
-    bool RideEmAllDown::apply(Unit* target) {
+    bool RideEmAllDown::apply(Unit *target) {
         if (target == nullptr) {
             return false;
         }
 
-        target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, {Phase::Charge, m_round, m_source->owningPlayer()});
+        target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed,
+                           {Phase::Charge, m_round, m_source->owningPlayer()});
 
         // TODO: only buff Crooked Spear
-        target->buffReroll(Attribute::To_Hit_Melee, Rerolls::Failed, {Phase::Combat, m_round, m_source->owningPlayer()});
+        target->buffReroll(Attribute::To_Hit_Melee, Rerolls::Failed,
+                           {Phase::Combat, m_round, m_source->owningPlayer()});
 
         return true;
     }
@@ -103,7 +106,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ScuttlebossOnGiganticSpider::ComputePoints,
                     {
-                            EnumParameter("Command Trait", g_marksOfTheSpiderGodsFavour[0], g_marksOfTheSpiderGodsFavour),
+                            EnumParameter("Command Trait", g_marksOfTheSpiderGodsFavour[0],
+                                          g_marksOfTheSpiderGodsFavour),
                             EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables),
                             BoolParameter("General")
                     },

@@ -116,7 +116,7 @@ namespace OssiarchBonereapers {
         return OssiarchBonereaperBase::toWoundRerolls(weapon, target);
     }
 
-    Rerolls NecropolisStalkers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls NecropolisStalkers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         if (m_activeAspect == Blade_Parry) return Rerolls::Failed;
         return OssiarchBonereaperBase::toSaveRerolls(weapon, attacker);
     }

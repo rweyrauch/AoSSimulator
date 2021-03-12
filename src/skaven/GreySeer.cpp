@@ -33,7 +33,8 @@ namespace Skaven {
             return Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     static const int g_basesize = 32;

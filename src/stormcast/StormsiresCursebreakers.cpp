@@ -46,7 +46,7 @@ namespace StormcastEternals {
         return true;
     }
 
-    Rerolls StormsiresCursebreakers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls StormsiresCursebreakers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Celestial Lightning Arc
         if (weapon->isMissile()) {
             return Rerolls::Ones;

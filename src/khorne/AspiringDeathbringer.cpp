@@ -16,7 +16,8 @@ namespace Khorne {
         explicit SlaughterIncarnate(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -27,7 +28,7 @@ namespace Khorne {
         m_targetKeywords = {KHORNE, MORTAL};
     }
 
-    bool SlaughterIncarnate::apply(Unit* target) {
+    bool SlaughterIncarnate::apply(Unit *target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
@@ -112,7 +113,8 @@ namespace Khorne {
                     {
                             EnumParameter("Weapon", Bloodaxe_And_Wrathhammer, weapons),
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
-                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
                             BoolParameter("General")
                     },

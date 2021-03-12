@@ -24,7 +24,10 @@ public:
         Success,
     };
 
-    Spell(Unit *caster, std::string name, int castingValue, int range) :
+    Spell(Unit *caster,
+          std::string name,
+          int castingValue,
+          int range) :
             m_caster(caster),
             m_name(std::move(name)),
             m_castingValue(castingValue),
@@ -39,7 +42,8 @@ public:
     const std::string &name() const { return m_name; }
 
     Abilities::Target allowedTargets() const { return m_allowedTargets; }
-    const std::vector<Keyword>& allowedTargetKeywords() const { return m_targetKeywords; }
+
+    const std::vector<Keyword> &allowedTargetKeywords() const { return m_targetKeywords; }
 
     Result cast(Unit *target, int round);
 
@@ -47,8 +51,10 @@ public:
 
 protected:
 
-    virtual Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) = 0;
+    virtual Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) = 0;
+
     virtual Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) = 0;
+
     virtual void onCast(Result result) {}
 
     Duration defaultDuration() const;
@@ -67,13 +73,20 @@ protected:
 
 class DamageSpell : public Spell {
 public:
-    DamageSpell(Unit *caster, const std::string &name, int castingValue, int range, int damage,
-                int castingValue2 = -1, int damage2 = -1);
+    DamageSpell(Unit *caster,
+                const std::string &name,
+                int castingValue,
+                int range,
+                int damage,
+                int castingValue2 = -1,
+                int damage2 = -1);
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                 double y) override { return Result::Failed; }
 
     virtual int getDamage(int castingRoll) const;
 
@@ -86,15 +99,22 @@ DamageSpell *CreateArcaneBolt(Unit *caster);
 
 class AreaOfEffectSpell : public Spell {
 public:
-    AreaOfEffectSpell(Unit *caster, const std::string &name, int castingValue, int range, int radius, int damage,
+    AreaOfEffectSpell(Unit *caster,
+                      const std::string &name,
+                      int castingValue,
+                      int range,
+                      int radius,
+                      int damage,
                       int affectedRoll);
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override;
 
     virtual int getDamage(int castingRoll) const;
+
     virtual void secondaryEffect(Unit *target, int round) const {}
 
     int m_damage = 0;
@@ -109,7 +129,8 @@ public:
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
     Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override;
 
     virtual int getDamage(int castingRoll) const;
@@ -121,13 +142,21 @@ protected:
 
 class HealSpell : public Spell {
 public:
-    HealSpell(Unit *caster, const std::string &name, int castingValue, int range, int healing, int castingValue2 = -1,
-              int healing2 = -1, const std::vector<Keyword>& targetKeywords = {});
+    HealSpell(Unit *caster,
+              const std::string &name,
+              int castingValue,
+              int range,
+              int healing,
+              int castingValue2 = -1,
+              int healing2 = -1,
+              const std::vector<Keyword> &targetKeywords = {});
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                 double y) override { return Result::Failed; }
 
     virtual int getHealing(int castingRoll) const;
 
@@ -138,28 +167,50 @@ protected:
 
 class BuffModifierSpell : public Spell {
 public:
-    BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                      Attribute which, int modifier, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
-    BuffModifierSpell(Unit *caster, const std::string &name, int castingValue, int range,
-                      std::vector<std::pair<Attribute, int>> modifiers, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeywords = {});
+    BuffModifierSpell(Unit *caster,
+                      const std::string &name,
+                      int castingValue,
+                      int range,
+                      Attribute which,
+                      int modifier,
+                      Abilities::Target allowedTargets,
+                      const std::vector<Keyword> &targetKeywords = {});
+
+    BuffModifierSpell(Unit *caster,
+                      const std::string &name,
+                      int castingValue,
+                      int range,
+                      std::vector<std::pair<Attribute, int>> modifiers,
+                      Abilities::Target allowedTargets,
+                      const std::vector<Keyword> &targetKeywords = {});
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                 double y) override { return Result::Failed; }
 
     std::vector<std::pair<Attribute, int>> m_modifiers;
 };
 
 class BuffRerollSpell : public Spell {
 public:
-    BuffRerollSpell(Unit *caster, const std::string &name, int castingValue, int range, Attribute which,
-                    Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+    BuffRerollSpell(Unit *caster,
+                    const std::string &name,
+                    int castingValue,
+                    int range,
+                    Attribute which,
+                    Rerolls reroll,
+                    Abilities::Target allowedTargets,
+                    const std::vector<Keyword> &targetKeyword = {});
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                 double y) override { return Result::Failed; }
 
     Attribute m_attribute = Attribute::To_Hit_Melee;
     Rerolls m_reroll = Rerolls::None;
@@ -167,13 +218,20 @@ protected:
 
 class BuffMovementSpell : public Spell {
 public:
-    BuffMovementSpell(Unit *caster, const std::string &name, int castingValue, int range, MovementRule which,
-                      bool allowed, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+    BuffMovementSpell(Unit *caster,
+                      const std::string &name,
+                      int castingValue,
+                      int range, MovementRule which,
+                      bool allowed,
+                      Abilities::Target allowedTargets,
+                      const std::vector<Keyword> &targetKeyword = {});
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                 double y) override { return Result::Failed; }
 
     MovementRule m_attribute = MovementRule::Can_Fly;
     bool m_allowed = false;
@@ -181,13 +239,21 @@ protected:
 
 class BuffAbilitySpell : public Spell {
 public:
-    BuffAbilitySpell(Unit *caster, const std::string &name, int castingValue, int range, Ability which,
-                     int value, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+    BuffAbilitySpell(Unit *caster,
+                     const std::string &name,
+                     int castingValue,
+                     int range,
+                     Ability which,
+                     int value,
+                     Abilities::Target allowedTargets,
+                     const std::vector<Keyword> &targetKeyword = {});
 
 protected:
 
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+    Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                 double y) override { return Result::Failed; }
 
     Ability m_attribute = Ability::Ignore_Battleshock;
     int m_value = 1;

@@ -21,8 +21,11 @@ namespace Slaanesh {
 
     protected:
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override { return Result::Failed; }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override;
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue,
+                     Unit *target) override { return Result::Failed; }
+
+        Result
+        apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override;
     };
 
     OverwhelmingAcquiescence::OverwhelmingAcquiescence(Unit *caster) :
@@ -31,7 +34,9 @@ namespace Slaanesh {
         m_effect = Abilities::EffectType::Debuff;
     }
 
-    Spell::Result OverwhelmingAcquiescence::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) {
+    Spell::Result
+    OverwhelmingAcquiescence::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                                    double y) {
 
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
 
@@ -129,7 +134,7 @@ namespace Slaanesh {
         }
     }
 
-    Wounds TheContortedEpitome::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds TheContortedEpitome::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Swallow Energy
         Dice::RollResult mortalSaves;
         Dice::RollD6(wounds.mortal, mortalSaves);

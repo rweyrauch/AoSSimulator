@@ -42,8 +42,7 @@ namespace EldritchCouncil {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -93,7 +92,7 @@ namespace EldritchCouncil {
         return Rerolls::Ones;
     }
 
-    Rerolls Swordmasters::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Swordmasters::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Deflect Shots
         if (weapon->isMissile()) {
             return Rerolls::Failed;

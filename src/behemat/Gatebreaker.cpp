@@ -28,10 +28,10 @@ namespace SonsOfBehemat {
     static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {12, 10, 18, 2},
-                    {11, 9, 15, 3},
-                    {10, 7, 12, 4},
-                    {9, 6,  9, 5},
-                    {8, 5,  6, 6}
+                    {11, 9,  15, 3},
+                    {10, 7,  12, 4},
+                    {9,  6,  9,  5},
+                    {8,  5,  6,  6}
             };
 
     bool Gatebreaker::s_registered = false;
@@ -140,7 +140,7 @@ namespace SonsOfBehemat {
             return Rerolls::Ones;
 
         // Death Grip
-        if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
+        if ((weapon->name() == m_grip.name()) && (target - hasKeyword(MONSTER)))
             return Rerolls::Ones;
 
         return Unit::toHitRerolls(weapon, target);
@@ -173,7 +173,8 @@ namespace SonsOfBehemat {
     int Gatebreaker::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = SonsOfBehematBase::extraAttacks(attackingModel, weapon, target);
         if (isGeneral() && (m_commandTrait == CommandTrait::Louder_Than_Words) &&
-           (weapon->name() == m_flail.name())) attacks += 2;
+            (weapon->name() == m_flail.name()))
+            attacks += 2;
         return attacks;
     }
 
@@ -194,7 +195,7 @@ namespace SonsOfBehemat {
     }
 
     Wounds Gatebreaker::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage =  SonsOfBehematBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = SonsOfBehematBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         if (m_artefact == Artefact::The_Great_Wrecka) {
             if ((hitRoll == 6) && (weapon->name() == m_flail.name())) {
                 damage.mortal++;

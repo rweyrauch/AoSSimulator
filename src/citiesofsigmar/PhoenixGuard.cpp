@@ -93,8 +93,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (drummer) {
+            } else if (drummer) {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
@@ -124,7 +123,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    Wounds PhoenixGuard::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds PhoenixGuard::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Witness to Destiny
         Dice::RollResult woundSaves, mortalSaves;
         Dice::RollD6(wounds.normal, woundSaves);

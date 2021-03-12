@@ -10,6 +10,7 @@
 #include <bonesplitterz/Bonesplitterz.h>
 
 class Unit;
+
 class Spell;
 
 namespace Bonesplitterz {

@@ -46,8 +46,7 @@ namespace Wanderers {
             if (pennantBearer) {
                 model->setName("Pennant Bearer");
                 pennantBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }

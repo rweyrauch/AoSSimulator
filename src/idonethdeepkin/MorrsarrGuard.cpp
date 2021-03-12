@@ -52,8 +52,7 @@ namespace IdonethDeepkin {
             if (standardBearers) {
                 model->setName(Model::StandardBearer);
                 standardBearers = false;
-            }
-            else if (musicians) {
+            } else if (musicians) {
                 model->setName(Model::Musician);
                 musicians = false;
             }
@@ -145,8 +144,9 @@ namespace IdonethDeepkin {
         return points;
     }
 
-    Wounds AkhelianMorrsarrGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        if (m_charged && (weapon->name() == m_voltspear.name())) return {weapon->damage()+1, 0};
+    Wounds
+    AkhelianMorrsarrGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        if (m_charged && (weapon->name() == m_voltspear.name())) return {weapon->damage() + 1, 0};
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 

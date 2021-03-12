@@ -102,7 +102,7 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Rerolls Concussors::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
+    Rerolls Concussors::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {
         // Sigmarite Shields
         return Rerolls::Ones;
     }

@@ -23,7 +23,7 @@ namespace Nighthaunt {
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             auto numSlain = target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
             if (numSlain > 0) {
@@ -31,7 +31,9 @@ namespace Nighthaunt {
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 75; // x42 oval

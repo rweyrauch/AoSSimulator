@@ -15,11 +15,13 @@ namespace Tzeentch {
 
     class BlueFireOfTzeentch : public Spell {
     public:
-        explicit BlueFireOfTzeentch(Unit* caster);
+        explicit BlueFireOfTzeentch(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     BlueFireOfTzeentch::BlueFireOfTzeentch(Unit *caster) :
@@ -28,7 +30,8 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result BlueFireOfTzeentch::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
+    Spell::Result
+    BlueFireOfTzeentch::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

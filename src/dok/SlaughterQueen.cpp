@@ -46,7 +46,7 @@ namespace DaughtersOfKhaine {
     Unit *SlaughterQueen::Create(const ParameterList &parameters) {
         auto unit = new SlaughterQueen();
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);

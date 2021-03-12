@@ -73,7 +73,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize,
-                                    g_maxUnitSize, g_minUnitSize),
+                                             g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
                     },
                     ORDER,

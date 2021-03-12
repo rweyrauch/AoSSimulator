@@ -54,7 +54,7 @@ namespace Nurgle {
         auto unit = new BeastsOfNurgle();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels);
@@ -83,7 +83,7 @@ namespace Nurgle {
         }
     }
 
-    Wounds BeastsOfNurgle::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds BeastsOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
     }

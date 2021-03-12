@@ -46,8 +46,7 @@ namespace BeastsOfChaos {
             if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (brayhorn) {
+            } else if (brayhorn) {
                 model->setName("Brayhorn");
                 brayhorn = false;
             }

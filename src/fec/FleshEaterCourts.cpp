@@ -120,7 +120,7 @@ namespace FleshEaterCourt {
         return modifier;
     }
 
-    Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds FleshEaterCourts::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Deathless Courtiers
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
@@ -134,23 +134,23 @@ namespace FleshEaterCourt {
 
     std::string FleshEaterCourts::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Grand Court") {
-            auto courtName = magic_enum::enum_name((GrandCourt)parameter.intValue);
+            auto courtName = magic_enum::enum_name((GrandCourt) parameter.intValue);
             return std::string(courtName);
         }
         if (std::string(parameter.name) == "Delusion") {
-            auto delusionName = magic_enum::enum_name((Delusion)parameter.intValue);
+            auto delusionName = magic_enum::enum_name((Delusion) parameter.intValue);
             return std::string(delusionName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         if (std::string(parameter.name) == "Mount Trait") {
@@ -163,19 +163,19 @@ namespace FleshEaterCourt {
 
     int FleshEaterCourts::EnumStringToInt(const std::string &enumString) {
         auto court = magic_enum::enum_cast<GrandCourt>(enumString);
-        if (court.has_value()) return (int)court.value();
+        if (court.has_value()) return (int) court.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto mount = magic_enum::enum_cast<MountTrait>(enumString);
-        if (mount.has_value()) return (int)mount.value();
+        if (mount.has_value()) return (int) mount.value();
 
         return 0;
     }
@@ -209,12 +209,12 @@ namespace FleshEaterCourt {
         if (m_delusion == Delusion::Defenders_Of_The_Realm) {
             // Defenders of the Realm
             int numModelsIn = 0;
-            for (const auto& model : m_models) {
+            for (const auto &model : m_models) {
                 if (Board::Instance()->isModelWithinDeploymentZone(model.get(), owningPlayer())) {
                     numModelsIn++;
                 }
             }
-            if (numModelsIn >= remainingModels()/2)
+            if (numModelsIn >= remainingModels() / 2)
                 return Rerolls::Ones;
         }
         return Unit::toSaveRerolls(weapon, attacker);

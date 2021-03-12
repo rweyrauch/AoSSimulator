@@ -178,7 +178,7 @@ namespace Skaven {
         return extra;
     }
 
-    Wounds PlaguePriestOnPlagueFurnace::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds PlaguePriestOnPlagueFurnace::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat

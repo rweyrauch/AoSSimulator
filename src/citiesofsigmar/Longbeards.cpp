@@ -55,8 +55,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (musician) {
+            } else if (musician) {
                 model->setName(Model::Musician);
                 musician = false;
             }
@@ -109,7 +108,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Longbeards::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Gromril Shields
         if ((m_weaponOption == Ancestral_Weapon_And_Shield) && !weapon->isMissile()) return Rerolls::Failed;
 

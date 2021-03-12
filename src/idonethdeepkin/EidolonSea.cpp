@@ -21,18 +21,20 @@ namespace IdonethDeepkin {
             m_allowedTargets = Abilities::Target::Any;
             m_effect = Abilities::EffectType::Heal;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             if (m_caster->isFriendly(target)) {
                 target->heal(Dice::RollD3());
-            }
-            else {
+            } else {
                 target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell}, m_caster);
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class TsunamiOfTerror : public Spell {
@@ -42,13 +44,15 @@ namespace IdonethDeepkin {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
-             return apply(castingRoll, unmodifiedCastingRoll, 0, 0);
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
+            return apply(castingRoll, unmodifiedCastingRoll, 0, 0);
         }
+
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override {
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
-            auto numUnits = std::min(Dice::RollD6(), (int)units.size());
+            auto numUnits = std::min(Dice::RollD6(), (int) units.size());
             for (auto i = 0; i < numUnits; i++) {
                 units[i]->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
                 units[i]->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());

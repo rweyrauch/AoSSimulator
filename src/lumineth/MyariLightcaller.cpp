@@ -15,20 +15,23 @@ namespace LuminethRealmLords {
 
     class DazzlingLight : public Spell {
     public:
-        explicit DazzlingLight(Unit* caster) :
-            Spell(caster, "Dazzling Light", 6, 6) {
+        explicit DazzlingLight(Unit *caster) :
+                Spell(caster, "Dazzling Light", 6, 6) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
-            auto myari = dynamic_cast<MyariLigthcaller*>(m_caster);
+        Result
+        apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+            auto myari = dynamic_cast<MyariLigthcaller *>(m_caster);
             if (myari) {
                 myari->enableDazzlingLight();
             }
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             return apply(castingRoll, unmodifiedCastingValue, 0, 0);
         }
     };
@@ -113,7 +116,7 @@ namespace LuminethRealmLords {
         return true;
     }
 
-   void MyariLigthcaller::onStartHero(PlayerId player) {
+    void MyariLigthcaller::onStartHero(PlayerId player) {
         LuminethBase::onStartHero(player);
 
         if (player == owningPlayer()) {

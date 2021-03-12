@@ -83,7 +83,7 @@ namespace Khorne {
                 return Rerolls::Ones;
             }
         }
-        // Tireless Conquerors
+            // Tireless Conquerors
         else if (m_slaughterHost == SlaughterHost::Goretide) {
             if (hasKeyword(MORTAL)) {
                 auto numObjMarkers = Board::Instance()->getNumObjectives();
@@ -143,15 +143,15 @@ namespace Khorne {
 
     std::string KhorneBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Slaughter Host") {
-            auto hostName = magic_enum::enum_name((SlaughterHost)parameter.intValue);
+            auto hostName = magic_enum::enum_name((SlaughterHost) parameter.intValue);
             return std::string(hostName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         return ParameterValueToString(parameter);
@@ -159,13 +159,13 @@ namespace Khorne {
 
     int KhorneBase::EnumStringToInt(const std::string &enumString) {
         auto host = magic_enum::enum_cast<SlaughterHost>(enumString);
-        if (host.has_value()) return (int)host.value();
+        if (host.has_value()) return (int) host.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         return 0;
     }
@@ -223,15 +223,15 @@ namespace Khorne {
                         s_crimsonRainActive = true;
                         break;
                     case BloodTitheReward::Slaughter_Triumphant: {
-                            auto khorneUnits = Board::Instance()->getAllUnits(owningPlayer());
-                            for (auto unit : khorneUnits) {
-                                if (unit->hasKeyword(KHORNE)) {
-                                    unit->buffAbility(Ability::Extra_Hit_On_Value, 6,
-                                                      {Phase::Hero, DurationRestOfGame, owningPlayer()});
-                                }
+                        auto khorneUnits = Board::Instance()->getAllUnits(owningPlayer());
+                        for (auto unit : khorneUnits) {
+                            if (unit->hasKeyword(KHORNE)) {
+                                unit->buffAbility(Ability::Extra_Hit_On_Value, 6,
+                                                  {Phase::Hero, DurationRestOfGame, owningPlayer()});
                             }
-                            s_slaughterTriumphantActive = true;
                         }
+                        s_slaughterTriumphantActive = true;
+                    }
                         break;
                     default:
                         break;
@@ -283,7 +283,7 @@ namespace Khorne {
         s_claimedBloodTithe = false;
     }
 
-    bool KhorneBase::selectBloodTitheReward(BloodTitheReward& selectedReward) {
+    bool KhorneBase::selectBloodTitheReward(BloodTitheReward &selectedReward) {
         selectedReward = BloodTitheReward::None;
 
         if ((getRoster()->getCommandPoints() <= 1) && (getRoster()->getPoints() == 1)) {
@@ -321,13 +321,13 @@ namespace Khorne {
 
     void KhorneBase::dropMeteor() {
         auto units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
-        Unit* bestTarget = nullptr;
+        Unit *bestTarget = nullptr;
         int bestUnitCount = 0;
         for (auto unit : units) {
             auto closestUnits = Board::Instance()->getUnitsWithin(unit, unit->owningPlayer(), 8.0);
-            if ((int)closestUnits.size() > bestUnitCount) {
+            if ((int) closestUnits.size() > bestUnitCount) {
                 bestTarget = unit;
-                bestUnitCount = (int)closestUnits.size();
+                bestUnitCount = (int) closestUnits.size();
             }
         }
         if (bestTarget) {
@@ -347,7 +347,8 @@ namespace Khorne {
         Unit::onEnemyModelSlain(numSlain, enemyUnit, source);
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Arch_Slaughterer)) {
-            if ((source == Wounds::Source::Weapon_Melee) && ((enemyUnit->hasKeyword(MONSTER)) || (enemyUnit->hasKeyword(HERO)))) {
+            if ((source == Wounds::Source::Weapon_Melee) &&
+                ((enemyUnit->hasKeyword(MONSTER)) || (enemyUnit->hasKeyword(HERO)))) {
                 // Get an extra Blood Tithe point for MONSTERS and HEROS.
                 getRoster()->incrementResource(1);
             }
@@ -363,7 +364,7 @@ namespace Khorne {
     Rerolls KhorneBase::chargeRerolls() const {
         auto general = getRoster()->getGeneral();
         if (general && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
-            auto khorne = dynamic_cast<KhorneBase*>(general);
+            auto khorne = dynamic_cast<KhorneBase *>(general);
             if (khorne && (khorne->m_commandTrait == CommandTrait::Violent_Urgency)) {
                 return Rerolls::Failed;
             }
@@ -385,7 +386,8 @@ namespace Khorne {
     void KhorneBase::onEndCombat(PlayerId player) {
         Unit::onEndCombat(player);
 
-        if (isGeneral() && (m_commandTrait == CommandTrait::Mark_Of_The_Cannibal) && (m_currentRecord.m_enemyModelsSlain > 0)) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Mark_Of_The_Cannibal) &&
+            (m_currentRecord.m_enemyModelsSlain > 0)) {
             heal(1);
         }
     }
@@ -407,7 +409,7 @@ namespace Khorne {
         if (hasKeyword(FLAYED) && hasKeyword(PRIEST)) {
             auto general = getRoster()->getGeneral();
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 8.0)) {
-                auto khorne = dynamic_cast<KhorneBase*>(general);
+                auto khorne = dynamic_cast<KhorneBase *>(general);
                 if (khorne && (khorne->m_commandTrait == CommandTrait::Vessel_Of_Butchery)) {
                     return Rerolls::Ones;
                 }
@@ -421,7 +423,7 @@ namespace Khorne {
         if (hasKeyword(BALEFUL_LORDS) && hasKeyword(BLOODTHIRSTER)) {
             auto general = getRoster()->getGeneral();
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 8.0)) {
-                auto khorne = dynamic_cast<KhorneBase*>(general);
+                auto khorne = dynamic_cast<KhorneBase *>(general);
                 if (khorne && (khorne->m_commandTrait == CommandTrait::Thirst_For_Carnage)) {
                     mod++;
                 }

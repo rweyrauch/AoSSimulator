@@ -47,7 +47,7 @@ namespace Nurgle {
         auto unit = new Nurglings();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure(numModels);

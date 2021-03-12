@@ -29,7 +29,8 @@ namespace Slaanesh {
         m_weapons = {&m_clawSpear, &m_clawSpearReaver, &m_poisonedTongue};
         m_hasMount = true;
         m_poisonedTongue.setMount(true);
-        s_globalBattleshockReroll.connect(this, &HellstridersWithClawspears::hornblowerBattleshockReroll, &m_hornblowerSlot);
+        s_globalBattleshockReroll.connect(this, &HellstridersWithClawspears::hornblowerBattleshockReroll,
+                                          &m_hornblowerSlot);
     }
 
     HellstridersWithClawspears::~HellstridersWithClawspears() {
@@ -54,12 +55,10 @@ namespace Slaanesh {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (bannerBearer) {
+            } else if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -97,7 +96,7 @@ namespace Slaanesh {
                     SlaaneshBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Banner Bearer"),
                             BoolParameter("Hornblower"),
@@ -134,7 +133,8 @@ namespace Slaanesh {
     }
 
     Rerolls HellstridersWithClawspears::hornblowerBattleshockReroll(const Unit *unit) {
-        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0)) return Rerolls::Ones;
+        if (!isFriendly(unit) && isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) <= 6.0))
+            return Rerolls::Ones;
 
         return Rerolls::None;
     }

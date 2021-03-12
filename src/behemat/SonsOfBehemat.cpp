@@ -18,15 +18,15 @@ namespace SonsOfBehemat {
 
     std::string SonsOfBehematBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Tribe") {
-            auto tribeName = magic_enum::enum_name((Tribe)parameter.intValue);
+            auto tribeName = magic_enum::enum_name((Tribe) parameter.intValue);
             return std::string(tribeName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         return ParameterValueToString(parameter);
@@ -35,13 +35,13 @@ namespace SonsOfBehemat {
     int SonsOfBehematBase::EnumStringToInt(const std::string &enumString) {
 
         auto tribe = magic_enum::enum_cast<Tribe>(enumString);
-        if (tribe.has_value()) return (int)tribe.value();
+        if (tribe.has_value()) return (int) tribe.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         return 0;
     }
@@ -82,7 +82,7 @@ namespace SonsOfBehemat {
                 break;
         }
 
-         return mod;
+        return mod;
     }
 
     int SonsOfBehematBase::woundModifier() const {

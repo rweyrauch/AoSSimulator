@@ -18,14 +18,14 @@ namespace Seraphon {
 
     class BlazingStarlight : public Spell {
     public:
-        explicit BlazingStarlight(Unit* caster) :
+        explicit BlazingStarlight(Unit *caster) :
                 Spell(caster, "Blazing Starlight", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
 
             target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
@@ -33,7 +33,9 @@ namespace Seraphon {
 
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 25;

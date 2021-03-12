@@ -93,8 +93,7 @@ namespace Greenskinz {
                 else if (standardBearer == StandardOption::Skull_Icon)
                     model->setName("Skull Icon");
                 standardBearer = StandardOption::None;
-            }
-            else if (drummer) {
+            } else if (drummer) {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
@@ -123,10 +122,12 @@ namespace Greenskinz {
 
     void Orruks::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {Choppa_And_Shield, Spear_And_Shield, Paired_Choppas, Orruk_Bow_And_Cutta};
-            static const std::array<int, 3> banners = {StandardOption::None, StandardOption::Orruk_Banner, StandardOption::Skull_Icon};
+            static const std::array<int, 4> weapons = {Choppa_And_Shield, Spear_And_Shield, Paired_Choppas,
+                                                       Orruk_Bow_And_Cutta};
+            static const std::array<int, 3> banners = {StandardOption::None, StandardOption::Orruk_Banner,
+                                                       StandardOption::Skull_Icon};
 
-            static FactoryMethod factoryMethod {
+            static FactoryMethod factoryMethod{
                     Orruks::Create,
                     Orruks::ValueToString,
                     Orruks::EnumStringToInt,
@@ -221,7 +222,7 @@ namespace Greenskinz {
         return attacks;
     }
 
-    Rerolls Orruks::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Orruks::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Waaagh! Shield
         if (!weapon->isMissile() && (m_weaponOption == Choppa_And_Shield || m_weaponOption == Spear_And_Shield)) {
             return Rerolls::Failed;

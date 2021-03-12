@@ -17,7 +17,7 @@ namespace Slaanesh {
     static const int g_minUnitSize = 3;
     static const int g_maxUnitSize = 9;
     static const int g_pointsPerBlock = 180;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize) * g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool Fiends::s_registered = false;
 

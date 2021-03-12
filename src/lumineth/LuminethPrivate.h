@@ -91,12 +91,14 @@ namespace LuminethRealmLords {
 
     protected:
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
 
     };
 
-    Spell* CreateLore(Lore which, Unit* caster);
+    Spell *CreateLore(Lore which, Unit *caster);
 
 } // namespace LuminethRealmLords
 

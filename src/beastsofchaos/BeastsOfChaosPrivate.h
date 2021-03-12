@@ -90,7 +90,7 @@ namespace BeastsOfChaos {
             ToInteger(Lore::Titanic_Fury)
     };
 
-    constexpr std::array<int, 4> g_loreOfTheDarkStorms {
+    constexpr std::array<int, 4> g_loreOfTheDarkStorms{
             ToInteger(Lore::None),
             ToInteger(Lore::Thunderwave),
             ToInteger(Lore::Hailstorm),

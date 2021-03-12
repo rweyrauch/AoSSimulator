@@ -30,7 +30,7 @@ namespace LuminethRealmLords {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsScinari[0]);
         unit->setArtefact(artefact);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);

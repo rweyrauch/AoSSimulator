@@ -14,11 +14,13 @@ namespace OssiarchBonereapers {
 
     class MortalTouch : public Spell {
     public:
-        explicit MortalTouch(Unit* caster);
+        explicit MortalTouch(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override  { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     MortalTouch::MortalTouch(Unit *caster) :
@@ -27,7 +29,8 @@ namespace OssiarchBonereapers {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result MortalTouch::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) {
+    Spell::Result
+    MortalTouch::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }

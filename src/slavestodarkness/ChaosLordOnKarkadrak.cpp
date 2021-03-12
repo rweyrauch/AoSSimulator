@@ -115,7 +115,7 @@ namespace SlavesToDarkness {
         return damage;
     }
 
-    Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto savedWounds = Unit::applyWoundSave(wounds, attackingUnit);
         Dice::RollResult result;
         // Rune-etched Plating

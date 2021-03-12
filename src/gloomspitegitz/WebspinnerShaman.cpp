@@ -19,19 +19,22 @@ namespace GloomspiteGitz {
         explicit SpeedOfTheSpiderGod(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
 
     };
 
     SpeedOfTheSpiderGod::SpeedOfTheSpiderGod(Unit *caster) :
-        Spell(caster, "Speed of the Spider God", 4, 24) {
+            Spell(caster, "Speed of the Spider God", 4, 24) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(SPIDERFANG);
     }
 
-    Spell::Result SpeedOfTheSpiderGod::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    SpeedOfTheSpiderGod::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -116,10 +119,10 @@ namespace GloomspiteGitz {
                     WebspinnerShaman::EnumStringToInt,
                     WebspinnerShaman::ComputePoints,
                     {
-                        EnumParameter("Lore of the Spiderfangs", g_loreOfTheSpiderFangs[0], g_loreOfTheSpiderFangs),
+                            EnumParameter("Lore of the Spiderfangs", g_loreOfTheSpiderFangs[0], g_loreOfTheSpiderFangs),
                             EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
                             EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables),
-                        BoolParameter("General")
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -143,7 +146,7 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Wounds WebspinnerShaman::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds WebspinnerShaman::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Touched by the Spider God
         return ignoreWounds(wounds, 5);
     }

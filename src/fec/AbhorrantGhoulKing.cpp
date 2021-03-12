@@ -34,14 +34,17 @@ namespace FleshEaterCourt {
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Black Hunger", 5, 24, Attribute::Attacks_Melee, 1,
-                                                                    Abilities::Target::SelfAndFriendly, std::vector<Keyword>{FLESH_EATER_COURTS}));
+        m_knownSpells.push_back(
+                std::make_unique<BuffModifierSpell>(this, "Black Hunger", 5, 24, Attribute::Attacks_Melee, 1,
+                                                    Abilities::Target::SelfAndFriendly,
+                                                    std::vector<Keyword>{FLESH_EATER_COURTS}));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         SummonedUnitDesc unitDesc;
         unitDesc.push_back({"Crypt Ghouls", 10});
-        m_commandAbilities.push_back(std::make_unique<SummonAbility>(this, getRoster(), "Summon Men-at-arms", unitDesc));
+        m_commandAbilities.push_back(
+                std::make_unique<SummonAbility>(this, getRoster(), "Summon Men-at-arms", unitDesc));
 
         m_points = g_pointsPerUnit;
 

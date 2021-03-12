@@ -52,8 +52,7 @@ namespace IdonethDeepkin {
             if (standardBearers) {
                 model->setName(Model::StandardBearer);
                 standardBearers = false;
-            }
-            else if (musicians) {
+            } else if (musicians) {
                 model->setName("Musicians");
                 musicians = false;
             }
@@ -113,7 +112,7 @@ namespace IdonethDeepkin {
         return Unit::chargeRerolls();
     }
 
-    int AkhelianIshlaenGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int AkhelianIshlaenGuard::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Biovoltaic Barrier

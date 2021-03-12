@@ -68,9 +68,12 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_greatClaws);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Celestial Host", INT32_MAX, INT32_MAX, Phase::Combat,
-                                                                                Attribute::To_Wound_Melee, Rerolls::Failed, Abilities::Target::SelfAndFriendly,
-                                                                                std::vector<Keyword>(STARDRAKE, DRACOTH)));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Celestial Host", INT32_MAX, INT32_MAX,
+                                                           Phase::Combat,
+                                                           Attribute::To_Wound_Melee, Rerolls::Failed,
+                                                           Abilities::Target::SelfAndFriendly,
+                                                           std::vector<Keyword>(STARDRAKE, DRACOTH)));
 
         m_points = g_pointsPerUnit;
 
@@ -80,7 +83,7 @@ namespace StormcastEternals {
     Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters) {
         auto unit = new LordCelestantOnStardrake();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Celestine_Hammer);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -174,7 +177,7 @@ namespace StormcastEternals {
         return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon * /*weapon*/, const Unit* attacker) const {
+    Rerolls LordCelestantOnStardrake::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {
         // Sigmarite Thundershield
         return Rerolls::Ones;
     }

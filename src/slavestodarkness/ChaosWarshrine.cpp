@@ -138,7 +138,8 @@ namespace SlavesToDarkness {
                 if (roll >= 3) {
                     if (target->hasKeyword(KHORNE)) {
                         // Favour of Khorne
-                        target->buffReroll(Attribute::Attacks_Melee, Rerolls::Failed, {Phase::Hero, m_battleRound + 1, player});
+                        target->buffReroll(Attribute::Attacks_Melee, Rerolls::Failed,
+                                           {Phase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(TZEENTCH)) {
                         // TODO: Favour of Tzeentch
                         // Allow save against magic
@@ -151,7 +152,8 @@ namespace SlavesToDarkness {
                         target->buffAbility(Ability::Ignore_Battleshock, 1, {Phase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(UNDIVIDED)) {
                         // Favour of Chaos
-                        target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, {Phase::Hero, m_battleRound + 1, player});
+                        target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed,
+                                           {Phase::Hero, m_battleRound + 1, player});
                     }
                 }
             }

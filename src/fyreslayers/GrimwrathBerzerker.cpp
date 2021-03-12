@@ -75,7 +75,7 @@ namespace Fyreslayers {
         }
     }
 
-    Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Unstoppable Berserker
         int threshold = 6;
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

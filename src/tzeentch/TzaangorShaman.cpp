@@ -17,14 +17,14 @@ namespace Tzeentch {
 
     class BoonOfMutation : public Spell {
     public:
-        explicit BoonOfMutation(Unit* caster) :
+        explicit BoonOfMutation(Unit *caster) :
                 Spell(caster, "Boon of Mutation", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -44,7 +44,8 @@ namespace Tzeentch {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 40;
@@ -56,7 +57,7 @@ namespace Tzeentch {
     Unit *TzaangorShaman::Create(const ParameterList &parameters) {
         auto unit = new TzaangorShaman();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         auto general = GetBoolParam("General", parameters, false);

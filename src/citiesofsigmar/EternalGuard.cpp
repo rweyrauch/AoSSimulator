@@ -46,8 +46,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -134,7 +133,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int EternalGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int EternalGuard::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = CitizenOfSigmar::toSaveModifier(weapon, attacker);
 
         // Fortress of Boughs

@@ -17,7 +17,11 @@ class Unit;
 
 class CommandAbility {
 public:
-    CommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase) :
+    CommandAbility(Unit *source,
+                   const std::string &name,
+                   int rangeGeneral,
+                   int rangeHero,
+                   Phase phase) :
             m_source(source),
             m_name(name),
             m_phase(phase),
@@ -37,13 +41,15 @@ public:
     const std::string &name() const { return m_name; }
 
     Abilities::Target allowedTargets() const { return m_allowedTargets; }
-    const std::vector<Keyword>& allowedTargetKeywords() const { return m_targetKeywords; }
+
+    const std::vector<Keyword> &allowedTargetKeywords() const { return m_targetKeywords; }
 
     Phase phase() const { return m_phase; }
 
 protected:
 
     virtual bool apply(Unit *target) = 0;
+
     virtual bool apply(double x, double y) = 0;
 
     Duration defaultDuration() const;
@@ -64,14 +70,21 @@ protected:
 
 class BuffModifierCommandAbility : public CommandAbility {
 public:
-    BuffModifierCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase,
-                               Attribute which, int modifier, Abilities::Target allowedTargets,
-                               const std::vector<Keyword>& targetKeywords = {});
+    BuffModifierCommandAbility(Unit *source,
+                               const std::string &name,
+                               int rangeGeneral,
+                               int rangeHero,
+                               Phase phase,
+                               Attribute which,
+                               int modifier,
+                               Abilities::Target allowedTargets,
+                               const std::vector<Keyword> &targetKeywords = {});
 
 
 protected:
 
-    bool apply(Unit* target) override;
+    bool apply(Unit *target) override;
+
     bool apply(double x, double y) override { return false; }
 
     virtual int getModifier() const;
@@ -82,12 +95,20 @@ protected:
 
 class BuffRerollCommandAbility : public CommandAbility {
 public:
-    BuffRerollCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, Attribute which,
-                             Rerolls reroll, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+    BuffRerollCommandAbility(Unit *source,
+                             const std::string &name,
+                             int rangeGeneral,
+                             int rangeHero,
+                             Phase phase,
+                             Attribute which,
+                             Rerolls reroll,
+                             Abilities::Target allowedTargets,
+                             const std::vector<Keyword> &targetKeyword = {});
 
 protected:
 
-    bool apply(Unit* target) override;
+    bool apply(Unit *target) override;
+
     bool apply(double x, double y) override { return false; }
 
     Attribute m_attribute = Attribute::To_Hit_Melee;
@@ -96,12 +117,20 @@ protected:
 
 class BuffAbilityCommandAbility : public CommandAbility {
 public:
-    BuffAbilityCommandAbility(Unit *source, const std::string &name, int rangeGeneral, int rangeHero, Phase phase, Ability which,
-                              int value, Abilities::Target allowedTargets, const std::vector<Keyword>& targetKeyword = {});
+    BuffAbilityCommandAbility(Unit *source,
+                              const std::string &name,
+                              int rangeGeneral,
+                              int rangeHero,
+                              Phase phase,
+                              Ability which,
+                              int value,
+                              Abilities::Target allowedTargets,
+                              const std::vector<Keyword> &targetKeyword = {});
 
 protected:
 
-    bool apply(Unit* target) override;
+    bool apply(Unit *target) override;
+
     bool apply(double x, double y) override { return false; }
 
     Ability m_ability = Ability::Ignore_Battleshock;

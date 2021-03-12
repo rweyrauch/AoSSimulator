@@ -58,7 +58,7 @@ namespace Tzeentch {
         auto *unit = new TzaangorEnlightened();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         bool ok = unit->configure(numModels);

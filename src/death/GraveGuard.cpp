@@ -62,8 +62,7 @@ namespace Death {
             if (standardBearers) {
                 model->setName(Model::StandardBearer);
                 standardBearers = false;
-            }
-            else if (hornblowers) {
+            } else if (hornblowers) {
                 model->setName(Model::Hornblower);
                 hornblowers = false;
             }
@@ -129,7 +128,7 @@ namespace Death {
         return LegionOfNagashBase::EnumStringToInt(enumString);
     }
 
-    int GraveGuard::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int GraveGuard::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Crypt Shields

@@ -51,7 +51,7 @@ namespace DaughtersOfKhaine {
     Unit *MorathiHighOracleOfKhaine::Create(const ParameterList &parameters) {
         auto unit = new MorathiHighOracleOfKhaine();
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         auto general = GetBoolParam("General", parameters, false);
@@ -109,7 +109,7 @@ namespace DaughtersOfKhaine {
         return mod;
     }
 
-    Wounds MorathiHighOracleOfKhaine::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds MorathiHighOracleOfKhaine::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = DaughterOfKhaine::applyWoundSave(wounds, attackingUnit);
 
         return totalWounds;

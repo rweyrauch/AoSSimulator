@@ -10,12 +10,12 @@
 #include <UnitFactory.h>
 #include <Unit.h>
 
-Parameter BoolParameter(const char* name) {
+Parameter BoolParameter(const char *name) {
     return {ParamType::Boolean, name, 0, 0, 1, 1, {}};
 }
 
-Parameter IntegerParameter(const char* name, int value, int min, int max, int incr) {
-    return { ParamType::Integer, name, value, min, max, incr, {}};
+Parameter IntegerParameter(const char *name, int value, int min, int max, int incr) {
+    return {ParamType::Integer, name, value, min, max, incr, {}};
 }
 
 std::vector<Parameter>::const_iterator FindParam(const std::string &name, const ParameterList &parameters) {

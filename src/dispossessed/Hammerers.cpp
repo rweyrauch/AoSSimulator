@@ -44,8 +44,7 @@ namespace Dispossessed {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (musician) {
+            } else if (musician) {
                 model->setName(Model::Musician);
                 musician = false;
             }

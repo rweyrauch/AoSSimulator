@@ -18,7 +18,7 @@ namespace DaughtersOfKhaine {
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
     static const int g_pointsPerBlock = 130;
-    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize / g_minUnitSize) * g_pointsPerBlock;
 
     bool BloodSisters::s_registered = false;
 
@@ -54,7 +54,7 @@ namespace DaughtersOfKhaine {
         auto unit = new BloodSisters();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         bool ok = unit->configure(numModels);

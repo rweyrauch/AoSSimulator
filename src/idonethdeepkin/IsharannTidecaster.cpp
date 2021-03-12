@@ -20,20 +20,23 @@ namespace IdonethDeepkin {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
 
-            auto tc = dynamic_cast<IsharannTidecaster*>(m_caster);
+            auto tc = dynamic_cast<IsharannTidecaster *>(m_caster);
             if (tc != nullptr) {
                 tc->setRiptideTarget(target);
             }
 
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 32;

@@ -46,7 +46,7 @@ namespace LuminethRealmLords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto nation = (GreatNation)GetEnumParam("Nation", parameters, (int)GreatNation::None);
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
         bool ok = unit->configure();
@@ -89,7 +89,8 @@ namespace LuminethRealmLords {
         return mod;
     }
 
-    Wounds TheLightOfEltharion::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds
+    TheLightOfEltharion::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
 
         // Fangsword
@@ -114,8 +115,7 @@ namespace LuminethRealmLords {
                 auto roll = Dice::RollD6();
                 if (roll >= 5) {
                     unit->applyDamage({0, Dice::RollD6()}, this);
-                }
-                else if (roll >= 2) {
+                } else if (roll >= 2) {
                     unit->applyDamage({0, Dice::RollD3()}, this);
                 }
             }
@@ -127,9 +127,10 @@ namespace LuminethRealmLords {
         return 0;
     }
 
-    Wounds TheLightOfEltharion::targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll, int woundRoll) const {
+    Wounds TheLightOfEltharion::targetAttackDamageModifier(const Wounds &wounds, const Unit *attacker, int hitRoll,
+                                                           int woundRoll) const {
         // Spirit Armour
-        return {(wounds.normal+1)/2, wounds.mortal};
+        return {(wounds.normal + 1) / 2, wounds.mortal};
     }
 
     int TheLightOfEltharion::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
@@ -143,8 +144,7 @@ namespace LuminethRealmLords {
     void TheLightOfEltharion::onStartCombat(PlayerId player) {
         if (meleeTarget() && meleeTarget()->hasKeyword(HERO) && distanceTo(meleeTarget()) <= 3.0f) {
             m_celennariBladeTarget = meleeTarget();
-        }
-        else {
+        } else {
             m_celennariBladeTarget = nullptr;
         }
     }

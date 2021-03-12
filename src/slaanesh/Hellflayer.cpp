@@ -78,7 +78,7 @@ namespace Slaanesh {
     }
 
     int Hellflayer::extraAttacks(const Model *attackingModel, const Weapon *weapon,
-                                               const Unit *target) const {
+                                 const Unit *target) const {
         auto extras = Unit::extraAttacks(attackingModel, weapon, target);
 
         // Soulscent

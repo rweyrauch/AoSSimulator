@@ -57,8 +57,7 @@ namespace BeastsOfChaos {
             if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (brayhorn) {
+            } else if (brayhorn) {
                 model->setName("Brayhorn");
                 brayhorn = false;
             }
@@ -136,7 +135,7 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int Ungors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Ungors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
         // Half-shields
         if (!weapon->isMissile()) {

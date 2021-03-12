@@ -134,31 +134,31 @@ void Battle::runInitiativePhase() {
     m_players[playerIdx]->beginTurn(m_round, m_currentPlayer);
 
     PLOG_INFO.printf("Player %s wins initiative.  P1: %d P2: %d", PlayerIdToString(m_currentPlayer).c_str(),
-           p1, p2);
+                     p1, p2);
 }
 
 void Battle::runHeroPhase() {
-    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Hero);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Hero);
     while (unit) {
         unit->hero(m_currentPlayer);
 
-        unit = m_players[(int)m_currentPlayer]->advancePhase();
+        unit = m_players[(int) m_currentPlayer]->advancePhase();
     }
-    m_players[(int)m_currentPlayer]->endPhase();
+    m_players[(int) m_currentPlayer]->endPhase();
 }
 
 void Battle::runMovementPhase() {
-    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Movement);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Movement);
     while (unit) {
         unit->movement(m_currentPlayer);
 
-        unit = m_players[(int)m_currentPlayer]->advancePhase();
+        unit = m_players[(int) m_currentPlayer]->advancePhase();
     }
-    m_players[(int)m_currentPlayer]->endPhase();
+    m_players[(int) m_currentPlayer]->endPhase();
 }
 
 void Battle::runShootingPhase() {
-    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Shooting);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Shooting);
     while (unit) {
         unit->shooting(m_currentPlayer);
 
@@ -166,40 +166,40 @@ void Battle::runShootingPhase() {
         auto totalDamage = unit->shoot(m_currentPlayer, numSlain);
         if (unit->shootingTarget() && !totalDamage.zero()) {
             PLOG_INFO.printf("%s:%s did %d shooting damage to %s:%s slaying %d models.",
-                   PlayerIdToString(m_currentPlayer).c_str(),
-                   unit->name().c_str(),
-                   (totalDamage.normal + totalDamage.mortal),
-                   PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
-                   unit->shootingTarget()->name().c_str(), numSlain);
+                             PlayerIdToString(m_currentPlayer).c_str(),
+                             unit->name().c_str(),
+                             (totalDamage.normal + totalDamage.mortal),
+                             PlayerIdToString(GetEnemyId(m_currentPlayer)).c_str(),
+                             unit->shootingTarget()->name().c_str(), numSlain);
         }
-        unit = m_players[(int)m_currentPlayer]->advancePhase();
+        unit = m_players[(int) m_currentPlayer]->advancePhase();
     }
-    m_players[(int)m_currentPlayer]->endPhase();
+    m_players[(int) m_currentPlayer]->endPhase();
 }
 
 void Battle::runChargePhase() {
-    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Charge);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Charge);
     while (unit) {
         unit->charge(m_currentPlayer);
 
         if (unit->charged()) {
             PLOG_INFO.printf("%s:%s charged.",
-                    PlayerIdToString(m_currentPlayer).c_str(),
-                    unit->name().c_str());
+                             PlayerIdToString(m_currentPlayer).c_str(),
+                             unit->name().c_str());
         }
 
-        unit = m_players[(int)m_currentPlayer]->advancePhase();
+        unit = m_players[(int) m_currentPlayer]->advancePhase();
     }
-    m_players[(int)m_currentPlayer]->endPhase();
+    m_players[(int) m_currentPlayer]->endPhase();
 }
 
 void Battle::runCombatPhase() {
 
     // Combine/sort activated units
     // TODO: Some abilities move enemy units to attack first
-    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Combat);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Combat);
     const auto defendingPlayer = GetEnemyId(m_currentPlayer);
-    auto eunit = m_players[(int)defendingPlayer]->startPhase(Phase::Combat);
+    auto eunit = m_players[(int) defendingPlayer]->startPhase(Phase::Combat);
     while (unit || eunit) {
         if (unit) {
             unit->combat(m_currentPlayer);
@@ -209,10 +209,10 @@ void Battle::runCombatPhase() {
 
             if (unit->meleeTarget() && !totalDamage.zero()) {
                 PLOG_INFO.printf("%s: %s did %d damage to %s:%s slaying %d models in the combat phase.",
-                       PlayerIdToString(m_currentPlayer).c_str(),
-                       unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
-                       PlayerIdToString(defendingPlayer).c_str(), unit->meleeTarget()->name().c_str(),
-                       numSlain);
+                                 PlayerIdToString(m_currentPlayer).c_str(),
+                                 unit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+                                 PlayerIdToString(defendingPlayer).c_str(), unit->meleeTarget()->name().c_str(),
+                                 numSlain);
             }
         }
         if (eunit) {
@@ -223,38 +223,38 @@ void Battle::runCombatPhase() {
 
             if (eunit->meleeTarget() && !totalDamage.zero()) {
                 PLOG_INFO.printf("%s: %s did %d damage to %s:%s slaying %d models in the combat phase.",
-                       PlayerIdToString(defendingPlayer).c_str(),
-                       eunit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
-                       PlayerIdToString(m_currentPlayer).c_str(), eunit->meleeTarget()->name().c_str(),
-                       numSlain);
+                                 PlayerIdToString(defendingPlayer).c_str(),
+                                 eunit->name().c_str(), (totalDamage.normal + totalDamage.mortal),
+                                 PlayerIdToString(m_currentPlayer).c_str(), eunit->meleeTarget()->name().c_str(),
+                                 numSlain);
             }
         }
 
         // Advance to next units
-        unit = m_players[(int)m_currentPlayer]->advancePhase();
-        eunit = m_players[(int)GetEnemyId(m_currentPlayer)]->advancePhase();
+        unit = m_players[(int) m_currentPlayer]->advancePhase();
+        eunit = m_players[(int) GetEnemyId(m_currentPlayer)]->advancePhase();
     }
 
-    m_players[(int)m_currentPlayer]->endPhase();
-    m_players[(int)GetEnemyId(m_currentPlayer)]->endPhase();
+    m_players[(int) m_currentPlayer]->endPhase();
+    m_players[(int) GetEnemyId(m_currentPlayer)]->endPhase();
 }
 
 void Battle::runBattleshockPhase() {
-    auto unit = m_players[(int)m_currentPlayer]->startPhase(Phase::Battleshock);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Battleshock);
     while (unit) {
         unit->battleshock(m_currentPlayer);
 
-        unit = m_players[(int)m_currentPlayer]->advancePhase();
+        unit = m_players[(int) m_currentPlayer]->advancePhase();
     }
-    unit = m_players[(int)GetEnemyId(m_currentPlayer)]->startPhase(Phase::Battleshock);
+    unit = m_players[(int) GetEnemyId(m_currentPlayer)]->startPhase(Phase::Battleshock);
     while (unit) {
         unit->battleshock(m_currentPlayer);
 
-        unit = m_players[(int)GetEnemyId(m_currentPlayer)]->advancePhase();
+        unit = m_players[(int) GetEnemyId(m_currentPlayer)]->advancePhase();
     }
 
-    m_players[(int)m_currentPlayer]->endPhase();
-    m_players[(int)GetEnemyId(m_currentPlayer)]->endPhase();
+    m_players[(int) m_currentPlayer]->endPhase();
+    m_players[(int) GetEnemyId(m_currentPlayer)]->endPhase();
 }
 
 void Battle::deployment() {
@@ -284,7 +284,7 @@ void Battle::deployment() {
 
     // left center
     auto fPos = Math::Point3(fX, fY, 0.0);
-    auto fOrientation = Math::Vector3(1,0,0);
+    auto fOrientation = Math::Vector3(1, 0, 0);
 
     double sX = board->width() - (board->width() / 10.0);
     double sY = board->depth() / 2.0;
@@ -294,8 +294,8 @@ void Battle::deployment() {
     auto sOrientation = Math::Vector3(-1.0, 0.0, 0.0);
 
     // loop until all units have been deployed
-    auto unit = m_players[(int)firstPlayer]->startPhase(Phase::Deployment);
-    auto eunit = m_players[(int)secondPlayer]->startPhase(Phase::Deployment);
+    auto unit = m_players[(int) firstPlayer]->startPhase(Phase::Deployment);
+    auto eunit = m_players[(int) secondPlayer]->startPhase(Phase::Deployment);
     while (unit || eunit) {
         if (unit) {
             unit->deploy(fPos, fOrientation);
@@ -305,9 +305,9 @@ void Battle::deployment() {
         }
 
         // Advance to next units
-        unit = m_players[(int)firstPlayer]->advancePhase();
-        eunit = m_players[(int)secondPlayer]->advancePhase();
+        unit = m_players[(int) firstPlayer]->advancePhase();
+        eunit = m_players[(int) secondPlayer]->advancePhase();
     }
-    m_players[(int)firstPlayer]->endPhase();
-    m_players[(int)secondPlayer]->endPhase();
+    m_players[(int) firstPlayer]->endPhase();
+    m_players[(int) secondPlayer]->endPhase();
 }

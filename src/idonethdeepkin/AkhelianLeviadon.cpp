@@ -27,7 +27,7 @@ namespace IdonethDeepkin {
                     {2, 4, 2},
                     {3, 3, 3},
                     {4, 2, 4},
-                    {5,  1, 5}
+                    {5, 1, 5}
             };
 
     bool AkhelianLeviadon::s_registered = false;

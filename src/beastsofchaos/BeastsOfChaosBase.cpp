@@ -56,19 +56,19 @@ namespace BeastsOfChaos {
 
     std::string BeastsOfChaosBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Greatfray") {
-            auto frayName = magic_enum::enum_name((Greatfray)parameter.intValue);
+            auto frayName = magic_enum::enum_name((Greatfray) parameter.intValue);
             return std::string(frayName);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto lore = magic_enum::enum_name((Lore)parameter.intValue);
+            auto lore = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(lore);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         return ParameterValueToString(parameter);
@@ -76,16 +76,16 @@ namespace BeastsOfChaos {
 
     int BeastsOfChaosBase::EnumStringToInt(const std::string &enumString) {
         auto fray = magic_enum::enum_cast<Greatfray>(enumString);
-        if (fray.has_value()) return (int)fray.value();
+        if (fray.has_value()) return (int) fray.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         return 0;
     }
@@ -105,8 +105,7 @@ namespace BeastsOfChaos {
                     auto roll = Dice::RollD6();
                     if (roll == 6) {
                         unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
-                    }
-                    else if (roll >= 2) {
+                    } else if (roll >= 2) {
                         unit->applyDamage({0, 1, Wounds::Source::Ability}, this);
                     }
                     break;

@@ -55,8 +55,7 @@ namespace Khorne {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (hornblowers) {
+            } else if (hornblowers) {
                 model->setName(Model::Hornblower);
                 hornblowers = false;
             }
@@ -120,7 +119,7 @@ namespace Khorne {
             }
 
             PLOG_INFO.printf("%s Murderous Charge inflicted %d mortal wounds on %s\n",
-                   name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
+                             name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
 
             m_meleeTarget->applyDamage(wounds, this);
         }
@@ -161,7 +160,8 @@ namespace Khorne {
     }
 
     Rerolls Bloodcrushers::hornblowerBattleshockReroll(const Unit *unit) {
-        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0)) return Rerolls::Ones;
+        if (isNamedModelAlive(Model::Hornblower) && !isFriendly(unit) && (distanceTo(unit) <= 8.0))
+            return Rerolls::Ones;
 
         return Rerolls::None;
     }

@@ -29,7 +29,7 @@ namespace Nurgle {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -48,10 +48,10 @@ namespace Nurgle {
                     NurgleBase::EnumStringToInt,
                     SpoilpoxScrivenerHeraldOfNurgle::ComputePoints,
                     {
-                        EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
-                        EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
-                        EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
-                        BoolParameter("General")
+                            EnumParameter("Command Trait", g_daemonCommandTraits[0], g_daemonCommandTraits),
+                            EnumParameter("Artefact", g_daemonArtefacts[0], g_daemonArtefacts),
+                            EnumParameter("Plague Legion", g_plagueLegions[0], g_plagueLegions),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {NURGLE}
@@ -90,7 +90,7 @@ namespace Nurgle {
         return true;
     }
 
-    Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
     }

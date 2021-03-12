@@ -17,11 +17,13 @@ namespace Tzeentch {
 
     class InfernalFlames : public Spell {
     public:
-        explicit InfernalFlames(Unit* caster);
+        explicit InfernalFlames(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     InfernalFlames::InfernalFlames(Unit *caster) :
@@ -30,7 +32,8 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result InfernalFlames::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
+    Spell::Result
+    InfernalFlames::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -152,7 +155,8 @@ namespace Tzeentch {
                 auto factory = UnitFactory::LookupUnit(SummonedUnitNames[which]);
                 if (factory) {
                     if (m_roster) {
-                        auto unit = std::shared_ptr<Unit>(UnitFactory::Create(SummonedUnitNames[which], factory->m_parameters));
+                        auto unit = std::shared_ptr<Unit>(
+                                UnitFactory::Create(SummonedUnitNames[which], factory->m_parameters));
                         unit->deploy(position(), m_orientation);
                         m_roster->addUnit(unit);
                     }

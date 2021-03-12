@@ -128,7 +128,7 @@ namespace Sylvaneth {
         return SylvanethBase::battleshockRerolls();
     }
 
-    Rerolls TreeRevenants::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls TreeRevenants::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         return SylvanethBase::toSaveRerolls(weapon, attacker);
     }
 

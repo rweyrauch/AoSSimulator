@@ -85,8 +85,10 @@ namespace StormcastEternals {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if ((unit->remainingModels() > 0) && unit->hasKeyword(STORMCAST_ETERNAL)) {
-                    unit->buffMovement(MovementRule::Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
-                    unit->buffMovement(MovementRule::Retreat_And_Charge,true, {Phase::Combat, m_battleRound, owningPlayer()});
+                    unit->buffMovement(MovementRule::Run_And_Charge, true,
+                                       {Phase::Combat, m_battleRound, owningPlayer()});
+                    unit->buffMovement(MovementRule::Retreat_And_Charge, true,
+                                       {Phase::Combat, m_battleRound, owningPlayer()});
                 }
             }
         }

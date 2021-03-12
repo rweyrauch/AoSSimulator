@@ -43,21 +43,21 @@ namespace Seraphon {
 
     std::string SeraphonBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Way of the Seraphon") {
-            auto wayName = magic_enum::enum_name((WayOfTheSeraphon)parameter.intValue);
+            auto wayName = magic_enum::enum_name((WayOfTheSeraphon) parameter.intValue);
             return std::string(wayName);
         } else if (std::string(parameter.name) == "Constellation") {
-            auto constName = magic_enum::enum_name((Constellation)parameter.intValue);
+            auto constName = magic_enum::enum_name((Constellation) parameter.intValue);
             return std::string(constName);
         } else if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         } else if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         } else if ((std::string(parameter.name) == "Lore of Celestial Manipulation") ||
                    (std::string(parameter.name) == "Lore") ||
                    (std::string(parameter.name) == "Lore of Celestial Domination")) {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         return ParameterValueToString(parameter);
@@ -65,19 +65,19 @@ namespace Seraphon {
 
     int SeraphonBase::EnumStringToInt(const std::string &enumString) {
         auto way = magic_enum::enum_cast<WayOfTheSeraphon>(enumString);
-        if (way.has_value()) return (int)way.value();
+        if (way.has_value()) return (int) way.value();
 
         auto constellation = magic_enum::enum_cast<Constellation>(enumString);
-        if (constellation.has_value()) return (int)constellation.value();
+        if (constellation.has_value()) return (int) constellation.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         return 0;
     }
@@ -223,13 +223,14 @@ namespace Seraphon {
         }
 
     protected:
-        bool apply(Unit* target) override {
+        bool apply(Unit *target) override {
             if (target == nullptr) return false;
 
             target->buffMovement(MovementRule::Can_Fly, true, defaultDuration());
             target->buffModifier(Attribute::To_Save_Missile, 1, defaultDuration());
             return true;
         }
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -240,21 +241,22 @@ namespace Seraphon {
 
     class CometsCall : public Spell {
     public:
-        explicit CometsCall(Unit* caster) :
+        explicit CometsCall(Unit *caster) :
                 Spell(caster, "Comet's Call", 7, 1000) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             return apply(castingRoll, unmodifiedCastingRoll, 0.0, 0.0);
         }
+
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override {
 
             auto units = Board::Instance()->getAllUnits(GetEnemyId(m_caster->owningPlayer()));
             auto numTargets = (castingRoll >= 10) ? Dice::RollD6() : Dice::RollD3();
-            numTargets = std::min(numTargets, (int)units.size());
+            numTargets = std::min(numTargets, (int) units.size());
 
             Wounds wounds{0, Dice::RollD3(), Wounds::Source::Spell};
             for (int i = 0; i < numTargets; i++) {
@@ -264,7 +266,7 @@ namespace Seraphon {
         }
     };
 
-    Spell* CreateCometsCall(Unit* caster) {
+    Spell *CreateCometsCall(Unit *caster) {
         return new CometsCall(caster);
     }
 

@@ -81,12 +81,10 @@ namespace GloomspiteGitz {
             if (numFlagbearers > 0) {
                 model->setName(Model::FlagBearer);
                 numFlagbearers--;
-            }
-            else if (numGongbashers > 0) {
+            } else if (numGongbashers > 0) {
                 model->setName("Gong Basher");
                 numGongbashers--;
-            }
-            else if (numIconbearers > 0) {
+            } else if (numIconbearers > 0) {
                 model->setName(Model::IconBearer);
                 numIconbearers--;
             }
@@ -127,9 +125,9 @@ namespace GloomspiteGitz {
                     Stabbas::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            EnumParameter( "Weapons", Stabbas::Stabba, weapons),
+                            EnumParameter("Weapons", Stabbas::Stabba, weapons),
                             EnumParameter("Boss Weapon", Stabbas::Stabba, weapons),
-                            IntegerParameter( "Barbed Nets", 3, 0, 3 * g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Barbed Nets", 3, 0, 3 * g_maxUnitSize / g_minUnitSize, 1),
                             IntegerParameter("Gong Bashers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
                             IntegerParameter("Flag Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
                             IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
@@ -162,7 +160,7 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int Stabbas::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Stabbas::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = GloomspiteGitzBase::toSaveModifier(weapon, attacker);
         if (isNamedModelAlive(Model::IconBearer) && weapon->isMissile()) {
             modifier += 1;

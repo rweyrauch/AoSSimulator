@@ -31,8 +31,7 @@ bool Prayer::pray(Unit *target, int round) {
     int prayingRoll = Dice::RollD6();
     if ((prayingRoll == 1) && (reroll == Rerolls::Ones)) {
         prayingRoll = Dice::RollD6();
-    }
-    else if ((prayingRoll < m_prayingValue) && (reroll == Rerolls::Failed)) {
+    } else if ((prayingRoll < m_prayingValue) && (reroll == Rerolls::Failed)) {
         prayingRoll = Dice::RollD6();
     }
     if (prayingRoll >= m_prayingValue) {
@@ -49,7 +48,7 @@ bool Prayer::pray(double x, double y, int round) {
 
     // Distance to point
     const double distance = m_priest->position().distance(targetPoint);
-    if (distance > (double)Dice::RollSpecial(m_range)) {
+    if (distance > (double) Dice::RollSpecial(m_range)) {
         return false;
     }
 
@@ -61,8 +60,7 @@ bool Prayer::pray(double x, double y, int round) {
     int prayingRoll = Dice::RollD6();
     if ((prayingRoll == 1) && (reroll == Rerolls::Ones)) {
         prayingRoll = Dice::RollD6();
-    }
-    else if ((prayingRoll < m_prayingValue) && (reroll == Rerolls::Failed)) {
+    } else if ((prayingRoll < m_prayingValue) && (reroll == Rerolls::Failed)) {
         prayingRoll = Dice::RollD6();
     }
     if (prayingRoll >= m_prayingValue) {
@@ -113,7 +111,8 @@ bool HealPrayer::apply(int prayingRoll, Unit *target) {
     int wounds = Dice::RollSpecial(getHealing(prayingRoll));
     target->heal(wounds);
     PLOG_INFO.printf("%s prays for %s with roll of %d (%d) heals %d wounds onto %s.",
-           m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, wounds, target->name().c_str());
+                     m_priest->name().c_str(), name().c_str(), prayingRoll, m_prayingValue, wounds,
+                     target->name().c_str());
 
     return true;
 }

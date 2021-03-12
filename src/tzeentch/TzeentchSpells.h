@@ -10,7 +10,7 @@
 
 namespace Tzeentch {
 
-    Spell* CreateBoltOfChange(Unit* caster);
+    Spell *CreateBoltOfChange(Unit *caster);
 
-    Spell* CreateLore(Lore which, Unit* caster);
+    Spell *CreateLore(Lore which, Unit *caster);
 }

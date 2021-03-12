@@ -63,7 +63,8 @@ namespace SlavesToDarkness {
 
     void ChaosLordOnManticore::Init() {
         if (!s_registered) {
-            static const std::array<int, 6> weapons = {Blade_And_Lance, Flail_And_Lance, Blade_And_Shield, Flail_And_Shield,
+            static const std::array<int, 6> weapons = {Blade_And_Lance, Flail_And_Lance, Blade_And_Shield,
+                                                       Flail_And_Shield,
                                                        Blade_And_Daggerfist, Flail_And_Daggerfist};
             static FactoryMethod factoryMethod = {
                     ChaosLordOnManticore::Create,
@@ -190,7 +191,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    Wounds ChaosLordOnManticore::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds ChaosLordOnManticore::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto savedWounds = SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
         Dice::RollResult result;
         // Chaos Runeshield

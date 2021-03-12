@@ -212,13 +212,15 @@ struct Wounds {
 
     [[nodiscard]] bool zero() const { return (mortal + normal == 0) ? true : false; }
 
-    friend std::ostream& operator<<(std::ostream& os, const Wounds& wounds);
+    friend std::ostream &operator<<(std::ostream &os, const Wounds &wounds);
 };
 
 class UnmodifiedCastingRoll {
 public:
     int d1, d2;
+
     operator int() const { return d1 + d2; }
+
     bool isDouble() const { return d1 == d2; }
 };
 

@@ -13,17 +13,18 @@ namespace StormcastEternals {
 
     class DivineLight : public Prayer {
     public:
-        explicit DivineLight(Unit* priest);
+        explicit DivineLight(Unit *priest);
 
     protected:
 
-        bool apply(int prayingRoll, Unit* target) override;
+        bool apply(int prayingRoll, Unit *target) override;
+
         bool apply(int prayingRoll, double x, double y) override { return false; }
 
     };
 
     DivineLight::DivineLight(Unit *priest) :
-        Prayer(priest, "Divine Light", 3, 18) {
+            Prayer(priest, "Divine Light", 3, 18) {
         m_allowedTargets = Abilities::Target::Any;
         m_effect = Abilities::EffectType::Buff;
     }
@@ -35,9 +36,8 @@ namespace StormcastEternals {
         const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
         if (m_priest->isFriendly(target)) {
             target->buffReroll(Attribute::Target_To_Hit_Melee, Rerolls::Sixes, duration);
-            target->buffReroll(Attribute::Target_To_Hit_Missile,Rerolls::Sixes, duration);
-        }
-        else {
+            target->buffReroll(Attribute::Target_To_Hit_Missile, Rerolls::Sixes, duration);
+        } else {
             target->buffReroll(Attribute::Target_To_Hit_Melee, Rerolls::Ones, duration);
             target->buffReroll(Attribute::Target_To_Hit_Missile, Rerolls::Ones, duration);
         }
@@ -54,7 +54,7 @@ namespace StormcastEternals {
 
     protected:
 
-        bool apply(int prayingRoll, Unit* target) override {
+        bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr)
                 return false;
 
@@ -63,13 +63,14 @@ namespace StormcastEternals {
 
             return true;
         }
+
         bool apply(int prayingRoll, double x, double y) override { return false; }
 
     };
 
     class BolsterFaith : public Prayer {
     public:
-        explicit BolsterFaith(Unit* priest) :
+        explicit BolsterFaith(Unit *priest) :
                 Prayer(priest, "Bolster Faith", 3, 9) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_effect = Abilities::EffectType::Buff;
@@ -77,13 +78,14 @@ namespace StormcastEternals {
 
     protected:
 
-        bool apply(int prayingRoll, Unit* target) override {
+        bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr)
                 return false;
             const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
             target->buffAbility(Ability::Ignore_Battleshock, true, duration);
             return true;
         }
+
         bool apply(int prayingRoll, double x, double y) override { return false; }
     };
 

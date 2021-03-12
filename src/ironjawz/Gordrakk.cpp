@@ -16,7 +16,7 @@ namespace Ironjawz {
     class VoiceOfGork : public CommandAbility {
     public:
         VoiceOfGork(Unit *source) :
-            CommandAbility(source, "Voice of Gork", 24, 24, Phase::Combat) {
+                CommandAbility(source, "Voice of Gork", 24, 24, Phase::Combat) {
             m_allowedTargets = Abilities::Target::Point;
             m_targetKeywords = {DESTRUCTION};
             m_effect = Abilities::EffectType::Buff;
@@ -24,7 +24,8 @@ namespace Ironjawz {
 
     protected:
 
-        bool apply(Unit* target) override { return false; }
+        bool apply(Unit *target) override { return false; }
+
         bool apply(double x, double y) override {
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {

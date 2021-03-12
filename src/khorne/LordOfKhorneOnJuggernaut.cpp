@@ -71,7 +71,8 @@ namespace Khorne {
                     LordOfKhorneOnJuggernaut::ComputePoints,
                     {
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
-                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0], g_mortalbloodboundCommandTraits),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
                             EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
                             BoolParameter("General")
                     },
@@ -90,7 +91,7 @@ namespace Khorne {
                 Wounds wounds = {0, Dice::RollD3()};
 
                 PLOG_INFO.printf("%s Murderous Charge inflicted %d mortal wounds on %s\n",
-                       name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
+                                 name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
 
                 m_meleeTarget->applyDamage(wounds, this);
             }
@@ -111,7 +112,7 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
-    Wounds LordOfKhorneOnJuggernaut::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds LordOfKhorneOnJuggernaut::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = KhorneBase::applyWoundSave(wounds, attackingUnit);
 
         // Brass-clad Shield

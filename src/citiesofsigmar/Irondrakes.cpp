@@ -66,8 +66,7 @@ namespace CitiesOfSigmar {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -99,7 +98,8 @@ namespace CitiesOfSigmar {
 
     void Irondrakes::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {Drakegun, Grudgehammer_Torpedo, Drakefire_Pistol_And_Cinderblast_Bomb, Paired_Drakefire_Pistols};
+            static const std::array<int, 4> weapons = {Drakegun, Grudgehammer_Torpedo,
+                                                       Drakefire_Pistol_And_Cinderblast_Bomb, Paired_Drakefire_Pistols};
             static FactoryMethod factoryMethod = {
                     Irondrakes::Create,
                     Irondrakes::ValueToString,
@@ -119,7 +119,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int Irondrakes::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Irondrakes::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = CitizenOfSigmar::toSaveModifier(weapon, attacker);
 
         // Forge-proven Gromril Armour - ignore rend of less than -2 by cancelling it out.

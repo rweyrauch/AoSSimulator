@@ -37,15 +37,15 @@ namespace Ironjawz {
             ToInteger(CommandTrait::Bursting_With_Power)
     };
 
-   constexpr std::array<int, 7> g_bossArtefacts = {
-           ToInteger(Artefact::None),
-           ToInteger(Artefact::Armour_Of_Gork),
-           ToInteger(Artefact::Destroyer),
-           ToInteger(Artefact::Daubing_Of_Mork),
-           ToInteger(Artefact::The_Golden_Toof),
-           ToInteger(Artefact::Metalrippas_Klaw),
-           ToInteger(Artefact::The_Boss_Skewer)
-   };
+    constexpr std::array<int, 7> g_bossArtefacts = {
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Armour_Of_Gork),
+            ToInteger(Artefact::Destroyer),
+            ToInteger(Artefact::Daubing_Of_Mork),
+            ToInteger(Artefact::The_Golden_Toof),
+            ToInteger(Artefact::Metalrippas_Klaw),
+            ToInteger(Artefact::The_Boss_Skewer)
+    };
 
     constexpr std::array<int, 4> g_shamanArtefacts = {
             ToInteger(Artefact::None),

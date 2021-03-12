@@ -86,7 +86,7 @@ namespace StormcastEternals {
     }
 
     std::string KnightIncantor::ValueToString(const Parameter &parameter) {
-         return StormcastEternal::ValueToString(parameter);
+        return StormcastEternal::ValueToString(parameter);
     }
 
     int KnightIncantor::EnumStringToInt(const std::string &enumString) {

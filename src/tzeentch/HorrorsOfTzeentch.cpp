@@ -60,8 +60,7 @@ namespace Tzeentch {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -161,7 +160,7 @@ namespace Tzeentch {
         return points;
     }
 
-    Wounds HorrorsOfTzeentch::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds HorrorsOfTzeentch::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         // Ectoplasmic Elasticity

@@ -27,10 +27,10 @@ namespace LuminethRealmLords {
     const TableEntry g_damageTable[g_numTableEntries] =
             {
                     {30, 5, 12},
-                    {25,  4,  6},
-                    {20,  3,  3},
-                    {15,  2,  2},
-                    {10,  1,  1}
+                    {25, 4, 6},
+                    {20, 3, 3},
+                    {15, 2, 2},
+                    {10, 1, 1}
             };
 
     bool AvalenorTheStoneheartKing::s_registered = false;
@@ -41,7 +41,8 @@ namespace LuminethRealmLords {
             m_hammer(Weapon::Type::Melee, "Firestealer Hammers", 2, 6, 3, 3, -1, 5),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 2, 3, 3, -1, 2) {
         m_weapons = {&m_blast, &m_hammer, &m_hooves};
-        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, HERO, ALARITH, YMETRICA, MONSTER, SPIRIT_OF_THE_MOUNTAIN, AVALENOR};
+        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, HERO, ALARITH, YMETRICA, MONSTER, SPIRIT_OF_THE_MOUNTAIN,
+                      AVALENOR};
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
@@ -110,7 +111,8 @@ namespace LuminethRealmLords {
         onWounded();
     }
 
-    int AvalenorTheStoneheartKing::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+    int AvalenorTheStoneheartKing::extraAttacks(const Model *attackingModel, const Weapon *weapon,
+                                                const Unit *target) const {
         auto extra = Unit::extraAttacks(attackingModel, weapon, target);
 
         // All but Immovable
@@ -134,7 +136,8 @@ namespace LuminethRealmLords {
         return 0;
     }
 
-    Wounds AvalenorTheStoneheartKing::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AvalenorTheStoneheartKing::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+                                                   int woundRoll) const {
         // Firestealer Hammers
         if ((hitRoll == 6) && (weapon->name() == m_hammer.name())) {
             return {weapon->damage(), 1};

@@ -50,9 +50,11 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreatePrimeElectrids(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Swift of Wing", 18, 18, Phase::Movement,
-                                                        Attribute::Run_Distance, 2, Abilities::Target::SelfAndFriendly,
-                                                                std::vector<Keyword>(SACROSANCT)));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Swift of Wing", 18, 18, Phase::Movement,
+                                                             Attribute::Run_Distance, 2,
+                                                             Abilities::Target::SelfAndFriendly,
+                                                             std::vector<Keyword>(SACROSANCT)));
 
         m_points = g_pointsPerUnit;
 
@@ -61,8 +63,8 @@ namespace StormcastEternals {
 
     Unit *LordArcanumOnTauralon::Create(const ParameterList &parameters) {
         auto unit = new LordArcanumOnTauralon();
-        auto lore = (Lore) GetEnumParam("Lore of the Storm", parameters,  g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto lore = (Lore) GetEnumParam("Lore of the Storm", parameters, g_lore[0]);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);

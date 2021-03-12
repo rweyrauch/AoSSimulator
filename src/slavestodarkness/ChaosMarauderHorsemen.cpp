@@ -49,7 +49,7 @@ namespace SlavesToDarkness {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", Axe_And_Shield, weapons),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Hornblower"),
@@ -225,7 +225,8 @@ namespace SlavesToDarkness {
 
     int ChaosMarauderHorsemen::iconBearer(const Unit *unit) {
         // Icon Bearer
-        if (isNamedModelAlive(Model::IconBearer) && (unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 6.0)) {
+        if (isNamedModelAlive(Model::IconBearer) && (unit->owningPlayer() != owningPlayer()) &&
+            (distanceTo(unit) <= 6.0)) {
             return -1;
         }
         return 0;

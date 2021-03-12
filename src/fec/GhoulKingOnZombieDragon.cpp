@@ -16,7 +16,7 @@ namespace FleshEaterCourt {
 
     class MaleficHunger : public Spell {
     public:
-        explicit MaleficHunger(Unit* caster) :
+        explicit MaleficHunger(Unit *caster) :
                 Spell(caster, "Malefic Hunger", 6, 16) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
@@ -24,7 +24,7 @@ namespace FleshEaterCourt {
         }
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             auto units = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
             for (auto unit : units) {
                 if (unit->hasKeyword(FLESH_EATER_COURTS)) {
@@ -34,7 +34,8 @@ namespace FleshEaterCourt {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     static const int g_basesize = 130;

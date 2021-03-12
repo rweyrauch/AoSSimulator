@@ -98,7 +98,7 @@ namespace Skaven {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int WarplockJezzails::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int WarplockJezzails::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Pavise

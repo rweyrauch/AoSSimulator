@@ -14,15 +14,21 @@
 namespace DaughtersOfKhaine {
 
     CommandAbility *CreateSendForthTheCauldrons(Unit *hero);
+
     CommandAbility *CreateAThousandBladeforms(Unit *hero);
-    CommandAbility *CreateInspiredByCarnage(Unit* hero);
-    CommandAbility *CreateMastersOfTheShadowpaths(Unit* hero);
-    CommandAbility *CreateBleedTheMind(Unit* hero);
-    CommandAbility *CreatePowerInTheBlood(Unit* hero);
 
-    CommandAbility* CreateCommandAbility(Temple temple, Unit* hero);
+    CommandAbility *CreateInspiredByCarnage(Unit *hero);
 
-    CommandTraitAbility *CreateCommandTrait(CommandTrait which, Unit* general);
-    CommandTraitAbility *CreateCommandTrait(Temple temple, Unit* general);
+    CommandAbility *CreateMastersOfTheShadowpaths(Unit *hero);
+
+    CommandAbility *CreateBleedTheMind(Unit *hero);
+
+    CommandAbility *CreatePowerInTheBlood(Unit *hero);
+
+    CommandAbility *CreateCommandAbility(Temple temple, Unit *hero);
+
+    CommandTraitAbility *CreateCommandTrait(CommandTrait which, Unit *general);
+
+    CommandTraitAbility *CreateCommandTrait(Temple temple, Unit *general);
 
 }

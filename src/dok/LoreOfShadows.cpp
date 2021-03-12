@@ -12,20 +12,23 @@ namespace DaughtersOfKhaine {
 
     class SteedOfShadows : public Spell {
     public:
-        explicit SteedOfShadows(Unit* caster);
+        explicit SteedOfShadows(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     SteedOfShadows::SteedOfShadows(Unit *caster) :
-        Spell(caster, "Steed of Shadows", 6, 0) {
+            Spell(caster, "Steed of Shadows", 6, 0) {
         m_allowedTargets = Abilities::Target::Self;
         m_effect = Abilities::EffectType::Buff;
     }
 
-    Spell::Result SteedOfShadows::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    SteedOfShadows::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -37,46 +40,52 @@ namespace DaughtersOfKhaine {
 
     class PitOfShades : public Spell {
     public:
-        explicit PitOfShades(Unit* caster);
+        explicit PitOfShades(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     PitOfShades::PitOfShades(Unit *caster) :
-        Spell(caster, "Pit of Shades", 7, 18) {
+            Spell(caster, "Pit of Shades", 7, 18) {
         m_allowedTargets = Abilities::Target::Enemy;
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result PitOfShades::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    PitOfShades::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
         auto roll = Dice::Roll2D6();
         if (roll > target->move()) {
-            target->applyDamage({0, roll-target->move(), Wounds::Source::Spell}, m_caster);
+            target->applyDamage({0, roll - target->move(), Wounds::Source::Spell}, m_caster);
         }
         return Spell::Result::Success;
     }
 
     class TheWithering : public Spell {
     public:
-        explicit TheWithering(Unit* caster);
+        explicit TheWithering(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     TheWithering::TheWithering(Unit *caster) :
-        Spell(caster, "The Withering", 7, 18) {
+            Spell(caster, "The Withering", 7, 18) {
         m_allowedTargets = Abilities::Target::Enemy;
         m_effect = Abilities::EffectType::Debuff;
     }
 
-    Spell::Result TheWithering::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    TheWithering::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 
@@ -88,20 +97,23 @@ namespace DaughtersOfKhaine {
 
     class ShroudOfDespair : public Spell {
     public:
-        explicit ShroudOfDespair(Unit* caster);
+        explicit ShroudOfDespair(Unit *caster);
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     ShroudOfDespair::ShroudOfDespair(Unit *caster) :
-        Spell(caster, "Shroud of Despair", 4, 18) {
+            Spell(caster, "Shroud of Despair", 4, 18) {
         m_allowedTargets = Abilities::Target::Enemy;
         m_effect = Abilities::EffectType::Debuff;
     }
 
-    Spell::Result ShroudOfDespair::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    ShroudOfDespair::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr)
             return Spell::Result::Failed;
 

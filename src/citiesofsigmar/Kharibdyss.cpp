@@ -151,7 +151,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int Kharibdyss::rollChargeDistance()  {
+    int Kharibdyss::rollChargeDistance() {
         if (useQuickWithTheLash()) {
             auto rolls = Dice::RollD6(3);
             std::sort(rolls.begin(), rolls.end());

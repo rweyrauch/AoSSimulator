@@ -29,12 +29,18 @@ int CommandAbility::range() const {
     return m_source->isGeneral() ? m_rangeGeneral : m_rangeHero;
 }
 
-BuffModifierCommandAbility::BuffModifierCommandAbility(Unit *general, const std::string &name, int rangeGeneral, int rangeHero, Phase phase,
-                                                       Attribute which, int modifier, Abilities::Target allowedTargets,
-                                                       const std::vector<Keyword>& targetKeyword) :
+BuffModifierCommandAbility::BuffModifierCommandAbility(Unit *general,
+                                                       const std::string &name,
+                                                       int rangeGeneral,
+                                                       int rangeHero,
+                                                       Phase phase,
+                                                       Attribute which,
+                                                       int modifier,
+                                                       Abilities::Target allowedTargets,
+                                                       const std::vector<Keyword> &targetKeyword) :
         CommandAbility(general, name, rangeGeneral, rangeHero, phase),
         m_attribute(which),
-        m_modifier(modifier){
+        m_modifier(modifier) {
     m_allowedTargets = allowedTargets;
     m_targetKeywords = targetKeyword;
     m_effect = (m_modifier > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
@@ -56,8 +62,13 @@ bool BuffModifierCommandAbility::apply(Unit *target) {
     return true;
 }
 
-BuffRerollCommandAbility::BuffRerollCommandAbility(Unit *general, const std::string &name, int rangeGeneral, int rangeHero, Phase phase,
-                                                   Attribute which, Rerolls reroll,
+BuffRerollCommandAbility::BuffRerollCommandAbility(Unit *general,
+                                                   const std::string &name,
+                                                   int rangeGeneral,
+                                                   int rangeHero,
+                                                   Phase phase,
+                                                   Attribute which,
+                                                   Rerolls reroll,
                                                    Abilities::Target allowedTargets,
                                                    const std::vector<Keyword> &targetKeyword) :
         CommandAbility(general, name, rangeGeneral, rangeHero, phase),
@@ -80,8 +91,13 @@ bool BuffRerollCommandAbility::apply(Unit *target) {
     return true;
 }
 
-BuffAbilityCommandAbility::BuffAbilityCommandAbility(Unit *general, const std::string &name, int rangeGeneral,
-                                                     int rangeHero, Phase phase, Ability which, int value,
+BuffAbilityCommandAbility::BuffAbilityCommandAbility(Unit *general,
+                                                     const std::string &name,
+                                                     int rangeGeneral,
+                                                     int rangeHero,
+                                                     Phase phase,
+                                                     Ability which,
+                                                     int value,
                                                      Abilities::Target allowedTargets,
                                                      const std::vector<Keyword> &targetKeyword) :
         CommandAbility(general, name, rangeGeneral, rangeHero, phase),

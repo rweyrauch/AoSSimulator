@@ -18,7 +18,8 @@ namespace Khorne {
         explicit LordOfTheGoretide(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -29,12 +30,13 @@ namespace Khorne {
         m_targetKeywords = {GORETIDE};
     }
 
-    bool LordOfTheGoretide::apply(Unit* target) {
+    bool LordOfTheGoretide::apply(Unit *target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
             if (unit->hasKeyword(GORETIDE)) {
-                unit->buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, {Phase::Combat, m_round, m_source->owningPlayer()});
+                unit->buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones,
+                                 {Phase::Combat, m_round, m_source->owningPlayer()});
             }
         }
         return true;

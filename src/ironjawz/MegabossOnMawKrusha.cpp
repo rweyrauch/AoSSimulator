@@ -61,8 +61,11 @@ namespace Ironjawz {
 
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Go on Ladz, Get Stuck In!", 18, 18, Phase::Combat,
-                                                                                  Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly, std::vector<Keyword>{IRONJAWZ}));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Go on Ladz, Get Stuck In!", 18, 18, Phase::Combat,
+                                                             Attribute::To_Hit_Melee, 1,
+                                                             Abilities::Target::SelfAndFriendly,
+                                                             std::vector<Keyword>{IRONJAWZ}));
 
         m_weaponOption = weapons;
 

@@ -68,7 +68,7 @@ namespace DaughtersOfKhaine {
     Unit *MorathiTheShadowQueen::Create(const ParameterList &parameters) {
         auto unit = new MorathiTheShadowQueen();
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         auto general = GetBoolParam("General", parameters, false);
@@ -135,7 +135,8 @@ namespace DaughtersOfKhaine {
     int MorathiTheShadowQueen::furyOfTheShadowQueen(const Unit *attacker, const Model *attackingModel,
                                                     const Weapon *weapon, const Unit *target) {
         auto mod = 0;
-        if (!weapon->isMissile() && isFriendly(attacker) && (attacker->hasKeyword(KHINERAI_HARPIES) || attacker->hasKeyword(MELUSAI))) {
+        if (!weapon->isMissile() && isFriendly(attacker) &&
+            (attacker->hasKeyword(KHINERAI_HARPIES) || attacker->hasKeyword(MELUSAI))) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0f) && (distanceTo(attacker) <= 18.0f)) {
                 mod++;

@@ -85,7 +85,7 @@ namespace Sylvaneth {
         }
     }
 
-    int Dryads::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Dryads::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Impenetrable Thicket

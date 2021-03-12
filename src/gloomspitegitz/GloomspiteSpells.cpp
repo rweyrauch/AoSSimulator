@@ -33,8 +33,10 @@ namespace GloomspiteGitz {
 
     protected:
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     GreatGreenSpite::GreatGreenSpite(Unit *caster) :
@@ -44,7 +46,8 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(GLOOMSPITE_GITZ);
     }
 
-    Spell::Result GreatGreenSpite::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    GreatGreenSpite::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
             return Result::Failed;
         }
@@ -66,8 +69,8 @@ namespace GloomspiteGitz {
         mortalWounds = Dice::RollSpecial(damage);
         target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
         PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
-               m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, mortalWounds,
-               target->name().c_str());
+                         m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, mortalWounds,
+                         target->name().c_str());
 
         return Result::Success;
     }
@@ -78,18 +81,21 @@ namespace GloomspiteGitz {
 
     protected:
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override;
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     SquigLure::SquigLure(Unit *caster) :
-        Spell(caster, "Squig Lure", 5, 18) {
+            Spell(caster, "Squig Lure", 5, 18) {
         m_allowedTargets = Abilities::Target::Friendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(SQUIG);
     }
 
-    Spell::Result SquigLure::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result
+    SquigLure::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         auto squigs = Board::Instance()->getUnitsWithin(m_caster, m_caster->owningPlayer(), m_range);
         auto numUnits = Dice::RollD3();
         int numAffected = 0;

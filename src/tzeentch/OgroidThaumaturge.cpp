@@ -16,11 +16,13 @@ namespace Tzeentch {
 
     class ChokingTendrils : public Spell {
     public:
-        explicit ChokingTendrils(Unit* caster);
+        explicit ChokingTendrils(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     ChokingTendrils::ChokingTendrils(Unit *caster) :
@@ -29,7 +31,8 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result ChokingTendrils::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
+    Spell::Result
+    ChokingTendrils::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -51,7 +54,7 @@ namespace Tzeentch {
     Unit *OgroidThaumaturge::Create(const ParameterList &parameters) {
         auto unit = new OgroidThaumaturge();
 
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int)ChangeCoven::None);
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
         auto general = GetBoolParam("General", parameters, false);

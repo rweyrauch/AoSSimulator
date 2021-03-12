@@ -89,6 +89,6 @@ namespace Slaanesh {
     Wounds SigvaldPrinceOfSlaanesh::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // The Mirror Shield
         return ignoreWounds(wounds, 4);
-     }
+    }
 
 } // Slannesh

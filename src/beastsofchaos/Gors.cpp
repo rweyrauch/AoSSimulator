@@ -46,8 +46,7 @@ namespace BeastsOfChaos {
             if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
-            }
-            else if (brayhorn) {
+            } else if (brayhorn) {
                 model->setName("Brayhorn");
                 brayhorn = false;
             }
@@ -105,7 +104,7 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int Gors::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int Gors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
         // Beastsheilds
         if (!m_pairedBlades) { modifier += 1; }

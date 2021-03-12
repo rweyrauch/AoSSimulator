@@ -82,7 +82,7 @@ namespace Fyreslayers {
     constexpr std::array<int, 7> g_mountTraits = {
             ToInteger(MountTrait::None),
 
-        // Magmadroth
+            // Magmadroth
             ToInteger(MountTrait::Cinder_Crest_Youngblood),
             ToInteger(MountTrait::Flame_Scale_Youngblood),
             ToInteger(MountTrait::Fire_Claw_Adult),

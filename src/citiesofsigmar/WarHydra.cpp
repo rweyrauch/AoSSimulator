@@ -136,7 +136,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int WarHydra::rollChargeDistance()  {
+    int WarHydra::rollChargeDistance() {
         if (useQuickWithTheLash()) {
             auto rolls = Dice::RollD6(3);
             std::sort(rolls.begin(), rolls.end());

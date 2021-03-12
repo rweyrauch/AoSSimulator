@@ -13,7 +13,8 @@
 
 namespace FleshEaterCourt {
 
-    SummonAbility::SummonAbility(Unit *leader, Roster* roster, const std::string &name, const SummonedUnitDesc& summonableUnits) :
+    SummonAbility::SummonAbility(Unit *leader, Roster *roster, const std::string &name,
+                                 const SummonedUnitDesc &summonableUnits) :
             CommandAbility(leader, name, 0, 0, Phase::Movement),
             m_summonedUnitDesc(summonableUnits),
             m_roster(roster) {
@@ -21,7 +22,7 @@ namespace FleshEaterCourt {
         m_effect = Abilities::EffectType::Summon;
     }
 
-    bool SummonAbility::apply(Unit* target) {
+    bool SummonAbility::apply(Unit *target) {
 
         // TODO: Select a unit at random if more than own available.
         std::string summonedUnitName = m_summonedUnitDesc.front().first;

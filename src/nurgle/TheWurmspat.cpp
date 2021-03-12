@@ -20,7 +20,7 @@ namespace Nurgle {
     Unit *TheWurmspat::Create(const ParameterList &parameters) {
         auto unit = new TheWurmspat();
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure();

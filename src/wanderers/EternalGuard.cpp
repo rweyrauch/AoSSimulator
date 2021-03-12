@@ -44,8 +44,7 @@ namespace Wanderers {
             if (standardBearer) {
                 model->setName(Model::StandardBearer);
                 standardBearer = false;
-            }
-            else if (hornblower) {
+            } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
@@ -109,7 +108,7 @@ namespace Wanderers {
         return modifier;
     }
 
-    Rerolls EternalGuard::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls EternalGuard::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         if (m_gladeShields) {
             // if (Board::Instance()->unitInCover(this)) { return RerollOnesAndTwos; }
             return Rerolls::Ones;

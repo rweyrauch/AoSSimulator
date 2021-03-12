@@ -13,7 +13,7 @@
 #include <Dice.h>
 
 Weapon::Weapon(Type type, std::string name, int range, int attacks, int toHit, int toWound, int rend,
-               int damage) noexcept :
+               int damage) noexcept:
         m_type(type),
         m_name(std::move(name)),
         m_range(range),

@@ -90,7 +90,7 @@ namespace LuminethRealmLords {
 
         // Crushing Blow
         if ((hitRoll >= 6) && (weapon->name() == m_mallet.name())) {
-            return { weapon->damage() + 1, 0};
+            return {weapon->damage() + 1, 0};
         }
 
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);

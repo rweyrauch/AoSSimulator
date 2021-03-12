@@ -50,7 +50,7 @@ namespace Skaven {
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             IntegerParameter("Thing-catchers", g_minUnitSize / 3, g_minUnitSize / 3,
-                             g_maxUnitSize / 3, g_minUnitSize / 3),
+                                             g_maxUnitSize / 3, g_minUnitSize / 3),
                     },
                     CHAOS,
                     {SKAVEN}

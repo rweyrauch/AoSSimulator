@@ -78,7 +78,7 @@ namespace FleshEaterCourt {
                     FleshEaterCourts::EnumStringToInt,
                     CryptHorrors::ComputePoints,
                     {
-                            IntegerParameter( "Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Grand Court", g_grandCourt[0], g_grandCourt),
                             EnumParameter("Delusion", g_delusion[0], g_delusion),
                     },

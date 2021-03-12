@@ -55,8 +55,7 @@ namespace Death {
             if (standardBearers) {
                 model->setName(Model::StandardBearer);
                 standardBearers = false;
-            }
-            else if (hornblowers) {
+            } else if (hornblowers) {
                 model->setName(Model::Hornblower);
                 hornblowers = false;
             }
@@ -124,7 +123,7 @@ namespace Death {
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    int BlackKnights::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int BlackKnights::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Unit::toSaveModifier(weapon, attacker);
 
         // Crypt Shields

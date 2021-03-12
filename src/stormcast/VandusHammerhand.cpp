@@ -46,9 +46,11 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Vengeful Determination", 12, 12, Phase::Combat,
-                                                                                  Attribute::Attacks_Melee, 1, Abilities::Target::SelfAndFriendly,
-                                                                std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Vengeful Determination", 12, 12, Phase::Combat,
+                                                             Attribute::Attacks_Melee, 1,
+                                                             Abilities::Target::SelfAndFriendly,
+                                                             std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
 
         m_points = g_pointsPerUnit;
 
@@ -57,7 +59,7 @@ namespace StormcastEternals {
 
     Unit *VandusHammerhand::Create(const ParameterList &parameters) {
         auto unit = new VandusHammerhand();
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 

@@ -140,7 +140,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::computeReturnedDamage(weapon, saveRoll);
     }
 
-    Wounds Archaon::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds Archaon::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto modifiedWounds = SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
 
         return modifiedWounds;

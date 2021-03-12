@@ -42,19 +42,19 @@ namespace Tzeentch {
 
     std::string TzeentchBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Change Coven") {
-            auto coven = magic_enum::enum_name((ChangeCoven)parameter.intValue);
+            auto coven = magic_enum::enum_name((ChangeCoven) parameter.intValue);
             return std::string(coven);
         }
         if (std::string(parameter.name) == "Lore") {
-            auto lore = magic_enum::enum_name((Lore)parameter.intValue);
+            auto lore = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(lore);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
 
@@ -64,16 +64,16 @@ namespace Tzeentch {
     int TzeentchBase::EnumStringToInt(const std::string &enumString) {
 
         auto coven = magic_enum::enum_cast<ChangeCoven>(enumString);
-        if (coven.has_value()) return (int)coven.value();
+        if (coven.has_value()) return (int) coven.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         return 0;
     }
@@ -155,7 +155,7 @@ namespace Tzeentch {
         if (weapon->isMissile() && hasKeyword(ETERNAL_CONFLAGRATION) && hasKeyword(DAEMON)) {
             auto general = getRoster()->getGeneral();
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
-                auto tzeench = dynamic_cast<TzeentchBase*>(general);
+                auto tzeench = dynamic_cast<TzeentchBase *>(general);
                 if (tzeench && (tzeench->m_commandTrait == CommandTrait::Coruscating_Flames))
                     mod--;
             }
@@ -197,11 +197,9 @@ namespace Tzeentch {
                         // Discard 2's, 3's and 4's.
                         if (s_destinyDice.have(2)) {
                             s_destinyDice.replace(2, roll);
-                        }
-                        else if (s_destinyDice.have(3)) {
+                        } else if (s_destinyDice.have(3)) {
                             s_destinyDice.replace(3, roll);
-                        }
-                        else if (s_destinyDice.have(4)) {
+                        } else if (s_destinyDice.have(4)) {
                             s_destinyDice.replace(4, roll);
                         }
                     }
@@ -249,7 +247,7 @@ namespace Tzeentch {
         if (hasKeyword(HOSTS_DUPLICITOUS) && hasKeyword(DAEMON) && hasKeyword(WIZARD)) {
             auto general = getRoster()->getGeneral();
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 9.0)) {
-                auto tzeentch = dynamic_cast<TzeentchBase*>(general);
+                auto tzeentch = dynamic_cast<TzeentchBase *>(general);
                 if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Will_Of_The_Phantom_Lord)) {
                     return Rerolls::Failed;
                 }
@@ -263,7 +261,7 @@ namespace Tzeentch {
         if (hasKeyword(HOSTS_DUPLICITOUS) && hasKeyword(DAEMON) && hasKeyword(WIZARD)) {
             auto general = getRoster()->getGeneral();
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 9.0)) {
-                auto tzeentch = dynamic_cast<TzeentchBase*>(general);
+                auto tzeentch = dynamic_cast<TzeentchBase *>(general);
                 if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Will_Of_The_Phantom_Lord)) {
                     return Rerolls::Failed;
                 }
@@ -278,7 +276,7 @@ namespace Tzeentch {
         if (hasKeyword(CULT_OF_THE_TRANSIENT_FORM)) {
             auto general = getRoster()->getGeneral();
             if (general && (general->remainingModels() > 0) && (distanceTo(general) < 12.0)) {
-                auto tzeentch = dynamic_cast<TzeentchBase*>(general);
+                auto tzeentch = dynamic_cast<TzeentchBase *>(general);
                 if (tzeentch && (tzeentch->m_commandTrait == CommandTrait::Defiant_In_Their_Pursuit)) {
                     mod += 2;
                 }

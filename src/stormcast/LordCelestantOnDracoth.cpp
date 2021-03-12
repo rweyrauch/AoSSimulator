@@ -61,7 +61,7 @@ namespace StormcastEternals {
         auto unit = new LordCelestantOnDracoth();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Lightning_Hammer);
         bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int)MountTrait::None);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
 
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         unit->setStormhost(stormhost);
@@ -79,7 +79,8 @@ namespace StormcastEternals {
 
     void LordCelestantOnDracoth::Init() {
         if (!s_registered) {
-            static const std::array<int, 4> weapons = {Tempestos_Hammer, Thunderaxe, Lightning_Hammer, Stormstrike_Glaive};
+            static const std::array<int, 4> weapons = {Tempestos_Hammer, Thunderaxe, Lightning_Hammer,
+                                                       Stormstrike_Glaive};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
@@ -135,7 +136,7 @@ namespace StormcastEternals {
         return attacks;
     }
 
-    Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls LordCelestantOnDracoth::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Sigmarite Thundershield
         if (m_sigmariteThundershield) {
             return Rerolls::Ones;

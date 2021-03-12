@@ -42,7 +42,9 @@ namespace Slaanesh {
 
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Reflection Eternal", 6, 12.0, Attribute::To_Wound_Melee, -1, Abilities::Target::Enemy));
+        m_knownSpells.push_back(
+                std::make_unique<BuffModifierSpell>(this, "Reflection Eternal", 6, 12.0, Attribute::To_Wound_Melee, -1,
+                                                    Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -109,7 +111,7 @@ namespace Slaanesh {
         m_claws.activate(true);
     }
 
-    int ShardspeakerOfSlaanesh::toSaveModifier(const Weapon *weapon, const Unit* attacker) const {
+    int ShardspeakerOfSlaanesh::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = Unit::toSaveModifier(weapon, attacker);
 
         // Mist Lurkers

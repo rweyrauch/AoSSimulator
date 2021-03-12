@@ -59,12 +59,10 @@ namespace Dispossessed {
             if (standard == StandardOptions::Clan_Banner) {
                 model->setName("Clan Banner");
                 standard = StandardOptions::None;
-            }
-            else if (standard == StandardOptions::Runic_Icon) {
+            } else if (standard == StandardOptions::Runic_Icon) {
                 model->setName("Runic Icon");
                 standard = StandardOptions::None;
-            }
-            else if (drummers) {
+            } else if (drummers) {
                 model->setName(Model::Drummer);
                 drummers = false;
             }
@@ -95,7 +93,8 @@ namespace Dispossessed {
     void Thunderers::Init() {
         if (!s_registered) {
             static const std::array<int, 2> veteranWeapons = {Duardin_Handgun, Brace_Of_Duardin_Pistols};
-            static const std::array<int, 3> weapons = {Thunderers::None, Thunderers::Runic_Icon, Thunderers::Clan_Banner};
+            static const std::array<int, 3> weapons = {Thunderers::None, Thunderers::Runic_Icon,
+                                                       Thunderers::Clan_Banner};
             static FactoryMethod factoryMethod = {
                     Thunderers::Create,
                     Thunderers::ValueToString,

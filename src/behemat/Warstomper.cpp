@@ -28,10 +28,10 @@ namespace SonsOfBehemat {
     static TableEntry g_damageTable[g_numTableEntries] =
             {
                     {10, 4, 2},
-                    {9, 3, 1},
-                    {8, 2, 0},
-                    {7, 1,  -1},
-                    {6, 0,  -2}
+                    {9,  3, 1},
+                    {8,  2, 0},
+                    {7,  1, -1},
+                    {6,  0, -2}
             };
 
     bool Warstomper::s_registered = false;
@@ -132,7 +132,8 @@ namespace SonsOfBehemat {
         attacks += target->remainingModels() + g_damageTable[getDamageTableIndex()].m_clubExtraAttacks;
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Louder_Than_Words) &&
-                (weapon->name() == m_club.name())) attacks++;
+            (weapon->name() == m_club.name()))
+            attacks++;
 
         return std::min(10, attacks);
     }
@@ -143,7 +144,7 @@ namespace SonsOfBehemat {
             return Rerolls::Ones_And_Twos;
 
         // Death Grip
-        if ((weapon->name() == m_grip.name()) && (target-hasKeyword(MONSTER)))
+        if ((weapon->name() == m_grip.name()) && (target - hasKeyword(MONSTER)))
             return Rerolls::Ones;
 
         return Unit::toHitRerolls(weapon, target);

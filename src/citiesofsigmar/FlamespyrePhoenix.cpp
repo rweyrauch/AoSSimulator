@@ -52,7 +52,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         bool ok = unit->configure(anointed);
@@ -79,12 +79,12 @@ namespace CitiesOfSigmar {
                     FlamespyrePhoenix::EnumStringToInt,
                     FlamespyrePhoenix::ComputePoints,
                     {
-                        BoolParameter("Anointed"),
+                            BoolParameter("Anointed"),
                             EnumParameter("City", g_city[0], g_city),
-                        EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
-                        EnumParameter("Artefact", g_artefacts[0], g_artefacts),
-                        EnumParameter("Narcotic", g_narcotic[0], g_narcotic),
-                        BoolParameter("General")
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            EnumParameter("Narcotic", g_narcotic[0], g_narcotic),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}
@@ -118,8 +118,12 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         if (anointed) {
-            m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Captain of the Phoenix Guard", 12, 12, Phase::Combat, Attribute::To_Wound_Melee, Rerolls::Failed,
-                                                                                    Abilities::Target::SelfAndFriendly, std::vector<Keyword>{PHOENIX_TEMPLE}));
+            m_commandAbilities.push_back(
+                    std::make_unique<BuffRerollCommandAbility>(this, "Captain of the Phoenix Guard", 12, 12,
+                                                               Phase::Combat, Attribute::To_Wound_Melee,
+                                                               Rerolls::Failed,
+                                                               Abilities::Target::SelfAndFriendly,
+                                                               std::vector<Keyword>{PHOENIX_TEMPLE}));
             m_points = g_pointsPerUnitWithAnointed;
         } else {
             m_points = g_pointsPerUnit;
@@ -151,7 +155,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds FlamespyrePhoenix::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = CitizenOfSigmar::applyWoundSave(wounds, attackingUnit);
         if (hasKeyword(HERO)) {
             // Witness to Destiny

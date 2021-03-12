@@ -23,7 +23,7 @@ namespace Nurgle {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto legion = (PlagueLegion)GetEnumParam("Plague Legion", parameters, (int)PlagueLegion::None);
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         unit->setLegion(legion);
 
         bool ok = unit->configure();
@@ -72,7 +72,7 @@ namespace Nurgle {
         return true;
     }
 
-    Wounds EpidemiusTallymanOfNurgle::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds EpidemiusTallymanOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
     }

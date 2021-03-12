@@ -118,7 +118,7 @@ namespace Greenskinz {
         Unit::onFriendlyUnitSlain(nullptr);
     }
 
-    Wounds RogueIdol::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds RogueIdol::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         Wounds modifiedWounds = wounds;
 
         // Da Big' Un

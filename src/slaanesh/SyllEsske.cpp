@@ -42,14 +42,18 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_scourgingWhip);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffAbilitySpell>(this, "Subvert", 7, 18, Ability::Cannot_Use_Command_Abilities,
-                     1, Abilities::Target::Enemy, std::vector<Keyword>{HERO}));
+        m_knownSpells.push_back(
+                std::make_unique<BuffAbilitySpell>(this, "Subvert", 7, 18, Ability::Cannot_Use_Command_Abilities,
+                                                   1, Abilities::Target::Enemy, std::vector<Keyword>{HERO}));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Regal Authority", 18, 18, Phase::Battleshock, Ability::Ignore_Battleshock, 1,
-                                                                                 Abilities::Target::Friendly, std::vector<Keyword>{SLAANESH}));
+        m_commandAbilities.push_back(
+                std::make_unique<BuffAbilityCommandAbility>(this, "Regal Authority", 18, 18, Phase::Battleshock,
+                                                            Ability::Ignore_Battleshock, 1,
+                                                            Abilities::Target::Friendly,
+                                                            std::vector<Keyword>{SLAANESH}));
         m_points = g_pointsPerUnit;
 
         return true;

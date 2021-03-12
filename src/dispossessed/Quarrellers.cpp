@@ -49,12 +49,10 @@ namespace Dispossessed {
             if (standard == StandardOptions::Clan_Banner) {
                 model->setName("Clan Banner");
                 standard = StandardOptions::None;
-            }
-            else if (standard == StandardOptions::Runic_Icon) {
+            } else if (standard == StandardOptions::Runic_Icon) {
                 model->setName("Runic Icon");
                 standard = StandardOptions::None;
-            }
-            else if (drummer) {
+            } else if (drummer) {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
@@ -116,7 +114,7 @@ namespace Dispossessed {
         return extra;
     }
 
-    Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls Quarrellers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Duardin Bucklers
         if (!m_ran && !m_charged) {
             if (!weapon->isMissile())

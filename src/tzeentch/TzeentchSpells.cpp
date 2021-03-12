@@ -14,11 +14,13 @@ namespace Tzeentch {
 
     class BoltOfChange : public Spell {
     public:
-        explicit BoltOfChange(Unit* caster);
+        explicit BoltOfChange(Unit *caster);
 
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override;
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override;
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     BoltOfChange::BoltOfChange(Unit *caster) :
@@ -27,7 +29,8 @@ namespace Tzeentch {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result BoltOfChange::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) {
+    Spell::Result
+    BoltOfChange::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -49,14 +52,14 @@ namespace Tzeentch {
 
     class InfusionArcanum : public Spell {
     public:
-        explicit InfusionArcanum(Unit* caster) :
+        explicit InfusionArcanum(Unit *caster) :
                 Spell(caster, "Infusion Arcanum", 5, 0) {
             m_allowedTargets = Abilities::Target::Self;
             m_effect = Abilities::EffectType::Buff;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             m_caster->buffModifier(Attribute::To_Hit_Melee, 1, defaultDuration());
             m_caster->buffModifier(Attribute::To_Hit_Missile, 1, defaultDuration());
             m_caster->buffModifier(Attribute::To_Wound_Melee, 1, defaultDuration());
@@ -64,19 +67,21 @@ namespace Tzeentch {
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class TreasonOfTzeentch : public Spell {
     public:
-        explicit TreasonOfTzeentch(Unit* caster) :
+        explicit TreasonOfTzeentch(Unit *caster) :
                 Spell(caster, "Treason of Tzeentch", 5, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -92,19 +97,21 @@ namespace Tzeentch {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class UncheckedMutation : public Spell {
     public:
-        explicit UncheckedMutation(Unit* caster) :
+        explicit UncheckedMutation(Unit *caster) :
                 Spell(caster, "Unchecked Mutation", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -117,19 +124,21 @@ namespace Tzeentch {
             }
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class TzeentchsFirestorm : public Spell {
     public:
-        explicit TzeentchsFirestorm(Unit* caster) :
+        explicit TzeentchsFirestorm(Unit *caster) :
                 Spell(caster, "Tzeentch's Firestorm", 9, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr) {
                 return Spell::Result::Failed;
             }
@@ -143,10 +152,12 @@ namespace Tzeentch {
             target->applyDamage(wounds, m_caster);
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Result::Failed; }
     };
 
-    Spell* CreateBoltOfChange(Unit* caster) {
+    Spell *CreateBoltOfChange(Unit *caster) {
         return new BoltOfChange(caster);
     }
 

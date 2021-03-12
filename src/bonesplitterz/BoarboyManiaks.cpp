@@ -88,8 +88,7 @@ namespace Bonesplitterz {
             if (totemBearer) {
                 model->setName(Model::TotemBearer);
                 totemBearer = false;
-            }
-            else if (boarThumper) {
+            } else if (boarThumper) {
                 model->setName("Boar Thumper");
                 boarThumper = false;
             }

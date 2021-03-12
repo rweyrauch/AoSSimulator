@@ -25,7 +25,7 @@ namespace CitiesOfSigmar {
 
     protected:
 
-        bool apply(Unit* target) override {
+        bool apply(Unit *target) override {
             if (target == nullptr)
                 return false;
 
@@ -62,7 +62,7 @@ namespace CitiesOfSigmar {
             {
                     {14, 1, 6},
                     {12, 2, 5},
-                    {10,  3, 4},
+                    {10, 3, 4},
                     {8,  4, 3},
                     {6,  5, 2}
             };
@@ -86,7 +86,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         bool ok = unit->configure(weapon);
@@ -131,7 +131,8 @@ namespace CitiesOfSigmar {
 
     void DreadlordOnBlackDragon::Init() {
         if (!s_registered) {
-            static const std::array<int, 5> weapons = {Exile_Blade_And_Shield, Exile_Blade_And_Crossbow, Lance_And_Shield,
+            static const std::array<int, 5> weapons = {Exile_Blade_And_Shield, Exile_Blade_And_Crossbow,
+                                                       Lance_And_Shield,
                                                        Lance_And_Crossbow, Pair_Exile_Blades};
             static FactoryMethod factoryMethod = {
                     DreadlordOnBlackDragon::Create,

@@ -31,16 +31,16 @@ namespace OssiarchBonereapers {
 
     std::string OssiarchBonereaperBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Legion") {
-            auto legionName = magic_enum::enum_name((Legion)parameter.intValue);
+            auto legionName = magic_enum::enum_name((Legion) parameter.intValue);
             return std::string(legionName);
         } else if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         } else if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         } else if (std::string(parameter.name) == "Lore") {
-            auto loreName = magic_enum::enum_name((Lore)parameter.intValue);
+            auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
         return ParameterValueToString(parameter);
@@ -48,16 +48,16 @@ namespace OssiarchBonereapers {
 
     int OssiarchBonereaperBase::EnumStringToInt(const std::string &enumString) {
         auto legion = magic_enum::enum_cast<Legion>(enumString);
-        if (legion.has_value()) return (int)legion.value();
+        if (legion.has_value()) return (int) legion.value();
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
-        if (lore.has_value()) return (int)lore.value();
+        if (lore.has_value()) return (int) lore.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         return 0;
     }
@@ -103,7 +103,7 @@ namespace OssiarchBonereapers {
 
     }
 
-    Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds OssiarchBonereaperBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Deathless Warriors
         auto hekatos = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HEKATOS, 6.0);
         auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 16.0);
@@ -124,7 +124,7 @@ namespace OssiarchBonereapers {
         m_artefact = artefact;
     }
 
-    Rerolls OssiarchBonereaperBase::toSaveRerolls(const Weapon *weapon, const Unit* attacker) const {
+    Rerolls OssiarchBonereaperBase::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
         // Unstoppable Juggernauts
         if (m_legion == Legion::Petrifex_Elite) {
             return Rerolls::Ones;
@@ -140,7 +140,7 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    void OssiarchBonereaperBase::onFriendlyModelSlain(int numSlain, Unit* attacker, Wounds::Source source) {
+    void OssiarchBonereaperBase::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
         Unit::onFriendlyModelSlain(numSlain, attacker, source);
 
         // Immoliate

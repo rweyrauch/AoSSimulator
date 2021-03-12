@@ -17,14 +17,14 @@ namespace CitiesOfSigmar {
 
     class BurningGaze : public Spell {
     public:
-        BurningGaze(Unit* caster) :
+        BurningGaze(Unit *caster) :
                 Spell(caster, "Burning Gaze", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
 
     protected:
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit* target) override {
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override {
             if (target == nullptr)
                 return Spell::Result::Failed;
 
@@ -32,15 +32,16 @@ namespace CitiesOfSigmar {
             Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Spell};
             if (target->remainingModels() >= 20) {
                 wounds.mortal *= 3;
-            }
-            else if (target->remainingModels() >= 10) {
+            } else if (target->remainingModels() >= 10) {
                 wounds.mortal *= 2;
             }
             target->applyDamage(wounds, m_caster);
 
             return Spell::Result::Success;
         }
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override { return Spell::Result::Failed; }
+
+        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
+                     double y) override { return Spell::Result::Failed; }
     };
 
     static const int g_basesize = 105;
@@ -84,7 +85,7 @@ namespace CitiesOfSigmar {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
@@ -167,7 +168,9 @@ namespace CitiesOfSigmar {
         if (battlemage) {
             m_knownSpells.push_back(std::make_unique<BurningGaze>(this));
             m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Pha's Protection", 5, 18,
-                                                                        std::vector<std::pair<Attribute, int>>{{Attribute::Target_To_Hit_Missile, -1},{Attribute::Target_To_Hit_Melee, -1}}, Abilities::Target::SelfAndFriendly));
+                                                                        std::vector<std::pair<Attribute, int>>{{Attribute::Target_To_Hit_Missile, -1},
+                                                                                                               {Attribute::Target_To_Hit_Melee,   -1}},
+                                                                        Abilities::Target::SelfAndFriendly));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
             m_knownSpells.push_back(std::make_unique<MysticShield>(this));

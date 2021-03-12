@@ -49,10 +49,10 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Command Trait", g_skryreCommandTraits[0], g_skryreCommandTraits),
-                        EnumParameter("Artefact", g_skryreArtefacts[0], g_skryreArtefacts),
-                        EnumParameter("Lore", g_skryreLore[0], g_skryreLore),
-                        BoolParameter("General")
+                            EnumParameter("Command Trait", g_skryreCommandTraits[0], g_skryreCommandTraits),
+                            EnumParameter("Artefact", g_skryreArtefacts[0], g_skryreArtefacts),
+                            EnumParameter("Lore", g_skryreLore[0], g_skryreLore),
+                            BoolParameter("General")
                     },
                     CHAOS,
                     {SKAVEN}

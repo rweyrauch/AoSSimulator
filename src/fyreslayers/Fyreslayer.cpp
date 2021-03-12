@@ -91,12 +91,14 @@ namespace Fyreslayers {
         if (s_enhancedRuneActive && (s_activeRune == Rune::Of_Relentless_Zeal)) {
             modifier += 2;
         }
-        auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
-        if (general && (distanceTo(general) < 18.0) && (general->m_commandTrait == CommandTrait::Fury_Of_The_Fyreslayers)) {
+        auto general = dynamic_cast<Fyreslayer *>(getRoster()->getGeneral());
+        if (general && (distanceTo(general) < 18.0) &&
+            (general->m_commandTrait == CommandTrait::Fury_Of_The_Fyreslayers)) {
             modifier += 1;
         }
         if (hasKeyword(LOFNIR) && hasKeyword(MAGMADROTH)) {
-            if (general && (distanceTo(general) < 12.0) && (general->m_commandTrait == CommandTrait::Explosive_Charge)) {
+            if (general && (distanceTo(general) < 12.0) &&
+                (general->m_commandTrait == CommandTrait::Explosive_Charge)) {
                 modifier += 1;
             }
         }
@@ -113,23 +115,23 @@ namespace Fyreslayers {
 
     std::string Fyreslayer::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Lodge") {
-            auto lodgeName = magic_enum::enum_name((Lodge)parameter.intValue);
+            auto lodgeName = magic_enum::enum_name((Lodge) parameter.intValue);
             return std::string(lodgeName);
         }
         if (std::string(parameter.name) == "Command Trait") {
-            auto traitName = magic_enum::enum_name((CommandTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Artefact") {
-            auto artefactName = magic_enum::enum_name((Artefact)parameter.intValue);
+            auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
         if (std::string(parameter.name) == "Mount Trait") {
-            auto traitName = magic_enum::enum_name((MountTrait)parameter.intValue);
+            auto traitName = magic_enum::enum_name((MountTrait) parameter.intValue);
             return std::string(traitName);
         }
         if (std::string(parameter.name) == "Prayer") {
-            auto prayerName = magic_enum::enum_name((Blessing)parameter.intValue);
+            auto prayerName = magic_enum::enum_name((Blessing) parameter.intValue);
             return std::string(prayerName);
         }
 
@@ -138,19 +140,19 @@ namespace Fyreslayers {
 
     int Fyreslayer::EnumStringToInt(const std::string &enumString) {
         auto lodge = magic_enum::enum_cast<Lodge>(enumString);
-        if (lodge.has_value()) return (int)lodge.value();
+        if (lodge.has_value()) return (int) lodge.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
-        if (trait.has_value()) return (int)trait.value();
+        if (trait.has_value()) return (int) trait.value();
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
-        if (artefact.has_value()) return (int)artefact.value();
+        if (artefact.has_value()) return (int) artefact.value();
 
         auto mount = magic_enum::enum_cast<MountTrait>(enumString);
-        if (mount.has_value()) return (int)mount.value();
+        if (mount.has_value()) return (int) mount.value();
 
         auto prayer = magic_enum::enum_cast<Blessing>(enumString);
-        if (prayer.has_value()) return (int)prayer.value();
+        if (prayer.has_value()) return (int) prayer.value();
 
         return 0;
     }
@@ -161,8 +163,9 @@ namespace Fyreslayers {
             if (s_availableRunes[rune]) {
                 auto roll = Dice::RollD6();
 
-                auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
-                if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Spirit_Of_Grimnir)) {
+                auto general = dynamic_cast<Fyreslayer *>(getRoster()->getGeneral());
+                if (general && (general->remainingModels() > 0) &&
+                    (general->m_commandTrait == CommandTrait::Spirit_Of_Grimnir)) {
                     roll++;
                 }
 
@@ -270,8 +273,9 @@ namespace Fyreslayers {
             return false;
         }
 
-        auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
-        if (general && (distanceTo(general) < 12.0) && (general->m_commandTrait == CommandTrait::Honour_Of_The_Ancestors)) {
+        auto general = dynamic_cast<Fyreslayer *>(getRoster()->getGeneral());
+        if (general && (distanceTo(general) < 12.0) &&
+            (general->m_commandTrait == CommandTrait::Honour_Of_The_Ancestors)) {
             return false;
         }
         return Unit::battleshockRequired();

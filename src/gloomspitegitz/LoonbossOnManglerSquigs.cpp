@@ -19,7 +19,8 @@ namespace GloomspiteGitz {
         explicit BiteDaMoon(Unit *source);
 
     protected:
-        bool apply(Unit* target) override;
+        bool apply(Unit *target) override;
+
         bool apply(double x, double y) override { return false; }
     };
 
@@ -30,7 +31,7 @@ namespace GloomspiteGitz {
         m_targetKeywords.push_back(SQUIG);
     }
 
-    bool BiteDaMoon::apply(Unit* target) {
+    bool BiteDaMoon::apply(Unit *target) {
 
         auto units = Board::Instance()->getUnitsWithin(m_source->position(), m_source->owningPlayer(), m_rangeGeneral);
         for (auto unit : units) {
@@ -132,10 +133,10 @@ namespace GloomspiteGitz {
     Unit *LoonbossOnManglerSquigs::Create(const ParameterList &parameters) {
         auto unit = new LoonbossOnManglerSquigs();
 
-        auto trait = (CommandTrait)GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
         unit->setCommandTrait(trait);
 
-        auto artefact = (Artefact)GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
         unit->setArtefact(artefact);
 
         auto general = GetBoolParam("General", parameters, false);

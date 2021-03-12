@@ -39,10 +39,10 @@ namespace GloomspiteGitz {
     Unit *Loonboss::Create(const ParameterList &parameters) {
         auto unit = new Loonboss();
 
-        auto trait = (CommandTrait)GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
         unit->setCommandTrait(trait);
 
-        auto artefact = (Artefact)GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
         unit->setArtefact(artefact);
 
         auto general = GetBoolParam("General", parameters, false);
@@ -64,9 +64,9 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     Loonboss::ComputePoints,
                     {
-                        EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
-                        EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures),
-                        BoolParameter("General")
+                            EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
+                            EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

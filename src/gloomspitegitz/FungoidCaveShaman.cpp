@@ -76,9 +76,9 @@ namespace GloomspiteGitz {
                     EnumStringToInt,
                     ComputePoints,
                     {
-                        EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
-                        EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
-                        BoolParameter("General")
+                            EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
+                            EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
+                            BoolParameter("General")
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -114,7 +114,7 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Wounds FungoidCaveShaman::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds FungoidCaveShaman::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Spore Squig
         return ignoreWounds(wounds, 4);
     }

@@ -44,7 +44,7 @@ namespace CitiesOfSigmar {
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        auto drug = (Narcotic)GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
         bool ok = unit->configure(commander);
@@ -71,7 +71,7 @@ namespace CitiesOfSigmar {
                     SteamTank::EnumStringToInt,
                     SteamTank::ComputePoints,
                     {
-                        BoolParameter("Commander"),
+                            BoolParameter("Commander"),
                             EnumParameter("City", g_city[0], g_city),
                     },
                     ORDER,

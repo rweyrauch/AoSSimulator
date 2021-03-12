@@ -47,7 +47,8 @@ namespace StormcastEternals {
 
         Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+        Result
+        apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
             return apply(castingValue, unmodifiedCastingValue, nullptr);
         }
 
@@ -59,7 +60,8 @@ namespace StormcastEternals {
         m_effect = Abilities::EffectType::Damage;
     }
 
-    Spell::Result PurifyingBlast::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit * /*target*/) {
+    Spell::Result
+    PurifyingBlast::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit * /*target*/) {
 
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
         for (auto ip : units) {
@@ -73,7 +75,7 @@ namespace StormcastEternals {
                 int numSlain = ip->applyDamage(wounds, m_caster);
                 if (numSlain > 0) {
                     PLOG_INFO.printf("%s inflicts %d mortal wounds on unit %s.\n",
-                           m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
+                                     m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
                 }
             }
         }
@@ -96,7 +98,8 @@ namespace StormcastEternals {
 
         Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) override;
 
-        Result apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+        Result
+        apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
             return apply(castingValue, unmodifiedCastingValue, nullptr);
         }
 
@@ -108,7 +111,8 @@ namespace StormcastEternals {
         m_effect = Abilities::EffectType::AreaOfEffectDamage;
     }
 
-    Spell::Result Stormsire::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit * /*target*/) {
+    Spell::Result
+    Stormsire::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit * /*target*/) {
 
         auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), range());
         for (auto ip : units) {
@@ -120,7 +124,7 @@ namespace StormcastEternals {
             int numSlain = ip->applyDamage(wounds, m_caster);
             if (numSlain > 0) {
                 PLOG_INFO.printf("%s inflicts %d mortal wounds on unit %s.\n",
-                       m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
+                                 m_caster->name().c_str(), wounds.mortal, ip->name().c_str());
             }
 
             ip->buffModifier(Attribute::Run_Distance, -1, defaultDuration());

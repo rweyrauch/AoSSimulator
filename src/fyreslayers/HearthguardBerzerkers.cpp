@@ -121,7 +121,7 @@ namespace Fyreslayers {
         return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
-    Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds, Unit* attackingUnit) {
+    Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Duty Unto Death
         int saveValue = 6;
 

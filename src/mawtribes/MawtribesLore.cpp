@@ -20,14 +20,17 @@ namespace OgorMawtribes {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->applyDamage({0, Dice::RollD6(), Wounds::Source::Spell}, m_caster);
             target->buffModifier(Attribute::Attacks_Melee, 1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class Ribcracker : public Spell {
@@ -37,14 +40,17 @@ namespace OgorMawtribes {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::To_Save_Melee, -1, defaultDuration());
             target->buffModifier(Attribute::To_Save_Missile, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class GreasyDeluge : public Spell {
@@ -54,14 +60,17 @@ namespace OgorMawtribes {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             target->buffModifier(Attribute::To_Hit_Melee, -1, defaultDuration());
             target->buffModifier(Attribute::To_Hit_Missile, -1, defaultDuration());
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     class FieryWhirlwind : public Spell {
@@ -71,8 +80,9 @@ namespace OgorMawtribes {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
+
     protected:
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit* target) override {
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
             if (target == nullptr) return Result::Failed;
             int numRolls = target->remainingModels();
             if (numRolls == 1) numRolls = 3;
@@ -81,7 +91,9 @@ namespace OgorMawtribes {
             target->applyDamage({0, rolls.rollsGE(4), Wounds::Source::Spell}, m_caster);
             return Result::Success;
         }
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x, double y) override { return Result::Failed; }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {
@@ -89,7 +101,8 @@ namespace OgorMawtribes {
             case Lore::Fleshcrave_Curse:
                 return new FleshcraveCurse(caster);
             case Lore::Blood_Feast:
-                return new BuffModifierSpell(caster, "Blood Feast", 7, 18, Attribute::Attacks_Melee, 1, Abilities::Target::SelfAndFriendly, {OGOR});
+                return new BuffModifierSpell(caster, "Blood Feast", 7, 18, Attribute::Attacks_Melee, 1,
+                                             Abilities::Target::SelfAndFriendly, {OGOR});
             case Lore::Ribcracker:
                 return new Ribcracker(caster);
             case Lore::Blubbergrub_Stench:
@@ -122,12 +135,14 @@ namespace OgorMawtribes {
             m_allowedTargets = Abilities::Target::Point;
             m_effect = Abilities::EffectType::AreaOfEffectDamage;
         }
+
         bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr) {
                 return false;
             }
             return apply(prayingRoll, target->x(), target->y());
         }
+
         bool apply(int prayingRoll, double x, double y) override {
             auto units = Board::Instance()->getUnitsWithin({x, y, 0.0}, GetEnemyId(m_priest->owningPlayer()), 3.0);
             for (auto unit : units) {
@@ -147,6 +162,7 @@ namespace OgorMawtribes {
             m_effect = Abilities::EffectType::Buff;
             m_targetKeywords = {MONSTER, MOURNFANG_PACK};
         }
+
         bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr) {
                 return false;
@@ -157,6 +173,7 @@ namespace OgorMawtribes {
             }
             return true;
         }
+
         bool apply(int prayingRoll, double x, double y) override { return false; }
     };
 
@@ -168,6 +185,7 @@ namespace OgorMawtribes {
             m_effect = Abilities::EffectType::Heal;
             m_targetKeywords = {ICEFALL_YHETESS};
         }
+
         bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr) {
                 return false;
@@ -178,10 +196,11 @@ namespace OgorMawtribes {
             }
             return true;
         }
+
         bool apply(int prayingRoll, double x, double y) override { return false; }
     };
 
-    ::Prayer* CreatePrayer(Prayer which, Unit* priest) {
+    ::Prayer *CreatePrayer(Prayer which, Unit *priest) {
         switch (which) {
             case Prayer::Pulverising_Hailstorm:
                 return new PulverisingHailstorm(priest);

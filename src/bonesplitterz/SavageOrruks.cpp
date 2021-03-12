@@ -97,8 +97,7 @@ namespace Bonesplitterz {
             if (totemBearer) {
                 model->setName(Model::TotemBearer);
                 totemBearer = false;
-            }
-            else if (skullThumper) {
+            } else if (skullThumper) {
                 model->setName("Skull Thumper");
                 skullThumper = false;
             }

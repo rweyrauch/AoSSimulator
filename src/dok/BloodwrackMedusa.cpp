@@ -41,8 +41,9 @@ namespace DaughtersOfKhaine {
         model->addMeleeWeapon(&m_bloodwrackSpear);
         addModel(model);
 
-        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeebling Foe", 5, 18, Attribute::To_Wound_Melee, -1,
-                                                                    Abilities::Target::Enemy));
+        m_knownSpells.push_back(
+                std::make_unique<BuffModifierSpell>(this, "Enfeebling Foe", 5, 18, Attribute::To_Wound_Melee, -1,
+                                                    Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
@@ -57,7 +58,7 @@ namespace DaughtersOfKhaine {
     Unit *BloodwrackMedusa::Create(const ParameterList &parameters) {
         auto unit = new BloodwrackMedusa();
 
-        auto temple = (Temple)GetEnumParam("Temple", parameters, g_temple[0]);
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         unit->setTemple(temple);
 
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_medusaCommandTraits[0]);
