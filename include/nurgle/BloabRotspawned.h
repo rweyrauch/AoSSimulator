@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLOABROTSPAWNED_H
-#define BLOABROTSPAWNED_H
+#pragma once
 
 #include "nurgle/Nurgle.h"
 
@@ -32,6 +30,8 @@ namespace Nurgle {
 
         int windspeakerBellsCastingMod(const Unit *caster);
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_bile,
@@ -46,11 +46,10 @@ namespace Nurgle {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Daemon-flies                     TODO
+// Daemon-flies                     Yes
 // Windspeaker Bells                Yes
 // Miasma of Pestilence             TODO
 //
 
 } // Nurgle
 
-#endif //BLOABROTSPAWNED_H

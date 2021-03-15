@@ -103,7 +103,7 @@ namespace Nurgle {
 
     int Plaguebearers::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
         // Cloud of Flies
-        int modifier = Unit::targetHitModifier(weapon, attacker);
+        int modifier = NurgleBase::targetHitModifier(weapon, attacker);
         if (remainingModels() >= 20) {
             modifier -= 2;
         } else {
@@ -126,7 +126,7 @@ namespace Nurgle {
         for (auto unit : units) {
             if (unit->hasKeyword(DAEMON) && unit->hasKeyword(NURGLE) && unit->hasKeyword(HERO)) return Rerolls::Ones;
         }
-        return Unit::toSaveRerolls(weapon, attacker);
+        return NurgleBase::toSaveRerolls(weapon, attacker);
     }
 
 } // namespace Nurgle

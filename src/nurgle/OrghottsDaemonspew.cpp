@@ -78,7 +78,7 @@ namespace Nurgle {
     }
 
     int OrghottsDaemonspew::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = NurgleBase::extraAttacks(attackingModel, weapon, target);
 
         // Fury of the Halfblood
         if (m_charged) extra += Dice::RollD3();

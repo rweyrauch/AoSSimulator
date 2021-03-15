@@ -103,7 +103,7 @@ namespace Nurgle {
     }
 
     int PutridBlightkings::runModifier() const {
-        int modifier = Unit::runModifier();
+        int modifier = NurgleBase::runModifier();
         if (m_sonorousTocsin) {
             modifier += 1;
         }
@@ -111,7 +111,7 @@ namespace Nurgle {
     }
 
     int PutridBlightkings::chargeModifier() const {
-        int modifier = Unit::chargeModifier();
+        int modifier = NurgleBase::chargeModifier();
         if (m_sonorousTocsin) {
             modifier += 1;
         }
@@ -127,7 +127,7 @@ namespace Nurgle {
     }
 
     void PutridBlightkings::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        NurgleBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 3.0);

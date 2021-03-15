@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "nurgle/Festus.h"
 #include "NurglePrivate.h"
 
@@ -76,6 +77,39 @@ namespace Nurgle {
 
     int FestusTheLeechlord::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void FestusTheLeechlord::onStartHero(PlayerId player) {
+        NurgleBase::onStartHero(player);
+        // Healing Elixiers
+        if (owningPlayer() == player) {
+            heal(1);
+        }
+
+        // Delightful Brews, Splendid Restoratives
+        bool usedBrews = false;
+        auto friendly = Board::Instance()->getUnitsWithin(this, owningPlayer(), 1.0);
+        for (auto unit : friendly) {
+            if (unit->numOfWoundedModels() > 0) {
+                if (Dice::RollD6() >= 2) {
+                    unit->heal(Dice::RollD3());
+                    usedBrews = true;
+                    break;
+                }
+            }
+        }
+        if (!usedBrews) {
+            auto enemy = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
+            for (auto unit : enemy) {
+                if (unit->remainingModels() > 0) {
+                    if (Dice::RollD6() >= 2) {
+                        unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                        usedBrews = true;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 } // namespace Nurgle

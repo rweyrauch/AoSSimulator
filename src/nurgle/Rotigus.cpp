@@ -103,6 +103,8 @@ namespace Nurgle {
     }
 
     void Rotigus::onWounded() {
+        NurgleBase::onWounded();
+
         const int damageIndex = getDamageTableIndex();
         m_gnarlrod.setToHit(g_damageTable[damageIndex].m_rodToHit);
         m_fangedMaw.setToWound(g_damageTable[damageIndex].m_mawToWound);
@@ -129,11 +131,11 @@ namespace Nurgle {
                 }
             }
         }
-        Unit::onCharged();
+        NurgleBase::onCharged();
     }
 
     Wounds Rotigus::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        auto unsavedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto unsavedWounds = NurgleBase::applyWoundSave(wounds, attackingUnit);
 
         // Blubber and Bile
         Dice::RollResult woundSaves, mortalSaves;
@@ -153,7 +155,7 @@ namespace Nurgle {
     }
 
     void Rotigus::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        NurgleBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Corpulent Mass

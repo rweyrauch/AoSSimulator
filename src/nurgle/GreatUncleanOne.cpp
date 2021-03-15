@@ -129,6 +129,8 @@ namespace Nurgle {
     }
 
     void GreatUncleanOne::onWounded() {
+        NurgleBase::onWounded();
+
         const int damageIndex = getDamageTableIndex();
         m_bile.setToWound(g_damageTable[damageIndex].m_bileToWound);
         m_flail.setToWound(g_damageTable[damageIndex].m_flailToWound);
@@ -156,7 +158,7 @@ namespace Nurgle {
                 }
             }
         }
-        Unit::onCharged();
+        NurgleBase::onCharged();
     }
 
     std::string GreatUncleanOne::ValueToString(const Parameter &parameter) {
@@ -179,7 +181,7 @@ namespace Nurgle {
     }
 
     Wounds GreatUncleanOne::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        auto unsavedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto unsavedWounds = NurgleBase::applyWoundSave(wounds, attackingUnit);
 
         // Blubber and Bile
         Dice::RollResult woundSaves, mortalSaves;
@@ -199,7 +201,7 @@ namespace Nurgle {
     }
 
     void GreatUncleanOne::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        NurgleBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Corpulent Mass

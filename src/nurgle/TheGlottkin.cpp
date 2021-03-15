@@ -105,6 +105,7 @@ namespace Nurgle {
     }
 
     void TheGlottkin::onRestore() {
+        NurgleBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
@@ -119,9 +120,11 @@ namespace Nurgle {
                 }
             }
         }
+        NurgleBase::onStartHero(player);
     }
 
     void TheGlottkin::onWounded() {
+        NurgleBase::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_pestilentTorrent.setDamage(g_damageTable[damageIndex].m_torrentDamage);
         m_flailingTentacle.setAttacks(g_damageTable[damageIndex].m_tentacleAttacks);
@@ -149,7 +152,7 @@ namespace Nurgle {
                 }
             }
         }
-        Unit::onCharged();
+        NurgleBase::onCharged();
     }
 
     int TheGlottkin::ComputePoints(int /*numModels*/) {

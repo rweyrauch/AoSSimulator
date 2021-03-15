@@ -183,7 +183,7 @@ namespace Nurgle {
     }
 
     int PlagueDrones::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = NurgleBase::extraAttacks(attackingModel, weapon, target);
 
         // Locus of Contagion
         if (!weapon->isMissile()) {

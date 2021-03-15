@@ -23,43 +23,44 @@ namespace Skaven {
 
     PlagueMonks::PlagueMonks() :
             Skaventide("Plague Monks", 6, g_wounds, 5, 6, false),
-            m_foetidBlade(Weapon::Type::Melee, "Foetid Blade", 1, 2, 4, 4, 0, 1),
-            m_woeStave(Weapon::Type::Melee, "Woe-stave", 2, 1, 4, 5, 0, 1) {
+            m_pairedBlades(Weapon::Type::Melee, "Pair of Foetid Blade", 1, 2, 4, 4, 0, 1),
+            m_bladeAndStave(Weapon::Type::Melee, "Foetid Blade Woe-stave", 2, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, PLAGUE_MONKS};
-        m_weapons = {&m_foetidBlade, &m_woeStave};
+        m_weapons = {&m_pairedBlades, &m_bladeAndStave};
     }
 
-    bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int contagionBanners, int iconsOfPestilence,
-                                int doomGongs, int baleChimes) {
+    bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int bannerBearers, int harbingers) {
         if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
             return false;
         }
         int maxBanners = numModels / g_minUnitSize;
         int maxHarbingers = numModels / g_minUnitSize;
-        if (contagionBanners + iconsOfPestilence > maxBanners) {
+        if (bannerBearers > maxBanners) {
             return false;
         }
-        if (doomGongs + baleChimes > maxHarbingers) {
+        if (harbingers > maxHarbingers) {
             return false;
         }
 
         m_weaponOption = weapons;
-        m_numContagionBanners = contagionBanners;
-        m_numIconsOfPestilence = iconsOfPestilence;
-        m_numDoomGongs = doomGongs;
-        m_numBaleChimes = baleChimes;
+        m_numBanners = bannerBearers;
+        m_numHarbingers = harbingers;
 
         auto bringer = new Model(g_basesize, wounds());
-        bringer->addMeleeWeapon(&m_foetidBlade);
+        if (weapons == Paired_Foetid_Blades) {
+            bringer->addMeleeWeapon(&m_pairedBlades);
+        } else if (weapons == Foetid_Blade_And_Woe_Stave) {
+            bringer->addMeleeWeapon(&m_bladeAndStave);
+        }
+        bringer->setName("Bringer-of-the-Word");
         addModel(bringer);
 
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             if (weapons == Paired_Foetid_Blades) {
-                model->addMeleeWeapon(&m_foetidBlade);
+                model->addMeleeWeapon(&m_pairedBlades);
             } else if (weapons == Foetid_Blade_And_Woe_Stave) {
-                model->addMeleeWeapon(&m_foetidBlade);
-                model->addMeleeWeapon(&m_woeStave);
+                model->addMeleeWeapon(&m_bladeAndStave);
             }
             addModel(model);
         }
@@ -73,12 +74,10 @@ namespace Skaven {
         auto unit = new PlagueMonks();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Paired_Foetid_Blades);
-        int contagionBanners = GetIntParam("Contagion Banners", parameters, 0);
-        int iconsOfPestilence = GetIntParam("Icons Of Pestilence", parameters, 0);
-        int doomGongs = GetIntParam("Doom Gongs", parameters, 0);
-        int baleChimes = GetIntParam("Bale Chimes", parameters, 0);
+        int numBanners = GetIntParam("Standard Bearers", parameters, 1);
+        int numHarbingers = GetIntParam("Plague Harbingers", parameters, 1);
 
-        bool ok = unit->configure(numModels, weapons, contagionBanners, iconsOfPestilence, doomGongs, baleChimes);
+        bool ok = unit->configure(numModels, weapons, numBanners, numHarbingers);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -97,10 +96,8 @@ namespace Skaven {
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Weapons", Paired_Foetid_Blades, weapons),
-                            IntegerParameter("Contagion Banners", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
-                            IntegerParameter("Icons Of Pestilence", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
-                            IntegerParameter("Doom Gongs", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
-                            IntegerParameter("Bale Chimes", 0, 0, g_maxUnitSize / g_minUnitSize, 1)
+                            IntegerParameter("Standard Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Plague Harbingers", 0, 0, g_maxUnitSize / g_minUnitSize, 1)
                     },
                     CHAOS,
                     {SKAVEN}
@@ -109,42 +106,27 @@ namespace Skaven {
         }
     }
 
-    Wounds PlagueMonks::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Icon of Pestilence
-        if ((woundRoll == 6) && (m_numIconsOfPestilence > 0) && !weapon->isMissile()) {
-            return {weapon->damage() + 1, 0};
-        }
-        return Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
-    }
-
     int PlagueMonks::runModifier() const {
-        // Doom Gongs
+        // Plague Harbingers
         int modifier = Skaventide::runModifier();
-        if (m_numDoomGongs > 0)
+        if (m_numHarbingers > 0)
             modifier += 1;
         return modifier;
     }
 
     int PlagueMonks::chargeModifier() const {
-        // Doom Gongs
+        // Plague Harbingers
         int modifier = Skaventide::chargeModifier();
-        if (m_numDoomGongs > 0)
+        if (m_numHarbingers > 0)
             modifier += 1;
         return modifier;
     }
 
-    Rerolls PlagueMonks::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        // Pair of Foetid Blades
-        if ((m_weaponOption == Paired_Foetid_Blades) && (weapon->name() == m_foetidBlade.name())) {
-            return Rerolls::Failed;
-        }
-        return Skaventide::toHitRerolls(weapon, target);
-    }
 
     int PlagueMonks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         int attacks = Skaventide::extraAttacks(attackingModel, weapon, target);
         // Frenzied Assault
-        if (m_charged && !weapon->isMissile()) {
+        if (m_charged && weapon->isMelee()) {
             attacks += 1;
         }
         return attacks;
@@ -154,7 +136,7 @@ namespace Skaven {
         if (owningPlayer() == player) {
             // Book of Woes
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(player));
-            if (distanceTo(unit) <= 13.0 && !unit->hasKeyword(CLANS_PESTILENS)) {
+            if (distanceTo(unit) <= 13.0 && !unit->hasKeyword(NURGLE)) {
                 int roll = Dice::RollD6();
                 if (roll == 6) {
                     unit->applyDamage({0, Dice::RollD3()}, this);
@@ -194,12 +176,23 @@ namespace Skaven {
         return points;
     }
 
-    int PlagueMonks::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Bale-chime
-        if ((m_numBaleChimes > 0) && (hitRoll == 6) && !weapon->isMissile()) {
-            return weapon->rend() - 1;
+    int PlagueMonks::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        auto hit = Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
+        // Foetid Weapons
+        if ((unmodifiedHitRoll == 6) && weapon->isMelee()) {
+            hit++;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return hit;
+    }
+
+    void PlagueMonks::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Skaventide::onFriendlyModelSlain(numSlain, attacker, source);
+
+        if ((source == Wounds::Source::Weapon_Melee) && (m_numBanners > 0)) {
+            Dice::RollResult rolls;
+            Dice::RollD6(numSlain, rolls);
+            attacker->applyDamage({0, rolls.rollsGE(6), Wounds::Source::Ability}, this);
+        }
     }
 
 } // namespace Skaven

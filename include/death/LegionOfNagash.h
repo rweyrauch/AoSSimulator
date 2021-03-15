@@ -25,7 +25,7 @@ namespace Death {
         None,
 
         // Grand Host
-        Master_Of_Death,
+        Master_Of_Death,            // TODO
         Chosen_Champion,
         Bane_Of_The_Living,
         Aura_Of_Ages,
@@ -34,43 +34,43 @@ namespace Death {
 
         // Legion of Sacrament
         Emissary_Of_The_Master,
-        Mark_Of_The_Favoured,
-        Dark_Acolyte,
-        Mastery_Of_Death,
-        Peerless_Commander,
-        Bound_To_The_Master,
+        Mark_Of_The_Favoured,       // TODO
+        Dark_Acolyte,               // TODO
+        Mastery_Of_Death,           // TODO
+        Peerless_Commander,         // TODO
+        Bound_To_The_Master,        // TODO
 
         // Legion of Blood
         Swift_Strikes,
-        Soul_Crushing_Contempt,
+        Soul_Crushing_Contempt,     // TODO
         Aristocracy_Of_Blood,
         Aura_Of_Dark_Majesty,
-        Walking_Death,
+        Walking_Death,              // TODO
         Sanguine_Blur,
 
         // Legion of Night
-        Above_Suspicion,
+        Above_Suspicion,            // TODO
         Swift_Form,
         Unbending_Will,
         Merciless_Hunter,
-        Unholy_Impetus,
-        Terrifying_Visage,
+        Unholy_Impetus,             // TODO
+        Terrifying_Visage,          // TODO
 
         // Soulblight
         Curse_Of_The_Revenant,
         Deathless_Duellist,
-        Transfix,
-        Mist_Form,
+        Transfix,                   // TODO
+        Mist_Form,                  // TODO
         Killing_Blow,
         Blood_Fury,
 
         // Death
-        Ruler_Of_The_Night,
-        Predator_Of_The_Shadows,
-        Death_Incarnate,
-        Master_Of_The_Black_Arts,
-        Red_Fury,
-        Supernatural_Horror,
+        Ruler_Of_The_Night,         // TODO
+        Predator_Of_The_Shadows,    // TODO
+        Death_Incarnate,            // TODO
+        Master_Of_The_Black_Arts,   // TODO/Partial
+        Red_Fury,                   // TODO
+        Supernatural_Horror,        // TODO
     };
 
     enum class Artefact : int {
@@ -114,21 +114,20 @@ namespace Death {
         None,
 
         // Deathmages
-        Overwhelming_Dread,
-        Fading_Vigour,
-        Spectral_Grasp,
-        Prison_Of_Grief,
-        Decrepify,
-        Soul_Harvest,
+        Overwhelming_Dread,     // TODO
+        Fading_Vigour,          // TODO
+        Spectral_Grasp,         // TODO
+        Prison_Of_Grief,        // TODO
+        Decrepify,              // TODO
+        Soul_Harvest,           // TODO
 
         // Vampire
-        Blades_Of_Shyish,
-        Spirit_Gale,
-        Vile_Transference,
-        Amethystine_Pinions,
-        Soulpike,
-        Amaranthine_Orb,
-
+        Blades_Of_Shyish,       // TODO
+        Spirit_Gale,            // TODO
+        Vile_Transference,      // TODO
+        Amethystine_Pinions,    // TODO
+        Soulpike,               // TODO
+        Amaranthine_Orb,        // TODO
     };
 
     class LegionOfNagashBase : public Unit {
@@ -152,6 +151,34 @@ namespace Death {
                 Unit(name, move, wounds, bravery, save, fly) {}
 
         void deathlyInvocations(int numUnits, double range);
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls chargeRerolls() const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        int runModifier() const override;
+
+        int woundModifier() const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        int moveModifier() const override;
+
+        Rerolls battleshockRerolls() const override;
 
     protected:
 

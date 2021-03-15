@@ -99,7 +99,7 @@ namespace Nurgle {
     }
 
     void LordOfAfflictions::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        NurgleBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Rotten Regeneration

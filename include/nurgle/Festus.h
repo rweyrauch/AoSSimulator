@@ -30,6 +30,7 @@ namespace Nurgle {
 
     protected:
 
+        void onStartHero(PlayerId player) override;
 
     private:
 
@@ -41,8 +42,8 @@ namespace Nurgle {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Healing Elixirs                  TODO
-// Delightful Brews, Splendid Restoratives  TODO
+// Healing Elixirs                  Yes
+// Delightful Brews, Splendid Restoratives  Yes
 // Curse of the Leper               TODO
 //
 

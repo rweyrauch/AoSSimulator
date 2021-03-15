@@ -34,35 +34,30 @@ namespace Skaven {
 
         ~PlagueMonks() override = default;
 
-        bool configure(int numModels, WeaponOptions weapons, int contagionBanners, int iconsOfPestilence, int doomGongs,
-                       int baleChimes);
+        bool configure(int numModels, WeaponOptions weapons, int bannerBearers, int harbingers);
 
     protected:
 
         void onStartHero(PlayerId player) override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
         int runModifier() const override;
 
         int chargeModifier() const override;
 
-        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
 
     private:
 
         WeaponOptions m_weaponOption = Paired_Foetid_Blades;
-        int m_numContagionBanners = 0;
-        int m_numIconsOfPestilence = 0;
-        int m_numDoomGongs = 0;
-        int m_numBaleChimes = 0;
+        int m_numBanners = 0;
+        int m_numHarbingers = 0;
 
-        Weapon m_foetidBlade,
-                m_woeStave;
+        Weapon m_pairedBlades,
+                m_bladeAndStave;
 
         static bool s_registered;
     };
@@ -70,12 +65,11 @@ namespace Skaven {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Contagion Banner                 TODO
-// Icon of Pestilence               Yes
-// Doom Gong                        Yes
-// Bale-chime                       Yes
-// Pair of Foetid Blades            Yes
-// Frenzied Assault                 Yes
 // Book of Woes                     Yes
+// Standard Bearer                  Yes
+// Plague Harbingers                Yes
+// Foetid Weapons                   Yes
+// Frenzied Assault                 Yes
+//
 
 } // namespace Skaven

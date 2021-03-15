@@ -152,6 +152,8 @@ void TurnRecord::clear() {
     m_enemyModelsSlain = 0;
     m_woundsInflicted = {0, 0};
 
+    m_enemyUnitsSlain = 0;
+
     m_modelsSlain = 0;
     m_woundsTaken = {0, 0};
 

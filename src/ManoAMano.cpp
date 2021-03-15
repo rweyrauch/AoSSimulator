@@ -332,24 +332,31 @@ ManoAMano::~ManoAMano() {
 PlayerId ManoAMano::getVictor() const {
     // Blue 'tabled' Red
     if (redUnit()->remainingModels() == 0 && blueUnit()->remainingModels() > 0) {
+        PLOG_INFO << "Blue player wins, tabling Red player.";
         return PlayerId::Blue;
     }
     // Red 'tabled' Blue
     if (redUnit()->remainingModels() > 0 && blueUnit()->remainingModels() == 0) {
+        PLOG_INFO << "Red player wins, tabling Blue player.";
         return PlayerId::Red;
     }
+
+    const auto redRatio = (double) redUnit()->remainingPoints() / (double) redUnit()->points();
+    const auto blueRatio = (double) blueUnit()->remainingPoints() / (double) blueUnit()->points();
+
     // Red suffered fewer losses
-    if ((double) redUnit()->remainingPoints() / (double) redUnit()->points() >
-        (double) blueUnit()->remainingPoints() / (double) blueUnit()->points()) {
+    if (redRatio > blueRatio) {
+        PLOG_INFO << "Red player wins with normalized remaining points, " << redRatio << " over Blue " << blueRatio;
         return PlayerId::Red;
     }
     // Blue suffered few losses
-    if ((double) redUnit()->remainingPoints() / (double) redUnit()->points() <
-        (double) blueUnit()->remainingPoints() / (double) blueUnit()->points()) {
+    if (redRatio < blueRatio) {
+        PLOG_INFO << "Blue player wins with normalized remaining points, " << blueRatio << " over Red " << redRatio;
         return PlayerId::Blue;
     }
 
     // Tie
+    PLOG_INFO << "Players tie.  Red remaining points " << redRatio << ".  Blue remaining points " << blueRatio;
     return PlayerId::None;
 }
 

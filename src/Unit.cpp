@@ -1153,6 +1153,7 @@ void Unit::useCommandAbility() {
                 cip->use(target.m_target, m_battleRound);
             else
                 cip->use(target.m_x, target.m_y, m_battleRound);
+            onCommandAbilityUsed(cip, target.m_target);
         }
     }
 }
@@ -1175,6 +1176,7 @@ void Unit::makePrayer() {
             for (auto ip : units) {
                 bool successful = sip->pray(ip, m_battleRound);
                 if (successful) {
+                    onPrayerMade(sip.get(), ip);
                     PLOG_INFO.printf("%s successfully attempted %s", m_name.c_str(), sip->name().c_str());
                 }
                 m_prayersAttempted++;

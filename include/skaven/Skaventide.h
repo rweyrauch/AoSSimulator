@@ -21,15 +21,15 @@ namespace Skaven {
         Malevolent,
         Verminous_Valour,
         Savage_Overlord,
-        Supreme_Manipulator,
+        Supreme_Manipulator,    // TODO
         Master_Of_Magic,
-        Cunning,
+        Cunning,                // TODO
 
         // Skryre
         //Malevolent,
         //Verminous_Valour,
         //Savage_Overlord,
-        Masterful_Scavenger,
+        Masterful_Scavenger,    // TODO
         Deranged_Inventor,
         Overseer_Of_Destruction,
 
@@ -37,7 +37,7 @@ namespace Skaven {
         //Malevolent,
         //Verminous_Valour,
         //Savage_Overlord,
-        Master_Of_Rot_And_Ruin,
+        Master_Of_Rot_And_Ruin, // TODO
         Architect_Of_Death,
         Diseased,
 
@@ -45,24 +45,24 @@ namespace Skaven {
         //Malevolent,
         //Verminous_Valour,
         //Savage_Overlord,
-        Brutal_Fury,
+        Brutal_Fury,            // TODO
         Powerful,
-        Devious_Adversary,
+        Devious_Adversary,      // TODO
 
         // Moulder
         //Malevolent,
         //Verminous_Valour,
         //Savage_Overlord,
-        Moulder_Supreme,
-        Hordemaster,
+        Moulder_Supreme,        // TODO
+        Hordemaster,            // TODO
         Burly,
 
         // Eshin
         //Malevolent,
         //Verminous_Valour,
         //Savage_Overlord,
-        Unrivaled_Killer,
-        Shadowmaster,
+        Unrivaled_Killer,       // TODO
+        Shadowmaster,           // TODO
         Incredible_Agility,
     };
 
@@ -133,7 +133,7 @@ namespace Skaven {
         // Skryre
         More_More_More_Warp_Power,
         Chain_Warp_Lightning,
-        Warp_Lighning_Shield,
+        Warp_Lightning_Shield,
     };
 
     class Skaventide : public Unit {
@@ -146,7 +146,8 @@ namespace Skaven {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        void setCommandTrait(CommandTrait trait) { m_commandTrait = trait; }
+        void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact) { m_artefact = artefact; }
 
     protected:
@@ -159,10 +160,28 @@ namespace Skaven {
 
         int braveryModifier() const override;
 
+        void onCommandAbilityUsed(const CommandAbility* ability, const Unit* target) override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
         bool moreMore() const;
 
+        int woundModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        void onStartShooting(PlayerId player) override;
+
+        void onStartHero(PlayerId player) override;
+
+    protected:
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+        mutable int m_usedMasterOfMagicInRound = 0;
     };
 
 //
@@ -172,7 +191,7 @@ namespace Skaven {
 // Scurry Away                      TODO
 // Overwhelming Mass                Yes
 // Strength in Numbers              Yes
-// Skilled Manipulators             TODO
+// Skilled Manipulators             Yes
 // Prized Creations                 TODO
 // Masters of Murder                TODO
 // Mighty Warlords                  TODO

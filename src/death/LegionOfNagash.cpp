@@ -8,6 +8,7 @@
 
 #include <death/LegionOfNagash.h>
 #include <Board.h>
+#include <Roster.h>
 #include <magic_enum.hpp>
 
 #include "death/Nagash.h"
@@ -122,6 +123,142 @@ namespace Death {
 
     void LegionOfNagashBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    Wounds
+    LegionOfNagashBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Chosen_Champion) && weapon->isMelee() && target->hasKeyword(HERO)) {
+            damage.normal++;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Killing_Blow) && weapon->isMelee() && (woundRoll == 6)) {
+            damage.mortal++;
+        }
+
+        return damage;
+    }
+
+    Rerolls LegionOfNagashBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Bane_Of_The_Living) && !target->hasKeyword(DEATH)) {
+            return Rerolls::Ones;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Merciless_Hunter)) {
+            return Rerolls::Ones;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    int LegionOfNagashBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        auto general = dynamic_cast<LegionOfNagashBase*>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Lord_Of_Nagashizzar) && hasKeyword(DEATHRATTLE) && (distanceTo(general) < 6.0)) {
+            attacks++;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Blood_Fury) && weapon->isMelee()) {
+            attacks++;
+        }
+        return attacks;
+    }
+
+    Rerolls LegionOfNagashBase::chargeRerolls() const {
+        auto general = dynamic_cast<LegionOfNagashBase*>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Ancient_Strategist) && hasKeyword(DEATHRATTLE) && (distanceTo(general) < 9.0)) {
+            return Rerolls::Failed;
+        }
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Emissary_Of_The_Master) && hasKeyword(DEATH) && (distanceTo(general) < 6.0)) {
+            return Rerolls::Failed;
+        }
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Aristocracy_Of_Blood) && hasKeyword(SOULBLIGHT) && (distanceTo(general) < 9.0)) {
+            return Rerolls::Failed;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Sanguine_Blur)) {
+            return Rerolls::Failed;
+        }
+        return Unit::chargeRerolls();
+    }
+
+    void LegionOfNagashBase::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Aura_Of_Ages)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+            for (auto unit : units) {
+                if (Dice::RollD6() >= 4) {
+                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, owningPlayer()});
+                }
+            }
+        }
+    }
+
+    int LegionOfNagashBase::runModifier() const {
+        auto mod = Unit::runModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Swift_Form)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int LegionOfNagashBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Curse_Of_The_Revenant)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    Rerolls LegionOfNagashBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Deathless_Duellist) && target->hasKeyword(HERO)) {
+            return Rerolls::Ones;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    int LegionOfNagashBase::castingModifier() const {
+        auto mod = Unit::castingModifier();
+        if (isGeneral() && hasKeyword(WIZARD) && (m_commandTrait == CommandTrait::Red_Fury)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int LegionOfNagashBase::unbindingModifier() const {
+        auto mod = Unit::unbindingModifier();
+        if (isGeneral() && hasKeyword(WIZARD) && (m_commandTrait == CommandTrait::Red_Fury)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int LegionOfNagashBase::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        auto hits = Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        if ((unmodifiedHitRoll == 6) && isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Swift_Strikes)) {
+            hits++;
+        }
+        return hits;
+    }
+
+    int LegionOfNagashBase::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Aura_Of_Dark_Majesty) && weapon->isMelee()) {
+            mod--;
+        }
+        return mod;
+    }
+
+    int LegionOfNagashBase::moveModifier() const {
+        auto mod = Unit::moveModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Sanguine_Blur)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    Rerolls LegionOfNagashBase::battleshockRerolls() const {
+        auto general = dynamic_cast<LegionOfNagashBase*>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Unbending_Will) && hasKeyword(LEGION_OF_NIGHT) && (distanceTo(general) < 12.0)) {
+            return Rerolls::Failed;
+        }
+        return Unit::battleshockRerolls();
     }
 
     void Init() {

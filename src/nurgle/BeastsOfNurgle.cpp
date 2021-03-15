@@ -96,8 +96,7 @@ namespace Nurgle {
                 return {weapon->damage() + 1, 0};
             }
         }
-
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return NurgleBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int BeastsOfNurgle::ComputePoints(int numModels) {

@@ -8,6 +8,8 @@
 
 #include <magic_enum.hpp>
 #include <nurgle/Nurgle.h>
+#include <Board.h>
+#include <Roster.h>
 
 #include "nurgle/BeastsOfNurgle.h"
 #include "nurgle/BloabRotspawned.h"
@@ -37,6 +39,9 @@
 #include "nurgle/SorcererOfNurgle.h"
 
 namespace Nurgle {
+
+    CycleOfCorruption NurgleBase::s_currentCorruption = CycleOfCorruption::Corrupted_Regrowth;
+    bool NurgleBase::s_usedGrandfathersBlessing = false;
 
     std::string NurgleBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Plague Legion") {
@@ -97,6 +102,75 @@ namespace Nurgle {
             default:
                 break;
         }
+    }
+
+    void NurgleBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if ((owningPlayer() == player) && (s_currentCorruption == CycleOfCorruption::Corrupted_Regrowth)) {
+            heal(Dice::RollD3());
+        }
+
+        if ((owningPlayer() == player) && isGeneral() && (m_commandTrait == CommandTrait::Living_Plague)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
+            for (auto unit : units) {
+                if (Dice::RollD6() >= 4) {
+                    unit->applyDamage({0, 1, Wounds::Source::Ability}, this);
+                    getRoster()->incrementResource(1);
+                }
+            }
+        }
+    }
+
+    int NurgleBase::moveModifier() const {
+        auto mod = Unit::moveModifier();
+        if (s_currentCorruption == CycleOfCorruption::Unnatural_Vitality) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int NurgleBase::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+        if ((s_currentCorruption == CycleOfCorruption::Fecund_Vigour) && (weapon->isMelee())) {
+            mod++;
+        }
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Hulking_Physique)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int NurgleBase::runModifier() const {
+        auto mod = Unit::runModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Avalanch_Of_Rotten_Flesh)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int NurgleBase::chargeModifier() const {
+        auto mod = Unit::chargeModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Avalanch_Of_Rotten_Flesh)) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int NurgleBase::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Virulent_Contagion)) {
+            rend--;
+        }
+        return rend;
+    }
+
+    Wounds NurgleBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = wounds;
+        if (isGeneral() && (m_commandTrait == CommandTrait::Resilient)) {
+            totalWounds = ignoreWounds(totalWounds, 6);
+        }
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     void Init() {

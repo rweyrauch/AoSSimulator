@@ -147,7 +147,7 @@ namespace Skaven {
             ToInteger(Lore::None),
             ToInteger(Lore::More_More_More_Warp_Power),
             ToInteger(Lore::Chain_Warp_Lightning),
-            ToInteger(Lore::Warp_Lighning_Shield)
+            ToInteger(Lore::Warp_Lightning_Shield)
     };
 
 } // namespace Skaven

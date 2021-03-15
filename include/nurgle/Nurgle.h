@@ -109,6 +109,16 @@ namespace Nurgle {
         Cloying_Quagmire,
     };
 
+    enum class CycleOfCorruption : int {
+        Corrupted_Regrowth = 0,
+        Unnatural_Vitality,
+        Fecund_Vigour,
+        The_Burgeoning,
+        Plague_Of_Misery,
+        Nauseous_Revulsion,
+        Rampant_Disease
+    };
+
     class NurgleBase : public Unit {
     public:
 
@@ -130,18 +140,38 @@ namespace Nurgle {
         NurgleBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
+        void onStartHero(PlayerId player) override;
+
+        int moveModifier() const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int runModifier() const override;
+
+        int chargeModifier() const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+    protected:
+
         PlagueLegion m_plagueLegion = PlagueLegion::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+
+        static CycleOfCorruption s_currentCorruption;
+        static bool s_usedGrandfathersBlessing;
+
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
 // Cycle of Corruption              TODO
-//    Corrupted Regrowth            TODO
-//    Unatural Vitality             TODO
-//    Fecund Vigour                 TODO
+//    Corrupted Regrowth            Yes
+//    Unatural Vitality             Yes
+//    Fecund Vigour                 Yes
 //    The Burgeoning                TODO
 //    Plague of Misery              TODO
 //    Nauseous Revulsion            TODO
@@ -150,17 +180,17 @@ namespace Nurgle {
 // Summon Daemons of Nurgle         TODO
 // Command Traits
 //    Grandfathers_Blessing         TODO
-//    Living_Plague                 TODO
-//    Hulking_Physique              TODO
+//    Living_Plague                 Yes
+//    Hulking_Physique              Yes
 //    Bloated_With_Corruption       TODO
-//    Avalanch_Of_Rotten_Flesh      TODO
-//    Resilient                     TODO
+//    Avalanch_Of_Rotten_Flesh      Yes
+//    Resilient                     Yes
 //    Tainted_Corruptor             TODO
 //    Nurgling_Infestation          TODO
 //    Pestilent_Breath              TODO
 //    Hideous_Visage                TODO
 //    Overpowering_Stench           TODO
-//    Virulent_Contagion            TODO
+//    Virulent_Contagion            Yes
 // Artefacts
 //    The_Splithorn_Helm            TODO
 //    Muttergrub                    TODO

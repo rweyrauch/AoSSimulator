@@ -158,8 +158,8 @@ namespace Skaven {
                 return nullptr;
             case Lore::Chain_Warp_Lightning:
                 return new ChainWarpLightning(caster);
-            case Lore::Warp_Lighning_Shield:
-                // TODO: Warp_Lighning_Shield
+            case Lore::Warp_Lightning_Shield:
+                // TODO: Warp_Lightning_Shield
                 return nullptr;
             default:
                 break;

@@ -269,7 +269,7 @@ namespace StormcastEternals {
             damage.normal++;
         }
 
-        // Devine Executioner
+        // Divine Executioner
         if (isGeneral() && (m_stormHost == Stormhost::Knights_Excelsior) && target->hasKeyword(HERO)) {
             damage.normal++;
         }
@@ -422,8 +422,7 @@ namespace StormcastEternals {
 
             int mortalsSelf = numFlasks;
             auto dead = owner->applyDamage({0, mortalsSelf}, owner);
-            PLOG_INFO.printf("Spirit Flasks inflicted %s wounds on %s.  Slaying %d models.\n",
-                             mortalsSelf, owner->name().c_str(), dead);
+            PLOG_INFO << "Spirit Flasks inflicted " << mortalsSelf << " wounds on " << owner->name() << ".  Slaying " << dead << " models.";
         }
 
         return (numFlasks != 0);

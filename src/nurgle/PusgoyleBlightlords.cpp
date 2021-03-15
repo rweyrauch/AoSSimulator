@@ -104,7 +104,7 @@ namespace Nurgle {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_blightedWeapon.name())) {
             return Dice::RollD6();
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return NurgleBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     void PusgoyleBlightlords::onStartHero(PlayerId player) {
@@ -119,7 +119,7 @@ namespace Nurgle {
                 ip->applyDamage({0, Dice::RollD3()}, this);
             }
         }
-        Unit::onStartHero(player);
+        NurgleBase::onStartHero(player);
     }
 
     int PusgoyleBlightlords::ComputePoints(int numModels) {

@@ -11,6 +11,8 @@
 
 class Unit;
 class Spell;
+class Prayer;
+class CommandAbility;
 
 class  EventInterface {
 public:
@@ -38,6 +40,10 @@ public:
     virtual void onUnboundSpell(Unit *caster, int castRoll) {}
 
     virtual void onCastSpell(const Spell *spell, const Unit *target) {}
+
+    virtual void onPrayerMade(const Prayer *prayer, const Unit* target) {}
+
+    virtual void onCommandAbilityUsed(const CommandAbility* ability, const Unit* target) {}
 
     virtual void onBeginRound(int battleRound) {}
 
