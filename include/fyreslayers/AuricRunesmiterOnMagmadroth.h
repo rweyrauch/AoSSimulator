@@ -5,16 +5,14 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
+#pragma once
 
-#ifndef AURICRUNESMITERONMAGMADROTH_H
-#define AURICRUNESMITERONMAGMADROTH_H
-
-#include <fyreslayers/Fyreslayer.h>
+#include <fyreslayers/Magmadroth.h>
 #include <Weapon.h>
 
 namespace Fyreslayers {
 
-    class AuricRunesmiterOnMagmadroth : public Fyreslayer {
+    class AuricRunesmiterOnMagmadroth : public Magmadroth {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -31,28 +29,12 @@ namespace Fyreslayers {
 
     protected:
 
-        void onWounded() override;
-
-        void onRestore() override;
-
-        int getDamageTableIndex() const;
-
-        void onStartShooting(PlayerId player) override;
-
-        void onEndCombat(PlayerId player) override;
-
-        Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
-
     private:
 
         Weapon m_throwingAxe,
-                m_fyrestream,
-                m_clawsAndHorns,
-                m_blazingMaw,
                 m_latchAxe,
                 m_runicIron;
         Blessing m_prayer = Blessing::None;
-        MountTrait m_mountTrait = MountTrait::None;
 
         static bool s_registered;
     };
@@ -68,5 +50,3 @@ namespace Fyreslayers {
 //
 
 } // namespace Fyreslayers
-
-#endif //AURICRUNESMITERONMAGMADROTH_H

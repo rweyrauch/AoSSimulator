@@ -12,41 +12,17 @@
 
 namespace Fyreslayers {
     static const int g_basesize = 120; // x92 oval
-    static const int g_wounds = 14;
     static const int g_pointsPerUnit = 270;
-
-    struct TableEntry {
-        int m_move;
-        int m_roaringFyrestream;
-        int m_clawsHornsAttacks;
-    };
-
-    const size_t g_numTableEntries = 5;
-    static int g_woundThresholds[g_numTableEntries] = {3, 6, 9, 12, g_wounds};
-    static TableEntry g_damageTable[g_numTableEntries] =
-            {
-                    {12, RAND_D6,  6},
-                    {10, RAND_D6,  5},
-                    {8,  RAND_2D6, 4},
-                    {7,  RAND_2D6, 3},
-                    {6,  RAND_3D6, 2}
-            };
 
     bool AuricRunefatherOnMagmadroth::s_registered = false;
 
     AuricRunefatherOnMagmadroth::AuricRunefatherOnMagmadroth() :
-            Fyreslayer("Auric Runefather on Magmadroth", 12, g_wounds, 8, 4, false),
+            Magmadroth("Auric Runefather on Magmadroth", 8),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
-            m_fyrestream(Weapon::Type::Missile, "", 12, 1, 0, 0, 0, 0),
-            m_clawsAndHorns(Weapon::Type::Melee, "Claws and Horns", 1, 6, 4, 3, -1, 2),
-            m_blazingMaw(Weapon::Type::Melee, "Blazing Maw", 1, 1, 4, 2, -2, RAND_D3),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_grandAxe};
         m_battleFieldRole = Role::Leader_Behemoth;
-        m_hasMount = true;
-        m_clawsAndHorns.setMount(true);
-        m_blazingMaw.setMount(true);
     }
 
     bool AuricRunefatherOnMagmadroth::configure(MountTrait trait) {
@@ -63,11 +39,6 @@ namespace Fyreslayers {
         m_points = g_pointsPerUnit;
 
         return true;
-    }
-
-    void AuricRunefatherOnMagmadroth::onRestore() {
-        // Reset table-drive attributes
-        onWounded();
     }
 
     Unit *AuricRunefatherOnMagmadroth::Create(const ParameterList &parameters) {
@@ -116,53 +87,8 @@ namespace Fyreslayers {
         }
     }
 
-    void AuricRunefatherOnMagmadroth::onWounded() {
-        const int damageIndex = getDamageTableIndex();
-        m_clawsAndHorns.setAttacks(g_damageTable[damageIndex].m_clawsHornsAttacks);
-        m_move = g_damageTable[getDamageTableIndex()].m_move;
-    }
-
-    int AuricRunefatherOnMagmadroth::getDamageTableIndex() const {
-        auto woundsInflicted = wounds() - remainingWounds();
-        for (auto i = 0u; i < g_numTableEntries; i++) {
-            if (woundsInflicted < g_woundThresholds[i]) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    void AuricRunefatherOnMagmadroth::onStartShooting(PlayerId player) {
-        Fyreslayer::onStartShooting(player);
-        if (player == owningPlayer()) {
-            // Roaring Fyrestream
-            if (m_shootingTarget) {
-                double dist = distanceTo(m_shootingTarget);
-                if (dist <= (double) m_fyrestream.range()) {
-                    int rs = Dice::RollSpecial(g_damageTable[getDamageTableIndex()].m_roaringFyrestream);
-                    if (rs <= m_shootingTarget->remainingModels()) {
-                        if (dist < 6.0) {
-                            m_shootingTarget->applyDamage({0, Dice::RollD6()}, this);
-                        } else {
-                            m_shootingTarget->applyDamage({0, Dice::RollD3()}, this);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     void AuricRunefatherOnMagmadroth::onEndCombat(PlayerId player) {
-        Fyreslayer::onEndCombat(player);
-
-        // Lashing Tail
-        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
-        for (auto ip : units) {
-            if (Dice::RollD6() < ip->remainingModels()) {
-                Wounds tailWounds = {0, Dice::RollD3()};
-                ip->applyDamage(tailWounds, this);
-            }
-        }
+        Magmadroth::onEndCombat(player);
 
         // Weapon-breaker
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
@@ -175,22 +101,12 @@ namespace Fyreslayers {
         }
     }
 
-    Wounds AuricRunefatherOnMagmadroth::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
-        if (!weapon->isMissile()) {
-            // Volcanic Blood
-            if (Dice::RollD6() >= 4) {
-                return {0, 1};
-            }
-        }
-        return Fyreslayer::computeReturnedDamage(weapon, saveRoll);
-    }
-
     int AuricRunefatherOnMagmadroth::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
     }
 
     void AuricRunefatherOnMagmadroth::onStartHero(PlayerId player) {
-        Fyreslayer::onStartHero(player);
+        Magmadroth::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Stare Down

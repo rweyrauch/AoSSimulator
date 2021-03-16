@@ -48,17 +48,17 @@ namespace Fyreslayers {
         Destroyer_Of_Foes,              // Yes
 
         // Magmic Empowerments
-        Fyremantle,                     // TODO
+        Fyremantle,                     // Yes
         Wisdom_And_Authority,           // Yes
-        Oathsayer,                      // TODO
+        Oathsayer,                      // Yes
         Ash_Beard,                      // TODO
         Fyresteel_Weaponsmith,          // Yes
         Master_Priest,                  // TODO
 
         // Lodge specific
-        Fiery_Endurance,                // Vostarg TODO
-        Battle_Scarred_Veteran,         // Greyfyrd TODO
-        Warrior_Indominate,             // Hermdar TODO
+        Fiery_Endurance,                // Vostarg
+        Battle_Scarred_Veteran,         // Greyfyrd
+        Warrior_Indominate,             // Hermdar
         Explosive_Charge                // Lofnir
     };
 
@@ -102,12 +102,12 @@ namespace Fyreslayers {
         None,
 
         // Magmadroth
-        Cinder_Crest_Youngblood,    // TODO
-        Flame_Scale_Youngblood,     // TODO
-        Fire_Claw_Adult,            // TODO
-        Lava_Tongue_Adult,          // TODO
+        Cinder_Crest_Youngblood,
+        Flame_Scale_Youngblood,
+        Fire_Claw_Adult,
+        Lava_Tongue_Adult,
         Coal_Heart_Ancient,         // TODO
-        Ash_Horn_Ancient            // TODO
+        Ash_Horn_Ancient
     };
 
     enum class Blessing : int {
@@ -173,6 +173,12 @@ namespace Fyreslayers {
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
+        void onStartMovement(PlayerId player) override;
+
+        int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
     protected:
 

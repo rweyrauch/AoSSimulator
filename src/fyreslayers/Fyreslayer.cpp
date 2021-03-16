@@ -233,6 +233,17 @@ namespace Fyreslayers {
         if ((s_activeRune == Rune::Of_Fury) && s_enhancedRuneActive) {
             attacks++;
         }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Battle_Scarred_Veteran)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+            int numModels = 0;
+            for (auto unit : units) {
+                numModels += unit->remainingModels();
+            }
+            if (numModels >= 5) {
+                attacks++;
+            }
+        }
         return attacks;
     }
 
@@ -263,6 +274,12 @@ namespace Fyreslayers {
     int Fyreslayer::braveryModifier() const {
         auto mod = Unit::braveryModifier();
         if (s_activeRune == Rune::Of_Fiery_Determination) {
+            mod++;
+        }
+
+        auto general = dynamic_cast<Fyreslayer *>(getRoster()->getGeneral());
+        if (general && (distanceTo(general) < 18.0) && hasKeyword(DUARDIN) &&
+            (general->m_commandTrait == CommandTrait::Oathsayer)) {
             mod++;
         }
         return mod;
@@ -320,6 +337,45 @@ namespace Fyreslayers {
         if (isGeneral() && (m_commandTrait == CommandTrait::Wisdom_And_Authority) && (battleRound == 1)) {
             getRoster()->addCommandPoints(Dice::RollD3());
         }
+    }
+
+    void Fyreslayer::onStartMovement(PlayerId player) {
+        Unit::onStartMovement(player);
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (m_commandTrait == CommandTrait::Fiery_Endurance)) {
+                buffMovement(MovementRule::Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
+            }
+            else {
+                auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
+                if (general && (general->m_commandTrait == CommandTrait::Fiery_Endurance) && distanceTo(general) < 12.0) {
+                    buffMovement(MovementRule::Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
+                }
+            }
+        }
+    }
+
+    int Fyreslayer::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetWoundModifier(weapon, attacker);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Warrior_Indominate)) {
+            mod--;
+        }
+        else if (hasKeyword(HERMDAR)) {
+            auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
+            if (general && (general->m_commandTrait == CommandTrait::Warrior_Indominate) && distanceTo(general) < 12.0) {
+                mod--;
+            }
+        }
+        return mod;
+    }
+
+    int Fyreslayer::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Fyremantle) && (distanceTo(attacker) < 3.0)) {
+            mod--;
+        }
+        return mod;
     }
 
 } // namespace Fyreslayers
