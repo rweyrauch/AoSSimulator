@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GRIMWRATHBERZERKER_H
-#define GRIMWRATHBERZERKER_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -33,6 +31,10 @@ namespace Fyreslayers {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
+
+        void onEndCombat(PlayerId player) override;
+
     private:
 
         Weapon m_throwingAxe,
@@ -45,10 +47,8 @@ namespace Fyreslayers {
 // Abilities                    Implemented
 // -------------------------------------------
 // Unstoppable Berzerker            Yes
-// Battle-fury                      TODO
-// Dead, But Not Defeated           TODO
+// Battle-fury                      Yes
+// Dead, But Not Defeated           Yes
 //
 
 } // namespace Fyreslayers
-
-#endif //GRIMWRATHBERZERKER_H

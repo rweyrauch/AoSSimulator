@@ -15,7 +15,16 @@ namespace Fyreslayers {
     class AuricRunesmiterOnMagmadroth : public Magmadroth {
     public:
 
+        enum WeaponOption {
+            Runic_Iron,
+            Forge_Key
+        };
+
         static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 
@@ -25,16 +34,17 @@ namespace Fyreslayers {
 
         ~AuricRunesmiterOnMagmadroth() override = default;
 
-        bool configure(Blessing blessing, MountTrait trait);
+        bool configure(Blessing blessing, WeaponOption weapons, MountTrait trait);
 
     protected:
 
     private:
 
+        WeaponOption m_weaponOption = Runic_Iron;
+
         Weapon m_throwingAxe,
                 m_latchAxe,
                 m_runicIron;
-        Blessing m_prayer = Blessing::None;
 
         static bool s_registered;
     };
@@ -46,7 +56,7 @@ namespace Fyreslayers {
 // Lashing Tail                     Yes
 // Volcanic Blood                   Yes
 // Grand Ritual of Awakening        TODO
-// Runic Empowerment                TODO
+// Runic Empowerment                Yes
 //
 
 } // namespace Fyreslayers

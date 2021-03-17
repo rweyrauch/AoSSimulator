@@ -23,6 +23,8 @@
 #include "fyreslayers/AuricRunesonOnMagmadroth.h"
 #include "fyreslayers/AuricRunefatherOnMagmadroth.h"
 #include "fyreslayers/AuricRunesmiter.h"
+#include "fyreslayers/FjulGrimnir.h"
+#include "fyreslayers/TheChosenAxes.h"
 
 namespace Fyreslayers {
 
@@ -40,6 +42,8 @@ namespace Fyreslayers {
         AuricRunesmiterOnMagmadroth::Init();
         AuricRunefatherOnMagmadroth::Init();
         AuricRunesonOnMagmadroth::Init();
+        FjulGrimnir::Init();
+        TheChosenAxes::Init();
     }
 
     // Sorted in the order the runes are used.

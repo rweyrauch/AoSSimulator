@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VULKITEBERZERKERS_H
-#define VULKITEBERZERKERS_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -45,7 +43,20 @@ namespace Fyreslayers {
 
         int chargeModifier() const override;
 
+        void onRestore() override;
+
+        void onStartCombat(PlayerId player) override;
+
+        void onEndCombat(PlayerId player) override;
+
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
+
+        void onCharged() override;
+
     private:
+
+        bool m_usedBerserkFury = false;
+        bool m_berserkFuryActive = false;
 
         WeaponOption m_weaponOption = Handaxe_And_Shield;
         bool m_hornOfGrimnir = false;
@@ -63,11 +74,9 @@ namespace Fyreslayers {
 // Abilities                    Implemented
 // -------------------------------------------
 // Horn of Grimnir                  Yes
-// Berserk Fury                     TODO
+// Berserk Fury                     Yes
 // Fyresteel Handaxes               Yes
-// Bladed Slingshield               TODO
+// Bladed Slingshield               Yes
 //
 
 } // namespace Fyreslayers
-
-#endif //VULKITEBERZERKERS_H

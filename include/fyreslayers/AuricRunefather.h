@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AURICRUNEFATHER_H
-#define AURICRUNEFATHER_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -48,9 +46,7 @@ namespace Fyreslayers {
 // -------------------------------------------
 // Stare Down                       Yes
 // Weapon-breaker                   Yes
-// Lodge Leader                     TODO
+// Lodge Leader                     Yes
 //
 
 } // namespace Fyreslayers
-
-#endif //AURICRUNEFATHER_H

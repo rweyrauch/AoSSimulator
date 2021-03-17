@@ -88,4 +88,29 @@ namespace Fyreslayers {
         return g_pointsPerUnit;
     }
 
+    void GrimwrathBerzerker::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Fyreslayer::onFriendlyModelSlain(numSlain, attacker, source);
+
+        // Dead, But Not Defeated
+        if (numSlain > 0) {
+            doPileIn();
+            int enemiesSlain = 0;
+            fight(numSlain, attacker, enemiesSlain);
+        }
+    }
+
+    void GrimwrathBerzerker::onEndCombat(PlayerId player) {
+        Fyreslayer::onEndCombat(player);
+
+        // Battle-fury
+        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+        if (unit && (distanceTo(unit) < 3.0)) {
+            if (Dice::RollD6() >= 2) {
+                doPileIn();
+                int enemiesSlain = 0;
+                fight(1, unit, enemiesSlain);
+            }
+        }
+    }
+
 } // namespace Fyreslayers

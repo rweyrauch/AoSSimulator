@@ -11,6 +11,28 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
+
+    class LodgeLeader : public CommandAbility {
+    public:
+        explicit LodgeLeader(Unit *source) :
+                CommandAbility(source, "Lodge Leader", 12, 12, Phase::Charge) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit *target) override {
+            auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
+            for (auto unit : units) {
+                unit->buffModifier(Attribute::Charge_Distance, 1, {Phase::Charge, m_round, m_source->owningPlayer()});
+            }
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 100;
@@ -31,6 +53,8 @@ namespace Fyreslayers {
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_grandAxe);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<LodgeLeader>(this));
 
         m_points = g_pointsPerUnit;
 

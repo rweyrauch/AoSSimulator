@@ -761,6 +761,8 @@ enum Keyword {
     AURIC_RUNEFATHER,
     AURIC_RUNESON,
     AURIC_RUNESMITER,
+    FJUL_GRIMNIR,
+    CHOSEN_AXES,
 
     // Fyreslayer Lodges
     VOSTARG,

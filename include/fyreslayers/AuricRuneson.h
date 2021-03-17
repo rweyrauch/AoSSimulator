@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AURICRUNESON_H
-#define AURICRUNESON_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -50,9 +48,7 @@ namespace Fyreslayers {
 // -------------------------------------------
 // Vying for Glory                  Yes
 // Wyrmslayer Javelins              Yes
-// Dauntless Assault                TODO
+// Dauntless Assault                Yes
 //
 
 } // namespace Fyreslayers
-
-#endif //AURICRUNESON_H

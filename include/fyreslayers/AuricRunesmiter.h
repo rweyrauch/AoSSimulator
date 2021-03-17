@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AURICRUNESMITER_H
-#define AURICRUNESMITER_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -17,7 +15,16 @@ namespace Fyreslayers {
     class AuricRunesmiter : public Fyreslayer {
     public:
 
+        enum WeaponOption {
+            Runic_Iron,
+            Forge_Key
+        };
+
         static Unit *Create(const ParameterList &parameters);
+
+        static std::string ValueToString(const Parameter &parameter);
+
+        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 
@@ -27,16 +34,17 @@ namespace Fyreslayers {
 
         ~AuricRunesmiter() override = default;
 
-        bool configure(Blessing blessing);
+        bool configure(Blessing blessing, WeaponOption weapons);
 
     protected:
 
     private:
 
+        WeaponOption m_weaponOption = Runic_Iron;
+
         Weapon m_throwingAxe,
                 m_runicIron,
                 m_latchAxe;
-        Blessing m_prayer = Blessing::None;
 
         static bool s_registered;
     };
@@ -45,9 +53,7 @@ namespace Fyreslayers {
 // Abilities                    Implemented
 // -------------------------------------------
 // Magmic Tunnelling                TODO
-// Runic Empowerment                TODO
+// Runic Empowerment                Yes
 //
 
 } // namespace Fyreslayers
-
-#endif //AURICRUNESMITER_H

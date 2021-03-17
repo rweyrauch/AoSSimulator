@@ -12,6 +12,6 @@
 
 namespace Fyreslayers {
 
-    Prayer *CreateZharrgrimBlessings(Blessing which, Unit *priest);
+    Prayer *CreateZharrgrimBlessing(Blessing which, Unit *priest);
 
 } // namespace Fyreslayers

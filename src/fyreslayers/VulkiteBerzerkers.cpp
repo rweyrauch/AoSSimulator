@@ -7,6 +7,7 @@
  */
 #include <fyreslayers/VulkiteBerzerkers.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
@@ -140,6 +141,56 @@ namespace Fyreslayers {
         if (m_hornOfGrimnir) mod++;
 
         return mod;
+    }
+
+    void VulkiteBerzerkers::onRestore() {
+        Fyreslayer::onRestore();
+        m_usedBerserkFury = false;
+        m_berserkFuryActive = false;
+    }
+
+    void VulkiteBerzerkers::onStartCombat(PlayerId player) {
+        Fyreslayer::onStartCombat(player);
+
+        if (!m_usedBerserkFury) {
+            if (meleeTarget() && (distanceTo(meleeTarget()) < 3.0)) {
+                m_usedBerserkFury = true;
+                m_berserkFuryActive = true;
+            }
+        }
+    }
+
+    void VulkiteBerzerkers::onEndCombat(PlayerId player) {
+        Fyreslayer::onEndCombat(player);
+
+        m_berserkFuryActive = false;
+    }
+
+    void VulkiteBerzerkers::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Fyreslayer::onFriendlyModelSlain(numSlain, attacker, source);
+
+        // Berserk Fury
+        if (m_berserkFuryActive && (numSlain > 0)) {
+            doPileIn();
+            int enemiesSlain = 0;
+            fight(numSlain, attacker, enemiesSlain);
+        }
+    }
+
+    void VulkiteBerzerkers::onCharged() {
+        Fyreslayer::onCharged();
+
+        // Bladed Slingshield
+        if ((m_weaponOption == Handaxe_And_Shield) || (m_weaponOption == Warpick_And_Shield)) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0);
+            for (auto unit : units) {
+                if (unit->remainingModels() > 0) {
+                    Dice::RollResult rolls;
+                    Dice::RollD6(remainingModels(), rolls);
+                    unit->applyDamage({0, rolls.rollsGE(6), Wounds::Source::Ability}, this);
+                }
+            }
+        }
     }
 
 } //namespace Fyreslayers

@@ -11,6 +11,28 @@
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
+
+    class DauntlessAssault : public CommandAbility {
+    public:
+        explicit DauntlessAssault(Unit *source) :
+                CommandAbility(source, "Dauntless Assault", 12, 12, Phase::Combat) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit *target) override {
+            auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
+            for (auto unit : units) {
+                unit->buffModifier(Attribute::To_Wound_Melee, 1, {Phase::Combat, m_round, m_source->owningPlayer()});
+            }
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 32;
     static const int g_wounds = 5;
     static const int g_pointsPerUnit = 100;
@@ -35,6 +57,8 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_warAxe);
         model->addMeleeWeapon(&m_javelinMelee);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<DauntlessAssault>(this));
 
         m_points = g_pointsPerUnit;
 
@@ -89,7 +113,7 @@ namespace Fyreslayers {
         for (auto unit : units) {
             if (unit->hasKeyword(AURIC_RUNESON)) return Rerolls::Failed;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return Fyreslayer::toHitRerolls(weapon, target);
     }
 
     Wounds AuricRuneson::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -97,7 +121,7 @@ namespace Fyreslayers {
         if ((weapon->name() == m_javelin.name()) && target->hasKeyword(MONSTER)) {
             return {weapon->damage() + 2, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int AuricRuneson::ComputePoints(int /*numModels*/) {

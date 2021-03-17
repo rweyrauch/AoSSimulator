@@ -8,9 +8,31 @@
 #include <fyreslayers/AuricRunesmiterOnMagmadroth.h>
 #include <Board.h>
 #include <UnitFactory.h>
+#include <fyreslayers/ZharrgrimBlessing.h>
 #include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
+
+    class RunicEmpowerment : public Prayer {
+    public:
+        explicit RunicEmpowerment(Unit *priest, int range) :
+                Prayer(priest, "Runic Empowerment", 3, range, 0) {
+            m_allowedTargets = Abilities::Target::Friendly;
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(int prayingRoll, Unit *target) override {
+            if (target == nullptr) return false;
+            target->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+            target->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+            return true;
+        }
+
+        bool apply(int prayingRoll, double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 120; // x92 oval
     static const int g_pointsPerUnit = 250;
 
@@ -26,17 +48,24 @@ namespace Fyreslayers {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool AuricRunesmiterOnMagmadroth::configure(Blessing prayer, MountTrait trait) {
+    bool AuricRunesmiterOnMagmadroth::configure(Blessing prayer, WeaponOption weaponOption, MountTrait trait) {
+
+        m_weaponOption = weaponOption;
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_fyrestream);
         model->addMeleeWeapon(&m_clawsAndHorns);
         model->addMeleeWeapon(&m_blazingMaw);
         model->addMeleeWeapon(&m_latchAxe);
-        model->addMeleeWeapon(&m_runicIron);
+        if (weaponOption == Runic_Iron) {
+            model->addMeleeWeapon(&m_runicIron);
+        }
+
         addModel(model);
 
-        m_prayer = prayer;
+        m_knownPrayers.push_back(std::make_unique<RunicEmpowerment>(this, (m_weaponOption == Forge_Key) ? 18 : 12));
+        m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateZharrgrimBlessing(prayer, this)));
 
         m_mountTrait = trait;
 
@@ -61,9 +90,10 @@ namespace Fyreslayers {
         unit->setGeneral(general);
 
         auto prayer = (Blessing) GetEnumParam("Prayer", parameters, g_prayers[0]);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Runic_Iron);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
 
-        bool ok = unit->configure(prayer, mount);
+        bool ok = unit->configure(prayer, weapons, mount);
         if (!ok) {
             delete unit;
             unit = nullptr;
@@ -95,6 +125,20 @@ namespace Fyreslayers {
 
     int AuricRunesmiterOnMagmadroth::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    std::string AuricRunesmiterOnMagmadroth::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapons") {
+            if (parameter.intValue == Runic_Iron) { return "Runic Iron"; }
+            else if (parameter.intValue == Forge_Key) { return "Forge Key"; }
+        }
+        return Fyreslayer::ValueToString(parameter);
+    }
+
+    int AuricRunesmiterOnMagmadroth::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Runic Iron") { return Runic_Iron; }
+        else if (enumString == "Forge Key") { return Forge_Key; }
+        return Fyreslayer::EnumStringToInt(enumString);
     }
 
 } // namespace Fyreslayers
