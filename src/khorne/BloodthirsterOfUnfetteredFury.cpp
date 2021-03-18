@@ -50,6 +50,11 @@ namespace Khorne {
         model->addMeleeWeapon(&m_mightyAxeOfKhorne);
         addModel(model);
 
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Rejoice in the Slaughter", 16, 16, Phase::Combat,
+                                                             Attribute::Pile_In_Distance, 3,
+                                                             Abilities::Target::SelfAndFriendly,
+                                                             std::vector<Keyword>{KHORNE, DAEMON}));
         m_points = g_pointsPerUnit;
 
         return true;
@@ -138,6 +143,18 @@ namespace Khorne {
 
     int BloodthirsterOfUnfetteredFury::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void BloodthirsterOfUnfetteredFury::onStartMovement(PlayerId player) {
+        KhorneBase::onStartMovement(player);
+
+        // Drawn in for the Kill
+        if (GetEnemyId(owningPlayer()) == player) {
+            auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (unit && (distanceTo(unit) < 3.0)) {
+                unit->buffMovement(MovementRule::Can_Retreat, false, {Phase::Movement, m_battleRound, player});
+            }
+        }
     }
 
 } // namespace Khorne

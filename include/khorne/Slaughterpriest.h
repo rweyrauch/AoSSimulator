@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SLAUGHTERPRIEST_H
-#define SLAUGHTERPRIEST_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <khorne/BloodBlessingsOfKhorne.h>
@@ -59,5 +57,3 @@ namespace Khorne {
 //
 
 } // namespace Khorne
-
-#endif //SLAUGHTERPRIEST_H

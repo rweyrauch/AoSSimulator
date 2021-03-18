@@ -447,7 +447,21 @@ namespace Khorne {
         if (isGeneral() && weapon->isMelee() && hasKeyword(GORETIDE) && (m_commandTrait == CommandTrait::Hew_The_Foe)) {
             damage.normal++;
         }
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Devastating_Blow) && (woundRoll == 6)) {
+            damage.normal = 0;
+            damage.mortal = weapon->damage();
+        }
         return damage;
+    }
+
+    int KhorneBase::braveryModifier() const {
+        auto mod = Unit::braveryModifier();
+        auto general = dynamic_cast<KhorneBase *>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Bloodsworn) &&
+            (distanceTo(general) < 16.0)) {
+            mod++;
+        }
+        return mod;
     }
 
     void Init() {

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SALAMANDERS_H
-#define SALAMANDERS_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -47,5 +45,3 @@ namespace Seraphon {
 //
 
 } // namespace Seraphon
-
-#endif //SALAMANDERS_H

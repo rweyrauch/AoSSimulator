@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VANGUARDRAPTORSHURRICANE_H
-#define VANGUARDRAPTORSHURRICANE_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -50,5 +48,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //VANGUARDRAPTORSHURRICANE_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ZARBAG_H
-#define ZARBAG_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -51,5 +49,3 @@ namespace GloomspiteGitz {
 //
 
 } // namespace GloomspiteGitz
-
-#endif //ZARBAG_H

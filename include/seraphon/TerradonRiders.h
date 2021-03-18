@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TERRADONRIDERS_H
-#define TERRADONRIDERS_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -58,5 +56,3 @@ namespace Seraphon {
 //
 
 } // namespace Seraphon
-
-#endif //TERRADONRIDERS_H

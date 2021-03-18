@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef DARKSHARDS_H
-#define DARKSHARDS_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -61,5 +59,3 @@ namespace CitiesOfSigmar {
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //DARKSHARDS_H

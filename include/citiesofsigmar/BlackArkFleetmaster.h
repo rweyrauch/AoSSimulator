@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLACKARKFLEETMASTER_H
-#define BLACKARKFLEETMASTER_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -61,5 +59,3 @@ namespace CitiesOfSigmar {
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //BLACKARKFLEETMASTER_H

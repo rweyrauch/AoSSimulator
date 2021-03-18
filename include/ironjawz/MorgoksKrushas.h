@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MORGOKSKRUSHAS_H
-#define MORGOKSKRUSHAS_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 #include <Weapon.h>
@@ -49,5 +47,3 @@ namespace Ironjawz {
 //
 
 } // namespace Ironjawz
-
-#endif // MORGOKSKRUSHAS_H

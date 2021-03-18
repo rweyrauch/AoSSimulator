@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef POXBRINGER_H
-#define POXBRINGER_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -49,5 +47,3 @@ namespace Nurgle {
 //
 
 } // Nurgle
-
-#endif //POXBRINGER_H

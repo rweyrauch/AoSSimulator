@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MOURNGUL_H
-#define MOURNGUL_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -57,4 +55,3 @@ namespace Nighthaunt {
 
 } // namespace Nighthaunt
 
-#endif // MOURNGUL_H

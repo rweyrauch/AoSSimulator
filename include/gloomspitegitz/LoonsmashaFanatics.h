@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LOONSMASHAFANATICS_H
-#define LOONSMASHAFANATICS_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -47,5 +45,3 @@ namespace GloomspiteGitz {
 //
 
 } // namespace GloomspiteGitz
-
-#endif // LOONSMASHAFANATICS_H

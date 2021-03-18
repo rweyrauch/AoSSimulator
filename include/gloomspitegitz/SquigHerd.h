@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SQUIGHERD_H
-#define SQUIGHERD_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -55,5 +53,3 @@ namespace GloomspiteGitz {
 //
 
 } // namespace GloomspiteGitz
-
-#endif //SQUIGHERD_H

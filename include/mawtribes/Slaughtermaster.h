@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SLAUGHTERMASTER_H
-#define SLAUGHTERMASTER_H
+#pragma once
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -59,5 +57,3 @@ namespace OgorMawtribes {
 //
 
 } // namespace OgorMawtribes
-
-#endif //SLAUGHTERMASTER_H

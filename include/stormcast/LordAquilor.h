@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDAQUILOR_H
-#define LORDAQUILOR_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
@@ -55,5 +53,3 @@ namespace StormcastEternals {
 // Lord of the Azyrite Hurricane    TODO
 
 } // namespace StormcastEternals
-
-#endif //LORDAQUILOR_H

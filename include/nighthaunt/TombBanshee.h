@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TOMBBANSHEE_H
-#define TOMBBANSHEE_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -48,9 +46,8 @@ namespace Nighthaunt {
 // Ethereal                         Yes
 // Frightful Touch                  Yes
 // Ghostly Howl                     Yes
-//
 
+//
 
 } // namespace Nighthaunt
 
-#endif // TOMBBANSHEE_H

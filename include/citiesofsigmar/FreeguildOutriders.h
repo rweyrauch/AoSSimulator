@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FREEGUILDOUTRIDERS_H
-#define FREEGUILDOUTRIDERS_H
+#pragma once
 
 #include <citiesofsigmar/CitiesOfSigmar.h>
 #include <Weapon.h>
@@ -68,5 +66,3 @@ namespace CitiesOfSigmar {
 //
 
 } // namespace CitiesOfSigmar
-
-#endif //FREEHANDGUNNER_H

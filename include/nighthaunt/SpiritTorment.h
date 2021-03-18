@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SPIRITTORMENT_H
-#define SPIRITTORMENT_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -46,7 +44,5 @@ namespace Nighthaunt {
 // Captured Soul Energy             TODO
 //
 
-
 } // namespace Nighthaunt
 
-#endif // SPIRITTORMENT_H

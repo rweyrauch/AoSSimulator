@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLOODTHIRSTEROFUNFETTEREDFURY_H
-#define BLOODTHIRSTEROFUNFETTEREDFURY_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -39,6 +37,8 @@ namespace Khorne {
 
         void onRestore() override;
 
+        void onStartMovement(PlayerId player) override;
+
     private:
 
         Weapon m_lashOfKhorne,
@@ -50,11 +50,9 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Drawn in for the Kill            TODO
+// Drawn in for the Kill            Yes
 // The Land Rebels                  Yes*
-// Rejoice in the Slaughter         TODO
+// Rejoice in the Slaughter         Yes
 //
 
 } // namespace Khorne
-
-#endif //BLOODTHIRSTEROFUNFETTEREDFURY_H

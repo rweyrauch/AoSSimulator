@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KNIGHTAZYROS_H
-#define KNIGHTAZYROS_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -54,5 +52,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //KNIGHTAZYROS_H

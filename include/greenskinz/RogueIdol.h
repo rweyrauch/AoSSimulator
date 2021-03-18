@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ROGUEIDOL_H
-#define ROGUEIDOL_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -65,5 +63,3 @@ namespace Greenskinz {
 //
 
 } // namespace Greenskinz
-
-#endif // ROGUEIDOL_H

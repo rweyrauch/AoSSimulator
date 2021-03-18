@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CURSELING_H
-#define CURSELING_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -50,4 +48,3 @@ namespace Tzeentch {
 
 } // namespace Tzeentch
 
-#endif //CURSELING_H

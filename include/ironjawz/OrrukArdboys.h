@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ORRUKARDBOYS_H
-#define ORRUKARDBOYS_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 #include <Weapon.h>
@@ -73,5 +71,3 @@ namespace Ironjawz {
 //
 
 } // namespace Ironjawz
-
-#endif // ORRUKARDBOYS_H

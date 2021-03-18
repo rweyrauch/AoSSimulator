@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KURNOTHHUNTERS_H
-#define KURNOTHHUNTERS_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -72,5 +70,3 @@ namespace Sylvaneth {
 //
 
 } // namespace Sylvaneth
-
-#endif //KURNOTHHUNTERS_H

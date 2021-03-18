@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SPIDERRIDERS_H
-#define SPIDERRIDERS_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -57,5 +55,3 @@ namespace GloomspiteGitz {
 //
 
 } // namespace GloomspiteGitz
-
-#endif //SPIDERRIDERS_H

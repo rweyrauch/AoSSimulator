@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AURICRUNEMASTER_H
-#define AURICRUNEMASTER_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -63,5 +61,3 @@ namespace Fyreslayers {
 //
 
 } // namespace Fyreslayers
-
-#endif //AURICRUNEMASTER_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VARGHEISTS_H
-#define VARGHEISTS_H
+#pragma once
 
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
@@ -46,5 +44,3 @@ namespace Death {
 //
 
 } //namespace Death
-
-#endif //VARGHEISTS_H

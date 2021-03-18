@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ARCHMAGE_H
-#define ARCHMAGE_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -50,5 +48,3 @@ namespace EldritchCouncil {
 //
 
 } // namespace EldritchCouncil
-
-#endif //ARCHMAGE_H

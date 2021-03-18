@@ -370,6 +370,7 @@ protected:
     int m_points = 0;
     Role m_battleFieldRole = Role::Other;
     int m_pileInMove = 3;
+    double m_maxChargeDistance = 12.0;
 
     std::vector<Keyword> m_keywords;
 

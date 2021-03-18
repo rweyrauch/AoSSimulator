@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef RAZORDONS_H
-#define RAZORDONS_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -50,5 +48,3 @@ namespace Seraphon {
 //
 
 } // namespace Seraphon
-
-#endif //RAZORDONS_H

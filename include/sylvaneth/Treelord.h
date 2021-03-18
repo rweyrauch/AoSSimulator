@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef TREELORD_H
-#define TREELORD_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -55,5 +53,3 @@ namespace Sylvaneth {
 //
 
 } // namespace Sylvaneth
-
-#endif //TREELORD_H

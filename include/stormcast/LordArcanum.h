@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDARCANUM_H
-#define LORDARCANUM_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
@@ -59,5 +57,3 @@ namespace StormcastEternals {
 // Prime Electrids                  Yes
 
 } // namespace StormcastEternals
-
-#endif //LORDARCANUM_H

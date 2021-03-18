@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BRIARQUEEN_H
-#define BRIARQUEEN_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -49,4 +47,3 @@ namespace Nighthaunt {
 
 } // namespace Nighthaunt
 
-#endif // BRIARQUEEN_H

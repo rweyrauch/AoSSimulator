@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef NIGHTHAUNT_H
-#define NIGHTHAUNT_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -116,5 +114,3 @@ namespace Nighthaunt {
     void Init();
 
 } // namespace Nighthaunt
-
-#endif // NIGHTHAUNT_H

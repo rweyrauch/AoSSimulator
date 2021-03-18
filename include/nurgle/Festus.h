@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FESTUS_H
-#define FESTUS_H
+#pragma once
 
 #include "nurgle/Nurgle.h"
 
@@ -49,4 +47,3 @@ namespace Nurgle {
 
 } // Nurgle
 
-#endif //FESTUS_H

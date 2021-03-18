@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AURICHEARTHGUARD_H
-#define AURICHEARTHGUARD_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -51,5 +49,3 @@ namespace Fyreslayers {
 //
 
 } // namespace Fyreslayers
-
-#endif //AURICHEARTHGUARD_H

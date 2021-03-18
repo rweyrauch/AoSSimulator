@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THECHANGELING_H
-#define THECHANGELING_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -47,4 +45,3 @@ namespace Tzeentch {
 
 } // namespace Tzeentch
 
-#endif //THECHANGELING_H

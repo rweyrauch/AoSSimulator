@@ -76,7 +76,7 @@ namespace StormcastEternals {
 // Storm Breath                     Yes
 // Tempestos Hammer                 Yes
 // Thunderaxe                       Yes
-// Lord of the Host                 TODO
+// Lord of the Host                 Yes
 //
 
 } // namespace StormcastEternals

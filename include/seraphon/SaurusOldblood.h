@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SAURUSOLDBLOOD_H
-#define SAURUSOLDBLOOD_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -63,5 +61,3 @@ namespace Seraphon {
 //
 
 } // namespace Seraphon
-
-#endif //SAURUSOLDBLOOD_H

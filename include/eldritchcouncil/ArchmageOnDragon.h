@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ARCHMAGEONDRAGON_H
-#define ARCHMAGEONDRAGON_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -62,5 +60,3 @@ namespace EldritchCouncil {
 //
 
 } // namespace EldritchCouncil
-
-#endif //ARCHMAGEONDRAGON_H

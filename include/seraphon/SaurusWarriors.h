@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SAURUSWARRIORS_H
-#define SAURUSWARRIORS_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -70,5 +68,3 @@ namespace Seraphon {
 //
 
 } // namespace Seraphon
-
-#endif //SAURUSWARRIORS_H

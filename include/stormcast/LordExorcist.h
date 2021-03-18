@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDEXORCIST_H
-#define LORDEXORCIST_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <stormcast/LoreOfTheStorm.h>
@@ -53,5 +51,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //KNIGHTINCANTOR_H

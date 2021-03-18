@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THEUNMADE_H
-#define THEUNMADE_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -51,5 +49,3 @@ namespace SlavesToDarkness {
 //
 
 } // SlavesToDarkness
-
-#endif //THEUNMADE_H

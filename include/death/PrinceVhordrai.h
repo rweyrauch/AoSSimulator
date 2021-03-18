@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef PRINCEVHORDRAI_H
-#define PRINCEVHORDRAI_H
+#pragma once
 
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
@@ -70,5 +68,3 @@ namespace Death {
 //
 
 } // namespace Death
-
-#endif // PRINCEVHORDRAI_H

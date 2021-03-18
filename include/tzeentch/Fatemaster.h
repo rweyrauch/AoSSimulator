@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FATEMASTER_H
-#define FATEMASTER_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -53,4 +51,3 @@ namespace Tzeentch {
 
 } // namespace Tzeentch
 
-#endif //FATEMASTER_H

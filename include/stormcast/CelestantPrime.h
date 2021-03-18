@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CELESTANTPRIME_H
-#define CELESTANTPRIME_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -37,6 +35,8 @@ namespace StormcastEternals {
 
         int bearerOfTheWarhammer(const Unit *target);
 
+        void onStartShooting(PlayerId player) override;
+
     private:
 
         Weapon m_ghalMaraz;
@@ -49,12 +49,10 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Cometstrike Sceptre              TODO
+// Cometstrike Sceptre              Yes
 // Retribution from On High         TODO
 // Bearer of the Warhammer          Yes
 // Orrery of Celestial Fates        TODO
 //
 
 } // namespace StormcastEternals
-
-#endif //CELESTANTPRIME_H

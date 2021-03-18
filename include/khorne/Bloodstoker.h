@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLOODSTOKER_H
-#define BLOODSTOKER_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -48,5 +46,3 @@ namespace Khorne {
 //
 
 } // namespace Khorne
-
-#endif //BLOODSTOKER_H

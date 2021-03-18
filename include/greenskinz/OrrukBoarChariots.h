@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ORRUKBOARCHARIOTS_H
-#define ORRUKBOARCHARIOTS_H
+#pragma once
 
 #include <Unit.h>
 #include <UnitFactory.h>
@@ -52,5 +50,3 @@ namespace Greenskinz {
 //
 
 } // namespace Greenskinz
-
-#endif // ORRUKBOARCHARIOTS_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef KHORGORATHS_H
-#define KHORGORATHS_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -55,5 +53,3 @@ namespace Khorne {
 //
 
 } // namespace Khorne
-
-#endif //KHORGORATHS_H

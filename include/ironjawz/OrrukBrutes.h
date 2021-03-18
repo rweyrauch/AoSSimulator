@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ORRUKBRUTES_H
-#define ORRUKBRUTES_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 #include <Weapon.h>
@@ -64,5 +62,3 @@ namespace Ironjawz {
 //
 
 } // namespace Ironjawz
-
-#endif // ORRUKBRUTES_H

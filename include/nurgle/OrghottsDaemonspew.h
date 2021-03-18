@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ORGHOTTSDAEMONSPEW_H
-#define ORGHOTTSDAEMONSPEW_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -52,5 +50,3 @@ namespace Nurgle {
 //
 
 } // Nurgle
-
-#endif //ORGHOTTSDAEMONSPEW_H

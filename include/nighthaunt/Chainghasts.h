@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CHAINGHASTS_H
-#define CHAINGHASTS_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -51,4 +49,3 @@ namespace Nighthaunt {
 
 } // namespace Nighthaunt
 
-#endif // CHAINGHASTS_H

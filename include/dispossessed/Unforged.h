@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef UNFORGED_H
-#define UNFORGED_H
+#pragma once
 
 #include <dispossessed/Dispossessed.h>
 #include <Weapon.h>
@@ -54,5 +52,3 @@ namespace Dispossessed {
 //
 
 } // namespace Dispossessed
-
-#endif //UNFORGED_H

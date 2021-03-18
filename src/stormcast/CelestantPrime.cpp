@@ -100,5 +100,24 @@ namespace StormcastEternals {
         return g_pointsPerUnit;
     }
 
+    void CelestantPrime::onStartShooting(PlayerId player) {
+        StormcastEternal::onStartShooting(player);
+
+        // Cometstrike Sceptre
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 24.0);
+            for (auto unit : units) {
+                if (unit->remainingModels() > 0) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                    auto targetUnits = Board::Instance()->getUnitsWithin(unit, unit->owningPlayer(), Dice::RollD6());
+                    for (auto target : targetUnits) {
+                        target->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
 
 } // namespace StormcastEternals

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FLESHHOUNDS_H
-#define FLESHHOUNDS_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -53,5 +51,3 @@ namespace Khorne {
 //
 
 } // namespace Khorne
-
-#endif //FLESHHOUNDS_H

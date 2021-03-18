@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDORDINATOR_H
-#define LORDORDINATOR_H
+#pragma once
 
 #include <vector>
 #include <stormcast/StormcastEternals.h>
@@ -69,9 +67,7 @@ namespace StormcastEternals {
 // Arcane Engineer                  Yes
 // Comet Strike                     Yes
 // Meteoric Slam                    Yes
-// Solemn Duty                      TODO
+// Solemn Duty                      Yes
 //
 
 } // namespace StormcastEternals
-
-#endif //LORDORDINATOR_H

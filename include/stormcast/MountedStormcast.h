@@ -56,7 +56,7 @@ namespace StormcastEternals {
 //    Keen_Clawed                   Yes
 //    Savage_Loyalty                Yes
 //    Drake_Kin                     TODO
-//    Thunder_Caller                TODO
+//    Thunder_Caller                Yes
 //    Pack_Leader                   Yes
 //    Storm_Winged                  TODO
 //    Thunderlord                   Yes
@@ -67,7 +67,7 @@ namespace StormcastEternals {
 //    Swiftwing                     Yes
 //    Lashing_Tail                  Yes
 //    Steel_Pinions                 Yes
-//    Bounding_Leap                 TODO
+//    Bounding_Leap                 Yes
 //    Pride_Leader                  Yes
 //    Ear_Bursting_Roar             Yes
 //

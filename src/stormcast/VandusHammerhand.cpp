@@ -126,8 +126,9 @@ namespace StormcastEternals {
 
         // Storm Breath
         if (owningPlayer() == player) {
+            auto range = (m_mountTrait == MountTrait::Thunder_Caller) ? 16.0 : 12.0;
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && (distanceTo(unit) <= 12.0)) {
+            if (unit && (distanceTo(unit) <= range)) {
                 if (Dice::RollD6() >= 4) {
                     unit->applyDamage({0, Dice::RollD3()}, this);
                 }

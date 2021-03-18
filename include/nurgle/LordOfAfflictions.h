@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDOFAFFLICTIONS_H
-#define LORDOFAFFLICTIONS_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -61,5 +59,3 @@ namespace Nurgle {
 //
 
 } // Nurgle
-
-#endif //LORDOFAFFLICTIONS_H

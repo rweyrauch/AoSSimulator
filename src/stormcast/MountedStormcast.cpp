@@ -88,7 +88,7 @@ namespace StormcastEternals {
         if (m_mountTrait == MountTrait::Steel_Pinions) {
             totalWounds = ignoreWounds(totalWounds, 6);
         }
-        return Unit::applyWoundSave(totalWounds, attackingUnit);
+        return StormcastEternal::applyWoundSave(totalWounds, attackingUnit);
     }
 
     void MountedStormcastEternal::onStartCombat(PlayerId player) {

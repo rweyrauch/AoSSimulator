@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BATTLESMITH_H
-#define BATTLESMITH_H
+#pragma once
 
 #include <fyreslayers/Fyreslayer.h>
 #include <Weapon.h>
@@ -47,5 +45,3 @@ namespace Fyreslayers {
 //
 
 } // namespace Fyreslayers
-
-#endif //BATTLESMITH_H

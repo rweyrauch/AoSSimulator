@@ -43,6 +43,9 @@ namespace StormcastEternals {
     bool LordArcanumOnDracoline::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
+        if (m_mountTrait == MountTrait::Bounding_Leap) {
+            m_pileInMove = 6;
+        }
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);

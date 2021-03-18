@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef LORDEXECUTIONER_H
-#define LORDEXECUTIONER_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -56,4 +54,3 @@ namespace Nighthaunt {
 
 } // namespace Nighthaunt
 
-#endif // LORDEXECUTIONER_H

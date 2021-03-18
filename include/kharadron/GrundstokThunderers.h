@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GRUNDSTOKTHUNDERERS_H
-#define GRUNDSTOKTHUNDERERS_H
+#pragma once
 
 #include <kharadron/KharadronBase.h>
 #include <Weapon.h>
@@ -61,4 +59,3 @@ namespace KharadronOverlords {
 
 } // namespace KharadronOverlords
 
-#endif //GRUNDSTOKTHUNDERERS_H

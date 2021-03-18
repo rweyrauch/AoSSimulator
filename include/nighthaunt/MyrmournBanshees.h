@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef MYRMOURNBANSHEES_H
-#define MYRMOURNBANSHEES_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -46,4 +44,3 @@ namespace Nighthaunt {
 
 } // namespace Nighthaunt
 
-#endif //MYRMOURNBANSHEES_H

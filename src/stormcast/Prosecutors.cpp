@@ -48,6 +48,9 @@ namespace StormcastEternals {
                      &m_grandhammer,
                      &m_stormcallJavelin,
                      &m_stormsurgeTrident};
+
+        // Heralds of Righteousness
+        m_maxChargeDistance = 18.0;
     }
 
     bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons,
@@ -169,7 +172,7 @@ namespace StormcastEternals {
                 return {weapon->damage() + 1, 0};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Unit *Prosecutors::Create(const ParameterList &parameters) {
@@ -300,6 +303,17 @@ namespace StormcastEternals {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    int Prosecutors::rollChargeDistance() {
+        // Heralds of Righteousness
+        m_unmodifiedChargeRoll = Dice::Roll3D6();
+        if (!m_movementRules[MovementRule::Halve_Charge_Roll].empty()) {
+            if (m_movementRules[MovementRule::Halve_Charge_Roll].front().allowed) {
+                m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1) / 2; // Round up
+            }
+        }
+        return m_unmodifiedChargeRoll + chargeModifier();
     }
 
 } //namespace StormcastEternals

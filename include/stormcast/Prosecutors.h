@@ -56,6 +56,8 @@ namespace StormcastEternals {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        int rollChargeDistance() override;
+
     private:
 
         WeaponOption m_weaponOption = Stormcall_Javelin_And_Shield;
@@ -80,7 +82,7 @@ namespace StormcastEternals {
 // Abilities                    Implemented
 // -------------------------------------------
 // Cleaving Blow                    Yes
-// Heralds of Righteousness         TODO
+// Heralds of Righteousness         Yes
 // Paired Celestial Hammers         Yes
 // Sigmarite Shields                Yes
 // Stormcall Javelins               Yes

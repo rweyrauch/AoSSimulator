@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GORGERS_H
-#define GORGERS_H
+#pragma once
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -50,4 +48,3 @@ namespace OgorMawtribes {
 
 } // namespace OgorMawtribes
 
-#endif //GORGERS_H

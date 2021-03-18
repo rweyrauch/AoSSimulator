@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FROSTLORDSTONEHORN_H
-#define FROSTLORDSTONEHORN_H
+#pragma once
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -67,4 +65,3 @@ namespace OgorMawtribes {
 
 } // namespace OgorMawtribes
 
-#endif //FROSTLORDSTONEHORN_H

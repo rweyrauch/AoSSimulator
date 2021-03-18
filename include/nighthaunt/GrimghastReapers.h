@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GRIMGHASTREAPERS_H
-#define GRIMGHASTREAPERS_H
+#pragma once
 
 #include <nighthaunt/Nighthaunt.h>
 #include <Weapon.h>
@@ -51,4 +49,3 @@ namespace Nighthaunt {
 
 } // namespace Nighthaunt
 
-#endif // GRIMGHASTREAPERS_H

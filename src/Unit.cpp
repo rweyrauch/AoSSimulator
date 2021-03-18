@@ -15,7 +15,6 @@
 #include <Think.h>
 #include <plog/Log.h>
 
-const double MAX_CHARGE_DISTANCE = 12.0;
 const double MIN_CHARGE_DISTANCE = 3.0;
 
 lsignal::signal<int(const Unit *)> Unit::s_globalMoveMod;
@@ -809,7 +808,7 @@ void Unit::charge(PlayerId player) {
     if (closestTarget) {
         auto distance = distanceTo(closestTarget);
 
-        if ((distance <= MAX_CHARGE_DISTANCE) && (distance >= MIN_CHARGE_DISTANCE)) {
+        if ((distance <= m_maxChargeDistance) && (distance >= MIN_CHARGE_DISTANCE)) {
             auto chargeDist = (double) rollChargeDistance();
             if (chargeDist >= distance) {
                 m_charged = true;
@@ -864,6 +863,7 @@ void Unit::battleshock(PlayerId player) {
 }
 
 int Unit::rollChargeDistance() {
+    // TODO: Split charge roll from charge modifications.
     m_unmodifiedChargeRoll = Dice::Roll2D6();
     if (!m_movementRules[MovementRule::Halve_Charge_Roll].empty()) {
         if (m_movementRules[MovementRule::Halve_Charge_Roll].front().allowed) {

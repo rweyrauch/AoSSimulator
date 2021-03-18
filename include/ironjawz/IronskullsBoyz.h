@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef IRONSKULLSBOYZ_H
-#define IRONSKULLSBOYZ_H
+#pragma once
 
 #include <ironjawz/Ironjawz.h>
 #include <Weapon.h>
@@ -52,5 +50,3 @@ namespace Ironjawz {
 //
 
 } // namespace Ironjawz
-
-#endif // IRONSKULLSBOYZ_H

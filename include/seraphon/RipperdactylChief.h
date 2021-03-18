@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef RIPPERDACTYLCHIEF_H
-#define RIPPERDACTYLCHIEF_H
+#pragma once
 
 #include <seraphon/Seraphon.h>
 #include <Weapon.h>
@@ -49,5 +47,3 @@ namespace Seraphon {
 //
 
 } // namespace Seraphon
-
-#endif //RIPPERDACTYLCHIEF_H

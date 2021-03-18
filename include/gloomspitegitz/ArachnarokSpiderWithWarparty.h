@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef ARACHNAROKSPIDERWITHWARPARTY_H
-#define ARACHNAROKSPIDERWITHWARPARTY_H
+#pragma once
 
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <Weapon.h>
@@ -70,5 +68,3 @@ namespace GloomspiteGitz {
 //
 
 } // namespace GloomspiteGitz
-
-#endif //ARACHNAROKSPIDERWITHWARPARTY_H

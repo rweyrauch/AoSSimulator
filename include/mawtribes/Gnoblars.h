@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GNOBLARS_H
-#define GNOBLARS_H
+#pragma once
 
 #include <mawtribes/MawtribesBase.h>
 #include <Weapon.h>
@@ -51,4 +49,3 @@ namespace OgorMawtribes {
 
 } // namespace OgorMawtribes
 
-#endif //GNOBLARS_H

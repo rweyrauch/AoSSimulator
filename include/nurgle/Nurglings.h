@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef NURGLINGS_H
-#define NURGLINGS_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -47,5 +45,3 @@ namespace Nurgle {
 //
 
 } // Nurgle
-
-#endif //NURGLINGS_H

@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef FLAMERSOFTZEENTCH_H
-#define FLAMERSOFTZEENTCH_H
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -53,5 +51,3 @@ namespace Tzeentch {
 //
 
 } // Tzeentch
-
-#endif //FLAMERSOFTZEENTCH_H

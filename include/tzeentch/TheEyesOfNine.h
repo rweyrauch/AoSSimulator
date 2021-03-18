@@ -5,10 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THEEYESOFNINE_H
-#define THEEYESOFNINE_H
-
+#pragma once
 
 #include <tzeentch/TzeentchBase.h>
 #include <Weapon.h>
@@ -55,4 +52,3 @@ namespace Tzeentch {
 
 } // namespace Tzeentch
 
-#endif //THEEYESOFNINE_H

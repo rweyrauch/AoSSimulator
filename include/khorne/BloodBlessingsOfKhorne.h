@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef BLOODBLESSINGSOFKHORNE_H
-#define BLOODBLESSINGSOFKHORNE_H
+#pragma once
 
 #include <Prayer.h>
 #include <array>
@@ -30,5 +28,3 @@ namespace Khorne {
     Prayer *CreateBloodBlessingsOfKhorne(BloodBlessingsOfKhorne which, Unit *priest);
 
 } // namespace Khorne
-
-#endif //BLOODBLESSINGSOFKHORNE_H

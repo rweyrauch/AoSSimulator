@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef THEGLOTTKIN_H
-#define THEGLOTTKIN_H
+#pragma once
 
 #include <nurgle/Nurgle.h>
 #include <Weapon.h>
@@ -62,5 +60,3 @@ namespace Nurgle {
 //
 
 } // Nurgle
-
-#endif //THEGLOTTKIN_H

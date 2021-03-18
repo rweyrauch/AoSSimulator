@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef VAMPIRELORDONDRAGON_H
-#define VAMPIRELORDONDRAGON_H
+#pragma once
 
 #include <death/LegionOfNagash.h>
 #include <Weapon.h>
@@ -79,5 +77,3 @@ namespace Death {
 //
 
 } // namespace Death
-
-#endif // VAMPIRELORDONDRAGON_H

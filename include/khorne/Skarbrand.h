@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKARBRAND_H
-#define SKARBRAND_H
+#pragma once
 
 #include <khorne/KhorneBase.h>
 #include <Weapon.h>
@@ -61,5 +59,3 @@ namespace Khorne {
 //
 
 } // namespace Khorne
-
-#endif //SKARBRAND_H

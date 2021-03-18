@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SKAETHSWILDHUNT_H
-#define SKAETHSWILDHUNT_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -48,5 +46,3 @@ namespace Sylvaneth {
 //
 
 } // namespace Sylvaneth
-
-#endif //SKAETHSWILDHUNT_H

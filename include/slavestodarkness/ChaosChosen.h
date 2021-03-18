@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CHAOSCHOSEN_H
-#define CHAOSCHOSEN_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -61,5 +59,3 @@ namespace SlavesToDarkness {
 //
 
 } // SlavesToDarkness
-
-#endif //CHAOSCHOSEN_H

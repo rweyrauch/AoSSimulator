@@ -5,8 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#ifndef BADMOON_H
-#define BADMOON_H
+#pragma once
 
 namespace GloomspiteGitz {
 
@@ -51,4 +50,3 @@ namespace GloomspiteGitz {
 
 } //namespace GloomspiteGitz
 
-#endif //BADMOON_H

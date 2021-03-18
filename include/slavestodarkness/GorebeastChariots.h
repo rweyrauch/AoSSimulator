@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef GOREBEASTCHARIOTS_H
-#define GOREBEASTCHARIOTS_H
+#pragma once
 
 #include <slavestodarkness/SlavesToDarkness.h>
 #include <Weapon.h>
@@ -68,5 +66,3 @@ namespace SlavesToDarkness {
 //
 
 } // SlavesToDarkness
-
-#endif //GOREBEASTCHARIOTS_H

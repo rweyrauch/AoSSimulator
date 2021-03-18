@@ -31,31 +31,31 @@ namespace Khorne {
         None,
 
         // Khorne Mortals
-        Arch_Slaughterer,           // Yes
+        Arch_Slaughterer,
         Unrivalled_Battle_Lust,     // TODO
-        Slaughterborn,              // Yes
-        Hungry_For_Glory,           // Yes
-        Berserker_Lord,             // Yes
-        Violent_Urgency,            // Yes
+        Slaughterborn,
+        Hungry_For_Glory,
+        Berserker_Lord,
+        Violent_Urgency,
 
         // Khorne Bloodbound
         //Arch_Slaughterer,
         //Unrivalled_Battle_Lust,
         //Slaughterborn,
-        Mark_Of_The_Cannibal,       // Yes
-        Bloodsworn,                 // TODO
-        Disciple_Of_Khorne,         // Yes
+        Mark_Of_The_Cannibal,
+        Bloodsworn,
+        Disciple_Of_Khorne,
 
         // Khorne Daemons
         //Arch_Slaughterer,
         //Unrivalled_Battle_Lust,
         //Slaughterborn,
-        Rage_Unchained,             // Yes
+        Rage_Unchained,
         Aspect_Of_Death,            // TODO
-        Devastating_Blow,           // TODO
+        Devastating_Blow,
 
         // Slaughterhost specific
-        Mage_Eater,                 // Reapers TODO
+        Mage_Eater,                 // Reapers
         Slaughterers_Thirst,        // Bloodlords
         Hew_The_Foe,                // Goretide
         Master_Decapitator,         // Skullfiend
@@ -103,12 +103,12 @@ namespace Khorne {
         Mark_Of_The_Slayer,
 
         // Slaughterhost specific
-        Skullshard_Mantle,  // Reapers
-        Halo_Of_Blood,  // Bloodlords
-        Thronebreakers_Torc,    // Goretide
-        Crowncleaver,    // Skullfiend
-        The_Slaughterhelm, // Flayed
-        Black_Brass_Crown, // Baleful Lords
+        Skullshard_Mantle,          // Reapers
+        Halo_Of_Blood,              // Bloodlords
+        Thronebreakers_Torc,        // Goretide
+        Crowncleaver,               // Skullfiend
+        The_Slaughterhelm,          // Flayed
+        Black_Brass_Crown,          // Baleful Lords
     };
 
     // Available rewards and their cost( == enum value)
@@ -187,6 +187,8 @@ namespace Khorne {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        int braveryModifier() const override;
+
     private:
         bool selectBloodTitheReward(BloodTitheReward& selectedReward);
         void dropMeteor();
@@ -217,24 +219,24 @@ namespace Khorne {
 // The Bloodlords
 //    Slay the Mighty               Yes
 //    First in His Sight            TODO
-//    Slaughter's Thirst            TODO
+//    Slaughter's Thirst            Yes
 // The Goretide
 //    Tireless Conquerors           Yes
 //    Ever Onwards                  TODO
-//    Hew the Foe                   TODO
+//    Hew the Foe                   Yes
 // The Skullfiend Tribe
 //    Skull Hunters                 Yes
 //    For the Brass Citadel         TODO
-//    Master Decapitator            TODO
+//    Master Decapitator            Yes
 // The Flayed
 //    Blood-woken Runes             TODO
 //    Wrathspeaker                  TODO
-//    Vessel of Butchery            TODO
+//    Vessel of Butchery            Yes
 //    The Slaughter Helm            TODO
 // The Baleful Lords
 //    Unbound Slaughter             TODO
 //    Frenzied Annihilator          TODO
-//    Thirst for Carnage            TODO
+//    Thirst for Carnage            Yes
 //    Blass Brass Crown             TODO
 // Blood for the Blood God          TODO
 //    Bloody Exemplar               Yes

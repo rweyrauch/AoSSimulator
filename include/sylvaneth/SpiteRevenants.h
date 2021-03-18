@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef SPITEREVENANTS_H
-#define SPITEREVENANTS_H
+#pragma once
 
 #include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
@@ -52,5 +50,3 @@ namespace Sylvaneth {
 //
 
 } // namespace Sylvaneth
-
-#endif //SPITEREVENANTS_H

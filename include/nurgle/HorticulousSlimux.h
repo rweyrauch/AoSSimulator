@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef HORTICULOUSSLIMUX_H
-#define HORTICULOUSSLIMUX_H
+#pragma once
 
 #include "nurgle/Nurgle.h"
 
@@ -58,4 +56,3 @@ namespace Nurgle {
 
 } // Nurgle
 
-#endif //HORTICULOUSSLIMUX_H

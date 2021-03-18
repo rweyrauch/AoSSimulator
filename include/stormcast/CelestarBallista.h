@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef CELESTARBALLISTA_H
-#define CELESTARBALLISTA_H
+#pragma once
 
 #include <stormcast/StormcastEternals.h>
 #include <Weapon.h>
@@ -52,5 +50,3 @@ namespace StormcastEternals {
 //
 
 } // namespace StormcastEternals
-
-#endif //CELESTARBALLISTA_H
