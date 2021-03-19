@@ -11,6 +11,7 @@
 #include <spells/MysticShield.h>
 #include "FleshEaterCourtsPrivate.h"
 #include "SummonAbility.h"
+#include "FeCSpells.h"
 
 namespace FleshEaterCourt {
 
@@ -78,6 +79,7 @@ namespace FleshEaterCourt {
     }
 
     bool AbhorrantGhoulKingOnTerrorgheist::configure(Lore lore, MountTrait trait) {
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_deathShriek);
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
@@ -86,6 +88,7 @@ namespace FleshEaterCourt {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<UnholyVitality>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -94,6 +97,11 @@ namespace FleshEaterCourt {
         unitDesc.push_back({"Crypt Horrors", 3});
         m_commandAbilities.push_back(
                 std::make_unique<SummonAbility>(this, getRoster(), "Summon Royal Guard", unitDesc));
+
+        m_mountTrait = trait;
+        if (m_mountTrait == MountTrait::Deathly_Fast) {
+            m_runAndShoot = true;
+        }
 
         m_points = g_pointsPerUnit;
 
@@ -169,6 +177,9 @@ namespace FleshEaterCourt {
         if (player == owningPlayer()) {
             if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 int woundsHealed = Dice::RollD3();
+                if (m_mountTrait == MountTrait::Horribly_Resilient) {
+                    woundsHealed = 3;
+                }
                 for (auto &m : m_models) {
                     m->applyHealing(woundsHealed);
                 }
@@ -206,6 +217,9 @@ namespace FleshEaterCourt {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
         for (auto ip : units) {
             Wounds wounds = {0, Dice::RollD3()};
+            if (m_mountTrait == MountTrait::Horribly_Infested) {
+                wounds.mortal = 3;
+            }
             ip->applyDamage(wounds, this);
         }
     }
@@ -220,11 +234,30 @@ namespace FleshEaterCourt {
         // Death Shriek
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && (distanceTo(unit) <= m_deathShriek.range())) {
-            const auto roll = Dice::RollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
+            auto roll = Dice::RollD6() + g_damageTable[getDamageTableIndex()].m_deathShriek;
+            if (m_mountTrait == MountTrait::Devastating_Scream) {
+                roll++;
+            }
             if (roll > unit->bravery()) {
                 unit->applyDamage({0, roll - unit->bravery()}, this);
             }
         }
+    }
+
+    Rerolls AbhorrantGhoulKingOnTerrorgheist::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if ((m_mountTrait == MountTrait::Gruesome_Bite) && (weapon->name() == m_fangedMaw.name())) {
+            return Rerolls::Failed;
+        }
+        return FleshEaterCourts::toHitRerolls(weapon, target);
+    }
+
+    int AbhorrantGhoulKingOnTerrorgheist::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll,
+                                                     int woundRoll) const {
+        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+        if (weapon->isMelee() && (m_mountTrait == MountTrait::Razor_Clawed)) {
+            rend--;
+        }
+        return rend;
     }
 
 } // namespace FleshEasterCourt

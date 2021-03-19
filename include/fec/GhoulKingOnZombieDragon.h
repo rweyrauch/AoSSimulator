@@ -42,7 +42,13 @@ namespace FleshEaterCourt {
 
         int getDamageTableIndex() const;
 
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
+
+        MountTrait m_mountTrait = MountTrait::None;
 
         Weapon m_pestilentialBreath,
                 m_goryTalonsAndFangs,

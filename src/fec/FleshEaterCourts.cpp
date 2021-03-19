@@ -66,6 +66,9 @@ namespace FleshEaterCourt {
     }
 
     Rerolls FleshEaterCourts::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Bringer_Of_Death)) {
+            return Rerolls::Failed;
+        }
         if (m_delusion == Delusion::The_Royal_Hunt) {
             if (target->hasKeyword(MONSTER)) {
                 return Rerolls::Ones;
@@ -82,12 +85,17 @@ namespace FleshEaterCourt {
                 }
             }
         }
-        return Unit::toWoundRerolls(weapon, target);
+         return Unit::toWoundRerolls(weapon, target);
     }
 
     int FleshEaterCourts::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
         // Gristlegore - Peerless Ferocity
         if (hasKeyword(GRISTLEGORE) && (hasKeyword(HERO) || hasKeyword(MONSTER))) {
+            if (unmodifiedHitRoll == 6) {
+                return 2;
+            }
+        }
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Savage_Beyond_Reason)) {
             if (unmodifiedHitRoll == 6) {
                 return 2;
             }
@@ -228,6 +236,33 @@ namespace FleshEaterCourt {
                 getRoster()->addCommandPoints(1);
             }
         }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Savage_Strike)) {
+            buffAbility(Ability::Fights_First, 1, {Phase::Hero, m_battleRound+1, player});
+        }
+    }
+
+    int FleshEaterCourts::castingModifier() const {
+        auto mod = Unit::castingModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Dark_Wizardry)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int FleshEaterCourts::unbindingModifier() const {
+        auto mod = Unit::unbindingModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Dark_Wizardry)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int FleshEaterCourts::woundModifier() const {
+        auto mod = UnitModifierInterface::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Hulking_Brute)) {
+            mod++;
+        }
+        return mod;
     }
 
     void Init() {

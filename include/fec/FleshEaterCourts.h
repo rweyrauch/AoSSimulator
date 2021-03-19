@@ -36,23 +36,23 @@ namespace FleshEaterCourt {
 
         // Abhorrant
         Bringer_Of_Death,
-        Frenzied_Flesheater,
+        Frenzied_Flesheater,    // TODO
         Savage_Beyond_Reason,
-        Majestic_Horror,
+        Majestic_Horror,        // TODO
         Dark_Wizardry,
-        Completely_Delusional,
+        Completely_Delusional,  // TODO
 
         // Courtier
         //Bringer_of_Death,
         //Frenzied_Flesheater,
         //Savage_Beyond_Reason,
         Hulking_Brute,
-        Cruel_Taskmaster,
-        Dark_Acolyte,
+        Cruel_Taskmaster,       // TODO
+        Dark_Acolyte,           // TODO
 
         // Grand Court specific
         Savage_Chivalry,  // Morgaunt
-        Grave_Robber, // Hollowmourne
+        Grave_Robber, // Hollowmourne TODO
         Hellish_Orator, // Blisterskin
         Savage_Strike, // Gristlegore
     };
@@ -111,8 +111,8 @@ namespace FleshEaterCourt {
         //Razor_Clawed,
         Baneful_Breath,
         //Horribly_Resilient,
-        Necrotic_Fangs,
-        Death_From_The_Skies,
+        Necrotic_Fangs,         // TODO
+        Death_From_The_Skies,   // TODO
 
     };
 
@@ -162,6 +162,12 @@ namespace FleshEaterCourt {
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         void onStartHero(PlayerId player) override;
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        int woundModifier() const override;
 
     protected:
 

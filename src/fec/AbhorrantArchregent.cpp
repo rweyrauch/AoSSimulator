@@ -11,6 +11,7 @@
 #include <spells/MysticShield.h>
 #include "FleshEaterCourtsPrivate.h"
 #include "SummonAbility.h"
+#include "FeCSpells.h"
 
 namespace FleshEaterCourt {
     static const int g_basesize = 40;
@@ -38,6 +39,7 @@ namespace FleshEaterCourt {
                 std::make_unique<BuffModifierSpell>(this, "Ferocious Hunger", 6, 24, Attribute::Attacks_Melee, RAND_D3,
                                                     Abilities::Target::SelfAndFriendly,
                                                     std::vector<Keyword>{FLESH_EATER_COURTS}));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

@@ -11,6 +11,7 @@
 #include <Board.h>
 #include "FleshEaterCourtsPrivate.h"
 #include "SummonAbility.h"
+#include "FeCSpells.h"
 
 namespace FleshEaterCourt {
 
@@ -88,6 +89,7 @@ namespace FleshEaterCourt {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<MaleficHunger>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -97,6 +99,11 @@ namespace FleshEaterCourt {
         unitDesc.push_back({"Crypt Infernal Courtier", 1});
         unitDesc.push_back({"Crypt Haunter Courtier", 1});
         m_commandAbilities.push_back(std::make_unique<SummonAbility>(this, getRoster(), "Summon Courtier", unitDesc));
+
+        m_mountTrait = trait;
+        if (m_mountTrait == MountTrait::Deathly_Fast) {
+            m_runAndShoot = true;
+        }
 
         m_points = g_pointsPerUnit;
 
@@ -167,6 +174,9 @@ namespace FleshEaterCourt {
         if (player == owningPlayer()) {
             if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 int woundsHealed = Dice::RollD3();
+                if (m_mountTrait == MountTrait::Horribly_Resilient) {
+                    woundsHealed = 3;
+                }
                 for (auto &m : m_models) {
                     m->applyHealing(woundsHealed);
                 }
@@ -211,6 +221,22 @@ namespace FleshEaterCourt {
             }
         }
         return mod;
+    }
+
+    Rerolls AbhorrantGhoulKingOnZombieDragon::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if ((m_mountTrait == MountTrait::Baneful_Breath) && (weapon->name() == m_pestilentialBreath.name())) {
+            return Rerolls::Failed;
+        }
+        return FleshEaterCourts::toWoundRerolls(weapon, target);
+    }
+
+    int AbhorrantGhoulKingOnZombieDragon::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll,
+                                                     int woundRoll) const {
+        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+        if (weapon->isMelee() && (m_mountTrait == MountTrait::Razor_Clawed)) {
+            rend--;
+        }
+        return rend;
     }
 
 } // namespace FleshEasterCourt
