@@ -5,7 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
 #include <gloomspitegitz/LoonbossOnGiantCaveSquig.h>
 #include <UnitFactory.h>
 #include <Board.h>
@@ -14,6 +13,33 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
+    class LetsGetBouncing : public CommandAbility {
+    public:
+        LetsGetBouncing(Unit *source) :
+                CommandAbility(source, "Let's Get Bouncing", 12, 12, Phase::Movement) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {SQUIG};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit *target) override {
+            if (target == nullptr)
+                return false;
+
+            m_source->buffModifier(Attribute::Move_Distance, 3, {Phase::Movement, m_round, m_source->owningPlayer()});
+            auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
+            for (auto unit : units) {
+                unit->buffModifier(Attribute::Move_Distance, 3, {Phase::Movement, m_round, m_source->owningPlayer()});
+            }
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 40;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 110;
@@ -42,6 +68,8 @@ namespace GloomspiteGitz {
             model->addMeleeWeapon(&m_moonclanStabba);
         }
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<LetsGetBouncing>(this));
 
         m_points = g_pointsPerUnit;
 

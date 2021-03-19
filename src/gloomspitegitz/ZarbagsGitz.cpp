@@ -102,6 +102,20 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
+    void ZarbagsGitz::onModelFled(const Model* model) {
+        if (model->getName() == "Squig") {
+            // Squigs Go Wild
+            if (Dice::RollD6() >= 4) {
+                auto board = Board::Instance();
+                auto closestTarget = board->getNearestUnit(this, PlayerId::None);
+                if (closestTarget && distanceTo(closestTarget) <= 6.0) {
+                    closestTarget->applyDamage({0, 1}, this);
+                }
+            }
+        }
+        GloomspiteGitzBase::onModelFled(model);
+    }
+
     int ZarbagsGitz::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
     }

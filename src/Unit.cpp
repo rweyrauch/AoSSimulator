@@ -254,6 +254,7 @@ int Unit::applyBattleshock() {
         Model *model = ip->get();
         if (model->fled() || model->slain()) continue;
         model->flee();
+        onModelFled(model);
         numFleeing--;
     }
 

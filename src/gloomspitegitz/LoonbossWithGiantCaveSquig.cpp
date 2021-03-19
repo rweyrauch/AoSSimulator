@@ -13,6 +13,7 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
     static const int g_basesize = 50;
     static const int g_wounds = 6;
     static const int g_pointsPerUnit = 100;
@@ -37,6 +38,8 @@ namespace GloomspiteGitz {
         model->addMeleeWeapon(&m_moonProdder);
         model->addMeleeWeapon(&m_massiveFangFilledGob);
         addModel(model);
+
+        m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateImDaBossNoStabEmGood(this)));
 
         m_points = g_pointsPerUnit;
 

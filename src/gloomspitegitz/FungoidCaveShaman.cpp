@@ -43,6 +43,10 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::make_unique<AreaOfEffectSpell>(this, "Spore Maws", 7, 0, RAND_D6, RAND_D3, 0));
 
+        if (m_commandTrait == CommandTrait::Boss_Shaman) {
+            m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateImDaBossNoStabEmGood(this)));
+        }
+
         addModel(model);
 
         m_points = g_pointsPerUnit;

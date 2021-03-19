@@ -31,6 +31,8 @@ namespace GloomspiteGitz {
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
+        void onModelFled(const Model* model) override;
+
     private:
 
         Weapon m_bow,
@@ -44,7 +46,7 @@ namespace GloomspiteGitz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Squigs Go Wild                   TODO
+// Squigs Go Wild                   Yes
 // Tough as Old Boots               Yes
 // Netters                          Yes
 // Loonsmasha Fanatic               TODO

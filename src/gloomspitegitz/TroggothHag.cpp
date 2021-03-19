@@ -62,6 +62,9 @@ namespace GloomspiteGitz {
         model->addMissileWeapon(&m_vomit);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Hag Curse", 7, 12,
+                                                                    std::vector<std::pair<Attribute, int>>{{Attribute::To_Hit_Missile, -1}, {Attribute::To_Hit_Melee, -1},
+                                                                     {Attribute::To_Save_Missile, -1}, {Attribute::To_Save_Melee, -1}}, Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

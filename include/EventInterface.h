@@ -10,6 +10,7 @@
 #include "AgeOfSigmarSim.h"
 
 class Unit;
+class Model;
 class Spell;
 class Prayer;
 class CommandAbility;
@@ -34,6 +35,8 @@ public:
     virtual void onRan() {}
 
     virtual void onFlee(int numFled) {}
+
+    virtual void onModelFled(const Model* model) {}
 
     virtual void onCharged() {}
 

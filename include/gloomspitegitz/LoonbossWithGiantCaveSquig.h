@@ -44,7 +44,7 @@ namespace GloomspiteGitz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Dead Tricksy                     Yes
-// I'm Da Boss, Now Stab 'Em Good   TODO
+// I'm Da Boss, Now Stab 'Em Good   Yes
 //
 
 } // namespace GloomspiteGitz

@@ -23,7 +23,7 @@ namespace GloomspiteGitz {
 
         ScuttlebossOnGiganticSpider();
 
-        ~ScuttlebossOnGiganticSpider() override = default;
+        ~ScuttlebossOnGiganticSpider() override;
 
         bool configure();
 
@@ -31,7 +31,11 @@ namespace GloomspiteGitz {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        int ululatingBattleCry(const Unit *unit);
+
     private:
+
+        lsignal::slot m_battleCryConnection;
 
         Weapon m_spear,
                 m_fangs;

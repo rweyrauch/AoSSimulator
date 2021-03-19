@@ -139,6 +139,12 @@ namespace GloomspiteGitz {
             if (roll >= m_meleeTarget->wounds()) {
                 m_meleeTarget->slay(1);
             }
+            else if (m_commandTrait == CommandTrait::Pulverising_Grip) {
+                roll = Dice::RollD6();
+                if (roll >= m_meleeTarget->wounds()) {
+                    m_meleeTarget->slay(1);
+                }
+            }
         }
 
         // Squiggly-beast Followers
@@ -157,6 +163,9 @@ namespace GloomspiteGitz {
         // Reassuring Presence
         if (unit->hasKeyword(GLOOMSPITE_GITZ) && (unit->owningPlayer() == owningPlayer()) &&
             (distanceTo(unit) <= 18.0)) {
+            if (m_commandTrait == CommandTrait::Alpha_Trogg) {
+                return 2;
+            }
             return 1;
         }
 
@@ -172,6 +181,11 @@ namespace GloomspiteGitz {
         if (wounds.source == Wounds::Source::Spell) {
             if (Dice::RollD6() >= 4) {
                 return {0, 0, Wounds::Source::Spell};
+            }
+            else if (m_commandTrait == CommandTrait::Realmstone_Studded_Hide) {
+                if (Dice::RollD6() >= 4) {
+                    return {0, 0, Wounds::Source::Spell};
+                }
             }
         }
         return Unit::applyWoundSave(wounds, attackingUnit);

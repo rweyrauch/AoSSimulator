@@ -33,6 +33,16 @@ namespace GloomspiteGitz {
         bool configure(Lore lore);
 
     protected:
+        void onRestore() override {
+            GloomspiteGitzBase::onRestore();
+            m_usedSnifferSpite = false;
+        }
+
+        int castingModifier() const override;
+
+    protected:
+
+        mutable bool m_usedSnifferSpite = false;
 
     private:
 
@@ -44,7 +54,7 @@ namespace GloomspiteGitz {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Sniffer Spite                    TODO
+// Sniffer Spite                    Yes
 // Face of Da Bad Moon              TODO
 //
 

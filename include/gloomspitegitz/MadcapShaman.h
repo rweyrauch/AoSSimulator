@@ -45,7 +45,7 @@ namespace GloomspiteGitz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Madcap Mushroom                  TODO
-// Night Shroud                     TODO
+// Night Shroud                     Yes
 //
 
 } // namespace GloomspiteGitz

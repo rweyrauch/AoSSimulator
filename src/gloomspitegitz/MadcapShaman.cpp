@@ -13,6 +13,7 @@
 #include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
+
     static const int g_basesize = 32;
     static const int g_wounds = 4;
     static const int g_pointsPerUnit = 80;
@@ -34,10 +35,16 @@ namespace GloomspiteGitz {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonStaff);
 
-        //m_knownSpells.push_back(std::make_unique<NightShroud>(this));
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Night Shroud", 5, 12,
+                                                                    Attribute::Target_To_Hit_Missile, -1,
+                                                                    Abilities::Target::SelfAndFriendly));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        if (m_commandTrait == CommandTrait::Boss_Shaman) {
+            m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateImDaBossNoStabEmGood(this)));
+        }
 
         addModel(model);
 

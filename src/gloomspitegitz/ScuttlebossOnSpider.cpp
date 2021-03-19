@@ -63,6 +63,12 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_fangs.setMount(true);
+        s_globalBraveryMod.connect(this, &ScuttlebossOnGiganticSpider::ululatingBattleCry, &m_battleCryConnection);
+    }
+
+
+    ScuttlebossOnGiganticSpider::~ScuttlebossOnGiganticSpider() {
+        m_battleCryConnection.disconnect();
     }
 
     bool ScuttlebossOnGiganticSpider::configure() {
@@ -123,7 +129,10 @@ namespace GloomspiteGitz {
         // Spider Venom
         int threshold = inLightOfTheBadMoon() ? 5 : 6;
         if ((hitRoll >= threshold) && (weapon->name() == m_fangs.name())) {
-            return {0, 1};
+            if (m_commandTrait == CommandTrait::Monstrous_Mount) {
+                return {0, 2, Wounds::Source::Weapon_Melee};
+            }
+            return {0, 1, Wounds::Source::Weapon_Melee};
         }
         return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
@@ -132,6 +141,12 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
+    int ScuttlebossOnGiganticSpider::ululatingBattleCry(const Unit *unit) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Ulutating_Battle_Cry) && (distanceTo(unit) < 9.0)) {
+            return -1;
+        }
+        return 0;
+    }
 
 } // namespace GloomspiteGitz
 

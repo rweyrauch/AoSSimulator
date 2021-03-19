@@ -63,7 +63,7 @@ namespace GloomspiteGitz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Redcap Mushrooms                 Yes
-// Let's Get Bouncing               TODO
+// Let's Get Bouncing               Yes
 //
 
 } // namespace GloomspiteGitz

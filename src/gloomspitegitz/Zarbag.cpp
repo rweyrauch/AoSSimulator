@@ -92,4 +92,15 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
+    int Zarbag::castingModifier() const {
+        auto mod = GloomspiteGitzBase::castingModifier();
+
+        // Sniffer Spite
+        if (!m_usedSnifferSpite) {
+            mod += 2;
+            m_usedSnifferSpite = true;
+        }
+        return mod;
+    }
+
 } // namespace GloomspiteGitz

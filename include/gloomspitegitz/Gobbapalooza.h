@@ -34,6 +34,8 @@ namespace GloomspiteGitz {
 
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon m_tusksAndFangs,
@@ -49,10 +51,10 @@ namespace GloomspiteGitz {
 // Abilities                    Implemented
 // -------------------------------------------
 // Hallucinogenic Fungus Brews      Yes
-// Bogeyman                         TODO
+// Bogeyman                         Yes
 // Splippery Git                    Yes
-// Loonshrine Potion                TODO
-// Poison Brewer                    TODO
+// Loonshrine Potion                Yes
+// Poison Brewer                    Yes
 // Mesmerise                        TODO
 // Fungoid Cloud                    TODO
 //

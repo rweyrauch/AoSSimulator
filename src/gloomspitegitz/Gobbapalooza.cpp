@@ -120,4 +120,48 @@ namespace GloomspiteGitz {
         return mod;
     }
 
+    void Gobbapalooza::onStartHero(PlayerId player) {
+        GloomspiteGitzBase::onStartHero(player);
+
+        // Bogeyman
+        if (owningPlayer() == player) {
+            if (isNamedModelAlive("Scaremonger") && (Dice::RollD6() >= 3)) {
+                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
+                for (auto unit : units) {
+                    if ((unit->remainingModels() > 0) && unit->hasKeyword(MOONCLAN) && unit->hasKeyword(GROT)) {
+                        unit->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        unit->buffReroll(Attribute::Run_Distance, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        break;
+                    }
+                }
+            }
+        }
+        // Loonshine Potion
+        if (owningPlayer() == player) {
+            if (isNamedModelAlive("Brewgit") && (Dice::RollD6() >= 3)) {
+                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
+                for (auto unit : units) {
+                    if ((unit->remainingModels() > 0) && unit->hasKeyword(MOONCLAN) && unit->hasKeyword(GROT) && unit->hasKeyword(HERO)) {
+                        unit->buffReroll(Attribute::To_Hit_Melee, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        unit->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        break;
+                    }
+                }
+            }
+        }
+        // Poison Brewer
+        if (owningPlayer() == player) {
+            if (isNamedModelAlive("Spiker") && (Dice::RollD6() >= 3)) {
+                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
+                for (auto unit : units) {
+                    if ((unit->remainingModels() > 0) && unit->hasKeyword(MOONCLAN) && unit->hasKeyword(GROT)) {
+                        unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        unit->buffReroll(Attribute::To_Wound_Missile, Rerolls::Ones, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 } // namespace GloomspiteGitz

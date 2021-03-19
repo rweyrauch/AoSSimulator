@@ -56,7 +56,7 @@ namespace GloomspiteGitz {
 // Hag Regeneration                 Yes
 // Spell-spite                      Yes
 // Terrible Stench                  Yes
-// Hag Curse                        TODO
+// Hag Curse                        Yes
 //
 
 } // namespace GloomspiteGitz

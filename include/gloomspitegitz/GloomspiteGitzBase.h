@@ -12,6 +12,8 @@
 #include <gloomspitegitz/BadMoon.h>
 #include <array>
 
+class CommandAbility;
+
 namespace GloomspiteGitz {
 
     //
@@ -20,36 +22,36 @@ namespace GloomspiteGitz {
     enum class CommandTrait : int {
         None,
 
-        // BlessingsOfTheBadMoon
+        // Blessings Of The Bad Moon
         Cunning_Plans,
-        Fight_Another_Day,
+        Fight_Another_Day,          // TODO
         Sneaky_Stabba,
         Tough_N_Leathery,
-        Dead_Shouty,
-        The_Clammy_Hand,
+        Dead_Shouty,                // TODO
+        The_Clammy_Hand,            // TODO
 
-        //GiftsOfTheGloomspite
+        // Gifts Of The Gloomspite
         Low_Cunning,
-        Spiteful_Git,
-        Great_Shaman,
-        Dodgy_Character,
+        Spiteful_Git,               // TODO
+        Great_Shaman,               // TODO
+        Dodgy_Character,            // TODO
         Boss_Shaman,
         Loon_Touched,
 
-        // MarksOfTheSpiderGodsFavour
+        // Marks Of The Spider Gods Favour
         Monstrous_Mount,
         Master_Spider_Rider,
         Ulutating_Battle_Cry,
         //ToughNLeathery,
         //DeadShouty,
-        Creeping_Assault,
+        Creeping_Assault,           // TODO
 
-        // FortuitousTroggbossTraits
+        // Fortuitous Troggboss Traits
         Tough_As_Rocks,
         Alpha_Trogg,
         Loonskin,
         Pulverising_Grip,
-        Mighty_Blow,
+        Mighty_Blow,                // TODO
         Realmstone_Studded_Hide
     };
 
@@ -59,7 +61,7 @@ namespace GloomspiteGitz {
     enum class Artefact : int {
         None,
 
-        // TroglodyticTreasures
+        // Troglodytic Treasures
         Spiteful_Prodder,
         Backstabbers_Blade,
         Loonstone_Talisman,
@@ -67,12 +69,12 @@ namespace GloomspiteGitz {
         The_Clammy_Cowl,
         Leering_Gitshield,
 
-        // FoetidFetishes
+        // Foetid Fetishes
         Spiteshroom_Familiar,
         Moonface_Mommet,
         Staff_Of_Sneaky_Stealin,
 
-        // VenomousValuables
+        // Venomous Valuables
         Totem_Of_The_Spider_God,
         Headdress_Of_Many_Eyes,
         The_Black_Fang,
@@ -80,7 +82,7 @@ namespace GloomspiteGitz {
         Earskuttla,
         Web_Strung_Cloak,
 
-        // GlintyGubbinzThatTroggothsFound
+        // Glinty Gubbinz That Troggoths Found
         Shiny_Wotnot,
         Glowy_Howzit,
         Pet_Gribbly
@@ -116,6 +118,12 @@ namespace GloomspiteGitz {
 
         void onRan() override;
 
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int woundModifier() const override;
+
+        int moveModifier() const override;
+
     protected:
 
         bool inLightOfTheBadMoon() const;
@@ -139,5 +147,7 @@ namespace GloomspiteGitz {
 //
 
     void Init();
+
+    CommandAbility* CreateImDaBossNoStabEmGood(Unit* source);
 
 } // namespace GloomspiteGitz
