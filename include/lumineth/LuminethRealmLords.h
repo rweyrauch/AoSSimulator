@@ -26,23 +26,24 @@ namespace LuminethRealmLords {
 
     enum class CommandTrait : int {
         None,
-        Lords_Of_Brilliance,
-        Lords_Of_Stone,
+
+        Lords_Of_Brilliance,    // TODO
+        Lords_Of_Stone,         // TODO
 
         // Scinari
-        Spellmaster,
-        Loremaster,
-        Warmaster,
+        Spellmaster,            // TODO
+        Loremaster,             // TODO
+        Warmaster,              // TODO
 
         // Alarith
-        Majestic,
-        Enduring,
+        Majestic,               // TODO
+        Enduring,               // TODO
         //Loremaster,
 
         // Nation specific
-        Almighty_Blow, // Ymetrica
-        Goading_Arrogance, // Syar
-        Fast_Learner, // Zaitrec
+        Almighty_Blow, // Ymetrica TODO
+        Goading_Arrogance, // Syar TODO
+        Fast_Learner, // Zaitrec TODO
     };
 
     enum class Artefact : int {

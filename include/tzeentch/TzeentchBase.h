@@ -34,12 +34,12 @@ namespace Tzeentch {
         None,
 
         // Arcanites
-        Arch_Sorcerer,
+        Arch_Sorcerer, // TODO
         Nexus_Of_Fate,
         Magical_Supremancy,
         Boundless_Mutation,
-        Cult_Demagogue,
-        Arcane_Sacrifice,
+        Cult_Demagogue, // TODO
+        Arcane_Sacrifice, // TODO
 
         // Mortals
         // Nexus_of_Fate,
@@ -57,12 +57,12 @@ namespace Tzeentch {
         // Coven specific
         Coruscating_Flames,  // Eternal Conflaguration
         Will_Of_The_Phantom_Lord,   // Host Duplicitous
-        Spell_Hunters,  // Hosts Arcanum
+        Spell_Hunters,  // Hosts Arcanum TODO
         Defiant_In_Their_Pursuit,   // Transient Form
         Shrouded_In_Unnatural_Flame,    // Pyrofane Cult
         Prophet_Of_The_Ostensible,  // Guild of Summoners
         Aegis_Of_Insanity, // Unbound Flux
-        Tzeentch_Is_Pleased, // Cult of a Thousand Eyes
+        Tzeentch_Is_Pleased, // Cult of a Thousand Eyes TODO
     };
 
     enum class Artefact : int {
@@ -172,6 +172,8 @@ namespace Tzeentch {
 
         bool battleshockRequired() const override;
 
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         ChangeCoven m_coven = ChangeCoven::None;
@@ -224,25 +226,13 @@ namespace Tzeentch {
 // The Unbound Flux
 //    Maddening Cascade             TODO
 //    Fuelled by Mayhem             TODO
-//    Aegis of Insanity             TODO
+//    Aegis of Insanity             Yes
 //    The Enlightener               TODO
 // A Cult of a Thousand Eyes
 //    Marked for Death              TODO
 //    Eyes Everywhere               TODO
 //    Tzeentch is Pleased           TODO
 //    Crown of Whispers             TODO
-// Command Traits
-//    Arch_Sorcerer                 TODO
-//    Nexus_Of_Fate                 Yes
-//    Magical_Supremancy            Yes
-//    Boundless_Mutation            Yes
-//    Cult_Demagogue                TODO
-//    Arcane_Sacrifice              TODO
-//    Soul_Burn                     TODO
-//    Illusionist                   TODO
-//    Daemonspark                   Yes
-//    Incorporeal_Form              Yes
-//    Aether_Tether                 Yes
 //
 
 

@@ -40,13 +40,13 @@ namespace CitiesOfSigmar {
 
         // Greywater Fastness
         Seat_On_The_Council,
-        Drillmaster,                // TODO
-        Ghoul_Mere_Ranger,          // TODO
+        Drillmaster,
+        Ghoul_Mere_Ranger,
 
         // Phoenicium
         Seeder_Of_Vengeance,        // TODO
         One_With_Fire_And_Ice,      // TODO
-        Aura_Of_Serenity,           // TODO
+        Aura_Of_Serenity,
 
         // Anvilgard
         Blackfang_Crimelord,        // TODO
@@ -54,22 +54,22 @@ namespace CitiesOfSigmar {
         Secretive_Warlock,          // TODO
 
         // Hallowheart
-        Veteran_Of_The_Blazing_Crusade,    // TODO
+        Veteran_Of_The_Blazing_Crusade,
         Warden_Of_The_Flame,
         Famed_Spell_Hunter,         // TODO
 
         // Tempests Eye
-        Aetherguard_Captain,        // TODO
-        Hawk_Eyed,                  // TODO
+        Aetherguard_Captain,
+        Hawk_Eyed,
         Swift_As_The_Wind,          // TODO
 
         // Misthåvn
         Shadowlord,                 // TODO
-        Wily_Foe,                   // TODO
+        Wily_Foe,
         Shade_Warlock,              // TODO
 
         // Har_Kuron
-        Bathed_In_Blood,            // TODO
+        Bathed_In_Blood,
         Murderous_Zeal,             // TODO
         Dark_Adept,                 // TODO
     };
@@ -223,6 +223,16 @@ namespace CitiesOfSigmar {
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        void onStartMovement(PlayerId player) override;
+
+        int chargeModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        int woundModifier() const override;
 
     protected:
 

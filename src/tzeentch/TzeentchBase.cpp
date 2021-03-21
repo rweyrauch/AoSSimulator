@@ -164,6 +164,9 @@ namespace Tzeentch {
         if (isGeneral() && weapon->isMissile() && (m_commandTrait == CommandTrait::Shrouded_In_Unnatural_Flame)) {
             mod--;
         }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Illusionist)) {
+            mod--;
+        }
 
         return mod;
     }
@@ -297,6 +300,14 @@ namespace Tzeentch {
             }
         }
         return Unit::battleshockRequired();
+    }
+
+    Wounds TzeentchBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Soul_Burn) && weapon->isMelee() && (hitRoll == 6)) {
+            damage.mortal++;
+        }
+        return damage;
     }
 
     void Init() {

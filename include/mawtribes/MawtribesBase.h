@@ -29,36 +29,36 @@ namespace OgorMawtribes {
         None,
 
         // Tyrant,
-        Furious_Guzzler,
-        Prodigious_Girth,
-        Killer_Reputation,
-        Mighty_Bellower,
-        An_Eye_For_Loot,
-        Crushing_Bulk,
+        Furious_Guzzler,        // TODO
+        Prodigious_Girth,       // TODO
+        Killer_Reputation,      // TODO
+        Mighty_Bellower,        // TODO
+        An_Eye_For_Loot,        // TODO
+        Crushing_Bulk,          // TODO
 
         // Butcher
-        Questionable_Hygiene,
-        Herald_Of_The_Gulping_God,
-        Growling_Stomach,
-        Gastromancer,
-        Rolls_Of_Fat,
-        Spell_Eater,
+        Questionable_Hygiene,   // TODO
+        Herald_Of_The_Gulping_God,  // TODO
+        Growling_Stomach,       // TODO
+        Gastromancer,           // TODO
+        Rolls_Of_Fat,           // TODO
+        Spell_Eater,            // TODO
 
         // Frostlord/Huskard
-        Nomadic_Raider,
-        Voice_Of_The_Avalanche,
-        Frostfell_Aura,
-        Master_Of_The_Mournfangs,
-        Skilled_Rider,
-        Touched_By_The_Everwinter,
+        Nomadic_Raider,         // TODO
+        Voice_Of_The_Avalanche, // TODO
+        Frostfell_Aura,         // TODO
+        Master_Of_The_Mournfangs,   // TODO
+        Skilled_Rider,          // TODO
+        Touched_By_The_Everwinter,  // TODO
 
         // Icebrow
-        Winter_Rander,
-        Eye_Of_The_Blizzard,
-        Blood_Vultures_Gaze,
-        Frost_Maw,
-        Raised_By_Yhetees,
-        Skal_Packmaster
+        Winter_Rander,          // TODO
+        Eye_Of_The_Blizzard,    // TODO
+        Blood_Vultures_Gaze,    // TODO
+        Frost_Maw,              // TODO
+        Raised_By_Yhetees,      // TODO
+        Skal_Packmaster         // TODO
     };
 
     enum class Artefact : int {

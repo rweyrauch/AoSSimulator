@@ -7,6 +7,7 @@
  */
 
 #include <seraphon/Seraphon.h>
+#include <Roster.h>
 #include "seraphon/DreadSaurian.h"
 #include "seraphon/SaurusGuard.h"
 #include "seraphon/SaurusKnights.h"
@@ -36,6 +37,9 @@
 #include "seraphon/SkinkStarpriest.h"
 #include "seraphon/SkinkPriest.h"
 #include "seraphon/SlannStarmaster.h"
+#include "seraphon/StarbloodStalkers.h"
+#include "seraphon/KixiTaka.h"
+#include "seraphon/KlaqTrok.h"
 #include "../AoSSimPrivate.h"
 #include "Board.h"
 
@@ -119,6 +123,9 @@ namespace Seraphon {
             mod += 3;
         }
 
+        if (isGeneral() && (m_commandTrait == CommandTrait::Nimble)) {
+            mod += 1;
+        }
         return mod;
     }
 
@@ -181,6 +188,64 @@ namespace Seraphon {
         m_artefact = artefact;
     }
 
+    Rerolls SeraphonBase::castingRerolls() const {
+        if ((m_commandTrait == CommandTrait::Arcane_Might) && (m_usedArcaneMightInBattleRound != m_battleRound)) {
+            m_usedArcaneMightInBattleRound = m_battleRound;
+            return Rerolls::Failed;
+        }
+        return UnitModifierInterface::castingRerolls();
+    }
+
+    void SeraphonBase::onRestore() {
+        m_usedArcaneMightInBattleRound = 0;
+        Unit::onRestore();
+    }
+
+    Rerolls SeraphonBase::unbindingRerolls() const {
+        if ((m_commandTrait == CommandTrait::Arcane_Might) && (m_usedArcaneMightInBattleRound != m_battleRound)) {
+            m_usedArcaneMightInBattleRound = m_battleRound;
+            return Rerolls::Failed;
+        }
+        return Unit::unbindingRerolls();
+    }
+
+    void SeraphonBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (isGeneral() && (remainingModels() > 0) && ((m_commandTrait == CommandTrait::Great_Rememberer) || (m_commandTrait == CommandTrait::Mighty_Warleader))) {
+            if (Dice::RollD6() >= 4) {
+                getRoster()->addCommandPoints(1);
+            }
+        }
+        if (isGeneral() && (remainingModels() > 0) && (m_commandTrait == CommandTrait::Old_And_Grizzled)) {
+            if (Dice::RollD6() >= 3) {
+                getRoster()->addCommandPoints(1);
+            }
+        }
+    }
+
+    Rerolls SeraphonBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Disciplined_Fury) && weapon->isMelee()) {
+            return Rerolls::Ones;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    Rerolls SeraphonBase::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Thickly_Scaled_Hide)) {
+            return Rerolls::Ones;
+        }
+        return Unit::toSaveRerolls(weapon, attacker);
+    }
+
+    int SeraphonBase::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+        if (isGeneral() && (m_commandTrait == CommandTrait::Nimble)) {
+            mod++;
+        }
+        return mod;
+    }
+
     void Init() {
         DreadSaurian::Init();
         SaurusGuard::Init();
@@ -211,6 +276,9 @@ namespace Seraphon {
         SkinkPriest::Init();
         SkinkStarpriest::Init();
         SlannStarmaster::Init();
+        StarbloodStalkers::Init();
+        KixiTakaTheDiviner::Init();
+        KlaqTrok::Init();
     }
 
     class GiftFromTheHeavens : public CommandAbility {

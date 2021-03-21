@@ -738,6 +738,9 @@ enum Keyword {
     SLANN,
     LORD_KROAK,
     ORACLE,
+    STARBLOOD_STALKERS,
+    KIXI_TAKA,
+    KLAQ_TROK,
 
     // Ways of the Seraphon
     STARBORNE,

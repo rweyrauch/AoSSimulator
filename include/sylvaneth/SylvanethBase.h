@@ -29,29 +29,29 @@ namespace Sylvaneth {
         None,
 
         // Aspects of War
-        Dread_Harvester,
-        Gnarled_Warrior,
-        Gift_Of_Ghyran,
-        Lord_Of_Spites,
-        Warsinger,
-        Wisdom_Of_The_Ancients,
+        Dread_Harvester,        // TODO
+        Gnarled_Warrior,        // TODO
+        Gift_Of_Ghyran,         // TODO
+        Lord_Of_Spites,         // TODO
+        Warsinger,              // TODO
+        Wisdom_Of_The_Ancients, // TODO
 
         // Aspects of Renewal
-        Arcane_Bounty,
-        Mystic_Regrowth,
-        Voice_Of_Warding,
-        Glade_Lore,
-        Spellsinger,
-        Radiant_Spirit,
+        Arcane_Bounty,          // TODO
+        Mystic_Regrowth,        // TODO
+        Voice_Of_Warding,       // TODO
+        Glade_Lore,             // TODO
+        Spellsinger,            // TODO
+        Radiant_Spirit,         // TODO
 
         // Glade specific
-        Regal_Old_Growth, // Oakenbrow,
-        Nurtured_By_Magic, // Gnarlroot
-        Legacy_Of_Valour, // Heartwood
-        Mere_Rainfall, // Ironbark
-        My_Heart_Is_Ice, // Winterleaf
-        Paragon_Of_Terror, // Dreadwood
-        Seek_New_Fruit, // Harvestboon
+        Regal_Old_Growth,       // Oakenbrow
+        Nurtured_By_Magic,      // Gnarlroot
+        Legacy_Of_Valour,       // Heartwood
+        Mere_Rainfall,          // Ironbark
+        My_Heart_Is_Ice,        // Winterleaf TODO
+        Paragon_Of_Terror,      // Dreadwood TODO
+        Seek_New_Fruit,         // Harvestboon TODO
     };
 
     enum class Artefact : int {

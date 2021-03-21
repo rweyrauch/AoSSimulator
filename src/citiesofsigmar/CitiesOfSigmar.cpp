@@ -234,12 +234,30 @@ namespace CitiesOfSigmar {
                 }
             }
         }
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (m_commandTrait == CommandTrait::Bathed_In_Blood)) {
+                heal(1);
+            }
+        }
     }
 
     bool CitizenOfSigmar::battleshockRequired() const {
         // The Pride of Hammerhal
         if (hasKeyword(HAMMERHAL) && Board::Instance()->isUnitWithinDeploymentZone(this, owningPlayer())) {
             return false;
+        }
+        if (hasKeyword(PHOENICIUM)) {
+            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Aura_Of_Serenity) && (distanceTo(general) < 12.0)) {
+                return false;
+            }
+        }
+        if (hasKeyword(HALLOWHEART)) {
+            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Veteran_Of_The_Blazing_Crusade) && (distanceTo(general) < 18.0)) {
+                return false;
+            }
         }
         return Unit::battleshockRequired();
     }
@@ -270,7 +288,6 @@ namespace CitiesOfSigmar {
                 mod++;
             }
         }
-
         if (target->hasKeyword(MONSTER) && isGeneral() && (m_commandTrait == CommandTrait::Slayer_Of_Monsters)) {
             mod++;
         }
@@ -295,6 +312,65 @@ namespace CitiesOfSigmar {
             mod++;
         }
         if (target->hasKeyword(MONSTER) && isGeneral() && (m_commandTrait == CommandTrait::Slayer_Of_Monsters)) {
+            mod++;
+        }
+        if (hasKeyword(TEMPESTS_EYE)) {
+            auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Hawk_Eyed) && (distanceTo(general) < 12.0)) {
+                mod++;
+            }
+        }
+        return mod;
+    }
+
+    Rerolls CitizenOfSigmar::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (weapon->isMissile() && hasKeyword(GREYWATER_FASTNESS)) {
+            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Drillmaster)) {
+                auto units = Board::Instance()->getUnitsWithin(general, GetEnemyId(owningPlayer()), 3.0);
+                if (units.empty() && (distanceTo(general) < 12.0)) {
+                    return Rerolls::Ones;
+                }
+            }
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    void CitizenOfSigmar::onStartMovement(PlayerId player) {
+        Unit::onStartMovement(player);
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (m_commandTrait == CommandTrait::Ghoul_Mere_Ranger)) {
+                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+                for (auto unit : units) {
+                    unit->buffMovement(MovementRule::Run_And_Shoot, true, {Phase::Shooting, m_battleRound, owningPlayer()});
+                }
+            }
+        }
+    }
+
+    int CitizenOfSigmar::chargeModifier() const {
+        auto mod = Unit::chargeModifier();
+        if (hasKeyword(TEMPESTS_EYE)) {
+            auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Aetherguard_Captain) && (distanceTo(general) < 12.0)) {
+                mod++;
+            }
+        }
+        return mod;
+    }
+
+    Wounds CitizenOfSigmar::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = wounds;
+        if (isGeneral() && (m_commandTrait == CommandTrait::Wily_Foe)) {
+            totalWounds = ignoreWounds(totalWounds, 6);
+        }
+        return Unit::applyWoundSave(totalWounds, attackingUnit);
+    }
+
+    int CitizenOfSigmar::woundModifier() const {
+        auto mod = UnitModifierInterface::woundModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Bathed_In_Blood)) {
             mod++;
         }
         return mod;

@@ -28,16 +28,15 @@ namespace IdonethDeepkin {
     enum class CommandTrait : int {
         None,
 
-        Merciless_Raider,
-        Hunter_Of_Souls,
-        Unstoppable_Fury,
-        Born_From_Agony,
-        Nightmare_Legacy,
-        Lord_Of_Storm_And_Sea,
+        Merciless_Raider,       // TODO
+        Hunter_Of_Souls,        // TODO
+        Unstoppable_Fury,       // TODO
+        Born_From_Agony,        // TODO
+        Nightmare_Legacy,       // TODO
+        Lord_Of_Storm_And_Sea,  // TODO
 
         // Enclave
-        Emissary_Of_The_Deep_Places, // Ionrach
-
+        Emissary_Of_The_Deep_Places, // Ionrach TODO
     };
 
     enum class Artefact : int {

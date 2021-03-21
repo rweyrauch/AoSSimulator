@@ -36,7 +36,7 @@ namespace Seraphon {
 
         // Slann
         Arcane_Might,
-        Vast_Intellect,
+        Vast_Intellect,         // TODO
         Great_Rememberer,
 
         // Saurus
@@ -45,15 +45,15 @@ namespace Seraphon {
         Mighty_Warleader,
 
         // Skink
-        Master_Of_Star_Rituals,
+        Master_Of_Star_Rituals, // TODO
         Nimble,
-        Cunning,
+        Cunning,                // TODO
 
         // Constellation specific
-        Ancient_Knowledge, // Dracothions Tail
-        Old_And_Grizzled,   // Fangs of Sotek
-        Dominant_Predator,  // Koatls Claw
-        Prime_Warbeast      // The Thunder Lizard
+        Ancient_Knowledge,      // Dracothions Tail TODO
+        Old_And_Grizzled,       // Fangs of Sotek
+        Dominant_Predator,      // Koatls Claw TODO
+        Prime_Warbeast          // The Thunder Lizard TODO
     };
 
     //
@@ -145,12 +145,28 @@ namespace Seraphon {
 
         int woundModifier() const override;
 
+        Rerolls castingRerolls() const override;
+
+        Rerolls unbindingRerolls() const override;
+
+        void onRestore() override;
+
+        void onStartHero(PlayerId player) override;
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
     protected:
 
         WayOfTheSeraphon m_way = WayOfTheSeraphon::Coalesced;
         Constellation m_constellation = Constellation::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+
+        mutable int m_usedArcaneMightInBattleRound = 0;
     };
 
 //

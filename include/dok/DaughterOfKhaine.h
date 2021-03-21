@@ -28,30 +28,30 @@ namespace DaughtersOfKhaine {
         None,
 
         // Paragons of Murder
-        Bathed_In_Blood,
-        Zealous_Orator,
-        Sacrificer_Overseer,
-        Terrifying_Beauty,
-        Master_Of_Poisons,
-        True_Believer,
+        Bathed_In_Blood,        // TODO
+        Zealous_Orator,         // TODO
+        Sacrificer_Overseer,    // TODO
+        Terrifying_Beauty,      // TODO
+        Master_Of_Poisons,      // TODO
+        True_Believer,          // TODO
 
         // Masters of Blood Magic
-        Arcane_Mastery,
-        Writhing_Coils,
-        Fearsome_Presence,
+        Arcane_Mastery,         // TODO
+        Writhing_Coils,         // TODO
+        Fearsome_Presence,      // TODO
 
         // Morathi's Right Hand
-        Veteran_Of_The_Cathirar_Dhule,
-        Impenentrable_Scales,
-        Fuelled_By_Revenge,
+        Veteran_Of_The_Cathirar_Dhule,  // TODO
+        Impenentrable_Scales,   // TODO
+        Fuelled_By_Revenge,     // TODO
 
         // Temple specific
-        Devoted_Disciple,  // Hagg Nar
-        Mistress_Of_Illusion, // Khailebron
-        Curse_Of_The_Bloody_Handed, // Zainthar Kai
-        Bathe_In_Their_Blood, // The Kraith
-        The_Circling_Flock, // Khelt Nar
-        Victor_Of_Yaithril, // Draichi Ganeth
+        Devoted_Disciple,       // Hagg Nar TODO
+        Mistress_Of_Illusion,   // Khailebron TODO
+        Curse_Of_The_Bloody_Handed, // Zainthar Kai TODO
+        Bathe_In_Their_Blood,   // The Kraith TODO
+        The_Circling_Flock,     // Khelt Nar TODO
+        Victor_Of_Yaithril,     // Draichi Ganeth TODO
     };
 
     enum class Artefact : int {
