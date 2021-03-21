@@ -297,4 +297,8 @@ namespace StormcastEternals {
         return g_pointsPerUnit;
     }
 
+    void DrakeswornTemplar::onEndShooting(PlayerId player) {
+        StormcastEternal::onEndShooting(player);
+    }
+
 } // namespace StormcastEternals

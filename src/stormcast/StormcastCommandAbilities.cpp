@@ -38,6 +38,29 @@ namespace StormcastEternals {
         return true;
     }
 
+    class CutOffTheHead : public CommandAbility {
+    public:
+        explicit CutOffTheHead(Unit *source) :
+            CommandAbility(source, "Cut Off the Head", 18, 9, Phase::Combat) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {ASTRAL_TEMPLARS};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+        bool apply(Unit *target) override {
+            if (target == nullptr)
+                return false;
+
+            // TODO: Modifier only apply to enemy HEROS.
+            target->buffModifier(Attribute::To_Wound_Melee, 1, {Phase::Combat, m_round, m_source->owningPlayer()});
+
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     CommandAbility *CreateCommandAbility(Command which, Unit *source) {
         switch (which) {
             case Command::Soul_Of_The_Stormhost:
@@ -64,7 +87,7 @@ namespace StormcastEternals {
                                                     Abilities::Target::SelfAndFriendly,
                                                     std::vector<Keyword>{TEMPEST_LORDS});
             case Command::Cut_Off_The_Head:
-                return nullptr;
+                return new CutOffTheHead(source);
             default:
                 break;
         }

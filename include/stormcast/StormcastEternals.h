@@ -205,6 +205,18 @@ namespace StormcastEternals {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
+        void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
+
+        void onFriendlyUnitSlain(const Unit *attacker) override;
+
+        void onEnemyUnitSlain(const Unit* enemyUnit) override;
+
+        void onBeginTurn(int battleRound) override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
+
     protected:
 
         Stormhost m_stormHost = Stormhost::None;
@@ -213,6 +225,7 @@ namespace StormcastEternals {
 
         lsignal::slot m_deathlyAuraConnection;
 
+        mutable bool m_usedPortentsAndOmensInTurn = false;
     };
 
     void Init();
@@ -233,35 +246,35 @@ namespace StormcastEternals {
 //   Champion_Of_The_Realms         Yes
 // Hammers of Sigmar
 //   First to be Forged             Yes
-//   Soul of the Stormhost          TODO
+//   Soul of the Stormhost          Yes
 //   We Cannot Fail                 Yes
 // Hallowed Knights
 //   Only the Faithful              Yes
 //   Holy Crusaders                 Yes
-//   Martyr's Strength              TODO
+//   Martyr's Strength              Yes
 // Celestial Vindicators
 //   Driven by Vengeance            Yes
 //   Righteous Hatred               Yes
 //   Single-minded Fury             Yes
 // Anvils of the Heldenhammer
 //   No True Death                  Yes
-//   Heroes of Another Age          TODO
+//   Heroes of Another Age          Yes
 //   Deathly Aura                   Yes
 // Knights Excelsior
-//   Storm of Annihilation          TODO
+//   Storm of Annihilation          Yes
 //   No Mercy                       Yes
 //   Divine Executioner             Yes
 // Celestial Warbringers
 //   Fearless Foresight             TODO
 //   Astral Conjunction             Yes
-//   Portents and Omens             TODO
+//   Portents and Omens             Yes
 // Tempest Lords
 //   Grand Strategists              Yes
 //   Rousing Oratory                Yes
 //   Bonds of Noble Duty            Yes
 // Astral Templars
 //   Beast Stalkers                 Yes
-//   Cut off the Head               TODO
+//   Cut off the Head               Yes/Partial
 //   Dauntless Hunters              TODO
 // Shield of Civilization           Yes
 // Mortal Auxiliaries               TODO

@@ -57,6 +57,8 @@ namespace StormcastEternals {
 
         int arcaneLineage(const Unit *target);
 
+        void onEndShooting(PlayerId player) override;
+
     protected:
 
         WeaponOption m_weaponOption = Tempest_Axe;

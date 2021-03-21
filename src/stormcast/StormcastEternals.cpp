@@ -91,6 +91,11 @@ namespace StormcastEternals {
             return Rerolls::Ones;
         }
 
+        // Portents and Omens
+        if (isGeneral() && (m_commandTrait == CommandTrait::Portents_And_Omens) && !m_usedPortentsAndOmensInTurn) {
+            m_usedPortentsAndOmensInTurn = true;
+            return Rerolls::Failed;
+        }
         return Unit::toHitRerolls(weapon, unit);
     }
 
@@ -222,6 +227,38 @@ namespace StormcastEternals {
                 m_roster->addCommandPoints(1);
             }
         }
+
+        if ((owningPlayer() == player) && hasKeyword(ANVILS_OF_THE_HELDENHAMMER)) {
+            if (getCommandPoints() > 0) {
+                auto range = isGeneral() ? 18.0 : 9.0;
+                auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), range);
+                for (auto unit : units) {
+                    if (unit->remainingModels() > 0) {
+                        const Weapon* preferredWeapon = unit->getWeapon(0);
+                        if (preferredWeapon != nullptr) {
+                            for (auto i = 0; i < unit->getNumWeapons(); i++) {
+                                if (unit->getWeapon(i)->strength() > preferredWeapon->strength()) {
+                                    preferredWeapon = unit->getWeapon(i);
+                                }
+                            }
+                            int numSlain = 0;
+                            if (preferredWeapon->isMissile() && unit->shootingTarget()) {
+                                if (unit->distanceTo(unit->shootingTarget()) < preferredWeapon->range()) {
+                                    unit->shoot(-1, unit->shootingTarget(), numSlain);
+                                    break;
+                                }
+                            }
+                            else if (preferredWeapon->isMelee() && unit->meleeTarget()) {
+                                if (unit->distanceTo(unit->meleeTarget()) < preferredWeapon->range()) {
+                                    unit->fight(-1, unit->meleeTarget(), numSlain);
+                                    break;
+                                }
+                            }
+                        }
+                     }
+                }
+            }
+        }
     }
 
     void StormcastEternal::setArtefact(Artefact artefact) {
@@ -322,6 +359,69 @@ namespace StormcastEternals {
             }
         }
         return mod;
+    }
+
+    void StormcastEternal::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
+        Unit::onFriendlyModelSlain(numSlain, attacker, source);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Martyrs_Strength)) {
+            if (Dice::RollD6() >= 2) {
+                int numEnemiesSlain = 0;
+                doPileIn();
+                fight(numSlain, attacker, numEnemiesSlain);
+            }
+        }
+    }
+
+    void StormcastEternal::onFriendlyUnitSlain(const Unit *attacker) {
+        Unit::onFriendlyUnitSlain(attacker);
+
+        // Soul of the Stormhost
+        if (hasKeyword(HAMMERS_OF_SIGMAR) && hasKeyword(REDEEMER) && (getRoster()->getCommandPoints() > 0)) {
+            auto general = dynamic_cast<StormcastEternal*>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) && (general->hasKeyword(HAMMERS_OF_SIGMAR))) {
+                if (Dice::RollD6() >= 5) {
+                    returnModels(numModels());
+                    // TODO: redeploy - anywhere 9" from enemy models
+                    deploy(position(), orientation());
+                }
+                getRoster()->useCommandPoint();
+            }
+        }
+    }
+
+    void StormcastEternal::onEnemyUnitSlain(const Unit *enemyUnit) {
+        Unit::onEnemyUnitSlain(enemyUnit);
+
+        // Storm of Annihilation
+        if (hasKeyword(KNIGHTS_EXCELSIOR)) {
+            buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, {Phase::Hero, DurationRestOfGame, owningPlayer()});
+            buffReroll(Attribute::To_Hit_Missile, Rerolls::Ones, {Phase::Hero, DurationRestOfGame, owningPlayer()});
+        }
+    }
+
+    void StormcastEternal::onBeginTurn(int battleRound) {
+        Unit::onBeginTurn(battleRound);
+
+        m_usedPortentsAndOmensInTurn = false;
+    }
+
+    Rerolls StormcastEternal::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        // Portents and Omens
+        if (isGeneral() && (m_commandTrait == CommandTrait::Portents_And_Omens) && !m_usedPortentsAndOmensInTurn) {
+            m_usedPortentsAndOmensInTurn = true;
+            return Rerolls::Failed;
+        }
+        return Unit::toWoundRerolls(weapon, target);
+    }
+
+    Rerolls StormcastEternal::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
+        // Portents and Omens
+        if (isGeneral() && (m_commandTrait == CommandTrait::Portents_And_Omens) && !m_usedPortentsAndOmensInTurn) {
+            m_usedPortentsAndOmensInTurn = true;
+            return Rerolls::Failed;
+        }
+        return Unit::toSaveRerolls(weapon, attacker);
     }
 
     void Init() {
