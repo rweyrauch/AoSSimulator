@@ -7,7 +7,6 @@
  */
 #include <UnitFactory.h>
 #include "sylvaneth/SkaethsWildHunt.h"
-#include "SylvanethPrivate.h"
 
 namespace Sylvaneth {
     static const int g_basesize = 32;

@@ -7,6 +7,7 @@
  */
 #include <sylvaneth/SylvanethBase.h>
 #include <Board.h>
+#include <Roster.h>
 #include <magic_enum.hpp>
 
 #include "sylvaneth/Alarielle.h"
@@ -66,6 +67,9 @@ namespace Sylvaneth {
     }
 
     Rerolls SylvanethBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Lord_Of_Spites)) {
+            return Rerolls::Ones;
+        }
         return Unit::toWoundRerolls(weapon, target);
     }
 
@@ -74,7 +78,7 @@ namespace Sylvaneth {
         if (hasKeyword(HARVESTBOON) && m_charged) {
             return Rerolls::Ones;
         }
-            // Shield the Arcane
+        // Shield the Arcane
         else if (hasKeyword(GNARLROOT)) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
@@ -83,6 +87,11 @@ namespace Sylvaneth {
                 }
             }
         }
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Dread_Harvester) && m_charged) {
+            return Rerolls::Failed;
+        }
+
         return Unit::toHitRerolls(weapon, unit);
     }
 
@@ -153,6 +162,11 @@ namespace Sylvaneth {
                 }
             }
         }
+
+        auto general = dynamic_cast<SylvanethBase*>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Wisdom_Of_The_Ancients) && (distanceTo(general) < 12.0)) {
+            mod++;
+        }
         return mod;
     }
 
@@ -204,7 +218,31 @@ namespace Sylvaneth {
         if (isGeneral() && (m_commandTrait == CommandTrait::Mere_Rainfall) && weapon->isMissile()) {
             return Rerolls::Failed;
         }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Gnarled_Warrior)) {
+            return Rerolls::Ones;
+        }
+
         return Unit::toSaveRerolls(weapon, attacker);
+    }
+
+    void SylvanethBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (m_commandTrait == CommandTrait::Gift_Of_Ghyran)) {
+                heal(1);
+            }
+        }
+    }
+
+    int SylvanethBase::chargeModifier() const {
+        auto mod = Unit::chargeModifier();
+
+        auto general = dynamic_cast<SylvanethBase*>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Warsinger) && (distanceTo(general) < 12.0)) {
+            mod += 2;
+        }
+        return mod;
     }
 
     void Init() {

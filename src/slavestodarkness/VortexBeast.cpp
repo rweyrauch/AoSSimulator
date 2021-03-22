@@ -168,7 +168,7 @@ namespace SlavesToDarkness {
     }
 
     void MutalithVortexBeast::onRestore() {
-        Unit::onRestore();
+        SlavesToDarknessBase::onRestore();
 
         // Reset table-drive attributes
         onWounded();

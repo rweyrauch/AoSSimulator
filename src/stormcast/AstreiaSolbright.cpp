@@ -106,7 +106,7 @@ namespace StormcastEternals {
         if (m_charged && weapon->name() == m_monstrousClaws.name()) {
             return {Dice::RollD3(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls AstreiaSolbright::chargeRerolls() const {

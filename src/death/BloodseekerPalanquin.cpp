@@ -146,17 +146,17 @@ namespace Death {
                                               int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void BloodseekerPalanquin::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }
 
     void BloodseekerPalanquin::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        LegionOfNagashBase::onStartShooting(player);
 
         // Wail of the Damned
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),

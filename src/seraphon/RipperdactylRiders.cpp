@@ -8,7 +8,6 @@
 
 #include <seraphon/RipperdactylRiders.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
@@ -114,7 +113,7 @@ namespace Seraphon {
             return Rerolls::Failed;
         }
 
-        return Unit::toHitRerolls(weapon, target);
+        return SeraphonBase::toHitRerolls(weapon, target);
     }
 
 } //namespace Seraphon

@@ -103,7 +103,7 @@ namespace DaughtersOfKhaine {
     }
 
     void MorathiTheShadowQueen::onWounded() {
-        Unit::onWounded();
+        DaughterOfKhaine::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_heartrender.setAttacks(g_damageTable[damageIndex].m_heartrenderAttacks);
@@ -112,7 +112,7 @@ namespace DaughtersOfKhaine {
     }
 
     void MorathiTheShadowQueen::onRestore() {
-        Unit::onRestore();
+        DaughterOfKhaine::onRestore();
 
         // Restore table-driven attributes
         onWounded();

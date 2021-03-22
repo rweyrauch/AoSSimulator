@@ -108,6 +108,7 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<GraviticRedirection>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

@@ -120,11 +120,11 @@ namespace Death {
         if (m_charged && weapon->name() == m_barrowLance.name()) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int BlackKnights::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = LegionOfNagashBase::toSaveModifier(weapon, attacker);
 
         // Crypt Shields
         if (weapon->rend() == 0) {
@@ -149,7 +149,7 @@ namespace Death {
 
     int BlackKnights::rollChargeDistance() {
         // Hornblower
-        auto dist = Unit::rollChargeDistance();
+        auto dist = LegionOfNagashBase::rollChargeDistance();
         if (isNamedModelAlive(Model::Hornblower)) {
             return std::max(6, dist);
         }

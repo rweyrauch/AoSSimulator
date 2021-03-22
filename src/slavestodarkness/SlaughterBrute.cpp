@@ -104,7 +104,7 @@ namespace SlavesToDarkness {
     }
 
     void Slaughterbrute::onRestore() {
-        Unit::onRestore();
+        SlavesToDarknessBase::onRestore();
 
         // Reset table-drive attributes
         onWounded();

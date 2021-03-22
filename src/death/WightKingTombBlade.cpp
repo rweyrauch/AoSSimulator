@@ -97,7 +97,7 @@ namespace Death {
         if ((hitRoll >= 6) && (weapon->name() == m_balefulTombBlade.name())) {
             return {Dice::RollD3(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int WightKingWithBalefulTombBlade::ComputePoints(int /*numModels*/) {
@@ -105,7 +105,7 @@ namespace Death {
     }
 
     void WightKingWithBalefulTombBlade::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }

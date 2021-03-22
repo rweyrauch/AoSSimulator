@@ -9,7 +9,6 @@
 #include <seraphon/StarbloodStalkers.h>
 #include <UnitFactory.h>
 #include <Board.h>
-#include "SeraphonPrivate.h"
 
 namespace Seraphon {
     static const int g_basesize = 25;

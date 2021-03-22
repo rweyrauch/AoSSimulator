@@ -101,18 +101,18 @@ namespace BeastsOfChaos {
     Rerolls Gors::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         // Rend and Tear
         if (m_pairedBlades) { return Rerolls::Ones; }
-        return Unit::toHitRerolls(weapon, target);
+        return BeastsOfChaosBase::toHitRerolls(weapon, target);
     }
 
     int Gors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = BeastsOfChaosBase::toSaveModifier(weapon, attacker);
         // Beastsheilds
         if (!m_pairedBlades) { modifier += 1; }
         return modifier;
     }
 
     int Gors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        int attacks = BeastsOfChaosBase::extraAttacks(attackingModel, weapon, target);
         // Anarchy and Mayhem
         if (remainingModels() >= 20) {
             attacks += 1;

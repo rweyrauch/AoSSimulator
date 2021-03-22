@@ -93,7 +93,7 @@ namespace BeastsOfChaos {
 
     int TuskgorChariots::toHitModifier(const Weapon *weapon, const Unit *unit) const {
         // Despoilers
-        int modifier = Unit::toHitModifier(weapon, unit);
+        int modifier = BeastsOfChaosBase::toHitModifier(weapon, unit);
         if (unit->remainingModels() >= 10) {
             modifier += 1;
         }
@@ -105,11 +105,11 @@ namespace BeastsOfChaos {
         if (unit->hasKeyword(ORDER)) {
             return Rerolls::Ones;
         }
-        return Unit::toHitRerolls(weapon, unit);
+        return BeastsOfChaosBase::toHitRerolls(weapon, unit);
     }
 
     int TuskgorChariots::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = BeastsOfChaosBase::extraAttacks(attackingModel, weapon, target);
         // Tuskgor Charge
         if (m_charged) {
             extra++;

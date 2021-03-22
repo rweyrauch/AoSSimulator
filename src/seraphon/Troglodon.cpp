@@ -134,6 +134,7 @@ namespace Seraphon {
     }
 
     void Troglodon::onWounded() {
+        SeraphonBase::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_spittle.setRange(g_damageTable[damageIndex].m_spittleRange);
         m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
@@ -151,7 +152,7 @@ namespace Seraphon {
     }
 
     void Troglodon::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SeraphonBase::onStartHero(player);
 
         if (player == owningPlayer()) {
             // Regeneration
@@ -166,7 +167,7 @@ namespace Seraphon {
         if ((woundRoll == 6) && ((weapon->name() == m_spittle.name()) || (weapon->name() == m_jaws.name()))) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Troglodon::castingModifier() const {

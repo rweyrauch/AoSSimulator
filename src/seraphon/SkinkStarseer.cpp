@@ -127,7 +127,7 @@ namespace Seraphon {
     }
 
     void SkinkStarseer::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SeraphonBase::onStartHero(player);
 
         // Cosmic Herald
         if (owningPlayer() == player) {

@@ -82,7 +82,7 @@ namespace CitiesOfSigmar {
     }
 
     int HelblasterVolleyGun::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Point Blank
         if (weapon->isMissile() && (distanceTo(target) <= 12.0)) mod++;

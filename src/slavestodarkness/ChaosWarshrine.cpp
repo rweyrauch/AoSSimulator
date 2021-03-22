@@ -92,7 +92,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosWarshrine::onRestore() {
-        Unit::onRestore();
+        SlavesToDarknessBase::onRestore();
 
         // Reset table-drive attributes
         onWounded();

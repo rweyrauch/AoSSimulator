@@ -97,7 +97,7 @@ namespace BeastsOfChaos {
 
     int Bestigors::toHitModifier(const Weapon *weapon, const Unit *unit) const {
         // Despoilers
-        int modifier = Unit::toHitModifier(weapon, unit);
+        int modifier = BeastsOfChaosBase::toHitModifier(weapon, unit);
         if (unit->remainingModels() >= 10) {
             modifier += 1;
         }
@@ -109,12 +109,12 @@ namespace BeastsOfChaos {
         if (unit->hasKeyword(ORDER)) {
             return Rerolls::Ones;
         }
-        return Unit::toHitRerolls(weapon, unit);
+        return BeastsOfChaosBase::toHitRerolls(weapon, unit);
     }
 
     int Bestigors::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Beastial Charge
-        int attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        int attacks = BeastsOfChaosBase::extraAttacks(attackingModel, weapon, target);
         if (m_charged) {
             attacks += 1;
         }
@@ -122,7 +122,7 @@ namespace BeastsOfChaos {
     }
 
     int Bestigors::runModifier() const {
-        int modifier = Unit::runModifier();
+        int modifier = BeastsOfChaosBase::runModifier();
         if (isNamedModelAlive(Model::BannerBearer)) {
             modifier += 1;
         }

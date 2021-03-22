@@ -94,7 +94,7 @@ namespace SlavesToDarkness {
     }
 
     Wounds ChaosLord::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         // Daemonbound
         if ((hitRoll == 6) && ((weapon->name() == m_steel.name()) || (weapon->name() == m_flail.name()))) {
             damage.mortal++;

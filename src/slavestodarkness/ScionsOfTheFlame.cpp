@@ -120,7 +120,7 @@ namespace SlavesToDarkness {
     }
 
     int ScionsOfTheFlame::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
-        auto extraHits = Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        auto extraHits = SlavesToDarknessBase::generateHits(unmodifiedHitRoll, weapon, unit);
 
         // All Shall Burn
         if ((unmodifiedHitRoll == 6) && weapon->isMissile()) {

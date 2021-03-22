@@ -107,7 +107,7 @@ namespace Skaven {
     }
 
     void MasterMoulder::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Skaventide::onStartHero(player);
 
         // Master Moulder
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);

@@ -99,7 +99,7 @@ namespace BeastsOfChaos {
     }
 
     int Centigors::toHitModifier(const Weapon *weapon, const Unit *unit) const {
-        int modifier = Unit::toHitModifier(weapon, unit);
+        int modifier = BeastsOfChaosBase::toHitModifier(weapon, unit);
         // Drunken Revelry
         if (m_drunkenRevelry) {
             modifier += 1;
@@ -108,7 +108,7 @@ namespace BeastsOfChaos {
     }
 
     int Centigors::runModifier() const {
-        int modifier = Unit::runModifier();
+        int modifier = BeastsOfChaosBase::runModifier();
         if (isNamedModelAlive(Model::Drummer)) {
             modifier += 1;
         }
@@ -116,7 +116,7 @@ namespace BeastsOfChaos {
     }
 
     int Centigors::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::targetHitModifier(weapon, attacker);
+        int modifier = BeastsOfChaosBase::targetHitModifier(weapon, attacker);
         // Drunken Revelry
         if (m_drunkenRevelry) {
             modifier += 1;
@@ -139,7 +139,7 @@ namespace BeastsOfChaos {
         if (m_charged && (weapon->name() == m_centigorSpear.name())) {
             return Rerolls::Failed;
         }
-        return Unit::toWoundRerolls(weapon, target);
+        return BeastsOfChaosBase::toWoundRerolls(weapon, target);
     }
 
     int Centigors::ComputePoints(int numModels) {

@@ -8,8 +8,6 @@
 
 #include <fec/TheGrymwatch.h>
 #include <UnitFactory.h>
-#include <Board.h>
-#include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
     static const int g_basesize = 25;

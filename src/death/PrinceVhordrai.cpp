@@ -109,7 +109,7 @@ namespace Death {
     }
 
     void PrinceVhordrai::onWounded() {
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttack);
@@ -117,7 +117,7 @@ namespace Death {
     }
 
     void PrinceVhordrai::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         m_usedChaliceOfBlood = false;
 
@@ -138,11 +138,11 @@ namespace Death {
     Wounds PrinceVhordrai::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Bloodlance Charge
         if (m_charged && (weapon->name() == m_bloodlance.name())) return {3, 0};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void PrinceVhordrai::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Chalice of Blood
@@ -154,7 +154,7 @@ namespace Death {
     }
 
     void PrinceVhordrai::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        LegionOfNagashBase::onStartShooting(player);
 
         if (owningPlayer() == player) {
             // Breath of Shyish
@@ -169,7 +169,7 @@ namespace Death {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        Unit::onEndCombat(player);
+        LegionOfNagashBase::onEndCombat(player);
     }
 
 } // namespace Death

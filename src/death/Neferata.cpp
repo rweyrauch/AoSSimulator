@@ -137,11 +137,11 @@ namespace Death {
                                                  int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_clawsAndDaggers.name())) return {0, 1};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void NeferataMortarchOfBlood::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(4, 18.0);
     }
@@ -152,6 +152,6 @@ namespace Death {
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(2);
         // TODO: if any HEROs slain heal an additional wound.
 
-        Unit::onEndCombat(player);
+        LegionOfNagashBase::onEndCombat(player);
     }
 } // namespace Death

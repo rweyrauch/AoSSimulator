@@ -7,7 +7,6 @@
  */
 
 #include <gloomspitegitz/FellwaterTroggoths.h>
-#include <Board.h>
 #include <Roster.h>
 #include <UnitFactory.h>
 

@@ -135,11 +135,11 @@ namespace Death {
                                                  int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_clawsAndDaggers.name())) return {0, 1};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void MannfredMortarchOfNight::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(4, 18.0);
     }
@@ -148,7 +148,7 @@ namespace Death {
         // Feaster of Souls
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(2);
 
-        Unit::onEndCombat(player);
+        LegionOfNagashBase::onEndCombat(player);
     }
 
 } // namespace Death

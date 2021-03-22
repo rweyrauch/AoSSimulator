@@ -5,7 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <algorithm>
 #include <gloomspitegitz/ArachnarokSpiderWithWarparty.h>
 #include <UnitFactory.h>
 #include <iostream>

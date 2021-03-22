@@ -122,7 +122,7 @@ namespace DaughtersOfKhaine {
     }
 
     void BloodwrackShrine::onWounded() {
-        Unit::onWounded();
+        DaughterOfKhaine::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_goadstaves.setAttacks(g_damageTable[damageIndex].m_staveAttacks);
@@ -130,7 +130,7 @@ namespace DaughtersOfKhaine {
     }
 
     void BloodwrackShrine::onRestore() {
-        Unit::onRestore();
+        DaughterOfKhaine::onRestore();
 
         // Restore table-driven attributes
         onWounded();
@@ -147,7 +147,7 @@ namespace DaughtersOfKhaine {
     }
 
     void BloodwrackShrine::onCharged() {
-        Unit::onCharged();
+        DaughterOfKhaine::onCharged();
 
         // Bladed Impact
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -157,7 +157,7 @@ namespace DaughtersOfKhaine {
     }
 
     void BloodwrackShrine::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        DaughterOfKhaine::onStartHero(player);
 
         // Aura of Agony
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 7.0);
@@ -175,7 +175,7 @@ namespace DaughtersOfKhaine {
             Dice::RollD6(target->remainingModels(), result);
             return {0, result.rollsGE(5)};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int BloodwrackShrine::ComputePoints(int /*numModels*/) {

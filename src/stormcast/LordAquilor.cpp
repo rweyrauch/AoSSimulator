@@ -89,7 +89,7 @@ namespace StormcastEternals {
         if ((hitRoll == 6) && (weapon->name() == m_beakAndClaws.name())) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int LordAquilor::ComputePoints(int /*numModels*/) {

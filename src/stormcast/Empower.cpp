@@ -7,7 +7,6 @@
  */
 #include <stormcast/Empower.h>
 #include <Unit.h>
-#include <Board.h>
 
 Empower::Empower(Unit *caster) :
         Spell(caster, "Empower", 6, 12) {

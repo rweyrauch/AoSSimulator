@@ -115,7 +115,7 @@ namespace Slaanesh {
     }
 
     void BladebringerOnHellflayer::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        SlaaneshBase::onStartCombat(player);
 
         m_extraMeleeAttacks = 0;
 

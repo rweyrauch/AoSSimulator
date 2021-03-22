@@ -114,7 +114,7 @@ namespace Death {
     }
 
     int Nagash::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = LegionOfNagashBase::castingModifier();
 
         mod += g_damageTable[getDamageTableIndex()].m_castBonus;
 
@@ -122,7 +122,7 @@ namespace Death {
     }
 
     int Nagash::unbindingModifier() const {
-        auto mod = Unit::unbindingModifier();
+        auto mod = LegionOfNagashBase::unbindingModifier();
 
         mod += g_damageTable[getDamageTableIndex()].m_unbindBonus;
 
@@ -136,7 +136,7 @@ namespace Death {
                 return {0, 1};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Nagash::ComputePoints(int /*numModels*/) {
@@ -147,11 +147,11 @@ namespace Death {
         const int damageIndex = getDamageTableIndex();
         m_zefetNebtar.setAttacks(g_damageTable[damageIndex].m_zefetAttacks);
 
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
     }
 
     void Nagash::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

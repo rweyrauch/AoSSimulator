@@ -159,7 +159,7 @@ namespace StormcastEternals {
 
     int LordCelestantOnStardrake::extraAttacks(const Model *attackingModel, const Weapon *weapon,
                                                const Unit *target) const {
-        int attacks = StormcastEternal::extraAttacks(attackingModel, weapon, target);
+        int attacks = MountedStormcastEternal::extraAttacks(attackingModel, weapon, target);
 
         // Inescapable Vengeance
         if (m_charged) {
@@ -193,7 +193,7 @@ namespace StormcastEternals {
     }
 
     void LordCelestantOnStardrake::onStartCombat(PlayerId player) {
-        StormcastEternal::onStartCombat(player);
+        MountedStormcastEternal::onStartCombat(player);
 
         // Cavernous Jaws
         if (m_meleeTarget) {
@@ -210,7 +210,7 @@ namespace StormcastEternals {
     }
 
     void LordCelestantOnStardrake::onEndCombat(PlayerId player) {
-        StormcastEternal::onEndCombat(player);
+        MountedStormcastEternal::onEndCombat(player);
 
         // Sweeping Tail
         {

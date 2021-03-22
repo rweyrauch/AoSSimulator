@@ -205,7 +205,7 @@ namespace SlavesToDarkness {
         if (m_charged && (weapon->name() == m_lance.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int ChaosKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

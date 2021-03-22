@@ -122,7 +122,7 @@ namespace DaughtersOfKhaine {
     }
 
     void HagQueenOnCauldronOfBlood::onWounded() {
-        Unit::onWounded();
+        DaughterOfKhaine::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_knives.setAttacks(g_damageTable[damageIndex].m_knifeAttacks);
@@ -130,7 +130,7 @@ namespace DaughtersOfKhaine {
     }
 
     void HagQueenOnCauldronOfBlood::onRestore() {
-        Unit::onRestore();
+        DaughterOfKhaine::onRestore();
 
         // Restore table-driven attributes
         onWounded();
@@ -150,7 +150,7 @@ namespace DaughtersOfKhaine {
     }
 
     void HagQueenOnCauldronOfBlood::onCharged() {
-        Unit::onCharged();
+        DaughterOfKhaine::onCharged();
 
         // Bladed Impact
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -179,7 +179,7 @@ namespace DaughtersOfKhaine {
     }
 
     void HagQueenOnCauldronOfBlood::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        DaughterOfKhaine::onStartHero(player);
 
         m_blade.setDamage(1);
 

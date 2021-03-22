@@ -8,7 +8,6 @@
 #include <fyreslayers/TheChosenAxes.h>
 #include <UnitFactory.h>
 #include <Board.h>
-#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
     static const int g_basesize = 32;

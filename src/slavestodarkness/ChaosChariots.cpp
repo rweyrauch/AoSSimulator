@@ -137,7 +137,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosChariots::onRestore() {
-        Unit::onRestore();
+        SlavesToDarknessBase::onRestore();
 
         m_runAndCharge = true;
     }

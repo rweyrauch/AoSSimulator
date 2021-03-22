@@ -33,7 +33,7 @@ namespace Tzeentch {
             auto ka = dynamic_cast<KairicAcolytes *>(target);
             if (ka) {
                 ka->activateGestaltSorcery();
-                result = Spell::Result::Success;;
+                result = Spell::Result::Success;
             }
             return result;
         }

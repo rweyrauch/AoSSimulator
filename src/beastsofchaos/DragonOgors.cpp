@@ -109,7 +109,7 @@ namespace BeastsOfChaos {
         if (shaggoth) {
             return Rerolls::Ones;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return BeastsOfChaosBase::toHitRerolls(weapon, target);
     }
 
     int DragonOgors::ComputePoints(int numModels) {

@@ -5,7 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <algorithm>
 #include <Dice.h>
 #include <sylvaneth/SpiritOfDurthu.h>
 #include <UnitFactory.h>

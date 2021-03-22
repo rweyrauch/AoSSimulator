@@ -8,7 +8,6 @@
 
 #include <khorne/BloodThrone.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include "KhornePrivate.h"
 
 namespace Khorne {

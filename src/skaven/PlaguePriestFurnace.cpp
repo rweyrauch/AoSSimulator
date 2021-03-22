@@ -186,7 +186,7 @@ namespace Skaven {
     }
 
     void PlaguePriestOnPlagueFurnace::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Skaventide::onStartHero(player);
 
         if (player == owningPlayer()) {
             // Noxious Prayers

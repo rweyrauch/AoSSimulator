@@ -5,10 +5,8 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
 #include <ironjawz/MorgoksKrushas.h>
 #include <UnitFactory.h>
-#include "IronjawzPrivate.h"
 
 namespace Ironjawz {
     static const int g_basesize = 40;

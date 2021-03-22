@@ -8,7 +8,6 @@
 #include <gloomspitegitz/Mollog.h>
 #include <UnitFactory.h>
 #include <Board.h>
-#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 50;

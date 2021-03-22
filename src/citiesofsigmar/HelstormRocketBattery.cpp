@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
     }
 
     int HelstormRocketBattery::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Rocket Salvo
         mod++; // Always targeting the same unit with each attack
@@ -92,7 +92,7 @@ namespace CitiesOfSigmar {
         for (auto unit : units) {
             if (unit->hasKeyword(ENGINEER) && unit->hasKeyword(IRONWELD_ARSENAL)) return Rerolls::Ones;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return CitizenOfSigmar::toHitRerolls(weapon, target);
     }
 
     int HelstormRocketBattery::ComputePoints(int /*numModels*/) {

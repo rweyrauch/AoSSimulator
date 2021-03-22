@@ -113,11 +113,11 @@ namespace Slaanesh {
         if (isNamedModelAlive("Banner Bearer")) {
             return Rerolls::Failed;
         }
-        return Unit::chargeRerolls();
+        return SlaaneshBase::chargeRerolls();
     }
 
     int HellstridersWithClawspears::braveryModifier() const {
-        int modifier = Unit::braveryModifier();
+        int modifier = SlaaneshBase::braveryModifier();
         if (isNamedModelAlive(Model::IconBearer)) {
             modifier += 2;
         }
@@ -141,7 +141,7 @@ namespace Slaanesh {
 
     Wounds HellstridersWithClawspears::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
                                                     int woundRoll) const {
-        auto wounds = UnitModifierInterface::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto wounds = SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         // Piercing Strike
         if (m_charged && (weapon->name() == m_clawSpear.name())) {
             wounds.normal++;

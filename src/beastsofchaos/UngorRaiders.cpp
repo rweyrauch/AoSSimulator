@@ -115,7 +115,7 @@ namespace BeastsOfChaos {
                 return Rerolls::Ones;
             }
         }
-        return Unit::toHitRerolls(weapon, target);
+        return BeastsOfChaosBase::toHitRerolls(weapon, target);
     }
 
     int UngorRaiders::ComputePoints(int numModels) {

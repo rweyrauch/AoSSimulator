@@ -82,7 +82,7 @@ namespace BeastsOfChaos {
         if (weapon->name() == m_pairedAxes.name()) {
             return Rerolls::Ones;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return BeastsOfChaosBase::toHitRerolls(weapon, target);
     }
 
     Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
@@ -90,7 +90,7 @@ namespace BeastsOfChaos {
         if (target->hasKeyword(HERO)) {
             return Rerolls::Failed;
         }
-        return Unit::toWoundRerolls(weapon, target);
+        return BeastsOfChaosBase::toWoundRerolls(weapon, target);
     }
 
     int Beastlord::ComputePoints(int /*numModels*/) {

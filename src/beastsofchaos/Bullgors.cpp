@@ -130,7 +130,7 @@ namespace BeastsOfChaos {
     }
 
     int Bullgors::chargeModifier() const {
-        int modifier = Unit::chargeModifier();
+        int modifier = BeastsOfChaosBase::chargeModifier();
         if (isNamedModelAlive(Model::Drummer)) {
             modifier += 1;
         }
@@ -141,11 +141,11 @@ namespace BeastsOfChaos {
         if (m_pairedAxes) {
             return Rerolls::Ones;
         }
-        return Unit::toHitRerolls(weapon, unit);
+        return BeastsOfChaosBase::toHitRerolls(weapon, unit);
     }
 
     int Bullgors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = BeastsOfChaosBase::toSaveModifier(weapon, attacker);
         if (!m_pairedAxes) {
             modifier += 1;
         }
@@ -157,7 +157,7 @@ namespace BeastsOfChaos {
         if (woundRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return BeastsOfChaosBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Bullgors::ComputePoints(int numModels) {

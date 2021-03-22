@@ -98,7 +98,7 @@ namespace Seraphon {
     }
 
     void SlannStarmaster::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SeraphonBase::onStartHero(player);
 
         // Foresight
         if (owningPlayer() == player) {
@@ -109,7 +109,7 @@ namespace Seraphon {
     }
 
     int SlannStarmaster::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = SeraphonBase::castingModifier();
 
         // Masters of Order
         mod++;

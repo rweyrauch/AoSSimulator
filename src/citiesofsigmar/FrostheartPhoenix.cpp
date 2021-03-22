@@ -139,6 +139,7 @@ namespace CitiesOfSigmar {
     }
 
     void FrostheartPhoenix::onRestore() {
+        CitizenOfSigmar::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
@@ -148,7 +149,7 @@ namespace CitiesOfSigmar {
         m_talons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     int FrostheartPhoenix::getDamageTableIndex() const {
@@ -184,7 +185,7 @@ namespace CitiesOfSigmar {
     }
 
     int FrostheartPhoenix::woundModifier() const {
-        auto mod = Unit::woundModifier();
+        auto mod = CitizenOfSigmar::woundModifier();
 
         // Blood of the Ur-Phoenix
         if (m_city == City::Phoenicium) mod++;

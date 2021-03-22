@@ -96,7 +96,7 @@ namespace SlavesToDarkness {
         if (hitRoll == 6) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int SplinteredFang::ComputePoints(int numModels) {

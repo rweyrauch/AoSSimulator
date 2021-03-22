@@ -145,7 +145,7 @@ namespace Seraphon {
     }
 
     void LordKroak::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SeraphonBase::onStartHero(player);
 
         // Impeccable Foresight
         if (owningPlayer() == player) {

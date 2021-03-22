@@ -8,7 +8,6 @@
 
 #include <slaanesh/Sigvald.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
@@ -76,7 +75,7 @@ namespace Slaanesh {
     }
 
     void SigvaldPrinceOfSlaanesh::onCharged() {
-        EventInterface::onCharged();
+        SlaaneshBase::onCharged();
 
         m_shardslash.setAttacks(std::min(5, m_unmodifiedChargeRoll));
     }

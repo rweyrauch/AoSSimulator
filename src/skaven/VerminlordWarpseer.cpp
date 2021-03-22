@@ -153,7 +153,7 @@ namespace Skaven {
     }
 
     void VerminlordWarpseer::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Skaventide::onStartHero(player);
 
         if ((player == owningPlayer()) && (remainingModels() >= 0) && m_roster) {
             auto roll = Dice::RollD6();
@@ -172,7 +172,7 @@ namespace Skaven {
     }
 
     void VerminlordWarpseer::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        Skaventide::onStartShooting(player);
 
         if (!m_usedOrb) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -184,7 +184,7 @@ namespace Skaven {
     }
 
     void VerminlordWarpseer::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         m_usedOrb = false;
 
@@ -193,7 +193,7 @@ namespace Skaven {
     }
 
     void VerminlordWarpseer::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;

@@ -89,7 +89,7 @@ namespace Nighthaunt {
     }
 
     void BlackCoach::onWounded() {
-        Unit::onWounded();
+        Nighthaunt::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
@@ -115,11 +115,11 @@ namespace Nighthaunt {
                 return {0, 1};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void BlackCoach::onBeginRound(int battleRound) {
-        Unit::onBeginRound(battleRound);
+        Nighthaunt::onBeginRound(battleRound);
 
         // Evocation of Death
         Dice::RollResult result;
@@ -138,7 +138,7 @@ namespace Nighthaunt {
     }
 
     void BlackCoach::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Nighthaunt::onStartHero(player);
 
         if ((player == owningPlayer()) && (m_powerLevel >= 1)) {
             // Nimbus of Power
@@ -157,7 +157,7 @@ namespace Nighthaunt {
     }
 
     void BlackCoach::onCharged() {
-        Unit::onCharged();
+        Nighthaunt::onCharged();
 
         if (m_charged && (m_powerLevel >= 3)) {
             // Spectral Scythes
@@ -171,7 +171,7 @@ namespace Nighthaunt {
     }
 
     void BlackCoach::onRestore() {
-        Unit::onRestore();
+        Nighthaunt::onRestore();
 
         m_powerLevel = 0;
         m_runAndCharge = false;
@@ -191,7 +191,7 @@ namespace Nighthaunt {
         if ((m_powerLevel >= 2) && (!weapon->isMissile())) {
             return Rerolls::Ones;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return Nighthaunt::toHitRerolls(weapon, target);
     }
 
     int BlackCoach::ComputePoints(int /*numModels*/) {

@@ -139,7 +139,7 @@ namespace Death {
     }
 
     void VampireLordOnZombieDragon::onWounded() {
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
@@ -148,7 +148,7 @@ namespace Death {
     }
 
     void VampireLordOnZombieDragon::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         m_usedChaliceOfBlood = false;
 
@@ -167,7 +167,7 @@ namespace Death {
     }
 
     void VampireLordOnZombieDragon::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) {
 
@@ -185,18 +185,18 @@ namespace Death {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        Unit::onEndCombat(player);
+        LegionOfNagashBase::onEndCombat(player);
     }
 
     Wounds VampireLordOnZombieDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Deathlance Charge
         if (m_charged && (weapon->name() == m_deathlance.name())) return {3, 0};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int VampireLordOnZombieDragon::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = LegionOfNagashBase::toHitModifier(weapon, target);
 
         // Pestilential Breath
         if ((weapon->name() == m_breath.name())) {

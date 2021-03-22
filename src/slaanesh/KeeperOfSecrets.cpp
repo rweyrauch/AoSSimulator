@@ -183,7 +183,7 @@ namespace Slaanesh {
     }
 
     void KeeperOfSecrets::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        SlaaneshBase::onEndCombat(player);
 
         auto target = m_meleeTarget;
         if (target == nullptr) {
@@ -221,7 +221,7 @@ namespace Slaanesh {
     }
 
     void KeeperOfSecrets::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        SlaaneshBase::onStartCombat(player);
 
         // Dark Temptations
         auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
@@ -258,7 +258,7 @@ namespace Slaanesh {
                 return {0, weapon->damage()};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int KeeperOfSecrets::EnumStringToInt(const std::string &enumString) {

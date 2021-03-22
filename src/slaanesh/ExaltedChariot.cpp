@@ -75,7 +75,7 @@ namespace Slaanesh {
     }
 
     void ExaltedChariot::onCharged() {
-        Unit::onCharged();
+        SlaaneshBase::onCharged();
 
         // Excess of Blades
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);

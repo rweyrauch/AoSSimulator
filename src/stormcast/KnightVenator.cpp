@@ -122,7 +122,7 @@ namespace StormcastEternals {
                 return {Dice::RollD3() + 3, 0, Wounds::Source::Weapon_Missile};
             }
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);;
+        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
 

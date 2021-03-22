@@ -104,7 +104,7 @@ namespace Skaven {
     }
 
     void PlaguePriest::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Skaventide::onStartHero(player);
 
         if (player == owningPlayer()) {
             // Plague Prayers

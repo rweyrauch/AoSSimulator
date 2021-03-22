@@ -106,7 +106,7 @@ namespace Sylvaneth {
             return Rerolls::Ones;
         }
 
-        return Unit::toSaveRerolls(weapon, attacker);
+        return SylvanethBase::toSaveRerolls(weapon, attacker);
     }
 
     int ArchRevenant::ComputePoints(int /*numModels*/) {

@@ -29,12 +29,12 @@ namespace Sylvaneth {
         None,
 
         // Aspects of War
-        Dread_Harvester,        // TODO
-        Gnarled_Warrior,        // TODO
-        Gift_Of_Ghyran,         // TODO
-        Lord_Of_Spites,         // TODO
-        Warsinger,              // TODO
-        Wisdom_Of_The_Ancients, // TODO
+        Dread_Harvester,
+        Gnarled_Warrior,
+        Gift_Of_Ghyran,
+        Lord_Of_Spites,
+        Warsinger,
+        Wisdom_Of_The_Ancients,
 
         // Aspects of Renewal
         Arcane_Bounty,          // TODO
@@ -49,9 +49,9 @@ namespace Sylvaneth {
         Nurtured_By_Magic,      // Gnarlroot
         Legacy_Of_Valour,       // Heartwood
         Mere_Rainfall,          // Ironbark
-        My_Heart_Is_Ice,        // Winterleaf TODO
-        Paragon_Of_Terror,      // Dreadwood TODO
-        Seek_New_Fruit,         // Harvestboon TODO
+        My_Heart_Is_Ice,        // Winterleaf
+        Paragon_Of_Terror,      // Dreadwood
+        Seek_New_Fruit,         // Harvestboon
     };
 
     enum class Artefact : int {
@@ -148,6 +148,10 @@ namespace Sylvaneth {
         void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
+
+        void onStartHero(PlayerId player) override;
+
+        int chargeModifier() const override;
 
     protected:
 

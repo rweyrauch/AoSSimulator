@@ -100,7 +100,7 @@ namespace Slaanesh {
         if ((woundRoll == 6) && !weapon->isMissile()) {
             return {0, 1};
         }
-        return UnitModifierInterface::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls MyrmideshPainbringers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {

@@ -124,7 +124,7 @@ namespace Bonesplitterz {
     }
 
     int WurrgogProphet::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = Bonesplitterz::targetHitModifier(weapon, attacker);
         // Beast Mask
         if (!weapon->isMissile()) {
             mod -= 1;
@@ -133,7 +133,7 @@ namespace Bonesplitterz {
     }
 
     void WurrgogProphet::onStartHero(PlayerId playerId) {
-        Unit::onStartHero(playerId);
+        Bonesplitterz::onStartHero(playerId);
 
         if (owningPlayer() == playerId) {
             // Prophet of Da Waaagh!

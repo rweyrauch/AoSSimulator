@@ -148,7 +148,7 @@ namespace Slaanesh {
         } else if (woundsTaken() >= 4) {
             m_dagger.activate(false);
         }
-        Unit::onWounded();
+        SlaaneshBase::onWounded();
     }
 
     int GlutosOrscollion::getDamageTableIndex() const {
@@ -179,14 +179,14 @@ namespace Slaanesh {
     }
 
     int GlutosOrscollion::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = SlaaneshBase::castingModifier();
         // The Leerstave of Loth'shar
         mod++;
         return mod;
     }
 
     int GlutosOrscollion::unbindingModifier() const {
-        auto mod = Unit::unbindingModifier();
+        auto mod = SlaaneshBase::unbindingModifier();
         // The Leerstave of Loth'shar
         mod++;
         return mod;
@@ -197,7 +197,7 @@ namespace Slaanesh {
         if ((hitRoll == 6) && (weapon->name() == m_greatblade.name())) {
             return {0, 2, Wounds::Source::Weapon_Melee};
         }
-        return UnitModifierInterface::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls GlutosOrscollion::chargeRerolls() const {
@@ -205,11 +205,11 @@ namespace Slaanesh {
         if (m_scourge.isActive()) {
             return Rerolls::Failed;
         }
-        return Unit::chargeRerolls();
+        return SlaaneshBase::chargeRerolls();
     }
 
     void GlutosOrscollion::onStartHero(PlayerId player) {
-        EventInterface::onStartHero(player);
+        SlaaneshBase::onStartHero(player);
 
         m_protectedByDolece = false;
         // Priestess Dolece
@@ -225,7 +225,7 @@ namespace Slaanesh {
         if (m_protectedByDolece) {
             totalWounds = ignoreWounds(totalWounds, 6);
         }
-        return Unit::applyWoundSave(totalWounds, attackingUnit);
+        return SlaaneshBase::applyWoundSave(totalWounds, attackingUnit);
     }
 
     int GlutosOrscollion::fogOfTemptation(const Unit *attacker, const Weapon *weapon, const Unit *target) {
@@ -243,14 +243,14 @@ namespace Slaanesh {
     }
 
     void GlutosOrscollion::onBeginRound(int battleRound) {
-        EventInterface::onBeginRound(battleRound);
+        SlaaneshBase::onBeginRound(battleRound);
 
         // Starter
         m_runAndCharge = (battleRound >= 2);
     }
 
     void GlutosOrscollion::onStartBattleshock(PlayerId player) {
-        EventInterface::onStartBattleshock(player);
+        SlaaneshBase::onStartBattleshock(player);
 
         // Main Course
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
@@ -260,7 +260,7 @@ namespace Slaanesh {
     }
 
     void GlutosOrscollion::onEndHero(PlayerId player) {
-        EventInterface::onEndHero(player);
+        SlaaneshBase::onEndHero(player);
 
         // Dessert
         if (owningPlayer() == player) {

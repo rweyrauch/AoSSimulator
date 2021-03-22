@@ -146,7 +146,7 @@ namespace StormcastEternals {
                 Wounds slamWounds = {0, Dice::RollD3()};
                 m_meleeTarget->applyDamage(slamWounds, this);
             }
-        };
+        }
     }
 
     int LordOrdinator::arcaneEngineer(const Unit * /*attacker*/, const Weapon * /*weapon*/, const Unit *target) {

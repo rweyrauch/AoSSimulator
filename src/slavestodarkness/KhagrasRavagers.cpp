@@ -8,7 +8,6 @@
 #include "UnitFactory.h"
 #include "spells/MysticShield.h"
 #include "slavestodarkness/KhagrasRavagers.h"
-#include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
     static const int g_basesize = 32;
@@ -105,7 +104,7 @@ namespace SlavesToDarkness {
 
             return totalWounds;
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
     }
 
     int KhagrasRavagers::ComputePoints(int) {

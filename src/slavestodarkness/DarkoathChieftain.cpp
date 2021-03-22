@@ -80,7 +80,7 @@ namespace SlavesToDarkness {
     }
 
     int DarkoathChieftain::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = SlavesToDarknessBase::extraAttacks(attackingModel, weapon, target);
 
         // Berserk Charge
         if (m_charged && (weapon->name() == m_broadsword.name())) extra += 3;

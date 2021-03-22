@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <gloomspitegitz/SneakySnufflers.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include <Roster.h>
 
 namespace GloomspiteGitz {

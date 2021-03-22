@@ -126,7 +126,7 @@ namespace Slaanesh {
                 return {RAND_D6, 0};
         }
 
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Fiends::ComputePoints(int numModels) {

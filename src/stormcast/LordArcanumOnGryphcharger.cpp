@@ -106,7 +106,7 @@ namespace StormcastEternals {
     }
 
     void LordArcanumOnGryphcharger::onStartCombat(PlayerId player) {
-        StormcastEternal::onStartCombat(player);
+        MountedStormcastEternal::onStartCombat(player);
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);

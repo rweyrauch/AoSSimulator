@@ -145,18 +145,18 @@ namespace Death {
     Wounds CovenThrone::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void CovenThrone::onEndCombat(PlayerId player) {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        Unit::onEndCombat(player);
+        LegionOfNagashBase::onEndCombat(player);
     }
 
     void CovenThrone::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(3, 12.0);
     }

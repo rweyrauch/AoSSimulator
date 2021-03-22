@@ -76,7 +76,7 @@ namespace SlavesToDarkness {
         if ((unmodifiedHitRoll == 6) && (!weapon->isMissile())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SlavesToDarknessBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int OgroidMyrmidon::ComputePoints(int /*numModels*/) {

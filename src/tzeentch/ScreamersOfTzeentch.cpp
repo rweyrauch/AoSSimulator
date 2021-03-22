@@ -8,7 +8,6 @@
 
 #include <tzeentch/ScreamersOfTzeentch.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include "TzeentchPrivate.h"
 
 namespace Tzeentch {

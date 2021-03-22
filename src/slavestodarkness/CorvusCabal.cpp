@@ -94,7 +94,7 @@ namespace SlavesToDarkness {
         if (isNamedModelAlive("Shrike Talon")) {
             return Rerolls::Ones;
         }
-        return Unit::chargeRerolls();
+        return SlavesToDarknessBase::chargeRerolls();
     }
 
     int CorvusCabal::ComputePoints(int numModels) {

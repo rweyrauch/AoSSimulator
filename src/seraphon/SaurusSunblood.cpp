@@ -8,7 +8,6 @@
 
 #include <seraphon/SaurusSunblood.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {

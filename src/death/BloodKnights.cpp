@@ -109,11 +109,11 @@ namespace Death {
         if (m_charged && weapon->name() == m_templarLanceOrBlade.name()) {
             return {weapon->damage() + Dice::RollD3(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int BloodKnights::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = LegionOfNagashBase::toSaveModifier(weapon, attacker);
 
         // Bloodshields
         if (weapon->rend() == 0) {
@@ -133,7 +133,7 @@ namespace Death {
 
     int BloodKnights::rollChargeDistance() {
         // Hornblower
-        auto dist = Unit::rollChargeDistance();
+        auto dist = LegionOfNagashBase::rollChargeDistance();
         return std::max(6, dist);
     }
 
@@ -146,7 +146,7 @@ namespace Death {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        Unit::onEndCombat(player);
+        LegionOfNagashBase::onEndCombat(player);
     }
 
 } //namespace Death

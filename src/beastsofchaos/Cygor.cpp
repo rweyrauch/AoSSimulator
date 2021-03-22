@@ -98,7 +98,7 @@ namespace BeastsOfChaos {
         m_massiveHorns.setAttacks(g_damageTable[damageIndex].m_hornAttacts);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        BeastsOfChaosBase::onWounded();
     }
 
     int Cygor::getDamageTableIndex() const {
@@ -115,7 +115,7 @@ namespace BeastsOfChaos {
         // Ghostsight
         if (target->hasKeyword(WIZARD))
             return Rerolls::Failed;
-        return Unit::toHitRerolls(weapon, target);
+        return BeastsOfChaosBase::toHitRerolls(weapon, target);
     }
 
     int Cygor::ComputePoints(int /*numModels*/) {
@@ -123,7 +123,7 @@ namespace BeastsOfChaos {
     }
 
     void Cygor::onUnboundSpell(Unit *caster, int castRoll) {
-        Unit::onUnboundSpell(caster, castRoll);
+        BeastsOfChaosBase::onUnboundSpell(caster, castRoll);
 
         // Soul-eater
         caster->applyDamage({0, 1}, this);

@@ -93,7 +93,7 @@ namespace Bonesplitterz {
     }
 
     void Wardokk::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Bonesplitterz::onStartHero(player);
 
         // Ritual Dance
         if (owningPlayer() == player) {

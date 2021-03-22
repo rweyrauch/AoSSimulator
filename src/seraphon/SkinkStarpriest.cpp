@@ -122,7 +122,7 @@ namespace Seraphon {
     }
 
     void SkinkStarpriest::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SeraphonBase::onStartHero(player);
 
         // Astral Herald
         if (owningPlayer() == player) {

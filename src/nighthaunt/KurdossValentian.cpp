@@ -78,14 +78,14 @@ namespace Nighthaunt {
         if ((woundRoll == 6) && (weapon->name() == m_sceptre.name())) {
             return {Dice::RollD6(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls KurdossValentian::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (target->isGeneral() && (weapon->name() == m_sceptre.name())) {
             return Rerolls::Failed;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return Nighthaunt::toHitRerolls(weapon, target);
     }
 
     int KurdossValentian::ComputePoints(int /*numModels*/) {

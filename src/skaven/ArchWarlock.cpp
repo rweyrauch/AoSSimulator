@@ -91,7 +91,7 @@ namespace Skaven {
     }
 
     void ArchWarlock::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         // TODO: check damage on enemy
         if (m_moreMoreFailed) {
@@ -115,18 +115,18 @@ namespace Skaven {
                 return {RAND_D6, 0};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void ArchWarlock::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         m_moreMoreFailed = false;
         m_usedGauntlet = false;
     }
 
     void ArchWarlock::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        Skaventide::onStartShooting(player);
 
         // Warpfire Gauntlet
         if ((owningPlayer() == player) && !m_usedGauntlet) {

@@ -6,7 +6,6 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <fyreslayers/Doomseeker.h>
-#include <Board.h>
 #include <UnitFactory.h>
 #include "FyreslayerPrivate.h"
 

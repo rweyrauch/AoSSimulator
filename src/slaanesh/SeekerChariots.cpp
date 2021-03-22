@@ -87,7 +87,7 @@ namespace Slaanesh {
     }
 
     void SeekerChariots::onCharged() {
-        Unit::onCharged();
+        SlaaneshBase::onCharged();
 
         // Multilating Blades
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);

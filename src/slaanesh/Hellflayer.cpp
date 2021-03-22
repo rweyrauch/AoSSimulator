@@ -79,7 +79,7 @@ namespace Slaanesh {
 
     int Hellflayer::extraAttacks(const Model *attackingModel, const Weapon *weapon,
                                  const Unit *target) const {
-        auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extras = SlaaneshBase::extraAttacks(attackingModel, weapon, target);
 
         // Soulscent
         if (!weapon->isMissile()) extras += m_extraMeleeAttacks;
@@ -88,7 +88,7 @@ namespace Slaanesh {
     }
 
     void Hellflayer::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        SlaaneshBase::onStartCombat(player);
 
         m_extraMeleeAttacks = 0;
 

@@ -128,7 +128,7 @@ namespace DaughtersOfKhaine {
     }
 
     void MelusaiIronscale::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        DaughterOfKhaine::onEndCombat(player);
 
         // Turned to Crystal
         if (owningPlayer() == player) {

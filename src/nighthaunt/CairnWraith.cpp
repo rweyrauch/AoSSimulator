@@ -81,7 +81,7 @@ namespace Nighthaunt {
     Wounds CairnWraith::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_scythe.name())) return {0, 2};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls CairnWraith::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
@@ -89,7 +89,7 @@ namespace Nighthaunt {
         if (weapon->name() == m_scythe.name() && unit->remainingModels() >= 5) {
             return Rerolls::Failed;
         }
-        return Unit::toHitRerolls(weapon, unit);
+        return Nighthaunt::toHitRerolls(weapon, unit);
     }
 
 } // namespace Nighthaunt

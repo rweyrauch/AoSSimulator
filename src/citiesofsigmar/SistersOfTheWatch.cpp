@@ -98,7 +98,7 @@ namespace CitiesOfSigmar {
     }
 
     int SistersOfTheWatch::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extras = CitizenOfSigmar::extraAttacks(attackingModel, weapon, target);
 
         if (weapon->name() == m_bow.name()) {
             // Quicksilver Shot
@@ -115,7 +115,7 @@ namespace CitiesOfSigmar {
         if ((woundRoll == 6) && (weapon->name() == m_bow.name())) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int SistersOfTheWatch::ComputePoints(int numModels) {

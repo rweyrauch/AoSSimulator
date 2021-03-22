@@ -9,7 +9,6 @@
 #include <beastsofchaos/ChaosGargant.h>
 #include <UnitFactory.h>
 #include <Board.h>
-#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int g_basesize = 90; // x52 oval

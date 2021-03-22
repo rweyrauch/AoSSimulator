@@ -191,7 +191,7 @@ namespace Slaanesh {
                 return {damage, 0};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     std::string ShalaxiHelbane::ValueToString(const Parameter &parameter) {
@@ -238,7 +238,7 @@ namespace Slaanesh {
     }
 
     void ShalaxiHelbane::onStartCombat(PlayerId player) {
-        EventInterface::onStartCombat(player);
+        SlaaneshBase::onStartCombat(player);
 
         // Living Whip
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);

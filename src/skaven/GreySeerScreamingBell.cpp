@@ -198,7 +198,7 @@ namespace Skaven {
     }
 
     void GreySeerOnScreamingBell::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Skaventide::onStartHero(player);
 
         m_unholySoundActive = false;
 

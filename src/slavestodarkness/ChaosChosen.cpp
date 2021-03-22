@@ -126,7 +126,7 @@ namespace SlavesToDarkness {
         if ((hitRoll >= 6) && (weapon->name() == m_greataxe.name())) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int ChaosChosen::ComputePoints(int numModels) {

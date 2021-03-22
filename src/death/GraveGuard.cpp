@@ -144,7 +144,7 @@ namespace Death {
             // Cursed Weapons 2x damage on 6+
             return {weapon->damage() + weapon->damage(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int GraveGuard::ComputePoints(int numModels) {
@@ -157,7 +157,7 @@ namespace Death {
 
     int GraveGuard::rollChargeDistance() {
         // Hornblower
-        auto dist = Unit::rollChargeDistance();
+        auto dist = LegionOfNagashBase::rollChargeDistance();
         if (isNamedModelAlive(Model::Hornblower))
             return std::max(6, dist);
         return dist;

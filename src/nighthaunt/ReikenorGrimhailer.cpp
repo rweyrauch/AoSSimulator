@@ -121,7 +121,7 @@ namespace Nighthaunt {
             return Rerolls::Failed;
         }
 
-        return Unit::toHitRerolls(weapon, target);
+        return Nighthaunt::toHitRerolls(weapon, target);
     }
 
     int ReikenorTheGrimhailer::ComputePoints(int /*numModels*/) {

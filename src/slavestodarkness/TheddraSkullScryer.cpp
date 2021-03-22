@@ -93,7 +93,7 @@ namespace SlavesToDarkness {
     Rerolls TheddraSkullscryer::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // Pact of Soul and Iron
         if (target->hasKeyword(STORMCAST_ETERNAL)) return Rerolls::Failed;
-        return Unit::toWoundRerolls(weapon, target);
+        return SlavesToDarknessBase::toWoundRerolls(weapon, target);
     }
 
 } // namespace SlavesToDarkness

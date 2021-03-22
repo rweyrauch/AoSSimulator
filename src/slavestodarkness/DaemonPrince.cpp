@@ -131,7 +131,7 @@ namespace SlavesToDarkness {
         if ((weapon->name() == m_sword.name()) && (hitRoll == 6)) {
             return {0, 2};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace SlavesToDarkness

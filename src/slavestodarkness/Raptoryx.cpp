@@ -76,7 +76,7 @@ namespace SlavesToDarkness {
     }
 
     int Raptoryx::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        int extra = Unit::extraAttacks(attackingModel, weapon, target);
+        int extra = SlavesToDarknessBase::extraAttacks(attackingModel, weapon, target);
         // Crazed Flock
         if (m_charged) {
             extra += 1;

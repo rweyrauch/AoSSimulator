@@ -107,7 +107,7 @@ namespace SlavesToDarkness {
 
     Wounds
     ChaosLordOnKarkadrak::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         // Daemonbound
         if ((hitRoll == 6) && (weapon->name() == m_blade.name())) {
             damage.mortal++;
@@ -116,7 +116,7 @@ namespace SlavesToDarkness {
     }
 
     Wounds ChaosLordOnKarkadrak::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        auto savedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto savedWounds = SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
         Dice::RollResult result;
         // Rune-etched Plating
         Dice::RollD6(savedWounds.mortal, result);

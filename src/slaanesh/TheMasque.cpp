@@ -8,7 +8,6 @@
 
 #include <slaanesh/TheMasque.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
@@ -82,7 +81,7 @@ namespace Slaanesh {
     }
 
     void TheMasque::onStartHero(PlayerId player) {
-        EventInterface::onStartHero(player);
+        SlaaneshBase::onStartHero(player);
 
         // Staff of Masks
         if (owningPlayer() == player) {
@@ -98,7 +97,7 @@ namespace Slaanesh {
     Rerolls TheMasque::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
         // The Endless Dance
         if (target->move() <= 5) return Rerolls::Failed;
-        return Unit::toWoundRerolls(weapon, target);
+        return SlaaneshBase::toWoundRerolls(weapon, target);
     }
 
     Rerolls TheMasque::toHitRerolls(const Weapon *weapon, const Unit *target) const {
@@ -110,7 +109,7 @@ namespace Slaanesh {
     Wounds TheMasque::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Inhuman Reflexes
         Wounds totalWounds = ignoreWounds(wounds, 4);
-        return Unit::applyWoundSave(totalWounds, attackingUnit);
+        return SlaaneshBase::applyWoundSave(totalWounds, attackingUnit);
     }
 
 } // Slannesh

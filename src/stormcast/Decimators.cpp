@@ -8,7 +8,6 @@
 #include <stormcast/Decimators.h>
 #include <UnitFactory.h>
 #include <iostream>
-#include <Board.h>
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {

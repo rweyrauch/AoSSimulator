@@ -8,7 +8,6 @@
 
 #include <slaanesh/TheDreadPageant.h>
 #include <UnitFactory.h>
-#include <Board.h>
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
@@ -112,7 +111,7 @@ namespace Slaanesh {
         if (hitRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
 } // Slannesh

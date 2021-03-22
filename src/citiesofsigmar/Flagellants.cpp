@@ -95,7 +95,7 @@ namespace CitiesOfSigmar {
     }
 
     int Flagellants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extras = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extras = CitizenOfSigmar::extraAttacks(attackingModel, weapon, target);
 
         // Glorious Martyrs
         if (m_modelsSlain >= 5) {
@@ -107,7 +107,7 @@ namespace CitiesOfSigmar {
     }
 
     int Flagellants::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Fanatical Fury
         if (m_charged) mod++;
@@ -116,7 +116,7 @@ namespace CitiesOfSigmar {
     }
 
     int Flagellants::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toWoundModifier(weapon, target);
 
         // Fanatical Fury
         if (m_charged) mod++;
@@ -136,7 +136,7 @@ namespace CitiesOfSigmar {
                 closestTarget->applyDamage({0, numMortalWounds}, this);
             }
         }
-        Unit::onFlee(numFled);
+        CitizenOfSigmar::onFlee(numFled);
     }
 
     int Flagellants::ComputePoints(int numModels) {

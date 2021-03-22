@@ -86,7 +86,7 @@ namespace SlavesToDarkness {
     }
 
     int FomoroidCrusher::rollChargeDistance() {
-        m_lastChargeDistance = Unit::rollChargeDistance();
+        m_lastChargeDistance = SlavesToDarknessBase::rollChargeDistance();
         return m_lastChargeDistance;
     }
 

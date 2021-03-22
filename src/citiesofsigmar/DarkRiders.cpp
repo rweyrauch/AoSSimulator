@@ -120,13 +120,13 @@ namespace CitiesOfSigmar {
     }
 
     int DarkRiders::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int DarkRiders::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
@@ -136,7 +136,7 @@ namespace CitiesOfSigmar {
         if (m_charged && (weapon->name() == m_spear.name())) {
             return {2, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int DarkRiders::ComputePoints(int numModels) {

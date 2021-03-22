@@ -93,7 +93,7 @@ namespace Death {
     }
 
     void MortisEngine::onWounded() {
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_etherealWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
@@ -101,7 +101,7 @@ namespace Death {
     }
 
     void MortisEngine::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();
@@ -120,11 +120,11 @@ namespace Death {
     Wounds MortisEngine::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void MortisEngine::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        LegionOfNagashBase::onStartShooting(player);
 
         // Wail of the Damned
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),

@@ -89,7 +89,7 @@ namespace StormcastEternals {
         if (target->hasKeyword(HERO)) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int NeaveBlacktalon::ComputePoints(int /*numModels*/) {

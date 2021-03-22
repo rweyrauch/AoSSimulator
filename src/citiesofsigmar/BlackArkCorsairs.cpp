@@ -140,19 +140,19 @@ namespace CitiesOfSigmar {
     }
 
     int BlackArkCorsairs::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = CitizenOfSigmar::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) mod++;
         return mod;
     }
 
     int BlackArkCorsairs::braveryModifier() const {
-        auto mod = Unit::braveryModifier();
+        auto mod = CitizenOfSigmar::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) mod++;
         return mod;
     }
 
     int BlackArkCorsairs::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = CitizenOfSigmar::toHitModifier(weapon, target);
 
         // Flashing Steel
         if (remainingModels() >= 15) mod++;

@@ -140,7 +140,7 @@ namespace Death {
 
     int
     SkeletonWarriors::extraAttacks(const Model * /*attackingModel*/, const Weapon *weapon, const Unit *target) const {
-        int attacks = Unit::extraAttacks(nullptr, weapon, target);
+        int attacks = LegionOfNagashBase::extraAttacks(nullptr, weapon, target);
         // Skeleton Legion
         if (remainingModels() >= 30) {
             attacks += 2;
@@ -151,7 +151,7 @@ namespace Death {
     }
 
     int SkeletonWarriors::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = Unit::toHitModifier(weapon, target);
+        int modifier = LegionOfNagashBase::toHitModifier(weapon, target);
 
         // Serve in Death
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
@@ -175,7 +175,7 @@ namespace Death {
 
     int SkeletonWarriors::rollChargeDistance() {
         // Hornblower
-        auto dist = Unit::rollChargeDistance();
+        auto dist = LegionOfNagashBase::rollChargeDistance();
         if (isNamedModelAlive(Model::Hornblower))
             return std::max(6, dist);
         return dist;

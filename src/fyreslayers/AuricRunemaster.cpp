@@ -118,7 +118,7 @@ namespace Fyreslayers {
     }
 
     void AuricRunemaster::onRestore() {
-        Unit::onRestore();
+        Fyreslayer::onRestore();
 
         m_holySeekerToHit = false;
         m_holySeekerToWound = false;

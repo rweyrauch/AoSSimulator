@@ -8,7 +8,6 @@
 #include <fyreslayers/FjulGrimnir.h>
 #include <Board.h>
 #include <UnitFactory.h>
-#include "FyreslayerPrivate.h"
 
 namespace Fyreslayers {
 

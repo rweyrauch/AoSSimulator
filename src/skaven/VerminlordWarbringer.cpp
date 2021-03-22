@@ -133,7 +133,7 @@ namespace Skaven {
         if ((woundRoll == 6) && (weapon->name() == m_fist.name())) {
             return {weapon->damage() + 4, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls VerminlordWarbringer::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
@@ -148,11 +148,11 @@ namespace Skaven {
         if (totalModels >= 13)
             return Rerolls::Failed;
 
-        return Unit::toWoundRerolls(weapon, target);
+        return Skaventide::toWoundRerolls(weapon, target);
     }
 
     void VerminlordWarbringer::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const int damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -161,7 +161,7 @@ namespace Skaven {
     }
 
     void VerminlordWarbringer::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         // Restore table-driven attributes
         onWounded();

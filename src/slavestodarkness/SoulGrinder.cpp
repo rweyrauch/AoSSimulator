@@ -137,7 +137,7 @@ namespace SlavesToDarkness {
         if ((weapon->name() == m_claw.name()) && (hitRoll == 6)) {
             return {0, Dice::RollD6()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void SoulGrinder::onWounded() {
@@ -150,7 +150,7 @@ namespace SlavesToDarkness {
     }
 
     void SoulGrinder::onRestore() {
-        Unit::onRestore();
+        SlavesToDarknessBase::onRestore();
 
         // Reset table-drive attributes
         onWounded();
