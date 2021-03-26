@@ -28,7 +28,7 @@ namespace Fyreslayers {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool AuricRunesonOnMagmadroth::configure(MountTrait trait) {
+    void AuricRunesonOnMagmadroth::configure(MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_fyrestream);
@@ -42,8 +42,6 @@ namespace Fyreslayers {
         m_mountTrait = trait;
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AuricRunesonOnMagmadroth::Create(const ParameterList &parameters) {
@@ -63,11 +61,7 @@ namespace Fyreslayers {
 
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
 
-        bool ok = unit->configure(mount);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(mount);
         return unit;
     }
 

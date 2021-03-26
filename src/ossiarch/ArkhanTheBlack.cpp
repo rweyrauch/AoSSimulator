@@ -44,11 +44,7 @@ namespace OssiarchBonereapers {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -118,7 +114,7 @@ namespace OssiarchBonereapers {
         Unit::onWounded();
     }
 
-    int ArkhanTheBlack::getDamageTableIndex() const {
+    size_t ArkhanTheBlack::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

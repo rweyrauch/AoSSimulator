@@ -55,7 +55,7 @@ namespace CitiesOfSigmar {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         bool m_shield = false;
 

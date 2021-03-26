@@ -45,7 +45,7 @@ namespace GloomspiteGitz {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         bool m_eatenRedcapMushroom = false;
         Rerolls m_toHitRerolls = Rerolls::None;

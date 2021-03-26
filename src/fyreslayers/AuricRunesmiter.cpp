@@ -49,7 +49,7 @@ namespace Fyreslayers {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool AuricRunesmiter::configure(Blessing blessing, WeaponOption weaponOption) {
+    void AuricRunesmiter::configure(Blessing blessing, WeaponOption weaponOption) {
 
         m_weaponOption = weaponOption;
 
@@ -65,8 +65,6 @@ namespace Fyreslayers {
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateZharrgrimBlessing(blessing, this)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AuricRunesmiter::Create(const ParameterList &parameters) {
@@ -87,11 +85,7 @@ namespace Fyreslayers {
         auto prayer = (Blessing) GetEnumParam("Prayer", parameters, g_prayers[0]);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Runic_Iron);
 
-        bool ok = unit->configure(prayer, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(prayer, weapons);
         return unit;
     }
 

@@ -151,7 +151,7 @@ namespace Slaanesh {
         Unit::onWounded();
     }
 
-    int ShalaxiHelbane::getDamageTableIndex() const {
+    size_t ShalaxiHelbane::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

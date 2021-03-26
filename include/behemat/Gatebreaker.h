@@ -24,11 +24,11 @@ namespace SonsOfBehemat {
 
         ~Gatebreaker() override = default;
 
-        bool configure();
-
     protected:
 
-        int getDamageTableIndex() const;
+        void configure();
+
+        size_t getDamageTableIndex() const;
 
         void onWounded() override;
 
@@ -49,10 +49,10 @@ namespace SonsOfBehemat {
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
-        Weapon m_boulder,
-            m_stomp,
-            m_grip,
-            m_flail;
+        Weapon m_boulder{Weapon::Type::Missile, "Hurled Boulder", 18, 1, 3, 2, -3, 4},
+            m_stomp{Weapon::Type::Melee, "Almighty Stomp", 2, 2, 3, 3, -2, RAND_D3},
+            m_grip{Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6},
+            m_flail{Weapon::Type::Melee, "Fortcrusha Flail", 3, 10, 4, 3, -3, 3};
 
         lsignal::slot m_connection;
 

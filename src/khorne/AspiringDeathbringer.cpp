@@ -47,17 +47,19 @@ namespace Khorne {
     bool AspiringDeathbringer::s_registered = false;
 
     AspiringDeathbringer::AspiringDeathbringer() :
-            KhorneBase("Aspiring Deathbringer", 5, g_wounds, 7, 4, false),
-            m_bloodAxe(Weapon::Type::Melee, "Bloodaxe", 1, 3, 3, 4, 0, 1),
-            m_wrathHammer(Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 3, 4, 0, 1),
-            m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1),
-            m_skullhammer(Weapon::Type::Melee, "Skullhammer", 3, 3, 4, 3, 0, 1) {
+            KhorneBase("Aspiring Deathbringer", 5, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, ASPIRING_DEATHBRINGER};
         m_weapons = {&m_bloodAxe, &m_wrathHammer, &m_goreaxe, &m_skullhammer};
         m_battleFieldRole = Role::Leader;
+
+        s_globalBattleshockFleeModifier.connect(this, &AspiringDeathbringer::baneOfCowards, &m_baneOfCowards);
     }
 
-    bool AspiringDeathbringer::configure(WeaponOption weapon) {
+    AspiringDeathbringer::~AspiringDeathbringer() {
+        m_baneOfCowards.disconnect();
+    }
+
+    void AspiringDeathbringer::configure(WeaponOption weapon) {
         m_weaponOption = weapon;
 
         auto model = new Model(g_basesize, wounds());
@@ -74,8 +76,6 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<SlaughterIncarnate>(this));
-
-        return true;
     }
 
     Unit *AspiringDeathbringer::Create(const ParameterList &parameters) {
@@ -94,11 +94,8 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon);
+
         return unit;
     }
 
@@ -149,5 +146,11 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
+    int AspiringDeathbringer::baneOfCowards(const Unit *unit, int /*roll*/) {
+        if (distanceTo(unit) < 3.0) {
+            return Dice::RollD3();
+        }
+        return 0;
+    }
 
 } // namespace Khorne

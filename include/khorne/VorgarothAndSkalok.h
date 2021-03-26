@@ -25,11 +25,11 @@ namespace Khorne {
 
         ~VorgarothAndSkalok() override;
 
-        bool configure();
-
     protected:
 
-        int getDamageTableIndex() const;
+        void configure();
+
+        size_t getDamageTableIndex() const;
 
         void onWounded() override;
 

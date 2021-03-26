@@ -46,7 +46,7 @@ namespace GloomspiteGitz {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Weapon m_spiderBows,
                 m_spiderGodStaff,

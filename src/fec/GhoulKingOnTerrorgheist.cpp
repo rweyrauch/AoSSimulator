@@ -131,11 +131,7 @@ namespace FleshEaterCourt {
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_terrorgheistMountTraits[0]);
 
-        bool ok = unit->configure(lore, mount);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore, mount);
         return unit;
     }
 
@@ -187,7 +183,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int AbhorrantGhoulKingOnTerrorgheist::getDamageTableIndex() const {
+    size_t AbhorrantGhoulKingOnTerrorgheist::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

@@ -21,7 +21,7 @@ namespace Fyreslayers {
     protected:
         Magmadroth(const std::string &name, int bravery);
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         void onWounded() override;
 

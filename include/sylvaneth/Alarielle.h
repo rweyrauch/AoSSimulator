@@ -39,7 +39,7 @@ namespace Sylvaneth {
 
         void onRestore() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         void onCharged() override;
 

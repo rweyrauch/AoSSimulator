@@ -23,17 +23,26 @@ namespace Khorne {
 
         ValkiaTheBloody();
 
-        ~ValkiaTheBloody() override = default;
-
-        bool configure();
+        ~ValkiaTheBloody() override;
 
     protected:
+
+        void configure();
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
 
+    protected:
+
+        Rerolls gazeOfKhorne(const Unit *unit);
+
+        int gazeOfKhorneFlee(const Unit *unit, int roll);
+
     private:
+
+        lsignal::slot m_gazeOfKhorne;
+        lsignal::slot m_gazeOfKhorneFlee;
 
         Weapon m_slaupnir;
 

@@ -60,11 +60,7 @@ namespace DaughtersOfKhaine {
 
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
 
-        bool ok = unit->configure(prayer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(prayer);
         return unit;
     }
 

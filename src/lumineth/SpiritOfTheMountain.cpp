@@ -122,7 +122,7 @@ namespace LuminethRealmLords {
         LuminethBase::onWounded();
     }
 
-    int AlarithSpiritOfTheMountain::getDamageTableIndex() const {
+    size_t AlarithSpiritOfTheMountain::getDamageTableIndex() const {
 
         // Stonemage Symbiosis
         auto mage = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), STONEMAGE, 12.0f);

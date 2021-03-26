@@ -43,7 +43,7 @@ namespace Seraphon {
 
         void onRestore() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

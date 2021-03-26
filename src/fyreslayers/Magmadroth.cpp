@@ -108,7 +108,7 @@ namespace Fyreslayers {
         return Fyreslayer::computeReturnedDamage(weapon, saveRoll);
     }
 
-    int Magmadroth::getDamageTableIndex() const {
+    size_t Magmadroth::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

@@ -18,11 +18,7 @@ namespace Skaven {
     Unit *SpiteclawsSwarm::Create(const ParameterList &parameters) {
         auto unit = new SpiteclawsSwarm();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

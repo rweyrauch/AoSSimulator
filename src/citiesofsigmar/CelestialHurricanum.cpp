@@ -115,11 +115,7 @@ namespace CitiesOfSigmar {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(battlemage, lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(battlemage, lore);
         return unit;
     }
 
@@ -219,7 +215,7 @@ namespace CitiesOfSigmar {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    int CelestialHurricanum::getDamageTableIndex() const {
+    size_t CelestialHurricanum::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

@@ -24,11 +24,7 @@ namespace Khorne {
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -58,7 +54,7 @@ namespace Khorne {
         m_weapons = {&m_bellyMaw, &m_daemonicAxe, &m_goreaxe};
     }
 
-    bool MagoresFiends::configure() {
+    void MagoresFiends::configure() {
         auto magore = new Model(g_basesize, wounds());
         magore->setName("Magore");
         magore->addMeleeWeapon(&m_bellyMaw);
@@ -76,8 +72,6 @@ namespace Khorne {
         addModel(zharkus);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Rerolls MagoresFiends::toHitRerolls(const Weapon *weapon, const Unit *target) const {

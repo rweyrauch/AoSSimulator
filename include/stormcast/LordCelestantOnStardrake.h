@@ -40,7 +40,7 @@ namespace StormcastEternals {
 
         void onWounded() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

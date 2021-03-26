@@ -37,11 +37,7 @@ namespace CitiesOfSigmar {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -85,14 +81,12 @@ namespace CitiesOfSigmar {
         m_totalUnbinds = 1;
     }
 
-    bool Anointed::configure(Lore lore) {
+    void Anointed::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds Anointed::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

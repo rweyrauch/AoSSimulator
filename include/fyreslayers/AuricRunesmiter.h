@@ -34,9 +34,9 @@ namespace Fyreslayers {
 
         ~AuricRunesmiter() override = default;
 
-        bool configure(Blessing blessing, WeaponOption weapons);
-
     protected:
+
+        void configure(Blessing blessing, WeaponOption weapons);
 
     private:
 

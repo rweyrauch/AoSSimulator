@@ -75,11 +75,7 @@ namespace Skaven {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -201,7 +197,7 @@ namespace Skaven {
         m_glaive.setToWound(g_damageTable[damageIndex].m_glaiveToWound);
     }
 
-    int VerminlordWarpseer::getDamageTableIndex() const {
+    size_t VerminlordWarpseer::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

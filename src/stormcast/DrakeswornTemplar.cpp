@@ -150,7 +150,7 @@ namespace StormcastEternals {
         onWounded();
     }
 
-    int DrakeswornTemplar::getDamageTableIndex() const {
+    size_t DrakeswornTemplar::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         if (m_mountTrait == MountTrait::Star_Branded) woundsInflicted--;
 

@@ -62,11 +62,7 @@ namespace BeastsOfChaos {
     Unit *ChaosGargant::Create(const ParameterList &parameters) {
         auto unit = new ChaosGargant();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -86,7 +82,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int ChaosGargant::getDamageTableIndex() const {
+    size_t ChaosGargant::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

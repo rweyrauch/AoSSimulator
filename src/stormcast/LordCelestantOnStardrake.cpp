@@ -145,7 +145,7 @@ namespace StormcastEternals {
         onWounded();
     }
 
-    int LordCelestantOnStardrake::getDamageTableIndex() const {
+    size_t LordCelestantOnStardrake::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         if (m_mountTrait == MountTrait::Star_Branded) woundsInflicted--;
 

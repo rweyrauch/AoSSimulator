@@ -112,7 +112,7 @@ namespace OgorMawtribes {
         onWounded();
     }
 
-    int StonehornBeastriders::getDamageTableIndex() const {
+    size_t StonehornBeastriders::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

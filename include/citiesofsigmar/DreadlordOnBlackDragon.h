@@ -67,7 +67,7 @@ namespace CitiesOfSigmar {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         WeaponOption m_weaponOption = Lance_And_Shield;
 

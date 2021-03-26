@@ -92,11 +92,7 @@ namespace DaughtersOfKhaine {
 
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
 
-        bool ok = unit->configure(prayer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(prayer);
         return unit;
     }
 
@@ -139,7 +135,7 @@ namespace DaughtersOfKhaine {
         m_burningBlood.activate(false);
     }
 
-    int HagQueenOnCauldronOfBlood::getDamageTableIndex() const {
+    size_t HagQueenOnCauldronOfBlood::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

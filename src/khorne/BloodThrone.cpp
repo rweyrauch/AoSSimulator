@@ -29,7 +29,7 @@ namespace Khorne {
         m_gnashingMaw.setMount(true);
     }
 
-    bool HeraldOfKhorneOnBloodThrone::configure() {
+    void HeraldOfKhorneOnBloodThrone::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfBlood);
         model->addMeleeWeapon(&m_hellblades);
@@ -37,8 +37,6 @@ namespace Khorne {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *HeraldOfKhorneOnBloodThrone::Create(const ParameterList &parameters) {
@@ -56,11 +54,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

@@ -71,7 +71,7 @@ namespace Khorne {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool BloodthirsterOfInsensateRage::configure() {
+    void BloodthirsterOfInsensateRage::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greatAxeOfKhorne);
         addModel(model);
@@ -79,8 +79,6 @@ namespace Khorne {
         m_commandAbilities.push_back(std::make_unique<BloodthirstyCharge>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *BloodthirsterOfInsensateRage::Create(const ParameterList &parameters) {
@@ -98,11 +96,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -126,7 +120,7 @@ namespace Khorne {
         }
     }
 
-    int BloodthirsterOfInsensateRage::getDamageTableIndex() const {
+    size_t BloodthirsterOfInsensateRage::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

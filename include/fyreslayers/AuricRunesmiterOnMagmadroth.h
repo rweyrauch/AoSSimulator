@@ -34,9 +34,9 @@ namespace Fyreslayers {
 
         ~AuricRunesmiterOnMagmadroth() override = default;
 
-        bool configure(Blessing blessing, WeaponOption weapons, MountTrait trait);
-
     protected:
+
+        void configure(Blessing blessing, WeaponOption weapons, MountTrait trait);
 
     private:
 

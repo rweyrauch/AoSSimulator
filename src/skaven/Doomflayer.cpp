@@ -38,11 +38,7 @@ namespace Skaven {
     Unit *Doomflayer::Create(const ParameterList &parameters) {
         auto unit = new Doomflayer();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

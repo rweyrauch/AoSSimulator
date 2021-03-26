@@ -23,16 +23,22 @@ namespace Khorne {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
         m_weapons = {&m_slaupnir};
         m_battleFieldRole = Role::Leader;
+
+        //s_globalBattleshockReroll.connect(this, &ValkiaTheBloody::m_gazeOfKhorne, &m_gazeOfKhorne);
+        //s_globalBattleshockFleeModifier.connect(this, &ValkiaTheBloody::m_gazeOfKhorneFlee, &m_gazeOfKhorneFlee);
     }
 
-    bool ValkiaTheBloody::configure() {
+    ValkiaTheBloody::~ValkiaTheBloody() {
+        m_gazeOfKhorne.disconnect();
+        m_gazeOfKhorneFlee.disconnect();
+    }
+
+    void ValkiaTheBloody::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slaupnir);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ValkiaTheBloody::Create(const ParameterList &parameters) {
@@ -44,11 +50,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -88,6 +90,14 @@ namespace Khorne {
 
     int ValkiaTheBloody::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Rerolls ValkiaTheBloody::gazeOfKhorne(const Unit *unit) {
+        return Rerolls::None;
+    }
+
+    int ValkiaTheBloody::gazeOfKhorneFlee(const Unit *unit, int roll) {
+        return 0;
     }
 
 } // namespace Khorne

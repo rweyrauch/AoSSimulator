@@ -35,9 +35,9 @@ namespace Khorne {
 
         ~ExaltedDeathbringer() override = default;
 
-        bool configure(WeaponOption weapon);
-
     protected:
+
+        void configure(WeaponOption weapon);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

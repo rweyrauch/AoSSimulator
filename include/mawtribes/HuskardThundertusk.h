@@ -43,7 +43,7 @@ namespace OgorMawtribes {
 
     protected:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         void onWounded() override;
 

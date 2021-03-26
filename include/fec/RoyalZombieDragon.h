@@ -36,7 +36,7 @@ namespace FleshEaterCourt {
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
     private:
 

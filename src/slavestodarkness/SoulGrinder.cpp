@@ -156,7 +156,7 @@ namespace SlavesToDarkness {
         onWounded();
     }
 
-    int SoulGrinder::getDamageTableIndex() const {
+    size_t SoulGrinder::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

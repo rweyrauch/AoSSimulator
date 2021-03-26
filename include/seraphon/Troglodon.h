@@ -33,7 +33,7 @@ namespace Seraphon {
 
         void onRestore() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         void onStartHero(PlayerId player) override;
 

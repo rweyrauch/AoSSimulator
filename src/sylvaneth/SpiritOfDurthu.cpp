@@ -70,7 +70,7 @@ namespace Sylvaneth {
         m_massiveImpalingTalons.setToWound(g_damageTable[damageIndex].m_talonsToWound);
     }
 
-    int SpiritOfDurthu::getDamageTableIndex() const {
+    size_t SpiritOfDurthu::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
 
         // Our Roots Run Deep
@@ -99,11 +99,7 @@ namespace Sylvaneth {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

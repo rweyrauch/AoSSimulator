@@ -37,7 +37,7 @@ namespace OssiarchBonereapers {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Weapon m_catapultSkulls,
                 m_catapultCauldron,

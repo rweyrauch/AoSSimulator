@@ -29,15 +29,13 @@ namespace Khorne {
         m_totalUnbinds = 1;
     }
 
-    bool Karanak::configure() {
+    void Karanak::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goreSlickClaws);
         model->addMeleeWeapon(&m_savageMaws);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Karanak::Create(const ParameterList &parameters) {
@@ -46,11 +44,7 @@ namespace Khorne {
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

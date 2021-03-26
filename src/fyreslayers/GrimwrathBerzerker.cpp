@@ -25,15 +25,13 @@ namespace Fyreslayers {
         m_weapons = {&m_throwingAxe, &m_greatAxe};
     }
 
-    bool GrimwrathBerzerker::configure() {
+    void GrimwrathBerzerker::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_greatAxe);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *GrimwrathBerzerker::Create(const ParameterList &parameters) {
@@ -48,11 +46,7 @@ namespace Fyreslayers {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

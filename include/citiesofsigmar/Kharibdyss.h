@@ -45,7 +45,7 @@ namespace CitiesOfSigmar {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         bool useQuickWithTheLash() const;
 

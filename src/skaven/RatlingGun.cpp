@@ -38,11 +38,7 @@ namespace Skaven {
     Unit *RatlingGun::Create(const ParameterList &parameters) {
         auto unit = new RatlingGun();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

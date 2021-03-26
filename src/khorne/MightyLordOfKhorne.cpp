@@ -58,7 +58,7 @@ namespace Khorne {
         m_totalUnbinds = 1;
     }
 
-    bool MightyLordOfKhorne::configure() {
+    void MightyLordOfKhorne::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axeOfKhorne);
         model->addMeleeWeapon(&m_bloodDarkClaws);
@@ -67,8 +67,6 @@ namespace Khorne {
         m_commandAbilities.push_back(std::make_unique<Gorelord>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *MightyLordOfKhorne::Create(const ParameterList &parameters) {
@@ -86,11 +84,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

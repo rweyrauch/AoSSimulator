@@ -18,11 +18,7 @@ namespace Sylvaneth {
     Unit *SkaethsWildHunt::Create(const ParameterList &parameters) {
         auto unit = new SkaethsWildHunt();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

@@ -40,11 +40,7 @@ namespace Skaven {
     Unit *WarpLightningCannon::Create(const ParameterList &parameters) {
         auto unit = new WarpLightningCannon();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

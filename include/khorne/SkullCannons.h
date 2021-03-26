@@ -25,9 +25,9 @@ namespace Khorne {
 
         ~SkullCannons() override = default;
 
-        bool configure(int numModels);
-
     protected:
+
+        bool configure(int numModels);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

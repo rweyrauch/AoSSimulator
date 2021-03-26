@@ -107,7 +107,7 @@ namespace Sylvaneth {
         m_massiveImpalingTalons.setToWound(g_damageTable[damageIndex].m_talonToWound);
     }
 
-    int TreelordAncient::getDamageTableIndex() const {
+    size_t TreelordAncient::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
 
         // Our Roots Run Deep
@@ -137,11 +137,7 @@ namespace Sylvaneth {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

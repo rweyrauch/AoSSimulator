@@ -24,9 +24,9 @@ namespace Bonesplitterz {
 
         ~SavageOrrukArrowboys() override = default;
 
-        bool configure(int numModels, bool skullThumper, bool totemBearer);
-
     protected:
+
+        bool configure(int numModels, bool skullThumper, bool totemBearer);
 
         int chargeModifier() const override {
             int mod = Unit::chargeModifier();

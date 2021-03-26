@@ -102,11 +102,7 @@ namespace Seraphon {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -141,7 +137,7 @@ namespace Seraphon {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    int Troglodon::getDamageTableIndex() const {
+    size_t Troglodon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

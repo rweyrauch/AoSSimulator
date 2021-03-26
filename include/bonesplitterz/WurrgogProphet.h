@@ -24,9 +24,9 @@ namespace Bonesplitterz {
 
         ~WurrgogProphet() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 

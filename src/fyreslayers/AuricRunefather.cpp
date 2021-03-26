@@ -48,7 +48,7 @@ namespace Fyreslayers {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool AuricRunefather::configure() {
+    void AuricRunefather::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_grandAxe);
@@ -57,8 +57,6 @@ namespace Fyreslayers {
         m_commandAbilities.push_back(std::make_unique<LodgeLeader>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AuricRunefather::Create(const ParameterList &parameters) {
@@ -76,11 +74,7 @@ namespace Fyreslayers {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

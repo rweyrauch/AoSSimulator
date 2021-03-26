@@ -60,10 +60,6 @@ namespace FleshEaterCourt {
         unit->setGeneral(general);
 
         bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
         return unit;
     }
 

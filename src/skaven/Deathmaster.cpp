@@ -29,11 +29,7 @@ namespace Skaven {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(option);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(option);
         return unit;
     }
 

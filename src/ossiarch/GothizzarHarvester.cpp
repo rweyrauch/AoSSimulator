@@ -41,11 +41,7 @@ namespace OssiarchBonereapers {
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
         unit->setLegion(legion);
 
-        bool ok = unit->configure(option);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(option);
         return unit;
     }
 
@@ -120,7 +116,7 @@ namespace OssiarchBonereapers {
         Unit::onWounded();
     }
 
-    int GothizzarHarvester::getDamageTableIndex() const {
+    size_t GothizzarHarvester::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

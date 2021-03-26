@@ -24,11 +24,7 @@ namespace Khorne {
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         unit->setSlaughterHost(host);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -59,7 +55,7 @@ namespace Khorne {
         m_weapons = {&m_garreksAxe, &m_karusAxe, &m_saeksAxe, &m_blades};
     }
 
-    bool GarreksReavers::configure() {
+    void GarreksReavers::configure() {
         auto garrek = new Model(g_basesize, wounds());
         garrek->setName("Garrek");
         garrek->addMeleeWeapon(&m_garreksAxe);
@@ -86,8 +82,6 @@ namespace Khorne {
         addModel(arnulf);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Rerolls GarreksReavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {

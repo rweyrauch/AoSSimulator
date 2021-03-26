@@ -46,7 +46,7 @@ namespace Khorne {
         m_totalUnbinds = 1;
     }
 
-    bool WrathOfKhorneBloodthirster::configure() {
+    void WrathOfKhorneBloodthirster::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bloodflail);
         model->addMissileWeapon(&m_breath);
@@ -60,8 +60,6 @@ namespace Khorne {
                                                                                 std::vector<Keyword>{KHORNE, DAEMON}));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *WrathOfKhorneBloodthirster::Create(const ParameterList &parameters) {
@@ -79,11 +77,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -116,7 +110,7 @@ namespace Khorne {
         KhorneBase::onWounded();
     }
 
-    int WrathOfKhorneBloodthirster::getDamageTableIndex() const {
+    size_t WrathOfKhorneBloodthirster::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

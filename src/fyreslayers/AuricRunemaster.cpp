@@ -35,7 +35,7 @@ namespace Fyreslayers {
         m_holySeekerToWoundSlot.disconnect();
     }
 
-    bool AuricRunemaster::configure(Blessing blessing) {
+    void AuricRunemaster::configure(Blessing blessing) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_brazierStaff);
@@ -44,9 +44,7 @@ namespace Fyreslayers {
 
         m_prayer = blessing;
 
-        m_points = g_pointsPerUnit;
-
-        return true;
+        m_points = g_pointsPerUnit;;
     }
 
     Unit *AuricRunemaster::Create(const ParameterList &parameters) {
@@ -66,11 +64,7 @@ namespace Fyreslayers {
 
         auto prayer = (Blessing) GetEnumParam("Prayer", parameters, g_prayers[0]);
 
-        bool ok = unit->configure(prayer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(prayer);
         return unit;
     }
 

@@ -139,7 +139,7 @@ namespace Sylvaneth {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    int Alarielle::getDamageTableIndex() const {
+    size_t Alarielle::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
@@ -160,11 +160,7 @@ namespace Sylvaneth {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

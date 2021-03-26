@@ -41,7 +41,7 @@ namespace GloomspiteGitz {
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
     private:
 

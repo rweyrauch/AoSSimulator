@@ -165,7 +165,7 @@ namespace Slaanesh {
         Unit::onWounded();
     }
 
-    int KeeperOfSecrets::getDamageTableIndex() const {
+    size_t KeeperOfSecrets::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

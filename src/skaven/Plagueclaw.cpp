@@ -18,12 +18,7 @@ namespace Skaven {
 
     Unit *Plagueclaw::Create(const ParameterList &parameters) {
         auto unit = new Plagueclaw();
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

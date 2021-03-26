@@ -37,11 +37,7 @@ namespace SonsOfBehemat {
     bool Gatebreaker::s_registered = false;
 
     Gatebreaker::Gatebreaker() :
-            SonsOfBehematBase("Gatebreaker Mega-Gargant", 12, g_wounds, 7, 4, false),
-            m_boulder(Weapon::Type::Missile, "Hurled Boulder", 18, 1, 3, 2, -3, 4),
-            m_stomp(Weapon::Type::Melee, "Almighty Stomp", 2, 2, 3, 3, -2, RAND_D3),
-            m_grip(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
-            m_flail(Weapon::Type::Melee, "Fortcrusha Flail", 3, 10, 4, 3, -3, 3) {
+            SonsOfBehematBase("Gatebreaker Mega-Gargant", 12, g_wounds, 7, 4, false) {
         m_weapons = {&m_boulder, &m_stomp, &m_grip, &m_flail};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, GATEBREAKER};
@@ -49,7 +45,7 @@ namespace SonsOfBehemat {
         s_globalBraveryMod.connect(this, &Gatebreaker::terror, &m_connection);
     }
 
-    bool Gatebreaker::configure() {
+    void Gatebreaker::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boulder);
         model->addMeleeWeapon(&m_stomp);
@@ -58,8 +54,6 @@ namespace SonsOfBehemat {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Gatebreaker::Create(const ParameterList &parameters) {
@@ -77,11 +71,7 @@ namespace SonsOfBehemat {
 
         unit->setTribe(Tribe::Breaker);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -109,7 +99,7 @@ namespace SonsOfBehemat {
         return g_pointsPerUnit;
     }
 
-    int Gatebreaker::getDamageTableIndex() const {
+    size_t Gatebreaker::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

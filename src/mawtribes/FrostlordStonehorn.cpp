@@ -116,7 +116,7 @@ namespace OgorMawtribes {
         onWounded();
     }
 
-    int FrostlordOnStonehorn::getDamageTableIndex() const {
+    size_t FrostlordOnStonehorn::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         if (m_commandTrait == CommandTrait::Skilled_Rider) {
             woundsInflicted /= 2;

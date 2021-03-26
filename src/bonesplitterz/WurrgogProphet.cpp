@@ -68,11 +68,7 @@ namespace Bonesplitterz {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -108,7 +104,7 @@ namespace Bonesplitterz {
         m_totalSpells = 2;
     }
 
-    bool WurrgogProphet::configure(Lore lore) {
+    void WurrgogProphet::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staffAndShiv);
         model->addMeleeWeapon(&m_fangedMaw);
@@ -119,8 +115,6 @@ namespace Bonesplitterz {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int WurrgogProphet::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

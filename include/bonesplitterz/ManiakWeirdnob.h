@@ -24,9 +24,9 @@ namespace Bonesplitterz {
 
         ~ManiakWeirdnob() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

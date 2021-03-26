@@ -25,9 +25,9 @@ namespace Khorne {
 
         ~Bloodstoker() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartMovement(PlayerId player) override;
 

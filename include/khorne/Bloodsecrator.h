@@ -25,9 +25,9 @@ namespace Khorne {
 
         ~Bloodsecrator() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int rageOfKhorneAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
                                   const Unit *target);

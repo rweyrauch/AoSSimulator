@@ -37,7 +37,7 @@ namespace Seraphon {
 
         void onFriendlyUnitSlain(const Unit *attacker) override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         int terror(const Unit *target);
 

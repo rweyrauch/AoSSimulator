@@ -25,9 +25,9 @@ namespace Fyreslayers {
 
         ~AuricRunemaster() override;
 
-        bool configure(Blessing blessing);
-
     protected:
+
+        void configure(Blessing blessing);
 
         void onStartHero(PlayerId player) override;
 

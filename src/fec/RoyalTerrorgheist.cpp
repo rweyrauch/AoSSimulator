@@ -68,11 +68,7 @@ namespace FleshEaterCourt {
         if (court == GrandCourt::None)
             unit->setCourtsOfDelusion(delusion);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -117,7 +113,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int RoyalTerrorgheist::getDamageTableIndex() const {
+    size_t RoyalTerrorgheist::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

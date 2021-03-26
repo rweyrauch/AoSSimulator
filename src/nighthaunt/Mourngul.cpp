@@ -84,7 +84,7 @@ namespace Nighthaunt {
         m_move = g_damageTable[damageIndex].m_move;
     }
 
-    int Mourngul::getDamageTableIndex() const {
+    size_t Mourngul::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

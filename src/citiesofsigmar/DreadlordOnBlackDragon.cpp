@@ -89,11 +89,7 @@ namespace CitiesOfSigmar {
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         unit->setNarcotic(drug);
 
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon);
         return unit;
     }
 
@@ -212,7 +208,7 @@ namespace CitiesOfSigmar {
         Unit::onWounded();
     }
 
-    int DreadlordOnBlackDragon::getDamageTableIndex() const {
+    size_t DreadlordOnBlackDragon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

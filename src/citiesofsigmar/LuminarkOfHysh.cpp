@@ -90,11 +90,7 @@ namespace CitiesOfSigmar {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(battlemage, lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(battlemage, lore);
         return unit;
     }
 
@@ -193,7 +189,7 @@ namespace CitiesOfSigmar {
         Unit::onWounded();
     }
 
-    int LuminarkOfHysh::getDamageTableIndex() const {
+    size_t LuminarkOfHysh::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

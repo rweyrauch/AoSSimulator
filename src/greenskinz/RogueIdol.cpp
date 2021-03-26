@@ -86,7 +86,7 @@ namespace Greenskinz {
         onWounded();
     }
 
-    int RogueIdol::getDamageTableIndex() const {
+    size_t RogueIdol::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

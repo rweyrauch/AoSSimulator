@@ -8,9 +8,39 @@
 
 #include <khorne/LordOfKhorneOnJuggernaut.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "KhornePrivate.h"
 
 namespace Khorne {
+
+    class BloodStampede : public CommandAbility {
+    public:
+        BloodStampede(Unit *source) :
+            CommandAbility(source, "Blood Stampede", 16, 16, Phase::Combat) {
+            m_allowedTargets = Abilities::Target::SelfAndFriendly;
+            m_targetKeywords = {KHORNE, MORTAL};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit *target) override {
+            auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
+            int unitCount = 0;
+            for (auto unit : units) {
+                if (unit->charged()) {
+                    unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones,
+                                     {Phase::Combat, m_round, m_source->owningPlayer()});
+                    unitCount++;
+                }
+                if (unitCount > 3) break;
+            }
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 90; // x52 oval
     static const int g_wounds = 8;
     static const int g_pointsPerUnit = 160;
@@ -28,15 +58,15 @@ namespace Khorne {
         m_brazenHooves.setMount(true);
     }
 
-    bool LordOfKhorneOnJuggernaut::configure() {
+    void LordOfKhorneOnJuggernaut::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_wrathforgedAxe);
         model->addMeleeWeapon(&m_brazenHooves);
         addModel(model);
 
-        m_points = g_pointsPerUnit;
+        m_commandAbilities.push_back(std::make_unique<BloodStampede>(this));
 
-        return true;
+        m_points = g_pointsPerUnit;
     }
 
     Unit *LordOfKhorneOnJuggernaut::Create(const ParameterList &parameters) {
@@ -54,11 +84,8 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
+
         return unit;
     }
 

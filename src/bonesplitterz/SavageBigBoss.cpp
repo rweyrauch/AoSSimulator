@@ -31,11 +31,7 @@ namespace Bonesplitterz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -68,7 +64,7 @@ namespace Bonesplitterz {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool SavageBigBoss::configure() {
+    void SavageBigBoss::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chompasBoss);
         addModel(model);
@@ -80,8 +76,6 @@ namespace Bonesplitterz {
                                                             std::vector<Keyword>{BONESPLITTERZ}));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int SavageBigBoss::ComputePoints(int /*numModels*/) {

@@ -25,9 +25,9 @@ namespace Khorne {
 
         ~LordOfKhorneOnJuggernaut() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onCharged() override;
 
@@ -49,7 +49,7 @@ namespace Khorne {
 // Brass-clad Shield                Yes
 // Slaugtherous Charge              Yes
 // Daemonic Axe                     Yes
-// Blood Stampede                   TODO
+// Blood Stampede                   Yes
 //
 
 } // namespace Khorne

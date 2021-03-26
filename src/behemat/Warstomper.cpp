@@ -48,7 +48,7 @@ namespace SonsOfBehemat {
         s_globalBraveryMod.connect(this, &Warstomper::terror, &m_connection);
     }
 
-    bool Warstomper::configure() {
+    void Warstomper::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_grip);
         model->addMeleeWeapon(&m_jump);
@@ -56,8 +56,6 @@ namespace SonsOfBehemat {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Warstomper::Create(const ParameterList &parameters) {
@@ -72,11 +70,7 @@ namespace SonsOfBehemat {
 
         unit->setTribe(Tribe::Stomper);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -103,7 +97,7 @@ namespace SonsOfBehemat {
         return g_pointsPerUnit;
     }
 
-    int Warstomper::getDamageTableIndex() const {
+    size_t Warstomper::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

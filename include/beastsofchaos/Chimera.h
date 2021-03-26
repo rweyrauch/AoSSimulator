@@ -31,7 +31,7 @@ namespace BeastsOfChaos {
 
         void onWounded() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         int chargeModifier() const override;
 

@@ -42,7 +42,7 @@ namespace Ironjawz {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         int m_modelsSlainAtStartOfCombat = 0;
 

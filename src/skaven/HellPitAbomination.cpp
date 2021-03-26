@@ -62,7 +62,7 @@ namespace Skaven {
         return true;
     }
 
-    int HellPitAbomination::getDamageTableIndex() const {
+    size_t HellPitAbomination::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
@@ -75,11 +75,7 @@ namespace Skaven {
     Unit *HellPitAbomination::Create(const ParameterList &parameters) {
         auto unit = new HellPitAbomination();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

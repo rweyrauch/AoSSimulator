@@ -25,11 +25,11 @@ namespace Khorne {
 
         ~Skarbrand() override = default;
 
-        bool configure();
-
     protected:
 
-        int getDamageTableIndex() const;
+        void configure();
+
+        size_t getDamageTableIndex() const;
 
         void onWounded() override;
 

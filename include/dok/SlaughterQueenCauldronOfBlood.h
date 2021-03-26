@@ -46,7 +46,7 @@ namespace DaughtersOfKhaine {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Weapon m_burningBlood,
                 m_knives,

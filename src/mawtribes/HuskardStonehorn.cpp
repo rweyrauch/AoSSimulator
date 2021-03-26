@@ -134,7 +134,7 @@ namespace OgorMawtribes {
         onWounded();
     }
 
-    int HuskardOnStonehorn::getDamageTableIndex() const {
+    size_t HuskardOnStonehorn::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         if (m_commandTrait == CommandTrait::Skilled_Rider) {
             woundsInflicted /= 2;

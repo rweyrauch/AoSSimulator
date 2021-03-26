@@ -32,7 +32,7 @@ namespace Khorne {
         m_totalPrayers = 2;
     }
 
-    bool Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing) {
+    void Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing) {
         auto model = new Model(g_basesize, wounds());
 
         if (weapon == Bloodbathed_Axe) {
@@ -48,8 +48,6 @@ namespace Khorne {
                 std::unique_ptr<Prayer>(new DamagePrayer(this, "Blood Boil", 4, 16.0, RAND_D6, RAND_D3)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Slaughterpriest::Create(const ParameterList &parameters) {
@@ -70,11 +68,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapon, blessing);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon, blessing);
         return unit;
     }
 

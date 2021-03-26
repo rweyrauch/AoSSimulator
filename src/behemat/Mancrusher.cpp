@@ -75,7 +75,7 @@ namespace SonsOfBehemat {
         m_club.setAttacks(g_damageTable[getDamageTableIndex()].m_clubAttacks);
     }
 
-    int Mancrusher::getDamageTableIndex() const {
+    size_t Mancrusher::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

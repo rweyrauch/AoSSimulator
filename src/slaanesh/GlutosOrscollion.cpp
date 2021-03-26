@@ -151,7 +151,7 @@ namespace Slaanesh {
         SlaaneshBase::onWounded();
     }
 
-    int GlutosOrscollion::getDamageTableIndex() const {
+    size_t GlutosOrscollion::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

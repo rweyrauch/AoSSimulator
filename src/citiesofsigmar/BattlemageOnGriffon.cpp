@@ -57,11 +57,7 @@ namespace CitiesOfSigmar {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -147,7 +143,7 @@ namespace CitiesOfSigmar {
         Unit::onWounded();
     }
 
-    int BattlemageOnGriffon::getDamageTableIndex() const {
+    size_t BattlemageOnGriffon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

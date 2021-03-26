@@ -33,7 +33,7 @@ namespace BeastsOfChaos {
 
         void onRestore() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

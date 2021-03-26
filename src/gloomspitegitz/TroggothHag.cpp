@@ -80,7 +80,7 @@ namespace GloomspiteGitz {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    int TroggothHag::getDamageTableIndex() const {
+    size_t TroggothHag::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

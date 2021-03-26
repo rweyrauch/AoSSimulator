@@ -25,7 +25,7 @@ namespace Fyreslayers {
         m_weapons = {&m_handaxes, &m_handaxesTefk, &m_greatAxe};
     }
 
-    bool TheChosenAxes::configure() {
+    void TheChosenAxes::configure() {
         auto tefk = new Model(g_basesize, wounds());
         tefk->addMeleeWeapon(&m_handaxesTefk);
         tefk->setName("Tefk Flamebearer");
@@ -42,8 +42,6 @@ namespace Fyreslayers {
         addModel(vol);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *TheChosenAxes::Create(const ParameterList &parameters) {
@@ -51,11 +49,7 @@ namespace Fyreslayers {
 
         unit->setLodge(Lodge::Vostarg);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

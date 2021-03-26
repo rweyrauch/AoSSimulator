@@ -25,9 +25,9 @@ namespace Khorne {
 
         ~Riptooth() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         // Unflagging Hunter
         Rerolls chargeRerolls() const override { return Rerolls::Failed; }

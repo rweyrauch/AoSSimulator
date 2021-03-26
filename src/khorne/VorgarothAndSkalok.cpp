@@ -61,7 +61,7 @@ namespace Khorne {
         m_wingOfFuryConnection.disconnect();
     }
 
-    bool VorgarothAndSkalok::configure() {
+    void VorgarothAndSkalok::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_balefire);
         model->addMeleeWeapon(&m_skullCleaverAxeOfKhorne);
@@ -71,8 +71,6 @@ namespace Khorne {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *VorgarothAndSkalok::Create(const ParameterList &parameters) {
@@ -84,11 +82,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -121,7 +115,7 @@ namespace Khorne {
         KhorneBase::onWounded();
     }
 
-    int VorgarothAndSkalok::getDamageTableIndex() const {
+    size_t VorgarothAndSkalok::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

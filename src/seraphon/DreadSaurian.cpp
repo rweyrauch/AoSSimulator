@@ -74,11 +74,7 @@ namespace Seraphon {
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
         unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -108,7 +104,7 @@ namespace Seraphon {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    int DreadSaurian::getDamageTableIndex() const {
+    size_t DreadSaurian::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

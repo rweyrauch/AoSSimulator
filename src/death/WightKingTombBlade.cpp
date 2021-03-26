@@ -43,11 +43,7 @@ namespace Death {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(steed);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(steed);
         return unit;
     }
 

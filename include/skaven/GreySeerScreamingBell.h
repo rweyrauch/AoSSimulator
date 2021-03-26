@@ -39,7 +39,7 @@ namespace Skaven {
 
         void onStartHero(PlayerId player) override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         int altarOfTheHornedRat(const Unit *unit);
 

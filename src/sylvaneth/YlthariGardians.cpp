@@ -18,11 +18,7 @@ namespace Sylvaneth {
     Unit *YltharisGuardians::Create(const ParameterList &parameters) {
         auto unit = new YltharisGuardians();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

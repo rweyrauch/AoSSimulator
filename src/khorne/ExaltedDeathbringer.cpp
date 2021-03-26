@@ -28,7 +28,7 @@ namespace Khorne {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool ExaltedDeathbringer::configure(WeaponOption weapon) {
+    void ExaltedDeathbringer::configure(WeaponOption weapon) {
         m_weaponOption = weapon;
 
         auto model = new Model(g_basesize, wounds());
@@ -49,8 +49,6 @@ namespace Khorne {
                                                             std::vector<Keyword>{MORTAL, KHORNE}));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ExaltedDeathbringer::Create(const ParameterList &parameters) {
@@ -69,11 +67,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon);
         return unit;
     }
 

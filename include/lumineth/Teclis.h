@@ -45,7 +45,7 @@ namespace LuminethRealmLords {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         bool m_protectionOfTeclisEnabled = false;
 

@@ -25,9 +25,9 @@ namespace Fyreslayers {
 
         ~FjulGrimnir() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

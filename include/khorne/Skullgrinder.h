@@ -29,9 +29,9 @@ namespace Khorne {
 
         ~Skullgrinder() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onEndCombat(PlayerId player) override;
 

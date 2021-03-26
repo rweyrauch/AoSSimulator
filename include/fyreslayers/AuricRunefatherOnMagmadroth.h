@@ -25,9 +25,9 @@ namespace Fyreslayers {
 
         ~AuricRunefatherOnMagmadroth() override = default;
 
-        bool configure(MountTrait trait);
-
     protected:
+
+        void configure(MountTrait trait);
 
         void onEndCombat(PlayerId player) override;
 

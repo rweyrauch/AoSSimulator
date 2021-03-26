@@ -25,9 +25,9 @@ namespace Khorne {
 
         ~Karanak() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onBeginTurn(int battleRound) override;
 

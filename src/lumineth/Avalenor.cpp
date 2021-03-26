@@ -121,7 +121,7 @@ namespace LuminethRealmLords {
         return extra;
     }
 
-    int AvalenorTheStoneheartKing::getDamageTableIndex() const {
+    size_t AvalenorTheStoneheartKing::getDamageTableIndex() const {
 
         // Stonemage Symbiosis
         auto mage = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), STONEMAGE, 12.0f);

@@ -48,7 +48,7 @@ namespace Fyreslayers {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool AuricRunesmiterOnMagmadroth::configure(Blessing prayer, WeaponOption weaponOption, MountTrait trait) {
+    void AuricRunesmiterOnMagmadroth::configure(Blessing prayer, WeaponOption weaponOption, MountTrait trait) {
 
         m_weaponOption = weaponOption;
 
@@ -70,8 +70,6 @@ namespace Fyreslayers {
         m_mountTrait = trait;
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AuricRunesmiterOnMagmadroth::Create(const ParameterList &parameters) {
@@ -93,11 +91,7 @@ namespace Fyreslayers {
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Runic_Iron);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
 
-        bool ok = unit->configure(prayer, weapons, mount);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(prayer, weapons, mount);
         return unit;
     }
 

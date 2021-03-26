@@ -41,11 +41,7 @@ namespace Skaven {
     Unit *Doomwheel::Create(const ParameterList &parameters) {
         auto unit = new Doomwheel();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

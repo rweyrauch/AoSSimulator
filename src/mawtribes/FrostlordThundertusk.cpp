@@ -115,7 +115,7 @@ namespace OgorMawtribes {
         onWounded();
     }
 
-    int FrostlordOnThundertusk::getDamageTableIndex() const {
+    size_t FrostlordOnThundertusk::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         if (m_commandTrait == CommandTrait::Skilled_Rider) {
             woundsInflicted /= 2;

@@ -40,11 +40,7 @@ namespace Death {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
 
-        bool ok = unit->configure(withSteed, withWings, chalice, lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(withSteed, withWings, chalice, lore);
         return unit;
     }
 

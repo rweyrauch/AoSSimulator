@@ -40,11 +40,7 @@ namespace CitiesOfSigmar {
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -113,7 +109,7 @@ namespace CitiesOfSigmar {
         CitizenOfSigmar::onWounded();
     }
 
-    int WarHydra::getDamageTableIndex() const {
+    size_t WarHydra::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

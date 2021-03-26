@@ -37,7 +37,7 @@ namespace Skaven {
 
         int terrifying(const Unit *target);
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
     private:
 

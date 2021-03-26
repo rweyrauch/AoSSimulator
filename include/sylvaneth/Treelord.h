@@ -33,7 +33,7 @@ namespace Sylvaneth {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
     private:
 

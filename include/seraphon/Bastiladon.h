@@ -31,7 +31,7 @@ namespace Seraphon {
 
         void onWounded() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         void onRestore() override;
 

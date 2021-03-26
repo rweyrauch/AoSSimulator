@@ -187,7 +187,7 @@ namespace LuminethRealmLords {
         onWounded();
     }
 
-    int ArchmageTeclis::getDamageTableIndex() const {
+    size_t ArchmageTeclis::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

@@ -63,7 +63,7 @@ namespace Khorne {
         m_pileInMove = 8;
     }
 
-    bool KorghosKhul::configure() {
+    void KorghosKhul::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axeOfKhorne);
         model->addMeleeWeapon(&m_clawsAndFangs);
@@ -72,8 +72,6 @@ namespace Khorne {
         m_commandAbilities.push_back(std::make_unique<LordOfTheGoretide>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *KorghosKhul::Create(const ParameterList &parameters) {
@@ -85,11 +83,8 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
+
         return unit;
     }
 

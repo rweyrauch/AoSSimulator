@@ -126,7 +126,7 @@ namespace SlavesToDarkness {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
-    int Archaon::getDamageTableIndex() const {
+    size_t Archaon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

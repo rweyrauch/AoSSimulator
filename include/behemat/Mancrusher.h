@@ -24,9 +24,9 @@ namespace SonsOfBehemat {
 
         ~Mancrusher() override = default;
 
-        bool configure(int numModels);
-
     private:
+
+        bool configure(int numModels);
 
         void onWounded() override;
 
@@ -36,7 +36,7 @@ namespace SonsOfBehemat {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Weapon m_eadbutt,
             m_club,

@@ -47,7 +47,7 @@ namespace Tzeentch {
 
         void onRestore() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
     private:
 

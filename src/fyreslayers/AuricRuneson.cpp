@@ -50,7 +50,7 @@ namespace Fyreslayers {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool AuricRuneson::configure() {
+    void AuricRuneson::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_javelin);
@@ -61,8 +61,6 @@ namespace Fyreslayers {
         m_commandAbilities.push_back(std::make_unique<DauntlessAssault>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AuricRuneson::Create(const ParameterList &parameters) {
@@ -80,11 +78,7 @@ namespace Fyreslayers {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

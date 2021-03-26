@@ -35,9 +35,9 @@ namespace Khorne {
 
         ~Slaughterpriest() override = default;
 
-        bool configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing);
-
     protected:
+
+        void configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing);
 
     private:
 

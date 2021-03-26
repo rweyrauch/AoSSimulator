@@ -27,15 +27,13 @@ namespace Khorne {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool Bloodstoker::configure() {
+    void Bloodstoker::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_tortureBlade);
         model->addMeleeWeapon(&m_bloodWhip);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Bloodstoker::Create(const ParameterList &parameters) {
@@ -53,11 +51,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

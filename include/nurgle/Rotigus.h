@@ -33,7 +33,7 @@ namespace Nurgle {
 
         void onCharged() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

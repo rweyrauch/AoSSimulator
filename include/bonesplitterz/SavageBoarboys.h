@@ -33,9 +33,9 @@ namespace Bonesplitterz {
 
         ~SavageBoarboys() override = default;
 
-        bool configure(int numModels, WeaponOption weapons, bool boarThumper, bool totemBearer);
-
     protected:
+
+        bool configure(int numModels, WeaponOption weapons, bool boarThumper, bool totemBearer);
 
         int chargeModifier() const override {
             int mod = Unit::chargeModifier();

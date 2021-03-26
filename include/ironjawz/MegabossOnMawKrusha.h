@@ -53,7 +53,7 @@ namespace Ironjawz {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         WeaponOption m_weaponOption = Hacka_And_Choppa;
         int m_modelsSlainAtStartOfCombat = 0;

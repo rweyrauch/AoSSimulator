@@ -63,7 +63,7 @@ namespace Sylvaneth {
         m_massiveImpalingTalons.setToWound(g_damageTable[damageIndex].m_talonsToWound);
     }
 
-    int Treelord::getDamageTableIndex() const {
+    size_t Treelord::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
 
         // Our Roots Run Deep
@@ -83,11 +83,7 @@ namespace Sylvaneth {
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
         unit->setGlade(glade);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

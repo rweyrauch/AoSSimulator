@@ -48,11 +48,7 @@ namespace FleshEaterCourt {
 
         unit->setGrandCourt(GrandCourt::Hollowmourne);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

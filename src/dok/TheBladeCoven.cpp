@@ -58,11 +58,7 @@ namespace DaughtersOfKhaine {
         auto unit = new TheBladeCoven();
         unit->setTemple(Temple::Hagg_Nar);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

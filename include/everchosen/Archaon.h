@@ -34,7 +34,7 @@ namespace SlavesToDarkness {
 
         void onRestore() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 

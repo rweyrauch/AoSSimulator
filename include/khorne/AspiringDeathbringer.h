@@ -32,20 +32,24 @@ namespace Khorne {
 
         AspiringDeathbringer();
 
-        ~AspiringDeathbringer() override = default;
-
-        bool configure(WeaponOption weapon);
+        ~AspiringDeathbringer() override;
 
     protected:
 
+        void configure(WeaponOption weapon);
+
+        int baneOfCowards(const Unit *unit, int roll);
+
     private:
+
+        lsignal::slot m_baneOfCowards;
 
         WeaponOption m_weaponOption = Bloodaxe_And_Wrathhammer;
 
-        Weapon m_bloodAxe,
-                m_wrathHammer,
-                m_goreaxe,
-                m_skullhammer;
+        Weapon m_bloodAxe{Weapon::Type::Melee, "Bloodaxe", 1, 3, 3, 4, 0, 1},
+                m_wrathHammer{Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 3, 4, 0, 1},
+                m_goreaxe{Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1},
+                m_skullhammer{Weapon::Type::Melee, "Skullhammer", 3, 3, 4, 3, 0, 1};
 
         static bool s_registered;
     };
@@ -53,7 +57,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bane of Cowards                  TODO
+// Bane of Cowards                  Yes
 // Slaughter Incarnate              Yes
 //
 

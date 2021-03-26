@@ -107,11 +107,7 @@ namespace CitiesOfSigmar {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(weapon, lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon, lore);
         return unit;
     }
 
@@ -214,7 +210,7 @@ namespace CitiesOfSigmar {
         CitizenOfSigmar::onWounded();
     }
 
-    int SorceressOnBlackDragon::getDamageTableIndex() const {
+    size_t SorceressOnBlackDragon::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

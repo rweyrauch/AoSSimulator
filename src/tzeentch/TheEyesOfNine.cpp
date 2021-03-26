@@ -20,11 +20,7 @@ namespace Tzeentch {
 
         unit->setChangeCoven(ChangeCoven::Cult_Of_The_Transient_Form);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

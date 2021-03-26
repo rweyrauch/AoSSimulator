@@ -47,7 +47,7 @@ namespace CitiesOfSigmar {
 
     private:
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Weapon m_stormOfShemtek,
                 m_wizardStaff,

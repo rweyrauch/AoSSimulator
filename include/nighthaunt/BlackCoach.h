@@ -31,7 +31,7 @@ namespace Nighthaunt {
 
         void onWounded() override;
 
-        int getDamageTableIndex() const;
+        size_t getDamageTableIndex() const;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

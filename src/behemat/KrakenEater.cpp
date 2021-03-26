@@ -49,7 +49,7 @@ namespace SonsOfBehemat {
         s_globalBraveryMod.connect(this, &KrakenEater::terror, &m_connection);
     }
 
-    bool KrakenEater::configure() {
+    void KrakenEater::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_debris);
         model->addMeleeWeapon(&m_stomp);
@@ -64,8 +64,6 @@ namespace SonsOfBehemat {
             m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         }
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *KrakenEater::Create(const ParameterList &parameters) {
@@ -80,11 +78,7 @@ namespace SonsOfBehemat {
 
         unit->setTribe(Tribe::Taker);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -111,7 +105,7 @@ namespace SonsOfBehemat {
         return g_pointsPerUnit;
     }
 
-    int KrakenEater::getDamageTableIndex() const {
+    size_t KrakenEater::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {

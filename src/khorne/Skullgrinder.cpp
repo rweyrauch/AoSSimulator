@@ -33,14 +33,12 @@ namespace Khorne {
         m_connection.disconnect();
     }
 
-    bool Skullgrinder::configure() {
+    void Skullgrinder::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_brazenAnvil);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Skullgrinder::Create(const ParameterList &parameters) {
@@ -52,11 +50,7 @@ namespace Khorne {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

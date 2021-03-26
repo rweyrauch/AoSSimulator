@@ -38,11 +38,7 @@ namespace Skaven {
     Unit *WarpfireThrower::Create(const ParameterList &parameters) {
         auto unit = new WarpfireThrower();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

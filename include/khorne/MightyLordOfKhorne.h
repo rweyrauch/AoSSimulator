@@ -25,9 +25,9 @@ namespace Khorne {
 
         ~MightyLordOfKhorne() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

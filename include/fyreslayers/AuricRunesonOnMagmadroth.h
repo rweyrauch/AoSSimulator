@@ -25,9 +25,9 @@ namespace Fyreslayers {
 
         ~AuricRunesonOnMagmadroth() override = default;
 
-        bool configure(MountTrait trait);
-
     protected:
+
+        void configure(MountTrait trait);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
