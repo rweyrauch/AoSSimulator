@@ -35,10 +35,7 @@ namespace BeastsOfChaos {
     bool ChaosGargant::s_registered = false;
 
     ChaosGargant::ChaosGargant() :
-            BeastsOfChaosBase("Chaos Gargant", 8, g_wounds, 6, 5, false),
-            m_eadbutt(Weapon::Type::Melee, "Vicious 'eadbutt", 1, 1, 4, 3, -3, 6),
-            m_massiveClub(Weapon::Type::Melee, "Massive Club", 3, RAND_3D6, 3, 3, -1, 1),
-            m_mightyKick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3) {
+            BeastsOfChaosBase("Chaos Gargant", 8, g_wounds, 6, 5, false) {
         m_keywords = {CHAOS, GARGANT, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHAOS_GARGANT};
         m_weapons = {&m_eadbutt, &m_massiveClub, &m_mightyKick};
         m_battleFieldRole = Role::Behemoth;

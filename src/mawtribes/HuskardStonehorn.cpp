@@ -33,31 +33,21 @@ namespace OgorMawtribes {
 
     bool HuskardOnStonehorn::s_registered = false;
 
+    bool HuskardOnStonehorn::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *HuskardOnStonehorn::Create(const ParameterList &parameters) {
-        auto unit = new HuskardOnStonehorn();
-
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Harpoon_Launcher);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_stonehornTraits[0]);
-
-        bool ok = unit->configure(weapon, mountTrait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Harpoon_Launcher);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_stonehornTraits[0]);
+            return new HuskardOnStonehorn(tribe, weapon, trait, artefact, general, mountTrait);
         }
-        return unit;
+        return nullptr;
     }
 
     std::string HuskardOnStonehorn::ValueToString(const Parameter &parameter) {
@@ -100,23 +90,20 @@ namespace OgorMawtribes {
         }
     }
 
-    HuskardOnStonehorn::HuskardOnStonehorn() :
-            MawtribesBase("Huskard on Stonehorn", 12, g_wounds, 9, 3, false),
-            m_harpoon(Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3),
-            m_chaintrap(Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3),
-            m_vulture(Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0),
-            m_kicks(Weapon::Type::Melee, "Punches and Kicks", 1, 3, 3, 4, 0, 1),
-            m_horns(Weapon::Type::Melee, "Rock-hard Horns", 2, 6, 4, 3, -2, 3),
-            m_hooves(Weapon::Type::Melee, "Crushing Hooves", 1, RAND_D6, 3, 2, -1, RAND_D3) {
+    HuskardOnStonehorn::HuskardOnStonehorn(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral,
+                                           MountTrait mountTrait) :
+            MawtribesBase(tribe, "Huskard on Stonehorn", 12, g_wounds, 9, 3, false) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, HUSKARD};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_hooves.setMount(true);
         m_horns.setMount(true);
-    }
 
-    bool HuskardOnStonehorn::configure(WeaponOption option, MountTrait mountTrait) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         m_option = option;
@@ -134,18 +121,24 @@ namespace OgorMawtribes {
 
         addModel(model);
 
-        m_points = HuskardOnStonehorn::ComputePoints(1);
+        if (trait == CommandTrait::Master_Of_The_Mournfangs) {
+            s_globalBraveryMod.connect(this, &HuskardOnStonehorn::masterOfMournfangs, &m_masterOfMournfangs);
+        }
 
-        return true;
+        m_points = HuskardOnStonehorn::ComputePoints(1);
     }
 
     void HuskardOnStonehorn::onRestore() {
+        MawtribesBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
 
     int HuskardOnStonehorn::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
+        if (m_commandTrait == CommandTrait::Skilled_Rider) {
+            woundsInflicted /= 2;
+        }
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
@@ -169,7 +162,7 @@ namespace OgorMawtribes {
         if (m_charged && (weapon->name() == m_horns.name() || weapon->name() == m_hooves.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Wounds HuskardOnStonehorn::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -178,7 +171,7 @@ namespace OgorMawtribes {
     }
 
     void HuskardOnStonehorn::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        MawtribesBase::onStartShooting(player);
 
         if (player == owningPlayer()) {
             if (m_meleeTarget) {
@@ -193,6 +186,30 @@ namespace OgorMawtribes {
 
     int HuskardOnStonehorn::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int HuskardOnStonehorn::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = MawtribesBase::toHitModifier(weapon, target);
+        if ((weapon->name() == m_horns.name()) && (m_mountTrait == MountTrait::Black_Clatterhorn)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int HuskardOnStonehorn::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = MawtribesBase::weaponRend(weapon, target, hitRoll, woundRoll);
+        if ((weapon->name() == m_hooves.name()) && (m_mountTrait == MountTrait::Frosthoof_Bull)) {
+            rend--;
+        }
+        return rend;
+    }
+
+    int HuskardOnStonehorn::woundModifier() const {
+        auto mod = MawtribesBase::woundModifier();
+        if (m_mountTrait == MountTrait::Rockmane_Elder) {
+            mod++;
+        }
+        return mod;
     }
 
 } // namespace OgorMawtribes

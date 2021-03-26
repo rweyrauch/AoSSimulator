@@ -15,21 +15,21 @@ namespace OgorMawtribes {
     class Ironblaster : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
-
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        Ironblaster();
+        Ironblaster() = delete;
 
         ~Ironblaster() override = default;
 
-        bool configure();
+    protected:
+
+        Ironblaster(Mawtribe tribe);
 
     protected:
 
@@ -39,11 +39,11 @@ namespace OgorMawtribes {
 
     private:
 
-        Weapon m_cannonBall,
-                m_hailShot,
-                m_clubber,
-                m_horns,
-                m_blade;
+        Weapon m_cannonBall{Weapon::Type::Missile, "Ironblaster Cannon: Cannon Ball", 24, 1, 4, 2, -2, RAND_D6},
+            m_hailShot{Weapon::Type::Missile, "Ironblaster Cannon: Hail Shot", 12, 6, 3, 3, -1, 1},
+            m_clubber{Weapon::Type::Melee, "Gunner's Clubber", 1, 3, 3, 3, 0, 2},
+            m_horns{Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 2, 4, 3, -1, RAND_D3},
+            m_blade{Weapon::Type::Melee, "Scrapper's Jagged Blade", 1, 2, 5, 5, 0, 1};
 
         static bool s_registered;
     };

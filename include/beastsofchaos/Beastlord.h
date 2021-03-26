@@ -15,17 +15,21 @@ namespace BeastsOfChaos {
     class Beastlord : public BeastsOfChaosBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
 
         static int ComputePoints(int numModels);
 
-        Beastlord();
-
         ~Beastlord() override = default;
 
-        bool configure();
+    protected:
+
+        Beastlord();
+
+        Beastlord(Greatfray fray, CommandTrait trait, Artefact artefact, bool general);
 
     protected:
 
@@ -35,7 +39,7 @@ namespace BeastsOfChaos {
 
     private:
 
-        Weapon m_pairedAxes;
+        Weapon m_pairedAxes{Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1};
 
         static bool s_registered;
     };

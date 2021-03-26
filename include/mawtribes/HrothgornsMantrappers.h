@@ -15,24 +15,24 @@ namespace OgorMawtribes {
     class HrothgornsMantrappers : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        HrothgornsMantrappers();
-
         ~HrothgornsMantrappers() override = default;
-
-        bool configure();
 
     protected:
 
+        HrothgornsMantrappers();
+
     private:
 
-        Weapon m_sharpStuff,
-                m_motleyWeapons;
+        Weapon m_sharpStuff{Weapon::Type::Missile, "Sharp Stuff", 8, 1, 4, 5, 0, 1},
+                m_motleyWeapons{Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 1, 5, 5, 0, 1};
 
         static bool s_registered;
     };

@@ -38,6 +38,7 @@ public:
     enum FlagBit {
         Artefact = 0,
         Preferred,
+        IsMount,
     };
 
     Weapon() = default;
@@ -83,9 +84,9 @@ public:
 
     void setDamage(int d) { m_damage = d; }
 
-    void setMount(bool isMount) { m_isMount = isMount; }
+    void setMount(bool isMount) { m_flags[IsMount] = isMount; }
 
-    bool isMount() const { return m_isMount; }
+    bool isMount() const { return isFlagSet(IsMount); }
 
     bool isMissile() const { return (m_type == Type::Missile); }
 
@@ -124,7 +125,6 @@ private:
     int m_toWound = 4;
     int m_rend = 0;
     int m_damage = 1;
-    bool m_isMount = false;
 
     int m_hitsPerAttack = 1;
     bool m_isActive = true;

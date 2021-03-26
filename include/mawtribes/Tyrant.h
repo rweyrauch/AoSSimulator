@@ -15,7 +15,8 @@ namespace OgorMawtribes {
     class Tyrant : public MawtribesBase {
     public:
 
-        enum BigName {
+        enum class BigName {
+            None,
             Deathcheater,
             Brawlerguts,
             Fateseeker,
@@ -23,6 +24,8 @@ namespace OgorMawtribes {
             Giantbreaker,
             Wallcrusher
         };
+
+        static bool AreValid(const ParameterList &parameters);
 
         static Unit *Create(const ParameterList &parameters);
 
@@ -34,11 +37,13 @@ namespace OgorMawtribes {
 
         static void Init();
 
-        Tyrant();
+        Tyrant() = delete;
 
-        ~Tyrant() override = default;
+        ~Tyrant() override;
 
-        bool configure(BigName bigName);
+    protected:
+
+        Tyrant(Mawtribe tribe, BigName bigName, CommandTrait trait, Artefact artefact, bool isGeneral);
 
     protected:
 
@@ -46,14 +51,27 @@ namespace OgorMawtribes {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
+        void onStartHero(PlayerId player) override;
+
+        int woundModifier() const override;
+
+        int mightyBellower(const Unit *unit, int roll);
+
+        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
     private:
 
-        BigName m_bigName = Deathcheater;
+        BigName m_bigName = BigName::Deathcheater;
+        BigName m_bigNameExtra = BigName::None;
 
-        Weapon m_pistols,
-                m_thundermace,
-                m_glaive,
-                m_bite;
+        Weapon m_pistols{Weapon::Type::Missile, "Ogor Pistols", 12, 2, 4, 3, -1, RAND_D3},
+                m_thundermace{Weapon::Type::Melee, "Thundermace", 1, 3, 3, 3, -2, 3},
+                m_glaive{Weapon::Type::Melee, "Beastskewer Glaive", 3, 2, 3, 3, -1, RAND_D3},
+                m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1};
+
+        lsignal::slot m_mightyBellower;
 
         static bool s_registered;
     };

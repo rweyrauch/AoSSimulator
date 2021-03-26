@@ -15,17 +15,21 @@ namespace OgorMawtribes {
     class IcefallYhetees : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        IcefallYhetees();
+        IcefallYhetees() = delete;
 
         ~IcefallYhetees() override = default;
 
-        bool configure(int numModels);
+    protected:
+
+        IcefallYhetees(Mawtribe tribe, int numModels);
 
     protected:
 
@@ -33,7 +37,7 @@ namespace OgorMawtribes {
 
     private:
 
-        Weapon m_clawsAndClubs;
+        Weapon m_clawsAndClubs{Weapon::Type::Melee, "Claws and Ice-encrusted Clubs", 1, 3, 4, 3, -1, 2};
 
         static bool s_registered;
     };

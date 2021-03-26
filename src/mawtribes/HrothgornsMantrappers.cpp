@@ -15,17 +15,15 @@ namespace OgorMawtribes {
 
     bool HrothgornsMantrappers::s_registered = false;
 
+    bool HrothgornsMantrappers::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *HrothgornsMantrappers::Create(const ParameterList &parameters) {
-        auto unit = new HrothgornsMantrappers();
-
-        unit->setMawtribe(Mawtribe::Winterbite);
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            return new HrothgornsMantrappers();
         }
-        return unit;
+        return nullptr;
     }
 
     void HrothgornsMantrappers::Init() {
@@ -45,15 +43,11 @@ namespace OgorMawtribes {
     }
 
     HrothgornsMantrappers::HrothgornsMantrappers() :
-            MawtribesBase("Hrothgorn's Mantrappers", 5, g_wounds, 4, 6, false),
-            m_sharpStuff(Weapon::Type::Missile, "Sharp Stuff", 8, 1, 4, 5, 0, 1),
-            m_motleyWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 1, 5, 5, 0, 1) {
+            MawtribesBase(Mawtribe::Winterbite, "Hrothgorn's Mantrappers", 5, g_wounds, 4, 6, false) {
         m_keywords = {DESTRUCTION, GROT, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, WINTERBITE, GNOBLARS,
                       HROTHGORNS_MANTRAPPERS};
         m_weapons = {&m_sharpStuff, &m_motleyWeapons};
-    }
 
-    bool HrothgornsMantrappers::configure() {
         auto bushwakka = new Model(g_basesize, wounds());
         bushwakka->setName("Bushwakka");
         bushwakka->addMissileWeapon(&m_sharpStuff);
@@ -73,8 +67,6 @@ namespace OgorMawtribes {
         addModel(luggitAndThwak);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     int HrothgornsMantrappers::ComputePoints(int /*numModels*/) {

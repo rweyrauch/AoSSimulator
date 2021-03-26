@@ -15,29 +15,27 @@ namespace OgorMawtribes {
     class Hrothgorn : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
-        Hrothgorn();
+        Hrothgorn() = delete;
 
         ~Hrothgorn() override = default;
 
-        bool configure();
-
     protected:
+
+        Hrothgorn(bool isGeneral);
 
     private:
 
-        Weapon m_trapLauncher,
-                m_knife,
-                m_bite;
+        Weapon m_trapLauncher{Weapon::Type::Missile, "Trap Launcher", 12, 1, 4, 3, 0, RAND_D3},
+                m_knife{Weapon::Type::Melee, "Hunting Knife", 1, 4, 3, 3, 0, 2},
+                m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1};
 
         static bool s_registered;
     };

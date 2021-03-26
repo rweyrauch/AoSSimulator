@@ -15,6 +15,8 @@ namespace OgorMawtribes {
     class Butcher : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
@@ -30,11 +32,13 @@ namespace OgorMawtribes {
             Cleaver
         };
 
-        Butcher();
+        Butcher() = delete;
 
-        ~Butcher() override = default;
+        ~Butcher() override;
 
-        bool configure(WeaponOption weaponOption, Lore lore);
+    protected:
+
+        Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
     protected:
 
@@ -42,11 +46,13 @@ namespace OgorMawtribes {
 
         void onUnboundSpell(Unit *caster, int castRoll) override;
 
+        int woundModifier() const override;
+
     private:
 
-        Weapon m_tenderizer,
-                m_cleaver,
-                m_bite;
+        Weapon m_tenderizer{Weapon::Type::Melee, "Tenderizer", 1, 3, 3, 3, -1, 3},
+                m_cleaver{Weapon::Type::Melee, "Cleaver", 1, 3, 3, 3, -2, 2},
+                m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1};
 
         static bool s_registered;
     };
@@ -55,7 +61,7 @@ namespace OgorMawtribes {
 // Abilities                    Implemented
 // -------------------------------------------
 // Bloodgruel                       Yes
-// Voracious Maw                    TODO
+// Voracious Maw                    Yes
 //
 
 } // namespace OgorMawtribes

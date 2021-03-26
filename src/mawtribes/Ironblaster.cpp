@@ -19,34 +19,24 @@ namespace OgorMawtribes {
 
     bool Ironblaster::s_registered = false;
 
+    bool Ironblaster::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *Ironblaster::Create(const ParameterList &parameters) {
-        auto unit = new Ironblaster();
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new Ironblaster(tribe);
         }
-        return unit;
-    }
-
-    std::string Ironblaster::ValueToString(const Parameter &parameter) {
-        return MawtribesBase::ValueToString(parameter);
-    }
-
-    int Ironblaster::EnumStringToInt(const std::string &enumString) {
-        return MawtribesBase::EnumStringToInt(enumString);
+        return nullptr;
     }
 
     void Ironblaster::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Ironblaster::Create,
-                    Ironblaster::ValueToString,
-                    Ironblaster::EnumStringToInt,
+                    MawtribesBase::ValueToString,
+                    MawtribesBase::EnumStringToInt,
                     Ironblaster::ComputePoints,
                     {
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
@@ -58,21 +48,14 @@ namespace OgorMawtribes {
         }
     }
 
-    Ironblaster::Ironblaster() :
-            MawtribesBase("Ironblaster", 7, g_wounds, 6, 4, false),
-            m_cannonBall(Weapon::Type::Missile, "Ironblaster Cannon: Cannon Ball", 24, 1, 4, 2, -2, RAND_D6),
-            m_hailShot(Weapon::Type::Missile, "Ironblaster Cannon: Hail Shot", 12, 6, 3, 3, -1, 1),
-            m_clubber(Weapon::Type::Melee, "Gunner's Clubber", 1, 3, 3, 3, 0, 2),
-            m_horns(Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 2, 4, 3, -1, RAND_D3),
-            m_blade(Weapon::Type::Melee, "Scrapper's Jagged Blade", 1, 2, 5, 5, 0, 1) {
+    Ironblaster::Ironblaster(Mawtribe tribe) :
+            MawtribesBase(tribe, "Ironblaster", 7, g_wounds, 6, 4, false) {
         m_keywords = {DESTRUCTION, OGOR, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, IRONBLASTER};
         m_weapons = {&m_cannonBall, &m_hailShot, &m_clubber, &m_horns, &m_blade};
         m_battleFieldRole = Role::Artillery;
         m_hasMount = true;
         m_horns.setMount(true);
-    }
 
-    bool Ironblaster::configure() {
         auto model = new Model(g_basesize, wounds());
 
         m_hailShot.activate(false);
@@ -86,8 +69,6 @@ namespace OgorMawtribes {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds Ironblaster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -96,11 +77,11 @@ namespace OgorMawtribes {
             return {weapon->damage() + 1, 0};
         }
 
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void Ironblaster::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        MawtribesBase::onStartShooting(player);
 
         auto board = Board::Instance();
         PlayerId otherPlayer = PlayerId::Red;

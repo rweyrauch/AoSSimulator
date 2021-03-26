@@ -20,31 +20,21 @@ namespace OgorMawtribes {
 
     bool Slaughtermaster::s_registered = false;
 
-    Unit *Slaughtermaster::Create(const ParameterList &parameters) {
-        auto unit = new Slaughtermaster();
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_butcherTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_butcherArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_butcherLore[0]);
-
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+    bool Slaughtermaster::AreValid(const ParameterList &parameters) {
+        return true;
     }
 
+    Unit *Slaughtermaster::Create(const ParameterList &parameters) {
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_butcherTraits[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_butcherArtefacts[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            auto lore = (Lore) GetEnumParam("Lore", parameters, g_butcherLore[0]);
+            return new Slaughtermaster(tribe, trait, artefact, general, lore);
+        }
+        return nullptr;
+    }
 
     void Slaughtermaster::Init() {
         if (!s_registered) {
@@ -67,20 +57,19 @@ namespace OgorMawtribes {
         }
     }
 
-    Slaughtermaster::Slaughtermaster() :
-            MawtribesBase("Slaughtermaster", 6, g_wounds, 8, 5, false),
-            m_stumpBlades(Weapon::Type::Melee, "Stump Blades", 1, RAND_2D6, 3, 3, 0, 1),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
-            m_assortedWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 3, 5, 5, 0, 1) {
+    Slaughtermaster::Slaughtermaster(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral, Lore lore) :
+            MawtribesBase(tribe, "Slaughtermaster", 6, g_wounds, 8, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER, SLAUGHTERMASTER};
         m_weapons = {&m_stumpBlades, &m_bite, &m_assortedWeapons};
         m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    bool Slaughtermaster::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_stumpBlades);
@@ -90,7 +79,18 @@ namespace OgorMawtribes {
         addModel(model);
 
         //m_knownSpells.push_back(std::make_unique<Rockchomper>(this));
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        if (trait != CommandTrait::Gastromancer) {
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        }
+        else {
+            // Knows all of the spells of Gutmagic
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Fleshcrave_Curse, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Blood_Feast, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Ribcracker, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Blubbergrub_Stench, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Molten_Entrails, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Greasy_Deluge, this)));
+        }
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -99,9 +99,23 @@ namespace OgorMawtribes {
             m_totalUnbinds++;
         }
 
-        m_points = Slaughtermaster::ComputePoints(1);
+        if (trait == CommandTrait::Questionable_Hygiene) {
+            s_globalToHitMod.connect(this, &Slaughtermaster::questionableHygiene, &m_questionableHygiene);
+        }
+        if (trait == CommandTrait::Herald_Of_The_Gulping_God) {
+            s_globalBraveryMod.connect(this, &Slaughtermaster::heraldOfGulpingGod, &m_heraldOfGulpingGod);
+        }
+        if (trait == CommandTrait::Growling_Stomach) {
+            s_globalBraveryMod.connect(this, &Slaughtermaster::growlingStomach, &m_growlingStomach);
+        }
 
-        return true;
+        m_points = Slaughtermaster::ComputePoints(1);
+    }
+
+    Slaughtermaster::~Slaughtermaster() {
+        m_questionableHygiene.disconnect();
+        m_heraldOfGulpingGod.disconnect();
+        m_growlingStomach.disconnect();
     }
 
     void Slaughtermaster::onCastSpell(const Spell *spell, const Unit *target) {

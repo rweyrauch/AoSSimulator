@@ -33,20 +33,17 @@ namespace OgorMawtribes {
 
     bool StonehornBeastriders::s_registered = false;
 
+    bool StonehornBeastriders::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *StonehornBeastriders::Create(const ParameterList &parameters) {
-        auto unit = new StonehornBeastriders();
-
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Chaintrap);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Chaintrap);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new StonehornBeastriders(tribe, weapon);
         }
-        return unit;
+        return nullptr;
     }
 
     std::string StonehornBeastriders::ValueToString(const Parameter &parameter) {
@@ -54,7 +51,6 @@ namespace OgorMawtribes {
             if (parameter.intValue == Chaintrap) return "Chaintrap";
             else if (parameter.intValue == Blood_Vulture) return "Blood Vulture";
         }
-
         return MawtribesBase::ValueToString(parameter);
     }
 
@@ -84,23 +80,15 @@ namespace OgorMawtribes {
         }
     }
 
-    StonehornBeastriders::StonehornBeastriders() :
-            MawtribesBase("Stonehorn Beastriders", 12, g_wounds, 9, 3, false),
-            m_harpoon(Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3),
-            m_chaintrap(Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3),
-            m_vulture(Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0),
-            m_kicks(Weapon::Type::Melee, "Punches and Kicks", 1, 6, 4, 4, 0, 1),
-            m_horns(Weapon::Type::Melee, "Rock-hard Horns", 2, 6, 4, 3, -2, 3),
-            m_hooves(Weapon::Type::Melee, "Crushing Hooves", 1, RAND_D6, 3, 2, -1, RAND_D3) {
+    StonehornBeastriders::StonehornBeastriders(Mawtribe tribe, WeaponOption option) :
+            MawtribesBase(tribe, "Stonehorn Beastriders", 12, g_wounds, 9, 3, false) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, STONEHORN_BEASTRIDERS};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
         m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_hooves.setMount(true);
         m_horns.setMount(true);
-    }
 
-    bool StonehornBeastriders::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
 
         m_option = option;
@@ -117,8 +105,6 @@ namespace OgorMawtribes {
         addModel(model);
 
         m_points = StonehornBeastriders::ComputePoints(1);
-
-        return true;
     }
 
     void StonehornBeastriders::onRestore() {

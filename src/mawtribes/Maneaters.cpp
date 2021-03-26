@@ -19,21 +19,19 @@ namespace OgorMawtribes {
 
     bool Maneaters::s_registered = false;
 
+    bool Maneaters::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
+    }
+
     Unit *Maneaters::Create(const ParameterList &parameters) {
-        auto unit = new Maneaters();
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        auto ability = (Ability) GetEnumParam("Ability", parameters, Brawlers);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(numModels, ability);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            auto ability = (Ability) GetEnumParam("Ability", parameters, Brawlers);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new Maneaters(tribe, numModels, ability);
         }
-        return unit;
+        return nullptr;
     }
 
     std::string Maneaters::ValueToString(const Parameter &parameter) {
@@ -75,19 +73,10 @@ namespace OgorMawtribes {
         }
     }
 
-    Maneaters::Maneaters() :
-            MawtribesBase("Maneaters", 6, g_wounds, 7, 5, false),
-            m_pistolsOrStars(Weapon::Type::Missile, "Pistols or Throwing Stars", 12, 1, 3, 3, -1, RAND_D3),
-            m_bashers(Weapon::Type::Melee, "Slicers and Bashers", 1, 4, 3, 3, -1, 2),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
+    Maneaters::Maneaters(Mawtribe tribe, int numModels, Ability ability) :
+            MawtribesBase(tribe, "Maneaters", 6, g_wounds, 7, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, MANEATERS};
         m_weapons = {&m_pistolsOrStars, &m_bite, &m_bashers};
-    }
-
-    bool Maneaters::configure(int numModels, Ability ability) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_ability = ability;
 
@@ -103,8 +92,6 @@ namespace OgorMawtribes {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int Maneaters::ComputePoints(int numModels) {
@@ -131,12 +118,12 @@ namespace OgorMawtribes {
                 }
             }
         }
-        return Unit::toHitRerolls(weapon, target);
+        return MawtribesBase::toHitRerolls(weapon, target);
     }
 
     bool Maneaters::battleshockRequired() const {
         if (m_ability == Stubborn) return false;
-        return Unit::battleshockRequired();
+        return MawtribesBase::battleshockRequired();
     }
 
 } // namespace OgorMawtribes

@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "mawtribes/HuskardThundertusk.h"
 #include "MawtribesPrivate.h"
 #include "MawtribesLore.h"
@@ -35,31 +36,17 @@ namespace OgorMawtribes {
     bool HuskardOnThundertusk::s_registered = false;
 
     Unit *HuskardOnThundertusk::Create(const ParameterList &parameters) {
-        auto unit = new HuskardOnThundertusk();
-
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Harpoon_Launcher);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_thundertuskTraits[0]);
-        auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
-
-        bool ok = unit->configure(weapon, mountTrait, prayer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Harpoon_Launcher);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_thundertuskTraits[0]);
+            auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
+            return new HuskardOnThundertusk(tribe, weapon, trait, artefact, general, mountTrait, prayer);
         }
-        return unit;
+       return nullptr;
     }
 
     std::string HuskardOnThundertusk::ValueToString(const Parameter &parameter) {
@@ -103,23 +90,19 @@ namespace OgorMawtribes {
         }
     }
 
-    HuskardOnThundertusk::HuskardOnThundertusk() :
-            MawtribesBase("Huskard on Thundertusk", 8, g_wounds, 8, 4, false),
-            m_harpoon(Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3),
-            m_chaintrap(Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3),
-            m_vulture(Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0),
-            m_ice(Weapon::Type::Missile, "Frost-wreathed Ice", 18, 0, 0, 0, 0, 0),
-            m_kicks(Weapon::Type::Melee, "Punches and Kicks", 1, 3, 3, 4, 0, 1),
-            m_tusks(Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3) {
-        m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, PRIEST,
-                      HUSKARD};
+    HuskardOnThundertusk::HuskardOnThundertusk(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral, MountTrait mountTrait, Prayer prayer) :
+            MawtribesBase(tribe, "Huskard on Thundertusk", 8, g_wounds, 8, 4, false) {
+
+        m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, PRIEST, HUSKARD};
         m_hasMount = true;
         m_tusks.setMount(true);
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    bool HuskardOnThundertusk::configure(WeaponOption option, MountTrait mountTrait, Prayer prayer) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         m_option = option;
@@ -140,9 +123,11 @@ namespace OgorMawtribes {
 
         m_knownPrayers.push_back(std::unique_ptr<::Prayer>(CreatePrayer(prayer, this)));
 
-        m_points = HuskardOnThundertusk::ComputePoints(1);
+        if (trait == CommandTrait::Master_Of_The_Mournfangs) {
+            s_globalBraveryMod.connect(this, &HuskardOnThundertusk::masterOfMournfangs, &m_masterOfMournfangs);
+        }
 
-        return true;
+        m_points = HuskardOnThundertusk::ComputePoints(1);
     }
 
     void HuskardOnThundertusk::onRestore() {
@@ -152,6 +137,9 @@ namespace OgorMawtribes {
 
     int HuskardOnThundertusk::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
+        if (m_commandTrait == CommandTrait::Skilled_Rider) {
+            woundsInflicted /= 2;
+        }
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
@@ -203,6 +191,29 @@ namespace OgorMawtribes {
 
     int HuskardOnThundertusk::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    bool HuskardOnThundertusk::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
+    void HuskardOnThundertusk::onStartHero(PlayerId player) {
+        MawtribesBase::onStartHero(player);
+
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+        const bool isFeeding = !units.empty();
+
+        if (isFeeding && (m_mountTrait == MountTrait::Fleshgreed)) {
+            heal(1);
+        }
+    }
+
+    int HuskardOnThundertusk::woundModifier() const {
+        auto mod = UnitModifierInterface::woundModifier();
+        if (m_mountTrait == MountTrait::Gvarnak) {
+            mod++;
+        }
+        return mod;
     }
 
 } // namespace OgorMawtribes

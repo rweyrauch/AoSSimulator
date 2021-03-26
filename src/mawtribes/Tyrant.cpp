@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "mawtribes/Tyrant.h"
 #include "MawtribesPrivate.h"
 
@@ -17,65 +18,49 @@ namespace OgorMawtribes {
 
     bool Tyrant::s_registered = false;
 
+    bool Tyrant::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *Tyrant::Create(const ParameterList &parameters) {
-        auto unit = new Tyrant();
-
-        auto bigName = (BigName) GetEnumParam("Big Name", parameters, Fateseeker);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_tyrantTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_tyrantArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        bool ok = unit->configure(bigName);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto bigName = (BigName) GetEnumParam("Big Name", parameters, (int)BigName::Fateseeker);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_tyrantTraits[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_tyrantArtefacts[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            return new Tyrant(tribe, bigName, trait, artefact, general);
         }
-        return unit;
+        return nullptr;
     }
 
     std::string Tyrant::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Big Name") {
-            if (parameter.intValue == Deathcheater) return "Deathcheater";
-            else if (parameter.intValue == Brawlerguts) return "Brawlerguts";
-            else if (parameter.intValue == Fateseeker) return "Fateseeker";
-            else if (parameter.intValue == Longstrider) return "Longstrider";
-            else if (parameter.intValue == Giantbreaker) return "Giantbreaker";
-            else if (parameter.intValue == Wallcrusher) return "Wallcrusher";
+            auto bigName = magic_enum::enum_name((BigName) parameter.intValue);
+            return std::string(bigName);
         }
         return MawtribesBase::ValueToString(parameter);
     }
 
     int Tyrant::EnumStringToInt(const std::string &enumString) {
-        if (enumString == "Deathcheater") return Deathcheater;
-        else if (enumString == "Brawlerguts") return Brawlerguts;
-        else if (enumString == "Fateseeker") return Fateseeker;
-        else if (enumString == "Longstrider") return Longstrider;
-        else if (enumString == "Giantbreaker") return Giantbreaker;
-        else if (enumString == "Wallcrusher") return Wallcrusher;
-
+        auto bigName = magic_enum::enum_cast<BigName>(enumString);
+        if (bigName.has_value()) {
+            return (int) bigName.value();
+        }
         return MawtribesBase::EnumStringToInt(enumString);
     }
 
     void Tyrant::Init() {
         if (!s_registered) {
-            static const std::array<int, 6> bignames = {Deathcheater, Brawlerguts, Fateseeker,
-                                                        Longstrider, Giantbreaker, Wallcrusher};
+            static const std::array<int, 6> bignames = {(int)BigName::Deathcheater, (int)BigName::Brawlerguts, (int)BigName::Fateseeker,
+                                                        (int)BigName::Longstrider, (int)BigName::Giantbreaker, (int)BigName::Wallcrusher};
             static FactoryMethod factoryMethod = {
                     Tyrant::Create,
                     Tyrant::ValueToString,
                     Tyrant::EnumStringToInt,
                     Tyrant::ComputePoints,
                     {
-                            EnumParameter("Big Name", Fateseeker, bignames),
+                            EnumParameter("Big Name", (int)BigName::Fateseeker, bignames),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
                             EnumParameter("Command Trait", g_tyrantTraits[0], g_tyrantTraits),
                             EnumParameter("Artefact", g_tyrantArtefacts[0], g_tyrantArtefacts),
@@ -88,19 +73,23 @@ namespace OgorMawtribes {
         }
     }
 
-    Tyrant::Tyrant() :
-            MawtribesBase("Tyrant", 6, g_wounds, 8, 4, false),
-            m_pistols(Weapon::Type::Missile, "Ogor Pistols", 12, 2, 4, 3, -1, RAND_D3),
-            m_thundermace(Weapon::Type::Melee, "Thundermace", 1, 3, 3, 3, -2, 3),
-            m_glaive(Weapon::Type::Melee, "Beastskewer Glaive", 3, 2, 3, 3, -1, RAND_D3),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
+    Tyrant::Tyrant(Mawtribe tribe, Tyrant::BigName bigName, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            MawtribesBase(tribe, "Tyrant", 6, g_wounds, 8, 4, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, TYRANT};
         m_weapons = {&m_pistols, &m_thundermace, &m_glaive, &m_bite};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool Tyrant::configure(BigName bigName) {
-        if (bigName == Deathcheater) m_wounds = g_wounds + 1;
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
+        m_bigName = bigName;
+
+        // TODO: if trait == Killer_Reputation, select a second BigName.
+
+        if ((m_bigName == BigName::Deathcheater) || (m_bigNameExtra == BigName::Deathcheater)) m_wounds = g_wounds + 1;
+        if ((m_bigName == BigName::Fateseeker) || (m_bigNameExtra == BigName::Fateseeker)) m_save = 3;
+        else if ((m_bigName == BigName::Longstrider) || (m_bigNameExtra == BigName::Longstrider)) m_move = 8;
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistols);
@@ -109,13 +98,15 @@ namespace OgorMawtribes {
         model->addMeleeWeapon(&m_bite);
         addModel(model);
 
-        if (bigName == Fateseeker) m_save = 3;
-        else if (bigName == Longstrider) m_move = 8;
+        if (m_commandTrait == CommandTrait::Mighty_Bellower) {
+            s_globalBattleshockFleeModifier.connect(this, &Tyrant::mightyBellower, &m_mightyBellower);
+        }
 
-        m_bigName = bigName;
         m_points = g_pointsPerUnit;
+    }
 
-        return true;
+    Tyrant::~Tyrant() {
+        m_mightyBellower.disconnect();
     }
 
     Wounds Tyrant::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -137,13 +128,56 @@ namespace OgorMawtribes {
     int Tyrant::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         auto mod = Unit::toWoundModifier(weapon, target);
 
-        if (m_charged && (m_bigName == Brawlerguts)) mod++;
+        if (m_charged && ((m_bigName == BigName::Brawlerguts) || (m_bigNameExtra == BigName::Brawlerguts))) mod++;
 
         return mod;
     }
 
     int Tyrant::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void Tyrant::onStartHero(PlayerId player) {
+        MawtribesBase::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if (m_commandTrait == CommandTrait::Furious_Guzzler) {
+                auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+                const bool isEating = !units.empty();
+                if (isEating) {
+                    heal(Dice::RollD3());
+                }
+            }
+        }
+    }
+
+    int Tyrant::woundModifier() const {
+        auto mod = UnitModifierInterface::woundModifier();
+        if (m_commandTrait == CommandTrait::Prodigious_Girth) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    int Tyrant::mightyBellower(const Unit *unit, int roll) {
+        if (distanceTo(unit) < 6.0) {
+            return Dice::RollD3();
+        }
+        return 0;
+    }
+
+    Rerolls Tyrant::toHitRerolls(const Weapon *weapon, const Unit *target) const {
+        if (weapon->isMelee() && target->hasKeyword(Has_Artefact) && (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
+            return Rerolls::Failed;
+        }
+        return Unit::toHitRerolls(weapon, target);
+    }
+
+    Rerolls Tyrant::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        if (weapon->isMelee() && target->hasKeyword(Has_Artefact) && (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
+            return Rerolls::Failed;
+        }
+        return Unit::toWoundRerolls(weapon, target);
     }
 
 } // namespace OgorMawtribes

@@ -7,6 +7,7 @@
  */
 
 #include <UnitFactory.h>
+#include <Board.h>
 #include "mawtribes/IcebrowHunter.h"
 #include "MawtribesPrivate.h"
 
@@ -17,35 +18,27 @@ namespace OgorMawtribes {
 
     bool IcebrowHunter::s_registered = false;
 
+    bool IcebrowHunter::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *IcebrowHunter::Create(const ParameterList &parameters) {
-        auto unit = new IcebrowHunter();
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_icebrowTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_icebrowArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_icebrowTraits[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_icebrowArtefacts[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            return new IcebrowHunter(tribe, trait, artefact, general);
         }
-        return unit;
+        return nullptr;
     }
 
     void IcebrowHunter::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     IcebrowHunter::Create,
-                    IcebrowHunter::ValueToString,
-                    IcebrowHunter::EnumStringToInt,
+                    MawtribesBase::ValueToString,
+                    MawtribesBase::EnumStringToInt,
                     IcebrowHunter::ComputePoints,
                     {
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
@@ -60,18 +53,19 @@ namespace OgorMawtribes {
         }
     }
 
-    IcebrowHunter::IcebrowHunter() :
-            MawtribesBase("Icebrow Hunter", 6, g_wounds, 7, 5, false),
-            m_spear(Weapon::Type::Missile, "Great Throwing Spear", 9, 1, 4, 3, -1, RAND_D3),
-            m_crossbow(Weapon::Type::Missile, "Hunter's Crossbow", 12, 1, 4, 3, 0, RAND_D3),
-            m_club(Weapon::Type::Melee, "Hunter's Culling Club", 1, 4, 3, 3, 0, 2),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
+    IcebrowHunter::IcebrowHunter(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            MawtribesBase(tribe, "Icebrow Hunter", 6, g_wounds, 7, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, HERO, ICEBROW_HUNTER};
         m_weapons = {&m_spear, &m_crossbow, &m_club, &m_bite};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool IcebrowHunter::configure() {
+        // Mighty Throw
+        m_runAndShoot = true;
+
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_spear);
@@ -81,21 +75,102 @@ namespace OgorMawtribes {
 
         addModel(model);
 
+        if (trait == CommandTrait::Raised_By_Yhetees) {
+            s_globalAttackMod.connect(this, &IcebrowHunter::raisedByYhetees, &m_raisedByYhetees);
+        }
+
+        m_commandAbilities.push_back(
+                std::make_unique<BuffModifierCommandAbility>(this, "Lead the Skal", 12, 12, Phase::Combat,
+                                                             Attribute::Attacks_Melee, 1, Abilities::Target::Friendly,
+                                                             std::vector<Keyword>{FROST_SABRES}));
+
         m_points = ComputePoints(1);
-
-        return true;
     }
 
-    std::string IcebrowHunter::ValueToString(const Parameter &parameter) {
-        return MawtribesBase::ValueToString(parameter);
-    }
-
-    int IcebrowHunter::EnumStringToInt(const std::string &enumString) {
-        return MawtribesBase::EnumStringToInt(enumString);
+    IcebrowHunter::~IcebrowHunter() {
+        m_raisedByYhetees.disconnect();
     }
 
     int IcebrowHunter::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int IcebrowHunter::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetHitModifier(weapon, attacker);
+        if (m_commandTrait == CommandTrait::Eye_Of_The_Blizzard) {
+            mod--;
+        }
+        return mod;
+    }
+
+    int IcebrowHunter::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+        if (weapon->isMissile() && (m_commandTrait == CommandTrait::Blood_Vultures_Gaze)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int IcebrowHunter::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+        if (weapon->isMissile() && (m_commandTrait == CommandTrait::Blood_Vultures_Gaze)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    void IcebrowHunter::onRan() {
+        MawtribesBase::onRan();
+
+        m_spear.setRange(18);
+        m_spear.setDamage(RAND_D6);
+    }
+
+    void IcebrowHunter::onStartMovement(PlayerId player) {
+        MawtribesBase::onStartMovement(player);
+
+        m_spear.setRange(12);
+        m_spear.setDamage(RAND_D3);
+    }
+
+    void IcebrowHunter::onStartShooting(PlayerId player) {
+        MawtribesBase::onStartShooting(player);
+
+        if (owningPlayer() == player) {
+            m_spear.activate(true);
+            m_crossbow.activate(true);
+
+            // Icy Breath
+            if (m_commandTrait == CommandTrait::Frost_Maw) {
+                auto numUnits = Dice::RollD3();
+                auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
+                m_spear.activate(false);
+                m_crossbow.activate(false);
+                if (!units.empty()) {
+                    for (auto unit : units) {
+                        if (unit->remainingModels() > 0) {
+                            if (Dice::RollD6() >= 4) {
+                                unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                            }
+                            numUnits--;
+                            if (numUnits <= 0) {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                if (shootingTarget() && (shootingTarget()->remainingModels() > 0) &&
+                    distanceTo(shootingTarget()) < 6.0) {
+                    m_spear.activate(false);
+                    m_crossbow.activate(false);
+                    if (Dice::RollD6() >= 4) {
+                        shootingTarget()->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                    }
+                }
+            }
+        }
     }
 
 } // namespace OgorMawtribes

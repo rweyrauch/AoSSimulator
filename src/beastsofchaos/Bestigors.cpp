@@ -21,17 +21,15 @@ namespace BeastsOfChaos {
     bool Bestigors::s_registered = false;
 
     Bestigors::Bestigors() :
-            BeastsOfChaosBase("Bestigors", 6, g_wounds, 6, 4, false),
-            m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
-            m_despoilerAxeGougeHorn(Weapon::Type::Melee, "Despoiler Axe", 1, 3, 4, 3, -1, 1) {
+            BeastsOfChaosBase("Bestigors", 6, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, BESTIGORS};
         m_weapons = {&m_despoilerAxe, &m_despoilerAxeGougeHorn};
     }
 
-    bool Bestigors::configure(int numModels, bool brayhorn, bool bannerBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+    Bestigors::Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
+        Bestigors() {
+
+        setGreatfray(fray);
 
         m_runAndCharge = brayhorn;
 
@@ -53,25 +51,22 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    bool Bestigors::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
     }
 
     Unit *Bestigors::Create(const ParameterList &parameters) {
-        auto unit = new Bestigors();
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
-        bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
-
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        bool ok = unit->configure(numModels, brayhorn, bannerBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
+            bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
+            auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
+            return new Bestigors(fray, numModels, brayhorn, bannerBearer);
         }
-        return unit;
+        return nullptr;
     }
 
     void Bestigors::Init() {

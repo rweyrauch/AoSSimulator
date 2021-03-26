@@ -17,39 +17,28 @@ namespace OgorMawtribes {
     static const int g_pointsPerBlock = 80;
     static const int g_pointsMaxUnitSize = 480;
 
-
     bool Leadbelchers::s_registered = false;
 
+    bool Leadbelchers::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
+    }
+
     Unit *Leadbelchers::Create(const ParameterList &parameters) {
-        auto unit = new Leadbelchers();
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new Leadbelchers(tribe, numModels);
         }
-        return unit;
-    }
-
-    std::string Leadbelchers::ValueToString(const Parameter &parameter) {
-        return MawtribesBase::ValueToString(parameter);
-    }
-
-    int Leadbelchers::EnumStringToInt(const std::string &enumString) {
-        return MawtribesBase::EnumStringToInt(enumString);
+        return nullptr;
     }
 
     void Leadbelchers::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Leadbelchers::Create,
-                    Leadbelchers::ValueToString,
-                    Leadbelchers::EnumStringToInt,
+                    MawtribesBase::ValueToString,
+                    MawtribesBase::EnumStringToInt,
                     Leadbelchers::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
@@ -62,20 +51,10 @@ namespace OgorMawtribes {
         }
     }
 
-    Leadbelchers::Leadbelchers() :
-            MawtribesBase("Leadbelchers", 6, g_wounds, 6, 5, false),
-            m_gun(Weapon::Type::Missile, "Leadbelcher Gun", 12, RAND_D3, 4, 3, -1, 1),
-            m_blow(Weapon::Type::Melee, "Bludgeoning Blow", 1, 2, 3, 3, -1, 2),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
-            m_blowThunderfist(Weapon::Type::Melee, "Bludgeoning Blow", 1, 3, 3, 3, -1, 2) {
+    Leadbelchers::Leadbelchers(Mawtribe tribe, int numModels) :
+            MawtribesBase(tribe, "Leadbelchers", 6, g_wounds, 6, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, LEADBELCHERS};
         m_weapons = {&m_gun, &m_blow, &m_bite, &m_blowThunderfist};
-    }
-
-    bool Leadbelchers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Gunmasters
         if (hasKeyword(UNDERGUTS)) {
@@ -97,8 +76,6 @@ namespace OgorMawtribes {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     void Leadbelchers::onStartShooting(PlayerId player) {

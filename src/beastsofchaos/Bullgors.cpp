@@ -21,30 +21,24 @@ namespace BeastsOfChaos {
     bool Bullgors::s_registered = false;
 
     Bullgors::Bullgors() :
-            BeastsOfChaosBase("Bullgors", 7, g_wounds, 6, 5, false),
-            m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
-            m_bullgorAxe(Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2),
-            m_bullgorAxeBloodkine(Weapon::Type::Melee, "Bullgor Axe", 1, 4, 4, 3, -1, 2),
-            m_bullgorGreatAxe(Weapon::Type::Melee, "Bullgor Great Axe", 1, 2, 4, 3, -2, 3),
-            m_bullgorGreatAxeBloodkine(Weapon::Type::Melee, "Bullgor Great Axe", 1, 3, 4, 3, -2, 3) {
+            BeastsOfChaosBase("Bullgors", 7, g_wounds, 6, 5, false) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, WARHERD, BULLGORS};
         m_weapons = {&m_bullgorHorns, &m_bullgorAxe, &m_bullgorAxeBloodkine, &m_bullgorGreatAxe,
                      &m_bullgorGreatAxeBloodkine};
     }
 
-    bool Bullgors::configure(int numModels, WeaponOptions options,
-                             bool drummer, bool bannerBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+    Bullgors::Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer) :
+        Bullgors() {
 
-        m_pairedAxes = (options == Paired_Bullgor_Axes);
+        setGreatfray(fray);
+
+        m_pairedAxes = (weapon == Paired_Bullgor_Axes);
 
         auto bloodkine = new Model(g_basesize, wounds());
         bloodkine->addMeleeWeapon(&m_bullgorHorns);
-        if (options == Bullgor_Axe || options == Paired_Bullgor_Axes) {
+        if (weapon == Bullgor_Axe || weapon == Paired_Bullgor_Axes) {
             bloodkine->addMeleeWeapon(&m_bullgorAxeBloodkine);
-        } else if (options == Bullgor_Great_Axe) {
+        } else if (weapon == Bullgor_Great_Axe) {
             bloodkine->addMeleeWeapon(&m_bullgorGreatAxeBloodkine);
         }
         addModel(bloodkine);
@@ -52,9 +46,9 @@ namespace BeastsOfChaos {
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_bullgorHorns);
-            if (options == Bullgor_Axe || options == Paired_Bullgor_Axes) {
+            if (weapon == Bullgor_Axe || weapon == Paired_Bullgor_Axes) {
                 model->addMeleeWeapon(&m_bullgorAxe);
-            } else if (options == Bullgor_Great_Axe) {
+            } else if (weapon == Bullgor_Great_Axe) {
                 model->addMeleeWeapon(&m_bullgorGreatAxe);
             }
             if (bannerBearer) {
@@ -66,28 +60,24 @@ namespace BeastsOfChaos {
             }
             addModel(model);
         }
-
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    bool Bullgors::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
     }
 
     Unit *Bullgors::Create(const ParameterList &parameters) {
-        auto unit = new Bullgors();
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, Bullgor_Axe);
-        bool drummer = GetBoolParam("Drummer", parameters, false);
-        bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
-
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        bool ok = unit->configure(numModels, weapon, drummer, bannerBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            const auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
+            const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            const auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, Bullgor_Axe);
+            const bool drummer = GetBoolParam("Drummer", parameters, false);
+            const bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
+            return new Bullgors(fray, numModels, weapon, drummer, bannerBearer);
         }
-        return unit;
+        return nullptr;
     }
 
     void Bullgors::Init() {

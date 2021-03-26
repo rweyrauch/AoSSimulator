@@ -15,19 +15,21 @@ namespace BeastsOfChaos {
     class Bestigors : public BeastsOfChaosBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
 
         static int ComputePoints(int numModels);
 
-        Bestigors();
-
         ~Bestigors() override = default;
 
-        bool configure(int numModels, bool brayhorn, bool bannerBearer);
-
     protected:
+
+        Bestigors();
+
+        Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer);
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 
@@ -39,8 +41,8 @@ namespace BeastsOfChaos {
 
     private:
 
-        Weapon m_despoilerAxe;
-        Weapon m_despoilerAxeGougeHorn;
+        Weapon m_despoilerAxe{Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1};
+        Weapon m_despoilerAxeGougeHorn{Weapon::Type::Melee, "Despoiler Axe", 1, 3, 4, 3, -1, 1};
 
         static bool s_registered;
     };

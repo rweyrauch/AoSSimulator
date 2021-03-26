@@ -15,17 +15,21 @@ namespace BeastsOfChaos {
     class Centigors : public BeastsOfChaosBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static void Init();
 
         static int ComputePoints(int numModels);
 
-        Centigors();
-
         ~Centigors() override = default;
 
-        bool configure(int numModels, bool brayhorn, bool bannerBearer);
+    protected:
+
+        Centigors();
+
+        Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer);
 
     protected:
 
@@ -43,9 +47,9 @@ namespace BeastsOfChaos {
 
         bool m_drunkenRevelry = false;
 
-        Weapon m_centigorSpear,
-                m_centigorSpearGorehoof;
-        Weapon m_clawedForelimbs;
+        Weapon m_centigorSpear{Weapon::Type::Melee, "Centigor Spear", 2, 2, 4, 4, 0, 1};
+        Weapon m_centigorSpearGorehoof{Weapon::Type::Melee, "Centigor Spear", 2, 3, 4, 4, 0, 1};
+        Weapon m_clawedForelimbs{Weapon::Type::Melee, "Clawed Forelimbs", 1, 2, 5, 5, 0, 1};
 
         static bool s_registered;
     };

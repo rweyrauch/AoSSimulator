@@ -19,22 +19,19 @@ namespace OgorMawtribes {
 
     bool Gorgers::s_registered = false;
 
-    Unit *Gorgers::Create(const ParameterList &parameters) {
-        auto unit = new Gorgers();
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+    bool Gorgers::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
     }
 
+    Unit *Gorgers::Create(const ParameterList &parameters) {
+        if (AreValid(parameters)) {
+            auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new Gorgers(tribe, numModels);
+        }
+        return nullptr;
+    }
 
     void Gorgers::Init() {
         if (!s_registered) {
@@ -54,18 +51,10 @@ namespace OgorMawtribes {
         }
     }
 
-    Gorgers::Gorgers() :
-            MawtribesBase("Gorgers", 6, g_wounds, 8, 6, false),
-            m_claws(Weapon::Type::Melee, "Long Claws", 1, 4, 3, 3, 0, 2),
-            m_jaw(Weapon::Type::Melee, "Distensible Jaw", 1, 1, 3, 3, -1, RAND_D3) {
+    Gorgers::Gorgers(Mawtribe tribe, int numModels) :
+            MawtribesBase(tribe, "Gorgers", 6, g_wounds, 8, 6, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, GORGERS};
         m_weapons = {&m_claws, &m_jaw};
-    }
-
-    bool Gorgers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -75,8 +64,6 @@ namespace OgorMawtribes {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int Gorgers::ComputePoints(int numModels) {

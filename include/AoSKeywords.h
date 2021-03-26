@@ -1023,7 +1023,7 @@ enum Keyword {
     // Internally Used
     Sunmetal_Weapons,   // Lumineth
     Banners,
-
+    Has_Artefact,
 };
 
 Keyword GrandAllianceStringToKeyword(const std::string &allianceName);

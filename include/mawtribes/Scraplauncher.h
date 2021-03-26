@@ -15,21 +15,21 @@ namespace OgorMawtribes {
     class GnoblarScraplauncher : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
-
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
 
         static void Init();
 
         static int ComputePoints(int numModels);
 
-        GnoblarScraplauncher();
+        GnoblarScraplauncher() = delete;
 
         ~GnoblarScraplauncher() override = default;
 
-        bool configure();
+    protected:
+
+        GnoblarScraplauncher(Mawtribe tribe);
 
     protected:
 
@@ -39,9 +39,9 @@ namespace OgorMawtribes {
 
     private:
 
-        Weapon m_scrap,
-                m_scrapperWeapons,
-                m_horns;
+        Weapon m_scrap{Weapon::Type::Missile, "Piles of Old Scrap", 36, 3, 3, 4, 0, RAND_D3},
+            m_scrapperWeapons{Weapon::Type::Melee, "Gnoblar Scrappers' Weapons", 1, 7, 5, 5, 0, 1},
+            m_horns{Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 1, 4, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

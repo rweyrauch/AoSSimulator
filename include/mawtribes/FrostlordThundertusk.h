@@ -15,6 +15,8 @@ namespace OgorMawtribes {
     class FrostlordOnThundertusk : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static std::string ValueToString(const Parameter &parameter);
@@ -25,11 +27,13 @@ namespace OgorMawtribes {
 
         static void Init();
 
-        FrostlordOnThundertusk();
+        FrostlordOnThundertusk() = delete;
 
         ~FrostlordOnThundertusk() override = default;
 
-        bool configure(MountTrait mountTrait);
+    protected:
+
+        FrostlordOnThundertusk(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral, MountTrait mountTrait);
 
     protected:
 
@@ -43,12 +47,16 @@ namespace OgorMawtribes {
 
         void onStartShooting(PlayerId player) override;
 
+        void onStartHero(PlayerId player) override;
+
+        int woundModifier() const override;
+
     private:
 
-        Weapon m_ice,
-                m_spear,
-                m_kicks,
-                m_tusks;
+        Weapon m_ice{Weapon::Type::Missile, "Frost-wreathed Ice", 18, 0, 0, 0, 0, 0},
+                m_spear{Weapon::Type::Melee, "Frost Spear", 2, 4, 3, 3, -1, 3},
+                m_kicks{Weapon::Type::Melee, "Punches and Kicks", 1, 3, 3, 3, 0, 1},
+                m_tusks{Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3};
 
         MountTrait m_mountTrait = MountTrait::None;
 

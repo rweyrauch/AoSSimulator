@@ -15,27 +15,31 @@ namespace OgorMawtribes {
     class Gorgers : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        Gorgers();
+        Gorgers() = delete;
 
         ~Gorgers() override = default;
 
-        bool configure(int numModels);
+    protected:
+
+        Gorgers(Mawtribe tribe, int numModels);
 
     protected:
 
-        // Instatiable Hunger
+        // Insatiable Hunger
         Rerolls chargeRerolls() const override { return Rerolls::Failed; }
 
     private:
 
-        Weapon m_claws,
-                m_jaw;
+        Weapon m_claws{Weapon::Type::Melee, "Long Claws", 1, 4, 3, 3, 0, 2},
+                m_jaw{Weapon::Type::Melee, "Distensible Jaw", 1, 1, 3, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

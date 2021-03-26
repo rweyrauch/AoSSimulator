@@ -29,36 +29,44 @@ namespace OgorMawtribes {
         None,
 
         // Tyrant,
-        Furious_Guzzler,        // TODO
-        Prodigious_Girth,       // TODO
+        Furious_Guzzler,
+        Prodigious_Girth,
         Killer_Reputation,      // TODO
-        Mighty_Bellower,        // TODO
-        An_Eye_For_Loot,        // TODO
-        Crushing_Bulk,          // TODO
+        Mighty_Bellower,
+        An_Eye_For_Loot,
+        Crushing_Bulk,
 
         // Butcher
-        Questionable_Hygiene,   // TODO
-        Herald_Of_The_Gulping_God,  // TODO
-        Growling_Stomach,       // TODO
-        Gastromancer,           // TODO
-        Rolls_Of_Fat,           // TODO
+        Questionable_Hygiene,
+        Herald_Of_The_Gulping_God,
+        Growling_Stomach,
+        Gastromancer,
+        Rolls_Of_Fat,
         Spell_Eater,            // TODO
 
         // Frostlord/Huskard
-        Nomadic_Raider,         // TODO
+        Nomadic_Raider,
         Voice_Of_The_Avalanche, // TODO
         Frostfell_Aura,         // TODO
-        Master_Of_The_Mournfangs,   // TODO
-        Skilled_Rider,          // TODO
+        Master_Of_The_Mournfangs,
+        Skilled_Rider,
         Touched_By_The_Everwinter,  // TODO
 
         // Icebrow
-        Winter_Rander,          // TODO
-        Eye_Of_The_Blizzard,    // TODO
-        Blood_Vultures_Gaze,    // TODO
-        Frost_Maw,              // TODO
-        Raised_By_Yhetees,      // TODO
-        Skal_Packmaster         // TODO
+        Winter_Ranger,          // TODO
+        Eye_Of_The_Blizzard,
+        Blood_Vultures_Gaze,
+        Frost_Maw,
+        Raised_By_Yhetees,
+        Skal_Packmaster,        // TODO
+
+        // Tribe
+        Food_For_Thought,       // Meatfist
+        Nice_Drop_Of_The_Red_Stuff, // Bloodgullet TODO
+        Mass_Of_Scars,          // Underguts TODO
+        Lord_Of_Beasts,         // Boulderhead TODO
+        Storm_Chaser,           // Thunderbellies TODO
+        Wintertouched,          // Winterbite TODO
     };
 
     enum class Artefact : int {
@@ -124,19 +132,19 @@ namespace OgorMawtribes {
 
         // Stonehorn
         Black_Clatterhorn,
-        Metalcrusher,
-        Belligerent_Charger,
+        Metalcrusher,           // TODO
+        Belligerent_Charger,    // TODO
         Frosthoof_Bull,
         Rockmane_Elder,
-        Old_Granitetooth,
+        Old_Granitetooth,       // TODO
 
         // Thundertusk
-        Fleet_Of_Hoof,
+        Fleet_Of_Hoof,          // TODO
         Fleshgreed,
-        Rimefrost_Hide,
+        Rimefrost_Hide,         // TODO
         Gvarnak,
-        Matriarch,
-        Alvagr_Ancient
+        Matriarch,              // TODO
+        Alvagr_Ancient          // TODO
     };
 
     class MawtribesBase : public Unit {
@@ -150,13 +158,14 @@ namespace OgorMawtribes {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        void setMawtribe(Mawtribe tribe);
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
 
     protected:
-        MawtribesBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        MawtribesBase(Mawtribe tribe, const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+                Unit(name, move, wounds, bravery, save, fly) {
+            setMawtribe(tribe);
+        }
 
     protected:
 
@@ -175,6 +184,26 @@ namespace OgorMawtribes {
         int moveModifier() const override;
 
         int braveryModifier() const override;
+
+        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
+
+        int questionableHygiene(const Unit *attacker, const Weapon *weapon, const Unit *target);
+        int heraldOfGulpingGod(const Unit *unit);
+        int growlingStomach(const Unit *unit);
+        int masterOfMournfangs(const Unit *unit);
+        int raisedByYhetees(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+
+        // Command traits
+        lsignal::slot m_questionableHygiene;
+        lsignal::slot m_heraldOfGulpingGod;
+        lsignal::slot m_growlingStomach;
+        lsignal::slot m_masterOfMournfangs;
+        lsignal::slot m_raisedByYhetees;
+
+    private:
+
+        void setMawtribe(Mawtribe tribe);
+
     };
 
 //
@@ -187,30 +216,24 @@ namespace OgorMawtribes {
 // Meatfist
 //    Fleshy Stampede               Yes
 //    The Unstoppable Feast         TODO
-//    Food for Thought              TODO
 // Bloodgullet
 //    Heralds of the Gulping God    Partial/TODO
 //    Bloodbath                     TODO
-//    Nice Drop of the Red Stuff    TODO
 // Underguts
 //    Gunmasters                    Yes
-//    Mass of Scars                 TODO
 //    Thunderous Salvo              TODO
 // Boulderhead
 //    Fearsome Breed                TODO
 //    Deadly Hail                   TODO
 //    Dig Deep Your Heels!          TODO
-//    Lord of Beasts                TODO
 // Thunderbellies
 //    Swift Outflank                TODO
 //    Riders of the Hurricane       TODO
 //    Rip and Tear                  TODO
-//    Storm Chaser                  TODO
 // Winterbite
 //    Ghosts in the Blizzard        TODO
 //    Call of the Endless White     TODO
 //    Howl of the Wind              TODO
-//    Wintertouched                 TODO
 //
 
     void Init();

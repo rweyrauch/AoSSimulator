@@ -21,6 +21,8 @@ namespace BeastsOfChaos {
             Bullgor_Great_Axe
         };
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static std::string ValueToString(const Parameter &parameter);
@@ -31,11 +33,13 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        Bullgors();
-
         ~Bullgors() override = default;
 
-        bool configure(int numModels, WeaponOptions options, bool drummer, bool bannerBearer);
+    protected:
+
+        Bullgors();
+
+        explicit Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer);
 
     protected:
 
@@ -51,11 +55,11 @@ namespace BeastsOfChaos {
 
         bool m_pairedAxes = false;
 
-        Weapon m_bullgorHorns;
-        Weapon m_bullgorAxe;
-        Weapon m_bullgorAxeBloodkine;
-        Weapon m_bullgorGreatAxe;
-        Weapon m_bullgorGreatAxeBloodkine;
+        Weapon m_bullgorHorns{Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1};
+        Weapon m_bullgorAxe{Weapon::Type::Melee, "Bullgor Axe", 1, 3, 4, 3, -1, 2};
+        Weapon m_bullgorAxeBloodkine{Weapon::Type::Melee, "Bullgor Axe", 1, 4, 4, 3, -1, 2};
+        Weapon m_bullgorGreatAxe{Weapon::Type::Melee, "Bullgor Great Axe", 1, 2, 4, 3, -2, 3};
+        Weapon m_bullgorGreatAxeBloodkine{Weapon::Type::Melee, "Bullgor Great Axe", 1, 3, 4, 3, -2, 3};
 
         static bool s_registered;
     };

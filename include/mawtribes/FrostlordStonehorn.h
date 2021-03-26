@@ -15,6 +15,8 @@ namespace OgorMawtribes {
     class FrostlordOnStonehorn : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static std::string ValueToString(const Parameter &parameter);
@@ -25,11 +27,13 @@ namespace OgorMawtribes {
 
         static void Init();
 
-        FrostlordOnStonehorn();
+        FrostlordOnStonehorn() = delete;
 
         ~FrostlordOnStonehorn() override = default;
 
-        bool configure(MountTrait mountTrait);
+    protected:
+
+        FrostlordOnStonehorn(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral, MountTrait mountTrait);
 
     protected:
 
@@ -43,12 +47,18 @@ namespace OgorMawtribes {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int woundModifier() const override;
+
     private:
 
-        Weapon m_spear,
-                m_kicks,
-                m_horns,
-                m_hooves;
+        Weapon m_spear{Weapon::Type::Melee, "Frost Spear", 2, 4, 3, 3, -1, 3},
+                m_kicks{Weapon::Type::Melee, "Punches and Kicks", 1, 3, 3, 3, 0, 1},
+                m_horns{Weapon::Type::Melee, "Rock-hard Horns", 2, 6, 4, 3, -2, 3},
+                m_hooves{Weapon::Type::Melee, "Crushing Hooves", 2, RAND_D6, 3, 2, -1, RAND_D3};
 
         MountTrait m_mountTrait = MountTrait::None;
 

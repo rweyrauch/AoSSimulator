@@ -15,17 +15,21 @@ namespace OgorMawtribes {
     class Ironguts : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        Ironguts();
+        Ironguts() = delete;
 
         ~Ironguts() override;
 
-        bool configure(int numModels, bool runeMawBearer, bool bellower);
+    protected:
+
+        Ironguts(Mawtribe tribe, int numModels, bool runeMawBearer, bool bellower);
 
     protected:
 
@@ -33,9 +37,9 @@ namespace OgorMawtribes {
 
     private:
 
-        Weapon m_bashingWeapon,
-                m_bite,
-                m_bashingWeaponGutlord;
+        Weapon m_bashingWeapon{Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 3, 3, 3, 0, 2},
+            m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1},
+            m_bashingWeaponGutlord{Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2};
 
         lsignal::slot m_connection;
 

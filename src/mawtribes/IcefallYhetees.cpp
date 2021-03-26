@@ -19,20 +19,18 @@ namespace OgorMawtribes {
 
     bool IcefallYhetees::s_registered = false;
 
+    bool IcefallYhetees::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
+    }
+
     Unit *IcefallYhetees::Create(const ParameterList &parameters) {
-        auto unit = new IcefallYhetees();
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new IcefallYhetees(tribe, numModels);
         }
-        return unit;
+        return nullptr;
     }
 
     void IcefallYhetees::Init() {
@@ -53,20 +51,13 @@ namespace OgorMawtribes {
         }
     }
 
-    IcefallYhetees::IcefallYhetees() :
-            MawtribesBase("Icefall Yhetees", 9, g_wounds, 6, 6, false),
-            m_clawsAndClubs(Weapon::Type::Melee, "Claws and Ice-encrusted Clubs", 1, 3, 4, 3, -1, 2) {
+    IcefallYhetees::IcefallYhetees(Mawtribe tribe, int numModels) :
+            MawtribesBase(tribe, "Icefall Yhetees", 9, g_wounds, 6, 6, false) {
         m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, ICEFALL_YHETESS};
         m_weapons = {&m_clawsAndClubs};
 
         // Bounding Leaps
         m_pileInMove = 6;
-    }
-
-    bool IcefallYhetees::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -75,8 +66,6 @@ namespace OgorMawtribes {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int IcefallYhetees::ComputePoints(int numModels) {

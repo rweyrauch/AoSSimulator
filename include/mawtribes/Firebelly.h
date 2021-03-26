@@ -15,17 +15,21 @@ namespace OgorMawtribes {
     class Firebelly : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        Firebelly();
+        Firebelly() = delete;
 
         ~Firebelly() override = default;
 
-        bool configure(Lore lore);
+    protected:
+
+        Firebelly(Mawtribe tribe, Lore lore, bool isGeneral);
 
     protected:
 
@@ -33,8 +37,8 @@ namespace OgorMawtribes {
 
     private:
 
-        Weapon m_fireBreath,
-                m_hammer;
+        Weapon m_fireBreath{Weapon::Type::Missile, "Fire Breath", 6, 1, 0, 0, 0, 0},
+                m_hammer{Weapon::Type::Melee, "Basalt Hammer", 2, 2, 3, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

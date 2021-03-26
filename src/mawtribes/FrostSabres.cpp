@@ -18,23 +18,20 @@ namespace OgorMawtribes {
     static const int g_pointsPerBlock = 40;
     static const int g_pointsMaxUnitSize = 240;
 
-
     bool FrostSabres::s_registered = false;
 
+    bool FrostSabres::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
+    }
+
     Unit *FrostSabres::Create(const ParameterList &parameters) {
-        auto unit = new FrostSabres();
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new FrostSabres(tribe, numModels);
         }
-        return unit;
+        return nullptr;
     }
 
     void FrostSabres::Init() {
@@ -55,17 +52,10 @@ namespace OgorMawtribes {
         }
     }
 
-    FrostSabres::FrostSabres() :
-            MawtribesBase("Frost Sabres", 9, g_wounds, 5, 6, false),
-            m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 3, -1, 1) {
+    FrostSabres::FrostSabres(Mawtribe tribe, int numModels) :
+            MawtribesBase(tribe, "Frost Sabres", 9, g_wounds, 5, 6, false) {
         m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, FROST_SABRES};
         m_weapons = {&m_fangs};
-    }
-
-    bool FrostSabres::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -74,8 +64,6 @@ namespace OgorMawtribes {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int FrostSabres::ComputePoints(int numModels) {

@@ -10,41 +10,57 @@
 #include <spells/MysticShield.h>
 #include "mawtribes/Butcher.h"
 #include "MawtribesPrivate.h"
+#include "MawtribesLore.h"
 
 namespace OgorMawtribes {
+
+    class VoraciousMaw : public Spell {
+    public:
+        explicit VoraciousMaw(Unit *caster) :
+            Spell(caster, "Voracious Maw", 7, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) return Result::Failed;
+
+            auto mortalWounds = Dice::RollD3();
+            while (Dice::RollD6() >= 4) {
+                mortalWounds += Dice::RollD3();
+            }
+            target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
+
+            return Result::Success;
+        }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, double x,
+                     double y) override { return Result::Failed; }
+    };
+
     static const int g_basesize = 50;
     static const int g_wounds = 7;
     static const int g_pointsPerUnit = 140;
 
     bool Butcher::s_registered = false;
 
-    Unit *Butcher::Create(const ParameterList &parameters) {
-        auto unit = new Butcher();
-
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Cleaver);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_butcherTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_butcherArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_butcherLore[0]);
-
-        bool ok = unit->configure(weapon, lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+    bool Butcher::AreValid(const ParameterList &parameters) {
+        return true;
     }
 
+    Unit *Butcher::Create(const ParameterList &parameters) {
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Cleaver);
+            auto lore = (Lore) GetEnumParam("Lore", parameters, g_butcherLore[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_butcherTraits[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_butcherArtefacts[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            return new Butcher(tribe, weapon, lore, trait, artefact, general);
+        }
+        return nullptr;
+    }
 
     void Butcher::Init() {
         if (!s_registered) {
@@ -69,20 +85,19 @@ namespace OgorMawtribes {
         }
     }
 
-    Butcher::Butcher() :
-            MawtribesBase("Butcher", 6, g_wounds, 8, 5, false),
-            m_tenderizer(Weapon::Type::Melee, "Tenderizer", 1, 3, 3, 3, -1, 3),
-            m_cleaver(Weapon::Type::Melee, "Cleaver", 1, 3, 3, 3, -2, 2),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
+    Butcher::Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            MawtribesBase(tribe, "Butcher", 6, g_wounds, 8, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER};
         m_weapons = {&m_tenderizer, &m_cleaver, &m_bite};
         m_battleFieldRole = Role::Leader;
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    bool Butcher::configure(WeaponOption weaponOption, Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         if (weaponOption == Tenderiser) {
@@ -94,18 +109,44 @@ namespace OgorMawtribes {
 
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<VoraciousMaw>(this));
+        if (trait != CommandTrait::Gastromancer) {
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        }
+        else {
+            // Knows all of the spells of Gutmagic
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Fleshcrave_Curse, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Blood_Feast, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Ribcracker, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Blubbergrub_Stench, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Molten_Entrails, this)));
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Greasy_Deluge, this)));
+        }
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-        //m_knownSpells.push_back(std::make_unique<VoraciousMaw>(this));
 
         if (hasKeyword(BLOODGULLET)) {
             m_totalSpells++;
             m_totalUnbinds++;
         }
 
-        m_points = g_pointsPerUnit;
+        if (trait == CommandTrait::Questionable_Hygiene) {
+            s_globalToHitMod.connect(this, &Butcher::questionableHygiene, &m_questionableHygiene);
+        }
+        if (trait == CommandTrait::Herald_Of_The_Gulping_God) {
+            s_globalBraveryMod.connect(this, &Butcher::heraldOfGulpingGod, &m_heraldOfGulpingGod);
+        }
+        if (trait == CommandTrait::Growling_Stomach) {
+            s_globalBraveryMod.connect(this, &Butcher::growlingStomach, &m_growlingStomach);
+        }
 
-        return true;
+        m_points = g_pointsPerUnit;
+    }
+
+    Butcher::~Butcher() {
+        m_questionableHygiene.disconnect();
+        m_heraldOfGulpingGod.disconnect();
+        m_growlingStomach.disconnect();
     }
 
     std::string Butcher::ValueToString(const Parameter &parameter) {
@@ -143,6 +184,14 @@ namespace OgorMawtribes {
 
     int Butcher::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int Butcher::woundModifier() const {
+        auto mod = UnitModifierInterface::woundModifier();
+        if (m_commandTrait == CommandTrait::Rolls_Of_Fat) {
+            mod += 2;
+        }
+        return mod;
     }
 
 } // namespace OgorMawtribes

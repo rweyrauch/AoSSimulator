@@ -33,20 +33,17 @@ namespace OgorMawtribes {
 
     bool ThundertuskBeastriders::s_registered = false;
 
+    bool ThundertuskBeastriders::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *ThundertuskBeastriders::Create(const ParameterList &parameters) {
-        auto unit = new ThundertuskBeastriders();
-
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Chaintrap);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Chaintrap);
+            return new ThundertuskBeastriders(tribe, weapon);
         }
-        return unit;
+        return nullptr;
     }
 
     std::string ThundertuskBeastriders::ValueToString(const Parameter &parameter) {
@@ -83,23 +80,16 @@ namespace OgorMawtribes {
         }
     }
 
-    ThundertuskBeastriders::ThundertuskBeastriders() :
-            MawtribesBase("Thundertusk Beastriders", 8, g_wounds, 7, 4, false),
-            m_harpoon(Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3),
-            m_chaintrap(Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3),
-            m_vulture(Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0),
-            m_ice(Weapon::Type::Missile, "Frost-wreathed Ice", 18, 0, 0, 0, 0, 0),
-            m_kicks(Weapon::Type::Melee, "Punches and Kicks", 1, 6, 4, 4, 0, 1),
-            m_tusks(Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3) {
+    ThundertuskBeastriders::ThundertuskBeastriders(Mawtribe tribe, WeaponOption option) :
+            MawtribesBase(tribe, "Thundertusk Beastriders", 8, g_wounds, 7, 4, false) {
+
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER,
                       THUNDERTUSK_BEASTRIDERS};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};
         m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_tusks.setMount(true);
-    }
 
-    bool ThundertuskBeastriders::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
 
         m_option = option;
@@ -116,11 +106,10 @@ namespace OgorMawtribes {
         addModel(model);
 
         m_points = ThundertuskBeastriders::ComputePoints(1);
-
-        return true;
     }
 
     void ThundertuskBeastriders::onRestore() {
+        MawtribesBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
@@ -144,7 +133,7 @@ namespace OgorMawtribes {
     }
 
     int ThundertuskBeastriders::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = MawtribesBase::targetHitModifier(weapon, attacker);
         // Numbing Chill
         if (!weapon->isMissile()) mod--;
 
@@ -152,8 +141,7 @@ namespace OgorMawtribes {
     }
 
     void ThundertuskBeastriders::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
-
+        MawtribesBase::onStartShooting(player);
 
         if (player == owningPlayer()) {
             if (m_meleeTarget) {

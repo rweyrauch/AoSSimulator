@@ -22,6 +22,8 @@ namespace OgorMawtribes {
             Stubborn
         };
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static std::string ValueToString(const Parameter &parameter);
@@ -32,11 +34,13 @@ namespace OgorMawtribes {
 
         static void Init();
 
-        Maneaters();
+        Maneaters() = delete;
 
         ~Maneaters() override = default;
 
-        bool configure(int numModels, Ability ability);
+    protected:
+
+        Maneaters(Mawtribe tribe, int numModels, Ability ability);
 
     protected:
 
@@ -48,9 +52,9 @@ namespace OgorMawtribes {
 
         Ability m_ability = Brawlers;
 
-        Weapon m_pistolsOrStars,
-                m_bashers,
-                m_bite;
+        Weapon m_pistolsOrStars{Weapon::Type::Missile, "Pistols or Throwing Stars", 12, 1, 3, 3, -1, RAND_D3},
+                m_bashers{Weapon::Type::Melee, "Slicers and Bashers", 1, 4, 3, 3, -1, 2},
+                m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1};
 
         static bool s_registered;
     };

@@ -34,7 +34,7 @@ namespace BeastsOfChaos {
 
     private:
 
-        Weapon m_freakingMutations;
+        Weapon m_freakingMutations{Weapon::Type::Melee, "Freakish Mutations", 1, RAND_2D6, 4, 4, 0, 1};
 
         static bool s_registered;
     };

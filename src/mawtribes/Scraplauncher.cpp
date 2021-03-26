@@ -16,34 +16,24 @@ namespace OgorMawtribes {
 
     bool GnoblarScraplauncher::s_registered = false;
 
+    bool GnoblarScraplauncher::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *GnoblarScraplauncher::Create(const ParameterList &parameters) {
-        auto unit = new GnoblarScraplauncher();
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new GnoblarScraplauncher(tribe);
         }
-        return unit;
-    }
-
-    std::string GnoblarScraplauncher::ValueToString(const Parameter &parameter) {
-        return MawtribesBase::ValueToString(parameter);
-    }
-
-    int GnoblarScraplauncher::EnumStringToInt(const std::string &enumString) {
-        return MawtribesBase::EnumStringToInt(enumString);
+        return nullptr;
     }
 
     void GnoblarScraplauncher::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     GnoblarScraplauncher::Create,
-                    GnoblarScraplauncher::ValueToString,
-                    GnoblarScraplauncher::EnumStringToInt,
+                    MawtribesBase::ValueToString,
+                    MawtribesBase::EnumStringToInt,
                     GnoblarScraplauncher::ComputePoints,
                     {
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe)
@@ -55,17 +45,12 @@ namespace OgorMawtribes {
         }
     }
 
-    GnoblarScraplauncher::GnoblarScraplauncher() :
-            MawtribesBase("Gnoblar Scraplauncher", 7, g_wounds, 5, 4, false),
-            m_scrap(Weapon::Type::Missile, "Piles of Old Scrap", 36, 3, 3, 4, 0, RAND_D3),
-            m_scrapperWeapons(Weapon::Type::Melee, "Gnoblar Scrappers' Weapons", 1, 7, 5, 5, 0, 1),
-            m_horns(Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 1, 4, 3, -1, RAND_D3) {
+    GnoblarScraplauncher::GnoblarScraplauncher(Mawtribe tribe) :
+            MawtribesBase(tribe, "Gnoblar Scraplauncher", 7, g_wounds, 5, 4, false) {
         m_keywords = {DESTRUCTION, GROT, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, GNOBLAR_SCRAPLAUNCHER};
         m_weapons = {&m_scrap, &m_scrapperWeapons, &m_horns};
         m_battleFieldRole = Role::Artillery;
-    }
 
-    bool GnoblarScraplauncher::configure() {
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_scrap);
@@ -75,8 +60,6 @@ namespace OgorMawtribes {
         addModel(model);
 
         m_points = GnoblarScraplauncher::ComputePoints(1);
-
-        return true;
     }
 
     int GnoblarScraplauncher::toHitModifier(const Weapon *weapon, const Unit *target) const {

@@ -18,42 +18,40 @@ namespace BeastsOfChaos {
     bool Beastlord::s_registered = false;
 
     Beastlord::Beastlord() :
-            BeastsOfChaosBase("Beastlord", 6, g_wounds, 7, 4, false),
-            m_pairedAxes(Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1) {
+            BeastsOfChaosBase("Beastlord", 6, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
         m_weapons.push_back(&m_pairedAxes);
         m_battleFieldRole = Role::Leader;
     }
 
-    bool Beastlord::configure() {
+
+    Beastlord::Beastlord(Greatfray fray, CommandTrait trait, Artefact artefact, bool general) :
+        Beastlord() {
+        setGreatfray(fray);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(general);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_pairedAxes);
         addModel(model);
 
         m_points = g_pointsPerUnit;
+    }
 
+    bool Beastlord::AreValid(const ParameterList &parameters) {
         return true;
     }
 
     Unit *Beastlord::Create(const ParameterList &parameters) {
-        auto unit = new Beastlord();
-
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_brayherdCommandTrait[0]);
-        unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_brayherdArtefact[0]);
-        unit->setArtefact(artefact);
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_brayherdCommandTrait[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_brayherdArtefact[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            return new Beastlord(fray, trait, artefact, general);
         }
-        return unit;
+        return nullptr;
     }
 
     void Beastlord::Init() {

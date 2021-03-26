@@ -21,18 +21,15 @@ namespace BeastsOfChaos {
     bool Centigors::s_registered = false;
 
     Centigors::Centigors() :
-            BeastsOfChaosBase("Centigors", 14, g_wounds, 5, 5, false),
-            m_centigorSpear(Weapon::Type::Melee, "Centigor Spear", 2, 2, 4, 4, 0, 1),
-            m_centigorSpearGorehoof(Weapon::Type::Melee, "Centigor Spear", 2, 3, 4, 4, 0, 1),
-            m_clawedForelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 1, 2, 5, 5, 0, 1) {
+            BeastsOfChaosBase("Centigors", 14, g_wounds, 5, 5, false) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, CENTIGORS};
         m_weapons = {&m_centigorSpear, &m_centigorSpearGorehoof, &m_clawedForelimbs};
     }
 
-    bool Centigors::configure(int numModels, bool brayhorn, bool bannerBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+    Centigors::Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
+        Centigors() {
+
+        setGreatfray(fray);
 
         m_runAndCharge = brayhorn;
 
@@ -56,25 +53,22 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    bool Centigors::AreValid(const ParameterList& parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
     }
 
     Unit *Centigors::Create(const ParameterList &parameters) {
-        auto unit = new Centigors();
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
-        bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
-
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        bool ok = unit->configure(numModels, brayhorn, bannerBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
+            bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
+            auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
+            return new Centigors(fray, numModels, brayhorn, bannerBearer);
         }
-        return unit;
+        return nullptr;
     }
 
     void Centigors::Init() {
@@ -125,7 +119,7 @@ namespace BeastsOfChaos {
     }
 
     int Centigors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = BeastsOfChaosBase::toSaveModifier(weapon, attacker);
 
         // Beastbucklers
         if (!weapon->isMissile()) {

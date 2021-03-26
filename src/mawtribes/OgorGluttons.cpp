@@ -19,25 +19,23 @@ namespace OgorMawtribes {
 
     bool OgorGluttons::s_registered = false;
 
+    bool OgorGluttons::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
+    }
+
     Unit *OgorGluttons::Create(const ParameterList &parameters) {
-        auto unit = new OgorGluttons();
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        bool skullBearer = GetBoolParam("Beast Skull Bearer", parameters, true);
-        bool bannerBearer = GetBoolParam("Banner Bearer", parameters, true);
-        bool lookout = GetBoolParam("Lookout Gnoblar", parameters, true);
-        bool bellower = GetBoolParam("Bellower", parameters, true);
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Club_Or_Blade_And_Ironfist);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(numModels, weapons, skullBearer, bannerBearer, lookout, bellower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            bool skullBearer = GetBoolParam("Beast Skull Bearer", parameters, true);
+            bool bannerBearer = GetBoolParam("Banner Bearer", parameters, true);
+            bool lookout = GetBoolParam("Lookout Gnoblar", parameters, true);
+            bool bellower = GetBoolParam("Bellower", parameters, true);
+            auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Club_Or_Blade_And_Ironfist);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new OgorGluttons(tribe, numModels, weapons, skullBearer, bannerBearer, lookout, bellower);
         }
-        return unit;
+        return nullptr;
     }
 
     std::string OgorGluttons::ValueToString(const Parameter &parameter) {
@@ -79,27 +77,18 @@ namespace OgorMawtribes {
         }
     }
 
-    OgorGluttons::OgorGluttons() :
-            MawtribesBase("Ogor Gluttons", 6, g_wounds, 6, 5, false),
-            m_clubOrBlade(Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 3, 3, 3, 0, 2),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1),
-            m_clubOrBladeCrusher(Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2) {
+    OgorGluttons::~OgorGluttons() {
+        m_connection.disconnect();
+    }
+
+    OgorGluttons::OgorGluttons(Mawtribe tribe, int numModels, OgorGluttons::WeaponOption option, bool skullBearer,
+                               bool bannerBearer, bool lookoutGnoblar, bool bellower) :
+            MawtribesBase(tribe, "Ogor Gluttons", 6, g_wounds, 6, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, OGOR_GLUTTONS};
         m_weapons = {&m_clubOrBlade, &m_bite, &m_clubOrBladeCrusher};
         m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &OgorGluttons::bellower, &m_connection);
-    }
-
-    OgorGluttons::~OgorGluttons() {
-        m_connection.disconnect();
-    }
-
-    bool OgorGluttons::configure(int numModels, WeaponOption option, bool skullBearer, bool bannerBearer,
-                                 bool lookoutGnoblar, bool bellower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_weaponOption = option;
         m_lookoutGnoblar = lookoutGnoblar;
@@ -128,8 +117,6 @@ namespace OgorMawtribes {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int OgorGluttons::braveryModifier() const {
@@ -180,7 +167,6 @@ namespace OgorMawtribes {
             (distanceTo(target) <= 6.0)) {
             return -1;
         }
-
         return 0;
     }
 
@@ -193,7 +179,6 @@ namespace OgorMawtribes {
             Dice::RollD6(totalWounds.normal, result);
             totalWounds.normal -= result.rollsGE(6);
         }
-
         return totalWounds;
     }
 

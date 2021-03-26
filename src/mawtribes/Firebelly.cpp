@@ -20,24 +20,18 @@ namespace OgorMawtribes {
     bool Firebelly::s_registered = false;
 
     Unit *Firebelly::Create(const ParameterList &parameters) {
-        auto unit = new Firebelly();
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_firebellyLore[0]);
-
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            auto lore = (Lore) GetEnumParam("Lore", parameters, g_firebellyLore[0]);
+            return new Firebelly(tribe, lore, general);
         }
-        return unit;
+        return nullptr;
     }
 
+    bool Firebelly::AreValid(const ParameterList &parameters) {
+        return true;
+    }
 
     void Firebelly::Init() {
         if (!s_registered) {
@@ -58,19 +52,16 @@ namespace OgorMawtribes {
         }
     }
 
-    Firebelly::Firebelly() :
-            MawtribesBase("Firebelly", 6, g_wounds, 6, 5, false),
-            m_fireBreath(Weapon::Type::Missile, "Fire Breath", 6, 1, 0, 0, 0, 0),
-            m_hammer(Weapon::Type::Melee, "Basalt Hammer", 2, 2, 3, 3, -1, RAND_D3) {
+    Firebelly::Firebelly(Mawtribe tribe, Lore lore, bool isGeneral) :
+            MawtribesBase(tribe, "Firebelly", 6, g_wounds, 6, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, HERO, WIZARD, FIREBELLY};
         m_weapons = {&m_fireBreath, &m_hammer};
         m_battleFieldRole = Role::Leader;
-
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    bool Firebelly::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_fireBreath);
@@ -84,8 +75,6 @@ namespace OgorMawtribes {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = Firebelly::ComputePoints(1);
-
-        return true;
     }
 
     void Firebelly::onStartShooting(PlayerId player) {

@@ -8,6 +8,7 @@
 
 #include <Board.h>
 #include <magic_enum.hpp>
+#include <Roster.h>
 #include "mawtribes/MawtribesBase.h"
 
 #include "mawtribes/Tyrant.h"
@@ -102,7 +103,7 @@ namespace OgorMawtribes {
                 if (hasKeyword(MEATFIST)) numDice++;
 
                 int threshold = 6;
-                if ((remainingModels() >= 8) || hasKeyword(MONSTER)) threshold -= 2;
+                if ((remainingModels() >= 8) || hasKeyword(MONSTER) || (m_commandTrait == CommandTrait::Crushing_Bulk)) threshold -= 2;
 
                 Dice::RollD6(numDice, result);
 
@@ -122,6 +123,14 @@ namespace OgorMawtribes {
                 if (roll < m_battleRound) {
                     unit->applyDamage({0, Dice::RollD3()}, this);
                 }
+            }
+        }
+
+        if (m_commandTrait == CommandTrait::Food_For_Thought) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+            const bool isEating = !units.empty();
+            if (isEating) {
+                getRoster()->addCommandPoints(1);
             }
         }
     }
@@ -193,6 +202,54 @@ namespace OgorMawtribes {
 
     void MawtribesBase::setArtefact(Artefact artefact) {
         m_artefact = artefact;
+    }
+
+    int MawtribesBase::questionableHygiene(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        if (!isFriendly(attacker) && distanceTo(attacker) < 6.0) {
+            return -1;
+        }
+        return 0;
+    }
+
+    int MawtribesBase::heraldOfGulpingGod(const Unit *unit) {
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+        const bool isFeeding = !units.empty();
+        if (isFriendly(unit) && isFeeding && (distanceTo(unit) < 15.0)) {
+            return Autopass_Battleshock;
+        }
+        return 0;
+    }
+
+    int MawtribesBase::growlingStomach(const Unit *unit) {
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+        const bool isHungry = units.empty();
+        if (!isFriendly(unit) && isHungry && (distanceTo(unit) < 12.0)) {
+            return -2;
+        }
+        return 0;
+    }
+
+    int MawtribesBase::masterOfMournfangs(const Unit *unit) {
+        if (isFriendly(unit) && unit->hasKeyword(MOURNFANG_PACK) && (distanceTo(unit) < 18.0)) {
+            return Autopass_Battleshock;
+        }
+        return 0;
+    }
+
+    int MawtribesBase::raisedByYhetees(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
+                                       const Unit *target) {
+        if (isFriendly(attacker) && attacker->hasKeyword(ICEFALL_YHETESS) && (distanceTo(attacker) < 12.0)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    Rerolls MawtribesBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
+        const auto inEnemyTerritory = Board::Instance()->isUnitWithinDeploymentZone(this, GetEnemyId(owningPlayer()));
+        if ((m_commandTrait == CommandTrait::Nomadic_Raider) && weapon->isMelee() && inEnemyTerritory) {
+            return Rerolls::Failed;
+        }
+        return Unit::toWoundRerolls(weapon, target);
     }
 
     void Init() {

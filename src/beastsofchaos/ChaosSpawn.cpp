@@ -22,8 +22,7 @@ namespace BeastsOfChaos {
     bool ChaosSpawn::s_registered = false;
 
     ChaosSpawn::ChaosSpawn() :
-            BeastsOfChaosBase("Chaos Spawn", RAND_2D6, g_wounds, 10, 5, false),
-            m_freakingMutations(Weapon::Type::Melee, "Freakish Mutations", 1, RAND_2D6, 4, 4, 0, 1) {
+            BeastsOfChaosBase("Chaos Spawn", RAND_2D6, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_SPAWN};
         m_weapons = {&m_freakingMutations};
     }

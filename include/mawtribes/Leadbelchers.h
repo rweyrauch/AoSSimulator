@@ -15,21 +15,21 @@ namespace OgorMawtribes {
     class Leadbelchers : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
-
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        Leadbelchers();
+        Leadbelchers() = delete;
 
         ~Leadbelchers() override = default;
 
-        bool configure(int numModels);
+    protected:
+
+        Leadbelchers(Mawtribe tribe, int numModels);
 
     protected:
 
@@ -37,10 +37,10 @@ namespace OgorMawtribes {
 
     private:
 
-        Weapon m_gun,
-                m_blow,
-                m_bite,
-                m_blowThunderfist;
+        Weapon m_gun{Weapon::Type::Missile, "Leadbelcher Gun", 12, RAND_D3, 4, 3, -1, 1},
+                m_blow{Weapon::Type::Melee, "Bludgeoning Blow", 1, 2, 3, 3, -1, 2},
+                m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1},
+                m_blowThunderfist{Weapon::Type::Melee, "Bludgeoning Blow", 1, 3, 3, 3, -1, 2};
 
         static bool s_registered;
     };

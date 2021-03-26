@@ -39,9 +39,9 @@ namespace BeastsOfChaos {
 
     private:
 
-        Weapon m_eadbutt,
-                m_massiveClub,
-                m_mightyKick;
+        Weapon m_eadbutt{Weapon::Type::Melee, "Vicious 'eadbutt", 1, 1, 4, 3, -3, 6},
+                m_massiveClub{Weapon::Type::Melee, "Massive Club", 3, RAND_3D6, 3, 3, -1, 1},
+                m_mightyKick{Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3};
 
         static bool s_registered;
     };

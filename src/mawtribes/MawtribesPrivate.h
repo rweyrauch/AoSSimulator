@@ -55,7 +55,7 @@ namespace OgorMawtribes {
 
     constexpr std::array<int, 7> g_icebrowTraits = {
             ToInteger(CommandTrait::None),
-            ToInteger(CommandTrait::Winter_Rander),
+            ToInteger(CommandTrait::Winter_Ranger),
             ToInteger(CommandTrait::Eye_Of_The_Blizzard),
             ToInteger(CommandTrait::Blood_Vultures_Gaze),
             ToInteger(CommandTrait::Frost_Maw),

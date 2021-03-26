@@ -33,29 +33,20 @@ namespace OgorMawtribes {
 
     bool FrostlordOnStonehorn::s_registered = false;
 
+    bool FrostlordOnStonehorn::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *FrostlordOnStonehorn::Create(const ParameterList &parameters) {
-        auto unit = new FrostlordOnStonehorn();
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_stonehornTraits[0]);
-
-        bool ok = unit->configure(mountTrait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_frostlordTraits[0]);
+            auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_frostlordArtefacts[0]);
+            auto general = GetBoolParam("General", parameters, false);
+            auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_stonehornTraits[0]);
+            return new FrostlordOnStonehorn(tribe, trait, artefact, general, mountTrait);
         }
-        return unit;
+        return nullptr;
     }
 
     std::string FrostlordOnStonehorn::ValueToString(const Parameter &parameter) {
@@ -87,21 +78,20 @@ namespace OgorMawtribes {
         }
     }
 
-    FrostlordOnStonehorn::FrostlordOnStonehorn() :
-            MawtribesBase("Frostlord on Stonehorn", 12, g_wounds, 9, 3, false),
-            m_spear(Weapon::Type::Melee, "Frost Spear", 2, 4, 3, 3, -1, 3),
-            m_kicks(Weapon::Type::Melee, "Punches and Kicks", 1, 3, 3, 3, 0, 1),
-            m_horns(Weapon::Type::Melee, "Rock-hard Horns", 2, 6, 4, 3, -2, 3),
-            m_hooves(Weapon::Type::Melee, "Crushing Hooves", 2, RAND_D6, 3, 2, -1, RAND_D3) {
+    FrostlordOnStonehorn::FrostlordOnStonehorn(Mawtribe tribe, CommandTrait trait, Artefact artefact,
+                                               bool isGeneral, MountTrait mountTrait) :
+            MawtribesBase(tribe, "Frostlord on Stonehorn", 12, g_wounds, 9, 3, false) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, FROSTLORD};
         m_weapons = {&m_spear, &m_kicks, &m_horns, &m_hooves};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_hooves.setMount(true);
         m_horns.setMount(true);
-    }
 
-    bool FrostlordOnStonehorn::configure(MountTrait mountTrait) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         m_mountTrait = mountTrait;
@@ -113,18 +103,24 @@ namespace OgorMawtribes {
 
         addModel(model);
 
-        m_points = FrostlordOnStonehorn::ComputePoints(1);
+        if (trait == CommandTrait::Master_Of_The_Mournfangs) {
+            s_globalBraveryMod.connect(this, &FrostlordOnStonehorn::masterOfMournfangs, &m_masterOfMournfangs);
+        }
 
-        return true;
+        m_points = FrostlordOnStonehorn::ComputePoints(1);
     }
 
     void FrostlordOnStonehorn::onRestore() {
+        MawtribesBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
 
     int FrostlordOnStonehorn::getDamageTableIndex() const {
         auto woundsInflicted = wounds() - remainingWounds();
+        if (m_commandTrait == CommandTrait::Skilled_Rider) {
+            woundsInflicted /= 2;
+        }
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
                 return i;
@@ -148,7 +144,7 @@ namespace OgorMawtribes {
         if (m_charged && (weapon->name() == m_horns.name() || weapon->name() == m_hooves.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Wounds FrostlordOnStonehorn::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -158,6 +154,30 @@ namespace OgorMawtribes {
 
     int FrostlordOnStonehorn::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int FrostlordOnStonehorn::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = MawtribesBase::toHitModifier(weapon, target);
+        if ((weapon->name() == m_horns.name()) && (m_mountTrait == MountTrait::Black_Clatterhorn)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int FrostlordOnStonehorn::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = MawtribesBase::weaponRend(weapon, target, hitRoll, woundRoll);
+        if ((weapon->name() == m_hooves.name()) && (m_mountTrait == MountTrait::Frosthoof_Bull)) {
+            rend--;
+        }
+        return rend;
+    }
+
+    int FrostlordOnStonehorn::woundModifier() const {
+        auto mod = MawtribesBase::woundModifier();
+        if (m_mountTrait == MountTrait::Rockmane_Elder) {
+            mod++;
+        }
+        return mod;
     }
 
 } // namespace OgorMawtribes

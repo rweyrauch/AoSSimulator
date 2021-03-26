@@ -19,20 +19,18 @@ namespace OgorMawtribes {
 
     bool Gnoblars::s_registered = false;
 
+    bool Gnoblars::AreValid(const ParameterList &parameters) {
+        const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
+    }
+
     Unit *Gnoblars::Create(const ParameterList &parameters) {
-        auto unit = new Gnoblars();
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-        unit->setMawtribe(tribe);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+            auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
+            return new Gnoblars(tribe, numModels);
         }
-        return unit;
+        return nullptr;
     }
 
     void Gnoblars::Init() {
@@ -53,19 +51,10 @@ namespace OgorMawtribes {
         }
     }
 
-    Gnoblars::Gnoblars() :
-            MawtribesBase("Gnoblars", 5, g_wounds, 4, 6, false),
-            m_sharpStuff(Weapon::Type::Missile, "Sharp Stuff", 8, 1, 4, 5, 0, 1),
-            m_motleyWeapons(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 1, 5, 5, 0, 1),
-            m_motleyWeaponsBiter(Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 2, 5, 5, 0, 2) {
+    Gnoblars::Gnoblars(Mawtribe tribe, int numModels) :
+            MawtribesBase(tribe, "Gnoblars", 5, g_wounds, 4, 6, false) {
         m_keywords = {DESTRUCTION, GROT, OGOR_MAWTRIBES, GUTBUSTERS, GNOBLARS};
         m_weapons = {&m_sharpStuff, &m_motleyWeapons, &m_motleyWeaponsBiter};
-    }
-
-    bool Gnoblars::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto biter = new Model(g_basesize, wounds());
         biter->addMissileWeapon(&m_sharpStuff);
@@ -80,8 +69,6 @@ namespace OgorMawtribes {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int Gnoblars::ComputePoints(int numModels) {

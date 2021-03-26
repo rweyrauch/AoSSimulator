@@ -15,17 +15,21 @@ namespace OgorMawtribes {
     class FrostSabres : public MawtribesBase {
     public:
 
+        static bool AreValid(const ParameterList &parameters);
+
         static Unit *Create(const ParameterList &parameters);
 
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        FrostSabres();
+        FrostSabres() = delete;
 
         ~FrostSabres() override = default;
 
-        bool configure(int numModels);
+    protected:
+
+        FrostSabres(Mawtribe tribe, int numModels);
 
     protected:
 
@@ -35,7 +39,7 @@ namespace OgorMawtribes {
 
     private:
 
-        Weapon m_fangs;
+        Weapon m_fangs{Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 3, -1, 1};
 
         static bool s_registered;
     };

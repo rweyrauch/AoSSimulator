@@ -16,28 +16,24 @@ namespace OgorMawtribes {
 
     bool Hrothgorn::s_registered = false;
 
+    bool Hrothgorn::AreValid(const ParameterList &parameters) {
+        return true;
+    }
+
     Unit *Hrothgorn::Create(const ParameterList &parameters) {
-        auto unit = new Hrothgorn();
-
-        unit->setMawtribe(Mawtribe::Winterbite);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        if (AreValid(parameters)) {
+            auto general = GetBoolParam("General", parameters, false);
+            return new Hrothgorn(general);
         }
-        return unit;
+        return nullptr;
     }
 
     void Hrothgorn::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Hrothgorn::Create,
-                    Hrothgorn::ValueToString,
-                    Hrothgorn::EnumStringToInt,
+                    MawtribesBase::ValueToString,
+                    MawtribesBase::EnumStringToInt,
                     Hrothgorn::ComputePoints,
                     {
                             BoolParameter("General")
@@ -49,18 +45,14 @@ namespace OgorMawtribes {
         }
     }
 
-    Hrothgorn::Hrothgorn() :
-            MawtribesBase("Hrothgorn", 6, g_wounds, 7, 5, false),
-            m_trapLauncher(Weapon::Type::Missile, "Trap Launcher", 12, 1, 4, 3, 0, RAND_D3),
-            m_knife(Weapon::Type::Melee, "Hunting Knife", 1, 4, 3, 3, 0, 2),
-            m_bite(Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1) {
+    Hrothgorn::Hrothgorn(bool isGeneral) :
+            MawtribesBase(Mawtribe::Winterbite, "Hrothgorn", 6, g_wounds, 7, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, WINTERBITE, HERO, ICEBROW_HUNTER,
                       HROTHGORN};
         m_weapons = {&m_trapLauncher, &m_knife, &m_bite};
         m_battleFieldRole = Role::Leader;
-    }
+        setGeneral(isGeneral);
 
-    bool Hrothgorn::configure() {
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_trapLauncher);
@@ -70,16 +62,6 @@ namespace OgorMawtribes {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
-    }
-
-    std::string Hrothgorn::ValueToString(const Parameter &parameter) {
-        return MawtribesBase::ValueToString(parameter);
-    }
-
-    int Hrothgorn::EnumStringToInt(const std::string &enumString) {
-        return MawtribesBase::EnumStringToInt(enumString);
     }
 
     int Hrothgorn::ComputePoints(int /*numModels*/) {
