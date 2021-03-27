@@ -107,8 +107,11 @@ namespace Ironjawz {
         static int EnumStringToInt(const std::string &enumString);
 
         void setWarclan(Warclan warclan);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
+
         void setMountTrait(MountTrait trait) {
             m_mountTrait = trait;
         }
@@ -129,7 +132,7 @@ namespace Ironjawz {
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         int castingModifier() const override;
 
@@ -148,7 +151,7 @@ namespace Ironjawz {
 
         void onStartCombat(PlayerId player) override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
     protected:
 

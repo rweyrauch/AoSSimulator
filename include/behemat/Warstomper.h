@@ -48,8 +48,8 @@ namespace SonsOfBehemat {
 
     private:
         Weapon m_grip,
-            m_jump,
-            m_club;
+                m_jump,
+                m_club;
 
         lsignal::slot m_connection;
 

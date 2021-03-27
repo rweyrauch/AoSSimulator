@@ -31,7 +31,7 @@ namespace DaughtersOfKhaine {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

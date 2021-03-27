@@ -78,7 +78,7 @@ namespace Sylvaneth {
         if (hasKeyword(HARVESTBOON) && m_charged) {
             return Rerolls::Ones;
         }
-        // Shield the Arcane
+            // Shield the Arcane
         else if (hasKeyword(GNARLROOT)) {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto ip : units) {
@@ -163,8 +163,9 @@ namespace Sylvaneth {
             }
         }
 
-        auto general = dynamic_cast<SylvanethBase*>(getRoster()->getGeneral());
-        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Wisdom_Of_The_Ancients) && (distanceTo(general) < 12.0)) {
+        auto general = dynamic_cast<SylvanethBase *>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) &&
+            (general->m_commandTrait == CommandTrait::Wisdom_Of_The_Ancients) && (distanceTo(general) < 12.0)) {
             mod++;
         }
         return mod;
@@ -238,8 +239,9 @@ namespace Sylvaneth {
     int SylvanethBase::chargeModifier() const {
         auto mod = Unit::chargeModifier();
 
-        auto general = dynamic_cast<SylvanethBase*>(getRoster()->getGeneral());
-        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Warsinger) && (distanceTo(general) < 12.0)) {
+        auto general = dynamic_cast<SylvanethBase *>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Warsinger) &&
+            (distanceTo(general) < 12.0)) {
             mod += 2;
         }
         return mod;

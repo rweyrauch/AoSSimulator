@@ -24,7 +24,7 @@ namespace OgorMawtribes {
 
     Unit *Tyrant::Create(const ParameterList &parameters) {
         if (AreValid(parameters)) {
-            auto bigName = (BigName) GetEnumParam("Big Name", parameters, (int)BigName::Fateseeker);
+            auto bigName = (BigName) GetEnumParam("Big Name", parameters, (int) BigName::Fateseeker);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
             auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_tyrantTraits[0]);
             auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_tyrantArtefacts[0]);
@@ -52,15 +52,17 @@ namespace OgorMawtribes {
 
     void Tyrant::Init() {
         if (!s_registered) {
-            static const std::array<int, 6> bignames = {(int)BigName::Deathcheater, (int)BigName::Brawlerguts, (int)BigName::Fateseeker,
-                                                        (int)BigName::Longstrider, (int)BigName::Giantbreaker, (int)BigName::Wallcrusher};
+            static const std::array<int, 6> bignames = {(int) BigName::Deathcheater, (int) BigName::Brawlerguts,
+                                                        (int) BigName::Fateseeker,
+                                                        (int) BigName::Longstrider, (int) BigName::Giantbreaker,
+                                                        (int) BigName::Wallcrusher};
             static FactoryMethod factoryMethod = {
                     Tyrant::Create,
                     Tyrant::ValueToString,
                     Tyrant::EnumStringToInt,
                     Tyrant::ComputePoints,
                     {
-                            EnumParameter("Big Name", (int)BigName::Fateseeker, bignames),
+                            EnumParameter("Big Name", (int) BigName::Fateseeker, bignames),
                             EnumParameter("Mawtribe", g_mawtribe[0], g_mawtribe),
                             EnumParameter("Command Trait", g_tyrantTraits[0], g_tyrantTraits),
                             EnumParameter("Artefact", g_tyrantArtefacts[0], g_tyrantArtefacts),
@@ -167,14 +169,16 @@ namespace OgorMawtribes {
     }
 
     Rerolls Tyrant::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        if (weapon->isMelee() && target->hasKeyword(Has_Artefact) && (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
+        if (weapon->isMelee() && target->hasKeyword(Has_Artefact) &&
+            (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
             return Rerolls::Failed;
         }
         return Unit::toHitRerolls(weapon, target);
     }
 
     Rerolls Tyrant::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
-        if (weapon->isMelee() && target->hasKeyword(Has_Artefact) && (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
+        if (weapon->isMelee() && target->hasKeyword(Has_Artefact) &&
+            (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
             return Rerolls::Failed;
         }
         return MawtribesBase::toWoundRerolls(weapon, target);

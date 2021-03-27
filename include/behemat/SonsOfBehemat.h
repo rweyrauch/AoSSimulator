@@ -100,7 +100,9 @@ namespace SonsOfBehemat {
         ~SonsOfBehematBase() override = default;
 
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
+
         void setTribe(Tribe tribe) {
             m_tribe = tribe;
         }
@@ -115,8 +117,11 @@ namespace SonsOfBehemat {
                 Unit(name, move, wounds, bravery, save, fly) {}
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
         int woundModifier() const override;
+
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
     protected:

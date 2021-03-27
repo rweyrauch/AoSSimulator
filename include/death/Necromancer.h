@@ -29,7 +29,7 @@ namespace Death {
 
         void configure(Lore lore);
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         void onStartHero(PlayerId player) override;
 

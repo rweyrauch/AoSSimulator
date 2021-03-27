@@ -46,7 +46,7 @@ namespace OgorMawtribes {
             auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
             return new HuskardOnThundertusk(tribe, weapon, trait, artefact, general, mountTrait, prayer);
         }
-       return nullptr;
+        return nullptr;
     }
 
     std::string HuskardOnThundertusk::ValueToString(const Parameter &parameter) {
@@ -90,10 +90,13 @@ namespace OgorMawtribes {
         }
     }
 
-    HuskardOnThundertusk::HuskardOnThundertusk(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral, MountTrait mountTrait, Prayer prayer) :
+    HuskardOnThundertusk::HuskardOnThundertusk(Mawtribe tribe, WeaponOption option, CommandTrait trait,
+                                               Artefact artefact, bool isGeneral, MountTrait mountTrait, Prayer prayer)
+            :
             MawtribesBase(tribe, "Huskard on Thundertusk", 8, g_wounds, 8, 4, false) {
 
-        m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, PRIEST, HUSKARD};
+        m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, PRIEST,
+                      HUSKARD};
         m_hasMount = true;
         m_tusks.setMount(true);
         m_weapons = {&m_harpoon, &m_chaintrap, &m_ice, &m_kicks, &m_tusks};

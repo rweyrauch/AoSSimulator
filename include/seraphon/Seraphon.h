@@ -122,7 +122,9 @@ namespace Seraphon {
         ~SeraphonBase() override = default;
 
         void setWayOfTheSeraphon(WayOfTheSeraphon way, Constellation constellation);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
 
     protected:
@@ -157,7 +159,7 @@ namespace Seraphon {
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
     protected:
 
@@ -193,6 +195,7 @@ namespace Seraphon {
     void Init();
 
     CommandAbility *CreateGiftFromTheHeavens(Unit *general);
-    Spell* CreateCometsCall(Unit* caster);
+
+    Spell *CreateCometsCall(Unit *caster);
 
 } // namespace Seraphon

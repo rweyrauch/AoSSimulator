@@ -159,6 +159,7 @@ namespace OgorMawtribes {
         static int EnumStringToInt(const std::string &enumString);
 
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
 
     protected:
@@ -188,10 +189,15 @@ namespace OgorMawtribes {
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
         int questionableHygiene(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
         int heraldOfGulpingGod(const Unit *unit);
+
         int growlingStomach(const Unit *unit);
+
         int masterOfMournfangs(const Unit *unit);
-        int raisedByYhetees(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
+
+        int
+        raisedByYhetees(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
 
         // Command traits
         lsignal::slot m_questionableHygiene;

@@ -73,7 +73,7 @@ namespace KharadronOverlords {
         Honour_The_Gods_Just_In_Case, // Barak-Thryng
     };
 
-    enum class CommandTrait : int  {
+    enum class CommandTrait : int {
         None,
 
         // Admiral
@@ -193,8 +193,11 @@ namespace KharadronOverlords {
         void setSkyport(Skyport skyport);
 
         void setCode(Artycle artycle, Amendment amendment, Footnote footnote);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
+
         void setEndrinwork(Endrinwork endrinwork);
 
     protected:

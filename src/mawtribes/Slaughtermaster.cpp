@@ -81,8 +81,7 @@ namespace OgorMawtribes {
         //m_knownSpells.push_back(std::make_unique<Rockchomper>(this));
         if (trait != CommandTrait::Gastromancer) {
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
-        }
-        else {
+        } else {
             // Knows all of the spells of Gutmagic
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Fleshcrave_Curse, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Blood_Feast, this)));

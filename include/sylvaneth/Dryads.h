@@ -31,7 +31,7 @@ namespace Sylvaneth {
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         void onStartCombat(PlayerId player) override;
 

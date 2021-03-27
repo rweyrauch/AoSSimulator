@@ -75,15 +75,16 @@ namespace Nighthaunt {
         static int EnumStringToInt(const std::string &enumString);
 
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
 
     protected:
         Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         int auraOfDread(const Unit *unit);
 

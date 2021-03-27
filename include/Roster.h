@@ -74,12 +74,14 @@ public:
     bool useCommandPoint();
 
     Resource getResourceType() const { return m_factionResource; }
+
     void incrementResource(int value) { m_resourceCount += value; }
 
     int getAvailableResource() const { return m_resourceCount; }
+
     void clearAvailableResource() { m_resourceCount = 0; }
 
-    Unit* getGeneral() const;
+    Unit *getGeneral() const;
 
 private:
     const PlayerId m_id;

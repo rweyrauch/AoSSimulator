@@ -34,8 +34,8 @@ namespace Ironjawz {
     protected:
 
         Weapon m_krushaWeaponsMorgok,
-            m_krushaWeapons,
-            m_goreBasha;
+                m_krushaWeapons,
+                m_goreBasha;
 
         static bool s_registered;
     };

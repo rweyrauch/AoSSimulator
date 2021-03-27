@@ -31,9 +31,12 @@ namespace Slaanesh {
 
         // Powered by Vainglory
         int chargeModifier() const override { return 3; }
+
         void onCharged() override;
+
         void onBeginTurn(int battleRound) override;
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
     private:
 

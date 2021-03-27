@@ -107,8 +107,8 @@ namespace Nurgle {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0);
             for (auto unit : units) {
                 if (Dice::RollD6() >= 4) {
-                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
-                    unit->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                    unit->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }
         }

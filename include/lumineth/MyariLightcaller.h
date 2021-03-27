@@ -52,7 +52,7 @@ namespace LuminethRealmLords {
         lsignal::slot m_lightConnection;
 
         Weapon m_beams,
-            m_staff;
+                m_staff;
 
         static bool s_registered;
     };

@@ -132,8 +132,7 @@ namespace GloomspiteGitz {
             int roll = Dice::RollD6();
             if (roll >= m_meleeTarget->wounds()) {
                 m_meleeTarget->slay(1);
-            }
-            else if (m_commandTrait == CommandTrait::Pulverising_Grip) {
+            } else if (m_commandTrait == CommandTrait::Pulverising_Grip) {
                 roll = Dice::RollD6();
                 if (roll >= m_meleeTarget->wounds()) {
                     m_meleeTarget->slay(1);
@@ -175,8 +174,7 @@ namespace GloomspiteGitz {
         if (wounds.source == Wounds::Source::Spell) {
             if (Dice::RollD6() >= 4) {
                 return {0, 0, Wounds::Source::Spell};
-            }
-            else if (m_commandTrait == CommandTrait::Realmstone_Studded_Hide) {
+            } else if (m_commandTrait == CommandTrait::Realmstone_Studded_Hide) {
                 if (Dice::RollD6() >= 4) {
                     return {0, 0, Wounds::Source::Spell};
                 }

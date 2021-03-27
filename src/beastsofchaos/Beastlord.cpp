@@ -26,7 +26,7 @@ namespace BeastsOfChaos {
 
 
     Beastlord::Beastlord(Greatfray fray, CommandTrait trait, Artefact artefact, bool general) :
-        Beastlord() {
+            Beastlord() {
         setGreatfray(fray);
         setCommandTrait(trait);
         setArtefact(artefact);

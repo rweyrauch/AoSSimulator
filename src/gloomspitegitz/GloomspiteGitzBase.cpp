@@ -66,7 +66,8 @@ namespace GloomspiteGitz {
             if (target == nullptr)
                 return false;
 
-            target->buffAbility(Ability::Extra_Mortal_Wound_On_Hit_Roll, 6, {Phase::Combat, m_round, m_source->owningPlayer()});
+            target->buffAbility(Ability::Extra_Mortal_Wound_On_Hit_Roll, 6,
+                                {Phase::Combat, m_round, m_source->owningPlayer()});
 
             return true;
         }
@@ -74,7 +75,7 @@ namespace GloomspiteGitz {
         bool apply(double x, double y) override { return false; }
     };
 
-    CommandAbility* CreateImDaBossNoStabEmGood(Unit* source) {
+    CommandAbility *CreateImDaBossNoStabEmGood(Unit *source) {
         return new ImDaBossNowStabEmGood(source);
     }
 

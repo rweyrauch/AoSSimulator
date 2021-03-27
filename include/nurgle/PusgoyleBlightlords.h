@@ -29,7 +29,7 @@ namespace Nurgle {
 
     protected:
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

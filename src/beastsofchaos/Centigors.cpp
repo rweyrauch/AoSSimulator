@@ -27,7 +27,7 @@ namespace BeastsOfChaos {
     }
 
     Centigors::Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
-        Centigors() {
+            Centigors() {
 
         setGreatfray(fray);
 
@@ -55,7 +55,7 @@ namespace BeastsOfChaos {
         m_points = ComputePoints(numModels);
     }
 
-    bool Centigors::AreValid(const ParameterList& parameters) {
+    bool Centigors::AreValid(const ParameterList &parameters) {
         const int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         return ((numModels >= g_minUnitSize) && (numModels <= g_maxUnitSize));
     }

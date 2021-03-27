@@ -39,7 +39,7 @@ namespace Khorne {
 
         void onCharged() override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         void onRestore() override;
 

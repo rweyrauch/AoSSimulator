@@ -11,7 +11,7 @@
 
 #include <magic_enum.hpp>
 
-template <typename E>
+template<typename E>
 constexpr auto ToInteger(magic_enum::Enum<E> value) {
     // magic_enum::Enum<E> - C++17 Concept for enum type.
     return static_cast<magic_enum::underlying_type_t<E>>(value);

@@ -41,7 +41,7 @@ public:
         int m_distribution[7] = {0, 0, 0, 0, 0, 0, 0};
 
         void clear() {
-            for (int& val : m_distribution)
+            for (int &val : m_distribution)
                 val = 0;
         }
 

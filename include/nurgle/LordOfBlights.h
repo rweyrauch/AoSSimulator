@@ -29,7 +29,7 @@ namespace Nurgle {
 
         void configure();
 
-        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
     private:
 

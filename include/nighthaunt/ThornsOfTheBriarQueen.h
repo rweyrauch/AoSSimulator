@@ -34,7 +34,7 @@ namespace Nighthaunt {
     private:
 
         Weapon m_malignantWeapon,
-            m_malignantWeaponVarclav;
+                m_malignantWeaponVarclav;
 
         static bool s_registered;
     };

@@ -96,7 +96,7 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    void ZarbagsGitz::onModelFled(const Model* model) {
+    void ZarbagsGitz::onModelFled(const Model *model) {
         if (model->getName() == "Squig") {
             // Squigs Go Wild
             if (Dice::RollD6() >= 4) {

@@ -28,7 +28,7 @@ namespace BeastsOfChaos {
     }
 
     Bullgors::Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer) :
-        Bullgors() {
+            Bullgors() {
 
         setGreatfray(fray);
 

@@ -47,7 +47,7 @@ namespace StormcastEternals {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 

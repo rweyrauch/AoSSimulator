@@ -41,7 +41,7 @@ namespace StormcastEternals {
     class CutOffTheHead : public CommandAbility {
     public:
         explicit CutOffTheHead(Unit *source) :
-            CommandAbility(source, "Cut Off the Head", 18, 9, Phase::Combat) {
+                CommandAbility(source, "Cut Off the Head", 18, 9, Phase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {ASTRAL_TEMPLARS};
             m_effect = Abilities::EffectType::Buff;

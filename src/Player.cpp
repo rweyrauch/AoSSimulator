@@ -14,7 +14,7 @@ void Player::beginTurn(int battleRound, PlayerId playerWithTurn) {
     }
 }
 
-Unit* Player::startPhase(Phase phase) {
+Unit *Player::startPhase(Phase phase) {
     // TODO: rosters/units to perform start of phase actions...
     m_currentPhase = phase;
     if (m_roster) {

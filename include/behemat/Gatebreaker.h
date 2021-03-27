@@ -42,7 +42,7 @@ namespace SonsOfBehemat {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
@@ -50,9 +50,9 @@ namespace SonsOfBehemat {
 
     private:
         Weapon m_boulder{Weapon::Type::Missile, "Hurled Boulder", 18, 1, 3, 2, -3, 4},
-            m_stomp{Weapon::Type::Melee, "Almighty Stomp", 2, 2, 3, 3, -2, RAND_D3},
-            m_grip{Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6},
-            m_flail{Weapon::Type::Melee, "Fortcrusha Flail", 3, 10, 4, 3, -3, 3};
+                m_stomp{Weapon::Type::Melee, "Almighty Stomp", 2, 2, 3, 3, -2, RAND_D3},
+                m_grip{Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6},
+                m_flail{Weapon::Type::Melee, "Fortcrusha Flail", 3, 10, 4, 3, -3, 3};
 
         lsignal::slot m_connection;
 

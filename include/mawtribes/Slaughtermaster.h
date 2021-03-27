@@ -23,8 +23,8 @@ namespace OgorMawtribes {
 
         static void Init();
 
-        Slaughtermaster() = delete
-                ;
+        Slaughtermaster() = delete;
+
         ~Slaughtermaster() override;
 
     protected:
@@ -42,8 +42,8 @@ namespace OgorMawtribes {
     private:
 
         Weapon m_stumpBlades{Weapon::Type::Melee, "Stump Blades", 1, RAND_2D6, 3, 3, 0, 1},
-            m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1},
-            m_assortedWeapons{Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 3, 5, 5, 0, 1};
+                m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1},
+                m_assortedWeapons{Weapon::Type::Melee, "Motley Assortment of Weapons", 1, 3, 5, 5, 0, 1};
 
         static bool s_registered;
     };

@@ -58,7 +58,8 @@ namespace OgorMawtribes {
         }
     }
 
-    MournfangPack::MournfangPack(Mawtribe tribe, int numModels, WeaponOption weaponOption, bool hornblower, bool bannerBearer) :
+    MournfangPack::MournfangPack(Mawtribe tribe, int numModels, WeaponOption weaponOption, bool hornblower,
+                                 bool bannerBearer) :
             MawtribesBase(tribe, "Mournfang Pack", 9, g_wounds, 6, 4, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MOURNFANG_PACK};
         m_weapons = {&m_pistol, &m_clubOrHacker, &m_gargantHacker, &m_tusks};
@@ -87,8 +88,7 @@ namespace OgorMawtribes {
             if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
-            }
-            else if (bannerBearer) {
+            } else if (bannerBearer) {
                 model->setName(Model::BannerBearer);
                 bannerBearer = false;
             }

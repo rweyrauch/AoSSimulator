@@ -27,7 +27,7 @@ namespace BeastsOfChaos {
     }
 
     Bestigors::Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
-        Bestigors() {
+            Bestigors() {
 
         setGreatfray(fray);
 

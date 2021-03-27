@@ -160,7 +160,7 @@ namespace Skaven {
 
         int braveryModifier() const override;
 
-        void onCommandAbilityUsed(const CommandAbility* ability, const Unit* target) override;
+        void onCommandAbilityUsed(const CommandAbility *ability, const Unit *target) override;
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 

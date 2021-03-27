@@ -16,5 +16,5 @@ namespace Skaven {
 
     AreaOfEffectSpell *CreateWarpLightningStorm(Unit *caster);
 
-    Spell* CreateLore(Lore which, Unit* caster);
+    Spell *CreateLore(Lore which, Unit *caster);
 }

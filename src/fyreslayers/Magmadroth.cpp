@@ -134,7 +134,8 @@ namespace Fyreslayers {
     int Magmadroth::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto rend = Fyreslayer::weaponRend(weapon, target, hitRoll, woundRoll);
 
-        if ((m_mountTrait == MountTrait::Fire_Claw_Adult) && weapon->isMelee() && weapon->isMount() && (woundRoll == 6)) {
+        if ((m_mountTrait == MountTrait::Fire_Claw_Adult) && weapon->isMelee() && weapon->isMount() &&
+            (woundRoll == 6)) {
             rend = -3;
         }
 
@@ -148,7 +149,7 @@ namespace Fyreslayers {
 
         auto units = Board::Instance()->getUnitsWithKeyword(owningPlayer(), MAGMADROTH);
         for (auto unit : units) {
-            auto droth = dynamic_cast<Magmadroth*>(unit);
+            auto droth = dynamic_cast<Magmadroth *>(unit);
             if (droth && (droth->m_mountTrait == MountTrait::Ash_Horn_Ancient) && distanceTo(droth) < 6.0) {
                 return Rerolls::Ones;
             }

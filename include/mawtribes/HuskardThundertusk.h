@@ -39,7 +39,8 @@ namespace OgorMawtribes {
 
     protected:
 
-        HuskardOnThundertusk(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral, MountTrait mountTrait, Prayer prayer);
+        HuskardOnThundertusk(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral,
+                             MountTrait mountTrait, Prayer prayer);
 
     protected:
 

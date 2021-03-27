@@ -29,7 +29,7 @@ namespace Math {
 // How close to zero is to considered zero?
     const double g_epsilon = 1.0e-6;
     const double g_infinite = DBL_MAX;
-    
+
     template<class T>
     inline T Clamp(T val, T min, T max) {
         return ((val > max) ? max : ((val < min) ? min : val));
@@ -239,9 +239,9 @@ namespace Math {
         Point3(const Point3 &p) = default;
 
         Point3(double x_, double y_) :
-            x(x_),
-            y(y_),
-            z(0.0f) {}
+                x(x_),
+                y(y_),
+                z(0.0f) {}
 
         Point3(double x_, double y_, double z_) :
                 x(x_),

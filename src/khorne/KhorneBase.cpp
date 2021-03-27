@@ -447,7 +447,8 @@ namespace Khorne {
         if (isGeneral() && weapon->isMelee() && hasKeyword(GORETIDE) && (m_commandTrait == CommandTrait::Hew_The_Foe)) {
             damage.normal++;
         }
-        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Devastating_Blow) && (woundRoll == 6)) {
+        if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Devastating_Blow) &&
+            (woundRoll == 6)) {
             damage.normal = 0;
             damage.mortal = weapon->damage();
         }

@@ -20,11 +20,12 @@ public:
     }
 
     void beginTurn(int battleRound, PlayerId playerWithTurn);
+
     void endTurn(int battleRound);
 
-    Unit* startPhase(Phase phase);
+    Unit *startPhase(Phase phase);
 
-    Unit* advancePhase();
+    Unit *advancePhase();
 
     void endPhase();
 

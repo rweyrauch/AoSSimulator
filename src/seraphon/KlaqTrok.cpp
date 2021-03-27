@@ -54,7 +54,7 @@ namespace Seraphon {
                     SeraphonBase::EnumStringToInt,
                     ComputePoints,
                     {
-                        BoolParameter("General")
+                            BoolParameter("General")
                     },
                     ORDER,
                     {SERAPHON}

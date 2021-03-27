@@ -133,6 +133,7 @@ namespace Nurgle {
         void setLegion(PlagueLegion legion);
 
         void setCommandTrait(CommandTrait trait) { m_commandTrait = trait; }
+
         void setArtefact(Artefact artefact) { m_artefact = artefact; }
 
     protected:
@@ -152,7 +153,7 @@ namespace Nurgle {
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
     protected:
 

@@ -29,11 +29,11 @@ namespace Skaven {
 
         void configure();
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         void onStartHero(PlayerId player) override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         void onStartShooting(PlayerId player) override;
 

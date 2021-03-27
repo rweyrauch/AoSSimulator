@@ -90,7 +90,8 @@ namespace OgorMawtribes {
         }
     }
 
-    HuskardOnStonehorn::HuskardOnStonehorn(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral,
+    HuskardOnStonehorn::HuskardOnStonehorn(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact,
+                                           bool isGeneral,
                                            MountTrait mountTrait) :
             MawtribesBase(tribe, "Huskard on Stonehorn", 12, g_wounds, 9, 3, false) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, HUSKARD};

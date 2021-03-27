@@ -61,7 +61,7 @@ namespace OgorMawtribes {
     }
 
     Ironguts::Ironguts(Mawtribe tribe, int numModels, bool runeMawBearer, bool bellower) :
-        MawtribesBase(tribe, "Ironguts", 6, g_wounds, 7, 4, false) {
+            MawtribesBase(tribe, "Ironguts", 6, g_wounds, 7, 4, false) {
 
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, IRONGUTS};
         m_weapons = {&m_bashingWeapon, &m_bite, &m_bashingWeaponGutlord};

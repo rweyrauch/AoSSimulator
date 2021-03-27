@@ -40,10 +40,10 @@ namespace OgorMawtribes {
     private:
 
         Weapon m_cannonBall{Weapon::Type::Missile, "Ironblaster Cannon: Cannon Ball", 24, 1, 4, 2, -2, RAND_D6},
-            m_hailShot{Weapon::Type::Missile, "Ironblaster Cannon: Hail Shot", 12, 6, 3, 3, -1, 1},
-            m_clubber{Weapon::Type::Melee, "Gunner's Clubber", 1, 3, 3, 3, 0, 2},
-            m_horns{Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 2, 4, 3, -1, RAND_D3},
-            m_blade{Weapon::Type::Melee, "Scrapper's Jagged Blade", 1, 2, 5, 5, 0, 1};
+                m_hailShot{Weapon::Type::Missile, "Ironblaster Cannon: Hail Shot", 12, 6, 3, 3, -1, 1},
+                m_clubber{Weapon::Type::Melee, "Gunner's Clubber", 1, 3, 3, 3, 0, 2},
+                m_horns{Weapon::Type::Melee, "Rhinox's Sharp Horns", 1, 2, 4, 3, -1, RAND_D3},
+                m_blade{Weapon::Type::Melee, "Scrapper's Jagged Blade", 1, 2, 5, 5, 0, 1};
 
         static bool s_registered;
     };

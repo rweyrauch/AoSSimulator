@@ -159,8 +159,7 @@ namespace OgorMawtribes {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 if (shootingTarget() && (shootingTarget()->remainingModels() > 0) &&
                     distanceTo(shootingTarget()) < 6.0) {
                     m_spear.activate(false);

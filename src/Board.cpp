@@ -9,8 +9,10 @@
 #include <vector>
 
 #ifdef HAVE_CAIRO
+
 #include <cairomm/context.h>
 #include <cairomm/surface.h>
+
 #endif
 
 #include <Board.h>
@@ -59,12 +61,12 @@ void Board::render(const std::string &filename) const {
     int imageH = (int) (m_depth * 10.0);
 
     Cairo::RefPtr<Cairo::ImageSurface> surface =
-        Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32, imageW, imageH);
+            Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32, imageW, imageH);
 
     Cairo::RefPtr<Cairo::Context> cr = Cairo::Context::create(surface);
 
     Cairo::RefPtr<Cairo::ToyFontFace> font =
-        Cairo::ToyFontFace::create("Bitstream Charter", Cairo::FONT_SLANT_ITALIC, Cairo::FONT_WEIGHT_BOLD);
+            Cairo::ToyFontFace::create("Bitstream Charter", Cairo::FONT_SLANT_ITALIC, Cairo::FONT_WEIGHT_BOLD);
 
     cr->save(); // save the state of the context
     cr->set_source_rgb(25 / 255.0, 119 / 255.0, 48 / 255.0);
@@ -83,8 +85,7 @@ void Board::render(const std::string &filename) const {
     cr->set_line_width(1.0);
 
     auto red = m_rosters[0];
-    for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
-    {
+    for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip) {
         const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
@@ -92,8 +93,7 @@ void Board::render(const std::string &filename) const {
         cr->set_source_rgb(1.0, 0.0, 0.0);
         for (auto i = 0; i < unit->numModels(); i++) {
             auto m = unit->getModel(i);
-            if (m->slain() || m->fled())
-            {
+            if (m->slain() || m->fled()) {
                 continue;
             }
             auto pos = m->position();
@@ -113,8 +113,7 @@ void Board::render(const std::string &filename) const {
     cr->set_line_width(1.0);
 
     auto blue = m_rosters[1];
-    for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip)
-    {
+    for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip) {
         const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
@@ -122,8 +121,7 @@ void Board::render(const std::string &filename) const {
         cr->set_source_rgb(0.0, 0.0, 1.0);
         for (auto i = 0; i < unit->numModels(); i++) {
             auto m = unit->getModel(i);
-            if (m->slain() || m->fled())
-            {
+            if (m->slain() || m->fled()) {
                 continue;
             }
 
@@ -139,8 +137,7 @@ void Board::render(const std::string &filename) const {
     }
     cr->restore();
 
-    for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip)
-    {
+    for (auto ip = red->unitBegin(); ip != red->unitEnd(); ++ip) {
         const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
@@ -157,8 +154,7 @@ void Board::render(const std::string &filename) const {
         cr->restore();
     }
 
-    for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip)
-    {
+    for (auto ip = blue->unitBegin(); ip != blue->unitEnd(); ++ip) {
         const Unit *unit = ip->get();
         auto baseSize = unit->basesizeInches();
         auto radiusInches = baseSize * 0.5;
@@ -331,19 +327,23 @@ bool Board::inQuadrant(Board::Quadrant quadrant, const Math::Plane &northSouth, 
                        const Math::Point3 &position) const {
     switch (quadrant) {
         case Northwest:
-            if ((Math::Containment::All == northSouth.contains(position)) && (Math::Containment::All != eastWest.contains(position)))
+            if ((Math::Containment::All == northSouth.contains(position)) &&
+                (Math::Containment::All != eastWest.contains(position)))
                 return true;
             break;
         case Northeast:
-            if ((Math::Containment::All == northSouth.contains(position)) && (Math::Containment::All == eastWest.contains(position)))
+            if ((Math::Containment::All == northSouth.contains(position)) &&
+                (Math::Containment::All == eastWest.contains(position)))
                 return true;
             break;
         case Southeast:
-            if ((Math::Containment::All != northSouth.contains(position)) && (Math::Containment::All == eastWest.contains(position)))
+            if ((Math::Containment::All != northSouth.contains(position)) &&
+                (Math::Containment::All == eastWest.contains(position)))
                 return true;
             break;
         case Southwest:
-            if ((Math::Containment::All != northSouth.contains(position)) && (Math::Containment::All != eastWest.contains(position)))
+            if ((Math::Containment::All != northSouth.contains(position)) &&
+                (Math::Containment::All != eastWest.contains(position)))
                 return true;
             break;
     }
@@ -458,7 +458,7 @@ double Board::moveModel(Model &model, const Math::Point3 &toPoint) const {
     }
 
     auto totalMoveDistance = minPoi;
-    const Math::Ray ray(model.position(),toPoint);
+    const Math::Ray ray(model.position(), toPoint);
     auto newPos = ray.pointAt(totalMoveDistance);
     model.setPosition(newPos);
 

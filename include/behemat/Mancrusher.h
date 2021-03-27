@@ -39,9 +39,9 @@ namespace SonsOfBehemat {
         size_t getDamageTableIndex() const;
 
         Weapon m_eadbutt,
-            m_club,
-            m_kick,
-            m_rocks;
+                m_club,
+                m_kick,
+                m_rocks;
 
         static bool s_registered;
 

@@ -103,7 +103,9 @@ namespace OgorMawtribes {
                 if (hasKeyword(MEATFIST)) numDice++;
 
                 int threshold = 6;
-                if ((remainingModels() >= 8) || hasKeyword(MONSTER) || (m_commandTrait == CommandTrait::Crushing_Bulk)) threshold -= 2;
+                if ((remainingModels() >= 8) || hasKeyword(MONSTER) ||
+                    (m_commandTrait == CommandTrait::Crushing_Bulk))
+                    threshold -= 2;
 
                 Dice::RollD6(numDice, result);
 

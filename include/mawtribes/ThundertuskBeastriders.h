@@ -57,11 +57,11 @@ namespace OgorMawtribes {
         WeaponOption m_option = Chaintrap;
 
         Weapon m_harpoon{Weapon::Type::Missile, "Harpoon Launcher", 20, 1, 4, 3, 0, RAND_D3},
-            m_chaintrap{Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3},
-            m_vulture{Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0},
-            m_ice{Weapon::Type::Missile, "Frost-wreathed Ice", 18, 0, 0, 0, 0, 0},
-            m_kicks{Weapon::Type::Melee, "Punches and Kicks", 1, 6, 4, 4, 0, 1},
-            m_tusks{Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3};
+                m_chaintrap{Weapon::Type::Missile, "Chaintrap", 12, 1, 4, 3, 0, 3},
+                m_vulture{Weapon::Type::Missile, "Blood Vulture", 30, 1, 0, 0, 0, 0},
+                m_ice{Weapon::Type::Missile, "Frost-wreathed Ice", 18, 0, 0, 0, 0, 0},
+                m_kicks{Weapon::Type::Melee, "Punches and Kicks", 1, 6, 4, 4, 0, 1},
+                m_tusks{Weapon::Type::Melee, "Colossal Tusks", 2, 4, 3, 2, -1, RAND_D3};
 
         static bool s_registered;
     };

@@ -36,7 +36,7 @@ namespace Greenskinz {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         void onRestore() override;
 

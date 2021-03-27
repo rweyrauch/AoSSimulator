@@ -234,7 +234,7 @@ namespace StormcastEternals {
                 auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), range);
                 for (auto unit : units) {
                     if (unit->remainingModels() > 0) {
-                        const Weapon* preferredWeapon = unit->getWeapon(0);
+                        const Weapon *preferredWeapon = unit->getWeapon(0);
                         if (preferredWeapon != nullptr) {
                             for (auto i = 0; i < unit->getNumWeapons(); i++) {
                                 if (unit->getWeapon(i)->strength() > preferredWeapon->strength()) {
@@ -247,15 +247,14 @@ namespace StormcastEternals {
                                     unit->shoot(-1, unit->shootingTarget(), numSlain);
                                     break;
                                 }
-                            }
-                            else if (preferredWeapon->isMelee() && unit->meleeTarget()) {
+                            } else if (preferredWeapon->isMelee() && unit->meleeTarget()) {
                                 if (unit->distanceTo(unit->meleeTarget()) < preferredWeapon->range()) {
                                     unit->fight(-1, unit->meleeTarget(), numSlain);
                                     break;
                                 }
                             }
                         }
-                     }
+                    }
                 }
             }
         }
@@ -378,7 +377,7 @@ namespace StormcastEternals {
 
         // Soul of the Stormhost
         if (hasKeyword(HAMMERS_OF_SIGMAR) && hasKeyword(REDEEMER) && (getRoster()->getCommandPoints() > 0)) {
-            auto general = dynamic_cast<StormcastEternal*>(getRoster()->getGeneral());
+            auto general = dynamic_cast<StormcastEternal *>(getRoster()->getGeneral());
             if (general && (general->remainingModels() > 0) && (general->hasKeyword(HAMMERS_OF_SIGMAR))) {
                 if (Dice::RollD6() >= 5) {
                     returnModels(numModels());
@@ -522,7 +521,8 @@ namespace StormcastEternals {
 
             int mortalsSelf = numFlasks;
             auto dead = owner->applyDamage({0, mortalsSelf}, owner);
-            PLOG_INFO << "Spirit Flasks inflicted " << mortalsSelf << " wounds on " << owner->name() << ".  Slaying " << dead << " models.";
+            PLOG_INFO << "Spirit Flasks inflicted " << mortalsSelf << " wounds on " << owner->name() << ".  Slaying "
+                      << dead << " models.";
         }
 
         return (numFlasks != 0);

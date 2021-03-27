@@ -133,7 +133,9 @@ namespace Fyreslayers {
         ~Fyreslayer() override = default;
 
         void setLodge(Lodge lodge);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
 
     protected:
@@ -172,7 +174,7 @@ namespace Fyreslayers {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         void onStartMovement(PlayerId player) override;
 

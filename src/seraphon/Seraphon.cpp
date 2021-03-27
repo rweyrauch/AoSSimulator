@@ -212,7 +212,8 @@ namespace Seraphon {
     void SeraphonBase::onStartHero(PlayerId player) {
         Unit::onStartHero(player);
 
-        if (isGeneral() && (remainingModels() > 0) && ((m_commandTrait == CommandTrait::Great_Rememberer) || (m_commandTrait == CommandTrait::Mighty_Warleader))) {
+        if (isGeneral() && (remainingModels() > 0) && ((m_commandTrait == CommandTrait::Great_Rememberer) ||
+                                                       (m_commandTrait == CommandTrait::Mighty_Warleader))) {
             if (Dice::RollD6() >= 4) {
                 getRoster()->addCommandPoints(1);
             }

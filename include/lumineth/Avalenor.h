@@ -42,8 +42,8 @@ namespace LuminethRealmLords {
         size_t getDamageTableIndex() const;
 
         Weapon m_blast,
-            m_hammer,
-            m_hooves;
+                m_hammer,
+                m_hooves;
 
         static bool s_registered;
     };

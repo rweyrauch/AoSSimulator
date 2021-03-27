@@ -103,17 +103,22 @@ namespace LuminethRealmLords {
         void setNation(GreatNation nation);
 
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
+
     protected:
 
         LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
                 Unit(name, move, wounds, bravery, save, fly) {}
 
         int braveryModifier() const override;
+
         int woundModifier() const override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
+
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
         int castingModifier() const override;
 
         void onRestore() override;

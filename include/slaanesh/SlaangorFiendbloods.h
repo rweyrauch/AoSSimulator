@@ -30,6 +30,7 @@ namespace Slaanesh {
     protected:
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
         void onEndCombat(PlayerId player) override;
 
     private:

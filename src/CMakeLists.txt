@@ -119,14 +119,14 @@ set(AOSSIM_SOURCE
         behemat/Gatebreaker.cpp
         behemat/KrakenEater.cpp
         behemat/Warstomper.cpp
-)
+        )
 
 add_library(
         AoSSim STATIC
         ${AOSSIM_SOURCE}
 )
 
-if(NOT EMSCRIPTEN)
+if (NOT EMSCRIPTEN)
     target_include_directories(
             AoSSim PUBLIC
             ${GTK3_INCLUDE_DIRS}
@@ -147,7 +147,7 @@ if(NOT EMSCRIPTEN)
     target_compile_definitions(
             AoSSim PUBLIC HAVE_CAIRO
     )
-else()
+else ()
     target_include_directories(
             AoSSim PUBLIC
             ../include
@@ -162,5 +162,5 @@ else()
             -fbracket-depth=257
     )
 
-endif()
+endif ()
 

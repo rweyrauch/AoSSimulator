@@ -33,7 +33,8 @@ namespace OgorMawtribes {
 
     protected:
 
-        FrostlordOnStonehorn(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral, MountTrait mountTrait);
+        FrostlordOnStonehorn(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral,
+                             MountTrait mountTrait);
 
     protected:
 
@@ -45,7 +46,7 @@ namespace OgorMawtribes {
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

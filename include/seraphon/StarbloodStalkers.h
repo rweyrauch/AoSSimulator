@@ -29,7 +29,7 @@ namespace Seraphon {
 
         void configure();
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         int braveryModifier() const override;
 

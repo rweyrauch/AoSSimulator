@@ -34,9 +34,9 @@ namespace LuminethRealmLords {
     private:
 
         Weapon m_bow,
-            m_mallet,
-            m_greatsword,
-            m_dagger;
+                m_mallet,
+                m_greatsword,
+                m_dagger;
 
         static bool s_registered;
     };

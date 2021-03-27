@@ -99,9 +99,11 @@ public:
     void setFlag(FlagBit bit) const {
         m_flags.set(bit);
     }
+
     void clearFlag(FlagBit bit) {
         m_flags.reset(bit);
     }
+
     bool isFlagSet(FlagBit bit) const {
         return m_flags[bit];
     }

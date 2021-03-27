@@ -26,6 +26,7 @@ namespace DaughtersOfKhaine {
         ~SlaughterQueenOnCauldronOfBlood() override;
 
         void animate(bool animated);
+
         bool isAnimated() const;
 
     protected:

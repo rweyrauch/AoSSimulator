@@ -349,10 +349,10 @@ namespace Fyreslayers {
         if (owningPlayer() == player) {
             if (isGeneral() && (m_commandTrait == CommandTrait::Fiery_Endurance)) {
                 buffMovement(MovementRule::Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
-            }
-            else {
-                auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
-                if (general && (general->m_commandTrait == CommandTrait::Fiery_Endurance) && distanceTo(general) < 12.0) {
+            } else {
+                auto general = dynamic_cast<Fyreslayer *>(getRoster()->getGeneral());
+                if (general && (general->m_commandTrait == CommandTrait::Fiery_Endurance) &&
+                    distanceTo(general) < 12.0) {
                     buffMovement(MovementRule::Run_And_Charge, true, {Phase::Combat, m_battleRound, owningPlayer()});
                 }
             }
@@ -364,10 +364,10 @@ namespace Fyreslayers {
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Warrior_Indominate)) {
             mod--;
-        }
-        else if (hasKeyword(HERMDAR)) {
-            auto general = dynamic_cast<Fyreslayer*>(getRoster()->getGeneral());
-            if (general && (general->m_commandTrait == CommandTrait::Warrior_Indominate) && distanceTo(general) < 12.0) {
+        } else if (hasKeyword(HERMDAR)) {
+            auto general = dynamic_cast<Fyreslayer *>(getRoster()->getGeneral());
+            if (general && (general->m_commandTrait == CommandTrait::Warrior_Indominate) &&
+                distanceTo(general) < 12.0) {
                 mod--;
             }
         }

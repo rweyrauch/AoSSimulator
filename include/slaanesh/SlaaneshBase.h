@@ -133,12 +133,15 @@ namespace Slaanesh {
         ~SlaaneshBase() override = default;
 
         void setHost(Host host);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
 
         int getDepravityPoints() const {
             return m_depravityPoints;
         }
+
         void clearDepravityPoints() {
             m_depravityPoints = 0;
         }

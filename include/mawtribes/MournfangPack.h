@@ -55,9 +55,9 @@ namespace OgorMawtribes {
         WeaponOption m_option = Culling_Club_Or_Prey_Hacker_And_Ironfist;
 
         Weapon m_pistol{Weapon::Type::Missile, "Ironlock Pistol", 12, 1, 4, 3, -1, RAND_D3},
-            m_clubOrHacker{Weapon::Type::Melee, "Culling Club or Prey Hacker", 1, 3, 3, 3, 0, 2},
-            m_gargantHacker{Weapon::Type::Melee, "Gargant Hacker", 2, 2, 4, 3, -1, 3},
-            m_tusks{Weapon::Type::Melee, "Tusks", 1, 4, 4, 3, -1, 1};
+                m_clubOrHacker{Weapon::Type::Melee, "Culling Club or Prey Hacker", 1, 3, 3, 3, 0, 2},
+                m_gargantHacker{Weapon::Type::Melee, "Gargant Hacker", 2, 2, 4, 3, -1, 3},
+                m_tusks{Weapon::Type::Melee, "Tusks", 1, 4, 4, 3, -1, 1};
 
         static bool s_registered;
     };

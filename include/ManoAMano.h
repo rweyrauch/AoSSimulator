@@ -42,6 +42,7 @@ public:
     void logStatistics() const;
 
     void getStatistics(PlayerId which, UnitStatistics &stats);
+
     void clearStatistics();
 
     [[nodiscard]] PlayerId getVictor() const;

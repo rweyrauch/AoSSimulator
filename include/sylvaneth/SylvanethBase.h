@@ -14,7 +14,7 @@
 
 namespace Sylvaneth {
 
-    enum class Glade: int {
+    enum class Glade : int {
         None = 0,
         Oakenbrow,
         Gnarlroot,
@@ -125,6 +125,7 @@ namespace Sylvaneth {
         void setGlade(Glade glade);
 
         void setArtefact(Artefact artefact);
+
         void setCommandTrait(CommandTrait commandTrait);
 
     protected:

@@ -33,7 +33,8 @@ namespace OgorMawtribes {
 
     protected:
 
-        FrostlordOnThundertusk(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral, MountTrait mountTrait);
+        FrostlordOnThundertusk(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral,
+                               MountTrait mountTrait);
 
     protected:
 

@@ -25,7 +25,7 @@ namespace Tzeentch {
 
         ~KairosFateweaver() override = default;
 
-        int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
+        int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const override;
 
         int getGiftOfChangeDamage() const;
 

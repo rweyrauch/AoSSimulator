@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
 
         ~ArchmageTeclis() override;
 
-        int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
+        int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const override;
 
         void enableProtectionOfTeclis();
 
@@ -41,7 +41,7 @@ namespace LuminethRealmLords {
 
         void onStartHero(PlayerId player) override;
 
-        Wounds protectionAuras(const Wounds& wounds, const Unit* target, const Unit* attacker);
+        Wounds protectionAuras(const Wounds &wounds, const Unit *target, const Unit *attacker);
 
     private:
 
@@ -50,11 +50,11 @@ namespace LuminethRealmLords {
         bool m_protectionOfTeclisEnabled = false;
 
         Weapon m_staff,
-            m_sword,
-            m_talons;
+                m_sword,
+                m_talons;
 
         lsignal::slot m_auraConnection,
-            m_protectionConnection;
+                m_protectionConnection;
 
         static bool s_registered;
     };

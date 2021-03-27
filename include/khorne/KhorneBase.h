@@ -147,7 +147,9 @@ namespace Khorne {
         ~KhorneBase() override = default;
 
         void setSlaughterHost(SlaughterHost host);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
 
     protected:
@@ -159,7 +161,8 @@ namespace Khorne {
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
         void onFriendlyUnitSlain(const Unit *attacker) override;
-        void onEnemyUnitSlain(const Unit* unit) override;
+
+        void onEnemyUnitSlain(const Unit *unit) override;
 
         void onStartHero(PlayerId player) override;
 
@@ -173,7 +176,7 @@ namespace Khorne {
 
         Rerolls chargeRerolls() const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         void onEndCombat(PlayerId player) override;
 
@@ -190,7 +193,8 @@ namespace Khorne {
         int braveryModifier() const override;
 
     private:
-        bool selectBloodTitheReward(BloodTitheReward& selectedReward);
+        bool selectBloodTitheReward(BloodTitheReward &selectedReward);
+
         void dropMeteor();
 
     protected:

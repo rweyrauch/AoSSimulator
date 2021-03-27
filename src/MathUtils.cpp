@@ -49,7 +49,7 @@ namespace Math {
         }
 
         const double d = 1.0 / sqrt(dsqr);
-        return {x*d, y*d, z*d};
+        return {x * d, y * d, z * d};
     }
 
     Vector3 Vector3::Reflect(const Vector3 &inc, const Vector3 &normal) {
@@ -387,8 +387,8 @@ namespace Math {
         Vector3 dims;
         getDims(dims);
         return 2.0 * (dims.x * dims.y +
-                       dims.x * dims.z +
-                       dims.y * dims.z);
+                      dims.x * dims.z +
+                      dims.y * dims.z);
     }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -598,7 +598,7 @@ namespace Math {
         const double nd =
                 1.0 / (ray.m_dir.at(accel.m_k) + accel.m_nu * ray.m_dir.at(ku) + accel.m_nv * ray.m_dir.at(kv));
         double t = (accel.m_nd - ray.m_origin.at(accel.m_k) - accel.m_nu * ray.m_origin.at(ku) -
-                   accel.m_nv * ray.m_origin.at(kv)) * nd;
+                    accel.m_nv * ray.m_origin.at(kv)) * nd;
 
         if (t < 0.0) {
             return false;
@@ -888,8 +888,7 @@ namespace Math {
                 poi = sin(omega) * rTotal / sin(phi) - c0.radius();
                 intersected = true;
             }
-        }
-        else {
+        } else {
             Ray2 ray(c0.center(), dN);
             RayHit h0, h1;
             if (Intersect(ray, c1, h0, h1)) {

@@ -10,12 +10,13 @@
 #include <slaanesh/SlaaneshBase.h>
 
 class Unit;
+
 class Spell;
 
 namespace Slaanesh {
 
     Spell *CreateLore(Lore which, Unit *caster);
 
-    Spell *CreateAcquiescence(Unit* caster);
+    Spell *CreateAcquiescence(Unit *caster);
 
 } // namespace Slaanesh

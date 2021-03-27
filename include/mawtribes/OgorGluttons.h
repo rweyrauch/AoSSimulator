@@ -38,7 +38,8 @@ namespace OgorMawtribes {
 
     protected:
 
-        OgorGluttons(Mawtribe tribe, int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar,
+        OgorGluttons(Mawtribe tribe, int numModels, WeaponOption option, bool skullBearer, bool bannerBearer,
+                     bool lookoutGnoblar,
                      bool bellower);
 
     protected:
@@ -51,7 +52,7 @@ namespace OgorMawtribes {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         int bellower(const Unit *target);
 
@@ -62,8 +63,8 @@ namespace OgorMawtribes {
         bool m_lookoutGnoblar = false;
 
         Weapon m_clubOrBlade{Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 3, 3, 3, 0, 2},
-            m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1},
-            m_clubOrBladeCrusher{Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2};
+                m_bite{Weapon::Type::Melee, "Gulping Bite", 1, 1, 3, 3, 0, 1},
+                m_clubOrBladeCrusher{Weapon::Type::Melee, "Club(s) or Blade(s)", 1, 4, 3, 3, 0, 2};
 
         lsignal::slot m_connection;
 

@@ -31,7 +31,7 @@ namespace Sylvaneth {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         // Buff shields when not our combat phase.
         void onStartHero(PlayerId id) override { m_crescentShieldProtection = false; }

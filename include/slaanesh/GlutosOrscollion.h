@@ -41,6 +41,7 @@ namespace Slaanesh {
         void onRestore() override;
 
         int castingModifier() const override;
+
         int unbindingModifier() const override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
@@ -48,10 +49,12 @@ namespace Slaanesh {
         Rerolls chargeRerolls() const override;
 
         void onStartHero(PlayerId player) override;
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         int fogOfTemptation(const Unit *attacker, const Weapon *weapon, const Unit *target);
-        int aperitif(const Unit* unit);
+
+        int aperitif(const Unit *unit);
 
         void onBeginRound(int battleRound) override;
 
@@ -60,6 +63,7 @@ namespace Slaanesh {
         void onEndHero(PlayerId player) override;
 
         Rerolls castingRerolls() const override;
+
         Rerolls unbindingRerolls() const override;
 
     private:
@@ -71,7 +75,7 @@ namespace Slaanesh {
         bool m_protectedByDolece = false;
 
         lsignal::slot m_fogConnection,
-            m_aperitifConnection;
+                m_aperitifConnection;
 
         Weapon m_greatblade,
                 m_scourge,

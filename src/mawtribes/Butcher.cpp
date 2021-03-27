@@ -17,7 +17,7 @@ namespace OgorMawtribes {
     class VoraciousMaw : public Spell {
     public:
         explicit VoraciousMaw(Unit *caster) :
-            Spell(caster, "Voracious Maw", 7, 18) {
+                Spell(caster, "Voracious Maw", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
         }
@@ -85,7 +85,8 @@ namespace OgorMawtribes {
         }
     }
 
-    Butcher::Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    Butcher::Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact,
+                     bool isGeneral) :
             MawtribesBase(tribe, "Butcher", 6, g_wounds, 8, 5, false) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER};
         m_weapons = {&m_tenderizer, &m_cleaver, &m_bite};
@@ -112,8 +113,7 @@ namespace OgorMawtribes {
         m_knownSpells.push_back(std::make_unique<VoraciousMaw>(this));
         if (trait != CommandTrait::Gastromancer) {
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
-        }
-        else {
+        } else {
             // Knows all of the spells of Gutmagic
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Fleshcrave_Curse, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Blood_Feast, this)));

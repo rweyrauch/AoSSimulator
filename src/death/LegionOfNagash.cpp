@@ -128,7 +128,8 @@ namespace Death {
     Wounds
     LegionOfNagashBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
-        if (isGeneral() && (m_commandTrait == CommandTrait::Chosen_Champion) && weapon->isMelee() && target->hasKeyword(HERO)) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Chosen_Champion) && weapon->isMelee() &&
+            target->hasKeyword(HERO)) {
             damage.normal++;
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Killing_Blow) && weapon->isMelee() && (woundRoll == 6)) {
@@ -150,8 +151,10 @@ namespace Death {
 
     int LegionOfNagashBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
-        auto general = dynamic_cast<LegionOfNagashBase*>(getRoster()->getGeneral());
-        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Lord_Of_Nagashizzar) && hasKeyword(DEATHRATTLE) && (distanceTo(general) < 6.0)) {
+        auto general = dynamic_cast<LegionOfNagashBase *>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) &&
+            (general->m_commandTrait == CommandTrait::Lord_Of_Nagashizzar) && hasKeyword(DEATHRATTLE) &&
+            (distanceTo(general) < 6.0)) {
             attacks++;
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Blood_Fury) && weapon->isMelee()) {
@@ -161,14 +164,20 @@ namespace Death {
     }
 
     Rerolls LegionOfNagashBase::chargeRerolls() const {
-        auto general = dynamic_cast<LegionOfNagashBase*>(getRoster()->getGeneral());
-        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Ancient_Strategist) && hasKeyword(DEATHRATTLE) && (distanceTo(general) < 9.0)) {
+        auto general = dynamic_cast<LegionOfNagashBase *>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) &&
+            (general->m_commandTrait == CommandTrait::Ancient_Strategist) && hasKeyword(DEATHRATTLE) &&
+            (distanceTo(general) < 9.0)) {
             return Rerolls::Failed;
         }
-        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Emissary_Of_The_Master) && hasKeyword(DEATH) && (distanceTo(general) < 6.0)) {
+        if (general && (general->remainingModels() > 0) &&
+            (general->m_commandTrait == CommandTrait::Emissary_Of_The_Master) && hasKeyword(DEATH) &&
+            (distanceTo(general) < 6.0)) {
             return Rerolls::Failed;
         }
-        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Aristocracy_Of_Blood) && hasKeyword(SOULBLIGHT) && (distanceTo(general) < 9.0)) {
+        if (general && (general->remainingModels() > 0) &&
+            (general->m_commandTrait == CommandTrait::Aristocracy_Of_Blood) && hasKeyword(SOULBLIGHT) &&
+            (distanceTo(general) < 9.0)) {
             return Rerolls::Failed;
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Sanguine_Blur)) {
@@ -231,7 +240,8 @@ namespace Death {
 
     int LegionOfNagashBase::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
         auto hits = Unit::generateHits(unmodifiedHitRoll, weapon, unit);
-        if ((unmodifiedHitRoll == 6) && isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Swift_Strikes)) {
+        if ((unmodifiedHitRoll == 6) && isGeneral() && weapon->isMelee() &&
+            (m_commandTrait == CommandTrait::Swift_Strikes)) {
             hits++;
         }
         return hits;
@@ -254,8 +264,9 @@ namespace Death {
     }
 
     Rerolls LegionOfNagashBase::battleshockRerolls() const {
-        auto general = dynamic_cast<LegionOfNagashBase*>(getRoster()->getGeneral());
-        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Unbending_Will) && hasKeyword(LEGION_OF_NIGHT) && (distanceTo(general) < 12.0)) {
+        auto general = dynamic_cast<LegionOfNagashBase *>(getRoster()->getGeneral());
+        if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Unbending_Will) &&
+            hasKeyword(LEGION_OF_NIGHT) && (distanceTo(general) < 12.0)) {
             return Rerolls::Failed;
         }
         return Unit::battleshockRerolls();

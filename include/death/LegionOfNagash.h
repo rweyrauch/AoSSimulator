@@ -142,7 +142,9 @@ namespace Death {
         ~LegionOfNagashBase() override = default;
 
         void setLegion(Legion legion);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
 
     protected:

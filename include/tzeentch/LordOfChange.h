@@ -35,7 +35,7 @@ namespace Tzeentch {
 
         ~LordOfChange() override = default;
 
-        int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
+        int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const override;
 
         int getInfernalGatewayValue() const;
 

@@ -135,8 +135,11 @@ namespace Tzeentch {
         ~TzeentchBase() override = default;
 
         void setChangeCoven(ChangeCoven coven);
+
         void setCommandTrait(CommandTrait trait);
+
         void setArtefact(Artefact artefact);
+
     protected:
 
         TzeentchBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
@@ -152,9 +155,9 @@ namespace Tzeentch {
 
         void onStartHero(PlayerId player) override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         double unbindingDistance() const override;
 

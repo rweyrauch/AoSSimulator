@@ -174,7 +174,9 @@ namespace StormcastEternals {
         ~StormcastEternal() override;
 
         void setStormhost(Stormhost host);
+
         void setArtefact(Artefact artefact);
+
         void setCommandTrait(CommandTrait commandTrait);
 
     protected:
@@ -191,13 +193,13 @@ namespace StormcastEternals {
 
         void onStartHero(PlayerId player) override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         Rerolls chargeRerolls() const override;
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
@@ -209,7 +211,7 @@ namespace StormcastEternals {
 
         void onFriendlyUnitSlain(const Unit *attacker) override;
 
-        void onEnemyUnitSlain(const Unit* enemyUnit) override;
+        void onEnemyUnitSlain(const Unit *enemyUnit) override;
 
         void onBeginTurn(int battleRound) override;
 

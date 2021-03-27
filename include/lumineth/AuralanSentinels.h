@@ -30,17 +30,21 @@ namespace LuminethRealmLords {
     protected:
 
         void onRestore() override;
+
         void onStartHero(PlayerId player) override;
+
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
         void onCastSpell(const Spell *spell, const Unit *target) override;
+
         void onStartShooting(PlayerId player) override;
 
     private:
 
         Weapon m_bowAimed,
-            m_bowLofted,
-            m_blade,
-            m_dagger;
+                m_bowLofted,
+                m_blade,
+                m_dagger;
 
         bool m_powerOfHyshActive = false;
 

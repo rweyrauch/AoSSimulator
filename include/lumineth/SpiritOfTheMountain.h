@@ -36,6 +36,7 @@ namespace LuminethRealmLords {
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
         void onStartShooting(PlayerId player) override;
+
         void onStartCombat(PlayerId player) override;
 
     private:
@@ -43,8 +44,8 @@ namespace LuminethRealmLords {
         size_t getDamageTableIndex() const;
 
         Weapon m_blast,
-            m_hammer,
-            m_hooves;
+                m_hammer,
+                m_hooves;
 
         static bool s_registered;
     };

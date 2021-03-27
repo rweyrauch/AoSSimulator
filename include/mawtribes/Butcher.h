@@ -38,7 +38,8 @@ namespace OgorMawtribes {
 
     protected:
 
-        Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact,
+                bool isGeneral);
 
     protected:
 

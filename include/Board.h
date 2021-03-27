@@ -68,9 +68,9 @@ public:
 
     std::vector<Unit *> getUnitsWithKeyword(PlayerId fromPlayer, Keyword keyword);
 
-    bool isUnitWithinDeploymentZone(const Unit* unit, PlayerId which) const;
+    bool isUnitWithinDeploymentZone(const Unit *unit, PlayerId which) const;
 
-    bool isModelWithinDeploymentZone(const Model* model, PlayerId which) const;
+    bool isModelWithinDeploymentZone(const Model *model, PlayerId which) const;
 
     void setRealm(Realm realm) {
         m_realm = realm;
@@ -107,7 +107,7 @@ protected:
     Board() = default;
 
     [[nodiscard]] bool inQuadrant(Quadrant quadrant, const Math::Plane &northSouth, const Math::Plane &eastWest,
-                    const Math::Point3 &point3) const;
+                                  const Math::Point3 &point3) const;
 
 private:
     double m_width = 0.0f, m_depth = 0.0f;

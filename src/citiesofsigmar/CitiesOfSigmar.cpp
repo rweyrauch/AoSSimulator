@@ -248,14 +248,17 @@ namespace CitiesOfSigmar {
             return false;
         }
         if (hasKeyword(PHOENICIUM)) {
-            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
-            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Aura_Of_Serenity) && (distanceTo(general) < 12.0)) {
+            auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) &&
+                (general->m_commandTrait == CommandTrait::Aura_Of_Serenity) && (distanceTo(general) < 12.0)) {
                 return false;
             }
         }
         if (hasKeyword(HALLOWHEART)) {
-            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
-            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Veteran_Of_The_Blazing_Crusade) && (distanceTo(general) < 18.0)) {
+            auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
+            if (general && (general->remainingModels() > 0) &&
+                (general->m_commandTrait == CommandTrait::Veteran_Of_The_Blazing_Crusade) &&
+                (distanceTo(general) < 18.0)) {
                 return false;
             }
         }
@@ -316,7 +319,8 @@ namespace CitiesOfSigmar {
         }
         if (hasKeyword(TEMPESTS_EYE)) {
             auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
-            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Hawk_Eyed) && (distanceTo(general) < 12.0)) {
+            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Hawk_Eyed) &&
+                (distanceTo(general) < 12.0)) {
                 mod++;
             }
         }
@@ -325,7 +329,7 @@ namespace CitiesOfSigmar {
 
     Rerolls CitizenOfSigmar::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (weapon->isMissile() && hasKeyword(GREYWATER_FASTNESS)) {
-            auto general = dynamic_cast<CitizenOfSigmar*>(getRoster()->getGeneral());
+            auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
             if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Drillmaster)) {
                 auto units = Board::Instance()->getUnitsWithin(general, GetEnemyId(owningPlayer()), 3.0);
                 if (units.empty() && (distanceTo(general) < 12.0)) {
@@ -343,7 +347,8 @@ namespace CitiesOfSigmar {
             if (isGeneral() && (m_commandTrait == CommandTrait::Ghoul_Mere_Ranger)) {
                 auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
                 for (auto unit : units) {
-                    unit->buffMovement(MovementRule::Run_And_Shoot, true, {Phase::Shooting, m_battleRound, owningPlayer()});
+                    unit->buffMovement(MovementRule::Run_And_Shoot, true,
+                                       {Phase::Shooting, m_battleRound, owningPlayer()});
                 }
             }
         }
@@ -353,7 +358,8 @@ namespace CitiesOfSigmar {
         auto mod = Unit::chargeModifier();
         if (hasKeyword(TEMPESTS_EYE)) {
             auto general = dynamic_cast<CitizenOfSigmar *>(getRoster()->getGeneral());
-            if (general && (general->remainingModels() > 0) && (general->m_commandTrait == CommandTrait::Aetherguard_Captain) && (distanceTo(general) < 12.0)) {
+            if (general && (general->remainingModels() > 0) &&
+                (general->m_commandTrait == CommandTrait::Aetherguard_Captain) && (distanceTo(general) < 12.0)) {
                 mod++;
             }
         }

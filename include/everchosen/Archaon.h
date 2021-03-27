@@ -38,7 +38,7 @@ namespace SlavesToDarkness {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         void onStartCombat(PlayerId player) override;
 

@@ -44,9 +44,9 @@ namespace SonsOfBehemat {
 
     private:
         Weapon m_debris,
-            m_stomp,
-            m_grip,
-            m_warclub;
+                m_stomp,
+                m_grip,
+                m_warclub;
 
         lsignal::slot m_connection;
 

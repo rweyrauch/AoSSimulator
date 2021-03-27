@@ -38,11 +38,13 @@ public:
     const std::string &name() const { return m_name; }
 
     Abilities::Target allowedTargets() const { return m_allowedTargets; }
-    const std::vector<Keyword>& allowedTargetKeywords() const { return m_targetKeywords; }
+
+    const std::vector<Keyword> &allowedTargetKeywords() const { return m_targetKeywords; }
 
 protected:
 
-    virtual bool apply(int prayingRoll, Unit* target) = 0;
+    virtual bool apply(int prayingRoll, Unit *target) = 0;
+
     virtual bool apply(int prayingRoll, double x, double y) = 0;
 
     Unit *m_priest = nullptr;
@@ -67,7 +69,8 @@ public:
 
 protected:
 
-    bool apply(int prayingRoll, Unit* target) override;
+    bool apply(int prayingRoll, Unit *target) override;
+
     bool apply(int prayingRoll, double x, double y) override { return false; }
 
     virtual int getDamage(Unit *target, int prayingRoll) const;
@@ -83,7 +86,8 @@ public:
 
 protected:
 
-    bool apply(int prayingValue, Unit* target) override;
+    bool apply(int prayingValue, Unit *target) override;
+
     bool apply(int prayingValue, double x, double y) override { return false; }
 
     virtual int getHealing(int prayingRoll) const {
@@ -100,7 +104,8 @@ public:
 
 protected:
 
-    bool apply(int prayingRoll, Unit* target) override;
+    bool apply(int prayingRoll, Unit *target) override;
+
     bool apply(int prayingRoll, double x, double y) override { return false; }
 
     virtual int getModifier(int prayingRoll) const;
@@ -116,7 +121,8 @@ public:
 
 protected:
 
-    bool apply(int prayingRoll, Unit* target) override;
+    bool apply(int prayingRoll, Unit *target) override;
+
     bool apply(int prayingRoll, double x, double y) override { return false; }
 
     Attribute m_attribute = Attribute::To_Hit_Melee;

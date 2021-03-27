@@ -29,7 +29,7 @@ namespace Death {
 
         void configure();
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnitk) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnitk) override;
 
         void onStartHero(PlayerId player) override;
 

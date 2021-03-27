@@ -80,7 +80,7 @@ namespace Skaven {
         // Strength in Numbers (add an additional +1 for each 10 models)
         modifier += remainingModels() / 10;
 
-        auto general = dynamic_cast<Skaventide*>(getRoster()->getGeneral());
+        auto general = dynamic_cast<Skaventide *>(getRoster()->getGeneral());
         if (general && (general->m_commandTrait == CommandTrait::Savage_Overlord) && (distanceTo(general) < 18.0)) {
             modifier++;
         }
@@ -181,7 +181,8 @@ namespace Skaven {
 
     int Skaventide::castingModifier() const {
         auto mod = Unit::castingModifier();
-        if (isGeneral() && (m_commandTrait == CommandTrait::Master_Of_Magic) && (m_usedMasterOfMagicInRound != m_battleRound)) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Master_Of_Magic) &&
+            (m_usedMasterOfMagicInRound != m_battleRound)) {
             m_usedMasterOfMagicInRound = m_battleRound;
             mod++;
         }
@@ -190,7 +191,8 @@ namespace Skaven {
 
     int Skaventide::unbindingModifier() const {
         auto mod = Unit::unbindingModifier();
-        if (isGeneral() && (m_commandTrait == CommandTrait::Master_Of_Magic) && (m_usedMasterOfMagicInRound != m_battleRound)) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Master_Of_Magic) &&
+            (m_usedMasterOfMagicInRound != m_battleRound)) {
             m_usedMasterOfMagicInRound = m_battleRound;
             mod++;
         }
@@ -204,7 +206,8 @@ namespace Skaven {
             if (isGeneral() && (m_commandTrait == CommandTrait::Deranged_Inventor)) {
                 auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), CLANS_SKRYRE, 13.0);
                 if (unit) {
-                    unit->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed, {Phase::Shooting, m_battleRound, owningPlayer()});
+                    unit->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed,
+                                     {Phase::Shooting, m_battleRound, owningPlayer()});
                 }
             }
             if (isGeneral() && (m_commandTrait == CommandTrait::Overseer_Of_Destruction)) {
@@ -212,7 +215,8 @@ namespace Skaven {
                 int numBuffed = 0;
                 for (auto unit : units) {
                     if (distanceTo(unit) < 13.0) {
-                        unit->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed, {Phase::Shooting, m_battleRound, owningPlayer()});
+                        unit->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed,
+                                         {Phase::Shooting, m_battleRound, owningPlayer()});
                         numBuffed++;
                     }
                     if (numBuffed > 3) break;

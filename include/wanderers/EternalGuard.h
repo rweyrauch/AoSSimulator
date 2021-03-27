@@ -35,13 +35,13 @@ namespace Wanderers {
 
         int braveryModifier() const override;
 
-        Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
+        Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override { return m_fortressModifier; }
 
-        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override { return m_fortressModifier; }
+        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override { return m_fortressModifier; }
 
     private:
 

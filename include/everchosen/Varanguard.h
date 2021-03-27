@@ -48,7 +48,7 @@ namespace SlavesToDarkness {
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         void onRestore() override;
 
