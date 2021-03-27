@@ -120,7 +120,7 @@ namespace DaughtersOfKhaine {
     void SlaughterQueenOnCauldronOfBlood::onWounded() {
         DaughterOfKhaine::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_knives.setAttacks(g_damageTable[damageIndex].m_knifeAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

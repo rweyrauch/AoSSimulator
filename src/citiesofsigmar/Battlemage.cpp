@@ -17,7 +17,7 @@ namespace CitiesOfSigmar {
 
     class ChainLightning : public Spell {
     public:
-        ChainLightning(Unit *caster) :
+        explicit ChainLightning(Unit *caster) :
                 Spell(caster, "Chain Lightning", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -44,7 +44,7 @@ namespace CitiesOfSigmar {
 
     class Fireball : public Spell {
     public:
-        Fireball(Unit *caster) :
+        explicit Fireball(Unit *caster) :
                 Spell(caster, "Fireball", 5, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -72,7 +72,7 @@ namespace CitiesOfSigmar {
 
     class MystifyingMiasma : public Spell {
     public:
-        MystifyingMiasma(Unit *caster) :
+        explicit MystifyingMiasma(Unit *caster) :
                 Spell(caster, "Mystifying Miasma", 4, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;
@@ -95,7 +95,7 @@ namespace CitiesOfSigmar {
 
     class TransmutationOfLead : public Spell {
     public:
-        TransmutationOfLead(Unit *caster) :
+        explicit TransmutationOfLead(Unit *caster) :
                 Spell(caster, "Transmutation of Lead", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Debuff;

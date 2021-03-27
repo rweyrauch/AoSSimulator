@@ -17,7 +17,7 @@ namespace CitiesOfSigmar {
 
     class Bladewind : public Spell {
     public:
-        Bladewind(Unit *caster) :
+        explicit Bladewind(Unit *caster) :
                 Spell(caster, "Bladewind", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -41,7 +41,7 @@ namespace CitiesOfSigmar {
 
     class CommandUnderlings2 : public CommandAbility {
     public:
-        CommandUnderlings2(Unit *source) :
+        explicit CommandUnderlings2(Unit *source) :
                 CommandAbility(source, "Command Underlings", 12, 12, Phase::Hero) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {DARKLING_COVENS};
@@ -202,7 +202,7 @@ namespace CitiesOfSigmar {
     }
 
     void SorceressOnBlackDragon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

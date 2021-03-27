@@ -91,7 +91,7 @@ namespace LuminethRealmLords {
     }
 
     void AvalenorTheStoneheartKing::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_blast.setRange(g_damageTable[damageIndex].m_blastRange);
         m_hammer.setDamage(g_damageTable[damageIndex].m_hammerDamage);
 

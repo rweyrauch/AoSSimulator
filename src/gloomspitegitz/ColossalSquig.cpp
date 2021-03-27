@@ -63,7 +63,7 @@ namespace GloomspiteGitz {
 
     void ColossalSquig::onWounded() {
         GloomspiteGitzBase::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_enormousJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
         m_tramplingFeet.setAttacks(g_damageTable[damageIndex].m_tramplingAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

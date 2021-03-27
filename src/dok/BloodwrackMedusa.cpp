@@ -50,7 +50,7 @@ namespace DaughtersOfKhaine {
 
         configureCommon();
 
-        m_points = g_pointsPerUnit;;
+        m_points = g_pointsPerUnit;
     }
 
     Unit *BloodwrackMedusa::Create(const ParameterList &parameters) {

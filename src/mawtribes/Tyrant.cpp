@@ -177,7 +177,7 @@ namespace OgorMawtribes {
         if (weapon->isMelee() && target->hasKeyword(Has_Artefact) && (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
             return Rerolls::Failed;
         }
-        return Unit::toWoundRerolls(weapon, target);
+        return MawtribesBase::toWoundRerolls(weapon, target);
     }
 
 } // namespace OgorMawtribes

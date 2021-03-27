@@ -20,7 +20,7 @@ namespace FleshEaterCourt {
 
     class SummonAbility : public CommandAbility {
     public:
-        SummonAbility(Unit *leader, Roster *roster, const std::string &name, const SummonedUnitDesc &summonableUnits);
+        SummonAbility(Unit *leader, Roster *roster, const std::string &name, SummonedUnitDesc summonableUnits);
 
     protected:
 

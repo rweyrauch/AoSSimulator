@@ -57,7 +57,7 @@ namespace GloomspiteGitz {
     }
 
     void SkitterstrandArachnarok::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
         m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

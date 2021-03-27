@@ -84,7 +84,7 @@ namespace Khorne {
     }
 
     void Skarbrand::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_slaughter.setAttacks(g_damageTable[damageIndex].m_slaughterAttacks);
 
         KhorneBase::onWounded();
@@ -108,7 +108,7 @@ namespace Khorne {
     int Skarbrand::generateMortalWounds(const Unit *unit) {
         // Total Carnage
         if (distanceTo(unit) <= (double) m_carnage.range()) {
-            int index = getDamageTableIndex();
+            auto index = getDamageTableIndex();
             if (!m_attackedInPreviousRound)
                 index = g_numTableEntries - 1;
 

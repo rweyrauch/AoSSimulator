@@ -16,7 +16,7 @@ namespace CitiesOfSigmar {
 
     class WordOfPain : public Spell {
     public:
-        WordOfPain(Unit *caster) :
+        explicit WordOfPain(Unit *caster) :
                 Spell(caster, "Word of Pain", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -40,7 +40,7 @@ namespace CitiesOfSigmar {
 
     class CommandUnderlings : public CommandAbility {
     public:
-        CommandUnderlings(Unit *source) :
+        explicit CommandUnderlings(Unit *source) :
                 CommandAbility(source, "Command Underlings", 12, 12, Phase::Hero) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {DARKLING_COVENS};

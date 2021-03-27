@@ -102,7 +102,7 @@ namespace Khorne {
     }
 
     void WrathOfKhorneBloodthirster::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
         m_bloodflail.setDamage(g_damageTable[damageIndex].m_flailDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

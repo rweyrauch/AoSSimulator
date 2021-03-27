@@ -135,7 +135,7 @@ namespace CitiesOfSigmar {
     }
 
     void BattlemageOnGriffon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_twinBeaks.setDamage(g_damageTable[damageIndex].m_beaksDamage);
         m_razorClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

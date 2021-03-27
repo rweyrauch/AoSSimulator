@@ -115,7 +115,7 @@ namespace SlavesToDarkness {
     }
 
     void Archaon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_dorgharsHeads.setAttacks(g_damageTable[damageIndex].m_headsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

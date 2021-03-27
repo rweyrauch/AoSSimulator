@@ -48,7 +48,7 @@ namespace Fyreslayers {
 
     void Magmadroth::onWounded() {
         Fyreslayer::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_clawsAndHorns.setAttacks(g_damageTable[damageIndex].m_clawsHornsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

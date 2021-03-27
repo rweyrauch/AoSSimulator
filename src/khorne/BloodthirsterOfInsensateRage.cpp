@@ -139,7 +139,7 @@ namespace Khorne {
     }
 
     void BloodthirsterOfInsensateRage::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_greatAxeOfKhorne.setAttacks(g_damageTable[damageIndex].m_axeAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
@@ -157,7 +157,7 @@ namespace Khorne {
                                                       int woundRoll) const {
         // Outrageous Carnage
         if ((woundRoll == 6) && weapon->name() == m_greatAxeOfKhorne.name()) {
-            const int damageIndex = getDamageTableIndex();
+            const auto damageIndex = getDamageTableIndex();
 
             // These mortal wounds are applied to all enemy units within 8".
             // Skip the target unit as the weaponDamage function will handle it.

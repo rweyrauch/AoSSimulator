@@ -118,7 +118,7 @@ namespace DaughtersOfKhaine {
     void BloodwrackShrine::onWounded() {
         DaughterOfKhaine::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_goadstaves.setAttacks(g_damageTable[damageIndex].m_staveAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

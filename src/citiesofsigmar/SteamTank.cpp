@@ -120,7 +120,7 @@ namespace CitiesOfSigmar {
     }
 
     void SteamTank::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_steamCannon.setRange(g_damageTable[damageIndex].m_canonRange);
         m_steamGun.setToWound(g_damageTable[damageIndex].m_gunToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

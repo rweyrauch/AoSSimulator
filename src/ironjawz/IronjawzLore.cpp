@@ -44,7 +44,7 @@ namespace Ironjawz {
 
     class MightyEadbutt : public Spell {
     public:
-        MightyEadbutt(Unit *caster) :
+        explicit MightyEadbutt(Unit *caster) :
                 Spell(caster, "Mighty 'Eadbutt", 5, 16) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -71,7 +71,7 @@ namespace Ironjawz {
 
     class WrathOfGork : public Spell {
     public:
-        WrathOfGork(Unit *caster) :
+        explicit WrathOfGork(Unit *caster) :
                 Spell(caster, "Wrath of Gork", 8, 16) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;

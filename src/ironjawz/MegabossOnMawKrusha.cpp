@@ -126,7 +126,7 @@ namespace Ironjawz {
 
     void MegabossOnMawKrusha::onWounded() {
         Ironjawz::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_fistsAndTail.setAttacks(g_damageTable[damageIndex].m_fistsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

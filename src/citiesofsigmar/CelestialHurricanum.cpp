@@ -17,7 +17,7 @@ namespace CitiesOfSigmar {
 
     class ChainLightning : public Spell {
     public:
-        ChainLightning(Unit *caster) :
+        explicit ChainLightning(Unit *caster) :
                 Spell(caster, "Chain Lightning", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -44,7 +44,7 @@ namespace CitiesOfSigmar {
 
     class CometOfCasandora : public Spell {
     public:
-        CometOfCasandora(Unit *caster) :
+        explicit CometOfCasandora(Unit *caster) :
                 Spell(caster, "Comet of Casandora", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;

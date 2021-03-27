@@ -193,7 +193,7 @@ namespace FleshEaterCourt {
 
     void AbhorrantGhoulKingOnTerrorgheist::onWounded() {
         FleshEaterCourts::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_skeletalClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

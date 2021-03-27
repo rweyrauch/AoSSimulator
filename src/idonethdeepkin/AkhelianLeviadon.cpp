@@ -72,7 +72,7 @@ namespace IdonethDeepkin {
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         unit->setEnclave(enclave);
 
-        auto trait = (MountTrait) GetBoolParam("Mount Trait", parameters, g_leviadonTrait[0]);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_leviadonTrait[0]);
 
         unit->configure(trait);
         return unit;
@@ -108,7 +108,7 @@ namespace IdonethDeepkin {
     void AkhelianLeviadon::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_scythedFins.setDamage(g_damageTable[damageIndex].m_finDamage);
         m_crushingJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
         m_save = g_damageTable[damageIndex].m_save;

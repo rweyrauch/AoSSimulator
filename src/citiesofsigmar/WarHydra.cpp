@@ -101,7 +101,7 @@ namespace CitiesOfSigmar {
     }
 
     void WarHydra::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_fieryBreath.setAttacks(g_damageTable[damageIndex].m_breathAttacks);
         m_fangs.setAttacks(g_damageTable[damageIndex].m_fangAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

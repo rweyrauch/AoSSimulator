@@ -138,7 +138,7 @@ namespace Death {
     }
 
     void Nagash::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_zefetNebtar.setAttacks(g_damageTable[damageIndex].m_zefetAttacks);
 
         LegionOfNagashBase::onWounded();

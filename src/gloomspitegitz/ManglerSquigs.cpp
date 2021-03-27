@@ -73,7 +73,7 @@ namespace GloomspiteGitz {
     }
 
     void ManglerSquigs::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_hugeFangFilledGob.setToHit(g_damageTable[damageIndex].m_gobsToHit);
         m_ballsAndChains.setAttacks(g_damageTable[damageIndex].m_ballsAndChainsAttack);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

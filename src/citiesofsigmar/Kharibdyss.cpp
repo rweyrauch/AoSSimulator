@@ -107,7 +107,7 @@ namespace CitiesOfSigmar {
     }
 
     void Kharibdyss::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_tentacles.setAttacks(g_damageTable[damageIndex].m_tentacleAttacks);
         m_tail.setToWound(g_damageTable[damageIndex].m_tailToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

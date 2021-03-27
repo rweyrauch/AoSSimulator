@@ -88,7 +88,7 @@ namespace BeastsOfChaos {
     }
 
     void Ghorgon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
 
         m_butcheringBlades.setAttacks(g_damageTable[damageIndex].m_bladesAttacks);
         m_hugeSlaveringMaw.setDamage(g_damageTable[damageIndex].m_greatMawToWound);

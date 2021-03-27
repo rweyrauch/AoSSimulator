@@ -103,7 +103,7 @@ namespace Death {
     void MannfredMortarchOfNight::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_ebonClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

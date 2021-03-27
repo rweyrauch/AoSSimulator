@@ -73,7 +73,7 @@ namespace Nighthaunt {
     void Mourngul::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_clawsAndFangs.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[damageIndex].m_move;
     }

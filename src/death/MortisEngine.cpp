@@ -89,7 +89,7 @@ namespace Death {
     void MortisEngine::onWounded() {
         LegionOfNagashBase::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_etherealWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

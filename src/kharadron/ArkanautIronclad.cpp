@@ -141,7 +141,7 @@ namespace KharadronOverlords {
 
     void ArkanautIronclad::onWounded() {
         KharadronBase::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_boardingWeapons.setAttacks(g_damageTable[damageIndex].m_boardingAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

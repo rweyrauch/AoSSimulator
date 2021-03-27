@@ -55,7 +55,7 @@ namespace IdonethDeepkin {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto trait = (MountTrait) GetBoolParam("Mount Trait", parameters, g_leviadonTrait[0]);
+        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_leviadonTrait[0]);
 
         unit->configure(trait);
         return unit;

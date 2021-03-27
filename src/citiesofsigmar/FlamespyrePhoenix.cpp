@@ -135,7 +135,7 @@ namespace CitiesOfSigmar {
     }
 
     void FlamespyrePhoenix::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_talons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 

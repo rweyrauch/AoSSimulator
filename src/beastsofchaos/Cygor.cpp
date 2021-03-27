@@ -88,7 +88,7 @@ namespace BeastsOfChaos {
     }
 
     void Cygor::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
 
         m_desecratedBoulder.setRange(g_damageTable[damageIndex].m_boulderRange);
         m_massiveHorns.setAttacks(g_damageTable[damageIndex].m_hornAttacts);

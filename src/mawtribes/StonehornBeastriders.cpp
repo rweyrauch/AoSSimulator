@@ -123,7 +123,7 @@ namespace OgorMawtribes {
     }
 
     void StonehornBeastriders::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_horns.setAttacks(g_damageTable[damageIndex].m_hornsAttacks);
         m_hooves.setToWound(g_damageTable[damageIndex].m_hoovesToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

@@ -189,7 +189,7 @@ namespace FleshEaterCourt {
     }
 
     void AbhorrantGhoulKingOnZombieDragon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_pestilentialBreath.setToWound(g_damageTable[damageIndex].m_breathToWound);
         m_swordlikeClaws.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

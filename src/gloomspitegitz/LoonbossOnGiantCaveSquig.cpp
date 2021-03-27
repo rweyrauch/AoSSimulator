@@ -16,7 +16,7 @@ namespace GloomspiteGitz {
 
     class LetsGetBouncing : public CommandAbility {
     public:
-        LetsGetBouncing(Unit *source) :
+        explicit LetsGetBouncing(Unit *source) :
                 CommandAbility(source, "Let's Get Bouncing", 12, 12, Phase::Movement) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {SQUIG};

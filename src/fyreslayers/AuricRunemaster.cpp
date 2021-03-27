@@ -44,7 +44,7 @@ namespace Fyreslayers {
 
         m_prayer = blessing;
 
-        m_points = g_pointsPerUnit;;
+        m_points = g_pointsPerUnit;
     }
 
     Unit *AuricRunemaster::Create(const ParameterList &parameters) {

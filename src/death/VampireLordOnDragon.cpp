@@ -135,7 +135,7 @@ namespace Death {
     void VampireLordOnZombieDragon::onWounded() {
         LegionOfNagashBase::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_breath.setToWound(g_damageTable[damageIndex].m_breathToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

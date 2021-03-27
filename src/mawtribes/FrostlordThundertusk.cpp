@@ -129,7 +129,7 @@ namespace OgorMawtribes {
     }
 
     void FrostlordOnThundertusk::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_tusks.setToWound(g_damageTable[damageIndex].m_tusksToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 

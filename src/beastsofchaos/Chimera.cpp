@@ -92,7 +92,7 @@ namespace BeastsOfChaos {
     }
 
     void Chimera::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
 
         m_avianHead.setRend(g_damageTable[damageIndex].m_avianHeadRend);
         m_leonineHead.setDamage(g_damageTable[damageIndex].m_leonineHeadDamage);

@@ -17,7 +17,7 @@ namespace CitiesOfSigmar {
 
     class BurningGaze : public Spell {
     public:
-        BurningGaze(Unit *caster) :
+        explicit BurningGaze(Unit *caster) :
                 Spell(caster, "Burning Gaze", 6, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;

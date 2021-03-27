@@ -99,7 +99,7 @@ namespace DaughtersOfKhaine {
     void MorathiTheShadowQueen::onWounded() {
         DaughterOfKhaine::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_heartrender.setAttacks(g_damageTable[damageIndex].m_heartrenderAttacks);
         m_tail.setDamage(g_damageTable[damageIndex].m_tailDamage);
         m_move = g_damageTable[damageIndex].m_move;

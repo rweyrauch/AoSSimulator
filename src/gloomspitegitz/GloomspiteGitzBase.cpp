@@ -53,7 +53,7 @@ namespace GloomspiteGitz {
 
     class ImDaBossNowStabEmGood : public CommandAbility {
     public:
-        ImDaBossNowStabEmGood(Unit *source) :
+        explicit ImDaBossNowStabEmGood(Unit *source) :
                 CommandAbility(source, "I'm Da Boss, Now Stab 'Em Good", 24, 12, Phase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {MOONCLAN, GROT};

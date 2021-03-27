@@ -105,7 +105,7 @@ namespace KharadronOverlords {
     }
 
     int GrundstokGunhauler::moveModifier() const {
-        auto mod = Unit::moveModifier();
+        auto mod = KharadronBase::moveModifier();
 
         if (m_aheadFull) mod += 6;
         m_aheadFull = false;
@@ -114,7 +114,7 @@ namespace KharadronOverlords {
     }
 
     void GrundstokGunhauler::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        KharadronBase::onStartCombat(player);
 
         // Bomb Racks
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -131,11 +131,11 @@ namespace KharadronOverlords {
         if ((hitRoll >= 5) && (weapon->name() == m_drillCannon.name())) {
             return {0, 3};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KharadronBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     void GrundstokGunhauler::onStartMovement(PlayerId player) {
-        Unit::onStartMovement(player);
+        KharadronBase::onStartMovement(player);
 
         if (!m_usedAheadFull) {
             // Go ahead and use the extra movement immediately.

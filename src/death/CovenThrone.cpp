@@ -113,7 +113,7 @@ namespace Death {
     void CovenThrone::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_poniards.setAttacks(g_damageTable[damageIndex].m_handmaidenAttacks);
         m_etherealWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

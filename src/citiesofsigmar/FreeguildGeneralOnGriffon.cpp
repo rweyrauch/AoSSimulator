@@ -15,7 +15,7 @@ namespace CitiesOfSigmar {
 
     class RousingBattleCry : public CommandAbility {
     public:
-        RousingBattleCry(Unit *source) :
+        explicit RousingBattleCry(Unit *source) :
                 CommandAbility(source, "Rousing Battle Cry", 12, 12, Phase::Charge) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {FREEGUILD};
@@ -202,7 +202,7 @@ namespace CitiesOfSigmar {
     }
 
     void FreeguildGeneralOnGriffon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_beak.setDamage(g_damageTable[damageIndex].m_beakDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

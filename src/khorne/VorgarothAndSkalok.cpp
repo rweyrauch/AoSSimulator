@@ -106,7 +106,7 @@ namespace Khorne {
     }
 
     void VorgarothAndSkalok::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_evisceratingClaws.setRend(g_damageTable[damageIndex].m_clawsRend);
         m_cavernousJaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
         m_brassPlatedTail.setAttacks(g_damageTable[damageIndex].m_tailAttacks);

@@ -68,11 +68,11 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = g_pointsPerUnit;;
+        m_points = g_pointsPerUnit;
     }
 
     void TroggothHag::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_vomit.setAttacks(g_damageTable[damageIndex].m_vomitAttacks);
         m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

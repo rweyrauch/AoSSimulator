@@ -118,7 +118,7 @@ namespace EldritchCouncil {
     }
 
     void ArchmageOnDragon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_dragonClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_dragonJaws.setToHit(g_damageTable[damageIndex].m_jawsToHit);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

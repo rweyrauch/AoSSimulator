@@ -15,7 +15,7 @@ namespace CitiesOfSigmar {
 
     class DoNotDisappointMe : public CommandAbility {
     public:
-        DoNotDisappointMe(Unit *source) :
+        explicit DoNotDisappointMe(Unit *source) :
                 CommandAbility(source, "Do Not Disappoint Me", 18, 18, Phase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {ORDER_SERPENTIS};
@@ -200,7 +200,7 @@ namespace CitiesOfSigmar {
     }
 
     void DreadlordOnBlackDragon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
