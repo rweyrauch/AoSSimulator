@@ -155,7 +155,7 @@ namespace SlavesToDarkness {
     void MutalithVortexBeast::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_claws.setToWound(g_damageTable[damageIndex].m_clawToWound);
         m_maw.setAttacks(g_damageTable[damageIndex].m_mawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

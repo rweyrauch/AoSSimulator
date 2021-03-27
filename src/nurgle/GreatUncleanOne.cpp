@@ -125,7 +125,7 @@ namespace Nurgle {
     void GreatUncleanOne::onWounded() {
         NurgleBase::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_bile.setToWound(g_damageTable[damageIndex].m_bileToWound);
         m_flail.setToWound(g_damageTable[damageIndex].m_flailToWound);
         m_bilesword.setAttacks(g_damageTable[damageIndex].m_swordAttacks);

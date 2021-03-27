@@ -62,7 +62,7 @@ namespace Sylvaneth {
     }
 
     void SpiritOfDurthu::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_verdantBlast.setAttacks(g_damageTable[damageIndex].m_verdantBlastAttacks);
         m_guardianSword.setDamage(g_damageTable[damageIndex].m_guardianSwordDamage);
         m_massiveImpalingTalons.setToWound(g_damageTable[damageIndex].m_talonsToWound);

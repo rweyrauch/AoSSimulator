@@ -116,7 +116,7 @@ namespace Skaven {
     void ThanquolOnBoneripper::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
         m_blows.setAttacks(g_damageTable[damageIndex].m_blowsAttacks);
     }

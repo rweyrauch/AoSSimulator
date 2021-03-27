@@ -129,7 +129,7 @@ namespace Seraphon {
 
     void Troglodon::onWounded() {
         SeraphonBase::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_spittle.setRange(g_damageTable[damageIndex].m_spittleRange);
         m_jaws.setToWound(g_damageTable[damageIndex].m_jawsToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

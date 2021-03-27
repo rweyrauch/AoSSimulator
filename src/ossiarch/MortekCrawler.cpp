@@ -95,7 +95,7 @@ namespace OssiarchBonereapers {
     }
 
     void MortekCrawler::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_catapultSkulls.setDamage(g_damageTable[damageIndex].m_skullDamage);
 
         Unit::onWounded();

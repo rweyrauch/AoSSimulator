@@ -99,7 +99,7 @@ namespace Nurgle {
     void Rotigus::onWounded() {
         NurgleBase::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_gnarlrod.setToHit(g_damageTable[damageIndex].m_rodToHit);
         m_fangedMaw.setToWound(g_damageTable[damageIndex].m_mawToWound);
     }

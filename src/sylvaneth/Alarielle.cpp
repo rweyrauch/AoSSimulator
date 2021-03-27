@@ -131,7 +131,7 @@ namespace Sylvaneth {
     }
 
     void Alarielle::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_spearOfKurnoth.setRange(g_damageTable[damageIndex].m_spearKurnothRange);
         m_beetleGreatAntlers.setDamage(g_damageTable[damageIndex].m_greatAntlerDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

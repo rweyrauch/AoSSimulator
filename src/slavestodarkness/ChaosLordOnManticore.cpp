@@ -136,7 +136,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosLordOnManticore::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_fangsAndClaws.setToWound(g_damageTable[damageIndex].m_fangsToWound);
         m_tail.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

@@ -96,7 +96,7 @@ namespace Seraphon {
     }
 
     void DreadSaurian::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_rakingClaws.setToHit(g_damageTable[damageIndex].m_clawsToHit);
         m_gargantuanJaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

@@ -72,7 +72,7 @@ namespace Sylvaneth {
     }
 
     void DrychaHamadreth::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_colonyOfFlitterfuries.setRange(g_damageTable[damageIndex].m_flitterfuriesRange);
         m_swarmOfSquirmlings.setToHit(g_damageTable[damageIndex].m_squirmlingsHit);
         m_slashingTalons.setAttacks(g_damageTable[damageIndex].m_talonAttacks);

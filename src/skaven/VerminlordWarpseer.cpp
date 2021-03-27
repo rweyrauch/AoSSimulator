@@ -189,7 +189,7 @@ namespace Skaven {
     void VerminlordWarpseer::onWounded() {
         Skaventide::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
         m_tails.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
         m_glaive.setToWound(g_damageTable[damageIndex].m_glaiveToWound);

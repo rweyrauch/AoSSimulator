@@ -105,7 +105,7 @@ namespace OssiarchBonereapers {
     }
 
     void GothizzarHarvester::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_deathsHeadMaw.setRange(g_damageTable[damageIndex].m_range);
         m_hoovesAndTail.setToWound(g_damageTable[damageIndex].m_hoovesToWound);
         m_sickles.setAttacks(g_damageTable[damageIndex].m_attacks);

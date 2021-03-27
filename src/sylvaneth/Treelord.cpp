@@ -55,7 +55,7 @@ namespace Sylvaneth {
     }
 
     void Treelord::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_strangleroots.setToHit(g_damageTable[damageIndex].m_stranglerootsToHit);
         m_sweepingBlows.setAttacks(g_damageTable[damageIndex].m_sweepingBlowsAttacks);
         m_massiveImpalingTalons.setToWound(g_damageTable[damageIndex].m_talonsToWound);

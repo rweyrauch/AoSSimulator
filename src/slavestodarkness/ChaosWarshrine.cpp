@@ -95,7 +95,7 @@ namespace SlavesToDarkness {
     void ChaosWarshrine::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_fists.setAttacks(g_damageTable[damageIndex].m_fistAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

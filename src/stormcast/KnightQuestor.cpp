@@ -31,7 +31,7 @@ namespace StormcastEternals {
         model->addMeleeWeapon(&m_warblade);
         addModel(model);
 
-        m_points = g_pointsPerUnit;;
+        m_points = g_pointsPerUnit;
     }
 
     Unit *KnightQuestor::Create(const ParameterList &parameters) {

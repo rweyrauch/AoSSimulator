@@ -100,7 +100,7 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = g_pointsPerUnit;;
+        m_points = g_pointsPerUnit;
     }
 
     Wounds LordSkreechVerminking::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -121,7 +121,7 @@ namespace Skaven {
     void LordSkreechVerminking::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
         m_tails.setAttacks(g_damageTable[damageIndex].m_tailAttacks);
         m_plaguereaper.setAttacks(g_damageTable[damageIndex].m_reaperAttacks);

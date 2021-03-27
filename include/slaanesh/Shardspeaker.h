@@ -25,9 +25,9 @@ namespace Slaanesh {
 
         ~ShardspeakerOfSlaanesh() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
         void onCastSpell(const Spell *spell, const Unit *target) override;

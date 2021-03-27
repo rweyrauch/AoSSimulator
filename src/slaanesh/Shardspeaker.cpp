@@ -33,7 +33,7 @@ namespace Slaanesh {
         m_totalUnbinds = 1;
     }
 
-    bool ShardspeakerOfSlaanesh::configure(Lore lore) {
+    void ShardspeakerOfSlaanesh::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_staff);
@@ -50,8 +50,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ShardspeakerOfSlaanesh::Create(const ParameterList &parameters) {
@@ -71,11 +69,7 @@ namespace Slaanesh {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

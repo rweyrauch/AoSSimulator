@@ -119,7 +119,7 @@ namespace Nurgle {
 
     void TheGlottkin::onWounded() {
         NurgleBase::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_pestilentTorrent.setDamage(g_damageTable[damageIndex].m_torrentDamage);
         m_flailingTentacle.setAttacks(g_damageTable[damageIndex].m_tentacleAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

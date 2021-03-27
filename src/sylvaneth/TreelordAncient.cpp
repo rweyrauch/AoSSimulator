@@ -99,7 +99,7 @@ namespace Sylvaneth {
     }
 
     void TreelordAncient::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_doomTendrilStaff.setToHit(g_damageTable[damageIndex].m_staffToHit);
         m_sweepingBlows.setAttacks(g_damageTable[damageIndex].m_sweepingBlowsAttacks);
         m_massiveImpalingTalons.setToWound(g_damageTable[damageIndex].m_talonToWound);

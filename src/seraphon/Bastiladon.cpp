@@ -88,7 +88,7 @@ namespace Seraphon {
     }
 
     void Bastiladon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_beam.setAttacks(g_damageTable[damageIndex].m_engineAttacs);
         m_ark.setAttacks(g_damageTable[damageIndex].m_arkAttacks);
         m_save = g_damageTable[getDamageTableIndex()].m_save;

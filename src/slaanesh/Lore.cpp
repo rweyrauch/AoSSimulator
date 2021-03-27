@@ -8,7 +8,6 @@
 
 #include <slaanesh/Lore.h>
 #include <Board.h>
-#include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
 

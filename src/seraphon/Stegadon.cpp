@@ -138,7 +138,7 @@ namespace Seraphon {
     }
 
     void Stegadon::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_stomps.setAttacks(g_damageTable[damageIndex].m_stompAttacks);
         m_horns.setDamage(g_damageTable[damageIndex].m_hornDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

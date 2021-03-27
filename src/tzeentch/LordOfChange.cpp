@@ -181,7 +181,7 @@ namespace Tzeentch {
     void LordOfChange::onWounded() {
         TzeentchBase::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

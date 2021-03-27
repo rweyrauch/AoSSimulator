@@ -152,7 +152,7 @@ namespace Slaanesh {
     }
 
     void KeeperOfSecrets::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_greatblade.setAttacks(g_damageTable[damageIndex].m_greatbladeAttacks);
         m_impalingClaws.setDamage(g_damageTable[damageIndex].m_clawDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

@@ -103,7 +103,7 @@ namespace Skaven {
     void PlaguePriestOnPlagueFurnace::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_spikes.setToHit(g_damageTable[damageIndex].m_spikesToHit);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

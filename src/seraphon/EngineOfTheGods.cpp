@@ -122,7 +122,7 @@ namespace Seraphon {
     }
 
     void EngineOfTheGods::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_stomps.setAttacks(g_damageTable[damageIndex].m_stompAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
