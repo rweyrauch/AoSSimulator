@@ -28,15 +28,13 @@ namespace FleshEaterCourt {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool VarghulfCourtier::configure() {
+    void VarghulfCourtier::configure() {
         auto courtier = new Model(g_basesize, wounds());
         courtier->addMeleeWeapon(&m_immenseClaws);
         courtier->addMeleeWeapon(&m_daggerlikeFangs);
         addModel(courtier);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *VarghulfCourtier::Create(const ParameterList &parameters) {

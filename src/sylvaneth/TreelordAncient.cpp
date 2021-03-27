@@ -82,7 +82,7 @@ namespace Sylvaneth {
         m_totalSpells = 1;
     }
 
-    bool TreelordAncient::configure(Lore lore) {
+    void TreelordAncient::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_doomTendrilStaff);
         model->addMeleeWeapon(&m_sweepingBlows);
@@ -96,8 +96,6 @@ namespace Sylvaneth {
         m_commandAbilities.push_back(std::make_unique<HeedTheSpiritsong>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void TreelordAncient::onWounded() {

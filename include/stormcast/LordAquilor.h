@@ -26,9 +26,9 @@ namespace StormcastEternals {
 
         ~LordAquilor() override = default;
 
-        bool configure(bool astralCompass);
-
     protected:
+
+        void configure(bool astralCompass);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

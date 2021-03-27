@@ -26,15 +26,13 @@ namespace Seraphon {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool SkinkPriest::configure() {
+    void SkinkPriest::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_starbolt);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *SkinkPriest::Create(const ParameterList &parameters) {

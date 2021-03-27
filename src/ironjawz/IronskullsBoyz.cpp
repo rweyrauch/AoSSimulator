@@ -26,7 +26,7 @@ namespace Ironjawz {
         m_weapons = {&m_eadButt, &m_pairedChoppas, &m_bigChoppa};
     }
 
-    bool IronskullsBoyz::configure() {
+    void IronskullsBoyz::configure() {
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_eadButt);
@@ -41,8 +41,6 @@ namespace Ironjawz {
         }
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *IronskullsBoyz::Create(const ParameterList &parameters) {
@@ -51,11 +49,7 @@ namespace Ironjawz {
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         unit->setWarclan(warclan);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

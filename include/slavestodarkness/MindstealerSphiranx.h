@@ -25,9 +25,9 @@ namespace SlavesToDarkness {
 
         ~MindstealerSphiranx() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int telepathicDread(const Unit *unit);
 

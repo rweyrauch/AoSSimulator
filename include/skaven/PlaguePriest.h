@@ -25,9 +25,9 @@ namespace Skaven {
 
         ~PlaguePriest() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onEndCombat(PlayerId player) override;
 

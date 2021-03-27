@@ -25,12 +25,12 @@ namespace DaughtersOfKhaine {
 
         ~AvatarOfKhaine() override;
 
-        bool configure();
-
         void animate(bool animated);
         bool isAnimated() const;
 
     protected:
+
+        void configure();
 
         int idolOfWorship(const Unit *unit);
 

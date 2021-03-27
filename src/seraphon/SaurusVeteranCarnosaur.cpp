@@ -55,7 +55,7 @@ namespace Seraphon {
         m_connection.disconnect();
     }
 
-    bool SaurusScarVeteranOnCarnosaur::configure(WeaponOption option) {
+    void SaurusScarVeteranOnCarnosaur::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
         if (option == Celestite_Warblade) model->addMeleeWeapon(&m_warblade);
         else if (option == Celestite_Warspear) model->addMeleeWeapon(&m_warspear);
@@ -65,8 +65,6 @@ namespace Seraphon {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void SaurusScarVeteranOnCarnosaur::onRestore() {

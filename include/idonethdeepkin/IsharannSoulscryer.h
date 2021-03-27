@@ -25,10 +25,9 @@ namespace IdonethDeepkin {
 
         ~IsharannSoulscryer() override = default;
 
-        bool configure();
-
     protected:
 
+        void configure();
 
     private:
 

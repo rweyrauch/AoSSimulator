@@ -25,9 +25,9 @@ namespace Death {
 
         ~PrinceVhordrai() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onWounded() override;
 

@@ -25,9 +25,9 @@ namespace Sylvaneth {
 
         ~Branchwych() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

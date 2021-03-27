@@ -24,11 +24,7 @@ namespace KharadronOverlords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -60,7 +56,7 @@ namespace KharadronOverlords {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool BrokkGrungsson::configure() {
+    void BrokkGrungsson::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boast);
         model->addMissileWeapon(&m_charter);
@@ -69,8 +65,6 @@ namespace KharadronOverlords {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int BrokkGrungsson::ComputePoints(int /*numModels*/) {

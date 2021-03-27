@@ -25,11 +25,11 @@ namespace Death {
 
         ~Nagash() override = default;
 
-        bool configure();
-
         int castingModifier() const override;
 
     protected:
+
+        void configure();
 
         void onWounded() override;
 

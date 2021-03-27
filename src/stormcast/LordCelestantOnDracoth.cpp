@@ -33,7 +33,7 @@ namespace StormcastEternals {
         m_clawsAndFangs.setMount(true);
     }
 
-    bool LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield, MountTrait trait) {
+    void LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield, MountTrait trait) {
         m_weapon = weapons;
         m_sigmariteThundershield = sigmariteThundershield;
         m_mountTrait = trait;
@@ -58,8 +58,6 @@ namespace StormcastEternals {
                                                             Abilities::Target::SelfAndFriendly,
                                                             std::vector<Keyword>(STORMCAST_ETERNAL)));
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters) {
@@ -74,11 +72,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapons, sigmariteThundershield, trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapons, sigmariteThundershield, trait);
         return unit;
     }
 

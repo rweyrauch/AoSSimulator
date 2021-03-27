@@ -35,7 +35,7 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Artillery;
     }
 
-    bool CelestarBallista::configure() {
+    void CelestarBallista::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sigmariteBlades);
 
@@ -47,8 +47,6 @@ namespace StormcastEternals {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *CelestarBallista::Create(const ParameterList &parameters) {
@@ -57,11 +55,7 @@ namespace StormcastEternals {
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         ballista->setStormhost(stormhost);
 
-        bool ok = ballista->configure();
-        if (!ok) {
-            delete ballista;
-            ballista = nullptr;
-        }
+        ballista->configure();
         return ballista;
     }
 

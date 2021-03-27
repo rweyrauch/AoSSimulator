@@ -80,7 +80,7 @@ namespace Slaanesh {
         m_aperitifConnection.disconnect();
     }
 
-    bool GlutosOrscollion::configure(Lore lore) {
+    void GlutosOrscollion::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_greatblade);
@@ -95,8 +95,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *GlutosOrscollion::Create(const ParameterList &parameters) {
@@ -109,11 +107,7 @@ namespace Slaanesh {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greaterDaemonLore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

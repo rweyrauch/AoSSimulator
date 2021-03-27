@@ -31,7 +31,7 @@ namespace Sylvaneth {
         m_totalSpells = 1;
     }
 
-    bool Branchwraith::configure(Lore lore) {
+    void Branchwraith::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_piercingTalons);
         addModel(model);
@@ -41,8 +41,6 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Branchwraith::Create(const ParameterList &parameters) {

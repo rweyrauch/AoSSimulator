@@ -89,7 +89,7 @@ namespace OssiarchBonereapers {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool GothizzarHarvester::configure(WeaponOption option) {
+    void GothizzarHarvester::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_deathsHeadMaw);
@@ -102,8 +102,6 @@ namespace OssiarchBonereapers {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void GothizzarHarvester::onWounded() {

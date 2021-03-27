@@ -25,14 +25,12 @@ namespace Nurgle {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool LordOfPlagues::configure() {
+    void LordOfPlagues::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_plagueriddenGreatBlade);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordOfPlagues::Create(const ParameterList &parameters) {

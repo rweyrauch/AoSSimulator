@@ -25,9 +25,9 @@ namespace Death {
 
         ~CorpseCartWithUnholyLodestone() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int unholyLodestoneCastingMod(const Unit *caster);
 

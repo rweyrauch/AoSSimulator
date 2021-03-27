@@ -49,7 +49,7 @@ namespace Seraphon {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool KixiTakaTheDiviner::configure() {
+    void KixiTakaTheDiviner::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_starbolt);
         model->addMeleeWeapon(&m_staff);
@@ -57,8 +57,6 @@ namespace Seraphon {
 
         m_commandAbilities.push_back(std::make_unique<HeraldOfTheOldOnes>(this));
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *KixiTakaTheDiviner::Create(const ParameterList &parameters) {

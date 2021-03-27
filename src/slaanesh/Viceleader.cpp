@@ -33,7 +33,7 @@ namespace Slaanesh {
         m_totalUnbinds = 1;
     }
 
-    bool ViceleaderHeraldOfSlaanesh::configure(Lore lore) {
+    void ViceleaderHeraldOfSlaanesh::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         addModel(model);
@@ -43,9 +43,7 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = g_pointsPerUnit;
-
-        return true;
+        m_points = g_pointsPerUnit;;
     }
 
     Unit *ViceleaderHeraldOfSlaanesh::Create(const ParameterList &parameters) {
@@ -65,11 +63,7 @@ namespace Slaanesh {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

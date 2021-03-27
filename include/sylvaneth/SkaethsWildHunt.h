@@ -25,7 +25,9 @@ namespace Sylvaneth {
 
         ~SkaethsWildHunt() override = default;
 
-        bool configure();
+    protected:
+
+        void configure();
 
     private:
 

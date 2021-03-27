@@ -26,15 +26,13 @@ namespace Ironjawz {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool OrrukWarchanter::configure(Warbeat warbeat) {
+    void OrrukWarchanter::configure(Warbeat warbeat) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stikks);
         addModel(model);
 
         m_warbeat = warbeat;
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *OrrukWarchanter::Create(const ParameterList &parameters) {
@@ -48,11 +46,7 @@ namespace Ironjawz {
 
         auto beat = (Warbeat) GetEnumParam("Warbeat", parameters, g_warbeats[0]);
 
-        bool ok = unit->configure(beat);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(beat);
         return unit;
     }
 

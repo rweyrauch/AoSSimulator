@@ -25,9 +25,9 @@ namespace SlavesToDarkness {
 
         ~Belakor() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 

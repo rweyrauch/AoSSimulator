@@ -25,9 +25,9 @@ namespace KharadronOverlords {
 
         ~BjorgenThundrik() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

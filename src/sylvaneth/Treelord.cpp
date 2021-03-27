@@ -44,7 +44,7 @@ namespace Sylvaneth {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool Treelord::configure() {
+    void Treelord::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_strangleroots);
         model->addMeleeWeapon(&m_sweepingBlows);
@@ -52,8 +52,6 @@ namespace Sylvaneth {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void Treelord::onWounded() {

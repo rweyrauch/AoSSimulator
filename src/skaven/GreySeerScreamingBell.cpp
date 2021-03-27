@@ -123,7 +123,7 @@ namespace Skaven {
         m_unholySoundConnection.disconnect();
     }
 
-    bool GreySeerOnScreamingBell::configure(Lore lore) {
+    void GreySeerOnScreamingBell::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_clawsAndFangs);
@@ -136,8 +136,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

@@ -30,9 +30,9 @@ namespace Slaanesh {
 
         ~GlutosOrscollion() override;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         size_t getDamageTableIndex() const;
 

@@ -27,9 +27,9 @@ namespace FreeAgent {
 
         ~GotrekGurnisson() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

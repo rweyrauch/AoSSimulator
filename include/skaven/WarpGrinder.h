@@ -25,9 +25,9 @@ namespace Skaven {
 
         ~WarpGrinder() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

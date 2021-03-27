@@ -48,7 +48,7 @@ namespace Sylvaneth {
         m_weapons = {&m_enchantedGreatBlade, &m_revenantBow, &m_protectorGlaive, &m_revenantBowMelee};
     }
 
-    bool YltharisGuardians::configure() {
+    void YltharisGuardians::configure() {
         auto gallanghann = new Model(g_basesize, wounds());
         gallanghann->addMeleeWeapon(&m_protectorGlaive);
         gallanghann->setName("Gallanghann");
@@ -66,8 +66,6 @@ namespace Sylvaneth {
         addModel(ahnslaine);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Rerolls YltharisGuardians::toWoundRerolls(const Weapon * /*weapon*/, const Unit * /*target*/) const {

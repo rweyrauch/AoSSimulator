@@ -36,7 +36,7 @@ namespace StormcastEternals {
         m_totalUnbinds = 1;
     }
 
-    bool LordArcanumOnTauralon::configure(Lore lore, MountTrait trait) {
+    void LordArcanumOnTauralon::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
 
@@ -57,8 +57,6 @@ namespace StormcastEternals {
                                                              std::vector<Keyword>(SACROSANCT)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordArcanumOnTauralon::Create(const ParameterList &parameters) {
@@ -72,11 +70,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore, trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore, trait);
         return unit;
     }
 

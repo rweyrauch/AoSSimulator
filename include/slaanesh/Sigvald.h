@@ -25,9 +25,9 @@ namespace Slaanesh {
 
         ~SigvaldPrinceOfSlaanesh() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         // Powered by Vainglory
         int chargeModifier() const override { return 3; }

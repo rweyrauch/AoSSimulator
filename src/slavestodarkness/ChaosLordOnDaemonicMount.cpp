@@ -34,11 +34,7 @@ namespace SlavesToDarkness {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -74,15 +70,13 @@ namespace SlavesToDarkness {
         m_hooves.setMount(true);
     }
 
-    bool ChaosLordOnDaemonicMount::configure() {
+    void ChaosLordOnDaemonicMount::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_hammer);
         model->addMeleeWeapon(&m_hooves);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds ChaosLordOnDaemonicMount::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

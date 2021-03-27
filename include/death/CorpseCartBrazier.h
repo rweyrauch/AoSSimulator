@@ -25,9 +25,9 @@ namespace Death {
 
         ~CorpseCartWithBalefireBrazier() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

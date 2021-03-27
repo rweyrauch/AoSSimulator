@@ -30,7 +30,7 @@ namespace GloomspiteGitz {
         m_totalSpells = 1;
     }
 
-    bool MadcapShaman::configure(Lore lore) {
+    void MadcapShaman::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonStaff);
 
@@ -48,8 +48,6 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *MadcapShaman::Create(const ParameterList &parameters) {
@@ -65,11 +63,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

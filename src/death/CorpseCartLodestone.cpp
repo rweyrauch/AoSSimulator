@@ -62,7 +62,7 @@ namespace Death {
         m_lodestoneSlot.disconnect();
     }
 
-    bool CorpseCartWithUnholyLodestone::configure() {
+    void CorpseCartWithUnholyLodestone::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goad);
         model->addMeleeWeapon(&m_lash);
@@ -70,8 +70,6 @@ namespace Death {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int CorpseCartWithUnholyLodestone::unholyLodestoneCastingMod(const Unit *caster) {

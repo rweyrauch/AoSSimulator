@@ -26,9 +26,9 @@ namespace StormcastEternals {
 
         ~LordArcanumOnTauralon() override = default;
 
-        bool configure(Lore lore, MountTrait trait);
-
     protected:
+
+        void configure(Lore lore, MountTrait trait);
 
         void onCharged() override;
 

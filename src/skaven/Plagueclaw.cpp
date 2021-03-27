@@ -48,15 +48,13 @@ namespace Skaven {
         m_battleFieldRole = Role::Artillery;
     }
 
-    bool Plagueclaw::configure() {
+    void Plagueclaw::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_catapult);
         model->addMeleeWeapon(&m_knives);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Plagueclaw::toHitModifier(const Weapon *weapon, const Unit *target) const {

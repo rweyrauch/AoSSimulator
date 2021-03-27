@@ -58,7 +58,7 @@ namespace GloomspiteGitz {
         m_massiveFangFilledGob.setMount(true);
     }
 
-    bool LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon) {
+    void LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon) {
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_massiveFangFilledGob);
@@ -72,8 +72,6 @@ namespace GloomspiteGitz {
         m_commandAbilities.push_back(std::make_unique<LetsGetBouncing>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters) {
@@ -89,11 +87,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon);
         return unit;
     }
 

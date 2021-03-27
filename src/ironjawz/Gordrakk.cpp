@@ -73,7 +73,7 @@ namespace Ironjawz {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool GordrakkTheFistOfGork::configure() {
+    void GordrakkTheFistOfGork::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bellow);
         model->addMeleeWeapon(&m_smasha);
@@ -84,8 +84,6 @@ namespace Ironjawz {
         m_commandAbilities.push_back(std::make_unique<VoiceOfGork>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *GordrakkTheFistOfGork::Create(const ParameterList &parameters) {
@@ -100,11 +98,7 @@ namespace Ironjawz {
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
         unit->setMountTrait(mount);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

@@ -88,7 +88,7 @@ namespace Skaven {
         m_connection.disconnect();
     }
 
-    bool LordSkreechVerminking::configure(Lore lore) {
+    void LordSkreechVerminking::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_glaive);
@@ -100,9 +100,7 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = g_pointsPerUnit;
-
-        return true;
+        m_points = g_pointsPerUnit;;
     }
 
     Wounds LordSkreechVerminking::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

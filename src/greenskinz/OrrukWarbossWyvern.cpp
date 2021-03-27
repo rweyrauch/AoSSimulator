@@ -46,7 +46,7 @@ namespace Greenskinz {
         m_barbedTail.setMount(true);
     }
 
-    bool OrrukWarbossOnWyvern::configure(bool pairedChoppas) {
+    void OrrukWarbossOnWyvern::configure(bool pairedChoppas) {
         auto model = new Model(g_basesize, wounds());
 
         m_pairedChoppas = pairedChoppas;
@@ -57,8 +57,6 @@ namespace Greenskinz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *OrrukWarbossOnWyvern::Create(const ParameterList &parameters) {
@@ -68,11 +66,7 @@ namespace Greenskinz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(pairedChoppas);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(pairedChoppas);
         return unit;
     }
 

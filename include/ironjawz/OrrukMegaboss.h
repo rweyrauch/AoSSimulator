@@ -24,9 +24,9 @@ namespace Ironjawz {
 
         ~OrrukMegaboss() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 

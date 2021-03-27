@@ -25,13 +25,13 @@ namespace LuminethRealmLords {
 
         ~ArchmageTeclis() override;
 
-        bool configure(Lore lore);
-
         int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
 
         void enableProtectionOfTeclis();
 
     protected:
+
+        void configure(Lore lore);
 
         void onWounded() override;
 

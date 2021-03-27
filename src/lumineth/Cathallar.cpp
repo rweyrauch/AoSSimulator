@@ -35,11 +35,7 @@ namespace LuminethRealmLords {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -79,7 +75,7 @@ namespace LuminethRealmLords {
         m_totalUnbinds = 1;
     }
 
-    bool ScinariCathallar::configure(Lore lore) {
+    void ScinariCathallar::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_touch);
         addModel(model);
@@ -89,8 +85,6 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
 } // namespace LuminethRealmLords

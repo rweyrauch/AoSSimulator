@@ -61,7 +61,7 @@ namespace Seraphon {
         m_totalUnbinds = 1;
     }
 
-    bool SkinkStarseer::configure(Lore lore) {
+    void SkinkStarseer::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_astralBolt);
         model->addMeleeWeapon(&m_staff);
@@ -73,8 +73,6 @@ namespace Seraphon {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *SkinkStarseer::Create(const ParameterList &parameters) {

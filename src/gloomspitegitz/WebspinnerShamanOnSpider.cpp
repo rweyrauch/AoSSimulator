@@ -63,7 +63,7 @@ namespace GloomspiteGitz {
         m_prophetConnection.disconnect();
     }
 
-    bool WebspinnerShamanOnArachnarokSpider::configure(Lore lore) {
+    void WebspinnerShamanOnArachnarokSpider::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spiderBows);
         model->addMeleeWeapon(&m_spiderGodStaff);
@@ -78,8 +78,6 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void WebspinnerShamanOnArachnarokSpider::onRestore() {
@@ -117,11 +115,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

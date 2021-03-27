@@ -88,7 +88,7 @@ namespace Death {
         m_totalUnbinds = 2;
     }
 
-    bool NeferataMortarchOfBlood::configure(Lore lore) {
+    void NeferataMortarchOfBlood::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_akmetHar);
         model->addMeleeWeapon(&m_akenSeth);
@@ -100,8 +100,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void NeferataMortarchOfBlood::onWounded() {

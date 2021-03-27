@@ -24,15 +24,13 @@ namespace Skaven {
         m_weapons = {&m_whirlingBlades, &m_rustyKnives};
     }
 
-    bool Doomflayer::configure() {
+    void Doomflayer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_whirlingBlades);
         model->addMeleeWeapon(&m_rustyKnives);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Doomflayer::Create(const ParameterList &parameters) {

@@ -25,11 +25,11 @@ namespace IdonethDeepkin {
 
         ~IsharannTidecaster() override = default;
 
-        bool configure(Lore lore);
-
         void setRiptideTarget(Unit* target) { m_riptideTarget = target; }
 
     protected:
+
+        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

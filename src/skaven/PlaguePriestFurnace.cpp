@@ -89,7 +89,7 @@ namespace Skaven {
         m_connection.disconnect();
     }
 
-    bool PlaguePriestOnPlagueFurnace::configure() {
+    void PlaguePriestOnPlagueFurnace::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_censer);
         model->addMeleeWeapon(&m_staff);
@@ -98,8 +98,6 @@ namespace Skaven {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void PlaguePriestOnPlagueFurnace::onWounded() {

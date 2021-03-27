@@ -25,9 +25,9 @@ namespace StormcastEternals {
 
         ~LordCastellant() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

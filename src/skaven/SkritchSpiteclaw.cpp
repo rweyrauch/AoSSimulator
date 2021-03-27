@@ -55,14 +55,12 @@ namespace Skaven {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool SkritchSpiteclaw::configure() {
+    void SkritchSpiteclaw::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
 } // namespace Skaven

@@ -25,9 +25,9 @@ namespace Death {
 
         ~VampireLord() override = default;
 
-        bool configure(bool withSteed, bool withWings, bool chalice, Lore lore);
-
     protected:
+
+        void configure(bool withSteed, bool withWings, bool chalice, Lore lore);
 
         void onStartHero(PlayerId player) override;
 

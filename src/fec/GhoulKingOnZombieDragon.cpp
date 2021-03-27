@@ -80,7 +80,7 @@ namespace FleshEaterCourt {
         m_totalSpells = 1;
     }
 
-    bool AbhorrantGhoulKingOnZombieDragon::configure(Lore lore, MountTrait trait) {
+    void AbhorrantGhoulKingOnZombieDragon::configure(Lore lore, MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentialBreath);
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
@@ -106,8 +106,6 @@ namespace FleshEaterCourt {
         }
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AbhorrantGhoulKingOnZombieDragon::Create(const ParameterList &parameters) {

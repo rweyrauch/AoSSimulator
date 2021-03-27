@@ -29,11 +29,7 @@ namespace Nighthaunt {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -67,15 +63,13 @@ namespace Nighthaunt {
         m_hoovesAndTeeth.setMount(true);
     }
 
-    bool DreadbladeHarrow::configure() {
+    void DreadbladeHarrow::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_dreadblade);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     int DreadbladeHarrow::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

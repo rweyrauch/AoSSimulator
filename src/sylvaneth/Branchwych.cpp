@@ -33,7 +33,7 @@ namespace Sylvaneth {
         m_totalSpells = 1;
     }
 
-    bool Branchwych::configure(Lore lore) {
+    void Branchwych::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greenwoodScythe);
         model->addMeleeWeapon(&m_bittergrubsMandibles);
@@ -45,8 +45,6 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Branchwych::Create(const ParameterList &parameters) {

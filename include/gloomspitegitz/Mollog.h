@@ -26,9 +26,9 @@ namespace GloomspiteGitz {
 
         ~Mollog() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

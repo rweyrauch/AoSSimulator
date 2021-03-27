@@ -24,9 +24,9 @@ namespace Nurgle {
 
         ~MorbidexTwiceborn() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int maliciousMitesWoundMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
 

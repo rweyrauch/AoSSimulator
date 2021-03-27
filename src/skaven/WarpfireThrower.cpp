@@ -24,15 +24,13 @@ namespace Skaven {
         m_weapons = {&m_warpfireThrower, &m_rustyKnives};
     }
 
-    bool WarpfireThrower::configure() {
+    void WarpfireThrower::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpfireThrower);
         model->addMeleeWeapon(&m_rustyKnives);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *WarpfireThrower::Create(const ParameterList &parameters) {

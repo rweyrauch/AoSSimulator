@@ -77,7 +77,7 @@ namespace GloomspiteGitz {
         m_hugeFangFilledGob.setMount(true);
     }
 
-    bool LoonbossOnManglerSquigs::configure() {
+    void LoonbossOnManglerSquigs::configure() {
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_moonCutta);
@@ -90,8 +90,6 @@ namespace GloomspiteGitz {
         m_commandAbilities.push_back(std::make_unique<BiteDaMoon>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int LoonbossOnManglerSquigs::toHitModifier(const Weapon *weapon, const Unit *unit) const {
@@ -141,11 +139,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

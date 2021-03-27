@@ -25,9 +25,9 @@ namespace Sylvaneth {
 
         ~ArchRevenant() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

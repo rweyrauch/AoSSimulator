@@ -74,7 +74,7 @@ namespace Nurgle {
         m_windspeakerSlot.disconnect();
     }
 
-    bool BloabRotspawned::configure(Lore lore) {
+    void BloabRotspawned::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bile);
         model->addMeleeWeapon(&m_scythe);
@@ -85,8 +85,6 @@ namespace Nurgle {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int BloabRotspawned::windspeakerBellsCastingMod(const Unit *caster) {

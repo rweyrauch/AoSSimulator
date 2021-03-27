@@ -54,7 +54,7 @@ namespace IdonethDeepkin {
         m_voidDrumSaveSlot.disconnect();
     }
 
-    bool AkhelianLeviadon::configure(MountTrait trait) {
+    void AkhelianLeviadon::configure(MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_harpoonLauncher);
         model->addMeleeWeapon(&m_crushingJaws);
@@ -64,8 +64,6 @@ namespace IdonethDeepkin {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AkhelianLeviadon::Create(const ParameterList &parameters) {
@@ -76,11 +74,7 @@ namespace IdonethDeepkin {
 
         auto trait = (MountTrait) GetBoolParam("Mount Trait", parameters, g_leviadonTrait[0]);
 
-        bool ok = unit->configure(trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(trait);
         return unit;
     }
 

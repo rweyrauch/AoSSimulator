@@ -25,9 +25,9 @@ namespace Death {
 
         ~WightKingWithBlackAxe() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnitk) override;
 

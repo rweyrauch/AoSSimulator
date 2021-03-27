@@ -24,7 +24,7 @@ namespace Ironjawz {
         m_weapons = {&m_krushaWeaponsMorgok, &m_krushaWeapons, &m_goreBasha};
     }
 
-    bool MorgoksKrushas::configure() {
+    void MorgoksKrushas::configure() {
 
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_krushaWeaponsMorgok);
@@ -42,8 +42,6 @@ namespace Ironjawz {
         addModel(ardskull);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *MorgoksKrushas::Create(const ParameterList &parameters) {
@@ -51,11 +49,7 @@ namespace Ironjawz {
 
         unit->setWarclan(Warclan::Ironsunz);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

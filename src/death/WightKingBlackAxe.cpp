@@ -25,14 +25,12 @@ namespace Death {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool WightKingWithBlackAxe::configure() {
+    void WightKingWithBlackAxe::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blackAxe);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *WightKingWithBlackAxe::Create(const ParameterList &parameters) {

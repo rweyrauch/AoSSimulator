@@ -26,9 +26,9 @@ namespace StormcastEternals {
 
         ~AventisFirestrike() override = default;
 
-        bool configure(Lore lore, MountTrait trait);
-
     protected:
+
+        void configure(Lore lore, MountTrait trait);
 
         void onStartCombat(PlayerId player) override;
 

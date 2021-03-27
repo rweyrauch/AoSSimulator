@@ -25,9 +25,9 @@ namespace Slaanesh {
 
         ~TheMasque() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

@@ -35,9 +35,9 @@ namespace StormcastEternals {
 
         ~LordOrdinator() override;
 
-        bool configure(WeaponOption weaponOption);
-
     protected:
+
+        void configure(WeaponOption weaponOption);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

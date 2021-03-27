@@ -57,7 +57,7 @@ namespace DaughtersOfKhaine {
         m_bloodshieldSlot.disconnect();
     }
 
-    bool HagQueenOnCauldronOfBlood::configure(Prayer prayer) {
+    void HagQueenOnCauldronOfBlood::configure(Prayer prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_burningBlood);
         model->addMeleeWeapon(&m_knives);
@@ -71,8 +71,6 @@ namespace DaughtersOfKhaine {
         configureCommon();
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *HagQueenOnCauldronOfBlood::Create(const ParameterList &parameters) {

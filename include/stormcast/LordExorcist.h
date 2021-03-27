@@ -30,9 +30,9 @@ namespace StormcastEternals {
 
         ~LordExorcist() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onStartShooting(PlayerId player) override;
 

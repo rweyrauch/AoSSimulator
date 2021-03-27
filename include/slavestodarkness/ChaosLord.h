@@ -35,9 +35,9 @@ namespace SlavesToDarkness {
 
         ~ChaosLord() override = default;
 
-        bool configure(WeaponOption option);
-
     protected:
+
+        void configure(WeaponOption option);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

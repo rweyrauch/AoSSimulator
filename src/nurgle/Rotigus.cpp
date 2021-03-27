@@ -49,7 +49,7 @@ namespace Nurgle {
         m_totalSpells = 2;
     }
 
-    bool Rotigus::configure(Lore lore) {
+    void Rotigus::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gnarlrod);
         model->addMeleeWeapon(&m_fangedMaw);
@@ -60,8 +60,6 @@ namespace Nurgle {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Rotigus::Create(const ParameterList &parameters) {

@@ -52,7 +52,7 @@ namespace DaughtersOfKhaine {
         m_furySlot.disconnect();
     }
 
-    bool MorathiTheShadowQueen::configure() {
+    void MorathiTheShadowQueen::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_gaze);
         model->addMeleeWeapon(&m_heartrender);
@@ -61,8 +61,6 @@ namespace DaughtersOfKhaine {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *MorathiTheShadowQueen::Create(const ParameterList &parameters) {

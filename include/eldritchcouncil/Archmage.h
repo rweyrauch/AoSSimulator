@@ -26,9 +26,9 @@ namespace EldritchCouncil {
 
         ~Archmage() override = default;
 
-        bool configure(bool steed);
-
     protected:
+
+        void configure(bool steed);
 
     private:
 

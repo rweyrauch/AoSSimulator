@@ -25,15 +25,13 @@ namespace Seraphon {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool KlaqTrok::configure() {
+    void KlaqTrok::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warblade);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *KlaqTrok::Create(const ParameterList &parameters) {

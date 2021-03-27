@@ -36,7 +36,7 @@ namespace IdonethDeepkin {
         m_connection.disconnect();
     }
 
-    bool Volturnos::configure(MountTrait trait) {
+    void Volturnos::configure(MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_theAstraSolus);
         model->addMeleeWeapon(&m_deepmareJawsTalons);
@@ -44,8 +44,6 @@ namespace IdonethDeepkin {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Volturnos::Create(const ParameterList &parameters) {
@@ -59,11 +57,7 @@ namespace IdonethDeepkin {
 
         auto trait = (MountTrait) GetBoolParam("Mount Trait", parameters, g_leviadonTrait[0]);
 
-        bool ok = unit->configure(trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(trait);
         return unit;
     }
 

@@ -70,7 +70,7 @@ namespace Skaven {
         m_totalUnbinds = 1;
     }
 
-    bool WarlockBombardier::configure(Lore lore) {
+    void WarlockBombardier::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_doomrocket);
         model->addMeleeWeapon(&m_pole);
@@ -82,8 +82,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void WarlockBombardier::onRestore() {

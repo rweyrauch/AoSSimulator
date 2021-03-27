@@ -25,9 +25,9 @@ namespace DaughtersOfKhaine {
 
         ~MorathiTheShadowQueen() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

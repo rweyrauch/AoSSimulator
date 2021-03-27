@@ -45,11 +45,7 @@ namespace SlavesToDarkness {
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -84,15 +80,13 @@ namespace SlavesToDarkness {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool MutalithVortexBeast::configure() {
+    void MutalithVortexBeast::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_maw);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void MutalithVortexBeast::onStartHero(PlayerId player) {

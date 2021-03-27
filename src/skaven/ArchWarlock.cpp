@@ -70,7 +70,7 @@ namespace Skaven {
         m_totalUnbinds = 1;
     }
 
-    bool ArchWarlock::configure(Lore lore) {
+    void ArchWarlock::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         model->addMeleeWeapon(&m_claw);
@@ -82,8 +82,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void ArchWarlock::onEndCombat(PlayerId player) {

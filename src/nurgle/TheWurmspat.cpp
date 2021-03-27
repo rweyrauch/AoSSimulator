@@ -51,7 +51,7 @@ namespace Nurgle {
         m_weapons = {&m_blightedWeapons};
     }
 
-    bool TheWurmspat::configure() {
+    void TheWurmspat::configure() {
         auto sepsimus = new Model(g_basesize, wounds());
         sepsimus->addMeleeWeapon(&m_blightedWeapons);
         addModel(sepsimus);
@@ -61,8 +61,6 @@ namespace Nurgle {
         addModel(ghulgoch);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int TheWurmspat::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {

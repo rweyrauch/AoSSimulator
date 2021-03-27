@@ -78,7 +78,7 @@ namespace OssiarchBonereapers {
         m_totalUnbinds = 1;
     }
 
-    bool MortisanSoulreaper::configure(Lore lore) {
+    void MortisanSoulreaper::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         addModel(model);
@@ -89,8 +89,6 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds

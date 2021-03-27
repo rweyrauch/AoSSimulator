@@ -25,11 +25,11 @@ namespace Tzeentch {
 
         ~FluxmasterHeraldOfTzeentchOnDisc() override = default;
 
-        bool configure(Lore lore);
-
         int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
 
     protected:
+
+        void configure(Lore lore);
 
         void onRestore() override {
             TzeentchBase::onRestore();

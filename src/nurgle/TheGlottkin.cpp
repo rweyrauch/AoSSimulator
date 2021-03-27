@@ -50,7 +50,7 @@ namespace Nurgle {
         m_totalSpells = 2;
     }
 
-    bool TheGlottkin::configure(Lore lore) {
+    void TheGlottkin::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentTorrent);
         model->addMeleeWeapon(&m_flailingTentacle);
@@ -62,8 +62,6 @@ namespace Nurgle {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *TheGlottkin::Create(const ParameterList &parameters) {

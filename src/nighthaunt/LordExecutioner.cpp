@@ -29,11 +29,7 @@ namespace Nighthaunt {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -65,14 +61,12 @@ namespace Nighthaunt {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool LordExecutioner::configure() {
+    void LordExecutioner::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greataxe);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Wounds LordExecutioner::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

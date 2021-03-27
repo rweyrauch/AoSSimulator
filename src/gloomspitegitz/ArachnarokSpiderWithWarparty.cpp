@@ -48,7 +48,7 @@ namespace GloomspiteGitz {
         m_chitinousLegs.setMount(true);
     }
 
-    bool ArachnarokSpiderWithSpiderfangWarparty::configure() {
+    void ArachnarokSpiderWithSpiderfangWarparty::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spiderBows);
         model->addMeleeWeapon(&m_chitinousLegs);
@@ -57,8 +57,6 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void ArachnarokSpiderWithSpiderfangWarparty::onRestore() {
@@ -67,7 +65,7 @@ namespace GloomspiteGitz {
     }
 
     void ArachnarokSpiderWithSpiderfangWarparty::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
         m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -86,11 +84,7 @@ namespace GloomspiteGitz {
     Unit *ArachnarokSpiderWithSpiderfangWarparty::Create(const ParameterList &parameters) {
         auto unit = new ArachnarokSpiderWithSpiderfangWarparty();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

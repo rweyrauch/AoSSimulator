@@ -26,10 +26,9 @@ namespace StormcastEternals {
 
         ~TheFarstriders() override = default;
 
-        bool configure();
-
     protected:
 
+        void configure();
 
     private:
 

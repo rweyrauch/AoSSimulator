@@ -46,8 +46,7 @@ namespace LuminethRealmLords {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool AlarithSpiritOfTheMountain::configure() {
-
+    void AlarithSpiritOfTheMountain::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_blast);
         model->addMeleeWeapon(&m_hammer);
@@ -55,8 +54,6 @@ namespace LuminethRealmLords {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *AlarithSpiritOfTheMountain::Create(const ParameterList &parameters) {
@@ -74,11 +71,7 @@ namespace LuminethRealmLords {
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

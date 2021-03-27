@@ -25,9 +25,9 @@ namespace StormcastEternals {
 
         ~KnightVexillor() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Rerolls iconOfWarChargeReroll(const Unit *unit);
 

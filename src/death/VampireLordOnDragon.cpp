@@ -106,7 +106,7 @@ namespace Death {
         m_totalUnbinds = 1;
     }
 
-    bool VampireLordOnZombieDragon::configure(WeaponOption option, bool shield, bool chalice, Lore lore) {
+    void VampireLordOnZombieDragon::configure(WeaponOption option, bool shield, bool chalice, Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_breath);
 
@@ -130,8 +130,6 @@ namespace Death {
         m_haveChaliceOfBlood = chalice;
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void VampireLordOnZombieDragon::onWounded() {

@@ -24,9 +24,9 @@ namespace Nurgle {
 
         ~HarbingerOfDecay() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

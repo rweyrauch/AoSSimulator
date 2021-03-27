@@ -29,9 +29,9 @@ namespace OssiarchBonereapers {
 
         ~ArchKavalosZandtos() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

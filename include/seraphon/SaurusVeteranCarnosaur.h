@@ -35,9 +35,9 @@ namespace Seraphon {
 
         ~SaurusScarVeteranOnCarnosaur() override;
 
-        bool configure(WeaponOption option);
-
     protected:
+
+        void configure(WeaponOption option);
 
         void onWounded() override;
 

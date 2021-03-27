@@ -29,7 +29,7 @@ namespace EldritchCouncil {
         m_totalSpells = 1;
     }
 
-    bool Archmage::configure(bool steed) {
+    void Archmage::configure(bool steed) {
         m_steed = steed;
 
         auto model = new Model(steed ? g_basesizeSteed : g_basesize, wounds());
@@ -43,9 +43,7 @@ namespace EldritchCouncil {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = g_pointsPerUnit;
-
-        return true;
+        m_points = g_pointsPerUnit;;
     }
 
     Unit *Archmage::Create(const ParameterList &parameters) {
@@ -55,11 +53,7 @@ namespace EldritchCouncil {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(steed);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(steed);
         return unit;
     }
 

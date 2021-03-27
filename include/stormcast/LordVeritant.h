@@ -30,9 +30,9 @@ namespace StormcastEternals {
 
         ~LordVeritant() override = default;
 
-        bool configure(PrayersOfTheStormhost prayer);
-
     protected:
+
+        void configure(PrayersOfTheStormhost prayer);
 
     private:
 

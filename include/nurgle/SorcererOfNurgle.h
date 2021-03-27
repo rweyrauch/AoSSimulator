@@ -25,9 +25,9 @@ namespace Nurgle {
 
         ~SorcererOfNurgle() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
     private:
 

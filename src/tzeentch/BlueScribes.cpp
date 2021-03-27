@@ -35,11 +35,7 @@ namespace Tzeentch {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -81,7 +77,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool TheBlueScribes::configure(Lore lore) {
+    void TheBlueScribes::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_quills);
         model->addMeleeWeapon(&m_teethAndHorns);
@@ -96,8 +92,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
 } // namespace Tzeentch

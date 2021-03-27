@@ -25,9 +25,9 @@ namespace Death {
 
         ~WightKingWithBalefulTombBlade() override = default;
 
-        bool configure(bool hasSteed);
-
     protected:
+
+        void configure(bool hasSteed);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

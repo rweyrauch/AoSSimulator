@@ -24,9 +24,9 @@ namespace Nurgle {
 
         ~TheWurmspat() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

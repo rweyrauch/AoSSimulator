@@ -31,7 +31,7 @@ namespace StormcastEternals {
         m_totalUnbinds = 1;
     }
 
-    bool LordArcanum::configure(Lore lore) {
+    void LordArcanum::configure(Lore lore) {
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
@@ -43,8 +43,6 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordArcanum::Create(const ParameterList &parameters) {
@@ -57,11 +55,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

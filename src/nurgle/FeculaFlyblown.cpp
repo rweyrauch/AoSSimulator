@@ -60,7 +60,7 @@ namespace Nurgle {
         m_totalUnbinds = 1;
     }
 
-    bool Nurgle::FeculaFlyblown::configure() {
+    void Nurgle::FeculaFlyblown::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -69,8 +69,6 @@ namespace Nurgle {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int FeculaFlyblown::ComputePoints(int /*numModels*/) {

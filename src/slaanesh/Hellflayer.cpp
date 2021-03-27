@@ -30,7 +30,7 @@ namespace Slaanesh {
         m_poisonedTongues.setMount(true);
     }
 
-    bool Hellflayer::configure() {
+    void Hellflayer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
@@ -38,8 +38,6 @@ namespace Slaanesh {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Hellflayer::Create(const ParameterList &parameters) {
@@ -48,11 +46,7 @@ namespace Slaanesh {
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

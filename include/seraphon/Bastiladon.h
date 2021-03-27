@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~Bastiladon() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

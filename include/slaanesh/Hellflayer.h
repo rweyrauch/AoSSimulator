@@ -25,9 +25,9 @@ namespace Slaanesh {
 
         ~Hellflayer() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartCombat(PlayerId player) override;
 

@@ -25,9 +25,9 @@ namespace Ironjawz {
 
         ~OrrukWarchanter() override = default;
 
-        bool configure(Warbeat warbeat);
-
     protected:
+
+        void configure(Warbeat warbeat);
 
         void onStartHero(PlayerId player) override;
 

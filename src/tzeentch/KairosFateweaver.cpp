@@ -125,7 +125,7 @@ namespace Tzeentch {
         m_totalUnbinds = 3;
     }
 
-    bool KairosFateweaver::configure() {
+    void KairosFateweaver::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_beakAndTalons);
         model->addMeleeWeapon(&m_staff);
@@ -136,8 +136,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void KairosFateweaver::onRestore() {

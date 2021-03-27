@@ -96,7 +96,7 @@ namespace Death {
         m_totalUnbinds = 1;
     }
 
-    bool CovenThrone::configure(Lore lore) {
+    void CovenThrone::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bite);
         model->addMeleeWeapon(&m_stiletto);
@@ -108,8 +108,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void CovenThrone::onWounded() {

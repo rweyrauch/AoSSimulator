@@ -30,9 +30,9 @@ namespace StormcastEternals {
 
         ~AveronStormsire() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onStartCombat(PlayerId player) override;
 

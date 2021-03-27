@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~KixiTakaTheDiviner() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

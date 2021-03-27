@@ -32,7 +32,7 @@ namespace Sylvaneth {
         m_championsSlot.disconnect();
     }
 
-    bool ArchRevenant::configure() {
+    void ArchRevenant::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_tailPincers);
@@ -45,8 +45,6 @@ namespace Sylvaneth {
                                                              std::vector<Keyword>{SYLVANETH}));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ArchRevenant::Create(const ParameterList &parameters) {

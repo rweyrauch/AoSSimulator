@@ -30,7 +30,7 @@ namespace FleshEaterCourt {
         m_totalSpells = 1;
     }
 
-    bool AbhorrantGhoulKing::configure(Lore lore) {
+    void AbhorrantGhoulKing::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
@@ -49,8 +49,6 @@ namespace FleshEaterCourt {
                 std::make_unique<SummonAbility>(this, getRoster(), "Summon Men-at-arms", unitDesc));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AbhorrantGhoulKing::Create(const ParameterList &parameters) {

@@ -71,7 +71,7 @@ namespace Nurgle {
         m_totalSpells = 1;
     }
 
-    bool SorcererOfNurgle::configure(Lore lore) {
+    void SorcererOfNurgle::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -80,8 +80,6 @@ namespace Nurgle {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int SorcererOfNurgle::ComputePoints(int /*numModels*/) {

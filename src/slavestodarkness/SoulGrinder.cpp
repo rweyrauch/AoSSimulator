@@ -44,11 +44,7 @@ namespace SlavesToDarkness {
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
         unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon);
         return unit;
     }
 
@@ -113,7 +109,7 @@ namespace SlavesToDarkness {
         m_runAndShoot = true;
     }
 
-    bool SoulGrinder::configure(WeaponOption option) {
+    void SoulGrinder::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_cannon);
@@ -127,8 +123,6 @@ namespace SlavesToDarkness {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds SoulGrinder::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -143,7 +137,7 @@ namespace SlavesToDarkness {
     void SoulGrinder::onWounded() {
         Unit::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_cannon.setAttacks(g_damageTable[damageIndex].m_cannonAttacks);
         m_legs.setAttacks(g_damageTable[damageIndex].m_legAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

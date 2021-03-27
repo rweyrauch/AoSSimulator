@@ -61,7 +61,7 @@ namespace Seraphon {
         m_connection.disconnect();
     }
 
-    bool Troglodon::configure(Lore lore) {
+    void Troglodon::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spittle);
         model->addMeleeWeapon(&m_jaws);
@@ -75,8 +75,6 @@ namespace Seraphon {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void Troglodon::onRestore() {

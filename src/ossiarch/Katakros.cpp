@@ -68,7 +68,7 @@ namespace OssiarchBonereapers {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool Katakros::configure() {
+    void Katakros::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_indaKhaat);
         model->addMeleeWeapon(&m_shieldImmortis);
@@ -82,8 +82,6 @@ namespace OssiarchBonereapers {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Katakros::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {

@@ -25,9 +25,9 @@ namespace Nighthaunt {
 
         ~KnightOfShroudsOnEtherealSteed() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

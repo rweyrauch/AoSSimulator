@@ -92,7 +92,7 @@ namespace Skaven {
         m_connection.disconnect();
     }
 
-    bool VerminlordWarbringer::configure() {
+    void VerminlordWarbringer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_glaive);
@@ -104,8 +104,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds VerminlordWarbringer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

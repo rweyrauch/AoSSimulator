@@ -33,9 +33,9 @@ namespace Ironjawz {
 
         ~MegabossOnMawKrusha() override = default;
 
-        bool configure(WeaponOption weapons);
-
     protected:
+
+        void configure(WeaponOption weapons);
 
         void onWounded() override;
 

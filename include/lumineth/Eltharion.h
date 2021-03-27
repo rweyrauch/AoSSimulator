@@ -25,9 +25,9 @@ namespace LuminethRealmLords {
 
         ~TheLightOfEltharion() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;

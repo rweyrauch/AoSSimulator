@@ -34,9 +34,9 @@ namespace OssiarchBonereapers {
 
         ~GothizzarHarvester() override = default;
 
-        bool configure(WeaponOption option);
-
     protected:
+
+        void configure(WeaponOption option);
 
         void onWounded() override;
 

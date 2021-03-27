@@ -25,9 +25,9 @@ namespace Nighthaunt {
 
         ~SpiritTorment() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

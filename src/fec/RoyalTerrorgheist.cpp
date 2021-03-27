@@ -45,7 +45,7 @@ namespace FleshEaterCourt {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool RoyalTerrorgheist::configure() {
+    void RoyalTerrorgheist::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_deathShriek);
         model->addMeleeWeapon(&m_skeletalClaws);
@@ -53,8 +53,6 @@ namespace FleshEaterCourt {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *RoyalTerrorgheist::Create(const ParameterList &parameters) {

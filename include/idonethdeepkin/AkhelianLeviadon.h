@@ -25,13 +25,13 @@ namespace IdonethDeepkin {
 
         ~AkhelianLeviadon() override;
 
-        bool configure(MountTrait trait);
-
         void onWounded() override;
 
         void onRestore() override;
 
     private:
+
+        void configure(MountTrait trait);
 
         size_t getDamageTableIndex() const;
 

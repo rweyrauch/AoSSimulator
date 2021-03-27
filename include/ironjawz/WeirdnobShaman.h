@@ -25,9 +25,9 @@ namespace Ironjawz {
 
         ~OrrukWeirdnobShaman() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onEndHero(PlayerId player) override;
 

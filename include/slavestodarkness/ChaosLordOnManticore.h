@@ -38,9 +38,9 @@ namespace SlavesToDarkness {
 
         ~ChaosLordOnManticore() override = default;
 
-        bool configure(WeaponOption weapon);
-
     protected:
+
+        void configure(WeaponOption weapon);
 
         void onWounded() override;
 

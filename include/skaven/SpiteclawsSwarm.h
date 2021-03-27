@@ -25,9 +25,9 @@ namespace Skaven {
 
         ~SpiteclawsSwarm() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

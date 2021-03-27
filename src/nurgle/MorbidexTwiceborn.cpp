@@ -66,7 +66,7 @@ namespace Nurgle {
         m_maliciousMitesSlot.disconnect();
     }
 
-    bool MorbidexTwiceborn::configure() {
+    void MorbidexTwiceborn::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tongues);
         model->addMeleeWeapon(&m_scythe);
@@ -74,8 +74,6 @@ namespace Nurgle {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int MorbidexTwiceborn::maliciousMitesWoundMod(const Unit *attacker, const Weapon * /*weapon*/,

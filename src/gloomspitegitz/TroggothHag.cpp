@@ -55,7 +55,7 @@ namespace GloomspiteGitz {
         onWounded();
     }
 
-    bool TroggothHag::configure() {
+    void TroggothHag::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_bulk);
@@ -68,9 +68,7 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = g_pointsPerUnit;
-
-        return true;
+        m_points = g_pointsPerUnit;;
     }
 
     void TroggothHag::onWounded() {
@@ -114,11 +112,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

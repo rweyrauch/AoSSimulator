@@ -26,15 +26,13 @@ namespace Seraphon {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool SaurusAstrolithBearer::configure() {
+    void SaurusAstrolithBearer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpick);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *SaurusAstrolithBearer::Create(const ParameterList &parameters) {

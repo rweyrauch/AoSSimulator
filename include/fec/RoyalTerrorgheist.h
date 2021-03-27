@@ -26,11 +26,11 @@ namespace FleshEaterCourt {
 
         ~RoyalTerrorgheist() override = default;
 
-        bool configure();
-
         void onFriendlyUnitSlain(const Unit *attacker) override;
 
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

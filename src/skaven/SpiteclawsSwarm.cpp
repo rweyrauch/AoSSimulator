@@ -53,7 +53,7 @@ namespace Skaven {
         m_weapons = {&m_stabbingBlade, &m_rustyFlail, &m_rustySpear, &m_punchDaggers};
     }
 
-    bool SpiteclawsSwarm::configure() {
+    void SpiteclawsSwarm::configure() {
         auto krrk = new Model(g_basesize, wounds());
         krrk->addMeleeWeapon(&m_rustySpear);
         krrk->setName("Krrk the Almost-trusted");
@@ -72,8 +72,6 @@ namespace Skaven {
         addModel(rat3);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
 } // namespace Skaven

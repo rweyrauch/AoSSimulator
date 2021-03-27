@@ -25,9 +25,9 @@ namespace Death {
 
         ~Necromancer() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

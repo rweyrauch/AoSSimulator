@@ -25,7 +25,7 @@ namespace StormcastEternals {
         m_weapons = {&m_broadSword, &m_grandhammer, &m_warhammer};
     }
 
-    bool SteelheartsChampions::configure() {
+    void SteelheartsChampions::configure() {
         auto severin = new Model(g_basesize, wounds());
         severin->setName("Severin");
         severin->addMeleeWeapon(&m_broadSword);
@@ -42,8 +42,6 @@ namespace StormcastEternals {
         addModel(angharad);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int SteelheartsChampions::toHitModifier(const Weapon *weapon, const Unit *unit) const {
@@ -68,11 +66,7 @@ namespace StormcastEternals {
         auto unit = new SteelheartsChampions();
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

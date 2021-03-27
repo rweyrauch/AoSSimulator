@@ -28,11 +28,7 @@ namespace Nighthaunt {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -66,15 +62,13 @@ namespace Nighthaunt {
         m_hoovesAndTeeth.setMount(true);
     }
 
-    bool KnightOfShroudsOnEtherealSteed::configure() {
+    void KnightOfShroudsOnEtherealSteed::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     int KnightOfShroudsOnEtherealSteed::ComputePoints(int /*numModels*/) {

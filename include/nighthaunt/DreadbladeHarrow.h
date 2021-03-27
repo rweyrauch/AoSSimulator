@@ -25,9 +25,9 @@ namespace Nighthaunt {
 
         ~DreadbladeHarrow() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

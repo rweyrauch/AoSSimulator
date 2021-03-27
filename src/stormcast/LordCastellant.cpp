@@ -26,14 +26,12 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool LordCastellant::configure() {
+    void LordCastellant::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordCastellant::Create(const ParameterList &parameters) {
@@ -45,11 +43,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

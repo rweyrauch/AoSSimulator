@@ -26,9 +26,9 @@ namespace StormcastEternals {
 
         ~LynusGhalmorianOnGryphcharger() override;
 
-        bool configure(Lore lore, MountTrait trait);
-
     protected:
+
+        void configure(Lore lore, MountTrait trait);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

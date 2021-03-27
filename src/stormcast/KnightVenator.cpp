@@ -31,7 +31,7 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool KnightVenator::configure() {
+    void KnightVenator::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_realmhuntersBow);
         model->addMissileWeapon(&m_starFatedArrow);
@@ -42,8 +42,6 @@ namespace StormcastEternals {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *KnightVenator::Create(const ParameterList &parameters) {
@@ -55,11 +53,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

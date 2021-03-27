@@ -50,7 +50,7 @@ namespace Skaven {
         m_connection.disconnect();
     }
 
-    bool HellPitAbomination::configure() {
+    void HellPitAbomination::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gnashingTeath);
         model->addMeleeWeapon(&m_flailingFists);
@@ -58,8 +58,6 @@ namespace Skaven {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     size_t HellPitAbomination::getDamageTableIndex() const {

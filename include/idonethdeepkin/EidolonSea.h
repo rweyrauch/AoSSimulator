@@ -25,9 +25,9 @@ namespace IdonethDeepkin {
 
         ~EidolonOfMathlannAspectOfTheSea() override;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int tranquilityOfTheAbyss(const Unit *target);
 

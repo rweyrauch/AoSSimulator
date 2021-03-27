@@ -33,7 +33,7 @@ namespace GloomspiteGitz {
         m_totalSpells = 1;
     }
 
-    bool FungoidCaveShaman::configure(Lore lore) {
+    void FungoidCaveShaman::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonSickle);
         model->addMeleeWeapon(&m_squigsTeeth);
@@ -50,8 +50,6 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *FungoidCaveShaman::Create(const ParameterList &parameters) {
@@ -64,11 +62,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

@@ -26,9 +26,9 @@ namespace FleshEaterCourt {
 
         ~CryptGhastCourtier() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId playerId) override;
 

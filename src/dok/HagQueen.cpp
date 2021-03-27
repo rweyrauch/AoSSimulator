@@ -27,7 +27,7 @@ namespace DaughtersOfKhaine {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool HagQueen::configure(Prayer prayer) {
+    void HagQueen::configure(Prayer prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfKhaine);
         addModel(model);
@@ -35,8 +35,6 @@ namespace DaughtersOfKhaine {
         configureCommon();
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *HagQueen::Create(const ParameterList &parameters) {

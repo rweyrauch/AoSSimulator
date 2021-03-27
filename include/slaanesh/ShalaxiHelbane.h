@@ -34,11 +34,11 @@ namespace Slaanesh {
 
         ~ShalaxiHelbane() override = default;
 
-        bool configure(WeaponOption weapon, Lore lore);
-
         void enableRefineSenses() { m_refinedSensesActive = true; };
 
     protected:
+
+        void configure(WeaponOption weapon, Lore lore);
 
         size_t getDamageTableIndex() const;
 

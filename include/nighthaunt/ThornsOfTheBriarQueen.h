@@ -25,9 +25,9 @@ namespace Nighthaunt {
 
         ~ThornsOfTheBriarQueen() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *unit) const override;
 

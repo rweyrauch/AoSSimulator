@@ -26,9 +26,9 @@ namespace EldritchCouncil {
 
         ~ArchmageOnDragon() override = default;
 
-        bool configure(bool arcaneTome, bool talisman);
-
     protected:
+
+        void configure(bool arcaneTome, bool talisman);
 
         void onWounded() override;
 

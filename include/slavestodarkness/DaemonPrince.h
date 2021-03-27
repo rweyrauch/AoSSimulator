@@ -34,9 +34,9 @@ namespace SlavesToDarkness {
 
         ~DaemonPrince() override = default;
 
-        bool configure(WeaponOption option);
-
     protected:
+
+        void configure(WeaponOption option);
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

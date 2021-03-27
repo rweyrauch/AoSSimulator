@@ -28,15 +28,13 @@ namespace FleshEaterCourt {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool CryptHaunterCourtier::configure() {
+    void CryptHaunterCourtier::configure() {
         auto infernal = new Model(g_basesize, wounds());
         infernal->addMeleeWeapon(&m_massiveBoneClub);
         infernal->addMeleeWeapon(&m_rancidTalons);
         addModel(infernal);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *CryptHaunterCourtier::Create(const ParameterList &parameters) {
@@ -58,7 +56,7 @@ namespace FleshEaterCourt {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
+        unit->configure();
         return unit;
     }
 

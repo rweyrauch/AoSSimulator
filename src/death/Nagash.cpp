@@ -82,7 +82,7 @@ namespace Death {
         }
     }
 
-    bool Nagash::configure() {
+    void Nagash::configure() {
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_gaze);
@@ -95,8 +95,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     size_t Nagash::getDamageTableIndex() const {

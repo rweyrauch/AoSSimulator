@@ -60,7 +60,7 @@ namespace Seraphon {
         m_steadfastSlot.disconnect();
     }
 
-    bool Stegadon::configure(WeaponOption option, bool skinkChief) {
+    void Stegadon::configure(WeaponOption option, bool skinkChief) {
         m_skinkChief = skinkChief;
 
         auto model = new Model(g_basesize, wounds());
@@ -81,8 +81,6 @@ namespace Seraphon {
 
         m_points = g_pointsPerUnit;
         if (m_skinkChief) m_points = POINTS_PER_UNIT_WITH_CHIEF;
-
-        return true;
     }
 
     void Stegadon::onRestore() {

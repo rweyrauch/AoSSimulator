@@ -29,7 +29,7 @@ namespace StormcastEternals {
         m_totalPrayers = 2;
     }
 
-    bool LordRelictor::configure(PrayersOfTheStormhost prayer) {
+    void LordRelictor::configure(PrayersOfTheStormhost prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_relicHammer);
         addModel(model);
@@ -39,8 +39,6 @@ namespace StormcastEternals {
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateLightningStorm(this)));
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateHealingStorm(this)));
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreatePrayerOfTheStormhost(prayer, this)));
-
-        return true;
     }
 
     Unit *LordRelictor::Create(const ParameterList &parameters) {
@@ -54,11 +52,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(prayer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(prayer);
         return unit;
     }
 

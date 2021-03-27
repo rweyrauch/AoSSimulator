@@ -23,11 +23,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -56,7 +52,7 @@ namespace SlavesToDarkness {
         m_weapons = {&m_hurledTerrain, &m_fists};
     }
 
-    bool FomoroidCrusher::configure() {
+    void FomoroidCrusher::configure() {
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_hurledTerrain);
@@ -64,8 +60,6 @@ namespace SlavesToDarkness {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void FomoroidCrusher::onCharged() {

@@ -28,15 +28,13 @@ namespace FleshEaterCourt {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool CryptGhastCourtier::configure() {
+    void CryptGhastCourtier::configure() {
         auto infernal = new Model(g_basesize, wounds());
         infernal->addMeleeWeapon(&m_boneClub);
         infernal->addMeleeWeapon(&m_filthyClaws);
         addModel(infernal);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *CryptGhastCourtier::Create(const ParameterList &parameters) {

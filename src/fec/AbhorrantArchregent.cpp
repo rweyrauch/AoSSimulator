@@ -30,7 +30,7 @@ namespace FleshEaterCourt {
         m_totalSpells = 2;
     }
 
-    bool AbhorrantArchregent::configure(Lore lore) {
+    void AbhorrantArchregent::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
@@ -56,8 +56,6 @@ namespace FleshEaterCourt {
                 std::make_unique<SummonAbility>(this, getRoster(), "Summon Imperial Guard", unitDesc));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AbhorrantArchregent::Create(const ParameterList &parameters) {

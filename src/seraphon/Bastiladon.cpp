@@ -47,7 +47,7 @@ namespace Seraphon {
         m_tail.setMount(true);
     }
 
-    bool Bastiladon::configure() {
+    void Bastiladon::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_beam);
         model->addMissileWeapon(&m_javelins);
@@ -56,8 +56,6 @@ namespace Seraphon {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *Bastiladon::Create(const ParameterList &parameters) {

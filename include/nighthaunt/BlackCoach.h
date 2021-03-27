@@ -25,9 +25,9 @@ namespace Nighthaunt {
 
         ~BlackCoach() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

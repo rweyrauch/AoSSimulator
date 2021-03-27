@@ -27,11 +27,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -77,14 +73,12 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    bool CelestantPrime::configure() {
+    void CelestantPrime::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ghalMaraz);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int CelestantPrime::bearerOfTheWarhammer(const Unit *target) {

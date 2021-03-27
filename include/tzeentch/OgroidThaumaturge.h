@@ -25,9 +25,9 @@ namespace Tzeentch {
 
         ~OgroidThaumaturge() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onCharged() override;
 

@@ -27,14 +27,12 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool KnightHeraldor::configure() {
+    void KnightHeraldor::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_broadsword);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *KnightHeraldor::Create(const ParameterList &parameters) {
@@ -46,11 +44,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

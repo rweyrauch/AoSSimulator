@@ -24,9 +24,9 @@ namespace Nurgle {
 
         ~BloabRotspawned() override;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int windspeakerBellsCastingMod(const Unit *caster);
 

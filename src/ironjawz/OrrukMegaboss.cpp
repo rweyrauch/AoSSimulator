@@ -25,7 +25,7 @@ namespace Ironjawz {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool OrrukMegaboss::configure() {
+    void OrrukMegaboss::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bossChoppaAndFist);
         addModel(model);
@@ -36,8 +36,6 @@ namespace Ironjawz {
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>{IRONJAWZ}));
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *OrrukMegaboss::Create(const ParameterList &parameters) {
@@ -55,11 +53,7 @@ namespace Ironjawz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

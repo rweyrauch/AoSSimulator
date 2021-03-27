@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~SkinkStarpriest() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

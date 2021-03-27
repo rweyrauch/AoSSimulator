@@ -29,9 +29,9 @@ namespace OssiarchBonereapers {
 
         ~ArkhanTheBlack() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

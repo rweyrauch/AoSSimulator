@@ -25,9 +25,9 @@ namespace Nighthaunt {
 
         ~KnightOfShrouds() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

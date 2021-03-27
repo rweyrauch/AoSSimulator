@@ -76,7 +76,7 @@ namespace Death {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool MortisEngine::configure() {
+    void MortisEngine::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_staff);
@@ -84,8 +84,6 @@ namespace Death {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void MortisEngine::onWounded() {

@@ -36,9 +36,9 @@ namespace Slaanesh {
 
         ~KeeperOfSecrets() override = default;
 
-        bool configure(WeaponOption weapon, Lore lore);
-
     protected:
+
+        void configure(WeaponOption weapon, Lore lore);
 
         size_t getDamageTableIndex() const;
 

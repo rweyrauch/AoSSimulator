@@ -67,7 +67,7 @@ namespace OssiarchBonereapers {
         m_hoovesAndTeeth.setMount(true);
     }
 
-    bool ArchKavalosZandtos::configure() {
+    void ArchKavalosZandtos::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_lance);
         model->addMeleeWeapon(&m_shield);
@@ -75,8 +75,6 @@ namespace OssiarchBonereapers {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds

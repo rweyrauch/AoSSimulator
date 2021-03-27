@@ -35,13 +35,13 @@ namespace Tzeentch {
 
         ~LordOfChange() override = default;
 
-        bool configure(WeaponOption option, Lore lore);
-
         int rollCasting(UnmodifiedCastingRoll& unmodifiedRoll) const override;
 
         int getInfernalGatewayValue() const;
 
     protected:
+
+        void configure(WeaponOption option, Lore lore);
 
         void onWounded() override;
 

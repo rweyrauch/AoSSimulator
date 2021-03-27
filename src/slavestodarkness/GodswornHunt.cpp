@@ -22,11 +22,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -63,7 +59,7 @@ namespace SlavesToDarkness {
         m_weapons = {&m_huntingBow, &m_javelin, &m_knife, &m_greatWeapon, &m_bowMelee, &m_bite};
     }
 
-    bool GodswornHunt::configure() {
+    void GodswornHunt::configure() {
         auto jagathra = new Model(g_basesize, wounds());
         jagathra->addMissileWeapon(&m_javelin);
         jagathra->addMeleeWeapon(&m_knife);
@@ -92,8 +88,6 @@ namespace SlavesToDarkness {
         addModel(grawl);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Rerolls GodswornHunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {

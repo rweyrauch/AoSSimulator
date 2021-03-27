@@ -37,7 +37,7 @@ namespace StormcastEternals {
         m_lordSlot.disconnect();
     }
 
-    bool VandusHammerhand::configure(MountTrait trait) {
+    void VandusHammerhand::configure(MountTrait trait) {
 
         m_mountTrait = trait;
 
@@ -53,8 +53,6 @@ namespace StormcastEternals {
                                                              std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *VandusHammerhand::Create(const ParameterList &parameters) {
@@ -66,11 +64,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(trait);
         return unit;
     }
 

@@ -52,11 +52,7 @@ namespace LuminethRealmLords {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -100,7 +96,7 @@ namespace LuminethRealmLords {
         m_lightConnection.disconnect();
     }
 
-    bool MyariLigthcaller::configure(Lore lore) {
+    void MyariLigthcaller::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_beams);
         model->addMeleeWeapon(&m_staff);
@@ -112,8 +108,6 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void MyariLigthcaller::onStartHero(PlayerId player) {

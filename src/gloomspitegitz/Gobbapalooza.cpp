@@ -21,11 +21,7 @@ namespace GloomspiteGitz {
     Unit *Gobbapalooza::Create(const ParameterList &parameters) {
         auto unit = new Gobbapalooza();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -62,7 +58,7 @@ namespace GloomspiteGitz {
         m_weapons = {&m_tusksAndFangs, &m_stikka, &m_scorpisquigStikka, &m_staff, &m_knife};
     }
 
-    bool Gobbapalooza::configure() {
+    void Gobbapalooza::configure() {
 
         auto scaremonger = new Model(g_basesize, g_woundsScaremonger);
         scaremonger->addMeleeWeapon(&m_tusksAndFangs);
@@ -90,8 +86,6 @@ namespace GloomspiteGitz {
         addModel(shroomancer);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     int Gobbapalooza::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

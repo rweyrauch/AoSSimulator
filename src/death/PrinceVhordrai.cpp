@@ -89,7 +89,7 @@ namespace Death {
         m_totalUnbinds = 1;
     }
 
-    bool PrinceVhordrai::configure(Lore lore) {
+    void PrinceVhordrai::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bloodlance);
         model->addMeleeWeapon(&m_maw);
@@ -100,8 +100,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void PrinceVhordrai::onWounded() {

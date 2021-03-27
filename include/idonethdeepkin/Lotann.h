@@ -25,9 +25,9 @@ namespace IdonethDeepkin {
 
         ~Lotann() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

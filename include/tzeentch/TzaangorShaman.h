@@ -25,9 +25,9 @@ namespace Tzeentch {
 
         ~TzaangorShaman() override;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int visionsToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
 

@@ -55,7 +55,7 @@ namespace Sylvaneth {
         m_songSlot.disconnect();
     }
 
-    bool DrychaHamadreth::configure(Lore lore) {
+    void DrychaHamadreth::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_colonyOfFlitterfuries);
         model->addMissileWeapon(&m_swarmOfSquirmlings);
@@ -69,8 +69,6 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void DrychaHamadreth::onWounded() {

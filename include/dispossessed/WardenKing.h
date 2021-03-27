@@ -25,9 +25,9 @@ namespace Dispossessed {
 
         ~WardenKing() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         // Ancestor Shield
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override { return Rerolls::Failed; }

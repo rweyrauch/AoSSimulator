@@ -37,7 +37,7 @@ namespace StormcastEternals {
         m_totalUnbinds = 1;
     }
 
-    bool AventisFirestrike::configure(Lore lore, MountTrait trait) {
+    void AventisFirestrike::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
 
@@ -56,8 +56,6 @@ namespace StormcastEternals {
                                                              Attribute::To_Wound_Melee, 1,
                                                              Abilities::Target::Friendly));
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AventisFirestrike::Create(const ParameterList &parameters) {
@@ -70,11 +68,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore, trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore, trait);
         return unit;
     }
 

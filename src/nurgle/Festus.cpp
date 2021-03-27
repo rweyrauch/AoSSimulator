@@ -61,14 +61,12 @@ namespace Nurgle {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool FestusTheLeechlord::configure(Lore lore) {
+    void FestusTheLeechlord::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int FestusTheLeechlord::ComputePoints(int /*numModels*/) {

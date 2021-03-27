@@ -42,15 +42,13 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool SkitterstrandArachnarok::configure() {
+    void SkitterstrandArachnarok::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chitinousLegs);
         model->addMeleeWeapon(&m_monstrousFangs);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void SkitterstrandArachnarok::onRestore() {
@@ -78,11 +76,7 @@ namespace GloomspiteGitz {
     Unit *SkitterstrandArachnarok::Create(const ParameterList &parameters) {
         auto unit = new SkitterstrandArachnarok();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

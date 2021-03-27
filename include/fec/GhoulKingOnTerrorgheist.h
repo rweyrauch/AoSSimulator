@@ -26,11 +26,11 @@ namespace FleshEaterCourt {
 
         ~AbhorrantGhoulKingOnTerrorgheist() override = default;
 
-        bool configure(Lore lore, MountTrait trait);
-
         void onFriendlyUnitSlain(const Unit *attacker) override;
 
     protected:
+
+        void configure(Lore lore, MountTrait trait);
 
         void onStartHero(PlayerId player) override;
 

@@ -111,7 +111,7 @@ namespace OssiarchBonereapers {
         m_totalUnbinds = 1;
     }
 
-    bool MortisanBoneshaper::configure(Lore lore) {
+    void MortisanBoneshaper::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_talons);
         addModel(model);
@@ -122,8 +122,6 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int MortisanBoneshaper::ComputePoints(int /*numModels*/) {

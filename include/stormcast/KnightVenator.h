@@ -25,9 +25,9 @@ namespace StormcastEternals {
 
         ~KnightVenator() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

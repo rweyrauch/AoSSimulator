@@ -26,7 +26,7 @@ namespace Slaanesh {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool LordOfPain::configure() {
+    void LordOfPain::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_mace);
         addModel(model);
@@ -38,8 +38,6 @@ namespace Slaanesh {
                                                            std::vector<Keyword>{MORTAL, HEDONITE}));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordOfPain::Create(const ParameterList &parameters) {
@@ -51,11 +49,7 @@ namespace Slaanesh {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

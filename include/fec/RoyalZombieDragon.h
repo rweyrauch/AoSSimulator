@@ -26,9 +26,9 @@ namespace FleshEaterCourt {
 
         ~RoyalZombieDragon() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

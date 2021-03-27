@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~TerradonChief() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

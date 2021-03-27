@@ -41,7 +41,7 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    bool AstreiaSolbright::configure(Lore lore, MountTrait trait) {
+    void AstreiaSolbright::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
         if (m_mountTrait == MountTrait::Bounding_Leap) {
@@ -59,8 +59,6 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLightningPulse(this)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AstreiaSolbright::Create(const ParameterList &parameters) {
@@ -73,11 +71,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore, trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore, trait);
         return unit;
     }
 

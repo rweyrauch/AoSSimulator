@@ -25,9 +25,9 @@ namespace Nighthaunt {
 
         ~LadyOlynder() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

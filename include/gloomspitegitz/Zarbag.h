@@ -30,9 +30,10 @@ namespace GloomspiteGitz {
 
         ~Zarbag() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
+
         void onRestore() override {
             GloomspiteGitzBase::onRestore();
             m_usedSnifferSpite = false;

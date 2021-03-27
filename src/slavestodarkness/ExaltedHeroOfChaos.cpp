@@ -34,11 +34,7 @@ namespace SlavesToDarkness {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -71,14 +67,12 @@ namespace SlavesToDarkness {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool ExaltedHeroOfChaos::configure() {
+    void ExaltedHeroOfChaos::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blades);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds ExaltedHeroOfChaos::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

@@ -31,15 +31,13 @@ namespace DaughtersOfKhaine {
         m_idolSlot.disconnect();
     }
 
-    bool AvatarOfKhaine::configure() {
+    void AvatarOfKhaine::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_torrentOfBurningBlood);
         model->addMeleeWeapon(&m_sword);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AvatarOfKhaine::Create(const ParameterList &parameters) {

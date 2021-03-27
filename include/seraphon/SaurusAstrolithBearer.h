@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~SaurusAstrolithBearer() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

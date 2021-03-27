@@ -28,7 +28,7 @@ namespace Seraphon {
         m_jaws.setMount(true);
     }
 
-    bool RipperdactylChief::configure() {
+    void RipperdactylChief::configure() {
         // Add the Alpha
         auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_skyblade);
@@ -36,8 +36,6 @@ namespace Seraphon {
         addModel(alpha);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *RipperdactylChief::Create(const ParameterList &parameters) {

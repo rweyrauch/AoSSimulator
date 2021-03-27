@@ -31,7 +31,7 @@ namespace DaughtersOfKhaine {
         m_totalUnbinds = 2;
     }
 
-    bool MorathiHighOracleOfKhaine::configure(Lore lore) {
+    void MorathiHighOracleOfKhaine::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_heartrender);
         model->addMeleeWeapon(&m_wings);
@@ -44,8 +44,6 @@ namespace DaughtersOfKhaine {
         configureCommon();
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *MorathiHighOracleOfKhaine::Create(const ParameterList &parameters) {

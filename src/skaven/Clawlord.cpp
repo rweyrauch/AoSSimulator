@@ -60,14 +60,12 @@ namespace Skaven {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool Clawlord::configure() {
+    void Clawlord::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Clawlord::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

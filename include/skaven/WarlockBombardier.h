@@ -25,9 +25,9 @@ namespace Skaven {
 
         ~WarlockBombardier() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onRestore() override;
 

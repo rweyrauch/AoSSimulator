@@ -24,10 +24,9 @@ namespace Nurgle {
 
         ~GutrotSpume() override = default;
 
-        bool configure();
-
     protected:
 
+        void configure();
 
     private:
 

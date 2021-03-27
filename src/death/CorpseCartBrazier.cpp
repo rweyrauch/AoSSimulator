@@ -63,7 +63,7 @@ namespace Death {
         m_brazierSlot.disconnect();
     }
 
-    bool CorpseCartWithBalefireBrazier::configure() {
+    void CorpseCartWithBalefireBrazier::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goad);
         model->addMeleeWeapon(&m_lash);
@@ -71,8 +71,6 @@ namespace Death {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int CorpseCartWithBalefireBrazier::brazierCastingMod(const Unit *caster) {

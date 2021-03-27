@@ -61,7 +61,7 @@ namespace Sylvaneth {
         m_totalSpells = 1;
     }
 
-    bool Ylthari::configure(Lore lore) {
+    void Ylthari::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_briarStaff);
         model->addMeleeWeapon(&m_thorns);
@@ -74,8 +74,6 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Ylthari::ComputePoints(int /*numModels*/) {

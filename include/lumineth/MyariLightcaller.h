@@ -25,13 +25,13 @@ namespace LuminethRealmLords {
 
         ~MyariLigthcaller() override;
 
-        bool configure(Lore lore);
-
         void enableDazzlingLight() {
             m_lightConnection.set_lock(false);
         }
 
     protected:
+
+        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

@@ -25,9 +25,9 @@ namespace GloomspiteGitz {
 
         ~DankholdTroggboss() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartCombat(PlayerId player) override;
 

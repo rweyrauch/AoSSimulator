@@ -29,7 +29,7 @@ namespace Seraphon {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool SaurusOldblood::configure(WeaponOption option) {
+    void SaurusOldblood::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
         if (option == Celestite_Maul) {
             model->addMeleeWeapon(&m_maul);
@@ -44,8 +44,6 @@ namespace Seraphon {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *SaurusOldblood::Create(const ParameterList &parameters) {

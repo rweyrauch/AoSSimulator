@@ -46,7 +46,7 @@ namespace LuminethRealmLords {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool AvalenorTheStoneheartKing::configure() {
+    void AvalenorTheStoneheartKing::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_blast);
         model->addMeleeWeapon(&m_hammer);
@@ -54,8 +54,6 @@ namespace LuminethRealmLords {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *AvalenorTheStoneheartKing::Create(const ParameterList &parameters) {
@@ -66,11 +64,7 @@ namespace LuminethRealmLords {
 
         unit->setNation(GreatNation::Ymetrica);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

@@ -71,7 +71,7 @@ namespace GloomspiteGitz {
         m_battleCryConnection.disconnect();
     }
 
-    bool ScuttlebossOnGiganticSpider::configure() {
+    void ScuttlebossOnGiganticSpider::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_fangs);
@@ -80,8 +80,6 @@ namespace GloomspiteGitz {
         m_commandAbilities.push_back(std::make_unique<RideEmAllDown>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters) {
@@ -96,11 +94,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

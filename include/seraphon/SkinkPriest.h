@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~SkinkPriest() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

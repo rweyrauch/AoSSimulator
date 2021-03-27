@@ -24,11 +24,7 @@ namespace LuminethRealmLords {
 
         unit->setNation(GreatNation::Ymetrica);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -63,7 +59,7 @@ namespace LuminethRealmLords {
         m_weapons = {&m_bow, &m_mallet, &m_greatsword, &m_dagger};
     }
 
-    bool MyarisPurifiers::configure() {
+    void MyarisPurifiers::configure() {
         auto ailenn = new Model(g_basesize, wounds());
         ailenn->addMeleeWeapon(&m_greatsword);
         addModel(ailenn);
@@ -78,8 +74,6 @@ namespace LuminethRealmLords {
         addModel(senaela);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Wounds MyarisPurifiers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

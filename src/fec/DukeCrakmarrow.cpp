@@ -27,14 +27,12 @@ namespace FleshEaterCourt {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool DukeCrakmarrow::configure() {
+    void DukeCrakmarrow::configure() {
         auto infernal = new Model(g_basesize, wounds());
         infernal->addMeleeWeapon(&m_halberd);
         addModel(infernal);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *DukeCrakmarrow::Create(const ParameterList &parameters) {
@@ -45,7 +43,7 @@ namespace FleshEaterCourt {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
+        unit->configure();
         return unit;
     }
 

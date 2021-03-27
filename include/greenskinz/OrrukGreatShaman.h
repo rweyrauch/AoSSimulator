@@ -26,9 +26,9 @@ namespace Greenskinz {
 
         ~OrrukGreatShaman() override = default;
 
-        bool configure(bool warboar);
-
     protected:
+
+        void configure(bool warboar);
 
         int castingModifier() const override;
 

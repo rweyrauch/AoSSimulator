@@ -51,7 +51,7 @@ namespace Sylvaneth {
         m_connection.disconnect();
     }
 
-    bool SpiritOfDurthu::configure() {
+    void SpiritOfDurthu::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_verdantBlast);
         model->addMeleeWeapon(&m_guardianSword);
@@ -59,8 +59,6 @@ namespace Sylvaneth {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void SpiritOfDurthu::onWounded() {

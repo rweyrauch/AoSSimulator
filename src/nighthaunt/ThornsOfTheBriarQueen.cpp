@@ -26,7 +26,7 @@ namespace Nighthaunt {
         m_battleFieldRole = Role::Battleline;
     }
 
-    bool ThornsOfTheBriarQueen::configure() {
+    void ThornsOfTheBriarQueen::configure() {
 
         auto warden = new Model(g_basesize, wounds());
         warden->addMeleeWeapon(&m_malignantWeaponVarclav);
@@ -39,18 +39,12 @@ namespace Nighthaunt {
         }
 
         m_points = ComputePoints(g_numModels);
-
-        return true;
     }
 
     Unit *ThornsOfTheBriarQueen::Create(const ParameterList &parameters) {
         auto unit = new ThornsOfTheBriarQueen();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

@@ -30,9 +30,9 @@ namespace StormcastEternals {
 
         ~StormsiresCursebreakers() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 

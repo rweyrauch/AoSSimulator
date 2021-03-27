@@ -22,11 +22,7 @@ namespace SlavesToDarkness {
         unit->setDamnedLegion(DamnedLegion::Ravagers);
         unit->setMarkOfChaos(MarkOfChaos::Undivided);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -59,7 +55,7 @@ namespace SlavesToDarkness {
         m_totalSpells = 1;
     }
 
-    bool KhagrasRavagers::configure() {
+    void KhagrasRavagers::configure() {
 
         auto khagra = new Model(g_basesize, wounds());
         khagra->addMeleeWeapon(&m_mace);
@@ -86,8 +82,6 @@ namespace SlavesToDarkness {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Wounds KhagrasRavagers::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

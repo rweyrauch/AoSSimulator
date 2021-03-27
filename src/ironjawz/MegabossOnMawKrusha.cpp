@@ -48,7 +48,7 @@ namespace Ironjawz {
         m_battleFieldRole = Role::Leader_Behemoth;
     }
 
-    bool MegabossOnMawKrusha::configure(WeaponOption weapons) {
+    void MegabossOnMawKrusha::configure(WeaponOption weapons) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bellow);
 
@@ -70,8 +70,6 @@ namespace Ironjawz {
         m_weaponOption = weapons;
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters) {
@@ -93,11 +91,7 @@ namespace Ironjawz {
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
         unit->setMountTrait(mount);
 
-        bool ok = unit->configure(weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapons);
         return unit;
     }
 

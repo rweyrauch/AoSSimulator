@@ -54,7 +54,7 @@ namespace Seraphon {
         m_connection.disconnect();
     }
 
-    bool SaurusOldbloodOnCarnosaur::configure() {
+    void SaurusOldbloodOnCarnosaur::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_gauntlet);
         model->addMeleeWeapon(&m_spear);
@@ -63,8 +63,6 @@ namespace Seraphon {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void SaurusOldbloodOnCarnosaur::onRestore() {

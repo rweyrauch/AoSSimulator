@@ -27,7 +27,7 @@ namespace EldritchCouncil {
         m_totalSpells = 1;
     }
 
-    bool Loremaster::configure() {
+    void Loremaster::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greatsword);
         addModel(model);
@@ -36,8 +36,6 @@ namespace EldritchCouncil {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        return true;
     }
 
     Unit *Loremaster::Create(const ParameterList &parameters) {
@@ -46,11 +44,7 @@ namespace EldritchCouncil {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

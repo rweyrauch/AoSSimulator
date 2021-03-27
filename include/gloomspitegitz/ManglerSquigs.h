@@ -25,9 +25,9 @@ namespace GloomspiteGitz {
 
         ~ManglerSquigs() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 

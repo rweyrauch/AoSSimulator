@@ -67,14 +67,12 @@ namespace Nurgle {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool PoxbringerHeraldOfNurgle::configure(Lore lore) {
+    void PoxbringerHeraldOfNurgle::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_balesword);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds PoxbringerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

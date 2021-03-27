@@ -25,9 +25,9 @@ namespace Death {
 
         ~MortisEngine() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

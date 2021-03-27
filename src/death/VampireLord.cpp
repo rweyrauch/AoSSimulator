@@ -83,7 +83,7 @@ namespace Death {
         m_totalUnbinds = 1;
     }
 
-    bool VampireLord::configure(bool withSteed, bool withWings, bool chalice, Lore lore) {
+    void VampireLord::configure(bool withSteed, bool withWings, bool chalice, Lore lore) {
         auto model = new Model(withSteed ? g_basesizeWithSteed : g_basesize, wounds());
 
         if (withSteed) {
@@ -106,8 +106,6 @@ namespace Death {
         m_haveChaliceOfBlood = chalice;
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void VampireLord::onStartHero(PlayerId player) {

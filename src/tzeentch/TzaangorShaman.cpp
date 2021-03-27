@@ -110,7 +110,7 @@ namespace Tzeentch {
         m_visionsSlot.disconnect();
     }
 
-    bool TzaangorShaman::configure(Lore lore) {
+    void TzaangorShaman::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_dagger);
@@ -123,8 +123,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int TzaangorShaman::ComputePoints(int /*numModels*/) {

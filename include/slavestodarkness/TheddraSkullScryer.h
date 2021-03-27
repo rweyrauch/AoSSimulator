@@ -25,9 +25,9 @@ namespace SlavesToDarkness {
 
         ~TheddraSkullscryer() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

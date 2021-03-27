@@ -36,9 +36,9 @@ namespace Seraphon {
 
         ~SaurusOldblood() override = default;
 
-        bool configure(WeaponOption option);
-
     protected:
+
+        void configure(WeaponOption option);
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

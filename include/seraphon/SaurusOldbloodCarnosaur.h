@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~SaurusOldbloodOnCarnosaur() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

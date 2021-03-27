@@ -25,9 +25,9 @@ namespace Dispossessed {
 
         ~Runelord() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         // Runes of Spellbreaking
         int unbindingModifier() const override { return 2; }

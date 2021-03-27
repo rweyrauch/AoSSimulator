@@ -34,9 +34,9 @@ namespace IdonethDeepkin {
 
         ~AkhelianKing() override = default;
 
-        bool configure(WeaponOption weapon, MountTrait trait);
-
     protected:
+
+        void configure(WeaponOption weapon, MountTrait trait);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

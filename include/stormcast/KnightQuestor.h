@@ -25,9 +25,9 @@ namespace StormcastEternals {
 
         ~KnightQuestor() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

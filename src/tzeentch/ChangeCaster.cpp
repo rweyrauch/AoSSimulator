@@ -77,7 +77,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool ChangecasterHeraldOfTzeentch::configure(Lore lore) {
+    void ChangecasterHeraldOfTzeentch::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_flames);
         model->addMeleeWeapon(&m_staff);
@@ -90,8 +90,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
 } // namespace Tzeentch

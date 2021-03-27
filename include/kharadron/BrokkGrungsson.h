@@ -25,9 +25,9 @@ namespace KharadronOverlords {
 
         ~BrokkGrungsson() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onCharged() override;
 

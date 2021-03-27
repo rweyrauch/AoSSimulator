@@ -47,7 +47,7 @@ namespace FleshEaterCourt {
         m_totalSpells = 1;
     }
 
-    bool RoyalZombieDragon::configure() {
+    void RoyalZombieDragon::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentialBreath);
         model->addMeleeWeapon(&m_snappingMaw);
@@ -58,8 +58,6 @@ namespace FleshEaterCourt {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *RoyalZombieDragon::Create(const ParameterList &parameters) {

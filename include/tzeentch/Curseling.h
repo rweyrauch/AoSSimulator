@@ -25,9 +25,9 @@ namespace Tzeentch {
 
         ~CurselingEyeOfTzeentch() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

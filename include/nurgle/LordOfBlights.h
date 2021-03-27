@@ -25,9 +25,9 @@ namespace Nurgle {
 
         ~LordOfBlights() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 

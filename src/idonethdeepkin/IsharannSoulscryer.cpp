@@ -31,11 +31,7 @@ namespace IdonethDeepkin {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -69,7 +65,7 @@ namespace IdonethDeepkin {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool IsharannSoulscryer::configure() {
+    void IsharannSoulscryer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_shoal);
         model->addMeleeWeapon(&m_claw);
@@ -77,8 +73,6 @@ namespace IdonethDeepkin {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int IsharannSoulscryer::ComputePoints(int /*numModels*/) {

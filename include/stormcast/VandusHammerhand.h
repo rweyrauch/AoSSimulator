@@ -25,9 +25,9 @@ namespace StormcastEternals {
 
         ~VandusHammerhand() override;
 
-        bool configure(MountTrait trait);
-
     protected:
+
+        void configure(MountTrait trait);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

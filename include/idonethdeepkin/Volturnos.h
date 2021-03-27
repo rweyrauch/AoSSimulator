@@ -25,9 +25,9 @@ namespace IdonethDeepkin {
 
         ~Volturnos() override;
 
-        bool configure(MountTrait trait);
-
     protected:
+
+        void configure(MountTrait trait);
 
         void onCharged() override;
 

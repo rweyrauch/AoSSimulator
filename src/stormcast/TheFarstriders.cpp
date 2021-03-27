@@ -28,7 +28,7 @@ namespace StormcastEternals {
         m_runAndShoot = true;
     }
 
-    bool TheFarstriders::configure() {
+    void TheFarstriders::configure() {
         auto sanson = new Model(g_basesize, wounds());
         sanson->setName("Sanson");
         sanson->addMissileWeapon(&m_boltstormPistol);
@@ -48,19 +48,13 @@ namespace StormcastEternals {
         addModel(elias);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *TheFarstriders::Create(const ParameterList &parameters) {
         auto unit = new TheFarstriders();
         unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

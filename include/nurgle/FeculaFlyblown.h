@@ -23,10 +23,9 @@ namespace Nurgle {
 
         ~FeculaFlyblown() override = default;
 
-        bool configure();
-
     protected:
 
+        void configure();
 
     private:
 

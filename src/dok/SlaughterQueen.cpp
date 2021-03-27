@@ -30,7 +30,7 @@ namespace DaughtersOfKhaine {
         m_totalUnbinds = 1;
     }
 
-    bool SlaughterQueen::configure(Prayer prayer) {
+    void SlaughterQueen::configure(Prayer prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfKhaine);
         model->addMeleeWeapon(&m_deathsword);
@@ -39,8 +39,6 @@ namespace DaughtersOfKhaine {
         configureCommon();
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *SlaughterQueen::Create(const ParameterList &parameters) {

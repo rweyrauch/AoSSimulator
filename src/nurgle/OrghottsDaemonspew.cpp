@@ -61,7 +61,7 @@ namespace Nurgle {
         m_tongue.setMount(true);
     }
 
-    bool OrghottsDaemonspew::configure() {
+    void OrghottsDaemonspew::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tongue);
         model->addMeleeWeapon(&m_rotaxes);
@@ -69,8 +69,6 @@ namespace Nurgle {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int OrghottsDaemonspew::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

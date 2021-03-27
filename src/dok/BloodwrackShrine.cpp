@@ -52,7 +52,7 @@ namespace DaughtersOfKhaine {
         m_totalUnbinds = 1;
     }
 
-    bool BloodwrackShrine::configure(Lore lore) {
+    void BloodwrackShrine::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bloodwrackStare);
         model->addMeleeWeapon(&m_whisperclaw);
@@ -71,8 +71,6 @@ namespace DaughtersOfKhaine {
         configureCommon();
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *BloodwrackShrine::Create(const ParameterList &parameters) {

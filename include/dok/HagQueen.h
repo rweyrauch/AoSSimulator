@@ -25,9 +25,9 @@ namespace DaughtersOfKhaine {
 
         ~HagQueen() override = default;
 
-        bool configure(Prayer prayer);
-
     protected:
+
+        void configure(Prayer prayer);
 
         void onStartHero(PlayerId player) override;
 

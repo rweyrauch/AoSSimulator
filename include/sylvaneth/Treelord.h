@@ -25,9 +25,9 @@ namespace Sylvaneth {
 
         ~Treelord() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

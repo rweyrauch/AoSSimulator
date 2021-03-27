@@ -30,15 +30,13 @@ namespace StormcastEternals {
         m_runAndShoot = true;
     }
 
-    bool KnightZephyros::configure() {
+    void KnightZephyros::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boltstormPistol);
         model->addMeleeWeapon(&m_tempestAxes);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *KnightZephyros::Create(const ParameterList &parameters) {
@@ -50,11 +48,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

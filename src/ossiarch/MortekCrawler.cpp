@@ -79,7 +79,7 @@ namespace OssiarchBonereapers {
         m_battleFieldRole = Role::Artillery_Behemoth;
     }
 
-    bool MortekCrawler::configure() {
+    void MortekCrawler::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_catapultSkulls);
         model->addMissileWeapon(&m_catapultCauldron);
@@ -92,8 +92,6 @@ namespace OssiarchBonereapers {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void MortekCrawler::onWounded() {

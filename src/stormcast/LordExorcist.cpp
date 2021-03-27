@@ -32,7 +32,7 @@ namespace StormcastEternals {
         m_totalUnbinds = 1;
     }
 
-    bool LordExorcist::configure(Lore lore) {
+    void LordExorcist::configure(Lore lore) {
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stave);
@@ -44,8 +44,6 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordExorcist::Create(const ParameterList &parameters) {
@@ -58,11 +56,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

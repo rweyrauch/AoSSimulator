@@ -47,14 +47,12 @@ namespace Skaven {
         m_weapons = {&m_warpGrinder};
     }
 
-    bool WarpGrinder::configure() {
+    void WarpGrinder::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpGrinder);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int WarpGrinder::ComputePoints(int /*numModels*/) {

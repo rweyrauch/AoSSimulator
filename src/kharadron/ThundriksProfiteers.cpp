@@ -20,11 +20,7 @@ namespace KharadronOverlords {
 
         unit->setSkyport(Skyport::Barak_Nar);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -62,7 +58,7 @@ namespace KharadronOverlords {
                      &m_gunButt, &m_skypike};
     }
 
-    bool ThundriksProfiteers::configure() {
+    void ThundriksProfiteers::configure() {
 
         auto garodd = new Model(g_basesize, wounds());
         garodd->addMissileWeapon(&m_privateerPistol);
@@ -89,8 +85,6 @@ namespace KharadronOverlords {
         addModel(khazgan);
 
         m_points = ThundriksProfiteers::ComputePoints(1);
-
-        return true;
     }
 
 } // namespace Kharadron

@@ -33,7 +33,7 @@ namespace StormcastEternals {
         m_totalUnbinds = 1;
     }
 
-    bool AveronStormsire::configure(Lore lore) {
+    void AveronStormsire::configure(Lore lore) {
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
@@ -46,8 +46,6 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AveronStormsire::Create(const ParameterList &parameters) {
@@ -59,11 +57,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

@@ -56,7 +56,7 @@ namespace Sylvaneth {
         m_totalSpells = 1;
     }
 
-    bool SkaethsWildHunt::configure() {
+    void SkaethsWildHunt::configure() {
         auto skaeth = new Model(g_basesize, wounds());
         skaeth->addMissileWeapon(&m_javalin);
         skaeth->addMeleeWeapon(&m_javalinMelee);
@@ -85,8 +85,6 @@ namespace Sylvaneth {
         addModel(lighaen);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int SkaethsWildHunt::ComputePoints(int /*numModels*/) {

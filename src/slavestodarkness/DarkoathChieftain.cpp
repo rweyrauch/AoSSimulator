@@ -31,11 +31,7 @@ namespace SlavesToDarkness {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -68,15 +64,13 @@ namespace SlavesToDarkness {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool DarkoathChieftain::configure() {
+    void DarkoathChieftain::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axe);
         model->addMeleeWeapon(&m_broadsword);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int DarkoathChieftain::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

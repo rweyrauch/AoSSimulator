@@ -30,9 +30,9 @@ namespace StormcastEternals {
 
         ~LordRelictor() override = default;
 
-        bool configure(PrayersOfTheStormhost prayer);
-
     protected:
+
+        void configure(PrayersOfTheStormhost prayer);
 
     private:
 

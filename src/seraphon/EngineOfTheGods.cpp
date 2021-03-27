@@ -61,7 +61,7 @@ namespace Seraphon {
         m_cosmicEngineAttackSlot.disconnect();
     }
 
-    bool EngineOfTheGods::configure() {
+    void EngineOfTheGods::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_javelins);
         model->addMeleeWeapon(&m_horns);
@@ -70,8 +70,6 @@ namespace Seraphon {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void EngineOfTheGods::onRestore() {

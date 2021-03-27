@@ -98,7 +98,7 @@ namespace Death {
         m_totalUnbinds = 1;
     }
 
-    bool BloodseekerPalanquin::configure(Lore lore) {
+    void BloodseekerPalanquin::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_blade);
@@ -109,8 +109,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void BloodseekerPalanquin::onWounded() {

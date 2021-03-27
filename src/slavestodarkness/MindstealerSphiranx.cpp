@@ -24,11 +24,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         unit->setDamnedLegion(legion);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -63,7 +59,7 @@ namespace SlavesToDarkness {
         m_connection.disconnect();
     }
 
-    bool MindstealerSphiranx::configure() {
+    void MindstealerSphiranx::configure() {
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_claws);
@@ -71,8 +67,6 @@ namespace SlavesToDarkness {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int MindstealerSphiranx::telepathicDread(const Unit *unit) {

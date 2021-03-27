@@ -32,7 +32,7 @@ namespace GloomspiteGitz {
         m_totalSpells = 2;
     }
 
-    bool Skragrott::configure(Lore lore) {
+    void Skragrott::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
         model->addMeleeWeapon(&m_daMoonOnnaStikk);
@@ -45,8 +45,6 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Skragrott::Create(const ParameterList &parameters) {
@@ -57,11 +55,7 @@ namespace GloomspiteGitz {
 
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 

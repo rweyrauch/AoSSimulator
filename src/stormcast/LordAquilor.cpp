@@ -30,7 +30,7 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool LordAquilor::configure(bool astralCompass) {
+    void LordAquilor::configure(bool astralCompass) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boltstormPistol);
         model->addMeleeWeapon(&m_starboundBlade);
@@ -41,8 +41,6 @@ namespace StormcastEternals {
         m_astralCompass = astralCompass;
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordAquilor::Create(const ParameterList &parameters) {
@@ -55,11 +53,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(astralCompass);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(astralCompass);
         return unit;
     }
 

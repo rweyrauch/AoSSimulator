@@ -25,12 +25,12 @@ namespace DaughtersOfKhaine {
 
         ~HagQueenOnCauldronOfBlood() override;
 
-        bool configure(Prayer prayer);
-
         void animate(bool animated);
         bool isAnimated() const;
 
     protected:
+
+        void configure(Prayer prayer);
 
         void onWounded() override;
 

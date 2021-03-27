@@ -32,7 +32,7 @@ namespace StormcastEternals {
         m_totalUnbinds = 1;
     }
 
-    bool LordVeritant::configure(PrayersOfTheStormhost prayer) {
+    void LordVeritant::configure(PrayersOfTheStormhost prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_judgementBlade);
         addModel(model);
@@ -41,8 +41,6 @@ namespace StormcastEternals {
         m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreatePrayerOfTheStormhost(prayer, this)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordVeritant::Create(const ParameterList &parameters) {
@@ -56,11 +54,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(prayer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(prayer);
         return unit;
     }
 

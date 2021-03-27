@@ -74,14 +74,12 @@ namespace Nurgle {
         m_jollyGutpipesSlot.disconnect();
     }
 
-    bool SloppityBilepiperHeraldOfNurgle::configure() {
+    void SloppityBilepiperHeraldOfNurgle::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_marotter);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds SloppityBilepiperHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

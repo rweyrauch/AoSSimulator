@@ -25,13 +25,11 @@ namespace Sylvaneth {
 
         ~YltharisGuardians() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-
-    protected:
 
     private:
 

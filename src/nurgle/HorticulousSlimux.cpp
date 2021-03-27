@@ -66,15 +66,13 @@ namespace Nurgle {
         m_beastHandlerToHitSlot.disconnect();
     }
 
-    bool HorticulousSlimux::configure() {
+    void HorticulousSlimux::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_shears);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds HorticulousSlimux::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

@@ -26,7 +26,7 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Artillery;
     }
 
-    bool SquigGobba::configure() {
+    void SquigGobba::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spitSquigs);
         model->addMeleeWeapon(&m_bashinSticks);
@@ -35,18 +35,12 @@ namespace GloomspiteGitz {
         m_points = g_pointsPerUnit;
 
         addModel(model);
-
-        return true;
     }
 
     Unit *SquigGobba::Create(const ParameterList &parameters) {
         auto unit = new SquigGobba();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

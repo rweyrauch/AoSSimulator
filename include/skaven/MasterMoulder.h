@@ -30,9 +30,9 @@ namespace Skaven {
 
         ~MasterMoulder() override;
 
-        bool configure(WeaponOption option);
-
     protected:
+
+        void configure(WeaponOption option);
 
         void onStartHero(PlayerId player) override;
 

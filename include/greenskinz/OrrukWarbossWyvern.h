@@ -26,9 +26,9 @@ namespace Greenskinz {
 
         ~OrrukWarbossOnWyvern() override = default;
 
-        bool configure(bool pairedChoppas);
-
     protected:
+
+        void configure(bool pairedChoppas);
 
         size_t getDamageTableIndex() const;
 

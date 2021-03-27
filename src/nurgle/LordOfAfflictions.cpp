@@ -76,7 +76,7 @@ namespace Nurgle {
         m_plagueVectorSlot.disconnect();
     }
 
-    bool LordOfAfflictions::configure() {
+    void LordOfAfflictions::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_festerspike);
         model->addMeleeWeapon(&m_mouthparts);
@@ -85,8 +85,6 @@ namespace Nurgle {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds LordOfAfflictions::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

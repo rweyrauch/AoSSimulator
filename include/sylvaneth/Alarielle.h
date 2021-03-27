@@ -25,9 +25,9 @@ namespace Sylvaneth {
 
         ~Alarielle() override;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

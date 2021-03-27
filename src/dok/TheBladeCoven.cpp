@@ -26,7 +26,7 @@ namespace DaughtersOfKhaine {
         m_weapons = {&m_heartseekerBow, &m_sacrificialWeapons};
     }
 
-    bool TheBladeCoven::configure() {
+    void TheBladeCoven::configure() {
 
         auto kyrae = new Model(g_basesize, wounds() + 1);
         kyrae->addMissileWeapon(&m_heartseekerBow);
@@ -50,8 +50,6 @@ namespace DaughtersOfKhaine {
         addModel(lethyr);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *TheBladeCoven::Create(const ParameterList &parameters) {

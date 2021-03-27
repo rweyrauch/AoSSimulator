@@ -51,7 +51,7 @@ namespace GloomspiteGitz {
         onWounded();
     }
 
-    bool ManglerSquigs::configure() {
+    void ManglerSquigs::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_hugeFangFilledGob);
         model->addMeleeWeapon(&m_ballsAndChains);
@@ -59,8 +59,6 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int ManglerSquigs::toHitModifier(const Weapon *weapon, const Unit *unit) const {
@@ -95,11 +93,7 @@ namespace GloomspiteGitz {
     Unit *ManglerSquigs::Create(const ParameterList &parameters) {
         auto unit = new ManglerSquigs();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

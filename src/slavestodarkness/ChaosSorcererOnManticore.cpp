@@ -92,11 +92,7 @@ namespace SlavesToDarkness {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -138,7 +134,7 @@ namespace SlavesToDarkness {
         m_totalSpells = 1;
     }
 
-    bool ChaosSorcererOnManticore::configure(Lore lore) {
+    void ChaosSorcererOnManticore::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_fangsAndClaws);
@@ -151,8 +147,6 @@ namespace SlavesToDarkness {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void ChaosSorcererOnManticore::onRestore() {

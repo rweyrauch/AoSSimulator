@@ -26,9 +26,9 @@ namespace StormcastEternals {
 
         ~CelestarBallista() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartShooting(PlayerId player) override;
 

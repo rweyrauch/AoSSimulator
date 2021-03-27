@@ -31,11 +31,7 @@ namespace IdonethDeepkin {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -71,7 +67,7 @@ namespace IdonethDeepkin {
         m_retreatAndCharge = true;
     }
 
-    bool EidolonOfMathlannAspectOfTheStorm::configure() {
+    void EidolonOfMathlannAspectOfTheStorm::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_crulhook);
@@ -80,8 +76,6 @@ namespace IdonethDeepkin {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Rerolls EidolonOfMathlannAspectOfTheStorm::toHitRerolls(const Weapon *weapon, const Unit *target) const {

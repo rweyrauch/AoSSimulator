@@ -25,9 +25,9 @@ namespace Sylvaneth {
 
         ~SpiritOfDurthu() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartCombat(PlayerId id) override;
 

@@ -37,9 +37,9 @@ namespace Greenskinz {
 
         ~OrrukWarboss() override = default;
 
-        bool configure(WeaponOption weapon, bool warboar);
-
     protected:
+
+        void configure(WeaponOption weapon, bool warboar);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

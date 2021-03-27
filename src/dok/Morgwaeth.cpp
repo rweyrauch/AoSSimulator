@@ -26,7 +26,7 @@ namespace DaughtersOfKhaine {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool MorgwaethTheBloodied::configure(Prayer prayer) {
+    void MorgwaethTheBloodied::configure(Prayer prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         addModel(model);
@@ -34,8 +34,6 @@ namespace DaughtersOfKhaine {
         configureCommon();
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *MorgwaethTheBloodied::Create(const ParameterList &parameters) {

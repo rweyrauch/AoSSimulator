@@ -29,9 +29,9 @@ namespace OssiarchBonereapers {
 
         ~Vokmortian() override;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int grimWarning(const Unit *unit);
 

@@ -64,7 +64,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool VortemisTheAllSeeing::configure(Lore lore) {
+    void VortemisTheAllSeeing::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staffMissile);
         model->addMeleeWeapon(&m_staff);
@@ -75,8 +75,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int VortemisTheAllSeeing::ComputePoints(int /*numModels*/) {

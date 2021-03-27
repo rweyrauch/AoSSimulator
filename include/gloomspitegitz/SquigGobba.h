@@ -25,9 +25,9 @@ namespace GloomspiteGitz {
 
         ~SquigGobba() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

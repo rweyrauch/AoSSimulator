@@ -25,9 +25,9 @@ namespace KharadronOverlords {
 
         ~AetherKhemist() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

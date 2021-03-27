@@ -90,7 +90,7 @@ namespace OssiarchBonereapers {
         m_totalUnbinds = 3;
     }
 
-    bool ArkhanTheBlack::configure() {
+    void ArkhanTheBlack::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_zefetKar);
         model->addMeleeWeapon(&m_khenashAn);
@@ -102,8 +102,6 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void ArkhanTheBlack::onWounded() {

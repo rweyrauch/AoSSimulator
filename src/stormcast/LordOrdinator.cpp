@@ -33,7 +33,7 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    bool LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption) {
+    void LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption) {
         m_weaponOption = weaponOption;
 
         auto model = new Model(g_basesize, wounds());
@@ -51,8 +51,6 @@ namespace StormcastEternals {
                                                             std::vector<Keyword>(STORMCAST_ETERNAL)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordOrdinator::Create(const ParameterList &parameters) {
@@ -65,11 +63,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapons);
         return unit;
     }
 

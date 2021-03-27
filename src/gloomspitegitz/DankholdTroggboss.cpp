@@ -62,7 +62,7 @@ namespace GloomspiteGitz {
         m_connection.disconnect();
     }
 
-    bool DankholdTroggboss::configure() {
+    void DankholdTroggboss::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boulderClub);
         addModel(model);
@@ -70,8 +70,6 @@ namespace GloomspiteGitz {
         m_commandAbilities.push_back(std::make_unique<InstinctiveLeader>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *DankholdTroggboss::Create(const ParameterList &parameters) {
@@ -86,11 +84,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

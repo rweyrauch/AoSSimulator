@@ -33,7 +33,7 @@ namespace IdonethDeepkin {
         m_deepmareTails.setMount(true);
     }
 
-    bool AkhelianKing::configure(WeaponOption weapon, MountTrait trait) {
+    void AkhelianKing::configure(WeaponOption weapon, MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         if (weapon == Bladed_Polearm) {
             model->addMeleeWeapon(&m_bladedPolearm);
@@ -47,8 +47,6 @@ namespace IdonethDeepkin {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *AkhelianKing::Create(const ParameterList &parameters) {
@@ -69,11 +67,7 @@ namespace IdonethDeepkin {
 
         auto mountTrait = (MountTrait) GetBoolParam("Mount Trait", parameters, g_leviadonTrait[0]);
 
-        bool ok = unit->configure(weapon, mountTrait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon, mountTrait);
         return unit;
     }
 

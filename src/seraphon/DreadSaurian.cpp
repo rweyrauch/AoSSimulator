@@ -50,7 +50,7 @@ namespace Seraphon {
         m_terrorSlot.disconnect();
     }
 
-    bool DreadSaurian::configure() {
+    void DreadSaurian::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gargantuanJaws);
         model->addMeleeWeapon(&m_rakingClaws);
@@ -58,8 +58,6 @@ namespace Seraphon {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void DreadSaurian::onRestore() {

@@ -34,9 +34,9 @@ namespace Seraphon {
 
         ~Stegadon() override;
 
-        bool configure(WeaponOption option, bool skinkChief);
-
     protected:
+
+        void configure(WeaponOption option, bool skinkChief);
 
         void onWounded() override;
 

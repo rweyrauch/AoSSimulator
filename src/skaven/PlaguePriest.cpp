@@ -62,15 +62,13 @@ namespace Skaven {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool PlaguePriest::configure() {
+    void PlaguePriest::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_censer);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void PlaguePriest::onEndCombat(PlayerId player) {

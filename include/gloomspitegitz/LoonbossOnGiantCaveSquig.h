@@ -34,9 +34,9 @@ namespace GloomspiteGitz {
 
         ~LoonbossOnGiantCaveSquig() override = default;
 
-        bool configure(WeaponOptions weapon);
-
     protected:
+
+        void configure(WeaponOptions weapon);
 
         void onStartHero(PlayerId player) override;
 

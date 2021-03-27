@@ -53,7 +53,7 @@ namespace Nurgle {
         m_totalSpells = 2;
     }
 
-    bool GreatUncleanOne::configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore) {
+    void GreatUncleanOne::configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bile);
         if (optionOne == Plague_Flail)
@@ -71,8 +71,6 @@ namespace Nurgle {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *GreatUncleanOne::Create(const ParameterList &parameters) {
@@ -95,7 +93,7 @@ namespace Nurgle {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
 
-        bool ok = unit->configure(weaponOne, weaponTwo, lore);
+        unit->configure(weaponOne, weaponTwo, lore);
         return unit;
     }
 

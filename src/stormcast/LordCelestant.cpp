@@ -51,7 +51,7 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool LordCelestant::configure() {
+    void LordCelestant::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_runeblade);
         model->addMeleeWeapon(&m_warhammer);
@@ -60,8 +60,6 @@ namespace StormcastEternals {
         m_commandAbilities.push_back(std::make_unique<FuriousRetribution>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LordCelestant::Create(const ParameterList &parameters) {
@@ -73,11 +71,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

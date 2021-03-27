@@ -35,9 +35,9 @@ namespace StormcastEternals {
 
         ~DrakeswornTemplar() override;
 
-        bool configure(WeaponOption weapons, bool skyboltBow, MountTrait trait);
-
     protected:
+
+        void configure(WeaponOption weapons, bool skyboltBow, MountTrait trait);
 
         void onWounded() override;
 

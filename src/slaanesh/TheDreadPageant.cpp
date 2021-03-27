@@ -27,7 +27,7 @@ namespace Slaanesh {
         m_weapons = {&m_bow, &m_clawAndWeapon, &m_glaive, &m_harpoon};
     }
 
-    bool TheDreadPageant::configure() {
+    void TheDreadPageant::configure() {
         auto vasillac = new Model(g_basesize, wounds() + 2);
         vasillac->setName("Vasillac");
         vasillac->addMeleeWeapon(&m_harpoon);
@@ -49,8 +49,6 @@ namespace Slaanesh {
         addModel(hadzu);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *TheDreadPageant::Create(const ParameterList &parameters) {
@@ -59,11 +57,7 @@ namespace Slaanesh {
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         unit->setHost(host);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

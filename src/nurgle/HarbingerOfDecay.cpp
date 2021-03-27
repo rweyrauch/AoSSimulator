@@ -68,15 +68,13 @@ namespace Nurgle {
         m_bite.setMount(true);
     }
 
-    bool HarbingerOfDecay::configure() {
+    void HarbingerOfDecay::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_bite);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds HarbingerOfDecay::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

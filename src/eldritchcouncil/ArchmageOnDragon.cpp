@@ -49,7 +49,7 @@ namespace EldritchCouncil {
         m_totalSpells = 1;
     }
 
-    bool ArchmageOnDragon::configure(bool arcaneTome, bool talisman) {
+    void ArchmageOnDragon::configure(bool arcaneTome, bool talisman) {
         m_arcaneTome = arcaneTome;
         m_talismanOfArcanePower = talisman;
 
@@ -71,8 +71,6 @@ namespace EldritchCouncil {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ArchmageOnDragon::Create(const ParameterList &parameters) {
@@ -83,11 +81,7 @@ namespace EldritchCouncil {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(tome, talisman);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(tome, talisman);
         return unit;
     }
 

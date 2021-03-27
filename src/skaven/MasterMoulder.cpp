@@ -72,7 +72,7 @@ namespace Skaven {
         m_whipBraverySlot.disconnect();
     }
 
-    bool MasterMoulder::configure(WeaponOption option) {
+    void MasterMoulder::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
         if (option == Lash)
             model->addMeleeWeapon(&m_lash);
@@ -81,8 +81,6 @@ namespace Skaven {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int MasterMoulder::crackTheWhip(const Unit *attacker, const Weapon * /*weapon*/, const Unit * /*target*/) {

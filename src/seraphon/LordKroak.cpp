@@ -66,7 +66,7 @@ namespace Seraphon {
         m_totalUnbinds = 4;
     }
 
-    bool LordKroak::configure(Lore lore) {
+    void LordKroak::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_barrier);
         addModel(model);
@@ -81,8 +81,6 @@ namespace Seraphon {
         m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateGiftFromTheHeavens(this)));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *LordKroak::Create(const ParameterList &parameters) {

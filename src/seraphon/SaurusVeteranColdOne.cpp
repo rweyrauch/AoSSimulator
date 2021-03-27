@@ -29,7 +29,7 @@ namespace Seraphon {
         m_coldOneJaws.setMount(true);
     }
 
-    bool SaurusScarVeteranOnColdOne::configure() {
+    void SaurusScarVeteranOnColdOne::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpick);
         model->addMeleeWeapon(&m_jaws);
@@ -37,8 +37,6 @@ namespace Seraphon {
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *SaurusScarVeteranOnColdOne::Create(const ParameterList &parameters) {

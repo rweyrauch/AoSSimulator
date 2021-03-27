@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~StarbloodStalkers() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 

@@ -86,7 +86,7 @@ namespace Sylvaneth {
     Alarielle::~Alarielle() {
     }
 
-    bool Alarielle::configure(Lore lore) {
+    void Alarielle::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spearOfKurnoth);
         model->addMeleeWeapon(&m_talonOfDwindling);
@@ -101,8 +101,6 @@ namespace Sylvaneth {
         m_commandAbilities.push_back(std::make_unique<GhyransWrath>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Alarielle::toHitModifier(const Weapon *weapon, const Unit *unit) const {

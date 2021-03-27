@@ -30,9 +30,9 @@ namespace GloomspiteGitz {
 
         ~FungoidCaveShaman() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onStartHero(PlayerId playerId) override;
 

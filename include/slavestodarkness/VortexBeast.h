@@ -25,9 +25,9 @@ namespace SlavesToDarkness {
 
         ~MutalithVortexBeast() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartHero(PlayerId player) override;
 

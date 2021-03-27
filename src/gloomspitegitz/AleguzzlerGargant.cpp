@@ -44,7 +44,7 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool AleguzzlerGargant::configure() {
+    void AleguzzlerGargant::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_eadbutt);
         model->addMeleeWeapon(&m_massiveClub);
@@ -52,8 +52,6 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void AleguzzlerGargant::onWounded() {
@@ -65,11 +63,7 @@ namespace GloomspiteGitz {
     Unit *AleguzzlerGargant::Create(const ParameterList &parameters) {
         auto unit = new AleguzzlerGargant();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

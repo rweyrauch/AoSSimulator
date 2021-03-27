@@ -51,7 +51,7 @@ namespace StormcastEternals {
 
     class SombreExemplar : public CommandAbility {
     public:
-        SombreExemplar(Unit *source) :
+        explicit SombreExemplar(Unit *source) :
                 CommandAbility(source, "Sombre Exemplar", 12, 12, Phase::Combat) {
             m_allowedTargets = Abilities::Target::Self;
             m_targetKeywords = {ANVILS_OF_THE_HELDENHAMMER};
@@ -103,7 +103,7 @@ namespace StormcastEternals {
         m_shieldConnection.disconnect();
     }
 
-    bool LynusGhalmorianOnGryphcharger::configure(Lore lore, MountTrait trait) {
+    void LynusGhalmorianOnGryphcharger::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
 
@@ -120,8 +120,6 @@ namespace StormcastEternals {
         m_commandAbilities.push_back(std::make_unique<SombreExemplar>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *LynusGhalmorianOnGryphcharger::Create(const ParameterList &parameters) {
@@ -134,11 +132,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(lore, trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore, trait);
         return unit;
     }
 

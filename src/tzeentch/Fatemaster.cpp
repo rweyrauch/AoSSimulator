@@ -63,15 +63,13 @@ namespace Tzeentch {
         m_teethAndHorns.setMount(true);
     }
 
-    bool Fatemaster::configure() {
+    void Fatemaster::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Fatemaster::ComputePoints(int /*numModels*/) {

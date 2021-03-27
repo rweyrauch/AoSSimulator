@@ -55,7 +55,7 @@ namespace DaughtersOfKhaine {
         m_totalUnbinds = 1;
     }
 
-    bool MelusaiIronscale::configure() {
+    void MelusaiIronscale::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_keldrisaithShooting);
         model->addMeleeWeapon(&m_keldrisaith);
@@ -65,8 +65,6 @@ namespace DaughtersOfKhaine {
         configureCommon();
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *MelusaiIronscale::Create(const ParameterList &parameters) {

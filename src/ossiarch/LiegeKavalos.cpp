@@ -75,7 +75,7 @@ namespace OssiarchBonereapers {
         m_hoovesAndTeeth.setMount(true);
     }
 
-    bool LiegeKavalos::configure() {
+    void LiegeKavalos::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_shield);
@@ -83,8 +83,6 @@ namespace OssiarchBonereapers {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int LiegeKavalos::ComputePoints(int /*numModels*/) {

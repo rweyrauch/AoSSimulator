@@ -29,7 +29,7 @@ namespace StormcastEternals {
         m_totalSpells = 1;
     }
 
-    bool StormsiresCursebreakers::configure(Lore lore) {
+    void StormsiresCursebreakers::configure(Lore lore) {
         auto ammis = new Model(g_basesize, wounds());
         ammis->addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(ammis);
@@ -42,8 +42,6 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Rerolls StormsiresCursebreakers::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
@@ -77,11 +75,7 @@ namespace StormcastEternals {
 
         evos->setStormhost(Stormhost::Hammers_Of_Sigmar);
 
-        bool ok = evos->configure(invigoration);
-        if (!ok) {
-            delete evos;
-            evos = nullptr;
-        }
+        evos->configure(invigoration);
         return evos;
     }
 

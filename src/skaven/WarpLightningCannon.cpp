@@ -26,15 +26,13 @@ namespace Skaven {
         m_battleFieldRole = Role::Artillery;
     }
 
-    bool WarpLightningCannon::configure() {
+    void WarpLightningCannon::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpLightningBlast);
         model->addMeleeWeapon(&m_teethAndKnives);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *WarpLightningCannon::Create(const ParameterList &parameters) {

@@ -25,9 +25,9 @@ namespace GloomspiteGitz {
 
         ~ColossalSquig() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

@@ -26,7 +26,7 @@ namespace Greenskinz {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool OrrukGreatShaman::configure(bool warboar) {
+    void OrrukGreatShaman::configure(bool warboar) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_totemicStaff);
         if (warboar) {
@@ -36,8 +36,6 @@ namespace Greenskinz {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *OrrukGreatShaman::Create(const ParameterList &parameters) {
@@ -47,11 +45,7 @@ namespace Greenskinz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(warboar);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(warboar);
         return unit;
     }
 

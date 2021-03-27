@@ -22,11 +22,7 @@ namespace GloomspiteGitz {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -67,15 +63,13 @@ namespace GloomspiteGitz {
         m_connection.disconnect();
     }
 
-    bool Mollog::configure() {
+    void Mollog::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_jabbertoad);
         model->addMeleeWeapon(&m_club);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void Mollog::onStartHero(PlayerId player) {

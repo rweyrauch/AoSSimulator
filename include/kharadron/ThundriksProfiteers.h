@@ -25,9 +25,9 @@ namespace KharadronOverlords {
 
         ~ThundriksProfiteers() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
     private:
 

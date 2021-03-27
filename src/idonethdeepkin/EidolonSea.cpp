@@ -85,11 +85,7 @@ namespace IdonethDeepkin {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -135,7 +131,7 @@ namespace IdonethDeepkin {
         m_connection.disconnect();
     }
 
-    bool EidolonOfMathlannAspectOfTheSea::configure(Lore lore) {
+    void EidolonOfMathlannAspectOfTheSea::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_abyssalEnergy);
         model->addMeleeWeapon(&m_trident);
@@ -151,8 +147,6 @@ namespace IdonethDeepkin {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss(const Unit *target) {

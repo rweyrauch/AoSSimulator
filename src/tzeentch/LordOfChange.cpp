@@ -153,7 +153,7 @@ namespace Tzeentch {
         m_totalUnbinds = 2;
     }
 
-    bool LordOfChange::configure(WeaponOption option, Lore lore) {
+    void LordOfChange::configure(WeaponOption option, Lore lore) {
         auto model = new Model(g_basesize, wounds());
         if (option == Rod_Of_Sorcery)
             model->addMissileWeapon(&m_rodOfSorcery);
@@ -170,8 +170,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void LordOfChange::onRestore() {

@@ -36,11 +36,7 @@ namespace SlavesToDarkness {
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         unit->setArtefact(artefact);
 
-        bool ok = unit->configure(weapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon);
         return unit;
     }
 
@@ -102,7 +98,7 @@ namespace SlavesToDarkness {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool DaemonPrince::configure(WeaponOption option) {
+    void DaemonPrince::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
 
         if (option == Daemonic_Axe)
@@ -113,8 +109,6 @@ namespace SlavesToDarkness {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int DaemonPrince::toHitModifier(const Weapon *weapon, const Unit *target) const {

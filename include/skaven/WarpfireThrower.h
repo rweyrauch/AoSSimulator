@@ -25,9 +25,9 @@ namespace Skaven {
 
         ~WarpfireThrower() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int generateMortalWounds(const Unit *unit) override;
 

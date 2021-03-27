@@ -75,15 +75,13 @@ namespace Nurgle {
         m_keepCountingToHitSlot.disconnect();
     }
 
-    bool SpoilpoxScrivenerHeraldOfNurgle::configure() {
+    void SpoilpoxScrivenerHeraldOfNurgle::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_sneeze);
         model->addMeleeWeapon(&m_maw);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

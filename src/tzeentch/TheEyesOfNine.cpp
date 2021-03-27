@@ -56,7 +56,7 @@ namespace Tzeentch {
         m_weapons = {&m_flames, &m_bolt, &m_greatblade, &m_blade, &m_beak, &m_hands};
     }
 
-    bool TheEyesOfTheNine::configure() {
+    void TheEyesOfTheNine::configure() {
         auto narvia = new Model(g_basesize, wounds());
         narvia->addMissileWeapon(&m_bolt);
         narvia->addMeleeWeapon(&m_blade);
@@ -82,8 +82,6 @@ namespace Tzeentch {
         addModel(horror);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds TheEyesOfTheNine::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

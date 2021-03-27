@@ -99,11 +99,7 @@ namespace LuminethRealmLords {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreTeclis[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -153,7 +149,7 @@ namespace LuminethRealmLords {
         m_protectionConnection.disconnect();
     }
 
-    bool ArchmageTeclis::configure(Lore lore) {
+    void ArchmageTeclis::configure(Lore lore) {
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
@@ -168,8 +164,6 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void ArchmageTeclis::onWounded() {

@@ -110,7 +110,7 @@ namespace OssiarchBonereapers {
         m_totalUnbinds = 2;
     }
 
-    bool MortisanSoulmason::configure(Lore lore) {
+    void MortisanSoulmason::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_claws);
@@ -123,8 +123,6 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int MortisanSoulmason::ComputePoints(int /*numModels*/) {

@@ -100,7 +100,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool OgroidThaumaturge::configure(Lore lore) {
+    void OgroidThaumaturge::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_horns);
@@ -113,8 +113,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int OgroidThaumaturge::ComputePoints(int /*numModels*/) {

@@ -25,9 +25,9 @@ namespace Seraphon {
 
         ~DreadSaurian() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

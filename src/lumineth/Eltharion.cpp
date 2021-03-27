@@ -28,16 +28,13 @@ namespace LuminethRealmLords {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool TheLightOfEltharion::configure() {
-
+    void TheLightOfEltharion::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_fangsword);
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *TheLightOfEltharion::Create(const ParameterList &parameters) {
@@ -49,11 +46,7 @@ namespace LuminethRealmLords {
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         unit->setNation(nation);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

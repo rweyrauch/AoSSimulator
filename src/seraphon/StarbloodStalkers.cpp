@@ -28,7 +28,7 @@ namespace Seraphon {
         m_weapons = {&m_javelin, &m_dartpipe, &m_boltspitter, &m_dagger, &m_club};
     }
 
-    bool StarbloodStalkers::configure() {
+    void StarbloodStalkers::configure() {
 
         auto xepic = new Model(g_basesize, wounds());
         xepic->addMeleeWeapon(&m_club);
@@ -54,8 +54,6 @@ namespace Seraphon {
         addModel(otapatl);
 
         m_points = ComputePoints(4);
-
-        return true;
     }
 
     Unit *StarbloodStalkers::Create(const ParameterList &parameters) {

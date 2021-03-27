@@ -21,11 +21,7 @@ namespace Nighthaunt {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -57,15 +53,13 @@ namespace Nighthaunt {
         m_claws.setMount(true);
     }
 
-    bool KurdossValentian::configure() {
+    void KurdossValentian::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sceptre);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Wounds KurdossValentian::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

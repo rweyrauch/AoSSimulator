@@ -30,9 +30,9 @@ namespace GloomspiteGitz {
 
         ~Skragrott() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         int castingModifier() const override;
 

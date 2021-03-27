@@ -68,7 +68,7 @@ namespace Death {
         }
     }
 
-    bool WightKingWithBalefulTombBlade::configure(bool hasSteed) {
+    void WightKingWithBalefulTombBlade::configure(bool hasSteed) {
         auto model = new Model(hasSteed ? g_basesizeMount : g_basesize, wounds());
 
         m_hasSteed = hasSteed;
@@ -83,8 +83,6 @@ namespace Death {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds WightKingWithBalefulTombBlade::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,

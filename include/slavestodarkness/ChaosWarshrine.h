@@ -25,9 +25,9 @@ namespace SlavesToDarkness {
 
         ~ChaosWarshrine() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onWounded() override;
 

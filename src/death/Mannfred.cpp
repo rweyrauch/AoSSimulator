@@ -86,7 +86,7 @@ namespace Death {
         m_totalUnbinds = 2;
     }
 
-    bool MannfredMortarchOfNight::configure() {
+    void MannfredMortarchOfNight::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gheistvor);
         model->addMeleeWeapon(&m_glaive);
@@ -98,8 +98,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void MannfredMortarchOfNight::onWounded() {

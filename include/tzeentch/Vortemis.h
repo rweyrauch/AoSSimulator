@@ -25,9 +25,9 @@ namespace Tzeentch {
 
         ~VortemisTheAllSeeing() override = default;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
     private:
 

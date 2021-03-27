@@ -25,9 +25,9 @@ namespace Slaanesh {
 
         ~InfernalEnrapturess() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         void onStartShooting(PlayerId player) override;
 

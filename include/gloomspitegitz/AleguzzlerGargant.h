@@ -25,9 +25,9 @@ namespace GloomspiteGitz {
 
         ~AleguzzlerGargant() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         size_t getDamageTableIndex() const;
 

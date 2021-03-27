@@ -31,7 +31,7 @@ namespace Seraphon {
         m_totalUnbinds = 3;
     }
 
-    bool SlannStarmaster::configure(Lore lore) {
+    void SlannStarmaster::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_lightning);
         addModel(model);
@@ -44,8 +44,6 @@ namespace Seraphon {
         m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateGiftFromTheHeavens(this)));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *SlannStarmaster::Create(const ParameterList &parameters) {

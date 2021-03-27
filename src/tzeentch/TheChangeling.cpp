@@ -72,7 +72,7 @@ namespace Tzeentch {
         m_totalUnbinds = 2;
     }
 
-    bool TheChangeling::configure(Lore lore) {
+    void TheChangeling::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -82,8 +82,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int TheChangeling::ComputePoints(int /*numModels*/) {

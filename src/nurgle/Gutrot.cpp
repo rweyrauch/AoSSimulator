@@ -57,15 +57,13 @@ namespace Nurgle {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool GutrotSpume::configure() {
+    void GutrotSpume::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axe);
         model->addMeleeWeapon(&m_tentacles);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int GutrotSpume::ComputePoints(int /*numModels*/) {

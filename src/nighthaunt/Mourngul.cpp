@@ -35,11 +35,7 @@ namespace Nighthaunt {
     Unit *Mourngul::Create(const ParameterList &parameters) {
         auto unit = new Mourngul();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -66,14 +62,12 @@ namespace Nighthaunt {
         m_weapons = {&m_clawsAndFangs};
     }
 
-    bool Mourngul::configure() {
+    void Mourngul::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     void Mourngul::onWounded() {

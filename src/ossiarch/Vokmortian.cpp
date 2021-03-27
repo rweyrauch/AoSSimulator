@@ -109,7 +109,7 @@ namespace OssiarchBonereapers {
         m_connection.disconnect();
     }
 
-    bool Vokmortian::configure(Lore lore) {
+    void Vokmortian::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_gazeOfDeath);
         model->addMeleeWeapon(&m_staff);
@@ -122,8 +122,6 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Vokmortian::grimWarning(const Unit *unit) {

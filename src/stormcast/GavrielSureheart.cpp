@@ -26,7 +26,7 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool GavrielSureheart::configure() {
+    void GavrielSureheart::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_starboundBlade);
         addModel(model);
@@ -39,8 +39,6 @@ namespace StormcastEternals {
                                                              std::vector<Keyword>(HAMMERS_OF_SIGMAR)));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *GavrielSureheart::Create(const ParameterList &parameters) {
@@ -51,11 +49,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

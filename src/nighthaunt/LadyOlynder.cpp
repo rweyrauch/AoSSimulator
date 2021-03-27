@@ -49,11 +49,7 @@ namespace Nighthaunt {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(lore);
         return unit;
     }
 
@@ -88,7 +84,7 @@ namespace Nighthaunt {
         m_totalUnbinds = 2;
     }
 
-    bool LadyOlynder::configure(Lore lore) {
+    void LadyOlynder::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_claws);
@@ -100,8 +96,6 @@ namespace Nighthaunt {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Wounds LadyOlynder::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

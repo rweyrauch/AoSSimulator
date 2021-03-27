@@ -70,7 +70,7 @@ namespace Tzeentch {
         m_totalUnbinds = 1;
     }
 
-    bool Magister::configure(Lore lore) {
+    void Magister::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_sword);
@@ -82,8 +82,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Magister::ComputePoints(int /*numModels*/) {

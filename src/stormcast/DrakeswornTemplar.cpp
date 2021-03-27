@@ -56,7 +56,7 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    bool DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow, MountTrait trait) {
+    void DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow, MountTrait trait) {
         m_weaponOption = weapons;
         m_mountTrait = trait;
 
@@ -75,8 +75,6 @@ namespace StormcastEternals {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *DrakeswornTemplar::Create(const ParameterList &parameters) {
@@ -91,11 +89,7 @@ namespace StormcastEternals {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure(weapons, skyboltBow, trait);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapons, skyboltBow, trait);
         return unit;
     }
 
@@ -138,7 +132,7 @@ namespace StormcastEternals {
 
     void DrakeswornTemplar::onWounded() {
         MountedStormcastEternal::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_greatClaws.setToHit(g_damageTable[damageIndex].m_greatClawsToHit);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
@@ -183,27 +177,13 @@ namespace StormcastEternals {
         MountedStormcastEternal::onEndCombat(player);
 
         // Sweeping Tail
-        {
-            auto board = Board::Instance();
-
-            PlayerId otherPlayer = PlayerId::Red;
-            if (player == PlayerId::Red) {
-                otherPlayer = PlayerId::Blue;
-            }
-            auto otherRoster = board->getPlayerRoster(otherPlayer);
-
-            // find all enemy units within 3"
-            for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip) {
-                auto dist = distanceTo(ip->get());
-                if (dist <= 3.0) {
-                    auto roll = Dice::RollD6();
-                    if (roll < (*ip)->remainingModels()) {
-                        // inflict D3 mortal wounds
-                        roll = Dice::RollD3();
-                        Wounds mortalWounds = {0, roll};
-                        (*ip)->applyDamage(mortalWounds, this);
-                    }
-                }
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
+        for (auto unit : units) {
+            if (Dice::RollD6() < unit->remainingModels()) {
+                // inflict D3 mortal wounds
+                auto roll = Dice::RollD3();
+                Wounds mortalWounds = {0, roll, Wounds::Source::Ability};
+                unit->applyDamage(mortalWounds, this);
             }
         }
     }
@@ -224,21 +204,13 @@ namespace StormcastEternals {
         }
 
         if (preferRainOfStars) {
-            auto board = Board::Instance();
-
-            PlayerId otherPlayer = PlayerId::Red;
-            if (player == PlayerId::Red) {
-                otherPlayer = PlayerId::Blue;
-            }
-            auto otherRoster = board->getPlayerRoster(otherPlayer);
             auto numUnits = Dice::RollD6();
-
             int unitsAffected = 0;
-            for (auto ip = otherRoster->unitBegin(); ip != otherRoster->unitEnd(); ++ip) {
-                int roll = Dice::RollD6();
-                if (roll >= 4) {
-                    Wounds wounds = {0, Dice::RollD3()};
-                    (*ip)->applyDamage(wounds, this);
+            auto units = Board::Instance()->getAllUnits(GetEnemyId(owningPlayer()));
+            for (auto unit : units) {
+                if (Dice::RollD6() >= 4) {
+                    Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Ability};
+                    unit->applyDamage(wounds, this);
                 }
                 unitsAffected++;
 

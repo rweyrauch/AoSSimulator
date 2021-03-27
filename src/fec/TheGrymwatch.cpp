@@ -24,7 +24,7 @@ namespace FleshEaterCourt {
         m_weapons = {&m_weaponsAndClaws, &m_fangs};
     }
 
-    bool TheGrymwatch::configure() {
+    void TheGrymwatch::configure() {
 
         for (auto i = 0; i < 2; i++) {
             auto harrier = new Model(g_basesize, wounds());
@@ -39,8 +39,6 @@ namespace FleshEaterCourt {
         }
 
         m_points = ComputePoints(1);
-
-        return true;
     }
 
     Unit *TheGrymwatch::Create(const ParameterList &parameters) {

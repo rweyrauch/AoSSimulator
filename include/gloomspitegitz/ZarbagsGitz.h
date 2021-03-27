@@ -25,9 +25,9 @@ namespace GloomspiteGitz {
 
         ~ZarbagsGitz() override = default;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 

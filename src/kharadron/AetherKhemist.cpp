@@ -37,11 +37,7 @@ namespace KharadronOverlords {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -84,15 +80,13 @@ namespace KharadronOverlords {
         m_connection.disconnect();
     }
 
-    bool AetherKhemist::configure() {
+    void AetherKhemist::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_anatomiser);
         model->addMeleeWeapon(&m_instruments);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int AetherKhemist::atmosphericIsolation(const Unit * /*attacker*/, const Weapon * /*weapon*/, const Unit *target) {

@@ -79,7 +79,7 @@ namespace Slaanesh {
         m_totalUnbinds = 2;
     }
 
-    bool ShalaxiHelbane::configure(WeaponOption weapon, Lore lore) {
+    void ShalaxiHelbane::configure(WeaponOption weapon, Lore lore) {
         auto model = new Model(g_basesize, wounds());
 
         m_weapon = weapon;
@@ -98,8 +98,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ShalaxiHelbane::Create(const ParameterList &parameters) {
@@ -114,11 +112,7 @@ namespace Slaanesh {
 
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greaterDaemonLore[0]);
 
-        bool ok = unit->configure(weapon, lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure(weapon, lore);
         return unit;
     }
 

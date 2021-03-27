@@ -26,9 +26,9 @@ namespace SlavesToDarkness {
 
         ~Archaon() override;
 
-        bool configure(Lore lore);
-
     protected:
+
+        void configure(Lore lore);
 
         void onWounded() override;
 

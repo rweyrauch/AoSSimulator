@@ -34,9 +34,9 @@ namespace KharadronOverlords {
 
         ~GrundstokGunhauler() override = default;
 
-        bool configure(WeaponOption option);
-
     protected:
+
+        void configure(WeaponOption option);
 
         int moveModifier() const override;
 

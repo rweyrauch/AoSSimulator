@@ -66,7 +66,7 @@ namespace Skaven {
         m_runAndShoot = true;
     }
 
-    bool Deathmaster::configure(WeaponOption option) {
+    void Deathmaster::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_stars);
         if (option == Weeping_Blades)
@@ -76,8 +76,6 @@ namespace Skaven {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     std::string Deathmaster::ValueToString(const Parameter &parameter) {

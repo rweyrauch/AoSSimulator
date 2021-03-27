@@ -28,7 +28,7 @@ namespace GloomspiteGitz {
         m_weapons = {&m_bow, &m_teeth, &m_prodder, &m_slitta};
     }
 
-    bool ZarbagsGitz::configure() {
+    void ZarbagsGitz::configure() {
         auto herder = new Model(g_basesize, g_squigWounds);
         herder->addMeleeWeapon(&m_prodder);
         herder->setName("Herder");
@@ -60,18 +60,12 @@ namespace GloomspiteGitz {
         }
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *ZarbagsGitz::Create(const ParameterList &parameters) {
         auto unit = new ZarbagsGitz();
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 

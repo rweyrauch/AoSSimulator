@@ -29,11 +29,7 @@ namespace Nighthaunt {
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
+        unit->configure();
         return unit;
     }
 
@@ -68,14 +64,12 @@ namespace Nighthaunt {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool CairnWraith::configure() {
+    void CairnWraith::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds CairnWraith::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

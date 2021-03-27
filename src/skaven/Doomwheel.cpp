@@ -26,7 +26,7 @@ namespace Skaven {
         m_battleFieldRole = Role::Behemoth;
     }
 
-    bool Doomwheel::configure() {
+    void Doomwheel::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpBolts);
         model->addMeleeWeapon(&m_grindingWheel);
@@ -34,8 +34,6 @@ namespace Skaven {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Doomwheel::Create(const ParameterList &parameters) {

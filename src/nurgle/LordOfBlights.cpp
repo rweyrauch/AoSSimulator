@@ -67,7 +67,7 @@ namespace Nurgle {
         m_battleFieldRole = Role::Leader;
     }
 
-    bool LordOfBlights::configure() {
+    void LordOfBlights::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_ripenedDeathsHead);
         model->addMissileWeapon(&m_bountyDeathsHead);
@@ -75,8 +75,6 @@ namespace Nurgle {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {

@@ -29,9 +29,9 @@ namespace StormcastEternals {
 
         ~CelestantPrime() override;
 
-        bool configure();
-
     protected:
+
+        void configure();
 
         int bearerOfTheWarhammer(const Unit *target);
 

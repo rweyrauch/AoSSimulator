@@ -26,9 +26,9 @@ namespace FleshEaterCourt {
 
         ~AbhorrantGhoulKingOnZombieDragon() override = default;
 
-        bool configure(Lore lore, MountTrait trait);
-
     protected:
+
+        void configure(Lore lore, MountTrait trait);
 
         void onStartHero(PlayerId player) override;
 
