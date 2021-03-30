@@ -22,6 +22,8 @@ namespace LuminethRealmLords {
         Iliatha,
         Zaitrec,
         Ymetrica,
+        Alumnia,
+        Helon
     };
 
     enum class CommandTrait : int {
@@ -40,10 +42,22 @@ namespace LuminethRealmLords {
         Enduring,               // TODO
         //Loremaster,
 
+        // Vanari
+        Grand_Strategist,       // TODO
+        Consummate_Warrior,     // TODO
+        Astute_Commander,       // TODO
+
+        // Hurakan
+        Grand_Windrider,        // TODO
+        Swift,                  // TODO
+        //Loremaster,
+
         // Nation specific
-        Almighty_Blow, // Ymetrica TODO
-        Goading_Arrogance, // Syar TODO
-        Fast_Learner, // Zaitrec TODO
+        Almighty_Blow,          // Ymetrica TODO
+        Goading_Arrogance,      // Syar TODO
+        Fast_Learner,           // Zaitrec TODO
+        Burning_Gaze,           // Alumnia TODO
+        Skyrace_Grand_Champion, // Helon TODO
     };
 
     enum class Artefact : int {
@@ -59,11 +73,23 @@ namespace LuminethRealmLords {
         Ebony_Stone,
         Magmic_Hammer,
 
+        // Vanari
+        Syari_Pommel,
+        Senlui_Amulet,
+        Sun_Stone,
+
+        // Hurakan
+        Windblast_Fan,
+        Wind_Stone,
+        Buffeting_Aspiragillum,
+
         // Nation specific
         Mountains_Gift, // Ymetrica
         The_Perfect_Blade, // Syar
         Simulacra_Amulet, // Iliatha
         Gift_Of_Celennar, // Zaitrec
+        Waystone, // Alumnia
+        Metalith_Dust, // Helon
     };
 
     enum class Lore : int {
@@ -84,6 +110,14 @@ namespace LuminethRealmLords {
         Living_Fissue,
         Entomb,
         Assault_Of_Stone,
+
+        // Lore of the Winds
+        Freezing_Squall,
+        Howling_Gale,
+        Guiding_Flurries,
+        Calming_Zephyr,
+        Burning_Simoom,
+        Transporting_Vortex,
 
         // Nation specific
         Overwhelming_Heat, // Zaitrec
@@ -148,6 +182,8 @@ namespace LuminethRealmLords {
 // Absorb Despair                   TODO
 // Lightning Reactions              TODO
 // Shining Company                  TODO
+// Deep Thinkers                    TODO
+// Move Like the Wind               TODO
 // Enduring as Rock                 TODO
 // Tectonic Force                   TODO
 // Mountain Realm                   TODO

@@ -20,6 +20,18 @@
 #include "lumineth/Avalenor.h"
 #include "lumineth/MyariLightcaller.h"
 #include "lumineth/MyarisPurifiers.h"
+#include "lumineth/Bannerblade.h"
+#include "lumineth/Bladelords.h"
+#include "lumineth/Calligrave.h"
+#include "lumineth/EllaniaAndEllathor.h"
+#include "lumineth/LordRegent.h"
+#include "lumineth/Loreseeker.h"
+#include "lumineth/LyriorUthralle.h"
+#include "lumineth/Sevireth.h"
+#include "lumineth/SpiritOfTheWind.h"
+#include "lumineth/StarshardBallista.h"
+#include "lumineth/Windmage.h"
+#include "lumineth/HurakanWindchargers.h"
 
 namespace LuminethRealmLords {
 
@@ -169,10 +181,22 @@ namespace LuminethRealmLords {
         AuralanSentinels::Init();
         AvalenorTheStoneheartKing::Init();
         Dawnriders::Init();
+        EllaniaAndEllathor::Init();
+        LyriorUthralle::Init();
         TheLightOfEltharion::Init();
         ScinariCathallar::Init();
+        ScinariCalligrave::Init();
+        ScinariLoreseeker::Init();
+        Sevireth::Init();
+        HurakanSpiritOfTheWind::Init();
+        HurakanWindmage::Init();
+        HurakanWindchargers::Init();
         MyariLigthcaller::Init();
         MyarisPurifiers::Init();
+        VanariBannerblade::Init();
+        VanariBladelords::Init();
+        VanariLordRegent::Init();
+        VanariStarshardBallistas::Init();
     }
 
 } //namespace LuminethRealmLords

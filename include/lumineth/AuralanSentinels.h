@@ -25,9 +25,9 @@ namespace LuminethRealmLords {
 
         ~AuralanSentinels() override = default;
 
-        bool configure(int numModels);
-
     protected:
+
+        bool configure(int numModels);
 
         void onRestore() override;
 

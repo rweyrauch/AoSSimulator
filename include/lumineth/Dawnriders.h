@@ -25,9 +25,9 @@ namespace LuminethRealmLords {
 
         ~Dawnriders() override = default;
 
-        bool configure(int numModels, bool standardBearer);
-
     protected:
+
+        bool configure(int numModels, bool standardBearer);
 
         void onRestore() override;
 

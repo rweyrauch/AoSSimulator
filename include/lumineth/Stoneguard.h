@@ -34,9 +34,9 @@ namespace LuminethRealmLords {
 
         ~AlarithStoneguard() override = default;
 
-        bool configure(int numModels, WeaponOption weaponOption, bool standardBearer);
-
     protected:
+
+        bool configure(int numModels, WeaponOption weaponOption, bool standardBearer);
 
         Rerolls battleshockRerolls() const override;
 

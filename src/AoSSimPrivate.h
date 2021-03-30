@@ -5,9 +5,7 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-
-#ifndef AOSSIMPRIVATE_H
-#define AOSSIMPRIVATE_H
+#pragma once
 
 #include <magic_enum.hpp>
 
@@ -16,5 +14,3 @@ constexpr auto ToInteger(magic_enum::Enum<E> value) {
     // magic_enum::Enum<E> - C++17 Concept for enum type.
     return static_cast<magic_enum::underlying_type_t<E>>(value);
 }
-
-#endif // AOSSIMPRIVATE_H
