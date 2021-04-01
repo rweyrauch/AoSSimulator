@@ -169,7 +169,7 @@ namespace StormcastEternals {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        StormcastEternal();
+        StormcastEternal() = delete;
 
         ~StormcastEternal() override;
 
@@ -180,8 +180,7 @@ namespace StormcastEternals {
         void setCommandTrait(CommandTrait commandTrait);
 
     protected:
-        StormcastEternal(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        StormcastEternal(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 

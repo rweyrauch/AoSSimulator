@@ -95,7 +95,7 @@ namespace SonsOfBehemat {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        SonsOfBehematBase() = default;
+        SonsOfBehematBase() = delete;
 
         ~SonsOfBehematBase() override = default;
 

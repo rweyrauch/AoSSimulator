@@ -70,7 +70,7 @@ Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const {
         Dice::RollD6(totalAttacks, rollResult);
         numHits = rollResult.rollsGE(toHit);
     }
-    return {numHits, rollResult};
+    return {totalAttacks, numHits, rollResult};
 }
 
 WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) const {
@@ -111,7 +111,7 @@ WoundingHits Weapon::rollToWound(int numHits, int modifier, Rerolls rerolls) con
         numWoundingHits = rollResult.rollsGE(toWound);
     }
 
-    return {numWoundingHits, rollResult};
+    return {totalHits, numWoundingHits, rollResult};
 }
 
 int Weapon::numAttacks(int extraAttacks) const {

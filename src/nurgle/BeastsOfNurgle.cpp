@@ -13,20 +13,18 @@
 
 namespace Nurgle {
     static const int g_basesize = 60;
-    static const int g_wounds = 7;
+    static const int g_wounds = 8;
     static const int g_minUnitSize = 1;
-    static const int g_maxUnitSize = 6;
-    static const int g_pointsPerBlock = 70;
-    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 6;
+    static const int g_maxUnitSize = 3;
+    static const int g_pointsPerBlock = 120;
+    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 3;
 
     bool BeastsOfNurgle::s_registered = false;
 
     BeastsOfNurgle::BeastsOfNurgle() :
-            NurgleBase("Beasts of Nurgle", 5, g_wounds, 10, 5, false),
-            m_clawsAndTentacles(Weapon::Type::Melee, "Claws and Tentacles", 1, RAND_D6, 4, 3, 0, 1),
-            m_slobberingTongue(Weapon::Type::Melee, "Slobbering Tongue", 2, 1, 3, 3, 0, RAND_D3) {
+            NurgleBase("Beasts of Nurgle", 5, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, DAEMON, NURGLE, BEASTS_OF_NURGLE};
-        m_weapons = {&m_clawsAndTentacles, &m_slobberingTongue};
+        m_weapons = {&m_limbsAndMaw, &m_tentaclesAndTongue};
     }
 
     bool BeastsOfNurgle::configure(int numModels) {
@@ -36,8 +34,8 @@ namespace Nurgle {
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
-            model->addMeleeWeapon(&m_clawsAndTentacles);
-            model->addMeleeWeapon(&m_slobberingTongue);
+            model->addMeleeWeapon(&m_limbsAndMaw);
+            model->addMeleeWeapon(&m_tentaclesAndTongue);
             addModel(model);
         }
 
@@ -86,17 +84,6 @@ namespace Nurgle {
     Wounds BeastsOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
-    }
-
-    Wounds BeastsOfNurgle::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Locus of Virulence
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 7.0);
-        for (auto ip : units) {
-            if (ip->hasKeyword(DAEMON) && ip->hasKeyword(NURGLE) && ip->hasKeyword(HERO)) {
-                return {weapon->damage() + 1, 0};
-            }
-        }
-        return NurgleBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int BeastsOfNurgle::ComputePoints(int numModels) {

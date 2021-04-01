@@ -31,16 +31,10 @@ namespace Nurgle {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
-        Rerolls keepCountingChargeRerolls(const Unit *unit);
-
-        Rerolls keepCountingToHitRerolls(const Unit *attacker, const Weapon *weapon, const Unit *target);
-
     private:
 
         Weapon m_sneeze,
                 m_maw;
-
-        lsignal::slot m_keepCountingChargeSlot, m_keepCountingToHitSlot;
 
         static bool s_registered;
     };
@@ -49,7 +43,10 @@ namespace Nurgle {
 // Abilities                    Implemented
 // -------------------------------------------
 // Disgustingly Resilient           Yes
-// Keep Counting, I'm Watching You  Yes
+// Keep Counting, I'm Watching You
+//    Tally of Blows                TODO
+//    Studied Lacerations           TODO
+//    Recorded Stamina              TODO
 //
 
 } // Nurgle

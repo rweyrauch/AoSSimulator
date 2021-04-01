@@ -15,7 +15,7 @@ namespace LuminethRealmLords {
 
     static const int g_basesize = 40;
     static const int g_wounds = 8;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 260;
 
     bool EllaniaAndEllathor::s_registered = false;
 

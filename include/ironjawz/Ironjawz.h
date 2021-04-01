@@ -98,7 +98,7 @@ namespace Ironjawz {
 
     class Ironjawz : public Unit {
     public:
-        Ironjawz() = default;
+        Ironjawz() = delete;
 
         ~Ironjawz() override = default;
 

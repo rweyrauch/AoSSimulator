@@ -13,7 +13,7 @@
 namespace Nurgle {
     static const int g_basesize = 32;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 90;
+    static const int g_pointsPerUnit = 150;
 
     bool SloppityBilepiperHeraldOfNurgle::s_registered = false;
 
@@ -57,7 +57,7 @@ namespace Nurgle {
     }
 
     SloppityBilepiperHeraldOfNurgle::SloppityBilepiperHeraldOfNurgle() :
-            NurgleBase("Sloppity Bilepiper, Herald of Nurgle", 4, g_wounds, 10, 4, false),
+            NurgleBase("Sloppity Bilepiper, Herald of Nurgle", 4, g_wounds, 10, 5, false),
             m_marotter(Weapon::Type::Melee, "Marotter", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SLOPPITY_BILEPIPER, HERALD_OF_NURGLE};
         m_weapons = {&m_marotter};
@@ -65,13 +65,10 @@ namespace Nurgle {
 
         s_globalBraveryMod.connect(this, &SloppityBilepiperHeraldOfNurgle::diseaseOfMirthBraveryMod,
                                    &m_diseaseOfMirthSlot);
-        s_globalChargeReroll.connect(this, &SloppityBilepiperHeraldOfNurgle::jollyGutpipesChargeReroll,
-                                     &m_jollyGutpipesSlot);
     }
 
     SloppityBilepiperHeraldOfNurgle::~SloppityBilepiperHeraldOfNurgle() {
         m_diseaseOfMirthSlot.disconnect();
-        m_jollyGutpipesSlot.disconnect();
     }
 
     void SloppityBilepiperHeraldOfNurgle::configure() {
@@ -90,18 +87,11 @@ namespace Nurgle {
     int SloppityBilepiperHeraldOfNurgle::diseaseOfMirthBraveryMod(const Unit *unit) {
         if (isFriendly(unit)) {
             if ((unit->hasKeyword(NURGLE) && unit->hasKeyword(DAEMON)) && (distanceTo(unit) <= 7.0)) return 1;
-        } else if (distanceTo(unit) <= 7.0) {
+        } else if (distanceTo(unit) <= 14.0) {
             return -1;
         }
 
         return 0;
-    }
-
-    Rerolls SloppityBilepiperHeraldOfNurgle::jollyGutpipesChargeReroll(const Unit *unit) {
-        if ((unit->hasKeyword(NURGLINGS) || unit->hasKeyword(GREAT_UNCLEAN_ONE)) && (distanceTo(unit) <= 7.0))
-            return Rerolls::Ones;
-
-        return Rerolls::None;
     }
 
     int SloppityBilepiperHeraldOfNurgle::ComputePoints(int /*numModels*/) {

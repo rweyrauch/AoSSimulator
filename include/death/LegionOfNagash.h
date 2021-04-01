@@ -137,7 +137,7 @@ namespace Death {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        LegionOfNagashBase() = default;
+        LegionOfNagashBase() = delete;
 
         ~LegionOfNagashBase() override = default;
 

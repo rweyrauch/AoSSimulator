@@ -25,9 +25,6 @@ namespace StormcastEternals {
             m_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1),
             m_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1),
             m_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1) {
-        // Burst of Celestial Energy
-        m_stormboltsSingle.setHitsPerAttack(RAND_D6);
-        m_stormboltsRapid.setHitsPerAttack(RAND_D6);
 
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE,
                       CELESTAR_BALLISTA};
@@ -82,9 +79,11 @@ namespace StormcastEternals {
         if (nearestUnit) {
             double rangeTo = distanceTo(nearestUnit);
             if (rangeTo < (double) m_stormboltsRapid.range()) {
+                PLOG_INFO << name() << " selecting rapid fire.";
                 m_stormboltsRapid.activate(true);
                 m_stormboltsSingle.activate(false);
             } else {
+                PLOG_INFO << name() << " selecting single-shot.";
                 m_stormboltsRapid.activate(false);
                 m_stormboltsSingle.activate(true);
             }
@@ -93,6 +92,14 @@ namespace StormcastEternals {
 
     int CelestarBallista::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int CelestarBallista::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        // Burst of Celestial Energy
+        if (weapon->isMissile()) {
+            return Dice::RollD6();
+        }
+        return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
 } // namespace StormcastEternals

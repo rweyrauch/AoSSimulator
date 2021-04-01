@@ -182,7 +182,7 @@ namespace KharadronOverlords {
     class KharadronBase : public Unit {
     public:
 
-        KharadronBase() = default;
+        KharadronBase() = delete;
 
         ~KharadronBase() override = default;
 

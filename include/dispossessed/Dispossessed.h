@@ -30,7 +30,7 @@ namespace Dispossessed {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        Dispossessed() = default;
+        Dispossessed() = delete;
 
         ~Dispossessed() override = default;
 

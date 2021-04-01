@@ -33,13 +33,11 @@ namespace Nurgle {
 
         int diseaseOfMirthBraveryMod(const Unit *unit);
 
-        Rerolls jollyGutpipesChargeReroll(const Unit *unit);
-
     private:
 
         Weapon m_marotter;
 
-        lsignal::slot m_diseaseOfMirthSlot, m_jollyGutpipesSlot;
+        lsignal::slot m_diseaseOfMirthSlot;
 
         static bool s_registered;
     };
@@ -49,7 +47,10 @@ namespace Nurgle {
 // -------------------------------------------
 // Disgustingly Resilient           Yes
 // Disease of Mirth                 Yes
-// Jolly Gutpipes                   Yes
+// Jolly Gutpipes
+//   A Stabbing We Will Go!                     TODO
+//   Early One Evening My Pustule Was Seeping   TODO
+//   My Love Is Like a Ripe, Ripe Fart          TODO
 //
 
 } // Nurgle

@@ -125,7 +125,7 @@ namespace SlavesToDarkness {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        SlavesToDarknessBase() = default;
+        SlavesToDarknessBase() = delete;
 
         ~SlavesToDarknessBase() override = default;
 

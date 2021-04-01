@@ -66,7 +66,7 @@ namespace Nighthaunt {
 
     class Nighthaunt : public Unit {
     public:
-        Nighthaunt();
+        Nighthaunt() = delete;
 
         ~Nighthaunt() override;
 
@@ -79,8 +79,8 @@ namespace Nighthaunt {
         void setArtefact(Artefact artefact);
 
     protected:
-        Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+
+        Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

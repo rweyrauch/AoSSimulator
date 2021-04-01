@@ -65,8 +65,8 @@
 
 namespace StormcastEternals {
 
-    StormcastEternal::StormcastEternal() :
-            Unit() {
+    StormcastEternal::StormcastEternal(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+            Unit(name, move, wounds, bravery, save, fly) {
         s_globalBraveryMod.connect(this, &StormcastEternal::deathlyAura, &m_deathlyAuraConnection);
     }
 
@@ -424,6 +424,7 @@ namespace StormcastEternals {
     }
 
     void Init() {
+/*
         CelestantPrime::Init();
         AventisFirestrike::Init();
         AstreiaSolbright::Init();
@@ -472,11 +473,14 @@ namespace StormcastEternals {
         VanguardPalladors::Init();
         Aetherwings::Init();
         Castigators::Init();
+*/
         CelestarBallista::Init();
+/*
         Sequitors::Init();
         Evocators::Init();
         EvocatorsOnCelestialDracolines::Init();
         LynusGhalmorianOnGryphcharger::Init();
+*/
     }
 
     bool DoSpiritFlasks(Unit *owner) {

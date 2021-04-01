@@ -12,9 +12,9 @@
 
 namespace LuminethRealmLords {
 
-    static const int g_basesize = 40;
+    static const int g_basesize = 60;
     static const int g_wounds = 8;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 250;
 
     bool HurakanSpiritOfTheWind::s_registered = false;
 

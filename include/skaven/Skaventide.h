@@ -138,7 +138,7 @@ namespace Skaven {
 
     class Skaventide : public Unit {
     public:
-        Skaventide() = default;
+        Skaventide() = delete;
 
         ~Skaventide() override = default;
 

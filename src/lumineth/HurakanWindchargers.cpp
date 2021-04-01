@@ -12,12 +12,12 @@
 
 namespace LuminethRealmLords {
 
-    static const int g_basesize = 32;
+    static const int g_basesize = 60; // x35 oval
     static const int g_wounds = 2;
     static const int g_minUnitSize = 5;
-    static const int g_maxUnitSize = 14;
-    static const int g_pointsPerBlock = 140;
-    static const int g_pointsMaxUnitSize = 280;
+    static const int g_maxUnitSize = 15;
+    static const int g_pointsPerBlock = 130;
+    static const int g_pointsMaxUnitSize = (g_maxUnitSize/g_minUnitSize)*g_pointsPerBlock;
 
     bool HurakanWindchargers::s_registered = false;
 

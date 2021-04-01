@@ -31,12 +31,10 @@ namespace Nurgle {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
     private:
 
-        Weapon m_clawsAndTentacles,
-                m_slobberingTongue;
+        Weapon m_limbsAndMaw{Weapon::Type::Melee, "Clawed Limbs and Fanged Maw", 1, 4, 4, 3, -1, 2},
+                m_tentaclesAndTongue{Weapon::Type::Melee, "Tentacles and Slobbering Tongue", 1, RAND_D6, 4, 3, 0, 1};
 
         static bool s_registered;
     };
@@ -46,7 +44,7 @@ namespace Nurgle {
 // -------------------------------------------
 // Disgustingly Resilient           Yes
 // Acidic Slime Trail               TODO
-// Locus of Virulence               Yes
+// Pestilent Battering Rams         TODO
 // Attention Seekers                Yes
 //
 

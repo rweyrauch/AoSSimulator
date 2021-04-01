@@ -126,7 +126,7 @@ namespace Nurgle {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        NurgleBase() = default;
+        NurgleBase() = delete;
 
         ~NurgleBase() override = default;
 

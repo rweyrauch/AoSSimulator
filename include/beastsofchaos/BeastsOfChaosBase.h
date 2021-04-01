@@ -110,7 +110,7 @@ namespace BeastsOfChaos {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        BeastsOfChaosBase() = default;
+        BeastsOfChaosBase() = delete;
 
         ~BeastsOfChaosBase() override = default;
 

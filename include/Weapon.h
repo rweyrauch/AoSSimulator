@@ -13,18 +13,20 @@
 #include <bitset>
 
 struct Hits {
-    Hits(int n, const Dice::RollResult &r) : m_numHits(n), m_rolls(r) {}
+    Hits(int ta, int n, const Dice::RollResult &r) : totalAttacks(ta), numHits(n), rolls(r) {}
 
-    int m_numHits;
-    Dice::RollResult m_rolls;
+    int totalAttacks = 0;
+    int numHits = 0;
+    Dice::RollResult rolls{};
 };
 
 struct WoundingHits {
 public:
-    WoundingHits(int w, const Dice::RollResult &r) : m_numWoundingHit(w), m_rolls(r) {}
+    WoundingHits(int th, int w, const Dice::RollResult &r) : totalHits(th), numWoundingHit(w), rolls(r) {}
 
-    int m_numWoundingHit;
-    Dice::RollResult m_rolls;
+    int totalHits = 0;
+    int numWoundingHit = 0;
+    Dice::RollResult rolls{};
 };
 
 class Weapon {
@@ -47,8 +49,6 @@ public:
            int damage) noexcept;
 
     Weapon(const Weapon &w);
-
-    void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; }
 
     int numAttacks(int extraAttacks) const;
 

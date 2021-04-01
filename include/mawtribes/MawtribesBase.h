@@ -150,7 +150,7 @@ namespace OgorMawtribes {
     class MawtribesBase : public Unit {
     public:
 
-        MawtribesBase() = default;
+        MawtribesBase() = delete;
 
         ~MawtribesBase() override = default;
 

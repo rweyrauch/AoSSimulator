@@ -118,7 +118,7 @@ namespace Sylvaneth {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        SylvanethBase() = default;
+        SylvanethBase() = delete;
 
         ~SylvanethBase() override = default;
 

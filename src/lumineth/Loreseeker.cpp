@@ -13,9 +13,9 @@
 
 namespace LuminethRealmLords {
 
-    static const int g_basesize = 40;
+    static const int g_basesize = 32;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 140;
+    static const int g_pointsPerUnit = 160;
 
     bool ScinariLoreseeker::s_registered = false;
 

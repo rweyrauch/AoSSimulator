@@ -23,6 +23,7 @@ struct TurnRecord {
 
     int m_attacksMade = 0;
     int m_attacksHitting = 0;
+    int m_attacksWounding = 0;
 
     int m_savesMade = 0;
     int m_savesFailed = 0;

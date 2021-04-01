@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        VanariLordRegent(GreatNation nation, CommandTrait trait, Artefact artefact, bool isGeneral);
+        VanariLordRegent(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
     private:
 

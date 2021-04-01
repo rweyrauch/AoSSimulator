@@ -130,7 +130,7 @@ namespace LuminethRealmLords {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        LuminethBase();
+        LuminethBase() = delete;
 
         ~LuminethBase() override;
 
@@ -142,8 +142,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
         int braveryModifier() const override;
 

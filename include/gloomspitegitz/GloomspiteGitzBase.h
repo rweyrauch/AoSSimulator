@@ -94,7 +94,7 @@ namespace GloomspiteGitz {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        GloomspiteGitzBase() = default;
+        GloomspiteGitzBase() = delete;
 
         ~GloomspiteGitzBase() override = default;
 

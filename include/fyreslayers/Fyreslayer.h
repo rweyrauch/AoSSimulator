@@ -128,7 +128,7 @@ namespace Fyreslayers {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        Fyreslayer() = default;
+        Fyreslayer() = delete;
 
         ~Fyreslayer() override = default;
 

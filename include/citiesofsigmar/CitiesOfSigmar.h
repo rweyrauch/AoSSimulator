@@ -186,7 +186,7 @@ namespace CitiesOfSigmar {
 
     class CitizenOfSigmar : public Unit {
     public:
-        CitizenOfSigmar() = default;
+        CitizenOfSigmar() = delete;
 
         ~CitizenOfSigmar() override = default;
 

@@ -72,7 +72,8 @@ namespace LuminethRealmLords {
         return 0;
     }
 
-    LuminethBase::LuminethBase() {
+    LuminethBase::LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+            Unit(name, move, wounds, bravery, save, fly) {
         s_globalBraveryMod.connect(this, &LuminethBase::majestic, &m_majesticConnection);
     }
 
@@ -173,6 +174,7 @@ namespace LuminethRealmLords {
     }
 
     void Init() {
+/*
         AlarithSpiritOfTheMountain::Init();
         AlarithStoneguard::Init();
         AlarithStonemage::Init();
@@ -196,6 +198,7 @@ namespace LuminethRealmLords {
         VanariBannerblade::Init();
         VanariBladelords::Init();
         VanariLordRegent::Init();
+*/
         VanariStarshardBallistas::Init();
     }
 

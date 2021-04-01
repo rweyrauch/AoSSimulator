@@ -13,7 +13,7 @@
 namespace Nurgle {
     static const int g_basesize = 40;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 90;
+    static const int g_pointsPerUnit = 140;
 
     bool SpoilpoxScrivenerHeraldOfNurgle::s_registered = false;
 
@@ -58,21 +58,14 @@ namespace Nurgle {
 
     SpoilpoxScrivenerHeraldOfNurgle::SpoilpoxScrivenerHeraldOfNurgle() :
             NurgleBase("Spoilpox Scrivener, Herald of Nurgle", 4, g_wounds, 10, 4, false),
-            m_sneeze(Weapon::Type::Missile, "Disgusting Sneeze", 6, RAND_D6, 3, 4, 0, 1),
-            m_maw(Weapon::Type::Melee, "Distended Maw", 2, 2, 3, 4, -1, 2) {
+            m_sneeze(Weapon::Type::Missile, "Disgusting Sneeze", 6, RAND_D6, 2, 4, 0, 1),
+            m_maw(Weapon::Type::Melee, "Distended Maw", 2, 2, 3, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SPOILPOX_SCRIVENER, HERALD_OF_NURGLE};
         m_weapons = {&m_sneeze, &m_maw};
         m_battleFieldRole = Role::Leader;
-
-        s_globalChargeReroll.connect(this, &SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls,
-                                     &m_keepCountingChargeSlot);
-        s_globalToHitReroll.connect(this, &SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls,
-                                    &m_keepCountingToHitSlot);
     }
 
     SpoilpoxScrivenerHeraldOfNurgle::~SpoilpoxScrivenerHeraldOfNurgle() {
-        m_keepCountingChargeSlot.disconnect();
-        m_keepCountingToHitSlot.disconnect();
     }
 
     void SpoilpoxScrivenerHeraldOfNurgle::configure() {
@@ -87,22 +80,6 @@ namespace Nurgle {
     Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
         return ignoreWounds(wounds, 5);
-    }
-
-    Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingChargeRerolls(const Unit *unit) {
-        if ((unit->hasKeyword(PLAGUEBEARER) || unit->hasKeyword(PLAGUEBEARERS)) && (distanceTo(unit) <= 7.0))
-            return Rerolls::Ones;
-
-        return Rerolls::None;
-    }
-
-    Rerolls SpoilpoxScrivenerHeraldOfNurgle::keepCountingToHitRerolls(const Unit *attacker, const Weapon * /*weapon*/,
-                                                                      const Unit * /*target*/) {
-        if ((attacker->hasKeyword(PLAGUEBEARER) || attacker->hasKeyword(PLAGUEBEARERS)) &&
-            (distanceTo(attacker) <= 7.0))
-            return Rerolls::Ones;
-
-        return Rerolls::None;
     }
 
     int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(int /*numModels*/) {

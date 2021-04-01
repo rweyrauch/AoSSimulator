@@ -117,7 +117,7 @@ namespace Seraphon {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        SeraphonBase() = default;
+        SeraphonBase() = delete;
 
         ~SeraphonBase() override = default;
 

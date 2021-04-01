@@ -114,7 +114,7 @@ namespace DaughtersOfKhaine {
 
     class DaughterOfKhaine : public Unit {
     public:
-        DaughterOfKhaine() = default;
+        DaughterOfKhaine() = delete;
 
         ~DaughterOfKhaine() override = default;
 

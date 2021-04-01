@@ -21,11 +21,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        EllaniaAndEllathor(Lore lore, bool isGeneral);
-
         ~EllaniaAndEllathor() override = default;
 
     protected:
+
+        EllaniaAndEllathor(Lore lore, bool isGeneral);
 
     private:
 

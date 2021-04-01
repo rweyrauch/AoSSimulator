@@ -33,9 +33,6 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, JUDICATORS};
         m_weapons = {&m_skyboltBow, &m_skyboltPrime, &m_boltstormCrossbow, &m_shockboltBow, &m_shockboltPrime,
                      &m_thunderboldCrossbow, &m_stormGladius};
-
-        // Chained Lightning
-        m_shockboltBow.setHitsPerAttack(RAND_D6);
     }
 
     bool Judicators::configure(int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows) {

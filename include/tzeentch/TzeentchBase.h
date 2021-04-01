@@ -130,7 +130,7 @@ namespace Tzeentch {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        TzeentchBase() = default;
+        TzeentchBase() = delete;
 
         ~TzeentchBase() override = default;
 

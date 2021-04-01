@@ -128,7 +128,7 @@ namespace Slaanesh {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        SlaaneshBase() = default;
+        SlaaneshBase() = delete;
 
         ~SlaaneshBase() override = default;
 

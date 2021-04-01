@@ -12,18 +12,19 @@
 
 namespace LuminethRealmLords {
 
-    static const int g_basesize = 40;
+    static const int g_basesize = 90; // x52 oval
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 150;
 
     bool VanariLordRegent::s_registered = false;
 
     Unit *VanariLordRegent::Create(const ParameterList &parameters) {
         auto general = GetBoolParam("General", parameters, false);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsVanari[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsVanari[0]);
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        return new VanariLordRegent(nation, trait, artefact, general);
+        return new VanariLordRegent(nation, lore, trait, artefact, general);
     }
 
     int VanariLordRegent::ComputePoints(int numModels) {
@@ -39,6 +40,7 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             BoolParameter("General"),
+                            EnumParameter("Lore", g_loreOfWinds[0], g_loreOfWinds),
                             EnumParameter("Command Trait", g_commandTraitsVanari[0], g_commandTraitsVanari),
                             EnumParameter("Artefact", g_artefactsVanari[0], g_artefactsVanari),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
@@ -51,7 +53,7 @@ namespace LuminethRealmLords {
         }
     }
 
-    VanariLordRegent::VanariLordRegent(GreatNation nation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    VanariLordRegent::VanariLordRegent(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
         LuminethBase("Vanari Lord Regent", 14, g_wounds, 8, 3, false) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, WIZARD, LORD_REGENT, Sunmetal_Weapons};
         m_weapons = {&m_sword, &m_hornsAndClaws};

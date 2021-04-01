@@ -32,6 +32,8 @@ namespace StormcastEternals {
 
         void onStartShooting(PlayerId player) override;
 
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
     private:
 
         Weapon m_stormboltsSingle,

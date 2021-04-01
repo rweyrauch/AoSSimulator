@@ -11,9 +11,9 @@
 
 namespace LuminethRealmLords {
 
-    static const int g_basesize = 40;
+    static const int g_basesize = 60;
     static const int g_wounds = 10;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 300;
 
     bool Sevireth::s_registered = false;
 

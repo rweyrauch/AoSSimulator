@@ -973,6 +973,30 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
     const int totalHitModifiers = toHitModifier(weapon, target) + target->targetHitModifier(weapon, this);
     const int totalWoundModifiers = toWoundModifier(weapon, target) + target->targetWoundModifier(weapon, this);
 
+    /*
+    auto hits = weapon->rollToHit(totalHitModifiers, rerolls, extraAttacks(fromModel, weapon, target));
+    m_currentRecord.m_attacksMade += hits.totalAttacks;
+    m_currentRecord.m_attacksHitting += hits.numHits;
+
+    auto woundingHits = weapon->rollToWound(hits.numHits, totalWoundModifiers, woundRerolls);
+    m_currentRecord.m_attacksWounding += woundingHits.numWoundingHit;
+    for (auto h = 0; h < woundingHits.numWoundingHit; h++) {
+        // roll save
+        int saveRoll = 0;
+        auto rend = weaponRend(weapon, target, hitRoll, woundRoll);
+        if (weapon->isMissile()) {
+            for (auto ri : m_attributeModifiers[Attribute::Weapon_Rend_Missile]) {
+                rend += ri.modifier;
+            }
+        } else {
+            for (auto ri : m_attributeModifiers[Attribute::Weapon_Rend_Melee]) {
+                rend += ri.modifier;
+            }
+        }
+
+    }
+    */
+
     const int totalAttacks = weapon->numAttacks(extraAttacks(fromModel, weapon, target));
     for (auto a = 0; a < totalAttacks; a++) {
         m_currentRecord.m_attacksMade++;
@@ -1064,6 +1088,7 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                              modifiedHitRoll);
         }
     }
+
 }
 
 int Unit::rerolling(int initialRoll, Rerolls reroll) const {

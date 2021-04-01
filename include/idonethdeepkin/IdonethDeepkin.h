@@ -112,7 +112,7 @@ namespace IdonethDeepkin {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        IdonethDeepkinBase() = default;
+        IdonethDeepkinBase() = delete;
 
         ~IdonethDeepkinBase() override = default;
 

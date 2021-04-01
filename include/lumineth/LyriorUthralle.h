@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        LyriorUthralle(bool isGeneral);
+        LyriorUthralle(Lore lore, bool isGeneral);
 
     private:
 

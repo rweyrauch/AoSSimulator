@@ -142,7 +142,7 @@ namespace Khorne {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        KhorneBase() = default;
+        KhorneBase() = delete;
 
         ~KhorneBase() override = default;
 

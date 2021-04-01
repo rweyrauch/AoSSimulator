@@ -78,7 +78,7 @@ namespace Bonesplitterz {
 
     class Bonesplitterz : public Unit {
     public:
-        Bonesplitterz() = default;
+        Bonesplitterz() = delete;
 
         ~Bonesplitterz() override = default;
 

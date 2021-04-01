@@ -13,9 +13,9 @@
 
 namespace LuminethRealmLords {
 
-    static const int g_basesize = 40;
+    static const int g_basesize = 60; // x35 oval
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 140;
+    static const int g_pointsPerUnit = 120;
 
     bool HurakanWindmage::s_registered = false;
 
@@ -41,9 +41,9 @@ namespace LuminethRealmLords {
                     ComputePoints,
                     {
                             BoolParameter("General"),
-                            EnumParameter("Lore", g_loreOfHysh[0], g_loreOfHysh),
-                            EnumParameter("Command Trait", g_commandTraitsScinari[0], g_commandTraitsScinari),
-                            EnumParameter("Artefact", g_artefactsScinari[0], g_artefactsScinari),
+                            EnumParameter("Lore", g_loreOfWinds[0], g_loreOfWinds),
+                            EnumParameter("Command Trait", g_commandTraitsHurakan[0], g_commandTraitsHurakan),
+                            EnumParameter("Artefact", g_artefactsHurakan[0], g_artefactsHurakan),
                             EnumParameter("Nation", g_greatNations[0], g_greatNations),
                     },
                     ORDER,

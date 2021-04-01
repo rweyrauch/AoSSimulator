@@ -8,18 +8,20 @@
 
 #include <lumineth/LyriorUthralle.h>
 #include <UnitFactory.h>
+#include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
 
-    static const int g_basesize = 40;
+    static const int g_basesize = 90; // x52 oval
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 210;
 
     bool LyriorUthralle::s_registered = false;
 
     Unit *LyriorUthralle::Create(const ParameterList &parameters) {
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new LyriorUthralle(general);
+        return new LyriorUthralle(lore, general);
     }
 
     int LyriorUthralle::ComputePoints(int numModels) {
@@ -34,6 +36,7 @@ namespace LuminethRealmLords {
                     LuminethBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Lore", g_loreOfWinds[0], g_loreOfWinds),
                             BoolParameter("General"),
                     },
                     ORDER,
@@ -43,7 +46,7 @@ namespace LuminethRealmLords {
         }
     }
 
-    LyriorUthralle::LyriorUthralle(bool isGeneral) :
+    LyriorUthralle::LyriorUthralle(Lore lore, bool isGeneral) :
             LuminethBase("Lyrior Uthralle", 16, g_wounds, 9, 3, false) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, WIZARD, LORD_REGENT, Sunmetal_Weapons};
         m_weapons = {&m_daemonbane, &m_daemonbaneMelee, &m_sword, &m_hornsAndClaws};

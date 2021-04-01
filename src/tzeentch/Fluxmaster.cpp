@@ -92,7 +92,7 @@ namespace Tzeentch {
     }
 
     FluxmasterHeraldOfTzeentchOnDisc::FluxmasterHeraldOfTzeentchOnDisc() :
-            TzeentchBase(),
+            TzeentchBase("Fluxmaster Herald of Tzeentch on Disc", 16, g_wounds, 10, 5, true),
             m_flames(Weapon::Type::Missile, "Magical Flames", 18, 3, 4, 4, -1, 1),
             m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),

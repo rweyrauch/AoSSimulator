@@ -123,7 +123,7 @@ namespace FleshEaterCourt {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        FleshEaterCourts() = default;
+        FleshEaterCourts() = delete;
 
         ~FleshEaterCourts() override = default;
 

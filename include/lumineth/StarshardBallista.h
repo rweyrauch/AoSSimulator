@@ -25,9 +25,26 @@ namespace LuminethRealmLords {
 
     protected:
 
-        VanariStarshardBallistas(GreatNation nation);
+        explicit VanariStarshardBallistas(GreatNation nation);
+
+        void onRestore() override {
+            LuminethBase::onRestore();
+            m_activatedBlindingBolts = false;
+            m_usedBlindingBolts = false;
+        }
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        void onStartShooting(PlayerId player) override;
+
+        void onEndShooting(PlayerId player) override;
 
     private:
+
+        bool m_activatedBlindingBolts = false;
+        bool m_usedBlindingBolts = false;
 
         Weapon m_bolts{Weapon::Type::Missile, "Starshard Bolts", 30, 2, 3, 3, -2, RAND_D3},
             m_swords{Weapon::Type::Melee, "Arming Swords", 1, 2, 3, 4, 0, 1};
@@ -38,9 +55,9 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blinding Bolts                   TODO
-// Messenger Hawk                   TODO
-// Warding Lanterns                 TODO
+// Blinding Bolts                   Yes
+// Messenger Hawk                   Yes
+// Warding Lanterns                 Yes
 //
 
 } // namespace LuminethRealmLords

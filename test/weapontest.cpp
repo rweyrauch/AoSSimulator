@@ -21,24 +21,18 @@ TEST(Weapon, Attacks)
 
     shockBoltBow.setHitsPerAttack(RAND_D6);
 
-    std::vector<Weapon> weapons;
-    weapons.push_back(starblade);
-    weapons.push_back(halberd);
-    weapons.push_back(stave);
-    weapons.push_back(bowStave);
-    weapons.push_back(shockBoltBow);
-    weapons.push_back(stormshoal);
+    std::vector<Weapon> weapons{starblade, halberd, stave, bowStave, shockBoltBow, stormshoal};
 
     for (auto i = 0; i < 1000; i++)
     {
-        for (auto w : weapons)
+        for (const auto& w : weapons)
         {
             auto hits = w.rollToHit(0, Rerolls::None, 0);
-            auto totalWounds = w.rollToWound(hits.m_numHits, 0, Rerolls::None);
-            auto totalDamage = totalWounds.m_numWoundingHit * w.damage();
-            if (hits.m_numHits > 0)
+            auto totalWounds = w.rollToWound(hits.numHits, 0, Rerolls::None);
+            auto totalDamage = totalWounds.numWoundingHit * w.damage();
+            if (hits.numHits > 0)
             {
-                if (totalWounds.m_numWoundingHit > 0)
+                if (totalWounds.numWoundingHit > 0)
                 {
                     ASSERT_GT(totalDamage, 0);
                 }
@@ -49,7 +43,7 @@ TEST(Weapon, Attacks)
             }
             else
             {
-                ASSERT_EQ(totalWounds.m_numWoundingHit, 0);
+                ASSERT_EQ(totalWounds.numWoundingHit, 0);
                 ASSERT_EQ(totalDamage, 0);
             }
         }
@@ -57,7 +51,7 @@ TEST(Weapon, Attacks)
 
     // computed strength
     std::cout << "Weapon Strengths: " << std::endl;
-    for (auto w : weapons)
+    for (const auto& w : weapons)
     {
         std::cout << w.name() << " : " << w.strength() << std::endl;
     }

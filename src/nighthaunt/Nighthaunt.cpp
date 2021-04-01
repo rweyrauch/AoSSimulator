@@ -36,7 +36,8 @@
 
 namespace Nighthaunt {
 
-    Nighthaunt::Nighthaunt() {
+    Nighthaunt::Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+            Unit(name, move, wounds, bravery, save, fly) {
         s_globalBraveryMod.connect(this, &Nighthaunt::auraOfDread, &m_auraOfDreadSlot);
     }
 

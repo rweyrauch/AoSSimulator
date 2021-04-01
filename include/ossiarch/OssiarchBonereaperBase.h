@@ -99,7 +99,7 @@ namespace OssiarchBonereapers {
     class OssiarchBonereaperBase : public Unit {
     public:
 
-        OssiarchBonereaperBase() = default;
+        OssiarchBonereaperBase() = delete;
 
         ~OssiarchBonereaperBase() override = default;
 
