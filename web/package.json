@@ -19,7 +19,7 @@
   "homepage": "https://github.com/rweyrauch/AoSSimWeb#readme",
   "devDependencies": {
     "lite-server": "^2.6.1",
-    "socket.io": ">=2.4.0"
+    "socket.io": "^4.0.1"
   },
   "dependencies": {
     "@types/jquery": "^3.5.5",
