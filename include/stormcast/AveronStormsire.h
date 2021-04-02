@@ -26,13 +26,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        AveronStormsire();
+        AveronStormsire(Lore lore, bool isGeneral);
 
         ~AveronStormsire() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartCombat(PlayerId player) override;
 

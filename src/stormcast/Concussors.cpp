@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Concussors::s_registered = false;
 
-    Concussors::Concussors() :
-            StormcastEternal("Concussors", 10, g_wounds, 7, 3, false),
+    Concussors::Concussors(Stormhost stormhost, int numModels) :
+            StormcastEternal(stormhost, "Concussors", 10, g_wounds, 7, 3, false),
             m_stormBlast(Weapon::Type::Missile, "Storm Blast", 12, 1, 4, 0, 0, 0),
             m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1) {
@@ -29,12 +29,6 @@ namespace StormcastEternals {
         m_weapons = {&m_stormBlast, &m_lightningHammer, &m_clawsAndFangs};
         m_hasMount = true;
         m_clawsAndFangs.setMount(true);
-    }
-
-    bool Concussors::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (int i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -45,23 +39,12 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Concussors::Create(const ParameterList &parameters) {
-        auto unit = new Concussors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Concussors(stormhost, numModels);
     }
 
     void Concussors::Init() {

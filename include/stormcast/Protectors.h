@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Protectors();
+        Protectors(Stormhost stormhost, int numModels, int numStarsoulMaces);
 
         ~Protectors() override = default;
-
-        bool configure(int numModels, int numStarsoulMaces);
 
     protected:
 

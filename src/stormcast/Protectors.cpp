@@ -20,26 +20,13 @@ namespace StormcastEternals {
 
     bool Protectors::s_registered = false;
 
-    Protectors::Protectors() :
-            StormcastEternal("Protectors", 4, g_wounds, 7, 4, false),
+    Protectors::Protectors(Stormhost stormhost, int numModels, int numStarsoulMaces) :
+            StormcastEternal(stormhost, "Protectors", 4, g_wounds, 7, 4, false),
             m_glaive(Weapon::Type::Melee, "Stormstrike Glaive", 3, 3, 3, 3, -1, 1),
             m_glaivePrime(Weapon::Type::Melee, "Stormstrike Glaive", 3, 4, 3, 3, -1, 1),
             m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, PROTECTORS};
         m_weapons = {&m_glaive, &m_glaivePrime, &m_starsoulMace};
-    }
-
-    bool Protectors::configure(int numModels, int numStarsoulMaces) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxStarsoulMaces = (numModels / 5) * 2;
-        if (numStarsoulMaces > maxStarsoulMaces) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -60,8 +47,6 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Wounds Protectors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -84,19 +69,21 @@ namespace StormcastEternals {
     }
 
     Unit *Protectors::Create(const ParameterList &parameters) {
-        auto unit = new Protectors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
 
-        bool ok = unit->configure(numModels, numStarsoulMaces);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return unit;
+        const int maxStarsoulMaces = (numModels / 5) * 2;
+        if (numStarsoulMaces > maxStarsoulMaces) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+        return new Protectors(stormhost, numModels, numStarsoulMaces);
     }
 
     void Protectors::Init() {

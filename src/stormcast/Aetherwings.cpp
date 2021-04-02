@@ -20,22 +20,14 @@ namespace StormcastEternals {
 
     bool Aetherwings::s_registered = false;
 
-    Aetherwings::Aetherwings() :
-            StormcastEternal("Aetherwings", 12, g_wounds, 6, NoSave, true),
+    Aetherwings::Aetherwings(Stormhost stormhost, int numModels) :
+            StormcastEternal(stormhost,"Aetherwings", 12, g_wounds, 6, NoSave, true),
             m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, AETHERWINGS};
         m_weapons = {&m_beakAndClaws};
 
         // Swooping Hunters
         m_retreatAndCharge = true;
-    }
-
-    bool Aetherwings::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -44,23 +36,12 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Aetherwings::Create(const ParameterList &parameters) {
-        auto unit = new Aetherwings();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, ToInteger(Stormhost::None));
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Aetherwings(stormhost, numModels);
     }
 
     void Aetherwings::Init() {

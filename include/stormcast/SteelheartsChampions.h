@@ -28,8 +28,6 @@ namespace StormcastEternals {
 
     protected:
 
-        void configure();
-
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;

@@ -19,21 +19,19 @@ namespace StormcastEternals {
 
     bool KnightAzyros::s_registered = false;
 
-    KnightAzyros::KnightAzyros() :
-            StormcastEternal("Knight-Azyros", 12, g_wounds, 9, 3, true),
+    KnightAzyros::KnightAzyros(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Knight-Azyros", 12, g_wounds, 9, 3, true),
             m_starblade(Weapon::Type::Melee, "Starblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_AZYROS};
         m_weapons = {&m_starblade};
         m_battleFieldRole = Role::Leader;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalToHitReroll.connect(this, &KnightAzyros::illuminatorOfTheLostReroll, &m_illuminatorSlot);
-    }
 
-    KnightAzyros::~KnightAzyros() {
-        m_illuminatorSlot.disconnect();
-    }
-
-    void KnightAzyros::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_starblade);
         addModel(model);
@@ -41,18 +39,17 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
-    Unit *KnightAzyros::Create(const ParameterList &parameters) {
-        auto unit = new KnightAzyros();
-
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+    KnightAzyros::~KnightAzyros() {
+        m_illuminatorSlot.disconnect();
     }
+
+    Unit *KnightAzyros::Create(const ParameterList &parameters) {
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new KnightAzyros(stormhost, trait, artefact, general);
+     }
 
     void KnightAzyros::Init() {
         if (!s_registered) {

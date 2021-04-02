@@ -69,7 +69,7 @@ namespace Sylvaneth {
             };
 
 
-    Alarielle::Alarielle() :
+    Alarielle::Alarielle(Glade glade, Lore lore, bool isGeneral) :
             SylvanethBase("Alarielle", 16, g_wounds, 10, 3, true),
             m_spearOfKurnoth(Weapon::Type::Missile, "Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6),
             m_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1),
@@ -81,12 +81,10 @@ namespace Sylvaneth {
         m_beetleGreatAntlers.setMount(true);
         m_totalUnbinds = 3;
         m_totalSpells = 3;
-    }
 
-    Alarielle::~Alarielle() {
-    }
+        setGlade(glade);
+        setGeneral(isGeneral);
 
-    void Alarielle::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spearOfKurnoth);
         model->addMeleeWeapon(&m_talonOfDwindling);
@@ -148,18 +146,11 @@ namespace Sylvaneth {
     }
 
     Unit *Alarielle::Create(const ParameterList &parameters) {
-        auto unit = new Alarielle();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
 
-        unit->configure(lore);
-        return unit;
+        return new Alarielle(glade, lore, general);
     }
 
     void Alarielle::Init() {

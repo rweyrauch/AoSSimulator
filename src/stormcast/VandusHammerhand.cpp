@@ -19,8 +19,8 @@ namespace StormcastEternals {
 
     bool VandusHammerhand::s_registered = false;
 
-    VandusHammerhand::VandusHammerhand() :
-            MountedStormcastEternal("Vandus Hammerhand", 10, g_wounds, 9, 3, false),
+    VandusHammerhand::VandusHammerhand(MountTrait trait, bool isGeneral) :
+            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Vandus Hammerhand", 10, g_wounds, 9, 3, false),
             m_heldensen(Weapon::Type::Melee, "Heldensen", 2, 3, 3, 2, -1, 3),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT,
@@ -30,14 +30,9 @@ namespace StormcastEternals {
         m_hasMount = true;
         m_clawsAndFangs.setMount(true);
 
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &VandusHammerhand::lordOfTheHammerhandsBraveryMod, &m_lordSlot);
-    }
-
-    VandusHammerhand::~VandusHammerhand() {
-        m_lordSlot.disconnect();
-    }
-
-    void VandusHammerhand::configure(MountTrait trait) {
 
         m_mountTrait = trait;
 
@@ -55,17 +50,14 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
+    VandusHammerhand::~VandusHammerhand() {
+        m_lordSlot.disconnect();
+    }
+
     Unit *VandusHammerhand::Create(const ParameterList &parameters) {
-        auto unit = new VandusHammerhand();
         auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(trait);
-        return unit;
+        return new VandusHammerhand(trait, general);
     }
 
     void VandusHammerhand::Init() {

@@ -14,7 +14,7 @@ namespace Fyreslayers {
     class Magmadroth : public Fyreslayer {
     public:
 
-        Magmadroth() = default;
+        Magmadroth() = delete;
 
         ~Magmadroth() override = default;
 

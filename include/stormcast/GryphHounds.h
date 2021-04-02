@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        GryphHounds();
+        GryphHounds(Stormhost stormhost, int numModels);
 
         ~GryphHounds() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

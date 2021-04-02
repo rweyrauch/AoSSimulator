@@ -26,13 +26,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        LordRelictor();
+        LordRelictor(Stormhost stormhost, PrayersOfTheStormhost prayer, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordRelictor() override = default;
 
     protected:
-
-        void configure(PrayersOfTheStormhost prayer);
 
     private:
 

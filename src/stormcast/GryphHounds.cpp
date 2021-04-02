@@ -21,18 +21,12 @@ namespace StormcastEternals {
 
     bool GryphHounds::s_registered = false;
 
-    GryphHounds::GryphHounds() :
-            StormcastEternal("Gryph-hounds", 9, g_wounds, 6, NoSave, false),
+    GryphHounds::GryphHounds(Stormhost stormhost, int numModels) :
+            StormcastEternal(stormhost, "Gryph-hounds", 9, g_wounds, 6, NoSave, false),
             m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 3, 4, 0, 1),
             m_beakAndClawsAlpha(Weapon::Type::Melee, "Beak and Claws", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, GRYPH_HOUNDS};
         m_weapons = {&m_beakAndClaws, &m_beakAndClawsAlpha};
-    }
-
-    bool GryphHounds::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_beakAndClawsAlpha);
@@ -45,23 +39,12 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *GryphHounds::Create(const ParameterList &parameters) {
-        auto unit = new GryphHounds();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new GryphHounds(stormhost, numModels);
     }
 
     void GryphHounds::Init() {

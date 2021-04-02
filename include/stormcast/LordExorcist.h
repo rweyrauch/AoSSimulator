@@ -26,13 +26,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        LordExorcist();
+        LordExorcist(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordExorcist() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartShooting(PlayerId player) override;
 

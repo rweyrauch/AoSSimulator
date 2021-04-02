@@ -32,13 +32,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        LordCelestantOnDracoth();
+        LordCelestantOnDracoth(Stormhost stormhost, WeaponOption weapons, bool sigmariteThundershield, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral);
 
         ~LordCelestantOnDracoth() override = default;
 
     protected:
-
-        void configure(WeaponOption weapons, bool sigmariteThundershield, MountTrait trait);
 
         WeaponOption m_weapon = Tempestos_Hammer;
         bool m_sigmariteThundershield = false;

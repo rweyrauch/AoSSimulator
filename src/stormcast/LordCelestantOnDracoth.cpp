@@ -19,8 +19,8 @@ namespace StormcastEternals {
 
     bool LordCelestantOnDracoth::s_registered = false;
 
-    LordCelestantOnDracoth::LordCelestantOnDracoth() :
-            MountedStormcastEternal("Lord-Celestant on Dracoth", 10, g_wounds, 9, 3, false),
+    LordCelestantOnDracoth::LordCelestantOnDracoth(Stormhost stormhost, WeaponOption weapons, bool sigmariteThundershield, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
+            MountedStormcastEternal(stormhost, "Lord-Celestant on Dracoth", 10, g_wounds, 9, 3, false),
             m_stormstrikeGlaive(Weapon::Type::Melee, "Stormstrike Glaive", 2, 4, 3, 4, -1, 1),
             m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
             m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 3, 3, 3, -1, 2),
@@ -31,12 +31,14 @@ namespace StormcastEternals {
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_clawsAndFangs.setMount(true);
-    }
 
-    void LordCelestantOnDracoth::configure(WeaponOption weapons, bool sigmariteThundershield, MountTrait trait) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_weapon = weapons;
         m_sigmariteThundershield = sigmariteThundershield;
-        m_mountTrait = trait;
+        m_mountTrait = mountTrait;
 
         auto model = new Model(g_basesize, wounds());
         if (m_weapon == Stormstrike_Glaive) {
@@ -61,19 +63,14 @@ namespace StormcastEternals {
     }
 
     Unit *LordCelestantOnDracoth::Create(const ParameterList &parameters) {
-        auto unit = new LordCelestantOnDracoth();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Lightning_Hammer);
         bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(weapons, sigmariteThundershield, trait);
-        return unit;
+        return  new LordCelestantOnDracoth(stormhost, weapons, sigmariteThundershield, trait, artefact, mountTrait, general);
     }
 
     void LordCelestantOnDracoth::Init() {

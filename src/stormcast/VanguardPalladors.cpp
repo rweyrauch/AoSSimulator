@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool VanguardPalladors::s_registered = false;
 
-    VanguardPalladors::VanguardPalladors() :
-            StormcastEternal("Vanguard-Palladors", 12, g_wounds, 7, 4, false),
+    VanguardPalladors::VanguardPalladors(Stormhost stormhost, int numModels, WeaponOption weapons) :
+            StormcastEternal(stormhost, "Vanguard-Palladors", 12, g_wounds, 7, 4, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_starstrikeJavelinMissile(Weapon::Type::Missile, "Starstrike Javelin", 18, 1, 3, 3, -1, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 3, 3, 0, 1),
@@ -33,14 +33,6 @@ namespace StormcastEternals {
                      &m_beakAndClaws};
         m_hasMount = true;
         m_beakAndClaws.setMount(true);
-    }
-
-    bool VanguardPalladors::configure(int numModels, WeaponOption weapons) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -70,24 +62,13 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *VanguardPalladors::Create(const ParameterList &parameters) {
-        auto *unit = new VanguardPalladors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Starstrike_Javelin);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new VanguardPalladors(stormhost, numModels, weapons);
     }
 
     void VanguardPalladors::Init() {

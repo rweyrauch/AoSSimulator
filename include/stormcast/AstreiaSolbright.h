@@ -22,13 +22,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        AstreiaSolbright();
+        AstreiaSolbright(Lore lore, MountTrait trait, bool isGeneral);
 
         ~AstreiaSolbright() override;
 
     protected:
-
-        void configure(Lore lore, MountTrait trait);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

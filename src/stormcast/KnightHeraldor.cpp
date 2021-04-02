@@ -19,15 +19,17 @@ namespace StormcastEternals {
 
     bool KnightHeraldor::s_registered = false;
 
-    KnightHeraldor::KnightHeraldor() :
-            StormcastEternal("Knight-Heraldor", 5, g_wounds, 8, 3, false),
+    KnightHeraldor::KnightHeraldor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Knight-Heraldor", 5, g_wounds, 8, 3, false),
             m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
         m_weapons = {&m_broadsword};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void KnightHeraldor::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_broadsword);
         addModel(model);
@@ -36,16 +38,11 @@ namespace StormcastEternals {
     }
 
     Unit *KnightHeraldor::Create(const ParameterList &parameters) {
-        auto unit = new KnightHeraldor();
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new KnightHeraldor(stormhost, trait, artefact, general);
     }
 
     void KnightHeraldor::Init() {

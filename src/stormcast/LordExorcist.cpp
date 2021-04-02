@@ -21,18 +21,19 @@ namespace StormcastEternals {
 
     bool LordExorcist::s_registered = false;
 
-    LordExorcist::LordExorcist() :
-            StormcastEternal("Lord-Exorcist", 5, g_wounds, 9, 3, false),
+    LordExorcist::LordExorcist(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Lord-Exorcist", 5, g_wounds, 9, 3, false),
             m_stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_EXORCIST};
         m_weapons = {&m_stave};
         m_battleFieldRole = Role::Leader;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
-
-    void LordExorcist::configure(Lore lore) {
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stave);
@@ -47,17 +48,12 @@ namespace StormcastEternals {
     }
 
     Unit *LordExorcist::Create(const ParameterList &parameters) {
-        auto unit = new LordExorcist();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
+        return new LordExorcist(stormhost, lore, trait, artefact, general);
     }
 
     void LordExorcist::Init() {

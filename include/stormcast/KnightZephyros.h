@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        KnightZephyros();
+        KnightZephyros(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KnightZephyros() override = default;
 
     protected:
-
-        void configure();
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

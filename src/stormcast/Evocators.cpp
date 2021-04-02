@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool Evocators::s_registered = false;
 
-    Evocators::Evocators() :
-            StormcastEternal("Evocators", 5, g_wounds, 8, 4, false),
+    Evocators::Evocators(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore) :
+            StormcastEternal(stormhost, "Evocators", 5, g_wounds, 8, 4, false),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
             m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1),
             m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
@@ -32,21 +32,6 @@ namespace StormcastEternals {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
-
-    bool
-    Evocators::configure(int numModels, int numGrandstaves, bool primeGrandstave, Lore lore) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-
-        const int maxGrandstaves = numModels;
-        if (numGrandstaves > maxGrandstaves) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -75,8 +60,6 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Rerolls Evocators::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
@@ -105,21 +88,25 @@ namespace StormcastEternals {
     }
 
     Unit *Evocators::Create(const ParameterList &parameters) {
-        auto *evos = new Evocators();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool primeGrandstave = GetBoolParam("Prime Grandstave", parameters, false);
         int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
         auto lore = (Lore) GetEnumParam("Lore of Invigoration", parameters, g_loreOfInvigoration[0]);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        evos->setStormhost(stormhost);
 
-        bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave, lore);
-        if (!ok) {
-            delete evos;
-            evos = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return evos;
+
+        const int maxGrandstaves = numModels;
+        if (numGrandstaves > maxGrandstaves) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+
+        return new Evocators(stormhost, numModels, numGrandstaves, primeGrandstave, lore);
     }
 
     void Evocators::Init() {

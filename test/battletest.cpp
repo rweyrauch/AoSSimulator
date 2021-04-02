@@ -20,34 +20,18 @@ TEST(Battle, BallistaVsAlarielle)
 {
     Battle battle;
 
-    auto ballista0 = std::make_shared<StormcastEternals::CelestarBallista>();
-    auto ballista1 = std::make_shared<StormcastEternals::CelestarBallista>();
-    auto ballista2 = std::make_shared<StormcastEternals::CelestarBallista>();
-    auto lordOrdinator = std::make_shared<StormcastEternals::LordOrdinator>();
-
-    bool ok = lordOrdinator->configure(StormcastEternals::LordOrdinator::Astral_Hammers);
-    ASSERT_TRUE(ok);
-
-    ok = ballista0->configure();
-    ASSERT_TRUE(ok);
-    ballista0->addKeyword(ASTRAL_TEMPLARS);
-
-    ok = ballista1->configure();
-    ASSERT_TRUE(ok);
-    ballista1->addKeyword(ASTRAL_TEMPLARS);
-
-    ok = ballista2->configure();
-    ASSERT_TRUE(ok);
-    ballista2->addKeyword(ASTRAL_TEMPLARS);
+    auto ballista0 = std::make_shared<StormcastEternals::CelestarBallista>(StormcastEternals::Stormhost::Astral_Templars);
+    auto ballista1 = std::make_shared<StormcastEternals::CelestarBallista>(StormcastEternals::Stormhost::Astral_Templars);
+    auto ballista2 = std::make_shared<StormcastEternals::CelestarBallista>(StormcastEternals::Stormhost::Astral_Templars);
+    auto lordOrdinator = std::make_shared<StormcastEternals::LordOrdinator>(StormcastEternals::Stormhost::Astral_Templars, StormcastEternals::LordOrdinator::Astral_Hammers,
+                                                                            StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
 
     // apply Lord-Ordinator buffs
     //ballista0->buffToHitMissile(1);
     //ballista1->buffToHitMissile(1);
     //ballista2->buffToHitMissile(1);
 
-    auto alarielle = std::make_shared<Sylvaneth::Alarielle>();
-    ok = alarielle->configure(Sylvaneth::Lore::None);
-    ASSERT_TRUE(ok);
+    auto alarielle = std::make_shared<Sylvaneth::Alarielle>(Sylvaneth::Glade::None, Sylvaneth::Lore::Verdurous_Harmony, false);
 
     ballista0->setShootingTarget(alarielle.get());
     ballista1->setShootingTarget(alarielle.get());

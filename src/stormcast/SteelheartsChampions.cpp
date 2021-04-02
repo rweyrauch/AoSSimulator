@@ -16,16 +16,14 @@ namespace StormcastEternals {
     bool SteelheartsChampions::s_registered = false;
 
     SteelheartsChampions::SteelheartsChampions() :
-            StormcastEternal("Steelheart's Champions", 5, g_wounds, 7, 4, false),
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Steelheart's Champions", 5, g_wounds, 7, 4, false),
             m_broadSword(Weapon::Type::Melee, "Serevin's Broadsword", 1, 3, 3, 4, -1, 2),
             m_grandhammer(Weapon::Type::Melee, "Obryn's Grandhammer", 1, 2, 4, 3, -1, 3),
             m_warhammer(Weapon::Type::Melee, "Angharad's Warhammer", 1, 3, 3, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, REDEEMER, LIBERATORS,
                       STEELHEARTS_CHAMPIONS};
         m_weapons = {&m_broadSword, &m_grandhammer, &m_warhammer};
-    }
 
-    void SteelheartsChampions::configure() {
         auto severin = new Model(g_basesize, wounds());
         severin->setName("Severin");
         severin->addMeleeWeapon(&m_broadSword);
@@ -63,11 +61,7 @@ namespace StormcastEternals {
     }
 
     Unit *SteelheartsChampions::Create(const ParameterList &parameters) {
-        auto unit = new SteelheartsChampions();
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
-        unit->configure();
-        return unit;
+        return new SteelheartsChampions();
     }
 
     void SteelheartsChampions::Init() {

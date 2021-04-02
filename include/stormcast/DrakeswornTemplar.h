@@ -31,13 +31,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        DrakeswornTemplar();
+        DrakeswornTemplar(Stormhost stormhost, WeaponOption weapons, bool skyboltBow, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral);
 
         ~DrakeswornTemplar() override;
 
     protected:
-
-        void configure(WeaponOption weapons, bool skyboltBow, MountTrait trait);
 
         void onWounded() override;
 

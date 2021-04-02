@@ -20,26 +20,13 @@ namespace StormcastEternals {
 
     bool Retributors::s_registered = false;
 
-    Retributors::Retributors() :
-            StormcastEternal("Retributors", 4, g_wounds, 7, 4, false),
+    Retributors::Retributors(Stormhost stormhost, int numModels, int numStarsoulMaces) :
+            StormcastEternal(stormhost, "Retributors", 4, g_wounds, 7, 4, false),
             m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2),
             m_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
             m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 0, 0, 0, 0, 0) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, RETRIBUTORS};
         m_weapons = {&m_lightningHammer, &m_lightningHammerPrime, &m_starsoulMace};
-    }
-
-    bool Retributors::configure(int numModels, int numStarsoulMaces) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxStarsoulMaces = (numModels / 5) * 2;
-        if (numStarsoulMaces > maxStarsoulMaces) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -60,8 +47,6 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Wounds Retributors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -74,19 +59,22 @@ namespace StormcastEternals {
     }
 
     Unit *Retributors::Create(const ParameterList &parameters) {
-        auto unit = new Retributors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
 
-        bool ok = unit->configure(numModels, numStarsoulMaces);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return unit;
+        const int maxStarsoulMaces = (numModels / 5) * 2;
+        if (numStarsoulMaces > maxStarsoulMaces) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+
+        return new Retributors(stormhost, numModels, numStarsoulMaces);
     }
 
     void Retributors::Init() {

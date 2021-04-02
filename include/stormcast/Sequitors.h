@@ -30,12 +30,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Sequitors();
+        Sequitors(Stormhost stormhost, int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache);
 
         ~Sequitors() override = default;
-
-        bool
-        configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache);
 
     protected:
 

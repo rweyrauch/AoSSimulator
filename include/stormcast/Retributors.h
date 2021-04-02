@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Retributors();
+        Retributors(Stormhost stormhost, int numModels, int numStarsoulMaces);
 
         ~Retributors() override = default;
-
-        bool configure(int numModels, int numStarsoulMaces);
 
     protected:
 

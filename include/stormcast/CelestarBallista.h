@@ -22,23 +22,23 @@ namespace StormcastEternals {
 
         static void Init();
 
-        CelestarBallista();
+        explicit CelestarBallista(Stormhost stormhost);
 
         ~CelestarBallista() override = default;
 
     protected:
 
-        void configure();
-
         void onStartShooting(PlayerId player) override;
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
+        void onRestore() override;
+
     private:
 
-        Weapon m_stormboltsSingle,
-                m_stormboltsRapid,
-                m_sigmariteBlades;
+        Weapon m_stormboltsSingle{Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1},
+                m_stormboltsRapid{Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1},
+                m_sigmariteBlades{Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1};
 
         static bool s_registered;
     };

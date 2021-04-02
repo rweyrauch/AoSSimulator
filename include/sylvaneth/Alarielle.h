@@ -21,13 +21,11 @@ namespace Sylvaneth {
 
         static void Init();
 
-        Alarielle();
+        Alarielle(Glade glade, Lore lore, bool isGeneral);
 
-        ~Alarielle() override;
+        ~Alarielle() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

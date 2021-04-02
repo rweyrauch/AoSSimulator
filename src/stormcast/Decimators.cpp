@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Decimators::s_registered = false;
 
-    Decimators::Decimators() :
-            StormcastEternal("Decimators", 4, g_wounds, 7, 4, false),
+    Decimators::Decimators(Stormhost stormhost, int numModels, int numStarsoulMaces) :
+            StormcastEternal(stormhost, "Decimators", 4, g_wounds, 7, 4, false),
             m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 0, 3, 3, -1, 1),
             m_thunderaxePrime(Weapon::Type::Melee, "Thunderaxe", 2, 0, 3, 3, -1, 1),
             m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0) {
@@ -29,23 +29,6 @@ namespace StormcastEternals {
         m_weapons = {&m_thunderaxe, &m_thunderaxePrime, &m_starsoulMace};
 
         s_globalBraveryMod.connect(this, &Decimators::grimHarvestors, &m_connection);
-    }
-
-    Decimators::~Decimators() {
-        m_connection.disconnect();
-    }
-
-    bool Decimators::configure(int numModels, int numStarsoulMaces) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxStarsoulMaces = (numModels / 5) * 2;
-        if (numStarsoulMaces > maxStarsoulMaces) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -66,8 +49,10 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    Decimators::~Decimators() {
+        m_connection.disconnect();
     }
 
     Wounds Decimators::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -86,19 +71,21 @@ namespace StormcastEternals {
     }
 
     Unit *Decimators::Create(const ParameterList &parameters) {
-        auto unit = new Decimators();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numStarsoulMaces = GetIntParam("Starsoul Maces", parameters, 0);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
 
-        bool ok = unit->configure(numModels, numStarsoulMaces);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return unit;
+        const int maxStarsoulMaces = (numModels / 5) * 2;
+        if (numStarsoulMaces > maxStarsoulMaces) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+        return new Decimators(stormhost, numModels, numStarsoulMaces);
     }
 
     void Decimators::Init() {

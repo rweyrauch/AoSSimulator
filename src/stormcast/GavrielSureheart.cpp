@@ -17,16 +17,16 @@ namespace StormcastEternals {
 
     bool GavrielSureheart::s_registered = false;
 
-    GavrielSureheart::GavrielSureheart() :
-            StormcastEternal("Gavriel Sureheart", 5, g_wounds, 9, 3, false),
+    GavrielSureheart::GavrielSureheart(bool isGeneral) :
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Gavriel Sureheart", 5, g_wounds, 9, 3, false),
             m_starboundBlade(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, LORD_CELESTANT,
                       GAVRIEL_SUREHEART};
         m_weapons = {&m_starboundBlade};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void GavrielSureheart::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_starboundBlade);
         addModel(model);
@@ -42,15 +42,8 @@ namespace StormcastEternals {
     }
 
     Unit *GavrielSureheart::Create(const ParameterList &parameters) {
-        auto unit = new GavrielSureheart();
-
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new GavrielSureheart(general);
     }
 
     void GavrielSureheart::Init() {

@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool Liberators::s_registered = false;
 
-    Liberators::Liberators() :
-            StormcastEternal("Liberators", 5, g_wounds, 7, 4, false),
+    Liberators::Liberators(Stormhost stormhost, int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades) :
+            StormcastEternal(stormhost, "Liberators", 5, g_wounds, 7, 4, false),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1),
             m_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1),
             m_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1),
@@ -32,21 +32,6 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
         m_weapons = {&m_warhammer, &m_warhammerPrime, &m_warblade, &m_warbladePrime, &m_grandhammer, &m_grandblade};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool
-    Liberators::configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers,
-                          int numGrandblades) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxGrandweapons = numModels / 5;
-        if (numGrandblades + numGrandhammers > maxGrandweapons) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         m_weaponOption = weapons;
         m_pairedWeapons = pairedWeapons;
@@ -82,8 +67,6 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int Liberators::toHitModifier(const Weapon *weapon, const Unit *unit) const {
@@ -117,22 +100,25 @@ namespace StormcastEternals {
     }
 
     Unit *Liberators::Create(const ParameterList &parameters) {
-        auto libs = new Liberators();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Warblade);
         bool pairedWeapons = GetBoolParam("Paired Weapons", parameters, false);
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
         int numGrandblades = GetIntParam("Grandblades", parameters, 0);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        libs->setStormhost(stormhost);
 
-        bool ok = libs->configure(numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
-        if (!ok) {
-            delete libs;
-            libs = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return libs;
+        const int maxGrandweapons = numModels / 5;
+        if (numGrandblades + numGrandhammers > maxGrandweapons) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+
+        return new Liberators(stormhost, numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
     }
 
     void Liberators::Init() {

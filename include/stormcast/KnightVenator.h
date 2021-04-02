@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        KnightVenator();
+        KnightVenator(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KnightVenator() override = default;
 
     protected:
-
-        void configure();
 
         int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

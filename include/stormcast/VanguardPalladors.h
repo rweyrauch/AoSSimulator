@@ -30,11 +30,9 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        VanguardPalladors();
+        VanguardPalladors(Stormhost stormhost, int numModels, WeaponOption weapons);
 
         ~VanguardPalladors() override = default;
-
-        bool configure(int numModels, WeaponOption weapons);
 
     protected:
 

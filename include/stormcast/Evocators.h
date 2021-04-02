@@ -26,11 +26,9 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        Evocators();
+        Evocators(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore);
 
         ~Evocators() override = default;
-
-        bool configure(int numModels, int numGrandstaves, bool primeGrandstave, Lore lore);
 
     protected:
 

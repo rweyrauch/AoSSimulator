@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        KnightAzyros();
+        KnightAzyros(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KnightAzyros() override;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

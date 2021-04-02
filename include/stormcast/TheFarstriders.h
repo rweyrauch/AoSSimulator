@@ -28,8 +28,6 @@ namespace StormcastEternals {
 
     protected:
 
-        void configure();
-
     private:
 
         Weapon m_boltstormPistol,

@@ -18,21 +18,19 @@ namespace StormcastEternals {
 
     bool KnightVexillor::s_registered = false;
 
-    KnightVexillor::KnightVexillor() :
-            StormcastEternal("Knight-Vexillor", 5, g_wounds, 8, 3, false),
+    KnightVexillor::KnightVexillor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Knight-Vexillor", 5, g_wounds, 8, 3, false),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 4, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VEXILLOR};
         m_weapons = {&m_warhammer};
         m_battleFieldRole = Role::Leader;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalChargeReroll.connect(this, &KnightVexillor::iconOfWarChargeReroll, &m_iconOfWarSlot);
-    }
 
-    KnightVexillor::~KnightVexillor() {
-        m_iconOfWarSlot.disconnect();
-    }
-
-    void KnightVexillor::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warhammer);
         addModel(model);
@@ -40,18 +38,17 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
-    Unit *KnightVexillor::Create(const ParameterList &parameters) {
-        auto unit = new KnightVexillor();
-
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+    KnightVexillor::~KnightVexillor() {
+        m_iconOfWarSlot.disconnect();
     }
+
+    Unit *KnightVexillor::Create(const ParameterList &parameters) {
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new KnightVexillor(stormhost, trait, artefact, general);
+     }
 
     void KnightVexillor::Init() {
         if (!s_registered) {

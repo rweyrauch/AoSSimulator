@@ -20,21 +20,13 @@ namespace StormcastEternals {
 
     bool VanguardRaptorsLongstrike::s_registered = false;
 
-    VanguardRaptorsLongstrike::VanguardRaptorsLongstrike() :
-            StormcastEternal("Vanguard Raptors with Longstrike Crossbows", 5, g_wounds, 7, 4, false),
+    VanguardRaptorsLongstrike::VanguardRaptorsLongstrike(Stormhost stormhost, int numModels) :
+            StormcastEternal(stormhost, "Vanguard Raptors with Longstrike Crossbows", 5, g_wounds, 7, 4, false),
             m_longstikeCrossbow(Weapon::Type::Missile, "Longstrike Crossbow", 24, 1, 2, 3, -2, 2),
             m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 3, 0, 1),
             m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, VANGUARD_RAPTORS};
         m_weapons = {&m_longstikeCrossbow, &m_heavyStock, &m_beakAndClaws};
-    }
-
-    bool VanguardRaptorsLongstrike::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -51,8 +43,6 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     void VanguardRaptorsLongstrike::onStartShooting(PlayerId player) {
@@ -68,18 +58,9 @@ namespace StormcastEternals {
     }
 
     Unit *VanguardRaptorsLongstrike::Create(const ParameterList &parameters) {
-        auto unit = new VanguardRaptorsLongstrike();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new VanguardRaptorsLongstrike(stormhost, numModels);
     }
 
     void VanguardRaptorsLongstrike::Init() {

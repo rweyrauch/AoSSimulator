@@ -22,8 +22,8 @@ namespace StormcastEternals {
 
     bool AventisFirestrike::s_registered = false;
 
-    AventisFirestrike::AventisFirestrike() :
-            MountedStormcastEternal("Aventis Firestrike", 14, g_wounds, 9, 3, true),
+    AventisFirestrike::AventisFirestrike(Lore lore, MountTrait trait, bool isGeneral) :
+            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Aventis Firestrike", 14, g_wounds, 9, 3, true),
             m_staffOfHammerhal(Weapon::Type::Melee, "Staff of Hammerhal", 2, 4, 3, 3, -1, RAND_D3),
             m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
@@ -33,11 +33,10 @@ namespace StormcastEternals {
         m_hasMount = true;
         m_hornsAndHooves.setMount(true);
 
+        setGeneral(isGeneral);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
-
-    void AventisFirestrike::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
 
@@ -59,17 +58,10 @@ namespace StormcastEternals {
     }
 
     Unit *AventisFirestrike::Create(const ParameterList &parameters) {
-        auto unit = new AventisFirestrike();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
         auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore, trait);
-        return unit;
+        return new AventisFirestrike(lore, trait, general);
     }
 
     void AventisFirestrike::Init() {

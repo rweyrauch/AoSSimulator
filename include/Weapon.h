@@ -50,6 +50,8 @@ public:
 
     Weapon(const Weapon &w);
 
+    void setHitsPerAttack(int numHits) { m_hitsPerAttack = numHits; m_strength = -1.0; }
+
     int numAttacks(int extraAttacks) const;
 
     Hits rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const;
@@ -62,27 +64,27 @@ public:
 
     int range() const { return m_range; }
 
-    void setRange(int r) { m_range = r; }
+    void setRange(int r) { m_range = r; m_strength = -1.0; }
 
     int attacks() const { return m_attacks; }
 
-    void setAttacks(int a) { m_attacks = a; }
+    void setAttacks(int a) { m_attacks = a; m_strength = -1.0; }
 
     int toHit() const { return m_toHit; }
 
-    void setToHit(int h) { m_toHit = h; }
+    void setToHit(int h) { m_toHit = h; m_strength = -1.0; }
 
     int toWound() const { return m_toWound; }
 
-    void setToWound(int w) { m_toWound = w; }
+    void setToWound(int w) { m_toWound = w; m_strength = -1.0; }
 
     int rend() const { return m_rend; }
 
-    void setRend(int r) { m_rend = r; }
+    void setRend(int r) { m_rend = r; m_strength = -1.0; }
 
     int damage() const;
 
-    void setDamage(int d) { m_damage = d; }
+    void setDamage(int d) { m_damage = d; m_strength = -1.0; }
 
     void setMount(bool isMount) { m_flags[IsMount] = isMount; }
 

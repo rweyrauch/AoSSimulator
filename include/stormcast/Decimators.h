@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Decimators();
+        Decimators(Stormhost stormhost, int numModels, int numStarsoulMaces);
 
         ~Decimators() override;
-
-        bool configure(int numModels, int numStarsoulMaces);
 
     protected:
 

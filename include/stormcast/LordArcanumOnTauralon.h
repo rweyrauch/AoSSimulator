@@ -22,13 +22,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        LordArcanumOnTauralon();
+        LordArcanumOnTauralon(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral);
 
         ~LordArcanumOnTauralon() override = default;
 
     protected:
-
-        void configure(Lore lore, MountTrait trait);
 
         void onCharged() override;
 

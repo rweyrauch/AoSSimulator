@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        KnightQuestor();
+        KnightQuestor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KnightQuestor() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

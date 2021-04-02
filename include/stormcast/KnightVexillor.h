@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        KnightVexillor();
+        KnightVexillor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KnightVexillor() override;
 
     protected:
-
-        void configure();
 
         Rerolls iconOfWarChargeReroll(const Unit *unit);
 

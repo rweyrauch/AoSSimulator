@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool AstreiaSolbright::s_registered = false;
 
-    AstreiaSolbright::AstreiaSolbright() :
-            MountedStormcastEternal("Astreia Solblight", 12, g_wounds, 9, 3, false),
+    AstreiaSolbright::AstreiaSolbright(Lore lore, MountTrait trait, bool isGeneral) :
+            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Astreia Solblight", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
@@ -31,17 +31,12 @@ namespace StormcastEternals {
         m_hasMount = true;
         m_monstrousClaws.setMount(true);
 
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &AstreiaSolbright::supernaturalRoar, &m_connection);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
-
-    AstreiaSolbright::~AstreiaSolbright() {
-        m_connection.disconnect();
-    }
-
-    void AstreiaSolbright::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
         if (m_mountTrait == MountTrait::Bounding_Leap) {
@@ -61,18 +56,15 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
+    AstreiaSolbright::~AstreiaSolbright() {
+        m_connection.disconnect();
+    }
+
     Unit *AstreiaSolbright::Create(const ParameterList &parameters) {
-        auto unit = new AstreiaSolbright();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
         auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore, trait);
-        return unit;
+        return new AstreiaSolbright(lore, trait, general);
     }
 
     void AstreiaSolbright::Init() {

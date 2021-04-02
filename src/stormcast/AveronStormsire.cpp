@@ -21,19 +21,18 @@ namespace StormcastEternals {
 
     bool AveronStormsire::s_registered = false;
 
-    AveronStormsire::AveronStormsire() :
-            StormcastEternal("Averon Stormsire", 5, g_wounds, 9, 3, false),
+    AveronStormsire::AveronStormsire(Lore lore, bool isGeneral) :
+            StormcastEternal(Stormhost::None, "Averon Stormsire", 5, g_wounds, 9, 3, false),
             m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO, WIZARD,
                       KNIGHT_INCANTOR, AVERON_STORMSIRE};
         m_weapons = {&m_staff};
         m_battleFieldRole = Role::Leader;
 
+        setGeneral(isGeneral);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
-
-    void AveronStormsire::configure(Lore lore) {
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
@@ -49,17 +48,10 @@ namespace StormcastEternals {
     }
 
     Unit *AveronStormsire::Create(const ParameterList &parameters) {
-        auto unit = new AveronStormsire();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
-    }
+        return new AveronStormsire(lore, general);
+     }
 
     void AveronStormsire::Init() {
         if (!s_registered) {

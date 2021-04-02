@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Aetherwings();
+        Aetherwings(Stormhost stormhost, int numModels);
 
         ~Aetherwings() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

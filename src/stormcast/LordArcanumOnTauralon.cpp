@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool LordArcanumOnTauralon::s_registered = false;
 
-    LordArcanumOnTauralon::LordArcanumOnTauralon() :
-            MountedStormcastEternal("Lord-Arcanum on Tauralon", 14, g_wounds, 9, 3, true),
+    LordArcanumOnTauralon::LordArcanumOnTauralon(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
+            MountedStormcastEternal(stormhost, "Lord-Arcanum on Tauralon", 14, g_wounds, 9, 3, true),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD,
@@ -32,13 +32,14 @@ namespace StormcastEternals {
         m_hasMount = true;
         m_hornsAndHooves.setMount(true);
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void LordArcanumOnTauralon::configure(Lore lore, MountTrait trait) {
-
-        m_mountTrait = trait;
+        m_mountTrait = mountTrait;
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
@@ -60,18 +61,13 @@ namespace StormcastEternals {
     }
 
     Unit *LordArcanumOnTauralon::Create(const ParameterList &parameters) {
-        auto unit = new LordArcanumOnTauralon();
         auto lore = (Lore) GetEnumParam("Lore of the Storm", parameters, g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore, trait);
-        return unit;
+        return new LordArcanumOnTauralon(stormhost, lore, trait, artefact, mountTrait, general);
     }
 
     void LordArcanumOnTauralon::Init() {

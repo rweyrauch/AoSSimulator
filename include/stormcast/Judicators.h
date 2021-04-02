@@ -30,11 +30,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Judicators();
+        Judicators(Stormhost stormhost, int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows);
 
         ~Judicators() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows);
 
     protected:
 

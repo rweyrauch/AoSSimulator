@@ -140,78 +140,59 @@ TEST(Unit, LiberatorsVsBloodreavers)
 
 TEST(Unit, BallistaVsAlarielle)
 {
-    StormcastEternals::CelestarBallista ballista0, ballista1, ballista2;
-    StormcastEternals::LordOrdinator lordOrdinator;
+    auto ballista0 = std::make_shared<StormcastEternals::CelestarBallista>(StormcastEternals::Stormhost::Astral_Templars);
+    auto ballista1 = std::make_shared<StormcastEternals::CelestarBallista>(StormcastEternals::Stormhost::Astral_Templars);
+    auto ballista2 = std::make_shared<StormcastEternals::CelestarBallista>(StormcastEternals::Stormhost::Astral_Templars);
+    auto lordOrdinator = std::make_shared<StormcastEternals::LordOrdinator>(StormcastEternals::Stormhost::Astral_Templars, StormcastEternals::LordOrdinator::Astral_Hammers,
+                                                                            StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
 
-    bool ok = lordOrdinator.configure(StormcastEternals::LordOrdinator::Astral_Hammers);
-    ASSERT_TRUE(ok);
-
-    ok = ballista0.configure();
-    ASSERT_TRUE(ok);
-    ballista0.addKeyword(ASTRAL_TEMPLARS);
-
-    ok = ballista1.configure();
-    ASSERT_TRUE(ok);
-    ballista1.addKeyword(ASTRAL_TEMPLARS);
-
-    ok = ballista2.configure();
-    ASSERT_TRUE(ok);
-    ballista2.addKeyword(ASTRAL_TEMPLARS);
-
-    // apply Lord-Ordinator buffs
-    //ballista0.buffToHitMissile(1);
-    //ballista1.buffToHitMissile(1);
-    //ballista2.buffToHitMissile(1);
-
-    Sylvaneth::Alarielle alarielle;
-    ok = alarielle.configure(Sylvaneth::Lore::None);
-    ASSERT_TRUE(ok);
+    auto alarielle = std::make_shared<Sylvaneth::Alarielle>(Sylvaneth::Glade::None, Sylvaneth::Lore::Verdurous_Harmony, false);
 
     for (auto i = 0; i < 5; i++)
     {
-        std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining." << std::endl;
-        alarielle.beginTurn(i, PlayerId::Red);
-        ballista0.beginTurn(i, PlayerId::Red);
-        ballista1.beginTurn(i, PlayerId::Red);
-        ballista2.beginTurn(i, PlayerId::Red);
-        lordOrdinator.beginTurn(i, PlayerId::Red);
+        std::cout << "Alarielle has " << alarielle->remainingWounds() << " wounds remaining." << std::endl;
+        alarielle->beginTurn(i, PlayerId::Red);
+        ballista0->beginTurn(i, PlayerId::Red);
+        ballista1->beginTurn(i, PlayerId::Red);
+        ballista2->beginTurn(i, PlayerId::Red);
+        lordOrdinator->beginTurn(i, PlayerId::Red);
 
-        alarielle.hero(PlayerId::Red);
-        std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining after hero phase." << std::endl;
+        alarielle->hero(PlayerId::Red);
+        std::cout << "Alarielle has " << alarielle->remainingWounds() << " wounds remaining after hero phase." << std::endl;
 
         int numSlain = 0;
-        auto totalDamage = ballista0.shoot(-1, &alarielle, numSlain);
+        auto totalDamage = ballista0->shoot(-1, alarielle.get(), numSlain);
         std::cout << "Ballista0 inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Alarielle." << std::endl;
-        totalDamage = ballista1.shoot(-1, &alarielle, numSlain);
+        totalDamage = ballista1->shoot(-1, alarielle.get(), numSlain);
         std::cout << "Ballista1 inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Alarielle." << std::endl;
-        totalDamage = ballista2.shoot(-1, &alarielle, numSlain);
+        totalDamage = ballista2->shoot(-1, alarielle.get(), numSlain);
         std::cout << "Ballista2 inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Alarielle." << std::endl;
 
-        if (alarielle.remainingWounds() > 0)
+        if (alarielle->remainingWounds() > 0)
         {
-            if (ballista0.remainingWounds() > 0)
+            if (ballista0->remainingWounds() > 0)
             {
-                totalDamage = alarielle.shoot(-1, &ballista0, numSlain);
+                totalDamage = alarielle->shoot(-1, ballista0.get(), numSlain);
                 std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Ballista0."
                           << std::endl;
             }
-            else if (ballista1.remainingWounds() > 0)
+            else if (ballista1->remainingWounds() > 0)
             {
-                totalDamage = alarielle.shoot(-1, &ballista1, numSlain);
+                totalDamage = alarielle->shoot(-1, ballista1.get(), numSlain);
                 std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Ballista1."
                           << std::endl;
             }
-            else if (ballista2.remainingWounds() > 0)
+            else if (ballista2->remainingWounds() > 0)
             {
-                totalDamage = alarielle.shoot(-1, &ballista2, numSlain);
+                totalDamage = alarielle->shoot(-1, ballista2.get(), numSlain);
                 std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on Ballista2."
                           << std::endl;
             }
             else
             {
-                totalDamage = alarielle.shoot(-1, &lordOrdinator, numSlain);
+                totalDamage = alarielle->shoot(-1, lordOrdinator.get(), numSlain);
                 std::cout << "Alarielle inflicted " << (totalDamage.normal+totalDamage.mortal) << " wounds on "
-                          << lordOrdinator.name() << "." << std::endl;
+                          << lordOrdinator->name() << "." << std::endl;
             }
         }
         else
@@ -220,23 +201,21 @@ TEST(Unit, BallistaVsAlarielle)
             break;
         }
     }
-    std::cout << "Alarielle has " << alarielle.remainingWounds() << " wounds remaining after the battle." << std::endl;
+    std::cout << "Alarielle has " << alarielle->remainingWounds() << " wounds remaining after the battle." << std::endl;
 }
 
 TEST(Unit, DamageTable)
 {
-    Sylvaneth::Alarielle alarielle;
-    bool ok = alarielle.configure(Sylvaneth::Lore::None);
-    ASSERT_TRUE(ok);
+    auto alarielle = std::make_shared<Sylvaneth::Alarielle>(Sylvaneth::Glade::None, Sylvaneth::Lore::Verdurous_Harmony, false);
 
     Wounds wounds;
     wounds.normal = 1;
     wounds.mortal = 0;
 
-    for (auto i = 0; i < alarielle.wounds(); i++)
+    for (auto i = 0; i < alarielle->wounds(); i++)
     {
-        alarielle.applyDamage(wounds, &alarielle);
-        std::cout << "Wound: " << alarielle.remainingWounds() << "  Move: " << alarielle.move() << std::endl;
+        alarielle->applyDamage(wounds, alarielle.get());
+        std::cout << "Wound: " << alarielle->remainingWounds() << "  Move: " << alarielle->move() << std::endl;
     }
 }
 

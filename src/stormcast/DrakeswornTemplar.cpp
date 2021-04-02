@@ -36,8 +36,8 @@ namespace StormcastEternals {
 
     bool DrakeswornTemplar::s_registered = false;
 
-    DrakeswornTemplar::DrakeswornTemplar() :
-            MountedStormcastEternal("Drakesworn Templar", 12, g_wounds, 9, 3, true),
+    DrakeswornTemplar::DrakeswornTemplar(Stormhost stormhost, WeaponOption weapons, bool skyboltBow, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
+            MountedStormcastEternal(stormhost, "Drakesworn Templar", 12, g_wounds, 9, 3, true),
             m_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1),
             m_tempestAxe(Weapon::Type::Melee, "Tempest Axe", 2, 6, 3, 3, 0, 1),
             m_arcHammer(Weapon::Type::Melee, "Arc Hammer", 1, 2, 3, 3, -1, 3),
@@ -50,15 +50,13 @@ namespace StormcastEternals {
         m_greatClaws.setMount(true);
 
         s_globalCastMod.connect(this, &DrakeswornTemplar::arcaneLineage, &m_connection);
-    }
 
-    DrakeswornTemplar::~DrakeswornTemplar() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void DrakeswornTemplar::configure(WeaponOption weapons, bool skyboltBow, MountTrait trait) {
         m_weaponOption = weapons;
-        m_mountTrait = trait;
+        m_mountTrait = mountTrait;
 
         auto model = new Model(g_basesize, wounds());
         if (skyboltBow) {
@@ -77,20 +75,19 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
+    DrakeswornTemplar::~DrakeswornTemplar() {
+        m_connection.disconnect();
+    }
+
     Unit *DrakeswornTemplar::Create(const ParameterList &parameters) {
-        auto unit = new DrakeswornTemplar();
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Tempest_Axe);
         auto skyboltBow = GetBoolParam("Skybolt Bow", parameters, true);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(weapons, skyboltBow, trait);
-        return unit;
+        return new DrakeswornTemplar(stormhost, weapons, skyboltBow, trait, artefact, mountTrait, general);
     }
 
     void DrakeswornTemplar::Init() {

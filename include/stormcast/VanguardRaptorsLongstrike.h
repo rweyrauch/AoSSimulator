@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        VanguardRaptorsLongstrike();
+        VanguardRaptorsLongstrike(Stormhost stormhost, int numModels);
 
         ~VanguardRaptorsLongstrike() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

@@ -20,8 +20,8 @@
 
 TEST(Spells, ArcaneBolt)
 {
-    auto caster = std::make_unique<StormcastEternals::KnightIncantor>();
-    caster->configure(StormcastEternals::Lore::Lightning_Blast);
+    auto caster = std::make_unique<StormcastEternals::KnightIncantor>(StormcastEternals::Stormhost::Astral_Templars, StormcastEternals::Lore::Lightning_Blast,
+                                                                      StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
     caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto target = std::make_unique<StormcastEternals::Liberators>();
@@ -49,8 +49,8 @@ TEST(Spells, ArcaneBolt)
 
 TEST(Spells, PrimeElectrids)
 {
-    auto caster = std::make_unique<StormcastEternals::KnightIncantor>();
-    caster->configure(StormcastEternals::Lore::Lightning_Blast);
+    auto caster = std::make_unique<StormcastEternals::KnightIncantor>(StormcastEternals::Stormhost::Astral_Templars, StormcastEternals::Lore::Lightning_Blast,
+                                                                      StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
     caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto target = std::make_unique<StormcastEternals::Liberators>();
@@ -79,15 +79,15 @@ TEST(Spells, PrimeElectrids)
 
 TEST(Spells, Unbind)
 {
-    auto caster = std::make_shared<StormcastEternals::KnightIncantor>();
-    caster->configure(StormcastEternals::Lore::Azyrite_Halo);
+    auto caster = std::make_shared<StormcastEternals::KnightIncantor>(StormcastEternals::Stormhost::Astral_Templars, StormcastEternals::Lore::Lightning_Blast,
+                                                                      StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
     caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
     auto red = std::make_shared<Roster>(PlayerId::Red);
     red->addUnit(caster);
 
-    auto target = std::make_shared<StormcastEternals::KnightIncantor>();
-    target->configure(StormcastEternals::Lore::Azyrite_Halo);
+    auto target = std::make_shared<StormcastEternals::KnightIncantor>(StormcastEternals::Stormhost::Astral_Templars, StormcastEternals::Lore::Lightning_Blast,
+                                                                      StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
     target->deploy(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
 
     auto blue = std::make_shared<Roster>(PlayerId::Blue);

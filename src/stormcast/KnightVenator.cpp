@@ -19,8 +19,8 @@ namespace StormcastEternals {
 
     bool KnightVenator::s_registered = false;
 
-    KnightVenator::KnightVenator() :
-            StormcastEternal("Knight-Venator", 12, g_wounds, 9, 3, true),
+    KnightVenator::KnightVenator(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Knight-Venator", 12, g_wounds, 9, 3, true),
             m_realmhuntersBow(Weapon::Type::Missile, "Realmhunter's Bow", 30, 3, 2, 3, -1, 1),
             m_starFatedArrow(Weapon::Type::Missile, "Realmhunter's Bow - Star-fated Arrow", 30, 1, 2, 3, -1, 0),
             m_beakAndTalonsMissile(Weapon::Type::Missile, "Celestial Beak and Talons", 30, 3, 4, 3, 0, 1),
@@ -29,9 +29,11 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VENATOR};
         m_weapons = {&m_realmhuntersBow, &m_beakAndTalonsMissile, &m_bowStave, &m_beakAndTalons};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void KnightVenator::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_realmhuntersBow);
         model->addMissileWeapon(&m_starFatedArrow);
@@ -45,16 +47,11 @@ namespace StormcastEternals {
     }
 
     Unit *KnightVenator::Create(const ParameterList &parameters) {
-        auto unit = new KnightVenator();
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new KnightVenator(stormhost, trait, artefact, general);
     }
 
     void KnightVenator::Init() {

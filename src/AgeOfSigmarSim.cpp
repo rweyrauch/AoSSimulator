@@ -161,6 +161,6 @@ bool Expired(const Duration &duration, const Duration &current) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Wounds &wounds) {
-    os << "{ " << wounds.normal << ", " << wounds.mortal << "}: " << magic_enum::enum_name(wounds.source);
+    os << "{" << wounds.normal << ", " << wounds.mortal << "}: " << magic_enum::enum_name(wounds.source);
     return os;
 }

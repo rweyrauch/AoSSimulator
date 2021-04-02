@@ -30,13 +30,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        LordCelestantOnStardrake();
+        LordCelestantOnStardrake(Stormhost stormhost, WeaponOption weapons, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral);
 
         ~LordCelestantOnStardrake() override;
 
     protected:
-
-        void configure(WeaponOption weapons, MountTrait trait);
 
         void onWounded() override;
 

@@ -220,7 +220,7 @@ public:
 
     const Weapon *getWeapon(int which) const { return m_weapons[which]; }
 
-    bool hasShootingAttack(const Weapon **weapon) const;
+    bool hasShootingAttack(double &maxRange) const;
 
     const UnitStatistics &getStatistics() const { return m_statistics; }
 

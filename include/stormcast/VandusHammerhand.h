@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        VandusHammerhand();
+        VandusHammerhand(MountTrait trait, bool isGeneral);
 
         ~VandusHammerhand() override;
 
     protected:
-
-        void configure(MountTrait trait);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

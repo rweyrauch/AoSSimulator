@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool Tempestors::s_registered = false;
 
-    Tempestors::Tempestors() :
-            StormcastEternal("Tempestors", 10, g_wounds, 7, 3, false),
+    Tempestors::Tempestors(Stormhost stormhost, int numModels) :
+            StormcastEternal(stormhost, "Tempestors", 10, g_wounds, 7, 3, false),
             m_stormBlast(Weapon::Type::Missile, "Storm Blast", 12, 1, 4, 0, 0, 0),
             m_volleystormCrossbow(Weapon::Type::Missile, "Volleystorm Crossbow", 12, 4, 3, 4, 0, 1),
             m_warblade(Weapon::Type::Melee, "Warblade", 1, 3, 3, 4, 0, 1),
@@ -31,12 +31,6 @@ namespace StormcastEternals {
         m_weapons = {&m_stormBlast, &m_volleystormCrossbow, &m_warblade, &m_clawsAndFangs};
         m_hasMount = true;
         m_clawsAndFangs.setMount(true);
-    }
-
-    bool Tempestors::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (int i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -48,23 +42,12 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Tempestors::Create(const ParameterList &parameters) {
-        auto unit = new Tempestors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Tempestors(stormhost, numModels);
     }
 
     void Tempestors::Init() {

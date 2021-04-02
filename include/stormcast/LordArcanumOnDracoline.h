@@ -22,13 +22,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        LordArcanumOnDracoline();
+        LordArcanumOnDracoline(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral);
 
         ~LordArcanumOnDracoline() override;
 
     protected:
-
-        void configure(Lore lore, MountTrait trait);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

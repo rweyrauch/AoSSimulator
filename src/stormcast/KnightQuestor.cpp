@@ -18,15 +18,13 @@ namespace StormcastEternals {
 
     bool KnightQuestor::s_registered = false;
 
-    KnightQuestor::KnightQuestor() :
-            StormcastEternal("Knight-Questor", 5, g_wounds, 8, 3, false),
+    KnightQuestor::KnightQuestor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGenera) :
+            StormcastEternal(stormhost, "Knight-Questor", 5, g_wounds, 8, 3, false),
             m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_QUESTOR};
         m_weapons = {&m_warblade};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void KnightQuestor::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warblade);
         addModel(model);
@@ -35,16 +33,11 @@ namespace StormcastEternals {
     }
 
     Unit *KnightQuestor::Create(const ParameterList &parameters) {
-        auto unit = new KnightQuestor();
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new KnightQuestor(stormhost, trait, artefact, general);
     }
 
     void KnightQuestor::Init() {

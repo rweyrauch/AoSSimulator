@@ -31,12 +31,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Liberators();
+        Liberators(Stormhost stormhost, int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades);
 
         ~Liberators() override = default;
-
-        bool
-        configure(int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades);
 
     protected:
 

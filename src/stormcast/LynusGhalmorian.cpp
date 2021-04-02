@@ -82,8 +82,8 @@ namespace StormcastEternals {
 
     bool LynusGhalmorianOnGryphcharger::s_registered = false;
 
-    LynusGhalmorianOnGryphcharger::LynusGhalmorianOnGryphcharger() :
-            MountedStormcastEternal("Lynus Ghalmorian on Gryph-charger", 12, g_wounds, 9, 3, false),
+    LynusGhalmorianOnGryphcharger::LynusGhalmorianOnGryphcharger(Lore lore, MountTrait trait, bool isGeneral) :
+            MountedStormcastEternal(Stormhost::Anvils_Of_The_Heldenhammer, "Lynus Ghalmorian on Gryph-charger", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD,
@@ -93,17 +93,12 @@ namespace StormcastEternals {
         m_hasMount = true;
         m_beakAndClaws.setMount(true);
 
+        setGeneral(isGeneral);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 
         s_globalSaveReroll.connect(this, &LynusGhalmorianOnGryphcharger::shieldOfThePaleKnight, &m_shieldConnection);
-    }
-
-    LynusGhalmorianOnGryphcharger::~LynusGhalmorianOnGryphcharger() {
-        m_shieldConnection.disconnect();
-    }
-
-    void LynusGhalmorianOnGryphcharger::configure(Lore lore, MountTrait trait) {
 
         m_mountTrait = trait;
 
@@ -122,18 +117,15 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
+    LynusGhalmorianOnGryphcharger::~LynusGhalmorianOnGryphcharger() {
+        m_shieldConnection.disconnect();
+    }
+
     Unit *LynusGhalmorianOnGryphcharger::Create(const ParameterList &parameters) {
-        auto unit = new LynusGhalmorianOnGryphcharger();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
         auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
-        unit->setStormhost(Stormhost::Anvils_Of_The_Heldenhammer);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore, trait);
-        return unit;
+        return new LynusGhalmorianOnGryphcharger(lore, trait, general);
     }
 
     void LynusGhalmorianOnGryphcharger::Init() {

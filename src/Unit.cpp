@@ -608,21 +608,12 @@ void Unit::movement(PlayerId player) {
 
     onStartMovement(player);
 
-    auto board = Board::Instance();
-
     m_moved = false;
 
     // Unit cannot move
     if (!canMove()) return;
 
-    auto weapon = m_models.front()->preferredWeapon();
-    assert(weapon);
-
-    PlayerId otherPlayer = PlayerId::Red;
-    if (player == PlayerId::Red)
-        otherPlayer = PlayerId::Blue;
-    auto otherRoster = board->getPlayerRoster(otherPlayer);
-    auto closestTarget = otherRoster ? otherRoster->nearestUnit(this) : nullptr;
+    auto closestTarget = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
 
     if (closestTarget) {
         auto distance = distanceTo(closestTarget);
@@ -647,10 +638,11 @@ void Unit::movement(PlayerId player) {
 
         const auto movement = allowedMove + (double) moveModifier();
 
-        if (weapon && weapon->isMissile()) {
+        double maxRange = 0.0;
+        if (hasShootingAttack(maxRange)) {
 
             // get into range (run or not?)
-            if (distance > (double) weapon->range() + movement) {
+            if (distance > maxRange + movement) {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
                 if ((runDist < 3) && (runRerolls() != Rerolls::None))
@@ -660,7 +652,7 @@ void Unit::movement(PlayerId player) {
 
                 m_currentRecord.m_moved = movement;
                 m_currentRecord.m_ran = runDist;
-            } else if (distance > (double) weapon->range()) {
+            } else if (distance > maxRange) {
                 // move toward unit
                 totalMoveDistance = movement;
 
@@ -675,7 +667,7 @@ void Unit::movement(PlayerId player) {
                 // already in charge range - stand still
                 m_currentRecord.m_moved = 0;
             }
-            if (weapon && (distance > (double) weapon->range() + movement)) {
+            if ((distance > maxRange + movement)) {
                 // too far to get into range with normal move - run
                 auto runDist = rollRunDistance();
                 if ((runDist < 3) && (runRerolls() != Rerolls::None))
@@ -1065,27 +1057,23 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
                         // modify damage
                         dam = target->targetAttackDamageModifier(dam, this, hitRoll, woundRoll);
 
-                        PLOG_INFO.printf("\tWeapon, %s, inflicted wounds (%d, %d) on %s",
-                                         weapon->name().c_str(), dam.normal, dam.mortal, target->name().c_str());
+                        PLOG_INFO <<"\tWeapon, " << weapon->name() << ", inflicted wounds " << dam << " on " << target->name();
 
                         totalWoundsInflicted += dam;
                     } else {
                         // made save
-                        PLOG_INFO.printf("\t%s made a save again weapon %s rolling a %d.",
-                                         target->name().c_str(), weapon->name().c_str(), saveRoll);
+                        PLOG_INFO << "\t" << target->name() << " made a save again weapon " << weapon->name() << " rolling a " << saveRoll;
                     }
 
                     totalWoundsSuffered += target->computeReturnedDamage(weapon, saveRoll);
                 } else {
                     // failed to wound
-                    PLOG_INFO.printf("\tWeapon, %s, failed to wound rolling a %d.", weapon->name().c_str(),
-                                     modifiedWoundRoll);
+                    PLOG_INFO << "\tWeapon, " << weapon->name() << ", failed to wound rolling a " << modifiedWoundRoll;
                 }
             }
         } else {
             // missed
-            PLOG_INFO.printf("\tWeapon, %s, missed with a roll of %d.", weapon->name().c_str(),
-                             modifiedHitRoll);
+            PLOG_INFO << "\tWeapon, " << weapon->name() << ", missed with a roll of " << modifiedHitRoll;
         }
     }
 
@@ -1819,12 +1807,16 @@ int Unit::computeFormation() const {
     return std::max(numRanks, weaponRanks);
 }
 
-bool Unit::hasShootingAttack(const Weapon **weapon) const {
+bool Unit::hasShootingAttack(double &maxRange) const {
+    maxRange = 0.0;
+    bool found = false;
     for (auto w : m_weapons) {
-        *weapon = w;
-        if (w->isMissile()) return true;
+        if (w->isMissile() && w->isActive() && (w->range() > maxRange)) {
+            maxRange = w->range();
+            found = true;
+        }
     }
-    return false;
+    return found;
 }
 
 bool Unit::isNamedModelAlive(const std::string &name) const {

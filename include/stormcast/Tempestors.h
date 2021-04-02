@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Tempestors();
+        Tempestors(Stormhost stormhost, int numModels);
 
         ~Tempestors() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

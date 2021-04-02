@@ -21,8 +21,9 @@ namespace StormcastEternals {
 
     bool Prosecutors::s_registered = false;
 
-    Prosecutors::Prosecutors() :
-            StormcastEternal("Prosecutors", 12, g_wounds, 7, 4, true),
+    Prosecutors::Prosecutors(Stormhost stormhost, int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
+                             int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers) :
+            StormcastEternal(stormhost, "Prosecutors", 12, g_wounds, 7, 4, true),
             m_celestialHammersMissile(Weapon::Type::Missile, "Celestial Hammer(s)", 18, 2, 4, 4, 0, 1),
             m_stormcallJavelinMissile(Weapon::Type::Missile, "Stormcall Javelin", 18, 1, 3, 3, 0, 1),
             m_stormcallJavelinMissilePrime(Weapon::Type::Missile, "Stormcall Javelin", 18, 2, 3, 3, 0, 1),
@@ -51,42 +52,6 @@ namespace StormcastEternals {
 
         // Heralds of Righteousness
         m_maxChargeDistance = 18.0;
-    }
-
-    bool Prosecutors::configure(int numModels, Prosecutors::WeaponOption weapons,
-                                Prosecutors::GrandWeaponOption primeGrandWeapon, int numTridents, int numGrandaxes,
-                                int numGrandblades, int numGrandhammers) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-
-        int maxGrandWeapons = numModels / 3;
-        int totalGrandWeapons = numGrandaxes + numGrandblades + numGrandhammers;
-
-        int maxTridents = 0;
-        int totalTridents = numTridents;
-
-        if (primeGrandWeapon == Stormsurge_Trident) {
-            totalTridents++;
-        }
-        if (primeGrandWeapon == Grandaxe || primeGrandWeapon == Grandblade || primeGrandWeapon == Grandhammer) {
-            totalGrandWeapons++;
-        }
-
-        // 1 in 3 can have a trident when using javelins
-        if (weapons == Stormcall_Javelin_And_Shield) {
-            maxTridents = numModels / 3;
-            maxGrandWeapons = 0;
-        }
-
-        if (totalTridents > maxTridents) {
-            return false;
-        }
-        if (totalGrandWeapons > maxGrandWeapons) {
-            return false;
-        }
 
         m_weaponOption = weapons;
 
@@ -104,7 +69,7 @@ namespace StormcastEternals {
             case Stormsurge_Trident:
                 prime->addMissileWeapon(&m_stormsurgeTridentMissilePrime);
                 prime->addMeleeWeapon(&m_stormsurgeTrident);
-                totalTridents--;
+                numTridents--;
                 break;
             case Grandaxe:
                 prime->addMeleeWeapon(&m_grandaxe);
@@ -124,7 +89,7 @@ namespace StormcastEternals {
         }
         addModel(prime);
 
-        for (auto i = 0; i < totalTridents; i++) {
+        for (auto i = 0; i < numTridents; i++) {
             auto tridentModel = new Model(g_basesize, wounds());
             tridentModel->addMissileWeapon(&m_stormsurgeTridentMissile);
             tridentModel->addMeleeWeapon(&m_stormsurgeTrident);
@@ -161,8 +126,6 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Wounds Prosecutors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -176,26 +139,49 @@ namespace StormcastEternals {
     }
 
     Unit *Prosecutors::Create(const ParameterList &parameters) {
-        auto unit = new Prosecutors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Celestial_Hammer_And_Shield);
-        GrandWeaponOption primeGrandWeapon = (GrandWeaponOption) GetEnumParam("Prime Grand Weapon", parameters,
-                                                                              No_Grand_Weapon);
+        GrandWeaponOption primeGrandWeapon = (GrandWeaponOption) GetEnumParam("Prime Grand Weapon", parameters,No_Grand_Weapon);
         int numTridents = GetIntParam("Stormsurge Tridents", parameters, 0);
         int numGrandaxes = GetIntParam("Grandaxes", parameters, 0);
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
         int numGrandblades = GetIntParam("Grandblades", parameters, 0);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
 
-        bool ok = unit->configure(numModels, weapons, primeGrandWeapon, numTridents, numGrandaxes, numGrandblades,
-                                  numGrandhammers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return unit;
+
+        int maxGrandWeapons = numModels / 3;
+        int totalGrandWeapons = numGrandaxes + numGrandblades + numGrandhammers;
+
+        int maxTridents = 0;
+        int totalTridents = numTridents;
+
+        if (primeGrandWeapon == Stormsurge_Trident) {
+            totalTridents++;
+        }
+        if (primeGrandWeapon == Grandaxe || primeGrandWeapon == Grandblade || primeGrandWeapon == Grandhammer) {
+            totalGrandWeapons++;
+        }
+
+        // 1 in 3 can have a trident when using javelins
+        if (weapons == Stormcall_Javelin_And_Shield) {
+            maxTridents = numModels / 3;
+            maxGrandWeapons = 0;
+        }
+
+        if (totalTridents > maxTridents) {
+            return nullptr;
+        }
+        if (totalGrandWeapons > maxGrandWeapons) {
+            return nullptr;
+        }
+
+        return new Prosecutors(stormhost, numModels, weapons, primeGrandWeapon, numTridents, numGrandaxes, numGrandblades,
+                                  numGrandhammers);
     }
 
     std::string Prosecutors::ValueToString(const Parameter &parameter) {

@@ -22,8 +22,8 @@ namespace StormcastEternals {
 
     bool Sequitors::s_registered = false;
 
-    Sequitors::Sequitors() :
-            StormcastEternal("Sequitors", 5, g_wounds, 7, 4, false),
+    Sequitors::Sequitors(Stormhost stormhost, int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache) :
+            StormcastEternal(stormhost, "Sequitors", 5, g_wounds, 7, 4, false),
             m_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1),
             m_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul", 1, 3, 3, 3, 0, 1),
             m_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1),
@@ -39,24 +39,6 @@ namespace StormcastEternals {
                      &m_stormsmiteGreatmace,
                      &m_stormsmiteGreatmacePrime,
                      &m_redemptionCache};
-    }
-
-    bool Sequitors::configure(int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace,
-                              bool redemptionCache) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxGrandmaces = (numModels / 5) * 2;
-        if (numGreatmaces > maxGrandmaces) {
-            // Invalid weapon configuration.
-            return false;
-        }
-        if (primeGreatmace && redemptionCache) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         m_weaponOption = weapons;
         m_haveRedemptionCache = redemptionCache;
@@ -93,8 +75,6 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Rerolls Sequitors::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
@@ -138,22 +118,29 @@ namespace StormcastEternals {
     }
 
     Unit *Sequitors::Create(const ParameterList &parameters) {
-        auto unit = new Sequitors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stormsmite_Maul);
         int numGreatmaces = GetIntParam("Greatmaces", parameters, 0);
         bool primeGreatmace = GetBoolParam("Prime Greatmace", parameters, false);
         bool redemptionCache = GetBoolParam("Redemption Cache", parameters, false);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
 
-        bool ok = unit->configure(numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return unit;
+        const int maxGrandmaces = (numModels / 5) * 2;
+        if (numGreatmaces > maxGrandmaces) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+        if (primeGreatmace && redemptionCache) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+
+        return new Sequitors(stormhost, numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache);
     }
 
     void Sequitors::Init() {

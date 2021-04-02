@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool VanguardHunters::s_registered = false;
 
-    VanguardHunters::VanguardHunters() :
-            StormcastEternal("Vanguard-Hunters", 6, g_wounds, 7, 4, false),
+    VanguardHunters::VanguardHunters(Stormhost stormhost, int numModels, WeaponOption weapons, bool astralCompass) :
+            StormcastEternal(stormhost, "Vanguard-Hunters", 6, g_wounds, 7, 4, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_boltstormPistolPrime(Weapon::Type::Missile, "Boltstorm Pistol", 9, 3, 3, 4, 0, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
@@ -35,14 +35,6 @@ namespace StormcastEternals {
 
         // Tireless Hunters
         m_runAndShoot = true;
-    }
-
-    bool VanguardHunters::configure(int numModels, WeaponOption weapons, bool astralCompass) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         m_weaponOption = weapons;
         m_astralCompass = astralCompass;
@@ -69,25 +61,14 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *VanguardHunters::Create(const ParameterList &parameters) {
-        auto hunters = new VanguardHunters();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Storm_Sabre);
         bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        hunters->setStormhost(stormhost);
-
-        bool ok = hunters->configure(numModels, weapons, astralCompass);
-        if (!ok) {
-            delete hunters;
-            hunters = nullptr;
-        }
-        return hunters;
+        return new VanguardHunters(stormhost, numModels, weapons, astralCompass);
     }
 
     void VanguardHunters::Init() {

@@ -18,23 +18,20 @@ namespace StormcastEternals {
 
     bool LordOrdinator::s_registered = false;
 
-    LordOrdinator::LordOrdinator() :
-            StormcastEternal("Lord-Ordinator", 5, g_wounds, 9, 4, false),
+    LordOrdinator::LordOrdinator(Stormhost stormhost, WeaponOption weaponOption, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Lord-Ordinator", 5, g_wounds, 9, 4, false),
             m_astralHammers(Weapon::Type::Melee, "Astral Hammers", 1, 6, 4, 3, 0, 1),
             m_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR};
         m_weapons = {&m_astralHammers, &m_astralGrandhammer};
         m_battleFieldRole = Role::Leader;
 
-        s_globalToHitMod.connect(this, &LordOrdinator::arcaneEngineer, &m_connection);
-    }
-
-    LordOrdinator::~LordOrdinator() {
-        m_connection.disconnect();
-    }
-
-    void LordOrdinator::configure(LordOrdinator::WeaponOption weaponOption) {
         m_weaponOption = weaponOption;
+
+        setStormhost(stormhost);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());
         if (m_weaponOption == Astral_Hammers) {
@@ -51,20 +48,22 @@ namespace StormcastEternals {
                                                             std::vector<Keyword>(STORMCAST_ETERNAL)));
 
         m_points = g_pointsPerUnit;
+
+        s_globalToHitMod.connect(this, &LordOrdinator::arcaneEngineer, &m_connection);
+    }
+
+    LordOrdinator::~LordOrdinator() {
+        m_connection.disconnect();
     }
 
     Unit *LordOrdinator::Create(const ParameterList &parameters) {
-        auto unit = new LordOrdinator();
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapon", parameters, false);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, false);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
 
-        unit->configure(weapons);
-        return unit;
+        return new LordOrdinator(stormhost, weapons, trait, artefact, general);
     }
 
     void LordOrdinator::Init() {
@@ -79,6 +78,7 @@ namespace StormcastEternals {
                             EnumParameter("Weapon", Astral_Hammers, weapons),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
+                            EnumParameter("Artefact", g_artefactsOfTheTempests[0], g_artefactsOfTheTempests),
                             BoolParameter("General")
                     },
                     ORDER,

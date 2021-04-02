@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        VanguardRaptorsHurricane();
+        VanguardRaptorsHurricane(Stormhost stormhost, int numModels);
 
         ~VanguardRaptorsHurricane() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

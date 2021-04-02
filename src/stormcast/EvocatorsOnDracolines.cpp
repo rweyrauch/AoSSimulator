@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool EvocatorsOnCelestialDracolines::s_registered = false;
 
-    EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines() :
-            StormcastEternal("Evocators on Celestial Dracolines", 12, g_wounds, 8, 4, false),
+    EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore) :
+            StormcastEternal(stormhost, "Evocators on Celestial Dracolines", 12, g_wounds, 8, 4, false),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
             m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1),
             m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
@@ -38,25 +38,6 @@ namespace StormcastEternals {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
-
-    EvocatorsOnCelestialDracolines::~EvocatorsOnCelestialDracolines() {
-        m_connection.disconnect();
-    }
-
-    bool EvocatorsOnCelestialDracolines::configure(int numModels, int numGrandstaves, bool primeGrandstave,
-                                                   Lore lore) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-
-        const int maxGrandstaves = numModels / g_minUnitSize * 2;
-        if (numGrandstaves > maxGrandstaves) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -88,8 +69,10 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    EvocatorsOnCelestialDracolines::~EvocatorsOnCelestialDracolines() {
+        m_connection.disconnect();
     }
 
     Rerolls EvocatorsOnCelestialDracolines::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
@@ -118,21 +101,24 @@ namespace StormcastEternals {
     }
 
     Unit *EvocatorsOnCelestialDracolines::Create(const ParameterList &parameters) {
-        auto *evos = new EvocatorsOnCelestialDracolines();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool primeGrandstave = GetBoolParam("Prime Grandstave", parameters, false);
         int numGrandstaves = GetIntParam("Grandstaves", parameters, 0);
         auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, g_loreOfInvigoration[0]);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        evos->setStormhost(stormhost);
 
-        bool ok = evos->configure(numModels, numGrandstaves, primeGrandstave, invigoration);
-        if (!ok) {
-            delete evos;
-            evos = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return evos;
+
+        const int maxGrandstaves = numModels / g_minUnitSize * 2;
+        if (numGrandstaves > maxGrandstaves) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+        return new EvocatorsOnCelestialDracolines(stormhost, numModels, numGrandstaves, primeGrandstave, invigoration);
     }
 
     void EvocatorsOnCelestialDracolines::Init() {

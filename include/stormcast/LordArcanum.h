@@ -26,13 +26,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        LordArcanum();
+        LordArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordArcanum() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartCombat(PlayerId player) override;
 

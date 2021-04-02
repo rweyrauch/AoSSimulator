@@ -19,17 +19,19 @@ namespace StormcastEternals {
 
     bool LordRelictor::s_registered = false;
 
-    LordRelictor::LordRelictor() :
-            StormcastEternal("Lord-Relictor", 5, g_wounds, 9, 3, false),
+    LordRelictor::LordRelictor(Stormhost stormhost, PrayersOfTheStormhost prayer, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Lord-Relictor", 5, g_wounds, 9, 3, false),
             m_relicHammer(Weapon::Type::Melee, "Relic Hammer", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_RELICTOR};
         m_weapons = {&m_relicHammer};
         m_battleFieldRole = Role::Leader;
 
-        m_totalPrayers = 2;
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void LordRelictor::configure(PrayersOfTheStormhost prayer) {
+        m_totalPrayers = 2;
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_relicHammer);
         addModel(model);
@@ -42,18 +44,13 @@ namespace StormcastEternals {
     }
 
     Unit *LordRelictor::Create(const ParameterList &parameters) {
-        auto unit = new LordRelictor();
+        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         auto prayer = (PrayersOfTheStormhost) GetEnumParam("Prayers of the Stormhost", parameters,
                                                            g_prayersOfTheStormhost[0]);
-
-        auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(prayer);
-        return unit;
+        return new LordRelictor(stormhost, prayer, trait, artefact, general);
     }
 
     void LordRelictor::Init() {

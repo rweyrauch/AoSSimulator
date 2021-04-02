@@ -37,8 +37,8 @@ namespace StormcastEternals {
 
     bool LordCelestantOnStardrake::s_registered = false;
 
-    LordCelestantOnStardrake::LordCelestantOnStardrake() :
-            MountedStormcastEternal("Lord-Celestant on Stardrake", 12, g_wounds, 9, 3, true),
+    LordCelestantOnStardrake::LordCelestantOnStardrake(Stormhost stormhost, WeaponOption weapons, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
+            MountedStormcastEternal(stormhost, "Lord-Celestant on Stardrake", 12, g_wounds, 9, 3, true),
             m_celestineHammer(Weapon::Type::Melee, "Celestine Hammer", 2, 3, 3, 2, -1, RAND_D3),
             m_stormboundBlade(Weapon::Type::Melee, "Stormbound Blade", 2, 3, 3, 4, -1, 2),
             m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3) {
@@ -49,15 +49,9 @@ namespace StormcastEternals {
         m_greatClaws.setMount(true);
 
         s_globalCastMod.connect(this, &LordCelestantOnStardrake::arcaneLineage, &m_connection);
-    }
 
-    LordCelestantOnStardrake::~LordCelestantOnStardrake() {
-        m_connection.disconnect();
-    }
-
-    void LordCelestantOnStardrake::configure(WeaponOption weapons, MountTrait trait) {
         m_weaponOption = weapons;
-        m_mountTrait = trait;
+        m_mountTrait = mountTrait;
 
         auto model = new Model(g_basesize, wounds());
         if (weapons == Celestine_Hammer) {
@@ -78,19 +72,18 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
+    LordCelestantOnStardrake::~LordCelestantOnStardrake() {
+        m_connection.disconnect();
+    }
+
     Unit *LordCelestantOnStardrake::Create(const ParameterList &parameters) {
-        auto unit = new LordCelestantOnStardrake();
-        auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Celestine_Hammer);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Celestine_Hammer);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(weapons, trait);
-        return unit;
+        return new LordCelestantOnStardrake(stormhost, weapons, trait, artefact, mountTrait, general);
     }
 
     void LordCelestantOnStardrake::Init() {

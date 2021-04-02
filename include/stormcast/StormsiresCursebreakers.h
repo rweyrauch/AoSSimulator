@@ -26,13 +26,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        StormsiresCursebreakers();
+        StormsiresCursebreakers(Lore lore);
 
         ~StormsiresCursebreakers() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 

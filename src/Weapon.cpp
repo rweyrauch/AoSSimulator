@@ -24,6 +24,7 @@ Weapon::Weapon(Type type, std::string name, int range, int attacks, int toHit, i
         m_damage(damage),
         m_hitsPerAttack(1),
         m_isActive(true) {
+    m_strength = strength();
 }
 
 Weapon::Weapon(const Weapon &w) :
@@ -37,6 +38,7 @@ Weapon::Weapon(const Weapon &w) :
         m_damage(w.m_damage),
         m_hitsPerAttack(w.m_hitsPerAttack),
         m_isActive(w.m_isActive) {
+    m_strength = strength();
 }
 
 Hits Weapon::rollToHit(int modifier, Rerolls rerolls, int extraAttacks) const {
@@ -138,6 +140,9 @@ double Weapon::strength() const {
         rawStrength *= 100.0;
         rawStrength *= log((double) m_range / 6.0 + 3.0);
         m_strength = rawStrength;
+        if (isMissile()) {
+            m_strength *= 1.1;
+        }
     }
 
     return m_strength;

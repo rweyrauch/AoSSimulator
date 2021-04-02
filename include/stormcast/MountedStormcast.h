@@ -15,12 +15,12 @@ namespace StormcastEternals {
     class MountedStormcastEternal : public StormcastEternal {
     public:
 
-        MountedStormcastEternal() = default;
+        MountedStormcastEternal() = delete;
 
         ~MountedStormcastEternal() override;
 
     protected:
-        MountedStormcastEternal(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+        MountedStormcastEternal(Stormhost stormhost, const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
         int moveModifier() const override;
 

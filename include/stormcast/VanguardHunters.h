@@ -30,11 +30,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        VanguardHunters();
+        VanguardHunters(Stormhost stormhost, int numModels, WeaponOption weapons, bool astralCompass);
 
         ~VanguardHunters() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, bool astralCompass);
 
     protected:
 

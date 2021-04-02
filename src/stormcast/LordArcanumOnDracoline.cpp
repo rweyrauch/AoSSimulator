@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool LordArcanumOnDracoline::s_registered = false;
 
-    LordArcanumOnDracoline::LordArcanumOnDracoline() :
-            MountedStormcastEternal("Lord-Arcanum on Celestial Dracoline", 12, g_wounds, 9, 3, false),
+    LordArcanumOnDracoline::LordArcanumOnDracoline(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
+            MountedStormcastEternal(stormhost, "Lord-Arcanum on Celestial Dracoline", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
@@ -30,19 +30,16 @@ namespace StormcastEternals {
         m_hasMount = true;
         m_monstrousClaws.setMount(true);
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &LordArcanumOnDracoline::supernaturalRoar, &m_connection);
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    LordArcanumOnDracoline::~LordArcanumOnDracoline() {
-        m_connection.disconnect();
-    }
-
-    void LordArcanumOnDracoline::configure(Lore lore, MountTrait trait) {
-
-        m_mountTrait = trait;
+        m_mountTrait = mountTrait;
         if (m_mountTrait == MountTrait::Bounding_Leap) {
             m_pileInMove = 6;
         }
@@ -60,19 +57,18 @@ namespace StormcastEternals {
         m_points = g_pointsPerUnit;
     }
 
+    LordArcanumOnDracoline::~LordArcanumOnDracoline() {
+        m_connection.disconnect();
+    }
+
     Unit *LordArcanumOnDracoline::Create(const ParameterList &parameters) {
-        auto unit = new LordArcanumOnDracoline();
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore, trait);
-        return unit;
+        return new LordArcanumOnDracoline(stormhost, lore, trait, artefact, mountTrait, general);
     }
 
     void LordArcanumOnDracoline::Init() {

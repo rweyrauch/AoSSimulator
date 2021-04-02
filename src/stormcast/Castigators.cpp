@@ -20,21 +20,13 @@ namespace StormcastEternals {
 
     bool Castigators::s_registered = false;
 
-    Castigators::Castigators() :
-            StormcastEternal("Castigators", 5, g_wounds, 7, 4, false),
+    Castigators::Castigators(Stormhost stormhost, int numModels) :
+            StormcastEternal(stormhost, "Castigators", 5, g_wounds, 7, 4, false),
             m_thunderheadGreatbow(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 3, 3, -1, 1),
             m_thunderheadGreatbowPrime(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 2, 3, -1, 1),
             m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, JUSTICAR, CASTIGATORS};
         m_weapons = {&m_thunderheadGreatbow, &m_thunderheadGreatbowPrime, &m_heavyStock};
-    }
-
-    bool Castigators::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
@@ -50,23 +42,12 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Castigators::Create(const ParameterList &parameters) {
-        auto unit = new Castigators();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Castigators(stormhost, numModels);
     }
 
     void Castigators::Init() {

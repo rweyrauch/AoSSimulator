@@ -19,8 +19,8 @@ namespace StormcastEternals {
 
     bool LordAquilor::s_registered = false;
 
-    LordAquilor::LordAquilor() :
-            StormcastEternal("Lord-Aquilor", 12, g_wounds, 9, 3, false),
+    LordAquilor::LordAquilor(Stormhost stormhost, bool astralCompass, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            StormcastEternal(stormhost, "Lord-Aquilor", 12, g_wounds, 9, 3, false),
             m_boltstormPistol(Weapon::Type::Missile, "Heavy Boltstorm Pistol", 9, 4, 3, 3, 0, 1),
             m_starboundBlade(Weapon::Type::Melee, "Starbound Blade", 1, 3, 3, 3, -1, 2),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 3, 3, 0, 1),
@@ -28,9 +28,11 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, HERO, LORD_AQUILOR};
         m_weapons = {&m_boltstormPistol, &m_starboundBlade, &m_shockHandaxe, &m_beakAndClaws};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void LordAquilor::configure(bool astralCompass) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boltstormPistol);
         model->addMeleeWeapon(&m_starboundBlade);
@@ -44,17 +46,12 @@ namespace StormcastEternals {
     }
 
     Unit *LordAquilor::Create(const ParameterList &parameters) {
-        auto unit = new LordAquilor();
         bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(astralCompass);
-        return unit;
+        return new LordAquilor(stormhost, astralCompass, trait, artefact, general);
     }
 
     void LordAquilor::Init() {

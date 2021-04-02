@@ -211,7 +211,7 @@ struct Wounds {
         return *this;
     }
 
-    [[nodiscard]] bool zero() const { return (mortal + normal == 0) ? true : false; }
+    [[nodiscard]] bool zero() const { return (mortal + normal == 0); }
 
     friend std::ostream &operator<<(std::ostream &os, const Wounds &wounds);
 };
@@ -222,7 +222,7 @@ public:
 
     operator int() const { return d1 + d2; }
 
-    bool isDouble() const { return d1 == d2; }
+    [[nodiscard]] bool isDouble() const { return d1 == d2; }
 };
 
 std::string PhaseToString(Phase phase);

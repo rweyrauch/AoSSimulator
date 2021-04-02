@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        LordCelestant();
+        LordCelestant(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordCelestant() override = default;
 
     protected:
-
-        void configure();
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override {
             int attacks = StormcastEternal::extraAttacks(nullptr, weapon, target);

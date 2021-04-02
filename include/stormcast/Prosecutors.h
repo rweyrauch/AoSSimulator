@@ -39,12 +39,10 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Prosecutors();
+        Prosecutors(Stormhost stormhost, int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
+                    int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers);
 
         ~Prosecutors() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
-                       int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers);
 
     protected:
 

@@ -12,15 +12,6 @@
 void Model::addMeleeWeapon(const Weapon *weapon) {
     if (weapon == nullptr) { return; }
     m_melee.push_back(weapon);
-
-    auto preStr = -1.0;
-    if (m_preferredWeapon) {
-        preStr = m_preferredWeapon->strength();
-    }
-    if (weapon->strength() > preStr) {
-        weapon->setFlag(Weapon::Preferred);
-        m_preferredWeapon = weapon;
-    }
 }
 
 void Model::addMissileWeapon(const Weapon *weapon) {
@@ -28,15 +19,6 @@ void Model::addMissileWeapon(const Weapon *weapon) {
         return;
     }
     m_missile.push_back(weapon);
-
-    auto preStr = -1.0;
-    if (m_preferredWeapon) {
-        preStr = m_preferredWeapon->strength();
-    }
-    if (weapon->strength() > preStr) {
-        weapon->setFlag(Weapon::Preferred);
-        m_preferredWeapon = weapon;
-    }
 }
 
 void Model::restore() {
@@ -84,4 +66,22 @@ bool Model::hasWeapon(const std::string &name) const {
             return true;
     }
     return false;
+}
+
+const Weapon *Model::preferredWeapon() const {
+    auto weaponStrength = -1.0;
+    const Weapon* weapon = nullptr;
+    for (auto w : m_missile) {
+        if (w->isActive() && (w->strength() > weaponStrength)) {
+            weaponStrength = w->strength();
+            weapon = w;
+        }
+    }
+    for (auto w : m_melee) {
+        if (w->isActive() && (w->strength() > weaponStrength)) {
+            weaponStrength = w->strength();
+            weapon = w;
+        }
+    }
+    return weapon;
 }

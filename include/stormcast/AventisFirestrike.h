@@ -22,13 +22,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        AventisFirestrike();
+        AventisFirestrike(Lore lore, MountTrait trait, bool isGeneral);
 
         ~AventisFirestrike() override = default;
 
     protected:
-
-        void configure(Lore lore, MountTrait trait);
 
         void onStartCombat(PlayerId player) override;
 

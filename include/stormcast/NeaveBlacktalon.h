@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        NeaveBlacktalon();
+        NeaveBlacktalon(bool isGeneral);
 
         ~NeaveBlacktalon() override = default;
 
     protected:
-
-        void configure();
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

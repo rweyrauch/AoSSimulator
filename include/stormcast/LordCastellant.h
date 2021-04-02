@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        LordCastellant();
+        LordCastellant(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordCastellant() override = default;
 
     protected:
-
-        void configure();
 
     private:
 

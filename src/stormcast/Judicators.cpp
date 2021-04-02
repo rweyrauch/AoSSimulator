@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool Judicators::s_registered = false;
 
-    Judicators::Judicators() :
-            StormcastEternal("Judicators", 5, g_wounds, 7, 4, false),
+    Judicators::Judicators(Stormhost stormhost, int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows) :
+            StormcastEternal(stormhost, "Judicators", 5, g_wounds, 7, 4, false),
             m_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1),
             m_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 2, 3, -1, 1),
             m_boltstormCrossbow(Weapon::Type::Missile, "Boltstorm Crossbow", 12, 3, 3, 4, 0, 1),
@@ -33,19 +33,8 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, JUSTICAR, JUDICATORS};
         m_weapons = {&m_skyboltBow, &m_skyboltPrime, &m_boltstormCrossbow, &m_shockboltBow, &m_shockboltPrime,
                      &m_thunderboldCrossbow, &m_stormGladius};
-    }
-
-    bool Judicators::configure(int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxSpecialWeapons = numModels / 5;
-        if (numShockboltBows + numThunderboltCrossbows > maxSpecialWeapons) {
-            // Invalid weapon configuration.
-            return false;
-        }
+        // Chained Lightning
+        m_shockboltBow.setHitsPerAttack(RAND_D6);
 
         m_weaponOption = weapons;
 
@@ -84,8 +73,6 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Rerolls Judicators::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
@@ -106,21 +93,23 @@ namespace StormcastEternals {
     }
 
     Unit *Judicators::Create(const ParameterList &parameters) {
-        auto juds = new Judicators();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Skybolt_Bow);
         int numShockboltBows = GetIntParam("Shockbolt Bows", parameters, 0);
         int numThunderboltCrossbows = GetIntParam("Thunderbolt Crossbows", parameters, 0);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        juds->setStormhost(stormhost);
 
-        bool ok = juds->configure(numModels, weapons, numShockboltBows, numThunderboltCrossbows);
-        if (!ok) {
-            delete juds;
-            juds = nullptr;
+        // validate inputs
+        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
+            // Invalid model count.
+            return nullptr;
         }
-        return juds;
+        const int maxSpecialWeapons = numModels / 5;
+        if (numShockboltBows + numThunderboltCrossbows > maxSpecialWeapons) {
+            // Invalid weapon configuration.
+            return nullptr;
+        }
+        return new Judicators(stormhost, numModels, weapons, numShockboltBows, numThunderboltCrossbows);
     }
 
     void Judicators::Init() {

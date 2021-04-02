@@ -20,24 +20,23 @@ namespace StormcastEternals {
 
     bool CelestarBallista::s_registered = false;
 
-    CelestarBallista::CelestarBallista() :
-            StormcastEternal("Celestar Ballista", 3, g_wounds, 7, 4, false),
-            m_stormboltsSingle(Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1),
-            m_stormboltsRapid(Weapon::Type::Missile, "Celestar Stormbolts: Rapid Fire", 18, 4, 5, 3, -2, 1),
-            m_sigmariteBlades(Weapon::Type::Melee, "Sigmarite Blades", 1, 4, 4, 4, 0, 1) {
+    CelestarBallista::CelestarBallista(Stormhost stormhost) :
+            StormcastEternal(stormhost, "Celestar Ballista", 3, g_wounds, 7, 4, false) {
+
+        // Burst of Celestial Energy
+        m_stormboltsSingle.setHitsPerAttack(RAND_D6);
+        m_stormboltsRapid.setHitsPerAttack(RAND_D6);
 
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, ORDINATOS, WAR_MACHINE,
                       CELESTAR_BALLISTA};
         m_weapons = {&m_stormboltsSingle, &m_stormboltsRapid, &m_sigmariteBlades};
         m_battleFieldRole = Role::Artillery;
-    }
 
-    void CelestarBallista::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sigmariteBlades);
 
-        m_stormboltsRapid.activate(true);
-        m_stormboltsSingle.activate(false);
+        m_stormboltsRapid.activate(false);
+        m_stormboltsSingle.activate(true);
 
         model->addMissileWeapon(&m_stormboltsSingle);
         model->addMissileWeapon(&m_stormboltsRapid);
@@ -47,13 +46,8 @@ namespace StormcastEternals {
     }
 
     Unit *CelestarBallista::Create(const ParameterList &parameters) {
-        auto ballista = new CelestarBallista();
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        ballista->setStormhost(stormhost);
-
-        ballista->configure();
-        return ballista;
+        return new CelestarBallista(stormhost);
     }
 
     void CelestarBallista::Init() {
@@ -100,6 +94,12 @@ namespace StormcastEternals {
             return Dice::RollD6();
         }
         return StormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
+    }
+
+    void CelestarBallista::onRestore() {
+        StormcastEternal::onRestore();
+        m_stormboltsRapid.activate(false);
+        m_stormboltsSingle.activate(true);
     }
 
 } // namespace StormcastEternals

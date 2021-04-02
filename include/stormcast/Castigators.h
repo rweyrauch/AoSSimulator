@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Castigators();
+        Castigators(Stormhost stormhost, int numModels);
 
         ~Castigators() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

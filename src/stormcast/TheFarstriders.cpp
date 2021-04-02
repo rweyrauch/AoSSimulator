@@ -16,7 +16,7 @@ namespace StormcastEternals {
     bool TheFarstriders::s_registered = false;
 
     TheFarstriders::TheFarstriders() :
-            StormcastEternal("The Farstriders", 6, g_wounds, 7, 4, false),
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "The Farstriders", 6, g_wounds, 7, 4, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
             m_stormSaber(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1) {
@@ -26,9 +26,7 @@ namespace StormcastEternals {
 
         // Tireless Hunters
         m_runAndShoot = true;
-    }
 
-    void TheFarstriders::configure() {
         auto sanson = new Model(g_basesize, wounds());
         sanson->setName("Sanson");
         sanson->addMissileWeapon(&m_boltstormPistol);
@@ -51,11 +49,7 @@ namespace StormcastEternals {
     }
 
     Unit *TheFarstriders::Create(const ParameterList &parameters) {
-        auto unit = new TheFarstriders();
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
-        unit->configure();
-        return unit;
+        return new TheFarstriders();
     }
 
     void TheFarstriders::Init() {

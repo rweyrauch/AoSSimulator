@@ -95,7 +95,7 @@ public:
 
     void restore();
 
-    [[nodiscard]] const Weapon *preferredWeapon() const { return m_preferredWeapon; }
+    [[nodiscard]] const Weapon *preferredWeapon() const;
 
     static double DistanceBetween(const Model *m0, const Model *m1);
 
@@ -113,7 +113,5 @@ private:
     std::vector<const Weapon *> m_missile;
 
     std::string m_name;
-
-    const Weapon *m_preferredWeapon = nullptr;
 };
 

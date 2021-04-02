@@ -25,13 +25,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        CelestantPrime();
+        CelestantPrime(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~CelestantPrime() override;
 
     protected:
-
-        void configure();
 
         int bearerOfTheWarhammer(const Unit *target);
 

@@ -22,13 +22,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        LynusGhalmorianOnGryphcharger();
+        LynusGhalmorianOnGryphcharger(Lore lore, MountTrait trait, bool isGeneral);
 
         ~LynusGhalmorianOnGryphcharger() override;
 
     protected:
-
-        void configure(Lore lore, MountTrait trait);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

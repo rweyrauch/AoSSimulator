@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Concussors();
+        Concussors(Stormhost stormhost, int numModels);
 
         ~Concussors() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

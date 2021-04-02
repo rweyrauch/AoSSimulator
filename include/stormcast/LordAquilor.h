@@ -22,13 +22,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        LordAquilor();
+        LordAquilor(Stormhost stormhost, bool astralCompass, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordAquilor() override = default;
 
     protected:
-
-        void configure(bool astralCompass);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

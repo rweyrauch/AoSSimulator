@@ -148,8 +148,8 @@ namespace LuminethRealmLords {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
                                                            g_damageTable[getDamageTableIndex()].m_shockwave);
             for (auto ip : units) {
-                const Weapon *missileWeapon = nullptr;
-                if (ip->hasShootingAttack(&missileWeapon)) {
+                double maxRange = 0.0;
+                if (ip->hasShootingAttack(maxRange)) {
                     ip->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Shooting, m_battleRound, player});
                     break;
                 }

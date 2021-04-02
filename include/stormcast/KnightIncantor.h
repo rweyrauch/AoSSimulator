@@ -26,13 +26,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        KnightIncantor();
+        KnightIncantor(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KnightIncantor() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartCombat(PlayerId player) override;
 

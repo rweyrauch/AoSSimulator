@@ -17,8 +17,8 @@ namespace StormcastEternals {
 
     bool NeaveBlacktalon::s_registered = false;
 
-    NeaveBlacktalon::NeaveBlacktalon() :
-            StormcastEternal("Neave Blacktalon", 6, g_wounds, 9, 3, false),
+    NeaveBlacktalon::NeaveBlacktalon(bool isGeneral) :
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Neave Blacktalon", 6, g_wounds, 9, 3, false),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 3, 0, 1),
             m_whirlwindAxes(Weapon::Type::Melee, "The Whirlwind Axes", 1, 7, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, KNIGHT_ZEPHYROS,
@@ -26,11 +26,11 @@ namespace StormcastEternals {
         m_weapons = {&m_boltstormPistol, &m_whirlwindAxes};
         m_battleFieldRole = Role::Leader;
 
+        setGeneral(isGeneral);
+
         // Tireless hunter
         m_runAndShoot = true;
-    }
 
-    void NeaveBlacktalon::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boltstormPistol);
         model->addMeleeWeapon(&m_whirlwindAxes);
@@ -40,15 +40,8 @@ namespace StormcastEternals {
     }
 
     Unit *NeaveBlacktalon::Create(const ParameterList &parameters) {
-        auto unit = new NeaveBlacktalon();
-
-        unit->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new NeaveBlacktalon(general);
     }
 
     void NeaveBlacktalon::Init() {

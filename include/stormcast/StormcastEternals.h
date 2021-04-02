@@ -180,7 +180,7 @@ namespace StormcastEternals {
         void setCommandTrait(CommandTrait commandTrait);
 
     protected:
-        StormcastEternal(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+        StormcastEternal(Stormhost host, const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 

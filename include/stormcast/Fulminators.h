@@ -21,11 +21,9 @@ namespace StormcastEternals {
 
         static void Init();
 
-        Fulminators();
+        Fulminators(Stormhost stormhost, int numModels);
 
         ~Fulminators() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

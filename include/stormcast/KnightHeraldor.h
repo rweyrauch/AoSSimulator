@@ -21,13 +21,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        KnightHeraldor();
+        KnightHeraldor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KnightHeraldor() override = default;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

@@ -31,13 +31,11 @@ namespace StormcastEternals {
 
         static void Init();
 
-        LordOrdinator();
+        LordOrdinator(Stormhost stormhost, WeaponOption weaponOption, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordOrdinator() override;
 
     protected:
-
-        void configure(WeaponOption weaponOption);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

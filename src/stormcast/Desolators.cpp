@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Desolators::s_registered = false;
 
-    Desolators::Desolators() :
-            StormcastEternal("Desolators", 10, g_wounds, 7, 3, false),
+    Desolators::Desolators(Stormhost stormhost, int numModels) :
+            StormcastEternal(stormhost, "Desolators", 10, g_wounds, 7, 3, false),
             m_stormBlast(Weapon::Type::Missile, "Storm Blast", 12, 1, 4, 0, 0, 0),
             m_thunderAxe(Weapon::Type::Melee, "Thunderaxe", 2, 3, 4, 3, -1, 2),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1) {
@@ -29,12 +29,6 @@ namespace StormcastEternals {
         m_weapons = {&m_stormBlast, &m_thunderAxe, &m_clawsAndFangs};
         m_hasMount = true;
         m_clawsAndFangs.setMount(true);
-    }
-
-    bool Desolators::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (int i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -45,23 +39,12 @@ namespace StormcastEternals {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Desolators::Create(const ParameterList &parameters) {
-        auto unit = new Desolators();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Desolators(stormhost, numModels);
     }
 
     void Desolators::Init() {

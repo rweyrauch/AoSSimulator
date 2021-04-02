@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool LordArcanumOnGryphcharger::s_registered = false;
 
-    LordArcanumOnGryphcharger::LordArcanumOnGryphcharger() :
-            MountedStormcastEternal("Lord-Arcanum on Gryph-charger", 12, g_wounds, 9, 3, false),
+    LordArcanumOnGryphcharger::LordArcanumOnGryphcharger(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
+            MountedStormcastEternal(stormhost, "Lord-Arcanum on Gryph-charger", 12, g_wounds, 9, 3, false),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD,
@@ -32,13 +32,14 @@ namespace StormcastEternals {
         m_hasMount = true;
         m_beakAndClaws.setMount(true);
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void LordArcanumOnGryphcharger::configure(Lore lore, MountTrait trait) {
-
-        m_mountTrait = trait;
+        m_mountTrait = mountTrait;
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_aetherstave);
@@ -54,18 +55,13 @@ namespace StormcastEternals {
     }
 
     Unit *LordArcanumOnGryphcharger::Create(const ParameterList &parameters) {
-        auto unit = new LordArcanumOnGryphcharger();
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-        auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
-
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        unit->setStormhost(stormhost);
-
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore, trait);
-        return unit;
+        return new LordArcanumOnGryphcharger(stormhost, lore, trait, artefact, mountTrait, general);
     }
 
     void LordArcanumOnGryphcharger::Init() {

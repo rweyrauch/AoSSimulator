@@ -18,8 +18,8 @@ namespace StormcastEternals {
 
     bool StormsiresCursebreakers::s_registered = false;
 
-    StormsiresCursebreakers::StormsiresCursebreakers() :
-            StormcastEternal("Stormsire's Cursebreakers", 5, g_wounds, 8, 4, false),
+    StormsiresCursebreakers::StormsiresCursebreakers(Lore lore) :
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Stormsire's Cursebreakers", 5, g_wounds, 8, 4, false),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, CORPUSCANT,
                       WIZARD, EVOCATORS, STORMSIRES_CURSEBREAKERS};
@@ -27,9 +27,7 @@ namespace StormcastEternals {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void StormsiresCursebreakers::configure(Lore lore) {
         auto ammis = new Model(g_basesize, wounds());
         ammis->addMeleeWeapon(&m_tempestBladeAndStave);
         addModel(ammis);
@@ -70,13 +68,8 @@ namespace StormcastEternals {
     }
 
     Unit *StormsiresCursebreakers::Create(const ParameterList &parameters) {
-        auto *evos = new StormsiresCursebreakers();
         auto invigoration = (Lore) GetEnumParam("Lore of Invigoration", parameters, g_loreOfInvigoration[0]);
-
-        evos->setStormhost(Stormhost::Hammers_Of_Sigmar);
-
-        evos->configure(invigoration);
-        return evos;
+        return new StormsiresCursebreakers(invigoration);
     }
 
     void StormsiresCursebreakers::Init() {

@@ -26,13 +26,11 @@ namespace StormcastEternals {
 
         static int ComputePoints(int numModels);
 
-        LordVeritant();
+        LordVeritant(Stormhost stormhost, PrayersOfTheStormhost prayer, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordVeritant() override = default;
 
     protected:
-
-        void configure(PrayersOfTheStormhost prayer);
 
     private:
 
