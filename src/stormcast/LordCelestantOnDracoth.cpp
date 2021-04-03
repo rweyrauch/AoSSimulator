@@ -66,7 +66,7 @@ namespace StormcastEternals {
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, Lightning_Hammer);
         bool sigmariteThundershield = GetBoolParam("Sigmarite Thundershield", parameters, false);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         auto general = GetBoolParam("General", parameters, false);
@@ -86,6 +86,7 @@ namespace StormcastEternals {
                             EnumParameter("Weapon", Tempestos_Hammer, weapons),
                             BoolParameter("Sigmarite Thundershield"),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
                             EnumParameter("Mount Trait", g_dracothMountTrait[0], g_dracothMountTrait),
                             BoolParameter("General")

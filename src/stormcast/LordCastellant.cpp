@@ -39,7 +39,7 @@ namespace StormcastEternals {
     Unit *LordCastellant::Create(const ParameterList &parameters) {
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsLights[0]);
         auto general = GetBoolParam("General", parameters, false);
         return new LordCastellant(stormhost, trait, artefact, general);
     }
@@ -53,6 +53,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
+                            EnumParameter("Artefact", g_artefactsLights[0], g_artefactsLights),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
                             BoolParameter("General")
                     },

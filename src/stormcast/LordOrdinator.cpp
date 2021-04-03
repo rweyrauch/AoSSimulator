@@ -61,7 +61,7 @@ namespace StormcastEternals {
         auto weapons = (WeaponOption) GetEnumParam("Weapon", parameters, false);
         auto general = GetBoolParam("General", parameters, false);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
 
         return new LordOrdinator(stormhost, weapons, trait, artefact, general);
     }
@@ -78,7 +78,7 @@ namespace StormcastEternals {
                             EnumParameter("Weapon", Astral_Hammers, weapons),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
-                            EnumParameter("Artefact", g_artefactsOfTheTempests[0], g_artefactsOfTheTempests),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     ORDER,

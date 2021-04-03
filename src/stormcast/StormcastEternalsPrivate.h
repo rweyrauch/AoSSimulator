@@ -27,7 +27,8 @@ namespace StormcastEternals {
             ToInteger(Stormhost::Astral_Templars),
     };
 
-    constexpr std::array<int, 6> g_commandTrait{
+    constexpr std::array<int, 7> g_commandTrait{
+            ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Shielded_By_Faith),
             ToInteger(CommandTrait::Consummate_Commander),
             ToInteger(CommandTrait::Cunning_Strategist),
@@ -36,25 +37,20 @@ namespace StormcastEternals {
             ToInteger(CommandTrait::Champion_Of_The_Realms),
     };
 
-    constexpr std::array<int, 6> g_stormForgedWeapons = {
+    constexpr std::array<int, 19> g_artefacts = {
+            ToInteger(Artefact::None),
             ToInteger(Artefact::Strife_Ender),
             ToInteger(Artefact::Blade_Of_Heroes),
             ToInteger(Artefact::Hammer_Of_Might),
             ToInteger(Artefact::Fang_Of_Dracothian),
             ToInteger(Artefact::Obsidian_Blade),
-            ToInteger(Artefact::Gift_Of_The_Six_Smiths)
-    };
-
-    constexpr std::array<int, 6> g_heavenWroughtArmour = {
+            ToInteger(Artefact::Gift_Of_The_Six_Smiths),
             ToInteger(Artefact::Armour_Of_Destiny),
             ToInteger(Artefact::Armour_Of_Silvered_Sigmarite),
             ToInteger(Artefact::Drakescale_Armour),
             ToInteger(Artefact::Mirrorshield),
             ToInteger(Artefact::Spellshield),
-            ToInteger(Artefact::Featherfoe_Torc)
-    };
-
-    constexpr std::array<int, 6> g_artefactsOfTheTempests = {
+            ToInteger(Artefact::Featherfoe_Torc),
             ToInteger(Artefact::Talisman_Of_Endurance),
             ToInteger(Artefact::Obsidian_Amulet),
             ToInteger(Artefact::Luckstone),
@@ -63,38 +59,82 @@ namespace StormcastEternals {
             ToInteger(Artefact::Quicksilver_Draught)
     };
 
-    constexpr std::array<int, 3> g_treasuredStandards = {
+    constexpr std::array<int, 22> g_artefactsTotems = {
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Strife_Ender),
+            ToInteger(Artefact::Blade_Of_Heroes),
+            ToInteger(Artefact::Hammer_Of_Might),
+            ToInteger(Artefact::Fang_Of_Dracothian),
+            ToInteger(Artefact::Obsidian_Blade),
+            ToInteger(Artefact::Gift_Of_The_Six_Smiths),
+            ToInteger(Artefact::Armour_Of_Destiny),
+            ToInteger(Artefact::Armour_Of_Silvered_Sigmarite),
+            ToInteger(Artefact::Drakescale_Armour),
+            ToInteger(Artefact::Mirrorshield),
+            ToInteger(Artefact::Spellshield),
+            ToInteger(Artefact::Featherfoe_Torc),
+            ToInteger(Artefact::Talisman_Of_Endurance),
+            ToInteger(Artefact::Obsidian_Amulet),
+            ToInteger(Artefact::Luckstone),
+            ToInteger(Artefact::Seed_Of_Rebirth),
+            ToInteger(Artefact::Sigmarite_Pendant),
+            ToInteger(Artefact::Quicksilver_Draught),
             ToInteger(Artefact::Hurricane_Standard),
             ToInteger(Artefact::Lichebone_Standard),
             ToInteger(Artefact::Pennant_Of_Sigmaron)
     };
 
-    constexpr std::array<int, 3> g_mysticLights = {
+    constexpr std::array<int, 22> g_artefactsLights = {
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Strife_Ender),
+            ToInteger(Artefact::Blade_Of_Heroes),
+            ToInteger(Artefact::Hammer_Of_Might),
+            ToInteger(Artefact::Fang_Of_Dracothian),
+            ToInteger(Artefact::Obsidian_Blade),
+            ToInteger(Artefact::Gift_Of_The_Six_Smiths),
+            ToInteger(Artefact::Armour_Of_Destiny),
+            ToInteger(Artefact::Armour_Of_Silvered_Sigmarite),
+            ToInteger(Artefact::Drakescale_Armour),
+            ToInteger(Artefact::Mirrorshield),
+            ToInteger(Artefact::Spellshield),
+            ToInteger(Artefact::Featherfoe_Torc),
+            ToInteger(Artefact::Talisman_Of_Endurance),
+            ToInteger(Artefact::Obsidian_Amulet),
+            ToInteger(Artefact::Luckstone),
+            ToInteger(Artefact::Seed_Of_Rebirth),
+            ToInteger(Artefact::Sigmarite_Pendant),
+            ToInteger(Artefact::Quicksilver_Draught),
             ToInteger(Artefact::Shriving_Light),
             ToInteger(Artefact::Fury_Brand),
             ToInteger(Artefact::Lantern_Of_The_Tempest)
     };
 
-    constexpr std::array<int, 3> g_celestialStaves = {
+    constexpr std::array<int, 25> g_celestialMagic = {
+            ToInteger(Artefact::None),
+            ToInteger(Artefact::Strife_Ender),
+            ToInteger(Artefact::Blade_Of_Heroes),
+            ToInteger(Artefact::Hammer_Of_Might),
+            ToInteger(Artefact::Fang_Of_Dracothian),
+            ToInteger(Artefact::Obsidian_Blade),
+            ToInteger(Artefact::Gift_Of_The_Six_Smiths),
+            ToInteger(Artefact::Armour_Of_Destiny),
+            ToInteger(Artefact::Armour_Of_Silvered_Sigmarite),
+            ToInteger(Artefact::Drakescale_Armour),
+            ToInteger(Artefact::Mirrorshield),
+            ToInteger(Artefact::Spellshield),
+            ToInteger(Artefact::Featherfoe_Torc),
+            ToInteger(Artefact::Talisman_Of_Endurance),
+            ToInteger(Artefact::Obsidian_Amulet),
+            ToInteger(Artefact::Luckstone),
+            ToInteger(Artefact::Seed_Of_Rebirth),
+            ToInteger(Artefact::Sigmarite_Pendant),
+            ToInteger(Artefact::Quicksilver_Draught),
             ToInteger(Artefact::Staff_Of_Focus),
             ToInteger(Artefact::Mindlock_Staff),
-            ToInteger(Artefact::Staff_Of_Azyr)
-    };
-
-    constexpr std::array<int, 3> g_scrollsOfPower = {
+            ToInteger(Artefact::Staff_Of_Azyr),
             ToInteger(Artefact::Scroll_Of_Unravelling),
             ToInteger(Artefact::Scroll_Of_Condemnation),
             ToInteger(Artefact::Storm_Scroll)
-    };
-
-
-    constexpr std::array<int, 6> g_loreOfTheStorm = {
-            ToInteger(Lore::Lightning_Blast),
-            ToInteger(Lore::Starfall),
-            ToInteger(Lore::Thundershock),
-            ToInteger(Lore::Azyrite_Halo),
-            ToInteger(Lore::Chain_Lightning),
-            ToInteger(Lore::Stormcaller),
     };
 
     constexpr std::array<int, 3> g_loreOfInvigoration = {

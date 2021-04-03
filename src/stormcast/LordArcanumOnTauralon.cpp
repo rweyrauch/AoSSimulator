@@ -64,7 +64,7 @@ namespace StormcastEternals {
         auto lore = (Lore) GetEnumParam("Lore of the Storm", parameters, g_lore[0]);
         auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, (int) MountTrait::None);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialMagic[0]);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         auto general = GetBoolParam("General", parameters, false);
         return new LordArcanumOnTauralon(stormhost, lore, trait, artefact, mountTrait, general);
@@ -80,6 +80,7 @@ namespace StormcastEternals {
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
+                            EnumParameter("Artefact", g_celestialMagic[0], g_celestialMagic),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
                             EnumParameter("Mount Trait", g_tauralonMountTrait[0], g_tauralonMountTrait),
                             BoolParameter("General")

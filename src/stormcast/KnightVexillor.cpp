@@ -21,7 +21,7 @@ namespace StormcastEternals {
     KnightVexillor::KnightVexillor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
             StormcastEternal(stormhost, "Knight-Vexillor", 5, g_wounds, 8, 3, false),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 4, 4, 3, 0, 1) {
-        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_VEXILLOR};
+        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, TOTEM, KNIGHT_VEXILLOR};
         m_weapons = {&m_warhammer};
         m_battleFieldRole = Role::Leader;
 
@@ -45,7 +45,7 @@ namespace StormcastEternals {
     Unit *KnightVexillor::Create(const ParameterList &parameters) {
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTrait[0]);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsOfTheTempests[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsTotems[0]);
         auto general = GetBoolParam("General", parameters, false);
         return new KnightVexillor(stormhost, trait, artefact, general);
      }
@@ -59,6 +59,7 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
+                            EnumParameter("Artefact", g_artefactsTotems[0], g_artefactsTotems),
                             EnumParameter("Command Trait", g_commandTrait[0], g_commandTrait),
                             BoolParameter("General")
                     },
