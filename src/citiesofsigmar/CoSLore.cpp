@@ -204,6 +204,25 @@ namespace CitiesOfSigmar {
                 return nullptr;
             case Lore::Celestial_Visions:
                 return new AddCommandPoint(caster, "Celestial Visions", 7, 1);
+            case Lore::The_Withering:
+                return new BuffModifierSpell(caster, "The Withering", 7, 18,
+                                             {{Attribute::Target_To_Wound_Missile, 1}, {Attribute::Target_To_Wound_Melee,   1}},
+                                             Abilities::Target::Enemy);
+            case Lore::Steed_Of_Shadows:
+                // TODO: Steed_Of_Shadows
+                break;
+            case Lore::Pit_Of_Shades:
+                // TODO: Pit_Of_Shades
+                break;
+            case Lore::Drain_Magic:
+                // TODO: Drain_Magic
+                break;
+            case Lore::Shield_Of_Light:
+                // TODO: Shield_Of_Light
+                break;
+            case Lore::Illuminate:
+                return new BuffModifierSpell(caster, "Illuminate", 6, 12, Attribute::Target_To_Hit_Missile, 1,
+                                             Abilities::Target::Enemy);
             default:
                 break;
         }

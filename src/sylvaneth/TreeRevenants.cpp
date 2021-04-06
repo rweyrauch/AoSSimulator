@@ -99,13 +99,13 @@ namespace Sylvaneth {
         }
     }
 
-    void TreeRevenants::onBeginTurn(int battleRound) {
+    void TreeRevenants::onBeginTurn(int battleRound, PlayerId player) {
         m_combatRerollAvailable = true;
         m_moveRerollAvailable = true;
         m_missileRerollAvailable = true;
         m_battleshockRerollAvailable = true;
 
-        SylvanethBase::onBeginTurn(battleRound);
+        SylvanethBase::onBeginTurn(battleRound, player);
     }
 
     Rerolls TreeRevenants::runRerolls() const {

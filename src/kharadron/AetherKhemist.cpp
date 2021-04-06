@@ -106,11 +106,15 @@ namespace KharadronOverlords {
         KharadronBase::onStartHero(player);
 
         // Aetheric Augmentation
-        auto skyfarers = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+        auto totalUnits = (m_commandTrait == CommandTrait::Khemist_Supreme) ? 2 : 1;
+        auto range = (m_commandTrait == CommandTrait::Genius_In_The_Making) ? 18.0 : 12.0;
+        auto skyfarers = Board::Instance()->getUnitsWithin(this, owningPlayer(), range);
         for (auto unit : skyfarers) {
             if (unit->hasKeyword(SKYFARER)) {
                 unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones,
                                  {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                totalUnits--;
+                if (totalUnits <= 0) break;
             }
         }
     }

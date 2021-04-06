@@ -110,8 +110,8 @@ namespace Bonesplitterz {
         return mod;
     }
 
-    void ManiakWeirdnob::onBeginTurn(int battleRound) {
-        Bonesplitterz::onBeginTurn(battleRound);
+    void ManiakWeirdnob::onBeginTurn(int battleRound, PlayerId player) {
+        Bonesplitterz::onBeginTurn(battleRound, player);
 
         m_usedWeirdSquig = false;
     }

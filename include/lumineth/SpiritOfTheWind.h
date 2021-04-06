@@ -25,7 +25,11 @@ namespace LuminethRealmLords {
 
     protected:
 
-        HurakanSpiritOfTheWind(GreatNation nation);
+        explicit HurakanSpiritOfTheWind(GreatNation nation);
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        void onStartHero(PlayerId player) override;
 
     private:
 
@@ -39,10 +43,10 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Into the Gale                    TODO
+// Into the Gale                    TODO/Partial
 // Living Cyclone                   TODO
 // Spirit of the Wind               TODO
-// Windmage Symbiosis               TODO
+// Windmage Symbiosis               Yes
 //
 
 } // namespace LuminethRealmLords

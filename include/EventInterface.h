@@ -52,9 +52,9 @@ public:
 
     virtual void onEndRound(int battleRound) {}
 
-    virtual void onBeginTurn(int battleRound) {}
+    virtual void onBeginTurn(int battleRound, PlayerId player) {}
 
-    virtual void onEndTurn(int battleRound) {}
+    virtual void onEndTurn(int battleRound, PlayerId player) {}
 
     virtual void onStartHero(PlayerId player) {}
 

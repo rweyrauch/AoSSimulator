@@ -8,6 +8,7 @@
 
 #include <lumineth/Sevireth.h>
 #include <UnitFactory.h>
+#include <Board.h>
 
 namespace LuminethRealmLords {
 
@@ -59,5 +60,22 @@ namespace LuminethRealmLords {
         addModel(model);
 
         m_points = ComputePoints(1);
+    }
+
+    void Sevireth::onStartHero(PlayerId player) {
+        LuminethBase::onStartHero(player);
+
+        // Windmage Symbiosis
+        if (owningPlayer() == player) {
+            auto mages = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), WINDMAGE, 12.0);
+            if (mages && mages->remainingModels() > 0) {
+                heal(Dice::RollD3());
+            }
+        }
+    }
+
+    Wounds Sevireth::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Into the Gale
+        return ignoreWounds(wounds, 5);
     }
 }

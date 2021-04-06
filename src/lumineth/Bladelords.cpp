@@ -81,6 +81,20 @@ namespace LuminethRealmLords {
             addModel(model);
         }
 
+        m_greatbladeSeneschalBlow.activate(true);
+        m_greatbladeSeneschalStrike.activate(false);
+
+        m_greatbladeBlows.activate(true);
+        m_greatbladeStrike.activate(false);
+
         m_points = ComputePoints(numModels);
+    }
+
+    Wounds VanariBladelords::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Vanashimor Banner
+        if (wounds.source == Wounds::Source::Spell) {
+            return ignoreWounds(wounds, 4);
+        }
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 }

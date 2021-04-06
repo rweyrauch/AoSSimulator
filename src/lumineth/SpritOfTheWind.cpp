@@ -8,6 +8,7 @@
 
 #include <lumineth/SpiritOfTheWind.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
@@ -60,6 +61,23 @@ namespace LuminethRealmLords {
         addModel(model);
 
         m_points = ComputePoints(1);
+    }
+
+    Wounds HurakanSpiritOfTheWind::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Into the Gale
+        return ignoreWounds(wounds, 5);
+    }
+
+    void HurakanSpiritOfTheWind::onStartHero(PlayerId player) {
+        LuminethBase::onStartHero(player);
+
+        // Windmage Symbiosis
+        if (owningPlayer() == player) {
+            auto mages = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), WINDMAGE, 12.0);
+            if (mages && mages->remainingModels() > 0) {
+                heal(Dice::RollD3());
+            }
+        }
     }
 
 }

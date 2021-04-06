@@ -400,8 +400,8 @@ namespace StormcastEternals {
         }
     }
 
-    void StormcastEternal::onBeginTurn(int battleRound) {
-        Unit::onBeginTurn(battleRound);
+    void StormcastEternal::onBeginTurn(int battleRound, PlayerId player) {
+        Unit::onBeginTurn(battleRound, player);
 
         m_usedPortentsAndOmensInTurn = false;
     }
@@ -425,7 +425,6 @@ namespace StormcastEternals {
     }
 
     void Init() {
-/*
         CelestantPrime::Init();
         AventisFirestrike::Init();
         AstreiaSolbright::Init();
@@ -474,14 +473,11 @@ namespace StormcastEternals {
         VanguardPalladors::Init();
         Aetherwings::Init();
         Castigators::Init();
-*/
         CelestarBallista::Init();
-/*
         Sequitors::Init();
         Evocators::Init();
         EvocatorsOnCelestialDracolines::Init();
         LynusGhalmorianOnGryphcharger::Init();
-*/
     }
 
     bool DoSpiritFlasks(Unit *owner) {

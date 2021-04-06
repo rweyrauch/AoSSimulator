@@ -159,6 +159,10 @@ namespace CitiesOfSigmar {
 
     void CitizenOfSigmar::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (trait == CommandTrait::Personal_Levitation) {
+            m_fly = true;
+        }
     }
 
     void CitizenOfSigmar::setArtefact(Artefact artefact) {
@@ -196,7 +200,9 @@ namespace CitiesOfSigmar {
         if (isGeneral() && (m_commandTrait == CommandTrait::Ironoak_Artisan)) {
             mod++;
         }
-
+        if (isGeneral() && (m_commandTrait == CommandTrait::Raging_Outburst) && weapon->isMelee()) {
+            mod--;
+        }
         return mod;
     }
 
@@ -228,7 +234,8 @@ namespace CitiesOfSigmar {
         if (owningPlayer() == player) {
             if (isGeneral() && (remainingModels() > 0) &&
                 ((m_commandTrait == CommandTrait::Seat_On_The_Council) ||
-                 (m_commandTrait == CommandTrait::Warden_Of_The_Flame))) {
+                 (m_commandTrait == CommandTrait::Warden_Of_The_Flame) ||
+                 (m_commandTrait == CommandTrait::Strategic_Mastermind))) {
                 if (Dice::RollD6() >= 4) {
                     getRoster()->addCommandPoints(1);
                 }
@@ -294,6 +301,9 @@ namespace CitiesOfSigmar {
         if (target->hasKeyword(MONSTER) && isGeneral() && (m_commandTrait == CommandTrait::Slayer_Of_Monsters)) {
             mod++;
         }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Raging_Outburst) && weapon->isMelee()) {
+            mod++;
+        }
         return mod;
     }
 
@@ -315,6 +325,9 @@ namespace CitiesOfSigmar {
             mod++;
         }
         if (target->hasKeyword(MONSTER) && isGeneral() && (m_commandTrait == CommandTrait::Slayer_Of_Monsters)) {
+            mod++;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Raging_Outburst) && weapon->isMelee()) {
             mod++;
         }
         if (hasKeyword(TEMPESTS_EYE)) {

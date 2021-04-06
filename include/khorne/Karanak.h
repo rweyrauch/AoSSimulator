@@ -29,7 +29,7 @@ namespace Khorne {
 
         void configure();
 
-        void onBeginTurn(int battleRound) override;
+        void onBeginTurn(int battleRound, PlayerId player) override;
 
         // Unflagging Hunter
         Rerolls chargeRerolls() const override { return Rerolls::Failed; }

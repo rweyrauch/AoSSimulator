@@ -172,7 +172,7 @@ namespace Khorne {
 
         void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
 
-        void onBeginTurn(int battleRound) override;
+        void onBeginTurn(int battleRound, PlayerId player) override;
 
         Rerolls chargeRerolls() const override;
 

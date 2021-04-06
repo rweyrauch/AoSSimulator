@@ -29,7 +29,7 @@ namespace DaughtersOfKhaine {
 
     protected:
 
-        void onBeginTurn(int battleRound) override;
+        void onBeginTurn(int battleRound, PlayerId player) override;
 
         void onCharged() override;
 

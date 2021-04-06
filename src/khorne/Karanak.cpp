@@ -81,14 +81,14 @@ namespace Khorne {
         return KhorneBase::toWoundRerolls(weapon, target);
     }
 
-    void Karanak::onBeginTurn(int battleRound) {
+    void Karanak::onBeginTurn(int battleRound, PlayerId player) {
         if (battleRound == 1) {
             // Select a quarry for Karanak
             // TODO: Select a _good_ unit to be Karanak's quarry
             m_pQuarry = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         }
 
-        KhorneBase::onBeginTurn(battleRound);
+        KhorneBase::onBeginTurn(battleRound, player);
     }
 
     int Karanak::ComputePoints(int /*numModels*/) {

@@ -23,6 +23,7 @@ namespace CitiesOfSigmar {
         Tempests_Eye,
         Misthåvn,
         Har_Kuron,
+        Settlers_Gain
     };
 
     enum class CommandTrait : int {
@@ -72,6 +73,11 @@ namespace CitiesOfSigmar {
         Bathed_In_Blood,
         Murderous_Zeal,             // TODO
         Dark_Adept,                 // TODO
+
+        // Settler's Gain
+        Personal_Levitation,
+        Strategic_Mastermind,
+        Raging_Outburst,
     };
 
     enum class Artefact : int {
@@ -122,6 +128,13 @@ namespace CitiesOfSigmar {
         Traitors_Banner,
         Nullstone_Vizard,
 
+        // Settler's Gain
+        Heart_Stone,
+        Talisman_Of_Dispellation,
+        Silver_Plated_Wand,
+        Blade_Of_Leaping_Bronze,
+        Amulet_Of_Haste,
+        Stone_Spirit_Armour,
     };
 
     enum class Lore : int {
@@ -172,6 +185,11 @@ namespace CitiesOfSigmar {
         Steed_Of_Shadows,
         Pit_Of_Shades,
         //Shadow_Daggers,
+
+        // Settler's Gain
+        Drain_Magic,
+        Shield_Of_Light,
+        Illuminate,
     };
 
     enum class Narcotic : int {
@@ -289,6 +307,10 @@ namespace CitiesOfSigmar {
 // Har_Kuron
 //    Incitement to Murder          TODO
 //    Make an Example of the Weak   TODO
+// Settler's Gain
+//    Lumineth Tutors               TODO
+//    Warriors of the High Districts    TODO
+//    Aelven Training               TODO
 //
 
     void Init();

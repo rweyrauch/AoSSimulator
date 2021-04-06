@@ -25,7 +25,11 @@ namespace LuminethRealmLords {
 
     protected:
 
-        Sevireth(bool isGeneral);
+        explicit Sevireth(bool isGeneral);
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        void onStartHero(PlayerId player) override;
 
     private:
 
@@ -39,11 +43,11 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Into the Gale                    TODO
+// Into the Gale                    TODO/Partial
 // Living Cyclone                   TODO
 // Scour                            TODO
 // Spirit of the Wind               TODO
-// Windmage Symbiosis               TODO
+// Windmage Symbiosis               Yes
 //
 
 } // namespace LuminethRealmLords

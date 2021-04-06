@@ -275,8 +275,8 @@ namespace Khorne {
         }
     }
 
-    void KhorneBase::onBeginTurn(int battleRound) {
-        Unit::onBeginTurn(battleRound);
+    void KhorneBase::onBeginTurn(int battleRound, PlayerId player) {
+        Unit::onBeginTurn(battleRound, player);
 
         // BeginTurn happens before any the hero phase starts - can safely clear the static flags here
         s_currentBloodTithe = BloodTitheReward::None;

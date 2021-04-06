@@ -312,11 +312,11 @@ void Unit::beginTurn(int battleRound, PlayerId playerWithTurn) {
     m_currentRecord.m_playerWithTurn = playerWithTurn;
     m_currentRecord.m_round = battleRound;
 
-    onBeginTurn(battleRound);
+    onBeginTurn(battleRound, playerWithTurn);
 }
 
 void Unit::endTurn(int battleRound) {
-    onEndTurn(battleRound);
+    onEndTurn(battleRound, m_currentRecord.m_playerWithTurn);
     m_statistics.record(m_currentRecord);
 }
 

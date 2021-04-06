@@ -74,8 +74,8 @@ namespace Slaanesh {
         m_shardslash.setAttacks(std::min(5, m_unmodifiedChargeRoll));
     }
 
-    void SigvaldPrinceOfSlaanesh::onBeginTurn(int battleRound) {
-        EventInterface::onBeginTurn(battleRound);
+    void SigvaldPrinceOfSlaanesh::onBeginTurn(int battleRound, PlayerId player) {
+        EventInterface::onBeginTurn(battleRound, player);
         m_shardslash.setAttacks(5);
     }
 

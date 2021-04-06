@@ -165,7 +165,7 @@ namespace LuminethRealmLords {
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
 
-        int m_aetherQuartzReserve = 1;
+        mutable int m_aetherQuartzReserve = 1;
 
         lsignal::slot m_majesticConnection;
     };
@@ -174,9 +174,9 @@ namespace LuminethRealmLords {
 // Abilities                    Implemented
 // -------------------------------------------
 // Aetherquartz Reserve             TODO
-//   Heightened Reflexes            TODO
-//   Heighteden Senses              TODO
-//   Magical Boost                  TODO
+//   Heightened Reflexes            Yes
+//   Heighteden Senses              Yes
+//   Magical Boost                  Partial
 //   Magical Insight                TODO
 // Absorb Despair                   TODO
 // Lightning Reactions              TODO

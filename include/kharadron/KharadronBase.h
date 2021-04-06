@@ -77,11 +77,11 @@ namespace KharadronOverlords {
         None,
 
         // Admiral
-        Wealthy,                    // Yes
-        Tough_As_Old_Boots,         // Yes
+        Wealthy,
+        Tough_As_Old_Boots,
         Grudgebearer,               // TODO
         Cunning_Fleetmaster,        // TODO
-        War_Wounds,                 // TODO
+        War_Wounds,
         A_Scholar_And_An_Arkanaut,  // TODO
 
         // Endrinmaster
@@ -89,7 +89,7 @@ namespace KharadronOverlords {
         // Tough_as_Old_Boots,
         // Grudgebearer,
         Grandmaster,                // TODO
-        Great_Tinkerer,             // Yes
+        Great_Tinkerer,
         Endrinprofessor,            // TODO
 
         // Navigatgor
@@ -97,22 +97,22 @@ namespace KharadronOverlords {
         // Tough_as_Old_Boots,
         Stormcaller,                // TODO
         Ride_The_Winds,             // TODO
-        Sceptic,                    // Yes
+        Sceptic,
         Diviner,                    // TODO
 
         // Khemist
         // Wealthy,
         // Tough_as_Old_Boots,
         // Grudgebearer,
-        A_Nose_For_Gold,            // Yes
-        Genius_In_The_Making,       // TODO
+        A_Nose_For_Gold,
+        Genius_In_The_Making,
         Collector,                  // TODO
 
         // Skyport
         Champion_Of_Progress,       // Barak-Nar TODO
         Master_Commander,           // Barak-Zilfin TODO
         Bearer_Of_The_Ironstar,     // Barak-Zon TODO
-        Khemist_Supreme,            // Barak-Urbaz TODO
+        Khemist_Supreme,            // Barak-Urbaz
         Opportunistic_Privateer,    // Barak-Mhornar TODO
         Supremely_Stubborn,         // Barak-Thryng TODO
     };
@@ -228,6 +228,10 @@ namespace KharadronOverlords {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        void onBeginTurn(int battleRound, PlayerId player) override;
+
+        Rerolls battleshockRerolls() const override;
+
     protected:
 
         Skyport m_skyport = Skyport::None;
@@ -243,6 +247,8 @@ namespace KharadronOverlords {
 
         static bool s_usedFootnote;
         int m_aetherGold = 1;
+
+        Unit* m_garrison = nullptr;
     };
 
 //
@@ -254,27 +260,34 @@ namespace KharadronOverlords {
 //   Honour is Everything           Yes
 //   Master the Skies               Yes
 //   Settle the Grudges             TODO
-//   Respect Your Commanders        TODO
-//   Seek New Prospects             TODO
+//   Respect Your Commanders        Yes
+//   Seek New Prospects             Yes
 //   Chronicle of Grudges           TODO
 // Ammendment
 //   Always Take What You Are Owed  TODO
-//   Prosecute Wars With All Haste  TODO
-//   Trust To Your Guns             TODO
+//   Prosecute Wars With All Haste  Yes
+//   Trust To Your Guns             Yes
 //   Trust Aethermatics not Superstition    TODO
 //   Dont Argue With the Wind       TODO
-//   Leave No Duardin Behind        TODO
+//   Leave No Duardin Behind        Yes
 //   Take Help Where You Can Get It TODO
 // Footnote
 //   There's No Reward Without Risk Yes
 //   There's No Trading With Some People    TODO
 //   Without Our Ships, We Are Naught   Yes
-//   Through Knowledge Power        TODO
+//   Through Knowledge Power        Yes
 //   Theres Always a Breeze         TODO
 //   Show Them_Your_Steel           TODO
 //   Where Theres War Theres Gold   TODO
 //   Who Strikes First Strikes Hardest  TODO
 //   Honour the Gods Just in Case   TODO
+// Sky-Port Abilities
+//  Scholars and Commanders         TODO
+//  Magnificent Skyvessels          TODO
+//  Deeds, Not Words                TODO
+//  The Market City                 TODO
+//  Fearsome Raiders                TODO
+//  Incredibly Stubborn             TODO
 //
 
     void Init();

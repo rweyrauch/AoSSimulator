@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <magic_enum.hpp>
+#include "Roster.h"
 #include <kharadron/KharadronBase.h>
 #include <kharadron/AethericNavigator.h>
 #include <kharadron/AetherKhemist.h>
@@ -20,6 +21,7 @@
 #include <kharadron/GrundstokGunhauler.h>
 #include <kharadron/GrundstokThunderers.h>
 #include <kharadron/Skywardens.h>
+#include <Board.h>
 #include "kharadron/BjorgenThundrik.h"
 #include "kharadron/ThundriksProfiteers.h"
 
@@ -153,7 +155,26 @@ namespace KharadronOverlords {
     }
 
     int KharadronBase::braveryModifier() const {
-        return Unit::braveryModifier();
+        auto mod = Unit::braveryModifier();
+        if (m_amendment == Amendment::Trust_To_Your_Guns) {
+            auto enemy = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (enemy && (distanceTo(enemy) < 3.0)) {
+                mod++;
+            }
+            else if (enemy == nullptr) {
+                mod++;
+            }
+        }
+        if (hasKeyword(SKYFARERS) && (m_amendment == Amendment::Leave_No_Duardin_Behind)) {
+            auto vessels = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+            for (auto vessel : vessels) {
+                if (vessel->hasKeyword(SKYVESSEL) && (vessel->remainingModels() > 0)) {
+                    mod += 2;
+                    break;
+                }
+            }
+        }
+        return mod;
     }
 
     void KharadronBase::onRestore() {
@@ -231,6 +252,9 @@ namespace KharadronOverlords {
         if (isGeneral() && (m_commandTrait == CommandTrait::Sceptic)) {
             mod++;
         }
+        if ((m_footnote == Footnote::Through_Knowledge_Power) && (hasKeyword(HERO))) {
+            mod++;
+        }
         return mod;
     }
 
@@ -241,6 +265,15 @@ namespace KharadronOverlords {
             if (isGeneral() && (m_commandTrait == CommandTrait::A_Nose_For_Gold)) {
                 if (Dice::RollD6() >= 5) {
                     m_aetherGold++;
+                }
+            }
+            if (isGeneral() && (m_commandTrait == CommandTrait::War_Wounds)) {
+                if (Dice::RollD6() >= 2) {
+                    getRoster()->addCommandPoints(1);
+                }
+                else {
+                    buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
                 }
             }
         }
@@ -254,6 +287,31 @@ namespace KharadronOverlords {
             }
         }
         return attacks;
+    }
+
+    void KharadronBase::onBeginTurn(int battleRound, PlayerId player) {
+        Unit::onBeginTurn(battleRound, player);
+
+        if ((owningPlayer() == player) && (battleRound == 1) && (m_amendment == Amendment::Prosecute_Wars_With_All_Haste)) {
+            buffMovement(MovementRule::Run_And_Shoot, true, {Phase::Hero, battleRound+1, player});
+        }
+    }
+
+    Rerolls KharadronBase::battleshockRerolls() const {
+        if (hasKeyword(BARAK_NAR) && (m_artycle == Artycle::Respect_Your_Commanders)) {
+            auto heroes = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+            for (auto hero : heroes) {
+                if (hero->hasKeyword(HERO) && (hero->remainingModels() > 0) && hero->hasKeyword(BARAK_NAR)) {
+                    return Rerolls::Failed;
+                }
+            }
+        }
+        if (m_artycle == Artycle::Seek_New_Prospects) {
+            if (Board::Instance()->isUnitWithinDeploymentZone(this, GetEnemyId(owningPlayer()))) {
+                return Rerolls::Failed;
+            }
+        }
+        return Unit::battleshockRerolls();
     }
 
     void Init() {

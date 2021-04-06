@@ -29,7 +29,7 @@ namespace Sylvaneth {
 
     protected:
 
-        void onBeginTurn(int battleRound) override;
+        void onBeginTurn(int battleRound, PlayerId player) override;
 
         Rerolls runRerolls() const override;
 

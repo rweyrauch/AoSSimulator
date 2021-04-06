@@ -27,6 +27,8 @@ namespace LuminethRealmLords {
 
         VanariBladelords(int numModels, bool seneschalDualBlades, GreatNation nation);
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
     private:
 
         Weapon m_greatbladeStrike{Weapon::Type::Melee, "Sunmetal Greatblade: Perfect Strike", 2, 1, 0, 2, -2, 1},
@@ -41,6 +43,10 @@ namespace LuminethRealmLords {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Guardians                        TODO
+// Swordmasters                     TODO
+// Vanashimor Banners               Yes
+//
 
 } // namespace LuminethRealmLords
 

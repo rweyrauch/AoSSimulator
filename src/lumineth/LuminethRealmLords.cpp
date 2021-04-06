@@ -162,19 +162,36 @@ namespace LuminethRealmLords {
     }
 
     int LuminethBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        return Unit::toHitModifier(weapon, target);
+        auto mod = Unit::toHitModifier(weapon, target);
+        if (m_aetherQuartzReserve > 0) {
+            // Heightened Senses
+            mod++;
+            m_aetherQuartzReserve--;
+        }
+        return mod;
     }
 
     int LuminethBase::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        return Unit::toSaveModifier(weapon, attacker);
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+        if (m_aetherQuartzReserve > 0) {
+            // Heightened Reflexes
+            mod++;
+            m_aetherQuartzReserve--;
+        }
+        return mod;
     }
 
     int LuminethBase::castingModifier() const {
-        return Unit::castingModifier();
+        auto mod = Unit::castingModifier();
+        if (m_aetherQuartzReserve > 0) {
+            // Heightened Boost
+            mod++;
+            m_aetherQuartzReserve--;
+        }
+        return mod;
     }
 
     void Init() {
-/*
         AlarithSpiritOfTheMountain::Init();
         AlarithStoneguard::Init();
         AlarithStonemage::Init();
@@ -198,7 +215,6 @@ namespace LuminethRealmLords {
         VanariBannerblade::Init();
         VanariBladelords::Init();
         VanariLordRegent::Init();
-*/
         VanariStarshardBallistas::Init();
     }
 

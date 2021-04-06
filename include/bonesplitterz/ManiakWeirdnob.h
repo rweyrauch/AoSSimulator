@@ -32,7 +32,7 @@ namespace Bonesplitterz {
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 
-        void onBeginTurn(int battleRound) override;
+        void onBeginTurn(int battleRound, PlayerId player) override;
 
         Rerolls castingRerolls() const override;
 

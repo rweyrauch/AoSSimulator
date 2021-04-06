@@ -82,8 +82,8 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    void KhineraiLifetakers::onBeginTurn(int battleRound) {
-        DaughterOfKhaine::onBeginTurn(battleRound);
+    void KhineraiLifetakers::onBeginTurn(int battleRound, PlayerId player) {
+        DaughterOfKhaine::onBeginTurn(battleRound, player);
 
         // reset weapon damage (if previously charged)
         m_barbedSickle.setDamage(m_barbedSickle.damage());

@@ -34,7 +34,7 @@ namespace Slaanesh {
 
         void onCharged() override;
 
-        void onBeginTurn(int battleRound) override;
+        void onBeginTurn(int battleRound, PlayerId player) override;
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
