@@ -110,11 +110,11 @@ namespace Khorne {
     }
 
     void SkullCannons::onEnemyModelSlain(int numModels, Unit *enemyUnit, Wounds::Source source) {
-        if (numModels && !m_hasFoughtTwice) {
-            // Grind Their Bones, Seize Their Skulls
-            int numSlain;
-            fight(-1, m_meleeTarget, numSlain);
+        if (numModels && !m_hasFoughtTwice && (source == Wounds::Source::Weapon_Melee)) {
             m_hasFoughtTwice = true;
+            // Grind Their Bones, Seize Their Skulls
+            int numSlain = 0;
+            fight(-1, m_meleeTarget, numSlain);
         }
         KhorneBase::onEnemyModelSlain(numModels, enemyUnit, source);
     }

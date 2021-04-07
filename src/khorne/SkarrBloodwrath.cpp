@@ -83,4 +83,17 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
+    void SkarrBloodwrath::onEndMovement(PlayerId player) {
+        KhorneBase::onEndMovement(player);
+
+        // The Slaughterborn
+        if (remainingModels() == 0) {
+            if (Dice::Roll2D6() >= 8) {
+                restore();
+                // TODO: redeploy 9" from enemy models
+                deploy(position(), orientation());
+            }
+        }
+    }
+
 } // namespace Khorne

@@ -32,11 +32,13 @@ namespace Khorne {
         int rageOfKhorneAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
                                   const Unit *target);
 
+        Rerolls loathsomeSorcery(const Unit* caster);
+
     private:
 
         Weapon m_ensorcelledAxe;
 
-        lsignal::slot m_rageOfKhorneSlot;
+        lsignal::slot m_rageOfKhorneSlot, m_loathsomeSorcerySlot;
 
         static bool s_registered;
     };
@@ -44,7 +46,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Loathsome Sorcery                TODO
+// Loathsome Sorcery                Yes
 // Rage of Khorne                   Yes
 //
 

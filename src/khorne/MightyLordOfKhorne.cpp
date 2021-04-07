@@ -113,5 +113,18 @@ namespace Khorne {
         return g_pointsPerUnit;
     }
 
+    void MightyLordOfKhorne::onEnemyModelWoundedWithWeapon(Unit *enemyUnit, const Weapon *weapon,
+                                                           const Wounds &weaponDamage) {
+        KhorneBase::onEnemyModelWoundedWithWeapon(enemyUnit, weapon, weaponDamage);
+
+        if (weapon->name() == m_axeOfKhorne.name()) {
+            // Reality-splitting Axe
+            if (Dice::RollD6() >= 5) {
+                PLOG_INFO << name() << " slays wounded model from enemy unit " << enemyUnit->name() << " with " <<
+                    weapon->name() << " Reality-splitting Axe ability.";
+                enemyUnit->slay(1);
+            }
+        }
+    }
 
 } // namespace Khorne

@@ -119,3 +119,42 @@ bool BuffAbilityCommandAbility::apply(Unit *target) {
 
     return true;
 }
+
+CommandAbility* CreateAtTheDouble(Unit *source, int rangeGeneral, int rangeHero) {
+    return new BuffAbilityCommandAbility(source, "At the Double", rangeGeneral, rangeHero,
+                                         Phase::Movement, Ability::Auto_Max_Run, 6, Abilities::Target::SelfAndFriendly);
+}
+
+CommandAbility* CreateForwardToVictory(Unit *source, int rangeGeneral, int rangeHero) {
+    return new BuffRerollCommandAbility(source, "Forward to Victory", rangeGeneral, rangeHero,
+    Phase::Charge, Attribute::Charge_Distance, Rerolls::Failed, Abilities::Target::SelfAndFriendly);
+}
+
+CommandAbility* CreateInspiringPresence(Unit *source, int rangeGeneral, int rangeHero) {
+    return new BuffAbilityCommandAbility(source, "Inspiring Presence", rangeGeneral, rangeHero,
+                                         Phase::Battleshock, Ability::Ignore_Battleshock, 1, Abilities::Target::SelfAndFriendly);
+}
+
+CommandAbility* CreateAllOutAttack(Unit *source, int rangeGeneral, int rangeHero) {
+    return new BuffRerollCommandAbility(source, "All-out Attack", rangeGeneral, rangeHero,
+                                        Phase::Combat, Attribute::To_Hit_Melee, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
+}
+
+CommandAbility* CreateAllOutDefence(Unit *source, int rangeGeneral, int rangeHero) {
+    return new BuffRerollCommandAbility(source, "All-out Defence", rangeGeneral, rangeHero,
+                                        Phase::Combat, Attribute::To_Save_Melee, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
+}
+
+CommandAbility* CreateVolleyFire(Unit *source, int rangeGeneral, int rangeHero) {
+    return new BuffRerollCommandAbility(source, "Volley Fire", rangeGeneral, rangeHero,
+                                        Phase::Combat, Attribute::To_Hit_Missile, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
+}
+CommandAbility* CreateAllOutAttack(Unit *source) {
+    return CreateAllOutAttack(source, 18, 12);
+}
+CommandAbility* CreateAllOutDefence(Unit *source) {
+    return CreateAllOutDefence(source, 18, 12);
+}
+CommandAbility* CreateVolleyFire(Unit *source) {
+    return CreateVolleyFire(source, 18, 12);
+}

@@ -29,6 +29,8 @@ namespace Khorne {
 
         void configure();
 
+        void onEnemyModelWoundedWithWeapon(Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
+
     private:
 
         Weapon m_axeOfKhorne,
@@ -41,7 +43,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Collar of Khorne                 Yes
-// Reality-splitting Axe            TODO
+// Reality-splitting Axe            Yes
 // Gorelord                         Yes
 //
 

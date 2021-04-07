@@ -34,7 +34,7 @@ Spell::Result Spell::cast(Unit *target, int round) {
     Spell::Result result = Result::Failed;
 
     UnmodifiedCastingRoll unmodifiedRoll{0, 0};
-    const int castingRoll = m_caster->rollCasting(unmodifiedRoll);
+    const int castingRoll = m_caster->rollCastingWithRerolls(m_castingValue, unmodifiedRoll);
     if (castingRoll >= m_castingValue) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound) {
@@ -63,7 +63,7 @@ Spell::Result Spell::cast(double x, double y, int round) {
     Spell::Result result = Result::Failed;
 
     UnmodifiedCastingRoll unmodifiedRoll{0, 0};
-    const int castingRoll = m_caster->rollCasting(unmodifiedRoll);
+    const int castingRoll = m_caster->rollCastingWithRerolls(m_castingValue, unmodifiedRoll);
     if (castingRoll >= m_castingValue) {
         bool unbound = Board::Instance()->unbindAttempt(m_caster, castingRoll);
         if (!unbound) {

@@ -30,6 +30,9 @@ public:
     virtual void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {}
     virtual void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) {}
 
+    virtual void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) {}
+    virtual void onEnemyModelWoundedWithWeapon(Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) {}
+
     virtual void onWounded() {}
 
     virtual void onRan() {}

@@ -31,6 +31,8 @@ namespace Khorne {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        void onEndMovement(PlayerId player) override;
+
     private:
 
         Weapon m_blades;
@@ -42,7 +44,7 @@ namespace Khorne {
 // Abilities                    Implemented
 // -------------------------------------------
 // Slaughterstorm                   Yes
-// The Slaughterborn                TODO
+// The Slaughterborn                Yes
 // Murderous Paragon                TODO
 //
 

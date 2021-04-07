@@ -25,10 +25,12 @@ namespace Khorne {
         m_battleFieldRole = Role::Leader;
 
         s_globalAttackMod.connect(this, &Bloodsecrator::rageOfKhorneAttackMod, &m_rageOfKhorneSlot);
+        s_globalCastReroll.connect(this, &Bloodsecrator::loathsomeSorcery, &m_loathsomeSorcerySlot);
     }
 
     Bloodsecrator::~Bloodsecrator() {
         m_rageOfKhorneSlot.disconnect();
+        m_loathsomeSorcerySlot.disconnect();
     }
 
     void Bloodsecrator::configure() {
@@ -90,6 +92,13 @@ namespace Khorne {
             (distanceTo(attacker) <= 16.0))
             return 1;
         return 0;
+    }
+
+    Rerolls Bloodsecrator::loathsomeSorcery(const Unit *caster) {
+        if (distanceTo(caster) < 16.0) {
+            return Rerolls::Successful;
+        }
+        return Rerolls::Failed;
     }
 
 } // namespace Khorne

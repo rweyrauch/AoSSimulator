@@ -29,6 +29,7 @@ lsignal::signal<int(const Unit *, const Weapon *)> Unit::s_globalSaveMod;
 lsignal::signal<int(const Unit *, const Model *, const Weapon *, const Unit *)> Unit::s_globalAttackMod;
 
 lsignal::signal<int(const Unit *)> Unit::s_globalCastMod;
+lsignal::signal<Rerolls(const Unit* caster)> Unit::s_globalCastReroll;
 lsignal::signal<int(const Unit *)> Unit::s_globalUnbindMod;
 
 lsignal::signal<Rerolls(const Unit *, const Weapon *, const Unit *)> Unit::s_globalToHitReroll;
@@ -180,6 +181,17 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
             if (!weaponDamage.zero()) {
                 PLOG_INFO << "\tModel[" << i << "] attacks with " << w->name() << " doing damage " << weaponDamage;
+
+                auto slainWithWeapon = targetUnit->applyDamage(weaponDamage, this);
+                if (slainWithWeapon) {
+                    onEnemyModelSlainWithWeapon(slainWithWeapon, targetUnit, w, weaponDamage);
+                    PLOG_INFO << name() << " slays " << slainWithWeapon << " enemy model(s) from " << targetUnit->name()
+                              << " in combat phase with weapon " << w->name();
+                }
+                else {
+                    onEnemyModelWoundedWithWeapon(targetUnit, w, weaponDamage);
+                }
+                numSlain += slainWithWeapon;
             }
 
             totalDamage += weaponDamage;
@@ -188,11 +200,16 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     }
 
     // Some units do mortal wounds for just existing!  See Evocators for example.
-    totalDamage.mortal += generateMortalWounds(targetUnit);
+    auto generatedMortals = generateMortalWounds(targetUnit);
+    if (generatedMortals > 0) {
+        auto slainWithMortal = targetUnit->applyDamage({0, generatedMortals, Wounds::Source::Ability}, this);
+        if (slainWithMortal) {
+            // TODO: invoke event method here?
+        }
+        numSlain += slainWithMortal;
+        totalDamage.mortal += generatedMortals;
+    }
 
-    // Apply all of the wounds to the target.  Target apply wound save and return
-    // number of slain models.
-    numSlain = targetUnit->applyDamage(totalDamage, this);
     if (numSlain > 0) {
         PLOG_INFO << name() << " slays " << numSlain << " enemy model(s) from " << targetUnit->name()
                   << " in combat phase.";
@@ -890,7 +907,7 @@ int Unit::slay(int numModels) {
         model->slay();
         numSlain++;
 
-        if (numSlain > numModels) break;
+        if (numSlain >= numModels) break;
     }
     return numSlain;
 }
@@ -1726,6 +1743,22 @@ void Unit::visitWeapons(std::function<void(const Weapon &)> &visitor) {
     for (const auto &w : m_weapons) {
         visitor(*w);
     }
+}
+
+int Unit::rollCastingWithRerolls(int castingValue, UnmodifiedCastingRoll &unmodifiedRoll) const {
+    int castingRoll = rollCasting(unmodifiedRoll);
+    Rerolls castingReroll = castingRerolls();
+    if (castingReroll == Rerolls::None) {
+        castingReroll = s_globalCastReroll(this);
+    }
+
+    if ((castingReroll == Rerolls::Successful) && (castingRoll >= castingValue)) {
+        castingRoll = rollCasting(unmodifiedRoll);
+    }
+    else if ((castingReroll == Rerolls::Failed) && (castingRoll < castingValue)) {
+        castingRoll = rollCasting(unmodifiedRoll);
+    }
+    return castingRoll;
 }
 
 int Unit::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {

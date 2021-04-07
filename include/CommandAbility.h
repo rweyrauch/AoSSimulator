@@ -136,3 +136,17 @@ protected:
     Ability m_ability = Ability::Ignore_Battleshock;
     int m_value = 0;
 };
+
+CommandAbility* CreateAtTheDouble(Unit *source, int rangeGeneral, int rangeHero);
+CommandAbility* CreateForwardToVictory(Unit *source, int rangeGeneral, int rangeHero);
+CommandAbility* CreateInspiringPresence(Unit *source, int rangeGeneral, int rangeHero);
+
+CommandAbility* CreateAllOutAttack(Unit *source, int rangeGeneral, int rangeHero);
+CommandAbility* CreateAllOutDefence(Unit *source, int rangeGeneral, int rangeHero);
+CommandAbility* CreateVolleyFire(Unit *source, int rangeGeneral, int rangeHero);
+
+CommandAbility* CreateAllOutAttack(Unit *source);
+CommandAbility* CreateAllOutDefence(Unit *source);
+CommandAbility* CreateVolleyFire(Unit *source);
+
+

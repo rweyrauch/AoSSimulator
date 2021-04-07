@@ -252,7 +252,7 @@ public:
 
     int numOfWoundedModels() const;
 
-    virtual int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const;
+    int rollCastingWithRerolls(int castingValue, UnmodifiedCastingRoll &unmodifiedRoll) const;
 
     int returnModels(int numModels);
 
@@ -360,6 +360,8 @@ protected:
 
     virtual double unbindingDistance() const { return 30.0; }
 
+    virtual int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const;
+
 protected:
     std::string m_name;
     int m_move = 0;
@@ -440,6 +442,7 @@ protected:
                                const Unit *target)> s_globalAttackMod;
 
     static lsignal::signal<int(const Unit *caster)> s_globalCastMod;
+    static lsignal::signal<Rerolls(const Unit* caster)> s_globalCastReroll;
     static lsignal::signal<int(const Unit *unbinder)> s_globalUnbindMod;
 
     static lsignal::signal<Rerolls(const Unit *attacker, const Weapon *weapon, const Unit *target)> s_globalToHitReroll;

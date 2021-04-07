@@ -33,6 +33,8 @@ namespace Khorne {
 
         void onEndCombat(PlayerId player) override;
 
+        void onEnemyModelWoundedWithWeapon(Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
+
     private:
 
         Weapon m_axeOfKhorne,
@@ -47,7 +49,7 @@ namespace Khorne {
 // Favoured of Khorne               Yes
 // Aqshy's Bane                     Yes
 // Collar of Khorne                 Yes
-// Reality-splitting Axe            TODO
+// Reality-splitting Axe            Yes
 // Lord of the Goretide             Yes
 //
 
