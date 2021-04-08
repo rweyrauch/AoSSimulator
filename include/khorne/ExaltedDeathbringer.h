@@ -31,13 +31,13 @@ namespace Khorne {
 
         static void Init();
 
-        ExaltedDeathbringer();
+        ExaltedDeathbringer() = delete;
 
         ~ExaltedDeathbringer() override = default;
 
     protected:
 
-        void configure(WeaponOption weapon);
+        ExaltedDeathbringer(SlaughterHost host, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

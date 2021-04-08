@@ -19,7 +19,7 @@ namespace Khorne {
 
     bool Skullgrinder::s_registered = false;
 
-    Skullgrinder::Skullgrinder() :
+    Skullgrinder::Skullgrinder(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Skullgrinder", 5, g_wounds, 8, 4, false),
             m_brazenAnvil(Weapon::Type::Melee, "Brazen Anvil", 2, 3, 3, 2, -1, 3) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKULLGRINDER};
@@ -27,13 +27,12 @@ namespace Khorne {
         m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &Skullgrinder::favouredByKhorne, &m_connection);
-    }
 
-    Skullgrinder::~Skullgrinder() {
-        m_connection.disconnect();
-    }
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void Skullgrinder::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_brazenAnvil);
         addModel(model);
@@ -41,17 +40,17 @@ namespace Khorne {
         m_points = g_pointsPerUnit;
     }
 
+    Skullgrinder::~Skullgrinder() {
+        m_connection.disconnect();
+    }
+
     Unit *Skullgrinder::Create(const ParameterList &parameters) {
-        auto unit = new Skullgrinder();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalArtefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new Skullgrinder(host, trait, artefact, general);
     }
 
     void Skullgrinder::Init() {
@@ -63,6 +62,9 @@ namespace Khorne {
                     ComputePoints,
                     {
                             EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost),
+                            EnumParameter("Command Trait", g_mortalbloodboundCommandTraits[0],
+                                          g_mortalbloodboundCommandTraits),
+                            EnumParameter("Artefact", g_mortalArtefacts[0], g_mortalArtefacts),
                             BoolParameter("General")
                     },
                     CHAOS,

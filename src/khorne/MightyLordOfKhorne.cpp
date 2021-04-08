@@ -46,7 +46,7 @@ namespace Khorne {
 
     bool MightyLordOfKhorne::s_registered = false;
 
-    MightyLordOfKhorne::MightyLordOfKhorne() :
+    MightyLordOfKhorne::MightyLordOfKhorne(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Mighty Lord of Khorne", 5, g_wounds, 9, 3, false),
             m_axeOfKhorne(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
             m_bloodDarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
@@ -56,9 +56,12 @@ namespace Khorne {
 
         // Collar of Khorne
         m_totalUnbinds = 1;
-    }
 
-    void MightyLordOfKhorne::configure() {
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axeOfKhorne);
         model->addMeleeWeapon(&m_bloodDarkClaws);
@@ -70,22 +73,12 @@ namespace Khorne {
     }
 
     Unit *MightyLordOfKhorne::Create(const ParameterList &parameters) {
-        auto unit = new MightyLordOfKhorne();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new MightyLordOfKhorne(host, trait, artefact, general);
     }
 
     void MightyLordOfKhorne::Init() {

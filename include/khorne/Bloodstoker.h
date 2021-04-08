@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Bloodstoker();
+        Bloodstoker() = delete;
 
         ~Bloodstoker() override = default;
 
     protected:
 
-        void configure();
+        Bloodstoker(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         void onStartMovement(PlayerId player) override;
 

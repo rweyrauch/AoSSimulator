@@ -21,7 +21,7 @@ namespace Khorne {
 
     bool FleshHounds::s_registered = false;
 
-    FleshHounds::FleshHounds() :
+    FleshHounds::FleshHounds(SlaughterHost host, int numModels) :
             KhorneBase("Flesh Hounds", 8, g_wounds, 10, 5, false),
             m_burningRoar(Weapon::Type::Missile, "Burning Roar", 8, 1, 2, 4, 0, 1),
             m_blooddarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
@@ -30,12 +30,8 @@ namespace Khorne {
 
         // Collars of Khorne
         m_totalUnbinds = 1;
-    }
 
-    bool FleshHounds::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         int numGoreHounds = numModels / 5;
         // Add the Gore Hounds
@@ -54,23 +50,13 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *FleshHounds::Create(const ParameterList &parameters) {
-        auto unit = new FleshHounds();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new FleshHounds(host, numModels);
     }
 
     void FleshHounds::Init() {

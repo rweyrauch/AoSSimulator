@@ -35,16 +35,19 @@ namespace Khorne {
 
     bool BloodthirsterOfUnfetteredFury::s_registered = false;
 
-    BloodthirsterOfUnfetteredFury::BloodthirsterOfUnfetteredFury() :
+    BloodthirsterOfUnfetteredFury::BloodthirsterOfUnfetteredFury(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Bloodthirster Of Unfettered Fury", 10, g_wounds, 10, 4, true),
             m_lashOfKhorne(Weapon::Type::Missile, "Lash of Khorne", 8, 4, 4, 3, -1, RAND_D3),
             m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, BLOODTHIRSTER_OF_UNFETTERED_FURY};
         m_weapons = {&m_lashOfKhorne, &m_mightyAxeOfKhorne};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void BloodthirsterOfUnfetteredFury::configure() {
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_lashOfKhorne);
         model->addMeleeWeapon(&m_mightyAxeOfKhorne);
@@ -59,22 +62,12 @@ namespace Khorne {
     }
 
     Unit *BloodthirsterOfUnfetteredFury::Create(const ParameterList &parameters) {
-        auto unit = new BloodthirsterOfUnfetteredFury();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new BloodthirsterOfUnfetteredFury(host, trait, artefact, general);
     }
 
     void BloodthirsterOfUnfetteredFury::Init() {
@@ -114,7 +107,7 @@ namespace Khorne {
     }
 
     void BloodthirsterOfUnfetteredFury::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_lashOfKhorne.setAttacks(g_damageTable[damageIndex].m_lashAttacks);
         m_mightyAxeOfKhorne.setToWound(g_damageTable[damageIndex].m_axeToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

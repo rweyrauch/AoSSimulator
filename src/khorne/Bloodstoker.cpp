@@ -18,16 +18,19 @@ namespace Khorne {
 
     bool Bloodstoker::s_registered = false;
 
-    Bloodstoker::Bloodstoker() :
+    Bloodstoker::Bloodstoker(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Bloodstoker", 6, g_wounds, 8, 4, false),
             m_tortureBlade(Weapon::Type::Melee, "Torture Blade", 1, 3, 3, 3, 0, 1),
             m_bloodWhip(Weapon::Type::Melee, "Blood Whip", 3, 3, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, BLOODSTOKER};
         m_weapons = {&m_tortureBlade, &m_bloodWhip};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Bloodstoker::configure() {
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_tortureBlade);
         model->addMeleeWeapon(&m_bloodWhip);
@@ -37,22 +40,12 @@ namespace Khorne {
     }
 
     Unit *Bloodstoker::Create(const ParameterList &parameters) {
-        auto unit = new Bloodstoker();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new Bloodstoker(host, trait, artefact, general);
     }
 
     void Bloodstoker::Init() {

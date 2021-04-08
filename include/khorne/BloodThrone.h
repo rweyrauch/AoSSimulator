@@ -21,15 +21,17 @@ namespace Khorne {
 
         static void Init();
 
-        HeraldOfKhorneOnBloodThrone();
+        HeraldOfKhorneOnBloodThrone() = delete;
 
         ~HeraldOfKhorneOnBloodThrone() override = default;
 
     protected:
 
-        void configure();
+        HeraldOfKhorneOnBloodThrone(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onEnemyModelWoundedWithWeapon(Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
 
     private:
 
@@ -43,8 +45,8 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Blood Throne                 TODO
-// Gorefeast                        TODO
+// The Blood Throne                 Yes
+// Gorefeast                        Yes
 // Decapitating Blow                Yes
 //
 

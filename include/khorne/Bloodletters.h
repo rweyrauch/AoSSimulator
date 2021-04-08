@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Bloodletters();
+        Bloodletters() = delete;
 
         ~Bloodletters() override;
 
-        bool configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers);
-
     protected:
+
+        Bloodletters(SlaughterHost host, int numModels, bool iconBearer, bool standardBearer, bool hornblowers);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

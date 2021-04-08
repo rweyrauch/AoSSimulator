@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Khorgoraths();
+        Khorgoraths() = delete;
 
         ~Khorgoraths() override = default;
 
-        bool configure(int numModels);
-
     protected:
+
+        Khorgoraths(SlaughterHost host, int numModels);
 
         void onStartCombat(PlayerId player) override;
 

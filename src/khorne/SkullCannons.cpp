@@ -20,7 +20,7 @@ namespace Khorne {
 
     bool SkullCannons::s_registered = false;
 
-    SkullCannons::SkullCannons() :
+    SkullCannons::SkullCannons(SlaughterHost host, int numModels) :
             KhorneBase("Skull Cannons", 8, g_wounds, 10, 4, false),
             m_burningSkulls(Weapon::Type::Missile, "Burning Skulls", 30, 1, 3, 3, -2, RAND_D6),
             m_hellblades(Weapon::Type::Melee, "Hellblades", 1, 2, 4, 3, -1, 1),
@@ -30,12 +30,8 @@ namespace Khorne {
         m_battleFieldRole = Role::Artillery;
         m_hasMount = true;
         m_gnashingMaw.setMount(true);
-    }
 
-    bool SkullCannons::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -46,23 +42,13 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *SkullCannons::Create(const ParameterList &parameters) {
-        auto unit = new SkullCannons();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SkullCannons(host, numModels);
     }
 
     void SkullCannons::Init() {

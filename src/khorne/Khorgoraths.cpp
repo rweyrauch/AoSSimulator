@@ -19,18 +19,14 @@ namespace Khorne {
 
     bool Khorgoraths::s_registered = false;
 
-    Khorgoraths::Khorgoraths() :
+    Khorgoraths::Khorgoraths(SlaughterHost host, int numModels) :
             KhorneBase("Khorgoraths", 6, g_wounds, 6, 4, false),
             m_boneTentacles(Weapon::Type::Missile, "Bone Tentacles", 6, 3, 3, 4, 0, 1),
             m_clawAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2) {
         m_keywords = {CHAOS, KHORNE, MONSTER, BLOODBOUND, KHORGORATHS};
         m_weapons = {&m_boneTentacles, &m_clawAndFangs};
-    }
 
-    bool Khorgoraths::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -40,23 +36,13 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Khorgoraths::Create(const ParameterList &parameters) {
-        auto unit = new Khorgoraths();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Khorgoraths(host, numModels);
     }
 
     void Khorgoraths::Init() {

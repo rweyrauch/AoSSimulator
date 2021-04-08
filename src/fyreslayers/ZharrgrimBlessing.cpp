@@ -36,7 +36,7 @@ namespace Fyreslayers {
                 return nullptr;
             case Blessing::Searing_Heat:
                 return new BuffModifierPrayer(priest, "Searing Heat", 3, 18, Attribute::To_Hit_Melee, -1,
-                                              Abilities::Target::Enemy); // TODO: Also debuff To_Hit_Missile
+                                              Abilities::Target::Enemy, {}); // TODO: Also debuff To_Hit_Missile
             case Blessing::Prayer_Of_Ash:
                 return new PrayerOfAsh(priest);
             case Blessing::Ember_Storm:

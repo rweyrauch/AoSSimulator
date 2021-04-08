@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Bloodsecrator();
+        Bloodsecrator() = delete;
 
         ~Bloodsecrator() override;
 
     protected:
 
-        void configure();
+        Bloodsecrator(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         int rageOfKhorneAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
                                   const Unit *target);

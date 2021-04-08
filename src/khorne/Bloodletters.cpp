@@ -22,7 +22,7 @@ namespace Khorne {
 
     bool Bloodletters::s_registered = false;
 
-    Bloodletters::Bloodletters() :
+    Bloodletters::Bloodletters(SlaughterHost host, int numModels, bool iconBearer, bool standardBearer, bool hornblowers) :
             KhorneBase("Bloodletters", 5, g_wounds, 10, 5, false),
             m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
             m_hellbladeReaper(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1) {
@@ -30,16 +30,8 @@ namespace Khorne {
         m_weapons = {&m_hellblade, &m_hellbladeReaper};
         m_battleFieldRole = Role::Battleline;
         s_globalBattleshockReroll.connect(this, &Bloodletters::hornblowerBattleshockReroll, &m_hornblowerSlot);
-    }
 
-    Bloodletters::~Bloodletters() {
-        m_hornblowerSlot.disconnect();
-    }
-
-    bool Bloodletters::configure(int numModels, bool iconBearer, bool standardBearer, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         // Add the Hellreaper
         auto reaperModel = new Model(g_basesize, wounds());
@@ -64,8 +56,10 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    Bloodletters::~Bloodletters() {
+        m_hornblowerSlot.disconnect();
     }
 
     Wounds Bloodletters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -77,21 +71,13 @@ namespace Khorne {
     }
 
     Unit *Bloodletters::Create(const ParameterList &parameters) {
-        auto unit = new Bloodletters();
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Bloodletters(host, numModels, iconBearer, standardBearer, hornblowers);
     }
 
     void Bloodletters::Init() {

@@ -25,13 +25,13 @@ namespace Khorne {
 
         static void Init();
 
-        Skullgrinder();
+        Skullgrinder() = delete;
 
         ~Skullgrinder() override;
 
     protected:
 
-        void configure();
+        Skullgrinder(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         void onEndCombat(PlayerId player) override;
 

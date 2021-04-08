@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Skarbrand();
+        Skarbrand() = delete;
 
         ~Skarbrand() override = default;
 
     protected:
 
-        void configure();
+        Skarbrand(SlaughterHost host, bool isGeneral);
 
         size_t getDamageTableIndex() const;
 

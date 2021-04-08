@@ -17,16 +17,19 @@ namespace Khorne {
 
     bool Skullmaster::s_registered = false;
 
-    Skullmaster::Skullmaster() :
+    Skullmaster::Skullmaster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Skullmaster", 8, g_wounds, 10, 4, false),
             m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1),
             m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLMASTER};
         m_weapons = {&m_bladeOfBlood, &m_brazenHooves};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Skullmaster::configure() {
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfBlood);
         model->addMeleeWeapon(&m_brazenHooves);
@@ -36,22 +39,12 @@ namespace Khorne {
     }
 
     Unit *Skullmaster::Create(const ParameterList &parameters) {
-        auto unit = new Skullmaster();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new Skullmaster(host, trait, artefact, general);
     }
 
     void Skullmaster::Init() {

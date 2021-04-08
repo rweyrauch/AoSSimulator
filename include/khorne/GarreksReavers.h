@@ -21,19 +21,19 @@ namespace Khorne {
 
         static void Init();
 
-        GarreksReavers();
-
         ~GarreksReavers() override = default;
 
     protected:
 
-        void configure();
+        GarreksReavers();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
 
     private:
 
@@ -51,7 +51,7 @@ namespace Khorne {
 // Gorebeard                        Yes
 // Frenzied Devotion                Yes
 // Reaver Blades                    Yes
-// Grisly Trophies                  TODO
+// Grisly Trophies                  Yes
 //
 
 } // namespace Khorne

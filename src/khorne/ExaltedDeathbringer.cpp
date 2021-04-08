@@ -18,7 +18,7 @@ namespace Khorne {
 
     bool ExaltedDeathbringer::s_registered = false;
 
-    ExaltedDeathbringer::ExaltedDeathbringer() :
+    ExaltedDeathbringer::ExaltedDeathbringer(SlaughterHost host, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Exalted Deathbringer", 5, g_wounds, 8, 4, false),
             m_ruinousAxe(Weapon::Type::Melee, "Ruinous Axe", 1, 3, 4, 3, -1, 2),
             m_bloodbiteAxe(Weapon::Type::Melee, "Bloodbite Axe", 1, 6, 3, 4, 0, 1),
@@ -26,9 +26,12 @@ namespace Khorne {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, EXALTED_DEATHBRINGER};
         m_weapons = {&m_ruinousAxe, &m_bloodbiteAxe, &m_impalingSpear};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void ExaltedDeathbringer::configure(WeaponOption weapon) {
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_weaponOption = weapon;
 
         auto model = new Model(g_basesize, wounds());
@@ -52,23 +55,13 @@ namespace Khorne {
     }
 
     Unit *ExaltedDeathbringer::Create(const ParameterList &parameters) {
-        auto unit = new ExaltedDeathbringer();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Ruinous_Axe_And_Skullgouger);
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(weapon);
-        return unit;
+       return new ExaltedDeathbringer(host, weapon, trait, artefact, general);
     }
 
     void ExaltedDeathbringer::Init() {

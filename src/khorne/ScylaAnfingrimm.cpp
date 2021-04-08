@@ -18,7 +18,7 @@ namespace Khorne {
 
     bool ScylaAnfingrimm::s_registered = false;
 
-    ScylaAnfingrimm::ScylaAnfingrimm() :
+    ScylaAnfingrimm::ScylaAnfingrimm(SlaughterHost host) :
             KhorneBase("Scyla Anfingrimm", 8, g_wounds, 9, 5, false),
             m_brutalFists(Weapon::Type::Melee, "Brutal Fists", 2, RAND_2D6, 4, 3, -1, 1),
             m_serpentineTail(Weapon::Type::Melee, "Serpentine Tail", 3, 2, 3, 3, -1, RAND_D3) {
@@ -31,9 +31,9 @@ namespace Khorne {
 
         // Beastial Leap
         m_pileInMove = 8;
-    }
 
-    void ScylaAnfingrimm::configure() {
+        setSlaughterHost(host);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_brutalFists);
         model->addMeleeWeapon(&m_serpentineTail);
@@ -43,13 +43,8 @@ namespace Khorne {
     }
 
     Unit *ScylaAnfingrimm::Create(const ParameterList &parameters) {
-        auto unit = new ScylaAnfingrimm();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        unit->configure();
-        return unit;
+        return new ScylaAnfingrimm(host);
     }
 
     void ScylaAnfingrimm::Init() {

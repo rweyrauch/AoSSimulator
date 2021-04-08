@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        MightyLordOfKhorne();
+        MightyLordOfKhorne() = delete;
 
         ~MightyLordOfKhorne() override = default;
 
     protected:
 
-        void configure();
+        MightyLordOfKhorne(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         void onEnemyModelWoundedWithWeapon(Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
 

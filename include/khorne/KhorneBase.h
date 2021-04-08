@@ -51,7 +51,7 @@ namespace Khorne {
         //Unrivalled_Battle_Lust,
         //Slaughterborn,
         Rage_Unchained,
-        Aspect_Of_Death,            // TODO
+        Aspect_Of_Death,
         Devastating_Blow,
 
         // Slaughterhost specific
@@ -144,7 +144,7 @@ namespace Khorne {
 
         KhorneBase() = delete;
 
-        ~KhorneBase() override = default;
+        ~KhorneBase() override;
 
         void setSlaughterHost(SlaughterHost host);
 
@@ -192,12 +192,18 @@ namespace Khorne {
 
         int braveryModifier() const override;
 
+        int devourTheCraven(const Unit *, int roll);
+        int aspectOfDeath(const Unit* unit, int roll);
+
     private:
         bool selectBloodTitheReward(BloodTitheReward &selectedReward);
 
         void dropMeteor();
 
     protected:
+
+        lsignal::slot m_devoutTheCravenSlot,
+            m_aspectOfDeathSlot;
 
         static bool s_claimedBloodTithe;
         static BloodTitheReward s_currentBloodTithe;
@@ -217,9 +223,9 @@ namespace Khorne {
 // -------------------------------------------
 // Locus of Fury                    Yes
 // Reapers of Vengeance
-//    Devour the Craven             TODO
+//    Devour the Craven             Yes
 //    Leave None Alive              TODO
-//    Mage Eater                    TODO
+//    Mage Eater                    TODO/Partial
 // The Bloodlords
 //    Slay the Mighty               Yes
 //    First in His Sight            TODO

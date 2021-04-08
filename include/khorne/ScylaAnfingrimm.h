@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        ScylaAnfingrimm();
+        ScylaAnfingrimm() = delete;
 
         ~ScylaAnfingrimm() override = default;
 
     protected:
 
-        void configure();
+        ScylaAnfingrimm(SlaughterHost host);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

@@ -17,7 +17,7 @@ namespace Khorne {
 
     bool Bloodsecrator::s_registered = false;
 
-    Bloodsecrator::Bloodsecrator() :
+    Bloodsecrator::Bloodsecrator(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Bloodsecrator", 4, g_wounds, 9, 3, false),
             m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, TOTEM, BLOODSECRATOR};
@@ -26,14 +26,12 @@ namespace Khorne {
 
         s_globalAttackMod.connect(this, &Bloodsecrator::rageOfKhorneAttackMod, &m_rageOfKhorneSlot);
         s_globalCastReroll.connect(this, &Bloodsecrator::loathsomeSorcery, &m_loathsomeSorcerySlot);
-    }
 
-    Bloodsecrator::~Bloodsecrator() {
-        m_rageOfKhorneSlot.disconnect();
-        m_loathsomeSorcerySlot.disconnect();
-    }
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void Bloodsecrator::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ensorcelledAxe);
         addModel(model);
@@ -41,23 +39,18 @@ namespace Khorne {
         m_points = g_pointsPerUnit;
     }
 
+    Bloodsecrator::~Bloodsecrator() {
+        m_rageOfKhorneSlot.disconnect();
+        m_loathsomeSorcerySlot.disconnect();
+    }
+
     Unit *Bloodsecrator::Create(const ParameterList &parameters) {
-        auto unit = new Bloodsecrator();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_totemArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new Bloodsecrator(host, trait, artefact, general);
     }
 
     void Bloodsecrator::Init() {

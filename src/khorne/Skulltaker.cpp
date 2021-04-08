@@ -18,15 +18,16 @@ namespace Khorne {
 
     bool Skulltaker::s_registered = false;
 
-    Skulltaker::Skulltaker() :
+    Skulltaker::Skulltaker(SlaughterHost host, bool isGeneral) :
             KhorneBase("Skulltaker", 5, g_wounds, 10, 4, false),
             m_slayerSword(Weapon::Type::Melee, "The Slayer Sword", 1, 3, 3, 3, -1, 3) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLTAKER};
         m_weapons = {&m_slayerSword};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Skulltaker::configure() {
+        setSlaughterHost(host);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slayerSword);
         addModel(model);
@@ -43,16 +44,10 @@ namespace Khorne {
     }
 
     Unit *Skulltaker::Create(const ParameterList &parameters) {
-        auto unit = new Skulltaker();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new Skulltaker(host, general);
     }
 
     void Skulltaker::Init() {

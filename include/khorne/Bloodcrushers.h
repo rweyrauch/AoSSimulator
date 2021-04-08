@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Bloodcrushers();
+        Bloodcrushers() = delete;
 
         ~Bloodcrushers() override;
 
-        bool configure(int numModels, bool iconBearer, bool hornblowers);
-
     protected:
+
+        Bloodcrushers(SlaughterHost host, int numModels, bool iconBearer, bool hornblowers);
 
         void onCharged() override;
 

@@ -30,13 +30,13 @@ namespace Khorne {
 
         static int ComputePoints(int numModels);
 
-        MightySkullcrushers();
+        MightySkullcrushers() = delete;
 
         ~MightySkullcrushers() override = default;
 
-        bool configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers);
-
     protected:
+
+        MightySkullcrushers(SlaughterHost host, int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers);
 
         int chargeModifier() const override;
 

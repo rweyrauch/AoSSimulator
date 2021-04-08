@@ -21,17 +21,21 @@ namespace Khorne {
 
         static void Init();
 
-        ValkiaTheBloody();
+        ValkiaTheBloody() = delete;
 
         ~ValkiaTheBloody() override;
 
     protected:
 
-        void configure();
+        ValkiaTheBloody(SlaughterHost host, bool isGeneral);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        void onRestore() override {
+            m_usedGazeOfKhorneReroll = nullptr;
+        }
 
     protected:
 
@@ -43,6 +47,7 @@ namespace Khorne {
 
         lsignal::slot m_gazeOfKhorne;
         lsignal::slot m_gazeOfKhorneFlee;
+        const Unit* m_usedGazeOfKhorneReroll = nullptr;
 
         Weapon m_slaupnir;
 
@@ -52,7 +57,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Gaze of Khorne               TODO
+// The Gaze of Khorne               Yes
 // The Spear Slaupnir               Yes
 // Daemonshield                     Yes
 // On Bloodstained Wings            TODO

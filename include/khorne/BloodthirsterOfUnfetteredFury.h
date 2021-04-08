@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        BloodthirsterOfUnfetteredFury();
+        BloodthirsterOfUnfetteredFury() = delete;
 
         ~BloodthirsterOfUnfetteredFury() override = default;
 
     protected:
 
-        void configure();
+        BloodthirsterOfUnfetteredFury(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         size_t getDamageTableIndex() const;
 

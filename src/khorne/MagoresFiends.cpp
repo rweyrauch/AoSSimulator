@@ -9,7 +9,6 @@
 #include <khorne/MagoresFiends.h>
 #include <UnitFactory.h>
 #include <Board.h>
-#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int g_basesize = 32;
@@ -19,13 +18,7 @@ namespace Khorne {
     bool MagoresFiends::s_registered = false;
 
     Unit *MagoresFiends::Create(const ParameterList &parameters) {
-        auto unit = new MagoresFiends();
-
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        unit->configure();
-        return unit;
+        return new MagoresFiends();
     }
 
     void MagoresFiends::Init() {
@@ -36,7 +29,6 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     MagoresFiends::ComputePoints,
                     {
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}
@@ -52,9 +44,9 @@ namespace Khorne {
             m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOOD_WARRIORS, MAGORES_FIENDS};
         m_weapons = {&m_bellyMaw, &m_daemonicAxe, &m_goreaxe};
-    }
 
-    void MagoresFiends::configure() {
+        setSlaughterHost(SlaughterHost::Goretide);
+
         auto magore = new Model(g_basesize, wounds());
         magore->setName("Magore");
         magore->addMeleeWeapon(&m_bellyMaw);

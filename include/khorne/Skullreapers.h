@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Skullreapers();
+        Skullreapers() = delete;
 
         ~Skullreapers() override = default;
 
-        bool configure(int numModels, bool iconBearer);
-
     protected:
+
+        Skullreapers(SlaughterHost host, int numModels, bool iconBearer);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

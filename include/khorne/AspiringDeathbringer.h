@@ -30,13 +30,13 @@ namespace Khorne {
 
         static void Init();
 
-        AspiringDeathbringer();
+        AspiringDeathbringer() = delete;
 
         ~AspiringDeathbringer() override;
 
     protected:
 
-        void configure(WeaponOption weapon);
+        AspiringDeathbringer(SlaughterHost host, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         int baneOfCowards(const Unit *unit, int roll);
 

@@ -18,7 +18,7 @@ namespace Khorne {
 
     bool Karanak::s_registered = false;
 
-    Karanak::Karanak() :
+    Karanak::Karanak(SlaughterHost host) :
             KhorneBase("Karanak", 8, g_wounds, 10, 4, false),
             m_goreSlickClaws(Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1),
             m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3) {
@@ -27,9 +27,9 @@ namespace Khorne {
 
         // Brass Collar of Bloody Vengeance
         m_totalUnbinds = 1;
-    }
 
-    void Karanak::configure() {
+        setSlaughterHost(host);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goreSlickClaws);
         model->addMeleeWeapon(&m_savageMaws);
@@ -39,13 +39,9 @@ namespace Khorne {
     }
 
     Unit *Karanak::Create(const ParameterList &parameters) {
-        auto unit = new Karanak();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
 
-        unit->configure();
-        return unit;
+        return new Karanak(host);
     }
 
     void Karanak::Init() {

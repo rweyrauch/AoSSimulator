@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Skulltaker();
+        Skulltaker() = delete;
 
         ~Skulltaker() override = default;
 
     protected:
 
-        void configure();
+        Skulltaker(SlaughterHost host, bool isGenera);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        SkarrBloodwrath();
+        SkarrBloodwrath() = delete;
 
         ~SkarrBloodwrath() override = default;
 
     protected:
 
-        void configure();
+        SkarrBloodwrath(SlaughterHost host, bool isGeneral);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

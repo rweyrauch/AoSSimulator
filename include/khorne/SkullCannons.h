@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        SkullCannons();
+        SkullCannons() = delete;
 
         ~SkullCannons() override = default;
 
     protected:
 
-        bool configure(int numModels);
+        SkullCannons(SlaughterHost host, int numModels);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

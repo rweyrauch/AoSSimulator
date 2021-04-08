@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        VorgarothAndSkalok();
+        VorgarothAndSkalok() = delete;
 
         ~VorgarothAndSkalok() override;
 
     protected:
 
-        void configure();
+        VorgarothAndSkalok(SlaughterHost host, bool isGeneral);
 
         size_t getDamageTableIndex() const;
 

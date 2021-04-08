@@ -53,13 +53,12 @@ namespace Khorne {
             case BloodBlessingsOfKhorne::Resanguination:
                 return new HealPrayer(priest, "Resanguination", 4, 16, RAND_D3, 1);
             case BloodBlessingsOfKhorne::Brazen_Fury:
-                // TODO: Brazen_Fury
-                return nullptr;
+                return new BuffAbilityPrayer(priest, "Brazen Fury", 4, 16, Ability::Ignore_Battleshock, 1, Abilities::Target::Friendly, {KHORNE}, 1);
             case BloodBlessingsOfKhorne::Killing_Frenzy:
                 return new BuffModifierPrayer(priest, "Killing Frenzy", 4, 16, Attribute::To_Hit_Melee, 1,
-                                              Abilities::Target::SelfAndFriendly, 1);
+                                              Abilities::Target::SelfAndFriendly, {KHORNE}, 1);
             case BloodBlessingsOfKhorne::Spellbane_Hex:
-                // TODO: Spellbane_Hez
+                // TODO: Spellbane_Hex
                 return nullptr;
         }
         return nullptr;

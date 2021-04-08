@@ -20,21 +20,17 @@ namespace Khorne {
 
     bool Skullreapers::s_registered = false;
 
-    Skullreapers::Skullreapers() :
+    Skullreapers::Skullreapers(SlaughterHost host, int numModels, bool iconBearer) :
             KhorneBase("Skullreapers", 5, g_wounds, 7, 4, false),
             m_blades(Weapon::Type::Melee, "Gore-slick Blades, Daemonblade, Spinecleavers and Soultearers", 1, 4, 3, 3,
                      0, 1),
             m_viciousMutation(Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SKULLREAPERS};
         m_weapons = {&m_blades, &m_viciousMutation};
-    }
 
-    bool Skullreapers::configure(int numModels, bool iconBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
-        // TODO: make this buffer dynamic
+        // TODO: make this buff dynamic
         if (iconBearer) {
             m_bravery += 1;
         }
@@ -56,24 +52,14 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Skullreapers::Create(const ParameterList &parameters) {
-        auto unit = new Skullreapers();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, true);
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
 
-        bool ok = unit->configure(numModels, iconBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Skullreapers(host, numModels, iconBearer);
     }
 
     void Skullreapers::Init() {

@@ -60,6 +60,7 @@ namespace Khorne {
         m_slaughterHost = host;
         switch (m_slaughterHost) {
             case SlaughterHost::Reapers_Of_Vengeance:
+                s_globalBattleshockFleeModifier.connect(this, &KhorneBase::devourTheCraven, &m_devoutTheCravenSlot);
                 addKeyword(REAPERS_OF_VENGEANCE);
                 break;
             case SlaughterHost::Bloodlords:
@@ -172,6 +173,13 @@ namespace Khorne {
 
     void KhorneBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        // Mage Eater
+        m_totalUnbinds++;
+
+        if (m_commandTrait == CommandTrait::Aspect_Of_Death) {
+            s_globalBattleshockFleeModifier.connect(this, &KhorneBase::aspectOfDeath, &m_aspectOfDeathSlot);
+        }
     }
 
     void KhorneBase::setArtefact(Artefact artefact) {
@@ -463,6 +471,25 @@ namespace Khorne {
             mod++;
         }
         return mod;
+    }
+
+    KhorneBase::~KhorneBase() {
+        m_devoutTheCravenSlot.disconnect();
+        m_aspectOfDeathSlot.disconnect();
+    }
+
+    int KhorneBase::devourTheCraven(const Unit *unit, int roll) {
+        if (unit && (distanceTo(unit) < 3.0)) {
+            return Dice::RollD3();
+        }
+        return 0;
+    }
+
+    int KhorneBase::aspectOfDeath(const Unit *unit, int roll) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Aspect_Of_Death) && unit && (distanceTo(unit) < 8.0)) {
+            return Dice::RollD3();
+        }
+        return 0;
     }
 
     void Init() {

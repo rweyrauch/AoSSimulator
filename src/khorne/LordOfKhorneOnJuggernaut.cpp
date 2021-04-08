@@ -15,7 +15,7 @@ namespace Khorne {
 
     class BloodStampede : public CommandAbility {
     public:
-        BloodStampede(Unit *source) :
+        explicit BloodStampede(Unit *source) :
                 CommandAbility(source, "Blood Stampede", 16, 16, Phase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {KHORNE, MORTAL};

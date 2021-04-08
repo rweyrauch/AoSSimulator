@@ -46,20 +46,19 @@ namespace Khorne {
 
     bool AspiringDeathbringer::s_registered = false;
 
-    AspiringDeathbringer::AspiringDeathbringer() :
+    AspiringDeathbringer::AspiringDeathbringer(SlaughterHost host, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Aspiring Deathbringer", 5, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, ASPIRING_DEATHBRINGER};
         m_weapons = {&m_bloodAxe, &m_wrathHammer, &m_goreaxe, &m_skullhammer};
         m_battleFieldRole = Role::Leader;
 
         s_globalBattleshockFleeModifier.connect(this, &AspiringDeathbringer::baneOfCowards, &m_baneOfCowards);
-    }
 
-    AspiringDeathbringer::~AspiringDeathbringer() {
-        m_baneOfCowards.disconnect();
-    }
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void AspiringDeathbringer::configure(WeaponOption weapon) {
         m_weaponOption = weapon;
 
         auto model = new Model(g_basesize, wounds());
@@ -78,25 +77,18 @@ namespace Khorne {
         m_commandAbilities.push_back(std::make_unique<SlaughterIncarnate>(this));
     }
 
+    AspiringDeathbringer::~AspiringDeathbringer() {
+        m_baneOfCowards.disconnect();
+    }
+
     Unit *AspiringDeathbringer::Create(const ParameterList &parameters) {
-        auto unit = new AspiringDeathbringer();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Bloodaxe_And_Wrathhammer);
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(weapon);
-
-        return unit;
+        return new AspiringDeathbringer(host, weapon, trait, artefact, general);
     }
 
     void AspiringDeathbringer::Init() {

@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        BloodWarriors();
+        BloodWarriors() = delete;
 
         ~BloodWarriors() override = default;
 
-        bool configure(int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer);
-
     protected:
+
+        BloodWarriors(SlaughterHost host, int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

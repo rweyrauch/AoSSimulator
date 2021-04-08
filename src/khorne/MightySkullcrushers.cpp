@@ -20,7 +20,7 @@ namespace Khorne {
 
     bool MightySkullcrushers::s_registered = false;
 
-    MightySkullcrushers::MightySkullcrushers() :
+    MightySkullcrushers::MightySkullcrushers(SlaughterHost host, int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers) :
             KhorneBase("Mighty Skullcrushers", 8, g_wounds, 6, 3, false),
             m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 3, 3, 3, 0, 1),
             m_bloodglaive(Weapon::Type::Melee, "Bloodglaive", 1, 3, 4, 3, -1, 1),
@@ -31,12 +31,8 @@ namespace Khorne {
         m_weapons = {&m_ensorcelledAxe, &m_bloodglaive, &m_ensorcelledAxeHunter, &m_bloodglaiveHunter, &m_brazenHooves};
         m_hasMount = true;
         m_brazenHooves.setMount(true);
-    }
 
-    bool MightySkullcrushers::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         m_weaponOption = weapons;
 
@@ -70,26 +66,16 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *MightySkullcrushers::Create(const ParameterList &parameters) {
-        auto unit = new MightySkullcrushers();
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Ensorcelled_Axe);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        bool ok = unit->configure(numModels, weapons, standardBearer, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new MightySkullcrushers(host, numModels, weapons, standardBearer, hornblowers);
     }
 
     void MightySkullcrushers::Init() {

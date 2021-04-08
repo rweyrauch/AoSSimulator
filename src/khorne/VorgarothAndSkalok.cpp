@@ -36,7 +36,7 @@ namespace Khorne {
 
     bool VorgarothAndSkalok::s_registered = false;
 
-    VorgarothAndSkalok::VorgarothAndSkalok() :
+    VorgarothAndSkalok::VorgarothAndSkalok(SlaughterHost host, bool isGeneral) :
             KhorneBase("Vorgaroth the Scarred & Skalok the Skull Host of Khorne", 14, g_wounds, 10, 3, true),
             m_balefire(Weapon::Type::Missile, "White-hot Balefire", 20, 3, 4, 2, -3, RAND_D6),
             m_skullCleaverAxeOfKhorne(Weapon::Type::Melee, "Skull Cleaver Axe of Khorne", 1, 12, 3, 3, -2, 2),
@@ -55,13 +55,10 @@ namespace Khorne {
 
         s_globalCastMod.connect(this, &VorgarothAndSkalok::wingsOfFury, &m_wingOfFuryConnection);
         s_globalUnbindMod.connect(this, &VorgarothAndSkalok::wingsOfFury, &m_wingOfFuryConnection);
-    }
 
-    VorgarothAndSkalok::~VorgarothAndSkalok() {
-        m_wingOfFuryConnection.disconnect();
-    }
+        setSlaughterHost(host);
+        setGeneral(isGeneral);
 
-    void VorgarothAndSkalok::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_balefire);
         model->addMeleeWeapon(&m_skullCleaverAxeOfKhorne);
@@ -73,17 +70,15 @@ namespace Khorne {
         m_points = g_pointsPerUnit;
     }
 
+    VorgarothAndSkalok::~VorgarothAndSkalok() {
+        m_wingOfFuryConnection.disconnect();
+    }
+
     Unit *VorgarothAndSkalok::Create(const ParameterList &parameters) {
-        auto unit = new VorgarothAndSkalok();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new VorgarothAndSkalok(host, general);
     }
 
     void VorgarothAndSkalok::Init() {

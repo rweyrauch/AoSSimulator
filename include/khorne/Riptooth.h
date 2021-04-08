@@ -21,13 +21,11 @@ namespace Khorne {
 
         static void Init();
 
-        Riptooth();
-
         ~Riptooth() override = default;
 
     protected:
 
-        void configure();
+        Riptooth();
 
         // Unflagging Hunter
         Rerolls chargeRerolls() const override { return Rerolls::Failed; }

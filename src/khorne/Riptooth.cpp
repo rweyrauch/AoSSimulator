@@ -8,7 +8,6 @@
 
 #include <khorne/Riptooth.h>
 #include <UnitFactory.h>
-#include "KhornePrivate.h"
 
 namespace Khorne {
     static const int g_basesize = 32;
@@ -18,13 +17,7 @@ namespace Khorne {
     bool Riptooth::s_registered = false;
 
     Unit *Riptooth::Create(const ParameterList &parameters) {
-        auto unit = new Riptooth();
-
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        unit->configure();
-        return unit;
+       return new Riptooth();
     }
 
     void Riptooth::Init() {
@@ -35,7 +28,6 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     Riptooth::ComputePoints,
                     {
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}
@@ -52,9 +44,9 @@ namespace Khorne {
 
         // Collar of Khorne
         m_totalUnbinds = 1;
-    }
 
-    void Riptooth::configure() {
+        setSlaughterHost(SlaughterHost::Goretide);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_claws);
         addModel(model);

@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Wrathmongers();
+        Wrathmongers() = delete;
 
         ~Wrathmongers() override;
 
-        bool configure(int numModels);
-
     protected:
+
+        Wrathmongers(SlaughterHost host, int numModels);
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

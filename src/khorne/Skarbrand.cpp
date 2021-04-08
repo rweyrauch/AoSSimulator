@@ -34,16 +34,17 @@ namespace Khorne {
 
     bool Skarbrand::s_registered = false;
 
-    Skarbrand::Skarbrand() :
+    Skarbrand::Skarbrand(SlaughterHost host, bool isGeneral) :
             KhorneBase("Skarbrand", 8, g_wounds, 10, 4, true),
             m_slaughter(Weapon::Type::Melee, "Slaughter", 2, 5, 4, 3, -2, 3),
             m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
         m_weapons = {&m_slaughter, &m_carnage};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void Skarbrand::configure() {
+        setSlaughterHost(host);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slaughter);
         // Do not add Carnage or Roar of Total Rage, their attacks are special.
@@ -53,16 +54,9 @@ namespace Khorne {
     }
 
     Unit *Skarbrand::Create(const ParameterList &parameters) {
-        auto unit = new Skarbrand();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Skarbrand(host, general);
     }
 
     void Skarbrand::Init() {

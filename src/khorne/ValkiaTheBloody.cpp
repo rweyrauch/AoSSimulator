@@ -17,23 +17,19 @@ namespace Khorne {
 
     bool ValkiaTheBloody::s_registered = false;
 
-    ValkiaTheBloody::ValkiaTheBloody() :
+    ValkiaTheBloody::ValkiaTheBloody(SlaughterHost host, bool isGeneral) :
             KhorneBase("Valkia the Bloody", 12, g_wounds, 9, 3, true),
             m_slaupnir(Weapon::Type::Melee, "Slaupnir", 2, 6, 3, 3, -2, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
         m_weapons = {&m_slaupnir};
         m_battleFieldRole = Role::Leader;
 
-        //s_globalBattleshockReroll.connect(this, &ValkiaTheBloody::m_gazeOfKhorne, &m_gazeOfKhorne);
-        //s_globalBattleshockFleeModifier.connect(this, &ValkiaTheBloody::m_gazeOfKhorneFlee, &m_gazeOfKhorneFlee);
-    }
+        s_globalBattleshockReroll.connect(this, &ValkiaTheBloody::gazeOfKhorne, &m_gazeOfKhorne);
+        s_globalBattleshockFleeModifier.connect(this, &ValkiaTheBloody::gazeOfKhorneFlee, &m_gazeOfKhorneFlee);
 
-    ValkiaTheBloody::~ValkiaTheBloody() {
-        m_gazeOfKhorne.disconnect();
-        m_gazeOfKhorneFlee.disconnect();
-    }
+        setSlaughterHost(host);
+        setGeneral(isGeneral);
 
-    void ValkiaTheBloody::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slaupnir);
         addModel(model);
@@ -41,17 +37,16 @@ namespace Khorne {
         m_points = g_pointsPerUnit;
     }
 
+    ValkiaTheBloody::~ValkiaTheBloody() {
+        m_gazeOfKhorne.disconnect();
+        m_gazeOfKhorneFlee.disconnect();
+    }
+
     Unit *ValkiaTheBloody::Create(const ParameterList &parameters) {
-        auto unit = new ValkiaTheBloody();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new ValkiaTheBloody(host, general);
     }
 
     void ValkiaTheBloody::Init() {
@@ -93,10 +88,18 @@ namespace Khorne {
     }
 
     Rerolls ValkiaTheBloody::gazeOfKhorne(const Unit *unit) {
+        if (isFriendly(unit) && unit->hasKeyword(KHORNE) && unit->hasKeyword(MORTAL) && (distanceTo(unit) < 16.0)) {
+            m_usedGazeOfKhorneReroll = unit;
+            return Rerolls::Failed;
+        }
         return Rerolls::None;
     }
 
     int ValkiaTheBloody::gazeOfKhorneFlee(const Unit *unit, int roll) {
+        if (unit && (unit == m_usedGazeOfKhorneReroll)) {
+            m_usedGazeOfKhorneReroll = nullptr;
+            return Dice::RollD3();
+        }
         return 0;
     }
 

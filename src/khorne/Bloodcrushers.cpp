@@ -20,7 +20,7 @@ namespace Khorne {
 
     bool Bloodcrushers::s_registered = false;
 
-    Bloodcrushers::Bloodcrushers() :
+    Bloodcrushers::Bloodcrushers(SlaughterHost host, int numModels, bool iconBearer, bool hornblowers) :
             KhorneBase("Bloodcrushers", 8, g_wounds, 10, 4, false),
             m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
             m_hellbladeHunter(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1),
@@ -30,16 +30,8 @@ namespace Khorne {
         m_hasMount = true;
         m_brazenHooves.setMount(true);
         s_globalBattleshockReroll.connect(this, &Bloodcrushers::hornblowerBattleshockReroll, &m_hornblowerSlot);
-    }
 
-    Bloodcrushers::~Bloodcrushers() {
-        m_hornblowerSlot.disconnect();
-    }
-
-    bool Bloodcrushers::configure(int numModels, bool iconBearer, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         // Add the Bloodhunter
         auto hunter = new Model(g_basesize, wounds());
@@ -63,25 +55,19 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    Bloodcrushers::~Bloodcrushers() {
+        m_hornblowerSlot.disconnect();
     }
 
     Unit *Bloodcrushers::Create(const ParameterList &parameters) {
-        auto unit = new Bloodcrushers();
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        bool ok = unit->configure(numModels, iconBearer, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Bloodcrushers(host, numModels, iconBearer, hornblowers);
     }
 
     void Bloodcrushers::Init() {

@@ -23,7 +23,7 @@ namespace Khorne {
 
     bool Bloodreavers::s_registered = false;
 
-    Bloodreavers::Bloodreavers() :
+    Bloodreavers::Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers) :
             KhorneBase("Bloodreavers", 6, g_wounds, 5, 6, false),
             m_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1),
             m_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1),
@@ -32,13 +32,8 @@ namespace Khorne {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
         m_weapons = {&m_reaverBlades, &m_reaverBladesChieftain, &m_meatripperAxe, &m_meatripperAxeChieftain};
         m_battleFieldRole = Role::Battleline;
-    }
 
-
-    bool Bloodreavers::configure(int numModels, Bloodreavers::WeaponOption weapons, bool iconBearer, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         m_weaponOption = weapons;
 
@@ -69,10 +64,7 @@ namespace Khorne {
 
             addModel(model);
         }
-
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Rerolls Bloodreavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
@@ -80,7 +72,6 @@ namespace Khorne {
         if (m_weaponOption == Reaver_Blades) {
             return Rerolls::Ones;
         }
-
         return KhorneBase::toHitRerolls(weapon, unit);
     }
 
@@ -91,26 +82,17 @@ namespace Khorne {
         if (isNamedModelAlive(Model::IconBearer)) {
             modifier++;
         }
-
         return modifier;
     }
 
     Unit *Bloodreavers::Create(const ParameterList &parameters) {
-        auto unit = new Bloodreavers();
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Reaver_Blades);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        bool ok = unit->configure(numModels, weapons, iconBearer, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Bloodreavers(host, numModels, weapons, iconBearer, hornblowers);
     }
 
     void Bloodreavers::Init() {

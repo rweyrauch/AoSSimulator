@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Karanak();
+        Karanak() = delete;
 
         ~Karanak() override = default;
 
     protected:
 
-        void configure();
+        Karanak(SlaughterHost host);
 
         void onBeginTurn(int battleRound, PlayerId player) override;
 

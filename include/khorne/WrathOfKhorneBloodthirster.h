@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        WrathOfKhorneBloodthirster();
+        WrathOfKhorneBloodthirster() = delete;
 
         ~WrathOfKhorneBloodthirster() override = default;
 
     protected:
 
-        void configure();
+        WrathOfKhorneBloodthirster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         size_t getDamageTableIndex() const;
 

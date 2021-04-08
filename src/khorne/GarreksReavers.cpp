@@ -19,13 +19,7 @@ namespace Khorne {
     bool GarreksReavers::s_registered = false;
 
     Unit *GarreksReavers::Create(const ParameterList &parameters) {
-        auto unit = new GarreksReavers();
-
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        unit->configure();
-        return unit;
+        return new GarreksReavers();
     }
 
     void GarreksReavers::Init() {
@@ -36,7 +30,6 @@ namespace Khorne {
                     KhorneBase::EnumStringToInt,
                     GarreksReavers::ComputePoints,
                     {
-                            EnumParameter("Slaughter Host", g_slaughterHost[0], g_slaughterHost)
                     },
                     CHAOS,
                     {KHORNE}
@@ -53,9 +46,9 @@ namespace Khorne {
             m_blades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 3, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOODREAVERS, GARREKS_REAVERS};
         m_weapons = {&m_garreksAxe, &m_karusAxe, &m_saeksAxe, &m_blades};
-    }
 
-    void GarreksReavers::configure() {
+        setSlaughterHost(SlaughterHost::Goretide);
+
         auto garrek = new Model(g_basesize, wounds());
         garrek->setName("Garrek");
         garrek->addMeleeWeapon(&m_garreksAxe);
@@ -117,6 +110,16 @@ namespace Khorne {
 
     int GarreksReavers::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void GarreksReavers::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon,
+                                                     const Wounds &weaponDamage) {
+        KhorneBase::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        // Grisly Trophies
+        if ((numSlain > 0) && (weapon->name() == m_garreksAxe.name())) {
+            buffAbility(Ability::Ignore_Battleshock, 1, {Phase::Battleshock, m_battleRound, owningPlayer()});
+        }
     }
 
 } // namespace Khorne

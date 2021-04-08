@@ -21,13 +21,11 @@ namespace Khorne {
 
         static void Init();
 
-        MagoresFiends();
-
         ~MagoresFiends() override = default;
 
     protected:
 
-        void configure();
+        MagoresFiends();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

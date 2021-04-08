@@ -34,7 +34,7 @@ namespace Khorne {
 
     bool WrathOfKhorneBloodthirster::s_registered = false;
 
-    WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster() :
+    WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
             KhorneBase("Wrath of Khorne Bloodthirster", 10, g_wounds, 10, 4, true),
             m_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6),
             m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3),
@@ -44,9 +44,12 @@ namespace Khorne {
         m_battleFieldRole = Role::Leader_Behemoth;
 
         m_totalUnbinds = 1;
-    }
 
-    void WrathOfKhorneBloodthirster::configure() {
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bloodflail);
         model->addMissileWeapon(&m_breath);
@@ -63,22 +66,12 @@ namespace Khorne {
     }
 
     Unit *WrathOfKhorneBloodthirster::Create(const ParameterList &parameters) {
-        auto unit = new WrathOfKhorneBloodthirster();
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new WrathOfKhorneBloodthirster(host, trait, artefact, general);
     }
 
     void WrathOfKhorneBloodthirster::Init() {

@@ -20,7 +20,7 @@ namespace Khorne {
 
     bool Wrathmongers::s_registered = false;
 
-    Wrathmongers::Wrathmongers() :
+    Wrathmongers::Wrathmongers(SlaughterHost host, int numModels) :
             KhorneBase("Wrathmongers", 5, g_wounds, 7, 5, false),
             m_wrathflails(Weapon::Type::Melee, "Wrath-flails", 2, 4, 4, 3, -1, 1),
             m_wrathflailsMaster(Weapon::Type::Melee, "Wrath-flails", 2, 5, 4, 3, -1, 1) {
@@ -28,16 +28,8 @@ namespace Khorne {
         m_weapons = {&m_wrathflails, &m_wrathflailsMaster};
 
         s_globalAttackMod.connect(this, &Wrathmongers::crimsonHaze, &m_hazeSlot);
-    }
 
-    Wrathmongers::~Wrathmongers() {
-        m_hazeSlot.disconnect();
-    }
-
-    bool Wrathmongers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setSlaughterHost(host);
 
         auto master = new Model(g_basesize, wounds());
         master->addMeleeWeapon(&m_wrathflailsMaster);
@@ -50,23 +42,17 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    Wrathmongers::~Wrathmongers() {
+        m_hazeSlot.disconnect();
     }
 
     Unit *Wrathmongers::Create(const ParameterList &parameters) {
-        auto unit = new Wrathmongers();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Wrathmongers(host, numModels);
     }
 
     void Wrathmongers::Init() {

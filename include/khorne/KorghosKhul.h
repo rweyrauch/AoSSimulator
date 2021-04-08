@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        KorghosKhul();
+        KorghosKhul() = delete;
 
         ~KorghosKhul() override = default;
 
     protected:
 
-        void configure();
+        explicit KorghosKhul(bool isGeneral);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

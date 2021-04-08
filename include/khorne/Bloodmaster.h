@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        Bloodmaster();
+        Bloodmaster() = delete;
 
         ~Bloodmaster() override = default;
 
     protected:
 
-        void configure();
+        Bloodmaster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

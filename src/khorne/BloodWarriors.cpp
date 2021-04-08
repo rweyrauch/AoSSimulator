@@ -20,7 +20,7 @@ namespace Khorne {
 
     bool BloodWarriors::s_registered = false;
 
-    BloodWarriors::BloodWarriors() :
+    BloodWarriors::BloodWarriors(SlaughterHost host, int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer) :
             KhorneBase("Blood Warriors", 5, g_wounds, 6, 4, false),
             m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1),
             m_goreaxeChampion(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1),
@@ -28,18 +28,8 @@ namespace Khorne {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOOD_WARRIORS};
         m_weapons = {&m_goreaxe, &m_goreaxeChampion, &m_goreglaive};
         m_battleFieldRole = Role::Battleline;
-    }
 
-
-    bool BloodWarriors::configure(int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxGlaives = numModels / 10;
-        if (numGoreglaives > maxGlaives) {
-            // Invalid weapon configuration.
-            return false;
-        }
+        setSlaughterHost(host);
 
         m_pairedGoreaxe = pairedGoreax;
 
@@ -67,8 +57,6 @@ namespace Khorne {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Rerolls BloodWarriors::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
@@ -76,7 +64,6 @@ namespace Khorne {
         if (m_pairedGoreaxe && (weapon->name() == m_goreaxe.name())) {
             return Rerolls::Ones;
         }
-
         return KhorneBase::toHitRerolls(weapon, unit);
     }
 
@@ -87,26 +74,17 @@ namespace Khorne {
         if (isNamedModelAlive(Model::IconBearer)) {
             modifier++;
         }
-
         return modifier;
     }
 
     Unit *BloodWarriors::Create(const ParameterList &parameters) {
-        auto unit = new BloodWarriors();
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pairedGoreax = GetBoolParam("Paired Goreaxe", parameters, false);
         int numGoreglaives = GetIntParam("Goreglaives", parameters, 0);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
 
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
-        bool ok = unit->configure(numModels, pairedGoreax, numGoreglaives, iconBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new BloodWarriors(host, numModels, pairedGoreax, numGoreglaives, iconBearer);
     }
 
     void BloodWarriors::Init() {

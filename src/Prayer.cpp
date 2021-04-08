@@ -118,7 +118,8 @@ bool HealPrayer::apply(int prayingRoll, Unit *target) {
 }
 
 BuffModifierPrayer::BuffModifierPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
-                                       Attribute which, int modifier, Abilities::Target allowedTargets, int damageOn1) :
+                                       Attribute which, int modifier, Abilities::Target allowedTargets,
+                                       const std::vector<Keyword> &targetKeyword, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_modifier(modifier) {
@@ -139,7 +140,8 @@ int BuffModifierPrayer::getModifier(int prayingRoll) const {
 }
 
 BuffRerollPrayer::BuffRerollPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
-                                   Attribute which, Rerolls reroll, Abilities::Target allowedTargets, int damageOn1) :
+                                   Attribute which, Rerolls reroll, Abilities::Target allowedTargets,
+                                   const std::vector<Keyword> &targetKeyword, int damageOn1) :
         Prayer(priest, name, prayingValue, range, damageOn1),
         m_attribute(which),
         m_reroll(reroll) {
@@ -153,4 +155,31 @@ bool BuffRerollPrayer::apply(int prayingRoll, Unit *target) {
     }
 
     return target->buffReroll(m_attribute, m_reroll, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+}
+
+BuffAbilityPrayer::BuffAbilityPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
+                                     Ability which, int value, Abilities::Target allowedTargets,
+                                     const std::vector<Keyword> &targetKeyword, int damageOn1) :
+        Prayer(priest, name, prayingValue, range, damageOn1),
+        m_ability(which),
+        m_value(value) {
+    m_allowedTargets = allowedTargets;
+    m_effect = (m_allowedTargets == Abilities::Target::Enemy) ? Abilities::EffectType::Debuff
+                                                              : Abilities::EffectType::Buff;
+}
+
+int BuffAbilityPrayer::getValue(int prayingRoll) const {
+    return m_value;
+}
+
+bool BuffAbilityPrayer::apply(int prayingRoll, Unit *target) {
+    if (target == nullptr)
+        return false;
+
+    PLOG_INFO << m_priest->name() << " prays for " << name() << " with a roll of " << prayingRoll << " on to " << target->name();
+    PLOG_INFO << "\tBuffing Ability: " << magic_enum::enum_name(m_ability) << ": " << m_value;
+
+    target->buffAbility(m_ability, m_value, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+
+    return true;
 }

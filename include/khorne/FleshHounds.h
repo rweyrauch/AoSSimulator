@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        FleshHounds();
+        FleshHounds() = delete;
 
         ~FleshHounds() override = default;
 
-        bool configure(int numModels);
-
     protected:
+
+        FleshHounds(SlaughterHost host, int numModels);
 
         // Unflagging Hunter
         Rerolls chargeRerolls() const override { return Rerolls::Failed; }

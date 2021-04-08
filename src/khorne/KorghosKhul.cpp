@@ -48,7 +48,7 @@ namespace Khorne {
 
     bool KorghosKhul::s_registered = false;
 
-    KorghosKhul::KorghosKhul() :
+    KorghosKhul::KorghosKhul(bool isGeneral) :
             KhorneBase("Korghos Khul", 5, g_wounds, 9, 3, false),
             m_axeOfKhorne(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 4, -1, 1) {
@@ -61,9 +61,10 @@ namespace Khorne {
 
         // Aqshy's Bane
         m_pileInMove = 8;
-    }
 
-    void KorghosKhul::configure() {
+        setSlaughterHost(SlaughterHost::Goretide);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axeOfKhorne);
         model->addMeleeWeapon(&m_clawsAndFangs);
@@ -75,17 +76,9 @@ namespace Khorne {
     }
 
     Unit *KorghosKhul::Create(const ParameterList &parameters) {
-        auto unit = new KorghosKhul();
-
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-
-        return unit;
+        return new KorghosKhul(general);
     }
 
     void KorghosKhul::Init() {
