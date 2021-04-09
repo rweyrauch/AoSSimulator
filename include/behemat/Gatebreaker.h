@@ -20,13 +20,13 @@ namespace SonsOfBehemat {
 
         static void Init();
 
-        Gatebreaker();
+        Gatebreaker() = delete;
+
+        Gatebreaker(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral);
 
         ~Gatebreaker() override = default;
 
     protected:
-
-        void configure();
 
         size_t getDamageTableIndex() const;
 

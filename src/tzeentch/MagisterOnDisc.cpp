@@ -27,10 +27,16 @@ namespace Tzeentch {
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
         unit->setChangeCoven(coven);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
+        unit->setArtefact(artefact);
+
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfFate[0]);
 
         unit->configure(lore);
         return unit;

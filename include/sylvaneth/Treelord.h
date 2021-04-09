@@ -21,19 +21,21 @@ namespace Sylvaneth {
 
         static void Init();
 
-        Treelord();
+        Treelord(Glade glade);
+
+        Treelord() = delete;
 
         ~Treelord() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         size_t getDamageTableIndex() const;
+
+        void onStartCombat(PlayerId id) override;
 
     private:
 
@@ -47,7 +49,7 @@ namespace Sylvaneth {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Groundshaking Stomp              TODO
+// Groundshaking Stomp              Yes
 // Impale                           Yes
 // Spirit Path                      TODO
 //

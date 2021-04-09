@@ -23,13 +23,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        ~Beastlord() override = default;
-
-    protected:
-
-        Beastlord();
+        Beastlord() = delete;
 
         Beastlord(Greatfray fray, CommandTrait trait, Artefact artefact, bool general);
+
+        ~Beastlord() override = default;
 
     protected:
 

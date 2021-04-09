@@ -21,13 +21,13 @@ namespace Sylvaneth {
 
         static void Init();
 
-        Branchwraith();
+        Branchwraith(Glade glade, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        Branchwraith() = delete;
 
         ~Branchwraith() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 

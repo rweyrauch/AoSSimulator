@@ -34,24 +34,22 @@ namespace BeastsOfChaos {
                     {3, 1, 4}
             };
 
-    Ghorgon::Ghorgon() :
+    Ghorgon::Ghorgon(Greatfray fray) :
             BeastsOfChaosBase("Ghorgon", 8, g_wounds, 7, 5, false),
             m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
             m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON};
         m_weapons = {&m_butcheringBlades, &m_hugeSlaveringMaw};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    bool Ghorgon::configure() {
+        setGreatfray(fray);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_butcheringBlades);
         model->addMeleeWeapon(&m_hugeSlaveringMaw);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void Ghorgon::onRestore() {
@@ -60,13 +58,8 @@ namespace BeastsOfChaos {
     }
 
     Unit *Ghorgon::Create(const ParameterList &parameters) {
-        auto unit = new Ghorgon();
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        unit->configure();
-        return unit;
+        return new Ghorgon(fray);
     }
 
     void Ghorgon::Init() {

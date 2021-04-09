@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        ChaosSpawn();
+        ChaosSpawn() = delete;
 
         ~ChaosSpawn() override = default;
 
-        bool configure(int numModels);
+        ChaosSpawn(Greatfray fray, int numModelss);
 
     protected:
 

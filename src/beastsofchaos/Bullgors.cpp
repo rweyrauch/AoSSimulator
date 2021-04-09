@@ -20,15 +20,11 @@ namespace BeastsOfChaos {
 
     bool Bullgors::s_registered = false;
 
-    Bullgors::Bullgors() :
+    Bullgors::Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer) :
             BeastsOfChaosBase("Bullgors", 7, g_wounds, 6, 5, false) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, WARHERD, BULLGORS};
         m_weapons = {&m_bullgorHorns, &m_bullgorAxe, &m_bullgorAxeBloodkine, &m_bullgorGreatAxe,
                      &m_bullgorGreatAxeBloodkine};
-    }
-
-    Bullgors::Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer) :
-            Bullgors() {
 
         setGreatfray(fray);
 

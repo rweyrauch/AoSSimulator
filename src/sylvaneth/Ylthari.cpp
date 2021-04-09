@@ -19,15 +19,10 @@ namespace Sylvaneth {
     bool Ylthari::s_registered = false;
 
     Unit *Ylthari::Create(const ParameterList &parameters) {
-        auto unit = new Ylthari();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
 
-        unit->configure(lore);
-        return unit;
+        return new Ylthari(lore, general);
     }
 
     void Ylthari::Init() {
@@ -48,7 +43,7 @@ namespace Sylvaneth {
         }
     }
 
-    Ylthari::Ylthari() :
+    Ylthari::Ylthari(Lore lore, bool isGeneral) :
             SylvanethBase("Ylthari", 5, g_wounds, 7, 5, false),
             m_briarStaff(Weapon::Type::Melee, "Briar Staff", 1, 1, 3, 3, -1, RAND_D3),
             m_thorns(Weapon::Type::Melee, "Spiteful Thorns", 1, 3, 4, 4, 0, 1),
@@ -56,12 +51,12 @@ namespace Sylvaneth {
         m_keywords = {ORDER, SYLVANETH, OAKENBROW, HERO, WIZARD, THORNWYCH, YLTHARI};
         m_weapons = {&m_briarStaff, &m_thorns, &m_snappingMandibles};
         m_battleFieldRole = Role::Leader;
-
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void Ylthari::configure(Lore lore) {
+        setGlade(Glade::Oakenbrow);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_briarStaff);
         model->addMeleeWeapon(&m_thorns);

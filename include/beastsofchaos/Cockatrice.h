@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        Cockatrice();
+        Cockatrice() = delete;
 
         ~Cockatrice() override = default;
 
-        bool configure();
+        explicit Cockatrice(Greatfray fray);
 
     protected:
 

@@ -21,19 +21,15 @@ namespace Sylvaneth {
 
     bool Dryads::s_registered = false;
 
-    Dryads::Dryads() :
+    Dryads::Dryads(Glade glade, int numModels) :
             SylvanethBase("Dryads", 7, g_wounds, 6, 5, false),
             m_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1),
             m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons", 2, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, DRYADS};
         m_weapons = {&m_wrackingTalons, &m_wrackingTalonsNymph};
         m_battleFieldRole = Role::Battleline;
-    }
 
-    bool Dryads::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGlade(glade);
 
         auto nymph = new Model(g_basesize, wounds());
         nymph->addMeleeWeapon(&m_wrackingTalonsNymph);
@@ -48,23 +44,12 @@ namespace Sylvaneth {
         m_ranks = std::max(1, (numModels / g_minUnitSize) / 2);
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Dryads::Create(const ParameterList &parameters) {
-        auto unit = new Dryads();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Dryads(glade, numModels);
     }
 
     void Dryads::Init() {

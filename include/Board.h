@@ -95,6 +95,8 @@ public:
 
     bool isVisible(const Unit *from, const Unit *target);
 
+    bool isInCover(const Unit* unit) const { return false; }
+
     void render(const std::string &filename) const;
 
     bool castRay(const Math::Ray &ray, Math::RayHit &result) const;

@@ -21,13 +21,13 @@ namespace Sylvaneth {
 
         static void Init();
 
-        ArchRevenant();
+        ArchRevenant(Glade glade, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        ArchRevenant() = delete;
 
         ~ArchRevenant() override;
 
     protected:
-
-        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

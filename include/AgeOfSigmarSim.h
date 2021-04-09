@@ -61,6 +61,7 @@ enum class Role : int {
 };
 
 const int Automatically_Cast_No_Unbind = 42;
+const int Automatically_Unbound = 21;
 const int Autopass_Battleshock = 99;
 
 enum class Attribute : int {

@@ -17,22 +17,22 @@ namespace Khorne {
 
     bool Slaughterpriest::s_registered = false;
 
-    Slaughterpriest::Slaughterpriest() :
-            KhorneBase("Slaughterpriest", 6, g_wounds, 8, 5, false),
-            m_bloodbathedAxe(Weapon::Type::Melee, "Bloodbathed Axe", 2, 3, 4, 3, 0, 2),
-            m_hackblade(Weapon::Type::Melee, "Hackblade", 1, 3, 3, 4, 0, 1),
-            m_wrathHammer(Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 4, 4, 0, 1) {
+    Slaughterpriest::Slaughterpriest(SlaughterHost host, WeaponOption weapon, BloodBlessingsOfKhorne blessing, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            KhorneBase("Slaughterpriest", 6, g_wounds, 8, 5, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, PRIEST, SLAUGHTERPRIEST};
         m_weapons = {&m_bloodbathedAxe, &m_hackblade, &m_wrathHammer};
         m_battleFieldRole = Role::Leader;
+
+        setSlaughterHost(host);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
         // Scorn of Sorcery
         m_totalUnbinds = 1;
 
         m_totalPrayers = 2;
-    }
 
-    void Slaughterpriest::configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing) {
         auto model = new Model(g_basesize, wounds());
 
         if (weapon == Bloodbathed_Axe) {
@@ -51,25 +51,15 @@ namespace Khorne {
     }
 
     Unit *Slaughterpriest::Create(const ParameterList &parameters) {
-        auto unit = new Slaughterpriest();
+        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Bloodbathed_Axe);
         auto blessing = (BloodBlessingsOfKhorne) GetEnumParam("Blood Blessings of Khorne", parameters,
                                                               g_bloodBlessingsOfKhorne[0]);
-
-        auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
-        unit->setSlaughterHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalbloodboundCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(weapon, blessing);
-        return unit;
+        return new Slaughterpriest(host, weapon, blessing, trait, artefact, general);
     }
 
     void Slaughterpriest::Init() {

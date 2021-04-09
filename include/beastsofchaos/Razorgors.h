@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        Razorgors();
+        Razorgors() = delete;
 
         ~Razorgors() override = default;
 
-        bool configure(int numModels);
+        Razorgors(Greatfray fray, int numModels);
 
     protected:
 

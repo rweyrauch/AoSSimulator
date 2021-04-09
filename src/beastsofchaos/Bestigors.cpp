@@ -20,14 +20,10 @@ namespace BeastsOfChaos {
 
     bool Bestigors::s_registered = false;
 
-    Bestigors::Bestigors() :
+    Bestigors::Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
             BeastsOfChaosBase("Bestigors", 6, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, BESTIGORS};
         m_weapons = {&m_despoilerAxe, &m_despoilerAxeGougeHorn};
-    }
-
-    Bestigors::Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
-            Bestigors() {
 
         setGreatfray(fray);
 

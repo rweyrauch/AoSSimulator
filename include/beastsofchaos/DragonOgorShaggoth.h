@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        DragonOgorShaggoth();
+        DragonOgorShaggoth() = delete;
 
         ~DragonOgorShaggoth() override = default;
 
-        bool configure(Lore lore);
+        DragonOgorShaggoth(Greatfray fray, Lore lore, CommandTrait trait, Artefact artefact, bool general);
 
     protected:
 

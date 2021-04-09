@@ -31,11 +31,11 @@ namespace Sylvaneth {
 
         static void Init();
 
-        KurnothHunters();
+        KurnothHunters() = delete;
 
         ~KurnothHunters() override = default;
 
-        bool configure(int numModels, WeaponOption weapons);
+        KurnothHunters(Glade glade, int numModels, WeaponOption weapons);
 
     protected:
 

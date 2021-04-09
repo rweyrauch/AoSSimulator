@@ -22,11 +22,11 @@ namespace SonsOfBehemat {
 
         KrakenEater();
 
+        KrakenEater(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral);
+
         ~KrakenEater() override = default;
 
     protected:
-
-        void configure();
 
         size_t getDamageTableIndex() const;
 
@@ -43,15 +43,14 @@ namespace SonsOfBehemat {
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
     private:
-        Weapon m_debris,
-                m_stomp,
-                m_grip,
-                m_warclub;
+        Weapon m_debris{Weapon::Type::Missile, "Hurled Debris", 24, 3, 4, 3, -1, RAND_D3},
+               m_stomp{Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6},
+               m_grip{Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6},
+               m_warclub{Weapon::Type::Melee, "Shipwrecka Warclub", 3, 8, 3, 3, -2, 2};
 
         lsignal::slot m_connection;
 
         static bool s_registered;
-
     };
 
 //

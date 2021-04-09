@@ -20,7 +20,7 @@ namespace BeastsOfChaos {
 
     bool TuskgorChariots::s_registered = false;
 
-    TuskgorChariots::TuskgorChariots() :
+    TuskgorChariots::TuskgorChariots(Greatfray fray, int numModels) :
             BeastsOfChaosBase("Tuskgor Chariots", 10, g_wounds, 6, 4, false),
             m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
             m_gnarledSpear(Weapon::Type::Melee, "Gnarled Spear", 2, 1, 4, 4, 0, 1),
@@ -29,12 +29,8 @@ namespace BeastsOfChaos {
         m_weapons = {&m_despoilerAxe, &m_gnarledSpear, &m_tusksAndHooves};
         m_hasMount = true;
         m_tusksAndHooves.setMount(true);
-    }
 
-    bool TuskgorChariots::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGreatfray(fray);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -45,23 +41,13 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *TuskgorChariots::Create(const ParameterList &parameters) {
-        auto unit = new TuskgorChariots();
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new TuskgorChariots(fray, numModels);
     }
 
     void TuskgorChariots::Init() {

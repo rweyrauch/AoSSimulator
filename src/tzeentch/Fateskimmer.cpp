@@ -20,18 +20,13 @@ namespace Tzeentch {
     bool Fateskimmer::s_registered = false;
 
     Unit *Fateskimmer::Create(const ParameterList &parameters) {
-        auto unit = new Fateskimmer();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
 
-        unit->configure(lore);
-        return unit;
+        return new Fateskimmer(coven, lore, trait, artefact, general);
     }
 
     void Fateskimmer::Init() {
@@ -55,12 +50,8 @@ namespace Tzeentch {
         }
     }
 
-    Fateskimmer::Fateskimmer() :
-            TzeentchBase("Fateskimmer", 16, g_wounds, 10, 5, true),
-            m_magicalFlames(Weapon::Type::Missile, "Magical Flames", 18, 3, 4, 4, -1, 1),
-            m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
-            m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
-            m_bite(Weapon::Type::Melee, "Lamprey Bite", 1, 6, 4, 3, 0, 1) {
+    Fateskimmer::Fateskimmer(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase("Fateskimmer", 16, g_wounds, 10, 5, true) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, FATESKIMMER};
         m_weapons = {&m_magicalFlames, &m_staff, &m_dagger, &m_bite};
         m_battleFieldRole = Role::Leader;
@@ -68,9 +59,12 @@ namespace Tzeentch {
         m_bite.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void Fateskimmer::configure(Lore lore) {
+        setChangeCoven(coven);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_magicalFlames);
         model->addMeleeWeapon(&m_staff);
@@ -97,6 +91,18 @@ namespace Tzeentch {
 
     int Fateskimmer::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int Fateskimmer::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {
+        if (!m_usedArcaneTome) {
+            std::vector<int> rolls{ Dice::RollD6(), Dice::RollD6(), Dice::RollD6()};
+            std::sort(rolls.begin(), rolls.end());
+            unmodifiedRoll.d1 = rolls[1];
+            unmodifiedRoll.d2 = rolls[2];
+            m_usedArcaneTome = true;
+            return unmodifiedRoll + castingModifier();
+        }
+        return TzeentchBase::rollCasting(unmodifiedRoll);
     }
 
 } // Tzeentch

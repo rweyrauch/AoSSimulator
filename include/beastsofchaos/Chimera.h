@@ -25,7 +25,7 @@ namespace BeastsOfChaos {
 
         ~Chimera() override = default;
 
-        bool configure();
+        explicit Chimera(Greatfray fray);
 
     protected:
 

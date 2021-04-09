@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        Jabberslythe();
+        Jabberslythe() = delete;
 
         ~Jabberslythe() override = default;
 
-        bool configure();
+        explicit Jabberslythe(Greatfray fray);
 
     protected:
 

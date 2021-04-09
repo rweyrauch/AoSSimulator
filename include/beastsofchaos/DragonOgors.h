@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        DragonOgors();
+        DragonOgors() = delete;
 
         ~DragonOgors() override = default;
 
-        bool configure(int numModels, int numPairedWeapons, int numGlaives, int numCrushers);
+        DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers);
 
     protected:
 

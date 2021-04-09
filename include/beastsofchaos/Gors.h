@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        Gors();
+        Gors() = delete;
 
         ~Gors() override = default;
 
-        bool configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer);
+        Gors(Greatfray fray, int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer);
 
     protected:
 

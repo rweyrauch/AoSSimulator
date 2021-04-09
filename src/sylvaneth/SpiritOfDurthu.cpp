@@ -35,7 +35,7 @@ namespace Sylvaneth {
                     {2, RAND_D3, 4}
             };
 
-    SpiritOfDurthu::SpiritOfDurthu() :
+    SpiritOfDurthu::SpiritOfDurthu(Glade glade, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SylvanethBase("Spirit of Durthu", 5, g_wounds, 9, 3, false),
             m_verdantBlast(Weapon::Type::Missile, "Verdant Blast", 15, 6, 4, 3, -1, RAND_D3),
             m_guardianSword(Weapon::Type::Melee, "Guardian Sword", 3, 3, 3, 3, -2, 6),
@@ -44,14 +44,13 @@ namespace Sylvaneth {
         m_weapons = {&m_verdantBlast, &m_guardianSword, &m_massiveImpalingTalons};
         m_battleFieldRole = Role::Leader_Behemoth;
 
+        setGlade(glade);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &SpiritOfDurthu::championOfTheEverqueensWill, &m_connection);
-    }
 
-    SpiritOfDurthu::~SpiritOfDurthu() {
-        m_connection.disconnect();
-    }
-
-    void SpiritOfDurthu::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_verdantBlast);
         model->addMeleeWeapon(&m_guardianSword);
@@ -59,6 +58,10 @@ namespace Sylvaneth {
         addModel(model);
 
         m_points = g_pointsPerUnit;
+    }
+
+    SpiritOfDurthu::~SpiritOfDurthu() {
+        m_connection.disconnect();
     }
 
     void SpiritOfDurthu::onWounded() {
@@ -83,22 +86,12 @@ namespace Sylvaneth {
     }
 
     Unit *SpiritOfDurthu::Create(const ParameterList &parameters) {
-        auto unit = new SpiritOfDurthu();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfWar[0]);
-
-        unit->setCommandTrait(trait);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new SpiritOfDurthu(glade, trait, artefact, general);
     }
 
     void SpiritOfDurthu::Init() {
@@ -135,7 +128,7 @@ namespace Sylvaneth {
         // Groundshaking Stomp
         if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0) {
             if (Dice::RollD6() >= 4) {
-                // TODO: Make m_meleeTarget fight last
+                m_meleeTarget->buffAbility(Ability::Fights_Last, 1, {Phase::Combat, m_battleRound, owningPlayer()});
             }
         }
     }

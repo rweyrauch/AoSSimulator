@@ -30,11 +30,11 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        Ungors();
+        Ungors() = delete;
 
         ~Ungors() override = default;
 
-        bool configure(int numModels, WeaponOptions weapons, bool brayhorn, bool bannerBearer);
+        Ungors(Greatfray fray, int numModels, WeaponOptions weapons, bool brayhorn, bool bannerBearer);
 
     protected:
 

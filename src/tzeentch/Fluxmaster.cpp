@@ -57,6 +57,12 @@ namespace Tzeentch {
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         unit->setChangeCoven(coven);
 
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        unit->setCommandTrait(trait);
+
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        unit->setArtefact(artefact);
+
         auto general = GetBoolParam("General", parameters, false);
         unit->setGeneral(general);
 

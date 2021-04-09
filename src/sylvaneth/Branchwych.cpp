@@ -21,19 +21,21 @@ namespace Sylvaneth {
 
     bool Branchwych::s_registered = false;
 
-    Branchwych::Branchwych() :
+    Branchwych::Branchwych(Glade glade, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SylvanethBase("Branchwych", 7, g_wounds, 7, 5, false),
             m_greenwoodScythe(Weapon::Type::Melee, "Greenwood Scythe", 2, 2, 4, 3, 0, 2),
             m_bittergrubsMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1) {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, HERO, WIZARD, BRANCHWYCH};
         m_weapons = {&m_greenwoodScythe, &m_bittergrubsMandibles};
         m_battleFieldRole = Role::Leader;
-
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void Branchwych::configure(Lore lore) {
+        setGlade(glade);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greenwoodScythe);
         model->addMeleeWeapon(&m_bittergrubsMandibles);
@@ -48,23 +50,13 @@ namespace Sylvaneth {
     }
 
     Unit *Branchwych::Create(const ParameterList &parameters) {
-        auto unit = new Branchwych();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
-
-        unit->setCommandTrait(trait);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new Branchwych(glade, lore, trait, artefact, general);
     }
 
     void Branchwych::Init() {

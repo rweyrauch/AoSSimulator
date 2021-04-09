@@ -27,8 +27,6 @@ namespace Sylvaneth {
 
     protected:
 
-        void configure();
-
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
     private:

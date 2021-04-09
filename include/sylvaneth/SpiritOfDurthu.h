@@ -21,13 +21,13 @@ namespace Sylvaneth {
 
         static void Init();
 
-        SpiritOfDurthu();
+        SpiritOfDurthu(Glade glade, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SpiritOfDurthu() = delete;
 
         ~SpiritOfDurthu() override;
 
     protected:
-
-        void configure();
 
         void onStartCombat(PlayerId id) override;
 
@@ -55,7 +55,7 @@ namespace Sylvaneth {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Groundshaking Stomp              TODO
+// Groundshaking Stomp              Yes
 // Impale                           Yes
 // Spirit Paths                     TODO
 // Champions of the Everqueen's Will Yes

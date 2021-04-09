@@ -21,11 +21,11 @@ namespace Sylvaneth {
 
         static void Init();
 
-        TreeRevenants();
+        TreeRevenants() = delete;
 
         ~TreeRevenants() override = default;
 
-        bool configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes);
+        TreeRevenants(Glade glade, int numModels, bool scionGlaive, bool gladeBanners, bool waypipes);
 
     protected:
 

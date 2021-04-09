@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        Cygor();
+        Cygor() = delete;
 
         ~Cygor() override = default;
 
-        bool configure();
+        explicit Cygor(Greatfray fray);
 
     protected:
 

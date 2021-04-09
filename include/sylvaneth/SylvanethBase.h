@@ -38,11 +38,11 @@ namespace Sylvaneth {
 
         // Aspects of Renewal
         Arcane_Bounty,          // TODO
-        Mystic_Regrowth,        // TODO
-        Voice_Of_Warding,       // TODO
-        Glade_Lore,             // TODO
+        Mystic_Regrowth,
+        Voice_Of_Warding,
+        Glade_Lore,
         Spellsinger,            // TODO
-        Radiant_Spirit,         // TODO
+        Radiant_Spirit,
 
         // Glade specific
         Regal_Old_Growth,       // Oakenbrow
@@ -153,6 +153,10 @@ namespace Sylvaneth {
         void onStartHero(PlayerId player) override;
 
         int chargeModifier() const override;
+
+        int castingModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
     protected:
 

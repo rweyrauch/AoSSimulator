@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        Ghorgon();
+        Ghorgon() = delete;
 
         ~Ghorgon() override = default;
 
-        bool configure();
+        explicit Ghorgon(Greatfray fray);
 
     protected:
 

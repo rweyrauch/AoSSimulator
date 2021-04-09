@@ -36,16 +36,20 @@ namespace SonsOfBehemat {
 
     bool Gatebreaker::s_registered = false;
 
-    Gatebreaker::Gatebreaker() :
+    Gatebreaker::Gatebreaker(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral) :
             SonsOfBehematBase("Gatebreaker Mega-Gargant", 12, g_wounds, 7, 4, false) {
         m_weapons = {&m_boulder, &m_stomp, &m_grip, &m_flail};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, GATEBREAKER};
 
-        s_globalBraveryMod.connect(this, &Gatebreaker::terror, &m_connection);
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setFierceLoating(loathing);
+        setGeneral(isGeneral);
+        setTribe(Tribe::Breaker);
 
-    void Gatebreaker::configure() {
+        s_globalBraveryMod.connect(this, &Gatebreaker::terror, &m_connection);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boulder);
         model->addMeleeWeapon(&m_stomp);
@@ -57,22 +61,12 @@ namespace SonsOfBehemat {
     }
 
     Unit *Gatebreaker::Create(const ParameterList &parameters) {
-        auto unit = new Gatebreaker();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_breakerCommandTrait[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_breakerArtefact[0]);
-        unit->setArtefact(artefact);
         auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
-        unit->setFierceLoating(loathing);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->setTribe(Tribe::Breaker);
-
-        unit->configure();
-        return unit;
+        return new Gatebreaker(trait, artefact, loathing, general);
     }
 
     void Gatebreaker::Init() {

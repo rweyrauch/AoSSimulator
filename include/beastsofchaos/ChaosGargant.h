@@ -25,7 +25,7 @@ namespace BeastsOfChaos {
 
         ~ChaosGargant() override = default;
 
-        bool configure();
+        explicit ChaosGargant(Greatfray fray);
 
     protected:
 

@@ -30,12 +30,10 @@ namespace Tzeentch {
 
         static void Init();
 
-        Tzaangors();
+        Tzaangors(ChangeCoven coven, int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
+                  bool brayhorns);
 
         ~Tzaangors() override = default;
-
-        bool configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
-                       bool brayhorns);
 
     protected:
 
@@ -47,18 +45,20 @@ namespace Tzeentch {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        void onStartHero(PlayerId player) override;
+
     private:
 
         WeaponOptions m_weaponOption = Paired_Savage_Blades;
         int m_numGreatblades = 0;
         int m_numMutants = 0;
 
-        Weapon m_savageBlade,
-                m_savageBladeTwistbray,
-                m_savageGreatblade,
-                m_savageGreatbladeTwistbray,
-                m_viciousBeak,
-                m_viciousBeakTwistbray;
+        Weapon  m_savageBlade{Weapon::Type::Melee, "Savage Blade", 1, 2, 4, 4, 0, 1},
+                m_savageBladeTwistbray{Weapon::Type::Melee, "Savage Blade", 1, 2, 3, 4, 0, 1},
+                m_savageGreatblade{Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2},
+                m_savageGreatbladeTwistbray{Weapon::Type::Melee, "Savage Greatblade", 1, 1, 3, 4, -1, 2},
+                m_viciousBeak{Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1},
+                m_viciousBeakTwistbray{Weapon::Type::Melee, "Vicious Beak", 1, 1, 3, 5, 0, 1};
 
         static bool s_registered;
     };
@@ -66,7 +66,7 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Ornate Totems                    TODO
+// Ornate Totems                    Yes
 // Brayhorns                        Yes
 // Arcanite Shield                  Yes
 // Destined Mayhem                  Yes

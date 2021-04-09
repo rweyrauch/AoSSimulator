@@ -17,16 +17,16 @@ namespace BeastsOfChaos {
 
     bool Cockatrice::s_registered = false;
 
-    Cockatrice::Cockatrice() :
+    Cockatrice::Cockatrice(Greatfray fray) :
             BeastsOfChaosBase("Cockatrice", 12, g_wounds, 5, 6, true),
             m_petrifyingGaze(Weapon::Type::Missile, "Petrifying Gaze", 10, 0, 0, 0, 0, 0),
             m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 2, 2, 4, 3, -1, RAND_D3),
             m_swordlikeTalons(Weapon::Type::Melee, "Sword-like Talons", 1, 4, 4, 4, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, COCKATRICE};
         m_weapons = {&m_petrifyingGaze, &m_viciousBeak, &m_swordlikeTalons};
-    }
 
-    bool Cockatrice::configure() {
+        setGreatfray(fray);
+
         auto model = new Model(g_basesize, wounds());
 
         // NOTE: Petrifying Gaze attack is special, do not treat it as a weapon
@@ -36,18 +36,11 @@ namespace BeastsOfChaos {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Cockatrice::Create(const ParameterList &parameters) {
-        auto unit = new Cockatrice();
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        unit->configure();
-        return unit;
+        return new Cockatrice(fray);
     }
 
     void Cockatrice::Init() {

@@ -33,13 +33,11 @@ namespace BeastsOfChaos {
 
         static void Init();
 
+        Bullgors() = delete;
+
+        Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer);
+
         ~Bullgors() override = default;
-
-    protected:
-
-        Bullgors();
-
-        explicit Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer);
 
     protected:
 

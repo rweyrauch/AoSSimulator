@@ -9,6 +9,7 @@
 #include <beastsofchaos/ChaosGargant.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
     static const int g_basesize = 90; // x52 oval
@@ -34,14 +35,14 @@ namespace BeastsOfChaos {
 
     bool ChaosGargant::s_registered = false;
 
-    ChaosGargant::ChaosGargant() :
+    ChaosGargant::ChaosGargant(Greatfray fray) :
             BeastsOfChaosBase("Chaos Gargant", 8, g_wounds, 6, 5, false) {
         m_keywords = {CHAOS, GARGANT, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHAOS_GARGANT};
         m_weapons = {&m_eadbutt, &m_massiveClub, &m_mightyKick};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    bool ChaosGargant::configure() {
+        setGreatfray(fray);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_eadbutt);
         model->addMeleeWeapon(&m_massiveClub);
@@ -49,8 +50,6 @@ namespace BeastsOfChaos {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void ChaosGargant::onWounded() {
@@ -60,10 +59,9 @@ namespace BeastsOfChaos {
     }
 
     Unit *ChaosGargant::Create(const ParameterList &parameters) {
-        auto unit = new ChaosGargant();
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
 
-        unit->configure();
-        return unit;
+        return new ChaosGargant(fray);
     }
 
     void ChaosGargant::Init() {
@@ -74,6 +72,7 @@ namespace BeastsOfChaos {
                     nullptr,
                     ChaosGargant::ComputePoints,
                     {
+                            EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

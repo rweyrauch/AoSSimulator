@@ -20,14 +20,10 @@ namespace BeastsOfChaos {
 
     bool Centigors::s_registered = false;
 
-    Centigors::Centigors() :
+    Centigors::Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
             BeastsOfChaosBase("Centigors", 14, g_wounds, 5, 5, false) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, CENTIGORS};
         m_weapons = {&m_centigorSpear, &m_centigorSpearGorehoof, &m_clawedForelimbs};
-    }
-
-    Centigors::Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
-            Centigors() {
 
         setGreatfray(fray);
 

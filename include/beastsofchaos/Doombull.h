@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        Doombull();
+        Doombull() = delete;
 
         ~Doombull() override = default;
 
-        bool configure();
+        Doombull(Greatfray fray, CommandTrait trait, Artefact artefact, bool general);
 
     protected:
 

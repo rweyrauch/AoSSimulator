@@ -38,24 +38,14 @@ namespace SonsOfBehemat {
 
     bool Mancrusher::s_registered = false;
 
-    Mancrusher::Mancrusher() :
-            SonsOfBehematBase("Mancrusher Gargants", 8, g_wounds, 7, 5, false),
-            m_eadbutt(Weapon::Type::Melee, "'Eadbutt", 1, 1, 4, 3, -3, 4),
-            m_club(Weapon::Type::Melee, "Massive Club", 3, 10, 3, 3, -1, 1),
-            m_kick(Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3),
-            m_rocks(Weapon::Type::Missile, "Chuck Rocks", 18, RAND_D3, 4, 3, -1, RAND_D3) {
+    Mancrusher::Mancrusher(Tribe tribe, int numModels, FierceLoathing loathing) :
+            SonsOfBehematBase("Mancrusher Gargants", 8, g_wounds, 7, 5, false) {
         m_weapons = {&m_eadbutt, &m_club, &m_kick, &m_rocks};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MONSTER, MANCRUSHER};
-    }
 
-    bool Mancrusher::configure(int numModels) {
-
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
+        setFierceLoating(loathing);
+        setTribe(tribe);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -66,8 +56,6 @@ namespace SonsOfBehemat {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     void Mancrusher::onWounded() {
@@ -93,21 +81,11 @@ namespace SonsOfBehemat {
     }
 
     Unit *Mancrusher::Create(const ParameterList &parameters) {
-        auto unit = new Mancrusher();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
-        unit->setFierceLoating(loathing);
-
         auto tribe = (Tribe) GetEnumParam("Tribe", parameters, g_tribe[0]);
-        unit->setTribe(tribe);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Mancrusher(tribe, numModels, loathing);
     }
 
     void Mancrusher::Init() {

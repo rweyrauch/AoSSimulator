@@ -20,24 +20,17 @@ namespace Sylvaneth {
 
     bool SpiteRevenants::s_registered = false;
 
-    SpiteRevenants::SpiteRevenants() :
+    SpiteRevenants::SpiteRevenants(Glade glade, int numModels) :
             SylvanethBase("Spite Revenants", 5, g_wounds, 6, 5, false),
             m_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 3, 3, 0, 1),
             m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 4, 3, 3, 0, 1) {
         m_keywords = {ORDER, SYLVANETH, OUTCASTS, SPITE_REVENANTS};
         m_weapons = {&m_cruelTalonsAndFangs, &m_cruelTalonsAndFangsShadestalker};
 
-        s_globalBraveryMod.connect(this, &SpiteRevenants::unbridledMalice, &m_connection);
-    }
+        setGlade(glade);
 
-    SpiteRevenants::~SpiteRevenants() {
-        m_connection.disconnect();
-    }
-
-    bool SpiteRevenants::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        s_globalBraveryMod.connect(this, &SpiteRevenants::unbridledMalice, &m_maliceBraverySlot);
+        s_globalBattleshockReroll.connect(this, &SpiteRevenants::unbridledMaliceReroll, &m_maliceRerollSlot);
 
         auto shadestalker = new Model(g_basesize, wounds());
         shadestalker->addMeleeWeapon(&m_cruelTalonsAndFangsShadestalker);
@@ -50,23 +43,17 @@ namespace Sylvaneth {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    SpiteRevenants::~SpiteRevenants() {
+        m_maliceBraverySlot.disconnect();
+        m_maliceRerollSlot.disconnect();
     }
 
     Unit *SpiteRevenants::Create(const ParameterList &parameters) {
-        auto unit = new SpiteRevenants();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SpiteRevenants(glade, numModels);
     }
 
     void SpiteRevenants::Init() {
@@ -110,6 +97,14 @@ namespace Sylvaneth {
         }
 
         return 0;
+    }
+
+    Rerolls SpiteRevenants::unbridledMaliceReroll(const Unit *unit) {
+        // Unbridled Malice
+        if ((unit->owningPlayer() != owningPlayer()) && (distanceTo(unit) <= 3.0)) {
+            return Rerolls::Successful;
+        }
+        return Rerolls::None;
     }
 
 } // namespace Sylvaneth

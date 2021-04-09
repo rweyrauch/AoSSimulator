@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        GreatBrayShaman();
+        GreatBrayShaman() = delete;
 
         ~GreatBrayShaman() override;
 
-        bool configure(Lore lore);
+        GreatBrayShaman(Greatfray fray, Lore lore, CommandTrait trait, Artefact artefact, bool general);
 
     protected:
 

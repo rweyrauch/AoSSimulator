@@ -20,19 +20,15 @@ namespace BeastsOfChaos {
 
     bool Gors::s_registered = false;
 
-    Gors::Gors() :
+    Gors::Gors(Greatfray fray, int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer) :
             BeastsOfChaosBase("Gors", 6, g_wounds, 5, 5, false),
             m_gorBlade(Weapon::Type::Melee, "Gor Blade", 1, 1, 4, 3, 0, 1),
             m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS};
         m_weapons = {&m_gorBlade, &m_gorBladeFoeRender};
         m_battleFieldRole = Role::Battleline;
-    }
 
-    bool Gors::configure(int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGreatfray(fray);
 
         m_pairedBlades = pairedBlades;
 
@@ -54,26 +50,16 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Gors::Create(const ParameterList &parameters) {
-        auto unit = new Gors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pairedBlades = GetBoolParam("Paired Blades", parameters, false);
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
 
-        bool ok = unit->configure(numModels, pairedBlades, brayhorn, bannerBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Gors(fray, numModels, pairedBlades, brayhorn, bannerBearer);
     }
 
     void Gors::Init() {

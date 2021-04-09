@@ -21,7 +21,7 @@ namespace BeastsOfChaos {
 
     bool DragonOgors::s_registered = false;
 
-    DragonOgors::DragonOgors() :
+    DragonOgors::DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers) :
             BeastsOfChaosBase("Dragon Ogors", 8, g_wounds, 6, 4, false),
             m_pairedAncientWeapons(Weapon::Type::Melee, "Paired Ancient Weapons", 1, 6, 3, 3, 0, 1),
             m_draconicWarglaive(Weapon::Type::Melee, "Draconic War-glaive", 2, 4, 3, 3, -1, 1),
@@ -29,15 +29,6 @@ namespace BeastsOfChaos {
             m_rakingForeclaws(Weapon::Type::Melee, "Raking Foreclaws", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, THUNDERSCORN, DRAGON_OGORS};
         m_weapons = {&m_pairedAncientWeapons, &m_draconicWarglaive, &m_draconicCrusher, &m_rakingForeclaws};
-    }
-
-    bool DragonOgors::configure(int numModels, int numPairedWeapons, int numGlaives, int numCrushers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        if (numCrushers + numPairedWeapons + numGlaives != numModels) {
-            return false;
-        }
 
         for (auto i = 0; i < numPairedWeapons; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -56,26 +47,16 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *DragonOgors::Create(const ParameterList &parameters) {
-        auto unit = new DragonOgors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numPairedWeapons = GetIntParam("Paired Ancient Weapons", parameters, numModels);
         int numGlaives = GetIntParam("Draconic War-glaive", parameters, 0);
         int numCrushers = GetIntParam("Draconic Crusher", parameters, 0);
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
 
-        bool ok = unit->configure(numModels, numPairedWeapons, numGlaives, numCrushers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new DragonOgors(fray, numModels, numPairedWeapons, numGlaives, numCrushers);
     }
 
     void DragonOgors::Init() {

@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
-        LordOfKhorneOnJuggernaut();
+        LordOfKhorneOnJuggernaut(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        LordOfKhorneOnJuggernaut() = delete;
 
         ~LordOfKhorneOnJuggernaut() override = default;
 
     protected:
-
-        void configure();
 
         void onCharged() override;
 
@@ -37,8 +37,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_wrathforgedAxe,
-                m_brazenHooves;
+        Weapon m_wrathforgedAxe{Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3},
+               m_brazenHooves{Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1};
 
         static bool s_registered;
     };

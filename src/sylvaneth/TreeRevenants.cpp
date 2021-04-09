@@ -20,19 +20,15 @@ namespace Sylvaneth {
 
     bool TreeRevenants::s_registered = false;
 
-    TreeRevenants::TreeRevenants() :
+    TreeRevenants::TreeRevenants(Glade glade, int numModels, bool scionGlaive, bool gladeBanners, bool waypipes) :
             SylvanethBase("Tree Revenants", 5, g_wounds, 6, 5, false),
             m_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1),
             m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade", 1, 4, 4, 3, -1, 1),
             m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2) {
         m_keywords = {ORDER, SYLVANETH, TREE_REVENANTS};
         m_weapons = {&m_enchantedBlade, &m_enchantedBladeScion, &m_protectorGlaive};
-    }
 
-    bool TreeRevenants::configure(int numModels, bool scionGlaive, bool gladeBanners, bool waypipes) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGlade(glade);
 
         m_gladeBanners = gladeBanners;
         m_waypipes = waypipes;
@@ -56,26 +52,16 @@ namespace Sylvaneth {
         if (m_gladeBanners) {
             m_pileInMove = 6;
         }
-
-        return true;
     }
 
     Unit *TreeRevenants::Create(const ParameterList &parameters) {
-        auto unit = new TreeRevenants();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool scionGlaive = GetBoolParam("Scion Glaive", parameters, false);
         bool gladeBanners = GetBoolParam("Glade Banners", parameters, false);
         bool waypipes = GetBoolParam("Waypipes", parameters, false);
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
 
-        bool ok = unit->configure(numModels, scionGlaive, gladeBanners, waypipes);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new TreeRevenants(glade, numModels, scionGlaive, gladeBanners, waypipes);
     }
 
     void TreeRevenants::Init() {

@@ -34,24 +34,22 @@ namespace BeastsOfChaos {
                     {3, 3,  2}
             };
 
-    Cygor::Cygor() :
+    Cygor::Cygor(Greatfray fray) :
             BeastsOfChaosBase("Cygor", 8, g_wounds, 7, 5, false),
             m_desecratedBoulder(Weapon::Type::Missile, "Desecrated Boulder", 18, 1, 4, 2, -2, RAND_D6),
             m_massiveHorns(Weapon::Type::Melee, "Massive Horns", 2, 8, 4, 3, -1, 1) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, CYGOR};
         m_weapons = {&m_desecratedBoulder, &m_massiveHorns};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    bool Cygor::configure() {
+        setGreatfray(fray);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_desecratedBoulder);
         model->addMeleeWeapon(&m_massiveHorns);
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void Cygor::onRestore() {
@@ -60,13 +58,8 @@ namespace BeastsOfChaos {
     }
 
     Unit *Cygor::Create(const ParameterList &parameters) {
-        auto unit = new Cygor();
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        unit->configure();
-        return unit;
+        return new Cygor(fray);
     }
 
     void Cygor::Init() {

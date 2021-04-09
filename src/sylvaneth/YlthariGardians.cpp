@@ -16,10 +16,7 @@ namespace Sylvaneth {
     bool YltharisGuardians::s_registered = false;
 
     Unit *YltharisGuardians::Create(const ParameterList &parameters) {
-        auto unit = new YltharisGuardians();
-
-        unit->configure();
-        return unit;
+        return new YltharisGuardians();
     }
 
     void YltharisGuardians::Init() {
@@ -46,9 +43,9 @@ namespace Sylvaneth {
             m_revenantBowMelee(Weapon::Type::Melee, "Revenent Bow (Melee)", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SYLVANETH, OAKENBROW, TREE_REVENANTS, YLTHARIS_GUARDIANS};
         m_weapons = {&m_enchantedGreatBlade, &m_revenantBow, &m_protectorGlaive, &m_revenantBowMelee};
-    }
 
-    void YltharisGuardians::configure() {
+        setGlade(Glade::Oakenbrow);
+
         auto gallanghann = new Model(g_basesize, wounds());
         gallanghann->addMeleeWeapon(&m_protectorGlaive);
         gallanghann->setName("Gallanghann");

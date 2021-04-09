@@ -16,10 +16,7 @@ namespace Sylvaneth {
     bool SkaethsWildHunt::s_registered = false;
 
     Unit *SkaethsWildHunt::Create(const ParameterList &parameters) {
-        auto unit = new SkaethsWildHunt();
-
-        unit->configure();
-        return unit;
+        return new SkaethsWildHunt();
     }
 
     void SkaethsWildHunt::Init() {
@@ -39,14 +36,11 @@ namespace Sylvaneth {
     }
 
     SkaethsWildHunt::SkaethsWildHunt() :
-            SylvanethBase("Skaeth's Wild Hunt", 6, g_wounds, 6, 5, false),
-            m_seekerBow(Weapon::Type::Missile, "Seeker Bow", 18, 1, 3, 4, -1, 1),
-            m_javalin(Weapon::Type::Missile, "Javalin of the Hunt", 9, 1, 3, 3, -1, 2),
-            m_javalinMelee(Weapon::Type::Melee, "Javalin of the Hunt (Melee)", 2, 1, 3, 3, -1, 2),
-            m_huntingWeapon(Weapon::Type::Melee, "Hunting Weapon", 1, 2, 3, 4, 0, 1),
-            m_teethAndClaws(Weapon::Type::Melee, "Teeth and Claws", 1, 2, 3, 3, 0, 1) {
+            SylvanethBase("Skaeth's Wild Hunt", 6, g_wounds, 6, 5, false) {
         m_keywords = {ORDER, SYLVANETH, OAKENBROW, SKAETHS_WILD_HUNT};
         m_weapons = {&m_seekerBow, &m_javalin, &m_javalinMelee, &m_huntingWeapon, &m_teethAndClaws};
+
+        setGlade(Glade::Oakenbrow);
 
         // Fleet of Foot
         m_runAndCharge = true;
@@ -54,9 +48,7 @@ namespace Sylvaneth {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void SkaethsWildHunt::configure() {
         auto skaeth = new Model(g_basesize, wounds());
         skaeth->addMissileWeapon(&m_javalin);
         skaeth->addMeleeWeapon(&m_javalinMelee);

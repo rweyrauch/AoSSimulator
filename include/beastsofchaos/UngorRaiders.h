@@ -25,11 +25,11 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        UngorRaiders();
+        UngorRaiders() = delete;
 
         ~UngorRaiders() override = default;
 
-        bool configure(int numModels, bool brayhorn, bool bannerBearer);
+        UngorRaiders(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer);
 
     protected:
 

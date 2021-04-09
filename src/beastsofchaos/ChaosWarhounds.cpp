@@ -20,17 +20,13 @@ namespace BeastsOfChaos {
 
     bool ChaosWarhounds::s_registered = false;
 
-    ChaosWarhounds::ChaosWarhounds() :
+    ChaosWarhounds::ChaosWarhounds(Greatfray fray, int numModels) :
             BeastsOfChaosBase("Chaos Warhounds", 10, g_wounds, 4, 6, false),
             m_slaveringJaws(Weapon::Type::Melee, "Slavering Jaws", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, CHAOS_WARHOUNDS};
         m_weapons = {&m_slaveringJaws};
-    }
 
-    bool ChaosWarhounds::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGreatfray(fray);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -39,23 +35,13 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *ChaosWarhounds::Create(const ParameterList &parameters) {
-        auto unit = new ChaosWarhounds();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosWarhounds(fray, numModels);
     }
 
     void ChaosWarhounds::Init() {

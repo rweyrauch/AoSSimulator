@@ -21,15 +21,8 @@ namespace Tzeentch {
 
     bool HorrorsOfTzeentch::s_registered = false;
 
-    HorrorsOfTzeentch::HorrorsOfTzeentch() :
-            TzeentchBase("Horrors of Tzeentch", 5, g_wounds, 10, 6, false),
-            m_magicalFlamesPink(Weapon::Type::Missile, "Magical Flames (Pink)", 12, 3, 5, 4, 0, 1),
-            m_magicalFlamesBlue(Weapon::Type::Missile, "Magical Flames (Blue)", 12, 2, 5, 4, 0, 1),
-            m_magicalFlamesBrimstone(Weapon::Type::Missile, "Magical Flames (Brimstone)", 12, 1, 5, 4, 0, 1),
-            m_talonedHandsPink(Weapon::Type::Melee, "Taloned Hands (Pink)", 1, 1, 5, 4, 0, 1),
-            m_talonedHandsBlue(Weapon::Type::Melee, "Taloned Hands (Blue)", 1, 1, 5, 4, 0, 1),
-            m_talonedHandsBrimstone(Weapon::Type::Melee, "Taloned Hands (Brimstone)", 1, 2, 5, 4, 0, 1),
-            m_talonedHandsIridescent(Weapon::Type::Melee, "Taloned Hands (Iridescent)", 1, 2, 5, 4, 0, 1) {
+    HorrorsOfTzeentch::HorrorsOfTzeentch(ChangeCoven coven, int numModels, bool iconBearer, bool hornblower) :
+            TzeentchBase("Horrors of Tzeentch", 5, g_wounds, 10, 6, false) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, HORROR, HORROR_OF_TZEENTCH};
         m_weapons = {&m_magicalFlamesPink,
                      &m_magicalFlamesBlue,
@@ -41,22 +34,20 @@ namespace Tzeentch {
         m_battleFieldRole = Role::Battleline;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    bool HorrorsOfTzeentch::configure(int numModels, bool iconBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setChangeCoven(coven);
 
         auto horror = new Model(g_basesize, wounds());
         horror->addMissileWeapon(&m_magicalFlamesPink);
         horror->addMeleeWeapon(&m_talonedHandsIridescent);
+        horror->setName("Iridescent");
         addModel(horror);
 
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_magicalFlamesPink);
             model->addMeleeWeapon(&m_talonedHandsPink);
+            model->setName("Pink");
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
@@ -69,25 +60,15 @@ namespace Tzeentch {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *HorrorsOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new HorrorsOfTzeentch();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
 
-        bool ok = unit->configure(numModels, iconBearer, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new HorrorsOfTzeentch(coven, numModels, iconBearer, hornblower);
     }
 
     void HorrorsOfTzeentch::Init() {
@@ -164,8 +145,17 @@ namespace Tzeentch {
         auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         // Ectoplasmic Elasticity
-        // TODO: only applies when the unit has Pink Horrors
-        return ignoreWounds(totalWounds, 6);
+        if (isNamedModelAlive("Pink")) {
+            return ignoreWounds(totalWounds, 6);
+        }
+        return totalWounds;
+    }
+
+    Rerolls HorrorsOfTzeentch::hornblower(const Unit *unit) {
+        if (isNamedModelAlive(Model::Hornblower) && (distanceTo(unit) < 6.0)) {
+            return Rerolls::Ones;
+        }
+        return Rerolls::None;
     }
 
 } //namespace Tzeentch

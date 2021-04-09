@@ -20,18 +20,20 @@ namespace Sylvaneth {
 
     bool Branchwraith::s_registered = false;
 
-    Branchwraith::Branchwraith() :
+    Branchwraith::Branchwraith(Glade glade, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SylvanethBase("Branchwraith", 7, g_wounds, 8, 5, false),
             m_piercingTalons(Weapon::Type::Melee, "Piercing Talons", 2, 3, 4, 4, -1, 1) {
         m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, HERO, WIZARD, BRANCHWRAITH};
         m_weapons = {&m_piercingTalons};
         m_battleFieldRole = Role::Leader;
-
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void Branchwraith::configure(Lore lore) {
+        setGlade(glade);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_piercingTalons);
         addModel(model);
@@ -44,23 +46,13 @@ namespace Sylvaneth {
     }
 
     Unit *Branchwraith::Create(const ParameterList &parameters) {
-        auto unit = new Branchwraith();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
-
-        unit->setCommandTrait(trait);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new Branchwraith(glade, lore, trait, artefact, general);
     }
 
     void Branchwraith::Init() {

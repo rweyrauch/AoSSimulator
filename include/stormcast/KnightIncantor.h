@@ -20,10 +20,6 @@ namespace StormcastEternals {
 
         static void Init();
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         KnightIncantor(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
@@ -34,11 +30,17 @@ namespace StormcastEternals {
 
         void onStartCombat(PlayerId player) override;
 
-        void onRestore() override { m_shatteredFlasks = false; }
+        void onRestore() override {
+            m_shatteredFlasks = false;
+            m_usedVoidstormScroll = false;
+        }
+
+        int unbindingModifier() const override;
 
     private:
 
         bool m_shatteredFlasks = false;
+        mutable bool m_usedVoidstormScroll = false;
 
         Weapon m_staff;
 
@@ -48,7 +50,7 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Voidstorm Scroll                 TODO
+// Voidstorm Scroll                 Yes
 // Spirit Flask                     Yes
 // Spirit Storm                     Yes
 //

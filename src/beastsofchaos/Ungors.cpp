@@ -20,7 +20,7 @@ namespace BeastsOfChaos {
 
     bool Ungors::s_registered = false;
 
-    Ungors::Ungors() :
+    Ungors::Ungors(Greatfray fray, int numModels, WeaponOptions weapons, bool brayhorn, bool bannerBearer) :
             BeastsOfChaosBase("Ungors", 6, g_wounds, 4, 6, false),
             m_ungorBlade(Weapon::Type::Melee, "Ungor Blade", 1, 1, 4, 4, 0, 1),
             m_ungorBladeHalfhorn(Weapon::Type::Melee, "Ungor Blade", 1, 2, 4, 4, 0, 1),
@@ -29,13 +29,8 @@ namespace BeastsOfChaos {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, UNGORS};
         m_weapons = {&m_ungorBlade, &m_ungorBladeHalfhorn, &m_gnarledShortspear, &m_gnarledShortspearHalfhorn};
         m_battleFieldRole = Role::Battleline;
-    }
 
-    bool Ungors::configure(int numModels, WeaponOptions weapons,
-                           bool brayhorn, bool bannerBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGreatfray(fray);
 
         m_runAndCharge = brayhorn;
 
@@ -65,26 +60,16 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Ungors::Create(const ParameterList &parameters) {
-        auto unit = new Ungors();
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, Ungor_Blade);
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        bool ok = unit->configure(numModels, weapon, brayhorn, bannerBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Ungors(fray, numModels, weapon, brayhorn, bannerBearer);
     }
 
     void Ungors::Init() {

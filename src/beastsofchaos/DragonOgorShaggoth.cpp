@@ -49,7 +49,7 @@ namespace BeastsOfChaos {
 
     bool DragonOgorShaggoth::s_registered = false;
 
-    DragonOgorShaggoth::DragonOgorShaggoth() :
+    DragonOgorShaggoth::DragonOgorShaggoth(Greatfray fray, Lore lore, CommandTrait trait, Artefact artefact, bool general) :
             BeastsOfChaosBase("Dragon Ogor Shaggoth", 8, g_wounds, 7, 4, false),
             m_stormWroughtAxe(Weapon::Type::Melee, "Storm-wrought Axe", 2, 3, 3, 3, -1, 3),
             m_sweepingTail(Weapon::Type::Melee, "Sweeping Tail", 3, RAND_D3, 4, 3, 0, 1),
@@ -59,9 +59,12 @@ namespace BeastsOfChaos {
         m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    bool DragonOgorShaggoth::configure(Lore lore) {
+        setGreatfray(fray);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(general);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stormWroughtAxe);
         model->addMeleeWeapon(&m_sweepingTail);
@@ -75,31 +78,16 @@ namespace BeastsOfChaos {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *DragonOgorShaggoth::Create(const ParameterList &parameters) {
-        auto unit = new DragonOgorShaggoth();
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_thunderscornCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_thunderscornArtefact[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDarkStorms[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
-        bool ok = unit->configure(lore);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new DragonOgorShaggoth(fray, lore, trait, artefact, general);
     }
 
     void DragonOgorShaggoth::Init() {

@@ -21,16 +21,12 @@ namespace BeastsOfChaos {
 
     bool ChaosSpawn::s_registered = false;
 
-    ChaosSpawn::ChaosSpawn() :
+    ChaosSpawn::ChaosSpawn(Greatfray fray, int numModels) :
             BeastsOfChaosBase("Chaos Spawn", RAND_2D6, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_SPAWN};
         m_weapons = {&m_freakingMutations};
-    }
 
-    bool ChaosSpawn::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGreatfray(fray);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -39,23 +35,13 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *ChaosSpawn::Create(const ParameterList &parameters) {
-        auto unit = new ChaosSpawn();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosSpawn(fray, numModels);
     }
 
     void ChaosSpawn::Init() {

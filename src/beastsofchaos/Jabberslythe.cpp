@@ -18,7 +18,7 @@ namespace BeastsOfChaos {
 
     bool Jabberslythe::s_registered = false;
 
-    Jabberslythe::Jabberslythe() :
+    Jabberslythe::Jabberslythe(Greatfray fray) :
             BeastsOfChaosBase("Jabberslythe", 12, g_wounds, 6, 5, true),
             m_slytheyTongue(Weapon::Type::Missile, "Slythey Tongue", 9, 1, 3, 3, -1, RAND_D3),
             m_vorpalClaws(Weapon::Type::Melee, "Vorpal Claws", 1, 6, 3, 3, -2, 1),
@@ -26,9 +26,9 @@ namespace BeastsOfChaos {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, JABBERSLYTHE};
         m_weapons = {&m_slytheyTongue, &m_vorpalClaws, &m_spikedTail};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    bool Jabberslythe::configure() {
+        setGreatfray(fray);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_slytheyTongue);
         model->addMeleeWeapon(&m_vorpalClaws);
@@ -36,18 +36,11 @@ namespace BeastsOfChaos {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Jabberslythe::Create(const ParameterList &parameters) {
-        auto unit = new Jabberslythe();
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        unit->configure();
-        return unit;
+        return new Jabberslythe(fray);
     }
 
     void Jabberslythe::Init() {

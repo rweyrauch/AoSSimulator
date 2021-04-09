@@ -17,16 +17,19 @@ namespace BeastsOfChaos {
 
     bool Doombull::s_registered = false;
 
-    Doombull::Doombull() :
+    Doombull::Doombull(Greatfray fray, CommandTrait trait, Artefact artefact, bool general) :
             BeastsOfChaosBase("Doombull", 8, g_wounds, 7, 5, false),
             m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
             m_slaughtererAxe(Weapon::Type::Melee, "Slaughterer's Axe", 1, 3, 3, 3, -2, 3) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, HERO, DOOMBULL};
         m_weapons = {&m_bullgorHorns, &m_slaughtererAxe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool Doombull::configure() {
+        setGreatfray(fray);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(general);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bullgorHorns);
         model->addMeleeWeapon(&m_slaughtererAxe);
@@ -39,25 +42,15 @@ namespace BeastsOfChaos {
                                                              std::vector<Keyword>{WARHERD}));
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Doombull::Create(const ParameterList &parameters) {
-        auto unit = new Doombull();
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_warherdCommandTrait[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_warherdArtefact[0]);
-        unit->setArtefact(artefact);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new Doombull(fray, trait, artefact, general);
     }
 
     void Doombull::Init() {

@@ -102,4 +102,13 @@ namespace StormcastEternals {
         m_stormboltsSingle.activate(true);
     }
 
+    int CelestarBallista::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = StormcastEternal::toSaveModifier(weapon, attacker);
+        // Bastions of Death
+        if (Board::Instance()->isInCover(this)) {
+            mod--;
+        }
+        return mod;
+    }
+
 } // namespace StormcastEternals

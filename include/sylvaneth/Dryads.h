@@ -21,11 +21,11 @@ namespace Sylvaneth {
 
         static void Init();
 
-        Dryads();
+        Dryads(Glade glade, int numModels);
+
+        Dryads() = delete;
 
         ~Dryads() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

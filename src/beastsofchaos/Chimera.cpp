@@ -15,7 +15,6 @@ namespace BeastsOfChaos {
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 220;
 
-
     bool Chimera::s_registered = false;
 
     struct TableEntry {
@@ -35,7 +34,7 @@ namespace BeastsOfChaos {
                     {1,       -1, 1}
             };
 
-    Chimera::Chimera() :
+    Chimera::Chimera(Greatfray fray) :
             BeastsOfChaosBase("Chimera", 10, g_wounds, 6, 5, true),
             m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 14, 1, 0, 0, 0, RAND_D6),
             m_avianHead(Weapon::Type::Melee, "Avian Head", 1, 3, 3, 4, -3, RAND_D3),
@@ -45,9 +44,9 @@ namespace BeastsOfChaos {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHIMERA};
         m_weapons = {&m_fieryBreath, &m_avianHead, &m_draconicHead, &m_leonineHead, &m_maulingClaws};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    bool Chimera::configure() {
+        setGreatfray(fray);
+
         auto model = new Model(g_basesize, wounds());
 
         // NOTE: Fiery Breath attack is special, do not treat it as a weapon
@@ -59,18 +58,12 @@ namespace BeastsOfChaos {
         addModel(model);
 
         m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Chimera::Create(const ParameterList &parameters) {
-        auto unit = new Chimera();
-
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
 
-        unit->configure();
-        return unit;
+        return new Chimera(fray);
     }
 
     void Chimera::Init() {

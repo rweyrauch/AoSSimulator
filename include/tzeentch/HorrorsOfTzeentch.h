@@ -21,11 +21,11 @@ namespace Tzeentch {
 
         static void Init();
 
-        HorrorsOfTzeentch();
+        HorrorsOfTzeentch(ChangeCoven coven, int numModels, bool iconBearer, bool hornblower);
+
+        HorrorsOfTzeentch() = delete;
 
         ~HorrorsOfTzeentch() override = default;
-
-        bool configure(int numModels, bool iconBearer, bool hornblower);
 
     protected:
 
@@ -39,15 +39,19 @@ namespace Tzeentch {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
+        Rerolls hornblower(const Unit *unit);
+
     private:
 
-        Weapon m_magicalFlamesPink,
-                m_magicalFlamesBlue,
-                m_magicalFlamesBrimstone,
-                m_talonedHandsPink,
-                m_talonedHandsBlue,
-                m_talonedHandsBrimstone,
-                m_talonedHandsIridescent;
+        lsignal::slot m_hornblowerSlot;
+
+        Weapon  m_magicalFlamesPink{Weapon::Type::Missile, "Magical Flames (Pink)", 12, 3, 5, 4, 0, 1},
+                m_magicalFlamesBlue{Weapon::Type::Missile, "Magical Flames (Blue)", 12, 2, 5, 4, 0, 1},
+                m_magicalFlamesBrimstone{Weapon::Type::Missile, "Magical Flames (Brimstone)", 12, 1, 5, 4, 0, 1},
+                m_talonedHandsPink{Weapon::Type::Melee, "Taloned Hands (Pink)", 1, 1, 5, 4, 0, 1},
+                m_talonedHandsBlue{Weapon::Type::Melee, "Taloned Hands (Blue)", 1, 1, 5, 4, 0, 1},
+                m_talonedHandsBrimstone{Weapon::Type::Melee, "Taloned Hands (Brimstone)", 1, 2, 5, 4, 0, 1},
+                m_talonedHandsIridescent{Weapon::Type::Melee, "Taloned Hands (Iridescent)", 1, 2, 5, 4, 0, 1};
 
         static bool s_registered;
     };
@@ -56,10 +60,10 @@ namespace Tzeentch {
 // Abilities                    Implemented
 // -------------------------------------------
 // Icon Bearer                      Yes
-// Hornblower                       TODO
+// Hornblower                       Yes
 // Flickering Flames                Yes
 // Locus of Conjuration             Yes
-// Ectoplasmic Elasticity           Partial/TODO
+// Ectoplasmic Elasticity           Yes
 // Split and Split Again            TODO
 // Petty Vengeance                  TODO
 // Channelled Pink Fire             TODO

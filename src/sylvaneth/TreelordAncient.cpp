@@ -69,7 +69,7 @@ namespace Sylvaneth {
                     {6, 1, 4}
             };
 
-    TreelordAncient::TreelordAncient() :
+    TreelordAncient::TreelordAncient(Glade glade, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SylvanethBase("Treelord Ancient", 5, g_wounds, 9, 3, false),
             m_doomTendrilStaff(Weapon::Type::Missile, "Doom Tendril Staff", 18, 1, 2, 3, -1, RAND_D6),
             m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 3, 3, 3, -1, RAND_D6),
@@ -77,12 +77,14 @@ namespace Sylvaneth {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, MONSTER, HERO, WIZARD, TREELORD_ANCIENT};
         m_weapons = {&m_doomTendrilStaff, &m_sweepingBlows, &m_massiveImpalingTalons};
         m_battleFieldRole = Role::Leader_Behemoth;
-
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void TreelordAncient::configure(Lore lore) {
+        setGlade(glade);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_doomTendrilStaff);
         model->addMeleeWeapon(&m_sweepingBlows);
@@ -120,23 +122,13 @@ namespace Sylvaneth {
     }
 
     Unit *TreelordAncient::Create(const ParameterList &parameters) {
-        auto unit = new TreelordAncient();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfRenewal[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_relicsOfNature[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new TreelordAncient(glade, lore, trait, artefact, general);
     }
 
     void TreelordAncient::Init() {
@@ -170,6 +162,17 @@ namespace Sylvaneth {
 
     int TreelordAncient::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void TreelordAncient::onStartCombat(PlayerId id) {
+        Unit::onStartCombat(id);
+
+        // Groundshaking Stomp
+        if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0) {
+            if (Dice::RollD6() >= 4) {
+                m_meleeTarget->buffAbility(Ability::Fights_Last, 1, {Phase::Combat, m_battleRound, owningPlayer()});
+            }
+        }
     }
 
 } // namespace Sylvaneth

@@ -91,4 +91,12 @@ namespace StormcastEternals {
         return g_pointsPerUnit;
     }
 
+    int AveronStormsire::unbindingModifier() const {
+        if (!m_usedVoidstormScroll) {
+            m_usedVoidstormScroll = true;
+            return Automatically_Unbound;
+        }
+        return Unit::unbindingModifier();
+    }
+
 } // namespace StormcastEternals

@@ -34,11 +34,17 @@ namespace StormcastEternals {
 
         void onStartCombat(PlayerId player) override;
 
-        void onRestore() override { m_shatteredFlasks = false; }
+        void onRestore() override {
+            m_shatteredFlasks = false;
+            m_usedVoidstormScroll = false;
+        }
+
+        int unbindingModifier() const override;
 
     private:
 
         bool m_shatteredFlasks = false;
+        mutable bool m_usedVoidstormScroll = false;
 
         Weapon m_staff;
 
@@ -48,7 +54,7 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Voidstorm Scroll                 TODO
+// Voidstorm Scroll                 Yes
 // Spirit Flask                     Yes
 // Stormsire                        Yes
 //

@@ -23,6 +23,8 @@ namespace Sylvaneth {
 
         Alarielle(Glade glade, Lore lore, bool isGeneral);
 
+        Alarielle() = delete;
+
         ~Alarielle() override = default;
 
     protected:

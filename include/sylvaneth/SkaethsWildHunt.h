@@ -25,17 +25,13 @@ namespace Sylvaneth {
 
         ~SkaethsWildHunt() override = default;
 
-    protected:
-
-        void configure();
-
     private:
 
-        Weapon m_seekerBow,
-                m_javalin,
-                m_javalinMelee,
-                m_huntingWeapon,
-                m_teethAndClaws;
+        Weapon m_seekerBow{Weapon::Type::Missile, "Seeker Bow", 18, 1, 3, 4, -1, 1},
+               m_javalin{Weapon::Type::Missile, "Javalin of the Hunt", 9, 1, 3, 3, -1, 2},
+               m_javalinMelee{Weapon::Type::Melee, "Javalin of the Hunt (Melee)", 2, 1, 3, 3, -1, 2},
+               m_huntingWeapon{Weapon::Type::Melee, "Hunting Weapon", 1, 2, 3, 4, 0, 1},
+               m_teethAndClaws{Weapon::Type::Melee, "Teeth and Claws", 1, 2, 3, 3, 0, 1};
 
         static bool s_registered;
     };

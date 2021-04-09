@@ -22,11 +22,11 @@ namespace SonsOfBehemat {
 
         Warstomper();
 
+        Warstomper(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral);
+
         ~Warstomper() override = default;
 
     protected:
-
-        void configure();
 
         size_t getDamageTableIndex() const;
 
@@ -47,14 +47,13 @@ namespace SonsOfBehemat {
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
     private:
-        Weapon m_grip,
-                m_jump,
-                m_club;
+        Weapon m_grip{Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6},
+               m_jump{Weapon::Type::Melee, "Jump Up and Down", 3, 4, 3, 3, -2, RAND_D3},
+               m_club{Weapon::Type::Melee, "Titanic Boulderclub", 3, 0, 3, 3, -2, 2};
 
         lsignal::slot m_connection;
 
         static bool s_registered;
-
     };
 
 //

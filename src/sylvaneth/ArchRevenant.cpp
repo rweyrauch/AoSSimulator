@@ -17,7 +17,7 @@ namespace Sylvaneth {
 
     bool ArchRevenant::s_registered = false;
 
-    ArchRevenant::ArchRevenant() :
+    ArchRevenant::ArchRevenant(Glade glade, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SylvanethBase("Arch-Revenant", 12, g_wounds, 8, 4, true),
             m_glaive(Weapon::Type::Melee, "Revenant's Glaive", 2, 3, 3, 3, -2, 2),
             m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3) {
@@ -25,14 +25,13 @@ namespace Sylvaneth {
         m_weapons = {&m_glaive, &m_tailPincers};
         m_battleFieldRole = Role::Leader;
 
+        setGlade(glade);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalToHitReroll.connect(this, &ArchRevenant::championOfKurnothToHitRerolls, &m_championsSlot);
-    }
 
-    ArchRevenant::~ArchRevenant() {
-        m_championsSlot.disconnect();
-    }
-
-    void ArchRevenant::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_tailPincers);
@@ -47,23 +46,17 @@ namespace Sylvaneth {
         m_points = g_pointsPerUnit;
     }
 
+    ArchRevenant::~ArchRevenant() {
+        m_championsSlot.disconnect();
+    }
+
     Unit *ArchRevenant::Create(const ParameterList &parameters) {
-        auto unit = new ArchRevenant();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aspectsOfWar[0]);
-
-        unit->setCommandTrait(trait);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new ArchRevenant(glade, trait, artefact, general);
     }
 
     void ArchRevenant::Init() {

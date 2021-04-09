@@ -34,6 +34,8 @@ namespace StormcastEternals {
 
         void onRestore() override;
 
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
     private:
 
         Weapon m_stormboltsSingle{Weapon::Type::Missile, "Celestar Stormbolts: Single Shot", 36, 1, 3, 3, -2, 1},
@@ -46,7 +48,7 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bastions of Death                TODO
+// Bastions of Death                Yes
 // Chained Lightning                Yes
 // Versatile Weapon                 Yes
 //

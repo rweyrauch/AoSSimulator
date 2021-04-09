@@ -60,8 +60,8 @@ namespace StormcastEternals {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
-                    ValueToString,
-                    EnumStringToInt,
+                    StormcastEternal::ValueToString,
+                    StormcastEternal::EnumStringToInt,
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_lore[0], g_lore),
@@ -78,14 +78,6 @@ namespace StormcastEternals {
         }
     }
 
-    std::string KnightIncantor::ValueToString(const Parameter &parameter) {
-        return StormcastEternal::ValueToString(parameter);
-    }
-
-    int KnightIncantor::EnumStringToInt(const std::string &enumString) {
-        return StormcastEternal::EnumStringToInt(enumString);
-    }
-
     void KnightIncantor::onStartCombat(PlayerId /*player*/) {
         // Spirit Flask
         if (!m_shatteredFlasks) {
@@ -95,6 +87,14 @@ namespace StormcastEternals {
 
     int KnightIncantor::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int KnightIncantor::unbindingModifier() const {
+        if (!m_usedVoidstormScroll) {
+            m_usedVoidstormScroll = true;
+            return Automatically_Unbound;
+        }
+        return Unit::unbindingModifier();
     }
 
 } // namespace StormcastEternals

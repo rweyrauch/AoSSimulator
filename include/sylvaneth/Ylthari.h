@@ -21,13 +21,11 @@ namespace Sylvaneth {
 
         static void Init();
 
-        Ylthari();
+        Ylthari(Lore lore, bool isGeneral);
+
+        Ylthari() = delete;
 
         ~Ylthari() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

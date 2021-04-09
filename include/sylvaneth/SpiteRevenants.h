@@ -21,11 +21,11 @@ namespace Sylvaneth {
 
         static void Init();
 
-        SpiteRevenants();
+        SpiteRevenants() = delete;
 
         ~SpiteRevenants() override;
 
-        bool configure(int numModels);
+        SpiteRevenants(Glade glade, int numModels);
 
     protected:
 
@@ -33,12 +33,14 @@ namespace Sylvaneth {
 
         int unbridledMalice(const Unit *target);
 
+        Rerolls unbridledMaliceReroll(const Unit *unit);
+
     private:
 
         Weapon m_cruelTalonsAndFangs,
                 m_cruelTalonsAndFangsShadestalker;
 
-        lsignal::slot m_connection;
+        lsignal::slot m_maliceBraverySlot, m_maliceRerollSlot;
 
         static bool s_registered;
     };
@@ -46,7 +48,7 @@ namespace Sylvaneth {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Unbridled Malice                 Partial/TODO
+// Unbridled Malice                 Yes
 //
 
 } // namespace Sylvaneth

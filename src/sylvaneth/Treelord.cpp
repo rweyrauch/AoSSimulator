@@ -34,7 +34,7 @@ namespace Sylvaneth {
                     {6, 1, 4}
             };
 
-    Treelord::Treelord() :
+    Treelord::Treelord(Glade glade) :
             SylvanethBase("Treelord", 6, g_wounds, 6, 3, false),
             m_strangleroots(Weapon::Type::Missile, "Strangleroots", 12, 5, 2, 3, -1, 1),
             m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 4, 3, 3, -1, RAND_D6),
@@ -42,9 +42,9 @@ namespace Sylvaneth {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, MONSTER, TREELORD};
         m_weapons = {&m_strangleroots, &m_sweepingBlows, &m_massiveImpalingTalons};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void Treelord::configure() {
+        setGlade(glade);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_strangleroots);
         model->addMeleeWeapon(&m_sweepingBlows);
@@ -76,13 +76,8 @@ namespace Sylvaneth {
     }
 
     Unit *Treelord::Create(const ParameterList &parameters) {
-        auto unit = new Treelord();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
-        unit->configure();
-        return unit;
+        return new Treelord(glade);
     }
 
     void Treelord::Init() {
@@ -112,6 +107,17 @@ namespace Sylvaneth {
 
     int Treelord::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void Treelord::onStartCombat(PlayerId id) {
+        Unit::onStartCombat(id);
+
+        // Groundshaking Stomp
+        if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0) {
+            if (Dice::RollD6() >= 4) {
+                m_meleeTarget->buffAbility(Ability::Fights_Last, 1, {Phase::Combat, m_battleRound, owningPlayer()});
+            }
+        }
     }
 
 } // namespace Sylvaneth

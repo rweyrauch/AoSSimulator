@@ -36,20 +36,20 @@ namespace SonsOfBehemat {
 
     bool KrakenEater::s_registered = false;
 
-    KrakenEater::KrakenEater() :
-            SonsOfBehematBase("Kraken-Eater Mega-Gargant", 11, g_wounds, 7, 4, false),
-            m_debris(Weapon::Type::Missile, "Hurled Debris", 24, 3, 4, 3, -1, RAND_D3),
-            m_stomp(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
-            m_grip(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
-            m_warclub(Weapon::Type::Melee, "Shipwrecka Warclub", 3, 8, 3, 3, -2, 2) {
+    KrakenEater::KrakenEater(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral) :
+            SonsOfBehematBase("Kraken-Eater Mega-Gargant", 11, g_wounds, 7, 4, false) {
         m_weapons = {&m_debris, &m_stomp, &m_grip, &m_warclub};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, KRAKEN_EATER};
 
-        s_globalBraveryMod.connect(this, &KrakenEater::terror, &m_connection);
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setFierceLoating(loathing);
+        setGeneral(isGeneral);
+        setTribe(Tribe::Taker);
 
-    void KrakenEater::configure() {
+        s_globalBraveryMod.connect(this, &KrakenEater::terror, &m_connection);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_debris);
         model->addMeleeWeapon(&m_stomp);
@@ -67,19 +67,12 @@ namespace SonsOfBehemat {
     }
 
     Unit *KrakenEater::Create(const ParameterList &parameters) {
-        auto unit = new KrakenEater();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_takersCommandTrait[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_takerArtefact[0]);
-        unit->setArtefact(artefact);
+        auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->setTribe(Tribe::Taker);
-
-        unit->configure();
-        return unit;
+        return new KrakenEater(trait, artefact, loathing, general);
     }
 
     void KrakenEater::Init() {
@@ -92,6 +85,7 @@ namespace SonsOfBehemat {
                     {
                             EnumParameter("Command Trait", g_takersCommandTrait[0], g_takersCommandTrait),
                             EnumParameter("Artefact", g_takerArtefact[0], g_takerArtefact),
+                            EnumParameter("Fierce Loathing", g_loathings[0], g_loathings),
                             BoolParameter("General")
                     },
                     DESTRUCTION,

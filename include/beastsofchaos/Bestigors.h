@@ -23,13 +23,13 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
+        Bestigors() = delete;
+
+        Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer);
+
         ~Bestigors() override = default;
 
     protected:
-
-        Bestigors();
-
-        Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer);
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 

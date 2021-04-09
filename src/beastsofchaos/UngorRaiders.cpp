@@ -20,19 +20,15 @@ namespace BeastsOfChaos {
 
     bool UngorRaiders::s_registered = false;
 
-    UngorRaiders::UngorRaiders() :
+    UngorRaiders::UngorRaiders(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
             BeastsOfChaosBase("Ungor Raiders", 6, g_wounds, 4, 6, false),
             m_raiderBow(Weapon::Type::Missile, "Raider Bow", 18, 1, 4, 4, 0, 1),
             m_raiderBowHalfhorn(Weapon::Type::Missile, "Raider Bow", 18, 1, 3, 4, 0, 1),
             m_jaggedShank(Weapon::Type::Melee, "Jagged Shank", 1, 1, 5, 5, 0, 1) {
         m_keywords = {CHAOS, UNGOR, BEASTS_OF_CHAOS, BRAYHERD, UNGOR_RAIDERS};
         m_weapons = {&m_raiderBow, &m_raiderBowHalfhorn, &m_jaggedShank};
-    }
 
-    bool UngorRaiders::configure(int numModels, bool brayhorn, bool bannerBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setGreatfray(fray);
 
         m_runAndCharge = brayhorn;
 
@@ -56,25 +52,15 @@ namespace BeastsOfChaos {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *UngorRaiders::Create(const ParameterList &parameters) {
-        auto unit = new UngorRaiders();
+        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
-        auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-        unit->setGreatfray(fray);
-
-        bool ok = unit->configure(numModels, brayhorn, bannerBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new UngorRaiders(fray, numModels, brayhorn, bannerBearer);
     }
 
     void UngorRaiders::Init() {

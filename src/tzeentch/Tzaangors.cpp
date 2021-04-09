@@ -21,33 +21,15 @@ namespace Tzeentch {
 
     bool Tzaangors::s_registered = false;
 
-    Tzaangors::Tzaangors() :
-            TzeentchBase("Tzaangors", 6, g_wounds, 5, 5, false),
-            m_savageBlade(Weapon::Type::Melee, "Savage Blade", 1, 2, 4, 4, 0, 1),
-            m_savageBladeTwistbray(Weapon::Type::Melee, "Savage Blade", 1, 2, 3, 4, 0, 1),
-            m_savageGreatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
-            m_savageGreatbladeTwistbray(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 3, 4, -1, 2),
-            m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
-            m_viciousBeakTwistbray(Weapon::Type::Melee, "Vicious Beak", 1, 1, 3, 5, 0, 1) {
+    Tzaangors::Tzaangors(ChangeCoven coven, int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
+                         bool brayhorns) :
+            TzeentchBase("Tzaangors", 6, g_wounds, 5, 5, false) {
         m_keywords = {CHAOS, GOR, TZEENTCH, ARCANITE, TZAANGORS};
         m_weapons = {&m_savageBlade, &m_savageBladeTwistbray, &m_savageGreatblade, &m_savageGreatbladeTwistbray,
                      &m_viciousBeak, &m_viciousBeakTwistbray};
         m_battleFieldRole = Role::Battleline;
-    }
 
-    bool Tzaangors::configure(int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
-                              bool brayhorns) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxGreatblades = (numGreatblades / g_minUnitSize) * 2;
-        if (numGreatblades > maxGreatblades) {
-            return false;
-        }
-        const int maxMutents = numModels / g_minUnitSize;
-        if (numMutants > maxMutents) {
-            return false;
-        }
+        setChangeCoven(coven);
 
         m_weaponOption = weapons;
         m_numGreatblades = numGreatblades;
@@ -88,28 +70,18 @@ namespace Tzeentch {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Tzaangors::Create(const ParameterList &parameters) {
-        auto unit = new Tzaangors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Savage_Blade_And_Shield);
         int numGreatblades = GetIntParam("Greatblades", parameters, 0);
         int numMutants = GetIntParam("Mutants", parameters, 0);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool brayhorns = GetBoolParam("Brayhorns", parameters, false);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
 
-        bool ok = unit->configure(numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Tzaangors(coven, numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns);
     }
 
     void Tzaangors::Init() {
@@ -207,6 +179,29 @@ namespace Tzeentch {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    void Tzaangors::onStartHero(PlayerId player) {
+        TzeentchBase::onStartHero(player);
+
+        // Ornate Totems
+        if (owningPlayer() == player) {
+            if (isNamedModelAlive(Model::IconBearer)) {
+                auto enemy = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+                if (enemy && (distanceTo(enemy) < 18.0)) {
+                    auto wizards = Board::Instance()->getUnitsWithKeyword(PlayerId::None, WIZARD);
+                    int totalWizards = 0;
+                    for (auto wizard : wizards) {
+                        if ((wizard->remainingModels() > 0) && (distanceTo(wizard) < 9.0)) {
+                            totalWizards++;
+                        }
+                    }
+                    Dice::RollResult rolls;
+                    Dice::RollD6(totalWizards, rolls);
+                    enemy->applyDamage({0, rolls.rollsGE(4), Wounds::Source::Ability}, this);
+                }
+            }
+        }
     }
 
 } //namespace Tzeentch

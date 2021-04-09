@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "tzeentch/Curseling.h"
 #include "TzeentchPrivate.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
     static const int g_basesize = 40;
@@ -19,16 +20,13 @@ namespace Tzeentch {
     bool CurselingEyeOfTzeentch::s_registered = false;
 
     Unit *CurselingEyeOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new CurselingEyeOfTzeentch();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfFate[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new CurselingEyeOfTzeentch(coven, lore, trait, artefact, general);
     }
 
     void CurselingEyeOfTzeentch::Init() {
@@ -53,26 +51,27 @@ namespace Tzeentch {
         }
     }
 
-    CurselingEyeOfTzeentch::CurselingEyeOfTzeentch() :
-            TzeentchBase("Curseling Eye of Tzeentch", 5, g_wounds, 7, 4, false),
-            m_sword(Weapon::Type::Melee, "Blazing Sword", 1, 3, 3, 4, -1, 1),
-            m_flail(Weapon::Type::Melee, "Threshing Flail", 1, 3, 4, 3, 0, 1),
-            m_staff(Weapon::Type::Melee, "Staff of Tzeentch", 2, 1, 5, 4, 0, RAND_D3) {
+    CurselingEyeOfTzeentch::CurselingEyeOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase("Curseling Eye of Tzeentch", 5, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, WIZARD, CURSELING};
         m_weapons = {&m_sword, &m_flail, &m_staff};
         m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void CurselingEyeOfTzeentch::configure() {
+        setChangeCoven(coven);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_flail);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

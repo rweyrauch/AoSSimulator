@@ -21,13 +21,13 @@ namespace Sylvaneth {
 
         static void Init();
 
-        DrychaHamadreth();
+        DrychaHamadreth(Glade glade, Lore lore, bool isGeneral);
+
+        DrychaHamadreth() = delete;
 
         ~DrychaHamadreth() override;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

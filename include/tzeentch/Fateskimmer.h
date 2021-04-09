@@ -21,22 +21,29 @@ namespace Tzeentch {
 
         static void Init();
 
-        Fateskimmer();
+        Fateskimmer(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Fateskimmer() override = default;
 
     protected:
 
-        void configure(Lore lore);
-
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const override;
+
+        void onRestore() override {
+            TzeentchBase::onRestore();
+            m_usedArcaneTome = false;
+        }
 
     private:
 
-        Weapon m_magicalFlames,
-                m_staff,
-                m_dagger,
-                m_bite;
+        mutable bool m_usedArcaneTome = false;
+
+        Weapon  m_magicalFlames{Weapon::Type::Missile, "Magical Flames", 18, 3, 4, 4, -1, 1},
+                m_staff{Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3},
+                m_dagger{Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1},
+                m_bite{Weapon::Type::Melee, "Lamprey Bite", 1, 6, 4, 3, 0, 1};
 
         static bool s_registered;
     };
@@ -44,7 +51,7 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Arcane Tome                      TODO
+// Arcane Tome                      Yes
 // Sky-shark                        Yes
 // Wake of Fire                     TODO
 // Tzeentch's Firestorm             Yes

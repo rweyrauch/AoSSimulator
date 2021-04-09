@@ -183,6 +183,10 @@ namespace Sylvaneth {
 
     void SylvanethBase::setCommandTrait(CommandTrait commandTrait) {
         m_commandTrait = commandTrait;
+
+        if (m_commandTrait == CommandTrait::Voice_Of_Warding) {
+            m_totalUnbinds++;
+        }
     }
 
     void SylvanethBase::onCastSpell(const Spell *spell, const Unit *target) {
@@ -196,6 +200,9 @@ namespace Sylvaneth {
                     break;
                 }
             }
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Mystic_Regrowth)) {
+            heal(Dice::RollD3());
         }
     }
 
@@ -245,6 +252,24 @@ namespace Sylvaneth {
             mod += 2;
         }
         return mod;
+    }
+
+    int SylvanethBase::castingModifier() const {
+        auto mod = Unit::castingModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Glade_Lore)) {
+            auto woods = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 6.0);
+            if (woods != nullptr) {
+                mod++;
+            }
+        }
+        return mod;
+    }
+
+    Wounds SylvanethBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        if (isGeneral() && (m_commandTrait == CommandTrait::Radiant_Spirit) && (wounds.source == Wounds::Source::Spell)) {
+            return ignoreWounds(wounds, 4);
+        }
+        return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
     void Init() {

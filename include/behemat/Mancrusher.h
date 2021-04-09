@@ -20,13 +20,13 @@ namespace SonsOfBehemat {
 
         static void Init();
 
-        Mancrusher();
+        Mancrusher() = delete;
+
+        Mancrusher(Tribe tribe, int numModels, FierceLoathing loathing);
 
         ~Mancrusher() override = default;
 
     private:
-
-        bool configure(int numModels);
 
         void onWounded() override;
 
@@ -38,13 +38,12 @@ namespace SonsOfBehemat {
 
         size_t getDamageTableIndex() const;
 
-        Weapon m_eadbutt,
-                m_club,
-                m_kick,
-                m_rocks;
+        Weapon m_eadbutt{Weapon::Type::Melee, "'Eadbutt", 1, 1, 4, 3, -3, 4},
+               m_club{Weapon::Type::Melee, "Massive Club", 3, 10, 3, 3, -1, 1},
+               m_kick{Weapon::Type::Melee, "Mighty Kick", 2, 1, 3, 3, -2, RAND_D3},
+               m_rocks{Weapon::Type::Missile, "Chuck Rocks", 18, RAND_D3, 4, 3, -1, RAND_D3};
 
         static bool s_registered;
-
     };
 
 //

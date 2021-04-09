@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static int ComputePoints(int numModels);
 
-        ChaosWarhounds();
+        ChaosWarhounds() = delete;
 
         ~ChaosWarhounds() override = default;
 
-        bool configure(int numModels);
+        ChaosWarhounds(Greatfray fray, int numModels);
 
     protected:
 

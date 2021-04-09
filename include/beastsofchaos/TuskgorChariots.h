@@ -25,11 +25,11 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        TuskgorChariots();
+        TuskgorChariots() = delete;
 
         ~TuskgorChariots() override = default;
 
-        bool configure(int numModels);
+        TuskgorChariots(Greatfray fray, int numModels);
 
     protected:
 

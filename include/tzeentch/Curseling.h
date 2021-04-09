@@ -21,19 +21,24 @@ namespace Tzeentch {
 
         static void Init();
 
-        CurselingEyeOfTzeentch();
+        CurselingEyeOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        CurselingEyeOfTzeentch() = delete;
 
         ~CurselingEyeOfTzeentch() override = default;
 
     protected:
 
-        void configure();
+        Rerolls unbindingRerolls() const override {
+            // Disrupter of the Arcane
+            return Rerolls::Failed;
+        }
 
     private:
 
-        Weapon m_sword,
-                m_flail,
-                m_staff;
+        Weapon  m_sword{Weapon::Type::Melee, "Blazing Sword", 1, 3, 3, 4, -1, 1},
+                m_flail{Weapon::Type::Melee, "Threshing Flail", 1, 3, 4, 3, 0, 1},
+                m_staff{Weapon::Type::Melee, "Staff of Tzeentch", 2, 1, 5, 4, 0, RAND_D3};
 
         static bool s_registered;
     };
@@ -41,7 +46,7 @@ namespace Tzeentch {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Disrupter of the Arcane          TODO
+// Disrupter of the Arcane          Yes
 // Vessel of Chaos                  TODO
 // Glean Magic                      TODO
 //

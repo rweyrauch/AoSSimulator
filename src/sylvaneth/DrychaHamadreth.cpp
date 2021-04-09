@@ -36,7 +36,7 @@ namespace Sylvaneth {
                     {6,  5, 2}
             };
 
-    DrychaHamadreth::DrychaHamadreth() :
+    DrychaHamadreth::DrychaHamadreth(Glade glade, Lore lore, bool isGeneral) :
             SylvanethBase("Drycha Hamadreth", 9, g_wounds, 8, 3, false),
             m_colonyOfFlitterfuries(Weapon::Type::Missile, "Colony of Flitterfuries", 18, 10, 4, 3, -1, 1),
             m_swarmOfSquirmlings(Weapon::Type::Missile, "Swarm of Squirmlings", 2, 10, 3, 4, 0, 1),
@@ -44,18 +44,14 @@ namespace Sylvaneth {
         m_keywords = {ORDER, SYLVANETH, OUTCASTS, MONSTER, HERO, WIZARD, DRYCHA_HAMADRETH};
         m_weapons = {&m_colonyOfFlitterfuries, &m_swarmOfSquirmlings, &m_slashingTalons};
         m_battleFieldRole = Role::Leader_Behemoth;
+        m_totalUnbinds = 1;
+        m_totalSpells = 1;
 
         s_globalToWoundReroll.connect(this, &DrychaHamadreth::songOfSpiteToWoundRerolls, &m_songSlot);
 
-        m_totalUnbinds = 1;
-        m_totalSpells = 1;
-    }
+        setGlade(glade);
+        setGeneral(isGeneral);
 
-    DrychaHamadreth::~DrychaHamadreth() {
-        m_songSlot.disconnect();
-    }
-
-    void DrychaHamadreth::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_colonyOfFlitterfuries);
         model->addMissileWeapon(&m_swarmOfSquirmlings);
@@ -69,6 +65,10 @@ namespace Sylvaneth {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_points = g_pointsPerUnit;
+    }
+
+    DrychaHamadreth::~DrychaHamadreth() {
+        m_songSlot.disconnect();
     }
 
     void DrychaHamadreth::onWounded() {
@@ -89,18 +89,11 @@ namespace Sylvaneth {
     }
 
     Unit *DrychaHamadreth::Create(const ParameterList &parameters) {
-        auto unit = new DrychaHamadreth();
-
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        unit->setGlade(glade);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfTheDeepwood[0]);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new DrychaHamadreth(glade, lore, general);
     }
 
     void DrychaHamadreth::Init() {

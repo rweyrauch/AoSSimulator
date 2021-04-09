@@ -36,19 +36,20 @@ namespace SonsOfBehemat {
 
     bool Warstomper::s_registered = false;
 
-    Warstomper::Warstomper() :
-            SonsOfBehematBase("Warstomper Mega-Gargant", 10, g_wounds, 7, 4, false),
-            m_grip(Weapon::Type::Melee, "Death Grip", 3, 1, 3, 2, -3, RAND_D6),
-            m_jump(Weapon::Type::Melee, "Jump Up and Down", 3, 4, 3, 3, -2, RAND_D3),
-            m_club(Weapon::Type::Melee, "Titanic Boulderclub", 3, 0, 3, 3, -2, 2) {
+    Warstomper::Warstomper(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral) :
+            SonsOfBehematBase("Warstomper Mega-Gargant", 10, g_wounds, 7, 4, false) {
         m_weapons = {&m_grip, &m_jump, &m_club};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, WARSTOMPER};
 
-        s_globalBraveryMod.connect(this, &Warstomper::terror, &m_connection);
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setFierceLoating(loathing);
+        setGeneral(isGeneral);
+        setTribe(Tribe::Stomper);
 
-    void Warstomper::configure() {
+        s_globalBraveryMod.connect(this, &Warstomper::terror, &m_connection);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_grip);
         model->addMeleeWeapon(&m_jump);
@@ -59,19 +60,12 @@ namespace SonsOfBehemat {
     }
 
     Unit *Warstomper::Create(const ParameterList &parameters) {
-        auto unit = new Warstomper();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_stompersCommandTrait[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_stomperArtefact[0]);
-        unit->setArtefact(artefact);
+        auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->setTribe(Tribe::Stomper);
-
-        unit->configure();
-        return unit;
+        return new Warstomper(trait, artefact, loathing, general);
     }
 
     void Warstomper::Init() {
@@ -84,6 +78,7 @@ namespace SonsOfBehemat {
                     {
                             EnumParameter("Command Trait", g_stompersCommandTrait[0], g_stompersCommandTrait),
                             EnumParameter("Artefact", g_stomperArtefact[0], g_stomperArtefact),
+                            EnumParameter("Fierce Loathing", g_loathings[0], g_loathings),
                             BoolParameter("General")
                     },
                     DESTRUCTION,

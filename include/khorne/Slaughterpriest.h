@@ -31,19 +31,17 @@ namespace Khorne {
 
         static void Init();
 
-        Slaughterpriest();
+        Slaughterpriest(SlaughterHost host, WeaponOption weapon, BloodBlessingsOfKhorne blessing, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        Slaughterpriest() = delete;
 
         ~Slaughterpriest() override = default;
 
-    protected:
-
-        void configure(WeaponOption weapon, BloodBlessingsOfKhorne blessing);
-
     private:
 
-        Weapon m_bloodbathedAxe,
-                m_hackblade,
-                m_wrathHammer;
+        Weapon m_bloodbathedAxe{Weapon::Type::Melee, "Bloodbathed Axe", 2, 3, 4, 3, 0, 2},
+               m_hackblade{Weapon::Type::Melee, "Hackblade", 1, 3, 3, 4, 0, 1},
+               m_wrathHammer{Weapon::Type::Melee, "Wrath-hammer", 3, RAND_D3, 4, 4, 0, 1};
 
         static bool s_registered;
     };
