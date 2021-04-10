@@ -37,8 +37,8 @@ namespace Khorne {
     private:
 
 
-        Weapon m_burningRoar,
-                m_blooddarkClaws;
+        Weapon  m_burningRoar{Weapon::Type::Missile, "Burning Roar", 8, 1, 2, 4, 0, 1},
+                m_blooddarkClaws{Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1};
 
         static bool s_registered;
     };

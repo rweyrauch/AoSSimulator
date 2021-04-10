@@ -38,10 +38,7 @@ namespace Khorne {
     }
 
     MagoresFiends::MagoresFiends() :
-            KhorneBase("Magore's Fiends", 5, g_wounds, 6, 4, false),
-            m_bellyMaw(Weapon::Type::Melee, "Magore's Belly Maw", 1, 1, 4, 3, -1, RAND_D3),
-            m_daemonicAxe(Weapon::Type::Melee, "Magore's Daemonic Axe", 1, 3, 3, 3, -1, 1),
-            m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1) {
+            KhorneBase("Magore's Fiends", 5, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOOD_WARRIORS, MAGORES_FIENDS};
         m_weapons = {&m_bellyMaw, &m_daemonicAxe, &m_goreaxe};
 

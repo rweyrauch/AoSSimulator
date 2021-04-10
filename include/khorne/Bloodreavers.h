@@ -52,10 +52,10 @@ namespace Khorne {
 
         WeaponOption m_weaponOption = Reaver_Blades;
 
-        Weapon m_reaverBlades,
-                m_reaverBladesChieftain,
-                m_meatripperAxe,
-                m_meatripperAxeChieftain;
+        Weapon  m_reaverBlades{Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1},
+                m_reaverBladesChieftain{Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1},
+                m_meatripperAxe{Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1},
+                m_meatripperAxeChieftain{Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1};
 
         static bool s_registered;
     };

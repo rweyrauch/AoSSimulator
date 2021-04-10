@@ -20,9 +20,7 @@ namespace Khorne {
     bool Khorgoraths::s_registered = false;
 
     Khorgoraths::Khorgoraths(SlaughterHost host, int numModels) :
-            KhorneBase("Khorgoraths", 6, g_wounds, 6, 4, false),
-            m_boneTentacles(Weapon::Type::Missile, "Bone Tentacles", 6, 3, 3, 4, 0, 1),
-            m_clawAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2) {
+            KhorneBase("Khorgoraths", 6, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, KHORNE, MONSTER, BLOODBOUND, KHORGORATHS};
         m_weapons = {&m_boneTentacles, &m_clawAndFangs};
 

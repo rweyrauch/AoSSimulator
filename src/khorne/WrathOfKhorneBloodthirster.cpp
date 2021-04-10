@@ -35,10 +35,7 @@ namespace Khorne {
     bool WrathOfKhorneBloodthirster::s_registered = false;
 
     WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Wrath of Khorne Bloodthirster", 10, g_wounds, 10, 4, true),
-            m_bloodflail(Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6),
-            m_mightyAxeOfKhorne(Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3),
-            m_breath(Weapon::Type::Missile, "Hellfire Breath", 8, 1, 0, 0, 0, 0) {
+            KhorneBase("Wrath of Khorne Bloodthirster", 10, g_wounds, 10, 4, true) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
         m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne, &m_breath};
         m_battleFieldRole = Role::Leader_Behemoth;

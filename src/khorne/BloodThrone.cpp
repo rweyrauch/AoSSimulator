@@ -18,10 +18,7 @@ namespace Khorne {
     bool HeraldOfKhorneOnBloodThrone::s_registered = false;
 
     HeraldOfKhorneOnBloodThrone::HeraldOfKhorneOnBloodThrone(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Herald of Khorne on Blood Throne", 8, g_wounds, 10, 4, false),
-            m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1),
-            m_hellblades(Weapon::Type::Melee, "Hellblades", 1, 2, 4, 3, -1, 1),
-            m_gnashingMaw(Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3) {
+            KhorneBase("Herald of Khorne on Blood Throne", 8, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTER, HERO, HERALD_OF_KHORNE, HERALD_OF_KHORNE_ON_BLOOD_THRONE};
         m_weapons = {&m_bladeOfBlood, &m_hellblades, &m_gnashingMaw};
         m_battleFieldRole = Role::Leader;

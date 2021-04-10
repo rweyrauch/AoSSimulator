@@ -20,8 +20,7 @@ namespace Khorne {
     bool Skullgrinder::s_registered = false;
 
     Skullgrinder::Skullgrinder(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Skullgrinder", 5, g_wounds, 8, 4, false),
-            m_brazenAnvil(Weapon::Type::Melee, "Brazen Anvil", 2, 3, 3, 2, -1, 3) {
+            KhorneBase("Skullgrinder", 5, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKULLGRINDER};
         m_weapons = {&m_brazenAnvil};
         m_battleFieldRole = Role::Leader;

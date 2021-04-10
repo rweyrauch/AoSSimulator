@@ -47,9 +47,7 @@ namespace Khorne {
     bool MightyLordOfKhorne::s_registered = false;
 
     MightyLordOfKhorne::MightyLordOfKhorne(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Mighty Lord of Khorne", 5, g_wounds, 9, 3, false),
-            m_axeOfKhorne(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
-            m_bloodDarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
+            KhorneBase("Mighty Lord of Khorne", 5, g_wounds, 9, 3, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MIGHTY_LORD_OF_KHORNE};
         m_weapons = {&m_axeOfKhorne, &m_bloodDarkClaws};
         m_battleFieldRole = Role::Leader;

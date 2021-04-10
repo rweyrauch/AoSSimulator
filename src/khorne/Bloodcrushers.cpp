@@ -21,10 +21,7 @@ namespace Khorne {
     bool Bloodcrushers::s_registered = false;
 
     Bloodcrushers::Bloodcrushers(SlaughterHost host, int numModels, bool iconBearer, bool hornblowers) :
-            KhorneBase("Bloodcrushers", 8, g_wounds, 10, 4, false),
-            m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
-            m_hellbladeHunter(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1),
-            m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
+            KhorneBase("Bloodcrushers", 8, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, BLOODCRUSHERS};
         m_weapons = {&m_hellblade, &m_hellbladeHunter, &m_brazenHooves};
         m_hasMount = true;

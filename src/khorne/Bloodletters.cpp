@@ -23,9 +23,7 @@ namespace Khorne {
     bool Bloodletters::s_registered = false;
 
     Bloodletters::Bloodletters(SlaughterHost host, int numModels, bool iconBearer, bool standardBearer, bool hornblowers) :
-            KhorneBase("Bloodletters", 5, g_wounds, 10, 5, false),
-            m_hellblade(Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1),
-            m_hellbladeReaper(Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1) {
+            KhorneBase("Bloodletters", 5, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
         m_weapons = {&m_hellblade, &m_hellbladeReaper};
         m_battleFieldRole = Role::Battleline;

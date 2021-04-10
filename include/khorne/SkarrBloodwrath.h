@@ -35,7 +35,7 @@ namespace Khorne {
 
     private:
 
-        Weapon m_blades;
+        Weapon m_blades{Weapon::Type::Melee, "Bloodstorm Blades", 3, 5, 2, 3, -1, 1};
 
         static bool s_registered;
     };

@@ -18,8 +18,7 @@ namespace Khorne {
     bool ValkiaTheBloody::s_registered = false;
 
     ValkiaTheBloody::ValkiaTheBloody(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Valkia the Bloody", 12, g_wounds, 9, 3, true),
-            m_slaupnir(Weapon::Type::Melee, "Slaupnir", 2, 6, 3, 3, -2, 1) {
+            KhorneBase("Valkia the Bloody", 12, g_wounds, 9, 3, true) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
         m_weapons = {&m_slaupnir};
         m_battleFieldRole = Role::Leader;

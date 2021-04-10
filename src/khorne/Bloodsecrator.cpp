@@ -18,8 +18,7 @@ namespace Khorne {
     bool Bloodsecrator::s_registered = false;
 
     Bloodsecrator::Bloodsecrator(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Bloodsecrator", 4, g_wounds, 9, 3, false),
-            m_ensorcelledAxe(Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, -1, 1) {
+            KhorneBase("Bloodsecrator", 4, g_wounds, 9, 3, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, TOTEM, BLOODSECRATOR};
         m_weapons = {&m_ensorcelledAxe};
         m_battleFieldRole = Role::Leader;

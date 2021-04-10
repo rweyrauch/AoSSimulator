@@ -37,8 +37,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_wrathflails,
-                m_wrathflailsMaster;
+        Weapon  m_wrathflails{Weapon::Type::Melee, "Wrath-flails", 2, 4, 4, 3, -1, 1},
+                m_wrathflailsMaster{Weapon::Type::Melee, "Wrath-flails", 2, 5, 4, 3, -1, 1};
 
         lsignal::slot m_hazeSlot;
 

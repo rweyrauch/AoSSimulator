@@ -39,8 +39,8 @@ namespace Khorne {
 
         int m_modelsSlainAtStartOfCombat = 0;
 
-        Weapon m_boneTentacles,
-                m_clawAndFangs;
+        Weapon  m_boneTentacles{Weapon::Type::Missile, "Bone Tentacles", 6, 3, 3, 4, 0, 1},
+                m_clawAndFangs{Weapon::Type::Melee, "Claws and Fangs", 1, 5, 3, 3, -1, 2};
 
         static bool s_registered;
     };

@@ -39,7 +39,7 @@ namespace Khorne {
 
     private:
 
-        Weapon m_slayerSword;
+        Weapon m_slayerSword{Weapon::Type::Melee, "The Slayer Sword", 1, 3, 3, 3, -1, 3};
 
         static bool s_registered;
     };

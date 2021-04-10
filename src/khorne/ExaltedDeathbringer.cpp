@@ -19,10 +19,7 @@ namespace Khorne {
     bool ExaltedDeathbringer::s_registered = false;
 
     ExaltedDeathbringer::ExaltedDeathbringer(SlaughterHost host, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Exalted Deathbringer", 5, g_wounds, 8, 4, false),
-            m_ruinousAxe(Weapon::Type::Melee, "Ruinous Axe", 1, 3, 4, 3, -1, 2),
-            m_bloodbiteAxe(Weapon::Type::Melee, "Bloodbite Axe", 1, 6, 3, 4, 0, 1),
-            m_impalingSpear(Weapon::Type::Melee, "Impaling Spear", 2, 5, 3, 3, -1, 1) {
+            KhorneBase("Exalted Deathbringer", 5, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, EXALTED_DEATHBRINGER};
         m_weapons = {&m_ruinousAxe, &m_bloodbiteAxe, &m_impalingSpear};
         m_battleFieldRole = Role::Leader;

@@ -51,11 +51,11 @@ namespace Khorne {
 
         lsignal::slot m_wingOfFuryConnection;
 
-        Weapon m_balefire,
-                m_skullCleaverAxeOfKhorne,
-                m_evisceratingClaws,
-                m_cavernousJaws,
-                m_brassPlatedTail;
+        Weapon  m_balefire{Weapon::Type::Missile, "White-hot Balefire", 20, 3, 4, 2, -3, RAND_D6},
+                m_skullCleaverAxeOfKhorne{Weapon::Type::Melee, "Skull Cleaver Axe of Khorne", 1, 12, 3, 3, -2, 2},
+                m_evisceratingClaws{Weapon::Type::Melee, "Eviscerating Claws", 3, RAND_D6, 3, 3, -3, 3},
+                m_cavernousJaws{Weapon::Type::Melee, "Cavernous Jaws", 3, 2, 4, 2, -2, 3},
+                m_brassPlatedTail{Weapon::Type::Melee, "Brass-plated Tail", 3, RAND_3D6, 4, 4, -1, 3};
 
         static bool s_registered;
     };

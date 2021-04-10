@@ -37,8 +37,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_axeOfKhorne,
-                m_clawsAndFangs;
+        Weapon  m_axeOfKhorne{Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3},
+                m_clawsAndFangs{Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 4, -1, 1};
 
         static bool s_registered;
     };

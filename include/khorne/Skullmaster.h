@@ -37,8 +37,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_bladeOfBlood,
-                m_brazenHooves;
+        Weapon  m_bladeOfBlood{Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1},
+                m_brazenHooves{Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1};
 
         static bool s_registered;
     };

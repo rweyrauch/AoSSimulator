@@ -37,12 +37,7 @@ namespace Khorne {
     bool VorgarothAndSkalok::s_registered = false;
 
     VorgarothAndSkalok::VorgarothAndSkalok(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Vorgaroth the Scarred & Skalok the Skull Host of Khorne", 14, g_wounds, 10, 3, true),
-            m_balefire(Weapon::Type::Missile, "White-hot Balefire", 20, 3, 4, 2, -3, RAND_D6),
-            m_skullCleaverAxeOfKhorne(Weapon::Type::Melee, "Skull Cleaver Axe of Khorne", 1, 12, 3, 3, -2, 2),
-            m_evisceratingClaws(Weapon::Type::Melee, "Eviscerating Claws", 3, RAND_D6, 3, 3, -3, 3),
-            m_cavernousJaws(Weapon::Type::Melee, "Cavernous Jaws", 3, 2, 4, 2, -2, 3),
-            m_brassPlatedTail(Weapon::Type::Melee, "Brass-plated Tail", 3, RAND_3D6, 4, 4, -1, 3) {
+            KhorneBase("Vorgaroth the Scarred & Skalok the Skull Host of Khorne", 14, g_wounds, 10, 3, true) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MONSTER,
                       VORGAROTH_THE_SCARRED_AND_SKALOK_THE_SKULL_HOST_OF_KHORNE};
         m_weapons = {&m_balefire, &m_skullCleaverAxeOfKhorne, &m_evisceratingClaws, &m_cavernousJaws,

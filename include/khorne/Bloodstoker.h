@@ -33,8 +33,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_tortureBlade,
-                m_bloodWhip;
+        Weapon  m_tortureBlade{Weapon::Type::Melee, "Torture Blade", 1, 3, 3, 3, 0, 1},
+                m_bloodWhip{Weapon::Type::Melee, "Blood Whip", 3, 3, 3, 4, 0, 1};
 
         static bool s_registered;
     };

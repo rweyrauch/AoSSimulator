@@ -49,7 +49,7 @@ namespace Khorne {
         lsignal::slot m_gazeOfKhorneFlee;
         const Unit* m_usedGazeOfKhorneReroll = nullptr;
 
-        Weapon m_slaupnir;
+        Weapon m_slaupnir{Weapon::Type::Melee, "Slaupnir", 2, 6, 3, 3, -2, 1};
 
         static bool s_registered;
     };

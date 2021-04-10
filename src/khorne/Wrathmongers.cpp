@@ -21,9 +21,7 @@ namespace Khorne {
     bool Wrathmongers::s_registered = false;
 
     Wrathmongers::Wrathmongers(SlaughterHost host, int numModels) :
-            KhorneBase("Wrathmongers", 5, g_wounds, 7, 5, false),
-            m_wrathflails(Weapon::Type::Melee, "Wrath-flails", 2, 4, 4, 3, -1, 1),
-            m_wrathflailsMaster(Weapon::Type::Melee, "Wrath-flails", 2, 5, 4, 3, -1, 1) {
+            KhorneBase("Wrathmongers", 5, g_wounds, 7, 5, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, WRATHMONGERS};
         m_weapons = {&m_wrathflails, &m_wrathflailsMaster};
 

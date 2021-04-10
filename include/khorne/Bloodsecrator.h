@@ -36,7 +36,7 @@ namespace Khorne {
 
     private:
 
-        Weapon m_ensorcelledAxe;
+        Weapon  m_ensorcelledAxe{Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, -1, 1};
 
         lsignal::slot m_rageOfKhorneSlot, m_loathsomeSorcerySlot;
 

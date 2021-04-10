@@ -21,13 +21,13 @@ namespace Khorne {
 
         static void Init();
 
+        Skarbrand(SlaughterHost host, bool isGeneral);
+
         Skarbrand() = delete;
 
         ~Skarbrand() override = default;
 
     protected:
-
-        Skarbrand(SlaughterHost host, bool isGeneral);
 
         size_t getDamageTableIndex() const;
 
@@ -39,12 +39,14 @@ namespace Khorne {
 
         void onStartShooting(PlayerId player) override;
 
+        void onEndRound(int battleRound) override;
+
     private:
 
         bool m_attackedInPreviousRound = false;
 
-        Weapon m_slaughter,
-                m_carnage;
+        Weapon  m_slaughter{Weapon::Type::Melee, "Slaughter", 2, 5, 4, 3, -2, 3},
+                m_carnage{Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0};
 
         static bool s_registered;
     };
@@ -52,7 +54,7 @@ namespace Khorne {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Skarbrand's Rage                 TODO
+// Skarbrand's Rage                 Yes
 // Roar of Total Rage               Yes
 // Total Carnage                    Yes
 // Inescapable Wrath                Yes

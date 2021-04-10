@@ -19,8 +19,7 @@ namespace Khorne {
     bool Skulltaker::s_registered = false;
 
     Skulltaker::Skulltaker(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Skulltaker", 5, g_wounds, 10, 4, false),
-            m_slayerSword(Weapon::Type::Melee, "The Slayer Sword", 1, 3, 3, 3, -1, 3) {
+            KhorneBase("Skulltaker", 5, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLTAKER};
         m_weapons = {&m_slayerSword};
         m_battleFieldRole = Role::Leader;

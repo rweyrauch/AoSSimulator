@@ -32,7 +32,7 @@ namespace Khorne {
 
     private:
 
-        Weapon m_claws;
+        Weapon m_claws{Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1};
 
         static bool s_registered;
     };

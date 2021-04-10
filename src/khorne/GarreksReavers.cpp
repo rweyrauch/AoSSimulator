@@ -39,11 +39,7 @@ namespace Khorne {
     }
 
     GarreksReavers::GarreksReavers() :
-            KhorneBase("Garrek's Reavers", 6, g_wounds, 6, 6, false),
-            m_garreksAxe(Weapon::Type::Melee, "Garrek's Blooddrinker Axe", 1, 3, 3, 4, -1, 1),
-            m_karusAxe(Weapon::Type::Melee, "Karsus' Chained Axe", 2, RAND_D3, 4, 4, 0, 1),
-            m_saeksAxe(Weapon::Type::Melee, "Saek's Meatripper Axe", 1, 1, 3, 4, -1, 1),
-            m_blades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 3, 4, 0, 1) {
+            KhorneBase("Garrek's Reavers", 6, g_wounds, 6, 6, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOODREAVERS, GARREKS_REAVERS};
         m_weapons = {&m_garreksAxe, &m_karusAxe, &m_saeksAxe, &m_blades};
 

@@ -39,8 +39,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_blades,
-                m_viciousMutation;
+        Weapon  m_blades{Weapon::Type::Melee, "Gore-slick Blades, Daemonblade, Spinecleavers and Soultearers", 1, 4, 3, 3, 0, 1},
+                m_viciousMutation{Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3};
 
         static bool s_registered;
     };

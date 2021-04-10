@@ -33,8 +33,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_brutalFists,
-                m_serpentineTail;
+        Weapon  m_brutalFists{Weapon::Type::Melee, "Brutal Fists", 2, RAND_2D6, 4, 3, -1, 1},
+                m_serpentineTail{Weapon::Type::Melee, "Serpentine Tail", 3, 2, 3, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

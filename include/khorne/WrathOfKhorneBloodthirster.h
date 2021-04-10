@@ -43,9 +43,9 @@ namespace Khorne {
 
     private:
 
-        Weapon m_bloodflail,
-                m_mightyAxeOfKhorne,
-                m_breath;
+        Weapon  m_bloodflail{Weapon::Type::Missile, "Bloodflail", 12, 1, 3, 3, -1, 6},
+                m_mightyAxeOfKhorne{Weapon::Type::Melee, "Mighty Axe of Khorne", 2, 6, 3, 2, -2, RAND_D3},
+                m_breath{Weapon::Type::Missile, "Hellfire Breath", 8, 1, 0, 0, 0, 0};
 
         static bool s_registered;
     };

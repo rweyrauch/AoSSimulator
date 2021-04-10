@@ -41,7 +41,7 @@ namespace Khorne {
 
     private:
 
-        Weapon m_greatAxeOfKhorne;
+        Weapon  m_greatAxeOfKhorne{Weapon::Type::Melee, "Great Axe of Khorne", 2, 5, 4, 2, -2, RAND_D6};
 
         static bool s_registered;
     };

@@ -19,9 +19,7 @@ namespace Khorne {
     bool Bloodstoker::s_registered = false;
 
     Bloodstoker::Bloodstoker(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Bloodstoker", 6, g_wounds, 8, 4, false),
-            m_tortureBlade(Weapon::Type::Melee, "Torture Blade", 1, 3, 3, 3, 0, 1),
-            m_bloodWhip(Weapon::Type::Melee, "Blood Whip", 3, 3, 3, 4, 0, 1) {
+            KhorneBase("Bloodstoker", 6, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, BLOODSTOKER};
         m_weapons = {&m_tortureBlade, &m_bloodWhip};
         m_battleFieldRole = Role::Leader;

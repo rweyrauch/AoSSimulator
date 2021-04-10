@@ -49,9 +49,7 @@ namespace Khorne {
     bool KorghosKhul::s_registered = false;
 
     KorghosKhul::KorghosKhul(bool isGeneral) :
-            KhorneBase("Korghos Khul", 5, g_wounds, 9, 3, false),
-            m_axeOfKhorne(Weapon::Type::Melee, "Axe of Khorne", 1, 3, 3, 3, -1, RAND_D3),
-            m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 4, -1, 1) {
+            KhorneBase("Korghos Khul", 5, g_wounds, 9, 3, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, HERO, MIGHTY_LORD_OF_KHORNE, KORGHOS_KHUL};
         m_weapons = {&m_axeOfKhorne, &m_clawsAndFangs};
         m_battleFieldRole = Role::Leader;

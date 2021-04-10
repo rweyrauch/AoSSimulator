@@ -35,9 +35,9 @@ namespace Khorne {
 
     private:
 
-        Weapon m_bladeOfBlood,
-                m_hellblades,
-                m_gnashingMaw;
+        Weapon  m_bladeOfBlood{Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1},
+                m_hellblades{Weapon::Type::Melee, "Hellblades", 1, 2, 4, 3, -1, 1},
+                m_gnashingMaw{Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

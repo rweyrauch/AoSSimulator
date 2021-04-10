@@ -45,8 +45,8 @@ namespace Khorne {
 
     private:
 
-        Weapon m_hellblade,
-                m_hellbladeReaper;
+        Weapon  m_hellblade{Weapon::Type::Melee, "Hellblade", 1, 1, 4, 3, -1, 1},
+                m_hellbladeReaper{Weapon::Type::Melee, "Hellblade", 1, 2, 4, 3, -1, 1};
 
         lsignal::slot m_hornblowerSlot;
 

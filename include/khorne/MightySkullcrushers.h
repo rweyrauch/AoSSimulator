@@ -50,11 +50,11 @@ namespace Khorne {
 
         WeaponOption m_weaponOption = Ensorcelled_Axe;
 
-        Weapon m_ensorcelledAxe,
-                m_bloodglaive,
-                m_ensorcelledAxeHunter,
-                m_bloodglaiveHunter,
-                m_brazenHooves;
+        Weapon  m_ensorcelledAxe{Weapon::Type::Melee, "Ensorcelled Axe", 1, 3, 3, 3, 0, 1},
+                m_bloodglaive{Weapon::Type::Melee, "Bloodglaive", 1, 3, 4, 3, -1, 1},
+                m_ensorcelledAxeHunter{Weapon::Type::Melee, "Ensorcelled Axe", 1, 4, 3, 3, 0, 1},
+                m_bloodglaiveHunter{Weapon::Type::Melee, "Bloodglaive", 1, 4, 4, 3, -1, 1},
+                m_brazenHooves{Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1};
 
         static bool s_registered;
     };

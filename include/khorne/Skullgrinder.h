@@ -39,7 +39,7 @@ namespace Khorne {
 
     private:
 
-        Weapon m_brazenAnvil;
+        Weapon m_brazenAnvil{Weapon::Type::Melee, "Brazen Anvil", 2, 3, 3, 2, -1, 3};
 
         lsignal::slot m_connection;
 

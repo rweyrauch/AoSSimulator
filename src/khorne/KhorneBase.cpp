@@ -43,6 +43,11 @@
 #include "khorne/LordOfKhorneOnJuggernaut.h"
 #include "khorne/SkarrBloodwrath.h"
 #include "khorne/Riptooth.h"
+#include "khorne/MagoresFiends.h"
+#include "khorne/ExaltedGreaterDaemon.h"
+#include "khorne/MazarallTheButcher.h"
+#include "khorne/SkaaracTheBloodborn.h"
+#include "khorne/GarreksReavers.h"
 
 namespace Khorne {
 
@@ -504,16 +509,21 @@ namespace Khorne {
         BloodthirsterOfUnfetteredFury::Init();
         BloodWarriors::Init();
         ExaltedDeathbringer::Init();
+        ExaltedGreaterDaemonOfKhorne::Init();
         FleshHounds::Init();
+        GarreksReavers::Init();
         HeraldOfKhorneOnBloodThrone::Init();
         Karanak::Init();
         Khorgoraths::Init();
         KorghosKhul::Init();
         LordOfKhorneOnJuggernaut::Init();
+        MagoresFiends::Init();
+        MazarallTheButcher::Init();
         MightyLordOfKhorne::Init();
         MightySkullcrushers::Init();
         Riptooth::Init();
         ScylaAnfingrimm::Init();
+        SkaaracTheBloodborn::Init();
         Skarbrand::Init();
         SkarrBloodwrath::Init();
         SkullCannons::Init();

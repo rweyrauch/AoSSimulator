@@ -41,9 +41,9 @@ namespace Khorne {
 
         bool m_pairedGoreaxe = false;
 
-        Weapon m_goreaxe,
-                m_goreaxeChampion,
-                m_goreglaive;
+        Weapon  m_goreaxe{Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1},
+                m_goreaxeChampion{Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1},
+                m_goreglaive{Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2};
 
         static bool s_registered;
     };

@@ -51,9 +51,9 @@ namespace Khorne {
 
         WeaponOption m_weaponOption = Ruinous_Axe_And_Skullgouger;
 
-        Weapon m_ruinousAxe,
-                m_bloodbiteAxe,
-                m_impalingSpear;
+        Weapon  m_ruinousAxe{Weapon::Type::Melee, "Ruinous Axe", 1, 3, 4, 3, -1, 2},
+                m_bloodbiteAxe{Weapon::Type::Melee, "Bloodbite Axe", 1, 6, 3, 4, 0, 1},
+                m_impalingSpear{Weapon::Type::Melee, "Impaling Spear", 2, 5, 3, 3, -1, 1};
 
         static bool s_registered;
     };

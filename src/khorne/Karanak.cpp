@@ -19,9 +19,7 @@ namespace Khorne {
     bool Karanak::s_registered = false;
 
     Karanak::Karanak(SlaughterHost host) :
-            KhorneBase("Karanak", 8, g_wounds, 10, 4, false),
-            m_goreSlickClaws(Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1),
-            m_savageMaws(Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3) {
+            KhorneBase("Karanak", 8, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, FLESH_HOUND, KHORNE, HERO, KARANAK};
         m_weapons = {&m_goreSlickClaws, &m_savageMaws};
 

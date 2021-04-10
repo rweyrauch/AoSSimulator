@@ -19,8 +19,7 @@ namespace Khorne {
     bool SkarrBloodwrath::s_registered = false;
 
     SkarrBloodwrath::SkarrBloodwrath(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Skarr Bloodwrath", 5, g_wounds, 9, 4, false),
-            m_blades(Weapon::Type::Melee, "Bloodstorm Blades", 3, 5, 2, 3, -1, 1) {
+            KhorneBase("Skarr Bloodwrath", 5, g_wounds, 9, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKARR_BLOODWRATH};
         m_weapons = {&m_blades};
         m_battleFieldRole = Role::Leader;

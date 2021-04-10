@@ -39,7 +39,7 @@ namespace Khorne {
 
         bool m_usedBloodMustFlow = false;
 
-        Weapon m_bladeOfBlood;
+        Weapon  m_bladeOfBlood{Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1};
 
         static bool s_registered;
     };

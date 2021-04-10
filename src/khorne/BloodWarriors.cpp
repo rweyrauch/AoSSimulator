@@ -21,10 +21,7 @@ namespace Khorne {
     bool BloodWarriors::s_registered = false;
 
     BloodWarriors::BloodWarriors(SlaughterHost host, int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer) :
-            KhorneBase("Blood Warriors", 5, g_wounds, 6, 4, false),
-            m_goreaxe(Weapon::Type::Melee, "Goreaxe", 1, 2, 3, 4, 0, 1),
-            m_goreaxeChampion(Weapon::Type::Melee, "Goreaxe", 1, 3, 3, 4, 0, 1),
-            m_goreglaive(Weapon::Type::Melee, "Goreglaive", 1, 2, 3, 3, -1, 2) {
+            KhorneBase("Blood Warriors", 5, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOOD_WARRIORS};
         m_weapons = {&m_goreaxe, &m_goreaxeChampion, &m_goreglaive};
         m_battleFieldRole = Role::Battleline;

@@ -19,8 +19,7 @@ namespace Khorne {
     bool Bloodmaster::s_registered = false;
 
     Bloodmaster::Bloodmaster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Bloodmaster", 5, g_wounds, 10, 4, false),
-            m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1) {
+            KhorneBase("Bloodmaster", 5, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, BLOODMASTER};
         m_weapons = {&m_bladeOfBlood};
         m_battleFieldRole = Role::Leader;

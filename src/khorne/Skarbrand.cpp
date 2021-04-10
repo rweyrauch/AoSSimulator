@@ -35,9 +35,7 @@ namespace Khorne {
     bool Skarbrand::s_registered = false;
 
     Skarbrand::Skarbrand(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Skarbrand", 8, g_wounds, 10, 4, true),
-            m_slaughter(Weapon::Type::Melee, "Slaughter", 2, 5, 4, 3, -2, 3),
-            m_carnage(Weapon::Type::Melee, "Carnage", 2, 1, 4, 0, 0, 0) {
+            KhorneBase("Skarbrand", 8, g_wounds, 10, 4, true) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
         m_weapons = {&m_slaughter, &m_carnage};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -85,6 +83,9 @@ namespace Khorne {
     }
 
     size_t Skarbrand::getDamageTableIndex() const {
+        if (!m_attackedInPreviousRound)
+            return g_numTableEntries - 1;
+
         auto woundsInflicted = wounds() - remainingWounds();
         for (auto i = 0u; i < g_numTableEntries; i++) {
             if (woundsInflicted < g_woundThresholds[i]) {
@@ -103,8 +104,6 @@ namespace Khorne {
         // Total Carnage
         if (distanceTo(unit) <= (double) m_carnage.range()) {
             auto index = getDamageTableIndex();
-            if (!m_attackedInPreviousRound)
-                index = g_numTableEntries - 1;
 
             m_attackedInPreviousRound = true;
 
@@ -137,7 +136,6 @@ namespace Khorne {
                     PLOG_INFO.printf("Skarbrand Roar of Total Rage inflicts %d mortal wounds on to %s",
                                      wounds.mortal, m_shootingTarget->name().c_str());
                 }
-                m_attackedInPreviousRound = true;
             }
         }
         KhorneBase::onStartShooting(player);
@@ -145,6 +143,14 @@ namespace Khorne {
 
     int Skarbrand::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void Skarbrand::onEndRound(int battleRound) {
+        KhorneBase::onEndRound(battleRound);
+
+        if (battleRound >= 1) {
+            m_attackedInPreviousRound = (m_currentRecord.m_attacksMade > 0);
+        }
     }
 
 } // namespace Khorne

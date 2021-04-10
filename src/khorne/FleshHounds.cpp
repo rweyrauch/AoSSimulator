@@ -22,9 +22,7 @@ namespace Khorne {
     bool FleshHounds::s_registered = false;
 
     FleshHounds::FleshHounds(SlaughterHost host, int numModels) :
-            KhorneBase("Flesh Hounds", 8, g_wounds, 10, 5, false),
-            m_burningRoar(Weapon::Type::Missile, "Burning Roar", 8, 1, 2, 4, 0, 1),
-            m_blooddarkClaws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
+            KhorneBase("Flesh Hounds", 8, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, DAEMON, KHORNE, FLESH_HOUNDS};
         m_weapons = {&m_burningRoar, &m_blooddarkClaws};
 

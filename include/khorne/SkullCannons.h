@@ -41,9 +41,9 @@ namespace Khorne {
 
         bool m_hasFoughtTwice = false;
 
-        Weapon m_burningSkulls,
-                m_hellblades,
-                m_gnashingMaw;
+        Weapon  m_burningSkulls{Weapon::Type::Missile, "Burning Skulls", 30, 1, 3, 3, -2, RAND_D6},
+                m_hellblades{Weapon::Type::Melee, "Hellblades", 1, 2, 4, 3, -1, 1},
+                m_gnashingMaw{Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

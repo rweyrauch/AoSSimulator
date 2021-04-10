@@ -19,9 +19,7 @@ namespace Khorne {
     bool ScylaAnfingrimm::s_registered = false;
 
     ScylaAnfingrimm::ScylaAnfingrimm(SlaughterHost host) :
-            KhorneBase("Scyla Anfingrimm", 8, g_wounds, 9, 5, false),
-            m_brutalFists(Weapon::Type::Melee, "Brutal Fists", 2, RAND_2D6, 4, 3, -1, 1),
-            m_serpentineTail(Weapon::Type::Melee, "Serpentine Tail", 3, 2, 3, 3, -1, RAND_D3) {
+            KhorneBase("Scyla Anfingrimm", 8, g_wounds, 9, 5, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SCYLA_ANFINGRIMM};
         m_weapons = {&m_brutalFists, &m_serpentineTail};
         m_battleFieldRole = Role::Leader;

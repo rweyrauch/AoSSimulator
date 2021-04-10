@@ -37,8 +37,7 @@ namespace Khorne {
     }
 
     Riptooth::Riptooth() :
-            KhorneBase("Riptooth", 8, g_wounds, 10, 5, false),
-            m_claws(Weapon::Type::Melee, "Blood-dark Claws", 1, 4, 3, 4, 0, 1) {
+            KhorneBase("Riptooth", 8, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, DAEMON, GORETIDE, KHORNE, FLESH_HOUND, RIPTOOTH};
         m_weapons = {&m_claws};
 

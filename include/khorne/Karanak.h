@@ -44,8 +44,8 @@ namespace Khorne {
 
         Unit *m_pQuarry = nullptr;
 
-        Weapon m_goreSlickClaws,
-                m_savageMaws;
+        Weapon  m_goreSlickClaws{Weapon::Type::Melee, "Gore-slick Claws", 1, 4, 3, 4, 0, 1},
+                m_savageMaws{Weapon::Type::Melee, "Three Savage Maws", 1, 6, 4, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

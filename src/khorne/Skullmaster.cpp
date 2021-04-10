@@ -18,9 +18,7 @@ namespace Khorne {
     bool Skullmaster::s_registered = false;
 
     Skullmaster::Skullmaster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Skullmaster", 8, g_wounds, 10, 4, false),
-            m_bladeOfBlood(Weapon::Type::Melee, "Blade of Blood", 1, 4, 3, 3, -1, 1),
-            m_brazenHooves(Weapon::Type::Melee, "Brazen Hooves", 1, 3, 3, 3, 0, 1) {
+            KhorneBase("Skullmaster", 8, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLMASTER};
         m_weapons = {&m_bladeOfBlood, &m_brazenHooves};
         m_battleFieldRole = Role::Leader;

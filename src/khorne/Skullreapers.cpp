@@ -21,10 +21,7 @@ namespace Khorne {
     bool Skullreapers::s_registered = false;
 
     Skullreapers::Skullreapers(SlaughterHost host, int numModels, bool iconBearer) :
-            KhorneBase("Skullreapers", 5, g_wounds, 7, 4, false),
-            m_blades(Weapon::Type::Melee, "Gore-slick Blades, Daemonblade, Spinecleavers and Soultearers", 1, 4, 3, 3,
-                     0, 1),
-            m_viciousMutation(Weapon::Type::Melee, "Vicious Mutation", 1, 1, 3, 4, -1, RAND_D3) {
+            KhorneBase("Skullreapers", 5, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SKULLREAPERS};
         m_weapons = {&m_blades, &m_viciousMutation};
 

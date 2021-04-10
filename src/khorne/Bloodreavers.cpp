@@ -24,11 +24,7 @@ namespace Khorne {
     bool Bloodreavers::s_registered = false;
 
     Bloodreavers::Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers) :
-            KhorneBase("Bloodreavers", 6, g_wounds, 5, 6, false),
-            m_reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1),
-            m_reaverBladesChieftain(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1),
-            m_meatripperAxe(Weapon::Type::Melee, "Meatripper Axe", 1, 1, 4, 4, -1, 1),
-            m_meatripperAxeChieftain(Weapon::Type::Melee, "Meatripper Axe", 1, 2, 4, 4, -1, 1) {
+            KhorneBase("Bloodreavers", 6, g_wounds, 5, 6, false) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
         m_weapons = {&m_reaverBlades, &m_reaverBladesChieftain, &m_meatripperAxe, &m_meatripperAxeChieftain};
         m_battleFieldRole = Role::Battleline;

@@ -21,10 +21,7 @@ namespace Khorne {
     bool SkullCannons::s_registered = false;
 
     SkullCannons::SkullCannons(SlaughterHost host, int numModels) :
-            KhorneBase("Skull Cannons", 8, g_wounds, 10, 4, false),
-            m_burningSkulls(Weapon::Type::Missile, "Burning Skulls", 30, 1, 3, 3, -2, RAND_D6),
-            m_hellblades(Weapon::Type::Melee, "Hellblades", 1, 2, 4, 3, -1, 1),
-            m_gnashingMaw(Weapon::Type::Melee, "Gnashing Maw", 1, 1, 4, 3, -1, RAND_D3) {
+            KhorneBase("Skull Cannons", 8, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, SKULL_CANNONS};
         m_weapons = {&m_burningSkulls, &m_hellblades, &m_gnashingMaw};
         m_battleFieldRole = Role::Artillery;
