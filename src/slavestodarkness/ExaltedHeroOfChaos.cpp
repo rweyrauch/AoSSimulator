@@ -17,25 +17,13 @@ namespace SlavesToDarkness {
     bool ExaltedHeroOfChaos::s_registered = false;
 
     Unit *ExaltedHeroOfChaos::Create(const ParameterList &parameters) {
-        auto unit = new ExaltedHeroOfChaos();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
 
-        unit->configure();
-        return unit;
+        return new ExaltedHeroOfChaos(legion, mark, trait, artefact, general);
     }
 
     void ExaltedHeroOfChaos::Init() {
@@ -59,15 +47,18 @@ namespace SlavesToDarkness {
         }
     }
 
-    ExaltedHeroOfChaos::ExaltedHeroOfChaos() :
-            SlavesToDarknessBase("Exalted Hero of Chaos", 5, g_wounds, 8, 4, false),
-            m_blades(Weapon::Type::Melee, "Rune-etched Blades", 1, RAND_D6, 3, 3, -1, 1) {
+    ExaltedHeroOfChaos::ExaltedHeroOfChaos(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Exalted Hero of Chaos", 5, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS};
         m_weapons = {&m_blades};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void ExaltedHeroOfChaos::configure() {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blades);
         addModel(model);
@@ -98,6 +89,24 @@ namespace SlavesToDarkness {
 
     int ExaltedHeroOfChaos::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void ExaltedHeroOfChaos::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon,
+                                                         const Wounds &weaponDamage) {
+        SlavesToDarknessBase::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        if ((numSlain > 0) && (enemyUnit->hasKeyword(HERO) || enemyUnit->hasKeyword(MONSTER))) {
+            m_thriceDamnedDagger = true;
+        }
+    }
+
+    void ExaltedHeroOfChaos::onEndCombat(PlayerId player) {
+        SlavesToDarknessBase::onEndCombat(player);
+
+        if (m_thriceDamnedDagger) {
+            heal(Dice::RollD3());
+            m_thriceDamnedDagger = false;
+        }
     }
 
 } //namespace SlavesToDarkness

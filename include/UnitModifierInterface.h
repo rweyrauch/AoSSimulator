@@ -48,7 +48,7 @@ public:
     /*!
      * Target to-hit modifier (debuff) when the attacker unit targets this unit using the given weapon.
      * @param weapon Weapon used in the attack.
-     * @param target Unit attacking this unit.
+     * @param attacker Unit attacking this unit.
      * @return To-hit roll modifier.
      */
     virtual int targetHitModifier(const Weapon *weapon, const Unit *attacker) const { return 0; }
@@ -60,6 +60,14 @@ public:
      * @return To-hit re-roll.
      */
     virtual Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const { return Rerolls::None; }
+
+    /*!
+     * Target to-hit rerolls (debuff) when the attacker unit targets this unit using the given weapon.
+     * @param weapon Attacking with weapon
+     * @param attacker Unit attacking this unit.
+     * @return To-hit re-roll.
+     */
+    virtual Rerolls targetHitRerolls(const Weapon *weapon, const Unit *attacker) const { return Rerolls::None; }
 
     /*!
      * To-wound modifier (buffs) when this unit uses the given weapon to attack the target.
@@ -84,6 +92,14 @@ public:
      * @return To-wound re-roll.
      */
     virtual Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const { return Rerolls::None; }
+
+    /*!
+     * Target to-wound rerolls (debuff) when the attacker unit targets this unit using the given weapon.
+     * @param weapon Attacking with weapon
+     * @param attacker Unit attacking this unit.
+     * @return To-hit re-roll.
+     */
+    virtual Rerolls targetWoundRerolls(const Weapon *weapon, const Unit *attacker) const { return Rerolls::None; }
 
     /*!
      * Compute the weapon damage on the given target with the hit and wound rolls.

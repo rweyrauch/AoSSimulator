@@ -21,22 +21,12 @@ namespace SlavesToDarkness {
     bool ChaosChariots::s_registered = false;
 
     Unit *ChaosChariots::Create(const ParameterList &parameters) {
-        auto unit = new ChaosChariots();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Great_Blade_And_Whip);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosChariots(legion, mark, numModels, weapons);
     }
 
     void ChaosChariots::Init() {
@@ -60,26 +50,16 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosChariots::ChaosChariots() :
-            SlavesToDarknessBase("Chaos Chariots", 12, g_wounds, 6, 4, false),
-            m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 2, 2, 3, 3, -1, 2),
-            m_flail(Weapon::Type::Melee, "Chaos War-flail", 2, RAND_D6, 4, 3, 0, 1),
-            m_whip(Weapon::Type::Melee, "Lashing Whip", 2, 2, 4, 4, 0, 1),
-            m_greatBladeExalted(Weapon::Type::Melee, "Chaos Greatblade", 2, 2, 2, 3, -1, 2),
-            m_flailExalted(Weapon::Type::Melee, "Chaos War-flail", 2, RAND_D6, 3, 3, 0, 1),
-            m_whipExalted(Weapon::Type::Melee, "Lashing Whip", 2, 2, 3, 4, 0, 1),
-            m_hooves(Weapon::Type::Melee, "Trampling Hooves", 1, 4, 4, 4, 0, 1) {
+    ChaosChariots::ChaosChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons) :
+            SlavesToDarknessBase("Chaos Chariots", 12, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted,
                      &m_hooves};
         m_hasMount = true;
         m_hooves.setMount(true);
-    }
 
-    bool ChaosChariots::configure(int numModels, WeaponOption weapons) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
 
         auto exalted = new Model(g_basesize, wounds());
         if (weapons == Great_Blade_And_Whip) {
@@ -104,8 +84,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     std::string ChaosChariots::ValueToString(const Parameter &parameter) {

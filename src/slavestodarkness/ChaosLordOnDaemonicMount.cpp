@@ -17,25 +17,13 @@ namespace SlavesToDarkness {
     bool ChaosLordOnDaemonicMount::s_registered = false;
 
     Unit *ChaosLordOnDaemonicMount::Create(const ParameterList &parameters) {
-        auto unit = new ChaosLordOnDaemonicMount();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
 
-        unit->configure();
-        return unit;
+        return new ChaosLordOnDaemonicMount(legion, mark, trait, artefact, general);
     }
 
     void ChaosLordOnDaemonicMount::Init() {
@@ -59,18 +47,20 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosLordOnDaemonicMount::ChaosLordOnDaemonicMount() :
-            SlavesToDarknessBase("Chaos Lord On Daemonic Mount", 10, g_wounds, 8, 4, false),
-            m_hammer(Weapon::Type::Melee, "Cursed Warhammer", 1, 4, 3, 3, -1, 2),
-            m_hooves(Weapon::Type::Melee, "Mighty Hooves", 1, 3, 4, 3, 0, 1) {
+    ChaosLordOnDaemonicMount::ChaosLordOnDaemonicMount(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Chaos Lord On Daemonic Mount", 10, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_hammer, &m_hooves};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hooves.setMount(true);
-    }
 
-    void ChaosLordOnDaemonicMount::configure() {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_hammer);
         model->addMeleeWeapon(&m_hooves);
@@ -101,6 +91,24 @@ namespace SlavesToDarkness {
 
     int ChaosLordOnDaemonicMount::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void ChaosLordOnDaemonicMount::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon,
+                                                               const Wounds &weaponDamage) {
+        SlavesToDarknessBase::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        if ((weapon->name() == m_hammer.name()) && (numSlain > 0)) {
+            m_fueledByCarnage = true;
+        }
+    }
+
+    void ChaosLordOnDaemonicMount::onEndCombat(PlayerId player) {
+        SlavesToDarknessBase::onEndCombat(player);
+
+        if (m_fueledByCarnage) {
+            heal(Dice::RollD3());
+            m_fueledByCarnage = false;
+        }
     }
 
 } //namespace SlavesToDarkness

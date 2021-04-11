@@ -10,6 +10,34 @@
 #include "SlavesToDarknessPrivate.h"
 
 namespace SlavesToDarkness {
+
+    class IronWilledOverlord : public CommandAbility {
+    public:
+        IronWilledOverlord(Unit *source) :
+                CommandAbility(source, "Iron-willed Overlord", 18, 18, Phase::Hero) {
+            m_allowedTargets = Abilities::Target::Friendly;
+            m_targetKeywords = {CHAOS_WARRIORS};
+            m_effect = Abilities::EffectType::Buff;
+        }
+
+    protected:
+
+        bool apply(Unit *target) override {
+            if (target == nullptr)
+                return false;
+
+            PLOG_INFO << m_source->name() << " uses command ability " << name() << " on to " << target->name();
+            PLOG_INFO << "\tBuffing charge and battleshock re-rolls";
+
+            target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed, defaultDuration());
+            target->buffReroll(Attribute::Bravery, Rerolls::Failed, defaultDuration());
+
+            return true;
+        }
+
+        bool apply(double x, double y) override { return false; }
+    };
+
     static const int g_basesize = 90; // x52 oval
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 280;
@@ -34,27 +62,14 @@ namespace SlavesToDarkness {
     bool ChaosLordOnManticore::s_registered = false;
 
     Unit *ChaosLordOnManticore::Create(const ParameterList &parameters) {
-        auto unit = new ChaosLordOnManticore();
-
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Blade_And_Shield);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
 
-        unit->configure(weapon);
-        return unit;
+        return new ChaosLordOnManticore(legion, mark, weapon, trait, artefact, general);
     }
 
     void ChaosLordOnManticore::Init() {
@@ -82,13 +97,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosLordOnManticore::ChaosLordOnManticore() :
-            SlavesToDarknessBase("Chaos Lord On Manticore", 12, g_wounds, 8, 4, true),
-            m_blade(Weapon::Type::Melee, "Daemon Blade", 1, 3, 3, 3, -1, RAND_D3),
-            m_lance(Weapon::Type::Melee, "Chaos Lance", 2, 3, 3, 3, 0, 2),
-            m_flail(Weapon::Type::Melee, "Chaos Flail", 2, 6, 3, 3, 0, 1),
-            m_fangsAndClaws(Weapon::Type::Melee, "Honed Fangs and Claws", 1, 5, 3, 1, -1, 2),
-            m_tail(Weapon::Type::Melee, "Shredding Tail", 3, 5, 4, 4, 0, 1) {
+    ChaosLordOnManticore::ChaosLordOnManticore(DamnedLegion legion, MarkOfChaos mark, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Chaos Lord On Manticore", 12, g_wounds, 8, 4, true) {
         m_keywords = {CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO,
                       CHAOS_LORD};
         m_hasMount = true;
@@ -96,9 +106,13 @@ namespace SlavesToDarkness {
         m_tail.setMount(true);
         m_weapons = {&m_blade, &m_lance, &m_flail, &m_fangsAndClaws, &m_tail};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void ChaosLordOnManticore::configure(WeaponOption weapon) {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_weapon = weapon;
 
         auto model = new Model(g_basesize, wounds());
@@ -125,6 +139,8 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_fangsAndClaws);
         model->addMeleeWeapon(&m_tail);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<IronWilledOverlord>(this));
 
         m_points = g_pointsPerUnit;
     }

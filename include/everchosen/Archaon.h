@@ -22,13 +22,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        Archaon();
+        Archaon(DamnedLegion legion, Lore lore, bool isGeneral);
+
+        Archaon() = delete;
 
         ~Archaon() override;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 
@@ -48,14 +48,16 @@ namespace SlavesToDarkness {
 
         int crownOfDomination(const Unit *unit);
 
+        Rerolls targetHitRerolls(const Weapon *weapon, const Unit *attacker) const override;
+
     private:
 
         mutable int m_slayerOfKingsSixesThisCombat = 0;
 
-        Weapon m_slayerOfKings,
-                m_dorgharsClaws,
-                m_dorgharsTails,
-                m_dorgharsHeads;
+        Weapon  m_slayerOfKings{Weapon::Type::Melee, "The Slayer of Kings", 1, 4, 2, 3, -2, 3},
+                m_dorgharsClaws{Weapon::Type::Melee, "Monstrous Claws", 1, 2, 2, 3, -2, RAND_D6},
+                m_dorgharsTails{Weapon::Type::Melee, "Lashing Tails", 3, RAND_2D6, 4, 3, 0, 1},
+                m_dorgharsHeads{Weapon::Type::Melee, "Three Heads", 3, 6, 3, 3, -1, 2};
 
         lsignal::slot m_connection;
 
@@ -65,17 +67,17 @@ namespace SlavesToDarkness {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Eye of Sheerian              TODO
+// The Eye of Sheerian              Yes
 // The Slayer of Kings              Yes
 // The Armour of Morkar             Yes
 // The Crown of Domination          Yes
-// Three-headed Titan               TODO
-//   Filth-spewer                   TODO
-//   Skull-gorger                   TODO
+// Three-headed Titan
+//   Filth-spewer                   Yes
+//   Skull-gorger                   Yes
 //   Spell-eater                    TODO
-// The Everchosen                   TODO
+// The Everchosen                   Yes
 // Warlord Without Equal            Yes
-// By My Will                       TODO
+// By My Will                       Yes
 // All-seeing Dominion              TODO
 //
 

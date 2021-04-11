@@ -35,16 +35,10 @@ namespace SlavesToDarkness {
     bool ChaosWarshrine::s_registered = false;
 
     Unit *ChaosWarshrine::Create(const ParameterList &parameters) {
-        auto unit = new ChaosWarshrine();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        unit->configure();
-        return unit;
+        return new ChaosWarshrine(legion, mark);
     }
 
     void ChaosWarshrine::Init() {
@@ -65,7 +59,7 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosWarshrine::ChaosWarshrine() :
+    ChaosWarshrine::ChaosWarshrine(DamnedLegion legion, MarkOfChaos mark) :
             SlavesToDarknessBase("Chaos Warshrine", 8, g_wounds, 7, 4, false),
             m_blade(Weapon::Type::Melee, "Sacrificial Blade", 1, 4, 3, 3, -1, 2),
             m_fists(Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2) {
@@ -74,15 +68,22 @@ namespace SlavesToDarkness {
         m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_fists.setMount(true);
-    }
 
-    void ChaosWarshrine::configure() {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+
+        s_globalWoundSave.connect(this, &ChaosWarshrine::protectionOfTheDarkGods, &m_protectionSlot);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_fists);
         addModel(model);
 
         m_points = g_pointsPerUnit;
+    }
+
+    ChaosWarshrine::~ChaosWarshrine() {
+        m_protectionSlot.disconnect();
     }
 
     void ChaosWarshrine::onRestore() {
@@ -152,6 +153,16 @@ namespace SlavesToDarkness {
                 }
             }
         }
+    }
+
+    Wounds ChaosWarshrine::protectionOfTheDarkGods(const Wounds &wounds, const Unit *target, const Unit *attacker) {
+        if (isFriendly(target) && target->hasKeyword(SLAVES_TO_DARKNESS) && target->hasKeyword(MORTAL)) {
+            auto range = g_damageTable[getDamageTableIndex()].m_protection;
+            if (distanceTo(target) < range) {
+                return ignoreWounds(wounds, 6);
+            }
+        }
+        return wounds;
     }
 
 } //namespace SlavesToDarkness

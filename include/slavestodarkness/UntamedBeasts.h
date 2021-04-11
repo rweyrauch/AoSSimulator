@@ -21,19 +21,19 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        UntamedBeasts();
+        UntamedBeasts(DamnedLegion legion, int numModels);
+
+        UntamedBeasts() = delete;
 
         ~UntamedBeasts() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
     private:
 
-        Weapon m_harpoonFirstFang,
-                m_huntingWeapons,
-                m_huntingWeaponsHeartEater;
+        Weapon  m_harpoonFirstFang{Weapon::Type::Missile, "Jagged Harpoon", 8, 1, 4, 3, -1, 2},
+                m_huntingWeapons{Weapon::Type::Melee, "Hunting Weapons", 1, 1, 4, 4, 0, 1},
+                m_huntingWeaponsHeartEater{Weapon::Type::Melee, "Hunting Weapons (Heart-eater)", 1, 2, 4, 4, 0, 1};
 
         static bool s_registered;
     };

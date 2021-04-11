@@ -10,7 +10,9 @@
 #include <UnitFactory.h>
 #include <Roster.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "../slavestodarkness/SlavesToDarknessPrivate.h"
+#include "../slavestodarkness/StDSpells.h"
 
 namespace SlavesToDarkness {
     static const int g_basesize = 130;
@@ -35,12 +37,8 @@ namespace SlavesToDarkness {
 
     bool Archaon::s_registered = false;
 
-    Archaon::Archaon() :
-            SlavesToDarknessBase("Archaon", 14, g_wounds, 10, 3, true),
-            m_slayerOfKings(Weapon::Type::Melee, "The Slayer of Kings", 1, 4, 2, 3, -2, 3),
-            m_dorgharsClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 2, 2, 3, -2, RAND_D6),
-            m_dorgharsTails(Weapon::Type::Melee, "Lashing Tails", 3, RAND_2D6, 4, 3, 0, 1),
-            m_dorgharsHeads(Weapon::Type::Melee, "Three Heads", 3, 6, 3, 3, -1, 2) {
+    Archaon::Archaon(DamnedLegion legion, Lore lore, bool isGeneral) :
+            SlavesToDarknessBase("Archaon", 14, g_wounds, 10, 3, true) {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, KHORNE, TZEENTCH, NURGLE, SLAANESH,
                       HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
         m_weapons = {&m_slayerOfKings, &m_dorgharsClaws, &m_dorgharsTails, &m_dorgharsHeads};
@@ -54,13 +52,10 @@ namespace SlavesToDarkness {
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    Archaon::~Archaon() {
-        m_connection.disconnect();
-    }
+        setDamnedLegion(legion);
+        setGeneral(isGeneral);
 
-    void Archaon::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_slayerOfKings);
         model->addMeleeWeapon(&m_dorgharsClaws);
@@ -69,30 +64,33 @@ namespace SlavesToDarkness {
         model->setName("Archaon");
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_commandAbilities.push_back(
+                std::make_unique<BuffAbilityCommandAbility>(this, "By My Will", 1000, 1000, Phase::Hero, Ability::Fights_On_Death, 1,
+                                                            Abilities::Target::SelfAndFriendly, std::vector<Keyword>{SLAVES_TO_DARKNESS}));
 
         m_points = g_pointsPerUnit;
     }
 
+    Archaon::~Archaon() {
+        m_connection.disconnect();
+    }
+
     void Archaon::onRestore() {
+        SlavesToDarknessBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
     Unit *Archaon::Create(const ParameterList &parameters) {
-        auto unit = new Archaon();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->configure(lore);
-        return unit;
+        return new Archaon(legion, lore, general);
     }
 
     void Archaon::Init() {
@@ -135,9 +133,12 @@ namespace SlavesToDarkness {
     }
 
     Wounds Archaon::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        auto modifiedWounds = SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
-
-        return modifiedWounds;
+        auto modifiedWounds = wounds;
+        // The Everchosen
+        if (wounds.source == Wounds::Source::Spell) {
+            modifiedWounds = ignoreWounds(wounds, 4);
+        }
+        return SlavesToDarknessBase::applyWoundSave(modifiedWounds, attackingUnit);
     }
 
     Wounds Archaon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -167,6 +168,30 @@ namespace SlavesToDarkness {
         if (owningPlayer() == player) {
             if (m_roster) m_roster->addCommandPoints(1);
         }
+
+        // Three-headed Titan
+        if (numOfWoundedModels() > 0) {
+            // Skull-gorger
+            heal(Dice::RollD3());
+        }
+        else {
+            // Filth-spewer
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
+            if (!units.empty()) {
+                for (auto unit : units) {
+                    if (unit->remainingModels() > 0) {
+                        if (Dice::RollD6() >= 3) {
+                            unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                        }
+                        break;
+                    }
+                }
+            }
+            else {
+                // Spell-eater
+                // TODO: auto-dispell an endless spell within 18.
+            }
+        }
     }
 
     int Archaon::crownOfDomination(const Unit *unit) {
@@ -182,6 +207,11 @@ namespace SlavesToDarkness {
 
     int Archaon::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Rerolls Archaon::targetHitRerolls(const Weapon *weapon, const Unit *attacker) const {
+        // The Eye of Sheerian
+        return Rerolls::Sixes;
     }
 
 } // namespace SlavesToDarkness

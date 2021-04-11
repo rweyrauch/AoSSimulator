@@ -21,15 +21,17 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        CypherLords();
+        CypherLords(DamnedLegion legion, int numModels);
+
+        CypherLords() = delete;
 
         ~CypherLords() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
         int chargeModifier() const override;
+
+        void onStartCombat(PlayerId player) override;
 
     private:
 
@@ -43,7 +45,7 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Luminate                         Yes
-// Shattered Gloom Globe            TODO
+// Shattered Gloom Globe            Yes
 //
 
 } // SlavesToDarkness

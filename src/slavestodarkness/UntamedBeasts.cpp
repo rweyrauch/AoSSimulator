@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool UntamedBeasts::s_registered = false;
 
     Unit *UntamedBeasts::Create(const ParameterList &parameters) {
-        auto unit = new UntamedBeasts();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new UntamedBeasts(legion, numModels);
     }
 
     void UntamedBeasts::Init() {
@@ -53,22 +44,15 @@ namespace SlavesToDarkness {
         }
     }
 
-    UntamedBeasts::UntamedBeasts() :
-            SlavesToDarknessBase("Untamed Beasts", 6, g_wounds, 5, 6, false),
-            m_harpoonFirstFang(Weapon::Type::Missile, "Jagged Harpoon", 8, 1, 4, 3, -1, 2),
-            m_huntingWeapons(Weapon::Type::Melee, "Hunting Weapons", 1, 1, 4, 4, 0, 1),
-            m_huntingWeaponsHeartEater(Weapon::Type::Melee, "Hunting Weapons (Heart-eater)", 1, 2, 4, 4, 0, 1) {
+    UntamedBeasts::UntamedBeasts(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("Untamed Beasts", 6, g_wounds, 5, 6, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, UNTAMED_BEASTS};
         m_weapons = {&m_harpoonFirstFang, &m_huntingWeapons, &m_huntingWeaponsHeartEater};
 
         // Unleash the Beast
         m_runAndCharge = true;
-    }
 
-    bool UntamedBeasts::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         auto hearteater = new Model(g_basesize, wounds());
         hearteater->addMeleeWeapon(&m_huntingWeaponsHeartEater);
@@ -93,8 +77,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int UntamedBeasts::ComputePoints(int numModels) {

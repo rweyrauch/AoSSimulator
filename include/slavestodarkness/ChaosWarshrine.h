@@ -21,13 +21,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosWarshrine();
+        ChaosWarshrine(DamnedLegion legion, MarkOfChaos mark);
 
-        ~ChaosWarshrine() override = default;
+        ChaosWarshrine() = delete;
+
+        ~ChaosWarshrine() override;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
@@ -37,10 +37,14 @@ namespace SlavesToDarkness {
 
         size_t getDamageTableIndex() const;
 
+        Wounds protectionOfTheDarkGods(const Wounds &wounds, const Unit *target, const Unit *attacker);
+
     private:
 
-        Weapon m_blade,
-                m_fists;
+        lsignal::slot m_protectionSlot;
+
+        Weapon  m_blade{Weapon::Type::Melee, "Sacrificial Blade", 1, 4, 3, 3, -1, 2},
+                m_fists{Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2};
 
         static bool s_registered;
     };
@@ -49,7 +53,7 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Mark of Chaos                    Yes
-// Protection of the Dark Gods      TODO
+// Protection of the Dark Gods      Yes
 // Favour of the Ruinous Powers
 //   Favour of Khorne               Yes
 //   Favour of Tzeentch             TODO

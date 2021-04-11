@@ -21,22 +21,28 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosLordOnDaemonicMount();
+        ChaosLordOnDaemonicMount(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        ChaosLordOnDaemonicMount() = delete;
 
         ~ChaosLordOnDaemonicMount() override = default;
 
     protected:
 
-        void configure();
-
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
+
+        void onEndCombat(PlayerId player) override;
+
     private:
 
-        Weapon m_hammer,
-                m_hooves;
+        bool m_fueledByCarnage = false;
+
+        Weapon  m_hammer{Weapon::Type::Melee, "Cursed Warhammer", 1, 4, 3, 3, -1, 2},
+                m_hooves{Weapon::Type::Melee, "Mighty Hooves", 1, 3, 4, 3, 0, 1};
 
         static bool s_registered;
     };
@@ -46,7 +52,7 @@ namespace SlavesToDarkness {
 // -------------------------------------------
 // Chaos Runeshield                 Yes
 // Cursed Warhammer                 Yes
-// Fuelled by Carnage               TODO
+// Fuelled by Carnage               Yes
 // The Knights of Chaos             TODO
 // Mark of Chaos                    Yes
 //

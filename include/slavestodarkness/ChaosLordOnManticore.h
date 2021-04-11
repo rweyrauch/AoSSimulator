@@ -34,13 +34,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosLordOnManticore();
+        ChaosLordOnManticore(DamnedLegion legion, MarkOfChaos mark, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        ChaosLordOnManticore() = delete;
 
         ~ChaosLordOnManticore() override = default;
 
     protected:
-
-        void configure(WeaponOption weapon);
 
         void onWounded() override;
 
@@ -62,11 +62,11 @@ namespace SlavesToDarkness {
 
         WeaponOption m_weapon = WeaponOption::Blade_And_Shield;
 
-        Weapon m_blade,
-                m_lance,
-                m_flail,
-                m_fangsAndClaws,
-                m_tail;
+        Weapon  m_blade{Weapon::Type::Melee, "Daemon Blade", 1, 3, 3, 3, -1, RAND_D3},
+                m_lance{Weapon::Type::Melee, "Chaos Lance", 2, 3, 3, 3, 0, 2},
+                m_flail{Weapon::Type::Melee, "Chaos Flail", 2, 6, 3, 3, 0, 1},
+                m_fangsAndClaws{Weapon::Type::Melee, "Honed Fangs and Claws", 1, 5, 3, 1, -1, 2},
+                m_tail{Weapon::Type::Melee, "Shredding Tail", 3, 5, 4, 4, 0, 1};
 
         static bool s_registered;
     };
@@ -79,7 +79,7 @@ namespace SlavesToDarkness {
 // Chaos Lance                      Yes
 // Daggerfist                       Yes
 // Territorial Predator             Yes
-// Iron-willed Overlord             TODO
+// Iron-willed Overlord             Yes
 // Mark of Chaos                    Yes
 //
 

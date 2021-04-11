@@ -9,7 +9,7 @@
 #include <UnitFactory.h>
 #include "slavestodarkness/MindstealerSphiranx.h"
 #include "SlavesToDarknessPrivate.h"
-
+#include "Board.h"
 
 namespace SlavesToDarkness {
     static const int g_basesize = 90; // x52 oval
@@ -19,13 +19,8 @@ namespace SlavesToDarkness {
     bool MindstealerSphiranx::s_registered = false;
 
     Unit *MindstealerSphiranx::Create(const ParameterList &parameters) {
-        auto unit = new MindstealerSphiranx();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        unit->configure();
-        return unit;
+        return new MindstealerSphiranx(legion);
     }
 
     void MindstealerSphiranx::Init() {
@@ -41,25 +36,18 @@ namespace SlavesToDarkness {
                     CHAOS,
                     {SLAVES_TO_DARKNESS}
             };
-
             s_registered = UnitFactory::Register("Mindstealer Sphiranx", factoryMethod);
         }
     }
 
-    MindstealerSphiranx::MindstealerSphiranx() :
-            SlavesToDarknessBase("Mindstealer Sphiranx", 10, g_wounds, 10, 5, false),
-            m_claws(Weapon::Type::Melee, "Shredding Claws", 1, 3, 3, 3, -1, 1),
-            m_tail(Weapon::Type::Melee, "Lashing Tail", 1, 2, 4, 3, 0, 1) {
+    MindstealerSphiranx::MindstealerSphiranx(DamnedLegion legion) :
+            SlavesToDarknessBase("Mindstealer Sphiranx", 10, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, MINDSTEALER_SPHIRANX};
 
         s_globalBraveryMod.connect(this, &MindstealerSphiranx::telepathicDread, &m_connection);
-    }
 
-    MindstealerSphiranx::~MindstealerSphiranx() {
-        m_connection.disconnect();
-    }
+        setDamnedLegion(legion);
 
-    void MindstealerSphiranx::configure() {
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_claws);
@@ -67,6 +55,10 @@ namespace SlavesToDarkness {
         addModel(model);
 
         m_points = g_pointsPerUnit;
+    }
+
+    MindstealerSphiranx::~MindstealerSphiranx() {
+        m_connection.disconnect();
     }
 
     int MindstealerSphiranx::telepathicDread(const Unit *unit) {
@@ -80,6 +72,25 @@ namespace SlavesToDarkness {
 
     int MindstealerSphiranx::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void MindstealerSphiranx::onStartHero(PlayerId player) {
+        SlavesToDarknessBase::onStartHero(player);
+
+        // Dominate Mind
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
+            for (auto unit : units) {
+                if (unit->remainingModels() > 0) {
+                    auto rollThis = Dice::RollD6();
+                    auto rollEnemy = Dice::RollD6();
+                    if (rollThis != rollEnemy) {
+                        unit->buffAbility(Ability::Fights_Last, 1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 }//namespace SlavesToDarkness

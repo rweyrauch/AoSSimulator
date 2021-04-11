@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool IronGolems::s_registered = false;
 
     Unit *IronGolems::Create(const ParameterList &parameters) {
-        auto unit = new IronGolems();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new IronGolems(legion, numModels);
     }
 
     void IronGolems::Init() {
@@ -52,19 +43,12 @@ namespace SlavesToDarkness {
         }
     }
 
-    IronGolems::IronGolems() :
-            SlavesToDarknessBase("Iron Golems", 5, g_wounds, 6, 4, false),
-            m_bolas(Weapon::Type::Missile, "Bolas", 8, 1, 4, 4, 0, 1),
-            m_legionWeapons(Weapon::Type::Melee, "Legion Weapons", 1, 1, 4, 4, 0, 1),
-            m_legionWeaponsDominar(Weapon::Type::Melee, "Legion Weapons (Dominar)", 1, 2, 4, 4, 0, 1) {
+    IronGolems::IronGolems(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("Iron Golems", 5, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, IRON_GOLEMS};
         m_weapons = {&m_bolas, &m_legionWeapons, &m_legionWeaponsDominar};
-    }
 
-    bool IronGolems::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         auto dominar = new Model(g_basesize, wounds());
         dominar->addMissileWeapon(&m_bolas);
@@ -92,8 +76,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int IronGolems::braveryModifier() const {

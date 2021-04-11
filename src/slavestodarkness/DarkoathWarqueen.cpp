@@ -17,22 +17,12 @@ namespace SlavesToDarkness {
     bool DarkoathWarqueen::s_registered = false;
 
     Unit *DarkoathWarqueen::Create(const ParameterList &parameters) {
-        auto unit = new DarkoathWarqueen();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
 
-        unit->configure();
-        return unit;
+        return new DarkoathWarqueen(legion, trait, artefact, general);
     }
 
     void DarkoathWarqueen::Init() {
@@ -55,15 +45,20 @@ namespace SlavesToDarkness {
         }
     }
 
-    DarkoathWarqueen::DarkoathWarqueen() :
-            SlavesToDarknessBase("Darkoath Warqueen", 6, g_wounds, 8, 5, false),
-            m_axe(Weapon::Type::Melee, "Rune-etched Axe", 1, 6, 3, 3, -1, 1) {
+    DarkoathWarqueen::DarkoathWarqueen(DamnedLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Darkoath Warqueen", 6, g_wounds, 8, 5, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_WARQUEEN};
         m_weapons = {&m_axe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void DarkoathWarqueen::configure() {
+        setDamnedLegion(legion);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
+        // Savage Duellist
+        buffAbility(Ability::Fights_First, 1, {Phase::Combat, DurationRestOfGame, owningPlayer()});
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axe);
         addModel(model);
@@ -73,6 +68,14 @@ namespace SlavesToDarkness {
 
     int DarkoathWarqueen::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds DarkoathWarqueen::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // Savage Duellist
+        if ((weapon->name() == m_axe.name()) && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
+            return {weapon->damage()+1, 0, Wounds::Source::Weapon_Melee};
+        }
+        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
 } //namespace SlavesToDarkness

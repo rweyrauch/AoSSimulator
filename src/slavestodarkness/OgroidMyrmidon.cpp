@@ -18,13 +18,8 @@ namespace SlavesToDarkness {
     bool OgroidMyrmidon::s_registered = false;
 
     Unit *OgroidMyrmidon::Create(const ParameterList &parameters) {
-        auto unit = new OgroidMyrmidon();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        unit->configure();
-        return unit;
+        return new OgroidMyrmidon(legion);
     }
 
     void OgroidMyrmidon::Init() {
@@ -44,23 +39,25 @@ namespace SlavesToDarkness {
         }
     }
 
-    OgroidMyrmidon::OgroidMyrmidon() :
-            SlavesToDarknessBase("Ogroid Myrmidon", 6, g_wounds, 8, 4, false),
-            m_spearMissile(Weapon::Type::Missile, "Gladiator Spear", 18, 1, 3, 3, -1, RAND_D3),
-            m_spear(Weapon::Type::Melee, "Gladiator Spear", 2, 6, 3, 3, -1, 1),
-            m_horns(Weapon::Type::Melee, "Great Horns", 1, 1, 3, 3, -2, 3) {
+    OgroidMyrmidon::OgroidMyrmidon(DamnedLegion legion) :
+            SlavesToDarknessBase("Ogroid Myrmidon", 6, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EYE_OF_THE_GODS, OGROID_MYRMIDON};
         m_weapons = {&m_spearMissile, &m_spear, &m_horns};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void OgroidMyrmidon::configure() {
+        setDamnedLegion(legion);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_spearMissile);
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_horns);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Pit Marshall", 12, 12, Phase::Combat,
+                                                                                 Ability::Ignore_Battleshock, 1,
+                                                                                 Abilities::Target::Friendly,
+                                                                                 std::vector<Keyword>(CULTISTS)));
 
         m_points = g_pointsPerUnit;
     }

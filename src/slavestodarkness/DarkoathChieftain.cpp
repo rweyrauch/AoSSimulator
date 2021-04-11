@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "slavestodarkness/DarkoathChieftain.h"
 #include "SlavesToDarknessPrivate.h"
 
@@ -17,22 +18,12 @@ namespace SlavesToDarkness {
     bool DarkoathChieftain::s_registered = false;
 
     Unit *DarkoathChieftain::Create(const ParameterList &parameters) {
-        auto unit = new DarkoathChieftain();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
 
-        unit->configure();
-        return unit;
+        return new DarkoathChieftain(legion, trait, artefact, general);
     }
 
     void DarkoathChieftain::Init() {
@@ -55,16 +46,17 @@ namespace SlavesToDarkness {
         }
     }
 
-    DarkoathChieftain::DarkoathChieftain() :
-            SlavesToDarknessBase("Darkoath Chieftain", 6, g_wounds, 8, 5, false),
-            m_axe(Weapon::Type::Melee, "Warlord Axe", 1, 1, 3, 3, 0, 1),
-            m_broadsword(Weapon::Type::Melee, "Cursed Broadsword", 1, 3, 4, 3, -1, 2) {
+    DarkoathChieftain::DarkoathChieftain(DamnedLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Darkoath Chieftain", 6, g_wounds, 8, 5, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_CHIEFTAIN};
         m_weapons = {&m_axe, &m_broadsword};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void DarkoathChieftain::configure() {
+        setDamnedLegion(legion);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axe);
         model->addMeleeWeapon(&m_broadsword);
@@ -84,6 +76,27 @@ namespace SlavesToDarkness {
 
     int DarkoathChieftain::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void DarkoathChieftain::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon,
+                                                        const Wounds &weaponDamage) {
+        SlavesToDarknessBase::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        if (numSlain > 0) {
+            m_deathblow = true;
+        }
+    }
+
+    void DarkoathChieftain::onEndCombat(PlayerId player) {
+        SlavesToDarknessBase::onEndCombat(player);
+
+        if (m_deathblow) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
+            for (auto unit : units) {
+                unit->applyDamage({0, 1, Wounds::Source::Ability}, this);
+            }
+            m_deathblow = false;
+        }
     }
 
 } //namespace SlavesToDarkness

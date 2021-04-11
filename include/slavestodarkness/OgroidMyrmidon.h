@@ -21,21 +21,21 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        OgroidMyrmidon();
+        explicit OgroidMyrmidon(DamnedLegion legion);
+
+        OgroidMyrmidon() = delete;
 
         ~OgroidMyrmidon() override = default;
 
     protected:
 
-        void configure();
-
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
     private:
 
-        Weapon m_spearMissile,
-                m_spear,
-                m_horns;
+        Weapon  m_spearMissile{Weapon::Type::Missile, "Gladiator Spear", 18, 1, 3, 3, -1, RAND_D3},
+                m_spear{Weapon::Type::Melee, "Gladiator Spear", 2, 6, 3, 3, -1, 1},
+                m_horns{Weapon::Type::Melee, "Great Horns", 1, 1, 3, 3, -2, 3};
 
         static bool s_registered;
     };
@@ -45,7 +45,7 @@ namespace SlavesToDarkness {
 // -------------------------------------------
 // Arcane Fury                      Yes
 // Berserk Rage                     TODO
-// Pit Marshall                     TODO
+// Pit Marshall                     Yes
 //
 
 } // SlavesToDarkness

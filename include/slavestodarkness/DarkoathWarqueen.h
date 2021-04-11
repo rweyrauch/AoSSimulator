@@ -21,17 +21,19 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        DarkoathWarqueen();
+        DarkoathWarqueen(DamnedLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        DarkoathWarqueen() = delete;
 
         ~DarkoathWarqueen() override = default;
 
     protected:
 
-        void configure();
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
-        Weapon m_axe;
+        Weapon m_axe{Weapon::Type::Melee, "Rune-etched Axe", 1, 6, 3, 3, -1, 1};
 
         static bool s_registered;
     };
@@ -40,7 +42,7 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Infernal Runeshield              TODO
-// Savage Duellist                  TODO
+// Savage Duellist                  Yes
 // The Will of the Gods             TODO
 //
 

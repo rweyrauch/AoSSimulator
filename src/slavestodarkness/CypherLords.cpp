@@ -6,6 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "slavestodarkness/CypherLords.h"
 #include "SlavesToDarknessPrivate.h"
 
@@ -20,18 +21,9 @@ namespace SlavesToDarkness {
     bool CypherLords::s_registered = false;
 
     Unit *CypherLords::Create(const ParameterList &parameters) {
-        auto unit = new CypherLords();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new CypherLords(legion, numModels);
     }
 
     void CypherLords::Init() {
@@ -52,18 +44,14 @@ namespace SlavesToDarkness {
         }
     }
 
-    CypherLords::CypherLords() :
+    CypherLords::CypherLords(DamnedLegion legion, int numModels) :
             SlavesToDarknessBase("Cypher Lords", 6, g_wounds, 5, 6, false),
             m_throwingStars(Weapon::Type::Missile, "Throwing Stars and Chakrams", 8, 1, 4, 5, 0, 1),
             m_exoticBlades(Weapon::Type::Melee, "Exotic Blades", 1, 1, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CYPHER_LORDS};
         m_weapons = {&m_throwingStars, &m_exoticBlades};
-    }
 
-    bool CypherLords::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         auto thrallmaster = new Model(g_basesize, wounds());
         thrallmaster->addMissileWeapon(&m_throwingStars);
@@ -85,8 +73,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int CypherLords::chargeModifier() const {
@@ -103,6 +89,23 @@ namespace SlavesToDarkness {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    void CypherLords::onStartCombat(PlayerId player) {
+        SlavesToDarknessBase::onStartCombat(player);
+
+        // Shattered Gloom Globe
+        if (owningPlayer() == player) {
+            if (isNamedModelAlive("Thrallmaster")) {
+                auto enemy = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+                if (enemy && (distanceTo(enemy) < 3.0)) {
+                    if (Dice::RollD6() >= 4) {
+                        enemy->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        enemy->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    }
+                }
+            }
+        }
     }
 
 } //SlavesToDarkness

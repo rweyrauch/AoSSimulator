@@ -56,7 +56,7 @@ namespace SlavesToDarkness {
 
         // Cabalists
         //Bolstered_by_Hate,
-        Lord_Of_Terror,                 // TODO
+        Lord_Of_Terror,
         //Favoured_of_the_Pantheon,
         Mighty_Ritualist,               // TODO
         Blasphemous_Influence,          // TODO
@@ -66,7 +66,7 @@ namespace SlavesToDarkness {
         //Bolstered_by_Hate,
         //Lord_of_Terror,
         Lightning_Reflexes,
-        Radiance_Of_Dark_Glory,         // TODO
+        Radiance_Of_Dark_Glory,
         Distorting_Miasma,              // TODO
         Paragon_Of_Ruin,                // TODO
 
@@ -127,7 +127,7 @@ namespace SlavesToDarkness {
 
         SlavesToDarknessBase() = delete;
 
-        ~SlavesToDarknessBase() override = default;
+        ~SlavesToDarknessBase() override;
 
         void setDamnedLegion(DamnedLegion legion);
 
@@ -139,8 +139,7 @@ namespace SlavesToDarkness {
 
     protected:
 
-        SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
     protected:
 
@@ -180,6 +179,10 @@ namespace SlavesToDarkness {
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        int lordOfTerror(const Unit* unit);
+
+        void onEndHero(PlayerId player) override;
+
     private:
 
         bool m_haveDarkApotheosis = false;
@@ -190,6 +193,8 @@ namespace SlavesToDarkness {
         bool m_haveMurderousMutation  = false;
         bool m_haveSlaughtersStrength  = false;
         bool m_haveSpawndom  = false;
+
+        lsignal::slot m_lordOfTerrorSlot;
 
         DamnedLegion m_legion = DamnedLegion::Ravagers;
         MarkOfChaos m_markOfChaos = MarkOfChaos::Undivided;

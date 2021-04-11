@@ -21,21 +21,27 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ExaltedHeroOfChaos();
+        ExaltedHeroOfChaos(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        ExaltedHeroOfChaos() = delete;
 
         ~ExaltedHeroOfChaos() override = default;
 
     protected:
 
-        void configure();
-
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
+
+        void onEndCombat(PlayerId player) override;
+
     private:
 
-        Weapon m_blades;
+        bool m_thriceDamnedDagger = false;
+
+        Weapon m_blades{Weapon::Type::Melee, "Rune-etched Blades", 1, RAND_D6, 3, 3, -1, 1};
 
         static bool s_registered;
     };
@@ -46,7 +52,7 @@ namespace SlavesToDarkness {
 // Mark of Chaos                    Yes
 // Dark Blessings                   Yes
 // Glory-hungry Bladesman           Yes
-// Thrice-damned Dagger             TODO
+// Thrice-damned Dagger             Yes
 // Trail of Red Ruin                TODO
 //
 

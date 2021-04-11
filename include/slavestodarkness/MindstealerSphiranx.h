@@ -21,20 +21,22 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        MindstealerSphiranx();
+        explicit MindstealerSphiranx(DamnedLegion legion);
+
+        MindstealerSphiranx() = delete;
 
         ~MindstealerSphiranx() override;
 
     protected:
 
-        void configure();
-
         int telepathicDread(const Unit *unit);
+
+        void onStartHero(PlayerId player) override;
 
     private:
 
-        Weapon m_claws,
-                m_tail;
+        Weapon  m_claws{Weapon::Type::Melee, "Shredding Claws", 1, 3, 3, 3, -1, 1},
+                m_tail{Weapon::Type::Melee, "Lashing Tail", 1, 2, 4, 3, 0, 1};
 
         lsignal::slot m_connection;
 
@@ -45,7 +47,7 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Telepathic Dread                 Yes
-// Dominate Mind                    TODO
+// Dominate Mind                    Yes
 //
 
 } // SlavesToDarkness

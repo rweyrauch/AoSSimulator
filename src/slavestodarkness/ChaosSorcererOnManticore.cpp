@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "slavestodarkness/ChaosSorcererOnManticore.h"
 #include "SlavesToDarknessPrivate.h"
 #include "StDSpells.h"
@@ -73,27 +74,14 @@ namespace SlavesToDarkness {
     bool ChaosSorcererOnManticore::s_registered = false;
 
     Unit *ChaosSorcererOnManticore::Create(const ParameterList &parameters) {
-        auto unit = new ChaosSorcererOnManticore();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->configure(lore);
-        return unit;
+        return new ChaosSorcererOnManticore(legion, mark, lore, trait, artefact, general);
     }
 
     void ChaosSorcererOnManticore::Init() {
@@ -118,11 +106,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosSorcererOnManticore::ChaosSorcererOnManticore() :
-            SlavesToDarknessBase("Chaos Sorcerer On Manticore", 12, g_wounds, 8, 4, true),
-            m_staff(Weapon::Type::Melee, "Sorcerous Reaping Staff", 2, 3, 3, 3, -1, RAND_D3),
-            m_fangsAndClaws(Weapon::Type::Melee, "Honed Fangs and Claws", 1, 5, 3, 1, -1, 2),
-            m_tail(Weapon::Type::Melee, "Shredding Tail", 3, 5, 4, 4, 0, 1) {
+    ChaosSorcererOnManticore::ChaosSorcererOnManticore(DamnedLegion legion, MarkOfChaos mark, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Chaos Sorcerer On Manticore", 12, g_wounds, 8, 4, true) {
         m_keywords = {CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO,
                       WIZARD, CHAOS_SORCERER_LORD};
         m_weapons = {&m_staff, &m_fangsAndClaws, &m_tail};
@@ -132,9 +117,13 @@ namespace SlavesToDarkness {
         m_tail.setMount(true);
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void ChaosSorcererOnManticore::configure(Lore lore) {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_fangsAndClaws);
@@ -183,6 +172,21 @@ namespace SlavesToDarkness {
 
     int ChaosSorcererOnManticore::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void ChaosSorcererOnManticore::onEndHero(PlayerId player) {
+        SlavesToDarknessBase::onEndHero(player);
+
+        // Oracular Visions
+        if (owningPlayer() == player) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+            for (auto unit : units) {
+                if ((unit->remainingModels() > 0) && unit->hasKeyword(SLAVES_TO_DARKNESS) && unit->hasKeyword(MORTAL)) {
+                    unit->buffReroll(Attribute::To_Save_Melee, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffReroll(Attribute::To_Save_Missile, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                }
+            }
+        }
     }
 
 } //namespace SlavesToDarkness

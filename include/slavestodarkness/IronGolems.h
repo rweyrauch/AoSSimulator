@@ -21,11 +21,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        IronGolems();
+        IronGolems(DamnedLegion legion, int numModels);
+
+        IronGolems() = delete;
 
         ~IronGolems() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -35,9 +35,9 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_bolas,
-                m_legionWeapons,
-                m_legionWeaponsDominar;
+        Weapon  m_bolas{Weapon::Type::Missile, "Bolas", 8, 1, 4, 4, 0, 1},
+                m_legionWeapons{Weapon::Type::Melee, "Legion Weapons", 1, 1, 4, 4, 0, 1},
+                m_legionWeaponsDominar{Weapon::Type::Melee, "Legion Weapons (Dominar)", 1, 2, 4, 4, 0, 1};
 
         static bool s_registered;
     };

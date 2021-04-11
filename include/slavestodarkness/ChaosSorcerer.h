@@ -21,18 +21,20 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosSorcerer();
+        ChaosSorcerer(DamnedLegion legion, MarkOfChaos mark, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        ChaosSorcerer() = delete;
 
         ~ChaosSorcerer() override = default;
 
     protected:
 
-        void configure(Lore lore);
+        void onEndHero(PlayerId player) override;
 
     private:
 
-        Weapon m_staff,
-                m_blade;
+        Weapon  m_staff{Weapon::Type::Melee, "Sorcerous Staff", 2, 1, 4, 3, -1, RAND_D3},
+                m_blade{Weapon::Type::Melee, "Chaos Runeblade", 1, 2, 3, 3, 0, 1};
 
         static bool s_registered;
     };
@@ -40,7 +42,7 @@ namespace SlavesToDarkness {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Oracular Visions                 TODO
+// Oracular Visions                 Yes
 // Deamonic Power                   Yes
 // Mark of Chaos                    Yes
 //

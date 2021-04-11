@@ -21,20 +21,26 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        DarkoathChieftain();
+        DarkoathChieftain(DamnedLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
+        DarkoathChieftain() = delete;
+        
         ~DarkoathChieftain() override = default;
 
     protected:
 
-        void configure();
-
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
+
+        void onEndCombat(PlayerId player) override;
 
     private:
 
-        Weapon m_axe,
-                m_broadsword;
+        bool m_deathblow = false;
+
+        Weapon  m_axe{Weapon::Type::Melee, "Warlord Axe", 1, 1, 3, 3, 0, 1},
+                m_broadsword{Weapon::Type::Melee, "Cursed Broadsword", 1, 3, 4, 3, -1, 2};
 
         static bool s_registered;
     };
@@ -43,7 +49,7 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // Berserk Charge                   Yes
-// Deathblow                        TODO
+// Deathblow                        Yes
 // Last Gasp of Glory               TODO
 //
 

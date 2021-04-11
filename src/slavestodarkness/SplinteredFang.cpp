@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool SplinteredFang::s_registered = false;
 
     Unit *SplinteredFang::Create(const ParameterList &parameters) {
-        auto unit = new SplinteredFang();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SplinteredFang(legion, numModels);
     }
 
     void SplinteredFang::Init() {
@@ -52,18 +43,14 @@ namespace SlavesToDarkness {
         }
     }
 
-    SplinteredFang::SplinteredFang() :
+    SplinteredFang::SplinteredFang(DamnedLegion legion, int numModels) :
             SlavesToDarknessBase("Splintered Fang", 6, g_wounds, 5, 5, false),
             m_poisonedWeapons(Weapon::Type::Melee, "Poisoned Weapons", 1, 1, 4, 4, 0, 1),
             m_poisonedWeaponsLeader(Weapon::Type::Melee, "Poisoned Weapons (Trueblood)", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPLINTERED_FANG};
         m_weapons = {&m_poisonedWeapons, &m_poisonedWeaponsLeader};
-    }
 
-    bool SplinteredFang::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         auto trueblood = new Model(g_basesize, wounds());
         trueblood->addMeleeWeapon(&m_poisonedWeaponsLeader);
@@ -87,8 +74,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Wounds SplinteredFang::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -105,6 +90,22 @@ namespace SlavesToDarkness {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    void SplinteredFang::onStartHero(PlayerId player) {
+        SlavesToDarknessBase::onStartHero(player);
+
+        // Snake Charmer
+        if (owningPlayer() == player) {
+            if (isNamedModelAlive("Snake Charmer") && !isNamedModelAlive("Serpent")) {
+                for (const auto &m : m_models) {
+                    if ((m->getName() == "Serpent") && (m->slain())) {
+                        m->restore();
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 } //SlavesToDarkness

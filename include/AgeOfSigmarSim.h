@@ -105,6 +105,7 @@ enum class Ability : int {
 
     Fights_First,
     Fights_Last,
+    Fights_On_Death,
 
     Cannot_Use_Command_Abilities,
 

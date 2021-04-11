@@ -14,6 +14,7 @@
 #include "slavestodarkness/ChaosChosen.h"
 #include "slavestodarkness/ChaosKnights.h"
 #include "slavestodarkness/ChaosMarauders.h"
+#include "slavestodarkness/ChaosMarauderHorsemen.h"
 #include "slavestodarkness/ChaosWarriors.h"
 #include "slavestodarkness/CorvusCabal.h"
 #include "slavestodarkness/CypherLords.h"
@@ -97,6 +98,15 @@ namespace SlavesToDarkness {
         if (artefact.has_value()) return (int) artefact.value();
 
         return 0;
+    }
+
+    SlavesToDarknessBase::SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+            Unit(name, move, wounds, bravery, save, fly) {
+        s_globalBraveryMod.connect(this, &SlavesToDarknessBase::lordOfTerror, &m_lordOfTerrorSlot);
+    }
+
+    SlavesToDarknessBase::~SlavesToDarknessBase() {
+        m_lordOfTerrorSlot.disconnect();
     }
 
     void SlavesToDarknessBase::setDamnedLegion(DamnedLegion legion) {
@@ -493,8 +503,7 @@ namespace SlavesToDarkness {
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    int
-    SlavesToDarknessBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+    int SlavesToDarknessBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
         if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Smite_The_Unbeliever)) {
             attacks += 2;
@@ -502,48 +511,74 @@ namespace SlavesToDarkness {
         return attacks;
     }
 
+    int SlavesToDarknessBase::lordOfTerror(const Unit *unit) {
+        if (m_commandTrait == CommandTrait::Lord_Of_Terror) {
+            if (!isFriendly(unit) && (distanceTo(unit) < 6.0)) {
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+    void SlavesToDarknessBase::onEndHero(PlayerId player) {
+        Unit::onEndHero(player);
+
+        if ((owningPlayer() == player) && (m_commandTrait == CommandTrait::Radiance_Of_Dark_Glory)) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0);
+            for (auto unit : units) {
+                if (unit->numOfWoundedModels() > 0) {
+                    if (Dice::RollD6() >= 3) {
+                        unit->heal(Dice::RollD3());
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     void Init() {
         Archaon::Init();
         Varanguard::Init();
 
+        Belakor::Init();
+        ChaosChariots::Init();
         ChaosChosen::Init();
         ChaosKnights::Init();
-        ChaosMarauders::Init();
-        ChaosWarriors::Init();
-        CorvusCabal::Init();
-        CypherLords::Init();
-        Furies::Init();
-        IronGolems::Init();
-        Raptoryx::Init();
-        Slambo::Init();
-        SplinteredFang::Init();
-        TheUnmade::Init();
-        UntamedBeasts::Init();
+        ChaosLord::Init();
+        ChaosLordOnDaemonicMount::Init();
         ChaosLordOnKarkadrak::Init();
         ChaosLordOnManticore::Init();
-        ChaosWarshrine::Init();
-        ChaosSorcererOnManticore::Init();
+        ChaosMarauderHorsemen::Init();
+        ChaosMarauders::Init();
         ChaosSorcerer::Init();
+        ChaosSorcererOnManticore::Init();
+        ChaosWarriors::Init();
+        ChaosWarshrine::Init();
+        CorvusCabal::Init();
+        CypherLords::Init();
+        DaemonPrince::Init();
         DarkoathChieftain::Init();
         DarkoathWarqueen::Init();
         ExaltedHeroOfChaos::Init();
-        ChaosLordOnDaemonicMount::Init();
-        ChaosLord::Init();
-        ChaosChariots::Init();
-        GorebeastChariots::Init();
-        SpireTyrants::Init();
         FomoroidCrusher::Init();
-        MindstealerSphiranx::Init();
-        OgroidMyrmidon::Init();
-        Belakor::Init();
-        DaemonPrince::Init();
+        Furies::Init();
         GodswornHunt::Init();
+        GorebeastChariots::Init();
+        IronGolems::Init();
+        KhagrasRavagers::Init();
+        MindstealerSphiranx::Init();
+        MutalithVortexBeast::Init();
+        OgroidMyrmidon::Init();
+        Raptoryx::Init();
+        ScionsOfTheFlame::Init();
+        Slambo::Init();
         Slaughterbrute::Init();
         SoulGrinder::Init();
+        SpireTyrants::Init();
+        SplinteredFang::Init();
         TheddraSkullscryer::Init();
-        MutalithVortexBeast::Init();
-        ScionsOfTheFlame::Init();
-        KhagrasRavagers::Init();
+        TheUnmade::Init();
+        UntamedBeasts::Init();
     }
 
 } //namespace SlavesToDarkness
