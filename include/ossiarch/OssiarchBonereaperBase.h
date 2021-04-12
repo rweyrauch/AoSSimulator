@@ -28,28 +28,28 @@ namespace OssiarchBonereapers {
         None,
 
         // Kavalos
-        Ancient_Knowledge,
-        Immortal_Ruler,
-        Dark_Acolyte,
+        Ancient_Knowledge,          // TODO
+        Immortal_Ruler,             // TODO
+        Dark_Acolyte,               // TODO
         Peerless_Warrior,
         Hatred_Of_The_Living,
-        Life_Stealer,
+        Life_Stealer,               // TODO
 
         // Mortisan
         // Ancient_Knowledge,
         // Immortal_Ruler,
         Dire_Ultimatum,
-        Grave_Sand_Bones,
-        Oathbreaker_Curse,
-        Soul_Energy,
+        Grave_Sand_Bones,           // TODO
+        Oathbreaker_Curse,          // TODO
+        Soul_Energy,                // TODO
 
         // Legion specific
-        Katakros_Chosen,    // Mortis Praetorians
-        Mighty_Archaeossian,    // Petrifex Elite
-        Twisted_Challenge,  // Stalliarch Lords
-        Scrimshawed_Savage, // Ivory Host
-        Unsettling_And_Sinister,    // Null Myriad
-        Wrathful_Avenger    // Crematorians
+        Katakros_Chosen,            // Mortis Praetorians TODO
+        Mighty_Archaeossian,        // Petrifex Elite
+        Twisted_Challenge,          // Stalliarch Lords TODO
+        Scrimshawed_Savage,         // Ivory Host TODO
+        Unsettling_And_Sinister,    // Null Myriad TODO
+        Wrathful_Avenger            // Crematorians TODO
     };
 
     enum class Artefact : int {
@@ -88,12 +88,13 @@ namespace OssiarchBonereapers {
     };
 
     enum class Lore : int {
+        None,
         Arcane_Command,
-        Empower_Nadirite_Weapons,
-        Protection_Of_Nagash,
-        Reinforce_Battle_Shields,
+        Empower_Nadirite_Weapons,       // TODO
+        Protection_Of_Nagash,           // TODO
+        Reinforce_Battle_Shields,       // TODO
         Drain_Vitality,
-        Mortal_Contract
+        Mortal_Contract                 // TODO
     };
 
     class OssiarchBonereaperBase : public Unit {
@@ -101,7 +102,7 @@ namespace OssiarchBonereapers {
 
         OssiarchBonereaperBase() = delete;
 
-        ~OssiarchBonereaperBase() override = default;
+        ~OssiarchBonereaperBase() override;
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -114,8 +115,7 @@ namespace OssiarchBonereapers {
         void setArtefact(Artefact artefact);
 
     protected:
-        OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
@@ -127,13 +127,21 @@ namespace OssiarchBonereapers {
 
         int theDreadLegion(const Unit *target);
 
+        int woundModifier() const override;
+
+        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int direUltimatum(const Unit* target);
+
     protected:
 
         Legion m_legion = Legion::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
 
-        lsignal::slot m_braveryBuffConnection;
+        lsignal::slot m_braveryBuffConnection, m_direUltimatumSlot;
     };
 
 //
@@ -146,27 +154,21 @@ namespace OssiarchBonereapers {
 // Mortis Praetorians
 //   The Dread Legion               Yes
 //   Counter-strike                 TODO
-//   Katakros's Chosen              TODO
 // Petriflex Elite
 //   Unstoppable Juggernauts        Yes
 //   Bludgeon                       TODO
-//   Mighty Archaossian             TODO
 // Stalliarch Lord
 //   Equumortoi                     Yes
 //   Rally Back                     TODO
-//   Twisted Challenge              TODO
 // Ivory Host
 //   Simmering Rage                 TODO
 //   Tempur Fury                    TODO
-//   Scrimshawed Savage             TODO
 // Null Myriad
 //   Eldritch Nulls                 TODO
 //   Holdfast                       TODO
-//   Unsettling and Sinister        TODO
 // Crematorians
 //   Immolation                     Yes
 //   Levellers of Cities            TODO
-//   Wrathful Avenger               TODO
 //
 
     void Init();

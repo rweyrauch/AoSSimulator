@@ -17,21 +17,17 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        Katakros();
+        Katakros(Legion legion, bool isGeneral);
+
+        Katakros() = delete;
 
         ~Katakros() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
@@ -47,12 +43,12 @@ namespace OssiarchBonereapers {
             return wounds() - remainingWounds();
         }
 
-        Weapon m_indaKhaat,
-                m_shieldImmortis,
-                m_nadiriteDagger,
-                m_blades,
-                m_greatblade,
-                m_spiritDagger;
+        Weapon  m_indaKhaat{Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3},
+                m_shieldImmortis{Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2},
+                m_nadiriteDagger{Weapon::Type::Melee, "Nadirite Dagger", 1, 1, 3, 3, -1, 1},
+                m_blades{Weapon::Type::Melee, "Nadirite Duelling Blades", 1, 6, 3, 3, -1, 1},
+                m_greatblade{Weapon::Type::Melee, "Soulreaver Greatblade", 1, 3, 3, 3, -1, 1},
+                m_spiritDagger{Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1};
 
         static bool s_registered;
     };

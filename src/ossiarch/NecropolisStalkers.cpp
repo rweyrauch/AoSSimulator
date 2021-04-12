@@ -20,36 +20,19 @@ namespace OssiarchBonereapers {
     bool NecropolisStalkers::s_registered = false;
 
     Unit *NecropolisStalkers::Create(const ParameterList &parameters) {
-        auto unit = new NecropolisStalkers();
-
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numFalchions = GetIntParam("Dread Falchions", parameters, 1);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
 
-        bool ok = unit->configure(numModels, numFalchions);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
-    }
-
-    std::string NecropolisStalkers::ValueToString(const Parameter &parameter) {
-        return OssiarchBonereaperBase::ValueToString(parameter);
-    }
-
-    int NecropolisStalkers::EnumStringToInt(const std::string &enumString) {
-        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+        return new NecropolisStalkers(legion, numModels, numFalchions);
     }
 
     void NecropolisStalkers::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     NecropolisStalkers::Create,
-                    NecropolisStalkers::ValueToString,
-                    NecropolisStalkers::EnumStringToInt,
+                    OssiarchBonereaperBase::ValueToString,
+                    OssiarchBonereaperBase::EnumStringToInt,
                     NecropolisStalkers::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
@@ -63,25 +46,12 @@ namespace OssiarchBonereapers {
         }
     }
 
-    NecropolisStalkers::NecropolisStalkers() :
-            OssiarchBonereaperBase("Necropolis Stalkers", 6, g_wounds, 10, 4, false),
-            m_falchions(Weapon::Type::Melee, "Dread Falchions", 1, 3, 4, 3, -2, 2),
-            m_blades(Weapon::Type::Melee, "Spirit Blades", 1, 5, 3, 3, -1, 1) {
+    NecropolisStalkers::NecropolisStalkers(Legion legion, int numModels, int numFalchions) :
+            OssiarchBonereaperBase("Necropolis Stalkers", 6, g_wounds, 10, 4, false) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, HEKATOS, NECROPOLIS_STALKERS};
         m_weapons = {&m_falchions, &m_blades};
-    }
 
-    bool NecropolisStalkers::configure(int numModels, int numFalchions) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxFalchions = numModels / 3;
-        if (numFalchions > maxFalchions) {
-            // Invalid weapon configuration.
-            return false;
-        }
+        setLegion(legion);
 
         for (auto i = 0; i < numFalchions; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -95,8 +65,6 @@ namespace OssiarchBonereapers {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     void NecropolisStalkers::onStartCombat(PlayerId player) {
@@ -121,8 +89,7 @@ namespace OssiarchBonereapers {
         return OssiarchBonereaperBase::toSaveRerolls(weapon, attacker);
     }
 
-    Wounds
-    NecropolisStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds NecropolisStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto damage = OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
         if (m_activeAspect == Precision) damage.normal++;
         return damage;

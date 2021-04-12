@@ -30,11 +30,11 @@ namespace OssiarchBonereapers {
 
         static void Init();
 
-        MorghastArchai();
+        MorghastArchai(Legion legion, int numModels, WeaponOptions weapons);
+
+        MorghastArchai() = delete;
 
         ~MorghastArchai() override = default;
-
-        bool configure(int numModels, WeaponOptions weapons);
 
     protected:
 
@@ -44,8 +44,8 @@ namespace OssiarchBonereapers {
 
         WeaponOptions m_weaponOption = Spirit_Halberd;
 
-        Weapon m_spiritHalberd,
-                m_spiritSwords;
+        Weapon  m_spiritHalberd{Weapon::Type::Melee, "Spirit Halberd", 2, 3, 3, 3, -2, 3},
+                m_spiritSwords{Weapon::Type::Melee, "Spirit Swords", 1, 5, 3, 3, -1, 2};
 
         static bool s_registered;
 

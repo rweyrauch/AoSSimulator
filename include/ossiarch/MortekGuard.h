@@ -30,11 +30,11 @@ namespace OssiarchBonereapers {
 
         static void Init();
 
-        MortekGuard();
+        MortekGuard(Legion legion, int numModels, WeaponOption option, int numGreatblades, bool necrophoros);
+
+        MortekGuard() = delete;
 
         ~MortekGuard() override = default;
-
-        bool configure(int numModels, WeaponOption option, int numGreatblades, bool necrophoros);
 
     protected:
 
@@ -48,12 +48,12 @@ namespace OssiarchBonereapers {
 
         bool m_necrophoros = false;
 
-        Weapon m_blade,
-                m_spear,
-                m_greatblade,
-                m_bladeHekatos,
-                m_spearHekatos,
-                m_greatbladeHekatos;
+        Weapon  m_blade{Weapon::Type::Melee, "Nadirite Blade", 1, 2, 3, 4, -1, 1},
+                m_spear{Weapon::Type::Melee, "Nadirite Spear", 2, 2, 3, 4, 0, 1},
+                m_greatblade{Weapon::Type::Melee, "Soulcleaver Greatblade", 1, 2, 3, 3, -1, 1},
+                m_bladeHekatos{Weapon::Type::Melee, "Nadirite Blade", 1, 3, 3, 4, -1, 1},
+                m_spearHekatos{Weapon::Type::Melee, "Nadirite Spear", 2, 3, 3, 4, 0, 1},
+                m_greatbladeHekatos{Weapon::Type::Melee, "Soulcleaver Greatblade", 1, 3, 3, 3, -1, 1};
 
         static bool s_registered;
     };

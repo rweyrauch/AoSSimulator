@@ -19,19 +19,12 @@ namespace OssiarchBonereapers {
 
     bool MorghastArchai::s_registered = false;
 
-    MorghastArchai::MorghastArchai() :
-            OssiarchBonereaperBase("Morghast Archai", 9, g_wounds, 10, 4, true),
-            m_spiritHalberd(Weapon::Type::Melee, "Spirit Halberd", 2, 3, 3, 3, -2, 3),
-            m_spiritSwords(Weapon::Type::Melee, "Spirit Swords", 1, 5, 3, 3, -1, 2) {
+    MorghastArchai::MorghastArchai(Legion legion, int numModels, WeaponOptions weapons) :
+            OssiarchBonereaperBase("Morghast Archai", 9, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MORGHAST, DEATHLORDS, OSSIARCH_BONEREAPERS, HEKATOS, MORGHAST_ARCHAI};
         m_weapons = {&m_spiritHalberd, &m_spiritSwords};
-    }
 
-    bool MorghastArchai::configure(int numModels, WeaponOptions weapons) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
+        setLegion(legion);
 
         m_weaponOption = weapons;
 
@@ -46,24 +39,14 @@ namespace OssiarchBonereapers {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *MorghastArchai::Create(const ParameterList &parameters) {
-        auto unit = new MorghastArchai();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Spirit_Halberd);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
 
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new MorghastArchai(legion, numModels, weapons);
     }
 
     std::string MorghastArchai::ValueToString(const Parameter &parameter) {

@@ -20,35 +20,18 @@ namespace OssiarchBonereapers {
     bool ImmortisGuard::s_registered = false;
 
     Unit *ImmortisGuard::Create(const ParameterList &parameters) {
-        auto unit = new ImmortisGuard();
-
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
-    }
-
-    std::string ImmortisGuard::ValueToString(const Parameter &parameter) {
-        return OssiarchBonereaperBase::ValueToString(parameter);
-    }
-
-    int ImmortisGuard::EnumStringToInt(const std::string &enumString) {
-        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+        return new ImmortisGuard(legion, numModels);
     }
 
     void ImmortisGuard::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     ImmortisGuard::Create,
-                    ImmortisGuard::ValueToString,
-                    ImmortisGuard::EnumStringToInt,
+                    OssiarchBonereaperBase::ValueToString,
+                    OssiarchBonereaperBase::EnumStringToInt,
                     ImmortisGuard::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
@@ -61,20 +44,14 @@ namespace OssiarchBonereapers {
         }
     }
 
-    ImmortisGuard::ImmortisGuard() :
+    ImmortisGuard::ImmortisGuard(Legion legion, int numModels) :
             OssiarchBonereaperBase("Immortis Guard", 5, g_wounds, 10, 3, false),
             m_halberd(Weapon::Type::Melee, "Dread Halberd", 2, 2, 3, 3, -2, 2),
             m_battleShield(Weapon::Type::Melee, "Battle Shield", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, HEKATOS, IMMORTIS_GUARD};
         m_weapons = {&m_halberd, &m_battleShield};
-    }
 
-    bool ImmortisGuard::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
+        setLegion(legion);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -84,8 +61,6 @@ namespace OssiarchBonereapers {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Wounds ImmortisGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -93,7 +68,7 @@ namespace OssiarchBonereapers {
         if ((hitRoll == 6) && (weapon->name() == m_battleShield.name())) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int ImmortisGuard::ComputePoints(int numModels) {

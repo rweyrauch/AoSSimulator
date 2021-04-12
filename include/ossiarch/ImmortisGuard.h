@@ -17,19 +17,15 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        ImmortisGuard();
+        ImmortisGuard(Legion legion, int numModels);
+
+        ImmortisGuard() = delete;
 
         ~ImmortisGuard() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -37,8 +33,8 @@ namespace OssiarchBonereapers {
 
     private:
 
-        Weapon m_halberd,
-                m_battleShield;
+        Weapon  m_halberd{Weapon::Type::Melee, "Dread Halberd", 2, 2, 3, 3, -2, 2},
+                m_battleShield{Weapon::Type::Melee, "Battle Shield", 1, 2, 4, 3, 0, 1};
 
         static bool s_registered;
     };

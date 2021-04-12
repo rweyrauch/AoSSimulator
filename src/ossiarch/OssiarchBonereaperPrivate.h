@@ -74,7 +74,8 @@ namespace OssiarchBonereapers {
             ToInteger(Artefact::Guardian_Reavesoul)
     };
 
-    constexpr std::array<int, 6> g_lore = {
+    constexpr std::array<int, 7> g_lore = {
+            ToInteger(Lore::None),
             ToInteger(Lore::Arcane_Command),
             ToInteger(Lore::Empower_Nadirite_Weapons),
             ToInteger(Lore::Protection_Of_Nagash),
@@ -82,5 +83,7 @@ namespace OssiarchBonereapers {
             ToInteger(Lore::Drain_Vitality),
             ToInteger(Lore::Mortal_Contract)
     };
+
+    Spell* CreateLore(Lore which, Unit* caster);
 
 } // namespace OssiarchBonereapers

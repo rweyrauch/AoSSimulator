@@ -17,32 +17,18 @@ namespace OssiarchBonereapers {
     bool Katakros::s_registered = false;
 
     Unit *Katakros::Create(const ParameterList &parameters) {
-        auto unit = new Katakros();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
-    }
-
-    std::string Katakros::ValueToString(const Parameter &parameter) {
-        return OssiarchBonereaperBase::ValueToString(parameter);
-    }
-
-    int Katakros::EnumStringToInt(const std::string &enumString) {
-        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+        return new Katakros(legion, general);
     }
 
     void Katakros::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Katakros::Create,
-                    Katakros::ValueToString,
-                    Katakros::EnumStringToInt,
+                    OssiarchBonereaperBase::ValueToString,
+                    OssiarchBonereaperBase::EnumStringToInt,
                     Katakros::ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
@@ -55,20 +41,15 @@ namespace OssiarchBonereapers {
         }
     }
 
-    Katakros::Katakros() :
-            OssiarchBonereaperBase("Orpheon Katakros", 4, g_wounds, 10, 3, false),
-            m_indaKhaat(Weapon::Type::Melee, "Inda-Khaat", 1, 1, 3, 3, -3, 3),
-            m_shieldImmortis(Weapon::Type::Melee, "The Shield Immortis", 1, 4, 3, 3, -2, 2),
-            m_nadiriteDagger(Weapon::Type::Melee, "Nadirite Dagger", 1, 1, 3, 3, -1, 1),
-            m_blades(Weapon::Type::Melee, "Nadirite Duelling Blades", 1, 6, 3, 3, -1, 1),
-            m_greatblade(Weapon::Type::Melee, "Soulreaver Greatblade", 1, 3, 3, 3, -1, 1),
-            m_spiritDagger(Weapon::Type::Melee, "Spirit Dagger", 1, 3, 3, 3, -1, 1) {
+    Katakros::Katakros(Legion legion, bool isGeneral) :
+            OssiarchBonereaperBase("Orpheon Katakros", 4, g_wounds, 10, 3, false) {
         m_keywords = {DEATH, DEATHLORDS, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, KATAKROS};
         m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Katakros::configure() {
+        setLegion(legion);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_indaKhaat);
         model->addMeleeWeapon(&m_shieldImmortis);
@@ -92,7 +73,7 @@ namespace OssiarchBonereapers {
     }
 
     void Katakros::onWounded() {
-        Unit::onWounded();
+        OssiarchBonereaperBase::onWounded();
 
         if (woundsTaken() >= 13) {
             m_shieldImmortis.activate(true);
@@ -113,7 +94,7 @@ namespace OssiarchBonereapers {
         if ((hitRoll == 6) && (weapon->name() == m_shieldImmortis.name())) {
             return {weapon->damage(), 2};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int Katakros::ComputePoints(int /*numModels*/) {
@@ -121,7 +102,7 @@ namespace OssiarchBonereapers {
     }
 
     void Katakros::onRestore() {
-        Unit::onRestore();
+        OssiarchBonereaperBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

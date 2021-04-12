@@ -21,6 +21,7 @@ enum class Resource : int {
     Skaven_Warpstone_Spark,
     Seraphon_Celestial_Conjuration,
     Tzeentch_Fate_Points,
+    Ossiarch_Relentless_Discipline,
 };
 
 class Roster {

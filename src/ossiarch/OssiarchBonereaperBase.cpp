@@ -62,6 +62,15 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
+    OssiarchBonereaperBase::OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
+            Unit(name, move, wounds, bravery, save, fly) {
+    }
+
+    OssiarchBonereaperBase::~OssiarchBonereaperBase() {
+        m_braveryBuffConnection.disconnect();
+        m_direUltimatumSlot.disconnect();
+    }
+
     void OssiarchBonereaperBase::setLegion(Legion legion) {
         removeKeyword(MORTIS_PRAETORIANS);
         removeKeyword(PETRIFEX_ELITE);
@@ -118,6 +127,10 @@ namespace OssiarchBonereapers {
 
     void OssiarchBonereaperBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+        m_direUltimatumSlot.disconnect();
+        if (m_commandTrait == CommandTrait::Dire_Ultimatum) {
+            s_globalBraveryMod.connect(this, &OssiarchBonereaperBase::direUltimatum, &m_direUltimatumSlot);
+        }
     }
 
     void OssiarchBonereaperBase::setArtefact(Artefact artefact) {
@@ -159,6 +172,36 @@ namespace OssiarchBonereapers {
     bool OssiarchBonereaperBase::battleshockRequired() const {
         // Ranks Unbroken by Dissent
         return false;
+    }
+
+    int OssiarchBonereaperBase::woundModifier() const {
+        auto mod = Unit::woundModifier();
+        if (m_commandTrait == CommandTrait::Mighty_Archaeossian) {
+            mod += 2;
+        }
+        return mod;
+    }
+
+    Wounds OssiarchBonereaperBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        if ((m_commandTrait == CommandTrait::Peerless_Warrior) && weapon->isMelee() && (woundRoll == 6)) {
+            return {weapon->damage(), 1, Wounds::Source::Weapon_Melee};
+        }
+        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    }
+
+    int OssiarchBonereaperBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+        if (weapon->isMelee() && (m_commandTrait == CommandTrait::Hatred_Of_The_Living) && !target->hasKeyword(DEATH)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    int OssiarchBonereaperBase::direUltimatum(const Unit *target) {
+        if ((target->owningPlayer() != owningPlayer()) && (m_commandTrait == CommandTrait::Dire_Ultimatum) && (distanceTo(target) <= 12.0)) {
+            return -1;
+        }
+        return 0;
     }
 
     void Init() {

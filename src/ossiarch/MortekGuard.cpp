@@ -20,22 +20,13 @@ namespace OssiarchBonereapers {
     bool MortekGuard::s_registered = false;
 
     Unit *MortekGuard::Create(const ParameterList &parameters) {
-        auto unit = new MortekGuard();
-
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Nadirite_Blade_And_Shield);
         bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
         int numGreatblades = GetIntParam("Soulcleaver Greatblade", parameters, 1);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
 
-        bool ok = unit->configure(numModels, weapons, numGreatblades, necrophoros);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new MortekGuard(legion, numModels, weapons, numGreatblades, necrophoros);
     }
 
     std::string MortekGuard::ValueToString(const Parameter &parameter) {
@@ -78,30 +69,13 @@ namespace OssiarchBonereapers {
         }
     }
 
-    MortekGuard::MortekGuard() :
-            OssiarchBonereaperBase("Mortek Guard", 4, g_wounds, 10, 4, false),
-            m_blade(Weapon::Type::Melee, "Nadirite Blade", 1, 2, 3, 4, -1, 1),
-            m_spear(Weapon::Type::Melee, "Nadirite Spear", 2, 2, 3, 4, 0, 1),
-            m_greatblade(Weapon::Type::Melee, "Soulcleaver Greatblade", 1, 2, 3, 3, -1, 1),
-            m_bladeHekatos(Weapon::Type::Melee, "Nadirite Blade", 1, 3, 3, 4, -1, 1),
-            m_spearHekatos(Weapon::Type::Melee, "Nadirite Spear", 2, 3, 3, 4, 0, 1),
-            m_greatbladeHekatos(Weapon::Type::Melee, "Soulcleaver Greatblade", 1, 3, 3, 3, -1, 1) {
+    MortekGuard::MortekGuard(Legion legion, int numModels, WeaponOption option, int numGreatblades, bool necrophoros) :
+            OssiarchBonereaperBase("Mortek Guard", 4, g_wounds, 10, 4, false) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTEK_GUARD};
         m_weapons = {&m_blade, &m_spear, &m_greatblade, &m_bladeHekatos, &m_spearHekatos, &m_greatbladeHekatos};
         m_battleFieldRole = Role::Battleline;
-    }
 
-    bool MortekGuard::configure(int numModels, WeaponOption option, int numGreatblades, bool necrophoros) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxGreatblades = numModels / 10;
-        if (numGreatblades > maxGreatblades) {
-            // Invalid weapon configuration.
-            return false;
-        }
+        setLegion(legion);
 
         auto hekatos = new Model(g_basesize, wounds());
         if (numGreatblades) {
@@ -133,25 +107,23 @@ namespace OssiarchBonereapers {
         m_necrophoros = necrophoros;
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int MortekGuard::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
         if ((unmodifiedHitRoll == 6) &&
             ((weapon->name() == m_blade.name()) || (weapon->name() == m_spear.name())))
             return 2;
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return OssiarchBonereaperBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int MortekGuard::runModifier() const {
-        auto mod = Unit::runModifier();
+        auto mod = OssiarchBonereaperBase::runModifier();
         if (m_necrophoros) mod++;
         return mod;
     }
 
     int MortekGuard::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = OssiarchBonereaperBase::chargeModifier();
         if (m_necrophoros) mod++;
         return mod;
     }

@@ -17,27 +17,21 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        LiegeKavalos();
+        LiegeKavalos(Legion legion, CommandTrait trait, Artefact artefact, bool isGeneral, Lore lore = Lore::None);
+
+        LiegeKavalos() = delete;
 
         ~LiegeKavalos() override = default;
 
-    protected:
-
-        void configure();
-
     private:
 
-        Weapon m_blade,
-                m_shield,
-                m_hoovesAndTeeth;
+        Weapon  m_blade{Weapon::Type::Melee, "Commander's Blade", 1, 3, 3, 3, -1, 2},
+                m_shield{Weapon::Type::Melee, "Nadirite Battle-shield", 1, 1, 3, 4, 0, 1},
+                m_hoovesAndTeeth{Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1};
 
         static bool s_registered;
     };

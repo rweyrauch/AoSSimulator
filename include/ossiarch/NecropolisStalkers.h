@@ -17,19 +17,15 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        NecropolisStalkers();
+        NecropolisStalkers(Legion legion, int numModels, int numFalchions);
+
+        NecropolisStalkers() = delete;
 
         ~NecropolisStalkers() override = default;
-
-        bool configure(int numModels, int numFalchions);
 
     protected:
 
@@ -56,8 +52,8 @@ namespace OssiarchBonereapers {
 
         Aspect m_activeAspect = Blade_Strike;
 
-        Weapon m_falchions,
-                m_blades;
+        Weapon  m_falchions{Weapon::Type::Melee, "Dread Falchions", 1, 3, 4, 3, -2, 2},
+                m_blades{Weapon::Type::Melee, "Spirit Blades", 1, 5, 3, 3, -1, 1};
 
         static bool s_registered;
     };

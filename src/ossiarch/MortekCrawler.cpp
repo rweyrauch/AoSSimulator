@@ -34,29 +34,16 @@ namespace OssiarchBonereapers {
     bool MortekCrawler::s_registered = false;
 
     Unit *MortekCrawler::Create(const ParameterList &parameters) {
-        auto unit = new MortekCrawler();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
-    }
-
-    std::string MortekCrawler::ValueToString(const Parameter &parameter) {
-        return OssiarchBonereaperBase::ValueToString(parameter);
-    }
-
-    int MortekCrawler::EnumStringToInt(const std::string &enumString) {
-        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+        return new MortekCrawler(legion);
     }
 
     void MortekCrawler::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     MortekCrawler::Create,
-                    MortekCrawler::ValueToString,
-                    MortekCrawler::EnumStringToInt,
+                    OssiarchBonereaperBase::ValueToString,
+                    OssiarchBonereaperBase::EnumStringToInt,
                     MortekCrawler::ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
@@ -68,18 +55,14 @@ namespace OssiarchBonereapers {
         }
     }
 
-    MortekCrawler::MortekCrawler() :
-            OssiarchBonereaperBase("Mortek Crawler", 4, g_wounds, 10, 4, false),
-            m_catapultSkulls(Weapon::Type::Missile, "Dread Catapult - Necrotic Skulls", 36, 3, 2, 3, 0, 5),
-            m_catapultCauldron(Weapon::Type::Missile, "Dread Catapult - Cauldron of Torment", 36, 1, 0, 0, 0, 0),
-            m_catapultStele(Weapon::Type::Missile, "Dread Catapult - Cursed Stele", 36, 1, 0, 0, 0, 0),
-            m_tools(Weapon::Type::Melee, "Crawler Tools", 1, 6, 3, 4, 0, 1) {
+    MortekCrawler::MortekCrawler(Legion legion) :
+            OssiarchBonereaperBase("Mortek Crawler", 4, g_wounds, 10, 4, false) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, WAR_MACHINE, MORTEK_CRAWLER};
         m_weapons = {&m_catapultSkulls, &m_catapultCauldron, &m_catapultSkulls, &m_tools};
         m_battleFieldRole = Role::Artillery_Behemoth;
-    }
 
-    void MortekCrawler::configure() {
+        setLegion(legion);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_catapultSkulls);
         model->addMissileWeapon(&m_catapultCauldron);
@@ -98,7 +81,7 @@ namespace OssiarchBonereapers {
         const auto damageIndex = getDamageTableIndex();
         m_catapultSkulls.setDamage(g_damageTable[damageIndex].m_skullDamage);
 
-        Unit::onWounded();
+        OssiarchBonereaperBase::onWounded();
     }
 
     size_t MortekCrawler::getDamageTableIndex() const {
@@ -113,6 +96,16 @@ namespace OssiarchBonereapers {
 
     int MortekCrawler::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void MortekCrawler::onRestore() {
+        OssiarchBonereaperBase::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
+
+        m_usedCauldronOfTorment = false;
+        m_usedCursedSteel = false;
     }
 
 } // namespace OssiarchBonereapers

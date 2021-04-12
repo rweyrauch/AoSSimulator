@@ -30,13 +30,15 @@ namespace OssiarchBonereapers {
 
         static void Init();
 
-        GothizzarHarvester();
+        GothizzarHarvester(Legion legion, WeaponOption option);
+
+        GothizzarHarvester() = delete;
 
         ~GothizzarHarvester() override = default;
 
     protected:
 
-        void configure(WeaponOption option);
+        void onRestore() override;
 
         void onWounded() override;
 
@@ -48,10 +50,10 @@ namespace OssiarchBonereapers {
 
         size_t getDamageTableIndex() const;
 
-        Weapon m_deathsHeadMaw,
-                m_sickles,
-                m_bludgeons,
-                m_hoovesAndTail;
+        Weapon  m_deathsHeadMaw{Weapon::Type::Missile, "Death's Head Maw", 16, 4, 3, 3, -1, 1},
+                m_sickles{Weapon::Type::Melee, "Soulcleaver Sickles", 1, 6, 3, 3, -2, 2},
+                m_bludgeons{Weapon::Type::Melee, "Soulcrusher Bludgeons", 1, 6, 3, 3, -2, 2},
+                m_hoovesAndTail{Weapon::Type::Melee, "Ossified Hooves and Tail", 2, 4, 3, 2, -1, 2};
 
         static bool s_registered;
     };

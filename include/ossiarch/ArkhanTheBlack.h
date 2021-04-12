@@ -17,21 +17,17 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        ArkhanTheBlack();
+        ArkhanTheBlack(Legion legion, bool isGeneral);
+
+        ArkhanTheBlack() = delete;
 
         ~ArkhanTheBlack() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
@@ -47,10 +43,10 @@ namespace OssiarchBonereapers {
 
         size_t getDamageTableIndex() const;
 
-        Weapon m_zefetKar,
-                m_khenashAn,
-                m_claws,
-                m_clawsAndDaggers;
+        Weapon  m_zefetKar{Weapon::Type::Melee, "Zefet-kar", 1, 1, 3, 3, -1, RAND_D3},
+                m_khenashAn{Weapon::Type::Melee, "Khenash-an", 2, 1, 4, 3, -1, RAND_D3},
+                m_claws{Weapon::Type::Melee, "Ebon Claws", 1, 6, 4, 3, -2, 2},
+                m_clawsAndDaggers{Weapon::Type::Melee, "Spectral Claws and Dagger", 1, 6, 5, 4, 0, 1};
 
         static bool s_registered;
     };

@@ -17,26 +17,19 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        MortisanBoneshaper();
+        MortisanBoneshaper(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        MortisanBoneshaper() = delete;
 
         ~MortisanBoneshaper() override = default;
 
-    protected:
-
-        void configure(Lore lore);
-
     private:
 
-        Weapon m_talons;
-        Lore m_lore = Lore::Empower_Nadirite_Weapons;
+        Weapon m_talons{Weapon::Type::Melee, "Ossified Talons", 1, 2, 3, 4, 0, 1};
 
         static bool s_registered;
     };

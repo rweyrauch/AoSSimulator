@@ -17,21 +17,17 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        MortisanSoulreaper();
+        MortisanSoulreaper(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        MortisanSoulreaper() = delete;
 
         ~MortisanSoulreaper() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
@@ -39,8 +35,7 @@ namespace OssiarchBonereapers {
 
     private:
 
-        Weapon m_scythe;
-        Lore m_lore = Lore::Empower_Nadirite_Weapons;
+        Weapon m_scythe{Weapon::Type::Melee, "Soulreaper Scythe", 2, 3, 3, 3, -1, 2};
 
         static bool s_registered;
     };

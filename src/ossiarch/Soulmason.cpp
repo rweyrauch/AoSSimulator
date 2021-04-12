@@ -30,8 +30,7 @@ namespace OssiarchBonereapers {
         m_targetKeywords.push_back(OSSIARCH_BONEREAPERS);
     }
 
-    Spell::Result
-    SoulGuide::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
+    Spell::Result SoulGuide::apply(int castingValue, const UnmodifiedCastingRoll &unmodifiedCastingValue, Unit *target) {
         if (target == nullptr) {
             return Spell::Result::Failed;
         }
@@ -49,40 +48,21 @@ namespace OssiarchBonereapers {
     bool MortisanSoulmason::s_registered = false;
 
     Unit *MortisanSoulmason::Create(const ParameterList &parameters) {
-        auto unit = new MortisanSoulmason();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortisanCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_soulmasonArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->configure(lore);
-        return unit;
-    }
-
-    std::string MortisanSoulmason::ValueToString(const Parameter &parameter) {
-        return OssiarchBonereaperBase::ValueToString(parameter);
-    }
-
-    int MortisanSoulmason::EnumStringToInt(const std::string &enumString) {
-        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+        return new MortisanSoulmason(legion, lore, trait, artefact, general);
     }
 
     void MortisanSoulmason::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     MortisanSoulmason::Create,
-                    MortisanSoulmason::ValueToString,
-                    MortisanSoulmason::EnumStringToInt,
+                    OssiarchBonereaperBase::ValueToString,
+                    OssiarchBonereaperBase::EnumStringToInt,
                     MortisanSoulmason::ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
@@ -98,27 +78,27 @@ namespace OssiarchBonereapers {
         }
     }
 
-    MortisanSoulmason::MortisanSoulmason() :
-            OssiarchBonereaperBase("Mortisan Soulmason", 5, g_wounds, 10, 5, false),
-            m_staff(Weapon::Type::Melee, "Soulmason's Staff", 2, 2, 4, 3, -1, RAND_D3),
-            m_claws(Weapon::Type::Melee, "Ossified Claws", 1, 2, 4, 3, -1, 1) {
+    MortisanSoulmason::MortisanSoulmason(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            OssiarchBonereaperBase("Mortisan Soulmason", 5, g_wounds, 10, 5, false) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULMASON};
         m_weapons = {&m_staff, &m_claws};
         m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void MortisanSoulmason::configure(Lore lore) {
+        setLegion(legion);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
 
-        m_lore = lore;
-
         m_knownSpells.push_back(std::make_unique<SoulGuide>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

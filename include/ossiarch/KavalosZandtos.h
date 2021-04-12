@@ -17,21 +17,17 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        ArchKavalosZandtos();
+        ArchKavalosZandtos(Legion legion, bool isGeneral);
+
+        ArchKavalosZandtos() = delete;
 
         ~ArchKavalosZandtos() override = default;
 
     protected:
-
-        void configure();
 
         Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
@@ -39,9 +35,9 @@ namespace OssiarchBonereapers {
 
     private:
 
-        Weapon m_lance,
-                m_shield,
-                m_hoovesAndTeeth;
+        Weapon  m_lance{Weapon::Type::Melee, "The Dark Lance", 2, 3, 3, 3, -1, 2},
+                m_shield{Weapon::Type::Melee, "Nadirite Battle-shield", 1, 1, 3, 4, 0, 1},
+                m_hoovesAndTeeth{Weapon::Type::Melee, "Hooves and Teeth", 1, 6, 3, 3, -1, 1};
 
         static bool s_registered;
     };

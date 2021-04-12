@@ -17,21 +17,19 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        MortekCrawler();
+        explicit MortekCrawler(Legion legion);
+
+        MortekCrawler() = delete;
 
         ~MortekCrawler() override = default;
 
     protected:
 
-        void configure();
+        void onRestore() override;
 
         void onWounded() override;
 
@@ -39,10 +37,13 @@ namespace OssiarchBonereapers {
 
         size_t getDamageTableIndex() const;
 
-        Weapon m_catapultSkulls,
-                m_catapultCauldron,
-                m_catapultStele,
-                m_tools;
+        bool m_usedCauldronOfTorment = false;
+        bool m_usedCursedSteel = false;
+
+        Weapon  m_catapultSkulls{Weapon::Type::Missile, "Dread Catapult - Necrotic Skulls", 36, 3, 2, 3, 0, 5},
+                m_catapultCauldron{Weapon::Type::Missile, "Dread Catapult - Cauldron of Torment", 36, 1, 0, 0, 0, 0},
+                m_catapultStele{Weapon::Type::Missile, "Dread Catapult - Cursed Stele", 36, 1, 0, 0, 0, 0},
+                m_tools{Weapon::Type::Melee, "Crawler Tools", 1, 6, 3, 4, 0, 1};
 
         static bool s_registered;
     };

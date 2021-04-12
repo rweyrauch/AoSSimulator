@@ -18,40 +18,21 @@ namespace OssiarchBonereapers {
     bool MortisanSoulreaper::s_registered = false;
 
     Unit *MortisanSoulreaper::Create(const ParameterList &parameters) {
-        auto unit = new MortisanSoulreaper();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortisanCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_soulreaperArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->configure(lore);
-        return unit;
-    }
-
-    std::string MortisanSoulreaper::ValueToString(const Parameter &parameter) {
-        return OssiarchBonereaperBase::ValueToString(parameter);
-    }
-
-    int MortisanSoulreaper::EnumStringToInt(const std::string &enumString) {
-        return OssiarchBonereaperBase::EnumStringToInt(enumString);
+        return new MortisanSoulreaper(legion, lore, trait, artefact, general);
     }
 
     void MortisanSoulreaper::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     MortisanSoulreaper::Create,
-                    MortisanSoulreaper::ValueToString,
-                    MortisanSoulreaper::EnumStringToInt,
+                    OssiarchBonereaperBase::ValueToString,
+                    OssiarchBonereaperBase::EnumStringToInt,
                     MortisanSoulreaper::ComputePoints,
                     {
                             EnumParameter("Legion", g_legion[0], g_legion),
@@ -67,24 +48,25 @@ namespace OssiarchBonereapers {
         }
     }
 
-    MortisanSoulreaper::MortisanSoulreaper() :
-            OssiarchBonereaperBase("Mortisan Soulreaper", 5, g_wounds, 10, 4, false),
-            m_scythe(Weapon::Type::Melee, "Soulreaper Scythe", 2, 3, 3, 3, -1, 2) {
+    MortisanSoulreaper::MortisanSoulreaper(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            OssiarchBonereaperBase("Mortisan Soulreaper", 5, g_wounds, 10, 4, false) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULREAPER};
         m_weapons = {&m_scythe};
         m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void MortisanSoulreaper::configure(Lore lore) {
+        setLegion(legion);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         addModel(model);
 
-        m_lore = lore;
-
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
@@ -97,7 +79,7 @@ namespace OssiarchBonereapers {
         if ((hitRoll == 6) && (weapon->name() == m_scythe.name())) {
             return {0, 2};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls MortisanSoulreaper::toHitRerolls(const Weapon *weapon, const Unit *target) const {
@@ -105,7 +87,7 @@ namespace OssiarchBonereapers {
         if ((target->remainingModels() >= 5) && (weapon->name() == m_scythe.name())) {
             return Rerolls::Failed;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return OssiarchBonereaperBase::toHitRerolls(weapon, target);
     }
 
     int MortisanSoulreaper::ComputePoints(int /*numModels*/) {

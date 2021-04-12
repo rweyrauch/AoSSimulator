@@ -34,15 +34,9 @@ namespace OssiarchBonereapers {
     bool GothizzarHarvester::s_registered = false;
 
     Unit *GothizzarHarvester::Create(const ParameterList &parameters) {
-        auto unit = new GothizzarHarvester();
-
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, GothizzarHarvester::Sickles);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
-        unit->setLegion(legion);
-
-        unit->configure(option);
-        return unit;
+        return new GothizzarHarvester(legion, option);
     }
 
     std::string GothizzarHarvester::ValueToString(const Parameter &parameter) {
@@ -78,18 +72,14 @@ namespace OssiarchBonereapers {
         }
     }
 
-    GothizzarHarvester::GothizzarHarvester() :
-            OssiarchBonereaperBase("Gothizzar Harvester", 6, g_wounds, 10, 4, false),
-            m_deathsHeadMaw(Weapon::Type::Missile, "Death's Head Maw", 16, 4, 3, 3, -1, 1),
-            m_sickles(Weapon::Type::Melee, "Soulcleaver Sickles", 1, 6, 3, 3, -2, 2),
-            m_bludgeons(Weapon::Type::Melee, "Soulcrusher Bludgeons", 1, 6, 3, 3, -2, 2),
-            m_hoovesAndTail(Weapon::Type::Melee, "Ossified Hooves and Tail", 2, 4, 3, 2, -1, 2) {
+    GothizzarHarvester::GothizzarHarvester(Legion legion, WeaponOption option) :
+            OssiarchBonereaperBase("Gothizzar Harvester", 6, g_wounds, 10, 4, false) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MONSTER, GOTHIZZAR_HARVESTER};
         m_weapons = {&m_deathsHeadMaw, &m_sickles, &m_bludgeons, &m_hoovesAndTail};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void GothizzarHarvester::configure(WeaponOption option) {
+        setLegion(legion);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_deathsHeadMaw);
@@ -111,7 +101,7 @@ namespace OssiarchBonereapers {
         m_sickles.setAttacks(g_damageTable[damageIndex].m_attacks);
         m_bludgeons.setAttacks(g_damageTable[damageIndex].m_attacks);
 
-        Unit::onWounded();
+        OssiarchBonereaperBase::onWounded();
     }
 
     size_t GothizzarHarvester::getDamageTableIndex() const {
@@ -125,7 +115,7 @@ namespace OssiarchBonereapers {
     }
 
     int GothizzarHarvester::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = OssiarchBonereaperBase::toHitModifier(weapon, target);
 
         // Soulcleaver Sickles
         if ((weapon->name() == m_sickles.name()) && (target->remainingModels() >= 5)) {
@@ -140,11 +130,18 @@ namespace OssiarchBonereapers {
         if ((hitRoll == 6) && (weapon->name() == m_bludgeons.name())) {
             return {0, 2};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
     }
 
     int GothizzarHarvester::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void GothizzarHarvester::onRestore() {
+        OssiarchBonereaperBase::onRestore();
+
+        // Restore table-driven attributes
+        onWounded();
     }
 
 } // namespace OssiarchBonereapers

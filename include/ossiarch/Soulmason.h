@@ -17,28 +17,20 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        MortisanSoulmason();
+        MortisanSoulmason(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        MortisanSoulmason() = delete;
 
         ~MortisanSoulmason() override = default;
 
-    protected:
-
-        void configure(Lore lore);
-
     private:
 
-
-        Weapon m_staff,
-                m_claws;
-        Lore m_lore = Lore::Empower_Nadirite_Weapons;
+        Weapon  m_staff{Weapon::Type::Melee, "Soulmason's Staff", 2, 2, 4, 3, -1, RAND_D3},
+                m_claws{Weapon::Type::Melee, "Ossified Claws", 1, 2, 4, 3, -1, 1};
 
         static bool s_registered;
     };

@@ -30,11 +30,11 @@ namespace OssiarchBonereapers {
 
         static void Init();
 
-        KavalosDeathriders();
+        KavalosDeathriders(Legion legion, int numModels, WeaponOption option, bool necrophoros);
+
+        KavalosDeathriders() = delete;
 
         ~KavalosDeathriders() override = default;
-
-        bool configure(int numModels, WeaponOption option, bool necrophoros);
 
     protected:
 
@@ -48,11 +48,11 @@ namespace OssiarchBonereapers {
 
         bool m_necrophoros = false;
 
-        Weapon m_blade,
-                m_spear,
-                m_bladeHekatos,
-                m_spearHekatos,
-                m_hoovesAndTeeth;
+        Weapon  m_blade{Weapon::Type::Melee, "Nadirite Blade", 1, 3, 3, 4, -1, 1},
+                m_spear{Weapon::Type::Melee, "Nadirite Spear", 2, 3, 3, 4, 0, 1},
+                m_bladeHekatos{Weapon::Type::Melee, "Nadirite Blade", 1, 4, 3, 4, -1, 1},
+                m_spearHekatos{Weapon::Type::Melee, "Nadirite Spear", 2, 4, 3, 4, 0, 1},
+                m_hoovesAndTeeth{Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 3, 0, 1};
 
         static bool s_registered;
     };

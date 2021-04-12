@@ -17,29 +17,24 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static std::string ValueToString(const Parameter &parameter);
-
-        static int EnumStringToInt(const std::string &enumString);
-
         static int ComputePoints(int numModels);
 
         static void Init();
 
-        Vokmortian();
+        Vokmortian(Legion legion, Lore lore, bool isGeneral);
+
+        Vokmortian() = delete;
 
         ~Vokmortian() override;
 
     protected:
 
-        void configure(Lore lore);
-
         int grimWarning(const Unit *unit);
 
     private:
 
-        Weapon m_gazeOfDeath,
-                m_staff;
-        Lore m_lore = Lore::Empower_Nadirite_Weapons;
+        Weapon  m_gazeOfDeath{Weapon::Type::Missile, "Gaze of Death", 12, 1, 3, 2, -1, RAND_D3},
+                m_staff{Weapon::Type::Melee, "Staff of Retribution", 2, 2, 3, 3, -1, RAND_D3};
 
         lsignal::slot m_connection;
 
