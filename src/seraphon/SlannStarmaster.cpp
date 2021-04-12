@@ -20,18 +20,20 @@ namespace Seraphon {
 
     bool SlannStarmaster::s_registered = false;
 
-    SlannStarmaster::SlannStarmaster() :
-            SeraphonBase("Slann Starmaster", 5, g_wounds, 9, 4, true),
-            m_lightning(Weapon::Type::Melee, "Azure Lightning", 3, 6, 4, 3, -1, 1) {
+    SlannStarmaster::SlannStarmaster(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Slann Starmaster", 5, g_wounds, 9, 4, true) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER};
         m_weapons = {&m_lightning};
         m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 3;
         m_totalUnbinds = 3;
-    }
 
-    void SlannStarmaster::configure(Lore lore) {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_lightning);
         addModel(model);
@@ -47,25 +49,14 @@ namespace Seraphon {
     }
 
     Unit *SlannStarmaster::Create(const ParameterList &parameters) {
-        auto unit = new SlannStarmaster();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialDomination[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_slannCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_treasuresOfTheOldOnes[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new SlannStarmaster(way, constellation, lore, trait, artefact, general);
     }
 
     void SlannStarmaster::Init() {

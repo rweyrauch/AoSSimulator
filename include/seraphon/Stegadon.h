@@ -30,13 +30,13 @@ namespace Seraphon {
 
         static void Init();
 
-        Stegadon();
+        Stegadon(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, bool skinkChief, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        Stegadon() = default;
 
         ~Stegadon() override;
 
     protected:
-
-        void configure(WeaponOption option, bool skinkChief);
 
         void onWounded() override;
 
@@ -56,13 +56,13 @@ namespace Seraphon {
 
         bool m_skinkChief = false;
 
-        Weapon m_javelins,
-                m_bow,
-                m_throwers,
-                m_warspear,
-                m_horns,
-                m_jaws,
-                m_stomps;
+        Weapon  m_javelins{Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1},
+                m_bow{Weapon::Type::Missile, "Skystreak Bow", 24, 3, 3, 3, -1, 3},
+                m_throwers{Weapon::Type::Missile, "Sunfire Throwers", 8, 1, 0, 0, 0, 0},
+                m_warspear{Weapon::Type::Melee, "Meteoric Warspear", 1, 3, 3, 3, -1, 1},
+                m_horns{Weapon::Type::Melee, "Massive Horns", 2, 2, 3, 3, -1, 4},
+                m_jaws{Weapon::Type::Melee, "Grinding Jaws", 1, 2, 3, 3, -1, 2},
+                m_stomps{Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2};
 
         lsignal::slot m_steadfastSlot;
 

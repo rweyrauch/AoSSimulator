@@ -8,6 +8,7 @@
 
 #include <seraphon/SkinkPriest.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "SeraphonPrivate.h"
 
 namespace Seraphon {
@@ -17,16 +18,17 @@ namespace Seraphon {
 
     bool SkinkPriest::s_registered = false;
 
-    SkinkPriest::SkinkPriest() :
-            SeraphonBase("Skink Priest", 8, g_wounds, 6, 5, false),
-            m_starbolt(Weapon::Type::Missile, "Starbolt", 18, 2, 4, 3, -1, 1),
-            m_staff(Weapon::Type::Melee, "Star-stone Staff", 1, 1, 4, 4, -1, 1) {
+    SkinkPriest::SkinkPriest(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Skink Priest", 8, g_wounds, 6, 5, false) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, PRIEST};
         m_weapons = {&m_starbolt, &m_staff};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void SkinkPriest::configure() {
+        setWayOfTheSeraphon(way, constellation);
+        setArtefact(artefact);
+        setCommandTrait(trait);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_starbolt);
         model->addMeleeWeapon(&m_staff);
@@ -36,23 +38,13 @@ namespace Seraphon {
     }
 
     Unit *SkinkPriest::Create(const ParameterList &parameters) {
-        auto unit = new SkinkPriest();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new SkinkPriest(way, constellation, trait, artefact, general);
     }
 
     void SkinkPriest::Init() {
@@ -78,6 +70,27 @@ namespace Seraphon {
 
     int SkinkPriest::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void SkinkPriest::onStartHero(PlayerId player) {
+        SeraphonBase::onStartHero(player);
+
+        // Star-stone Staff
+        if (owningPlayer() == player) {
+            auto skinks = Board::Instance()->getUnitsWithKeyword(owningPlayer(), SKINK);
+            for (auto skink : skinks) {
+                if ((skink->remainingModels() > 0) && (distanceTo(skink) < 12.0)) {
+                    if (Dice::RollD6() >= 3) {
+                        const Duration duration{Phase::Hero, m_battleRound+1, owningPlayer()};
+                        skink->buffMovement(MovementRule::Run_And_Shoot, true, duration);
+                        skink->buffMovement(MovementRule::Run_And_Charge, true, duration);
+                        skink->buffModifier(Attribute::To_Save_Missile, 1, duration);
+                        skink->buffModifier(Attribute::To_Save_Melee, 1, duration);
+                    }
+                    break;
+                }
+            }
+        }
     }
 
 } //namespace Seraphon

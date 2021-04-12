@@ -21,11 +21,11 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusGuard();
+        SaurusGuard(WayOfTheSeraphon way, Constellation constellation, int numModels, bool iconBearer, bool wardrum);
+
+        SaurusGuard() = delete;
 
         ~SaurusGuard() override;
-
-        bool configure(int numModels, bool iconBearer, bool wardrum);
 
     protected:
 
@@ -35,9 +35,9 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_celestitePolearm,
-                m_celestitePolearmAlpha,
-                m_jaws;
+        Weapon  m_celestitePolearm{Weapon::Type::Melee, "Celestite Polearm", 1, 2, 3, 3, -1, 1},
+                m_celestitePolearmAlpha{Weapon::Type::Melee, "Celestite Polearm", 1, 3, 3, 3, -1, 1},
+                m_jaws{Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1};
 
         lsignal::slot m_connection;
 

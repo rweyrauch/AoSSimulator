@@ -21,20 +21,20 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusSunblood();
+        SaurusSunblood(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SaurusSunblood() = delete;
 
         ~SaurusSunblood() override = default;
 
     protected:
 
-        void configure();
-
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
     private:
 
-        Weapon m_celestiteWarmace,
-                m_jaws;
+        Weapon  m_celestiteWarmace{Weapon::Type::Melee, "Celestite Warmace", 1, 6, 3, 3, -1, 1},
+                m_jaws{Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1};
 
         static bool s_registered;
     };

@@ -17,19 +17,19 @@ namespace Seraphon {
 
     bool SaurusScarVeteranOnColdOne::s_registered = false;
 
-    SaurusScarVeteranOnColdOne::SaurusScarVeteranOnColdOne() :
-            SeraphonBase("Saurus Scar-Veteran on Cold One", 8, g_wounds, 8, 4, false),
-            m_warpick(Weapon::Type::Melee, "Celestite Warpick", 1, 3, 3, 3, -1, 1),
-            m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1),
-            m_coldOneJaws(Weapon::Type::Melee, "Snapping Jaws", 1, 2, 3, 4, 0, 1) {
+    SaurusScarVeteranOnColdOne::SaurusScarVeteranOnColdOne(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Saurus Scar-Veteran on Cold One", 8, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, COLD_ONE, SCAR_VETERAN};
         m_weapons = {&m_warpick, &m_jaws, &m_coldOneJaws};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_coldOneJaws.setMount(true);
-    }
 
-    void SaurusScarVeteranOnColdOne::configure() {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpick);
         model->addMeleeWeapon(&m_jaws);
@@ -40,23 +40,13 @@ namespace Seraphon {
     }
 
     Unit *SaurusScarVeteranOnColdOne::Create(const ParameterList &parameters) {
-        auto unit = new SaurusScarVeteranOnColdOne();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new SaurusScarVeteranOnColdOne(way, constellation, trait, artefact, general);
     }
 
     void SaurusScarVeteranOnColdOne::Init() {
@@ -86,7 +76,7 @@ namespace Seraphon {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_warpick.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int SaurusScarVeteranOnColdOne::ComputePoints(int /*numModels*/) {

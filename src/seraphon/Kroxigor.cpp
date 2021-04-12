@@ -21,23 +21,12 @@ namespace Seraphon {
 
     bool Kroxigor::s_registered = false;
 
-    Kroxigor::Kroxigor() :
-            SeraphonBase("Kroxigor", 8, g_wounds, 7, 4, false),
-            m_maul(Weapon::Type::Melee, "Drakebite Maul", 2, 4, 4, 3, -1, 2),
-            m_hammer(Weapon::Type::Melee, "Moon Hammer", 2, 0, 4, 3, -1, 2),
-            m_jaws(Weapon::Type::Melee, "Vice-like Jaws", 1, 1, 4, 3, -1, 1) {
+    Kroxigor::Kroxigor(WayOfTheSeraphon way, Constellation constellation, int numModels, int numMoonhammers) :
+            SeraphonBase("Kroxigor", 8, g_wounds, 7, 4, false) {
         m_keywords = {ORDER, SERAPHON, KROXIGOR};
         m_weapons = {&m_maul, &m_hammer, &m_jaws};
-    }
 
-    bool Kroxigor::configure(int numModels, int numMoonhammers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxHammers = numModels / 3;
-        if (numMoonhammers > maxHammers) {
-            return false;
-        }
+        setWayOfTheSeraphon(way, constellation);
 
         for (auto i = 0; i < numMoonhammers; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -53,25 +42,15 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Kroxigor::Create(const ParameterList &parameters) {
-        auto unit = new Kroxigor();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numHammers = GetIntParam("Moon Hammers", parameters, g_minUnitSize / 3);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels, numHammers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Kroxigor(way, constellation, numModels, numHammers);
     }
 
     void Kroxigor::Init() {

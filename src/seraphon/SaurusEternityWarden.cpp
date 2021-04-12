@@ -17,16 +17,17 @@ namespace Seraphon {
 
     bool SaurusEternityWarden::s_registered = false;
 
-    SaurusEternityWarden::SaurusEternityWarden() :
-            SeraphonBase("Saurus Eternity Warden", 5, g_wounds, 8, 3, false),
-            m_mace(Weapon::Type::Melee, "Star-stone Mace", 1, 3, 3, 3, -1, 1),
-            m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
+    SaurusEternityWarden::SaurusEternityWarden(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Saurus Eternity Warden", 5, g_wounds, 8, 3, false) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, ETERNITY_WARDEN};
         m_weapons = {&m_mace, &m_jaws};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void SaurusEternityWarden::configure() {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_mace);
         model->addMeleeWeapon(&m_jaws);
@@ -36,23 +37,13 @@ namespace Seraphon {
     }
 
     Unit *SaurusEternityWarden::Create(const ParameterList &parameters) {
-        auto unit = new SaurusEternityWarden();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new SaurusEternityWarden(way, constellation, trait, artefact, general);
     }
 
     void SaurusEternityWarden::Init() {

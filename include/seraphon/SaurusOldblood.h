@@ -32,23 +32,23 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusOldblood();
+        SaurusOldblood(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SaurusOldblood() = delete;
 
         ~SaurusOldblood() override = default;
 
     protected:
 
-        void configure(WeaponOption option);
-
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
     private:
 
-        Weapon m_maul,
-                m_warblade,
-                m_warspear,
-                m_greatblade,
-                m_jaws;
+        Weapon  m_maul{Weapon::Type::Melee, "Celestite Maul", 1, 3, 4, 3, -1, RAND_D3},
+                m_warblade{Weapon::Type::Melee, "Celestite Warblade", 1, 5, 3, 3, 0, 1},
+                m_warspear{Weapon::Type::Melee, "Celestite Warspear", 2, 4, 3, 3, 0, 1},
+                m_greatblade{Weapon::Type::Melee, "Celestite Greatblade", 1, 3, 4, 3, -1, 2},
+                m_jaws{Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1};
 
         static bool s_registered;
     };

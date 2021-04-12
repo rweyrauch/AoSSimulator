@@ -21,13 +21,11 @@ namespace Seraphon {
 
         static void Init();
 
-        LordKroak();
+        LordKroak(WayOfTheSeraphon way, Constellation constellation, Lore lore, bool isGeneral);
 
         ~LordKroak() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
@@ -39,7 +37,7 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_barrier;
+        Weapon m_barrier{Weapon::Type::Melee, "Azyrite Force Barrier", 3, 0, 3, 3, -1, 1};
 
         static bool s_registered;
     };

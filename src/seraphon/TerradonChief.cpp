@@ -17,18 +17,19 @@ namespace Seraphon {
 
     bool TerradonChief::s_registered = false;
 
-    TerradonChief::TerradonChief() :
-            SeraphonBase("Terradon Chief", 16, g_wounds, 6, 6, true),
-            m_skyblade(Weapon::Type::Melee, "Skyblade", 1, 3, 3, 4, -1, 1),
-            m_jaws(Weapon::Type::Melee, "Razor-sharp Jaws", 1, 4, 4, 4, 0, 1) {
+    TerradonChief::TerradonChief(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Terradon Chief", 16, g_wounds, 6, 6, true) {
         m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, HERO, TERRADON_CHIEF};
         m_weapons = {&m_skyblade, &m_jaws};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_jaws.setMount(true);
-    }
 
-    void TerradonChief::configure() {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         // Add the Alpha
         auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_skyblade);
@@ -39,23 +40,13 @@ namespace Seraphon {
     }
 
     Unit *TerradonChief::Create(const ParameterList &parameters) {
-        auto unit = new TerradonChief();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new TerradonChief(way, constellation, trait, artefact, general);
     }
 
     void TerradonChief::Init() {

@@ -30,21 +30,19 @@ namespace Seraphon {
 
         static void Init();
 
-        TerradonRiders();
+        TerradonRiders(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption option);
+
+        TerradonRiders() = delete;
 
         ~TerradonRiders() override = default;
 
-        bool configure(int numModels, WeaponOption option);
-
-    protected:
-
     private:
 
-        Weapon m_javelin,
-                m_javelinLeader,
-                m_bolas,
-                m_bolasLeader,
-                m_jaws;
+        Weapon  m_javelin{Weapon::Type::Missile, "Starstrike Javelin", 12, 2, 4, 3, 0, 1},
+                m_javelinLeader{Weapon::Type::Missile, "Starstrike Javelin", 12, 3, 4, 3, 0, 1},
+                m_bolas{Weapon::Type::Missile, "Sunleech Bolas", 6, RAND_D6, 4, 3, 0, 1},
+                m_bolasLeader{Weapon::Type::Missile, "Sunleech Bolas", 6, RAND_D6, 4, 3, 0, 1},
+                m_jaws{Weapon::Type::Melee, "Razor-sharp Jaws", 1, 4, 4, 4, 0, 1};
 
         static bool s_registered;
     };

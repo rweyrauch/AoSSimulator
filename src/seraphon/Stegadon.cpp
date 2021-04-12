@@ -37,15 +37,8 @@ namespace Seraphon {
 
     bool Stegadon::s_registered = false;
 
-    Stegadon::Stegadon() :
-            SeraphonBase("Stegadon", 8, g_wounds, 5, 4, false),
-            m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
-            m_bow(Weapon::Type::Missile, "Skystreak Bow", 24, 3, 3, 3, -1, 3),
-            m_throwers(Weapon::Type::Missile, "Sunfire Throwers", 8, 1, 0, 0, 0, 0),
-            m_warspear(Weapon::Type::Melee, "Meteoric Warspear", 1, 3, 3, 3, -1, 1),
-            m_horns(Weapon::Type::Melee, "Massive Horns", 2, 2, 3, 3, -1, 4),
-            m_jaws(Weapon::Type::Melee, "Grinding Jaws", 1, 2, 3, 3, -1, 2),
-            m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2) {
+    Stegadon::Stegadon(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, bool skinkChief, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Stegadon", 8, g_wounds, 5, 4, false) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, STEGADON};
         m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_warspear, &m_horns, &m_jaws, &m_stomps};
         m_battleFieldRole = Role::Behemoth;
@@ -54,13 +47,12 @@ namespace Seraphon {
         m_horns.setMount(true);
         m_stomps.setMount(true);
         s_globalBattleshockReroll.connect(this, &Stegadon::steadfastMajestyBraveryReroll, &m_steadfastSlot);
-    }
 
-    Stegadon::~Stegadon() {
-        m_steadfastSlot.disconnect();
-    }
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void Stegadon::configure(WeaponOption option, bool skinkChief) {
         m_skinkChief = skinkChief;
 
         auto model = new Model(g_basesize, wounds());
@@ -83,7 +75,13 @@ namespace Seraphon {
         if (m_skinkChief) m_points = POINTS_PER_UNIT_WITH_CHIEF;
     }
 
+    Stegadon::~Stegadon() {
+        m_steadfastSlot.disconnect();
+    }
+
     void Stegadon::onRestore() {
+        SeraphonBase::onRestore();
+
         // Reset table-drive attributes
         onWounded();
 
@@ -91,19 +89,15 @@ namespace Seraphon {
     }
 
     Unit *Stegadon::Create(const ParameterList &parameters) {
-        auto unit = new Stegadon();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Skystreak_Bow);
         bool chief = GetBoolParam("Skink Chief", parameters, false);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
 
-        unit->configure(option, chief);
-        return unit;
+        return new Stegadon(way, constellation, option, chief, trait, artefact, general);
     }
 
     void Stegadon::Init() {
@@ -119,6 +113,8 @@ namespace Seraphon {
                             BoolParameter("Skink Chief"),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation),
+                            EnumParameter("Command Trait", g_skinkCommandTrait[0], g_skinkCommandTrait),
+                            EnumParameter("Artefact", g_vestmentsOfThePriesthood[0], g_vestmentsOfThePriesthood),
                             BoolParameter("General")
                     },
                     ORDER,
@@ -138,6 +134,7 @@ namespace Seraphon {
     }
 
     void Stegadon::onWounded() {
+        SeraphonBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_stomps.setAttacks(g_damageTable[damageIndex].m_stompAttacks);
         m_horns.setDamage(g_damageTable[damageIndex].m_hornDamage);
@@ -183,7 +180,7 @@ namespace Seraphon {
     }
 
     void Stegadon::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        SeraphonBase::onStartCombat(player);
 
         m_armouredCrestAttacker = nullptr;
 
@@ -199,7 +196,7 @@ namespace Seraphon {
     }
 
     int Stegadon::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetSaveModifier(weapon, attacker);
+        auto mod = SeraphonBase::targetSaveModifier(weapon, attacker);
 
         if (attacker == m_armouredCrestAttacker) mod++;
 

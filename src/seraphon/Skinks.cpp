@@ -20,22 +20,12 @@ namespace Seraphon {
 
     bool Skinks::s_registered = false;
 
-    Skinks::Skinks() :
-            SeraphonBase("Skinks", 8, g_wounds, 5, 6, false),
-            m_javelin(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
-            m_boltspitter(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
-            m_dagger(Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1),
-            m_daggerAlpha(Weapon::Type::Melee, "Celestite Dagger", 1, 2, 5, 5, 0, 1),
-            m_club(Weapon::Type::Melee, "Moonstone Club", 1, 1, 4, 4, 0, 1),
-            m_clubAlpha(Weapon::Type::Melee, "Moonstone Club", 1, 2, 4, 4, 0, 1) {
+    Skinks::Skinks(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons) :
+            SeraphonBase("Skinks", 8, g_wounds, 5, 6, false) {
         m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINKS};
         m_weapons = {&m_javelin, &m_boltspitter, &m_dagger, &m_daggerAlpha, &m_club, &m_clubAlpha};
-    }
 
-    bool Skinks::configure(int numModels, WeaponOption weapons) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setWayOfTheSeraphon(way, constellation);
 
         m_weaponOption = weapons;
 
@@ -84,25 +74,15 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Skinks::Create(const ParameterList &parameters) {
-        auto unit = new Skinks();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Boltspitters_Daggers_And_Bucklers);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Skinks(way, constellation, numModels, weapons);
     }
 
     void Skinks::Init() {

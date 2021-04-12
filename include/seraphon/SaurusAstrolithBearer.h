@@ -21,13 +21,11 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusAstrolithBearer();
+        SaurusAstrolithBearer(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SaurusAstrolithBearer() = delete;
 
         ~SaurusAstrolithBearer() override = default;
-
-    protected:
-
-        void configure();
 
     private:
 

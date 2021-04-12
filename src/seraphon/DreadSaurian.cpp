@@ -34,23 +34,16 @@ namespace Seraphon {
                     {6,  2, 5}
             };
 
-    DreadSaurian::DreadSaurian() :
-            SeraphonBase("Dread Saurian", 10, g_wounds, 8, 4, false),
-            m_gargantuanJaws(Weapon::Type::Melee, "Gargantuan Jaws", 2, 3, 4, 3, -2, 6),
-            m_rakingClaws(Weapon::Type::Melee, "Raking Claws", 2, 6, 2, 3, -1, 2),
-            m_armouredTail(Weapon::Type::Melee, "Armoured Tail", 2, 1, 4, 3, -1, RAND_D6) {
+    DreadSaurian::DreadSaurian(WayOfTheSeraphon way, Constellation constellation) :
+            SeraphonBase("Dread Saurian", 10, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, SERAPHON, MONSTER, TOTEM, DREAD_SAURIAN};
         m_weapons = {&m_gargantuanJaws, &m_rakingClaws, &m_armouredTail};
         m_battleFieldRole = Role::Behemoth;
 
+        setWayOfTheSeraphon(way, constellation);
+
         s_globalBraveryMod.connect(this, &DreadSaurian::terror, &m_terrorSlot);
-    }
 
-    DreadSaurian::~DreadSaurian() {
-        m_terrorSlot.disconnect();
-    }
-
-    void DreadSaurian::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gargantuanJaws);
         model->addMeleeWeapon(&m_rakingClaws);
@@ -60,20 +53,21 @@ namespace Seraphon {
         m_points = g_pointsPerUnit;
     }
 
+    DreadSaurian::~DreadSaurian() {
+        m_terrorSlot.disconnect();
+    }
+
     void DreadSaurian::onRestore() {
+        SeraphonBase::onRestore();
+
         // Reset table-drive attributes
         onWounded();
     }
 
     Unit *DreadSaurian::Create(const ParameterList &parameters) {
-        auto unit = new DreadSaurian();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
-        unit->configure();
-        return unit;
+        return new DreadSaurian(way, constellation);
     }
 
     void DreadSaurian::Init() {
@@ -96,6 +90,7 @@ namespace Seraphon {
     }
 
     void DreadSaurian::onWounded() {
+        SeraphonBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_rakingClaws.setToHit(g_damageTable[damageIndex].m_clawsToHit);
         m_gargantuanJaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);

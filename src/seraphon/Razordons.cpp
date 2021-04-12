@@ -22,19 +22,12 @@ namespace Seraphon {
 
     bool Razordons::s_registered = false;
 
-    Razordons::Razordons() :
-            SeraphonBase("Razordons", 8, g_wounds, 5, 4, false),
-            m_spikes(Weapon::Type::Missile, "Volley of Spikes", 18, RAND_2D6, 3, 4, 0, 1),
-            m_tail(Weapon::Type::Melee, "Spiked Tail", 1, 3, 3, 3, -2, 2),
-            m_goad(Weapon::Type::Melee, "Celestite Goad", 1, 1, 4, 5, 0, 1) {
+    Razordons::Razordons(WayOfTheSeraphon way, Constellation constellation, int numModels) :
+            SeraphonBase("Razordons", 8, g_wounds, 5, 4, false) {
         m_keywords = {ORDER, SERAPHON, SKINK, RAZORDON, HUNTING_PACK};
         m_weapons = {&m_spikes, &m_tail, &m_goad};
-    }
 
-    bool Razordons::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setWayOfTheSeraphon(way, constellation);
 
         auto razordon = new Model(BASESIZE_RAZORDON, WOUNDS_RAZORDON);
         razordon->addMissileWeapon(&m_spikes);
@@ -48,24 +41,14 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Razordons::Create(const ParameterList &parameters) {
-        auto unit = new Razordons();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Razordons(way, constellation, numModels);
     }
 
     void Razordons::Init() {

@@ -37,12 +37,8 @@ namespace Seraphon {
 
     bool EngineOfTheGods::s_registered = false;
 
-    EngineOfTheGods::EngineOfTheGods() :
-            SeraphonBase("Engine of the Gods", 8, g_wounds, 6, 4, false),
-            m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
-            m_horns(Weapon::Type::Melee, "Massive Horns", 2, 2, 3, 3, -1, 4),
-            m_jaws(Weapon::Type::Melee, "Grinding Jaws", 1, 2, 3, 3, -1, 2),
-            m_stomps(Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2) {
+    EngineOfTheGods::EngineOfTheGods(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Engine of the Gods", 8, g_wounds, 6, 4, false) {
         m_keywords = {ORDER, SERAPHON, STEGADON, SKINK, MONSTER, HERO, ENGINE_OF_THE_GODS};
         m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -50,18 +46,16 @@ namespace Seraphon {
         m_jaws.setMount(true);
         m_stomps.setMount(true);
         m_horns.setMount(true);
+
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalBattleshockReroll.connect(this, &EngineOfTheGods::steadfastMajestyBraveryReroll, &m_steadfastSlot);
         s_globalChargeReroll.connect(this, &EngineOfTheGods::cosmicEngineChargeReroll, &m_cosmicEngineChargeSlot);
         s_globalAttackMod.connect(this, &EngineOfTheGods::cosmicEngineAttackMod, &m_cosmicEngineAttackSlot);
-    }
 
-    EngineOfTheGods::~EngineOfTheGods() {
-        m_steadfastSlot.disconnect();
-        m_cosmicEngineChargeSlot.disconnect();
-        m_cosmicEngineAttackSlot.disconnect();
-    }
-
-    void EngineOfTheGods::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_javelins);
         model->addMeleeWeapon(&m_horns);
@@ -72,7 +66,15 @@ namespace Seraphon {
         m_points = ComputePoints(1);
     }
 
+    EngineOfTheGods::~EngineOfTheGods() {
+        m_steadfastSlot.disconnect();
+        m_cosmicEngineChargeSlot.disconnect();
+        m_cosmicEngineAttackSlot.disconnect();
+    }
+
     void EngineOfTheGods::onRestore() {
+        SeraphonBase::onRestore();
+
         // Reset table-drive attributes
         onWounded();
 
@@ -80,23 +82,13 @@ namespace Seraphon {
     }
 
     Unit *EngineOfTheGods::Create(const ParameterList &parameters) {
-        auto unit = new EngineOfTheGods();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new EngineOfTheGods(way, constellation, trait, artefact, general);
     }
 
     void EngineOfTheGods::Init() {
@@ -122,6 +114,7 @@ namespace Seraphon {
     }
 
     void EngineOfTheGods::onWounded() {
+        SeraphonBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_stomps.setAttacks(g_damageTable[damageIndex].m_stompAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -224,7 +217,7 @@ namespace Seraphon {
     }
 
     void EngineOfTheGods::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        SeraphonBase::onStartCombat(player);
 
         m_armouredCrestAttacker = nullptr;
 
@@ -240,7 +233,7 @@ namespace Seraphon {
     }
 
     int EngineOfTheGods::targetSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetSaveModifier(weapon, attacker);
+        auto mod = SeraphonBase::targetSaveModifier(weapon, attacker);
 
         if (attacker == m_armouredCrestAttacker) mod++;
 

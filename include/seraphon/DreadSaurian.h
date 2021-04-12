@@ -21,13 +21,13 @@ namespace Seraphon {
 
         static void Init();
 
-        DreadSaurian();
+        DreadSaurian(WayOfTheSeraphon way, Constellation constellation);
+
+        DreadSaurian() = delete;
 
         ~DreadSaurian() override;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
@@ -43,9 +43,9 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_gargantuanJaws,
-                m_rakingClaws,
-                m_armouredTail;
+        Weapon  m_gargantuanJaws{Weapon::Type::Melee, "Gargantuan Jaws", 2, 3, 4, 3, -2, 6},
+                m_rakingClaws{Weapon::Type::Melee, "Raking Claws", 2, 6, 2, 3, -1, 2},
+                m_armouredTail{Weapon::Type::Melee, "Armoured Tail", 2, 1, 4, 3, -1, RAND_D6};
 
         lsignal::slot m_terrorSlot;
 

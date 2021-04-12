@@ -49,19 +49,20 @@ namespace Seraphon {
 
     bool SkinkStarseer::s_registered = false;
 
-    SkinkStarseer::SkinkStarseer() :
-            SeraphonBase("Skink Starseer", 5, g_wounds, 6, 5, true),
-            m_astralBolt(Weapon::Type::Missile, "Astral Bolt", 18, 2, 3, 3, -1, RAND_D3),
-            m_staff(Weapon::Type::Melee, "Astromancer's Staff", 2, 2, 4, 3, -1, RAND_D3) {
+    SkinkStarseer::SkinkStarseer(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Skink Starseer", 5, g_wounds, 6, 5, true) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARSEER};
         m_weapons = {&m_astralBolt, &m_staff};
         m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void SkinkStarseer::configure(Lore lore) {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_astralBolt);
         model->addMeleeWeapon(&m_staff);
@@ -76,25 +77,14 @@ namespace Seraphon {
     }
 
     Unit *SkinkStarseer::Create(const ParameterList &parameters) {
-        auto unit = new SkinkStarseer();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialManipulation[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new SkinkStarseer(way, constellation, lore, trait, artefact, general);
     }
 
     void SkinkStarseer::Init() {

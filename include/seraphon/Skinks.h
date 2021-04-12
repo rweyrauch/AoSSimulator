@@ -32,11 +32,11 @@ namespace Seraphon {
 
         static void Init();
 
-        Skinks();
+        Skinks(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons);
+
+        Skinks() = delete;
 
         ~Skinks() override = default;
-
-        bool configure(int numModels, WeaponOption weapons);
 
     protected:
 
@@ -48,12 +48,12 @@ namespace Seraphon {
 
         WeaponOption m_weaponOption = Boltspitters_Daggers_And_Bucklers;
 
-        Weapon m_javelin,
-                m_boltspitter,
-                m_dagger,
-                m_daggerAlpha,
-                m_club,
-                m_clubAlpha;
+        Weapon  m_javelin{Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1},
+                m_boltspitter{Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1},
+                m_dagger{Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1},
+                m_daggerAlpha{Weapon::Type::Melee, "Celestite Dagger", 1, 2, 5, 5, 0, 1},
+                m_club{Weapon::Type::Melee, "Moonstone Club", 1, 1, 4, 4, 0, 1},
+                m_clubAlpha{Weapon::Type::Melee, "Moonstone Club", 1, 2, 4, 4, 0, 1};
 
         static bool s_registered;
     };

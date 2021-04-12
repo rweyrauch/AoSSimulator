@@ -21,18 +21,16 @@ namespace Seraphon {
 
         static void Init();
 
-        TerradonChief();
+        TerradonChief(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        TerradonChief() = delete;
 
         ~TerradonChief() override = default;
 
-    protected:
-
-        void configure();
-
     private:
 
-        Weapon m_skyblade,
-                m_jaws;
+        Weapon  m_skyblade{Weapon::Type::Melee, "Skyblade", 1, 3, 3, 4, -1, 1},
+                m_jaws{Weapon::Type::Melee, "Razor-sharp Jaws", 1, 4, 4, 4, 0, 1};
 
         static bool s_registered;
     };

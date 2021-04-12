@@ -21,19 +21,17 @@ namespace Seraphon {
 
         static void Init();
 
-        Salamanders();
+        Salamanders(WayOfTheSeraphon way, Constellation constellation, int numModels);
+
+        Salamanders() = delete;
 
         ~Salamanders() override = default;
 
-        bool configure(int numModels);
-
-    protected:
-
     private:
 
-        Weapon m_streamOfFire,
-                m_jaws,
-                m_goad;
+        Weapon  m_streamOfFire{Weapon::Type::Missile, "Stream of Fire", 12, 4, 3, 3, -2, RAND_D3},
+                m_jaws{Weapon::Type::Melee, "Burning Jaws", 1, 3, 3, 3, -2, RAND_D3},
+                m_goad{Weapon::Type::Melee, "Celestite Goad", 1, 1, 4, 5, 0, 1};
 
         static bool s_registered;
     };

@@ -21,20 +21,20 @@ namespace Seraphon {
 
         static void Init();
 
-        SkinkStarseer();
+        SkinkStarseer(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SkinkStarseer() = delete;
 
         ~SkinkStarseer() override = default;
 
     protected:
 
-        void configure(Lore lore);
-
         void onStartHero(PlayerId player) override;
 
     private:
 
-        Weapon m_astralBolt,
-                m_staff;
+        Weapon  m_astralBolt{Weapon::Type::Missile, "Astral Bolt", 18, 2, 3, 3, -1, RAND_D3},
+                m_staff{Weapon::Type::Melee, "Astromancer's Staff", 2, 2, 4, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

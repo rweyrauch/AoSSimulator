@@ -21,11 +21,11 @@ namespace Seraphon {
 
         static void Init();
 
-        ChameleonSkinks();
+        ChameleonSkinks(WayOfTheSeraphon way, Constellation constellation, int numModels);
+
+        ChameleonSkinks() = delete;
 
         ~ChameleonSkinks() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -33,8 +33,8 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_dartpipe,
-                m_dagger;
+        Weapon  m_dartpipe{Weapon::Type::Missile, "Dartpipe", 16, 2, 3, 4, 0, 1},
+                m_dagger{Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1};
 
         static bool s_registered;
     };

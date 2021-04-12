@@ -21,11 +21,11 @@ namespace Seraphon {
 
         static void Init();
 
-        Razordons();
+        Razordons(WayOfTheSeraphon way, Constellation constellation, int numModels);
+
+        Razordons() = delete;
 
         ~Razordons() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -33,9 +33,9 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_spikes,
-                m_tail,
-                m_goad;
+        Weapon  m_spikes{Weapon::Type::Missile, "Volley of Spikes", 18, RAND_2D6, 3, 4, 0, 1},
+                m_tail{Weapon::Type::Melee, "Spiked Tail", 1, 3, 3, 3, -2, 2},
+                m_goad{Weapon::Type::Melee, "Celestite Goad", 1, 1, 4, 5, 0, 1};
 
         static bool s_registered;
     };

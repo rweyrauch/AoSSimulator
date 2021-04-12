@@ -21,13 +21,13 @@ namespace Seraphon {
 
         static void Init();
 
-        SlannStarmaster();
+        SlannStarmaster(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SlannStarmaster() = delete;
 
         ~SlannStarmaster() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 
@@ -35,7 +35,7 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_lightning;
+        Weapon m_lightning{Weapon::Type::Melee, "Azure Lightning", 3, 6, 4, 3, -1, 1};
 
         static bool s_registered;
     };

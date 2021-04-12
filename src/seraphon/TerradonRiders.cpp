@@ -20,23 +20,14 @@ namespace Seraphon {
 
     bool TerradonRiders::s_registered = false;
 
-    TerradonRiders::TerradonRiders() :
-            SeraphonBase("Terradon Riders", 16, g_wounds, 5, 6, true),
-            m_javelin(Weapon::Type::Missile, "Starstrike Javelin", 12, 2, 4, 3, 0, 1),
-            m_javelinLeader(Weapon::Type::Missile, "Starstrike Javelin", 12, 3, 4, 3, 0, 1),
-            m_bolas(Weapon::Type::Missile, "Sunleech Bolas", 6, RAND_D6, 4, 3, 0, 1),
-            m_bolasLeader(Weapon::Type::Missile, "Sunleech Bolas", 6, RAND_D6, 4, 3, 0, 1),
-            m_jaws(Weapon::Type::Melee, "Razor-sharp Jaws", 1, 4, 4, 4, 0, 1) {
+    TerradonRiders::TerradonRiders(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption option) :
+            SeraphonBase("Terradon Riders", 16, g_wounds, 5, 6, true) {
         m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, TERRADON_RIDERS};
         m_weapons = {&m_javelin, &m_javelinLeader, &m_bolas, &m_bolasLeader, &m_jaws};
         m_hasMount = true;
         m_jaws.setMount(true);
-    }
 
-    bool TerradonRiders::configure(int numModels, WeaponOption option) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setWayOfTheSeraphon(way, constellation);
 
         // Add the Alpha
         auto alpha = new Model(g_basesize, wounds());
@@ -61,25 +52,15 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *TerradonRiders::Create(const ParameterList &parameters) {
-        auto unit = new TerradonRiders();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto option = (WeaponOption) GetEnumParam("Weapons", parameters, Starstrike_Javelins);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels, option);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new TerradonRiders(way, constellation, numModels, option);
     }
 
     void TerradonRiders::Init() {

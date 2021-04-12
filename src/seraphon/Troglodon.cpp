@@ -38,12 +38,8 @@ namespace Seraphon {
 
     bool Troglodon::s_registered = false;
 
-    Troglodon::Troglodon() :
-            SeraphonBase("Skink Oracle on Troglodon", 10, g_wounds, 6, 4, false),
-            m_spittle(Weapon::Type::Missile, "Noxious Spittle", 18, RAND_D3, 3, 3, 0, 2),
-            m_jaws(Weapon::Type::Melee, "Venomous Jaws", 2, 3, 4, 2, 0, 2),
-            m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 4, 3, 0, 2),
-            m_rod(Weapon::Type::Melee, "Divining Rod", 1, 2, 4, 4, -1, RAND_D3) {
+    Troglodon::Troglodon(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Skink Oracle on Troglodon", 10, g_wounds, 6, 4, false) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, HERO, WIZARD, TROGLODON, ORACLE};
         m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -54,14 +50,13 @@ namespace Seraphon {
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &Troglodon::terror, &m_connection);
-    }
 
-    Troglodon::~Troglodon() {
-        m_connection.disconnect();
-    }
-
-    void Troglodon::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spittle);
         model->addMeleeWeapon(&m_jaws);
@@ -77,31 +72,25 @@ namespace Seraphon {
         m_points = ComputePoints(1);
     }
 
+    Troglodon::~Troglodon() {
+        m_connection.disconnect();
+    }
+
     void Troglodon::onRestore() {
+        SeraphonBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
     Unit *Troglodon::Create(const ParameterList &parameters) {
-        auto unit = new Troglodon();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialManipulation[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new Troglodon(way, constellation, lore, trait, artefact, general);
     }
 
     void Troglodon::Init() {

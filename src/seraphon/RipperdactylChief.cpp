@@ -17,19 +17,19 @@ namespace Seraphon {
 
     bool RipperdactylChief::s_registered = false;
 
-    RipperdactylChief::RipperdactylChief() :
-            SeraphonBase("Ripperdactyl Chief", 12, g_wounds, 6, 5, true),
-            m_skyblade(Weapon::Type::Melee, "Skyblade", 1, 4, 3, 4, -1, 1),
-            m_jaws(Weapon::Type::Melee, "Tearing Jaws", 1, 4, 4, 3, 0, 1) {
+    RipperdactylChief::RipperdactylChief(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Ripperdactyl Chief", 12, g_wounds, 6, 5, true) {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, HERO, RIPPERDACTYL_CHIEF};
         m_weapons = {&m_skyblade, &m_jaws};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_jaws.setMount(true);
-    }
 
-    void RipperdactylChief::configure() {
-        // Add the Alpha
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto alpha = new Model(g_basesize, wounds());
         alpha->addMeleeWeapon(&m_skyblade);
         alpha->addMeleeWeapon(&m_jaws);
@@ -39,23 +39,12 @@ namespace Seraphon {
     }
 
     Unit *RipperdactylChief::Create(const ParameterList &parameters) {
-        auto unit = new RipperdactylChief();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new RipperdactylChief(way, constellation, trait, artefact, general);
     }
 
     void RipperdactylChief::Init() {
@@ -85,7 +74,7 @@ namespace Seraphon {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_jaws.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int RipperdactylChief::ComputePoints(int /*numModels*/) {

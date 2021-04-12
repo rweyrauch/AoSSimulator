@@ -35,13 +35,8 @@ namespace Seraphon {
 
     bool SaurusScarVeteranOnCarnosaur::s_registered = false;
 
-    SaurusScarVeteranOnCarnosaur::SaurusScarVeteranOnCarnosaur() :
-            SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, g_wounds, 8, 4, false),
-            m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 6, 3, 3, 0, 1),
-            m_warspear(Weapon::Type::Melee, "Celestite Warspear", 2, 6, 3, 3, 0, 1),
-            m_greatblade(Weapon::Type::Melee, "Celestite Greatblade", 1, 3, 4, 3, -1, 2),
-            m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 3, 3, 0, 2),
-            m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5) {
+    SaurusScarVeteranOnCarnosaur::SaurusScarVeteranOnCarnosaur(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, SCAR_VETERAN};
         m_weapons = {&m_warblade, &m_warspear, &m_greatblade, &m_forelimbs, &m_jaws};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -49,13 +44,12 @@ namespace Seraphon {
         m_forelimbs.setMount(true);
         m_jaws.setMount(true);
         s_globalBraveryMod.connect(this, &SaurusScarVeteranOnCarnosaur::terror, &m_connection);
-    }
 
-    SaurusScarVeteranOnCarnosaur::~SaurusScarVeteranOnCarnosaur() {
-        m_connection.disconnect();
-    }
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void SaurusScarVeteranOnCarnosaur::configure(WeaponOption option) {
         auto model = new Model(g_basesize, wounds());
         if (option == Celestite_Warblade) model->addMeleeWeapon(&m_warblade);
         else if (option == Celestite_Warspear) model->addMeleeWeapon(&m_warspear);
@@ -67,30 +61,25 @@ namespace Seraphon {
         m_points = ComputePoints(1);
     }
 
+    SaurusScarVeteranOnCarnosaur::~SaurusScarVeteranOnCarnosaur() {
+        m_connection.disconnect();
+    }
+
     void SaurusScarVeteranOnCarnosaur::onRestore() {
+        SeraphonBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
     Unit *SaurusScarVeteranOnCarnosaur::Create(const ParameterList &parameters) {
-        auto unit = new SaurusScarVeteranOnCarnosaur();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Celestite_Warblade);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(option);
-        return unit;
+        return new SaurusScarVeteranOnCarnosaur(way, constellation, option, trait, artefact, general);
     }
 
     std::string SaurusScarVeteranOnCarnosaur::ValueToString(const Parameter &parameter) {
@@ -134,6 +123,7 @@ namespace Seraphon {
     }
 
     void SaurusScarVeteranOnCarnosaur::onWounded() {
+        SeraphonBase::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_jaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
         m_forelimbs.setToHit(g_damageTable[damageIndex].m_forelimbToHit);
@@ -159,7 +149,7 @@ namespace Seraphon {
              (weapon->name() == m_greatblade.name()))) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int SaurusScarVeteranOnCarnosaur::toHitModifier(const Weapon *weapon, const Unit *target) const {

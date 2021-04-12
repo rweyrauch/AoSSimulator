@@ -30,11 +30,11 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusWarriors();
+        SaurusWarriors(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, bool iconBearer, bool wardrum);
+
+        SaurusWarriors() = delete;
 
         ~SaurusWarriors() override;
-
-        bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool wardrum);
 
     protected:
 
@@ -48,11 +48,11 @@ namespace Seraphon {
 
         WeaponOption m_weaponOption = Celestite_Club;
 
-        Weapon m_celestiteClub,
-                m_celestiteClubAlpha,
-                m_celestiteSpear,
-                m_celestiteSpearAlpha,
-                m_jaws;
+        Weapon  m_celestiteClub{Weapon::Type::Melee, "Celestite Club", 1, 1, 4, 3, -1, 1},
+                m_celestiteClubAlpha{Weapon::Type::Melee, "Celestite Club", 1, 2, 4, 3, -1, 1},
+                m_celestiteSpear{Weapon::Type::Melee, "Celestite Spear", 2, 1, 4, 3, 0, 1},
+                m_celestiteSpearAlpha{Weapon::Type::Melee, "Celestite Spear", 2, 2, 4, 3, 0, 1},
+                m_jaws{Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1};
 
         lsignal::slot m_connection;
 

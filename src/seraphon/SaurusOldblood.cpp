@@ -17,19 +17,17 @@ namespace Seraphon {
 
     bool SaurusOldblood::s_registered = false;
 
-    SaurusOldblood::SaurusOldblood() :
-            SeraphonBase("Saurus Oldblood", 5, g_wounds, 8, 3, false),
-            m_maul(Weapon::Type::Melee, "Celestite Maul", 1, 3, 4, 3, -1, RAND_D3),
-            m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 5, 3, 3, 0, 1),
-            m_warspear(Weapon::Type::Melee, "Celestite Warspear", 2, 4, 3, 3, 0, 1),
-            m_greatblade(Weapon::Type::Melee, "Celestite Greatblade", 1, 3, 4, 3, -1, 2),
-            m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
+    SaurusOldblood::SaurusOldblood(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Saurus Oldblood", 5, g_wounds, 8, 3, false) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, OLDBLOOD};
         m_weapons = {&m_maul, &m_warblade, &m_warspear, &m_greatblade, &m_jaws};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void SaurusOldblood::configure(WeaponOption option) {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         if (option == Celestite_Maul) {
             model->addMeleeWeapon(&m_maul);
@@ -47,24 +45,14 @@ namespace Seraphon {
     }
 
     Unit *SaurusOldblood::Create(const ParameterList &parameters) {
-        auto unit = new SaurusOldblood();
         auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Celestite_Warblade);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(option);
-        return unit;
+        return new SaurusOldblood(way, constellation, option, trait, artefact, general);
     }
 
     void SaurusOldblood::Init() {
@@ -119,7 +107,7 @@ namespace Seraphon {
              (weapon->name() == m_maul.name()))) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int SaurusOldblood::ComputePoints(int /*numModels*/) {

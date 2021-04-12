@@ -21,11 +21,11 @@ namespace Seraphon {
 
         static void Init();
 
-        RipperdactylRiders();
+        RipperdactylRiders(WayOfTheSeraphon way, Constellation constellation, int numModels);
+
+        RipperdactylRiders() = delete;
 
         ~RipperdactylRiders() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -39,9 +39,9 @@ namespace Seraphon {
 
         mutable bool m_usedToad = false;
 
-        Weapon m_spear,
-                m_spearAlpha,
-                m_jaws;
+        Weapon  m_spear{Weapon::Type::Melee, "Moonstone Warspear", 1, 1, 4, 4, 0, 1},
+                m_spearAlpha{Weapon::Type::Melee, "Moonstone Warspear", 1, 2, 4, 4, 0, 1},
+                m_jaws{Weapon::Type::Melee, "Tearing Jaws", 1, 3, 4, 3, 0, 1};
 
         static bool s_registered;
     };

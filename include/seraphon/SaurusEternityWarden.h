@@ -21,20 +21,20 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusEternityWarden();
+        SaurusEternityWarden(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SaurusEternityWarden() = delete;
 
         ~SaurusEternityWarden() override = default;
 
     protected:
 
-        void configure();
-
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
     private:
 
-        Weapon m_mace,
-                m_jaws;
+        Weapon  m_mace{Weapon::Type::Melee, "Star-stone Mace", 1, 3, 3, 3, -1, 1},
+                m_jaws{Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1};
 
         static bool s_registered;
     };

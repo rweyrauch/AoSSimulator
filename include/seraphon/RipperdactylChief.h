@@ -21,20 +21,20 @@ namespace Seraphon {
 
         static void Init();
 
-        RipperdactylChief();
+        RipperdactylChief(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        RipperdactylChief() = delete;
 
         ~RipperdactylChief() override = default;
 
     protected:
 
-        void configure();
-
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
     private:
 
-        Weapon m_skyblade,
-                m_jaws;
+        Weapon  m_skyblade{Weapon::Type::Melee, "Skyblade", 1, 4, 3, 4, -1, 1},
+                m_jaws{Weapon::Type::Melee, "Tearing Jaws", 1, 4, 4, 3, 0, 1};
 
         static bool s_registered;
     };

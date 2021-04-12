@@ -44,19 +44,20 @@ namespace Seraphon {
 
     bool SkinkStarpriest::s_registered = false;
 
-    SkinkStarpriest::SkinkStarpriest() :
-            SeraphonBase("Skink Starpriest", 8, g_wounds, 6, 5, false),
-            m_venombolt(Weapon::Type::Missile, "Venombolt", 18, 2, 3, 3, -1, 1),
-            m_staff(Weapon::Type::Melee, "Serpent Staff", 1, 2, 4, 3, -1, 1) {
+    SkinkStarpriest::SkinkStarpriest(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Skink Starpriest", 8, g_wounds, 6, 5, false) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARPRIEST};
         m_weapons = {&m_venombolt, &m_staff};
         m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void SkinkStarpriest::configure(Lore lore) {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_venombolt);
         model->addMeleeWeapon(&m_staff);
@@ -71,25 +72,14 @@ namespace Seraphon {
     }
 
     Unit *SkinkStarpriest::Create(const ParameterList &parameters) {
-        auto unit = new SkinkStarpriest();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialManipulation[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skinkCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_vestmentsOfThePriesthood[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure(lore);
-        return unit;
+        return new SkinkStarpriest(way, constellation, lore, trait, artefact, general);
     }
 
     void SkinkStarpriest::Init() {

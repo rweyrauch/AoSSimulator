@@ -21,21 +21,21 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusScarVeteranOnColdOne();
+        SaurusScarVeteranOnColdOne(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SaurusScarVeteranOnColdOne() = delete;
 
         ~SaurusScarVeteranOnColdOne() override = default;
 
     protected:
 
-        void configure();
-
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
     private:
 
-        Weapon m_warpick,
-                m_jaws,
-                m_coldOneJaws;
+        Weapon  m_warpick{Weapon::Type::Melee, "Celestite Warpick", 1, 3, 3, 3, -1, 1},
+                m_jaws{Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1},
+                m_coldOneJaws{Weapon::Type::Melee, "Snapping Jaws", 1, 2, 3, 4, 0, 1};
 
         static bool s_registered;
     };

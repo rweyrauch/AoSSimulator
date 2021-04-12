@@ -21,18 +21,20 @@ namespace Seraphon {
 
         static void Init();
 
-        SkinkPriest();
+        SkinkPriest(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SkinkPriest() = delete;
 
         ~SkinkPriest() override = default;
 
     protected:
 
-        void configure();
+        void onStartHero(PlayerId player) override;
 
     private:
 
-        Weapon m_starbolt,
-                m_staff;
+        Weapon  m_starbolt{Weapon::Type::Missile, "Starbolt", 18, 2, 4, 3, -1, 1},
+                m_staff{Weapon::Type::Melee, "Star-stone Staff", 1, 1, 4, 4, -1, 1};
 
         static bool s_registered;
     };
@@ -40,7 +42,7 @@ namespace Seraphon {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Star-stone Staff                 TODO
+// Star-stone Staff                 Yes
 // Herald of the Old Ones           TODO
 //
 

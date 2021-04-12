@@ -21,13 +21,13 @@ namespace Seraphon {
 
         static void Init();
 
-        EngineOfTheGods();
+        EngineOfTheGods(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        EngineOfTheGods() = delete;
 
         ~EngineOfTheGods() override;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
@@ -47,15 +47,14 @@ namespace Seraphon {
 
         Rerolls cosmicEngineChargeReroll(const Unit *unit);
 
-        int cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon,
-                                  const Unit *target);
+        int cosmicEngineAttackMod(const Unit *attacker, const Model *attackingModel, const Weapon *weapon, const Unit *target);
 
     private:
 
-        Weapon m_javelins,
-                m_horns,
-                m_jaws,
-                m_stomps;
+        Weapon  m_javelins{Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1},
+                m_horns{Weapon::Type::Melee, "Massive Horns", 2, 2, 3, 3, -1, 4},
+                m_jaws{Weapon::Type::Melee, "Grinding Jaws", 1, 2, 3, 3, -1, 2},
+                m_stomps{Weapon::Type::Melee, "Crushing Stomps", 1, 5, 3, 3, -1, 2};
 
         lsignal::slot m_steadfastSlot,
                 m_cosmicEngineChargeSlot,

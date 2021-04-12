@@ -55,18 +55,18 @@ namespace Seraphon {
 
     bool LordKroak::s_registered = false;
 
-    LordKroak::LordKroak() :
-            SeraphonBase("Lord Kroak", 5, g_wounds, 9, 4, true),
-            m_barrier(Weapon::Type::Melee, "Azyrite Force Barrier", 3, 0, 3, 3, -1, 1) {
+    LordKroak::LordKroak(WayOfTheSeraphon way, Constellation constellation, Lore lore, bool isGeneral) :
+            SeraphonBase("Lord Kroak", 5, g_wounds, 9, 4, true) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER, LORD_KROAK};
         m_weapons = {&m_barrier};
         m_battleFieldRole = Role::Leader;
 
         m_totalSpells = 4;
         m_totalUnbinds = 4;
-    }
 
-    void LordKroak::configure(Lore lore) {
+        setWayOfTheSeraphon(way, constellation);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_barrier);
         addModel(model);
@@ -84,19 +84,12 @@ namespace Seraphon {
     }
 
     Unit *LordKroak::Create(const ParameterList &parameters) {
-        auto unit = new LordKroak();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfCelestialDomination[0]);
 
-        unit->configure(lore);
-        return unit;
+        return new LordKroak(way, constellation, lore, general);
     }
 
     void LordKroak::Init() {

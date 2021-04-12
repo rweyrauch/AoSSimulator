@@ -20,21 +20,14 @@ namespace Seraphon {
 
     bool RipperdactylRiders::s_registered = false;
 
-    RipperdactylRiders::RipperdactylRiders() :
-            SeraphonBase("Ripperdactyl Riders", 12, g_wounds, 5, 5, true),
-            m_spear(Weapon::Type::Melee, "Moonstone Warspear", 1, 1, 4, 4, 0, 1),
-            m_spearAlpha(Weapon::Type::Melee, "Moonstone Warspear", 1, 2, 4, 4, 0, 1),
-            m_jaws(Weapon::Type::Melee, "Tearing Jaws", 1, 3, 4, 3, 0, 1) {
+    RipperdactylRiders::RipperdactylRiders(WayOfTheSeraphon way, Constellation constellation, int numModels) :
+            SeraphonBase("Ripperdactyl Riders", 12, g_wounds, 5, 5, true) {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, RIPPERDACTYL_RIDERS};
         m_weapons = {&m_spear, &m_spearAlpha, &m_jaws};
         m_hasMount = true;
         m_jaws.setMount(true);
-    }
 
-    bool RipperdactylRiders::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setWayOfTheSeraphon(way, constellation);
 
         // Add the Alpha
         auto alpha = new Model(g_basesize, wounds());
@@ -51,24 +44,14 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *RipperdactylRiders::Create(const ParameterList &parameters) {
-        auto unit = new RipperdactylRiders();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new RipperdactylRiders(way, constellation, numModels);
     }
 
     void RipperdactylRiders::Init() {
@@ -104,7 +87,7 @@ namespace Seraphon {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_jaws.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     Rerolls RipperdactylRiders::toHitRerolls(const Weapon *weapon, const Unit *target) const {

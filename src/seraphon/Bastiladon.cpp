@@ -34,20 +34,16 @@ namespace Seraphon {
 
     bool Bastiladon::s_registered = false;
 
-    Bastiladon::Bastiladon() :
-            SeraphonBase("Bastiladon", 5, g_wounds, 6, 1, false),
-            m_beam(Weapon::Type::Missile, "Solar Engine", 24, 9, 4, 3, -1, 2),
-            m_javelins(Weapon::Type::Missile, "Meteoric Javelins", 8, 4, 5, 4, 0, 1),
-            m_ark(Weapon::Type::Melee, "Ark of Sotek", 3, 18, 4, 6, 0, 1),
-            m_tail(Weapon::Type::Melee, "Bludgeoning Tail", 2, 3, 3, 3, -1, RAND_D3) {
+    Bastiladon::Bastiladon(WayOfTheSeraphon way, Constellation constellation) :
+            SeraphonBase("Bastiladon", 5, g_wounds, 6, 1, false) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, BASTILADON};
         m_weapons = {&m_beam, &m_javelins, &m_ark, &m_tail};
         m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_tail.setMount(true);
-    }
 
-    void Bastiladon::configure() {
+        setWayOfTheSeraphon(way, constellation);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_beam);
         model->addMissileWeapon(&m_javelins);
@@ -59,14 +55,10 @@ namespace Seraphon {
     }
 
     Unit *Bastiladon::Create(const ParameterList &parameters) {
-        auto unit = new Bastiladon();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        unit->configure();
-        return unit;
+        return new Bastiladon(way, constellation);
     }
 
     void Bastiladon::Init() {
@@ -88,6 +80,8 @@ namespace Seraphon {
     }
 
     void Bastiladon::onWounded() {
+        SeraphonBase::onWounded();
+
         const auto damageIndex = getDamageTableIndex();
         m_beam.setAttacks(g_damageTable[damageIndex].m_engineAttacs);
         m_ark.setAttacks(g_damageTable[damageIndex].m_arkAttacks);

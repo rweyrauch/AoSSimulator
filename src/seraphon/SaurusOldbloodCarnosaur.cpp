@@ -35,12 +35,8 @@ namespace Seraphon {
 
     bool SaurusOldbloodOnCarnosaur::s_registered = false;
 
-    SaurusOldbloodOnCarnosaur::SaurusOldbloodOnCarnosaur() :
-            SeraphonBase("Saurus Oldblood on Carnosaur", 10, g_wounds, 8, 4, false),
-            m_gauntlet(Weapon::Type::Missile, "Sunbolt Gauntlet", 18, RAND_D6, 3, 4, -1, 1),
-            m_spear(Weapon::Type::Melee, "Sunstone Spear", 2, 3, 3, 3, -1, 3),
-            m_forelimbs(Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 3, 3, 0, 2),
-            m_jaws(Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5) {
+    SaurusOldbloodOnCarnosaur::SaurusOldbloodOnCarnosaur(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Saurus Oldblood on Carnosaur", 10, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, OLDBLOOD};
         m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -48,13 +44,12 @@ namespace Seraphon {
         m_jaws.setMount(true);
         m_forelimbs.setMount(true);
         s_globalBraveryMod.connect(this, &SaurusOldbloodOnCarnosaur::terror, &m_connection);
-    }
 
-    SaurusOldbloodOnCarnosaur::~SaurusOldbloodOnCarnosaur() {
-        m_connection.disconnect();
-    }
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void SaurusOldbloodOnCarnosaur::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_gauntlet);
         model->addMeleeWeapon(&m_spear);
@@ -65,29 +60,24 @@ namespace Seraphon {
         m_points = ComputePoints(1);
     }
 
+    SaurusOldbloodOnCarnosaur::~SaurusOldbloodOnCarnosaur() {
+        m_connection.disconnect();
+    }
+
     void SaurusOldbloodOnCarnosaur::onRestore() {
+        SeraphonBase::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
 
     Unit *SaurusOldbloodOnCarnosaur::Create(const ParameterList &parameters) {
-        auto unit = new SaurusOldbloodOnCarnosaur();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new SaurusOldbloodOnCarnosaur(way, constellation, trait, artefact, general);
     }
 
     void SaurusOldbloodOnCarnosaur::Init() {
@@ -113,6 +103,7 @@ namespace Seraphon {
     }
 
     void SaurusOldbloodOnCarnosaur::onWounded() {
+        SeraphonBase::onWounded();
         const int damageIndex = getDamageTableIndex();
         m_jaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
         m_forelimbs.setToHit(g_damageTable[damageIndex].m_forelimbToHit);
@@ -134,7 +125,7 @@ namespace Seraphon {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_spear.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int SaurusOldbloodOnCarnosaur::toHitModifier(const Weapon *weapon, const Unit *target) const {

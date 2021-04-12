@@ -31,13 +31,13 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusScarVeteranOnCarnosaur();
+        SaurusScarVeteranOnCarnosaur(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SaurusScarVeteranOnCarnosaur() = delete;
 
         ~SaurusScarVeteranOnCarnosaur() override;
 
     protected:
-
-        void configure(WeaponOption option);
 
         void onWounded() override;
 
@@ -55,11 +55,11 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_warblade,
-                m_warspear,
-                m_greatblade,
-                m_forelimbs,
-                m_jaws;
+        Weapon  m_warblade{Weapon::Type::Melee, "Celestite Warblade", 1, 6, 3, 3, 0, 1},
+                m_warspear{Weapon::Type::Melee, "Celestite Warspear", 2, 6, 3, 3, 0, 1},
+                m_greatblade{Weapon::Type::Melee, "Celestite Greatblade", 1, 3, 4, 3, -1, 2},
+                m_forelimbs{Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 3, 3, 0, 2},
+                m_jaws{Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5};
 
         lsignal::slot m_connection;
 

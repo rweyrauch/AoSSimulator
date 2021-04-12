@@ -21,11 +21,11 @@ namespace Seraphon {
 
         static void Init();
 
-        Kroxigor();
+        Kroxigor(WayOfTheSeraphon way, Constellation constellation, int numModels, int numMoonhammers);
+
+        Kroxigor() = delete;
 
         ~Kroxigor() override = default;
-
-        bool configure(int numModels, int numMoonhammers);
 
     protected:
 
@@ -37,9 +37,9 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_maul,
-                m_hammer,
-                m_jaws;
+        Weapon  m_maul{Weapon::Type::Melee, "Drakebite Maul", 2, 4, 4, 3, -1, 2},
+                m_hammer{Weapon::Type::Melee, "Moon Hammer", 2, 0, 4, 3, -1, 2},
+                m_jaws{Weapon::Type::Melee, "Vice-like Jaws", 1, 1, 4, 3, -1, 1};
 
         static bool s_registered;
     };

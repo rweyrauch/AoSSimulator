@@ -17,16 +17,17 @@ namespace Seraphon {
 
     bool SaurusSunblood::s_registered = false;
 
-    SaurusSunblood::SaurusSunblood() :
-            SeraphonBase("Saurus Sunblood", 5, g_wounds, 8, 3, false),
-            m_celestiteWarmace(Weapon::Type::Melee, "Celestite Warmace", 1, 6, 3, 3, -1, 1),
-            m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
+    SaurusSunblood::SaurusSunblood(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SeraphonBase("Saurus Sunblood", 5, g_wounds, 8, 3, false) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, SUNBLOOD};
         m_weapons = {&m_celestiteWarmace, &m_jaws};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void SaurusSunblood::configure() {
+        setWayOfTheSeraphon(way, constellation);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_celestiteWarmace);
         model->addMeleeWeapon(&m_jaws);
@@ -36,23 +37,13 @@ namespace Seraphon {
     }
 
     Unit *SaurusSunblood::Create(const ParameterList &parameters) {
-        auto unit = new SaurusSunblood();
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_saurusCommandTrait[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_celestialRelicsOfTheWarrior[0]);
-
-        unit->setArtefact(artefact);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new SaurusSunblood(way, constellation, trait, artefact, general);
     }
 
     void SaurusSunblood::Init() {
@@ -81,7 +72,7 @@ namespace Seraphon {
         if (unmodifiedHitRoll == 6) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int SaurusSunblood::ComputePoints(int /*numModels*/) {

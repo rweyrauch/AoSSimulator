@@ -20,25 +20,14 @@ namespace Seraphon {
 
     bool SaurusGuard::s_registered = false;
 
-    SaurusGuard::SaurusGuard() :
-            SeraphonBase("Saurus Guard", 5, g_wounds, 8, 4, false),
-            m_celestitePolearm(Weapon::Type::Melee, "Celestite Polearm", 1, 2, 3, 3, -1, 1),
-            m_celestitePolearmAlpha(Weapon::Type::Melee, "Celestite Polearm", 1, 3, 3, 3, -1, 1),
-            m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1) {
+    SaurusGuard::SaurusGuard(WayOfTheSeraphon way, Constellation constellation, int numModels, bool iconBearer, bool wardrum) :
+            SeraphonBase("Saurus Guard", 5, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_GUARD};
         m_weapons = {&m_celestitePolearm, &m_celestitePolearmAlpha, &m_jaws};
 
+        setWayOfTheSeraphon(way, constellation);
+
         s_globalBraveryMod.connect(this, &SaurusGuard::stardrakeIcon, &m_connection);
-    }
-
-    SaurusGuard::~SaurusGuard() {
-        m_connection.disconnect();
-    }
-
-    bool SaurusGuard::configure(int numModels, bool iconBearer, bool wardrum) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Add the Alpha
         auto alpha = new Model(g_basesize, wounds());
@@ -62,26 +51,20 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    SaurusGuard::~SaurusGuard() {
+        m_connection.disconnect();
     }
 
     Unit *SaurusGuard::Create(const ParameterList &parameters) {
-        auto unit = new SaurusGuard();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Stardrake Icon", parameters, false);
         bool wardrum = GetBoolParam("Wardrum", parameters, false);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels, iconBearer, wardrum);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SaurusGuard(way, constellation, numModels, iconBearer, wardrum);
     }
 
     void SaurusGuard::Init() {

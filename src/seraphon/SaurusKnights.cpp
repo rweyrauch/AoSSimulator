@@ -20,30 +20,16 @@ namespace Seraphon {
 
     bool SaurusKnights::s_registered = false;
 
-    SaurusKnights::SaurusKnights() :
-            SeraphonBase("Saurus Knights", 8, g_wounds, 8, 4, false),
-            m_celestiteBlade(Weapon::Type::Melee, "Celestite Blade", 1, 2, 3, 3, 0, 1),
-            m_celestiteBladeAlpha(Weapon::Type::Melee, "Celestite Blade", 1, 3, 3, 3, 0, 1),
-            m_celestiteSpear(Weapon::Type::Melee, "Celestite Warspear", 1, 2, 4, 3, 0, 1),
-            m_celestiteSpearAlpha(Weapon::Type::Melee, "Celestite Warspear", 1, 3, 4, 3, 0, 1),
-            m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1),
-            m_coldOneJaws(Weapon::Type::Melee, "Snapping Jaws", 1, 2, 3, 4, 0, 1) {
+    SaurusKnights::SaurusKnights(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, bool iconBearer, bool wardrum) :
+            SeraphonBase("Saurus Knights", 8, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, SERAPHON, SAURUS, COLD_ONE, SAURUS_KNIGHTS};
         m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws,
                      &m_coldOneJaws};
         m_hasMount = true;
         m_coldOneJaws.setMount(true);
         s_globalBraveryMod.connect(this, &SaurusKnights::stardrakeIcon, &m_connection);
-    }
 
-    SaurusKnights::~SaurusKnights() {
-        m_connection.disconnect();
-    }
-
-    bool SaurusKnights::configure(int numModels, SaurusKnights::WeaponOption weapons, bool iconBearer, bool wardrum) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setWayOfTheSeraphon(way, constellation);
 
         m_weaponOption = weapons;
 
@@ -79,27 +65,21 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    SaurusKnights::~SaurusKnights() {
+        m_connection.disconnect();
     }
 
     Unit *SaurusKnights::Create(const ParameterList &parameters) {
-        auto unit = new SaurusKnights();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Celestite_Blade);
         bool iconBearer = GetBoolParam("Stardrake Icon", parameters, false);
         bool wardrum = GetBoolParam("Wardrum", parameters, false);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels, weapons, iconBearer, wardrum);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SaurusKnights(way, constellation, numModels, weapons, iconBearer, wardrum);
     }
 
     std::string SaurusKnights::ValueToString(const Parameter &parameter) {

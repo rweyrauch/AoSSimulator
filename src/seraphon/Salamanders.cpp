@@ -22,20 +22,12 @@ namespace Seraphon {
 
     bool Salamanders::s_registered = false;
 
-    Salamanders::Salamanders() :
-            SeraphonBase("Salamanders", 8, g_wounds, 5, 4, false),
-            m_streamOfFire(Weapon::Type::Missile, "Stream of Fire", 12, 4, 3, 3, -2, RAND_D3),
-            m_jaws(Weapon::Type::Melee, "Burning Jaws", 1, 3, 3, 3, -2, RAND_D3),
-            m_goad(Weapon::Type::Melee, "Celestite Goad", 1, 1, 4, 5, 0, 1) {
+    Salamanders::Salamanders(WayOfTheSeraphon way, Constellation constellation, int numModels) :
+            SeraphonBase("Salamanders", 8, g_wounds, 5, 4, false) {
         m_keywords = {ORDER, SERAPHON, SKINK, SALAMANDER, HUNTING_PACK};
         m_weapons = {&m_streamOfFire, &m_jaws, &m_goad};
-    }
 
-    bool Salamanders::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-
+        setWayOfTheSeraphon(way, constellation);
         auto salamander = new Model(BASESIZE_SALAMANDER, WOUNDS_SALAMANDER);
         salamander->addMissileWeapon(&m_streamOfFire);
         salamander->addMeleeWeapon(&m_jaws);
@@ -48,24 +40,14 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *Salamanders::Create(const ParameterList &parameters) {
-        auto unit = new Salamanders();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Salamanders(way, constellation, numModels);
     }
 
     void Salamanders::Init() {
@@ -77,8 +59,6 @@ namespace Seraphon {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            BoolParameter("Stardrake Icon"),
-                            BoolParameter("Wardrum"),
                             EnumParameter("Way of the Seraphon", g_wayOfTheSeraphon[0], g_wayOfTheSeraphon),
                             EnumParameter("Constellation", g_constellation[0], g_constellation)
                     },

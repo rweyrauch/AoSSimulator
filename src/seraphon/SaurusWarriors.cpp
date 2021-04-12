@@ -20,28 +20,15 @@ namespace Seraphon {
 
     bool SaurusWarriors::s_registered = false;
 
-    SaurusWarriors::SaurusWarriors() :
-            SeraphonBase("Saurus Warriors", 5, g_wounds, 8, 4, false),
-            m_celestiteClub(Weapon::Type::Melee, "Celestite Club", 1, 1, 4, 3, -1, 1),
-            m_celestiteClubAlpha(Weapon::Type::Melee, "Celestite Club", 1, 2, 4, 3, -1, 1),
-            m_celestiteSpear(Weapon::Type::Melee, "Celestite Spear", 2, 1, 4, 3, 0, 1),
-            m_celestiteSpearAlpha(Weapon::Type::Melee, "Celestite Spear", 2, 2, 4, 3, 0, 1),
-            m_jaws(Weapon::Type::Melee, "Powerful Jaws", 1, 1, 5, 4, 0, 1) {
+    SaurusWarriors::SaurusWarriors(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, bool iconBearer, bool wardrum) :
+            SeraphonBase("Saurus Warriors", 5, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_WARRIORS};
         m_weapons = {&m_celestiteClub, &m_celestiteClubAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws};
         m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &SaurusWarriors::stardrakeIcon, &m_connection);
-    }
 
-    SaurusWarriors::~SaurusWarriors() {
-        m_connection.disconnect();
-    }
-
-    bool SaurusWarriors::configure(int numModels, SaurusWarriors::WeaponOption weapons, bool iconBearer, bool wardrum) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setWayOfTheSeraphon(way, constellation);
 
         m_weaponOption = weapons;
 
@@ -75,27 +62,21 @@ namespace Seraphon {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    SaurusWarriors::~SaurusWarriors() {
+        m_connection.disconnect();
     }
 
     Unit *SaurusWarriors::Create(const ParameterList &parameters) {
-        auto unit = new SaurusWarriors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Celestite_Club);
         bool iconBearer = GetBoolParam("Stardrake Icon", parameters, false);
         bool wardrum = GetBoolParam("Wardrum", parameters, false);
-
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
-        unit->setWayOfTheSeraphon(way, constellation);
 
-        bool ok = unit->configure(numModels, weapons, iconBearer, wardrum);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SaurusWarriors(way, constellation, numModels, weapons, iconBearer, wardrum);
     }
 
     std::string SaurusWarriors::ValueToString(const Parameter &parameter) {

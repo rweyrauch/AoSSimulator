@@ -21,13 +21,13 @@ namespace Seraphon {
 
         static void Init();
 
-        SaurusOldbloodOnCarnosaur();
+        SaurusOldbloodOnCarnosaur(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        SaurusOldbloodOnCarnosaur() = delete;
 
         ~SaurusOldbloodOnCarnosaur() override;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
@@ -43,10 +43,10 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_gauntlet,
-                m_spear,
-                m_forelimbs,
-                m_jaws;
+        Weapon  m_gauntlet{Weapon::Type::Missile, "Sunbolt Gauntlet", 18, RAND_D6, 3, 4, -1, 1},
+                m_spear{Weapon::Type::Melee, "Sunstone Spear", 2, 3, 3, 3, -1, 3},
+                m_forelimbs{Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 3, 3, 0, 2},
+                m_jaws{Weapon::Type::Melee, "Massive Jaws", 2, 3, 4, 3, -1, 5};
 
         lsignal::slot m_connection;
 

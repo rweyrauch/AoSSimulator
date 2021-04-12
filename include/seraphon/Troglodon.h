@@ -21,13 +21,13 @@ namespace Seraphon {
 
         static void Init();
 
-        Troglodon();
+        Troglodon(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        Troglodon() = delete;
 
         ~Troglodon() override;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 
@@ -45,10 +45,10 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_spittle,
-                m_jaws,
-                m_forelimbs,
-                m_rod;
+        Weapon  m_spittle{Weapon::Type::Missile, "Noxious Spittle", 18, RAND_D3, 3, 3, 0, 2},
+                m_jaws{Weapon::Type::Melee, "Venomous Jaws", 2, 3, 4, 2, 0, 2},
+                m_forelimbs{Weapon::Type::Melee, "Clawed Forelimbs", 2, 2, 4, 3, 0, 2},
+                m_rod{Weapon::Type::Melee, "Divining Rod", 1, 2, 4, 4, -1, RAND_D3};
 
         lsignal::slot m_connection;
 

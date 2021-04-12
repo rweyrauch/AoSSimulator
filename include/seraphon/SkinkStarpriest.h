@@ -21,7 +21,7 @@ namespace Seraphon {
 
         static void Init();
 
-        SkinkStarpriest();
+        SkinkStarpriest(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SkinkStarpriest() override = default;
 
@@ -33,8 +33,8 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_venombolt,
-                m_staff;
+        Weapon  m_venombolt{Weapon::Type::Missile, "Venombolt", 18, 2, 3, 3, -1, 1},
+                m_staff{Weapon::Type::Melee, "Serpent Staff", 1, 2, 4, 3, -1, 1};
 
         static bool s_registered;
     };
