@@ -44,6 +44,6 @@ namespace Seraphon {
 // Abilities                    Implemented
 // -------------------------------------------
 // Cold Ferocity                    Yes
-// Saurian Savagery                 TODO
+// Saurian Savagery                 Yes
 
 } // namespace Seraphon

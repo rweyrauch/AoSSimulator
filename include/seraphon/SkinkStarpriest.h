@@ -23,11 +23,11 @@ namespace Seraphon {
 
         SkinkStarpriest(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
+        SkinkStarpriest() = delete;
+
         ~SkinkStarpriest() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 
@@ -43,7 +43,7 @@ namespace Seraphon {
 // Abilities                    Implemented
 // -------------------------------------------
 // Astral Herald                    Yes
-// Serpent Staff                    TODO
+// Serpent Staff                    Yes
 // Blazing Starlight                Yes
 //
 

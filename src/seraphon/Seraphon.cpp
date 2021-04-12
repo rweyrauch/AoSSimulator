@@ -145,7 +145,9 @@ namespace Seraphon {
         if (hasKeyword(COALESCED) && (weapon->name().find("Jaws") != std::string::npos)) {
             extra++;
         }
-
+        if ((m_commandTrait == CommandTrait::Prime_Warbeast) && (weapon->isMount())) {
+            extra++;
+        }
         return extra;
     }
 
@@ -245,6 +247,26 @@ namespace Seraphon {
             mod++;
         }
         return mod;
+    }
+
+    int SeraphonBase::castingModifier() const {
+        auto mod = Unit::castingModifier();
+
+        if (hasKeyword(WIZARD) && (m_commandTrait == CommandTrait::Master_Of_Star_Rituals)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    void SeraphonBase::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        if (m_commandTrait == CommandTrait::Cunning) {
+            auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
+            if (hero && (Dice::RollD6() >= 4)) {
+                hero->applyDamage({0, 1, Wounds::Source::Ability}, this);
+            }
+        }
     }
 
     void Init() {

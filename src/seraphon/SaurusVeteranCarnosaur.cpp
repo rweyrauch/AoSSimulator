@@ -58,6 +58,10 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Saurian Savagery", 18, 18, Phase::Combat,
+                                                                                 Ability::Extra_Hit_On_Value, 6, Abilities::Target::SelfAndFriendly,
+                                                                                 std::vector<Keyword>(SAURUS)));
+
         m_points = ComputePoints(1);
     }
 
@@ -69,6 +73,8 @@ namespace Seraphon {
         SeraphonBase::onRestore();
         // Reset table-drive attributes
         onWounded();
+
+        m_runAndCharge = false;
     }
 
     Unit *SaurusScarVeteranOnCarnosaur::Create(const ParameterList &parameters) {
@@ -182,6 +188,14 @@ namespace Seraphon {
 
     int SaurusScarVeteranOnCarnosaur::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void SaurusScarVeteranOnCarnosaur::onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) {
+        SeraphonBase::onEnemyModelSlain(numSlain, enemyUnit, source);
+        // Blood Frenzy
+        if ((numSlain > 0) && ((source == Wounds::Source::Weapon_Melee) || (source == Wounds::Source::Weapon_Missile))) {
+            m_runAndCharge = true;
+        }
     }
 
 } //namespace Seraphon

@@ -21,20 +21,18 @@ namespace Seraphon {
 
         static void Init();
 
-        KixiTakaTheDiviner();
+        explicit KixiTakaTheDiviner(bool isGeneral);
 
         ~KixiTakaTheDiviner() override = default;
 
     protected:
 
-        void configure();
-
         void onStartHero(PlayerId player) override;
 
     private:
 
-        Weapon m_starbolt,
-                m_staff;
+        Weapon  m_starbolt{Weapon::Type::Missile, "Starbolt", 18, 2, 4, 3, -1, 1},
+                m_staff{Weapon::Type::Melee, "Star-stone Staff", 1, 1, 4, 4, -1, RAND_D3};
 
         static bool s_registered;
     };

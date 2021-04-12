@@ -41,16 +41,15 @@ namespace Seraphon {
 
     bool KixiTakaTheDiviner::s_registered = false;
 
-    KixiTakaTheDiviner::KixiTakaTheDiviner() :
-            SeraphonBase("Kixi-Taka The Diviner", 8, g_wounds, 6, 5, false),
-            m_starbolt(Weapon::Type::Missile, "Starbolt", 18, 2, 4, 3, -1, 1),
-            m_staff(Weapon::Type::Melee, "Star-stone Staff", 1, 1, 4, 4, -1, RAND_D3) {
+    KixiTakaTheDiviner::KixiTakaTheDiviner(bool isGeneral) :
+            SeraphonBase("Kixi-Taka The Diviner", 8, g_wounds, 6, 5, false) {
         m_keywords = {ORDER, SERAPHON, COALESCED, THUNDER_LIZARD, SKINK, HERO, PRIEST, KIXI_TAKA};
         m_weapons = {&m_starbolt, &m_staff};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void KixiTakaTheDiviner::configure() {
+        setWayOfTheSeraphon(WayOfTheSeraphon::Coalesced, Constellation::Thunder_Lizard);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_starbolt);
         model->addMeleeWeapon(&m_staff);
@@ -61,15 +60,8 @@ namespace Seraphon {
     }
 
     Unit *KixiTakaTheDiviner::Create(const ParameterList &parameters) {
-        auto unit = new KixiTakaTheDiviner();
-
-        unit->setWayOfTheSeraphon(WayOfTheSeraphon::Coalesced, Constellation::Thunder_Lizard);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new KixiTakaTheDiviner(general);
     }
 
     void KixiTakaTheDiviner::Init() {

@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Roster.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "SeraphonPrivate.h"
 #include "SeraphonLore.h"
 
@@ -104,6 +105,22 @@ namespace Seraphon {
 
     int SlannStarmaster::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds SlannStarmaster::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Selfless Protector (Saurus Guard and Saurus Eternity Warden abilities)
+        auto guards = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
+        for (auto guard : guards) {
+            if (guard->hasKeyword(SAURUS_GUARD) || guard->hasKeyword(ETERNITY_WARDEN)) {
+                if (guard->remainingModels() > 0) {
+                    if (Dice::RollD6() >= 2) {
+                        guard->applyDamage(wounds, this);
+                        return {0, 0};
+                    }
+                }
+            }
+        }
+        return SeraphonBase::applyWoundSave(wounds, attackingUnit);
     }
 
 } //namespace Seraphon

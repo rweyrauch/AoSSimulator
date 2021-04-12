@@ -125,6 +125,18 @@ namespace Seraphon {
     }
 
     Wounds LordKroak::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Selfless Protector (Saurus Guard and Saurus Eternity Warden abilities)
+        auto guards = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
+        for (auto guard : guards) {
+            if (guard->hasKeyword(SAURUS_GUARD) || guard->hasKeyword(ETERNITY_WARDEN)) {
+                if (guard->remainingModels() > 0) {
+                    if (Dice::RollD6() >= 2) {
+                        guard->applyDamage(wounds, this);
+                        return {0, 0};
+                    }
+                }
+            }
+        }
         auto totalWounds = SeraphonBase::applyWoundSave(wounds, attackingUnit);
 
         // Dead for Innumerable Ages

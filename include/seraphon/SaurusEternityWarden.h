@@ -43,7 +43,7 @@ namespace Seraphon {
 // Abilities                    Implemented
 // -------------------------------------------
 // Cold Ferocity                    Yes
-// Selfless Protectors              TODO
+// Selfless Protectors              Yes (see Lord Kroak and Slann Starmasters)
 // Prime Guardian                   TODO
 //
 

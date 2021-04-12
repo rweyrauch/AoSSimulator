@@ -18,17 +18,11 @@ namespace Seraphon {
     bool StarbloodStalkers::s_registered = false;
 
     StarbloodStalkers::StarbloodStalkers() :
-            SeraphonBase("The Starblood Stalkers", 8, g_wounds, 5, 6, false),
-            m_javelin(Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1),
-            m_dartpipe(Weapon::Type::Missile, "Dartpipe", 16, 2, 3, 4, 0, 1),
-            m_boltspitter(Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1),
-            m_dagger(Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1),
-            m_club(Weapon::Type::Melee, "Moonstone Club", 1, 1, 4, 3, 0, 1) {
+            SeraphonBase("The Starblood Stalkers", 8, g_wounds, 5, 6, false) {
         m_keywords = {ORDER, SERAPHON, COALESCED, THUNDER_LIZARD, SKINKS, STARBLOOD_STALKERS};
         m_weapons = {&m_javelin, &m_dartpipe, &m_boltspitter, &m_dagger, &m_club};
-    }
 
-    void StarbloodStalkers::configure() {
+        setWayOfTheSeraphon(WayOfTheSeraphon::Coalesced, Constellation::Thunder_Lizard);
 
         auto xepic = new Model(g_basesize, wounds());
         xepic->addMeleeWeapon(&m_club);
@@ -57,12 +51,7 @@ namespace Seraphon {
     }
 
     Unit *StarbloodStalkers::Create(const ParameterList &parameters) {
-        auto unit = new StarbloodStalkers();
-
-        unit->setWayOfTheSeraphon(WayOfTheSeraphon::Coalesced, Constellation::Thunder_Lizard);
-
-        unit->configure();
-        return unit;
+        return new StarbloodStalkers();
     }
 
     void StarbloodStalkers::Init() {

@@ -33,6 +33,8 @@ namespace Seraphon {
 
         int castingModifier() const override;
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
     private:
 
         Weapon m_lightning{Weapon::Type::Melee, "Azure Lightning", 3, 6, 4, 3, -1, 1};

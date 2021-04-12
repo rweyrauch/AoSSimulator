@@ -16,16 +16,17 @@ namespace Seraphon {
 
     bool KlaqTrok::s_registered = false;
 
-    KlaqTrok::KlaqTrok() :
+    KlaqTrok::KlaqTrok(bool isGeneral) :
             SeraphonBase("Klaq-Trok", 6, g_wounds, 8, 4, false),
             m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 5, 3, 3, 0, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, COALESCED, THUNDER_LIZARD, SAURUS, HERO, OLDBLOOD, KLAQ_TROK};
         m_weapons = {&m_warblade, &m_jaws};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void KlaqTrok::configure() {
+        setWayOfTheSeraphon(WayOfTheSeraphon::Coalesced, Constellation::Thunder_Lizard);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warblade);
         model->addMeleeWeapon(&m_jaws);
@@ -35,15 +36,8 @@ namespace Seraphon {
     }
 
     Unit *KlaqTrok::Create(const ParameterList &parameters) {
-        auto unit = new KlaqTrok();
-
-        unit->setWayOfTheSeraphon(WayOfTheSeraphon::Coalesced, Constellation::Thunder_Lizard);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new KlaqTrok(general);
     }
 
     void KlaqTrok::Init() {
@@ -69,7 +63,7 @@ namespace Seraphon {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_warblade.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int KlaqTrok::ComputePoints(int /*numModels*/) {

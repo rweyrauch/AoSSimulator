@@ -21,20 +21,18 @@ namespace Seraphon {
 
         static void Init();
 
-        KlaqTrok();
+        explicit KlaqTrok(bool isGeneral);
 
         ~KlaqTrok() override = default;
 
     protected:
 
-        void configure();
-
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
     private:
 
-        Weapon m_warblade,
-                m_jaws;
+        Weapon  m_warblade{Weapon::Type::Melee, "Celestite Warblade", 1, 5, 3, 3, 0, 1},
+                m_jaws{Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1};
 
         static bool s_registered;
     };

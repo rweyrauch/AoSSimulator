@@ -53,6 +53,8 @@ namespace Seraphon {
 
         int terror(const Unit *target);
 
+        void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
+
     private:
 
         Weapon  m_warblade{Weapon::Type::Melee, "Celestite Warblade", 1, 6, 3, 3, 0, 1},
@@ -69,12 +71,12 @@ namespace Seraphon {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blood Frenzy                     TODO
+// Blood Frenzy                     Yes
 // Celestite Warspear               Yes
 // Cold Ferocity                    Yes
 // Pinned Down                      Yes
 // Terror                           Yes
-// Saurian Savagery                 TODO
+// Saurian Savagery                 Yes
 //
 
 } // namespace Seraphon

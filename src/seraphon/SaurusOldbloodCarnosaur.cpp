@@ -57,6 +57,10 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
 
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Wrath of the Seraphon", 18, 18, Phase::Combat,
+                                                                                 Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly,
+                                                                                 std::vector<Keyword>(SAURUS)));
+
         m_points = ComputePoints(1);
     }
 
@@ -68,6 +72,8 @@ namespace Seraphon {
         SeraphonBase::onRestore();
         // Reset table-drive attributes
         onWounded();
+
+        m_runAndCharge = false;
     }
 
     Unit *SaurusOldbloodOnCarnosaur::Create(const ParameterList &parameters) {
@@ -149,6 +155,23 @@ namespace Seraphon {
 
     int SaurusOldbloodOnCarnosaur::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int SaurusOldbloodOnCarnosaur::toWoundModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toWoundModifier(weapon, target);
+        // Blazing Sunbolts
+        if ((weapon->name() == m_gauntlet.name()) && target->hasKeyword(CHAOS) && target->hasKeyword(DAEMON)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    void SaurusOldbloodOnCarnosaur::onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) {
+        SeraphonBase::onEnemyModelSlain(numSlain, enemyUnit, source);
+        // Blood Frenzy
+        if ((numSlain > 0) && ((source == Wounds::Source::Weapon_Melee) || (source == Wounds::Source::Weapon_Missile))) {
+            m_runAndCharge = true;
+        }
     }
 
 } //namespace Seraphon

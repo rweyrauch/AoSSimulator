@@ -32,11 +32,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        Varanguard();
+        Varanguard(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption option);
+
+        Varanguard() = delete;
 
         ~Varanguard() override = default;
-
-        bool configure(int numModels, WeaponOption weapon);
 
     protected:
 
@@ -58,10 +58,10 @@ namespace SlavesToDarkness {
 
         bool m_usedRelentlessKillers = false;
 
-        Weapon m_ensorcelledWeapon,
-                m_fellspear,
-                m_blade,
-                m_fangs;
+        Weapon  m_ensorcelledWeapon{Weapon::Type::Melee, "Ensorcelled Weapon", 1, 6, 3, 3, -1, 1},
+                m_fellspear{Weapon::Type::Melee, "Fellspear", 2, 3, 3, 4, -1, 2},
+                m_blade{Weapon::Type::Melee, "Daemonforged Blade", 1, 3, 3, 3, -1, RAND_D3},
+                m_fangs{Weapon::Type::Melee, "Tearing Fangs", 1, 3, 4, 3, 0, 1};
 
         static bool s_registered;
     };

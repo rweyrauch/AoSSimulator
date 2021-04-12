@@ -41,6 +41,10 @@ namespace Seraphon {
 
         int terror(const Unit *target);
 
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
+
     private:
 
         Weapon  m_gauntlet{Weapon::Type::Missile, "Sunbolt Gauntlet", 18, RAND_D6, 3, 4, -1, 1},
@@ -56,12 +60,12 @@ namespace Seraphon {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Blazing Sunbolts                 TODO
-// Blood Frenzy                     TODO
+// Blazing Sunbolts                 Yes
+// Blood Frenzy                     Yes
 // Cold Ferocity                    Yes
 // Pinned Down                      Yes
 // Terror                           Yes
-// Wrath of the Seraphon            TODO
+// Wrath of the Seraphon            Yes
 //
 
 } // namespace Seraphon

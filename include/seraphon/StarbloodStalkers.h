@@ -27,8 +27,6 @@ namespace Seraphon {
 
     protected:
 
-        void configure();
-
         int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         int braveryModifier() const override;
@@ -37,11 +35,11 @@ namespace Seraphon {
 
     private:
 
-        Weapon m_javelin,
-                m_dartpipe,
-                m_boltspitter,
-                m_dagger,
-                m_club;
+        Weapon  m_javelin{Weapon::Type::Missile, "Meteoric Javelin", 8, 1, 5, 4, 0, 1},
+                m_dartpipe{Weapon::Type::Missile, "Dartpipe", 16, 2, 3, 4, 0, 1},
+                m_boltspitter{Weapon::Type::Missile, "Boltspitter", 16, 1, 5, 5, 0, 1},
+                m_dagger{Weapon::Type::Melee, "Celestite Dagger", 1, 1, 5, 5, 0, 1},
+                m_club{Weapon::Type::Melee, "Moonstone Club", 1, 1, 4, 3, 0, 1};
 
         static bool s_registered;
     };

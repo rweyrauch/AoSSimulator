@@ -56,7 +56,7 @@ namespace Seraphon {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Wrath of the Seraphon            TODO
+// Wrath of the Seraphon            Yes
 // Cold Ferocity                    Yes
 //
 

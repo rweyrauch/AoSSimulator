@@ -22,22 +22,12 @@ namespace SlavesToDarkness {
     bool Varanguard::s_registered = false;
 
     Unit *Varanguard::Create(const ParameterList &parameters) {
-        auto unit = new Varanguard();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Daemonforged_Blade);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Varanguard(legion, mark, numModels, weapons);
     }
 
     std::string Varanguard::ValueToString(const Parameter &parameter) {
@@ -85,30 +75,20 @@ namespace SlavesToDarkness {
         }
     }
 
-    Varanguard::Varanguard() :
-            SlavesToDarknessBase("Varanguard", 10, g_wounds, 9, 3, false),
-            m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 6, 3, 3, -1, 1),
-            m_fellspear(Weapon::Type::Melee, "Fellspear", 2, 3, 3, 4, -1, 2),
-            m_blade(Weapon::Type::Melee, "Daemonforged Blade", 1, 3, 3, 3, -1, RAND_D3),
-            m_fangs(Weapon::Type::Melee, "Tearing Fangs", 1, 3, 4, 3, 0, 1) {
+    Varanguard::Varanguard(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption option) :
+            SlavesToDarknessBase("Varanguard", 10, g_wounds, 9, 3, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, MARK_OF_CHAOS, VARANGUARD};
         m_weapons = {&m_ensorcelledWeapon, &m_fellspear, &m_blade, &m_fangs};
         m_hasMount = true;
         m_fangs.setMount(true);
-    }
-
-    bool Varanguard::configure(int numModels, Varanguard::WeaponOption weapon) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
-            if (weapon == Ensorcelled_Weapon) {
+            if (option == Ensorcelled_Weapon) {
                 model->addMeleeWeapon(&m_ensorcelledWeapon);
-            } else if (weapon == Fellspear) {
+            } else if (option == Fellspear) {
                 model->addMeleeWeapon(&m_fellspear);
-            } else if (weapon == Daemonforged_Blade) {
+            } else if (option == Daemonforged_Blade) {
                 model->addMeleeWeapon(&m_blade);
             }
             model->addMeleeWeapon(&m_fangs);
@@ -116,8 +96,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Wounds Varanguard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

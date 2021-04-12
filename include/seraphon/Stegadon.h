@@ -32,7 +32,7 @@ namespace Seraphon {
 
         Stegadon(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, bool skinkChief, CommandTrait trait, Artefact artefact, bool isGeneral);
 
-        Stegadon() = default;
+        Stegadon() = delete;
 
         ~Stegadon() override;
 

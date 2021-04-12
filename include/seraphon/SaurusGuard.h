@@ -49,7 +49,7 @@ namespace Seraphon {
 // -------------------------------------------
 // Stardrake Icon                   Yes
 // Wardrum                          Yes
-// Selfless Protectors              TODO
+// Selfless Protectors              Yes (see Lord Kroak and Slann Starmasters)
 //
 
 } // namespace Seraphon

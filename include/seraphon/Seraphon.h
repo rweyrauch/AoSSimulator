@@ -45,15 +45,15 @@ namespace Seraphon {
         Mighty_Warleader,
 
         // Skink
-        Master_Of_Star_Rituals, // TODO
+        Master_Of_Star_Rituals, // Partial
         Nimble,
-        Cunning,                // TODO
+        Cunning,
 
         // Constellation specific
         Ancient_Knowledge,      // Dracothions Tail TODO
         Old_And_Grizzled,       // Fangs of Sotek
         Dominant_Predator,      // Koatls Claw TODO
-        Prime_Warbeast          // The Thunder Lizard TODO
+        Prime_Warbeast          // The Thunder Lizard
     };
 
     //
@@ -160,6 +160,10 @@ namespace Seraphon {
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
         int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        int castingModifier() const override;
+
+        void onStartCombat(PlayerId player) override;
 
     protected:
 
