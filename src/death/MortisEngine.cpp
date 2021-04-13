@@ -111,10 +111,10 @@ namespace Death {
         return 0;
     }
 
-    Wounds MortisEngine::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds MortisEngine::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_etherealWeapons.name())) return {0, 1};
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void MortisEngine::onStartShooting(PlayerId player) {

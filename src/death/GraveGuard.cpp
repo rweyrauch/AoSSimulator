@@ -139,12 +139,12 @@ namespace Death {
         return modifier;
     }
 
-    Wounds GraveGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds GraveGuard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (m_charged && (woundRoll >= 6)) {
             // Cursed Weapons 2x damage on 6+
             return {weapon->damage() + weapon->damage(), 0};
         }
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int GraveGuard::ComputePoints(int numModels) {

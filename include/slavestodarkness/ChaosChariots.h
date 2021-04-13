@@ -30,7 +30,8 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons);
+        ChaosChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool idolatorLord,
+                      CommandTrait trait, Prayer prayer, bool isGeneral);
 
         ChaosChariots() = delete;
 

@@ -49,7 +49,7 @@ namespace StormcastEternals {
         m_points = ComputePoints(numModels);
     }
 
-    Wounds Protectors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Protectors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deathstrike
         if ((hitRoll == 6) && target->hasKeyword(MONSTER) && (weapon->name() == m_glaive.name())) {
             return {Dice::RollD6(), 0};
@@ -65,7 +65,7 @@ namespace StormcastEternals {
             }
             return {0, mortalWounds};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Unit *Protectors::Create(const ParameterList &parameters) {

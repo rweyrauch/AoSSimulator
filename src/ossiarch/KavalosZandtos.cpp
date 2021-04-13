@@ -61,12 +61,12 @@ namespace OssiarchBonereapers {
         m_points = g_pointsPerUnit;
     }
 
-    Wounds ArchKavalosZandtos::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ArchKavalosZandtos::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // The Dark Lance
         if (m_charged && (weapon->name() == m_lance.name())) {
             return {3, 0};
         }
-        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls ArchKavalosZandtos::toWoundRerolls(const Weapon *weapon, const Unit *target) const {

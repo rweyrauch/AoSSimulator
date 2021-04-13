@@ -31,12 +31,12 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosKnights();
+        ChaosKnights(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, 
+                     bool standardBearer, bool hornblower);
 
+        ChaosKnights() = delete;
+        
         ~ChaosKnights() override;
-
-        bool configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer,
-                       bool hornblower);
 
     protected:
 
@@ -48,20 +48,20 @@ namespace SlavesToDarkness {
 
         int braveryModifier() const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int terrifyingChampions(const Unit *unit);
 
     private:
 
-        Weapon m_ensorcelledWeapon,
-                m_lance,
-                m_ensorcelledWeaponLeader,
-                m_lanceLeader,
-                m_flailLeader,
-                m_hooves;
+        Weapon  m_ensorcelledWeapon{Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 3, 3, -1, 1},
+                m_lance{Weapon::Type::Melee, "Cursed Lance", 2, 2, 4, 3, 0, 1},
+                m_ensorcelledWeaponLeader{Weapon::Type::Melee, "Ensorcelled Weapon", 1, 4, 3, 3, -1, 1},
+                m_lanceLeader{Weapon::Type::Melee, "Cursed Lance", 2, 3, 4, 3, 0, 1},
+                m_flailLeader{Weapon::Type::Melee, "Cursed Flail", 2, RAND_D6, 4, 3, 0, 1},
+                m_hooves{Weapon::Type::Melee, "Trampling Hooves", 1, 2, 4, 4, 0, 1};
 
         lsignal::slot m_terrifyingSlot;
 

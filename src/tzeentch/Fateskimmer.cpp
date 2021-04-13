@@ -81,12 +81,12 @@ namespace Tzeentch {
         m_points = g_pointsPerUnit;
     }
 
-    Wounds Fateskimmer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Fateskimmer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Sky-sharks
         if (target->hasKeyword(MONSTER) && (weapon->name() == m_bite.name())) {
             return {Dice::RollD3(), 0};
         }
-        return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return TzeentchBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Fateskimmer::ComputePoints(int /*numModels*/) {

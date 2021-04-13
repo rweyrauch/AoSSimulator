@@ -95,12 +95,12 @@ namespace Seraphon {
         return mod;
     }
 
-    Wounds StarbloodStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds StarbloodStalkers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Star-venom
         if ((hitRoll == 6) && (weapon->name() == m_dartpipe.name())) {
             return {0, 1, Wounds::Source::Weapon_Missile};
         }
-        return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } //namespace Seraphon

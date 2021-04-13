@@ -119,8 +119,8 @@ namespace Bonesplitterz {
         Unit::onEndCombat(player);
     }
 
-    Wounds Bonesplitterz::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Bonesplitterz::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto wounds = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         if (m_berserkStrength && target->hasKeyword(MONSTER) && (woundRoll == 6)) {
             wounds.mortal++;
@@ -144,8 +144,8 @@ namespace Bonesplitterz {
         return mod;
     }
 
-    int Bonesplitterz::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+    int Bonesplitterz::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         // Freezing Strike
         if ((m_warclan == Warclan::Icebone) && (woundRoll == 6)) rend--;
         return rend;

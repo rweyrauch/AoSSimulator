@@ -115,13 +115,13 @@ namespace Sylvaneth {
         }
     }
 
-    Wounds DrychaHamadreth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DrychaHamadreth::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deadly Infestation
         if (((weapon->name() == m_colonyOfFlitterfuries.name()) || weapon->name() == m_swarmOfSquirmlings.name()) &&
             (woundRoll == 6)) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void DrychaHamadreth::onBeginRound(int battleRound) {

@@ -111,7 +111,7 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    Wounds LordOrdinator::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds LordOrdinator::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Comet Strike
         if (hitRoll == 6 && weapon->name() == m_astralGrandhammer.name()) {
             return {0, 2};
@@ -120,7 +120,7 @@ namespace StormcastEternals {
             // remember this
             m_meteoricSlam.push_back(target);
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void LordOrdinator::onStartCombat(PlayerId player) {

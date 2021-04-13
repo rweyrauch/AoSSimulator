@@ -132,12 +132,12 @@ namespace OgorMawtribes {
     }
 
     Wounds
-    StonehornBeastriders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    StonehornBeastriders::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Earth-shattering Charge
         if (m_charged && (weapon->name() == m_horns.name() || weapon->name() == m_hooves.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Wounds StonehornBeastriders::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

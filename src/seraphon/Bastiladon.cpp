@@ -98,7 +98,7 @@ namespace Seraphon {
         return 0;
     }
 
-    Wounds Bastiladon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Bastiladon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Light of the Heavens
         if ((target->hasKeyword(DAEMON) && target->hasKeyword(CHAOS) && (weapon->name() == m_beam.name()))) {
             return {weapon->damage() + 1, 0};
@@ -108,7 +108,7 @@ namespace Seraphon {
         if ((hitRoll == 6) && (weapon->name() == m_ark.name())) {
             return {0, 1};
         }
-        return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Bastiladon::onRestore() {

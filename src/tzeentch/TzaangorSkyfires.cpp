@@ -119,12 +119,12 @@ namespace Tzeentch {
         return TzeentchBase::toWoundRerolls(weapon, target);
     }
 
-    Wounds TzaangorSkyfires::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds TzaangorSkyfires::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Judgement from Afar
         if ((hitRoll == 6) && (weapon->name() == m_arrowOfFate.name())) {
             return {0, Dice::RollD3()};
         }
-        return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return TzeentchBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int TzaangorSkyfires::ComputePoints(int numModels) {

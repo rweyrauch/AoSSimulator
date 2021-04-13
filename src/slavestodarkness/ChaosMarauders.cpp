@@ -20,24 +20,14 @@ namespace SlavesToDarkness {
     bool ChaosMarauders::s_registered = false;
 
     Unit *ChaosMarauders::Create(const ParameterList &parameters) {
-        auto unit = new ChaosMarauders();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Axe_And_Shield);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool drummer = GetBoolParam("Drummer", parameters, false);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(numModels, weapons, iconBearer, drummer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosMarauders(legion, mark, numModels, weapons, iconBearer, drummer);
     }
 
     void ChaosMarauders::Init() {
@@ -63,27 +53,16 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosMarauders::ChaosMarauders() :
-            SlavesToDarknessBase("Chaos Marauders", 6, g_wounds, 5, 6, false),
-            m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
-            m_flail(Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, 0, 1),
-            m_axeChieftain(Weapon::Type::Melee, "Barbarian Axe", 1, 3, 4, 4, 0, 1),
-            m_flailChieftain(Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, 0, 1) {
+    ChaosMarauders::ChaosMarauders(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool iconBearer, bool drummer) :
+            SlavesToDarknessBase("Chaos Marauders", 6, g_wounds, 5, 6, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDERS};
         m_weapons = {&m_axe, &m_flail, &m_axeChieftain, &m_flailChieftain};
         m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &ChaosMarauders::iconBearer, &m_connection);
-    }
 
-    ChaosMarauders::~ChaosMarauders() {
-        m_connection.disconnect();
-    }
-
-    bool ChaosMarauders::configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
 
         m_weaponOption = weapons;
 
@@ -131,8 +110,10 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    ChaosMarauders::~ChaosMarauders() {
+        m_connection.disconnect();
     }
 
     std::string ChaosMarauders::ValueToString(const Parameter &parameter) {
@@ -156,27 +137,27 @@ namespace SlavesToDarkness {
     }
 
     int ChaosMarauders::runModifier() const {
-        auto modifier = Unit::runModifier();
+        auto modifier = SlavesToDarknessBase::runModifier();
         if (isNamedModelAlive(Model::Drummer)) modifier += 1;
         return modifier;
     }
 
     int ChaosMarauders::chargeModifier() const {
-        auto modifier = Unit::chargeModifier();
+        auto modifier = SlavesToDarknessBase::chargeModifier();
         if (isNamedModelAlive(Model::Drummer)) modifier += 1;
         return modifier;
     }
 
     int ChaosMarauders::toHitModifier(const Weapon *weapon, const Unit *target) const {
         // Barbarian Hordes
-        auto modifier = Unit::toHitModifier(weapon, target);
+        auto modifier = SlavesToDarknessBase::toHitModifier(weapon, target);
         if (remainingModels() >= 10) modifier++;
         return modifier;
     }
 
-    int ChaosMarauders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int ChaosMarauders::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Barbarian Hordes
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        auto rend = SlavesToDarknessBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if (remainingModels() >= 20) rend--;
         return rend;
     }

@@ -24,8 +24,7 @@ namespace StormcastEternals {
 
         int moveModifier() const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target,
-                       int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) override;
 

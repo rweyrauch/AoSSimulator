@@ -83,13 +83,13 @@ namespace FleshEaterCourt {
     }
 
     Wounds
-    CryptInfernalCourtier::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    CryptInfernalCourtier::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Skewering Strike
         if ((hitRoll == 6) && weapon->name() == m_skeweringTalons.name()) {
             // Two mortal wounds.
             return {0, 2};
         }
-        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int CryptInfernalCourtier::ComputePoints(int /*numModels*/) {

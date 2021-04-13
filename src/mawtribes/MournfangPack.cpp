@@ -121,12 +121,12 @@ namespace OgorMawtribes {
         return MawtribesBase::EnumStringToInt(enumString);
     }
 
-    Wounds MournfangPack::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds MournfangPack::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Mournfang Charge
         if (m_charged && (weapon->name() == m_tusks.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Wounds MournfangPack::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {

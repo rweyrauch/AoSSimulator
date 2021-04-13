@@ -130,12 +130,12 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int Dreadspears::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int Dreadspears::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Coven Guard
         if (hitRoll == 6) {
             return -1;
         }
-        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Dreadspears::ComputePoints(int numModels) {

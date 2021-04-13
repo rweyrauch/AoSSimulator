@@ -63,8 +63,8 @@ namespace BeastsOfChaos {
         }
     }
 
-    Wounds Razorgors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        Wounds damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Razorgors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        Wounds damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Uncontrollable Stampede
         if (m_charged && (hitRoll == 6)) {
             damage.mortal += 1;

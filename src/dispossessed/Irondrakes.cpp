@@ -146,12 +146,12 @@ namespace Dispossessed {
         }
     }
 
-    Wounds Irondrakes::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Irondrakes::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Grudgehammer Torpedo
         if (weapon->name() == m_grudgehammerTorpedo.name() && target->hasKeyword(MONSTER)) {
             return {Dice::RollD6(), 0};
         }
-        return Dispossessed::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Dispossessed::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Irondrakes::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

@@ -111,11 +111,11 @@ namespace SlavesToDarkness {
         None,
 
         // Idolators
-        Blessings_Of_Chaos_Undivided,
-        Blessings_Of_Nurgle,
-        Blessings_Of_Khorne,
-        Blessings_Of_Slaanesh,
-        Blessings_Of_Tzeentch
+        Blessings_Of_Chaos_Undivided,   // TODO
+        Blessings_Of_Nurgle,            // TODO
+        Blessings_Of_Khorne,            // TODO
+        Blessings_Of_Slaanesh,          // TODO
+        Blessings_Of_Tzeentch           // TODO
     };
 
     class SlavesToDarknessBase : public Unit {
@@ -157,7 +157,7 @@ namespace SlavesToDarkness {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
@@ -182,6 +182,12 @@ namespace SlavesToDarkness {
         int lordOfTerror(const Unit* unit);
 
         void onEndHero(PlayerId player) override;
+
+        int prayerModifier() const override;
+
+        bool battleshockRequired() const override;
+
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
@@ -221,8 +227,8 @@ namespace SlavesToDarkness {
 //    Snubbed by the Gods           Yes
 //    Flames of Chaos               Yes
 //    Iron Flesh                    Yes
-//    Murderous Mutation            TODO
-//    Slaughter's Strength          TODO
+//    Murderous Mutation            Yes
+//    Slaughter's Strength          Yes
 //    Spawndom                      Yes
 // Ravagers
 //    Glory for the Taking          TODO
@@ -231,18 +237,18 @@ namespace SlavesToDarkness {
 //    Ritual of Sorcerous Might     TODO
 //    Ritual of Corruption          TODO
 // Despoilers
-//    Sacrilegious Might            TODO
-//    Blessed by the Unholy         TODO
+//    Sacrilegious Might            Partial/TODO
+//    Blessed by the Unholy         Yes
 //    Twisted Dominion              TODO
 // Host of the Everchosen
-//    Fearless in His Presence      TODO
+//    Fearless in His Presence      Yes
 //    The Will of the Everchosen    TODO
 //    Dark Prophecy                 TODO
 // Idolators
-//    Panoply of Ruin               TODO
-//    Blessed of Chaos              TODO
-//    Idolator Lords                TODO
-//    Destroy the False Idols       TODO
+//    Panoply of Ruin               Yes
+//    Blessed of Chaos              Yes
+//    Idolator Lords                Yes
+//    Destroy the False Idols       Yes
 //    Desecrate                     TODO
 //
 

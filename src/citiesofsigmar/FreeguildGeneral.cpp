@@ -92,9 +92,9 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    Wounds FreeguildGeneral::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds FreeguildGeneral::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Swing
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (hitRoll == 6) damage.mortal++;
         return damage;
     }

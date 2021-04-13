@@ -207,8 +207,8 @@ namespace Ironjawz {
     }
 
     Wounds
-    MegabossOnMawKrusha::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Ironjawz::weaponDamage(weapon, target, hitRoll, woundRoll);
+    MegabossOnMawKrusha::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Ironjawz::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (m_mountTrait == MountTrait::Mean_Un) {
             if (weapon->name() == m_fistsAndTail.name()) {
                 damage.normal++;

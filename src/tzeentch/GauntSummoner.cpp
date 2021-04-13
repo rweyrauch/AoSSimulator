@@ -128,12 +128,12 @@ namespace Tzeentch {
     }
 
     Wounds
-    GauntSummonerOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    GauntSummonerOfTzeentch::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Warptongue Blade
         if ((woundRoll == 6) && (weapon->name() == m_blade.name())) {
             return {0, Dice::RollD6()};
         }
-        return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return TzeentchBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void GauntSummonerOfTzeentch::onStartHero(PlayerId player) {

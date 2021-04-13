@@ -30,23 +30,23 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        DaemonPrince();
+        DaemonPrince(DamnedLegion legion, MarkOfChaos mark, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        DaemonPrince() = delete;
 
         ~DaemonPrince() override = default;
 
     protected:
 
-        void configure(WeaponOption option);
-
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
-        Weapon m_axe,
-                m_sword,
-                m_talons;
+        Weapon  m_axe{Weapon::Type::Melee, "Daemonic Axe", 1, 3, 3, 3, -2, 2},
+                m_sword{Weapon::Type::Melee, "Hellforged Sword", 2, 4, 4, 3, -1, RAND_D3},
+                m_talons{Weapon::Type::Melee, "Malefic Talons", 1, 3, 3, 3, 0, 2};
 
         static bool s_registered;
     };
@@ -56,9 +56,9 @@ namespace SlavesToDarkness {
 // -------------------------------------------
 // Bounding Charge                  Yes
 // Hellforged Sword                 Yes
-// Immortal Champion                TODO
+// Immortal Champion                Yes
 // Blookslick Ground                TODO
-// Arcane Influence                 TODO
+// Arcane Influence                 Yes
 // Bloated Blessings                TODO
 // Revel in Agony                   TODO
 //

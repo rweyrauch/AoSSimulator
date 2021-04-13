@@ -86,12 +86,12 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    Wounds Assassin::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Assassin::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deathshead Poison
         if ((woundRoll == 6) && (weapon->name() == m_blades.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Assassin::ComputePoints(int /*numModels*/) {

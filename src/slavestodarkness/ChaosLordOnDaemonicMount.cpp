@@ -79,8 +79,8 @@ namespace SlavesToDarkness {
     }
 
     Wounds
-    ChaosLordOnDaemonicMount::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    ChaosLordOnDaemonicMount::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Cursed Warhammer
         if ((hitRoll == 6) && (weapon->name() == m_hooves.name())) {
             damage.mortal = 2;

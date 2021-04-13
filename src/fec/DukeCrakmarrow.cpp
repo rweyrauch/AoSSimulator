@@ -91,12 +91,12 @@ namespace FleshEaterCourt {
         return FleshEaterCourts::applyWoundSave(wounds, attackingUnit);
     }
 
-    Wounds DukeCrakmarrow::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DukeCrakmarrow::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Gallent Champion
         if (target->hasKeyword(MONSTER)) {
             return {weapon->damage() + 1, 0, Wounds::Source::Weapon_Melee};
         }
-        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace FleshEaterCourt

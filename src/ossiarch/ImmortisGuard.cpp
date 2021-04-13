@@ -63,12 +63,12 @@ namespace OssiarchBonereapers {
         m_points = ComputePoints(numModels);
     }
 
-    Wounds ImmortisGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ImmortisGuard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deadly Combination
         if ((hitRoll == 6) && (weapon->name() == m_battleShield.name())) {
             return {weapon->damage(), 1};
         }
-        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ImmortisGuard::ComputePoints(int numModels) {

@@ -245,14 +245,14 @@ namespace Slaanesh {
         return SlaaneshBase::ValueToString(parameter);
     }
 
-    Wounds KeeperOfSecrets::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds KeeperOfSecrets::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Delicate Precision
         if (!weapon->isMissile()) {
             if (woundRoll == 6) {
                 return {0, weapon->damage()};
             }
         }
-        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int KeeperOfSecrets::EnumStringToInt(const std::string &enumString) {

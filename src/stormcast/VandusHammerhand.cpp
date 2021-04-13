@@ -89,13 +89,13 @@ namespace StormcastEternals {
         return attacks;
     }
 
-    Wounds VandusHammerhand::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds VandusHammerhand::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Intolerable Damage
         if ((woundRoll == 6) && (weapon->name() == m_clawsAndFangs.name())) {
             // D6 instead of 1
             return {Dice::RollD6(), 0};
         }
-        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int VandusHammerhand::lordOfTheHammerhandsBraveryMod(const Unit *unit) {

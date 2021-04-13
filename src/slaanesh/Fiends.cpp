@@ -111,7 +111,7 @@ namespace Slaanesh {
         return modifier;
     }
 
-    Wounds Fiends::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Fiends::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Crushing Grip
         if ((woundRoll == 6) && (weapon->name() == m_deadlyPincers.name())) {
             return {RAND_D3, 0};
@@ -126,7 +126,7 @@ namespace Slaanesh {
                 return {RAND_D6, 0};
         }
 
-        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Fiends::ComputePoints(int numModels) {

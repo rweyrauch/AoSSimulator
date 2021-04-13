@@ -102,12 +102,12 @@ namespace Slaanesh {
         return points;
     }
 
-    Wounds BlissbarbSeekers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds BlissbarbSeekers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Vectors of Agony
         if ((woundRoll == 6) && weapon->isMissile()) {
             return {0, 1};
         }
-        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace Slaanesh

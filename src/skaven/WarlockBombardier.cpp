@@ -100,7 +100,7 @@ namespace Skaven {
         }
     }
 
-    Wounds WarlockBombardier::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds WarlockBombardier::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // More-more Doomrocket!
         if (weapon->name() == m_doomrocket.name()) {
             // Decide to overcharge (without using the hitRoll)
@@ -115,7 +115,7 @@ namespace Skaven {
             }
         }
 
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int WarlockBombardier::ComputePoints(int /*numModels*/) {

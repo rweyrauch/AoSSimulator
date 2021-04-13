@@ -104,12 +104,12 @@ namespace IdonethDeepkin {
         return 0;
     }
 
-    int Volturnos::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int Volturnos::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // The Astra Solus
         if ((hitRoll >= 6) && (weapon->name() == m_theAstraSolus.name())) {
             return -5;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Volturnos::ComputePoints(int /*numModels*/) {

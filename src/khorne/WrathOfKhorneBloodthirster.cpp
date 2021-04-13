@@ -124,7 +124,7 @@ namespace Khorne {
         KhorneBase::onRestore();
     }
 
-    Wounds WrathOfKhorneBloodthirster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds WrathOfKhorneBloodthirster::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                     int woundRoll) const {
         // Hellfire Breath
         if (weapon->name() == m_breath.name()) {
@@ -132,7 +132,7 @@ namespace Khorne {
                 return {0, Dice::RollD3()};
             }
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int WrathOfKhorneBloodthirster::ComputePoints(int /*numModels*/) {

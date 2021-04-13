@@ -141,8 +141,8 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::applyWoundSave(modifiedWounds, attackingUnit);
     }
 
-    Wounds Archaon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto wounds = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Archaon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto wounds = SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // The Slayer of Kings
         if ((woundRoll == 6) && (target->hasKeyword(HERO)) && (weapon->name() == m_slayerOfKings.name())) {
             m_slayerOfKingsSixesThisCombat++;

@@ -83,8 +83,8 @@ namespace KharadronOverlords {
         }
     }
 
-    Wounds BrokkGrungsson::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = KharadronBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds BrokkGrungsson::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = KharadronBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Endrinharness
         if ((hitRoll == 6) && weapon->isMelee()) {
             damage.normal = 0;

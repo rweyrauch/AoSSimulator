@@ -31,7 +31,7 @@ namespace Skaven {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onEndCombat(PlayerId player) override;
 

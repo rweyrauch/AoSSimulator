@@ -117,12 +117,12 @@ namespace Sylvaneth {
         return SylvanethBase::EnumStringToInt(enumString);
     }
 
-    Wounds KurnothHunters::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds KurnothHunters::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Sundering Strike
         if ((weapon->name() == m_greatsword.name()) && (woundRoll == 6)) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void KurnothHunters::onEndCombat(PlayerId player) {

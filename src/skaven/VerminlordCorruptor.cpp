@@ -143,12 +143,12 @@ namespace Skaven {
     }
 
     Wounds
-    VerminlordCorruptor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    VerminlordCorruptor::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Plaguereapers
         if ((weapon->name() == m_plaguereapers.name()) && (hitRoll == 6)) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void VerminlordCorruptor::onEndCombat(PlayerId player) {

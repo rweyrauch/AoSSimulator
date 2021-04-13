@@ -107,12 +107,12 @@ namespace Bonesplitterz {
         return extra;
     }
 
-    int SavageOrrukArrowboys::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int SavageOrrukArrowboys::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Aim Fer Its Eyes
         if (weapon->name() == m_stingaBow.name() && target->hasKeyword(MONSTER)) {
             return -1;
         }
-        return Bonesplitterz::weaponRend(weapon, target, hitRoll, woundRoll);
+        return Bonesplitterz::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SavageOrrukArrowboys::ComputePoints(int numModels) {

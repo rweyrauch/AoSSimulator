@@ -171,8 +171,8 @@ namespace BeastsOfChaos {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int BeastsOfChaosBase::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+    int BeastsOfChaosBase::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Rugged_Hide)) {
             rend++;

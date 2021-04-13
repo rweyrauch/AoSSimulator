@@ -127,21 +127,21 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    Wounds WildRiders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds WildRiders::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Unbound Fury
         if (m_charged && (weapon->name() == m_spear.name())) {
             return {2, 0};
         }
 
-        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int WildRiders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int WildRiders::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Unbound Fury
         if (m_charged && (weapon->name() == m_spear.name())) {
             return -2;
         }
-        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int WildRiders::ComputePoints(int numModels) {

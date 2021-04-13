@@ -88,8 +88,8 @@ namespace SlavesToDarkness {
     }
 
     Wounds
-    ChaosLordOnKarkadrak::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    ChaosLordOnKarkadrak::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Daemonbound
         if ((hitRoll == 6) && (weapon->name() == m_blade.name())) {
             damage.mortal++;

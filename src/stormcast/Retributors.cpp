@@ -49,13 +49,13 @@ namespace StormcastEternals {
         m_points = ComputePoints(numModels);
     }
 
-    Wounds Retributors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Retributors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Blast to Ashes
         if ((hitRoll == 6) && (weapon->name() == m_lightningHammer.name())) {
             return {0, 2};
         }
 
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Unit *Retributors::Create(const ParameterList &parameters) {

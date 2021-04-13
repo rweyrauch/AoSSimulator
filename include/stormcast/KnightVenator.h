@@ -27,7 +27,7 @@ namespace StormcastEternals {
 
     protected:
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onRestore() override {
             StormcastEternal::onRestore();
@@ -36,7 +36,7 @@ namespace StormcastEternals {
 
         void onStartShooting(PlayerId player) override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 

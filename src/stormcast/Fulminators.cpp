@@ -66,7 +66,7 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds Fulminators::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Fulminators::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Impaling Strike
         if (m_charged && (weapon->name() == m_clawsAndFangs.name())) {
             return {weapon->damage() + 2, 0};
@@ -82,7 +82,7 @@ namespace StormcastEternals {
             return {0, Dice::RollD3()};
         }
 
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls Fulminators::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {

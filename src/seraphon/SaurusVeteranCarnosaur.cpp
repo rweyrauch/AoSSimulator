@@ -169,13 +169,13 @@ namespace Seraphon {
         return mod;
     }
 
-    Wounds SaurusScarVeteranOnCarnosaur::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds SaurusScarVeteranOnCarnosaur::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                       int woundRoll) const {
         // Celestite Warspear
         if (m_charged && (weapon->name() == m_warspear.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SaurusScarVeteranOnCarnosaur::terror(const Unit *target) {

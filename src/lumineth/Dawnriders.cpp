@@ -122,7 +122,7 @@ namespace LuminethRealmLords {
         }
     }
 
-    Wounds Dawnriders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Dawnriders::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Sunmetal weapons
         auto hitRollThreshold = 6;
         if (m_powerOfHyshActive) hitRollThreshold = 5;
@@ -130,7 +130,7 @@ namespace LuminethRealmLords {
         if ((hitRoll >= hitRollThreshold) && (weapon->name() == m_lance.name())) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Dawnriders::onStartHero(PlayerId player) {
@@ -139,12 +139,12 @@ namespace LuminethRealmLords {
         m_powerOfHyshActive = false;
     }
 
-    int Dawnriders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int Dawnriders::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Lances of Dawn
         if (charged() && (weapon->name() == m_lance.name())) {
             return weapon->rend() - 1;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Dawnriders::toWoundModifier(const Weapon *weapon, const Unit *target) const {

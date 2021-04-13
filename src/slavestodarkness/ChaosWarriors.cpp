@@ -20,24 +20,14 @@ namespace SlavesToDarkness {
     bool ChaosWarriors::s_registered = false;
 
     Unit *ChaosWarriors::Create(const ParameterList &parameters) {
-        auto unit = new ChaosWarriors();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Paired_Hand_Weapons);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(numModels, weapons, standardBearer, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosWarriors(legion, mark, numModels, weapons, standardBearer, hornblower);
     }
 
     void ChaosWarriors::Init() {
@@ -65,24 +55,15 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosWarriors::ChaosWarriors() :
-            SlavesToDarknessBase("Chaos Warriors", 5, g_wounds, 7, 4, false),
-            m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 2, 3, 3, 0, 1),
-            m_halberd(Weapon::Type::Melee, "Chaos Halberd", 2, 2, 3, 4, 0, 1),
-            m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 1, 2, 4, 3, -1, 1),
-            m_handWeaponsChampion(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 3, 3, 3, 0, 1),
-            m_halberdChampion(Weapon::Type::Melee, "Chaos Halberd", 2, 3, 3, 4, 0, 1),
-            m_greatBladeChampion(Weapon::Type::Melee, "Chaos Greatblade", 1, 3, 4, 3, -1, 1) {
+    ChaosWarriors::ChaosWarriors(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool standardBearer, bool hornblower) :
+            SlavesToDarknessBase("Chaos Warriors", 5, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_WARRIORS};
         m_weapons = {&m_handWeapons, &m_halberd, &m_greatBlade, &m_handWeaponsChampion, &m_halberdChampion,
                      &m_greatBladeChampion};
         m_battleFieldRole = Role::Battleline;
-    }
 
-    bool ChaosWarriors::configure(int numModels, WeaponOption weapons, bool standardBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
 
         m_hasShields = false;
         m_pairedWeapons = false;
@@ -145,8 +126,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     std::string ChaosWarriors::ValueToString(const Parameter &parameter) {

@@ -192,6 +192,10 @@ namespace SlavesToDarkness {
             }
         }
 
+        // Destroy the False Idols
+        if (hasKeyword(IDOLATORS) && target->hasKeyword(PRIEST)) {
+            mod++;
+        }
         return mod;
     }
 
@@ -251,12 +255,16 @@ namespace SlavesToDarkness {
             totalWounds = ignoreWounds(totalWounds, 5);
         }
 
+        // Sacrilegious Might
+        if ((m_legion == DamnedLegion::Despoilers) && hasKeyword(DAEMON_PRINCE)) {
+            totalWounds = ignoreWounds(totalWounds, 5);
+        }
         return totalWounds;
     }
 
     Wounds
-    SlavesToDarknessBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    SlavesToDarknessBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         // Aura of Nurgle
         if (hasKeyword(NURGLE) && (hitRoll == 6)) {
@@ -471,7 +479,7 @@ namespace SlavesToDarkness {
 
     int SlavesToDarknessBase::rollChargeDistance() {
         if (hasKeyword(IDOLATORS) && hasKeyword(CULTISTS)) {
-            // Panoply of Pain
+            // Panoply of Ruin
             auto roll1 = Dice::RollD6();
             auto roll2 = Dice::RollD6();
             if (roll1 < roll2) roll1 = 6;
@@ -508,6 +516,9 @@ namespace SlavesToDarkness {
         if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Smite_The_Unbeliever)) {
             attacks += 2;
         }
+        if (m_haveMurderousMutation && (attackingModel->preferredWeapon()->name() == weapon->name())) {
+            attacks++;
+        }
         return attacks;
     }
 
@@ -534,6 +545,43 @@ namespace SlavesToDarkness {
                 }
             }
         }
+
+        // Blessed by the Unholy
+        if ((owningPlayer() == player) && (m_legion == DamnedLegion::Despoilers) && (hasKeyword(DAEMON_PRINCE) || hasKeyword(MONSTER))) {
+            if (hasKeyword(MUTALITH_VORTEX_BEAST)) {
+                heal(1);
+            }
+            else {
+                heal(Dice::RollD3());
+            }
+        }
+    }
+
+    int SlavesToDarknessBase::prayerModifier() const {
+        auto mod = Unit::prayerModifier();
+        if (hasKeyword(IDOLATORS) && hasKeyword(PRIEST)) {
+            mod++;
+        }
+        return mod;
+    }
+
+    bool SlavesToDarknessBase::battleshockRequired() const {
+        // Fearless in His Presence
+        if (m_legion == DamnedLegion::Host_Of_The_Everchosen) {
+            auto general = getRoster()->getGeneral();
+            if (general && (general->remainingModels() > 0) && general->hasKeyword(ARCHAON)) {
+                return false;
+            }
+        }
+        return Unit::battleshockRequired();
+    }
+
+    int SlavesToDarknessBase::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
+        if (m_haveSlaughtersStrength && (attackingModel->preferredWeapon()->name() == weapon->name())) {
+            rend--;
+        }
+        return rend;
     }
 
     void Init() {

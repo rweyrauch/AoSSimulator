@@ -109,7 +109,7 @@ public:
      * @param woundRoll Roll to-wound
      * @return Weapon damage
      */
-    virtual Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    virtual Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         return {weapon->damage(), 0};
     }
 
@@ -132,7 +132,7 @@ public:
      * @param woundRoll Roll to-wound
      * @return Weapon rend
      */
-    virtual int weaponRend(const Weapon *weapon, const Unit *target,
+    virtual int weaponRend(const Model *attackingModel, const Weapon *weapon, const Unit *target,
                            int hitRoll, int woundRoll) const { return weapon->rend(); }
 
     virtual int toSaveModifier(const Weapon *weapon, const Unit* attacker) const { return 0; }
@@ -152,6 +152,8 @@ public:
     [[nodiscard]] virtual int unbindingModifier() const { return 0; }
 
     [[nodiscard]] virtual Rerolls unbindingRerolls() const { return Rerolls::None; }
+
+    [[nodiscard]] virtual int prayerModifier() const { return 0; }
 
     [[nodiscard]] virtual Rerolls prayerRerolls() const { return Rerolls::None; }
 

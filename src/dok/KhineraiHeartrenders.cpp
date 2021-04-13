@@ -118,12 +118,12 @@ namespace DaughtersOfKhaine {
         return mod;
     }
 
-    int KhineraiHeartrenders::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int KhineraiHeartrenders::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Death From Above
         if ((m_setupInRound == m_battleRound) && weapon->isMissile() &&
             (weapon->name() == m_barbedJavelinMissile.name()))
             return weapon->rend() - 1;
-        return DaughterOfKhaine::weaponRend(weapon, target, hitRoll, woundRoll);
+        return DaughterOfKhaine::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void KhineraiHeartrenders::onRestore() {

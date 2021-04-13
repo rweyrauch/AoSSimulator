@@ -126,8 +126,8 @@ namespace Death {
     }
 
     Wounds
-    LegionOfNagashBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    LegionOfNagashBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (isGeneral() && (m_commandTrait == CommandTrait::Chosen_Champion) && weapon->isMelee() &&
             target->hasKeyword(HERO)) {
             damage.normal++;

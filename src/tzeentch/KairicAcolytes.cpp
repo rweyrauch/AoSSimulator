@@ -215,11 +215,11 @@ namespace Tzeentch {
         return points;
     }
 
-    int KairicAcolytes::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int KairicAcolytes::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (m_gestaltSorceryActive && (weapon->name() == m_sorcerousBolt.name())) {
             return weapon->rend() - 1;
         }
-        return TzeentchBase::weaponRend(weapon, target, hitRoll, woundRoll);
+        return TzeentchBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void KairicAcolytes::onRestore() {

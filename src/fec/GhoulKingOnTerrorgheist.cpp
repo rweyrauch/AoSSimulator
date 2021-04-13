@@ -156,13 +156,13 @@ namespace FleshEaterCourt {
         }
     }
 
-    Wounds AbhorrantGhoulKingOnTerrorgheist::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds AbhorrantGhoulKingOnTerrorgheist::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                           int woundRoll) const {
         // Gaping Maw
         if (weapon->name() == m_fangedMaw.name() && hitRoll == 6) {
             return {0, 6};
         }
-        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AbhorrantGhoulKingOnTerrorgheist::onStartHero(PlayerId player) {
@@ -245,9 +245,9 @@ namespace FleshEaterCourt {
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }
 
-    int AbhorrantGhoulKingOnTerrorgheist::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll,
+    int AbhorrantGhoulKingOnTerrorgheist::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                      int woundRoll) const {
-        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+        auto rend = FleshEaterCourts::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if (weapon->isMelee() && (m_mountTrait == MountTrait::Razor_Clawed)) {
             rend--;
         }

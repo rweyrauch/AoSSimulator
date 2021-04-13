@@ -38,7 +38,7 @@ namespace IdonethDeepkin {
 
         void configure(WeaponOption weapon, MountTrait trait);
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onCharged() override;
 

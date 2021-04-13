@@ -20,24 +20,14 @@ namespace SlavesToDarkness {
     bool ChaosMarauderHorsemen::s_registered = false;
 
     Unit *ChaosMarauderHorsemen::Create(const ParameterList &parameters) {
-        auto unit = new ChaosMarauderHorsemen();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Axe_And_Shield);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(numModels, weapons, iconBearer, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosMarauderHorsemen(legion, mark, numModels, weapons, iconBearer, hornblower);
     }
 
     void ChaosMarauderHorsemen::Init() {
@@ -64,16 +54,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosMarauderHorsemen::ChaosMarauderHorsemen() :
-            SlavesToDarknessBase("Chaos Marauder Horsemen", 12, g_wounds, 5, 6, false),
-            m_javelinMissile(Weapon::Type::Missile, "Marauder Javelin", 12, 1, 4, 3, -1, 1),
-            m_axe(Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1),
-            m_flail(Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, -1, 1),
-            m_javelin(Weapon::Type::Melee, "Marauder Javelin", 2, 1, 4, 3, 0, 1),
-            m_axeMaster(Weapon::Type::Melee, "Barbarian Axe", 1, 3, 4, 4, 0, 1),
-            m_flailMaster(Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, -1, 1),
-            m_javelinMaster(Weapon::Type::Melee, "Marauder Javelin", 2, 2, 4, 3, 0, 1),
-            m_hooves(Weapon::Type::Melee, "Trampling Hooves", 1, 2, 4, 4, 0, 1) {
+    ChaosMarauderHorsemen::ChaosMarauderHorsemen(DamnedLegion legion, MarkOfChaos mark,  int numModels, WeaponOption weapons, bool iconBearer, bool hornblower) :
+            SlavesToDarknessBase("Chaos Marauder Horsemen", 12, g_wounds, 5, 6, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDER_HORSEMEN};
         m_weapons = {&m_javelinMissile, &m_axe, &m_flail, &m_javelin, &m_axeMaster, &m_flailMaster, &m_javelinMaster,
                      &m_hooves};
@@ -82,19 +64,12 @@ namespace SlavesToDarkness {
 
         s_globalBraveryMod.connect(this, &ChaosMarauderHorsemen::iconBearer, &m_connection);
 
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+
         // Feigned Flight
         m_retreatAndCharge = true;
         m_retreatAndShoot = true;
-    }
-
-    ChaosMarauderHorsemen::~ChaosMarauderHorsemen() {
-        m_connection.disconnect();
-    }
-
-    bool ChaosMarauderHorsemen::configure(int numModels, WeaponOption weapons, bool iconBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_weaponOption = weapons;
 
@@ -161,8 +136,10 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    ChaosMarauderHorsemen::~ChaosMarauderHorsemen() {
+        m_connection.disconnect();
     }
 
     std::string ChaosMarauderHorsemen::ValueToString(const Parameter &parameter) {
@@ -190,27 +167,27 @@ namespace SlavesToDarkness {
     }
 
     int ChaosMarauderHorsemen::runModifier() const {
-        auto modifier = Unit::runModifier();
+        auto modifier = SlavesToDarknessBase::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosMarauderHorsemen::chargeModifier() const {
-        auto modifier = Unit::chargeModifier();
+        auto modifier = SlavesToDarknessBase::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosMarauderHorsemen::toHitModifier(const Weapon *weapon, const Unit *target) const {
         // Barbarian Hordes
-        auto modifier = Unit::toHitModifier(weapon, target);
+        auto modifier = SlavesToDarknessBase::toHitModifier(weapon, target);
         if (remainingModels() >= 10) modifier++;
         return modifier;
     }
 
-    int ChaosMarauderHorsemen::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int ChaosMarauderHorsemen::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Barbarian Hordes
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        auto rend = SlavesToDarknessBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if (remainingModels() >= 10) rend--;
         return rend;
     }

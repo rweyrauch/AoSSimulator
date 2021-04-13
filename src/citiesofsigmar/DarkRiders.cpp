@@ -131,12 +131,12 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    Wounds DarkRiders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DarkRiders::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Murderous Charge
         if (m_charged && (weapon->name() == m_spear.name())) {
             return {2, 0};
         }
-        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int DarkRiders::ComputePoints(int numModels) {

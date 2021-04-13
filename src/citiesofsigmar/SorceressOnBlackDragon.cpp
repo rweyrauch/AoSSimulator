@@ -221,14 +221,14 @@ namespace CitiesOfSigmar {
     }
 
     Wounds
-    SorceressOnBlackDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    SorceressOnBlackDragon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Noxious Breath
         if ((weapon->name() == m_noxiousBreath.name())) {
             Dice::RollResult result;
             Dice::RollD6(target->remainingModels(), result);
             return {0, result.rollsGE(6)};
         }
-        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SorceressOnBlackDragon::ComputePoints(int /*numModels*/) {

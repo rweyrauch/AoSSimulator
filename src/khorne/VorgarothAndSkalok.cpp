@@ -132,12 +132,12 @@ namespace Khorne {
     }
 
     Wounds
-    VorgarothAndSkalok::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    VorgarothAndSkalok::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Monstrous Trophies
         if ((hitRoll == 6) && (weapon->name() == m_skullCleaverAxeOfKhorne.name())) {
             return {weapon->damage(), Dice::RollD3()};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void VorgarothAndSkalok::onCharged() {

@@ -88,12 +88,12 @@ namespace Nighthaunt {
         return 0;
     }
 
-    Wounds Mourngul::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Mourngul::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightfull Touch
         if (hitRoll == 6) {
             return {0, 2};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Mourngul::onRestore() {

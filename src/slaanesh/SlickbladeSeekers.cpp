@@ -97,8 +97,8 @@ namespace Slaanesh {
         return points;
     }
 
-    Wounds SlickbladeSeekers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto wounds = SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds SlickbladeSeekers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto wounds = SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Decapitating Strikes
         if ((woundRoll == 6) && (weapon->name() == m_glaive.name())) {
             wounds.mortal++;

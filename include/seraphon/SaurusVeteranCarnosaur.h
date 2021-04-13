@@ -49,7 +49,7 @@ namespace Seraphon {
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int terror(const Unit *target);
 

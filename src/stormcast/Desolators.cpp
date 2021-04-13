@@ -66,7 +66,7 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds Desolators::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Desolators::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Intolerable Damage
         if ((hitRoll == 6) && (weapon->name() == m_clawsAndFangs.name())) {
             return {Dice::RollD6(), 0};
@@ -77,7 +77,7 @@ namespace StormcastEternals {
             return {0, Dice::RollD3()};
         }
 
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls Desolators::toSaveRerolls(const Weapon */*weapon*/, const Unit *attacker) const {

@@ -81,12 +81,12 @@ namespace Nighthaunt {
         }
     }
 
-    Wounds Hexwraiths::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Hexwraiths::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((woundRoll == 6) && (weapon->name() == m_spectralScythe.name())) {
             return {0, 1};
         }
-        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Hexwraiths::ComputePoints(int numModels) {

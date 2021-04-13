@@ -50,9 +50,9 @@ namespace SlavesToDarkness {
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 

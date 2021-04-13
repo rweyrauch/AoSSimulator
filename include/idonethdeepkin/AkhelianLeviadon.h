@@ -35,7 +35,7 @@ namespace IdonethDeepkin {
 
         size_t getDamageTableIndex() const;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int voidDrumSaveMod(const Unit *unit, const Weapon *weapon);
         int voidDrumToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target);

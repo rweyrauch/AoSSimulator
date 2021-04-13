@@ -251,8 +251,8 @@ namespace Fyreslayers {
         return attacks;
     }
 
-    Wounds Fyreslayer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Fyreslayer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (s_activeRune == Rune::Of_Searing_Heat) {
             if (hitRoll == 6) damage.normal++;
         }
@@ -263,8 +263,8 @@ namespace Fyreslayers {
         return damage;
     }
 
-    int Fyreslayer::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+    int Fyreslayer::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if ((s_activeRune == Rune::Of_Awakened_Steel) && weapon->isMelee()) {
             rend--;
             if (s_enhancedRuneActive) rend--;

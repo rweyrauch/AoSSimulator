@@ -139,9 +139,9 @@ namespace Slaanesh {
         return Rerolls::None;
     }
 
-    Wounds HellstridersWithClawspears::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds HellstridersWithClawspears::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                     int woundRoll) const {
-        auto wounds = SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto wounds = SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Piercing Strike
         if (m_charged && (weapon->name() == m_clawSpear.name())) {
             wounds.normal++;

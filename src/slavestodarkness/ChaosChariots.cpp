@@ -25,8 +25,12 @@ namespace SlavesToDarkness {
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Great_Blade_And_Whip);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
+        auto lord = GetBoolParam("Idolator Lord", parameters, false);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_idolatorCommandTraits[0]);
+        auto prayer = (Prayer) GetEnumParam("Idolator Prayer", parameters, g_idolatorPrayers[0]);
+        auto general = GetBoolParam("General", parameters, false);
 
-        return new ChaosChariots(legion, mark, numModels, weapons);
+        return new ChaosChariots(legion, mark, numModels, weapons, lord, trait, prayer, general);
     }
 
     void ChaosChariots::Init() {
@@ -39,9 +43,13 @@ namespace SlavesToDarkness {
                     ChaosChariots::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            EnumParameter("Weapons", Great_Blade_And_Whip, weapons),
+                            EnumParameter("Weapons", weapons[0], weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
+                            BoolParameter("Idolator Lord"),
+                            EnumParameter("Command Trait", g_idolatorCommandTraits[0], g_idolatorCommandTraits),
+                            EnumParameter("Idolator Prayer", g_idolatorPrayers[0], g_idolatorPrayers),
+                            BoolParameter("General"),
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE}
@@ -50,7 +58,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosChariots::ChaosChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons) :
+    ChaosChariots::ChaosChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool idolatorLord,
+                                 CommandTrait trait, Prayer prayer, bool isGeneral) :
             SlavesToDarknessBase("Chaos Chariots", 12, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted,
@@ -60,19 +69,30 @@ namespace SlavesToDarkness {
 
         setDamnedLegion(legion);
         setMarkOfChaos(mark);
+        setGeneral(isGeneral);
+        setCommandTrait(trait);
 
-        auto exalted = new Model(g_basesize, wounds());
-        if (weapons == Great_Blade_And_Whip) {
-            exalted->addMeleeWeapon(&m_greatBladeExalted);
-        } else if (weapons == War_Flail_And_Whip) {
-            exalted->addMeleeWeapon(&m_flailExalted);
+        if ((legion == DamnedLegion::Idolators) && idolatorLord) {
+            m_keywords.push_back(IDOLATOR_LORD);
+            m_keywords.push_back(HERO);
+            m_keywords.push_back(PRIEST);
+            m_battleFieldRole = Role::Leader;
         }
-        exalted->addMeleeWeapon(&m_whipExalted);
-        exalted->addMeleeWeapon(&m_hooves);
-        exalted->setName("Exalted Charioteer");
-        addModel(exalted);
 
-        for (auto i = 1; i < numModels; i++) {
+        if ((numModels > 1) || ((legion == DamnedLegion::Idolators) && idolatorLord)) {
+            auto exalted = new Model(g_basesize, wounds());
+            if (weapons == Great_Blade_And_Whip) {
+                exalted->addMeleeWeapon(&m_greatBladeExalted);
+            } else if (weapons == War_Flail_And_Whip) {
+                exalted->addMeleeWeapon(&m_flailExalted);
+            }
+            exalted->addMeleeWeapon(&m_whipExalted);
+            exalted->addMeleeWeapon(&m_hooves);
+            exalted->setName("Exalted Charioteer");
+            addModel(exalted);
+        }
+
+        for (auto i = (int)m_models.size(); i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             if (weapons == Great_Blade_And_Whip)
                 model->addMeleeWeapon(&m_greatBlade);

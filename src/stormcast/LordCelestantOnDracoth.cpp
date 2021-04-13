@@ -167,7 +167,7 @@ namespace StormcastEternals {
     }
 
     Wounds
-    LordCelestantOnDracoth::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    LordCelestantOnDracoth::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Intolerable Damage
         if ((woundRoll == 6) && (weapon->name() == m_clawsAndFangs.name())) {
             // D6 instead of 1
@@ -183,7 +183,7 @@ namespace StormcastEternals {
             return {weapon->damage() + 2, 0};
         }
 
-        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int LordCelestantOnDracoth::ComputePoints(int /*numModels*/) {

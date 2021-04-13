@@ -129,7 +129,7 @@ namespace OssiarchBonereapers {
 
         int woundModifier() const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

@@ -80,9 +80,9 @@ namespace Nighthaunt {
         return attacks;
     }
 
-    Wounds DreadbladeHarrow::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DreadbladeHarrow::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Dreadblade
-        auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto wounds = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (m_charged && (weapon->name() == m_dreadblade.name())) wounds.normal++;
 
         return wounds;

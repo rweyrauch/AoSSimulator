@@ -244,11 +244,11 @@ namespace StormcastEternals {
         return MountedStormcastEternal::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    Wounds DrakeswornTemplar::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DrakeswornTemplar::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((hitRoll == 6) && (weapon->name() == m_stormlance.name()) && (target->hasKeyword(MONSTER))) {
             return {0, Dice::RollD6()};
         }
-        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int DrakeswornTemplar::arcaneLineage(const Unit *target) {

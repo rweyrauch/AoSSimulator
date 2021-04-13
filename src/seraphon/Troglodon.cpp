@@ -145,12 +145,12 @@ namespace Seraphon {
         }
     }
 
-    Wounds Troglodon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Troglodon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Venomous Spittle
         if ((woundRoll == 6) && ((weapon->name() == m_spittle.name()) || (weapon->name() == m_jaws.name()))) {
             return {weapon->damage(), 1};
         }
-        return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Troglodon::castingModifier() const {

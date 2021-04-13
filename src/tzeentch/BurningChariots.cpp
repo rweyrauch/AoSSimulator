@@ -105,13 +105,13 @@ namespace Tzeentch {
         return mod;
     }
 
-    Wounds BurningChariotsOfTzeentch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds BurningChariotsOfTzeentch::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Sky-sharks
         if (target->hasKeyword(MONSTER)) {
             return {Dice::RollD3(), 0};
         }
-        return TzeentchBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return TzeentchBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int BurningChariotsOfTzeentch::ComputePoints(int numModels) {

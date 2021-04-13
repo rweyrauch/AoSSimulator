@@ -70,12 +70,12 @@ namespace SlavesToDarkness {
         return g_pointsPerUnit;
     }
 
-    Wounds DarkoathWarqueen::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DarkoathWarqueen::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Savage Duellist
         if ((weapon->name() == m_axe.name()) && (target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
             return {weapon->damage()+1, 0, Wounds::Source::Weapon_Melee};
         }
-        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } //namespace SlavesToDarkness

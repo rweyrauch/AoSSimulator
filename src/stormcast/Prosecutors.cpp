@@ -128,14 +128,14 @@ namespace StormcastEternals {
         m_points = ComputePoints(numModels);
     }
 
-    Wounds Prosecutors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Prosecutors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Stormcall Javelin
         if (weapon->name() == m_stormcallJavelin.name()) {
             if (distanceTo(target) >= 9.0) {
                 return {weapon->damage() + 1, 0};
             }
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Unit *Prosecutors::Create(const ParameterList &parameters) {

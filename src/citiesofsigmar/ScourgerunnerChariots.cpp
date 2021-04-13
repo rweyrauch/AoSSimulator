@@ -106,12 +106,12 @@ namespace CitiesOfSigmar {
     }
 
     Wounds
-    ScourgerunnerChariots::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    ScourgerunnerChariots::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Lay the Beast Low
         if ((hitRoll == 6) && (weapon->name() == m_harpoon.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ScourgerunnerChariots::ComputePoints(int numModels) {

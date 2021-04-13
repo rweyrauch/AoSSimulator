@@ -66,12 +66,12 @@ namespace Khorne {
         }
     }
 
-    Wounds ValkiaTheBloody::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ValkiaTheBloody::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // The Spear Slaupnir
         if (m_charged && (weapon->name() == m_slaupnir.name())) {
             return {RAND_D3, 1};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ValkiaTheBloody::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {

@@ -95,7 +95,7 @@ namespace Skaven {
         }
     }
 
-    Wounds ArchWarlock::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ArchWarlock::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // More-more Stormcage!
         if (weapon->name() == m_halberd.name()) {
             // Decide to overcharge (without using the hitRoll)
@@ -109,7 +109,7 @@ namespace Skaven {
                 return {RAND_D6, 0};
             }
         }
-        return Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void ArchWarlock::onRestore() {

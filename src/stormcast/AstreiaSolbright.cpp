@@ -87,12 +87,12 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds AstreiaSolbright::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AstreiaSolbright::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Thunderous Pounce
         if (m_charged && weapon->name() == m_monstrousClaws.name()) {
             return {Dice::RollD3(), 0};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls AstreiaSolbright::chargeRerolls() const {

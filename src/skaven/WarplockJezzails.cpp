@@ -82,12 +82,12 @@ namespace Skaven {
         return true;
     }
 
-    Wounds WarplockJezzails::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds WarplockJezzails::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Warpstone Snipers
         if ((hitRoll == 6) && (weapon->name() == m_jezzail.name())) {
             return {0, 2};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls WarplockJezzails::toHitRerolls(const Weapon *weapon, const Unit *target) const {

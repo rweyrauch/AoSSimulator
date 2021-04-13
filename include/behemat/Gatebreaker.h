@@ -46,7 +46,7 @@ namespace SonsOfBehemat {
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
         Weapon m_boulder{Weapon::Type::Missile, "Hurled Boulder", 18, 1, 3, 2, -3, 4},

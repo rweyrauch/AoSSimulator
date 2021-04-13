@@ -123,14 +123,14 @@ namespace Death {
         return mod;
     }
 
-    Wounds Nagash::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Nagash::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if (hitRoll == 6) {
             if (weapon->name() == m_clawsAndDaggers.name()) {
                 return {0, 1};
             }
         }
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Nagash::ComputePoints(int /*numModels*/) {

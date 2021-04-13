@@ -111,7 +111,7 @@ namespace OgorMawtribes {
         m_mightyBellower.disconnect();
     }
 
-    Wounds Tyrant::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Tyrant::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((hitRoll == 6) && (weapon->name() == m_glaive.name())) {
             if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)) {
                 return {Dice::RollD6(), 0};
@@ -124,7 +124,7 @@ namespace OgorMawtribes {
                 return {weapon->damage(), 1};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Tyrant::toWoundModifier(const Weapon *weapon, const Unit *target) const {

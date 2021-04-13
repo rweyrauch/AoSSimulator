@@ -97,12 +97,12 @@ namespace IdonethDeepkin {
         }
     }
 
-    Wounds AkhelianLeviadon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AkhelianLeviadon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Jaws of Death
         if ((hitRoll >= 6) && (weapon->name() == m_crushingJaws.name())) {
             return {0, 6};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AkhelianLeviadon::onWounded() {

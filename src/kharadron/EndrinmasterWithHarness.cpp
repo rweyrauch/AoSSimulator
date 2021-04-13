@@ -86,9 +86,9 @@ namespace KharadronOverlords {
         return g_pointsPerUnit;
     }
 
-    Wounds EndrinmasterWithEndrinharness::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds EndrinmasterWithEndrinharness::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                        int woundRoll) const {
-        auto damage = KharadronBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = KharadronBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Endrinharness
         if ((hitRoll == 6) && weapon->isMelee()) {
             damage.normal = 0;

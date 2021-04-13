@@ -76,12 +76,12 @@ namespace SlavesToDarkness {
         m_points = ComputePoints(numModels);
     }
 
-    Wounds SplinteredFang::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SplinteredFang::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // One Cut, One Kill
         if (hitRoll == 6) {
             return {0, 1};
         }
-        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SplinteredFang::ComputePoints(int numModels) {

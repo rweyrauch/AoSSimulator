@@ -77,12 +77,12 @@ namespace Nighthaunt {
     }
 
     Wounds
-    DreadscytheHarridans::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    DreadscytheHarridans::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Murderous Bloodlust
         if ((woundRoll == 6) && (weapon->name() == m_scythedLimbs.name())) {
             return {2, 0};
         }
-        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int DreadscytheHarridans::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

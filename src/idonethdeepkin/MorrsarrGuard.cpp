@@ -145,14 +145,14 @@ namespace IdonethDeepkin {
     }
 
     Wounds
-    AkhelianMorrsarrGuard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    AkhelianMorrsarrGuard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (m_charged && (weapon->name() == m_voltspear.name())) return {weapon->damage() + 1, 0};
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int AkhelianMorrsarrGuard::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int AkhelianMorrsarrGuard::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (m_charged && (weapon->name() == m_voltspear.name())) return -2;
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace IdonethDeepkin

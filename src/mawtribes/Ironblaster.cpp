@@ -71,13 +71,13 @@ namespace OgorMawtribes {
         m_points = g_pointsPerUnit;
     }
 
-    Wounds Ironblaster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Ironblaster::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Rhinox Charge
         if (m_charged && (weapon->name() == m_horns.name())) {
             return {weapon->damage() + 1, 0};
         }
 
-        return MawtribesBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Ironblaster::onStartShooting(PlayerId player) {

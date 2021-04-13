@@ -128,8 +128,8 @@ namespace SonsOfBehemat {
         }
     }
 
-    Wounds Mancrusher::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Mancrusher::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto wounds = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         // Getting Stuck In
         if (m_tribe == Tribe::Stomper) {

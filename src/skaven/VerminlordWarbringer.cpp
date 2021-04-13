@@ -122,12 +122,12 @@ namespace Skaven {
     }
 
     Wounds
-    VerminlordWarbringer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    VerminlordWarbringer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Fist of Verminus Supremacy
         if ((woundRoll == 6) && (weapon->name() == m_fist.name())) {
             return {weapon->damage() + 4, 0};
         }
-        return Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls VerminlordWarbringer::toWoundRerolls(const Weapon *weapon, const Unit *target) const {

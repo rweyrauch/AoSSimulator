@@ -58,8 +58,8 @@ public:
         return m_interface->targetAttackDamageModifier(wounds, attacker, hitRoll, woundRoll);
     }
 
-    int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override {
-        return m_interface->weaponRend(weapon, target, hitRoll, woundRoll);
+    int weaponRend(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override {
+        return m_interface->weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int toSaveModifier(const Weapon *weapon) const override {

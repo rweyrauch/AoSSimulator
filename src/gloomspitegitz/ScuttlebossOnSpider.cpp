@@ -118,7 +118,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    Wounds ScuttlebossOnGiganticSpider::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds ScuttlebossOnGiganticSpider::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                      int woundRoll) const {
         // Spider Venom
         int threshold = inLightOfTheBadMoon() ? 5 : 6;
@@ -128,7 +128,7 @@ namespace GloomspiteGitz {
             }
             return {0, 1, Wounds::Source::Weapon_Melee};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ScuttlebossOnGiganticSpider::ComputePoints(int /*numModels*/) {

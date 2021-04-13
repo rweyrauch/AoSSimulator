@@ -83,8 +83,8 @@ namespace LuminethRealmLords {
     }
 
     Wounds
-    TheLightOfEltharion::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    TheLightOfEltharion::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         // Fangsword
         if (charged() && (weapon->name() == m_fangsword.name())) {

@@ -79,12 +79,12 @@ namespace Seraphon {
         return points;
     }
 
-    int Razordons::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int Razordons::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Piercing Barbs
         if ((weapon->name() == m_spikes.name()) && (distanceTo(m_shootingTarget) <= 6.0)) {
             return -1;
         }
-        return SeraphonBase::weaponRend(weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } //namespace Seraphon

@@ -98,8 +98,8 @@ namespace SlavesToDarkness {
         m_points = ComputePoints(numModels);
     }
 
-    Wounds Varanguard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Varanguard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Daemonbound
         if ((hitRoll == 6) && (weapon->name() == m_blade.name())) {
             damage.mortal++;
@@ -107,8 +107,8 @@ namespace SlavesToDarkness {
         return damage;
     }
 
-    int Varanguard::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = SlavesToDarknessBase::weaponRend(weapon, target, hitRoll, woundRoll);
+    int Varanguard::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = SlavesToDarknessBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
 
         // Impaling Charge
         if (m_charged && (weapon->name() == m_fellspear.name())) {

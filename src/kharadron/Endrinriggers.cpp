@@ -154,12 +154,12 @@ namespace KharadronOverlords {
         return true;
     }
 
-    Wounds Endrinriggers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Endrinriggers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Drill Launcher
         if ((hitRoll == 6) && (weapon->name() == m_drillLauncher.name())) {
             return {0, 3};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Endrinriggers::chargeModifier() const {

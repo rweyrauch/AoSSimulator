@@ -31,7 +31,7 @@ namespace IdonethDeepkin {
 
         void onCharged() override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int crestOfTheHighKings(const Unit *target);
 

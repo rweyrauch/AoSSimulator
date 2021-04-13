@@ -74,12 +74,12 @@ namespace StormcastEternals {
         return Rerolls::Failed;
     }
 
-    Wounds KnightQuestor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds KnightQuestor::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Thundercharged Strike
         if (woundRoll == 6 && weapon->name() == m_warblade.name()) {
             return {2, 0};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int KnightQuestor::ComputePoints(int /*numModels*/) {

@@ -34,7 +34,7 @@ namespace Ironjawz {
 
         void onRestore() override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onStartCombat(PlayerId player) override;
 

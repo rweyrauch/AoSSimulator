@@ -154,7 +154,7 @@ namespace Death {
 
         void deathlyInvocations(int numUnits, double range);
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
 

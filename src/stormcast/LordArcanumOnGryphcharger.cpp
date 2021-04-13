@@ -87,13 +87,13 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds LordArcanumOnGryphcharger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds LordArcanumOnGryphcharger::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Aethereal Strike
         if ((hitRoll == 6) && (weapon->name() == m_beakAndClaws.name())) {
             return {0, 1};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void LordArcanumOnGryphcharger::onStartCombat(PlayerId player) {

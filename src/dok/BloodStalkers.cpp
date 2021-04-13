@@ -86,13 +86,13 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    Wounds BloodStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds BloodStalkers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Heartseekers
         if ((hitRoll >= 6) && (weapon->name() == m_heartseekerBow.name())) {
             return {0, 1};
         }
 
-        return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return DaughterOfKhaine::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int BloodStalkers::ComputePoints(int numModels) {

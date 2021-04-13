@@ -87,13 +87,13 @@ namespace DaughtersOfKhaine {
     }
 
     Wounds
-    KhainiteShadowstalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    KhainiteShadowstalkers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Cursed Missiles
         if ((hitRoll == 6) && (weapon->name() == m_cursedMissiles.name())) {
             return {0, 1};
         }
 
-        return DaughterOfKhaine::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return DaughterOfKhaine::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int KhainiteShadowstalkers::ComputePoints(int numModels) {

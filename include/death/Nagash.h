@@ -37,7 +37,7 @@ namespace Death {
 
         int unbindingModifier() const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         size_t getDamageTableIndex() const;
 

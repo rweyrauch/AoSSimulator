@@ -158,9 +158,9 @@ namespace FleshEaterCourt {
         }
     }
 
-    Wounds AbhorrantGhoulKingOnZombieDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds AbhorrantGhoulKingOnZombieDragon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                           int woundRoll) const {
-        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AbhorrantGhoulKingOnZombieDragon::onStartHero(PlayerId player) {
@@ -189,6 +189,8 @@ namespace FleshEaterCourt {
     }
 
     void AbhorrantGhoulKingOnZombieDragon::onWounded() {
+        FleshEaterCourts::onWounded();
+
         const auto damageIndex = getDamageTableIndex();
         m_pestilentialBreath.setToWound(g_damageTable[damageIndex].m_breathToWound);
         m_swordlikeClaws.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
@@ -196,6 +198,8 @@ namespace FleshEaterCourt {
     }
 
     void AbhorrantGhoulKingOnZombieDragon::onRestore() {
+        FleshEaterCourts::onRestore();
+
         // Reset table-drive attributes
         onWounded();
     }
@@ -205,7 +209,7 @@ namespace FleshEaterCourt {
     }
 
     int AbhorrantGhoulKingOnZombieDragon::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = FleshEaterCourts::toHitModifier(weapon, target);
 
         // Pestilential Breath
         if ((weapon->name() == m_pestilentialBreath.name())) {
@@ -224,9 +228,9 @@ namespace FleshEaterCourt {
         return FleshEaterCourts::toWoundRerolls(weapon, target);
     }
 
-    int AbhorrantGhoulKingOnZombieDragon::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll,
+    int AbhorrantGhoulKingOnZombieDragon::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                      int woundRoll) const {
-        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+        auto rend = FleshEaterCourts::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if (weapon->isMelee() && (m_mountTrait == MountTrait::Razor_Clawed)) {
             rend--;
         }

@@ -71,7 +71,7 @@ namespace Fyreslayers {
         }
     }
 
-    Wounds Doomseeker::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Doomseeker::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Runic Power
         if (!weapon->isMissile()) {
             if (wounds() - remainingWounds() == 1) {
@@ -80,7 +80,7 @@ namespace Fyreslayers {
                 return {weapon->damage() + 2, 0};
             }
         }
-        return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Doomseeker::ComputePoints(int /*numModels*/) {

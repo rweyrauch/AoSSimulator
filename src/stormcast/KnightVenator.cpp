@@ -75,12 +75,12 @@ namespace StormcastEternals {
         }
     }
 
-    int KnightVenator::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int KnightVenator::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Celestial Strike
         if ((woundRoll == 6) && (weapon->name() == m_beakAndTalonsMissile.name())) {
             return -3;
         }
-        return StormcastEternal::weaponRend(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int KnightVenator::ComputePoints(int /*numModels*/) {
@@ -106,7 +106,7 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds KnightVenator::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds KnightVenator::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (weapon->name() == m_starFatedArrow.name()) {
             if ((target->hasKeyword(HERO) || target->hasKeyword(MONSTER))) {
                 return {Dice::RollD6() + 3, 0, Wounds::Source::Weapon_Missile};
@@ -114,7 +114,7 @@ namespace StormcastEternals {
                 return {Dice::RollD3() + 3, 0, Wounds::Source::Weapon_Missile};
             }
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 

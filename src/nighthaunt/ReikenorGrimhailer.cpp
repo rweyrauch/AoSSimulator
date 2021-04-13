@@ -100,13 +100,13 @@ namespace Nighthaunt {
     }
 
     Wounds
-    ReikenorTheGrimhailer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    ReikenorTheGrimhailer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll == 6) && (weapon->name() == m_fellreaper.name())) {
             return {0, 2};
         }
 
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls ReikenorTheGrimhailer::toHitRerolls(const Weapon *weapon, const Unit *target) const {

@@ -76,12 +76,12 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds LordAquilor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds LordAquilor::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Aethereal Strike
         if ((hitRoll == 6) && (weapon->name() == m_beakAndClaws.name())) {
             return {0, 1};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int LordAquilor::ComputePoints(int /*numModels*/) {

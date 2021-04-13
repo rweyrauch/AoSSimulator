@@ -100,13 +100,13 @@ namespace BeastsOfChaos {
         return 0;
     }
 
-    Wounds Ghorgon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Ghorgon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Ravenous Bloodgreed
         if (hitRoll == 6) {
             return {weapon->damage(), Dice::RollD3()};
         }
 
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Ghorgon::onStartCombat(PlayerId player) {

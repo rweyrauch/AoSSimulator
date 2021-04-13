@@ -95,13 +95,13 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    Wounds BloodwrackMedusa::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds BloodwrackMedusa::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (weapon->name() == m_bloodwrackStare.name()) {
             Dice::RollResult result;
             Dice::RollD6(target->remainingModels(), result);
             return {0, result.rollsGE(5)};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int BloodwrackMedusa::ComputePoints(int /*numModels*/) {

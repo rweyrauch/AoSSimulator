@@ -107,14 +107,14 @@ namespace GloomspiteGitz {
         }
     }
 
-    Wounds ArachnarokSpiderWithFlinger::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds ArachnarokSpiderWithFlinger::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                      int woundRoll) const {
         // Spider Venom
         int threshold = inLightOfTheBadMoon() ? 5 : 6;
         if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ArachnarokSpiderWithFlinger::ComputePoints(int /*numModels*/) {

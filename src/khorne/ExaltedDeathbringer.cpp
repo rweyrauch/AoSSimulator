@@ -138,12 +138,12 @@ namespace Khorne {
     }
 
     Wounds
-    ExaltedDeathbringer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    ExaltedDeathbringer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Brutal Impalement
         if ((woundRoll == 6) && (weapon->name() == m_impalingSpear.name())) {
             return {weapon->damage(), Dice::RollD3()};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Wounds ExaltedDeathbringer::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {

@@ -69,12 +69,12 @@ namespace Nighthaunt {
         m_points = ComputePoints(1);
     }
 
-    Wounds LordExecutioner::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds LordExecutioner::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Beheading Strike
         if ((woundRoll == 6) && (weapon->name() == m_greataxe.name())) {
             return {weapon->damage() + 2, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void LordExecutioner::onStartCombat(PlayerId player) {

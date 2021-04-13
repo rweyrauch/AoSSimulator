@@ -66,12 +66,12 @@ namespace Khorne {
         }
     }
 
-    Wounds SkullCannons::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SkullCannons::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Blow
         if (hitRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SkullCannons::toHitModifier(const Weapon *weapon, const Unit *target) const {

@@ -92,7 +92,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    Wounds CryptFlayers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds CryptFlayers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Skewering Strike
         if ((hitRoll == 6) && weapon->name() == m_piercingTalons.name()) {
             // One mortal wound.
@@ -108,7 +108,7 @@ namespace FleshEaterCourt {
                 return {0, roll - target->bravery()};
             }
         }
-        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int CryptFlayers::ComputePoints(int numModels) {

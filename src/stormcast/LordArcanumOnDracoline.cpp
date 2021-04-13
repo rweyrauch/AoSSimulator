@@ -96,12 +96,12 @@ namespace StormcastEternals {
 
 
     Wounds
-    LordArcanumOnDracoline::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    LordArcanumOnDracoline::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Thunderous Pounce
         if (m_charged && weapon->name() == m_monstrousClaws.name()) {
             return {Dice::RollD3(), 0};
         }
-        return MountedStormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MountedStormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls LordArcanumOnDracoline::chargeRerolls() const {

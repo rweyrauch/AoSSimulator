@@ -264,8 +264,8 @@ namespace Slaanesh {
         return mod;
     }
 
-    Wounds SlaaneshBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds SlaaneshBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Hunter_Of_Godbeasts)) {
             damage.normal++;

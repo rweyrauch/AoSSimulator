@@ -111,12 +111,12 @@ namespace OssiarchBonereapers {
         onWounded();
     }
 
-    Wounds ArkhanTheBlack::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ArkhanTheBlack::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll == 6) && (weapon->name() == m_clawsAndDaggers.name())) {
             return {0, 1};
         }
-        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ArkhanTheBlack::castingModifier() const {

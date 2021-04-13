@@ -96,12 +96,12 @@ namespace Bonesplitterz {
         return true;
     }
 
-    Wounds SavageBigStabbas::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SavageBigStabbas::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // The Bigger They Are
         if (target->hasKeyword(MONSTER)) {
             return {Dice::RollSpecial(RAND_D6), 0};
         }
-        return Bonesplitterz::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Bonesplitterz::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SavageBigStabbas::ComputePoints(int numModels) {

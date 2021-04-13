@@ -125,13 +125,13 @@ namespace Skaven {
         return 0;
     }
 
-    Wounds PlaguePriestOnPlagueFurnace::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds PlaguePriestOnPlagueFurnace::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                      int woundRoll) const {
         // Great Plague Censor
         if ((weapon->name() == m_censer.name()) && (hitRoll >= 2)) {
             return {0, Dice::RollD3() + g_damageTable[getDamageTableIndex()].m_censerDamage};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void PlaguePriestOnPlagueFurnace::onEndCombat(PlayerId player) {

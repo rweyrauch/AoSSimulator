@@ -29,7 +29,7 @@ namespace Khorne {
 
         ValkiaTheBloody(SlaughterHost host, bool isGeneral);
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
 

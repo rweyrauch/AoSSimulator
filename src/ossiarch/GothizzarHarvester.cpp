@@ -125,12 +125,12 @@ namespace OssiarchBonereapers {
     }
 
     Wounds
-    GothizzarHarvester::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    GothizzarHarvester::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Soulcrusher Bludgeons
         if ((hitRoll == 6) && (weapon->name() == m_bludgeons.name())) {
             return {0, 2};
         }
-        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int GothizzarHarvester::ComputePoints(int /*numModels*/) {

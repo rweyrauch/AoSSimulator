@@ -67,12 +67,12 @@ namespace Khorne {
         }
     }
 
-    Wounds Skulltaker::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Skulltaker::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Strike
         if (hitRoll == 6) {
             return {weapon->damage(), 3};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls Skulltaker::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {

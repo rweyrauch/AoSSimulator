@@ -34,7 +34,7 @@ namespace FleshEaterCourt {
 
         void onStartHero(PlayerId player) override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onWounded() override;
 
@@ -46,7 +46,7 @@ namespace FleshEaterCourt {
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 

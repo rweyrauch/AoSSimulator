@@ -30,11 +30,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosMarauders();
+        ChaosMarauders(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool iconBearer, bool drummer);
+
+        ChaosMarauders() = delete;
 
         ~ChaosMarauders() override;
-
-        bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer);
 
     protected:
 
@@ -44,7 +44,7 @@ namespace SlavesToDarkness {
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int iconBearer(const Unit *unit);
 
@@ -56,10 +56,10 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_axe,
-                m_flail,
-                m_axeChieftain,
-                m_flailChieftain;
+        Weapon  m_axe{Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1},
+                m_flail{Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, 0, 1},
+                m_axeChieftain{Weapon::Type::Melee, "Barbarian Axe", 1, 3, 4, 4, 0, 1},
+                m_flailChieftain{Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, 0, 1};
 
         lsignal::slot m_connection;
 

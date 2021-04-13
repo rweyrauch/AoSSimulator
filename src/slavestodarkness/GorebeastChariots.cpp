@@ -21,22 +21,16 @@ namespace SlavesToDarkness {
     bool GorebeastChariots::s_registered = false;
 
     Unit *GorebeastChariots::Create(const ParameterList &parameters) {
-        auto unit = new GorebeastChariots();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Great_Blade_And_Whip);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
+        auto lord = GetBoolParam("Idolator Lord", parameters, false);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_idolatorCommandTraits[0]);
+        auto prayer = (Prayer) GetEnumParam("Idolator Prayer", parameters, g_idolatorPrayers[0]);
+        auto general = GetBoolParam("General", parameters, false);
 
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new GorebeastChariots(legion, mark, numModels, weapons, lord, trait, prayer, general);
     }
 
     void GorebeastChariots::Init() {
@@ -52,6 +46,10 @@ namespace SlavesToDarkness {
                             EnumParameter("Weapons", Great_Blade_And_Whip, weapons),
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
                             EnumParameter("Mark of Chaos", g_markOfChaos[0], g_markOfChaos),
+                            BoolParameter("Idolator Lord"),
+                            EnumParameter("Command Trait", g_idolatorCommandTraits[0], g_idolatorCommandTraits),
+                            EnumParameter("Idolator Prayer", g_idolatorPrayers[0], g_idolatorPrayers),
+                            BoolParameter("General"),
                     },
                     CHAOS,
                     {SLAVES_TO_DARKNESS, KHORNE, TZEENTCH, SLAANESH, NURGLE}
@@ -60,38 +58,40 @@ namespace SlavesToDarkness {
         }
     }
 
-    GorebeastChariots::GorebeastChariots() :
-            SlavesToDarknessBase("Gorebeast Chariots", 9, g_wounds, 6, 4, false),
-            m_greatBlade(Weapon::Type::Melee, "Chaos Greatblade", 2, 2, 3, 3, -1, 2),
-            m_flail(Weapon::Type::Melee, "Chaos War-flail", 2, RAND_D6, 4, 3, 0, 1),
-            m_whip(Weapon::Type::Melee, "Lashing Whip", 2, 2, 4, 4, 0, 1),
-            m_greatBladeExalted(Weapon::Type::Melee, "Chaos Greatblade", 2, 2, 2, 3, -1, 2),
-            m_flailExalted(Weapon::Type::Melee, "Chaos War-flail", 2, RAND_D6, 3, 3, 0, 1),
-            m_whipExalted(Weapon::Type::Melee, "Lashing Whip", 2, 2, 3, 4, 0, 1),
-            m_fists(Weapon::Type::Melee, "Crushing Fists", 1, 3, 3, 3, 0, 2) {
+    GorebeastChariots::GorebeastChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool idolatorLord,
+                                         CommandTrait trait, Prayer prayer, bool isGeneral) :
+            SlavesToDarknessBase("Gorebeast Chariots", 9, g_wounds, 6, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, GOREBEAST_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted, &m_fists};
         m_hasMount = true;
         m_fists.setMount(true);
-    }
 
-    bool GorebeastChariots::configure(int numModels, WeaponOption weapons) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setGeneral(isGeneral);
+        setCommandTrait(trait);
+
+        if ((legion == DamnedLegion::Idolators) && idolatorLord) {
+            m_keywords.push_back(IDOLATOR_LORD);
+            m_keywords.push_back(HERO);
+            m_keywords.push_back(PRIEST);
+            m_battleFieldRole = Role::Leader;
         }
 
-        auto exalted = new Model(g_basesize, wounds());
-        if (weapons == Great_Blade_And_Whip) {
-            exalted->addMeleeWeapon(&m_greatBladeExalted);
-        } else if (weapons == War_Flail_And_Whip) {
-            exalted->addMeleeWeapon(&m_flailExalted);
+        if ((numModels > 1) || ((legion == DamnedLegion::Idolators) && idolatorLord)) {
+            auto exalted = new Model(g_basesize, wounds());
+            if (weapons == Great_Blade_And_Whip) {
+                exalted->addMeleeWeapon(&m_greatBladeExalted);
+            } else if (weapons == War_Flail_And_Whip) {
+                exalted->addMeleeWeapon(&m_flailExalted);
+            }
+            exalted->addMeleeWeapon(&m_whipExalted);
+            exalted->addMeleeWeapon(&m_fists);
+            exalted->setName("Exalted Charioteer");
+            addModel(exalted);
         }
-        exalted->addMeleeWeapon(&m_whipExalted);
-        exalted->addMeleeWeapon(&m_fists);
-        exalted->setName("Exalted Charioteer");
-        addModel(exalted);
 
-        for (auto i = 1; i < numModels; i++) {
+        for (auto i = (int)m_models.size(); i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             if (weapons == Great_Blade_And_Whip)
                 model->addMeleeWeapon(&m_greatBlade);
@@ -103,8 +103,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     std::string GorebeastChariots::ValueToString(const Parameter &parameter) {

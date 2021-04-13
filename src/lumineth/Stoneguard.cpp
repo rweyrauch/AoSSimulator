@@ -132,7 +132,7 @@ namespace LuminethRealmLords {
         return Unit::battleshockRerolls();
     }
 
-    Wounds AlarithStoneguard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AlarithStoneguard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((hitRoll == 6) && (weapon->name() == m_malletOrHammer.name())) {
             if (m_weaponOption == WeaponOption::Stone_Mallet) {
                 return {weapon->damage() + 1, 0};
@@ -140,7 +140,7 @@ namespace LuminethRealmLords {
                 return {0, 1};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls AlarithStoneguard::toHitRerolls(const Weapon *weapon, const Unit *target) const {

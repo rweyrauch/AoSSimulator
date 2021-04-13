@@ -17,27 +17,14 @@ namespace SlavesToDarkness {
     bool DaemonPrince::s_registered = false;
 
     Unit *DaemonPrince::Create(const ParameterList &parameters) {
-        auto unit = new DaemonPrince();
-
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Daemonic_Axe);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
 
-        unit->configure(weapon);
-        return unit;
+        return new DaemonPrince(legion, mark, weapon, trait, artefact, general);
     }
 
     std::string DaemonPrince::ValueToString(const Parameter &parameter) {
@@ -88,17 +75,21 @@ namespace SlavesToDarkness {
         }
     }
 
-    DaemonPrince::DaemonPrince() :
-            SlavesToDarknessBase("Daemon Prince", 12, g_wounds, 10, 3, true),
-            m_axe(Weapon::Type::Melee, "Daemonic Axe", 1, 3, 3, 3, -2, 2),
-            m_sword(Weapon::Type::Melee, "Hellforged Sword", 2, 4, 4, 3, -1, RAND_D3),
-            m_talons(Weapon::Type::Melee, "Malefic Talons", 1, 3, 3, 3, 0, 2) {
+    DaemonPrince::DaemonPrince(DamnedLegion legion, MarkOfChaos mark, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Daemon Prince", 12, g_wounds, 10, 3, true) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, HERO, MARK_OF_CHAOS, DAEMON_PRINCE};
         m_weapons = {&m_axe, &m_sword, &m_talons};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void DaemonPrince::configure(WeaponOption option) {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
+        // Immortal Champion
+        buffAbility(Ability::Fights_First, 1, {Phase::Hero, DurationRestOfGame, owningPlayer()});
+
         auto model = new Model(g_basesize, wounds());
 
         if (option == Daemonic_Axe)
@@ -108,11 +99,26 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_talons);
         addModel(model);
 
+        switch (mark) {
+            case MarkOfChaos::Khorne:
+                break;
+            case MarkOfChaos::Tzeentch:
+                m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Arcane Influence", 12, 12, Phase::Hero,
+                                                                                          Attribute::Casting_Roll, 1, Abilities::Target::Friendly,
+                                                                                          std::vector<Keyword>{SLAVES_TO_DARKNESS, WIZARD}));
+                break;
+            case MarkOfChaos::Nurgle:
+                break;
+            case MarkOfChaos::Slaanesh:
+                break;
+            default:
+                break;
+        }
         m_points = g_pointsPerUnit;
     }
 
     int DaemonPrince::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = SlavesToDarknessBase::toHitModifier(weapon, target);
 
         // Bounding Charge
         if (m_charged) mod++;
@@ -120,12 +126,12 @@ namespace SlavesToDarkness {
         return mod;
     }
 
-    Wounds DaemonPrince::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DaemonPrince::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Hellforged Sword
         if ((weapon->name() == m_sword.name()) && (hitRoll == 6)) {
             return {0, 2};
         }
-        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace SlavesToDarkness

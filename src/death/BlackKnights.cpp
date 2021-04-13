@@ -115,12 +115,12 @@ namespace Death {
         return modifier;
     }
 
-    Wounds BlackKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds BlackKnights::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deathly Charge
         if (m_charged && weapon->name() == m_barrowLance.name()) {
             return {weapon->damage() + 1, 0};
         }
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int BlackKnights::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {

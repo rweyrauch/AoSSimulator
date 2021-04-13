@@ -66,7 +66,7 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds Concussors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Concussors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Blast to Ashes
         if ((hitRoll == 6) && (weapon->name() == m_lightningHammer.name())) {
             return {0, 2};
@@ -82,7 +82,7 @@ namespace StormcastEternals {
             return {0, Dice::RollD3()};
         }
 
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls Concussors::toSaveRerolls(const Weapon * /*weapon*/, const Unit *attacker) const {

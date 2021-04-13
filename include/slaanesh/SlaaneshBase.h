@@ -171,7 +171,7 @@ namespace Slaanesh {
 
         int woundModifier() const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         Rerolls runRerolls() const override;
 

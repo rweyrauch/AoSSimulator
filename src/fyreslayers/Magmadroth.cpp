@@ -131,8 +131,8 @@ namespace Fyreslayers {
         }
     }
 
-    int Magmadroth::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = Fyreslayer::weaponRend(weapon, target, hitRoll, woundRoll);
+    int Magmadroth::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Fyreslayer::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
 
         if ((m_mountTrait == MountTrait::Fire_Claw_Adult) && weapon->isMelee() && weapon->isMount() &&
             (woundRoll == 6)) {

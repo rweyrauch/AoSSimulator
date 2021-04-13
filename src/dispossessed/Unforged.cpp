@@ -65,12 +65,12 @@ namespace Dispossessed {
         return Rerolls::Ones;
     }
 
-    Wounds Unforged::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Unforged::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Nemesis
         if (target->hasKeyword(CHAOS)) {
             return {weapon->damage() * 2, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Unforged::toWoundModifier(const Weapon *weapon, const Unit *target) const {

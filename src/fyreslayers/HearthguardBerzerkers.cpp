@@ -113,12 +113,12 @@ namespace Fyreslayers {
     }
 
     Wounds
-    HearthguardBerzerkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    HearthguardBerzerkers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Smouldering Boulders
         if ((hitRoll == 6) && (weapon->name() == m_poleaxe.name())) {
             return {weapon->damage(), 2};
         }
-        return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Wounds HearthguardBerzerkers::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

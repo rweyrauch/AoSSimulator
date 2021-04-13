@@ -157,8 +157,8 @@ namespace Nurgle {
         return mod;
     }
 
-    int NurgleBase::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+    int NurgleBase::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Virulent_Contagion)) {
             rend--;
         }

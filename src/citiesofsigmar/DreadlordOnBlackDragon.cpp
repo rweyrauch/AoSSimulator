@@ -195,6 +195,7 @@ namespace CitiesOfSigmar {
     }
 
     void DreadlordOnBlackDragon::onRestore() {
+        CitizenOfSigmar::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
@@ -205,7 +206,7 @@ namespace CitiesOfSigmar {
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     size_t DreadlordOnBlackDragon::getDamageTableIndex() const {
@@ -219,7 +220,7 @@ namespace CitiesOfSigmar {
     }
 
     Wounds
-    DreadlordOnBlackDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    DreadlordOnBlackDragon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Lance of Spite
         if (m_charged && (weapon->name() == m_lance.name())) {
             return {2, 0};
@@ -232,15 +233,15 @@ namespace CitiesOfSigmar {
             return {0, result.rollsGE(6)};
         }
 
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int DreadlordOnBlackDragon::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int DreadlordOnBlackDragon::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Lance of Spite
         if (m_charged && (weapon->name() == m_lance.name())) {
             return -2;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int DreadlordOnBlackDragon::ComputePoints(int /*numModels*/) {

@@ -113,12 +113,12 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    Wounds SpiderRiders::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SpiderRiders::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Spider Venom
         if (weapon->name() == m_fangs.name() && (hitRoll == 6)) {
             return {weapon->damage(), 1};
         }
-        return GloomspiteGitzBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return GloomspiteGitzBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SpiderRiders::ComputePoints(int numModels) {

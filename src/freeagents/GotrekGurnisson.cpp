@@ -88,8 +88,8 @@ namespace FreeAgent {
         return Rerolls::Failed;
     }
 
-    Wounds GotrekGurnisson::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        Wounds wounds = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds GotrekGurnisson::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        Wounds wounds = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Krag Blackhammer's Master Rune
         if (hitRoll >= 6) {
             wounds.mortal += Dice::RollD6();

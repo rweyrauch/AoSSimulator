@@ -85,13 +85,13 @@ namespace Death {
         m_points = g_pointsPerUnit;
     }
 
-    Wounds WightKingWithBalefulTombBlade::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds WightKingWithBalefulTombBlade::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                        int woundRoll) const {
         // Beheading Strike
         if ((hitRoll >= 6) && (weapon->name() == m_balefulTombBlade.name())) {
             return {Dice::RollD3(), 0};
         }
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int WightKingWithBalefulTombBlade::ComputePoints(int /*numModels*/) {

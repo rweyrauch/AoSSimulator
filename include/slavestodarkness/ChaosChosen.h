@@ -21,11 +21,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosChosen();
+        ChaosChosen(DamnedLegion legion, MarkOfChaos mark, int numModels, bool iconBearer, bool drummer);
+
+        ChaosChosen() = delete;
 
         ~ChaosChosen() override;
-
-        bool configure(int numModels, bool iconBearer, bool drummer);
 
     protected:
 
@@ -33,15 +33,14 @@ namespace SlavesToDarkness {
 
         int chargeModifier() const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int iconBearer(const Unit *unit);
 
-
     private:
 
-        Weapon m_greataxe,
-               m_greataxeChampion;
+        Weapon  m_greataxe{Weapon::Type::Melee, "Soul Splitter", 1, 3, 3, 3, -1, 1},
+                m_greataxeChampion{Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1};
 
         lsignal::slot m_braverySlot;
 

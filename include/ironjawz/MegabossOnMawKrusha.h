@@ -49,7 +49,7 @@ namespace Ironjawz {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 

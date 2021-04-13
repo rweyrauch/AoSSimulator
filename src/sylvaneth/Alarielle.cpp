@@ -185,12 +185,12 @@ namespace Sylvaneth {
         Unit::onCharged();
     }
 
-    Wounds Alarielle::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Alarielle::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Talon of the Dwindling
         if (weapon->name() == m_talonOfDwindling.name() && hitRoll == 6) {
             return {weapon->damage(), Dice::RollD3()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Alarielle::onEndMovement(PlayerId player) {

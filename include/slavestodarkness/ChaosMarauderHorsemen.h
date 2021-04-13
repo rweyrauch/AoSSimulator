@@ -31,11 +31,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosMarauderHorsemen();
+        ChaosMarauderHorsemen(DamnedLegion legion, MarkOfChaos mark,  int numModels, WeaponOption weapons, bool iconBearer, bool hornblower);
 
+        ChaosMarauderHorsemen() = delete;
+        
         ~ChaosMarauderHorsemen() override;
-
-        bool configure(int numModels, WeaponOption weapons, bool iconBearer, bool drummer);
 
     protected:
 
@@ -45,7 +45,7 @@ namespace SlavesToDarkness {
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int iconBearer(const Unit *unit);
 
@@ -55,14 +55,14 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_javelinMissile,
-                m_axe,
-                m_flail,
-                m_javelin,
-                m_axeMaster,
-                m_flailMaster,
-                m_javelinMaster,
-                m_hooves;
+        Weapon  m_javelinMissile{Weapon::Type::Missile, "Marauder Javelin", 12, 1, 4, 3, -1, 1},
+                m_axe{Weapon::Type::Melee, "Barbarian Axe", 1, 2, 4, 4, 0, 1},
+                m_flail{Weapon::Type::Melee, "Barbarian Flail", 2, 1, 4, 3, -1, 1},
+                m_javelin{Weapon::Type::Melee, "Marauder Javelin", 2, 1, 4, 3, 0, 1},
+                m_axeMaster{Weapon::Type::Melee, "Barbarian Axe", 1, 3, 4, 4, 0, 1},
+                m_flailMaster{Weapon::Type::Melee, "Barbarian Flail", 2, 2, 4, 3, -1, 1},
+                m_javelinMaster{Weapon::Type::Melee, "Marauder Javelin", 2, 2, 4, 3, 0, 1},
+                m_hooves{Weapon::Type::Melee, "Trampling Hooves", 1, 2, 4, 4, 0, 1};
 
         lsignal::slot m_connection;
 

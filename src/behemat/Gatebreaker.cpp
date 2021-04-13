@@ -178,8 +178,8 @@ namespace SonsOfBehemat {
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    Wounds Gatebreaker::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = SonsOfBehematBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Gatebreaker::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = SonsOfBehematBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (m_artefact == Artefact::The_Great_Wrecka) {
             if ((hitRoll == 6) && (weapon->name() == m_flail.name())) {
                 damage.mortal++;

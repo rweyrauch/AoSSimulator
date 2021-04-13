@@ -31,7 +31,7 @@ namespace Khorne {
 
         void onCharged() override;
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 

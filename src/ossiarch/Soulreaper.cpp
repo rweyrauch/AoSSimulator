@@ -74,12 +74,12 @@ namespace OssiarchBonereapers {
     }
 
     Wounds
-    MortisanSoulreaper::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    MortisanSoulreaper::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deathly Touch
         if ((hitRoll == 6) && (weapon->name() == m_scythe.name())) {
             return {0, 2};
         }
-        return OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls MortisanSoulreaper::toHitRerolls(const Weapon *weapon, const Unit *target) const {

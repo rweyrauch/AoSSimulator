@@ -104,12 +104,12 @@ namespace Death {
         }
     }
 
-    Wounds BloodKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds BloodKnights::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Martial Fury
         if (m_charged && weapon->name() == m_templarLanceOrBlade.name()) {
             return {weapon->damage() + Dice::RollD3(), 0};
         }
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int BloodKnights::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {

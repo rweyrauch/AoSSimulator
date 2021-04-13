@@ -20,23 +20,13 @@ namespace SlavesToDarkness {
     bool ChaosChosen::s_registered = false;
 
     Unit *ChaosChosen::Create(const ParameterList &parameters) {
-        auto unit = new ChaosChosen();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool drummer = GetBoolParam("Drummer", parameters, false);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(numModels, iconBearer, drummer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosChosen(legion, mark, numModels, iconBearer, drummer);
     }
 
     void ChaosChosen::Init() {
@@ -60,24 +50,15 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosChosen::ChaosChosen() :
-            SlavesToDarknessBase("Chaos Chosen", 6, g_wounds, 7, 4, false),
-            m_greataxe(Weapon::Type::Melee, "Soul Splitter", 1, 3, 3, 3, -1, 1),
-            m_greataxeChampion(Weapon::Type::Melee, "Soul Splitter", 1, 4, 3, 3, -1, 1) {
+    ChaosChosen::ChaosChosen(DamnedLegion legion, MarkOfChaos mark, int numModels, bool iconBearer, bool drummer) :
+            SlavesToDarknessBase("Chaos Chosen", 6, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
         m_weapons = {&m_greataxe, &m_greataxeChampion};
 
         s_globalBraveryMod.connect(this, &ChaosChosen::iconBearer, &m_braverySlot);
-    }
 
-    ChaosChosen::~ChaosChosen() {
-        m_braverySlot.disconnect();
-    }
-
-    bool ChaosChosen::configure(int numModels, bool iconBearer, bool drummer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
 
         auto champion = new Model(g_basesize, wounds());
         champion->addMeleeWeapon(&m_greataxeChampion);
@@ -105,28 +86,30 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    ChaosChosen::~ChaosChosen() {
+        m_braverySlot.disconnect();
     }
 
     int ChaosChosen::runModifier() const {
-        auto modifier = Unit::runModifier();
+        auto modifier = SlavesToDarknessBase::runModifier();
         if (isNamedModelAlive(Model::Drummer)) modifier += 1;
         return modifier;
     }
 
     int ChaosChosen::chargeModifier() const {
-        auto modifier = Unit::chargeModifier();
+        auto modifier = SlavesToDarknessBase::chargeModifier();
         if (isNamedModelAlive(Model::Drummer)) modifier += 1;
         return modifier;
     }
 
-    Wounds ChaosChosen::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ChaosChosen::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Soul splitter
         if ((hitRoll >= 6) && (weapon->name() == m_greataxe.name())) {
             return {weapon->damage(), 1};
         }
-        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ChaosChosen::ComputePoints(int numModels) {

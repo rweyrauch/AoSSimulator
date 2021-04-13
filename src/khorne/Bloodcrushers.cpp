@@ -109,12 +109,12 @@ namespace Khorne {
         KhorneBase::onCharged();
     }
 
-    Wounds Bloodcrushers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Bloodcrushers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Blow
         if (hitRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Bloodcrushers::ComputePoints(int numModels) {

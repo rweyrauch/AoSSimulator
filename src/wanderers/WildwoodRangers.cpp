@@ -87,12 +87,12 @@ namespace Wanderers {
         }
     }
 
-    Wounds WildwoodRangers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds WildwoodRangers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Guardians of the Kindreds
         if (target->hasKeyword(MONSTER)) {
             return {Dice::RollD3(), 0};
         }
-        return Wanderer::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Wanderer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls WildwoodRangers::runRerolls() const {

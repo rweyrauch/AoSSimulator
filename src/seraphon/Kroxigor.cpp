@@ -100,12 +100,12 @@ namespace Seraphon {
         return extra;
     }
 
-    Wounds Kroxigor::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Kroxigor::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Jaws Like a Steel Trap
         if ((hitRoll == 6) && (weapon->name() == m_jaws.name())) {
             return {weapon->damage(), 1};
         }
-        return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } //namespace Seraphon

@@ -454,8 +454,8 @@ namespace Khorne {
         return mod;
     }
 
-    Wounds KhorneBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds KhorneBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         if (isGeneral() && weapon->isMelee() && hasKeyword(GORETIDE) && (m_commandTrait == CommandTrait::Hew_The_Foe)) {
             damage.normal++;

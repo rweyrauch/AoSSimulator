@@ -153,7 +153,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    Wounds DemigryphKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DemigryphKnights::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Charging Lance
         if (m_charged && (weapon->name() == m_lance.name())) {
             return {2, 0};
@@ -163,15 +163,15 @@ namespace CitiesOfSigmar {
         if ((woundRoll == 6) && (weapon->name() == m_beakAndTalons.name())) {
             return {1, 0};
         }
-        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int DemigryphKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int DemigryphKnights::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Charging Lance
         if (m_charged && (weapon->name() == m_lance.name())) {
             return -2;
         }
-        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int DemigryphKnights::ComputePoints(int numModels) {

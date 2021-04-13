@@ -98,13 +98,13 @@ namespace Nighthaunt {
         m_points = ComputePoints(1);
     }
 
-    Wounds LadyOlynder::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds LadyOlynder::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll == 6) && (weapon->name() == m_claws.name())) {
             return {0, 1};
         }
 
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void LadyOlynder::onStartShooting(PlayerId player) {

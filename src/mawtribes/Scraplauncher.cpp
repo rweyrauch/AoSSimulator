@@ -74,7 +74,7 @@ namespace OgorMawtribes {
     }
 
     Wounds
-    GnoblarScraplauncher::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    GnoblarScraplauncher::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deadly Rain of Scrap
         if ((weapon->name() == m_scrap.name()) && (target->remainingModels() >= 10)) {
             return {RAND_D6, 0};
@@ -83,7 +83,7 @@ namespace OgorMawtribes {
         else if ((weapon->name() == m_horns.name()) && m_charged) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int GnoblarScraplauncher::ComputePoints(int /*numModels*/) {

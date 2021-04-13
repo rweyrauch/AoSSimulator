@@ -120,12 +120,12 @@ namespace Seraphon {
         }
     }
 
-    Wounds SaurusKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SaurusKnights::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Celestite Warspear
         if ((hitRoll >= 6) && m_charged && (weapon->name() == m_celestiteSpear.name())) {
             return {weapon->damage(), 1};
         }
-        return SeraphonBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SaurusKnights::ComputePoints(int numModels) {

@@ -20,25 +20,15 @@ namespace SlavesToDarkness {
     bool ChaosKnights::s_registered = false;
 
     Unit *ChaosKnights::Create(const ParameterList &parameters) {
-        auto unit = new ChaosKnights();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Ensorcelled_Weapon);
         auto doomWeapon = (WeaponOption) GetEnumParam("Doom Knight Weapon", parameters, Ensorcelled_Weapon);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        bool ok = unit->configure(numModels, weapons, doomWeapon, standardBearer, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChaosKnights(legion, mark, numModels, weapons, doomWeapon, standardBearer, hornblower);
     }
 
     void ChaosKnights::Init() {
@@ -67,35 +57,17 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosKnights::ChaosKnights() :
-            SlavesToDarknessBase("Chaos Knights", 10, g_wounds, 7, 4, false),
-            m_ensorcelledWeapon(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 3, 3, 3, -1, 1),
-            m_lance(Weapon::Type::Melee, "Cursed Lance", 2, 2, 4, 3, 0, 1),
-            m_ensorcelledWeaponLeader(Weapon::Type::Melee, "Ensorcelled Weapon", 1, 4, 3, 3, -1, 1),
-            m_lanceLeader(Weapon::Type::Melee, "Cursed Lance", 2, 3, 4, 3, 0, 1),
-            m_flailLeader(Weapon::Type::Melee, "Cursed Flail", 2, RAND_D6, 4, 3, 0, 1),
-            m_hooves(Weapon::Type::Melee, "Trampling Hooves", 1, 2, 4, 4, 0, 1) {
+    ChaosKnights::ChaosKnights(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon,
+                               bool standardBearer, bool hornblower) :
+            SlavesToDarknessBase("Chaos Knights", 10, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_KNIGHTS};
-        m_weapons = {&m_ensorcelledWeapon, &m_lance, &m_ensorcelledWeaponLeader, &m_lanceLeader, &m_flailLeader,
-                     &m_hooves};
+        m_weapons = {&m_ensorcelledWeapon, &m_lance, &m_ensorcelledWeaponLeader, &m_lanceLeader, &m_flailLeader, &m_hooves};
         m_hasMount = true;
         m_hooves.setMount(true);
         s_globalBraveryMod.connect(this, &ChaosKnights::terrifyingChampions, &m_terrifyingSlot);
-    }
 
-    ChaosKnights::~ChaosKnights() {
-        m_terrifyingSlot.disconnect();
-    }
-
-    bool
-    ChaosKnights::configure(int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, bool standardBearer,
-                            bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        if (weapons == Cursed_Flail) {
-            return false;
-        }
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
 
         auto leader = new Model(g_basesize, wounds());
         if (doomKnightWeapon == Ensorcelled_Weapon) {
@@ -142,8 +114,10 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    ChaosKnights::~ChaosKnights() {
+        m_terrifyingSlot.disconnect();
     }
 
     std::string ChaosKnights::ValueToString(const Parameter &parameter) {
@@ -183,37 +157,37 @@ namespace SlavesToDarkness {
     }
 
     int ChaosKnights::runModifier() const {
-        auto modifier = Unit::runModifier();
+        auto modifier = SlavesToDarknessBase::runModifier();
         if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosKnights::chargeModifier() const {
-        auto modifier = Unit::chargeModifier();
+        auto modifier = SlavesToDarknessBase::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }
 
     int ChaosKnights::braveryModifier() const {
-        auto modifier = Unit::braveryModifier();
+        auto modifier = SlavesToDarknessBase::braveryModifier();
         if (isNamedModelAlive(Model::StandardBearer)) modifier += 1;
         return modifier;
     }
 
-    Wounds ChaosKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ChaosKnights::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Impaling Charge
         if (m_charged && (weapon->name() == m_lance.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int ChaosKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int ChaosKnights::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Impaling Charge
         if (m_charged && (weapon->name() == m_lance.name())) {
             return weapon->rend() - 2;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ChaosKnights::ComputePoints(int numModels) {

@@ -110,12 +110,12 @@ namespace CitiesOfSigmar {
         return extras;
     }
 
-    Wounds SistersOfTheWatch::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SistersOfTheWatch::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Eldritch Arrows
         if ((woundRoll == 6) && (weapon->name() == m_bow.name())) {
             return {weapon->damage(), 1};
         }
-        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SistersOfTheWatch::ComputePoints(int numModels) {

@@ -72,12 +72,12 @@ namespace Nighthaunt {
         }
     }
 
-    Wounds SpiritHosts::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SpiritHosts::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((woundRoll == 6) && (weapon->name() == m_spectralClawsAndDaggars.name())) {
             return {0, 1};
         }
-        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SpiritHosts::ComputePoints(int numModels) {

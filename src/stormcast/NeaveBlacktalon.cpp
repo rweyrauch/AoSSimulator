@@ -71,12 +71,12 @@ namespace StormcastEternals {
         return attacks;
     }
 
-    Wounds NeaveBlacktalon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds NeaveBlacktalon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Nemesis
         if (target->hasKeyword(HERO)) {
             return {weapon->damage() + 1, 0};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int NeaveBlacktalon::ComputePoints(int /*numModels*/) {

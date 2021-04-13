@@ -29,7 +29,7 @@ namespace Khorne {
 
         HeraldOfKhorneOnBloodThrone(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onEnemyModelWoundedWithWeapon(Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
 

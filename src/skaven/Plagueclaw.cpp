@@ -66,8 +66,8 @@ namespace Skaven {
         return mod;
     }
 
-    Wounds Plagueclaw::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto wounds = Skaventide::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds Plagueclaw::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto wounds = Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         // Barrage of Disease
         if (target->remainingModels() >= 10) {

@@ -82,13 +82,13 @@ namespace StormcastEternals {
         }
     }
 
-    Wounds VanguardRaptorsLongstrike::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds VanguardRaptorsLongstrike::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Headshot
         if ((hitRoll == 6) && (weapon->name() == m_longstikeCrossbow.name())) {
             return {0, 2};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int VanguardRaptorsLongstrike::ComputePoints(int numModels) {

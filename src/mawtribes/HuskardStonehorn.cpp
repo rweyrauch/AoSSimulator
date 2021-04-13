@@ -158,12 +158,12 @@ namespace OgorMawtribes {
     }
 
     Wounds
-    HuskardOnStonehorn::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    HuskardOnStonehorn::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Earth-shattering Charge
         if (m_charged && (weapon->name() == m_horns.name() || weapon->name() == m_hooves.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return MawtribesBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Wounds HuskardOnStonehorn::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -197,8 +197,8 @@ namespace OgorMawtribes {
         return mod;
     }
 
-    int HuskardOnStonehorn::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = MawtribesBase::weaponRend(weapon, target, hitRoll, woundRoll);
+    int HuskardOnStonehorn::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = MawtribesBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if ((weapon->name() == m_hooves.name()) && (m_mountTrait == MountTrait::Frosthoof_Bull)) {
             rend--;
         }

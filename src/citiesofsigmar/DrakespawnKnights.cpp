@@ -127,21 +127,21 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    Wounds DrakespawnKnights::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds DrakespawnKnights::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Lance Charge
         if (m_charged && (weapon->name() == m_lance.name())) {
             return {2, 0};
         }
 
-        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int DrakespawnKnights::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int DrakespawnKnights::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Lance Charge
         if (m_charged && (weapon->name() == m_lance.name())) {
             return -2;
         }
-        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int DrakespawnKnights::ComputePoints(int numModels) {

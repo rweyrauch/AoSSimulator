@@ -110,12 +110,12 @@ namespace Fyreslayers {
         return Fyreslayer::toHitRerolls(weapon, target);
     }
 
-    Wounds AuricRuneson::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AuricRuneson::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Wyrmslayer Javelins
         if ((weapon->name() == m_javelin.name()) && target->hasKeyword(MONSTER)) {
             return {weapon->damage() + 2, 0};
         }
-        return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int AuricRuneson::ComputePoints(int /*numModels*/) {

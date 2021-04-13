@@ -29,7 +29,7 @@ namespace Nighthaunt {
 
     protected:
 
-        Wounds weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 

@@ -154,8 +154,7 @@ namespace DaughtersOfKhaine {
 
         int braveryModifier() const override;
 
-        int weaponRend(const Weapon *weapon, const Unit *target,
-                       int hitRoll, int woundRoll) const override;
+        int weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onEndCombat(PlayerId player) override;
 

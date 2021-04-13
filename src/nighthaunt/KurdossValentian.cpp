@@ -62,7 +62,7 @@ namespace Nighthaunt {
         m_points = ComputePoints(1);
     }
 
-    Wounds KurdossValentian::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds KurdossValentian::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll == 6) && (weapon->name() == m_claws.name())) {
             return {0, 1};
@@ -72,7 +72,7 @@ namespace Nighthaunt {
         if ((woundRoll == 6) && (weapon->name() == m_sceptre.name())) {
             return {Dice::RollD6(), 0};
         }
-        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls KurdossValentian::toHitRerolls(const Weapon *weapon, const Unit *target) const {

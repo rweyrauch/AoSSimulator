@@ -97,11 +97,11 @@ namespace Khorne {
         return attacks;
     }
 
-    Wounds GarreksReavers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds GarreksReavers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((hitRoll == 6) && (weapon->name() == m_garreksAxe.name())) {
             return {0, 1};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int GarreksReavers::ComputePoints(int /*numModels*/) {

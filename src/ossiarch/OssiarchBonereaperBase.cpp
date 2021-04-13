@@ -182,11 +182,11 @@ namespace OssiarchBonereapers {
         return mod;
     }
 
-    Wounds OssiarchBonereaperBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds OssiarchBonereaperBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((m_commandTrait == CommandTrait::Peerless_Warrior) && weapon->isMelee() && (woundRoll == 6)) {
             return {weapon->damage(), 1, Wounds::Source::Weapon_Melee};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int OssiarchBonereaperBase::toHitModifier(const Weapon *weapon, const Unit *target) const {

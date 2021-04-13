@@ -87,12 +87,12 @@ namespace Fyreslayers {
         }
     }
 
-    Wounds AuricHearthguard::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AuricHearthguard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Molten Rockbolts
         if ((weapon->name() == m_magmapike.name()) && target->hasKeyword(MONSTER)) {
             return {weapon->damage() + 1, 0};
         }
-        return Fyreslayer::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int AuricHearthguard::ComputePoints(int numModels) {

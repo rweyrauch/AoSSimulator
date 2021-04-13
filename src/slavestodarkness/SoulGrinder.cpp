@@ -125,13 +125,13 @@ namespace SlavesToDarkness {
         m_points = g_pointsPerUnit;
     }
 
-    Wounds SoulGrinder::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds SoulGrinder::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
 
         // Hellforged Claw
         if ((weapon->name() == m_claw.name()) && (hitRoll == 6)) {
             return {0, Dice::RollD6()};
         }
-        return SlavesToDarknessBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void SoulGrinder::onWounded() {

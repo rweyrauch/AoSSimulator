@@ -186,12 +186,12 @@ namespace Slaanesh {
         return mod;
     }
 
-    Wounds GlutosOrscollion::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds GlutosOrscollion::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Painbringer Kyazu
         if ((hitRoll == 6) && (weapon->name() == m_greatblade.name())) {
             return {0, 2, Wounds::Source::Weapon_Melee};
         }
-        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls GlutosOrscollion::chargeRerolls() const {

@@ -65,12 +65,12 @@ namespace Khorne {
         }
     }
 
-    Wounds Bloodmaster::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Bloodmaster::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Blow
         if (hitRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Bloodmaster::onEndCombat(PlayerId player) {

@@ -100,12 +100,12 @@ namespace Slaanesh {
         return totalWounds;
     }
 
-    Wounds TheDreadPageant::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds TheDreadPageant::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Deadliest Procession
         if (hitRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // Slannesh

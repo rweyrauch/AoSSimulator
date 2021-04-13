@@ -117,12 +117,12 @@ namespace Khorne {
     }
 
     Wounds
-    LordOfKhorneOnJuggernaut::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    LordOfKhorneOnJuggernaut::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Daemonic Axe
         if ((hitRoll == 6) && (weapon->name() == m_wrathforgedAxe.name())) {
             return {RAND_D3, 0};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int LordOfKhorneOnJuggernaut::ComputePoints(int /*numModels*/) {

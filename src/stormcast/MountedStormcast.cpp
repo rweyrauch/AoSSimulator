@@ -28,11 +28,11 @@ namespace StormcastEternals {
     }
 
     int
-    MountedStormcastEternal::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    MountedStormcastEternal::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((m_mountTrait == MountTrait::Keen_Clawed) && (weapon->isMount()) && (woundRoll == 6)) {
             return -3;
         }
-        return StormcastEternal::weaponRend(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void MountedStormcastEternal::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {

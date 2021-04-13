@@ -122,12 +122,12 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    Wounds Executioners::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Executioners::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Severing Strike
         if (hitRoll == 6) {
             return {0, 1};
         }
-        return CitizenOfSigmar::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Executioners::ComputePoints(int numModels) {

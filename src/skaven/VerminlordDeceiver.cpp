@@ -121,12 +121,12 @@ namespace Skaven {
     }
 
     Wounds
-    VerminlordDeceiver::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    VerminlordDeceiver::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Doomstar
         if ((weapon->name() == m_doomstar.name()) && (target->remainingModels() >= 10)) {
             return {Dice::RollD6(), 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int VerminlordDeceiver::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

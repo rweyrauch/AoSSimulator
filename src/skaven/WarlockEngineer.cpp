@@ -99,7 +99,7 @@ namespace Skaven {
         }
     }
 
-    Wounds WarlockEngineer::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds WarlockEngineer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // More-more Warp-energy!
         if (weapon->name() == m_blade.name()) {
             // Decide to overcharge (without using the hitRoll)
@@ -113,7 +113,7 @@ namespace Skaven {
                 return {RAND_D6, 0};
             }
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int WarlockEngineer::ComputePoints(int /*numModels*/) {

@@ -138,12 +138,12 @@ namespace BeastsOfChaos {
         return modifier;
     }
 
-    Wounds Bullgors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Bullgors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Bloodgreed
         if (woundRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return BeastsOfChaosBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return BeastsOfChaosBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Bullgors::ComputePoints(int numModels) {

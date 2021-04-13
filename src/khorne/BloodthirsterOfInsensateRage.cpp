@@ -145,7 +145,7 @@ namespace Khorne {
         KhorneBase::onRestore();
     }
 
-    Wounds BloodthirsterOfInsensateRage::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds BloodthirsterOfInsensateRage::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                       int woundRoll) const {
         // Outrageous Carnage
         if ((woundRoll == 6) && weapon->name() == m_greatAxeOfKhorne.name()) {
@@ -162,7 +162,7 @@ namespace Khorne {
             }
             return {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
         }
-        return KhorneBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int BloodthirsterOfInsensateRage::ComputePoints(int /*numModels*/) {

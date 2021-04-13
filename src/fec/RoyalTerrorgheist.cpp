@@ -88,12 +88,12 @@ namespace FleshEaterCourt {
         }
     }
 
-    Wounds RoyalTerrorgheist::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds RoyalTerrorgheist::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Gaping Maw
         if (weapon->name() == m_fangedMaw.name() && hitRoll == 6) {
             return {0, 6};
         }
-        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void RoyalTerrorgheist::onStartHero(PlayerId player) {

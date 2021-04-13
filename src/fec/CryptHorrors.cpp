@@ -108,12 +108,12 @@ namespace FleshEaterCourt {
         }
     }
 
-    Wounds CryptHorrors::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds CryptHorrors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Warrior Elite - one additional damage for each wound roll of 6.
         if (woundRoll == 6) {
             return {weapon->damage() + 1, 0};
         }
-        return FleshEaterCourts::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int CryptHorrors::ComputePoints(int numModels) {

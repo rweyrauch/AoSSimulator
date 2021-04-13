@@ -299,8 +299,8 @@ namespace StormcastEternals {
         return Unit::applyWoundSave(totalWounds, attackingUnit);
     }
 
-    Wounds StormcastEternal::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        Wounds damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds StormcastEternal::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        Wounds damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         // Single-minded Fury
         if (isGeneral() && (m_stormHost == Stormhost::Celestial_Vindicators) && (hitRoll == 6)) {
             damage.normal++;

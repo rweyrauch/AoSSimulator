@@ -219,8 +219,8 @@ namespace DaughtersOfKhaine {
         return mod;
     }
 
-    int DaughterOfKhaine::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = UnitModifierInterface::weaponRend(weapon, target, hitRoll, woundRoll);
+    int DaughterOfKhaine::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = UnitModifierInterface::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         // Bladed Killers
         if ((m_temple == Temple::Draichi_Ganeth) && charged()) {
             if (hasKeyword(WITCH_AELVES) || hasKeyword(SISTERS_OF_SLAUGHTER)) {

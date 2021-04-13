@@ -115,12 +115,12 @@ namespace IdonethDeepkin {
         return IdonethDeepkinBase::EnumStringToInt(enumString);
     }
 
-    Wounds AkhelianKing::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AkhelianKing::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Wave Rider
         if (m_charged && (weapon->name() == m_bladedPolearm.name())) {
             return {3, 0};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AkhelianKing::onCharged() {

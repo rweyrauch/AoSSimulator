@@ -81,13 +81,13 @@ namespace GloomspiteGitz {
         // TODO: Setup 5 cave squigs w/in 9" of this model and outside of 3" from enemy models.
     }
 
-    Wounds ColossalSquig::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ColossalSquig::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Swallowed Whole
         if ((hitRoll == 6) && (weapon->name() == m_enormousJaws.name())) {
             Wounds wounds = {0, Dice::RollD3()};
             return wounds;
         }
-        return GloomspiteGitzBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return GloomspiteGitzBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     size_t ColossalSquig::getDamageTableIndex() const {

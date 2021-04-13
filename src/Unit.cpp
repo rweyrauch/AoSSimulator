@@ -1040,7 +1040,7 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
 
                     // roll save
                     int saveRoll = 0;
-                    auto rend = weaponRend(weapon, target, hitRoll, woundRoll);
+                    auto rend = weaponRend(fromModel, weapon, target, hitRoll, woundRoll);
                     if (weapon->isMissile()) {
                         for (auto ri : m_attributeModifiers[Attribute::Weapon_Rend_Missile]) {
                             rend += ri.modifier;
@@ -1053,7 +1053,7 @@ void Unit::attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fro
 
                     if (!target->makeSave(weapon, rend, this, saveRoll)) {
                         // compute damage
-                        auto dam = weaponDamage(weapon, target, hitRoll, woundRoll);
+                        auto dam = weaponDamage(fromModel, weapon, target, hitRoll, woundRoll);
 
                         if (!m_abilityBuffs[Ability::Extra_Mortal_Wound_On_Hit_Roll].empty()) {
                             const int value = m_abilityBuffs[Ability::Extra_Mortal_Wound_On_Hit_Roll].front().value;

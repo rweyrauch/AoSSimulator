@@ -119,13 +119,13 @@ namespace Tzeentch {
         }
     }
 
-    int TzeentchBase::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int TzeentchBase::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Twisters of Materiality
         if (hasKeyword(ETERNAL_CONFLAGRATION) &&
             (weapon->name().find("Warpflame") || weapon->name().find("Magical Flames"))) {
             return weapon->rend() - 1;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int TzeentchBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
@@ -302,8 +302,8 @@ namespace Tzeentch {
         return Unit::battleshockRequired();
     }
 
-    Wounds TzeentchBase::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds TzeentchBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (isGeneral() && (m_commandTrait == CommandTrait::Soul_Burn) && weapon->isMelee() && (hitRoll == 6)) {
             damage.mortal++;
         }

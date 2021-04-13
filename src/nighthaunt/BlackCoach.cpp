@@ -100,7 +100,7 @@ namespace Nighthaunt {
         return 0;
     }
 
-    Wounds BlackCoach::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds BlackCoach::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightfull Touch
         if (hitRoll == 6) {
             if (weapon->name() == m_scythe.name()) {
@@ -109,7 +109,7 @@ namespace Nighthaunt {
                 return {0, 1};
             }
         }
-        return Nighthaunt::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void BlackCoach::onBeginRound(int battleRound) {

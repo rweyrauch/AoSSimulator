@@ -129,10 +129,10 @@ namespace Death {
         return 0;
     }
 
-    Wounds PrinceVhordrai::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds PrinceVhordrai::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Bloodlance Charge
         if (m_charged && (weapon->name() == m_bloodlance.name())) return {3, 0};
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void PrinceVhordrai::onStartHero(PlayerId player) {

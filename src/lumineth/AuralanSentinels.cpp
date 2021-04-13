@@ -119,7 +119,7 @@ namespace LuminethRealmLords {
         }
     }
 
-    Wounds AuralanSentinels::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AuralanSentinels::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Sunmetal weapons
         auto hitRollThreshold = 6;
         if (m_powerOfHyshActive) hitRollThreshold = 5;
@@ -128,7 +128,7 @@ namespace LuminethRealmLords {
             ((weapon->name() == m_bowLofted.name()) || (weapon->name() == m_bowAimed.name()))) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AuralanSentinels::onStartHero(PlayerId player) {

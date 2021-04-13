@@ -89,14 +89,14 @@ namespace OssiarchBonereapers {
         return OssiarchBonereaperBase::toSaveRerolls(weapon, attacker);
     }
 
-    Wounds NecropolisStalkers::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = OssiarchBonereaperBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+    Wounds NecropolisStalkers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto damage = OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (m_activeAspect == Precision) damage.normal++;
         return damage;
     }
 
-    int NecropolisStalkers::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto rend = OssiarchBonereaperBase::weaponRend(weapon, target, hitRoll, woundRoll);
+    int NecropolisStalkers::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        auto rend = OssiarchBonereaperBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
         if (m_activeAspect == Precision) rend--;
         return rend;
     }

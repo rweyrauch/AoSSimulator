@@ -74,12 +74,12 @@ namespace Nighthaunt {
         return true;
     }
 
-    Wounds TombBanshee::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds TombBanshee::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll == 6) && (weapon->name() == m_dagger.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void TombBanshee::onStartShooting(PlayerId player) {

@@ -126,12 +126,12 @@ namespace KharadronOverlords {
     }
 
     Wounds
-    GrundstokGunhauler::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    GrundstokGunhauler::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Drill Cannon
         if ((hitRoll >= 5) && (weapon->name() == m_drillCannon.name())) {
             return {0, 3};
         }
-        return KharadronBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return KharadronBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void GrundstokGunhauler::onStartMovement(PlayerId player) {

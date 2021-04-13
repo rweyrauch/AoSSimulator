@@ -170,7 +170,7 @@ namespace Slaanesh {
         return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
-    Wounds ShalaxiHelbane::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds ShalaxiHelbane::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (!weapon->isMissile()) {
             int damage = weapon->damage();
             // The Killing Stroke
@@ -185,7 +185,7 @@ namespace Slaanesh {
                 return {damage, 0};
             }
         }
-        return SlaaneshBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     std::string ShalaxiHelbane::ValueToString(const Parameter &parameter) {

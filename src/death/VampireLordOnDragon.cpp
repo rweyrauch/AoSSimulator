@@ -182,11 +182,11 @@ namespace Death {
         LegionOfNagashBase::onEndCombat(player);
     }
 
-    Wounds VampireLordOnZombieDragon::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds VampireLordOnZombieDragon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Deathlance Charge
         if (m_charged && (weapon->name() == m_deathlance.name())) return {3, 0};
-        return LegionOfNagashBase::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int VampireLordOnZombieDragon::toHitModifier(const Weapon *weapon, const Unit *target) const {

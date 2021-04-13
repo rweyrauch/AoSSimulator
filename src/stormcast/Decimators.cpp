@@ -55,7 +55,7 @@ namespace StormcastEternals {
         m_connection.disconnect();
     }
 
-    Wounds Decimators::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds Decimators::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Starsoul Mace
         if (weapon->name() == m_starsoulMace.name()) {
             int mortalWounds = 0;
@@ -67,7 +67,7 @@ namespace StormcastEternals {
             }
             return {0, mortalWounds};
         }
-        return StormcastEternal::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Unit *Decimators::Create(const ParameterList &parameters) {

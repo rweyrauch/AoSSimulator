@@ -173,12 +173,12 @@ namespace CitiesOfSigmar {
     }
 
     int
-    FreeguildGeneralOnGriffon::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    FreeguildGeneralOnGriffon::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Charging Lance
         if (m_charged && (weapon->name() == m_lance.name())) {
             return -2;
         }
-        return CitizenOfSigmar::weaponRend(weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int FreeguildGeneralOnGriffon::runModifier() const {

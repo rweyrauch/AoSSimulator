@@ -160,7 +160,7 @@ namespace Ironjawz {
     }
 
     Wounds
-    GordrakkTheFistOfGork::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    GordrakkTheFistOfGork::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if ((woundRoll >= 4) && (weapon->name() == m_kunnin.name())) {
             if (target->hasKeyword(WIZARD)) {
                 return {0, Dice::RollD3()};
@@ -170,7 +170,7 @@ namespace Ironjawz {
                 return {0, Dice::RollD3()};
             }
         }
-        auto damage = Ironjawz::weaponDamage(weapon, target, hitRoll, woundRoll);
+        auto damage = Ironjawz::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (m_mountTrait == MountTrait::Mean_Un) {
             if (weapon->name() == m_fistsAndTail.name()) {
                 damage.normal++;

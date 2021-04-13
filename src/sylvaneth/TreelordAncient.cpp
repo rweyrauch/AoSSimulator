@@ -152,12 +152,12 @@ namespace Sylvaneth {
         }
     }
 
-    Wounds TreelordAncient::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds TreelordAncient::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Impale
         if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name())) {
             return {0, Dice::RollD6()};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int TreelordAncient::ComputePoints(int /*numModels*/) {

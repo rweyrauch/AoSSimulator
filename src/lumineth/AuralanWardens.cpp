@@ -128,7 +128,7 @@ namespace LuminethRealmLords {
         }
     }
 
-    Wounds AuralanWardens::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    Wounds AuralanWardens::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Sunmetal weapons
         auto hitRollThreshold = 6;
         if (m_powerOfHyshActive) hitRollThreshold = 5;
@@ -136,7 +136,7 @@ namespace LuminethRealmLords {
         if ((hitRoll >= hitRollThreshold) && (weapon->name() == m_wardensPike.name())) {
             return {0, 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AuralanWardens::onStartHero(PlayerId player) {
@@ -145,12 +145,12 @@ namespace LuminethRealmLords {
         m_powerOfHyshActive = false;
     }
 
-    int AuralanWardens::weaponRend(const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+    int AuralanWardens::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Wall of Blades
         if (target && target->charged() && (weapon->name() == m_wardensPike.name())) {
             return weapon->rend() - 1;
         }
-        return Unit::weaponRend(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int AuralanWardens::toWoundModifier(const Weapon *weapon, const Unit *target) const {

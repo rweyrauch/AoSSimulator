@@ -130,13 +130,13 @@ namespace LuminethRealmLords {
         return 0;
     }
 
-    Wounds AvalenorTheStoneheartKing::weaponDamage(const Weapon *weapon, const Unit *target, int hitRoll,
+    Wounds AvalenorTheStoneheartKing::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
                                                    int woundRoll) const {
         // Firestealer Hammers
         if ((hitRoll == 6) && (weapon->name() == m_hammer.name())) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(weapon, target, hitRoll, woundRoll);
+        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace LuminethRealmLords
