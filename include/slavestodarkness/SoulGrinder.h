@@ -30,13 +30,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        SoulGrinder();
+        SoulGrinder(DamnedLegion legion, MarkOfChaos mark, WeaponOption option);
+
+        SoulGrinder() = delete;
 
         ~SoulGrinder() override = default;
 
     protected:
-
-        void configure(WeaponOption option);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
@@ -48,12 +48,12 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_cannon,
-                m_phlegm,
-                m_legs,
-                m_claw,
-                m_blade,
-                m_talon;
+        Weapon  m_cannon{Weapon::Type::Missile, "Harvester Cannon", 16, 6, 4, 3, -1, 1},
+                m_phlegm{Weapon::Type::Missile, "Phlegm Bombardment", 20, 1, 4, 3, -2, 3},
+                m_legs{Weapon::Type::Melee, "Piston-driven Legs", 1, 6, 4, 3, -1, 1},
+                m_claw{Weapon::Type::Melee, "Hellforged Claw", 2, 1, 4, 3, -2, RAND_D6},
+                m_blade{Weapon::Type::Melee, "Warpmetal Blade", 2, 2, 4, 3, -2, 3},
+                m_talon{Weapon::Type::Melee, "Daemonbone Talon", 2, 4, 3, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

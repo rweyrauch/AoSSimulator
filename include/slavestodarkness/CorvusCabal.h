@@ -21,11 +21,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        CorvusCabal();
+        CorvusCabal(DamnedLegion legion, int numModels);
+
+        CorvusCabal() = delete;
 
         ~CorvusCabal() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -33,9 +33,9 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_ravenDarts,
-                m_corvusWeapons,
-                m_corvusWeaponsLeader;
+        Weapon  m_ravenDarts{Weapon::Type::Missile, "Raven Darts", 8, 1, 4, 5, 0, 1},
+                m_corvusWeapons{Weapon::Type::Melee, "Corvus Weapons", 1, 1, 4, 4, 0, 1},
+                m_corvusWeaponsLeader{Weapon::Type::Melee, "Corvus Weapons (Shadow Piercer)", 1, 2, 4, 4, 0, 1};
 
         static bool s_registered;
     };

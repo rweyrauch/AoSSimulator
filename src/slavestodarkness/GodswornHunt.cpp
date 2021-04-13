@@ -17,13 +17,8 @@ namespace SlavesToDarkness {
     bool GodswornHunt::s_registered = false;
 
     Unit *GodswornHunt::Create(const ParameterList &parameters) {
-        auto unit = new GodswornHunt();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        unit->configure();
-        return unit;
+        return new GodswornHunt(legion);
     }
 
     int GodswornHunt::ComputePoints(int /*numModels*/) {
@@ -47,19 +42,13 @@ namespace SlavesToDarkness {
         }
     }
 
-    GodswornHunt::GodswornHunt() :
-            SlavesToDarknessBase("Godsworn Hunt", 6, g_wounds, 6, 6, false),
-            m_huntingBow(Weapon::Type::Missile, "Hunting Bow", 24, 2, 4, 4, 0, 1),
-            m_javelin(Weapon::Type::Missile, "Ensorcelled Javelin", 12, 1, 3, 3, -1, RAND_D3),
-            m_knife(Weapon::Type::Melee, "Darkoath Knife", 1, 3, 4, 4, 0, 1),
-            m_greatWeapon(Weapon::Type::Melee, "Great Weapon", 1, 2, 4, 3, -1, 2),
-            m_bowMelee(Weapon::Type::Melee, "Hunting Bow", 1, 1, 4, 5, 0, 1),
-            m_bite(Weapon::Type::Melee, "Savage Bite", 1, 2, 3, 3, 0, 1) {
+    GodswornHunt::GodswornHunt(DamnedLegion legion) :
+            SlavesToDarknessBase("Godsworn Hunt", 6, g_wounds, 6, 6, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, GODSWORN_HUNT};
         m_weapons = {&m_huntingBow, &m_javelin, &m_knife, &m_greatWeapon, &m_bowMelee, &m_bite};
-    }
 
-    void GodswornHunt::configure() {
+        setDamnedLegion(legion);
+
         auto jagathra = new Model(g_basesize, wounds());
         jagathra->addMissileWeapon(&m_javelin);
         jagathra->addMeleeWeapon(&m_knife);

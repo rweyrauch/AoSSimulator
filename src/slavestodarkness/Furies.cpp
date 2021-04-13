@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool Furies::s_registered = false;
 
     Unit *Furies::Create(const ParameterList &parameters) {
-        auto unit = new Furies();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Furies(legion, numModels);
     }
 
     void Furies::Init() {
@@ -52,10 +43,12 @@ namespace SlavesToDarkness {
         }
     }
 
-    bool Furies::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+    Furies::Furies(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("Furies", 12, g_wounds, 10, NoSave, true) {
+        m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES};
+        m_weapons = {&m_daggerAndClaws};
+
+        setDamnedLegion(legion);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -64,15 +57,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
-    }
-
-    Furies::Furies() :
-            SlavesToDarknessBase("Furies", 12, g_wounds, 10, NoSave, true),
-            m_daggerAndClaws(Weapon::Type::Melee, "Razor-sharp Dagger and Claws", 1, 2, 4, 3, -1, 1) {
-        m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES};
-        m_weapons = {&m_daggerAndClaws};
     }
 
     int Furies::ComputePoints(int numModels) {

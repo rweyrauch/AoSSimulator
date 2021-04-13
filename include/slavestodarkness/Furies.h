@@ -21,17 +21,15 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        Furies();
+        Furies(DamnedLegion legion, int numModels);
+
+        Furies() = delete;
 
         ~Furies() override = default;
 
-        bool configure(int numModels);
-
-    protected:
-
     private:
 
-        Weapon m_daggerAndClaws;
+        Weapon m_daggerAndClaws{Weapon::Type::Melee, "Razor-sharp Dagger and Claws", 1, 2, 4, 3, -1, 1};
 
         static bool s_registered;
     };

@@ -21,11 +21,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        TheUnmade();
+        TheUnmade(DamnedLegion legion, int numModels);
+
+        TheUnmade() = delete;
 
         ~TheUnmade() override;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -33,9 +33,9 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_maimingWeapons,
-                m_maimingWeaponsLeader,
-                m_nigthmareSickles;
+        Weapon  m_maimingWeapons{Weapon::Type::Melee, "Maiming Weapons", 1, 1, 4, 4, 0, 1},
+                m_maimingWeaponsLeader{Weapon::Type::Melee, "Maiming Weapons (Joyous One)", 1, 2, 4, 4, 0, 1},
+                m_nigthmareSickles{Weapon::Type::Melee, "Nightmare Sickles", 1, 3, 4, 3, -1, 2};
 
         lsignal::slot m_connection;
 

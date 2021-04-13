@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool ScionsOfTheFlame::s_registered = false;
 
     Unit *ScionsOfTheFlame::Create(const ParameterList &parameters) {
-        auto unit = new ScionsOfTheFlame();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ScionsOfTheFlame(legion, numModels);
     }
 
     void ScionsOfTheFlame::Init() {
@@ -53,19 +44,12 @@ namespace SlavesToDarkness {
         }
     }
 
-    ScionsOfTheFlame::ScionsOfTheFlame() :
-            SlavesToDarknessBase("Scions of the Flame", 6, g_wounds, 5, 6, false),
-            m_pots(Weapon::Type::Missile, "Flameburst Pots", 8, 1, 4, 3, 0, 1),
-            m_scionWeapons(Weapon::Type::Melee, "Scion Weapons", 1, 1, 4, 4, 0, 1),
-            m_scionWeaponsLeaders(Weapon::Type::Melee, "Scion Weapons", 1, 2, 4, 4, 0, 1) {
+    ScionsOfTheFlame::ScionsOfTheFlame(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("Scions of the Flame", 6, g_wounds, 5, 6, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SCIONS_OF_THE_FLAME};
         m_weapons = {&m_pots, &m_scionWeapons, &m_scionWeaponsLeaders};
-    }
 
-    bool ScionsOfTheFlame::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         auto lord = new Model(g_basesize, wounds());
         lord->addMissileWeapon(&m_pots);
@@ -99,8 +83,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int ScionsOfTheFlame::ComputePoints(int numModels) {

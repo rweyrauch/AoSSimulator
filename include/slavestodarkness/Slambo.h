@@ -21,18 +21,16 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        Slambo();
+        Slambo(DamnedLegion legion, bool isGeneral);
+
+        Slambo() = delete;
 
         ~Slambo() override = default;
 
-    protected:
-
-        void configure();
-
     private:
 
-        Weapon m_hurledAxe,
-                m_chaosAxes;
+        Weapon  m_hurledAxe{Weapon::Type::Missile, "Hurled Chaos Axe", 8, 1, 3, 3, -1, RAND_D3},
+                m_chaosAxes{Weapon::Type::Melee, "Chaos Axes", 1, RAND_D6, 4, 3, -1, 1};
 
         static bool s_registered;
     };

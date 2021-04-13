@@ -21,13 +21,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        FomoroidCrusher();
+        explicit FomoroidCrusher(DamnedLegion legion);
+
+        FomoroidCrusher() = delete;
 
         ~FomoroidCrusher() override = default;
 
     protected:
-
-        void configure();
 
         void onCharged() override;
 
@@ -37,8 +37,9 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_hurledTerrain,
-                m_fists;
+        Weapon  m_hurledTerrain{Weapon::Type::Missile, "Hurled Terrain", 12, 2, 3, 3, -1, 2},
+                m_fists{Weapon::Type::Melee, "Crushing Fists", 1, 4, 3, 3, 0, 2};
+
         mutable int m_lastChargeDistance = 0;
 
         static bool s_registered;

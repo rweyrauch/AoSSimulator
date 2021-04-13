@@ -31,21 +31,21 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ChaosLord();
+        ChaosLord(DamnedLegion legion, MarkOfChaos mark, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        ChaosLord() = delete;
 
         ~ChaosLord() override = default;
 
     protected:
 
-        void configure(WeaponOption option);
-
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
-        Weapon m_blade,
-                m_steel,
-                m_flail;
+        Weapon  m_blade{Weapon::Type::Melee, "Reaperblade", 2, 3, 3, 3, -2, 2},
+                m_steel{Weapon::Type::Melee, "Daemonbound Steel", 1, 3, 3, 3, -1, 1},
+                m_flail{Weapon::Type::Melee, "Daemonbound War-flail", 2, 6, 4, 4, -2, 1};
 
         static bool s_registered;
     };

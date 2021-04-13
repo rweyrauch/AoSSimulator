@@ -21,13 +21,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        Slaughterbrute();
+        Slaughterbrute(DamnedLegion legion, MarkOfChaos mark);
+
+        Slaughterbrute() = delete;
 
         ~Slaughterbrute() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 
@@ -37,9 +37,9 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_claws,
-                m_jaws,
-                m_talons;
+        Weapon  m_claws{Weapon::Type::Melee, "Razor-tipped Claws", 2, 6, 4, 3, -1, RAND_D3},
+                m_jaws{Weapon::Type::Melee, "Mighty Jaws", 1, 2, 4, 1, 0, 3},
+                m_talons{Weapon::Type::Melee, "Slashing Talons", 1, 2, 4, 3, 0, 1};
 
         static bool s_registered;
     };

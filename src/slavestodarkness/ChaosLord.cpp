@@ -17,27 +17,14 @@ namespace SlavesToDarkness {
     bool ChaosLord::s_registered = false;
 
     Unit *ChaosLord::Create(const ParameterList &parameters) {
-        auto unit = new ChaosLord();
-
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Reaperblade);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
 
-        unit->configure(weapon);
-        return unit;
+        return new ChaosLord(legion, mark, weapon, trait, artefact, general);
     }
 
     void ChaosLord::Init() {
@@ -63,17 +50,18 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosLord::ChaosLord() :
-            SlavesToDarknessBase("Chaos Lord", 5, g_wounds, 8, 4, false),
-            m_blade(Weapon::Type::Melee, "Reaperblade", 2, 3, 3, 3, -2, 2),
-            m_steel(Weapon::Type::Melee, "Daemonbound Steel", 1, 3, 3, 3, -1, 1),
-            m_flail(Weapon::Type::Melee, "Daemonbound War-flail", 2, 6, 4, 4, -2, 1) {
+    ChaosLord::ChaosLord(DamnedLegion legion, MarkOfChaos mark, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlavesToDarknessBase("Chaos Lord", 5, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_blade, &m_steel, &m_flail};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void ChaosLord::configure(WeaponOption option) {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         if (option == Reaperblade)

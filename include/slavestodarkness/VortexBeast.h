@@ -21,13 +21,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        MutalithVortexBeast();
+        MutalithVortexBeast(DamnedLegion legion, MarkOfChaos mark);
+
+        MutalithVortexBeast() = delete;
 
         ~MutalithVortexBeast() override = default;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 
@@ -39,8 +39,8 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_claws,
-                m_maw;
+        Weapon  m_claws{Weapon::Type::Melee, "Crushing Claws", 2, 4, 4, 1, -1, RAND_D3},
+                m_maw{Weapon::Type::Melee, "Betentacled Maw", 2, RAND_3D6, 4, 4, 0, 1};
 
         static bool s_registered;
     };

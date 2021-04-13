@@ -17,22 +17,9 @@ namespace SlavesToDarkness {
     bool Slambo::s_registered = false;
 
     Unit *Slambo::Create(const ParameterList &parameters) {
-        auto unit = new Slambo();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        unit->configure();
-        return unit;
+        return new Slambo(legion, general);
     }
 
     void Slambo::Init() {
@@ -44,8 +31,6 @@ namespace SlavesToDarkness {
                     Slambo::ComputePoints,
                     {
                             EnumParameter("Damned Legion", g_damnedLegion[0], g_damnedLegion),
-                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
-                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
                     },
                     CHAOS,
@@ -55,16 +40,15 @@ namespace SlavesToDarkness {
         }
     }
 
-    Slambo::Slambo() :
-            SlavesToDarknessBase("Slambo", 5, g_wounds, 8, 4, false),
-            m_hurledAxe(Weapon::Type::Missile, "Hurled Chaos Axe", 8, 1, 3, 3, -1, RAND_D3),
-            m_chaosAxes(Weapon::Type::Melee, "Chaos Axes", 1, RAND_D6, 4, 3, -1, 1) {
+    Slambo::Slambo(DamnedLegion legion, bool isGeneral) :
+            SlavesToDarknessBase("Slambo", 5, g_wounds, 8, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EXALTED_HERO_OF_CHAOS, SLAMBO};
         m_weapons = {&m_hurledAxe, &m_chaosAxes};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Slambo::configure() {
+        setDamnedLegion(legion);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_hurledAxe);
         model->addMeleeWeapon(&m_chaosAxes);

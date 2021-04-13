@@ -21,11 +21,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        ScionsOfTheFlame();
+        ScionsOfTheFlame(DamnedLegion legion, int numModels);
+
+        ScionsOfTheFlame() = delete;
 
         ~ScionsOfTheFlame() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -34,9 +34,9 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_pots,
-                m_scionWeapons,
-                m_scionWeaponsLeaders;
+        Weapon  m_pots{Weapon::Type::Missile, "Flameburst Pots", 8, 1, 4, 3, 0, 1},
+                m_scionWeapons{Weapon::Type::Melee, "Scion Weapons", 1, 1, 4, 4, 0, 1},
+                m_scionWeaponsLeaders{Weapon::Type::Melee, "Scion Weapons", 1, 2, 4, 4, 0, 1};
 
         static bool s_registered;
     };

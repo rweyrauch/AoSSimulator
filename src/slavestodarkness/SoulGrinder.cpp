@@ -34,18 +34,11 @@ namespace SlavesToDarkness {
     bool SoulGrinder::s_registered = false;
 
     Unit *SoulGrinder::Create(const ParameterList &parameters) {
-        auto unit = new SoulGrinder();
-
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Warpmetal_Blade);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
 
-        unit->configure(weapon);
-        return unit;
+        return new SoulGrinder(legion, mark, weapon);
     }
 
     std::string SoulGrinder::ValueToString(const Parameter &parameter) {
@@ -93,23 +86,18 @@ namespace SlavesToDarkness {
         }
     }
 
-    SoulGrinder::SoulGrinder() :
-            SlavesToDarknessBase("Soul Grinder", 12, g_wounds, 10, 4, false),
-            m_cannon(Weapon::Type::Missile, "Harvester Cannon", 16, 6, 4, 3, -1, 1),
-            m_phlegm(Weapon::Type::Missile, "Phlegm Bombardment", 20, 1, 4, 3, -2, 3),
-            m_legs(Weapon::Type::Melee, "Piston-driven Legs", 1, 6, 4, 3, -1, 1),
-            m_claw(Weapon::Type::Melee, "Hellforged Claw", 2, 1, 4, 3, -2, RAND_D6),
-            m_blade(Weapon::Type::Melee, "Warpmetal Blade", 2, 2, 4, 3, -2, 3),
-            m_talon(Weapon::Type::Melee, "Daemonbone Talon", 2, 4, 3, 3, -1, RAND_D3) {
+    SoulGrinder::SoulGrinder(DamnedLegion legion, MarkOfChaos mark, WeaponOption option) :
+            SlavesToDarknessBase("Soul Grinder", 12, g_wounds, 10, 4, false) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, MONSTER, MARK_OF_CHAOS, SOUL_GRINDER};
         m_weapons = {&m_cannon, &m_phlegm, &m_legs, &m_claw, &m_blade, &m_talon};
         m_battleFieldRole = Role::Behemoth;
 
         // Implacable Advance
         m_runAndShoot = true;
-    }
 
-    void SoulGrinder::configure(WeaponOption option) {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_cannon);

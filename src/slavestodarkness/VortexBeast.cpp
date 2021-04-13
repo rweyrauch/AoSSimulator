@@ -37,16 +37,9 @@ namespace SlavesToDarkness {
     bool MutalithVortexBeast::s_registered = false;
 
     Unit *MutalithVortexBeast::Create(const ParameterList &parameters) {
-        auto unit = new MutalithVortexBeast();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
-        unit->configure();
-        return unit;
+        return new MutalithVortexBeast(legion, mark);
     }
 
     int MutalithVortexBeast::ComputePoints(int /*numModels*/) {
@@ -71,16 +64,15 @@ namespace SlavesToDarkness {
         }
     }
 
-    MutalithVortexBeast::MutalithVortexBeast() :
-            SlavesToDarknessBase("Mutalith Vortex Beast", 10, g_wounds, 7, 4, false),
-            m_claws(Weapon::Type::Melee, "Crushing Claws", 2, 4, 4, 1, -1, RAND_D3),
-            m_maw(Weapon::Type::Melee, "Betentacled Maw", 2, RAND_3D6, 4, 4, 0, 1) {
+    MutalithVortexBeast::MutalithVortexBeast(DamnedLegion legion, MarkOfChaos mark) :
+            SlavesToDarknessBase("Mutalith Vortex Beast", 10, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, MONSTER, MUTALITH_VORTEX_BEAST};
         m_weapons = {&m_claws, &m_maw};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void MutalithVortexBeast::configure() {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_maw);

@@ -20,21 +20,12 @@ namespace SlavesToDarkness {
     bool Belakor::s_registered = false;
 
     Unit *Belakor::Create(const ParameterList &parameters) {
-        auto unit = new Belakor();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->configure(lore);
-        return unit;
+        return new Belakor(legion, mark, lore, general);
     }
 
     int Belakor::ComputePoints(int /*numModels*/) {
@@ -61,25 +52,25 @@ namespace SlavesToDarkness {
         }
     }
 
-    Belakor::Belakor() :
-            SlavesToDarknessBase("Be'lakor", 12, g_wounds, 10, 4, true),
-            m_blade(Weapon::Type::Melee, "Blade of Shadows", 1, 6, 3, 3, -1, 2) {
+    Belakor::Belakor(DamnedLegion legion, MarkOfChaos mark, Lore lore, bool isGeneral) :
+            SlavesToDarknessBase("Be'lakor", 12, g_wounds, 10, 4, true) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, DAEMON_PRINCE, BELAKOR};
         m_weapons = {&m_blade};
         m_battleFieldRole = Role::Leader;
 
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+        setGeneral(isGeneral);
+
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    void Belakor::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         addModel(model);
 
-        m_knownSpells.push_back(
-                std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, Attribute::To_Wound_Melee, -1,
-                                                    Abilities::Target::Enemy));
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, Attribute::To_Wound_Melee, -1,
+                                                                    Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

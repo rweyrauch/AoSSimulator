@@ -19,18 +19,11 @@ namespace SlavesToDarkness {
     bool TheddraSkullscryer::s_registered = false;
 
     Unit *TheddraSkullscryer::Create(const ParameterList &parameters) {
-        auto unit = new TheddraSkullscryer();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
 
-        unit->configure(lore);
-        return unit;
+        return new TheddraSkullscryer(legion, lore, general);
     }
 
     int TheddraSkullscryer::ComputePoints(int /*numModels*/) {
@@ -56,15 +49,15 @@ namespace SlavesToDarkness {
         }
     }
 
-    TheddraSkullscryer::TheddraSkullscryer() :
-            SlavesToDarknessBase("Theddra Skull-scryer", 6, g_wounds, 7, 5, false),
-            m_wand(Weapon::Type::Melee, "Darkoath Wand", 1, 2, 4, 3, -1, RAND_D3) {
+    TheddraSkullscryer::TheddraSkullscryer(DamnedLegion legion, Lore lore, bool isGeneral) :
+            SlavesToDarknessBase("Theddra Skull-scryer", 6, g_wounds, 7, 5, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, WIZARD, GOD_SPEAKER, THEDDRA_SKULL_SCRYER};
         m_weapons = {&m_wand};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void TheddraSkullscryer::configure(Lore lore) {
+        setDamnedLegion(legion);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_wand);
         addModel(model);

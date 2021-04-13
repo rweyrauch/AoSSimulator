@@ -21,13 +21,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        TheddraSkullscryer();
+        TheddraSkullscryer(DamnedLegion legion, Lore lore, bool isGeneral);
+
+        TheddraSkullscryer() = delete;
 
         ~TheddraSkullscryer() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
@@ -35,7 +35,7 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_wand;
+        Weapon m_wand{Weapon::Type::Melee, "Darkoath Wand", 1, 2, 4, 3, -1, RAND_D3};
 
         static bool s_registered;
     };

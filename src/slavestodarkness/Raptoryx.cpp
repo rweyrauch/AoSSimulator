@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool Raptoryx::s_registered = false;
 
     Unit *Raptoryx::Create(const ParameterList &parameters) {
-        auto unit = new Raptoryx();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Raptoryx(legion, numModels);
     }
 
     void Raptoryx::Init() {
@@ -52,17 +43,12 @@ namespace SlavesToDarkness {
         }
     }
 
-    Raptoryx::Raptoryx() :
-            SlavesToDarknessBase("Raptoryx", 10, g_wounds, 6, NoSave, true),
-            m_beakAndTalons(Weapon::Type::Melee, "Razor-sharp Beak and Talons", 1, 2, 3, 3, 0, 1) {
+    Raptoryx::Raptoryx(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("Raptoryx", 10, g_wounds, 6, NoSave, true) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, RAPTORYX};
         m_weapons = {&m_beakAndTalons};
-    }
 
-    bool Raptoryx::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -71,8 +57,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int Raptoryx::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

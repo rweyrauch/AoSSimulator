@@ -21,12 +21,9 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        SpireTyrants();
+        SpireTyrants(DamnedLegion legion, int numModels);
 
         ~SpireTyrants() override = default;
-
-        bool configure(int numModels);
-
 
     protected:
 
@@ -34,10 +31,10 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_gladiatorialWeapons,
-                m_gladiatorialWeaponsChampion,
-                m_gladiatorialWeaponsHeadclaimer,
-                m_gladiatorialWeaponsDestroyer;
+        Weapon  m_gladiatorialWeapons{Weapon::Type::Melee, "Gladiatorial Weapons", 1, 1, 4, 4, 0, 1},
+                m_gladiatorialWeaponsChampion{Weapon::Type::Melee, "Gladiatorial Weapons", 1, 3, 4, 4, 0, 1},
+                m_gladiatorialWeaponsHeadclaimer{Weapon::Type::Melee, "Gladiatorial Weapons", 1, 1, 4, 4, 0, 2},
+                m_gladiatorialWeaponsDestroyer{Weapon::Type::Melee, "Gladiatorial Weapons", 1, 3, 4, 4, 0, 1};
 
         static bool s_registered;
     };

@@ -18,13 +18,8 @@ namespace SlavesToDarkness {
     bool FomoroidCrusher::s_registered = false;
 
     Unit *FomoroidCrusher::Create(const ParameterList &parameters) {
-        auto unit = new FomoroidCrusher();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        unit->configure();
-        return unit;
+        return new FomoroidCrusher(legion);
     }
 
     void FomoroidCrusher::Init() {
@@ -44,15 +39,13 @@ namespace SlavesToDarkness {
         }
     }
 
-    FomoroidCrusher::FomoroidCrusher() :
-            SlavesToDarknessBase("Fomoroid Crusher", 6, g_wounds, 10, 5, false),
-            m_hurledTerrain(Weapon::Type::Missile, "Hurled Terrain", 12, 2, 3, 3, -1, 2),
-            m_fists(Weapon::Type::Melee, "Crushing Fists", 1, 4, 3, 3, 0, 2) {
+    FomoroidCrusher::FomoroidCrusher(DamnedLegion legion) :
+            SlavesToDarknessBase("Fomoroid Crusher", 6, g_wounds, 10, 5, false) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, FOMOROID_CRUSHER};
         m_weapons = {&m_hurledTerrain, &m_fists};
-    }
 
-    void FomoroidCrusher::configure() {
+        setDamnedLegion(legion);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMissileWeapon(&m_hurledTerrain);

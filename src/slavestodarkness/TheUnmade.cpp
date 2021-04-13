@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool TheUnmade::s_registered = false;
 
     Unit *TheUnmade::Create(const ParameterList &parameters) {
-        auto unit = new TheUnmade();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new TheUnmade(legion, numModels);
     }
 
     void TheUnmade::Init() {
@@ -53,25 +44,14 @@ namespace SlavesToDarkness {
         }
     }
 
-    TheUnmade::TheUnmade() :
-            SlavesToDarknessBase("The Unmade", 6, g_wounds, 5, 6, false),
-            m_maimingWeapons(Weapon::Type::Melee, "Maiming Weapons", 1, 1, 4, 4, 0, 1),
-            m_maimingWeaponsLeader(Weapon::Type::Melee, "Maiming Weapons (Joyous One)", 1, 2, 4, 4, 0, 1),
-            m_nigthmareSickles(Weapon::Type::Melee, "Nightmare Sickles", 1, 3, 4, 3, -1, 2) {
+    TheUnmade::TheUnmade(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("The Unmade", 6, g_wounds, 5, 6, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, THE_UNMADE};
         m_weapons = {&m_maimingWeapons, &m_maimingWeaponsLeader, &m_nigthmareSickles};
 
+        setDamnedLegion(legion);
+
         s_globalBraveryMod.connect(this, &TheUnmade::frozenInFear, &m_connection);
-    }
-
-    TheUnmade::~TheUnmade() {
-        m_connection.disconnect();
-    }
-
-    bool TheUnmade::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto joyousOne = new Model(g_basesize, wounds());
         joyousOne->addMeleeWeapon(&m_maimingWeaponsLeader);
@@ -90,8 +70,10 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    TheUnmade::~TheUnmade() {
+        m_connection.disconnect();
     }
 
     int TheUnmade::ComputePoints(int numModels) {

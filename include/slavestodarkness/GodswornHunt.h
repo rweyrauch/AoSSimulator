@@ -21,13 +21,13 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        GodswornHunt();
+        explicit GodswornHunt(DamnedLegion legion);
+
+        GodswornHunt() = delete;
 
         ~GodswornHunt() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
@@ -35,12 +35,12 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_huntingBow,
-                m_javelin,
-                m_knife,
-                m_greatWeapon,
-                m_bowMelee,
-                m_bite;
+        Weapon  m_huntingBow{Weapon::Type::Missile, "Hunting Bow", 24, 2, 4, 4, 0, 1},
+                m_javelin{Weapon::Type::Missile, "Ensorcelled Javelin", 12, 1, 3, 3, -1, RAND_D3},
+                m_knife{Weapon::Type::Melee, "Darkoath Knife", 1, 3, 4, 4, 0, 1},
+                m_greatWeapon{Weapon::Type::Melee, "Great Weapon", 1, 2, 4, 3, -1, 2},
+                m_bowMelee{Weapon::Type::Melee, "Hunting Bow", 1, 1, 4, 5, 0, 1},
+                m_bite{Weapon::Type::Melee, "Savage Bite", 1, 2, 3, 3, 0, 1};
 
         static bool s_registered;
     };

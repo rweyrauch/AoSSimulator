@@ -17,13 +17,7 @@ namespace SlavesToDarkness {
     bool KhagrasRavagers::s_registered = false;
 
     Unit *KhagrasRavagers::Create(const ParameterList &parameters) {
-        auto unit = new KhagrasRavagers();
-
-        unit->setDamnedLegion(DamnedLegion::Ravagers);
-        unit->setMarkOfChaos(MarkOfChaos::Undivided);
-
-        unit->configure();
-        return unit;
+        return new KhagrasRavagers();
     }
 
     void KhagrasRavagers::Init() {
@@ -44,18 +38,15 @@ namespace SlavesToDarkness {
     }
 
     KhagrasRavagers::KhagrasRavagers() :
-            SlavesToDarknessBase("Khagra's Ravagers", 5, g_wounds, 7, 4, false),
-            m_handWeapons(Weapon::Type::Melee, "Chaos Hand Weapons", 1, 3, 3, 3, 0, 1),
-            m_mace(Weapon::Type::Melee, "Daemonbound Mace", 1, 3, 3, 3, -2, 1),
-            m_staff(Weapon::Type::Melee, "Sorcerer Staff", 3, 1, 3, 3, -1, RAND_D3) {
+            SlavesToDarknessBase("Khagra's Ravagers", 5, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, UNDIVIDED, RAVAGERS, CHAOS_WARRIORS, KHAGRAS_RAVAGERS};
         m_weapons = {&m_handWeapons, &m_staff, &m_mace};
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void KhagrasRavagers::configure() {
+        setDamnedLegion(DamnedLegion::Ravagers);
+        setMarkOfChaos(MarkOfChaos::Undivided);
 
         auto khagra = new Model(g_basesize, wounds());
         khagra->addMeleeWeapon(&m_mace);

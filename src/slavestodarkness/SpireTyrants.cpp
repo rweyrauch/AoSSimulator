@@ -22,18 +22,9 @@ namespace SlavesToDarkness {
     bool SpireTyrants::s_registered = false;
 
     Unit *SpireTyrants::Create(const ParameterList &parameters) {
-        auto unit = new SpireTyrants();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SpireTyrants(legion, numModels);
     }
 
     int SpireTyrants::ComputePoints(int numModels) {
@@ -62,19 +53,12 @@ namespace SlavesToDarkness {
         }
     }
 
-    SpireTyrants::SpireTyrants() :
-            SlavesToDarknessBase("Spire Tyrants", 6, g_wounds, 5, 5, false),
-            m_gladiatorialWeapons(Weapon::Type::Melee, "Gladiatorial Weapons", 1, 1, 4, 4, 0, 1),
-            m_gladiatorialWeaponsChampion(Weapon::Type::Melee, "Gladiatorial Weapons", 1, 3, 4, 4, 0, 1),
-            m_gladiatorialWeaponsHeadclaimer(Weapon::Type::Melee, "Gladiatorial Weapons", 1, 1, 4, 4, 0, 2),
-            m_gladiatorialWeaponsDestroyer(Weapon::Type::Melee, "Gladiatorial Weapons", 1, 3, 4, 4, 0, 1) {
+    SpireTyrants::SpireTyrants(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("Spire Tyrants", 6, g_wounds, 5, 5, false) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPIRE_TYRANTS};
-    }
+        m_weapons = {&m_gladiatorialWeapons, &m_gladiatorialWeaponsChampion, &m_gladiatorialWeaponsDestroyer, &m_gladiatorialWeaponsHeadclaimer};
 
-    bool SpireTyrants::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         auto champion = new Model(g_basesize, wounds());
         champion->addMeleeWeapon(&m_gladiatorialWeaponsChampion);
@@ -98,8 +82,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     int SpireTyrants::toHitModifier(const Weapon *weapon, const Unit *target) const {

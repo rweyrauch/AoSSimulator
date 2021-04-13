@@ -20,18 +20,9 @@ namespace SlavesToDarkness {
     bool CorvusCabal::s_registered = false;
 
     Unit *CorvusCabal::Create(const ParameterList &parameters) {
-        auto unit = new CorvusCabal();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new CorvusCabal(legion, numModels);
     }
 
     void CorvusCabal::Init() {
@@ -52,19 +43,12 @@ namespace SlavesToDarkness {
         }
     }
 
-    CorvusCabal::CorvusCabal() :
-            SlavesToDarknessBase("Corvus Cabal", 8, g_wounds, 5, 6, true),
-            m_ravenDarts(Weapon::Type::Missile, "Raven Darts", 8, 1, 4, 5, 0, 1),
-            m_corvusWeapons(Weapon::Type::Melee, "Corvus Weapons", 1, 1, 4, 4, 0, 1),
-            m_corvusWeaponsLeader(Weapon::Type::Melee, "Corvus Weapons (Shadow Piercer)", 1, 2, 4, 4, 0, 1) {
+    CorvusCabal::CorvusCabal(DamnedLegion legion, int numModels) :
+            SlavesToDarknessBase("Corvus Cabal", 8, g_wounds, 5, 6, true) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CORVUS_CABAL};
         m_weapons = {&m_ravenDarts, &m_corvusWeapons, &m_corvusWeaponsLeader};
-    }
 
-    bool CorvusCabal::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        setDamnedLegion(legion);
 
         auto piercer = new Model(g_basesize, wounds());
         piercer->addMissileWeapon(&m_ravenDarts);
@@ -86,8 +70,6 @@ namespace SlavesToDarkness {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Rerolls CorvusCabal::chargeRerolls() const {

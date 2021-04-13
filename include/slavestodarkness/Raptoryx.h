@@ -21,11 +21,11 @@ namespace SlavesToDarkness {
 
         static void Init();
 
-        Raptoryx();
+        Raptoryx(DamnedLegion legion, int numModels);
+
+        Raptoryx() = delete;
 
         ~Raptoryx() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
@@ -33,7 +33,7 @@ namespace SlavesToDarkness {
 
     private:
 
-        Weapon m_beakAndTalons;
+        Weapon m_beakAndTalons{Weapon::Type::Melee, "Razor-sharp Beak and Talons", 1, 2, 3, 3, 0, 1};
 
         static bool s_registered;
     };

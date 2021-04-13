@@ -34,16 +34,9 @@ namespace SlavesToDarkness {
     bool Slaughterbrute::s_registered = false;
 
     Unit *Slaughterbrute::Create(const ParameterList &parameters) {
-        auto unit = new Slaughterbrute();
-
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        unit->setDamnedLegion(legion);
-
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
-        unit->setMarkOfChaos(mark);
-
-        unit->configure();
-        return unit;
+        return new Slaughterbrute(legion, mark);
     }
 
     int Slaughterbrute::ComputePoints(int /*numModels*/) {
@@ -68,17 +61,15 @@ namespace SlavesToDarkness {
         }
     }
 
-    Slaughterbrute::Slaughterbrute() :
-            SlavesToDarknessBase("Slaughterbrute", 10, g_wounds, 7, 4, false),
-            m_claws(Weapon::Type::Melee, "Razor-tipped Claws", 2, 6, 4, 3, -1, RAND_D3),
-            m_jaws(Weapon::Type::Melee, "Mighty Jaws", 1, 2, 4, 1, 0, 3),
-            m_talons(Weapon::Type::Melee, "Slashing Talons", 1, 2, 4, 3, 0, 1) {
+    Slaughterbrute::Slaughterbrute(DamnedLegion legion, MarkOfChaos mark) :
+            SlavesToDarknessBase("Slaughterbrute", 10, g_wounds, 7, 4, false) {
         m_keywords = {CHAOS, MONSTER, SLAVES_TO_DARKNESS, SLAUGHTERBRUTE};
         m_weapons = {&m_claws, &m_jaws, &m_talons};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void Slaughterbrute::configure() {
+        setDamnedLegion(legion);
+        setMarkOfChaos(mark);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_jaws);
