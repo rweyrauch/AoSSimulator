@@ -17,19 +17,11 @@ namespace Nighthaunt {
     bool KnightOfShrouds::s_registered = false;
 
     Unit *KnightOfShrouds::Create(const ParameterList &parameters) {
-        auto unit = new KnightOfShrouds();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new KnightOfShrouds(trait, artefact, general);
     }
 
     void KnightOfShrouds::Init() {
@@ -51,15 +43,16 @@ namespace Nighthaunt {
         }
     }
 
-    KnightOfShrouds::KnightOfShrouds() :
-            Nighthaunt("Knight of Shrouds", 6, g_wounds, 10, 4, true),
-            m_sword(Weapon::Type::Melee, "Sword of Stolen Hours", 1, 4, 3, 3, -1, 2) {
+    KnightOfShrouds::KnightOfShrouds(CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Nighthaunt("Knight of Shrouds", 6, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
         m_weapons = {&m_sword};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void KnightOfShrouds::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         addModel(model);
@@ -69,6 +62,16 @@ namespace Nighthaunt {
 
     int KnightOfShrouds::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void
+    KnightOfShrouds::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon, const Wounds &weaponDamage) {
+        Nighthaunt::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        // Stolen Hours
+        if (enemyUnit->hasKeyword(HERO) && (weapon->name() == m_sword.name())) {
+            heal(1);
+        }
     }
 
 } // namespace Nighthaunt

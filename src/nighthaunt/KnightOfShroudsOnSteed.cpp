@@ -17,19 +17,11 @@ namespace Nighthaunt {
     bool KnightOfShroudsOnEtherealSteed::s_registered = false;
 
     Unit *KnightOfShroudsOnEtherealSteed::Create(const ParameterList &parameters) {
-        auto unit = new KnightOfShroudsOnEtherealSteed();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new KnightOfShroudsOnEtherealSteed(trait, artefact, general);
     }
 
     void KnightOfShroudsOnEtherealSteed::Init() {
@@ -51,18 +43,18 @@ namespace Nighthaunt {
         }
     }
 
-    KnightOfShroudsOnEtherealSteed::KnightOfShroudsOnEtherealSteed() :
-            Nighthaunt("Knight of Shrouds on Ethereal Steed", 12, g_wounds, 10, 4, true),
-            m_sword(Weapon::Type::Melee, "Sword of Stolen Hours", 1, 4, 3, 3, -1, 2),
-            m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
+    KnightOfShroudsOnEtherealSteed::KnightOfShroudsOnEtherealSteed(CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Nighthaunt("Knight of Shrouds on Ethereal Steed", 12, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
         m_weapons = {&m_sword, &m_hoovesAndTeeth};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
-    }
 
-    void KnightOfShroudsOnEtherealSteed::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
@@ -73,6 +65,16 @@ namespace Nighthaunt {
 
     int KnightOfShroudsOnEtherealSteed::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void KnightOfShroudsOnEtherealSteed::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon,
+                                                                     const Wounds &weaponDamage) {
+        Nighthaunt::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        // Stolen Hours
+        if (enemyUnit->hasKeyword(HERO) && (weapon->name() == m_sword.name())) {
+            heal(1);
+        }
     }
 
 } // namespace Nighthaunt

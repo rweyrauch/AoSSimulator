@@ -6,7 +6,9 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 #include <UnitFactory.h>
+#include <Board.h>
 #include "nighthaunt/KurdossValentian.h"
+#include "Roster.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 60;
@@ -16,13 +18,8 @@ namespace Nighthaunt {
     bool KurdossValentian::s_registered = false;
 
     Unit *KurdossValentian::Create(const ParameterList &parameters) {
-        auto unit = new KurdossValentian();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new KurdossValentian(general);
     }
 
     void KurdossValentian::Init() {
@@ -42,18 +39,16 @@ namespace Nighthaunt {
         }
     }
 
-    KurdossValentian::KurdossValentian() :
-            Nighthaunt("Kurdoss Valentian", 6, g_wounds, 10, 4, true),
-            m_sceptre(Weapon::Type::Melee, "Sepulchral Sceptre", 1, 5, 3, 3, -2, RAND_D3),
-            m_claws(Weapon::Type::Melee, "Wraith Herald's Spectral Claws", 1, 6, 4, 4, 0, 1) {
+    KurdossValentian::KurdossValentian(bool isGeneral) :
+            Nighthaunt("Kurdoss Valentian", 6, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KURDOSS_VALENTIAN};
         m_weapons = {&m_sceptre, &m_claws};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_claws.setMount(true);
-    }
 
-    void KurdossValentian::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sceptre);
         model->addMeleeWeapon(&m_claws);
@@ -84,6 +79,22 @@ namespace Nighthaunt {
 
     int KurdossValentian::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void KurdossValentian::onStartHero(PlayerId player) {
+        Nighthaunt::onStartHero(player);
+
+        // If I Cannot Rule, None Shall Rule!
+        if (GetEnemyId(owningPlayer()) == player) {
+            auto roster = Board::Instance()->getPlayerRoster(player);
+            if (roster) {
+                if (roster->getCommandPoints() > 0) {
+                    if (Dice::RollD6() >= 5) {
+                        roster->addCommandPoints(-1);
+                    }
+                }
+            }
+        }
     }
 
 } // namespace Nighthaunt

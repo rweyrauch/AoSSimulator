@@ -21,18 +21,20 @@ namespace Nighthaunt {
 
         static void Init();
 
-        KnightOfShroudsOnEtherealSteed();
+        KnightOfShroudsOnEtherealSteed(CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        KnightOfShroudsOnEtherealSteed() = delete;
 
         ~KnightOfShroudsOnEtherealSteed() override = default;
 
     protected:
 
-        void configure();
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
 
     private:
 
-        Weapon m_sword,
-                m_hoovesAndTeeth;
+        Weapon  m_sword{Weapon::Type::Melee, "Sword of Stolen Hours", 1, 4, 3, 3, -1, 2},
+                m_hoovesAndTeeth{Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1};
 
         static bool s_registered;
     };
@@ -41,7 +43,7 @@ namespace Nighthaunt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Stolen Hours                     TODO
+// Stolen Hours                     Yes
 // Lord of Gheists                  TODO
 //
 

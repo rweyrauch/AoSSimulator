@@ -42,15 +42,9 @@ namespace Nighthaunt {
     bool LadyOlynder::s_registered = false;
 
     Unit *LadyOlynder::Create(const ParameterList &parameters) {
-        auto unit = new LadyOlynder();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        return new LadyOlynder(lore, general);
     }
 
     void LadyOlynder::Init() {
@@ -71,10 +65,8 @@ namespace Nighthaunt {
         }
     }
 
-    LadyOlynder::LadyOlynder() :
-            Nighthaunt("Lady Olynder", 6, g_wounds, 10, 4, true),
-            m_staff(Weapon::Type::Melee, "Staff of Midnight", 2, 3, 3, 3, -2, RAND_D3),
-            m_claws(Weapon::Type::Melee, "Banshee Handmaidens' Spectral Claws", 1, 6, 4, 4, 0, 1) {
+    LadyOlynder::LadyOlynder(Lore lore, bool isGeneral) :
+            Nighthaunt("Lady Olynder", 6, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MORTARCH, LADY_OLYNDER};
         m_weapons = {&m_staff, &m_claws};
         m_battleFieldRole = Role::Leader;
@@ -82,9 +74,11 @@ namespace Nighthaunt {
         m_claws.setMount(true);
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void LadyOlynder::configure(Lore lore) {
+        s_globalBattleshockFleeModifier.connect(this, &LadyOlynder::mortarchOfGrief, &m_mortarchOfGriefSlot);
+
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_claws);
@@ -98,17 +92,20 @@ namespace Nighthaunt {
         m_points = ComputePoints(1);
     }
 
+    LadyOlynder::~LadyOlynder() {
+        m_mortarchOfGriefSlot.disconnect();
+    }
+
     Wounds LadyOlynder::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Frightful Touch
         if ((hitRoll == 6) && (weapon->name() == m_claws.name())) {
             return {0, 1};
         }
-
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void LadyOlynder::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        Nighthaunt::onStartShooting(player);
 
         // Wail of the Damned
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 10.0);
@@ -121,7 +118,7 @@ namespace Nighthaunt {
     }
 
     void LadyOlynder::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        Nighthaunt::onStartHero(player);
 
         // Lifting the Veil
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
@@ -148,13 +145,20 @@ namespace Nighthaunt {
     }
 
     void LadyOlynder::onRestore() {
-        Unit::onRestore();
+        Nighthaunt::onRestore();
 
         m_graveSandsOfTimeUsed = false;
     }
 
     int LadyOlynder::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    int LadyOlynder::mortarchOfGrief(const Unit *unit, int roll) {
+        if (!isFriendly(unit) && (distanceTo(unit) < 12.0)) {
+            return 1;
+        }
+        return 0;
     }
 
 } // namespace Nighthaunt

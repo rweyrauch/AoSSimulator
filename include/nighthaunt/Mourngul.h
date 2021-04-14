@@ -27,8 +27,6 @@ namespace Nighthaunt {
 
     protected:
 
-        void configure();
-
         void onWounded() override;
 
         size_t getDamageTableIndex() const;
@@ -37,9 +35,13 @@ namespace Nighthaunt {
 
         void onRestore() override;
 
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
     private:
 
-        Weapon m_clawsAndFangs;
+        Weapon m_clawsAndFangs{Weapon::Type::Melee, "Nightmarish Claws and Fangs", 2, 8, 3, 3, -1, 2};
 
         static bool s_registered;
     };
@@ -49,8 +51,8 @@ namespace Nighthaunt {
 // -------------------------------------------
 // Ethereal                         Yes
 // Frightful Touch                  Yes
-// Devourer of Flesh and Souls      TODO
-// Ghastly Apparition               TODO
+// Devourer of Flesh and Souls      Yes
+// Ghastly Apparition               Yes
 
 
 } // namespace Nighthaunt

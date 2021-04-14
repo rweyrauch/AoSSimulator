@@ -21,18 +21,22 @@ namespace Nighthaunt {
 
         static void Init();
 
-        GuardianOfSouls();
+        GuardianOfSouls(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
-        ~GuardianOfSouls() override = default;
+        GuardianOfSouls() = delete;
+
+        ~GuardianOfSouls() override;
 
     protected:
 
-        void configure(Lore lore);
+        int nightmareLantern(const Unit *attacker, const Weapon *weapon, const Unit *target);
 
     private:
 
-        Weapon m_blade,
-                m_maul;
+        Weapon  m_blade{Weapon::Type::Melee, "Chill Blade", 1, 3, 3, 3, -1, 1},
+                m_maul{Weapon::Type::Melee, "Maul of Judgement", 1, 2, 3, 3, 0, 2};
+
+        lsignal::slot m_nightmareLanternSlot;
 
         static bool s_registered;
     };
@@ -41,7 +45,7 @@ namespace Nighthaunt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Nightmare Lantern                TODO
+// Nightmare Lantern                Yes
 // Spectral Lure                    Yes
 //
 

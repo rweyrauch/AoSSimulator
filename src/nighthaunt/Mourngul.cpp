@@ -33,10 +33,7 @@ namespace Nighthaunt {
             };
 
     Unit *Mourngul::Create(const ParameterList &parameters) {
-        auto unit = new Mourngul();
-
-        unit->configure();
-        return unit;
+        return new Mourngul();
     }
 
     void Mourngul::Init() {
@@ -56,13 +53,10 @@ namespace Nighthaunt {
     }
 
     Mourngul::Mourngul() :
-            Nighthaunt("Mourngul", 12, g_wounds, 10, 4, true),
-            m_clawsAndFangs(Weapon::Type::Melee, "Nightmarish Claws and Fangs", 2, 8, 3, 3, -1, 2) {
+            Nighthaunt("Mourngul", 12, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, MONSTER, MOURNGUL};
         m_weapons = {&m_clawsAndFangs};
-    }
 
-    void Mourngul::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
@@ -71,7 +65,7 @@ namespace Nighthaunt {
     }
 
     void Mourngul::onWounded() {
-        Unit::onWounded();
+        Nighthaunt::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_clawsAndFangs.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
@@ -89,15 +83,15 @@ namespace Nighthaunt {
     }
 
     Wounds Mourngul::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Frightfull Touch
+        // Frightful Touch
         if (hitRoll == 6) {
             return {0, 2};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Mourngul::onRestore() {
-        Unit::onRestore();
+        Nighthaunt::onRestore();
 
         // Reset table-drive attributes
         onWounded();
@@ -105,6 +99,23 @@ namespace Nighthaunt {
 
     int Mourngul::ComputePoints(int /*numModels*/) {
         return g_pointsPerUnit;
+    }
+
+    void Mourngul::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon, const Wounds &weaponDamage) {
+        Nighthaunt::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        // Devourer of Flesh and Souls
+        if ((numSlain > 0) && (weapon->name() == m_clawsAndFangs.name())) {
+            heal(Dice::RollD3());
+        }
+    }
+
+    int Mourngul::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Nighthaunt::targetHitModifier(weapon, attacker);
+        if (distanceTo(attacker) < 6.0) {
+            mod--;
+        }
+        return mod;
     }
 
 } // namespace Nighthaunt

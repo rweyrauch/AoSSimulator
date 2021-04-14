@@ -29,34 +29,31 @@ namespace LuminethRealmLords {
     enum class CommandTrait : int {
         None,
 
-        Lords_Of_Brilliance,    // TODO
-        Lords_Of_Stone,         // TODO
-
         // Scinari
         Spellmaster,            // TODO
         Loremaster,             // TODO
-        Warmaster,              // TODO
+        Warmaster,
 
         // Alarith
-        Majestic,               // TODO
-        Enduring,               // TODO
+        Majestic,
+        Enduring,
         //Loremaster,
 
         // Vanari
-        Grand_Strategist,       // TODO
+        Grand_Strategist,
         Consummate_Warrior,     // TODO
         Astute_Commander,       // TODO
 
         // Hurakan
         Grand_Windrider,        // TODO
-        Swift,                  // TODO
+        Swift,
         //Loremaster,
 
         // Nation specific
         Almighty_Blow,          // Ymetrica TODO
         Goading_Arrogance,      // Syar TODO
         Fast_Learner,           // Zaitrec TODO
-        Burning_Gaze,           // Alumnia TODO
+        Burning_Gaze,           // Alumnia
         Skyrace_Grand_Champion, // Helon TODO
     };
 
@@ -158,6 +155,18 @@ namespace LuminethRealmLords {
 
         int majestic(const Unit *unit);
 
+        void onBeginRound(int battleRound) override;
+
+        void onStartHero(PlayerId player) override;
+
+        int moveModifier() const override;
+
+        void onStartCombat(PlayerId player) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
+        int unbindingModifier() const override;
+
     protected:
 
         GreatNation m_nation = GreatNation::None;
@@ -166,6 +175,7 @@ namespace LuminethRealmLords {
         Artefact m_artefact = Artefact::None;
 
         mutable int m_aetherQuartzReserve = 1;
+        mutable bool m_usedLambentMystics = false;
 
         lsignal::slot m_majesticConnection;
     };
@@ -186,10 +196,17 @@ namespace LuminethRealmLords {
 // Enduring as Rock                 TODO
 // Tectonic Force                   TODO
 // Mountain Realm                   TODO
+// Redoubled Force                  TODO
 // Gleaming Brightness              Yes
+// Deplete Reserves                 TODO
 // Soul-bond                        Yes
-// Lambent Mystics                  TODO
 // Unity of Purpose                 TODO
+// Strike on Unison                 TODO
+// Lambent Mystics                  Partial/TODO
+// Claim the Field                  TODO
+// Seize the Moment                 TODO
+// Gale of Killing Shafts           Yes
+// Gone Like the Wind               TODO
 //
     void Init();
 

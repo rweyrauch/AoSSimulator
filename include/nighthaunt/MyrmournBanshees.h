@@ -27,7 +27,6 @@ namespace Nighthaunt {
 
         bool configure(int numModels);
 
-
     private:
 
         Weapon m_dagger;
@@ -38,7 +37,7 @@ namespace Nighthaunt {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Ethereal                         TODO
+// Ethereal                         Yes
 // Spell Eater                      TODO
 //
 

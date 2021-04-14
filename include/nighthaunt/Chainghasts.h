@@ -21,20 +21,24 @@ namespace Nighthaunt {
 
         static void Init();
 
-        Chainghasts();
+        explicit Chainghasts(int numModels);
 
-        ~Chainghasts() override = default;
+        Chainghasts() = delete;
 
-        bool configure(int numModels);
+        ~Chainghasts() override;
 
     protected:
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
+        Rerolls anotherLinkInTheChain(const Unit *attacker, const Weapon *weapon, const Unit *target);
+
     private:
 
-        Weapon m_ghastflailsMissile,
-                m_ghastflails;
+        Weapon  m_ghastflailsMissile{Weapon::Type::Missile, "Ghastflails (Missile)", 15, RAND_D3, 4, 3, -2, 1},
+                m_ghastflails{Weapon::Type::Melee, "Ghastflails", 2, 0, 4, 3, -1, 1};
+
+        lsignal::slot m_linkInTheChainSlot;
 
         static bool s_registered;
     };
@@ -43,7 +47,7 @@ namespace Nighthaunt {
 // Abilities                    Implemented
 // -------------------------------------------
 // Ethereal                         Yes
-// Another Link in the Chain        TODO
+// Another Link in the Chain        Yes
 // Sweeping Blows                   Yes
 
 

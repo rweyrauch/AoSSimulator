@@ -21,13 +21,13 @@ namespace Nighthaunt {
 
         static void Init();
 
-        LadyOlynder();
+        LadyOlynder(Lore lore, bool isGeneral);
 
-        ~LadyOlynder() override = default;
+        LadyOlynder() = delete;
+
+        ~LadyOlynder() override;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
@@ -37,12 +37,16 @@ namespace Nighthaunt {
 
         void onRestore() override;
 
+        int mortarchOfGrief(const Unit *unit, int roll);
+
     private:
 
         bool m_graveSandsOfTimeUsed = false;
 
-        Weapon m_staff,
-                m_claws;
+        lsignal::slot m_mortarchOfGriefSlot;
+
+        Weapon  m_staff{Weapon::Type::Melee, "Staff of Midnight", 2, 3, 3, 3, -2, RAND_D3},
+                m_claws{Weapon::Type::Melee, "Banshee Handmaidens' Spectral Claws", 1, 6, 4, 4, 0, 1};
 
         static bool s_registered;
     };
@@ -54,7 +58,7 @@ namespace Nighthaunt {
 // Frightful Touch                  Yes
 // Grave-sands of Time              Yes
 // Lifting the Veil                 Yes
-// Mortarch of Grief                TODO
+// Mortarch of Grief                Yes
 // Wail of the Damned               Yes
 // No Rest For the Wicked           TODO
 // Grief-stricken                   Yes

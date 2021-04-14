@@ -8,6 +8,8 @@
 
 #include <lumineth/LuminethRealmLords.h>
 #include <magic_enum.hpp>
+#include <Board.h>
+#include "Roster.h"
 #include "lumineth/AuralanWardens.h"
 #include "lumineth/AuralanSentinels.h"
 #include "lumineth/Dawnriders.h"
@@ -154,6 +156,7 @@ namespace LuminethRealmLords {
         Unit::onRestore();
 
         m_aetherQuartzReserve = 1;
+        m_usedLambentMystics = false;
 
         // Gleaming Brightness
         if (m_nation == GreatNation::Syar) {
@@ -187,6 +190,72 @@ namespace LuminethRealmLords {
             // Heightened Boost
             mod++;
             m_aetherQuartzReserve--;
+        }
+        if ((m_nation == GreatNation::Zaitrec) && !m_usedLambentMystics) {
+            mod++;
+            m_usedLambentMystics = true;
+        }
+        return mod;
+    }
+
+    void LuminethBase::onBeginRound(int battleRound) {
+        Unit::onBeginRound(battleRound);
+
+        if ((m_battleRound == 1) && isGeneral() && (m_commandTrait == CommandTrait::Grand_Strategist)) {
+            getRoster()->addCommandPoints(1);
+        }
+    }
+
+    void LuminethBase::onStartHero(PlayerId player) {
+        Unit::onStartHero(player);
+
+        m_usedLambentMystics = false;
+
+        if (owningPlayer() == player) {
+            if (isGeneral() && (m_commandTrait == CommandTrait::Warmaster) && (Dice::RollD6() >= 4)) {
+                getRoster()->addCommandPoints(1);
+            }
+        }
+    }
+
+    int LuminethBase::moveModifier() const {
+        auto mod = Unit::moveModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Swift)) {
+            mod += 3;
+        }
+        return mod;
+    }
+
+    void LuminethBase::onStartCombat(PlayerId player) {
+        Unit::onStartCombat(player);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Burning_Gaze)) {
+            auto enemy = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (enemy && (distanceTo(enemy) < 3.0) && (enemy->remainingModels() > 0)) {
+                if (Dice::RollD6() >= 2) {
+                    enemy->applyDamage({0, 1, Wounds::Source::Ability}, this);
+                }
+            }
+        }
+    }
+
+    int LuminethBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        // Gale of Killing Shafts
+        if ((m_nation == GreatNation::Helon) && weapon->isMissile()) {
+            auto enemy = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
+            if (enemy && (distanceTo(enemy) < 3.0)) {
+                attacks++;
+            }
+        }
+        return attacks;
+    }
+
+    int LuminethBase::unbindingModifier() const {
+        auto mod = Unit::unbindingModifier();
+        if ((m_nation == GreatNation::Zaitrec) && !m_usedLambentMystics) {
+            mod++;
+            m_usedLambentMystics = true;
         }
         return mod;
     }

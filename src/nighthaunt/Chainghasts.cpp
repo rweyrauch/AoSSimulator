@@ -20,18 +20,12 @@ namespace Nighthaunt {
 
     bool Chainghasts::s_registered = false;
 
-    Chainghasts::Chainghasts() :
-            Nighthaunt("Chainghasts", 6, g_wounds, 10, 4, true),
-            m_ghastflailsMissile(Weapon::Type::Missile, "Ghastflails (Missile)", 15, RAND_D3, 4, 3, -2, 1),
-            m_ghastflails(Weapon::Type::Melee, "Ghastflails", 2, 0, 4, 3, -1, 1) {
+    Chainghasts::Chainghasts(int numModels) :
+            Nighthaunt("Chainghasts", 6, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
         m_weapons = {&m_ghastflailsMissile, &m_ghastflails};
-    }
 
-    bool Chainghasts::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
+        s_globalToHitReroll.connect(this, &Chainghasts::anotherLinkInTheChain, &m_linkInTheChainSlot);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -41,20 +35,15 @@ namespace Nighthaunt {
         }
 
         m_points = ComputePoints(numModels);
+    }
 
-        return true;
+    Chainghasts::~Chainghasts() {
+        m_linkInTheChainSlot.disconnect();
     }
 
     Unit *Chainghasts::Create(const ParameterList &parameters) {
-        auto unit = new Chainghasts();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Chainghasts(numModels);
     }
 
     void Chainghasts::Init() {
@@ -91,6 +80,18 @@ namespace Nighthaunt {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    Rerolls Chainghasts::anotherLinkInTheChain(const Unit *attacker, const Weapon *weapon, const Unit *target) {
+        if (isFriendly(attacker) && (distanceTo(attacker) < 12.0)) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+            for (auto unit: units) {
+                if ((unit->remainingModels() > 0) && unit->hasKeyword(SPIRIT_TORMENT) && (distanceTo(unit) < 12.0)) {
+                    return Rerolls::Ones;
+                }
+            }
+        }
+        return Rerolls::None;
     }
 
 } //namespace Nighthaunt
