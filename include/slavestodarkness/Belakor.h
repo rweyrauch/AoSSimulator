@@ -31,9 +31,17 @@ namespace SlavesToDarkness {
 
         int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
 
+        void onRestore() override;
+
+        void onWounded() override;
+
     private:
 
-        Weapon m_blade{Weapon::Type::Melee, "Blade of Shadows", 1, 6, 3, 3, -1, 2};
+        size_t getDamageTableIndex() const;
+
+        Weapon m_blade{Weapon::Type::Melee, "Blade of Shadows", 2, 8, 3, 3, -2, 2},
+            m_claw{Weapon::Type::Melee, "Fell Claw", 1, 1, 3, 3, -1, 2},
+            m_tail{Weapon::Type::Melee, "Spearing Tail", 3, 1, 2, 1, -3, 2};
 
         static bool s_registered;
     };
@@ -42,7 +50,7 @@ namespace SlavesToDarkness {
 // Abilities                    Implemented
 // -------------------------------------------
 // The Dark Master                  TODO
-// Lord of Torment                  TODO
+// Weakening the Enemy              TODO
 // Shadow Form                      Yes
 // Enfeeble Foe                     Yes
 //

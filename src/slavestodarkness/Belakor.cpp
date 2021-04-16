@@ -14,8 +14,25 @@
 namespace SlavesToDarkness {
 
     static const int g_basesize = 50;
-    static const int g_wounds = 8;
-    static const int g_pointsPerUnit = 240;
+    static const int g_wounds = 14;
+    static const int g_pointsPerUnit = 380;
+
+    struct TableEntry {
+        int m_move;
+        int m_bladeAttacks;
+        int m_tailToWound;
+    };
+
+    const size_t g_numTableEntries = 5;
+    const int g_woundThresholds[g_numTableEntries] = {3, 6, 8, 10, g_wounds};
+    const TableEntry g_damageTable[g_numTableEntries] =
+            {
+                    {14, 8, 1},
+                    {12, 7, 2},
+                    {10, 6, 3},
+                    {8,  5, 4},
+                    {6,  4, 5}
+            };
 
     bool Belakor::s_registered = false;
 
@@ -53,9 +70,9 @@ namespace SlavesToDarkness {
     }
 
     Belakor::Belakor(DamnedLegion legion, MarkOfChaos mark, Lore lore, bool isGeneral) :
-            SlavesToDarknessBase("Be'lakor", 12, g_wounds, 10, 4, true) {
-        m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, DAEMON_PRINCE, BELAKOR};
-        m_weapons = {&m_blade};
+            SlavesToDarknessBase("Be'lakor", 14, g_wounds, 10, 4, true) {
+        m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, MONSTER, DAEMON_PRINCE, BELAKOR};
+        m_weapons = {&m_blade, &m_claw, &m_tail};
         m_battleFieldRole = Role::Leader;
 
         setDamnedLegion(legion);
@@ -67,6 +84,8 @@ namespace SlavesToDarkness {
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
+        model->addMeleeWeapon(&m_claw);
+        model->addMeleeWeapon(&m_tail);
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Enfeeble Foe", 6, 18, Attribute::To_Wound_Melee, -1,
@@ -80,6 +99,29 @@ namespace SlavesToDarkness {
 
     int Belakor::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
         // Shadow Form - no save modifiers allowed.
+        return 0;
+    }
+
+    void Belakor::onRestore() {
+        SlavesToDarknessBase::onRestore();
+        // Reset table-drive attributes
+        onWounded();
+    }
+
+    void Belakor::onWounded() {
+        const auto damageIndex = getDamageTableIndex();
+        m_blade.setAttacks(g_damageTable[damageIndex].m_bladeAttacks);
+        m_tail.setToWound(g_damageTable[damageIndex].m_tailToWound);
+        m_move = g_damageTable[getDamageTableIndex()].m_move;
+    }
+
+    size_t Belakor::getDamageTableIndex() const {
+        auto woundsInflicted = wounds() - remainingWounds();
+        for (auto i = 0u; i < g_numTableEntries; i++) {
+            if (woundsInflicted < g_woundThresholds[i]) {
+                return i;
+            }
+        }
         return 0;
     }
 
