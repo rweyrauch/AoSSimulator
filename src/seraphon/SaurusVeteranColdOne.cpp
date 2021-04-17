@@ -36,7 +36,7 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_coldOneJaws);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Saurian Savagery", 18, 18, Phase::Combat,
+        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Saurian Savagery", 18, 18, GamePhase::Combat,
                                                                                  Ability::Extra_Hit_On_Value, 6, Abilities::Target::SelfAndFriendly,
                                                                                  std::vector<Keyword>(SAURUS)));
 

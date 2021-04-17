@@ -83,7 +83,7 @@ namespace Nighthaunt {
         // Staring Death in the Face
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
         if (unit) {
-            unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Battleshock, m_battleRound, player});
+            unit->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Battleshock, m_battleRound, player});
         }
 
     }

@@ -79,7 +79,7 @@ Spell::Result Spell::cast(double x, double y, int round) {
 }
 
 Duration Spell::defaultDuration() const {
-    return {Phase::Hero, m_round + 1, m_caster->owningPlayer()};
+    return {GamePhase::Hero, m_round + 1, m_caster->owningPlayer()};
 }
 
 DamageSpell::DamageSpell(Unit *caster,

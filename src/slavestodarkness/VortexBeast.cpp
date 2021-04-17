@@ -95,15 +95,15 @@ namespace SlavesToDarkness {
                 switch (roll) {
                     case 1:
                         // Hideous Disfigurement
-                        unit->buffModifier(Attribute::Bravery, -1, {Phase::Hero, INT_MAX, player});
+                        unit->buffModifier(Attribute::Bravery, -1, {GamePhase::Hero, INT_MAX, player});
                         break;
                     case 2:
                         // Troggbrains
-                        unit->buffModifier(Attribute::Run_Distance, -1, {Phase::Hero, INT_MAX, player});
+                        unit->buffModifier(Attribute::Run_Distance, -1, {GamePhase::Hero, INT_MAX, player});
                         break;
                     case 3:
                         // Gift of Mutations
-                        unit->buffModifier(Attribute::Move_Distance, -1, {Phase::Hero, INT_MAX, player});
+                        unit->buffModifier(Attribute::Move_Distance, -1, {GamePhase::Hero, INT_MAX, player});
                         break;
                     case 4:
                         // Tide of Transmogrification

@@ -16,7 +16,7 @@ namespace CitiesOfSigmar {
     class RousingBattleCry : public CommandAbility {
     public:
         explicit RousingBattleCry(Unit *source) :
-                CommandAbility(source, "Rousing Battle Cry", 12, 12, Phase::Charge) {
+                CommandAbility(source, "Rousing Battle Cry", 12, 12, GamePhase::Charge) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {FREEGUILD};
             m_effect = Abilities::EffectType::Buff;

@@ -41,7 +41,7 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Wrath of the Seraphon", 18, 18, Phase::Combat,
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Wrath of the Seraphon", 18, 18, GamePhase::Combat,
                                                                                   Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly,
                                                                                   std::vector<Keyword>(SAURUS)));
 

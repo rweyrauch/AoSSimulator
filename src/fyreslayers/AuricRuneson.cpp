@@ -15,7 +15,7 @@ namespace Fyreslayers {
     class DauntlessAssault : public CommandAbility {
     public:
         explicit DauntlessAssault(Unit *source) :
-                CommandAbility(source, "Dauntless Assault", 12, 12, Phase::Combat) {
+                CommandAbility(source, "Dauntless Assault", 12, 12, GamePhase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
         }
@@ -25,7 +25,7 @@ namespace Fyreslayers {
         bool apply(Unit *target) override {
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {
-                unit->buffModifier(Attribute::To_Wound_Melee, 1, {Phase::Combat, m_round, m_source->owningPlayer()});
+                unit->buffModifier(Attribute::To_Wound_Melee, 1, {GamePhase::Combat, m_round, m_source->owningPlayer()});
             }
             return true;
         }

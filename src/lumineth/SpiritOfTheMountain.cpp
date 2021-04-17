@@ -150,7 +150,7 @@ namespace LuminethRealmLords {
             for (auto ip : units) {
                 double maxRange = 0.0;
                 if (ip->hasShootingAttack(maxRange)) {
-                    ip->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Shooting, m_battleRound, player});
+                    ip->buffModifier(Attribute::To_Hit_Missile, -1, {GamePhase::Shooting, m_battleRound, player});
                     break;
                 }
             }
@@ -164,7 +164,7 @@ namespace LuminethRealmLords {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
                                                        g_damageTable[getDamageTableIndex()].m_shockwave);
         for (auto ip : units) {
-            ip->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+            ip->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Combat, m_battleRound, player});
             break;
         }
     }

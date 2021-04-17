@@ -117,7 +117,7 @@ namespace BeastsOfChaos {
             }
             if (heroesNearby) {
                 applyDamage({0, 1}, this);
-                buffModifier(Attribute::Attacks_Melee, 1, {Phase::Combat, m_battleRound, player});
+                buffModifier(Attribute::Attacks_Melee, 1, {GamePhase::Combat, m_battleRound, player});
             }
         }
 

@@ -115,7 +115,7 @@ namespace Sylvaneth {
         // Groundshaking Stomp
         if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0) {
             if (Dice::RollD6() >= 4) {
-                m_meleeTarget->buffAbility(Ability::Fights_Last, 1, {Phase::Combat, m_battleRound, owningPlayer()});
+                m_meleeTarget->buffAbility(Ability::Fights_Last, 1, {GamePhase::Combat, m_battleRound, owningPlayer()});
             }
         }
     }

@@ -33,6 +33,8 @@ class CommandTraitAbility;
 
 class Unit : public UnitModifierInterface, public EventInterface {
 public:
+    typedef typename std::vector<std::unique_ptr<Model>> ModelList;
+
     Unit();
 
     ~Unit() override = default;
@@ -91,6 +93,13 @@ public:
     int numModels() const { return (int) m_models.size(); }
 
     const Model *getModel(int which) const { return m_models.at((size_t) which).get(); }
+
+    ModelList::iterator begin() { return m_models.begin(); }
+    ModelList::iterator end() { return m_models.end(); }
+    ModelList::const_iterator cbegin() const { return m_models.cbegin(); }
+    ModelList::const_iterator cend() const { return m_models.cend(); }
+    ModelList::iterator find(const std::string& name);
+    ModelList::const_iterator find(const std::string& name) const;
 
     bool isNamedModelAlive(const std::string &name) const;
 
@@ -256,7 +265,7 @@ public:
 
     int returnModels(int numModels);
 
-    virtual bool canActInPhase(Phase phase) const { return true; }
+    virtual bool canActInPhase(GamePhase phase) const { return true; }
 
 protected:
 
@@ -279,7 +288,7 @@ protected:
 
     void doPileIn();
 
-    void timeoutBuffs(Phase phase, PlayerId player);
+    void timeoutBuffs(GamePhase phase, PlayerId player);
 
     int getCommandPoints() const;
 
@@ -393,7 +402,7 @@ protected:
     int m_totalPrayers = 0;
 
     int m_ranks = 1;
-    std::vector<std::unique_ptr<Model>> m_models;
+    ModelList m_models;
     Math::Point3 m_position = {0.0f, 0.0f, 0.0f};
     Math::Vector3 m_orientation = {1.0f, 0.0f, 0.0f};
 

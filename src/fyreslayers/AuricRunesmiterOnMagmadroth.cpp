@@ -26,9 +26,9 @@ namespace Fyreslayers {
         bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr) return false;
             target->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed,
-                               {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+                               {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
             target->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed,
-                               {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+                               {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
             return true;
         }
 

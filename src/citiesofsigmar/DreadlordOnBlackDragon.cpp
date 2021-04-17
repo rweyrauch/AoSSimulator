@@ -16,7 +16,7 @@ namespace CitiesOfSigmar {
     class DoNotDisappointMe : public CommandAbility {
     public:
         explicit DoNotDisappointMe(Unit *source) :
-                CommandAbility(source, "Do Not Disappoint Me", 18, 18, Phase::Combat) {
+                CommandAbility(source, "Do Not Disappoint Me", 18, 18, GamePhase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {ORDER_SERPENTIS};
             m_effect = Abilities::EffectType::Buff;

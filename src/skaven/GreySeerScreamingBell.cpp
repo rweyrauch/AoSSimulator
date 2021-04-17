@@ -208,7 +208,7 @@ namespace Skaven {
             } else if (roll <= 4) {
                 // Unholy Clamour
                 buffModifier(Attribute::Move_Distance, Dice::RollD6(),
-                             {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                             {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
             } else if (roll <= 6) {
                 // Deafening Peals
                 auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
@@ -224,7 +224,7 @@ namespace Skaven {
                                                                g_damageTable[getDamageTableIndex()].m_pealRange);
                 for (auto unit : units) {
                     unit->buffModifier(Attribute::Casting_Roll, 1,
-                                       {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                       {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             } else if (roll <= 9) {
                 // Apocalyptic Doom

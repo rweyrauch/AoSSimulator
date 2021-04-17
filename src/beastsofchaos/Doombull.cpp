@@ -36,7 +36,7 @@ namespace BeastsOfChaos {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffModifierCommandAbility>(this, "Slaughter's Call", 12, 12, Phase::Combat,
+                std::make_unique<BuffModifierCommandAbility>(this, "Slaughter's Call", 12, 12, GamePhase::Combat,
                                                              Attribute::To_Wound_Melee, 1,
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>{WARHERD}));

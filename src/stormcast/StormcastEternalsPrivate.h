@@ -229,4 +229,6 @@ namespace StormcastEternals {
 
     CommandAbility *CreateCommandAbility(Command which, Unit *source);
 
+    CommandAbility *CreateFuriousRetribution(Unit* source);
+
 } // namespace StormcastEternals

@@ -81,7 +81,7 @@ namespace Seraphon {
             for (auto skink : skinks) {
                 if ((skink->remainingModels() > 0) && (distanceTo(skink) < 12.0)) {
                     if (Dice::RollD6() >= 3) {
-                        const Duration duration{Phase::Hero, m_battleRound+1, owningPlayer()};
+                        const Duration duration{GamePhase::Hero, m_battleRound + 1, owningPlayer()};
                         skink->buffMovement(MovementRule::Run_And_Shoot, true, duration);
                         skink->buffMovement(MovementRule::Run_And_Charge, true, duration);
                         skink->buffModifier(Attribute::To_Save_Missile, 1, duration);

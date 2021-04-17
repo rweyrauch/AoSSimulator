@@ -174,7 +174,7 @@ namespace GloomspiteGitz {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
                 if (Dice::RollD6() >= 5) {
-                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Combat, m_battleRound, player});
                 }
             }
         }

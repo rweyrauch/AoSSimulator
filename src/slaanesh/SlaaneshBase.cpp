@@ -181,7 +181,7 @@ namespace Slaanesh {
                     auto roll = Dice::RollD6();
                     if (hasKeyword(GREATER_DAEMON)) roll++;
                     if (roll >= 4) {
-                        unit->buffMovement(MovementRule::Can_PileIn, false, {Phase::Combat, m_battleRound, player});
+                        unit->buffMovement(MovementRule::Can_PileIn, false, {GamePhase::Combat, m_battleRound, player});
                     }
                 }
             }
@@ -242,15 +242,15 @@ namespace Slaanesh {
         if (isGeneral() && (m_commandTrait == CommandTrait::Hurler_Of_Obscenities)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 6.0);
             if (hero) {
-                hero->buffModifier(Attribute::To_Save_Melee, -1, {Phase::Combat, m_battleRound, player});
-                hero->buffModifier(Attribute::To_Hit_Melee, 1, {Phase::Combat, m_battleRound, player});
+                hero->buffModifier(Attribute::To_Save_Melee, -1, {GamePhase::Combat, m_battleRound, player});
+                hero->buffModifier(Attribute::To_Hit_Melee, 1, {GamePhase::Combat, m_battleRound, player});
             }
         }
 
         if (isGeneral() && (m_commandTrait == CommandTrait::Monarch_Of_Lies)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
             if (hero) {
-                hero->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+                hero->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Combat, m_battleRound, player});
             }
         }
 
@@ -351,6 +351,24 @@ namespace Slaanesh {
             }
             // TODO: Handle the case if the roster has more than one general.
         }
+    }
+
+    void
+    SlaaneshBase::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon, const Wounds &weaponDamage) {
+        Unit::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        if (isGeneral() && (m_commandTrait == CommandTrait::Skin_Taker) && (numSlain > 0) && weapon->isMelee()) {
+            heal(Dice::RollD3());
+        }
+    }
+
+    int SlaaneshBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
+        auto mod = Unit::toHitModifier(weapon, target);
+        // Send Me Your Best
+        if ((m_host == Host::Faultless_Blades_Pretenders) && target->hasKeyword(HERO) && charged()) {
+            mod++;
+        }
+        return mod;
     }
 
     void Init() {

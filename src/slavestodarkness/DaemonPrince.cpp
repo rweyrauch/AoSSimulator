@@ -88,7 +88,7 @@ namespace SlavesToDarkness {
         setGeneral(isGeneral);
 
         // Immortal Champion
-        buffAbility(Ability::Fights_First, 1, {Phase::Hero, DurationRestOfGame, owningPlayer()});
+        buffAbility(Ability::Fights_First, 1, {GamePhase::Hero, DurationRestOfGame, owningPlayer()});
 
         auto model = new Model(g_basesize, wounds());
 
@@ -103,7 +103,7 @@ namespace SlavesToDarkness {
             case MarkOfChaos::Khorne:
                 break;
             case MarkOfChaos::Tzeentch:
-                m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Arcane Influence", 12, 12, Phase::Hero,
+                m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Arcane Influence", 12, 12, GamePhase::Hero,
                                                                                           Attribute::Casting_Roll, 1, Abilities::Target::Friendly,
                                                                                           std::vector<Keyword>{SLAVES_TO_DARKNESS, WIZARD}));
                 break;

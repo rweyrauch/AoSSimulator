@@ -232,7 +232,7 @@ namespace DaughtersOfKhaine {
                                                  1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
                 auto roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
-                    const Duration duration = {Phase::Hero, m_battleRound + 1, owningPlayer()};
+                    const Duration duration = {GamePhase::Hero, m_battleRound + 1, owningPlayer()};
                     dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);
                     dok->buffAbility(Ability::Ignore_Battleshock, 1, duration);
                 }

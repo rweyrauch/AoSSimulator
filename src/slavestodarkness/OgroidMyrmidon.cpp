@@ -54,7 +54,7 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_horns);
         addModel(model);
 
-        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Pit Marshall", 12, 12, Phase::Combat,
+        m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Pit Marshall", 12, 12, GamePhase::Combat,
                                                                                  Ability::Ignore_Battleshock, 1,
                                                                                  Abilities::Target::Friendly,
                                                                                  std::vector<Keyword>(CULTISTS)));

@@ -131,7 +131,7 @@ namespace LuminethRealmLords {
             }
             target->buffModifier(Attribute::Bravery, -1, defaultDuration()); // Until your next Hero phase
             target->buffModifier(Attribute::Bravery, -1,
-                                 {Phase::Battleshock, m_round, m_caster->owningPlayer()}); // Until end of this turn
+                                 {GamePhase::Battleshock, m_round, m_caster->owningPlayer()}); // Until end of this turn
 
             return Spell::Result::Success;
         }

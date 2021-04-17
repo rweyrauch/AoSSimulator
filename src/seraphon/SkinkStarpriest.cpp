@@ -120,7 +120,7 @@ namespace Seraphon {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if (unit->remainingModels() > 0 && unit->hasKeyword(SERAPHON)) {
-                    unit->buffAbility(Ability::Extra_Mortal_Wound_On_Hit_Roll, 6, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffAbility(Ability::Extra_Mortal_Wound_On_Hit_Roll, 6, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                     break;
                 }
             }

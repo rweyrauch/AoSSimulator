@@ -602,7 +602,7 @@ double Unit::distanceBetween(const Model *model, const Unit *unit) const {
 }
 
 void Unit::hero(PlayerId player) {
-    timeoutBuffs(Phase::Hero, player);
+    timeoutBuffs(GamePhase::Hero, player);
 
     onStartHero(player);
 
@@ -621,7 +621,7 @@ void Unit::hero(PlayerId player) {
 }
 
 void Unit::movement(PlayerId player) {
-    timeoutBuffs(Phase::Movement, player);
+    timeoutBuffs(GamePhase::Movement, player);
 
     onStartMovement(player);
 
@@ -757,7 +757,7 @@ Wounds Unit::fight(PlayerId player, int &numSlain) {
 }
 
 void Unit::shooting(PlayerId player) {
-    timeoutBuffs(Phase::Shooting, player);
+    timeoutBuffs(GamePhase::Shooting, player);
 
     // TODO: unit that is currently in combat must shoot at the combat unit
     auto enemyUnits = Board::Instance()->getAllUnits(GetEnemyId(player));
@@ -776,7 +776,7 @@ void Unit::shooting(PlayerId player) {
 }
 
 void Unit::combat(PlayerId player) {
-    timeoutBuffs(Phase::Combat, player);
+    timeoutBuffs(GamePhase::Combat, player);
 
     auto enemyUnits = Board::Instance()->getAllUnits(GetEnemyId(player));
     m_meleeTarget = nullptr;
@@ -794,7 +794,7 @@ void Unit::combat(PlayerId player) {
 }
 
 void Unit::charge(PlayerId player) {
-    timeoutBuffs(Phase::Charge, player);
+    timeoutBuffs(GamePhase::Charge, player);
 
     auto board = Board::Instance();
 
@@ -859,7 +859,7 @@ void Unit::charge(PlayerId player) {
 
 void Unit::battleshock(PlayerId player) {
 
-    timeoutBuffs(Phase::Battleshock, player);
+    timeoutBuffs(GamePhase::Battleshock, player);
 
     onStartBattleshock(player);
 
@@ -1302,7 +1302,7 @@ int Unit::numModelsWithin(const Model *model, double range) const {
 }
 
 
-void Unit::timeoutBuffs(Phase phase, PlayerId player) {
+void Unit::timeoutBuffs(GamePhase phase, PlayerId player) {
     Duration currentPhase = {phase, m_battleRound, player};
 
     // Remove all buffs that expire in the player's given phase

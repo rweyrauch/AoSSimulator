@@ -24,7 +24,7 @@ namespace Khorne {
     };
 
     LordOfTheGoretide::LordOfTheGoretide(Unit *source) :
-            CommandAbility(source, "Lord of the Goretide", 16, 16, Phase::Charge) {
+            CommandAbility(source, "Lord of the Goretide", 16, 16, GamePhase::Charge) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords = {GORETIDE};
@@ -36,7 +36,7 @@ namespace Khorne {
         for (auto unit : units) {
             if (unit->hasKeyword(GORETIDE)) {
                 unit->buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones,
-                                 {Phase::Combat, m_round, m_source->owningPlayer()});
+                                 {GamePhase::Combat, m_round, m_source->owningPlayer()});
             }
         }
         return true;

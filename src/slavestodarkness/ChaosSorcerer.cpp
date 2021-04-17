@@ -127,8 +127,8 @@ namespace SlavesToDarkness {
             auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
             for (auto unit : units) {
                 if ((unit->remainingModels() > 0) && unit->hasKeyword(SLAVES_TO_DARKNESS) && unit->hasKeyword(MORTAL)) {
-                    unit->buffReroll(Attribute::To_Save_Melee, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
-                    unit->buffReroll(Attribute::To_Save_Missile, Rerolls::Failed, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    unit->buffReroll(Attribute::To_Save_Melee, Rerolls::Failed, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
+                    unit->buffReroll(Attribute::To_Save_Missile, Rerolls::Failed, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }
         }

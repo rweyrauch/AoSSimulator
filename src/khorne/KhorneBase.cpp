@@ -240,7 +240,7 @@ namespace Khorne {
                         for (auto unit : khorneUnits) {
                             if (unit->hasKeyword(KHORNE)) {
                                 unit->buffAbility(Ability::Extra_Hit_On_Value, 6,
-                                                  {Phase::Hero, DurationRestOfGame, owningPlayer()});
+                                                  {GamePhase::Hero, DurationRestOfGame, owningPlayer()});
                             }
                         }
                         s_slaughterTriumphantActive = true;

@@ -47,6 +47,13 @@ set(AOSSIM_SOURCE
         CommandAbility.cpp
         Prayer.cpp
         Think.cpp
+        Game.cpp
+        Battleshock.cpp
+        Combat.cpp
+        Charge.cpp
+        Shooting.cpp
+        Movement.cpp
+        Hero.cpp
         #jps.hh
         #pathfinders.cpp
         ../include/UnitModifierInterface.h

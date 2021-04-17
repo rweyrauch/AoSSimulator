@@ -272,8 +272,8 @@ namespace KharadronOverlords {
                     getRoster()->addCommandPoints(1);
                 }
                 else {
-                    buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
-                    buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                    buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
+                    buffModifier(Attribute::To_Hit_Missile, -1, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }
         }
@@ -293,7 +293,7 @@ namespace KharadronOverlords {
         Unit::onBeginTurn(battleRound, player);
 
         if ((owningPlayer() == player) && (battleRound == 1) && (m_amendment == Amendment::Prosecute_Wars_With_All_Haste)) {
-            buffMovement(MovementRule::Run_And_Shoot, true, {Phase::Hero, battleRound+1, player});
+            buffMovement(MovementRule::Run_And_Shoot, true, {GamePhase::Hero, battleRound + 1, player});
         }
     }
 

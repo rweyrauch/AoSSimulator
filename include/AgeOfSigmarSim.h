@@ -13,7 +13,9 @@
 #include <plog/Log.h>
 #include "Dice.h"
 
-enum class Phase : int {
+const float ENGAGEMENT_RANGE = 0.5f;
+
+enum class GamePhase : int {
     Deployment,
     Initiative,
     Hero,
@@ -154,7 +156,7 @@ enum class Realm : int {
 const int DurationRestOfGame = 9999;
 
 struct Duration {
-    Phase phase;
+    GamePhase phase;
     int round;
     PlayerId player;
 };
@@ -227,7 +229,7 @@ public:
     [[nodiscard]] bool isDouble() const { return d1 == d2; }
 };
 
-std::string PhaseToString(Phase phase);
+std::string PhaseToString(GamePhase phase);
 
 std::string PlayerIdToString(PlayerId id);
 

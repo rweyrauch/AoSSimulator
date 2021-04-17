@@ -361,7 +361,7 @@ namespace CitiesOfSigmar {
                 auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
                 for (auto unit : units) {
                     unit->buffMovement(MovementRule::Run_And_Shoot, true,
-                                       {Phase::Shooting, m_battleRound, owningPlayer()});
+                                       {GamePhase::Shooting, m_battleRound, owningPlayer()});
                 }
             }
         }

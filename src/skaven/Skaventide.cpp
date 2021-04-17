@@ -207,7 +207,7 @@ namespace Skaven {
                 auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), CLANS_SKRYRE, 13.0);
                 if (unit) {
                     unit->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed,
-                                     {Phase::Shooting, m_battleRound, owningPlayer()});
+                                     {GamePhase::Shooting, m_battleRound, owningPlayer()});
                 }
             }
             if (isGeneral() && (m_commandTrait == CommandTrait::Overseer_Of_Destruction)) {
@@ -216,7 +216,7 @@ namespace Skaven {
                 for (auto unit : units) {
                     if (distanceTo(unit) < 13.0) {
                         unit->buffReroll(Attribute::To_Hit_Missile, Rerolls::Failed,
-                                         {Phase::Shooting, m_battleRound, owningPlayer()});
+                                         {GamePhase::Shooting, m_battleRound, owningPlayer()});
                         numBuffed++;
                     }
                     if (numBuffed > 3) break;

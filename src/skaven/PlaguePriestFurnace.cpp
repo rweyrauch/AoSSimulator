@@ -200,13 +200,13 @@ namespace Skaven {
                 if (Dice::RollD6() >= 4) {
                     // Filth-filth!
                     unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed,
-                                     {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                     {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                     unit->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed,
-                                     {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                     {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 } else {
                     // Rabid-rabid!
                     unit->buffModifier(Attribute::Attacks_Melee, 1,
-                                       {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                       {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }
         }

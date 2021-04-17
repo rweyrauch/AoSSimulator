@@ -52,7 +52,7 @@ namespace StormcastEternals {
     class SombreExemplar : public CommandAbility {
     public:
         explicit SombreExemplar(Unit *source) :
-                CommandAbility(source, "Sombre Exemplar", 12, 12, Phase::Combat) {
+                CommandAbility(source, "Sombre Exemplar", 12, 12, GamePhase::Combat) {
             m_allowedTargets = Abilities::Target::Self;
             m_targetKeywords = {ANVILS_OF_THE_HELDENHAMMER};
             m_effect = Abilities::EffectType::Buff;

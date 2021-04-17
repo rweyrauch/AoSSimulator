@@ -42,7 +42,7 @@ namespace StormcastEternals {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffModifierCommandAbility>(this, "Vengeful Determination", 12, 12, Phase::Combat,
+                std::make_unique<BuffModifierCommandAbility>(this, "Vengeful Determination", 12, 12, GamePhase::Combat,
                                                              Attribute::Attacks_Melee, 1,
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>(HAMMERS_OF_SIGMAR)));

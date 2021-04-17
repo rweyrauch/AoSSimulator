@@ -25,7 +25,7 @@ namespace GloomspiteGitz {
     };
 
     InstinctiveLeader::InstinctiveLeader(Unit *source) :
-            CommandAbility(source, "Instinctive Leader", 18, 18, Phase::Combat) {
+            CommandAbility(source, "Instinctive Leader", 18, 18, GamePhase::Combat) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(TROGGOTH);

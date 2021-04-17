@@ -14,18 +14,18 @@ void Player::beginTurn(int battleRound, PlayerId playerWithTurn) {
     }
 }
 
-Unit *Player::startPhase(Phase phase) {
+Unit *Player::startPhase(GamePhase phase) {
     // TODO: rosters/units to perform start of phase actions...
     m_currentPhase = phase;
     if (m_roster) {
-        m_activatedUnit = m_roster->unitBegin();
+        m_activatedUnit = m_roster->begin();
         return m_activatedUnit->get();
     }
     return nullptr;
 }
 
 Unit *Player::advancePhase() {
-    if (m_roster && (m_activatedUnit != m_roster->unitEnd())) {
+    if (m_roster && (m_activatedUnit != m_roster->end())) {
         auto unit = *m_activatedUnit;
         ++m_activatedUnit;
         return unit.get();
@@ -35,7 +35,7 @@ Unit *Player::advancePhase() {
 
 void Player::endPhase() {
     if (m_roster) {
-        m_activatedUnit = m_roster->unitEnd();
+        m_activatedUnit = m_roster->end();
     }
 }
 

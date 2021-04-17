@@ -69,7 +69,7 @@ namespace SlavesToDarkness {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffAbilityCommandAbility>(this, "By My Will", 1000, 1000, Phase::Hero, Ability::Fights_On_Death, 1,
+                std::make_unique<BuffAbilityCommandAbility>(this, "By My Will", 1000, 1000, GamePhase::Hero, Ability::Fights_On_Death, 1,
                                                             Abilities::Target::SelfAndFriendly, std::vector<Keyword>{SLAVES_TO_DARKNESS}));
 
         m_points = g_pointsPerUnit;

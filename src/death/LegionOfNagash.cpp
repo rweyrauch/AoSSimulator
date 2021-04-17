@@ -193,7 +193,7 @@ namespace Death {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             for (auto unit : units) {
                 if (Dice::RollD6() >= 4) {
-                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, owningPlayer()});
+                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Combat, m_battleRound, owningPlayer()});
                 }
             }
         }

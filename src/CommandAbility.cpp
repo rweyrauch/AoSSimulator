@@ -33,7 +33,7 @@ BuffModifierCommandAbility::BuffModifierCommandAbility(Unit *general,
                                                        const std::string &name,
                                                        int rangeGeneral,
                                                        int rangeHero,
-                                                       Phase phase,
+                                                       GamePhase phase,
                                                        Attribute which,
                                                        int modifier,
                                                        Abilities::Target allowedTargets,
@@ -66,7 +66,7 @@ BuffRerollCommandAbility::BuffRerollCommandAbility(Unit *general,
                                                    const std::string &name,
                                                    int rangeGeneral,
                                                    int rangeHero,
-                                                   Phase phase,
+                                                   GamePhase phase,
                                                    Attribute which,
                                                    Rerolls reroll,
                                                    Abilities::Target allowedTargets,
@@ -95,7 +95,7 @@ BuffAbilityCommandAbility::BuffAbilityCommandAbility(Unit *general,
                                                      const std::string &name,
                                                      int rangeGeneral,
                                                      int rangeHero,
-                                                     Phase phase,
+                                                     GamePhase phase,
                                                      Ability which,
                                                      int value,
                                                      Abilities::Target allowedTargets,
@@ -122,32 +122,32 @@ bool BuffAbilityCommandAbility::apply(Unit *target) {
 
 CommandAbility* CreateAtTheDouble(Unit *source, int rangeGeneral, int rangeHero) {
     return new BuffAbilityCommandAbility(source, "At the Double", rangeGeneral, rangeHero,
-                                         Phase::Movement, Ability::Auto_Max_Run, 6, Abilities::Target::SelfAndFriendly);
+                                         GamePhase::Movement, Ability::Auto_Max_Run, 6, Abilities::Target::SelfAndFriendly);
 }
 
 CommandAbility* CreateForwardToVictory(Unit *source, int rangeGeneral, int rangeHero) {
     return new BuffRerollCommandAbility(source, "Forward to Victory", rangeGeneral, rangeHero,
-    Phase::Charge, Attribute::Charge_Distance, Rerolls::Failed, Abilities::Target::SelfAndFriendly);
+                                        GamePhase::Charge, Attribute::Charge_Distance, Rerolls::Failed, Abilities::Target::SelfAndFriendly);
 }
 
 CommandAbility* CreateInspiringPresence(Unit *source, int rangeGeneral, int rangeHero) {
     return new BuffAbilityCommandAbility(source, "Inspiring Presence", rangeGeneral, rangeHero,
-                                         Phase::Battleshock, Ability::Ignore_Battleshock, 1, Abilities::Target::SelfAndFriendly);
+                                         GamePhase::Battleshock, Ability::Ignore_Battleshock, 1, Abilities::Target::SelfAndFriendly);
 }
 
 CommandAbility* CreateAllOutAttack(Unit *source, int rangeGeneral, int rangeHero) {
     return new BuffRerollCommandAbility(source, "All-out Attack", rangeGeneral, rangeHero,
-                                        Phase::Combat, Attribute::To_Hit_Melee, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
+                                        GamePhase::Combat, Attribute::To_Hit_Melee, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
 }
 
 CommandAbility* CreateAllOutDefence(Unit *source, int rangeGeneral, int rangeHero) {
     return new BuffRerollCommandAbility(source, "All-out Defence", rangeGeneral, rangeHero,
-                                        Phase::Combat, Attribute::To_Save_Melee, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
+                                        GamePhase::Combat, Attribute::To_Save_Melee, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
 }
 
 CommandAbility* CreateVolleyFire(Unit *source, int rangeGeneral, int rangeHero) {
     return new BuffRerollCommandAbility(source, "Volley Fire", rangeGeneral, rangeHero,
-                                        Phase::Combat, Attribute::To_Hit_Missile, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
+                                        GamePhase::Combat, Attribute::To_Hit_Missile, Rerolls::Ones, Abilities::Target::SelfAndFriendly);
 }
 CommandAbility* CreateAllOutAttack(Unit *source) {
     return CreateAllOutAttack(source, 18, 12);

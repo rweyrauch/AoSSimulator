@@ -82,7 +82,7 @@ namespace Ironjawz {
             for (auto unit : units) {
                 if (unit->hasKeyword(IRONJAWZ) && (unit->remainingModels() > 0)) {
                     unit->buffModifier(Attribute::Weapon_Damage_Melee, 1,
-                                       {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                       {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 }
             }
         }

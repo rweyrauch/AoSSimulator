@@ -33,8 +33,7 @@ namespace Tzeentch {
             if (numSlain > 0) {
                 // Restore slain Tzaangor model to an existing unit
                 auto roster = m_caster->getRoster();
-                for (auto up = roster->unitBegin(); up != roster->unitEnd(); ++up) {
-                    auto unit = *up;
+                for (auto unit : *roster) {
                     if (unit->name() == "Tzaangor") {
                         unit->returnModels(numSlain);
                         break;

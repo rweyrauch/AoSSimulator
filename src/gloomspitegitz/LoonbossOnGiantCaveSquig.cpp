@@ -17,7 +17,7 @@ namespace GloomspiteGitz {
     class LetsGetBouncing : public CommandAbility {
     public:
         explicit LetsGetBouncing(Unit *source) :
-                CommandAbility(source, "Let's Get Bouncing", 12, 12, Phase::Movement) {
+                CommandAbility(source, "Let's Get Bouncing", 12, 12, GamePhase::Movement) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {SQUIG};
             m_effect = Abilities::EffectType::Buff;
@@ -29,10 +29,10 @@ namespace GloomspiteGitz {
             if (target == nullptr)
                 return false;
 
-            m_source->buffModifier(Attribute::Move_Distance, 3, {Phase::Movement, m_round, m_source->owningPlayer()});
+            m_source->buffModifier(Attribute::Move_Distance, 3, {GamePhase::Movement, m_round, m_source->owningPlayer()});
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {
-                unit->buffModifier(Attribute::Move_Distance, 3, {Phase::Movement, m_round, m_source->owningPlayer()});
+                unit->buffModifier(Attribute::Move_Distance, 3, {GamePhase::Movement, m_round, m_source->owningPlayer()});
             }
             return true;
         }

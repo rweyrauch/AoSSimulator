@@ -14,7 +14,7 @@ namespace SlavesToDarkness {
     class IronWilledOverlord : public CommandAbility {
     public:
         IronWilledOverlord(Unit *source) :
-                CommandAbility(source, "Iron-willed Overlord", 18, 18, Phase::Hero) {
+                CommandAbility(source, "Iron-willed Overlord", 18, 18, GamePhase::Hero) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_targetKeywords = {CHAOS_WARRIORS};
             m_effect = Abilities::EffectType::Buff;

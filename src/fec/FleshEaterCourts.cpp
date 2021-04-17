@@ -237,7 +237,7 @@ namespace FleshEaterCourt {
             }
         }
         if (isGeneral() && (m_commandTrait == CommandTrait::Savage_Strike)) {
-            buffAbility(Ability::Fights_First, 1, {Phase::Hero, m_battleRound + 1, player});
+            buffAbility(Ability::Fights_First, 1, {GamePhase::Hero, m_battleRound + 1, player});
         }
     }
 

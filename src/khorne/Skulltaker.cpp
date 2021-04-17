@@ -32,7 +32,7 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Heads Must Roll", 12, 12,
-                                                                                Phase::Combat,
+                                                                                GamePhase::Combat,
                                                                                 Attribute::To_Wound_Melee,
                                                                                 Rerolls::Ones,
                                                                                 Abilities::Target::SelfAndFriendly,

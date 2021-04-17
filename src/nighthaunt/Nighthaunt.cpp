@@ -33,6 +33,7 @@
 #include "nighthaunt/Mourngul.h"
 #include "nighthaunt/TheBriarQueen.h"
 #include "nighthaunt/ThornsOfTheBriarQueen.h"
+#include "nighthaunt/KrulghastCruciator.h"
 
 namespace Nighthaunt {
 
@@ -157,6 +158,7 @@ namespace Nighthaunt {
         Mourngul::Init();
         TheBriarQueen::Init();
         ThornsOfTheBriarQueen::Init();
+        KrulghastCruciator::Init();
     }
 
 } // namespace Nighthaunt

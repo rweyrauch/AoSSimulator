@@ -31,14 +31,14 @@ public:
     Abilities::Target allowedTargets() const { return m_allowedTargets; }
     const std::vector<Keyword>& allowedTargetKeywords() const { return m_targetKeywords; }
 
-    Phase phase() const { return m_phase; }
+    GamePhase phase() const { return m_phase; }
 
 protected:
 
     Unit *m_source = nullptr;
     std::string m_name;
     Duration m_duration;
-    Phase m_phase = Phase::Hero;
+    GamePhase m_phase = GamePhase::Hero;
     int m_range = 0;
 
     bool m_lineOfSiteRequired = true;

@@ -85,7 +85,7 @@ namespace BeastsOfChaos {
             for (auto unit : units) {
                 if (unit->remainingModels() > 0) {
                     if (Dice::RollD6() == 6) {
-                        const Duration duration = {Phase::Hero, m_battleRound + 1, owningPlayer()};
+                        const Duration duration = {GamePhase::Hero, m_battleRound + 1, owningPlayer()};
                         unit->buffMovement(MovementRule::Can_Move, false, duration);
                         unit->buffMovement(MovementRule::Can_PileIn, false, duration);
                         unit->buffMovement(MovementRule::Can_Charge, false, duration);

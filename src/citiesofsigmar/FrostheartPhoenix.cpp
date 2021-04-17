@@ -122,7 +122,7 @@ namespace CitiesOfSigmar {
         if (anointed) {
             m_commandAbilities.push_back(
                     std::make_unique<BuffRerollCommandAbility>(this, "Captain of the Phoenix Guard", 12, 12,
-                                                               Phase::Combat, Attribute::To_Wound_Melee,
+                                                               GamePhase::Combat, Attribute::To_Wound_Melee,
                                                                Rerolls::Failed,
                                                                Abilities::Target::SelfAndFriendly,
                                                                std::vector<Keyword>{PHOENIX_TEMPLE}));

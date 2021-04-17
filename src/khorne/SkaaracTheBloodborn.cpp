@@ -24,7 +24,7 @@ namespace Khorne {
     };
 
     CallOfTheSkullThrone::CallOfTheSkullThrone(Unit *source) :
-            CommandAbility(source, "Call of the Skull Throne", 12, 12, Phase::Charge) {
+            CommandAbility(source, "Call of the Skull Throne", 12, 12, GamePhase::Charge) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords = {KHORNE};

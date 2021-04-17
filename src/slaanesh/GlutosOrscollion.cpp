@@ -249,7 +249,7 @@ namespace Slaanesh {
         // Main Course
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto unit : units) {
-            unit->buffAbility(Ability::Ignore_Battleshock, true, {Phase::Battleshock, m_battleRound, player});
+            unit->buffAbility(Ability::Ignore_Battleshock, true, {GamePhase::Battleshock, m_battleRound, player});
         }
     }
 

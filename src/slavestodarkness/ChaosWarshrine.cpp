@@ -134,21 +134,21 @@ namespace SlavesToDarkness {
                     if (target->hasKeyword(KHORNE)) {
                         // Favour of Khorne
                         target->buffReroll(Attribute::Attacks_Melee, Rerolls::Failed,
-                                           {Phase::Hero, m_battleRound + 1, player});
+                                           {GamePhase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(TZEENTCH)) {
                         // TODO: Favour of Tzeentch
                         // Allow save against magic
                     } else if (target->hasKeyword(NURGLE)) {
                         // Favour of Nurgle
-                        target->buffModifier(Attribute::To_Save_Missile, 1, {Phase::Hero, m_battleRound + 1, player});
-                        target->buffModifier(Attribute::To_Save_Melee, 1, {Phase::Hero, m_battleRound + 1, player});
+                        target->buffModifier(Attribute::To_Save_Missile, 1, {GamePhase::Hero, m_battleRound + 1, player});
+                        target->buffModifier(Attribute::To_Save_Melee, 1, {GamePhase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(SLAANESH)) {
                         // Favour of Slanesh
-                        target->buffAbility(Ability::Ignore_Battleshock, 1, {Phase::Hero, m_battleRound + 1, player});
+                        target->buffAbility(Ability::Ignore_Battleshock, 1, {GamePhase::Hero, m_battleRound + 1, player});
                     } else if (target->hasKeyword(UNDIVIDED)) {
                         // Favour of Chaos
                         target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed,
-                                           {Phase::Hero, m_battleRound + 1, player});
+                                           {GamePhase::Hero, m_battleRound + 1, player});
                     }
                 }
             }

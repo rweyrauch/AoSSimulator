@@ -15,7 +15,7 @@ namespace Seraphon {
     class HeraldOfTheOldOnes : public CommandAbility {
     public:
         explicit HeraldOfTheOldOnes(Unit *source) :
-                CommandAbility(source, "Herald of the Old Ones", 18, 18, Phase::Hero) {
+                CommandAbility(source, "Herald of the Old Ones", 18, 18, GamePhase::Hero) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {SKINK};
             m_effect = Abilities::EffectType::Buff;
@@ -95,7 +95,7 @@ namespace Seraphon {
                 if (unit->hasKeyword(SKINK) && (unit->remainingModels() > 0)) {
                     const int mod = unit->hasKeyword(STARBLOOD_STALKERS) ? 1 : 0;
                     if (Dice::RollD6() + mod >= 3) {
-                        const Duration duration = {Phase::Hero, m_battleRound + 1, owningPlayer()};
+                        const Duration duration = {GamePhase::Hero, m_battleRound + 1, owningPlayer()};
                         unit->buffMovement(MovementRule::Run_And_Shoot, true, duration);
                         unit->buffMovement(MovementRule::Run_And_Charge, true, duration);
                         unit->buffModifier(Attribute::To_Save_Melee, 1, duration);

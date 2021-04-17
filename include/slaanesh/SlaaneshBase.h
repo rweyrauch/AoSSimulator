@@ -33,7 +33,7 @@ namespace Slaanesh {
         Glory_Hog,
         Hurler_Of_Obscenities,
         Territorial,
-        Skin_Taker,                 // TODO
+        Skin_Taker,
         Delusions_Of_Infallibility,
 
         // Pretenders
@@ -183,6 +183,10 @@ namespace Slaanesh {
 
         void onEndBattleshock(PlayerId player) override;
 
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
     protected:
 
         Host m_host = Host::Godseekers;
@@ -201,41 +205,20 @@ namespace Slaanesh {
 // Invaders
 //    Figureheads of the Dark Prince    TODO
 //    Escalating Havoc              Yes
-//    Best of the Best              Yes
-//    Glory Hog                     Yes
-//    Hurler of Obscenities         Yes
-//    Territorial                   Yes
-//    Skin-taker                    TODO
-//    Delusions of Infallibility    Yes
 // Pretenders
 //    Heir to the Throne            Yes
 //    Warlord Supreme               Yes
-//    Strength of Godhood           TODO
-//    Monarch of Lies               Yes
-//    Craving Stare                 TODO
-//    Strongest Alone               Yes
-//    Hunter of Godbeasts           Yes
-//    Inspirer                      Yes
 // Godseekers
 //    Thundering Cavalcade          Yes
 //    Maniacal Hunters              Yes
-//    Hunter Supreme                Yes
-//    Sweeping Slash                Yes
-//    Into the Fray                 TODO
-//    Trail-sniffer                 TODO
-//    Symphoniac                    TODO
-//    Speed-chaser                  Yes
 // Lurid Haze
 //    Billowing Mists               TODO
-//    Feverish Anticipation         Yes
 //    Intoxicating Pall             TODO
 // Faultless Blades
-//    Contest of Cruelty            TODO
-//    Send Me Your Best             TODO
+//    Send Me Your Best             Yes
 //    Armour of Arrogance           TODO
 // Scarlet Cavalcade
 //    Excessive Swiftness           TODO
-//    Embodiment of Haste           Yes
 //    Vicious Spurs                 TODO
 //
 

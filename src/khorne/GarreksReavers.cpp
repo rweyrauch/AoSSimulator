@@ -114,7 +114,7 @@ namespace Khorne {
 
         // Grisly Trophies
         if ((numSlain > 0) && (weapon->name() == m_garreksAxe.name())) {
-            buffAbility(Ability::Ignore_Battleshock, 1, {Phase::Battleshock, m_battleRound, owningPlayer()});
+            buffAbility(Ability::Ignore_Battleshock, 1, {GamePhase::Battleshock, m_battleRound, owningPlayer()});
         }
     }
 

@@ -12,35 +12,35 @@
 void Battle::start(PlayerId firstPlayer) {
     m_topOfRound = true;
     m_currentPlayer = firstPlayer;
-    m_currentPhase = Phase::Hero;
+    m_currentPhase = GamePhase::Hero;
     m_round = 1;
 }
 
 void Battle::next() {
     // advance battle state machine
     switch (m_currentPhase) {
-        case Phase::Deployment:
-            m_currentPhase = Phase::Initiative;
+        case GamePhase::Deployment:
+            m_currentPhase = GamePhase::Initiative;
             break;
-        case Phase::Initiative:
-            m_currentPhase = Phase::Hero;
+        case GamePhase::Initiative:
+            m_currentPhase = GamePhase::Hero;
             break;
-        case Phase::Hero:
-            m_currentPhase = Phase::Movement;
+        case GamePhase::Hero:
+            m_currentPhase = GamePhase::Movement;
             break;
-        case Phase::Movement:
-            m_currentPhase = Phase::Shooting;
+        case GamePhase::Movement:
+            m_currentPhase = GamePhase::Shooting;
             break;
-        case Phase::Shooting:
-            m_currentPhase = Phase::Charge;
+        case GamePhase::Shooting:
+            m_currentPhase = GamePhase::Charge;
             break;
-        case Phase::Charge:
-            m_currentPhase = Phase::Combat;
+        case GamePhase::Charge:
+            m_currentPhase = GamePhase::Combat;
             break;
-        case Phase::Combat:
-            m_currentPhase = Phase::Battleshock;
+        case GamePhase::Combat:
+            m_currentPhase = GamePhase::Battleshock;
             break;
-        case Phase::Battleshock:
+        case GamePhase::Battleshock:
             if (m_topOfRound) {
 
                 m_players[(int) m_currentPlayer]->endTurn(m_round);
@@ -55,13 +55,13 @@ void Battle::next() {
 
                 m_players[(int) m_currentPlayer]->beginTurn(m_round, m_currentPlayer);
 
-                m_currentPhase = Phase::Hero;
+                m_currentPhase = GamePhase::Hero;
             } else {
 
                 m_players[(int) m_currentPlayer]->endTurn(m_round);
 
                 // End of round.
-                m_currentPhase = Phase::Initiative;
+                m_currentPhase = GamePhase::Initiative;
                 m_topOfRound = true;
                 m_round++;
 
@@ -86,27 +86,27 @@ void Battle::simulate() {
 
     // run the simulation for the current state
     switch (m_currentPhase) {
-        case Phase::Deployment:
+        case GamePhase::Deployment:
             break;
-        case Phase::Initiative:
+        case GamePhase::Initiative:
             runInitiativePhase();
             break;
-        case Phase::Hero:
+        case GamePhase::Hero:
             runHeroPhase();
             break;
-        case Phase::Movement:
+        case GamePhase::Movement:
             runMovementPhase();
             break;
-        case Phase::Shooting:
+        case GamePhase::Shooting:
             runShootingPhase();
             break;
-        case Phase::Charge:
+        case GamePhase::Charge:
             runChargePhase();
             break;
-        case Phase::Combat:
+        case GamePhase::Combat:
             runCombatPhase();
             break;
-        case Phase::Battleshock:
+        case GamePhase::Battleshock:
             runBattleshockPhase();
             break;
     }
@@ -138,7 +138,7 @@ void Battle::runInitiativePhase() {
 }
 
 void Battle::runHeroPhase() {
-    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Hero);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(GamePhase::Hero);
     while (unit) {
         unit->hero(m_currentPlayer);
 
@@ -148,7 +148,7 @@ void Battle::runHeroPhase() {
 }
 
 void Battle::runMovementPhase() {
-    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Movement);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(GamePhase::Movement);
     while (unit) {
         unit->movement(m_currentPlayer);
 
@@ -158,7 +158,7 @@ void Battle::runMovementPhase() {
 }
 
 void Battle::runShootingPhase() {
-    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Shooting);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(GamePhase::Shooting);
     while (unit) {
         unit->shooting(m_currentPlayer);
 
@@ -178,7 +178,7 @@ void Battle::runShootingPhase() {
 }
 
 void Battle::runChargePhase() {
-    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Charge);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(GamePhase::Charge);
     while (unit) {
         unit->charge(m_currentPlayer);
 
@@ -197,9 +197,9 @@ void Battle::runCombatPhase() {
 
     // Combine/sort activated units
     // TODO: Some abilities move enemy units to attack first
-    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Combat);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(GamePhase::Combat);
     const auto defendingPlayer = GetEnemyId(m_currentPlayer);
-    auto eunit = m_players[(int) defendingPlayer]->startPhase(Phase::Combat);
+    auto eunit = m_players[(int) defendingPlayer]->startPhase(GamePhase::Combat);
     while (unit || eunit) {
         if (unit) {
             unit->combat(m_currentPlayer);
@@ -240,13 +240,13 @@ void Battle::runCombatPhase() {
 }
 
 void Battle::runBattleshockPhase() {
-    auto unit = m_players[(int) m_currentPlayer]->startPhase(Phase::Battleshock);
+    auto unit = m_players[(int) m_currentPlayer]->startPhase(GamePhase::Battleshock);
     while (unit) {
         unit->battleshock(m_currentPlayer);
 
         unit = m_players[(int) m_currentPlayer]->advancePhase();
     }
-    unit = m_players[(int) GetEnemyId(m_currentPlayer)]->startPhase(Phase::Battleshock);
+    unit = m_players[(int) GetEnemyId(m_currentPlayer)]->startPhase(GamePhase::Battleshock);
     while (unit) {
         unit->battleshock(m_currentPlayer);
 
@@ -294,8 +294,8 @@ void Battle::deployment() {
     auto sOrientation = Math::Vector3(-1.0, 0.0, 0.0);
 
     // loop until all units have been deployed
-    auto unit = m_players[(int) firstPlayer]->startPhase(Phase::Deployment);
-    auto eunit = m_players[(int) secondPlayer]->startPhase(Phase::Deployment);
+    auto unit = m_players[(int) firstPlayer]->startPhase(GamePhase::Deployment);
+    auto eunit = m_players[(int) secondPlayer]->startPhase(GamePhase::Deployment);
     while (unit || eunit) {
         if (unit) {
             unit->deploy(fPos, fOrientation);

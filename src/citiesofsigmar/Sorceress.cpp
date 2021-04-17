@@ -41,7 +41,7 @@ namespace CitiesOfSigmar {
     class CommandUnderlings : public CommandAbility {
     public:
         explicit CommandUnderlings(Unit *source) :
-                CommandAbility(source, "Command Underlings", 12, 12, Phase::Hero) {
+                CommandAbility(source, "Command Underlings", 12, 12, GamePhase::Hero) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {DARKLING_COVENS};
             m_effect = Abilities::EffectType::Buff;

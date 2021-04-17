@@ -37,7 +37,7 @@ public:
 
     [[nodiscard]] int currentRound() const { return m_round; }
 
-    [[nodiscard]] Phase currentPhase() const { return m_currentPhase; }
+    [[nodiscard]] GamePhase currentPhase() const { return m_currentPhase; }
 
     void logStatistics() const;
 
@@ -101,7 +101,7 @@ private:
     bool m_topOfRound = true;
     PlayerId m_attackingPlayer = PlayerId::Red;
     PlayerId m_defendingPlayer = PlayerId::Blue;
-    Phase m_currentPhase = Phase::Hero;
+    GamePhase m_currentPhase = GamePhase::Hero;
     bool m_isDone = false;
 
 };

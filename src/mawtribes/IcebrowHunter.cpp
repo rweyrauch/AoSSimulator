@@ -80,7 +80,7 @@ namespace OgorMawtribes {
         }
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffModifierCommandAbility>(this, "Lead the Skal", 12, 12, Phase::Combat,
+                std::make_unique<BuffModifierCommandAbility>(this, "Lead the Skal", 12, 12, GamePhase::Combat,
                                                              Attribute::Attacks_Melee, 1, Abilities::Target::Friendly,
                                                              std::vector<Keyword>{FROST_SABRES}));
 

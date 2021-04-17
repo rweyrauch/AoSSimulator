@@ -78,9 +78,9 @@ namespace StormcastEternals {
             for (auto unit : units) {
                 if ((unit->remainingModels() > 0) && unit->hasKeyword(STORMCAST_ETERNAL)) {
                     unit->buffMovement(MovementRule::Run_And_Charge, true,
-                                       {Phase::Combat, m_battleRound, owningPlayer()});
+                                       {GamePhase::Combat, m_battleRound, owningPlayer()});
                     unit->buffMovement(MovementRule::Retreat_And_Charge, true,
-                                       {Phase::Combat, m_battleRound, owningPlayer()});
+                                       {GamePhase::Combat, m_battleRound, owningPlayer()});
                 }
             }
         }

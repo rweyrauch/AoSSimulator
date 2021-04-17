@@ -23,7 +23,7 @@ namespace Khorne {
     };
 
     BloodthirstyCharge::BloodthirstyCharge(Unit *source) :
-            CommandAbility(source, "Bloodthirsty Charge", 16, 16, Phase::Charge) {
+            CommandAbility(source, "Bloodthirsty Charge", 16, 16, GamePhase::Charge) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords = {KHORNE, DAEMON};

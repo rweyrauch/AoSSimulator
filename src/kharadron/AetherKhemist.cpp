@@ -112,7 +112,7 @@ namespace KharadronOverlords {
         for (auto unit : skyfarers) {
             if (unit->hasKeyword(SKYFARER)) {
                 unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones,
-                                 {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                 {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 totalUnits--;
                 if (totalUnits <= 0) break;
             }

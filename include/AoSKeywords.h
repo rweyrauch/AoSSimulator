@@ -163,6 +163,8 @@ enum Keyword {
     AVERON_STORMSIRE,
     STORMSIRES_CURSEBREAKERS,
     LYNUS_GHALMORIAN,
+    STEEL_SOULS,
+    GARDUS_STEEL_SOUL,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,
@@ -388,6 +390,7 @@ enum Keyword {
     MIRRORGHAST_BANSHEE,
     THE_BRIAR_QUEEN,
     THORNS_OF_THE_BRIAR_QUEEN,
+    KRULGHAST_CRUCIATOR,
 
     // Beasts of Chaos
     BULLGOR,

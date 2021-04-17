@@ -70,7 +70,7 @@ namespace Bonesplitterz {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffAbilityCommandAbility>(this, "Savage Attack", 12, 12, Phase::Combat,
+                std::make_unique<BuffAbilityCommandAbility>(this, "Savage Attack", 12, 12, GamePhase::Combat,
                                                             Ability::Extra_Hit_On_Value,
                                                             6, Abilities::Target::SelfAndFriendly,
                                                             std::vector<Keyword>{BONESPLITTERZ}));

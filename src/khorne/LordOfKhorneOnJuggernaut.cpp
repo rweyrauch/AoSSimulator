@@ -16,7 +16,7 @@ namespace Khorne {
     class BloodStampede : public CommandAbility {
     public:
         explicit BloodStampede(Unit *source) :
-                CommandAbility(source, "Blood Stampede", 16, 16, Phase::Combat) {
+                CommandAbility(source, "Blood Stampede", 16, 16, GamePhase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {KHORNE, MORTAL};
             m_effect = Abilities::EffectType::Buff;
@@ -30,7 +30,7 @@ namespace Khorne {
             for (auto unit : units) {
                 if (unit->charged()) {
                     unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Ones,
-                                     {Phase::Combat, m_round, m_source->owningPlayer()});
+                                     {GamePhase::Combat, m_round, m_source->owningPlayer()});
                     unitCount++;
                 }
                 if (unitCount > 3) break;

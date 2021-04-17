@@ -32,7 +32,7 @@ public:
 
     [[nodiscard]] PlayerId activePlayer() const { return m_currentPlayer; }
 
-    [[nodiscard]] Phase currentPhase() const { return m_currentPhase; }
+    [[nodiscard]] GamePhase currentPhase() const { return m_currentPhase; }
 
 protected:
 
@@ -57,7 +57,7 @@ private:
     int m_round = 0;
     bool m_topOfRound = true;
     PlayerId m_currentPlayer = PlayerId::Red;
-    Phase m_currentPhase = Phase::Hero;
+    GamePhase m_currentPhase = GamePhase::Hero;
     bool m_isDone = false;
 };
 

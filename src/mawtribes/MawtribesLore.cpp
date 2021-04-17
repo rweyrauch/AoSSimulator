@@ -169,7 +169,7 @@ namespace OgorMawtribes {
             }
 
             if (target->hasKeyword(MONSTER) || target->hasKeyword(MOURNFANG_PACK)) {
-                target->buffModifier(Attribute::Move_Distance, 3, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+                target->buffModifier(Attribute::Move_Distance, 3, {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
             }
             return true;
         }

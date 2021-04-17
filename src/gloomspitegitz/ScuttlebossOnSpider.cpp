@@ -26,7 +26,7 @@ namespace GloomspiteGitz {
     };
 
     RideEmAllDown::RideEmAllDown(Unit *source) :
-            CommandAbility(source, "Ride 'Em All Down", 18, 18, Phase::Charge) {
+            CommandAbility(source, "Ride 'Em All Down", 18, 18, GamePhase::Charge) {
         m_allowedTargets = Abilities::Target::Friendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(SPIDERFANG);
@@ -39,11 +39,11 @@ namespace GloomspiteGitz {
         }
 
         target->buffReroll(Attribute::Charge_Distance, Rerolls::Failed,
-                           {Phase::Charge, m_round, m_source->owningPlayer()});
+                           {GamePhase::Charge, m_round, m_source->owningPlayer()});
 
         // TODO: only buff Crooked Spear
         target->buffReroll(Attribute::To_Hit_Melee, Rerolls::Failed,
-                           {Phase::Combat, m_round, m_source->owningPlayer()});
+                           {GamePhase::Combat, m_round, m_source->owningPlayer()});
 
         return true;
     }

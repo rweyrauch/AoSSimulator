@@ -181,9 +181,9 @@ namespace StormcastEternals {
             // Shield of Civilisation
             if (!m_moved) {
                 // Stand fast
-                buffModifier(Attribute::To_Hit_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                buffModifier(Attribute::To_Save_Melee, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                buffModifier(Attribute::To_Save_Missile, 1, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(Attribute::To_Hit_Melee, 1, {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(Attribute::To_Save_Melee, 1, {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
+                buffModifier(Attribute::To_Save_Missile, 1, {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
             }
         }
     }

@@ -64,7 +64,7 @@ namespace StormcastEternals {
 
         m_commandAbilities.push_back(
                 std::make_unique<BuffRerollCommandAbility>(this, "Lord of the Celestial Host", INT32_MAX, INT32_MAX,
-                                                           Phase::Combat,
+                                                           GamePhase::Combat,
                                                            Attribute::To_Wound_Melee, Rerolls::Failed,
                                                            Abilities::Target::SelfAndFriendly,
                                                            std::vector<Keyword>(STARDRAKE, DRACOTH)));

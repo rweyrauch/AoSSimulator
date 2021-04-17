@@ -21,8 +21,8 @@ namespace Fyreslayers {
 
         bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr) return false;
-            target->buffModifier(Attribute::To_Save_Missile, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
-            target->buffModifier(Attribute::To_Save_Melee, 1, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Save_Missile, 1, {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
+            target->buffModifier(Attribute::To_Save_Melee, 1, {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
             return true;
         }
 

@@ -32,7 +32,7 @@ namespace Slaanesh {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffRerollCommandAbility>(this, "Paragon of Depravity", 12, 12, Phase::Combat,
+                std::make_unique<BuffRerollCommandAbility>(this, "Paragon of Depravity", 12, 12, GamePhase::Combat,
                                                            Attribute::To_Hit_Melee, Rerolls::Failed,
                                                            Abilities::Target::SelfAndFriendly,
                                                            std::vector<Keyword>{MORTAL, HEDONITE}));

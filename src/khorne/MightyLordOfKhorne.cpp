@@ -23,7 +23,7 @@ namespace Khorne {
     };
 
     Gorelord::Gorelord(Unit *source) :
-            CommandAbility(source, "Gorelord", 16, 16, Phase::Charge) {
+            CommandAbility(source, "Gorelord", 16, 16, GamePhase::Charge) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords = {KHORNE, MORTAL};

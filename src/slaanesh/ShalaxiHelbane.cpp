@@ -239,7 +239,7 @@ namespace Slaanesh {
         for (auto unit : units) {
             if (unit->hasKeyword(MONSTER)) {
                 // TODO: pick a single melee weapon
-                unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, player});
+                unit->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Combat, m_battleRound, player});
             }
         }
 

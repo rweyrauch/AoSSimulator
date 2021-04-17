@@ -15,7 +15,7 @@ namespace Fyreslayers {
     class LodgeLeader : public CommandAbility {
     public:
         explicit LodgeLeader(Unit *source) :
-                CommandAbility(source, "Lodge Leader", 12, 12, Phase::Charge) {
+                CommandAbility(source, "Lodge Leader", 12, 12, GamePhase::Charge) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
         }
@@ -25,7 +25,7 @@ namespace Fyreslayers {
         bool apply(Unit *target) override {
             auto units = Board::Instance()->getUnitsWithin(m_source, m_source->owningPlayer(), m_rangeGeneral);
             for (auto unit : units) {
-                unit->buffModifier(Attribute::Charge_Distance, 1, {Phase::Charge, m_round, m_source->owningPlayer()});
+                unit->buffModifier(Attribute::Charge_Distance, 1, {GamePhase::Charge, m_round, m_source->owningPlayer()});
             }
             return true;
         }
@@ -110,7 +110,7 @@ namespace Fyreslayers {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
                 unit->buffModifier(Attribute::Bravery, -Dice::RollD3(),
-                                   {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                   {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
             }
         }
     }
@@ -124,7 +124,7 @@ namespace Fyreslayers {
             if (Dice::RollD6() == 6) {
                 // TODO: buff only affects a single weapon
                 unit->buffModifier(Attribute::To_Hit_Melee, -1,
-                                   {Phase::Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
+                                   {GamePhase::Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
             }
         }
     }

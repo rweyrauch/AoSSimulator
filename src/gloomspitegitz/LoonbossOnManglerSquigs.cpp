@@ -24,7 +24,7 @@ namespace GloomspiteGitz {
     };
 
     BiteDaMoon::BiteDaMoon(Unit *source) :
-            CommandAbility(source, "Bite Da Moon!", 18, 18, Phase::Combat) {
+            CommandAbility(source, "Bite Da Moon!", 18, 18, GamePhase::Combat) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords.push_back(SQUIG);

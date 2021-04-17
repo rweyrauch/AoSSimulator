@@ -102,7 +102,7 @@ namespace KharadronOverlords {
                 }
                 if (roll >= 3) {
                     unit->buffMovement(MovementRule::Halve_Movement, true,
-                                       {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                       {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                 }
                 break;
             }

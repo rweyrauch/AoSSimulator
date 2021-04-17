@@ -42,7 +42,7 @@ namespace CitiesOfSigmar {
     class CommandUnderlings2 : public CommandAbility {
     public:
         explicit CommandUnderlings2(Unit *source) :
-                CommandAbility(source, "Command Underlings", 12, 12, Phase::Hero) {
+                CommandAbility(source, "Command Underlings", 12, 12, GamePhase::Hero) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {DARKLING_COVENS};
             m_effect = Abilities::EffectType::Buff;
@@ -183,7 +183,7 @@ namespace CitiesOfSigmar {
 
         m_commandAbilities.push_back(std::make_unique<CommandUnderlings2>(this));
         m_commandAbilities.push_back(
-                std::make_unique<BuffRerollCommandAbility>(this, "Inspire Hatred", 12, 12, Phase::Combat,
+                std::make_unique<BuffRerollCommandAbility>(this, "Inspire Hatred", 12, 12, GamePhase::Combat,
                                                            Attribute::To_Wound_Melee,
                                                            Rerolls::Ones, Abilities::Target::SelfAndFriendly,
                                                            std::vector<Keyword>{DARKLING_COVENS}));

@@ -216,7 +216,7 @@ namespace Ironjawz {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
             if (!units.empty()) {
                 for (auto unit : units) {
-                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Combat, m_battleRound, owningPlayer()});
+                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Combat, m_battleRound, owningPlayer()});
                 }
                 m_usedLoudUn = true;
             }

@@ -52,7 +52,7 @@ namespace StormcastEternals {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffModifierCommandAbility>(this, "Swift of Wing", 18, 18, Phase::Movement,
+                std::make_unique<BuffModifierCommandAbility>(this, "Swift of Wing", 18, 18, GamePhase::Movement,
                                                              Attribute::Run_Distance, 2,
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>(SACROSANCT)));

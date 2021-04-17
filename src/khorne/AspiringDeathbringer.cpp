@@ -22,7 +22,7 @@ namespace Khorne {
     };
 
     SlaughterIncarnate::SlaughterIncarnate(Unit *source) :
-            CommandAbility(source, "Slaughter Incarnate", 12, 12, Phase::Combat) {
+            CommandAbility(source, "Slaughter Incarnate", 12, 12, GamePhase::Combat) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords = {KHORNE, MORTAL};

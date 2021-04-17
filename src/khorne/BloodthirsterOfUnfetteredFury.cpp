@@ -52,7 +52,7 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffModifierCommandAbility>(this, "Rejoice in the Slaughter", 16, 16, Phase::Combat,
+                std::make_unique<BuffModifierCommandAbility>(this, "Rejoice in the Slaughter", 16, 16, GamePhase::Combat,
                                                              Attribute::Pile_In_Distance, 3,
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>{KHORNE, DAEMON}));
@@ -137,7 +137,7 @@ namespace Khorne {
         if (GetEnemyId(owningPlayer()) == player) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) < 3.0)) {
-                unit->buffMovement(MovementRule::Can_Retreat, false, {Phase::Movement, m_battleRound, player});
+                unit->buffMovement(MovementRule::Can_Retreat, false, {GamePhase::Movement, m_battleRound, player});
             }
         }
     }

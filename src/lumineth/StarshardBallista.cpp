@@ -88,8 +88,8 @@ namespace LuminethRealmLords {
         if ((owningPlayer() == player) && m_activatedBlindingBolts) {
             if (shootingTarget() && (m_currentRecord.m_attacksHitting > 0)) {
                 PLOG_INFO << name() << " hit with Blinding Bolts against " << shootingTarget()->name();
-                shootingTarget()->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Shooting, m_battleRound, owningPlayer()});
-                shootingTarget()->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Shooting, m_battleRound, owningPlayer()});
+                shootingTarget()->buffModifier(Attribute::To_Hit_Missile, -1, {GamePhase::Shooting, m_battleRound, owningPlayer()});
+                shootingTarget()->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Shooting, m_battleRound, owningPlayer()});
 
                 m_activatedBlindingBolts = false;
             }
@@ -114,7 +114,7 @@ namespace LuminethRealmLords {
                 for (auto hero : heros) {
                     if (hero->hasKeyword(HERO) && (hero->remainingModels() > 0) && (distanceTo(hero) < 24.0)) {
                         PLOG_INFO << name() << " using Messenger Hawk against " << shootingTarget()->name();
-                        buffModifier(Attribute::To_Hit_Missile, 1, {Phase::Shooting, m_battleRound, owningPlayer()});
+                        buffModifier(Attribute::To_Hit_Missile, 1, {GamePhase::Shooting, m_battleRound, owningPlayer()});
                         break;
                     }
                 }

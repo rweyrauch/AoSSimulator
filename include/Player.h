@@ -16,14 +16,14 @@ public:
     void setRoster(std::shared_ptr<Roster> roster) {
         m_roster = roster;
         if (m_roster)
-            m_activatedUnit = m_roster->unitEnd();
+            m_activatedUnit = m_roster->end();
     }
 
     void beginTurn(int battleRound, PlayerId playerWithTurn);
 
     void endTurn(int battleRound);
 
-    Unit *startPhase(Phase phase);
+    Unit *startPhase(GamePhase phase);
 
     Unit *advancePhase();
 
@@ -33,6 +33,6 @@ private:
     const PlayerId m_id;
     std::shared_ptr<Roster> m_roster = nullptr;
 
-    Phase m_currentPhase = Phase::Initiative;
+    GamePhase m_currentPhase = GamePhase::Initiative;
     std::list<std::shared_ptr<Unit>>::iterator m_activatedUnit;
 };

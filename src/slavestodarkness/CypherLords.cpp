@@ -100,8 +100,8 @@ namespace SlavesToDarkness {
                 auto enemy = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
                 if (enemy && (distanceTo(enemy) < 3.0)) {
                     if (Dice::RollD6() >= 4) {
-                        enemy->buffModifier(Attribute::To_Hit_Melee, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
-                        enemy->buffModifier(Attribute::To_Hit_Missile, -1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        enemy->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
+                        enemy->buffModifier(Attribute::To_Hit_Missile, -1, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                     }
                 }
             }

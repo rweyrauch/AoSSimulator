@@ -61,7 +61,9 @@
 #include "stormcast/StormsiresCursebreakers.h"
 #include "stormcast/AveronStormsire.h"
 #include "stormcast/LynusGhalmorian.h"
+#include "stormcast/GardusSteelSoul.h"
 #include "StormcastEternalsPrivate.h"
+
 
 namespace StormcastEternals {
 
@@ -395,8 +397,8 @@ namespace StormcastEternals {
 
         // Storm of Annihilation
         if (hasKeyword(KNIGHTS_EXCELSIOR)) {
-            buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, {Phase::Hero, DurationRestOfGame, owningPlayer()});
-            buffReroll(Attribute::To_Hit_Missile, Rerolls::Ones, {Phase::Hero, DurationRestOfGame, owningPlayer()});
+            buffReroll(Attribute::To_Hit_Melee, Rerolls::Ones, {GamePhase::Hero, DurationRestOfGame, owningPlayer()});
+            buffReroll(Attribute::To_Hit_Missile, Rerolls::Ones, {GamePhase::Hero, DurationRestOfGame, owningPlayer()});
         }
     }
 
@@ -478,6 +480,7 @@ namespace StormcastEternals {
         Evocators::Init();
         EvocatorsOnCelestialDracolines::Init();
         LynusGhalmorianOnGryphcharger::Init();
+        GardusSteelSoul::Init();
     }
 
     bool DoSpiritFlasks(Unit *owner) {

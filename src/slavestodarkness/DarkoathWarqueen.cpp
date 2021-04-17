@@ -57,7 +57,7 @@ namespace SlavesToDarkness {
         setGeneral(isGeneral);
 
         // Savage Duellist
-        buffAbility(Ability::Fights_First, 1, {Phase::Combat, DurationRestOfGame, owningPlayer()});
+        buffAbility(Ability::Fights_First, 1, {GamePhase::Combat, DurationRestOfGame, owningPlayer()});
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axe);

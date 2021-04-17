@@ -78,12 +78,12 @@ namespace Khorne {
             // Whipped to Fury
             auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), MORTAL, 8.0);
             if (unit != nullptr) {
-                unit->buffModifier(Attribute::Charge_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
-                unit->buffModifier(Attribute::Run_Distance, 3, {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffModifier(Attribute::Charge_Distance, 3, {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
+                unit->buffModifier(Attribute::Run_Distance, 3, {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
                 unit->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed,
-                                 {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                                 {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
                 unit->buffReroll(Attribute::To_Wound_Missile, Rerolls::Failed,
-                                 {Phase::Movement, m_battleRound + 1, owningPlayer()});
+                                 {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
             }
         }
     }

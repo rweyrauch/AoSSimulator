@@ -28,7 +28,7 @@ namespace Sylvaneth {
     };
 
     GhyransWrath::GhyransWrath(Unit *source) :
-            CommandAbility(source, "Ghyran's Wrath", 14, 14, Phase::Combat) {
+            CommandAbility(source, "Ghyran's Wrath", 14, 14, GamePhase::Combat) {
         m_allowedTargets = Abilities::Target::SelfAndFriendly;
         m_effect = Abilities::EffectType::Buff;
         m_targetKeywords = {SYLVANETH};

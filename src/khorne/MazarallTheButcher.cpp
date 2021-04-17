@@ -55,10 +55,10 @@ namespace Khorne {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffRerollCommandAbility>(this, "The Butcher's Due", 18, 18, Phase::Hero,
-                                                             Attribute::To_Wound_Melee, Rerolls::Ones,
-                                                             Abilities::Target::SelfAndFriendly,
-                                                             std::vector<Keyword>{KHORNE}));
+                std::make_unique<BuffRerollCommandAbility>(this, "The Butcher's Due", 18, 18, GamePhase::Hero,
+                                                           Attribute::To_Wound_Melee, Rerolls::Ones,
+                                                           Abilities::Target::SelfAndFriendly,
+                                                           std::vector<Keyword>{KHORNE}));
 
         m_points = g_pointsPerUnit;
     }

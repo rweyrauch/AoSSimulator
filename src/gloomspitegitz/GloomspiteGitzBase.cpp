@@ -54,7 +54,7 @@ namespace GloomspiteGitz {
     class ImDaBossNowStabEmGood : public CommandAbility {
     public:
         explicit ImDaBossNowStabEmGood(Unit *source) :
-                CommandAbility(source, "I'm Da Boss, Now Stab 'Em Good", 24, 12, Phase::Combat) {
+                CommandAbility(source, "I'm Da Boss, Now Stab 'Em Good", 24, 12, GamePhase::Combat) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {MOONCLAN, GROT};
             m_effect = Abilities::EffectType::Buff;
@@ -67,7 +67,7 @@ namespace GloomspiteGitz {
                 return false;
 
             target->buffAbility(Ability::Extra_Mortal_Wound_On_Hit_Roll, 6,
-                                {Phase::Combat, m_round, m_source->owningPlayer()});
+                                {GamePhase::Combat, m_round, m_source->owningPlayer()});
 
             return true;
         }
@@ -230,7 +230,7 @@ namespace GloomspiteGitz {
 
         // Lunar Squigs
         if (hasKeyword(SQUIG) && inLightOfTheBadMoon()) {
-            buffMovement(MovementRule::Run_And_Charge, true, {Phase::Hero, m_battleRound + 1, owningPlayer()});
+            buffMovement(MovementRule::Run_And_Charge, true, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
         }
     }
 

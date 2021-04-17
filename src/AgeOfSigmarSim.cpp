@@ -13,7 +13,7 @@
 #include <cstdarg>
 #include <magic_enum.hpp>
 
-std::string PhaseToString(Phase phase) {
+std::string PhaseToString(GamePhase phase) {
     return std::string(magic_enum::enum_name(phase));
 }
 

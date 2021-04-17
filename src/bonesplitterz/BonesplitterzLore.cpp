@@ -32,7 +32,7 @@ namespace Bonesplitterz {
             auto numSlain = target->applyDamage(wounds, m_caster);
             if (numSlain) {
                 m_caster->buffModifier(Attribute::Casting_Roll, 1,
-                                       {Phase::Hero, DurationRestOfGame, m_caster->owningPlayer()});
+                                       {GamePhase::Hero, DurationRestOfGame, m_caster->owningPlayer()});
             }
             return Spell::Result::Success;
         }

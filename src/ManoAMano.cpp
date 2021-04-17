@@ -84,7 +84,7 @@ void ManoAMano::start() {
     } else {
         m_defendingPlayer = PlayerId::Red;
     }
-    m_currentPhase = Phase::Hero;
+    m_currentPhase = GamePhase::Hero;
     m_round = 1;
 
     m_rosters[(int) m_attackingPlayer]->beginRound(m_round);
@@ -105,27 +105,27 @@ void ManoAMano::simulate() {
 
     // run the simulation for the current state
     switch (m_currentPhase) {
-        case Phase::Deployment:
+        case GamePhase::Deployment:
             break;
-        case Phase::Initiative:
+        case GamePhase::Initiative:
             runInitiativePhase();
             break;
-        case Phase::Hero:
+        case GamePhase::Hero:
             runHeroPhase();
             break;
-        case Phase::Movement:
+        case GamePhase::Movement:
             runMovementPhase();
             break;
-        case Phase::Shooting:
+        case GamePhase::Shooting:
             runShootingPhase();
             break;
-        case Phase::Charge:
+        case GamePhase::Charge:
             runChargePhase();
             break;
-        case Phase::Combat:
+        case GamePhase::Combat:
             runCombatPhase();
             break;
-        case Phase::Battleshock:
+        case GamePhase::Battleshock:
             runBattleshockPhase();
             break;
     }
@@ -135,28 +135,28 @@ void ManoAMano::next() {
 
     // advance fight state machine
     switch (m_currentPhase) {
-        case Phase::Deployment:
-            m_currentPhase = Phase::Initiative;
+        case GamePhase::Deployment:
+            m_currentPhase = GamePhase::Initiative;
             break;
-        case Phase::Initiative:
-            m_currentPhase = Phase::Hero;
+        case GamePhase::Initiative:
+            m_currentPhase = GamePhase::Hero;
             break;
-        case Phase::Hero:
-            m_currentPhase = Phase::Movement;
+        case GamePhase::Hero:
+            m_currentPhase = GamePhase::Movement;
             break;
-        case Phase::Movement:
-            m_currentPhase = Phase::Shooting;
+        case GamePhase::Movement:
+            m_currentPhase = GamePhase::Shooting;
             break;
-        case Phase::Shooting:
-            m_currentPhase = Phase::Charge;
+        case GamePhase::Shooting:
+            m_currentPhase = GamePhase::Charge;
             break;
-        case Phase::Charge:
-            m_currentPhase = Phase::Combat;
+        case GamePhase::Charge:
+            m_currentPhase = GamePhase::Combat;
             break;
-        case Phase::Combat:
-            m_currentPhase = Phase::Battleshock;
+        case GamePhase::Combat:
+            m_currentPhase = GamePhase::Battleshock;
             break;
-        case Phase::Battleshock:
+        case GamePhase::Battleshock:
             if (m_topOfRound) {
                 // Next unit's turn
                 m_topOfRound = false;
@@ -172,7 +172,7 @@ void ManoAMano::next() {
                 m_rosters[(int) m_attackingPlayer]->beginTurn(m_round, m_attackingPlayer);
                 m_rosters[(int) m_defendingPlayer]->beginTurn(m_round, m_attackingPlayer);
 
-                m_currentPhase = Phase::Hero;
+                m_currentPhase = GamePhase::Hero;
             } else {
                 PLOG_INFO.printf("At the end of round %d...", m_round);
                 PLOG_INFO.printf("\tTeam %s has %d remaining models with %d wounds remaining.",
@@ -189,7 +189,7 @@ void ManoAMano::next() {
                 m_rosters[(int) m_defendingPlayer]->endRound(m_round);
 
                 // End of round.
-                m_currentPhase = Phase::Initiative;
+                m_currentPhase = GamePhase::Initiative;
                 m_topOfRound = true;
                 m_round++;
 
@@ -404,12 +404,12 @@ void ManoAMano::logStatistics() const {
 }
 
 Unit *ManoAMano::redUnit() {
-    auto red = m_rosters[0]->unitBegin();
+    auto red = m_rosters[0]->begin();
     return red->get();
 }
 
 Unit *ManoAMano::blueUnit() {
-    auto blue = m_rosters[1]->unitBegin();
+    auto blue = m_rosters[1]->begin();
     return blue->get();
 }
 
@@ -432,12 +432,12 @@ Unit *ManoAMano::defendingUnit() {
 }
 
 const Unit *ManoAMano::redUnit() const {
-    const auto red = m_rosters[0]->unitBegin();
+    const auto red = m_rosters[0]->begin();
     return red->get();
 }
 
 const Unit *ManoAMano::blueUnit() const {
-    const auto blue = m_rosters[1]->unitBegin();
+    const auto blue = m_rosters[1]->begin();
     return blue->get();
 }
 

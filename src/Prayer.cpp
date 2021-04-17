@@ -136,7 +136,7 @@ bool BuffModifierPrayer::apply(int prayingRoll, Unit *target) {
         return false;
     }
 
-    return target->buffModifier(m_attribute, m_modifier, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+    return target->buffModifier(m_attribute, m_modifier, {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
 }
 
 int BuffModifierPrayer::getModifier(int prayingRoll) const {
@@ -158,7 +158,7 @@ bool BuffRerollPrayer::apply(int prayingRoll, Unit *target) {
         return false;
     }
 
-    return target->buffReroll(m_attribute, m_reroll, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+    return target->buffReroll(m_attribute, m_reroll, {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
 }
 
 BuffAbilityPrayer::BuffAbilityPrayer(Unit *priest, const std::string &name, int prayingValue, int range,
@@ -183,7 +183,7 @@ bool BuffAbilityPrayer::apply(int prayingRoll, Unit *target) {
     PLOG_INFO << m_priest->name() << " prays for " << name() << " with a roll of " << prayingRoll << " on to " << target->name();
     PLOG_INFO << "\tBuffing Ability: " << magic_enum::enum_name(m_ability) << ": " << m_value;
 
-    target->buffAbility(m_ability, m_value, {Phase::Hero, m_round + 1, m_priest->owningPlayer()});
+    target->buffAbility(m_ability, m_value, {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()});
 
     return true;
 }

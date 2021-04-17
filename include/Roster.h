@@ -60,9 +60,10 @@ public:
 
     Unit *nearestUnit(const Unit *unit) const;
 
-    std::list<std::shared_ptr<Unit>>::iterator unitBegin() { return m_units.begin(); }
-
-    std::list<std::shared_ptr<Unit>>::iterator unitEnd() { return m_units.end(); }
+    std::list<std::shared_ptr<Unit>>::iterator begin() { return m_units.begin(); }
+    std::list<std::shared_ptr<Unit>>::iterator end() { return m_units.end(); }
+    std::list<std::shared_ptr<Unit>>::const_iterator cbegin() { return m_units.cbegin(); }
+    std::list<std::shared_ptr<Unit>>::const_iterator cend() { return m_units.cend(); }
 
     [[nodiscard]] int totalPoints() const;
 

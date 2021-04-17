@@ -21,7 +21,7 @@ public:
                    const std::string &name,
                    int rangeGeneral,
                    int rangeHero,
-                   Phase phase) :
+                   GamePhase phase) :
             m_source(source),
             m_name(name),
             m_phase(phase),
@@ -44,7 +44,7 @@ public:
 
     const std::vector<Keyword> &allowedTargetKeywords() const { return m_targetKeywords; }
 
-    Phase phase() const { return m_phase; }
+    GamePhase phase() const { return m_phase; }
 
 protected:
 
@@ -57,7 +57,7 @@ protected:
     Unit *m_source = nullptr;
     std::string m_name;
     Duration m_duration;
-    Phase m_phase = Phase::Hero;
+    GamePhase m_phase = GamePhase::Hero;
     int m_round = 0;
     int m_rangeGeneral = 0;
     int m_rangeHero = 0;
@@ -74,7 +74,7 @@ public:
                                const std::string &name,
                                int rangeGeneral,
                                int rangeHero,
-                               Phase phase,
+                               GamePhase phase,
                                Attribute which,
                                int modifier,
                                Abilities::Target allowedTargets,
@@ -99,7 +99,7 @@ public:
                              const std::string &name,
                              int rangeGeneral,
                              int rangeHero,
-                             Phase phase,
+                             GamePhase phase,
                              Attribute which,
                              Rerolls reroll,
                              Abilities::Target allowedTargets,
@@ -121,7 +121,7 @@ public:
                               const std::string &name,
                               int rangeGeneral,
                               int rangeHero,
-                              Phase phase,
+                              GamePhase phase,
                               Ability which,
                               int value,
                               Abilities::Target allowedTargets,

@@ -85,7 +85,7 @@ namespace SlavesToDarkness {
                     auto rollThis = Dice::RollD6();
                     auto rollEnemy = Dice::RollD6();
                     if (rollThis != rollEnemy) {
-                        unit->buffAbility(Ability::Fights_Last, 1, {Phase::Hero, m_battleRound+1, owningPlayer()});
+                        unit->buffAbility(Ability::Fights_Last, 1, {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                         break;
                     }
                 }

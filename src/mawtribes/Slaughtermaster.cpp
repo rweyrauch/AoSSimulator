@@ -163,7 +163,7 @@ namespace OgorMawtribes {
                     auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), OGOR, 12.0);
                     if (unit) {
                         unit->buffModifier(Attribute::To_Hit_Melee, 1,
-                                           {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                           {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
                     }
                 }
                     break;

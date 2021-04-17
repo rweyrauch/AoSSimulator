@@ -33,7 +33,7 @@ namespace StormcastEternals {
         if (target == nullptr)
             return false;
 
-        const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
+        const Duration duration = {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()};
         if (m_priest->isFriendly(target)) {
             target->buffReroll(Attribute::Target_To_Hit_Melee, Rerolls::Sixes, duration);
             target->buffReroll(Attribute::Target_To_Hit_Missile, Rerolls::Sixes, duration);
@@ -58,7 +58,7 @@ namespace StormcastEternals {
             if (target == nullptr)
                 return false;
 
-            const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
+            const Duration duration = {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()};
             target->buffAbility(Ability::Extra_Hit_On_Value, 6, duration);
 
             return true;
@@ -81,7 +81,7 @@ namespace StormcastEternals {
         bool apply(int prayingRoll, Unit *target) override {
             if (target == nullptr)
                 return false;
-            const Duration duration = {Phase::Hero, m_round + 1, m_priest->owningPlayer()};
+            const Duration duration = {GamePhase::Hero, m_round + 1, m_priest->owningPlayer()};
             target->buffAbility(Ability::Ignore_Battleshock, true, duration);
             return true;
         }

@@ -74,7 +74,7 @@ namespace Fyreslayers {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
             if (unit && (distanceTo(unit) <= 3.0)) {
                 unit->buffModifier(Attribute::Bravery, -Dice::RollD3(),
-                                   {Phase::Hero, m_battleRound + 1, owningPlayer()});
+                                   {GamePhase::Hero, m_battleRound + 1, owningPlayer()});
             }
         }
     }
@@ -88,7 +88,7 @@ namespace Fyreslayers {
             if (Dice::RollD6() == 6) {
                 // TODO: buff only affects a single weapon
                 unit->buffModifier(Attribute::To_Hit_Melee, -1,
-                                   {Phase::Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
+                                   {GamePhase::Battleshock, std::numeric_limits<int>::max(), owningPlayer()});
             }
         }
     }

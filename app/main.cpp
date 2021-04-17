@@ -94,10 +94,10 @@ int main(int argc, char* argv[])
     auto pBluePlayer = std::make_shared<Player>(PlayerId::Blue);
     pBluePlayer->setRoster(pBlueRoster);
 
-    auto redFaction = GenerateRandomFaction();
-    auto blueFaction = GenerateRandomFaction();
+    auto redFaction = LUMINETH_REALM_LORDS; //GenerateRandomFaction();
+    auto blueFaction = STORMCAST_ETERNAL; // GenerateRandomFaction();
 
-    for (auto i = 0; i < 10; i++) {
+    for (auto i = 0; i < 1; i++) {
         auto pRed = std::shared_ptr<Unit>(GenerateRandomUnit(redFaction));
         auto pBlue = std::shared_ptr<Unit>(GenerateRandomUnit(blueFaction));
         pRedRoster->addUnit(pRed);
@@ -136,7 +136,7 @@ int main(int argc, char* argv[])
 
             auto round = battle.currentRound();
 
-            if (saveMaps && battle.currentPhase() == Phase::Battleshock) {
+            if (saveMaps && battle.currentPhase() == GamePhase::Battleshock) {
                 fn.str("");
                 fn << mapBaseName << "_round_" << round << ".png";
                 board->render(fn.str());
@@ -420,5 +420,5 @@ Keyword GenerateRandomFaction() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> distribution(0, g_factions.size()-1);
 
-    return KHORNE; // g_factions[distribution(gen)];
+    return g_factions[distribution(gen)];
 }

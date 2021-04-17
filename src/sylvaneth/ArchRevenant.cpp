@@ -38,7 +38,7 @@ namespace Sylvaneth {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffModifierCommandAbility>(this, "Call to Battle", 12, 9, Phase::Combat,
+                std::make_unique<BuffModifierCommandAbility>(this, "Call to Battle", 12, 9, GamePhase::Combat,
                                                              Attribute::Attacks_Melee, 1,
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>{SYLVANETH}));

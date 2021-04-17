@@ -42,7 +42,7 @@ namespace StormcastEternals {
         addModel(model);
 
         m_commandAbilities.push_back(
-                std::make_unique<BuffAbilityCommandAbility>(this, "Solemn Duty", 18, 18, Phase::Battleshock,
+                std::make_unique<BuffAbilityCommandAbility>(this, "Solemn Duty", 18, 18, GamePhase::Battleshock,
                                                             Ability::Ignore_Battleshock, 1,
                                                             Abilities::Target::SelfAndFriendly,
                                                             std::vector<Keyword>(STORMCAST_ETERNAL)));

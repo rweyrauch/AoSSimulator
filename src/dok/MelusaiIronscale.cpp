@@ -16,7 +16,7 @@ namespace DaughtersOfKhaine {
     class WrathOfTheScathborn : public CommandAbility {
     public:
         explicit WrathOfTheScathborn(Unit *general) :
-                CommandAbility(general, "Wrath of the Scáthborn", 12, 12, Phase::Hero) {
+                CommandAbility(general, "Wrath of the Scáthborn", 12, 12, GamePhase::Hero) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_targetKeywords = {MELUSAI};
             m_effect = Abilities::EffectType::Buff;
