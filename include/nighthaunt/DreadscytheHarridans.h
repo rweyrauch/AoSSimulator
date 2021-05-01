@@ -21,22 +21,22 @@ namespace Nighthaunt {
 
         static void Init();
 
-        DreadscytheHarridans();
+        explicit DreadscytheHarridans(int numModels);
+
+        DreadscytheHarridans() = delete;
 
         ~DreadscytheHarridans() override = default;
 
-        bool configure(int numModels);
-
     protected:
 
-        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
     private:
 
-        Weapon m_scythedLimbs,
-                m_scythedLimbsCrone;
+        Weapon  m_scythedLimbs{Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1},
+                m_scythedLimbsCrone{Weapon::Type::Melee, "Scythed Limbs", 1, 4, 4, 3, -1, 1};
 
         static bool s_registered;
     };

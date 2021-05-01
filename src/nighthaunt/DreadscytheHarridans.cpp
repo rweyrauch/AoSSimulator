@@ -14,23 +14,15 @@ namespace Nighthaunt {
     static const int g_wounds = 1;
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
-    static const int g_pointsPerBlock = 70;
-    static const int g_pointsMaxUnitSize = 260;
+    static const int g_pointsPerBlock = 90;
+    static const int g_pointsMaxUnitSize = 320;
 
     bool DreadscytheHarridans::s_registered = false;
 
-    DreadscytheHarridans::DreadscytheHarridans() :
-            Nighthaunt("Dreadscythe Harridans", 8, g_wounds, 10, 4, true),
-            m_scythedLimbs(Weapon::Type::Melee, "Scythed Limbs", 1, 3, 4, 3, -1, 1),
-            m_scythedLimbsCrone(Weapon::Type::Melee, "Scythed Limbs", 1, 4, 4, 3, -1, 1) {
+    DreadscytheHarridans::DreadscytheHarridans(int numModels) :
+            Nighthaunt("Dreadscythe Harridans", 8, g_wounds, 10, 4, true) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS};
         m_weapons = {&m_scythedLimbs, &m_scythedLimbsCrone};
-    }
-
-    bool DreadscytheHarridans::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto crone = new Model(g_basesize, wounds());
         crone->addMeleeWeapon(&m_scythedLimbsCrone);
@@ -43,20 +35,11 @@ namespace Nighthaunt {
         }
 
         m_points = ComputePoints(numModels);
-
-        return true;
     }
 
     Unit *DreadscytheHarridans::Create(const ParameterList &parameters) {
-        auto unit = new DreadscytheHarridans();
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new DreadscytheHarridans(numModels);
     }
 
     void DreadscytheHarridans::Init() {
@@ -76,20 +59,11 @@ namespace Nighthaunt {
         }
     }
 
-    Wounds
-    DreadscytheHarridans::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Murderous Bloodlust
-        if ((woundRoll == 6) && (weapon->name() == m_scythedLimbs.name())) {
-            return {2, 0};
-        }
-        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
-    }
-
     int DreadscytheHarridans::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
         int modifier = Nighthaunt::targetHitModifier(weapon, attacker);
 
         // Harrowing Shriek
-        if ((distanceTo(attacker) <= 3.0) && (attacker->bravery() < 6)) {
+        if ((distanceTo(attacker) <= 3.0) && (attacker->bravery() < 7)) {
             modifier -= 1;
         }
 
@@ -102,6 +76,14 @@ namespace Nighthaunt {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    int DreadscytheHarridans::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        // Murderous Bloodlust
+        if ((unmodifiedHitRoll == 6) && (weapon->name() == m_scythedLimbs.name())) {
+            return 2;
+        }
+        return Nighthaunt::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
 } // namespace Nighthaunt

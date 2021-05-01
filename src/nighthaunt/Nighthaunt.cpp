@@ -109,6 +109,24 @@ namespace Nighthaunt {
         m_artefact = artefact;
     }
 
+    void Nighthaunt::setProcession(Procession procession) {
+        removeKeyword(EMERALD_HOST);
+        removeKeyword(REIKENORS_CONDEMNED);
+
+        m_procession = procession;
+
+        switch (procession) {
+            case Procession::Emerald_Host:
+                addKeyword(EMERALD_HOST);
+                break;
+            case Procession::Reikenors_Condemned:
+                addKeyword(REIKENORS_CONDEMNED);
+                break;
+            default:
+                break;
+        }
+    }
+
     Rerolls Nighthaunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (isGeneral() && weapon->isMelee() && (m_commandTrait == CommandTrait::Hatred_Of_The_Living) &&
             !target->hasKeyword(DEATH)) {

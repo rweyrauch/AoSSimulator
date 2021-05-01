@@ -21,21 +21,21 @@ namespace Fyreslayers {
 
         static void Init();
 
-        Doomseeker();
+        Doomseeker(Lodge lodge, Artefact artefact);
+
+        Doomseeker() = delete;
 
         ~Doomseeker() override = default;
 
     protected:
 
-        void configure();
-
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:
 
-        Weapon m_throwingAxe,
-                m_warIron,
-                m_doomseekerAxe;
+        Weapon  m_throwingAxe{Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 4, 4, -1, 1},
+                m_warIron{Weapon::Type::Melee, "Runic War-iron", 1, 3, 3, 3, 0, 1},
+                m_doomseekerAxe{Weapon::Type::Melee, "Doomseeker Axe", 1, 3, 3, 3, -1, 1};
 
         static bool s_registered;
     };

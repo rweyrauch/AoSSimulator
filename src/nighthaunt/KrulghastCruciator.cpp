@@ -13,7 +13,7 @@
 namespace Nighthaunt {
     static const int g_basesize = 40;
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 100;
+    static const int g_pointsPerUnit = 130;
 
     bool KrulghastCruciator::s_registered = false;
 

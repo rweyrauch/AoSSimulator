@@ -16,7 +16,7 @@ namespace StormcastEternals {
 
     static const int g_basesize = 40;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 120;
+    static const int g_pointsPerUnit = 110;
 
     bool GardusSteelSoul::s_registered = false;
 

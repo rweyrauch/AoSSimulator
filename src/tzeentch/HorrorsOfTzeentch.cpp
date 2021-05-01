@@ -21,7 +21,7 @@ namespace Tzeentch {
 
     bool HorrorsOfTzeentch::s_registered = false;
 
-    HorrorsOfTzeentch::HorrorsOfTzeentch(ChangeCoven coven, int numModels, bool iconBearer, bool hornblower) :
+    HorrorsOfTzeentch::HorrorsOfTzeentch(ChangeCoven coven, int numPink, int numBlue, int numYellow, bool iconBearer, bool hornblower) :
             TzeentchBase("Horrors of Tzeentch", 5, g_wounds, 10, 6, false) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, HORROR, HORROR_OF_TZEENTCH};
         m_weapons = {&m_magicalFlamesPink,
@@ -31,7 +31,7 @@ namespace Tzeentch {
                      &m_talonedHandsBlue,
                      &m_talonedHandsBrimstone,
                      &m_talonedHandsIridescent};
-        m_battleFieldRole = Role::Battleline;
+        m_battleFieldRole = (numPink > 0) ? Role::Battleline : Role::Other;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
 
@@ -43,7 +43,7 @@ namespace Tzeentch {
         horror->setName("Iridescent");
         addModel(horror);
 
-        for (auto i = 1; i < numModels; i++) {
+        for (auto i = 1; i < numPink; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_magicalFlamesPink);
             model->addMeleeWeapon(&m_talonedHandsPink);
@@ -59,16 +59,34 @@ namespace Tzeentch {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
+        for (auto i = 0; i < numBlue; i++) {
+            auto model = new Model(g_basesize, wounds());
+            model->addMissileWeapon(&m_magicalFlamesBlue);
+            model->addMeleeWeapon(&m_talonedHandsBlue);
+            model->setName("Blue");
+            addModel(model);
+        }
+
+        for (auto i = 0; i < numYellow; i++) {
+            auto model = new Model(g_basesize, wounds());
+            model->addMissileWeapon(&m_magicalFlamesBrimstone);
+            model->addMeleeWeapon(&m_talonedHandsBrimstone);
+            model->setName("Blue");
+            addModel(model);
+        }
+
+        m_points = ComputePoints(numPink);
     }
 
     Unit *HorrorsOfTzeentch::Create(const ParameterList &parameters) {
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        int numPink = GetIntParam("Models (Pink)", parameters, g_minUnitSize);
+        int numBlue = GetIntParam("Models (Blue)", parameters, 0);
+        int numYellow = GetIntParam("Models (Brimstone)", parameters, 0);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
 
-        return new HorrorsOfTzeentch(coven, numModels, iconBearer, hornblower);
+        return new HorrorsOfTzeentch(coven, numPink, numBlue, numYellow, iconBearer, hornblower);
     }
 
     void HorrorsOfTzeentch::Init() {
@@ -79,7 +97,9 @@ namespace Tzeentch {
                     TzeentchBase::EnumStringToInt,
                     HorrorsOfTzeentch::ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Models (Pink)", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Models (Blue)", 0, 0, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Models (Brimstone)", 0, 0, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Icon Bearer"),
                             BoolParameter("Hornblower"),
                             EnumParameter("Change Coven", g_changeCoven[0], g_changeCoven),
@@ -107,6 +127,7 @@ namespace Tzeentch {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_magicalFlamesPink);
             model->addMeleeWeapon(&m_talonedHandsPink);
+            model->setName("Pink");
             addModel(model);
         }
     }

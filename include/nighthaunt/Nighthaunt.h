@@ -13,6 +13,13 @@
 
 namespace Nighthaunt {
 
+    enum class Procession : int {
+        None,
+
+        Emerald_Host,
+        Reikenors_Condemned
+    };
+
     enum class CommandTrait : int {
         None,
 
@@ -23,6 +30,8 @@ namespace Nighthaunt {
         Cloaked_In_Shadow,
         Ruler_Of_The_Spirit_Hosts,  // TODO
 
+        // Processions
+        Lord_Of_The_Host,  // Emerald Host TODO
     };
 
     enum class Artefact : int {
@@ -49,6 +58,9 @@ namespace Nighthaunt {
         Wychlight_Lantern,
         Beacon_Of_Nagashizzar,
 
+        // Processions
+        The_Traitor_Knights_Blade,  // Emerald Host
+        Corpse_Candle,  // Reikenor's Condemned
     };
 
     enum class Lore : int {
@@ -74,6 +86,8 @@ namespace Nighthaunt {
 
         static int EnumStringToInt(const std::string &enumString);
 
+        void setProcession(Procession procession);
+
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
@@ -95,6 +109,7 @@ namespace Nighthaunt {
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
     protected:
+        Procession m_procession = Procession::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
 
@@ -110,6 +125,13 @@ namespace Nighthaunt {
 // Feed on Terror                   TODO
 // Wave of Terror                   TODO
 // Spectral Summons                 TODO
+// The Emerald Host
+//    The Emerald Curse             TODO
+//    Knights of Regret             TODO
+// Reikenor's Condemned
+//    Unrelenting Taskmasters       TODO
+//    Acolyte of the Grimhaller     TODO
+//    Death Comes Swiftly           TODO
 //
 
     void Init();

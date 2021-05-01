@@ -13,19 +13,18 @@
 namespace Fyreslayers {
     static const int g_basesize = 32;
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 100;
+    static const int g_pointsPerUnit = 110;
 
     bool GrimwrathBerzerker::s_registered = false;
 
-    GrimwrathBerzerker::GrimwrathBerzerker() :
-            Fyreslayer("Grimwrath Berzerker", 4, g_wounds, 9, 4, false),
-            m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
-            m_greatAxe(Weapon::Type::Melee, "Fyrestorm Greataxe", 1, 4, 3, 3, -2, 2) {
+    GrimwrathBerzerker::GrimwrathBerzerker(Lodge lodge, Artefact artefact) :
+            Fyreslayer("Grimwrath Berzerker", 4, g_wounds, 9, 4, false) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, GRIMWRATH_BERZERKER};
         m_weapons = {&m_throwingAxe, &m_greatAxe};
-    }
 
-    void GrimwrathBerzerker::configure() {
+        setLodge(lodge);
+        setArtefact(artefact);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_greatAxe);
@@ -35,19 +34,9 @@ namespace Fyreslayers {
     }
 
     Unit *GrimwrathBerzerker::Create(const ParameterList &parameters) {
-        auto unit = new GrimwrathBerzerker();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wrathAndDoomArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new GrimwrathBerzerker(lodge, artefact);
     }
 
     void GrimwrathBerzerker::Init() {
@@ -60,22 +49,12 @@ namespace Fyreslayers {
                     {
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
                             EnumParameter("Artefact", g_wrathAndDoomArtefacts[0], g_wrathAndDoomArtefacts),
-                            BoolParameter("General")
                     },
                     ORDER,
                     {FYRESLAYERS}
             };
             s_registered = UnitFactory::Register("Grimwrath Berzerker", factoryMethod);
         }
-    }
-
-    Wounds GrimwrathBerzerker::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        // Unstoppable Berserker
-        int threshold = 6;
-        auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-        if (unit && (distanceTo(unit) <= 3.0)) threshold--;
-
-        return ignoreWounds(wounds, threshold);
     }
 
     int GrimwrathBerzerker::ComputePoints(int /*numModels*/) {

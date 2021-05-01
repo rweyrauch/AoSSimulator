@@ -21,7 +21,7 @@ namespace Tzeentch {
 
         static void Init();
 
-        HorrorsOfTzeentch(ChangeCoven coven, int numModels, bool iconBearer, bool hornblower);
+        HorrorsOfTzeentch(ChangeCoven coven, int numPink, int numBlue, int numYellow, bool iconBearer, bool hornblower);
 
         HorrorsOfTzeentch() = delete;
 

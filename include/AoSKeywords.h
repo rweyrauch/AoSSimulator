@@ -392,6 +392,10 @@ enum Keyword {
     THORNS_OF_THE_BRIAR_QUEEN,
     KRULGHAST_CRUCIATOR,
 
+    // Nighthaunt Processions
+    EMERALD_HOST,
+    REIKENORS_CONDEMNED,
+
     // Beasts of Chaos
     BULLGOR,
     BULLGORS,

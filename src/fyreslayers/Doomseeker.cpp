@@ -12,21 +12,19 @@
 namespace Fyreslayers {
     static const int g_basesize = 32;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 100;
+    static const int g_pointsPerUnit = 90;
 
     bool Doomseeker::s_registered = false;
 
-    Doomseeker::Doomseeker() :
-            Fyreslayer("Doomseeker", 4, g_wounds, 8, 4, false),
-            m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
-            m_warIron(Weapon::Type::Melee, "Runic War-iron", 1, 3, 3, 4, 0, 1),
-            m_doomseekerAxe(Weapon::Type::Melee, "Doomseeker Axe", 1, 3, 3, 3, -1, 1) {
+    Doomseeker::Doomseeker(Lodge lodge, Artefact artefact) :
+            Fyreslayer("Doomseeker", 4, g_wounds, 8, 4, false) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, DOOMSEEKER};
         m_weapons = {&m_throwingAxe, &m_warIron, &m_doomseekerAxe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Doomseeker::configure() {
+        setLodge(lodge);
+        setArtefact(artefact);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_warIron);
@@ -37,19 +35,9 @@ namespace Fyreslayers {
     }
 
     Unit *Doomseeker::Create(const ParameterList &parameters) {
-        auto unit = new Doomseeker();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wrathAndDoomArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Doomseeker(lodge, artefact);
     }
 
     void Doomseeker::Init() {
@@ -62,7 +50,6 @@ namespace Fyreslayers {
                     {
                             EnumParameter("Lodge", g_lodge[0], g_lodge),
                             EnumParameter("Artefact", g_wrathAndDoomArtefacts[0], g_wrathAndDoomArtefacts),
-                            BoolParameter("General")
                     },
                     ORDER,
                     {FYRESLAYERS}
