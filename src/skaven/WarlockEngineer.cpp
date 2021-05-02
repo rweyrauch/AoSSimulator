@@ -58,7 +58,7 @@ namespace Skaven {
     }
 
     WarlockEngineer::WarlockEngineer() :
-            Skaventide("Warlock Engineer", 6, g_wounds, 5, 5, false),
+            Skaventide("Warlock Engineer", 6, g_wounds, 5, 5, false, g_pointsPerUnit),
             m_pistol(Weapon::Type::Missile, "Warplock Pistol", 9, 1, 3, 3, -1, RAND_D3),
             m_blade(Weapon::Type::Melee, "Warp-energy Blade", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, HERO, WIZARD, WARLOCK_ENGINEER};
@@ -79,8 +79,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void WarlockEngineer::onRestore() {
@@ -116,7 +114,7 @@ namespace Skaven {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int WarlockEngineer::ComputePoints(int /*numModels*/) {
+    int WarlockEngineer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

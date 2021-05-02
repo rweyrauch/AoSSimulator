@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
     bool Skragrott::s_registered = false;
 
     Skragrott::Skragrott() :
-            GloomspiteGitzBase("Skragrott", 4, g_wounds, 6, 5, false),
+            GloomspiteGitzBase("Skragrott", 4, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
             m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
@@ -119,7 +119,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    int Skragrott::ComputePoints(int /*numModels*/) {
+    int Skragrott::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

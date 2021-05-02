@@ -36,7 +36,7 @@ namespace Seraphon {
     bool SaurusOldbloodOnCarnosaur::s_registered = false;
 
     SaurusOldbloodOnCarnosaur::SaurusOldbloodOnCarnosaur(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Saurus Oldblood on Carnosaur", 10, g_wounds, 8, 4, false) {
+            SeraphonBase("Saurus Oldblood on Carnosaur", 10, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, OLDBLOOD};
         m_weapons = {&m_gauntlet, &m_spear, &m_forelimbs, &m_jaws};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -60,8 +60,6 @@ namespace Seraphon {
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Wrath of the Seraphon", 18, 18, GamePhase::Combat,
                                                                                   Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly,
                                                                                   std::vector<Keyword>(SAURUS)));
-
-        m_points = ComputePoints(1);
     }
 
     SaurusOldbloodOnCarnosaur::~SaurusOldbloodOnCarnosaur() {
@@ -153,7 +151,7 @@ namespace Seraphon {
         return 0;
     }
 
-    int SaurusOldbloodOnCarnosaur::ComputePoints(int /*numModels*/) {
+    int SaurusOldbloodOnCarnosaur::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

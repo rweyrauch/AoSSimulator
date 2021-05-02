@@ -49,7 +49,7 @@ namespace Nurgle {
     }
 
     HorticulousSlimux::HorticulousSlimux() :
-            NurgleBase("Horticulous Slimux", 5, g_wounds, 10, 3, false),
+            NurgleBase("Horticulous Slimux", 5, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_shears(Weapon::Type::Melee, "Lopping Shears", 1, 3, 3, 3, -1, RAND_D3),
             m_jaws(Weapon::Type::Melee, "Mulch's Slime-encrusted Jaws", 1, RAND_D3, 3, 3, -2, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, HORTICULOUS_SLIMUX};
@@ -71,8 +71,6 @@ namespace Nurgle {
         model->addMeleeWeapon(&m_shears);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds HorticulousSlimux::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -96,7 +94,7 @@ namespace Nurgle {
         return Rerolls::None;
     }
 
-    int HorticulousSlimux::ComputePoints(int /*numModels*/) {
+    int HorticulousSlimux::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

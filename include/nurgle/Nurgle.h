@@ -138,8 +138,8 @@ namespace Nurgle {
 
     protected:
 
-        NurgleBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        NurgleBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         void onStartHero(PlayerId player) override;
 

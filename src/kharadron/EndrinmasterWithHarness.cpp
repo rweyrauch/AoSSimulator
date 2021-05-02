@@ -65,7 +65,7 @@ namespace KharadronOverlords {
     }
 
     EndrinmasterWithEndrinharness::EndrinmasterWithEndrinharness() :
-            KharadronBase("Endrinmaster with Endrinharness", 4, g_wounds, 7, 4, false),
+            KharadronBase("Endrinmaster with Endrinharness", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_gaze(Weapon::Type::Missile, "Gaze of Grungni", 9, 1, 3, 2, -1, RAND_D3),
             m_hammer(Weapon::Type::Melee, "Aethermight Hammer", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, ENDRINMASTER};
@@ -82,7 +82,7 @@ namespace KharadronOverlords {
         m_points = g_pointsPerUnit;
     }
 
-    int EndrinmasterWithEndrinharness::ComputePoints(int /*numModels*/) {
+    int EndrinmasterWithEndrinharness::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -51,7 +51,7 @@ namespace Death {
         return unit;
     }
 
-    int PrinceVhordrai::ComputePoints(int /*numModels*/) {
+    int PrinceVhordrai::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -75,7 +75,7 @@ namespace Death {
     }
 
     PrinceVhordrai::PrinceVhordrai() :
-            LegionOfNagashBase("Prince Vhordrai", 14, g_wounds, 10, 3, true),
+            LegionOfNagashBase("Prince Vhordrai", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_bloodlance(Weapon::Type::Melee, "Bloodlance", 2, 4, 3, 3, -2, 2),
             m_maw(Weapon::Type::Melee, "Shordemaire's Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_claws(Weapon::Type::Melee, "Shordemaire's Sword-like Claws", 2, 7, 4, 3, -1, 2) {

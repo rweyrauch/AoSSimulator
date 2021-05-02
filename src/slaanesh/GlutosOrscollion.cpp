@@ -57,7 +57,7 @@ namespace Slaanesh {
     bool GlutosOrscollion::s_registered = false;
 
     GlutosOrscollion::GlutosOrscollion() :
-            SlaaneshBase("Glutos Orscollion", 14, g_wounds, 10, 4, false),
+            SlaaneshBase("Glutos Orscollion", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_greatblade(Weapon::Type::Melee, "Wailing Greatblade", 1, 3, 3, 3, -2, 2),
             m_scourge(Weapon::Type::Melee, "Flaying Scourge", 1, 2, 3, 4, 0, 1),
             m_dagger(Weapon::Type::Melee, "Sacrificial Dagger", 1, 1, 4, 3, 0, 1),
@@ -93,8 +93,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *GlutosOrscollion::Create(const ParameterList &parameters) {
@@ -168,7 +166,7 @@ namespace Slaanesh {
         m_dagger.activate(true);
     }
 
-    int GlutosOrscollion::ComputePoints(int /*numModels*/) {
+    int GlutosOrscollion::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

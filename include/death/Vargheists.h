@@ -16,11 +16,11 @@ namespace Death {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Vargheists();
+        Vargheists(int points);
 
         ~Vargheists() override = default;
 

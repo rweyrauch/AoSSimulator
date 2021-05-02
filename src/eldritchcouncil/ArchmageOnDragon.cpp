@@ -35,7 +35,7 @@ namespace EldritchCouncil {
     bool ArchmageOnDragon::s_registered = false;
 
     ArchmageOnDragon::ArchmageOnDragon() :
-            Unit("Archmage On Dragon", 14, g_wounds, 7, 5, true),
+            Unit("Archmage On Dragon", 14, g_wounds, 7, 5, true, g_pointsPerUnit),
             m_magestaff(Weapon::Type::Melee, "Magestaff", 2, 1, 4, 3, -1, RAND_D3),
             m_sorcerousBlade(Weapon::Type::Melee, "Sorcerous Blade", 1, 3, 4, 4, 0, 1),
             m_dragonClaws(Weapon::Type::Melee, "Dragon's Claws", 2, 6, 4, 3, -1, 2),
@@ -134,7 +134,7 @@ namespace EldritchCouncil {
         return 0;
     }
 
-    int ArchmageOnDragon::ComputePoints(int /*numModels*/) {
+    int ArchmageOnDragon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

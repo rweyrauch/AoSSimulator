@@ -62,7 +62,7 @@ namespace Bonesplitterz {
     }
 
     Wardokk::Wardokk() :
-            Bonesplitterz("Wardokk", 5, g_wounds, 7, 6, false),
+            Bonesplitterz("Wardokk", 5, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};
         m_weapons = {&m_bonebeastStikk};
@@ -82,7 +82,7 @@ namespace Bonesplitterz {
         m_points = g_pointsPerUnit;
     }
 
-    int Wardokk::ComputePoints(int /*numModels*/) {
+    int Wardokk::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

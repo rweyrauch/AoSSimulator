@@ -54,7 +54,7 @@ namespace OgorMawtribes {
     }
 
     IcebrowHunter::IcebrowHunter(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            MawtribesBase(tribe, "Icebrow Hunter", 6, g_wounds, 7, 5, false) {
+            MawtribesBase(tribe, "Icebrow Hunter", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, HERO, ICEBROW_HUNTER};
         m_weapons = {&m_spear, &m_crossbow, &m_club, &m_bite};
         m_battleFieldRole = Role::Leader;
@@ -83,15 +83,13 @@ namespace OgorMawtribes {
                 std::make_unique<BuffModifierCommandAbility>(this, "Lead the Skal", 12, 12, GamePhase::Combat,
                                                              Attribute::Attacks_Melee, 1, Abilities::Target::Friendly,
                                                              std::vector<Keyword>{FROST_SABRES}));
-
-        m_points = ComputePoints(1);
     }
 
     IcebrowHunter::~IcebrowHunter() {
         m_raisedByYhetees.disconnect();
     }
 
-    int IcebrowHunter::ComputePoints(int /*numModels*/) {
+    int IcebrowHunter::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

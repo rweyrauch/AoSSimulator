@@ -66,7 +66,7 @@ typedef std::string (*ParamValueToString)(const Parameter &parameter);
 
 typedef int (*EnumStringToInt)(const std::string &enumString);
 
-typedef int (*ComputePoints)(int numModels);
+typedef int (*ComputePoints)(const std::vector<Parameter> &parameters);
 
 struct FactoryMethod {
 public:
@@ -86,8 +86,7 @@ public:
 
     static Unit *Create(const std::string &name, const std::vector<Parameter> &parameters);
 
-    static std::map<std::string, FactoryMethod>::const_iterator
-    RegisteredUnitsBegin() { return s_registeredUnits.begin(); }
+    static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsBegin() { return s_registeredUnits.begin(); }
 
     static std::map<std::string, FactoryMethod>::const_iterator RegisteredUnitsEnd() { return s_registeredUnits.end(); }
 

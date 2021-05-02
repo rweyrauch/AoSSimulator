@@ -19,7 +19,7 @@ namespace DaughtersOfKhaine {
     bool SlaughterQueen::s_registered = false;
 
     SlaughterQueen::SlaughterQueen() :
-            DaughterOfKhaine("Slaughter Queen", 6, g_wounds, 9, 5, false),
+            DaughterOfKhaine("Slaughter Queen", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
             m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1),
             m_deathsword(Weapon::Type::Melee, "Deathsword", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, SLAUGHTER_QUEEN};
@@ -83,7 +83,7 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int SlaughterQueen::ComputePoints(int /*numModels*/) {
+    int SlaughterQueen::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

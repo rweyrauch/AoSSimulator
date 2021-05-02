@@ -35,7 +35,7 @@ namespace Khorne {
     bool Skarbrand::s_registered = false;
 
     Skarbrand::Skarbrand(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Skarbrand", 8, g_wounds, 10, 4, true) {
+            KhorneBase("Skarbrand", 8, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, SKARBRAND};
         m_weapons = {&m_slaughter, &m_carnage};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -141,7 +141,7 @@ namespace Khorne {
         KhorneBase::onStartShooting(player);
     }
 
-    int Skarbrand::ComputePoints(int /*numModels*/) {
+    int Skarbrand::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

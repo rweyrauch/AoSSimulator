@@ -20,8 +20,8 @@ namespace Nighthaunt {
 
     bool Chainghasts::s_registered = false;
 
-    Chainghasts::Chainghasts(int numModels) :
-            Nighthaunt("Chainghasts", 6, g_wounds, 10, 4, true) {
+    Chainghasts::Chainghasts(int numModels, int points) :
+            Nighthaunt("Chainghasts", 6, g_wounds, 10, 4, true, points) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
         m_weapons = {&m_ghastflailsMissile, &m_ghastflails};
 
@@ -33,8 +33,6 @@ namespace Nighthaunt {
             model->addMeleeWeapon(&m_ghastflails);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Chainghasts::~Chainghasts() {
@@ -43,7 +41,7 @@ namespace Nighthaunt {
 
     Unit *Chainghasts::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new Chainghasts(numModels);
+        return new Chainghasts(numModels, ComputePoints(parameters));
     }
 
     void Chainghasts::Init() {
@@ -74,7 +72,8 @@ namespace Nighthaunt {
         return attacks;
     }
 
-    int Chainghasts::ComputePoints(int numModels) {
+    int Chainghasts::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -19,7 +19,7 @@ namespace BeastsOfChaos {
     bool Jabberslythe::s_registered = false;
 
     Jabberslythe::Jabberslythe(Greatfray fray) :
-            BeastsOfChaosBase("Jabberslythe", 12, g_wounds, 6, 5, true),
+            BeastsOfChaosBase("Jabberslythe", 12, g_wounds, 6, 5, true, g_pointsPerUnit),
             m_slytheyTongue(Weapon::Type::Missile, "Slythey Tongue", 9, 1, 3, 3, -1, RAND_D3),
             m_vorpalClaws(Weapon::Type::Melee, "Vorpal Claws", 1, 6, 3, 3, -2, 1),
             m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3) {
@@ -61,7 +61,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Jabberslythe::ComputePoints(int /*numModels*/) {
+    int Jabberslythe::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

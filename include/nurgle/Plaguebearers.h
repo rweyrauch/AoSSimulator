@@ -17,11 +17,11 @@ namespace Nurgle {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Plaguebearers();
+        Plaguebearers(int points);
 
         ~Plaguebearers() override = default;
 

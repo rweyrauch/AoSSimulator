@@ -19,7 +19,7 @@ namespace Khorne {
     bool Bloodstoker::s_registered = false;
 
     Bloodstoker::Bloodstoker(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Bloodstoker", 6, g_wounds, 8, 4, false) {
+            KhorneBase("Bloodstoker", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, BLOODSTOKER};
         m_weapons = {&m_tortureBlade, &m_bloodWhip};
         m_battleFieldRole = Role::Leader;
@@ -67,7 +67,7 @@ namespace Khorne {
         }
     }
 
-    int Bloodstoker::ComputePoints(int /*numModels*/) {
+    int Bloodstoker::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

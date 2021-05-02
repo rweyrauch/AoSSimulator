@@ -128,7 +128,7 @@ namespace CitiesOfSigmar {
     }
 
     FreeguildGeneralOnGriffon::FreeguildGeneralOnGriffon() :
-            CitizenOfSigmar("Freeguild General on Griffon", 15, g_wounds, 7, 4, true),
+            CitizenOfSigmar("Freeguild General on Griffon", 15, g_wounds, 7, 4, true, g_pointsPerUnit),
             m_runesword(Weapon::Type::Melee, "Sigmarite Runesword", 1, 5, 3, 4, -1, 2),
             m_greathammer(Weapon::Type::Melee, "Sigmarite Greathammer", 1, 3, 3, 3, -2, RAND_D3),
             m_lance(Weapon::Type::Melee, "Freeguild Lance", 2, 4, 3, 4, -1, 2),
@@ -229,7 +229,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int FreeguildGeneralOnGriffon::ComputePoints(int /*numModels*/) {
+    int FreeguildGeneralOnGriffon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

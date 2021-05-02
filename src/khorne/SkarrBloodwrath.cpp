@@ -19,7 +19,7 @@ namespace Khorne {
     bool SkarrBloodwrath::s_registered = false;
 
     SkarrBloodwrath::SkarrBloodwrath(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Skarr Bloodwrath", 5, g_wounds, 9, 4, false) {
+            KhorneBase("Skarr Bloodwrath", 5, g_wounds, 9, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKARR_BLOODWRATH};
         m_weapons = {&m_blades};
         m_battleFieldRole = Role::Leader;
@@ -73,7 +73,7 @@ namespace Khorne {
         return attacks;
     }
 
-    int SkarrBloodwrath::ComputePoints(int /*numModels*/) {
+    int SkarrBloodwrath::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -33,7 +33,7 @@ namespace Nighthaunt {
         return unit;
     }
 
-    int CairnWraith::ComputePoints(int /*numModels*/) {
+    int CairnWraith::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -57,7 +57,7 @@ namespace Nighthaunt {
     }
 
     CairnWraith::CairnWraith() :
-            Nighthaunt("Cairn Wraith", 6, g_wounds, 10, 4, true),
+            Nighthaunt("Cairn Wraith", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_scythe(Weapon::Type::Melee, "Reaper Scythe", 2, 3, 4, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, CAIRN_WRAITH};
         m_weapons = {&m_scythe};
@@ -68,8 +68,6 @@ namespace Nighthaunt {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds CairnWraith::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

@@ -19,7 +19,7 @@ namespace OgorMawtribes {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -29,7 +29,7 @@ namespace OgorMawtribes {
 
     protected:
 
-        Gnoblars(Mawtribe tribe, int numModels);
+        Gnoblars(Mawtribe tribe, int numModels, int points);
 
     protected:
 

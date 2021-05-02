@@ -18,7 +18,7 @@ namespace Seraphon {
     bool StarbloodStalkers::s_registered = false;
 
     StarbloodStalkers::StarbloodStalkers() :
-            SeraphonBase("The Starblood Stalkers", 8, g_wounds, 5, 6, false) {
+            SeraphonBase("The Starblood Stalkers", 8, g_wounds, 5, 6, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, COALESCED, THUNDER_LIZARD, SKINKS, STARBLOOD_STALKERS};
         m_weapons = {&m_javelin, &m_dartpipe, &m_boltspitter, &m_dagger, &m_club};
 
@@ -46,8 +46,6 @@ namespace Seraphon {
         otapatl->addMeleeWeapon(&m_dagger);
         otapatl->setName("Otapatl");
         addModel(otapatl);
-
-        m_points = ComputePoints(4);
     }
 
     Unit *StarbloodStalkers::Create(const ParameterList &parameters) {
@@ -80,7 +78,7 @@ namespace Seraphon {
         return modifier;
     }
 
-    int StarbloodStalkers::ComputePoints(int /*numModels*/) {
+    int StarbloodStalkers::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -42,7 +42,7 @@ namespace OssiarchBonereapers {
     }
 
     Katakros::Katakros(Legion legion, bool isGeneral) :
-            OssiarchBonereaperBase("Orpheon Katakros", 4, g_wounds, 10, 3, false) {
+            OssiarchBonereaperBase("Orpheon Katakros", 4, g_wounds, 10, 3, false, g_pointsPerUnit) {
         m_keywords = {DEATH, DEATHLORDS, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, KATAKROS};
         m_weapons = {&m_indaKhaat, &m_shieldImmortis, &m_nadiriteDagger, &m_blades, &m_greatblade, &m_spiritDagger};
         m_battleFieldRole = Role::Leader;
@@ -61,8 +61,6 @@ namespace OssiarchBonereapers {
         m_shieldImmortis.activate(false);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int Katakros::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
@@ -97,7 +95,7 @@ namespace OssiarchBonereapers {
         return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Katakros::ComputePoints(int /*numModels*/) {
+    int Katakros::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

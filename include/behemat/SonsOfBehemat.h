@@ -113,8 +113,8 @@ namespace SonsOfBehemat {
 
     protected:
 
-        SonsOfBehematBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        SonsOfBehematBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

@@ -20,7 +20,7 @@ namespace Khorne {
     bool Skullgrinder::s_registered = false;
 
     Skullgrinder::Skullgrinder(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Skullgrinder", 5, g_wounds, 8, 4, false) {
+            KhorneBase("Skullgrinder", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, SKULLGRINDER};
         m_weapons = {&m_brazenAnvil};
         m_battleFieldRole = Role::Leader;
@@ -106,7 +106,7 @@ namespace Khorne {
         }
     }
 
-    int Skullgrinder::ComputePoints(int /*numModels*/) {
+    int Skullgrinder::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

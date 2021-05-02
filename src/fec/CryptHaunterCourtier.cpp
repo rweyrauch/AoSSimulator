@@ -20,7 +20,7 @@ namespace FleshEaterCourt {
     bool CryptHaunterCourtier::s_registered = false;
 
     CryptHaunterCourtier::CryptHaunterCourtier() :
-            FleshEaterCourts("Crypt Haunter Courtier", 12, g_wounds, 10, 4, true),
+            FleshEaterCourts("Crypt Haunter Courtier", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_massiveBoneClub(Weapon::Type::Melee, "Massive Bone Clube", 1, 3, 4, 3, 0, 3),
             m_rancidTalons(Weapon::Type::Melee, "Rancid Talons", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_HAUNTER_COURTIER};
@@ -110,7 +110,7 @@ namespace FleshEaterCourt {
         return FleshEaterCourts::toHitRerolls(weapon, target);
     }
 
-    int CryptHaunterCourtier::ComputePoints(int /*numModels*/) {
+    int CryptHaunterCourtier::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

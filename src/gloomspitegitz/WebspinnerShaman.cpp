@@ -64,7 +64,7 @@ namespace GloomspiteGitz {
     bool WebspinnerShaman::s_registered = false;
 
     WebspinnerShaman::WebspinnerShaman() :
-            GloomspiteGitzBase("Webspinner Shaman", 5, g_wounds, 4, 6, false),
+            GloomspiteGitzBase("Webspinner Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, WIZARD, WEBSPINNER_SHAMAN};
         m_weapons = {&m_spiderGodStaff};
@@ -136,7 +136,7 @@ namespace GloomspiteGitz {
         return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
-    int WebspinnerShaman::ComputePoints(int /*numModels*/) {
+    int WebspinnerShaman::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

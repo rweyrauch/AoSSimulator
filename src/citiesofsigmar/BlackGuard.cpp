@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool BlackGuard::s_registered = false;
 
     Unit *BlackGuard::Create(const ParameterList &parameters) {
-        auto unit = new BlackGuard();
+        auto unit = new BlackGuard(ComputePoints(parameters));
 
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         unit->setCity(city);
@@ -67,8 +67,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    BlackGuard::BlackGuard() :
-            CitizenOfSigmar("Black Guard", 6, g_wounds, 8, 4, false),
+    BlackGuard::BlackGuard(int points) :
+            CitizenOfSigmar("Black Guard", 6, g_wounds, 8, 4, false, points),
             m_halberd(Weapon::Type::Melee, "Ebon Halberd", 2, 2, 3, 3, -1, 1),
             m_halberdCaptain(Weapon::Type::Melee, "Ebon Halberd", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLACK_GUARD};
@@ -100,8 +100,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -131,7 +129,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int BlackGuard::ComputePoints(int numModels) {
+    int BlackGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

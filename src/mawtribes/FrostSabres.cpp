@@ -29,7 +29,7 @@ namespace OgorMawtribes {
         if (AreValid(parameters)) {
             auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new FrostSabres(tribe, numModels);
+            return new FrostSabres(tribe, numModels, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -52,8 +52,8 @@ namespace OgorMawtribes {
         }
     }
 
-    FrostSabres::FrostSabres(Mawtribe tribe, int numModels) :
-            MawtribesBase(tribe, "Frost Sabres", 9, g_wounds, 5, 6, false) {
+    FrostSabres::FrostSabres(Mawtribe tribe, int numModels, int points) :
+            MawtribesBase(tribe, "Frost Sabres", 9, g_wounds, 5, 6, false, points) {
         m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, FROST_SABRES};
         m_weapons = {&m_fangs};
 
@@ -62,11 +62,10 @@ namespace OgorMawtribes {
             model->addMeleeWeapon(&m_fangs);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int FrostSabres::ComputePoints(int numModels) {
+    int FrostSabres::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *IronGolems::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new IronGolems(legion, numModels);
+        return new IronGolems(legion, numModels, ComputePoints(parameters));
     }
 
     void IronGolems::Init() {
@@ -43,8 +43,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    IronGolems::IronGolems(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Iron Golems", 5, g_wounds, 6, 4, false) {
+    IronGolems::IronGolems(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Iron Golems", 5, g_wounds, 6, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, IRON_GOLEMS};
         m_weapons = {&m_bolas, &m_legionWeapons, &m_legionWeaponsDominar};
 
@@ -74,8 +74,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_legionWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     int IronGolems::braveryModifier() const {
@@ -86,7 +84,8 @@ namespace SlavesToDarkness {
         return modifier;
     }
 
-    int IronGolems::ComputePoints(int numModels) {
+    int IronGolems::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

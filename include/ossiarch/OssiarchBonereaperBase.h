@@ -115,7 +115,7 @@ namespace OssiarchBonereapers {
         void setArtefact(Artefact artefact);
 
     protected:
-        OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+        OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

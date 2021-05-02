@@ -63,7 +63,7 @@ namespace Khorne {
     bool BloodthirsterOfInsensateRage::s_registered = false;
 
     BloodthirsterOfInsensateRage::BloodthirsterOfInsensateRage(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Bloodthirster Of Insensate Rage", 14, g_wounds, 10, 4, true) {
+            KhorneBase("Bloodthirster Of Insensate Rage", 14, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, GREATER_DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO,
                       BLOODTHIRSTER_OF_INSENSATE_RAGE};
         m_weapons = {&m_greatAxeOfKhorne};
@@ -165,7 +165,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int BloodthirsterOfInsensateRage::ComputePoints(int /*numModels*/) {
+    int BloodthirsterOfInsensateRage::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

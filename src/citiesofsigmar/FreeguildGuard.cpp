@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool FreeguildGuard::s_registered = false;
 
     Unit *FreeguildGuard::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildGuard();
+        auto unit = new FreeguildGuard(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -85,8 +85,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildGuard::FreeguildGuard() :
-            CitizenOfSigmar("Freeguild Guard", 5, g_wounds, 5, 5, false),
+    FreeguildGuard::FreeguildGuard(int points) :
+            CitizenOfSigmar("Freeguild Guard", 5, g_wounds, 5, 5, false, points),
             m_halberd(Weapon::Type::Melee, "Freeguild Halberd", 1, 1, 4, 3, -1, 1),
             m_spear(Weapon::Type::Melee, "Freeguild Spear", 2, 1, 4, 4, 0, 1),
             m_sword(Weapon::Type::Melee, "Freeguild Sword", 1, 1, 4, 4, 0, 1),
@@ -135,8 +135,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -180,7 +178,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int FreeguildGuard::ComputePoints(int numModels) {
+    int FreeguildGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -41,7 +41,7 @@ namespace Fyreslayers {
     bool AuricRunesmiterOnMagmadroth::s_registered = false;
 
     AuricRunesmiterOnMagmadroth::AuricRunesmiterOnMagmadroth() :
-            Magmadroth("Auric Runesmiter on Magmadroth", 8),
+            Magmadroth("Auric Runesmiter on Magmadroth", 8, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_latchAxe(Weapon::Type::Melee, "Latch-axe", 1, 1, 3, 3, 0, 2),
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
@@ -119,7 +119,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunesmiterOnMagmadroth::ComputePoints(int /*numModels*/) {
+    int AuricRunesmiterOnMagmadroth::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

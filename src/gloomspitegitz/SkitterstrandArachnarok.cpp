@@ -34,7 +34,7 @@ namespace GloomspiteGitz {
             };
 
     SkitterstrandArachnarok::SkitterstrandArachnarok() :
-            GloomspiteGitzBase("Skitterstrand Arachnarok", 8, g_wounds, 6, 4, true),
+            GloomspiteGitzBase("Skitterstrand Arachnarok", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
             m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
@@ -106,7 +106,7 @@ namespace GloomspiteGitz {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SkitterstrandArachnarok::ComputePoints(int /*numModels*/) {
+    int SkitterstrandArachnarok::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

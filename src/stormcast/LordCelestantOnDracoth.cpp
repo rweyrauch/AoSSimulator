@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool LordCelestantOnDracoth::s_registered = false;
 
     LordCelestantOnDracoth::LordCelestantOnDracoth(Stormhost stormhost, WeaponOption weapons, bool sigmariteThundershield, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
-            MountedStormcastEternal(stormhost, "Lord-Celestant on Dracoth", 10, g_wounds, 9, 3, false),
+            MountedStormcastEternal(stormhost, "Lord-Celestant on Dracoth", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_stormstrikeGlaive(Weapon::Type::Melee, "Stormstrike Glaive", 2, 4, 3, 4, -1, 1),
             m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
             m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 3, 3, 3, -1, 2),
@@ -186,7 +186,7 @@ namespace StormcastEternals {
         return MountedStormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int LordCelestantOnDracoth::ComputePoints(int /*numModels*/) {
+    int LordCelestantOnDracoth::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -46,7 +46,7 @@ namespace OgorMawtribes {
     }
 
     Hrothgorn::Hrothgorn(bool isGeneral) :
-            MawtribesBase(Mawtribe::Winterbite, "Hrothgorn", 6, g_wounds, 7, 5, false) {
+            MawtribesBase(Mawtribe::Winterbite, "Hrothgorn", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, WINTERBITE, HERO, ICEBROW_HUNTER,
                       HROTHGORN};
         m_weapons = {&m_trapLauncher, &m_knife, &m_bite};
@@ -60,11 +60,9 @@ namespace OgorMawtribes {
         model->addMeleeWeapon(&m_bite);
 
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
-    int Hrothgorn::ComputePoints(int /*numModels*/) {
+    int Hrothgorn::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

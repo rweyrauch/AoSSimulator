@@ -35,7 +35,7 @@ namespace FleshEaterCourt {
     bool RoyalZombieDragon::s_registered = false;
 
     RoyalZombieDragon::RoyalZombieDragon() :
-            FleshEaterCourts("Royal Zombie Dragon", 14, g_wounds, 10, 4, true),
+            FleshEaterCourts("Royal Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_pestilentialBreath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_snappingMaw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_swordlikeClaws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2) {
@@ -115,7 +115,7 @@ namespace FleshEaterCourt {
         onWounded();
     }
 
-    int RoyalZombieDragon::ComputePoints(int /*numModels*/) {
+    int RoyalZombieDragon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

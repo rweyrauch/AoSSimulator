@@ -37,7 +37,7 @@ namespace SonsOfBehemat {
     bool KrakenEater::s_registered = false;
 
     KrakenEater::KrakenEater(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral) :
-            SonsOfBehematBase("Kraken-Eater Mega-Gargant", 11, g_wounds, 7, 4, false) {
+            SonsOfBehematBase("Kraken-Eater Mega-Gargant", 11, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_weapons = {&m_debris, &m_stomp, &m_grip, &m_warclub};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, KRAKEN_EATER};
@@ -95,7 +95,7 @@ namespace SonsOfBehemat {
         }
     }
 
-    int KrakenEater::ComputePoints(int /*numModels*/) {
+    int KrakenEater::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

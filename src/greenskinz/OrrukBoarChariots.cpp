@@ -19,8 +19,8 @@ namespace Greenskinz {
 
     bool OrrukBoarChariots::s_registered = false;
 
-    OrrukBoarChariots::OrrukBoarChariots() :
-            Unit("Orruk Boar Chariots", 9, g_wounds, 6, 4, false),
+    OrrukBoarChariots::OrrukBoarChariots(int points) :
+            Unit("Orruk Boar Chariots", 9, g_wounds, 6, 4, false, points),
             m_pigstikkaSpears(Weapon::Type::Melee, "Crew's Pigstikka Spears", 2, 2, 4, 4, 0, 1),
             m_warBoarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 4, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, ORRUK_BOAR_CHARIOTS};
@@ -41,13 +41,11 @@ namespace Greenskinz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *OrrukBoarChariots::Create(const ParameterList &parameters) {
-        auto unit = new OrrukBoarChariots();
+        auto unit = new OrrukBoarChariots(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -95,7 +93,8 @@ namespace Greenskinz {
         Unit::onCharged();
     }
 
-    int OrrukBoarChariots::ComputePoints(int numModels) {
+    int OrrukBoarChariots::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

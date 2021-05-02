@@ -21,7 +21,7 @@ namespace Bonesplitterz {
     bool SavageOrrukMorboys::s_registered = false;
 
     Unit *SavageOrrukMorboys::Create(const ParameterList &parameters) {
-        auto unit = new SavageOrrukMorboys();
+        auto unit = new SavageOrrukMorboys(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
@@ -57,8 +57,8 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageOrrukMorboys::SavageOrrukMorboys() :
-            Bonesplitterz("Savage Orruk Morboys", 5, g_wounds, 6, 6, false),
+    SavageOrrukMorboys::SavageOrrukMorboys(int points) :
+            Bonesplitterz("Savage Orruk Morboys", 5, g_wounds, 6, 6, false, points),
             m_chompaAndShiv(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 3, 4, 3, 0, 1),
             m_chompaAndShivBoss(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 4, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUK_MORBOYS};
@@ -90,8 +90,6 @@ namespace Bonesplitterz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -104,7 +102,8 @@ namespace Bonesplitterz {
         return extra;
     }
 
-    int SavageOrrukMorboys::ComputePoints(int numModels) {
+    int SavageOrrukMorboys::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

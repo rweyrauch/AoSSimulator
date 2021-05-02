@@ -81,7 +81,7 @@ namespace OgorMawtribes {
 
     FrostlordOnThundertusk::FrostlordOnThundertusk(Mawtribe tribe, CommandTrait trait, Artefact artefact,
                                                    bool isGeneral, MountTrait mountTrait) :
-            MawtribesBase(tribe, "Frostlord on Thundertusk", 8, g_wounds, 9, 3, false) {
+            MawtribesBase(tribe, "Frostlord on Thundertusk", 8, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, FROSTLORD};
         m_weapons = {&m_ice, &m_spear, &m_kicks, &m_tusks};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -106,8 +106,6 @@ namespace OgorMawtribes {
         if (trait == CommandTrait::Master_Of_The_Mournfangs) {
             s_globalBraveryMod.connect(this, &FrostlordOnThundertusk::masterOfMournfangs, &m_masterOfMournfangs);
         }
-
-        m_points = FrostlordOnThundertusk::ComputePoints(1);
     }
 
     void FrostlordOnThundertusk::onRestore() {
@@ -161,7 +159,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int FrostlordOnThundertusk::ComputePoints(int /*numModels*/) {
+    int FrostlordOnThundertusk::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

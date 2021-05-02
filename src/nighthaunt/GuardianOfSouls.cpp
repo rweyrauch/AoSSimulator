@@ -77,7 +77,7 @@ namespace Nighthaunt {
     }
 
     GuardianOfSouls::GuardianOfSouls(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            Nighthaunt("Guardian of Souls with Nightmare Lantern", 6, g_wounds, 10, 4, true) {
+            Nighthaunt("Guardian of Souls with Nightmare Lantern", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, GUARDIAN_OF_SOULS};
         m_weapons = {&m_blade, &m_maul};
         m_battleFieldRole = Role::Leader;
@@ -100,15 +100,13 @@ namespace Nighthaunt {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     GuardianOfSouls::~GuardianOfSouls() {
         m_nightmareLanternSlot.disconnect();
     }
 
-    int GuardianOfSouls::ComputePoints(int /*numModels*/) {
+    int GuardianOfSouls::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

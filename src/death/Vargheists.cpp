@@ -20,8 +20,8 @@ namespace Death {
 
     bool Vargheists::s_registered = false;
 
-    Vargheists::Vargheists() :
-            LegionOfNagashBase("Vargheists", 12, g_wounds, 10, 5, true),
+    Vargheists::Vargheists(int points) :
+            LegionOfNagashBase("Vargheists", 12, g_wounds, 10, 5, true, points),
             m_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2),
             m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 4, 3, 3, -1, 2) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, VARGHEISTS};
@@ -44,13 +44,11 @@ namespace Death {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Vargheists::Create(const ParameterList &parameters) {
-        auto unit = new Vargheists();
+        auto unit = new Vargheists(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
@@ -82,7 +80,8 @@ namespace Death {
         }
     }
 
-    int Vargheists::ComputePoints(int numModels) {
+    int Vargheists::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

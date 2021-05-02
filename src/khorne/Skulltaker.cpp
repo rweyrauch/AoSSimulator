@@ -19,7 +19,7 @@ namespace Khorne {
     bool Skulltaker::s_registered = false;
 
     Skulltaker::Skulltaker(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Skulltaker", 5, g_wounds, 10, 4, false) {
+            KhorneBase("Skulltaker", 5, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLTAKER};
         m_weapons = {&m_slayerSword};
         m_battleFieldRole = Role::Leader;
@@ -96,7 +96,7 @@ namespace Khorne {
         return KhorneBase::toWoundRerolls(weapon, target);
     }
 
-    int Skulltaker::ComputePoints(int /*numModels*/) {
+    int Skulltaker::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

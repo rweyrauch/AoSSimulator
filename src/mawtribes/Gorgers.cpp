@@ -28,7 +28,7 @@ namespace OgorMawtribes {
         if (AreValid(parameters)) {
             auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new Gorgers(tribe, numModels);
+            return new Gorgers(tribe, numModels, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -51,8 +51,8 @@ namespace OgorMawtribes {
         }
     }
 
-    Gorgers::Gorgers(Mawtribe tribe, int numModels) :
-            MawtribesBase(tribe, "Gorgers", 6, g_wounds, 8, 6, false) {
+    Gorgers::Gorgers(Mawtribe tribe, int numModels, int points) :
+            MawtribesBase(tribe, "Gorgers", 6, g_wounds, 8, 6, false, points) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, GORGERS};
         m_weapons = {&m_claws, &m_jaw};
 
@@ -62,11 +62,10 @@ namespace OgorMawtribes {
             model->addMeleeWeapon(&m_jaw);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int Gorgers::ComputePoints(int numModels) {
+    int Gorgers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

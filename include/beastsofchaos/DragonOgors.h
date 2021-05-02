@@ -19,13 +19,13 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         DragonOgors() = delete;
 
         ~DragonOgors() override = default;
 
-        DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers);
+        DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers, int points);
 
     protected:
 

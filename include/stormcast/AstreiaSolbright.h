@@ -20,7 +20,7 @@ namespace StormcastEternals {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         AstreiaSolbright(Lore lore, MountTrait trait, bool isGeneral);
 

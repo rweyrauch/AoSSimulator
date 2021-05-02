@@ -120,8 +120,8 @@ namespace BeastsOfChaos {
         void setCommandTrait(CommandTrait commandTrait);
 
     protected:
-        BeastsOfChaosBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        BeastsOfChaosBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         void onEndCombat(PlayerId player) override;
 

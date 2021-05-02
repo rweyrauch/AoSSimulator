@@ -47,7 +47,7 @@ namespace Khorne {
     bool AspiringDeathbringer::s_registered = false;
 
     AspiringDeathbringer::AspiringDeathbringer(SlaughterHost host, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Aspiring Deathbringer", 5, g_wounds, 7, 4, false) {
+            KhorneBase("Aspiring Deathbringer", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, ASPIRING_DEATHBRINGER};
         m_weapons = {&m_bloodAxe, &m_wrathHammer, &m_goreaxe, &m_skullhammer};
         m_battleFieldRole = Role::Leader;
@@ -134,7 +134,7 @@ namespace Khorne {
         return KhorneBase::EnumStringToInt(enumString);
     }
 
-    int AspiringDeathbringer::ComputePoints(int /*numModels*/) {
+    int AspiringDeathbringer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

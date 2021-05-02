@@ -20,8 +20,8 @@ namespace BeastsOfChaos {
 
     bool Razorgors::s_registered = false;
 
-    Razorgors::Razorgors(Greatfray fray, int numModels) :
-            BeastsOfChaosBase("Razorgors", 10, g_wounds, 6, 5, false),
+    Razorgors::Razorgors(Greatfray fray, int numModels, int points) :
+            BeastsOfChaosBase("Razorgors", 10, g_wounds, 6, 5, false, points),
             m_tusksAndHooves(Weapon::Type::Melee, "Large Tusks and Hooves", 1, 4, 4, 3, -1, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, RAZORGORS};
         m_weapons = {&m_tusksAndHooves};
@@ -33,15 +33,13 @@ namespace BeastsOfChaos {
             model->addMeleeWeapon(&m_tusksAndHooves);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Razorgors::Create(const ParameterList &parameters) {
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        return new Razorgors(fray, numModels);
+        return new Razorgors(fray, numModels, ComputePoints(parameters));
     }
 
     void Razorgors::Init() {
@@ -72,7 +70,8 @@ namespace BeastsOfChaos {
         return damage;
     }
 
-    int Razorgors::ComputePoints(int numModels) {
+    int Razorgors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

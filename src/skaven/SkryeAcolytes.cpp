@@ -20,7 +20,7 @@ namespace Skaven {
     bool SkryeAcolytes::s_registered = false;
 
     Unit *SkryeAcolytes::Create(const ParameterList &parameters) {
-        auto unit = new SkryeAcolytes();
+        auto unit = new SkryeAcolytes(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -31,7 +31,8 @@ namespace Skaven {
         return unit;
     }
 
-    int SkryeAcolytes::ComputePoints(int numModels) {
+    int SkryeAcolytes::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -57,8 +58,8 @@ namespace Skaven {
         }
     }
 
-    SkryeAcolytes::SkryeAcolytes() :
-            Skaventide("Skrye Acolytes", 6, g_wounds, 4, 6, false),
+    SkryeAcolytes::SkryeAcolytes(int points) :
+            Skaventide("Skrye Acolytes", 6, g_wounds, 4, 6, false, points),
             m_globe(Weapon::Type::Missile, "Poisoned Wind Globe", 8, 1, 4, 4, -2, RAND_D3),
             m_knife(Weapon::Type::Melee, "Rusty Knife", 1, 1, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, SKRYRE_ACOLYTES};
@@ -79,7 +80,6 @@ namespace Skaven {
             model->addMeleeWeapon(&m_knife);
             addModel(model);
         }
-        m_points = ComputePoints(numModels);
 
         return true;
     }

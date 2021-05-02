@@ -30,7 +30,7 @@ namespace SlavesToDarkness {
         auto prayer = (Prayer) GetEnumParam("Idolator Prayer", parameters, g_idolatorPrayers[0]);
         auto general = GetBoolParam("General", parameters, false);
 
-        return new ChaosChariots(legion, mark, numModels, weapons, lord, trait, prayer, general);
+        return new ChaosChariots(legion, mark, numModels, weapons, lord, trait, prayer, general, ComputePoints(parameters));
     }
 
     void ChaosChariots::Init() {
@@ -59,8 +59,8 @@ namespace SlavesToDarkness {
     }
 
     ChaosChariots::ChaosChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool idolatorLord,
-                                 CommandTrait trait, Prayer prayer, bool isGeneral) :
-            SlavesToDarknessBase("Chaos Chariots", 12, g_wounds, 6, 4, false) {
+                                 CommandTrait trait, Prayer prayer, bool isGeneral, int points) :
+            SlavesToDarknessBase("Chaos Chariots", 12, g_wounds, 6, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted,
                      &m_hooves};
@@ -102,8 +102,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_hooves);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     std::string ChaosChariots::ValueToString(const Parameter &parameter) {
@@ -126,7 +124,8 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    int ChaosChariots::ComputePoints(int numModels) {
+    int ChaosChariots::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

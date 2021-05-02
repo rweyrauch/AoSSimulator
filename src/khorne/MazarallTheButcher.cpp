@@ -37,7 +37,7 @@ namespace Khorne {
     bool MazarallTheButcher::s_registered = false;
 
     MazarallTheButcher::MazarallTheButcher(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Mazarall the Butcher", 12, g_wounds, 10, 3, false) {
+            KhorneBase("Mazarall the Butcher", 12, g_wounds, 10, 3, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, KHORNE, MONSTER, HERO, MAZARALL_THE_BUTCHER};
         m_weapons = {&m_shieldWrath, &m_harrowMeat, &m_shieldBlades};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -114,7 +114,7 @@ namespace Khorne {
         KhorneBase::onWounded();
     }
 
-    int MazarallTheButcher::ComputePoints(int /*numModels*/) {
+    int MazarallTheButcher::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

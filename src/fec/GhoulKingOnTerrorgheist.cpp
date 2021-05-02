@@ -61,7 +61,7 @@ namespace FleshEaterCourt {
     bool AbhorrantGhoulKingOnTerrorgheist::s_registered = false;
 
     AbhorrantGhoulKingOnTerrorgheist::AbhorrantGhoulKingOnTerrorgheist() :
-            FleshEaterCourts("Abhorrant Ghoul King on Terrorgheist", 14, g_wounds, 10, 4, true),
+            FleshEaterCourts("Abhorrant Ghoul King on Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 0, 0, 0, 0, 0),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 5, 3, 3, -1, 1),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
@@ -218,7 +218,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int AbhorrantGhoulKingOnTerrorgheist::ComputePoints(int /*numModels*/) {
+    int AbhorrantGhoulKingOnTerrorgheist::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

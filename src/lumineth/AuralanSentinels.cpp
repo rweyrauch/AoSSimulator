@@ -22,8 +22,8 @@ namespace LuminethRealmLords {
 
     bool AuralanSentinels::s_registered = false;
 
-    AuralanSentinels::AuralanSentinels() :
-            LuminethBase("Vanari Auralan Sentinels", 6, g_wounds, 6, 5, false),
+    AuralanSentinels::AuralanSentinels(int points) :
+            LuminethBase("Vanari Auralan Sentinels", 6, g_wounds, 6, 5, false, points),
             m_bowAimed(Weapon::Type::Missile, "Auralan Bow: Aimed", 18, 1, 3, 4, -1, 1),
             m_bowLofted(Weapon::Type::Missile, "Auralan Bow: Lofted", 30, 1, 4, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Champion's Blade", 1, 2, 3, 4, -1, 1),
@@ -58,13 +58,11 @@ namespace LuminethRealmLords {
 
         m_knownSpells.push_back(std::make_unique<PowerOfHysh>(this));
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *AuralanSentinels::Create(const ParameterList &parameters) {
-        auto unit = new AuralanSentinels();
+        auto unit = new AuralanSentinels(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
@@ -97,7 +95,8 @@ namespace LuminethRealmLords {
         }
     }
 
-    int AuralanSentinels::ComputePoints(int numModels) {
+    int AuralanSentinels::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *ScionsOfTheFlame::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new ScionsOfTheFlame(legion, numModels);
+        return new ScionsOfTheFlame(legion, numModels, ComputePoints(parameters));
     }
 
     void ScionsOfTheFlame::Init() {
@@ -44,8 +44,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ScionsOfTheFlame::ScionsOfTheFlame(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Scions of the Flame", 6, g_wounds, 5, 6, false) {
+    ScionsOfTheFlame::ScionsOfTheFlame(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Scions of the Flame", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SCIONS_OF_THE_FLAME};
         m_weapons = {&m_pots, &m_scionWeapons, &m_scionWeaponsLeaders};
 
@@ -81,11 +81,10 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_scionWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int ScionsOfTheFlame::ComputePoints(int numModels) {
+    int ScionsOfTheFlame::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

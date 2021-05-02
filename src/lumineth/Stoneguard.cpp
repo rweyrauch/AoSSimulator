@@ -23,7 +23,7 @@ namespace LuminethRealmLords {
     bool AlarithStoneguard::s_registered = false;
 
     Unit *AlarithStoneguard::Create(const ParameterList &parameters) {
-        auto unit = new AlarithStoneguard();
+        auto unit = new AlarithStoneguard(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weaponOption = (WeaponOption) GetEnumParam("Weapon", parameters,
                                                         ToInteger(WeaponOption::Diamondpick_Hammer));
@@ -55,7 +55,8 @@ namespace LuminethRealmLords {
         return LuminethBase::EnumStringToInt(enumString);
     }
 
-    int AlarithStoneguard::ComputePoints(int numModels) {
+    int AlarithStoneguard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -86,8 +87,8 @@ namespace LuminethRealmLords {
         }
     }
 
-    AlarithStoneguard::AlarithStoneguard() :
-            LuminethBase("Alarith Stoneguard", 4, g_wounds, 7, 4, false),
+    AlarithStoneguard::AlarithStoneguard(int points) :
+            LuminethBase("Alarith Stoneguard", 4, g_wounds, 7, 4, false, points),
             m_malletOrHammer(Weapon::Type::Melee, "Stone Mallet or Diamondpick Hammer", 1, 2, 3, 3, -1, 1),
             m_stratumHammer(Weapon::Type::Melee, "Stratum Hammer", 1, 3, 3, 4, 0, 1),
             m_pairedStratumHammers(Weapon::Type::Melee, "Paired Stratum Hammers", 1, 3, 3, 4, 0, 1) {
@@ -121,8 +122,6 @@ namespace LuminethRealmLords {
             model->addMeleeWeapon(&m_malletOrHammer);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }

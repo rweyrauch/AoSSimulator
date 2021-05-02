@@ -21,8 +21,8 @@ namespace DaughtersOfKhaine {
 
     bool SistersOfSlaughter::s_registered = false;
 
-    SistersOfSlaughter::SistersOfSlaughter() :
-            DaughterOfKhaine("Sisters of Slaughter", 6, g_wounds, 7, 6, false),
+    SistersOfSlaughter::SistersOfSlaughter(int points) :
+            DaughterOfKhaine("Sisters of Slaughter", 6, g_wounds, 7, 6, false, points),
             m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
             m_sacrificialKnifeHandmaiden(Weapon::Type::Melee, "Sacrificial Knife (Handmaiden)", 1, 2, 2, 4, 0, 1),
             m_barbedWhip(Weapon::Type::Melee, "Barbed Whip", 2, 2, 3, 4, 0, 1),
@@ -67,13 +67,11 @@ namespace DaughtersOfKhaine {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SistersOfSlaughter::Create(const ParameterList &parameters) {
-        auto unit = new SistersOfSlaughter();
+        auto unit = new SistersOfSlaughter(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool sacrificialKnife = GetBoolParam("Sacrificial Knife", parameters, true);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -139,7 +137,8 @@ namespace DaughtersOfKhaine {
         return wounds;
     }
 
-    int SistersOfSlaughter::ComputePoints(int numModels) {
+    int SistersOfSlaughter::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

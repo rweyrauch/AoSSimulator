@@ -26,7 +26,7 @@ namespace Khorne {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -36,7 +36,7 @@ namespace Khorne {
 
     protected:
 
-        Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers);
+        Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers, int points);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

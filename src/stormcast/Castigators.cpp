@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Castigators::s_registered = false;
 
-    Castigators::Castigators(Stormhost stormhost, int numModels) :
-            StormcastEternal(stormhost, "Castigators", 5, g_wounds, 7, 4, false),
+    Castigators::Castigators(Stormhost stormhost, int numModels, int points) :
+            StormcastEternal(stormhost, "Castigators", 5, g_wounds, 7, 4, false, points),
             m_thunderheadGreatbow(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 3, 3, -1, 1),
             m_thunderheadGreatbowPrime(Weapon::Type::Missile, "Thunderhead Greatbow", 18, 1, 2, 3, -1, 1),
             m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 2, 4, 4, 0, 1) {
@@ -41,13 +41,13 @@ namespace StormcastEternals {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
+        //m_points = computePoints();
     }
 
     Unit *Castigators::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        return new Castigators(stormhost, numModels);
+        return new Castigators(stormhost, numModels, ComputePoints(parameters));
     }
 
     void Castigators::Init() {
@@ -112,7 +112,8 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, unit);
     }
 
-    int Castigators::ComputePoints(int numModels) {
+    int Castigators::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

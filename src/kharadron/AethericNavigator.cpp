@@ -65,7 +65,7 @@ namespace KharadronOverlords {
     }
 
     AethericNavigator::AethericNavigator() :
-            KharadronBase("Aetheric Navigator", 4, g_wounds, 7, 3, false),
+            KharadronBase("Aetheric Navigator", 4, g_wounds, 7, 3, false, g_pointsPerUnit),
             m_pistol(Weapon::Type::Missile, "Ranging Pistol", 15, 2, 3, 3, -1, 1),
             m_zephyrscope(Weapon::Type::Melee, "Zephyrscope", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHERIC_NAVIGATOR};
@@ -85,7 +85,7 @@ namespace KharadronOverlords {
         m_points = g_pointsPerUnit;
     }
 
-    int AethericNavigator::ComputePoints(int /*numModels*/) {
+    int AethericNavigator::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

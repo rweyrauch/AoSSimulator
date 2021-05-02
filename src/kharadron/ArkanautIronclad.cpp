@@ -93,7 +93,7 @@ namespace KharadronOverlords {
     }
 
     ArkanautIronclad::ArkanautIronclad() :
-            KharadronBase("Arkanaut Ironclad", 10, g_wounds, 8, 3, true),
+            KharadronBase("Arkanaut Ironclad", 10, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_cannonShrapnel(Weapon::Type::Missile, "Great Sky Cannon: Shrapnel", 24, 6, 3, 3, -1, 2),
             m_cannonShell(Weapon::Type::Missile, "Great Sky Cannon: Shell", 30, 1, 3, 2, -2, 6),
             m_skyhook(Weapon::Type::Missile, "Great Skyhook", 24, 1, 3, 2, -2, 6),
@@ -207,7 +207,7 @@ namespace KharadronOverlords {
         }
     }
 
-    int ArkanautIronclad::ComputePoints(int /*numModels*/) {
+    int ArkanautIronclad::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

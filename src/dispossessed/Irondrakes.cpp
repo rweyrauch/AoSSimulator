@@ -21,8 +21,8 @@ namespace Dispossessed {
 
     bool Irondrakes::s_registered = false;
 
-    Irondrakes::Irondrakes() :
-            Dispossessed("Irondrakes", 4, g_wounds, 7, 4, false),
+    Irondrakes::Irondrakes(int points) :
+            Dispossessed("Irondrakes", 4, g_wounds, 7, 4, false, points),
             m_drakegun(Weapon::Type::Missile, "Drakegun", 16, 1, 3, 3, -1, 1),
             m_drakegunWarden(Weapon::Type::Missile, "Drakegun", 16, 1, 2, 3, -1, 1),
             m_grudgehammerTorpedo(Weapon::Type::Missile, "Grudgehammer Torpedo", 20, 1, 3, 3, -2, RAND_D3),
@@ -76,13 +76,11 @@ namespace Dispossessed {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Irondrakes::Create(const ParameterList &parameters) {
-        auto unit = new Irondrakes();
+        auto unit = new Irondrakes(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironwarden Weapon", parameters, Drakegun);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
@@ -203,7 +201,8 @@ namespace Dispossessed {
         return Unit::rollRunDistance();
     }
 
-    int Irondrakes::ComputePoints(int numModels) {
+    int Irondrakes::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

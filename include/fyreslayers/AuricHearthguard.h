@@ -17,11 +17,11 @@ namespace Fyreslayers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        AuricHearthguard();
+        AuricHearthguard(int points);
 
         ~AuricHearthguard() override = default;
 

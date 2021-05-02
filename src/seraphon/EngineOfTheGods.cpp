@@ -38,7 +38,7 @@ namespace Seraphon {
     bool EngineOfTheGods::s_registered = false;
 
     EngineOfTheGods::EngineOfTheGods(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Engine of the Gods", 8, g_wounds, 6, 4, false) {
+            SeraphonBase("Engine of the Gods", 8, g_wounds, 6, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, STEGADON, SKINK, MONSTER, HERO, ENGINE_OF_THE_GODS};
         m_weapons = {&m_javelins, &m_horns, &m_jaws, &m_stomps};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -62,8 +62,6 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_jaws);
         model->addMeleeWeapon(&m_stomps);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     EngineOfTheGods::~EngineOfTheGods() {
@@ -198,7 +196,7 @@ namespace Seraphon {
         return Rerolls::None;
     }
 
-    int EngineOfTheGods::ComputePoints(int /*numModels*/) {
+    int EngineOfTheGods::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

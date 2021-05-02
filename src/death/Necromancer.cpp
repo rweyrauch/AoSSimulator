@@ -19,7 +19,7 @@ namespace Death {
     bool Necromancer::s_registered = false;
 
     Necromancer::Necromancer() :
-            LegionOfNagashBase("Necromancer", 5, g_wounds, 10, 6, false),
+            LegionOfNagashBase("Necromancer", 5, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Necromancer's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
         m_weapons = {&m_staff};
@@ -85,7 +85,7 @@ namespace Death {
         return Unit::applyWoundSave(wounds, attackingUnit);
     }
 
-    int Necromancer::ComputePoints(int /*numModels*/) {
+    int Necromancer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

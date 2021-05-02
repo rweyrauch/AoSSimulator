@@ -18,7 +18,7 @@ namespace Skaven {
     bool WarpLightningCannon::s_registered = false;
 
     WarpLightningCannon::WarpLightningCannon() :
-            Skaventide("Warp Lightning Cannon", 3, g_wounds, 4, 4, false),
+            Skaventide("Warp Lightning Cannon", 3, g_wounds, 4, 4, false, g_pointsPerUnit),
             m_warpLightningBlast(Weapon::Type::Missile, "Warp Lightning Blast", 24, 0, 0, 0, 0, 0),
             m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, RAND_D6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, WARP_LIGHTNING_CANNON};
@@ -31,8 +31,6 @@ namespace Skaven {
         model->addMissileWeapon(&m_warpLightningBlast);
         model->addMeleeWeapon(&m_teethAndKnives);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *WarpLightningCannon::Create(const ParameterList &parameters) {
@@ -101,7 +99,7 @@ namespace Skaven {
         return mortalWounds;
     }
 
-    int WarpLightningCannon::ComputePoints(int /*numModels*/) {
+    int WarpLightningCannon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

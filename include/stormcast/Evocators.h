@@ -24,9 +24,9 @@ namespace StormcastEternals {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
-        Evocators(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore);
+        Evocators(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore, int points);
 
         ~Evocators() override = default;
 

@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool DrakespawnKnights::s_registered = false;
 
     Unit *DrakespawnKnights::Create(const ParameterList &parameters) {
-        auto unit = new DrakespawnKnights();
+        auto unit = new DrakespawnKnights(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -66,8 +66,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DrakespawnKnights::DrakespawnKnights() :
-            CitizenOfSigmar("Drakespawn Knights", 10, g_wounds, 7, 3, false),
+    DrakespawnKnights::DrakespawnKnights(int points) :
+            CitizenOfSigmar("Drakespawn Knights", 10, g_wounds, 7, 3, false, points),
             m_lance(Weapon::Type::Melee, "Barbed Lance", 2, 1, 3, 4, -1, 1),
             m_lanceDreadKnight(Weapon::Type::Melee, "Barbed Lance", 2, 2, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 2, 3, 4, 0, 1) {
@@ -103,8 +103,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }
@@ -144,7 +142,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int DrakespawnKnights::ComputePoints(int numModels) {
+    int DrakespawnKnights::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

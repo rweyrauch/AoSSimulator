@@ -20,8 +20,8 @@ namespace Fyreslayers {
 
     bool VulkiteBerzerkers::s_registered = false;
 
-    VulkiteBerzerkers::VulkiteBerzerkers() :
-            Fyreslayer("Vulkite Berzerkers", 4, g_wounds, 7, 5, false),
+    VulkiteBerzerkers::VulkiteBerzerkers(int points) :
+            Fyreslayer("Vulkite Berzerkers", 4, g_wounds, 7, 5, false, points),
             m_handaxe(Weapon::Type::Melee, "Fyresteel Handaxe", 1, 2, 3, 3, 0, 1),
             m_handaxeKarl(Weapon::Type::Melee, "Fyresteel Handaxe", 1, 3, 3, 3, 0, 1),
             m_warpick(Weapon::Type::Melee, "Fyresteel War-pick", 1, 2, 3, 4, -1, 1),
@@ -61,13 +61,11 @@ namespace Fyreslayers {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *VulkiteBerzerkers::Create(const ParameterList &parameters) {
-        auto unit = new VulkiteBerzerkers();
+        auto unit = new VulkiteBerzerkers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Handaxe_And_Shield);
         auto horn = GetBoolParam("Horn of Grimnir", parameters, false);
@@ -127,7 +125,8 @@ namespace Fyreslayers {
         return Fyreslayer::toHitRerolls(weapon, target);
     }
 
-    int VulkiteBerzerkers::ComputePoints(int numModels) {
+    int VulkiteBerzerkers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

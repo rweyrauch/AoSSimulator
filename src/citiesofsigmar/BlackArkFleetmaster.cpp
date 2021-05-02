@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
     }
 
     BlackArkFleetmaster::BlackArkFleetmaster() :
-            CitizenOfSigmar("Black Ark Fleetmaster", 6, g_wounds, 7, 4, false),
+            CitizenOfSigmar("Black Ark Fleetmaster", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_cutlass(Weapon::Type::Melee, "Black Ark Cutlass", 1, 3, 3, 4, 0, 1),
             m_murderHook(Weapon::Type::Melee, "Murder Hook", 1, 2, 4, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, HERO, BLACK_ARK_FLEETMASTER};
@@ -96,7 +96,7 @@ namespace CitiesOfSigmar {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int BlackArkFleetmaster::ComputePoints(int /*numModels*/) {
+    int BlackArkFleetmaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

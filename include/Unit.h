@@ -269,7 +269,7 @@ public:
 
 protected:
 
-    Unit(std::string name, int move, int wounds, int bravery, int save, bool fly);
+    Unit(std::string name, int move, int wounds, int bravery, int save, bool fly, int points);
 
     void attackWithWeapon(const Weapon *weapon, Unit *target, const Model *fromModel,
                           Wounds &totalWoundsInflicted, Wounds &totalWoundsSuffered);
@@ -470,6 +470,6 @@ protected:
 
 class CustomUnit : public Unit {
 public:
-    CustomUnit(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+    CustomUnit(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
 };
 

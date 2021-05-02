@@ -17,7 +17,7 @@ namespace Skaven {
     bool Doomflayer::s_registered = false;
 
     Doomflayer::Doomflayer() :
-            Skaventide("Doom-flayer", RAND_2D6, g_wounds, 4, 5, false),
+            Skaventide("Doom-flayer", RAND_2D6, g_wounds, 4, 5, false, g_pointsPerUnit),
             m_whirlingBlades(Weapon::Type::Melee, "Whirling Blades", 1, 0, 3, 3, -1, 1),
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, DOOM_FLAYER};
@@ -29,8 +29,6 @@ namespace Skaven {
         model->addMeleeWeapon(&m_whirlingBlades);
         model->addMeleeWeapon(&m_rustyKnives);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Doomflayer::Create(const ParameterList &parameters) {
@@ -102,7 +100,7 @@ namespace Skaven {
         }
     }
 
-    int Doomflayer::ComputePoints(int /*numModels*/) {
+    int Doomflayer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

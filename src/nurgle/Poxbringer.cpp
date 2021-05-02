@@ -60,7 +60,7 @@ namespace Nurgle {
     }
 
     PoxbringerHeraldOfNurgle::PoxbringerHeraldOfNurgle() :
-            NurgleBase("Poxbringer, Herald of Nurgle", 4, g_wounds, 10, 4, false),
+            NurgleBase("Poxbringer, Herald of Nurgle", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, POXBRINGER, WIZARD, HERALD_OF_NURGLE};
         m_weapons = {&m_balesword};
@@ -71,8 +71,6 @@ namespace Nurgle {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_balesword);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds PoxbringerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -80,7 +78,7 @@ namespace Nurgle {
         return ignoreWounds(wounds, 5);
     }
 
-    int PoxbringerHeraldOfNurgle::ComputePoints(int /*numModels*/) {
+    int PoxbringerHeraldOfNurgle::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -39,7 +39,7 @@ namespace Seraphon {
     bool Troglodon::s_registered = false;
 
     Troglodon::Troglodon(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Skink Oracle on Troglodon", 10, g_wounds, 6, 4, false) {
+            SeraphonBase("Skink Oracle on Troglodon", 10, g_wounds, 6, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, HERO, WIZARD, TROGLODON, ORACLE};
         m_weapons = {&m_spittle, &m_jaws, &m_forelimbs, &m_rod};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -68,8 +68,6 @@ namespace Seraphon {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     Troglodon::~Troglodon() {
@@ -168,7 +166,7 @@ namespace Seraphon {
         return 0;
     }
 
-    int Troglodon::ComputePoints(int /*numModels*/) {
+    int Troglodon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

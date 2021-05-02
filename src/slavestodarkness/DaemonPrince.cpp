@@ -48,7 +48,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    int DaemonPrince::ComputePoints(int /*numModels*/) {
+    int DaemonPrince::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -76,7 +76,7 @@ namespace SlavesToDarkness {
     }
 
     DaemonPrince::DaemonPrince(DamnedLegion legion, MarkOfChaos mark, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Daemon Prince", 12, g_wounds, 10, 3, true) {
+            SlavesToDarknessBase("Daemon Prince", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, HERO, MARK_OF_CHAOS, DAEMON_PRINCE};
         m_weapons = {&m_axe, &m_sword, &m_talons};
         m_battleFieldRole = Role::Leader;
@@ -114,7 +114,6 @@ namespace SlavesToDarkness {
             default:
                 break;
         }
-        m_points = g_pointsPerUnit;
     }
 
     int DaemonPrince::toHitModifier(const Weapon *weapon, const Unit *target) const {

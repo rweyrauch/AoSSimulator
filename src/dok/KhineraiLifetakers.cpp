@@ -21,8 +21,8 @@ namespace DaughtersOfKhaine {
 
     bool KhineraiLifetakers::s_registered = false;
 
-    KhineraiLifetakers::KhineraiLifetakers() :
-            DaughterOfKhaine("Khinerai Lifetakers", 14, g_wounds, 7, 6, true),
+    KhineraiLifetakers::KhineraiLifetakers(int points) :
+            DaughterOfKhaine("Khinerai Lifetakers", 14, g_wounds, 7, 6, true, points),
             m_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1),
             m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 2, 4, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
@@ -44,13 +44,11 @@ namespace DaughtersOfKhaine {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *KhineraiLifetakers::Create(const ParameterList &parameters) {
-        auto unit = new KhineraiLifetakers();
+        auto unit = new KhineraiLifetakers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
@@ -108,7 +106,8 @@ namespace DaughtersOfKhaine {
         return wounds;
     }
 
-    int KhineraiLifetakers::ComputePoints(int numModels) {
+    int KhineraiLifetakers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

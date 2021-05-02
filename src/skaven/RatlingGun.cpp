@@ -17,7 +17,7 @@ namespace Skaven {
     bool RatlingGun::s_registered = false;
 
     RatlingGun::RatlingGun() :
-            Skaventide("Ratling Gun", 6, g_wounds, 4, 6, false),
+            Skaventide("Ratling Gun", 6, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_ratlingGun(Weapon::Type::Missile, "Ratling Gun", 12, 0, 4, 4, -1, 1),
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, RATLING_GUN};
@@ -29,8 +29,6 @@ namespace Skaven {
         model->addMissileWeapon(&m_ratlingGun);
         model->addMeleeWeapon(&m_rustyKnives);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *RatlingGun::Create(const ParameterList &parameters) {
@@ -91,7 +89,7 @@ namespace Skaven {
         }
     }
 
-    int RatlingGun::ComputePoints(int /*numModels*/) {
+    int RatlingGun::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

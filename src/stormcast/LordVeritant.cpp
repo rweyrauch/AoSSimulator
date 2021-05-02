@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool LordVeritant::s_registered = false;
 
     LordVeritant::LordVeritant(Stormhost stormhost, PrayersOfTheStormhost prayer, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Lord-Veritant", 5, g_wounds, 9, 3, false),
+            StormcastEternal(stormhost, "Lord-Veritant", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_judgementBlade(Weapon::Type::Melee, "Judgement Blade", 1, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, PRIEST, LORD_VERITANT};
         m_weapons = {&m_judgementBlade};
@@ -93,7 +93,7 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    int LordVeritant::ComputePoints(int /*numModels*/) {
+    int LordVeritant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

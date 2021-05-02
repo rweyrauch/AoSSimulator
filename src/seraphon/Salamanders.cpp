@@ -22,8 +22,8 @@ namespace Seraphon {
 
     bool Salamanders::s_registered = false;
 
-    Salamanders::Salamanders(WayOfTheSeraphon way, Constellation constellation, int numModels) :
-            SeraphonBase("Salamanders", 8, g_wounds, 5, 4, false) {
+    Salamanders::Salamanders(WayOfTheSeraphon way, Constellation constellation, int numModels, int points) :
+            SeraphonBase("Salamanders", 8, g_wounds, 5, 4, false, points) {
         m_keywords = {ORDER, SERAPHON, SKINK, SALAMANDER, HUNTING_PACK};
         m_weapons = {&m_streamOfFire, &m_jaws, &m_goad};
 
@@ -38,8 +38,6 @@ namespace Seraphon {
             model->addMeleeWeapon(&m_goad);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Salamanders::Create(const ParameterList &parameters) {
@@ -47,7 +45,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new Salamanders(way, constellation, numModels);
+        return new Salamanders(way, constellation, numModels, ComputePoints(parameters));
     }
 
     void Salamanders::Init() {
@@ -70,7 +68,8 @@ namespace Seraphon {
         }
     }
 
-    int Salamanders::ComputePoints(int numModels) {
+    int Salamanders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

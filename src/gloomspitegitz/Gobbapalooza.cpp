@@ -42,12 +42,12 @@ namespace GloomspiteGitz {
         }
     }
 
-    int Gobbapalooza::ComputePoints(int /*numModels*/) {
+    int Gobbapalooza::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
     Gobbapalooza::Gobbapalooza() :
-            GloomspiteGitzBase("Gobbapalooza", 5, g_wounds, 5, 6, false),
+            GloomspiteGitzBase("Gobbapalooza", 5, g_wounds, 5, 6, false, g_pointsPerUnit),
             m_tusksAndFangs(Weapon::Type::Melee, "Boingob's Tusks and Fangs", 1, 4, 4, 3, -1, RAND_D3),
             m_stikka(Weapon::Type::Melee, "Concealed Stikka", 1, 2, 4, 4, -1, 1),
             m_scorpisquigStikka(Weapon::Type::Melee, "Scorpisquig Stikka", 2, 1, 4, 4, 0, RAND_D3),
@@ -84,8 +84,6 @@ namespace GloomspiteGitz {
         shroomancer->addMeleeWeapon(&m_knife);
         shroomancer->setName("Shroomancer");
         addModel(shroomancer);
-
-        m_points = ComputePoints(1);
     }
 
     int Gobbapalooza::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

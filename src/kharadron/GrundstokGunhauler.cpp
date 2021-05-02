@@ -74,7 +74,7 @@ namespace KharadronOverlords {
     }
 
     GrundstokGunhauler::GrundstokGunhauler() :
-            KharadronBase("Grundstok Gunhauler", 12, g_wounds, 7, 4, true),
+            KharadronBase("Grundstok Gunhauler", 12, g_wounds, 7, 4, true, g_pointsPerUnit),
             m_cannonShrapnel(),
             m_cannonShell(),
             m_drillCannon(),
@@ -144,7 +144,7 @@ namespace KharadronOverlords {
         }
     }
 
-    int GrundstokGunhauler::ComputePoints(int /*numModels*/) {
+    int GrundstokGunhauler::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

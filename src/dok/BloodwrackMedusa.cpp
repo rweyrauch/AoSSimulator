@@ -20,7 +20,7 @@ namespace DaughtersOfKhaine {
     bool BloodwrackMedusa::s_registered = false;
 
     BloodwrackMedusa::BloodwrackMedusa() :
-            DaughterOfKhaine("Bloodwrack Medusa", 8, g_wounds, 8, 5, false),
+            DaughterOfKhaine("Bloodwrack Medusa", 8, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_bloodwrackStare(Weapon::Type::Missile, "Bloodwrack Stare", 10, 1, 0, 0, -7, 0),
             m_whisperclaw(Weapon::Type::Melee, "Whisperclaw", 1, 4, 3, 3, 0, 1),
             m_tailOfSerpents(Weapon::Type::Melee, "Tail of Serpents", 2, RAND_D6, 4, 4, 0, 1),
@@ -104,7 +104,7 @@ namespace DaughtersOfKhaine {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int BloodwrackMedusa::ComputePoints(int /*numModels*/) {
+    int BloodwrackMedusa::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

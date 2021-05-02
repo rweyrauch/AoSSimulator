@@ -21,7 +21,7 @@ namespace Sylvaneth {
     bool Branchwraith::s_registered = false;
 
     Branchwraith::Branchwraith(Glade glade, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SylvanethBase("Branchwraith", 7, g_wounds, 8, 5, false),
+            SylvanethBase("Branchwraith", 7, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_piercingTalons(Weapon::Type::Melee, "Piercing Talons", 2, 3, 4, 4, -1, 1) {
         m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, HERO, WIZARD, BRANCHWRAITH};
         m_weapons = {&m_piercingTalons};
@@ -88,7 +88,7 @@ namespace Sylvaneth {
         return modifier;
     }
 
-    int Branchwraith::ComputePoints(int /*numModels*/) {
+    int Branchwraith::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

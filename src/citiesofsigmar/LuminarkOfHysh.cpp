@@ -125,7 +125,7 @@ namespace CitiesOfSigmar {
     }
 
     LuminarkOfHysh::LuminarkOfHysh() :
-            CitizenOfSigmar("Luminark of Hysh", 10, g_wounds, 6, 4, false),
+            CitizenOfSigmar("Luminark of Hysh", 10, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_beamOfLight(Weapon::Type::Missile, "Searing Beam of Light", 30, 1, 0, 0, 0, 0),
             m_wizardsStaff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_arcaneTools(Weapon::Type::Melee, "Arcane Tools", 1, 4, 5, 5, 0, 1),
@@ -216,7 +216,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int LuminarkOfHysh::ComputePoints(int /*numModels*/) {
+    int LuminarkOfHysh::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

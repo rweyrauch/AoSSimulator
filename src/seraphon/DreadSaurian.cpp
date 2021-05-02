@@ -35,7 +35,7 @@ namespace Seraphon {
             };
 
     DreadSaurian::DreadSaurian(WayOfTheSeraphon way, Constellation constellation) :
-            SeraphonBase("Dread Saurian", 10, g_wounds, 8, 4, false) {
+            SeraphonBase("Dread Saurian", 10, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, MONSTER, TOTEM, DREAD_SAURIAN};
         m_weapons = {&m_gargantuanJaws, &m_rakingClaws, &m_armouredTail};
         m_battleFieldRole = Role::Behemoth;
@@ -49,8 +49,6 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_rakingClaws);
         model->addMeleeWeapon(&m_armouredTail);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     DreadSaurian::~DreadSaurian() {
@@ -143,7 +141,7 @@ namespace Seraphon {
         }
     }
 
-    int DreadSaurian::ComputePoints(int /*numModels*/) {
+    int DreadSaurian::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

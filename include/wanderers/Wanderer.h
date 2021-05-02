@@ -21,8 +21,8 @@ namespace Wanderers {
         ~Wanderer() override = default;
 
     protected:
-        Wanderer(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {
+        Wanderer(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
             // Melt Away
             m_retreatAndShoot = true;
         }

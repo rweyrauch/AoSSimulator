@@ -30,7 +30,7 @@ namespace SlavesToDarkness {
         auto prayer = (Prayer) GetEnumParam("Idolator Prayer", parameters, g_idolatorPrayers[0]);
         auto general = GetBoolParam("General", parameters, false);
 
-        return new GorebeastChariots(legion, mark, numModels, weapons, lord, trait, prayer, general);
+        return new GorebeastChariots(legion, mark, numModels, weapons, lord, trait, prayer, general, ComputePoints(parameters));
     }
 
     void GorebeastChariots::Init() {
@@ -59,8 +59,8 @@ namespace SlavesToDarkness {
     }
 
     GorebeastChariots::GorebeastChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool idolatorLord,
-                                         CommandTrait trait, Prayer prayer, bool isGeneral) :
-            SlavesToDarknessBase("Gorebeast Chariots", 9, g_wounds, 6, 4, false) {
+                                         CommandTrait trait, Prayer prayer, bool isGeneral, int points) :
+            SlavesToDarknessBase("Gorebeast Chariots", 9, g_wounds, 6, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, GOREBEAST_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted, &m_fists};
         m_hasMount = true;
@@ -101,8 +101,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_fists);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     std::string GorebeastChariots::ValueToString(const Parameter &parameter) {
@@ -125,7 +123,8 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    int GorebeastChariots::ComputePoints(int numModels) {
+    int GorebeastChariots::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

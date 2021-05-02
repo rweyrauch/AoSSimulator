@@ -182,7 +182,7 @@ namespace CitiesOfSigmar {
     }
 
     Battlemage::Battlemage() :
-            CitizenOfSigmar("Battlemage", 5, g_wounds, 6, 6, false),
+            CitizenOfSigmar("Battlemage", 5, g_wounds, 6, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, HERO, WIZARD, BATTLEMAGE};
         m_weapons = {&m_staff};
@@ -250,7 +250,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int Battlemage::ComputePoints(int /*numModels*/) {
+    int Battlemage::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

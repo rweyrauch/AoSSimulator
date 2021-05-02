@@ -94,7 +94,7 @@ namespace Bonesplitterz {
     }
 
     WurrgogProphet::WurrgogProphet() :
-            Bonesplitterz("Wurrgog Prophet", 5, g_wounds, 8, 5, false),
+            Bonesplitterz("Wurrgog Prophet", 5, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_staffAndShiv(Weapon::Type::Melee, "Wurrgog Staff and Bone Shiv", 1, 4, 4, 3, 0, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, WURRGOG_PROPHET};
@@ -137,7 +137,7 @@ namespace Bonesplitterz {
         }
     }
 
-    int WurrgogProphet::ComputePoints(int /*numModels*/) {
+    int WurrgogProphet::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

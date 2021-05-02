@@ -39,7 +39,7 @@ namespace Tzeentch {
         return unit;
     }
 
-    int TheBlueScribes::ComputePoints(int /*numModels*/) {
+    int TheBlueScribes::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -65,7 +65,7 @@ namespace Tzeentch {
     }
 
     TheBlueScribes::TheBlueScribes() :
-            TzeentchBase("The Blue Scribes", 16, g_wounds, 10, 5, true),
+            TzeentchBase("The Blue Scribes", 16, g_wounds, 10, 5, true, g_pointsPerUnit),
             m_quills(Weapon::Type::Melee, "Sharpened Quills", 1, 2, 5, 5, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_BLUE_SCRIBES};
@@ -90,8 +90,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
 } // namespace Tzeentch

@@ -21,8 +21,8 @@ namespace DaughtersOfKhaine {
 
     bool KhainiteShadowstalkers::s_registered = false;
 
-    KhainiteShadowstalkers::KhainiteShadowstalkers() :
-            DaughterOfKhaine("Khainite Shadowstalkers", 6, g_wounds, 7, 5, false),
+    KhainiteShadowstalkers::KhainiteShadowstalkers(int points) :
+            DaughterOfKhaine("Khainite Shadowstalkers", 6, g_wounds, 7, 5, false, points),
             m_cursedMissiles(Weapon::Type::Missile, "Cursed Missiles", 6, 1, 4, 3, 0, 1),
             m_assassinsBlades(Weapon::Type::Melee, "Assassin's Blades", 1, 2, 4, 3, 0, 1),
             m_umbralBlades(Weapon::Type::Melee, "Umbral Blades", 1, 3, 3, 3, -1, RAND_D3) {
@@ -48,13 +48,11 @@ namespace DaughtersOfKhaine {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *KhainiteShadowstalkers::Create(const ParameterList &parameters) {
-        auto unit = new KhainiteShadowstalkers();
+        auto unit = new KhainiteShadowstalkers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
@@ -96,7 +94,8 @@ namespace DaughtersOfKhaine {
         return DaughterOfKhaine::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int KhainiteShadowstalkers::ComputePoints(int numModels) {
+    int KhainiteShadowstalkers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

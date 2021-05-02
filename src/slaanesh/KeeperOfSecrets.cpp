@@ -70,7 +70,7 @@ namespace Slaanesh {
     bool KeeperOfSecrets::s_registered = false;
 
     KeeperOfSecrets::KeeperOfSecrets() :
-            SlaaneshBase("Keeper of Secrets", 14, g_wounds, 10, 4, false),
+            SlaaneshBase("Keeper of Secrets", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
             m_ritualKnifeOrHand(Weapon::Type::Melee, "Ritual Knife or Sinistrous Hand", 1, 1, 2, 3, -1, 1),
             m_greatblade(Weapon::Type::Melee, "Elegant Greatblade", 2, 4, 3, 3, -1, 2),
@@ -102,8 +102,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *KeeperOfSecrets::Create(const ParameterList &parameters) {
@@ -263,7 +261,7 @@ namespace Slaanesh {
         return SlaaneshBase::EnumStringToInt(enumString);
     }
 
-    int KeeperOfSecrets::ComputePoints(int /*numModels*/) {
+    int KeeperOfSecrets::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

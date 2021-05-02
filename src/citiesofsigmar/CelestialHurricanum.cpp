@@ -152,7 +152,7 @@ namespace CitiesOfSigmar {
     }
 
     CelestialHurricanum::CelestialHurricanum() :
-            CitizenOfSigmar("Celestial Hurricanum", 10, g_wounds, 6, 4, false),
+            CitizenOfSigmar("Celestial Hurricanum", 10, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_stormOfShemtek(Weapon::Type::Missile, "Storm of Shemtek", 18, 1, 0, 0, 0, 0),
             m_wizardStaff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_arcaneTools(Weapon::Type::Melee, "Arcane Tools", 1, 4, 5, 5, 0, 1),
@@ -271,7 +271,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int CelestialHurricanum::ComputePoints(int /*numModels*/) {
+    int CelestialHurricanum::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

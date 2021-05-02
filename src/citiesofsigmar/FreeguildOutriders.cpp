@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool FreeguildOutriders::s_registered = false;
 
     Unit *FreeguildOutriders::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildOutriders();
+        auto unit = new FreeguildOutriders(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool trumpeter = GetBoolParam("Trumpeter", parameters, true);
@@ -84,8 +84,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildOutriders::FreeguildOutriders() :
-            CitizenOfSigmar("Freeguild Outriders", 12, g_wounds, 6, 5, false),
+    FreeguildOutriders::FreeguildOutriders(int points) :
+            CitizenOfSigmar("Freeguild Outriders", 12, g_wounds, 6, 5, false, points),
             m_blunderbuss(Weapon::Type::Missile, "Grenade-launching Blunderbuss", 12, 1, 4, 3, -1, RAND_D3),
             m_pistols(Weapon::Type::Missile, "Brace of Pistols", 9, 2, 3, 3, -1, 1),
             m_handgun(Weapon::Type::Missile, "Repeater Handgun", 16, RAND_D3, 5, 3, -1, 1),
@@ -134,8 +134,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -161,7 +159,8 @@ namespace CitiesOfSigmar {
         return extras;
     }
 
-    int FreeguildOutriders::ComputePoints(int numModels) {
+    int FreeguildOutriders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

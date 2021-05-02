@@ -38,7 +38,7 @@ namespace DaughtersOfKhaine {
     bool SlaughterQueenOnCauldronOfBlood::s_registered = false;
 
     SlaughterQueenOnCauldronOfBlood::SlaughterQueenOnCauldronOfBlood() :
-            DaughterOfKhaine("Slaughter Queen on Cauldron of Blood", 6, g_wounds, 9, 5, false),
+            DaughterOfKhaine("Slaughter Queen on Cauldron of Blood", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
             m_burningBlood(Weapon::Type::Missile, "Torrent of Burning Blood", 10, 6, 3, 3, -1, 1),
             m_knives(Weapon::Type::Melee, "Witch Aelves' Sacrificial Knives", 1, 8, 3, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Slaughter Queen's Blade of Khaine", 1, 4, 3, 4, -1, 1),
@@ -170,7 +170,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int SlaughterQueenOnCauldronOfBlood::ComputePoints(int /*numModels*/) {
+    int SlaughterQueenOnCauldronOfBlood::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

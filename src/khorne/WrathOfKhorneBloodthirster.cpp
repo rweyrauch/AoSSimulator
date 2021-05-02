@@ -35,7 +35,7 @@ namespace Khorne {
     bool WrathOfKhorneBloodthirster::s_registered = false;
 
     WrathOfKhorneBloodthirster::WrathOfKhorneBloodthirster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Wrath of Khorne Bloodthirster", 10, g_wounds, 10, 4, true) {
+            KhorneBase("Wrath of Khorne Bloodthirster", 10, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, WRATH_OF_KHORNE_BLOODTHIRSTER};
         m_weapons = {&m_bloodflail, &m_mightyAxeOfKhorne, &m_breath};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -135,7 +135,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int WrathOfKhorneBloodthirster::ComputePoints(int /*numModels*/) {
+    int WrathOfKhorneBloodthirster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

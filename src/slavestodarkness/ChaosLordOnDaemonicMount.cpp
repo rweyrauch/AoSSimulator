@@ -48,7 +48,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosLordOnDaemonicMount::ChaosLordOnDaemonicMount(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Chaos Lord On Daemonic Mount", 10, g_wounds, 8, 4, false) {
+            SlavesToDarknessBase("Chaos Lord On Daemonic Mount", 10, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_hammer, &m_hooves};
         m_battleFieldRole = Role::Leader;
@@ -89,7 +89,7 @@ namespace SlavesToDarkness {
         return damage;
     }
 
-    int ChaosLordOnDaemonicMount::ComputePoints(int /*numModels*/) {
+    int ChaosLordOnDaemonicMount::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

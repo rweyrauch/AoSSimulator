@@ -57,7 +57,7 @@ namespace IdonethDeepkin {
     }
 
     EidolonOfMathlannAspectOfTheStorm::EidolonOfMathlannAspectOfTheStorm() :
-            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Storm", 12, g_wounds, 10, 3, true),
+            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Storm", 12, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_spear(Weapon::Type::Melee, "Spear of Repressed Fury", 2, 4, 3, 2, -2, 2),
             m_crulhook(Weapon::Type::Melee, "Crulhook", 1, 4, 3, 2, -1, 1),
             m_fangs(Weapon::Type::Melee, "Sharp Fangs", 3, RAND_2D6, 4, 4, 0, 1) {
@@ -106,7 +106,7 @@ namespace IdonethDeepkin {
         }
     }
 
-    int EidolonOfMathlannAspectOfTheStorm::ComputePoints(int /*numModels*/) {
+    int EidolonOfMathlannAspectOfTheStorm::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

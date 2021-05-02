@@ -24,7 +24,7 @@ namespace LuminethRealmLords {
         return new VanariStarshardBallistas(nation);
     }
 
-    int VanariStarshardBallistas::ComputePoints(int numModels) {
+    int VanariStarshardBallistas::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -46,7 +46,7 @@ namespace LuminethRealmLords {
     }
 
     VanariStarshardBallistas::VanariStarshardBallistas(GreatNation nation) :
-            LuminethBase("Vanari Starshard Ballistas", 6, g_wounds, 6, 5, false) {
+            LuminethBase("Vanari Starshard Ballistas", 6, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, STARSHARD_BALLISTAS};
         m_weapons = {&m_bolts, &m_swords};
         m_battleFieldRole = Role::Artillery;
@@ -57,8 +57,6 @@ namespace LuminethRealmLords {
         model->addMissileWeapon(&m_bolts);
         model->addMeleeWeapon(&m_swords);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     int VanariStarshardBallistas::extraAttacks(const Model *attackingModel, const Weapon *weapon,

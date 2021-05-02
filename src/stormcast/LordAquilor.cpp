@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool LordAquilor::s_registered = false;
 
     LordAquilor::LordAquilor(Stormhost stormhost, bool astralCompass, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Lord-Aquilor", 12, g_wounds, 9, 3, false),
+            StormcastEternal(stormhost, "Lord-Aquilor", 12, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_boltstormPistol(Weapon::Type::Missile, "Heavy Boltstorm Pistol", 9, 4, 3, 3, 0, 1),
             m_starboundBlade(Weapon::Type::Melee, "Starbound Blade", 1, 3, 3, 3, -1, 2),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 3, 3, 0, 1),
@@ -84,7 +84,7 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int LordAquilor::ComputePoints(int /*numModels*/) {
+    int LordAquilor::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool Fiends::s_registered = false;
 
-    Fiends::Fiends() :
-            SlaaneshBase("Fiends", 12, g_wounds, 10, 5, false),
+    Fiends::Fiends(int points) :
+            SlaaneshBase("Fiends", 12, g_wounds, 10, 5, false, points),
             m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
             m_deadlyPincersBlissbringer(Weapon::Type::Melee, "Deadly Pincers", 1, 5, 3, 3, -1, 1),
             m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1) {
@@ -53,13 +53,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Fiends::Create(const ParameterList &parameters) {
-        auto unit = new Fiends();
+        auto unit = new Fiends(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
@@ -129,7 +127,8 @@ namespace Slaanesh {
         return SlaaneshBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Fiends::ComputePoints(int numModels) {
+    int Fiends::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

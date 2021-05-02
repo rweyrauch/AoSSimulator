@@ -57,7 +57,7 @@ namespace Nurgle {
     }
 
     SloppityBilepiperHeraldOfNurgle::SloppityBilepiperHeraldOfNurgle() :
-            NurgleBase("Sloppity Bilepiper, Herald of Nurgle", 4, g_wounds, 10, 5, false),
+            NurgleBase("Sloppity Bilepiper, Herald of Nurgle", 4, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_marotter(Weapon::Type::Melee, "Marotter", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SLOPPITY_BILEPIPER, HERALD_OF_NURGLE};
         m_weapons = {&m_marotter};
@@ -75,8 +75,6 @@ namespace Nurgle {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_marotter);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds SloppityBilepiperHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -94,7 +92,7 @@ namespace Nurgle {
         return 0;
     }
 
-    int SloppityBilepiperHeraldOfNurgle::ComputePoints(int /*numModels*/) {
+    int SloppityBilepiperHeraldOfNurgle::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

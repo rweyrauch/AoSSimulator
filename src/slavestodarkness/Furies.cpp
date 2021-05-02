@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *Furies::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new Furies(legion, numModels);
+        return new Furies(legion, numModels, ComputePoints(parameters));
     }
 
     void Furies::Init() {
@@ -43,8 +43,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    Furies::Furies(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Furies", 12, g_wounds, 10, NoSave, true) {
+    Furies::Furies(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Furies", 12, g_wounds, 10, NoSave, true, points) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES};
         m_weapons = {&m_daggerAndClaws};
 
@@ -55,11 +55,10 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_daggerAndClaws);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int Furies::ComputePoints(int numModels) {
+    int Furies::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

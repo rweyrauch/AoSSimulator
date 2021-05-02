@@ -21,8 +21,8 @@ namespace Dispossessed {
 
     bool Thunderers::s_registered = false;
 
-    Thunderers::Thunderers() :
-            Dispossessed("Thunderers", 4, g_wounds, 6, 5, false),
+    Thunderers::Thunderers(int points) :
+            Dispossessed("Thunderers", 4, g_wounds, 6, 5, false, points),
             m_duardinHandgun(Weapon::Type::Missile, "Duardin Handgun", 16, 1, 4, 3, -1, 1),
             m_duardinHandgunVeteran(Weapon::Type::Missile, "Duardin Handgun (Veteran)", 16, 1, 3, 3, -1, 1),
             m_braceOfDuardinPistols(Weapon::Type::Missile, "Brace of Duardin Pistols", 8, 2, 4, 3, -1, 1),
@@ -69,13 +69,11 @@ namespace Dispossessed {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Thunderers::Create(const ParameterList &parameters) {
-        auto unit = new Thunderers();
+        auto unit = new Thunderers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapon = (WeaponOptions) GetEnumParam("Veteran Weapon", parameters, Duardin_Handgun);
         bool duardinBucklers = GetBoolParam("Duardin Bucklers", parameters, false);
@@ -178,7 +176,8 @@ namespace Dispossessed {
         return modifier;
     }
 
-    int Thunderers::ComputePoints(int numModels) {
+    int Thunderers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

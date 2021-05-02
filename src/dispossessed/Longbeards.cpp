@@ -20,8 +20,8 @@ namespace Dispossessed {
 
     bool Longbeards::s_registered = false;
 
-    Longbeards::Longbeards() :
-            Dispossessed("Longbeards", 4, g_wounds, 7, 4, false),
+    Longbeards::Longbeards(int points) :
+            Dispossessed("Longbeards", 4, g_wounds, 7, 4, false, points),
             m_ancestralAxeHammer(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 1, 3, 4, 0, 1),
             m_ancestralGreatAxe(Weapon::Type::Melee, "Ancestral Great Axe", 1, 1, 4, 3, -1, 1),
             m_ancestralAxeHammerOldGuard(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 2, 3, 4, 0, 1),
@@ -64,13 +64,11 @@ namespace Dispossessed {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Longbeards::Create(const ParameterList &parameters) {
-        auto unit = new Longbeards();
+        auto unit = new Longbeards(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancestral_Axes_Or_Hammers);
         bool gromrilShields = GetBoolParam("Gromril Shields", parameters, false);
@@ -153,7 +151,8 @@ namespace Dispossessed {
         }
     }
 
-    int Longbeards::ComputePoints(int numModels) {
+    int Longbeards::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

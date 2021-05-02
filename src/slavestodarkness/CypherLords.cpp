@@ -23,7 +23,7 @@ namespace SlavesToDarkness {
     Unit *CypherLords::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new CypherLords(legion, numModels);
+        return new CypherLords(legion, numModels, ComputePoints(parameters));
     }
 
     void CypherLords::Init() {
@@ -44,8 +44,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    CypherLords::CypherLords(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Cypher Lords", 6, g_wounds, 5, 6, false),
+    CypherLords::CypherLords(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Cypher Lords", 6, g_wounds, 5, 6, false, points),
             m_throwingStars(Weapon::Type::Missile, "Throwing Stars and Chakrams", 8, 1, 4, 5, 0, 1),
             m_exoticBlades(Weapon::Type::Melee, "Exotic Blades", 1, 1, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CYPHER_LORDS};
@@ -71,8 +71,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_exoticBlades);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     int CypherLords::chargeModifier() const {
@@ -83,7 +81,8 @@ namespace SlavesToDarkness {
         return modifier;
     }
 
-    int CypherLords::ComputePoints(int numModels) {
+    int CypherLords::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

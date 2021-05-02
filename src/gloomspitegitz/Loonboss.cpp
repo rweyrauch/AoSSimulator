@@ -20,7 +20,7 @@ namespace GloomspiteGitz {
     bool Loonboss::s_registered = false;
 
     Loonboss::Loonboss() :
-            GloomspiteGitzBase("Loonboss", 5, g_wounds, 5, 5, false),
+            GloomspiteGitzBase("Loonboss", 5, g_wounds, 5, 5, false, g_pointsPerUnit),
             m_moonslicer(Weapon::Type::Melee, "Moon-slicer", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_moonslicer};
@@ -79,7 +79,7 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int Loonboss::ComputePoints(int /*numModels*/) {
+    int Loonboss::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -73,7 +73,7 @@ namespace OssiarchBonereapers {
     }
 
     GothizzarHarvester::GothizzarHarvester(Legion legion, WeaponOption option) :
-            OssiarchBonereaperBase("Gothizzar Harvester", 6, g_wounds, 10, 4, false) {
+            OssiarchBonereaperBase("Gothizzar Harvester", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MONSTER, GOTHIZZAR_HARVESTER};
         m_weapons = {&m_deathsHeadMaw, &m_sickles, &m_bludgeons, &m_hoovesAndTail};
         m_battleFieldRole = Role::Behemoth;
@@ -90,8 +90,6 @@ namespace OssiarchBonereapers {
         model->addMeleeWeapon(&m_hoovesAndTail);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void GothizzarHarvester::onWounded() {
@@ -133,7 +131,7 @@ namespace OssiarchBonereapers {
         return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int GothizzarHarvester::ComputePoints(int /*numModels*/) {
+    int GothizzarHarvester::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

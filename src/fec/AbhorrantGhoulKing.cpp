@@ -19,7 +19,7 @@ namespace FleshEaterCourt {
     bool AbhorrantGhoulKing::s_registered = false;
 
     AbhorrantGhoulKing::AbhorrantGhoulKing() :
-            FleshEaterCourts("Abhorrant Ghoul King", 6, g_wounds, 10, 4, false),
+            FleshEaterCourts("Abhorrant Ghoul King", 6, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 6, 3, 3, -1, 1) {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
                       ABHORRANT_GHOUL_KING};
@@ -111,7 +111,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int AbhorrantGhoulKing::ComputePoints(int /*numModels*/) {
+    int AbhorrantGhoulKing::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -17,7 +17,7 @@ namespace Fyreslayers {
     bool TheChosenAxes::s_registered = false;
 
     TheChosenAxes::TheChosenAxes() :
-            Fyreslayer("The Chosen Axes", 4, g_wounds, 7, 5, false),
+            Fyreslayer("The Chosen Axes", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_handaxes(Weapon::Type::Melee, "Fyresteel Handaxes", 1, 2, 3, 3, 0, 1),
             m_handaxesTefk(Weapon::Type::Melee, "Fyresteel Handaxes", 1, 3, 3, 3, 0, 1),
             m_greatAxe(Weapon::Type::Missile, "Fyresteel Great Axe", 1, 2, 3, 4, -1, 2) {
@@ -40,8 +40,6 @@ namespace Fyreslayers {
         vol->addMeleeWeapon(&m_greatAxe);
         vol->setName("Vol Orrukbane");
         addModel(vol);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *TheChosenAxes::Create(const ParameterList &parameters) {
@@ -76,7 +74,7 @@ namespace Fyreslayers {
         return Fyreslayer::toHitRerolls(weapon, target);
     }
 
-    int TheChosenAxes::ComputePoints(int /*numModels*/) {
+    int TheChosenAxes::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

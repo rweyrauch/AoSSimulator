@@ -19,7 +19,7 @@ namespace StormcastEternals {
     bool StormsiresCursebreakers::s_registered = false;
 
     StormsiresCursebreakers::StormsiresCursebreakers(Lore lore) :
-            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Stormsire's Cursebreakers", 5, g_wounds, 8, 4, false),
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Stormsire's Cursebreakers", 5, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, CORPUSCANT,
                       WIZARD, EVOCATORS, STORMSIRES_CURSEBREAKERS};
@@ -106,7 +106,7 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, target);
     }
 
-    int StormsiresCursebreakers::ComputePoints(int /*numModels*/) {
+    int StormsiresCursebreakers::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

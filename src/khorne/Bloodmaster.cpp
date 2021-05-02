@@ -19,7 +19,7 @@ namespace Khorne {
     bool Bloodmaster::s_registered = false;
 
     Bloodmaster::Bloodmaster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Bloodmaster", 5, g_wounds, 10, 4, false) {
+            KhorneBase("Bloodmaster", 5, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, BLOODMASTER};
         m_weapons = {&m_bladeOfBlood};
         m_battleFieldRole = Role::Leader;
@@ -88,7 +88,7 @@ namespace Khorne {
         KhorneBase::onEndCombat(player);
     }
 
-    int Bloodmaster::ComputePoints(int /*numModels*/) {
+    int Bloodmaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

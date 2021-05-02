@@ -21,7 +21,7 @@ namespace Bonesplitterz {
     bool SavageBigStabbas::s_registered = false;
 
     Unit *SavageBigStabbas::Create(const ParameterList &parameters) {
-        auto unit = new SavageBigStabbas();
+        auto unit = new SavageBigStabbas(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
@@ -54,8 +54,8 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageBigStabbas::SavageBigStabbas() :
-            Bonesplitterz("Savage Big Stabbas", 5, g_wounds, 6, 6, false),
+    SavageBigStabbas::SavageBigStabbas(int points) :
+            Bonesplitterz("Savage Big Stabbas", 5, g_wounds, 6, 6, false, points),
             m_gorkToof(Weapon::Type::Melee, "Gorktoof", 3, 3, 3, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_BIG_STABBAS};
         m_weapons = {&m_gorkToof};
@@ -91,8 +91,6 @@ namespace Bonesplitterz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -104,7 +102,8 @@ namespace Bonesplitterz {
         return Bonesplitterz::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SavageBigStabbas::ComputePoints(int numModels) {
+    int SavageBigStabbas::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

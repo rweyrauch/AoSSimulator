@@ -18,7 +18,7 @@ namespace Nurgle {
     bool LordOfPlagues::s_registered = false;
 
     LordOfPlagues::LordOfPlagues() :
-            NurgleBase("Lord of Plagues", 4, g_wounds, 9, 4, false),
+            NurgleBase("Lord of Plagues", 4, g_wounds, 9, 4, false, g_pointsPerUnit),
             m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES};
         m_weapons = {&m_plagueriddenGreatBlade};
@@ -29,8 +29,6 @@ namespace Nurgle {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_plagueriddenGreatBlade);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *LordOfPlagues::Create(const ParameterList &parameters) {
@@ -83,7 +81,7 @@ namespace Nurgle {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int LordOfPlagues::ComputePoints(int /*numModels*/) {
+    int LordOfPlagues::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -19,8 +19,8 @@ namespace EldritchCouncil {
 
     bool Swordmasters::s_registered = false;
 
-    Swordmasters::Swordmasters() :
-            Unit("Swordmasters", 6, g_wounds, 7, 4, false),
+    Swordmasters::Swordmasters(int points) :
+            Unit("Swordmasters", 6, g_wounds, 7, 4, false, points),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1),
             m_greatswordLord(Weapon::Type::Melee, "Greatsword", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, SWORDMASTERS};
@@ -49,13 +49,11 @@ namespace EldritchCouncil {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Swordmasters::Create(const ParameterList &parameters) {
-        auto unit = new Swordmasters();
+        auto unit = new Swordmasters(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -100,7 +98,8 @@ namespace EldritchCouncil {
         return Unit::toSaveRerolls(weapon, attacker);
     }
 
-    int Swordmasters::ComputePoints(int numModels) {
+    int Swordmasters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

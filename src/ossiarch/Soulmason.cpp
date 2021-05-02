@@ -79,7 +79,7 @@ namespace OssiarchBonereapers {
     }
 
     MortisanSoulmason::MortisanSoulmason(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            OssiarchBonereaperBase("Mortisan Soulmason", 5, g_wounds, 10, 5, false) {
+            OssiarchBonereaperBase("Mortisan Soulmason", 5, g_wounds, 10, 5, false, g_pointsPerUnit) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTISAN, HERO, WIZARD, MORTISAN_SOULMASON};
         m_weapons = {&m_staff, &m_claws};
         m_battleFieldRole = Role::Leader;
@@ -101,11 +101,9 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int MortisanSoulmason::ComputePoints(int /*numModels*/) {
+    int MortisanSoulmason::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -20,8 +20,8 @@ namespace Ironjawz {
 
     bool OrrukBrutes::s_registered = false;
 
-    OrrukBrutes::OrrukBrutes() :
-            Ironjawz("Orruk Brutes", 4, g_wounds, 6, 4, false),
+    OrrukBrutes::OrrukBrutes(int points) :
+            Ironjawz("Orruk Brutes", 4, g_wounds, 6, 4, false, points),
             m_twoBruteChoppas(Weapon::Type::Melee, "Pair of Brute Choppas", 1, 4, 3, 3, -1, 1),
             m_gorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 3, 3, -1, 1),
             m_gorechoppa(Weapon::Type::Melee, "Gore-choppa", 2, 3, 4, 3, -1, 2),
@@ -68,13 +68,11 @@ namespace Ironjawz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *OrrukBrutes::Create(const ParameterList &parameters) {
-        auto unit = new OrrukBrutes();
+        auto unit = new OrrukBrutes(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Two_Brute_Choppas);
         int numGoreChoppas = GetIntParam("Gore Choppas", parameters, 0);
@@ -156,7 +154,8 @@ namespace Ironjawz {
         return Ironjawz::toHitRerolls(weapon, target);
     }
 
-    int OrrukBrutes::ComputePoints(int numModels) {
+    int OrrukBrutes::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

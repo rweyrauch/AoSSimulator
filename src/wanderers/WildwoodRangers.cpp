@@ -19,8 +19,8 @@ namespace Wanderers {
 
     bool WildwoodRangers::s_registered = false;
 
-    WildwoodRangers::WildwoodRangers() :
-            Wanderer("Wildwood Rangers", 6, g_wounds, 7, 5, false),
+    WildwoodRangers::WildwoodRangers(int points) :
+            Wanderer("Wildwood Rangers", 6, g_wounds, 7, 5, false, points),
             m_rangersDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 2, 3, 3, -1, 1),
             m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, WANDERER, WILDWOOD_RANGERS};
@@ -49,13 +49,11 @@ namespace Wanderers {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *WildwoodRangers::Create(const ParameterList &parameters) {
-        auto unit = new WildwoodRangers();
+        auto unit = new WildwoodRangers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -112,7 +110,8 @@ namespace Wanderers {
         return modifier;
     }
 
-    int WildwoodRangers::ComputePoints(int numModels) {
+    int WildwoodRangers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool KnightIncantor::s_registered = false;
 
     KnightIncantor::KnightIncantor(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Knight-Incantor", 5, g_wounds, 9, 3, false),
+            StormcastEternal(stormhost, "Knight-Incantor", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, KNIGHT_INCANTOR};
         m_weapons = {&m_staff};
@@ -85,7 +85,7 @@ namespace StormcastEternals {
         }
     }
 
-    int KnightIncantor::ComputePoints(int /*numModels*/) {
+    int KnightIncantor::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

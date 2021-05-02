@@ -28,7 +28,7 @@ namespace OgorMawtribes {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -38,9 +38,8 @@ namespace OgorMawtribes {
 
     protected:
 
-        OgorGluttons(Mawtribe tribe, int numModels, WeaponOption option, bool skullBearer, bool bannerBearer,
-                     bool lookoutGnoblar,
-                     bool bellower);
+        OgorGluttons(Mawtribe tribe, int numModels, WeaponOption option, bool skullBearer, bool bannerBearer, bool lookoutGnoblar,
+                     bool bellower, int points);
 
     protected:
 

@@ -18,7 +18,7 @@ namespace Seraphon {
     bool SaurusScarVeteranOnColdOne::s_registered = false;
 
     SaurusScarVeteranOnColdOne::SaurusScarVeteranOnColdOne(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Saurus Scar-Veteran on Cold One", 8, g_wounds, 8, 4, false) {
+            SeraphonBase("Saurus Scar-Veteran on Cold One", 8, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, COLD_ONE, SCAR_VETERAN};
         m_weapons = {&m_warpick, &m_jaws, &m_coldOneJaws};
         m_battleFieldRole = Role::Leader;
@@ -39,8 +39,6 @@ namespace Seraphon {
         m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Saurian Savagery", 18, 18, GamePhase::Combat,
                                                                                  Ability::Extra_Hit_On_Value, 6, Abilities::Target::SelfAndFriendly,
                                                                                  std::vector<Keyword>(SAURUS)));
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SaurusScarVeteranOnColdOne::Create(const ParameterList &parameters) {
@@ -83,7 +81,7 @@ namespace Seraphon {
         return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusScarVeteranOnColdOne::ComputePoints(int /*numModels*/) {
+    int SaurusScarVeteranOnColdOne::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

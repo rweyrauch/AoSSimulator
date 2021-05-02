@@ -21,7 +21,7 @@ namespace BeastsOfChaos {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -29,7 +29,7 @@ namespace BeastsOfChaos {
 
         ~TuskgorChariots() override = default;
 
-        TuskgorChariots(Greatfray fray, int numModels);
+        TuskgorChariots(Greatfray fray, int numModels, int points);
 
     protected:
 

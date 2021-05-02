@@ -36,7 +36,7 @@ namespace GloomspiteGitz {
     bool WebspinnerShamanOnArachnarokSpider::s_registered = false;
 
     WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider() :
-            GloomspiteGitzBase("Webspinner Shaman on Arachnarok Spider", 8, g_wounds, 6, 4, true),
+            GloomspiteGitzBase("Webspinner Shaman on Arachnarok Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spiderBows(Weapon::Type::Missile, "Spider-bows", 16, 8, 5, 5, 0, 1),
             m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
@@ -178,7 +178,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    int WebspinnerShamanOnArachnarokSpider::ComputePoints(int /*numModels*/) {
+    int WebspinnerShamanOnArachnarokSpider::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

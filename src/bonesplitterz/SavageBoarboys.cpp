@@ -20,7 +20,7 @@ namespace Bonesplitterz {
     bool SavageBoarboys::s_registered = false;
 
     Unit *SavageBoarboys::Create(const ParameterList &parameters) {
-        auto unit = new SavageBoarboys();
+        auto unit = new SavageBoarboys(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Chompa);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
@@ -60,8 +60,8 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageBoarboys::SavageBoarboys() :
-            Bonesplitterz("Savage Boarboys", 12, g_wounds, 5, 6, false),
+    SavageBoarboys::SavageBoarboys(int points) :
+            Bonesplitterz("Savage Boarboys", 12, g_wounds, 5, 6, false, points),
             m_chompa(Weapon::Type::Melee, "Chompa", 1, 3, 4, 3, 0, 1),
             m_stikka(Weapon::Type::Melee, "Savage Stikka", 2, 3, 4, 4, 0, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
@@ -108,8 +108,6 @@ namespace Bonesplitterz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -146,7 +144,8 @@ namespace Bonesplitterz {
         return mod;
     }
 
-    int SavageBoarboys::ComputePoints(int numModels) {
+    int SavageBoarboys::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

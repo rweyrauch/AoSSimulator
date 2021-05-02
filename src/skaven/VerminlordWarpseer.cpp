@@ -100,7 +100,7 @@ namespace Skaven {
     }
 
     VerminlordWarpseer::VerminlordWarpseer() :
-            Skaventide("Verminlord Warpseer", 12, g_wounds, 10, 4, false),
+            Skaventide("Verminlord Warpseer", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_tails(Weapon::Type::Missile, "Prehensile Tails", 6, 4, 3, 3, -1, 1),
             m_glaive(Weapon::Type::Melee, "Doom Glaive", 3, 6, 3, 2, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, MASTERCLAN, MONSTER, HERO, WIZARD,
@@ -127,8 +127,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::make_unique<DreadedWarpgale>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds VerminlordWarpseer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -205,7 +203,7 @@ namespace Skaven {
         return 0;
     }
 
-    int VerminlordWarpseer::ComputePoints(int /*numModels*/) {
+    int VerminlordWarpseer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -50,7 +50,7 @@ namespace Death {
         return unit;
     }
 
-    int NeferataMortarchOfBlood::ComputePoints(int /*numModels*/) {
+    int NeferataMortarchOfBlood::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -74,7 +74,7 @@ namespace Death {
     }
 
     NeferataMortarchOfBlood::NeferataMortarchOfBlood() :
-            LegionOfNagashBase("Neferata, Mortarch of Blood", 16, g_wounds, 10, 4, true),
+            LegionOfNagashBase("Neferata, Mortarch of Blood", 16, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_akmetHar(Weapon::Type::Melee, "Akmet-har", 1, 5, 2, 3, -1, 1),
             m_akenSeth(Weapon::Type::Melee, "Aken-seth", 1, 2, 2, 3, -2, 2),
             m_skeletalClaws(Weapon::Type::Melee, "Nagadron's Skeletal Claws", 1, 6, 4, 3, -2, 2),

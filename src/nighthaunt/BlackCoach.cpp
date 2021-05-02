@@ -56,7 +56,7 @@ namespace Nighthaunt {
     }
 
     BlackCoach::BlackCoach() :
-            Nighthaunt("Black Coach", 14, g_wounds, 10, 4, true),
+            Nighthaunt("Black Coach", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_graspMissile(Weapon::Type::Missile, "Cairn Wraith's Soulreach Grasp", 10, 1, 3, 3, -3, RAND_D3),
             m_scythe(Weapon::Type::Melee, "Cairn Wraith's Reaper Scythe", 1, 3, 4, 3, -1, 2),
             m_grasp(Weapon::Type::Melee, "Cairn Wraith's Soulreach Grasp", 3, 1, 3, 3, -3, RAND_D3),
@@ -78,8 +78,6 @@ namespace Nighthaunt {
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     void BlackCoach::onWounded() {
@@ -188,7 +186,7 @@ namespace Nighthaunt {
         return Nighthaunt::toHitRerolls(weapon, target);
     }
 
-    int BlackCoach::ComputePoints(int /*numModels*/) {
+    int BlackCoach::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

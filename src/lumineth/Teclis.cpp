@@ -103,7 +103,7 @@ namespace LuminethRealmLords {
         return unit;
     }
 
-    int ArchmageTeclis::ComputePoints(int /*numModels*/) {
+    int ArchmageTeclis::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -128,7 +128,7 @@ namespace LuminethRealmLords {
     }
 
     ArchmageTeclis::ArchmageTeclis() :
-            LuminethBase("Archmage Teclis", 12, g_wounds, 10, 4, true),
+            LuminethBase("Archmage Teclis", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Lunar Staff", 18, 1, 2, 2, -3, RAND_D3),
             m_sword(Weapon::Type::Melee, "Sword of Teclis", 1, 2, 4, 2, -3, RAND_D3),
             m_talons(Weapon::Type::Melee, "Moonbright Talons", 1, 6, 3, 3, -2, 2) {
@@ -162,8 +162,6 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     void ArchmageTeclis::onWounded() {

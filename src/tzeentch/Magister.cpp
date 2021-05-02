@@ -64,7 +64,7 @@ namespace Tzeentch {
     }
 
     Magister::Magister() :
-            TzeentchBase("Magister", 6, g_wounds, 7, 5, false),
+            TzeentchBase("Magister", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Tzeentchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_sword(Weapon::Type::Melee, "Warpsteel Sword", 1, 1, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, WIZARD, MAGISTER};
@@ -86,11 +86,9 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int Magister::ComputePoints(int /*numModels*/) {
+    int Magister::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

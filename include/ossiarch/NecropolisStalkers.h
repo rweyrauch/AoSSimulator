@@ -17,11 +17,11 @@ namespace OssiarchBonereapers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        NecropolisStalkers(Legion legion, int numModels, int numFalchions);
+        NecropolisStalkers(Legion legion, int numModels, int numFalchions, int points);
 
         NecropolisStalkers() = delete;
 

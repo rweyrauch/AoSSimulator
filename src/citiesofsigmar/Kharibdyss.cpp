@@ -70,7 +70,7 @@ namespace CitiesOfSigmar {
     }
 
     Kharibdyss::Kharibdyss() :
-            CitizenOfSigmar("Kharibdyss", 7, g_wounds, 6, 4, false),
+            CitizenOfSigmar("Kharibdyss", 7, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_tentacles(Weapon::Type::Melee, "Fanged Tentacles", 3, 6, 4, 3, -1, 2),
             m_tail(Weapon::Type::Melee, "Spiked Tail", 2, RAND_D6, 4, 2, 0, 1),
             m_limbs(Weapon::Type::Melee, "Clawed Limbs", 1, 2, 3, 3, -1, 1),
@@ -134,7 +134,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int Kharibdyss::ComputePoints(int /*numModels*/) {
+    int Kharibdyss::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

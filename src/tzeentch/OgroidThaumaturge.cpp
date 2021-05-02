@@ -94,7 +94,7 @@ namespace Tzeentch {
     }
 
     OgroidThaumaturge::OgroidThaumaturge() :
-            TzeentchBase("OgroidT haumaturge", 6, g_wounds, 8, 5, false),
+            TzeentchBase("OgroidT haumaturge", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Thaumaturge Staff", 2, 3, 3, 3, -1, RAND_D3),
             m_horns(Weapon::Type::Melee, "Great Horns", 1, 2, 3, 3, -2, 3),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 4, 4, 3, 0, 1) {
@@ -117,11 +117,9 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int OgroidThaumaturge::ComputePoints(int /*numModels*/) {
+    int OgroidThaumaturge::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

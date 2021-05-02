@@ -50,7 +50,7 @@ namespace Nurgle {
     }
 
     Nurgle::FeculaFlyblown::FeculaFlyblown() :
-            NurgleBase("Fecula Flyblown", 4, g_wounds, 8, 4, false),
+            NurgleBase("Fecula Flyblown", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Rotwood Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, BLESSED_SONS, HERO, WIZARD, SORCERER, FECULA_FLYBLOWN};
         m_weapons = {&m_staff};
@@ -67,11 +67,9 @@ namespace Nurgle {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int FeculaFlyblown::ComputePoints(int /*numModels*/) {
+    int FeculaFlyblown::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -28,7 +28,7 @@ namespace KharadronOverlords {
         return unit;
     }
 
-    int BjorgenThundrik::ComputePoints(int /*numModels*/) {
+    int BjorgenThundrik::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -50,7 +50,7 @@ namespace KharadronOverlords {
     }
 
     BjorgenThundrik::BjorgenThundrik() :
-            KharadronBase("Bjorgen Thundrik", 4, g_wounds, 7, 4, false),
+            KharadronBase("Bjorgen Thundrik", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_anatomiser(Weapon::Type::Missile, "Atmospheric Anatomiser", 9, RAND_3D6, 4, 4, -2, 1),
             m_instruments(Weapon::Type::Melee, "Heavy Instruments", 1, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, MARINE,
@@ -69,8 +69,6 @@ namespace KharadronOverlords {
         model->addMissileWeapon(&m_anatomiser);
         model->addMeleeWeapon(&m_instruments);
         addModel(model);
-
-        m_points = BjorgenThundrik::ComputePoints(1);
     }
 
     void BjorgenThundrik::onStartHero(PlayerId player) {

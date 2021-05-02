@@ -25,11 +25,11 @@ namespace Bonesplitterz {
 
         static std::string ValueToString(const Parameter &parameter);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static int EnumStringToInt(const std::string &enumString);
 
-        SavageBoarboys();
+        SavageBoarboys(int points);
 
         ~SavageBoarboys() override = default;
 

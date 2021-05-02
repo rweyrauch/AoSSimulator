@@ -20,8 +20,8 @@ namespace Nurgle {
 
     bool Nurglings::s_registered = false;
 
-    Nurglings::Nurglings() :
-            NurgleBase("Nurglings", 5, g_wounds, 10, 6, false),
+    Nurglings::Nurglings(int points) :
+            NurgleBase("Nurglings", 5, g_wounds, 10, 6, false, points),
             m_teeth(Weapon::Type::Melee, "Tiny Razor-sharp Teeth", 1, 5, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, NURGLE, NURGLINGS};
         m_weapons = {&m_teeth};
@@ -38,13 +38,11 @@ namespace Nurgle {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Nurglings::Create(const ParameterList &parameters) {
-        auto unit = new Nurglings();
+        auto unit = new Nurglings(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
@@ -76,7 +74,8 @@ namespace Nurgle {
         }
     }
 
-    int Nurglings::ComputePoints(int numModels) {
+    int Nurglings::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

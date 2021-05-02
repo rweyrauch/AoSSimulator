@@ -18,7 +18,7 @@ namespace Nighthaunt {
     bool ThornsOfTheBriarQueen::s_registered = false;
 
     ThornsOfTheBriarQueen::ThornsOfTheBriarQueen() :
-            Nighthaunt("Thorns of the Briar Queen", 6, g_wounds, 6, 5, true), // todo: bravery 6 when no Dreadwarden
+            Nighthaunt("Thorns of the Briar Queen", 6, g_wounds, 6, 5, true, g_pointsPerUnit), // todo: bravery 6 when no Dreadwarden
             m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
             m_malignantWeaponVarclav(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, CHAINRASP_HORDE, THORNS_OF_THE_BRIAR_QUEEN};
@@ -37,8 +37,6 @@ namespace Nighthaunt {
             model->addMeleeWeapon(&m_malignantWeapon);
             addModel(model);
         }
-
-        m_points = ComputePoints(g_numModels);
     }
 
     Unit *ThornsOfTheBriarQueen::Create(const ParameterList &parameters) {
@@ -74,7 +72,7 @@ namespace Nighthaunt {
         return Nighthaunt::toHitRerolls(weapon, unit);
     }
 
-    int ThornsOfTheBriarQueen::ComputePoints(int numModels) {
+    int ThornsOfTheBriarQueen::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 

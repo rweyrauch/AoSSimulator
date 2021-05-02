@@ -22,8 +22,8 @@ namespace Sylvaneth {
 
     bool KurnothHunters::s_registered = false;
 
-    KurnothHunters::KurnothHunters(Glade glade, int numModels, WeaponOption weapons) :
-            SylvanethBase("Kurnoth Hunters", 5, g_wounds, 7, 4, false),
+    KurnothHunters::KurnothHunters(Glade glade, int numModels, WeaponOption weapons, int points) :
+            SylvanethBase("Kurnoth Hunters", 5, g_wounds, 7, 4, false, points),
             m_greatbow(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 4, 3, -1, RAND_D3),
             m_greatbowHuntmaster(Weapon::Type::Missile, "Kurnoth Greatbow", 30, 2, 3, 3, -1, RAND_D3),
             m_greatsword(Weapon::Type::Melee, "Kurnoth Greatsword", 1, 4, 3, 3, -1, 2),
@@ -62,15 +62,13 @@ namespace Sylvaneth {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *KurnothHunters::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, KurnothHunters::Greatswords);
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        return new KurnothHunters(glade, numModels, weapons);
+        return new KurnothHunters(glade, numModels, weapons, ComputePoints(parameters));
     }
 
     void KurnothHunters::Init() {
@@ -139,7 +137,8 @@ namespace Sylvaneth {
         }
     }
 
-    int KurnothHunters::ComputePoints(int numModels) {
+    int KurnothHunters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

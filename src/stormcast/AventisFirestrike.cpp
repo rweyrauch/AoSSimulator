@@ -23,7 +23,7 @@ namespace StormcastEternals {
     bool AventisFirestrike::s_registered = false;
 
     AventisFirestrike::AventisFirestrike(Lore lore, MountTrait trait, bool isGeneral) :
-            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Aventis Firestrike", 14, g_wounds, 9, 3, true),
+            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Aventis Firestrike", 14, g_wounds, 9, 3, true, g_pointsPerUnit),
             m_staffOfHammerhal(Weapon::Type::Melee, "Staff of Hammerhal", 2, 4, 3, 3, -1, RAND_D3),
             m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
@@ -119,7 +119,7 @@ namespace StormcastEternals {
         }
     }
 
-    int AventisFirestrike::ComputePoints(int /*numModels*/) {
+    int AventisFirestrike::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

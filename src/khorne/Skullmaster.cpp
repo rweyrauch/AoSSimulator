@@ -18,7 +18,7 @@ namespace Khorne {
     bool Skullmaster::s_registered = false;
 
     Skullmaster::Skullmaster(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Skullmaster", 8, g_wounds, 10, 4, false) {
+            KhorneBase("Skullmaster", 8, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, HERO, HERALD_OF_KHORNE, SKULLMASTER};
         m_weapons = {&m_bladeOfBlood, &m_brazenHooves};
         m_battleFieldRole = Role::Leader;
@@ -103,7 +103,7 @@ namespace Khorne {
         return KhorneBase::toHitRerolls(weapon, target);
     }
 
-    int Skullmaster::ComputePoints(int /*numModels*/) {
+    int Skullmaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

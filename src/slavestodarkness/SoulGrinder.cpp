@@ -62,7 +62,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::EnumStringToInt(enumString);
     }
 
-    int SoulGrinder::ComputePoints(int /*numModels*/) {
+    int SoulGrinder::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -87,7 +87,7 @@ namespace SlavesToDarkness {
     }
 
     SoulGrinder::SoulGrinder(DamnedLegion legion, MarkOfChaos mark, WeaponOption option) :
-            SlavesToDarknessBase("Soul Grinder", 12, g_wounds, 10, 4, false) {
+            SlavesToDarknessBase("Soul Grinder", 12, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, MONSTER, MARK_OF_CHAOS, SOUL_GRINDER};
         m_weapons = {&m_cannon, &m_phlegm, &m_legs, &m_claw, &m_blade, &m_talon};
         m_battleFieldRole = Role::Behemoth;
@@ -109,8 +109,6 @@ namespace SlavesToDarkness {
         else if (option == Daemonbone_Talon)
             model->addMeleeWeapon(&m_talon);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds SoulGrinder::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

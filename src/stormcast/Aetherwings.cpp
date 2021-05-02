@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Aetherwings::s_registered = false;
 
-    Aetherwings::Aetherwings(Stormhost stormhost, int numModels) :
-            StormcastEternal(stormhost,"Aetherwings", 12, g_wounds, 6, NoSave, true),
+    Aetherwings::Aetherwings(Stormhost stormhost, int numModels, int points) :
+            StormcastEternal(stormhost,"Aetherwings", 12, g_wounds, 6, NoSave, true, points),
             m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, STORMCAST_ETERNAL, AETHERWINGS};
         m_weapons = {&m_beakAndClaws};
@@ -35,13 +35,13 @@ namespace StormcastEternals {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
+        //m_points = computePoints();
     }
 
     Unit *Aetherwings::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, ToInteger(Stormhost::None));
-        return new Aetherwings(stormhost, numModels);
+        return new Aetherwings(stormhost, numModels, ComputePoints(parameters));
     }
 
     void Aetherwings::Init() {
@@ -63,7 +63,8 @@ namespace StormcastEternals {
         }
     }
 
-    int Aetherwings::ComputePoints(int numModels) {
+    int Aetherwings::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

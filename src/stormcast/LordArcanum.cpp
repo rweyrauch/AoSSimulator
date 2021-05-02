@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool LordArcanum::s_registered = false;
 
     LordArcanum::LordArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Lord-Arcanum", 5, g_wounds, 9, 3, false),
+            StormcastEternal(stormhost, "Lord-Arcanum", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
         m_weapons = {&m_aetherstave};
@@ -92,7 +92,7 @@ namespace StormcastEternals {
         }
     }
 
-    int LordArcanum::ComputePoints(int /*numModels*/) {
+    int LordArcanum::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

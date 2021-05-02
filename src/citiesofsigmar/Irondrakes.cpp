@@ -21,8 +21,8 @@ namespace CitiesOfSigmar {
 
     bool Irondrakes::s_registered = false;
 
-    Irondrakes::Irondrakes() :
-            CitizenOfSigmar("Irondrakes", 4, g_wounds, 7, 4, false),
+    Irondrakes::Irondrakes(int points) :
+            CitizenOfSigmar("Irondrakes", 4, g_wounds, 7, 4, false, points),
             m_drakegun(Weapon::Type::Missile, "Drakegun", 16, 1, 3, 3, -1, 1),
             m_drakegunWarden(Weapon::Type::Missile, "Drakegun", 16, 1, 2, 3, -1, 1),
             m_grudgehammerTorpedo(Weapon::Type::Missile, "Grudgehammer Torpedo", 20, 1, 3, 3, -2, RAND_D3),
@@ -73,13 +73,11 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Irondrakes::Create(const ParameterList &parameters) {
-        auto unit = new Irondrakes();
+        auto unit = new Irondrakes(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironwarden Weapon", parameters, (int) Drakegun);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
@@ -213,7 +211,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int Irondrakes::ComputePoints(int numModels) {
+    int Irondrakes::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

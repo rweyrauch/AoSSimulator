@@ -66,7 +66,7 @@ namespace KharadronOverlords {
     }
 
     EndrinmasterWithDirigibleSuit::EndrinmasterWithDirigibleSuit() :
-            KharadronBase("Endrinmaster with Dirigible Suit", 12, g_wounds, 8, 3, true),
+            KharadronBase("Endrinmaster with Dirigible Suit", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_aethercannon(Weapon::Type::Missile, "Aethercannon", 12, 1, 3, 2, -2, RAND_D3),
             m_weaponBattery(Weapon::Type::Missile, "Dirigible Suit Weapon Battery", 18, 6, 3, 3, -1, 1),
             m_gaze(Weapon::Type::Missile, "Gaze of Grungni", 9, 1, 3, 2, -1, RAND_D3),
@@ -87,7 +87,7 @@ namespace KharadronOverlords {
         m_points = g_pointsPerUnit;
     }
 
-    int EndrinmasterWithDirigibleSuit::ComputePoints(int /*numModels*/) {
+    int EndrinmasterWithDirigibleSuit::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

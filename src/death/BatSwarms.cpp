@@ -21,7 +21,7 @@ namespace Death {
     bool BatSwarms::s_registered = false;
 
     Unit *BatSwarms::Create(const ParameterList &parameters) {
-        auto unit = new BatSwarms();
+        auto unit = new BatSwarms(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
@@ -35,7 +35,8 @@ namespace Death {
         return unit;
     }
 
-    int BatSwarms::ComputePoints(int numModels) {
+    int BatSwarms::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -61,8 +62,8 @@ namespace Death {
         }
     }
 
-    BatSwarms::BatSwarms() :
-            LegionOfNagashBase("Bat Swarms", 12, g_wounds, 10, NoSave, true),
+    BatSwarms::BatSwarms(int points) :
+            LegionOfNagashBase("Bat Swarms", 12, g_wounds, 10, NoSave, true, points),
             m_teeth(Weapon::Type::Melee, "Razor-sharp Teeth", 3, 5, 5, 5, 0, 1) {
         m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, BAT_SWARMS};
         m_weapons = {&m_teeth};
@@ -85,8 +86,6 @@ namespace Death {
             model->addMeleeWeapon(&m_teeth);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }

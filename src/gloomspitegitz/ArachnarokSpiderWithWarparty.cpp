@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
             };
 
     ArachnarokSpiderWithSpiderfangWarparty::ArachnarokSpiderWithSpiderfangWarparty() :
-            GloomspiteGitzBase("Arachnarok Spider with Spiderfang Warparty", 8, g_wounds, 6, 4, true),
+            GloomspiteGitzBase("Arachnarok Spider with Spiderfang Warparty", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spiderBows(Weapon::Type::Missile, "Spider-bows", 16, 10, 5, 5, 0, 1),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
             m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3),
@@ -126,7 +126,7 @@ namespace GloomspiteGitz {
         Unit::onCharged();
     }
 
-    int ArachnarokSpiderWithSpiderfangWarparty::ComputePoints(int /*numModels*/) {
+    int ArachnarokSpiderWithSpiderfangWarparty::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

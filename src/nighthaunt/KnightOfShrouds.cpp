@@ -44,7 +44,7 @@ namespace Nighthaunt {
     }
 
     KnightOfShrouds::KnightOfShrouds(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            Nighthaunt("Knight of Shrouds", 6, g_wounds, 10, 4, true) {
+            Nighthaunt("Knight of Shrouds", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
         m_weapons = {&m_sword};
         m_battleFieldRole = Role::Leader;
@@ -56,11 +56,9 @@ namespace Nighthaunt {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
-    int KnightOfShrouds::ComputePoints(int /*numModels*/) {
+    int KnightOfShrouds::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

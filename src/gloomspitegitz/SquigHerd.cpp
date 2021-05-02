@@ -21,8 +21,8 @@ namespace GloomspiteGitz {
 
     bool SquiqHerd::s_registered = false;
 
-    SquiqHerd::SquiqHerd() :
-            GloomspiteGitzBase("Squig Herd", 5, g_wounds, 3, 6, false),
+    SquiqHerd::SquiqHerd(int points) :
+            GloomspiteGitzBase("Squig Herd", 5, g_wounds, 3, 6, false, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD};
@@ -53,13 +53,11 @@ namespace GloomspiteGitz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SquiqHerd::Create(const ParameterList &parameters) {
-        auto unit = new SquiqHerd();
+        auto unit = new SquiqHerd(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -124,7 +122,8 @@ namespace GloomspiteGitz {
         GloomspiteGitzBase::onFlee(numFled);
     }
 
-    int SquiqHerd::ComputePoints(int numModels) {
+    int SquiqHerd::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -20,8 +20,8 @@ namespace Seraphon {
 
     bool TerradonRiders::s_registered = false;
 
-    TerradonRiders::TerradonRiders(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption option) :
-            SeraphonBase("Terradon Riders", 16, g_wounds, 5, 6, true) {
+    TerradonRiders::TerradonRiders(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption option, int points) :
+            SeraphonBase("Terradon Riders", 16, g_wounds, 5, 6, true, points) {
         m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, TERRADON_RIDERS};
         m_weapons = {&m_javelin, &m_javelinLeader, &m_bolas, &m_bolasLeader, &m_jaws};
         m_hasMount = true;
@@ -50,8 +50,6 @@ namespace Seraphon {
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *TerradonRiders::Create(const ParameterList &parameters) {
@@ -60,7 +58,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new TerradonRiders(way, constellation, numModels, option);
+        return new TerradonRiders(way, constellation, numModels, option, ComputePoints(parameters));
     }
 
     void TerradonRiders::Init() {
@@ -85,7 +83,8 @@ namespace Seraphon {
         }
     }
 
-    int TerradonRiders::ComputePoints(int numModels) {
+    int TerradonRiders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

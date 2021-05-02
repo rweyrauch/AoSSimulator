@@ -21,8 +21,8 @@ namespace Death {
 
     bool DireWolves::s_registered = false;
 
-    DireWolves::DireWolves() :
-            LegionOfNagashBase("Dire Wolves", 10, g_wounds, 10, 5, false),
+    DireWolves::DireWolves(int points) :
+            LegionOfNagashBase("Dire Wolves", 10, g_wounds, 10, 5, false, points),
             m_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1),
             m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
@@ -46,13 +46,11 @@ namespace Death {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *DireWolves::Create(const ParameterList &parameters) {
-        auto unit = new DireWolves();
+        auto unit = new DireWolves(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
@@ -107,7 +105,8 @@ namespace Death {
         return modifier;
     }
 
-    int DireWolves::ComputePoints(int numModels) {
+    int DireWolves::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

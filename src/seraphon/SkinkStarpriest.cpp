@@ -45,7 +45,7 @@ namespace Seraphon {
     bool SkinkStarpriest::s_registered = false;
 
     SkinkStarpriest::SkinkStarpriest(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Skink Starpriest", 8, g_wounds, 6, 5, false) {
+            SeraphonBase("Skink Starpriest", 8, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, WIZARD, STARPRIEST};
         m_weapons = {&m_venombolt, &m_staff};
         m_battleFieldRole = Role::Leader;
@@ -67,8 +67,6 @@ namespace Seraphon {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SkinkStarpriest::Create(const ParameterList &parameters) {
@@ -127,7 +125,7 @@ namespace Seraphon {
         }
     }
 
-    int SkinkStarpriest::ComputePoints(int /*numModels*/) {
+    int SkinkStarpriest::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

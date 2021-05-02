@@ -49,7 +49,7 @@ namespace Nurgle {
     }
 
     EpidemiusTallymanOfNurgle::EpidemiusTallymanOfNurgle() :
-            NurgleBase("Epidemius, Tallyman of Nurgle", 4, g_wounds, 10, 4, false),
+            NurgleBase("Epidemius, Tallyman of Nurgle", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3),
             m_teeth(Weapon::Type::Melee, "Tiny Razor-sharp Teeth", 1, 5, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, EPIDEMIUS, TALLYMAN_OF_NURGLE};
@@ -62,8 +62,6 @@ namespace Nurgle {
         model->addMeleeWeapon(&m_balesword);
         model->addMeleeWeapon(&m_teeth);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds EpidemiusTallymanOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -71,7 +69,7 @@ namespace Nurgle {
         return ignoreWounds(wounds, 5);
     }
 
-    int EpidemiusTallymanOfNurgle::ComputePoints(int /*numModels*/) {
+    int EpidemiusTallymanOfNurgle::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

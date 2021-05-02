@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool Gyrobombers::s_registered = false;
 
     Unit *Gyrobombers::Create(const ParameterList &parameters) {
-        auto unit = new Gyrobombers();
+        auto unit = new Gyrobombers(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
@@ -62,8 +62,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Gyrobombers::Gyrobombers() :
-            CitizenOfSigmar("Gyrobombers", 12, g_wounds, 6, 4, true),
+    Gyrobombers::Gyrobombers(int points) :
+            CitizenOfSigmar("Gyrobombers", 12, g_wounds, 6, 4, true, points),
             m_clattergun(Weapon::Type::Missile, "Clattergun", 20, 4, 4, 3, -1, 1),
             m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, GYROBOMBERS};
@@ -84,12 +84,11 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
-    int Gyrobombers::ComputePoints(int numModels) {
+    int Gyrobombers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

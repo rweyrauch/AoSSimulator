@@ -67,8 +67,8 @@
 
 namespace StormcastEternals {
 
-    StormcastEternal::StormcastEternal(Stormhost host, const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-            Unit(name, move, wounds, bravery, save, fly) {
+    StormcastEternal::StormcastEternal(Stormhost host, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+            Unit(name, move, wounds, bravery, save, fly, points) {
         setStormhost(host);
         s_globalBraveryMod.connect(this, &StormcastEternal::deathlyAura, &m_deathlyAuraConnection);
     }

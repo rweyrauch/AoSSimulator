@@ -20,8 +20,8 @@ namespace Seraphon {
 
     bool SaurusGuard::s_registered = false;
 
-    SaurusGuard::SaurusGuard(WayOfTheSeraphon way, Constellation constellation, int numModels, bool iconBearer, bool wardrum) :
-            SeraphonBase("Saurus Guard", 5, g_wounds, 8, 4, false) {
+    SaurusGuard::SaurusGuard(WayOfTheSeraphon way, Constellation constellation, int numModels, bool iconBearer, bool wardrum, int points) :
+            SeraphonBase("Saurus Guard", 5, g_wounds, 8, 4, false, points) {
         m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_GUARD};
         m_weapons = {&m_celestitePolearm, &m_celestitePolearmAlpha, &m_jaws};
 
@@ -49,8 +49,6 @@ namespace Seraphon {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     SaurusGuard::~SaurusGuard() {
@@ -64,7 +62,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new SaurusGuard(way, constellation, numModels, iconBearer, wardrum);
+        return new SaurusGuard(way, constellation, numModels, iconBearer, wardrum, ComputePoints(parameters));
     }
 
     void SaurusGuard::Init() {
@@ -89,7 +87,8 @@ namespace Seraphon {
         }
     }
 
-    int SaurusGuard::ComputePoints(int numModels) {
+    int SaurusGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

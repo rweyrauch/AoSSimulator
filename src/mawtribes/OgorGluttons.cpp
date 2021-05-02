@@ -33,7 +33,7 @@ namespace OgorMawtribes {
             bool bellower = GetBoolParam("Bellower", parameters, true);
             auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Club_Or_Blade_And_Ironfist);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new OgorGluttons(tribe, numModels, weapons, skullBearer, bannerBearer, lookout, bellower);
+            return new OgorGluttons(tribe, numModels, weapons, skullBearer, bannerBearer, lookout, bellower, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -82,8 +82,8 @@ namespace OgorMawtribes {
     }
 
     OgorGluttons::OgorGluttons(Mawtribe tribe, int numModels, OgorGluttons::WeaponOption option, bool skullBearer,
-                               bool bannerBearer, bool lookoutGnoblar, bool bellower) :
-            MawtribesBase(tribe, "Ogor Gluttons", 6, g_wounds, 6, 5, false) {
+                               bool bannerBearer, bool lookoutGnoblar, bool bellower, int points) :
+            MawtribesBase(tribe, "Ogor Gluttons", 6, g_wounds, 6, 5, false, points) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, OGOR_GLUTTONS};
         m_weapons = {&m_clubOrBlade, &m_bite, &m_clubOrBladeCrusher};
         m_battleFieldRole = Role::Battleline;
@@ -115,8 +115,6 @@ namespace OgorMawtribes {
 
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     int OgorGluttons::braveryModifier() const {
@@ -153,7 +151,8 @@ namespace OgorMawtribes {
         return Unit::computeReturnedDamage(weapon, saveRoll);
     }
 
-    int OgorGluttons::ComputePoints(int numModels) {
+    int OgorGluttons::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

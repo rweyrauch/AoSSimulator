@@ -18,7 +18,7 @@ namespace Fyreslayers {
     bool AuricRunemaster::s_registered = false;
 
     AuricRunemaster::AuricRunemaster() :
-            Fyreslayer("Auric Runemaster", 4, g_wounds, 8, 4, false),
+            Fyreslayer("Auric Runemaster", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_brazierStaff(Weapon::Type::Melee, "Brazier-staff", 2, 1, 4, 3, -1, RAND_D3),
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
@@ -89,7 +89,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunemaster::ComputePoints(int /*numModels*/) {
+    int AuricRunemaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -17,7 +17,7 @@ namespace Khorne {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -27,7 +27,7 @@ namespace Khorne {
 
     protected:
 
-        FleshHounds(SlaughterHost host, int numModels);
+        FleshHounds(SlaughterHost host, int numModels, int points);
 
         // Unflagging Hunter
         Rerolls chargeRerolls() const override { return Rerolls::Failed; }

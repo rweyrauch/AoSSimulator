@@ -35,7 +35,7 @@ namespace BeastsOfChaos {
             };
 
     Ghorgon::Ghorgon(Greatfray fray) :
-            BeastsOfChaosBase("Ghorgon", 8, g_wounds, 7, 5, false),
+            BeastsOfChaosBase("Ghorgon", 8, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_butcheringBlades(Weapon::Type::Melee, "Butchering Blades", 2, 5, 3, 3, -1, 3),
             m_hugeSlaveringMaw(Weapon::Type::Melee, "Huge Slavering Maw", 1, 1, 4, 2, -1, RAND_D6) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, GHORGON};
@@ -123,7 +123,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Ghorgon::ComputePoints(int /*numModels*/) {
+    int Ghorgon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

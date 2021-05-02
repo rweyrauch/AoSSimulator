@@ -149,8 +149,8 @@ namespace Death {
 
     protected:
 
-        LegionOfNagashBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        LegionOfNagashBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         void deathlyInvocations(int numUnits, double range);
 

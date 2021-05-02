@@ -20,8 +20,8 @@ namespace Fyreslayers {
 
     bool HearthguardBerzerkers::s_registered = false;
 
-    HearthguardBerzerkers::HearthguardBerzerkers() :
-            Fyreslayer("Hearthguard Berzerkers", 4, g_wounds, 8, 5, false),
+    HearthguardBerzerkers::HearthguardBerzerkers(int points) :
+            Fyreslayer("Hearthguard Berzerkers", 4, g_wounds, 8, 5, false, points),
             m_broadaxe(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 2, 3, 3, -1, 2),
             m_broadaxeKarl(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 3, 3, 3, -1, 2),
             m_poleaxe(Weapon::Type::Melee, "Flamestrike Poleaxe", 2, 2, 3, 3, 0, 1),
@@ -57,13 +57,11 @@ namespace Fyreslayers {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *HearthguardBerzerkers::Create(const ParameterList &parameters) {
-        auto unit = new HearthguardBerzerkers();
+        auto unit = new HearthguardBerzerkers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Berzerker_Broadaxe);
 
@@ -134,7 +132,8 @@ namespace Fyreslayers {
         return ignoreWounds(wounds, saveValue);
     }
 
-    int HearthguardBerzerkers::ComputePoints(int numModels) {
+    int HearthguardBerzerkers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -19,7 +19,7 @@ namespace StormcastEternals {
     bool KnightQuestor::s_registered = false;
 
     KnightQuestor::KnightQuestor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGenera) :
-            StormcastEternal(stormhost, "Knight-Questor", 5, g_wounds, 8, 3, false),
+            StormcastEternal(stormhost, "Knight-Questor", 5, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_QUESTOR};
         m_weapons = {&m_warblade};
@@ -82,7 +82,7 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int KnightQuestor::ComputePoints(int /*numModels*/) {
+    int KnightQuestor::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

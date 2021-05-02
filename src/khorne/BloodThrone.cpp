@@ -18,7 +18,7 @@ namespace Khorne {
     bool HeraldOfKhorneOnBloodThrone::s_registered = false;
 
     HeraldOfKhorneOnBloodThrone::HeraldOfKhorneOnBloodThrone(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Herald of Khorne on Blood Throne", 8, g_wounds, 10, 4, false) {
+            KhorneBase("Herald of Khorne on Blood Throne", 8, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTER, HERO, HERALD_OF_KHORNE, HERALD_OF_KHORNE_ON_BLOOD_THRONE};
         m_weapons = {&m_bladeOfBlood, &m_hellblades, &m_gnashingMaw};
         m_battleFieldRole = Role::Leader;
@@ -81,7 +81,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int HeraldOfKhorneOnBloodThrone::ComputePoints(int /*numModels*/) {
+    int HeraldOfKhorneOnBloodThrone::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

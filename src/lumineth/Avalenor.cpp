@@ -36,7 +36,7 @@ namespace LuminethRealmLords {
     bool AvalenorTheStoneheartKing::s_registered = false;
 
     AvalenorTheStoneheartKing::AvalenorTheStoneheartKing() :
-            LuminethBase("Avalenor, the Stoneheart King", 6, g_wounds, 10, 3, false),
+            LuminethBase("Avalenor, the Stoneheart King", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_blast(Weapon::Type::Missile, "Geomantic Blast", 30, 1, 3, 2, -2, RAND_D6),
             m_hammer(Weapon::Type::Melee, "Firestealer Hammers", 2, 6, 3, 3, -1, 5),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 2, 3, 3, -1, 2) {
@@ -52,8 +52,6 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_hammer);
         model->addMeleeWeapon(&m_hooves);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *AvalenorTheStoneheartKing::Create(const ParameterList &parameters) {
@@ -86,7 +84,7 @@ namespace LuminethRealmLords {
         }
     }
 
-    int AvalenorTheStoneheartKing::ComputePoints(int /*numModels*/) {
+    int AvalenorTheStoneheartKing::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

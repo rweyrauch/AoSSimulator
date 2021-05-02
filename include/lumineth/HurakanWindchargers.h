@@ -17,7 +17,7 @@ namespace LuminethRealmLords {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        HurakanWindchargers(int numModels, GreatNation nation);
+        HurakanWindchargers(int numModels, GreatNation nation, int points);
 
     private:
 

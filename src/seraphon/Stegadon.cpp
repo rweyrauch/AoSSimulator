@@ -38,7 +38,7 @@ namespace Seraphon {
     bool Stegadon::s_registered = false;
 
     Stegadon::Stegadon(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, bool skinkChief, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Stegadon", 8, g_wounds, 5, 4, false) {
+            SeraphonBase("Stegadon", 8, g_wounds, 5, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, STEGADON};
         m_weapons = {&m_javelins, &m_bow, &m_throwers, &m_warspear, &m_horns, &m_jaws, &m_stomps};
         m_battleFieldRole = Role::Behemoth;
@@ -70,9 +70,6 @@ namespace Seraphon {
             addKeyword(HERO);
         }
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-        if (m_skinkChief) m_points = POINTS_PER_UNIT_WITH_CHIEF;
     }
 
     Stegadon::~Stegadon() {
@@ -175,7 +172,9 @@ namespace Seraphon {
         return Rerolls::None;
     }
 
-    int Stegadon::ComputePoints(int /*numModels*/) {
+    int Stegadon::ComputePoints(const ParameterList& parameters) {
+        bool chief = GetBoolParam("Skink Chief", parameters, false);
+        if (chief) return POINTS_PER_UNIT_WITH_CHIEF;
         return g_pointsPerUnit;
     }
 

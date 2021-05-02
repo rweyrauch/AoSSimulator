@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool LordArcanumOnDracoline::s_registered = false;
 
     LordArcanumOnDracoline::LordArcanumOnDracoline(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
-            MountedStormcastEternal(stormhost, "Lord-Arcanum on Celestial Dracoline", 12, g_wounds, 9, 3, false),
+            MountedStormcastEternal(stormhost, "Lord-Arcanum on Celestial Dracoline", 12, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_ARCANUM};
@@ -126,7 +126,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int LordArcanumOnDracoline::ComputePoints(int /*numModels*/) {
+    int LordArcanumOnDracoline::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

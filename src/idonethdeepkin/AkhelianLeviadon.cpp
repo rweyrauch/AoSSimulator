@@ -33,7 +33,7 @@ namespace IdonethDeepkin {
     bool AkhelianLeviadon::s_registered = false;
 
     AkhelianLeviadon::AkhelianLeviadon() :
-            IdonethDeepkinBase("Akhelian Leviadon", 10, g_wounds, 6, 2, true),
+            IdonethDeepkinBase("Akhelian Leviadon", 10, g_wounds, 6, 2, true, g_pointsPerUnit),
             m_harpoonLauncher(Weapon::Type::Missile, "Harpoon Launchers", 24, 8, 3, 3, -1, 1),
             m_crushingJaws(Weapon::Type::Melee, "Crushing Jaws", 1, 2, 2, 2, -2, 3),
             m_scythedFins(Weapon::Type::Melee, "Massive Scythed Fins", 2, 4, 2, 3, -1, 4),
@@ -131,7 +131,7 @@ namespace IdonethDeepkin {
         return 0;
     }
 
-    int AkhelianLeviadon::ComputePoints(int /*numModels*/) {
+    int AkhelianLeviadon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -21,8 +21,8 @@ namespace GloomspiteGitz {
 
     bool RockgutTroggoths::s_registered = false;
 
-    RockgutTroggoths::RockgutTroggoths() :
-            GloomspiteGitzBase("Rockgut Troggoths", 6, g_wounds, 5, 5, false),
+    RockgutTroggoths::RockgutTroggoths(int points) :
+            GloomspiteGitzBase("Rockgut Troggoths", 6, g_wounds, 5, 5, false, points),
             m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT};
         m_weapons = {&m_massiveStoneMaul};
@@ -39,13 +39,11 @@ namespace GloomspiteGitz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *RockgutTroggoths::Create(const ParameterList &parameters) {
-        auto unit = new RockgutTroggoths();
+        auto unit = new RockgutTroggoths(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -126,7 +124,8 @@ namespace GloomspiteGitz {
         GloomspiteGitzBase::onStartShooting(player);
     }
 
-    int RockgutTroggoths::ComputePoints(int numModels) {
+    int RockgutTroggoths::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -17,11 +17,11 @@ namespace Seraphon {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        ChameleonSkinks(WayOfTheSeraphon way, Constellation constellation, int numModels);
+        ChameleonSkinks(WayOfTheSeraphon way, Constellation constellation, int numModels, int points);
 
         ChameleonSkinks() = delete;
 

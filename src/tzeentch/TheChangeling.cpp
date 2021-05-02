@@ -62,7 +62,7 @@ namespace Tzeentch {
     }
 
     TheChangeling::TheChangeling() :
-            TzeentchBase("The Changeling", 6, g_wounds, 7, 5, false),
+            TzeentchBase("The Changeling", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "The Trickster's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_CHANGELING};
         m_weapons = {&m_staff};
@@ -80,11 +80,9 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int TheChangeling::ComputePoints(int /*numModels*/) {
+    int TheChangeling::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

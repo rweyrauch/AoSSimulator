@@ -17,11 +17,11 @@ namespace StormcastEternals {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Aetherwings(Stormhost stormhost, int numModels);
+        Aetherwings(Stormhost stormhost, int numModels, int points);
 
         ~Aetherwings() override = default;
 

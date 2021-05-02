@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool VanguardPalladors::s_registered = false;
 
-    VanguardPalladors::VanguardPalladors(Stormhost stormhost, int numModels, WeaponOption weapons) :
-            StormcastEternal(stormhost, "Vanguard-Palladors", 12, g_wounds, 7, 4, false),
+    VanguardPalladors::VanguardPalladors(Stormhost stormhost, int numModels, WeaponOption weapons, int points) :
+            StormcastEternal(stormhost, "Vanguard-Palladors", 12, g_wounds, 7, 4, false, points),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_starstrikeJavelinMissile(Weapon::Type::Missile, "Starstrike Javelin", 18, 1, 3, 3, -1, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 3, 3, 0, 1),
@@ -60,15 +60,13 @@ namespace StormcastEternals {
             model->addMeleeWeapon(&m_beakAndClaws);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *VanguardPalladors::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Starstrike_Javelin);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        return new VanguardPalladors(stormhost, numModels, weapons);
+        return new VanguardPalladors(stormhost, numModels, weapons, ComputePoints(parameters));
     }
 
     void VanguardPalladors::Init() {
@@ -135,7 +133,8 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int VanguardPalladors::ComputePoints(int numModels) {
+    int VanguardPalladors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

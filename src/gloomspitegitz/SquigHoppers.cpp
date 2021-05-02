@@ -19,8 +19,8 @@ namespace GloomspiteGitz {
 
     bool SquiqHoppers::s_registered = false;
 
-    SquiqHoppers::SquiqHoppers() :
-            GloomspiteGitzBase("Squig Hoppers", RAND_3D6, g_wounds, 4, 6, true),
+    SquiqHoppers::SquiqHoppers(int points) :
+            GloomspiteGitzBase("Squig Hoppers", RAND_3D6, g_wounds, 4, 6, true, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1) {
@@ -51,13 +51,11 @@ namespace GloomspiteGitz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SquiqHoppers::Create(const ParameterList &parameters) {
-        auto unit = new SquiqHoppers();
+        auto unit = new SquiqHoppers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -85,7 +83,8 @@ namespace GloomspiteGitz {
         }
     }
 
-    int SquiqHoppers::ComputePoints(int numModels) {
+    int SquiqHoppers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

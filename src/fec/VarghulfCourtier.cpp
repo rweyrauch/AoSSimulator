@@ -20,7 +20,7 @@ namespace FleshEaterCourt {
     bool VarghulfCourtier::s_registered = false;
 
     VarghulfCourtier::VarghulfCourtier() :
-            FleshEaterCourts("Varghulf Courtier", 12, g_wounds, 10, 4, true),
+            FleshEaterCourts("Varghulf Courtier", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_immenseClaws(Weapon::Type::Melee, "Immense Claws", 2, 4, 3, 3, -1, 2),
             m_daggerlikeFangs(Weapon::Type::Melee, "Dagger-like Fangs", 1, 1, 3, 2, -2, RAND_D3) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, COURTIER, HERO, VARGHULF_COURTIER};
@@ -82,7 +82,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int VarghulfCourtier::ComputePoints(int /*numModels*/) {
+    int VarghulfCourtier::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

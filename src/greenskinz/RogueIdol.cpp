@@ -35,7 +35,7 @@ namespace Greenskinz {
     bool RogueIdol::s_registered = false;
 
     RogueIdol::RogueIdol() :
-            Unit("Rogue Idol", 10, g_wounds, 10, 4, false),
+            Unit("Rogue Idol", 10, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_boulderFists(Weapon::Type::Melee, "Boulder Fists", 3, 2, 3, 2, -2, RAND_D6),
             m_stompinFeet(Weapon::Type::Melee, "Stompin' Feet", 2, 10, 3, 3, -2, 2) {
         m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
@@ -147,7 +147,7 @@ namespace Greenskinz {
         return Unit::toHitRerolls(weapon, target);
     }
 
-    int RogueIdol::ComputePoints(int /*numModels*/) {
+    int RogueIdol::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

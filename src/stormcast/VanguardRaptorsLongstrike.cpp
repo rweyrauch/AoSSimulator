@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool VanguardRaptorsLongstrike::s_registered = false;
 
-    VanguardRaptorsLongstrike::VanguardRaptorsLongstrike(Stormhost stormhost, int numModels) :
-            StormcastEternal(stormhost, "Vanguard Raptors with Longstrike Crossbows", 5, g_wounds, 7, 4, false),
+    VanguardRaptorsLongstrike::VanguardRaptorsLongstrike(Stormhost stormhost, int numModels, int points) :
+            StormcastEternal(stormhost, "Vanguard Raptors with Longstrike Crossbows", 5, g_wounds, 7, 4, false, points),
             m_longstikeCrossbow(Weapon::Type::Missile, "Longstrike Crossbow", 24, 1, 2, 3, -2, 2),
             m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 3, 0, 1),
             m_beakAndClaws(Weapon::Type::Melee, "Beak and Claws", 1, 2, 4, 3, 0, 1) {
@@ -41,8 +41,6 @@ namespace StormcastEternals {
             model->addMeleeWeapon(&m_heavyStock);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     void VanguardRaptorsLongstrike::onStartShooting(PlayerId player) {
@@ -60,7 +58,7 @@ namespace StormcastEternals {
     Unit *VanguardRaptorsLongstrike::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        return new VanguardRaptorsLongstrike(stormhost, numModels);
+        return new VanguardRaptorsLongstrike(stormhost, numModels, ComputePoints(parameters));
     }
 
     void VanguardRaptorsLongstrike::Init() {
@@ -91,7 +89,8 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int VanguardRaptorsLongstrike::ComputePoints(int numModels) {
+    int VanguardRaptorsLongstrike::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

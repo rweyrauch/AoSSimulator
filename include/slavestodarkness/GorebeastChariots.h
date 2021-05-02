@@ -26,12 +26,12 @@ namespace SlavesToDarkness {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
         GorebeastChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool idolatorLord,
-                          CommandTrait trait, Prayer prayer, bool isGeneral);
+                          CommandTrait trait, Prayer prayer, bool isGeneral, int points);
 
         GorebeastChariots() = delete;
 

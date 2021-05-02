@@ -23,7 +23,7 @@ namespace LuminethRealmLords {
         return new Sevireth(general);
     }
 
-    int Sevireth::ComputePoints(int numModels) {
+    int Sevireth::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -45,7 +45,7 @@ namespace LuminethRealmLords {
     }
 
     Sevireth::Sevireth(bool isGeneral) :
-            LuminethBase("Sevireth, Lord of the Seventh Wind", 24, g_wounds, 10, 5, true) {
+            LuminethBase("Sevireth, Lord of the Seventh Wind", 24, g_wounds, 10, 5, true, g_pointsPerUnit) {
         m_keywords = {ORDER, LUMINETH_REALM_LORDS, HURAKAN, YMETRICA, HERO, SPIRIT_OF_THE_WIND, SEVIRETH};
         m_weapons = {&m_bow, &m_bowMelee, &m_shards};
         m_battleFieldRole = Role::Leader;
@@ -58,8 +58,6 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_bowMelee);
         model->addMeleeWeapon(&m_shards);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     void Sevireth::onStartHero(PlayerId player) {

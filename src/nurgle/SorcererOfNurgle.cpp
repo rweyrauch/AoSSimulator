@@ -61,7 +61,7 @@ namespace Nurgle {
     }
 
     SorcererOfNurgle::SorcererOfNurgle() :
-            NurgleBase("Sorcerer of Nurgle", 4, g_wounds, 7, 5, false),
+            NurgleBase("Sorcerer of Nurgle", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Rotwood Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, WIZARD, SORCERER};
         m_weapons = {&m_staff};
@@ -78,11 +78,9 @@ namespace Nurgle {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int SorcererOfNurgle::ComputePoints(int /*numModels*/) {
+    int SorcererOfNurgle::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -36,7 +36,7 @@ namespace Sylvaneth {
     }
 
     YltharisGuardians::YltharisGuardians() :
-            SylvanethBase("Ylthari's Guardians", 5, g_wounds, 6, 5, false),
+            SylvanethBase("Ylthari's Guardians", 5, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_enchantedGreatBlade(Weapon::Type::Melee, "Enchanted Greatblade", 1, 4, 3, 3, -1, 1),
             m_revenantBow(Weapon::Type::Missile, "Revenant Bow", 24, 2, 4, 3, -1, 1),
             m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2),
@@ -70,7 +70,7 @@ namespace Sylvaneth {
         return Rerolls::Ones;
     }
 
-    int YltharisGuardians::ComputePoints(int /*numModels*/) {
+    int YltharisGuardians::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

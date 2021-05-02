@@ -62,8 +62,8 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    OssiarchBonereaperBase::OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-            Unit(name, move, wounds, bravery, save, fly) {
+    OssiarchBonereaperBase::OssiarchBonereaperBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+            Unit(name, move, wounds, bravery, save, fly, points) {
     }
 
     OssiarchBonereaperBase::~OssiarchBonereaperBase() {

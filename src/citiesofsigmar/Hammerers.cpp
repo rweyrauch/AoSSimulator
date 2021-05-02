@@ -21,8 +21,8 @@ namespace CitiesOfSigmar {
 
     bool Hammerers::s_registered = false;
 
-    Hammerers::Hammerers() :
-            CitizenOfSigmar("Hammerers", 4, g_wounds, 7, 4, false),
+    Hammerers::Hammerers(int points) :
+            CitizenOfSigmar("Hammerers", 4, g_wounds, 7, 4, false, points),
             m_greatHammer(Weapon::Type::Melee, "Gromril Great Hammer", 1, 2, 3, 3, -1, 1),
             m_greatHammerKeeper(Weapon::Type::Melee, "Gromril Great Hammer", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HAMMERERS};
@@ -52,13 +52,11 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Hammerers::Create(const ParameterList &parameters) {
-        auto unit = new Hammerers();
+        auto unit = new Hammerers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool musician = GetBoolParam("Musician", parameters, false);
@@ -122,7 +120,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int Hammerers::ComputePoints(int numModels) {
+    int Hammerers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -19,8 +19,8 @@ namespace Nighthaunt {
 
     bool ChainraspHorde::s_registered = false;
 
-    ChainraspHorde::ChainraspHorde() :
-            Nighthaunt("Chainrasp Horde", 6, g_wounds, 10, 5, true), // todo: bravery 6 when no Dreadwarden
+    ChainraspHorde::ChainraspHorde(int points) :
+            Nighthaunt("Chainrasp Horde", 6, g_wounds, 10, 5, true, points), // todo: bravery 6 when no Dreadwarden
             m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
             m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE};
@@ -43,13 +43,11 @@ namespace Nighthaunt {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *ChainraspHorde::Create(const ParameterList &parameters) {
-        auto unit = new ChainraspHorde();
+        auto unit = new ChainraspHorde(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -87,7 +85,8 @@ namespace Nighthaunt {
         return Nighthaunt::toHitRerolls(weapon, unit);
     }
 
-    int ChainraspHorde::ComputePoints(int numModels) {
+    int ChainraspHorde::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

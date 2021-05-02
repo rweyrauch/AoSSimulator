@@ -18,7 +18,7 @@ namespace BeastsOfChaos {
     bool Beastlord::s_registered = false;
 
     Beastlord::Beastlord(Greatfray fray, CommandTrait trait, Artefact artefact, bool general) :
-            BeastsOfChaosBase("Beastlord", 6, g_wounds, 7, 4, false) {
+            BeastsOfChaosBase("Beastlord", 6, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, BEASTLORD};
         m_weapons.push_back(&m_pairedAxes);
         m_battleFieldRole = Role::Leader;
@@ -87,7 +87,7 @@ namespace BeastsOfChaos {
         return BeastsOfChaosBase::toWoundRerolls(weapon, target);
     }
 
-    int Beastlord::ComputePoints(int /*numModels*/) {
+    int Beastlord::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

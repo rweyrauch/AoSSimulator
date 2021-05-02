@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool Executioners::s_registered = false;
 
     Unit *Executioners::Create(const ParameterList &parameters) {
-        auto unit = new Executioners();
+        auto unit = new Executioners(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -66,8 +66,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Executioners::Executioners() :
-            CitizenOfSigmar("Executioners", 6, g_wounds, 7, 4, false),
+    Executioners::Executioners(int points) :
+            CitizenOfSigmar("Executioners", 6, g_wounds, 7, 4, false, points),
             m_draich(Weapon::Type::Melee, "Executioner's Draich", 1, 2, 3, 3, 0, 1),
             m_draichMaster(Weapon::Type::Melee, "Executioner's Draich", 1, 3, 3, 3, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, EXECUTIONERS};
@@ -99,8 +99,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -130,7 +128,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Executioners::ComputePoints(int numModels) {
+    int Executioners::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

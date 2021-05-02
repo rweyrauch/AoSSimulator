@@ -18,7 +18,7 @@ namespace IdonethDeepkin {
     bool Volturnos::s_registered = false;
 
     Volturnos::Volturnos() :
-            IdonethDeepkinBase("Volturnos", 14, g_wounds, 8, 3, true),
+            IdonethDeepkinBase("Volturnos", 14, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_theAstraSolus(Weapon::Type::Melee, "The Astra Solus", 1, 5, 3, 3, -1, RAND_D3),
             m_deepmareJawsTalons(Weapon::Type::Melee, "Deepmare's Fanged Jaw and Talons", 2, 3, 3, 3, -1, 1),
             m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2) {
@@ -112,7 +112,7 @@ namespace IdonethDeepkin {
         return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Volturnos::ComputePoints(int /*numModels*/) {
+    int Volturnos::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

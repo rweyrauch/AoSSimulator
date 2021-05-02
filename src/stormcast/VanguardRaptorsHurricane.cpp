@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool VanguardRaptorsHurricane::s_registered = false;
 
-    VanguardRaptorsHurricane::VanguardRaptorsHurricane(Stormhost stormhost, int numModels) :
-            StormcastEternal(stormhost, "Vanguard Raptors with Hurricane Crossbows", 5, g_wounds, 7, 4, false),
+    VanguardRaptorsHurricane::VanguardRaptorsHurricane(Stormhost stormhost, int numModels, int points) :
+            StormcastEternal(stormhost, "Vanguard Raptors with Hurricane Crossbows", 5, g_wounds, 7, 4, false, points),
             m_hurricaneCrossbow(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 4, 4, 0, 1),
             m_hurricaneCrossbowPrime(Weapon::Type::Missile, "Hurricane Crossbow", 18, 6, 3, 4, 0, 1),
             m_heavyStock(Weapon::Type::Melee, "Heavy Stock", 1, 1, 4, 4, 0, 1) {
@@ -40,14 +40,12 @@ namespace StormcastEternals {
             model->addMeleeWeapon(&m_heavyStock);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *VanguardRaptorsHurricane::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        return new VanguardRaptorsHurricane(stormhost, numModels);
+        return new VanguardRaptorsHurricane(stormhost, numModels, ComputePoints(parameters));
     }
 
     void VanguardRaptorsHurricane::Init() {
@@ -78,7 +76,8 @@ namespace StormcastEternals {
         return StormcastEternal::extraAttacks(attackingModel, weapon, target);
     }
 
-    int VanguardRaptorsHurricane::ComputePoints(int numModels) {
+    int VanguardRaptorsHurricane::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

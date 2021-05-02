@@ -38,7 +38,7 @@ namespace SlavesToDarkness {
     bool Archaon::s_registered = false;
 
     Archaon::Archaon(DamnedLegion legion, Lore lore, bool isGeneral) :
-            SlavesToDarknessBase("Archaon", 14, g_wounds, 10, 3, true) {
+            SlavesToDarknessBase("Archaon", 14, g_wounds, 10, 3, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, KHORNE, TZEENTCH, NURGLE, SLAANESH,
                       HEDONITE, UNDIVIDED, MONSTER, HERO, WIZARD, ARCHAON};
         m_weapons = {&m_slayerOfKings, &m_dorgharsClaws, &m_dorgharsTails, &m_dorgharsHeads};
@@ -205,7 +205,7 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    int Archaon::ComputePoints(int /*numModels*/) {
+    int Archaon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

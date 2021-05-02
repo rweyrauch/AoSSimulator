@@ -21,8 +21,8 @@ namespace LuminethRealmLords {
 
     bool Dawnriders::s_registered = false;
 
-    Dawnriders::Dawnriders() :
-            LuminethBase("Vanari Dawnriders", 14, g_wounds, 7, 4, false),
+    Dawnriders::Dawnriders(int points) :
+            LuminethBase("Vanari Dawnriders", 14, g_wounds, 7, 4, false, points),
             m_guardiansSword(Weapon::Type::Melee, "Guardian's Sword", 1, 2, 3, 4, -1, 1),
             m_lance(Weapon::Type::Melee, "Sunmetal Lance", 2, 1, 3, 4, 0, 1),
             m_hooves(Weapon::Type::Melee, "Dashing Hooves", 1, 2, 4, 4, 0, 1) {
@@ -59,13 +59,11 @@ namespace LuminethRealmLords {
 
         m_knownSpells.push_back(std::make_unique<PowerOfHysh>(this));
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Dawnriders::Create(const ParameterList &parameters) {
-        auto unit = new Dawnriders();
+        auto unit = new Dawnriders(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto standard = GetBoolParam("Standard Bearer", parameters, true);
 
@@ -100,7 +98,8 @@ namespace LuminethRealmLords {
         }
     }
 
-    int Dawnriders::ComputePoints(int numModels) {
+    int Dawnriders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

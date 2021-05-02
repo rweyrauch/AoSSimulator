@@ -70,7 +70,7 @@ namespace Sylvaneth {
             };
 
     TreelordAncient::TreelordAncient(Glade glade, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SylvanethBase("Treelord Ancient", 5, g_wounds, 9, 3, false),
+            SylvanethBase("Treelord Ancient", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_doomTendrilStaff(Weapon::Type::Missile, "Doom Tendril Staff", 18, 1, 2, 3, -1, RAND_D6),
             m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 3, 3, 3, -1, RAND_D6),
             m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1) {
@@ -160,7 +160,7 @@ namespace Sylvaneth {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int TreelordAncient::ComputePoints(int /*numModels*/) {
+    int TreelordAncient::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

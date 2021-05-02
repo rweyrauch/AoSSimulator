@@ -26,11 +26,11 @@ namespace StormcastEternals {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Judicators(Stormhost stormhost, int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows);
+        Judicators(Stormhost stormhost, int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows, int points);
 
         ~Judicators() override = default;
 

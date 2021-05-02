@@ -20,7 +20,7 @@ namespace Skaven {
     bool Packmasters::s_registered = false;
 
     Unit *Packmasters::Create(const ParameterList &parameters) {
-        auto unit = new Packmasters();
+        auto unit = new Packmasters(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numCatchers = GetIntParam("Thing-catchers", parameters, g_minUnitSize / 3);
 
@@ -32,7 +32,8 @@ namespace Skaven {
         return unit;
     }
 
-    int Packmasters::ComputePoints(int numModels) {
+    int Packmasters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -60,8 +61,8 @@ namespace Skaven {
         }
     }
 
-    Packmasters::Packmasters() :
-            Skaventide("Packmasters", 6, g_wounds, 5, 6, false),
+    Packmasters::Packmasters(int points) :
+            Skaventide("Packmasters", 6, g_wounds, 5, 6, false, points),
             m_whip(Weapon::Type::Melee, "Herding Whip", 3, 1, 4, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Rusty Blade", 1, 2, 4, 4, 0, 1),
             m_catcher(Weapon::Type::Melee, "Things-catcher", 2, 1, 4, 4, -1, 2) {
@@ -98,7 +99,6 @@ namespace Skaven {
             model->addMeleeWeapon(&m_blade);
             addModel(model);
         }
-        m_points = ComputePoints(numModels);
 
         return true;
     }

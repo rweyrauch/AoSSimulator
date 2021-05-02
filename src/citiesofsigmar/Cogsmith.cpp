@@ -87,7 +87,7 @@ namespace CitiesOfSigmar {
     }
 
     Cogsmith::Cogsmith() :
-            CitizenOfSigmar("Cogsmith", 4, g_wounds, 7, 5, false),
+            CitizenOfSigmar("Cogsmith", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_grudgeRaker(Weapon::Type::Missile, "Grudge-raker", 16, RAND_D3, 4, 3, -1, 1),
             m_pistols(Weapon::Type::Missile, "Duardin Pistols", 8, 2, 4, 3, -1, 1),
             m_cogAxe(Weapon::Type::Melee, "Cog Axe", 1, 4, 3, 4, 0, 1),
@@ -143,7 +143,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int Cogsmith::ComputePoints(int /*numModels*/) {
+    int Cogsmith::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

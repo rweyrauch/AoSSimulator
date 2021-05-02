@@ -55,7 +55,7 @@ namespace GloomspiteGitz {
     bool ScuttlebossOnGiganticSpider::s_registered = false;
 
     ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider() :
-            GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, g_wounds, 6, 4, true),
+            GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spear(Weapon::Type::Melee, "Envenomed Spear", 2, 4, 4, 4, -1, 1),
             m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
@@ -131,7 +131,7 @@ namespace GloomspiteGitz {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int ScuttlebossOnGiganticSpider::ComputePoints(int /*numModels*/) {
+    int ScuttlebossOnGiganticSpider::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

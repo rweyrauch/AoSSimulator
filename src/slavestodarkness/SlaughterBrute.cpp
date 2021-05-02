@@ -39,7 +39,7 @@ namespace SlavesToDarkness {
         return new Slaughterbrute(legion, mark);
     }
 
-    int Slaughterbrute::ComputePoints(int /*numModels*/) {
+    int Slaughterbrute::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -62,7 +62,7 @@ namespace SlavesToDarkness {
     }
 
     Slaughterbrute::Slaughterbrute(DamnedLegion legion, MarkOfChaos mark) :
-            SlavesToDarknessBase("Slaughterbrute", 10, g_wounds, 7, 4, false) {
+            SlavesToDarknessBase("Slaughterbrute", 10, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MONSTER, SLAVES_TO_DARKNESS, SLAUGHTERBRUTE};
         m_weapons = {&m_claws, &m_jaws, &m_talons};
         m_battleFieldRole = Role::Behemoth;

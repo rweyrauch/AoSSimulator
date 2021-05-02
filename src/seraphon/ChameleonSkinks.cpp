@@ -20,8 +20,8 @@ namespace Seraphon {
 
     bool ChameleonSkinks::s_registered = false;
 
-    ChameleonSkinks::ChameleonSkinks(WayOfTheSeraphon way, Constellation constellation, int numModels) :
-            SeraphonBase("Chameleon Skinks", 8, g_wounds, 5, 6, false) {
+    ChameleonSkinks::ChameleonSkinks(WayOfTheSeraphon way, Constellation constellation, int numModels, int points) :
+            SeraphonBase("Chameleon Skinks", 8, g_wounds, 5, 6, false, points) {
         m_keywords = {ORDER, SERAPHON, SKINKS, CHAMELEON_SKINKS};
         m_weapons = {&m_dartpipe, &m_dagger};
 
@@ -33,8 +33,6 @@ namespace Seraphon {
             model->addMeleeWeapon(&m_dagger);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *ChameleonSkinks::Create(const ParameterList &parameters) {
@@ -42,7 +40,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new ChameleonSkinks(way, constellation, numModels);
+        return new ChameleonSkinks(way, constellation, numModels, ComputePoints(parameters));
     }
 
     void ChameleonSkinks::Init() {
@@ -65,7 +63,8 @@ namespace Seraphon {
         }
     }
 
-    int ChameleonSkinks::ComputePoints(int numModels) {
+    int ChameleonSkinks::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

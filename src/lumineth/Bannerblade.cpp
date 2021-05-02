@@ -26,7 +26,7 @@ namespace LuminethRealmLords {
         return new VanariBannerblade(nation, trait, artefact, general);
     }
 
-    int VanariBannerblade::ComputePoints(int numModels) {
+    int VanariBannerblade::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -52,7 +52,7 @@ namespace LuminethRealmLords {
     }
 
     VanariBannerblade::VanariBannerblade(GreatNation nation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Vanari Bannerblade", 6, g_wounds, 8, 3, false) {
+            LuminethBase("Vanari Bannerblade", 6, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, TOTEM, BANNERBLADE, Sunmetal_Weapons};
         m_weapons = {&m_sword};
         m_battleFieldRole = Role::Leader;
@@ -65,7 +65,5 @@ namespace LuminethRealmLords {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sword);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 }

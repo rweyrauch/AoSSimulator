@@ -19,7 +19,7 @@ namespace Slaanesh {
     bool LordOfPain::s_registered = false;
 
     LordOfPain::LordOfPain() :
-            SlaaneshBase("Lord of Pain", 6, g_wounds, 7, 4, false),
+            SlaaneshBase("Lord of Pain", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_mace(Weapon::Type::Melee, "Soulpiercer Mace", 2, 5, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, LORD_OF_PAIN};
         m_weapons = {&m_mace};
@@ -36,8 +36,6 @@ namespace Slaanesh {
                                                            Attribute::To_Hit_Melee, Rerolls::Failed,
                                                            Abilities::Target::SelfAndFriendly,
                                                            std::vector<Keyword>{MORTAL, HEDONITE}));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *LordOfPain::Create(const ParameterList &parameters) {
@@ -71,7 +69,7 @@ namespace Slaanesh {
         }
     }
 
-    int LordOfPain::ComputePoints(int /*numModels*/) {
+    int LordOfPain::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

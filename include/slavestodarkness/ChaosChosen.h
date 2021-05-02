@@ -17,11 +17,11 @@ namespace SlavesToDarkness {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        ChaosChosen(DamnedLegion legion, MarkOfChaos mark, int numModels, bool iconBearer, bool drummer);
+        ChaosChosen(DamnedLegion legion, MarkOfChaos mark, int numModels, bool iconBearer, bool drummer, int points);
 
         ChaosChosen() = delete;
 

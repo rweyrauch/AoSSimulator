@@ -42,7 +42,7 @@ namespace Fyreslayers {
     bool AuricRunesmiter::s_registered = false;
 
     AuricRunesmiter::AuricRunesmiter() :
-            Fyreslayer("Auric Runesmiter", 4, g_wounds, 7, 5, false),
+            Fyreslayer("Auric Runesmiter", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1),
             m_latchAxe(Weapon::Type::Melee, "Latch-axe", 1, 1, 4, 3, 0, 2) {
@@ -128,7 +128,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunesmiter::ComputePoints(int /*numModels*/) {
+    int AuricRunesmiter::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

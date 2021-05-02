@@ -36,7 +36,7 @@ namespace Ironjawz {
             };
 
     MegabossOnMawKrusha::MegabossOnMawKrusha() :
-            Ironjawz("Megaboss on Maw-Krusha", 12, g_wounds, 8, 3, true),
+            Ironjawz("Megaboss on Maw-Krusha", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_bellow(Weapon::Type::Missile, "Innard-bursting Bellow", 8, RAND_D6, 2, 3, -1, 1),
             m_hackaAndChoppa(Weapon::Type::Melee, "Boss Gore-hacka and Choppa", 2, 8, 3, 3, -1, 2),
             m_ripToofFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2),
@@ -202,7 +202,7 @@ namespace Ironjawz {
         return Ironjawz::EnumStringToInt(enumString);
     }
 
-    int MegabossOnMawKrusha::ComputePoints(int /*numModels*/) {
+    int MegabossOnMawKrusha::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

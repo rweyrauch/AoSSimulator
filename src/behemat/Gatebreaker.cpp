@@ -37,7 +37,7 @@ namespace SonsOfBehemat {
     bool Gatebreaker::s_registered = false;
 
     Gatebreaker::Gatebreaker(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral) :
-            SonsOfBehematBase("Gatebreaker Mega-Gargant", 12, g_wounds, 7, 4, false) {
+            SonsOfBehematBase("Gatebreaker Mega-Gargant", 12, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_weapons = {&m_boulder, &m_stomp, &m_grip, &m_flail};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, GATEBREAKER};
@@ -89,7 +89,7 @@ namespace SonsOfBehemat {
         }
     }
 
-    int Gatebreaker::ComputePoints(int /*numModels*/) {
+    int Gatebreaker::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

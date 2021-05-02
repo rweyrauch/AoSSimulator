@@ -54,7 +54,7 @@ namespace Nighthaunt {
     }
 
     LordExecutioner::LordExecutioner() :
-            Nighthaunt("Lord Executioner", 6, g_wounds, 10, 4, true),
+            Nighthaunt("Lord Executioner", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_greataxe(Weapon::Type::Melee, "Decapitating Greataxe", 1, 3, 3, 3, -2, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, LORD_EXECUTIONER};
         m_weapons = {&m_greataxe};
@@ -65,8 +65,6 @@ namespace Nighthaunt {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greataxe);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Wounds LordExecutioner::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -101,7 +99,7 @@ namespace Nighthaunt {
         return unsavedWounds;
     }
 
-    int LordExecutioner::ComputePoints(int /*numModels*/) {
+    int LordExecutioner::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

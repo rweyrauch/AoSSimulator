@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool KnightVenator::s_registered = false;
 
     KnightVenator::KnightVenator(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Knight-Venator", 12, g_wounds, 9, 3, true),
+            StormcastEternal(stormhost, "Knight-Venator", 12, g_wounds, 9, 3, true, g_pointsPerUnit),
             m_realmhuntersBow(Weapon::Type::Missile, "Realmhunter's Bow", 30, 3, 2, 3, -1, 1),
             m_starFatedArrow(Weapon::Type::Missile, "Realmhunter's Bow - Star-fated Arrow", 30, 1, 2, 3, -1, 0),
             m_beakAndTalonsMissile(Weapon::Type::Missile, "Celestial Beak and Talons", 30, 3, 4, 3, 0, 1),
@@ -83,7 +83,7 @@ namespace StormcastEternals {
         return StormcastEternal::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int KnightVenator::ComputePoints(int /*numModels*/) {
+    int KnightVenator::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

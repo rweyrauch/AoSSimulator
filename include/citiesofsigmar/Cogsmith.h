@@ -24,7 +24,7 @@ namespace CitiesOfSigmar {
 
         static std::string ValueToString(const Parameter &parameter);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static int EnumStringToInt(const std::string &enumString);
 

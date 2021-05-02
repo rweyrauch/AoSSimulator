@@ -21,8 +21,8 @@ namespace Nurgle {
 
     bool Plaguebearers::s_registered = false;
 
-    Plaguebearers::Plaguebearers() :
-            NurgleBase("Plaguebearers", 4, g_wounds, 10, 5, false),
+    Plaguebearers::Plaguebearers(int points) :
+            NurgleBase("Plaguebearers", 4, g_wounds, 10, 5, false, points),
             m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
             m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
@@ -54,13 +54,11 @@ namespace Nurgle {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Plaguebearers::Create(const ParameterList &parameters) {
-        auto unit = new Plaguebearers();
+        auto unit = new Plaguebearers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool pipers = GetBoolParam("Pipers", parameters, false);
@@ -112,7 +110,8 @@ namespace Nurgle {
         return modifier;
     }
 
-    int Plaguebearers::ComputePoints(int numModels) {
+    int Plaguebearers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -45,7 +45,7 @@ namespace Death {
         return unit;
     }
 
-    int MortisEngine::ComputePoints(int /*numModels*/) {
+    int MortisEngine::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -67,7 +67,7 @@ namespace Death {
     }
 
     MortisEngine::MortisEngine() :
-            LegionOfNagashBase("Mortis Engine", 14, g_wounds, 10, 4, true),
+            LegionOfNagashBase("Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Corpsemaster's Mortis Staff", 1, 1, 4, 3, -1, RAND_D3),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {

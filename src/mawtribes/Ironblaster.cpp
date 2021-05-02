@@ -49,7 +49,7 @@ namespace OgorMawtribes {
     }
 
     Ironblaster::Ironblaster(Mawtribe tribe) :
-            MawtribesBase(tribe, "Ironblaster", 7, g_wounds, 6, 4, false) {
+            MawtribesBase(tribe, "Ironblaster", 7, g_wounds, 6, 4, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, IRONBLASTER};
         m_weapons = {&m_cannonBall, &m_hailShot, &m_clubber, &m_horns, &m_blade};
         m_battleFieldRole = Role::Artillery;
@@ -67,8 +67,6 @@ namespace OgorMawtribes {
         model->addMeleeWeapon(&m_blade);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds Ironblaster::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -103,7 +101,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int Ironblaster::ComputePoints(int /*numModels*/) {
+    int Ironblaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

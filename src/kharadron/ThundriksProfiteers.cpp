@@ -24,7 +24,7 @@ namespace KharadronOverlords {
         return unit;
     }
 
-    int ThundriksProfiteers::ComputePoints(int /*numModels*/) {
+    int ThundriksProfiteers::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -44,7 +44,7 @@ namespace KharadronOverlords {
     }
 
     ThundriksProfiteers::ThundriksProfiteers() :
-            KharadronBase("Thundrik's Profiteers", 4, g_wounds, 7, 4, false),
+            KharadronBase("Thundrik's Profiteers", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_volleyGun(Weapon::Type::Missile, "Aethermatic Volley Gun", 18, 6, 5, 4, -1, 1),
             m_rifle(Weapon::Type::Missile, "Aethershot Rifle", 18, 4, 3, 4, -1, 1),
             m_privateerPistol(Weapon::Type::Missile, "Privateer Pistol", 12, 2, 4, 4, 0, 1),
@@ -83,8 +83,6 @@ namespace KharadronOverlords {
         khazgan->addMeleeWeapon(&m_skypike);
         khazgan->setName("Khazgan Drakkskewer");
         addModel(khazgan);
-
-        m_points = ThundriksProfiteers::ComputePoints(1);
     }
 
 } // namespace Kharadron

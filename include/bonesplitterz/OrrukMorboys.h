@@ -17,9 +17,9 @@ namespace Bonesplitterz {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
-        SavageOrrukMorboys();
+        SavageOrrukMorboys(int points);
 
         ~SavageOrrukMorboys() override = default;
 

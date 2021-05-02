@@ -20,8 +20,8 @@ namespace BeastsOfChaos {
 
     bool Bestigors::s_registered = false;
 
-    Bestigors::Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
-            BeastsOfChaosBase("Bestigors", 6, g_wounds, 6, 4, false) {
+    Bestigors::Bestigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer, int points) :
+            BeastsOfChaosBase("Bestigors", 6, g_wounds, 6, 4, false, points) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, BESTIGORS};
         m_weapons = {&m_despoilerAxe, &m_despoilerAxeGougeHorn};
 
@@ -45,8 +45,6 @@ namespace BeastsOfChaos {
                 brayhorn = false;
             }
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     bool Bestigors::AreValid(const ParameterList &parameters) {
@@ -60,7 +58,7 @@ namespace BeastsOfChaos {
             bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
             bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
             auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-            return new Bestigors(fray, numModels, brayhorn, bannerBearer);
+            return new Bestigors(fray, numModels, brayhorn, bannerBearer, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -120,7 +118,8 @@ namespace BeastsOfChaos {
         return modifier;
     }
 
-    int Bestigors::ComputePoints(int numModels) {
+    int Bestigors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -29,7 +29,7 @@ namespace OgorMawtribes {
             int numModels = GetIntParam("Models", parameters, g_minUnitSize);
             auto ability = (Ability) GetEnumParam("Ability", parameters, Brawlers);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new Maneaters(tribe, numModels, ability);
+            return new Maneaters(tribe, numModels, ability, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -73,8 +73,8 @@ namespace OgorMawtribes {
         }
     }
 
-    Maneaters::Maneaters(Mawtribe tribe, int numModels, Ability ability) :
-            MawtribesBase(tribe, "Maneaters", 6, g_wounds, 7, 5, false) {
+    Maneaters::Maneaters(Mawtribe tribe, int numModels, Ability ability, int points) :
+            MawtribesBase(tribe, "Maneaters", 6, g_wounds, 7, 5, false, points) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, MANEATERS};
         m_weapons = {&m_pistolsOrStars, &m_bite, &m_bashers};
 
@@ -90,11 +90,10 @@ namespace OgorMawtribes {
             model->addMeleeWeapon(&m_bite);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int Maneaters::ComputePoints(int numModels) {
+    int Maneaters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

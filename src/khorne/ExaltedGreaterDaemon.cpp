@@ -37,7 +37,7 @@ namespace Khorne {
     bool ExaltedGreaterDaemonOfKhorne::s_registered = false;
 
     ExaltedGreaterDaemonOfKhorne::ExaltedGreaterDaemonOfKhorne(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Exalted Greater Daemon of Khorne", 12, g_wounds, 10, 4, true) {
+            KhorneBase("Exalted Greater Daemon of Khorne", 12, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, BLOODTHIRSTER, KHORNE, MONSTER, HERO, EXALTED_GREATER_DAEMON_OF_KHORNE};
         m_weapons = {&m_lashOfKhorne, &m_mightyAxeOfKhorne};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -138,7 +138,7 @@ namespace Khorne {
         }
     }
 
-    int ExaltedGreaterDaemonOfKhorne::ComputePoints(int /*numModels*/) {
+    int ExaltedGreaterDaemonOfKhorne::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

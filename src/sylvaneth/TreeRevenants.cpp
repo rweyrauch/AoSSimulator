@@ -20,8 +20,8 @@ namespace Sylvaneth {
 
     bool TreeRevenants::s_registered = false;
 
-    TreeRevenants::TreeRevenants(Glade glade, int numModels, bool scionGlaive, bool gladeBanners, bool waypipes) :
-            SylvanethBase("Tree Revenants", 5, g_wounds, 6, 5, false),
+    TreeRevenants::TreeRevenants(Glade glade, int numModels, bool scionGlaive, bool gladeBanners, bool waypipes, int points) :
+            SylvanethBase("Tree Revenants", 5, g_wounds, 6, 5, false, points),
             m_enchantedBlade(Weapon::Type::Melee, "Enchanted Blade", 1, 2, 4, 3, -1, 1),
             m_enchantedBladeScion(Weapon::Type::Melee, "Enchanted Blade", 1, 4, 4, 3, -1, 1),
             m_protectorGlaive(Weapon::Type::Melee, "Protector Glaive", 1, 2, 4, 3, -1, 2) {
@@ -47,8 +47,6 @@ namespace Sylvaneth {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         if (m_gladeBanners) {
             m_pileInMove = 6;
         }
@@ -61,7 +59,7 @@ namespace Sylvaneth {
         bool waypipes = GetBoolParam("Waypipes", parameters, false);
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
 
-        return new TreeRevenants(glade, numModels, scionGlaive, gladeBanners, waypipes);
+        return new TreeRevenants(glade, numModels, scionGlaive, gladeBanners, waypipes, ComputePoints(parameters));
     }
 
     void TreeRevenants::Init() {
@@ -126,7 +124,8 @@ namespace Sylvaneth {
         return SylvanethBase::toWoundRerolls(weapon, target);
     }
 
-    int TreeRevenants::ComputePoints(int numModels) {
+    int TreeRevenants::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

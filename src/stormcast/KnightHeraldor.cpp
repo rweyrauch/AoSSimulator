@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool KnightHeraldor::s_registered = false;
 
     KnightHeraldor::KnightHeraldor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Knight-Heraldor", 5, g_wounds, 8, 3, false),
+            StormcastEternal(stormhost, "Knight-Heraldor", 5, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_broadsword(Weapon::Type::Melee, "Sigmarite Broadsword", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_HERALDOR};
         m_weapons = {&m_broadsword};
@@ -66,7 +66,7 @@ namespace StormcastEternals {
         }
     }
 
-    int KnightHeraldor::ComputePoints(int /*numModels*/) {
+    int KnightHeraldor::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

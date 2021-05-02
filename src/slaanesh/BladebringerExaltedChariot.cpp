@@ -21,7 +21,7 @@ namespace Slaanesh {
     bool BladebringerOnExaltedChariot::s_registered = false;
 
     BladebringerOnExaltedChariot::BladebringerOnExaltedChariot() :
-            SlaaneshBase("Bladebringer, Herald on Exalted Chariot", 10, g_wounds, 10, 4, false),
+            SlaaneshBase("Bladebringer, Herald on Exalted Chariot", 10, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 9, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1) {
@@ -47,8 +47,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *BladebringerOnExaltedChariot::Create(const ParameterList &parameters) {
@@ -108,7 +106,7 @@ namespace Slaanesh {
         }
     }
 
-    int BladebringerOnExaltedChariot::ComputePoints(int /*numModels*/) {
+    int BladebringerOnExaltedChariot::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

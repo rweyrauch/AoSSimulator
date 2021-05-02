@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool FreeguildGreatswords::s_registered = false;
 
     Unit *FreeguildGreatswords::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildGreatswords();
+        auto unit = new FreeguildGreatswords(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -67,8 +67,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildGreatswords::FreeguildGreatswords() :
-            CitizenOfSigmar("Freeguild Greatswords", 5, g_wounds, 6, 4, false),
+    FreeguildGreatswords::FreeguildGreatswords(int points) :
+            CitizenOfSigmar("Freeguild Greatswords", 5, g_wounds, 6, 4, false, points),
             m_zweihander(Weapon::Type::Melee, "Zweihander", 1, 2, 3, 3, -1, 1),
             m_zweihanderChampion(Weapon::Type::Melee, "Zweihander", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_GREATSWORDS};
@@ -99,8 +99,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }
@@ -139,7 +137,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int FreeguildGreatswords::ComputePoints(int numModels) {
+    int FreeguildGreatswords::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

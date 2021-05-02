@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
     bool LoonbossWithGiantCaveSquig::s_registered = false;
 
     LoonbossWithGiantCaveSquig::LoonbossWithGiantCaveSquig() :
-            GloomspiteGitzBase("Loonboss with Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true),
+            GloomspiteGitzBase("Loonboss with Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_moonProdderMissile(Weapon::Type::Missile, "Moon-prodder", 14, RAND_D6, 4, 3, -1, 1),
             m_moonProdder(Weapon::Type::Melee, "Moon-prodder", 2, 4, 4, 3, -1, 1),
             m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3) {
@@ -86,7 +86,7 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int LoonbossWithGiantCaveSquig::ComputePoints(int /*numModels*/) {
+    int LoonbossWithGiantCaveSquig::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

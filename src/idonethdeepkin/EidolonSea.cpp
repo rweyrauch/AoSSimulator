@@ -112,7 +112,7 @@ namespace IdonethDeepkin {
     }
 
     EidolonOfMathlannAspectOfTheSea::EidolonOfMathlannAspectOfTheSea() :
-            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Sea", 10, g_wounds, 10, 3, true),
+            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Sea", 10, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_abyssalEnergy(Weapon::Type::Missile, "Blasts of Abyssal Energy", 15, RAND_D3, 3, 3, -2, 2),
             m_trident(Weapon::Type::Melee, "Psi-trident", 2, 3, 3, 3, -2, 2),
             m_sceptre(Weapon::Type::Melee, "Deep-sea Sceptre", 1, 3, 3, 3, -1, 1),
@@ -159,7 +159,7 @@ namespace IdonethDeepkin {
         return 0;
     }
 
-    int EidolonOfMathlannAspectOfTheSea::ComputePoints(int /*numModels*/) {
+    int EidolonOfMathlannAspectOfTheSea::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

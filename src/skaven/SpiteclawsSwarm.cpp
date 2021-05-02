@@ -22,7 +22,7 @@ namespace Skaven {
         return unit;
     }
 
-    int SpiteclawsSwarm::ComputePoints(int /*numModels*/) {
+    int SpiteclawsSwarm::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -44,7 +44,7 @@ namespace Skaven {
     }
 
     SpiteclawsSwarm::SpiteclawsSwarm() :
-            Skaventide("Spiteclaw's Swarm", 6, g_wounds, 4, 6, false),
+            Skaventide("Spiteclaw's Swarm", 6, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_stabbingBlade(Weapon::Type::Melee, "Festering Skaven's Stabbing Blades", 1, 2, 4, 4, 0, 1),
             m_rustyFlail(Weapon::Type::Melee, "Hungering Skaven's Rusty Flail", 1, 1, 4, 4, 0, 1),
             m_rustySpear(Weapon::Type::Melee, "Krrk's Rusty Spear", 2, 2, 4, 4, 0, 1),
@@ -70,8 +70,6 @@ namespace Skaven {
         auto rat3 = new Model(g_basesize, wounds());
         rat3->addMeleeWeapon(&m_punchDaggers);
         addModel(rat3);
-
-        m_points = g_pointsPerUnit;
     }
 
 } // namespace Skaven

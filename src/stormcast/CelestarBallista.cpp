@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool CelestarBallista::s_registered = false;
 
     CelestarBallista::CelestarBallista(Stormhost stormhost) :
-            StormcastEternal(stormhost, "Celestar Ballista", 3, g_wounds, 7, 4, false) {
+            StormcastEternal(stormhost, "Celestar Ballista", 3, g_wounds, 7, 4, false, g_pointsPerUnit) {
 
         // Burst of Celestial Energy
         m_stormboltsSingle.setHitsPerAttack(RAND_D6);
@@ -84,7 +84,7 @@ namespace StormcastEternals {
         }
     }
 
-    int CelestarBallista::ComputePoints(int /*numModels*/) {
+    int CelestarBallista::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

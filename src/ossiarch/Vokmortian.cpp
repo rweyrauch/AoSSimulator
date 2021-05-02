@@ -77,7 +77,7 @@ namespace OssiarchBonereapers {
     }
 
     Vokmortian::Vokmortian(Legion legion, Lore lore, bool isGeneral) :
-            OssiarchBonereaperBase("Vokmortian", 5, g_wounds, 10, 5, false) {
+            OssiarchBonereaperBase("Vokmortian", 5, g_wounds, 10, 5, false, g_pointsPerUnit) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, HERO, WIZARD, VOKMORTIAN};
         m_weapons = {&m_gazeOfDeath, &m_staff};
         m_battleFieldRole = Role::Leader;
@@ -99,8 +99,6 @@ namespace OssiarchBonereapers {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Vokmortian::~Vokmortian() {
@@ -115,7 +113,7 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    int Vokmortian::ComputePoints(int /*numModels*/) {
+    int Vokmortian::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

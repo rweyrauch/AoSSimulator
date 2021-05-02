@@ -19,8 +19,8 @@ namespace Skaven {
 
     bool NightRunners::s_registered = false;
 
-    NightRunners::NightRunners() :
-            Skaventide("Night Runners", 7, g_wounds, 4, 6, false),
+    NightRunners::NightRunners(int points) :
+            Skaventide("Night Runners", 7, g_wounds, 4, 6, false, points),
             m_throwingWeapons(Weapon::Type::Missile, "Eshin Throwing Weapons", 12, 1, 4, 5, 0, 1),
             m_stabbingBlade(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1),
             m_stabbingBladeLeader(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1) {
@@ -48,13 +48,11 @@ namespace Skaven {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *NightRunners::Create(const ParameterList &parameters) {
-        auto unit = new NightRunners();
+        auto unit = new NightRunners(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -90,7 +88,8 @@ namespace Skaven {
         return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int NightRunners::ComputePoints(int numModels) {
+    int NightRunners::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

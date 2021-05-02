@@ -19,7 +19,7 @@ namespace StormcastEternals {
     bool LordOrdinator::s_registered = false;
 
     LordOrdinator::LordOrdinator(Stormhost stormhost, WeaponOption weaponOption, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Lord-Ordinator", 5, g_wounds, 9, 4, false),
+            StormcastEternal(stormhost, "Lord-Ordinator", 5, g_wounds, 9, 4, false, g_pointsPerUnit),
             m_astralHammers(Weapon::Type::Melee, "Astral Hammers", 1, 6, 4, 3, 0, 1),
             m_astralGrandhammer(Weapon::Type::Melee, "Astral Grandhammer", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, LORD_ORDINATOR};
@@ -152,7 +152,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int LordOrdinator::ComputePoints(int /*numModels*/) {
+    int LordOrdinator::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

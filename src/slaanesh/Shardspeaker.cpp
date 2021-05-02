@@ -20,7 +20,7 @@ namespace Slaanesh {
     bool ShardspeakerOfSlaanesh::s_registered = false;
 
     ShardspeakerOfSlaanesh::ShardspeakerOfSlaanesh() :
-            SlaaneshBase("Shardspeaker of Slaanesh", 6, g_wounds, 10, 5, false),
+            SlaaneshBase("Shardspeaker of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Haze Staff", 1, 2, 4, 3, 0, RAND_D3),
             m_claws(Weapon::Type::Melee, "Shadow-cloaked Claws", 2, 4, 3, 3, -2, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, WIZARD, SHARDSPEAKER};
@@ -48,8 +48,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *ShardspeakerOfSlaanesh::Create(const ParameterList &parameters) {
@@ -94,7 +92,7 @@ namespace Slaanesh {
         }
     }
 
-    int ShardspeakerOfSlaanesh::ComputePoints(int /*numModels*/) {
+    int ShardspeakerOfSlaanesh::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

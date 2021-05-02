@@ -19,7 +19,7 @@ namespace DaughtersOfKhaine {
     bool TheBladeCoven::s_registered = false;
 
     TheBladeCoven::TheBladeCoven() :
-            DaughterOfKhaine("The Blade Coven", 8, g_wounds, 8, 5, false),
+            DaughterOfKhaine("The Blade Coven", 8, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_heartseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 3, 3, -1, 1),
             m_sacrificialWeapons(Weapon::Type::Melee, "Sacrificial Weapons", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, THE_BLADE_COVEN};
@@ -48,8 +48,6 @@ namespace DaughtersOfKhaine {
         lethyr->addMeleeWeapon(&m_sacrificialWeapons);
         lethyr->setName("Lethyr");
         addModel(lethyr);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *TheBladeCoven::Create(const ParameterList &parameters) {
@@ -85,7 +83,7 @@ namespace DaughtersOfKhaine {
         return DaughterOfKhaine::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int TheBladeCoven::ComputePoints(int /*numModels*/) {
+    int TheBladeCoven::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

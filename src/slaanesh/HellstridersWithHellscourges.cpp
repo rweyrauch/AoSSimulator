@@ -20,8 +20,8 @@ namespace Slaanesh {
 
     bool HellstridersWithHellscourges::s_registered = false;
 
-    HellstridersWithHellscourges::HellstridersWithHellscourges() :
-            SlaaneshBase("Hellstriders with Hellscourges", 14, g_wounds, 6, 4, false),
+    HellstridersWithHellscourges::HellstridersWithHellscourges(int points) :
+            SlaaneshBase("Hellstriders with Hellscourges", 14, g_wounds, 6, 4, false, points),
             m_hellscourge(Weapon::Type::Melee, "Hellscourge", 3, 2, 3, 4, 0, 1),
             m_hellscourgeReaver(Weapon::Type::Melee, "Hellscourge", 3, 3, 3, 4, 0, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
@@ -64,13 +64,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *HellstridersWithHellscourges::Create(const ParameterList &parameters) {
-        auto unit = new HellstridersWithHellscourges();
+        auto unit = new HellstridersWithHellscourges(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
@@ -123,7 +121,8 @@ namespace Slaanesh {
         return modifier;
     }
 
-    int HellstridersWithHellscourges::ComputePoints(int numModels) {
+    int HellstridersWithHellscourges::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

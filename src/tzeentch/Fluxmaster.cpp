@@ -72,7 +72,7 @@ namespace Tzeentch {
         return unit;
     }
 
-    int FluxmasterHeraldOfTzeentchOnDisc::ComputePoints(int /*numModels*/) {
+    int FluxmasterHeraldOfTzeentchOnDisc::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -98,7 +98,7 @@ namespace Tzeentch {
     }
 
     FluxmasterHeraldOfTzeentchOnDisc::FluxmasterHeraldOfTzeentchOnDisc() :
-            TzeentchBase("Fluxmaster Herald of Tzeentch on Disc", 16, g_wounds, 10, 5, true),
+            TzeentchBase("Fluxmaster Herald of Tzeentch on Disc", 16, g_wounds, 10, 5, true, g_pointsPerUnit),
             m_flames(Weapon::Type::Missile, "Magical Flames", 18, 3, 4, 4, -1, 1),
             m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
@@ -125,8 +125,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     int FluxmasterHeraldOfTzeentchOnDisc::rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const {

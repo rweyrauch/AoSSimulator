@@ -17,7 +17,7 @@ namespace Fyreslayers {
     bool Battlesmith::s_registered = false;
 
     Battlesmith::Battlesmith() :
-            Fyreslayer("Battlesmith", 4, g_wounds, 7, 4, false),
+            Fyreslayer("Battlesmith", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_battleAxe(Weapon::Type::Melee, "Ancestral Battle-axe", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, TOTEM, BATTLESMITH};
@@ -69,7 +69,7 @@ namespace Fyreslayers {
         }
     }
 
-    int Battlesmith::ComputePoints(int /*numModels*/) {
+    int Battlesmith::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

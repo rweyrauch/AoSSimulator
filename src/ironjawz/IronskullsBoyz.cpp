@@ -18,7 +18,7 @@ namespace Ironjawz {
     bool IronskullsBoyz::s_registered = false;
 
     IronskullsBoyz::IronskullsBoyz() :
-            Ironjawz("Ironskull's Boyz", 4, g_wounds, 6, 4, false),
+            Ironjawz("Ironskull's Boyz", 4, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_eadButt(Weapon::Type::Melee, "'Eadbutt'", 1, 1, 4, 3, 0, RAND_D3),
             m_pairedChoppas(Weapon::Type::Melee, "Pair of Ardboy Choppas", 1, 2, 3, 3, -1, 1),
             m_bigChoppa(Weapon::Type::Melee, "Ardboy Big Choppa", 1, 2, 4, 3, -1, 2) {
@@ -87,7 +87,7 @@ namespace Ironjawz {
         return Unit::toHitModifier(weapon, target);
     }
 
-    int IronskullsBoyz::ComputePoints(int /*numModels*/) {
+    int IronskullsBoyz::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

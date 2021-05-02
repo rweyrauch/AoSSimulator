@@ -18,7 +18,7 @@ namespace BeastsOfChaos {
     bool Doombull::s_registered = false;
 
     Doombull::Doombull(Greatfray fray, CommandTrait trait, Artefact artefact, bool general) :
-            BeastsOfChaosBase("Doombull", 8, g_wounds, 7, 5, false),
+            BeastsOfChaosBase("Doombull", 8, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_bullgorHorns(Weapon::Type::Melee, "Bullgor Horns", 1, 2, 4, 4, 0, 1),
             m_slaughtererAxe(Weapon::Type::Melee, "Slaughterer's Axe", 1, 3, 3, 3, -2, 3) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, HERO, DOOMBULL};
@@ -82,7 +82,7 @@ namespace BeastsOfChaos {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Doombull::ComputePoints(int /*numModels*/) {
+    int Doombull::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -20,7 +20,7 @@ namespace Skaven {
     bool WarplockJezzails::s_registered = false;
 
     Unit *WarplockJezzails::Create(const ParameterList &parameters) {
-        auto unit = new WarplockJezzails();
+        auto unit = new WarplockJezzails(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -31,7 +31,8 @@ namespace Skaven {
         return unit;
     }
 
-    int WarplockJezzails::ComputePoints(int numModels) {
+    int WarplockJezzails::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -57,8 +58,8 @@ namespace Skaven {
         }
     }
 
-    WarplockJezzails::WarplockJezzails() :
-            Skaventide("Warplock Jezzails", 6, g_wounds, 4, 6, false),
+    WarplockJezzails::WarplockJezzails(int points) :
+            Skaventide("Warplock Jezzails", 6, g_wounds, 4, 6, false, points),
             m_jezzail(Weapon::Type::Missile, "Warplock Jezzail", 30, 1, 4, 3, -2, 2),
             m_knives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WARPLOCK_JEZZAILS};
@@ -77,7 +78,6 @@ namespace Skaven {
             model->addMeleeWeapon(&m_knives);
             addModel(model);
         }
-        m_points = ComputePoints(numModels);
 
         return true;
     }

@@ -22,7 +22,7 @@ namespace StormcastEternals {
     bool LordArcanumOnTauralon::s_registered = false;
 
     LordArcanumOnTauralon::LordArcanumOnTauralon(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
-            MountedStormcastEternal(stormhost, "Lord-Arcanum on Tauralon", 14, g_wounds, 9, 3, true),
+            MountedStormcastEternal(stormhost, "Lord-Arcanum on Tauralon", 14, g_wounds, 9, 3, true, g_pointsPerUnit),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_hornsAndHooves(Weapon::Type::Melee, "Horns and Stamping Hooves", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, TAURALON, STORMCAST_ETERNAL, SACROSANCT, HERO, MONSTER, WIZARD,
@@ -113,7 +113,7 @@ namespace StormcastEternals {
         }
     }
 
-    int LordArcanumOnTauralon::ComputePoints(int /*numModels*/) {
+    int LordArcanumOnTauralon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

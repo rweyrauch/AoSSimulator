@@ -139,7 +139,7 @@ namespace SlavesToDarkness {
 
     protected:
 
-        SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+        SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
 
     protected:
 

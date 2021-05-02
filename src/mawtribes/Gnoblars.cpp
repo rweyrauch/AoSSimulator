@@ -28,7 +28,7 @@ namespace OgorMawtribes {
         if (AreValid(parameters)) {
             auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new Gnoblars(tribe, numModels);
+            return new Gnoblars(tribe, numModels, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -51,8 +51,8 @@ namespace OgorMawtribes {
         }
     }
 
-    Gnoblars::Gnoblars(Mawtribe tribe, int numModels) :
-            MawtribesBase(tribe, "Gnoblars", 5, g_wounds, 4, 6, false) {
+    Gnoblars::Gnoblars(Mawtribe tribe, int numModels, int points) :
+            MawtribesBase(tribe, "Gnoblars", 5, g_wounds, 4, 6, false, points) {
         m_keywords = {DESTRUCTION, GROT, OGOR_MAWTRIBES, GUTBUSTERS, GNOBLARS};
         m_weapons = {&m_sharpStuff, &m_motleyWeapons, &m_motleyWeaponsBiter};
 
@@ -67,11 +67,10 @@ namespace OgorMawtribes {
             model->addMeleeWeapon(&m_motleyWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int Gnoblars::ComputePoints(int numModels) {
+    int Gnoblars::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

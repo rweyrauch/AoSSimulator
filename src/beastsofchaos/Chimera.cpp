@@ -35,7 +35,7 @@ namespace BeastsOfChaos {
             };
 
     Chimera::Chimera(Greatfray fray) :
-            BeastsOfChaosBase("Chimera", 10, g_wounds, 6, 5, true),
+            BeastsOfChaosBase("Chimera", 10, g_wounds, 6, 5, true, g_pointsPerUnit),
             m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 14, 1, 0, 0, 0, RAND_D6),
             m_avianHead(Weapon::Type::Melee, "Avian Head", 1, 3, 3, 4, -3, RAND_D3),
             m_draconicHead(Weapon::Type::Melee, "Draconic Head", 1, 3, 4, 4, -1, 2),
@@ -127,7 +127,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Chimera::ComputePoints(int /*numModels*/) {
+    int Chimera::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

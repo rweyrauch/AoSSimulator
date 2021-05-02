@@ -34,7 +34,7 @@ namespace Greenskinz {
     bool OrrukWarbossOnWyvern::s_registered = false;
 
     OrrukWarbossOnWyvern::OrrukWarbossOnWyvern() :
-            Unit("Orruk Warboss on Wyvern", 12, g_wounds, 7, 4, true),
+            Unit("Orruk Warboss on Wyvern", 12, g_wounds, 7, 4, true, g_pointsPerUnit),
             m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 6, 3, 3, -1, 1),
             m_hornsClawsAndTeeth(Weapon::Type::Melee, "Wyvern's Horns, Claws and Teeth", 2, 5, 4, 3, -1, 2),
             m_barbedTail(Weapon::Type::Melee, "Wyvern's Barbed, Venomous Tail", 3, 2, 4, 2, -1, 3) {
@@ -130,7 +130,7 @@ namespace Greenskinz {
         return attacks;
     }
 
-    int OrrukWarbossOnWyvern::ComputePoints(int /*numModels*/) {
+    int OrrukWarbossOnWyvern::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

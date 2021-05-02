@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool BlissbarbArchers::s_registered = false;
 
-    BlissbarbArchers::BlissbarbArchers() :
-            SlaaneshBase("Blissbarb Archers", 6, g_wounds, 6, 6, false),
+    BlissbarbArchers::BlissbarbArchers(int points) :
+            SlaaneshBase("Blissbarb Archers", 6, g_wounds, 6, 6, false, points),
             m_bow(Weapon::Type::Missile, "Blissbarb Bow", 18, 2, 4, 4, -1, 1),
             m_bowTempter(Weapon::Type::Missile, "Blissbarb Bow", 18, 3, 4, 4, -1, 1),
             m_blade(Weapon::Type::Melee, "Sybarite Blade", 1, 1, 4, 4, 0, 1) {
@@ -55,13 +55,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *BlissbarbArchers::Create(const ParameterList &parameters) {
-        auto unit = new BlissbarbArchers();
+        auto unit = new BlissbarbArchers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
@@ -93,7 +91,8 @@ namespace Slaanesh {
         }
     }
 
-    int BlissbarbArchers::ComputePoints(int numModels) {
+    int BlissbarbArchers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

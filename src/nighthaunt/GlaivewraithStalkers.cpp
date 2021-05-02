@@ -19,8 +19,8 @@ namespace Nighthaunt {
 
     bool GlaivewraithStalkers::s_registered = false;
 
-    GlaivewraithStalkers::GlaivewraithStalkers() :
-            Nighthaunt("Glaivewraith Stalkers", 6, g_wounds, 10, 4, true),
+    GlaivewraithStalkers::GlaivewraithStalkers(int points) :
+            Nighthaunt("Glaivewraith Stalkers", 6, g_wounds, 10, 4, true, points),
             m_huntersGlaive(Weapon::Type::Melee, "Hunter's Glaive", 2, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GLAIVEWRAITH_STALKERS};
         m_weapons = {&m_huntersGlaive};
@@ -44,13 +44,11 @@ namespace Nighthaunt {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *GlaivewraithStalkers::Create(const ParameterList &parameters) {
-        auto unit = new GlaivewraithStalkers();
+        auto unit = new GlaivewraithStalkers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool drummer = GetBoolParam("Drummer", parameters, true);
 
@@ -89,7 +87,8 @@ namespace Nighthaunt {
         return Nighthaunt::toHitRerolls(weapon, unit);
     }
 
-    int GlaivewraithStalkers::ComputePoints(int numModels) {
+    int GlaivewraithStalkers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

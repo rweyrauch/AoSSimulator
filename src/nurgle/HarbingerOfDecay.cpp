@@ -58,7 +58,7 @@ namespace Nurgle {
     }
 
     HarbingerOfDecay::HarbingerOfDecay() :
-            NurgleBase("Harbinger of Decay", 4, g_wounds, 8, 4, false),
+            NurgleBase("Harbinger of Decay", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_scythe(Weapon::Type::Melee, "Plague Scythe", 1, 3, 3, 3, -1, RAND_D3),
             m_bite(Weapon::Type::Melee, "Daemonic Mount's Flyblown Bite", 1, RAND_D6, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, HARBINGER_OF_DECAY};
@@ -73,8 +73,6 @@ namespace Nurgle {
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_bite);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds HarbingerOfDecay::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -82,7 +80,7 @@ namespace Nurgle {
         return ignoreWounds(wounds, 4);
     }
 
-    int HarbingerOfDecay::ComputePoints(int /*numModels*/) {
+    int HarbingerOfDecay::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

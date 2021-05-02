@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *SplinteredFang::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new SplinteredFang(legion, numModels);
+        return new SplinteredFang(legion, numModels, ComputePoints(parameters));
     }
 
     void SplinteredFang::Init() {
@@ -43,8 +43,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    SplinteredFang::SplinteredFang(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Splintered Fang", 6, g_wounds, 5, 5, false),
+    SplinteredFang::SplinteredFang(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Splintered Fang", 6, g_wounds, 5, 5, false, points),
             m_poisonedWeapons(Weapon::Type::Melee, "Poisoned Weapons", 1, 1, 4, 4, 0, 1),
             m_poisonedWeaponsLeader(Weapon::Type::Melee, "Poisoned Weapons (Trueblood)", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPLINTERED_FANG};
@@ -72,8 +72,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_poisonedWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Wounds SplinteredFang::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -84,7 +82,8 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SplinteredFang::ComputePoints(int numModels) {
+    int SplinteredFang::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

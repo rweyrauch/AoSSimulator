@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool MyrmideshPainbringers::s_registered = false;
 
-    MyrmideshPainbringers::MyrmideshPainbringers() :
-            SlaaneshBase("Myrmidesh Painbringers", 6, g_wounds, 7, 4, false),
+    MyrmideshPainbringers::MyrmideshPainbringers(int points) :
+            SlaaneshBase("Myrmidesh Painbringers", 6, g_wounds, 7, 4, false, points),
             m_scimitar(Weapon::Type::Missile, "Scimitar", 1, 2, 3, 3, -1, 1),
             m_scimitarMaster(Weapon::Type::Melee, "Scimitar", 1, 3, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, SEEKERS, MYRMIDESH_PAINBRINGERS};
@@ -48,13 +48,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *MyrmideshPainbringers::Create(const ParameterList &parameters) {
-        auto unit = new MyrmideshPainbringers();
+        auto unit = new MyrmideshPainbringers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
@@ -86,7 +84,8 @@ namespace Slaanesh {
         }
     }
 
-    int MyrmideshPainbringers::ComputePoints(int numModels) {
+    int MyrmideshPainbringers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

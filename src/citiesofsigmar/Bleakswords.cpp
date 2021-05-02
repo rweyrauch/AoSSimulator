@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool Bleakswords::s_registered = false;
 
     Unit *Bleakswords::Create(const ParameterList &parameters) {
-        auto unit = new Bleakswords();
+        auto unit = new Bleakswords(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -66,8 +66,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Bleakswords::Bleakswords() :
-            CitizenOfSigmar("Bleakswords", 6, g_wounds, 6, 4, false),
+    Bleakswords::Bleakswords(int points) :
+            CitizenOfSigmar("Bleakswords", 6, g_wounds, 6, 4, false, points),
             m_sword(Weapon::Type::Melee, "Darkling Sword", 1, 1, 4, 4, 0, 1),
             m_swordLordling(Weapon::Type::Melee, "Darkling Sword", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLEAKSWORDS};
@@ -99,8 +99,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }
@@ -138,7 +136,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int Bleakswords::ComputePoints(int numModels) {
+    int Bleakswords::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

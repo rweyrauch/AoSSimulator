@@ -22,8 +22,8 @@ namespace Tzeentch {
     bool Tzaangors::s_registered = false;
 
     Tzaangors::Tzaangors(ChangeCoven coven, int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
-                         bool brayhorns) :
-            TzeentchBase("Tzaangors", 6, g_wounds, 5, 5, false) {
+                         bool brayhorns, int points) :
+            TzeentchBase("Tzaangors", 6, g_wounds, 5, 5, false, points) {
         m_keywords = {CHAOS, GOR, TZEENTCH, ARCANITE, TZAANGORS};
         m_weapons = {&m_savageBlade, &m_savageBladeTwistbray, &m_savageGreatblade, &m_savageGreatbladeTwistbray,
                      &m_viciousBeak, &m_viciousBeakTwistbray};
@@ -68,8 +68,6 @@ namespace Tzeentch {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Tzaangors::Create(const ParameterList &parameters) {
@@ -81,7 +79,7 @@ namespace Tzeentch {
         bool brayhorns = GetBoolParam("Brayhorns", parameters, false);
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
 
-        return new Tzaangors(coven, numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns);
+        return new Tzaangors(coven, numModels, weapons, numGreatblades, numMutants, iconBearer, brayhorns, ComputePoints(parameters));
     }
 
     void Tzaangors::Init() {
@@ -173,7 +171,8 @@ namespace Tzeentch {
         return attacks;
     }
 
-    int Tzaangors::ComputePoints(int numModels) {
+    int Tzaangors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

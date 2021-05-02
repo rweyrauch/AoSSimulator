@@ -63,7 +63,7 @@ namespace FleshEaterCourt {
     bool AbhorrantGhoulKingOnZombieDragon::s_registered = false;
 
     AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
-            FleshEaterCourts("Abhorrant Ghoul King on Zombie Dragon", 14, g_wounds, 10, 4, true),
+            FleshEaterCourts("Abhorrant Ghoul King on Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_pestilentialBreath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 5, 3, 3, -1, 1),
             m_snappingMaw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
@@ -204,7 +204,7 @@ namespace FleshEaterCourt {
         onWounded();
     }
 
-    int AbhorrantGhoulKingOnZombieDragon::ComputePoints(int /*numModels*/) {
+    int AbhorrantGhoulKingOnZombieDragon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

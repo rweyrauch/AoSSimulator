@@ -27,7 +27,7 @@ namespace Sylvaneth {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -35,7 +35,7 @@ namespace Sylvaneth {
 
         ~KurnothHunters() override = default;
 
-        KurnothHunters(Glade glade, int numModels, WeaponOption weapons);
+        KurnothHunters(Glade glade, int numModels, WeaponOption weapons, int points);
 
     protected:
 

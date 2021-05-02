@@ -58,7 +58,7 @@ namespace OgorMawtribes {
     }
 
     Slaughtermaster::Slaughtermaster(Mawtribe tribe, CommandTrait trait, Artefact artefact, bool isGeneral, Lore lore) :
-            MawtribesBase(tribe, "Slaughtermaster", 6, g_wounds, 8, 5, false) {
+            MawtribesBase(tribe, "Slaughtermaster", 6, g_wounds, 8, 5, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER, SLAUGHTERMASTER};
         m_weapons = {&m_stumpBlades, &m_bite, &m_assortedWeapons};
         m_battleFieldRole = Role::Leader;
@@ -107,8 +107,6 @@ namespace OgorMawtribes {
         if (trait == CommandTrait::Growling_Stomach) {
             s_globalBraveryMod.connect(this, &Slaughtermaster::growlingStomach, &m_growlingStomach);
         }
-
-        m_points = Slaughtermaster::ComputePoints(1);
     }
 
     Slaughtermaster::~Slaughtermaster() {
@@ -183,7 +181,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int Slaughtermaster::ComputePoints(int /*numModels*/) {
+    int Slaughtermaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

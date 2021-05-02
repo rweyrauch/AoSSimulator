@@ -24,10 +24,11 @@ namespace SlavesToDarkness {
     Unit *SpireTyrants::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new SpireTyrants(legion, numModels);
+        return new SpireTyrants(legion, numModels, ComputePoints(parameters));
     }
 
-    int SpireTyrants::ComputePoints(int numModels) {
+    int SpireTyrants::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -53,8 +54,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    SpireTyrants::SpireTyrants(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Spire Tyrants", 6, g_wounds, 5, 5, false) {
+    SpireTyrants::SpireTyrants(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Spire Tyrants", 6, g_wounds, 5, 5, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPIRE_TYRANTS};
         m_weapons = {&m_gladiatorialWeapons, &m_gladiatorialWeaponsChampion, &m_gladiatorialWeaponsDestroyer, &m_gladiatorialWeaponsHeadclaimer};
 
@@ -80,8 +81,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_gladiatorialWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     int SpireTyrants::toHitModifier(const Weapon *weapon, const Unit *target) const {

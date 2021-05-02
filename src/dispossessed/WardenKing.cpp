@@ -18,7 +18,7 @@ namespace Dispossessed {
     bool WardenKing::s_registered = false;
 
     WardenKing::WardenKing() :
-            Dispossessed("Warden King", 4, g_wounds, 8, 4, false),
+            Dispossessed("Warden King", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_runeWeapon(Weapon::Type::Melee, "Rune Weapon", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
         m_weapons = {&m_runeWeapon};
@@ -60,7 +60,7 @@ namespace Dispossessed {
         }
     }
 
-    int WardenKing::ComputePoints(int /*numModels*/) {
+    int WardenKing::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

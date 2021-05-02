@@ -20,7 +20,7 @@ namespace Skaven {
     bool RatSwarms::s_registered = false;
 
     Unit *RatSwarms::Create(const ParameterList &parameters) {
-        auto unit = new RatSwarms();
+        auto unit = new RatSwarms(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -31,7 +31,8 @@ namespace Skaven {
         return unit;
     }
 
-    int RatSwarms::ComputePoints(int numModels) {
+    int RatSwarms::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -57,8 +58,8 @@ namespace Skaven {
         }
     }
 
-    RatSwarms::RatSwarms() :
-            Skaventide("Rat Swarms", 6, g_wounds, 10, NoSave, false),
+    RatSwarms::RatSwarms(int points) :
+            Skaventide("Rat Swarms", 6, g_wounds, 10, NoSave, false, points),
             m_teeth(Weapon::Type::Melee, "Gnawing Teeth", 1, 5, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVENTIDE, CLANS_MOULDER, PACK, RAT_SWARMS};
         m_weapons = {&m_teeth};
@@ -74,7 +75,6 @@ namespace Skaven {
             model->addMeleeWeapon(&m_teeth);
             addModel(model);
         }
-        m_points = ComputePoints(numModels);
 
         return true;
     }

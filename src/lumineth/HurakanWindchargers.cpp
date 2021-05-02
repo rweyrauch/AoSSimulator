@@ -24,10 +24,11 @@ namespace LuminethRealmLords {
     Unit *HurakanWindchargers::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        return new HurakanWindchargers(numModels, nation);
+        return new HurakanWindchargers(numModels, nation, ComputePoints(parameters));
     }
 
-    int HurakanWindchargers::ComputePoints(int numModels) {
+    int HurakanWindchargers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -54,8 +55,8 @@ namespace LuminethRealmLords {
         }
     }
 
-    HurakanWindchargers::HurakanWindchargers(int numModels, GreatNation nation) :
-        LuminethBase("Hurakan Windchargers", 14, g_wounds, 7, 5, false) {
+    HurakanWindchargers::HurakanWindchargers(int numModels, GreatNation nation, int points) :
+        LuminethBase("Hurakan Windchargers", 14, g_wounds, 7, 5, false, points) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, AELEMENTIRI, HURAKAN, WINDCHARGERS};
         m_weapons = {&m_bow, &m_bowSeneschal, &m_bowMelee, &m_bowSeneschalMelee, &m_claws};
         m_battleFieldRole = Role::Other;
@@ -76,7 +77,5 @@ namespace LuminethRealmLords {
             model->addMeleeWeapon(&m_claws);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 }

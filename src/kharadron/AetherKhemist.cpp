@@ -66,7 +66,7 @@ namespace KharadronOverlords {
     }
 
     AetherKhemist::AetherKhemist() :
-            KharadronBase("Aether Khemist", 4, g_wounds, 7, 4, false),
+            KharadronBase("Aether Khemist", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_anatomiser(Weapon::Type::Missile, "Atmospheric Anatomiser", 9, RAND_3D6, 4, 4, -2, 1),
             m_instruments(Weapon::Type::Melee, "Heavy Instruments", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHER_KHEMIST};
@@ -98,7 +98,7 @@ namespace KharadronOverlords {
         return 0;
     }
 
-    int AetherKhemist::ComputePoints(int /*numModels*/) {
+    int AetherKhemist::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

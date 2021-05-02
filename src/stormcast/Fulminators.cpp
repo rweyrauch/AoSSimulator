@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Fulminators::s_registered = false;
 
-    Fulminators::Fulminators(Stormhost stormhost, int numModels) :
-            StormcastEternal(stormhost, "Fulminators", 10, g_wounds, 7, 3, false),
+    Fulminators::Fulminators(Stormhost stormhost, int numModels, int points) :
+            StormcastEternal(stormhost, "Fulminators", 10, g_wounds, 7, 3, false, points),
             m_stormBlast(Weapon::Type::Missile, "Storm Blast", 12, 1, 4, 0, 0, 0),
             m_stormstrkeGlaive(Weapon::Type::Melee, "Stormstrike Glaive", 2, 3, 3, 3, -1, 1),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 3, 3, 3, -1, 1) {
@@ -37,14 +37,12 @@ namespace StormcastEternals {
             model->addMeleeWeapon(&m_clawsAndFangs);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Fulminators::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        return new Fulminators(stormhost, numModels);
+        return new Fulminators(stormhost, numModels, ComputePoints(parameters));
     }
 
     void Fulminators::Init() {
@@ -99,7 +97,8 @@ namespace StormcastEternals {
         return modifier;
     }
 
-    int Fulminators::ComputePoints(int numModels) {
+    int Fulminators::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -21,11 +21,11 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         Centigors() = delete;
 
-        Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer);
+        Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer, int points);
 
         ~Centigors() override = default;
 

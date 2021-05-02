@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
     }
 
     Assassin::Assassin() :
-            CitizenOfSigmar("Assassin", 6, g_wounds, 7, 5, false),
+            CitizenOfSigmar("Assassin", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_blades(Weapon::Type::Melee, "Poison-coated Blades", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, HERO, ASSASSIN};
         m_weapons = {&m_blades};
@@ -94,7 +94,7 @@ namespace CitiesOfSigmar {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Assassin::ComputePoints(int /*numModels*/) {
+    int Assassin::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

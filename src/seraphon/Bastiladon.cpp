@@ -35,7 +35,7 @@ namespace Seraphon {
     bool Bastiladon::s_registered = false;
 
     Bastiladon::Bastiladon(WayOfTheSeraphon way, Constellation constellation) :
-            SeraphonBase("Bastiladon", 5, g_wounds, 6, 1, false) {
+            SeraphonBase("Bastiladon", 5, g_wounds, 6, 1, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SKINK, MONSTER, BASTILADON};
         m_weapons = {&m_beam, &m_javelins, &m_ark, &m_tail};
         m_battleFieldRole = Role::Behemoth;
@@ -50,8 +50,6 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_ark);
         model->addMeleeWeapon(&m_tail);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *Bastiladon::Create(const ParameterList &parameters) {
@@ -118,7 +116,7 @@ namespace Seraphon {
         onWounded();
     }
 
-    int Bastiladon::ComputePoints(int /*numModels*/) {
+    int Bastiladon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

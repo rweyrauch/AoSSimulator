@@ -20,8 +20,8 @@ namespace BeastsOfChaos {
 
     bool Bullgors::s_registered = false;
 
-    Bullgors::Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer) :
-            BeastsOfChaosBase("Bullgors", 7, g_wounds, 6, 5, false) {
+    Bullgors::Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer, int points) :
+            BeastsOfChaosBase("Bullgors", 7, g_wounds, 6, 5, false, points) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, WARHERD, BULLGORS};
         m_weapons = {&m_bullgorHorns, &m_bullgorAxe, &m_bullgorAxeBloodkine, &m_bullgorGreatAxe,
                      &m_bullgorGreatAxeBloodkine};
@@ -56,7 +56,6 @@ namespace BeastsOfChaos {
             }
             addModel(model);
         }
-        m_points = ComputePoints(numModels);
     }
 
     bool Bullgors::AreValid(const ParameterList &parameters) {
@@ -71,7 +70,7 @@ namespace BeastsOfChaos {
             const auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, Bullgor_Axe);
             const bool drummer = GetBoolParam("Drummer", parameters, false);
             const bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
-            return new Bullgors(fray, numModels, weapon, drummer, bannerBearer);
+            return new Bullgors(fray, numModels, weapon, drummer, bannerBearer, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -146,7 +145,8 @@ namespace BeastsOfChaos {
         return BeastsOfChaosBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Bullgors::ComputePoints(int numModels) {
+    int Bullgors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

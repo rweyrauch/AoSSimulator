@@ -19,7 +19,7 @@ namespace Nighthaunt {
     bool MyrmournBanshees::s_registered = false;
 
     Unit *MyrmournBanshees::Create(const ParameterList &parameters) {
-        auto unit = new MyrmournBanshees();
+        auto unit = new MyrmournBanshees(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -30,7 +30,8 @@ namespace Nighthaunt {
         return unit;
     }
 
-    int MyrmournBanshees::ComputePoints(int numModels) {
+    int MyrmournBanshees::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -55,8 +56,8 @@ namespace Nighthaunt {
         }
     }
 
-    MyrmournBanshees::MyrmournBanshees() :
-            Nighthaunt("Myrmourn Banshees", 8, g_wounds, 10, 4, true),
+    MyrmournBanshees::MyrmournBanshees(int points) :
+            Nighthaunt("Myrmourn Banshees", 8, g_wounds, 10, 4, true, points),
             m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, MYRMOURN_BANSHEES};
         m_weapons = {&m_dagger};
@@ -72,8 +73,6 @@ namespace Nighthaunt {
             model->addMeleeWeapon(&m_dagger);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }

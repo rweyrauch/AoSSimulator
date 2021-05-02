@@ -48,7 +48,7 @@ namespace OssiarchBonereapers {
     }
 
     LiegeKavalos::LiegeKavalos(Legion legion, CommandTrait trait, Artefact artefact, bool isGeneral, Lore lore) :
-            OssiarchBonereaperBase("Liege-Kavalos", 10, g_wounds, 10, 3, false) {
+            OssiarchBonereaperBase("Liege-Kavalos", 10, g_wounds, 10, 3, false, g_pointsPerUnit) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, LIEGE, HERO, LIEGE_KAVALOS};
         m_weapons = {&m_blade, &m_shield, &m_hoovesAndTeeth};
         m_battleFieldRole = Role::Leader;
@@ -72,10 +72,9 @@ namespace OssiarchBonereapers {
             m_totalUnbinds = 1;
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         }
-        m_points = g_pointsPerUnit;
     }
 
-    int LiegeKavalos::ComputePoints(int /*numModels*/) {
+    int LiegeKavalos::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

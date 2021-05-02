@@ -48,7 +48,7 @@ namespace SlavesToDarkness {
     }
 
     ExaltedHeroOfChaos::ExaltedHeroOfChaos(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Exalted Hero of Chaos", 5, g_wounds, 8, 4, false) {
+            SlavesToDarknessBase("Exalted Hero of Chaos", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS};
         m_weapons = {&m_blades};
         m_battleFieldRole = Role::Leader;
@@ -62,8 +62,6 @@ namespace SlavesToDarkness {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blades);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds ExaltedHeroOfChaos::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -87,7 +85,7 @@ namespace SlavesToDarkness {
         return mod;
     }
 
-    int ExaltedHeroOfChaos::ComputePoints(int /*numModels*/) {
+    int ExaltedHeroOfChaos::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

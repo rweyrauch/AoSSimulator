@@ -28,7 +28,7 @@ namespace Khorne {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         MightySkullcrushers() = delete;
 
@@ -36,7 +36,7 @@ namespace Khorne {
 
     protected:
 
-        MightySkullcrushers(SlaughterHost host, int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers);
+        MightySkullcrushers(SlaughterHost host, int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers, int points);
 
         int chargeModifier() const override;
 

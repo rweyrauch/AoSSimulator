@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool Seekers::s_registered = false;
 
-    Seekers::Seekers() :
-            SlaaneshBase("Seekers", 14, g_wounds, 10, 5, false),
+    Seekers::Seekers(int points) :
+            SlaaneshBase("Seekers", 14, g_wounds, 10, 5, false, points),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 3, 4, -1, 1),
             m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
@@ -68,13 +68,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Seekers::Create(const ParameterList &parameters) {
-        auto unit = new Seekers();
+        auto unit = new Seekers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
@@ -144,7 +142,8 @@ namespace Slaanesh {
         return Dice::RollD6();
     }
 
-    int Seekers::ComputePoints(int numModels) {
+    int Seekers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

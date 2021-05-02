@@ -24,7 +24,7 @@ namespace Tzeentch {
         return unit;
     }
 
-    int TheEyesOfTheNine::ComputePoints(int /*numModels*/) {
+    int TheEyesOfTheNine::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -45,7 +45,7 @@ namespace Tzeentch {
     }
 
     TheEyesOfTheNine::TheEyesOfTheNine() :
-            TzeentchBase("The Eyes of the Nine", 6, g_wounds, 6, 6, false),
+            TzeentchBase("The Eyes of the Nine", 6, g_wounds, 6, 6, false, g_pointsPerUnit),
             m_flames(Weapon::Type::Missile, "Magical Flames", 12, 2, 5, 4, 0, 1),
             m_bolt(Weapon::Type::Missile, "Sorcerous Bolt", 12, 1, 5, 4, 0, 1),
             m_greatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
@@ -80,8 +80,6 @@ namespace Tzeentch {
         horror->addMeleeWeapon(&m_hands);
         horror->setName("Blue Horror");
         addModel(horror);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds TheEyesOfTheNine::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

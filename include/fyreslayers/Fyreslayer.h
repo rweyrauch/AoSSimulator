@@ -139,8 +139,8 @@ namespace Fyreslayers {
         void setArtefact(Artefact artefact);
 
     protected:
-        Fyreslayer(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        Fyreslayer(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         void onBeginRound(int battleRound) override;
 

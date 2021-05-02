@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Protectors::s_registered = false;
 
-    Protectors::Protectors(Stormhost stormhost, int numModels, int numStarsoulMaces) :
-            StormcastEternal(stormhost, "Protectors", 4, g_wounds, 7, 4, false),
+    Protectors::Protectors(Stormhost stormhost, int numModels, int numStarsoulMaces, int points) :
+            StormcastEternal(stormhost, "Protectors", 4, g_wounds, 7, 4, false, points),
             m_glaive(Weapon::Type::Melee, "Stormstrike Glaive", 3, 3, 3, 3, -1, 1),
             m_glaivePrime(Weapon::Type::Melee, "Stormstrike Glaive", 3, 4, 3, 3, -1, 1),
             m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0) {
@@ -45,8 +45,6 @@ namespace StormcastEternals {
             model->addMeleeWeapon(&m_glaive);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Wounds Protectors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -83,7 +81,7 @@ namespace StormcastEternals {
             // Invalid weapon configuration.
             return nullptr;
         }
-        return new Protectors(stormhost, numModels, numStarsoulMaces);
+        return new Protectors(stormhost, numModels, numStarsoulMaces, ComputePoints(parameters));
     }
 
     void Protectors::Init() {
@@ -116,7 +114,8 @@ namespace StormcastEternals {
         return modifier;
     }
 
-    int Protectors::ComputePoints(int numModels) {
+    int Protectors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

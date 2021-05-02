@@ -26,11 +26,11 @@ namespace StormcastEternals {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Sequitors(Stormhost stormhost, int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache);
+        Sequitors(Stormhost stormhost, int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache, int points);
 
         ~Sequitors() override = default;
 

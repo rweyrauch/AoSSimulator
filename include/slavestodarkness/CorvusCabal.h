@@ -17,11 +17,11 @@ namespace SlavesToDarkness {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        CorvusCabal(DamnedLegion legion, int numModels);
+        CorvusCabal(DamnedLegion legion, int numModels, int points);
 
         CorvusCabal() = delete;
 

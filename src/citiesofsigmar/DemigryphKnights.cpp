@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool DemigryphKnights::s_registered = false;
 
     Unit *DemigryphKnights::Create(const ParameterList &parameters) {
-        auto unit = new DemigryphKnights();
+        auto unit = new DemigryphKnights(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -82,8 +82,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DemigryphKnights::DemigryphKnights() :
-            CitizenOfSigmar("Demigryph Knights", 10, g_wounds, 6, 3, false),
+    DemigryphKnights::DemigryphKnights(int points) :
+            CitizenOfSigmar("Demigryph Knights", 10, g_wounds, 6, 3, false, points),
             m_halberd(Weapon::Type::Melee, "Demigryph Knight's Halberd", 2, 3, 3, 3, -1, 1),
             m_lance(Weapon::Type::Melee, "Demigryph Knight's Lance", 2, 3, 3, 4, 0, 1),
             m_halberdPreceptor(Weapon::Type::Melee, "Demigryph Knight's Halberd", 2, 4, 3, 3, -1, 1),
@@ -130,8 +130,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -174,7 +172,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int DemigryphKnights::ComputePoints(int numModels) {
+    int DemigryphKnights::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

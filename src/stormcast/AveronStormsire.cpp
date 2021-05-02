@@ -22,7 +22,7 @@ namespace StormcastEternals {
     bool AveronStormsire::s_registered = false;
 
     AveronStormsire::AveronStormsire(Lore lore, bool isGeneral) :
-            StormcastEternal(Stormhost::None, "Averon Stormsire", 5, g_wounds, 9, 3, false),
+            StormcastEternal(Stormhost::None, "Averon Stormsire", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Incantor's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO, WIZARD,
                       KNIGHT_INCANTOR, AVERON_STORMSIRE};
@@ -87,7 +87,7 @@ namespace StormcastEternals {
         }
     }
 
-    int AveronStormsire::ComputePoints(int /*numModels*/) {
+    int AveronStormsire::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -70,7 +70,7 @@ namespace Sylvaneth {
 
 
     Alarielle::Alarielle(Glade glade, Lore lore, bool isGeneral) :
-            SylvanethBase("Alarielle", 16, g_wounds, 10, 3, true),
+            SylvanethBase("Alarielle", 16, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_spearOfKurnoth(Weapon::Type::Missile, "Spear of Kurnoth", 30, 1, 3, 2, -2, RAND_D6),
             m_talonOfDwindling(Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1),
             m_beetleGreatAntlers(Weapon::Type::Melee, "Great Antlers", 2, 5, 4, 3, -2, 5) {
@@ -215,7 +215,7 @@ namespace Sylvaneth {
         onWounded();
     }
 
-    int Alarielle::ComputePoints(int /*numModels*/) {
+    int Alarielle::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -53,7 +53,7 @@ namespace OgorMawtribes {
     }
 
     Firebelly::Firebelly(Mawtribe tribe, Lore lore, bool isGeneral) :
-            MawtribesBase(tribe, "Firebelly", 6, g_wounds, 6, 5, false) {
+            MawtribesBase(tribe, "Firebelly", 6, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, HERO, WIZARD, FIREBELLY};
         m_weapons = {&m_fireBreath, &m_hammer};
         m_battleFieldRole = Role::Leader;
@@ -73,8 +73,6 @@ namespace OgorMawtribes {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = Firebelly::ComputePoints(1);
     }
 
     void Firebelly::onStartShooting(PlayerId player) {
@@ -90,7 +88,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int Firebelly::ComputePoints(int /*numModels*/) {
+    int Firebelly::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -21,8 +21,8 @@ namespace Khorne {
 
     bool FleshHounds::s_registered = false;
 
-    FleshHounds::FleshHounds(SlaughterHost host, int numModels) :
-            KhorneBase("Flesh Hounds", 8, g_wounds, 10, 5, false) {
+    FleshHounds::FleshHounds(SlaughterHost host, int numModels, int points) :
+            KhorneBase("Flesh Hounds", 8, g_wounds, 10, 5, false, points) {
         m_keywords = {CHAOS, DAEMON, KHORNE, FLESH_HOUNDS};
         m_weapons = {&m_burningRoar, &m_blooddarkClaws};
 
@@ -46,15 +46,13 @@ namespace Khorne {
             model->addMeleeWeapon(&m_blooddarkClaws);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *FleshHounds::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
 
-        return new FleshHounds(host, numModels);
+        return new FleshHounds(host, numModels, ComputePoints(parameters));
     }
 
     void FleshHounds::Init() {
@@ -75,7 +73,8 @@ namespace Khorne {
         }
     }
 
-    int FleshHounds::ComputePoints(int numModels) {
+    int FleshHounds::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

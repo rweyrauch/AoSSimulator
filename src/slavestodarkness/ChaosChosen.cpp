@@ -26,7 +26,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
 
-        return new ChaosChosen(legion, mark, numModels, iconBearer, drummer);
+        return new ChaosChosen(legion, mark, numModels, iconBearer, drummer, ComputePoints(parameters));
     }
 
     void ChaosChosen::Init() {
@@ -50,8 +50,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosChosen::ChaosChosen(DamnedLegion legion, MarkOfChaos mark, int numModels, bool iconBearer, bool drummer) :
-            SlavesToDarknessBase("Chaos Chosen", 6, g_wounds, 7, 4, false) {
+    ChaosChosen::ChaosChosen(DamnedLegion legion, MarkOfChaos mark, int numModels, bool iconBearer, bool drummer, int points) :
+            SlavesToDarknessBase("Chaos Chosen", 6, g_wounds, 7, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
         m_weapons = {&m_greataxe, &m_greataxeChampion};
 
@@ -84,8 +84,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_greataxe);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     ChaosChosen::~ChaosChosen() {
@@ -112,7 +110,8 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int ChaosChosen::ComputePoints(int numModels) {
+    int ChaosChosen::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

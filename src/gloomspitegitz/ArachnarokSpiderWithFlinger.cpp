@@ -34,7 +34,7 @@ namespace GloomspiteGitz {
             };
 
     ArachnarokSpiderWithFlinger::ArachnarokSpiderWithFlinger() :
-            GloomspiteGitzBase("Arachnarok Spider with Flinger", 8, g_wounds, 6, 4, true),
+            GloomspiteGitzBase("Arachnarok Spider with Flinger", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spiderBows(Weapon::Type::Missile, "Spider-bows", 16, 8, 5, 5, 0, 1),
             m_flinger(Weapon::Type::Missile, "Flinger", 36, 1, 0, 0, 0, 0),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
@@ -117,7 +117,7 @@ namespace GloomspiteGitz {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int ArachnarokSpiderWithFlinger::ComputePoints(int /*numModels*/) {
+    int ArachnarokSpiderWithFlinger::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

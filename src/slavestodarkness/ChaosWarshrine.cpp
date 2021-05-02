@@ -60,7 +60,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosWarshrine::ChaosWarshrine(DamnedLegion legion, MarkOfChaos mark) :
-            SlavesToDarknessBase("Chaos Warshrine", 8, g_wounds, 7, 4, false),
+            SlavesToDarknessBase("Chaos Warshrine", 8, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_blade(Weapon::Type::Melee, "Sacrificial Blade", 1, 4, 3, 3, -1, 2),
             m_fists(Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, TOTEM, PRIEST, MARK_OF_CHAOS, CHAOS_WARSHRINE};
@@ -78,8 +78,6 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_blade);
         model->addMeleeWeapon(&m_fists);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     ChaosWarshrine::~ChaosWarshrine() {
@@ -111,7 +109,7 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    int ChaosWarshrine::ComputePoints(int /*numModels*/) {
+    int ChaosWarshrine::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

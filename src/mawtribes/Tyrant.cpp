@@ -76,7 +76,7 @@ namespace OgorMawtribes {
     }
 
     Tyrant::Tyrant(Mawtribe tribe, Tyrant::BigName bigName, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            MawtribesBase(tribe, "Tyrant", 6, g_wounds, 8, 4, false) {
+            MawtribesBase(tribe, "Tyrant", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, TYRANT};
         m_weapons = {&m_pistols, &m_thundermace, &m_glaive, &m_bite};
         m_battleFieldRole = Role::Leader;
@@ -103,8 +103,6 @@ namespace OgorMawtribes {
         if (m_commandTrait == CommandTrait::Mighty_Bellower) {
             s_globalBattleshockFleeModifier.connect(this, &Tyrant::mightyBellower, &m_mightyBellower);
         }
-
-        m_points = g_pointsPerUnit;
     }
 
     Tyrant::~Tyrant() {
@@ -135,7 +133,7 @@ namespace OgorMawtribes {
         return mod;
     }
 
-    int Tyrant::ComputePoints(int /*numModels*/) {
+    int Tyrant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

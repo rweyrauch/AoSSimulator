@@ -151,7 +151,7 @@ namespace CitiesOfSigmar {
     }
 
     DreadlordOnBlackDragon::DreadlordOnBlackDragon() :
-            CitizenOfSigmar("Dreadlord on Black Dragon", 12, g_wounds, 8, 4, true),
+            CitizenOfSigmar("Dreadlord on Black Dragon", 12, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 4, 4, 0, 1),
             m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, 7, 0),
             m_blade(Weapon::Type::Melee, "Exile Blade", 1, 6, 3, 4, 0, 1),
@@ -244,7 +244,7 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int DreadlordOnBlackDragon::ComputePoints(int /*numModels*/) {
+    int DreadlordOnBlackDragon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

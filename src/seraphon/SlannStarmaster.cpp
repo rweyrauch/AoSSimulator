@@ -22,7 +22,7 @@ namespace Seraphon {
     bool SlannStarmaster::s_registered = false;
 
     SlannStarmaster::SlannStarmaster(WayOfTheSeraphon way, Constellation constellation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Slann Starmaster", 5, g_wounds, 9, 4, true) {
+            SeraphonBase("Slann Starmaster", 5, g_wounds, 9, 4, true, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER};
         m_weapons = {&m_lightning};
         m_battleFieldRole = Role::Leader;
@@ -45,8 +45,6 @@ namespace Seraphon {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateGiftFromTheHeavens(this)));
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SlannStarmaster::Create(const ParameterList &parameters) {
@@ -103,7 +101,7 @@ namespace Seraphon {
         return mod;
     }
 
-    int SlannStarmaster::ComputePoints(int /*numModels*/) {
+    int SlannStarmaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

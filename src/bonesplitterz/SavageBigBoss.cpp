@@ -57,7 +57,7 @@ namespace Bonesplitterz {
     }
 
     SavageBigBoss::SavageBigBoss() :
-            Bonesplitterz("Savage Big Boss", 5, g_wounds, 7, 6, false),
+            Bonesplitterz("Savage Big Boss", 5, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_chompasBoss(Weapon::Type::Melee, "Boss Chompa", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, SAVAGE_BIG_BOSS};
         m_weapons = {&m_chompasBoss};
@@ -78,7 +78,7 @@ namespace Bonesplitterz {
         m_points = g_pointsPerUnit;
     }
 
-    int SavageBigBoss::ComputePoints(int /*numModels*/) {
+    int SavageBigBoss::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

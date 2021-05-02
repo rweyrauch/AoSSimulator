@@ -28,7 +28,7 @@ namespace LuminethRealmLords {
         return new HurakanWindmage(nation, lore, trait, artefact, general);
     }
 
-    int HurakanWindmage::ComputePoints(int numModels) {
+    int HurakanWindmage::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -54,7 +54,7 @@ namespace LuminethRealmLords {
     }
 
     HurakanWindmage::HurakanWindmage(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Hurakan Windmage", 16, g_wounds, 7, 5, true) {
+            LuminethBase("Hurakan Windmage", 16, g_wounds, 7, 5, true, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, AELEMENTIRI, HURAKAN, HERO, WIZARD, WINDMAGE};
         m_weapons = {&m_aspiragillum};
         m_battleFieldRole = Role::Leader;
@@ -73,7 +73,5 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 }

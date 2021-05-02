@@ -37,7 +37,7 @@ namespace Khorne {
     }
 
     Riptooth::Riptooth() :
-            KhorneBase("Riptooth", 8, g_wounds, 10, 5, false) {
+            KhorneBase("Riptooth", 8, g_wounds, 10, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, GORETIDE, KHORNE, FLESH_HOUND, RIPTOOTH};
         m_weapons = {&m_claws};
 
@@ -53,7 +53,7 @@ namespace Khorne {
         m_points = g_pointsPerUnit;
     }
 
-    int Riptooth::ComputePoints(int /*numModels*/) {
+    int Riptooth::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

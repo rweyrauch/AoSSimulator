@@ -18,7 +18,7 @@ namespace BeastsOfChaos {
     bool Cockatrice::s_registered = false;
 
     Cockatrice::Cockatrice(Greatfray fray) :
-            BeastsOfChaosBase("Cockatrice", 12, g_wounds, 5, 6, true),
+            BeastsOfChaosBase("Cockatrice", 12, g_wounds, 5, 6, true, g_pointsPerUnit),
             m_petrifyingGaze(Weapon::Type::Missile, "Petrifying Gaze", 10, 0, 0, 0, 0, 0),
             m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 2, 2, 4, 3, -1, RAND_D3),
             m_swordlikeTalons(Weapon::Type::Melee, "Sword-like Talons", 1, 4, 4, 4, 0, 1) {
@@ -87,7 +87,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int Cockatrice::ComputePoints(int /*numModels*/) {
+    int Cockatrice::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

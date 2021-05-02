@@ -22,8 +22,8 @@ namespace StormcastEternals {
     bool Prosecutors::s_registered = false;
 
     Prosecutors::Prosecutors(Stormhost stormhost, int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
-                             int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers) :
-            StormcastEternal(stormhost, "Prosecutors", 12, g_wounds, 7, 4, true),
+                             int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers, int points) :
+            StormcastEternal(stormhost, "Prosecutors", 12, g_wounds, 7, 4, true, points),
             m_celestialHammersMissile(Weapon::Type::Missile, "Celestial Hammer(s)", 18, 2, 4, 4, 0, 1),
             m_stormcallJavelinMissile(Weapon::Type::Missile, "Stormcall Javelin", 18, 1, 3, 3, 0, 1),
             m_stormcallJavelinMissilePrime(Weapon::Type::Missile, "Stormcall Javelin", 18, 2, 3, 3, 0, 1),
@@ -124,8 +124,6 @@ namespace StormcastEternals {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Wounds Prosecutors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -181,7 +179,7 @@ namespace StormcastEternals {
         }
 
         return new Prosecutors(stormhost, numModels, weapons, primeGrandWeapon, numTridents, numGrandaxes, numGrandblades,
-                                  numGrandhammers);
+                                  numGrandhammers, ComputePoints(parameters));
     }
 
     std::string Prosecutors::ValueToString(const Parameter &parameter) {
@@ -283,7 +281,8 @@ namespace StormcastEternals {
         return extra;
     }
 
-    int Prosecutors::ComputePoints(int numModels) {
+    int Prosecutors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

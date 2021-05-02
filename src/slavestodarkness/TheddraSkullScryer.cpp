@@ -26,7 +26,7 @@ namespace SlavesToDarkness {
         return new TheddraSkullscryer(legion, lore, general);
     }
 
-    int TheddraSkullscryer::ComputePoints(int /*numModels*/) {
+    int TheddraSkullscryer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -50,7 +50,7 @@ namespace SlavesToDarkness {
     }
 
     TheddraSkullscryer::TheddraSkullscryer(DamnedLegion legion, Lore lore, bool isGeneral) :
-            SlavesToDarknessBase("Theddra Skull-scryer", 6, g_wounds, 7, 5, false) {
+            SlavesToDarknessBase("Theddra Skull-scryer", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, WIZARD, GOD_SPEAKER, THEDDRA_SKULL_SCRYER};
         m_weapons = {&m_wand};
         m_battleFieldRole = Role::Leader;
@@ -68,8 +68,6 @@ namespace SlavesToDarkness {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Rerolls TheddraSkullscryer::toHitRerolls(const Weapon *weapon, const Unit *target) const {

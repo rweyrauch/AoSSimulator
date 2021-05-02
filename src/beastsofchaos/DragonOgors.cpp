@@ -21,8 +21,8 @@ namespace BeastsOfChaos {
 
     bool DragonOgors::s_registered = false;
 
-    DragonOgors::DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers) :
-            BeastsOfChaosBase("Dragon Ogors", 8, g_wounds, 6, 4, false),
+    DragonOgors::DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers, int points) :
+            BeastsOfChaosBase("Dragon Ogors", 8, g_wounds, 6, 4, false, points),
             m_pairedAncientWeapons(Weapon::Type::Melee, "Paired Ancient Weapons", 1, 6, 3, 3, 0, 1),
             m_draconicWarglaive(Weapon::Type::Melee, "Draconic War-glaive", 2, 4, 3, 3, -1, 1),
             m_draconicCrusher(Weapon::Type::Melee, "Draconic Crusher", 1, 3, 3, 3, 0, 2),
@@ -45,8 +45,6 @@ namespace BeastsOfChaos {
             model->addMeleeWeapon(&m_draconicCrusher);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *DragonOgors::Create(const ParameterList &parameters) {
@@ -56,7 +54,7 @@ namespace BeastsOfChaos {
         int numCrushers = GetIntParam("Draconic Crusher", parameters, 0);
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
 
-        return new DragonOgors(fray, numModels, numPairedWeapons, numGlaives, numCrushers);
+        return new DragonOgors(fray, numModels, numPairedWeapons, numGlaives, numCrushers, ComputePoints(parameters));
     }
 
     void DragonOgors::Init() {
@@ -93,7 +91,8 @@ namespace BeastsOfChaos {
         return BeastsOfChaosBase::toHitRerolls(weapon, target);
     }
 
-    int DragonOgors::ComputePoints(int numModels) {
+    int DragonOgors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

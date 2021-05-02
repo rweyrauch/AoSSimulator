@@ -25,7 +25,7 @@ namespace Skaven {
         return unit;
     }
 
-    int SkritchSpiteclaw::ComputePoints(int /*numModels*/) {
+    int SkritchSpiteclaw::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -48,7 +48,7 @@ namespace Skaven {
     }
 
     SkritchSpiteclaw::SkritchSpiteclaw() :
-            Skaventide("Skritch Spiteclaw", 6, g_wounds, 6, 4, false),
+            Skaventide("Skritch Spiteclaw", 6, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Wicked Halberd", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD, SKRITCH_SPITECLAW};
         m_weapons = {&m_halberd};
@@ -59,8 +59,6 @@ namespace Skaven {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
 } // namespace Skaven

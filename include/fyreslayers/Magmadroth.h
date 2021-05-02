@@ -19,7 +19,7 @@ namespace Fyreslayers {
         ~Magmadroth() override = default;
 
     protected:
-        Magmadroth(const std::string &name, int bravery);
+        Magmadroth(const std::string &name, int bravery, int points);
 
         size_t getDamageTableIndex() const;
 

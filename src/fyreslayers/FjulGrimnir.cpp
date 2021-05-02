@@ -18,7 +18,7 @@ namespace Fyreslayers {
     bool FjulGrimnir::s_registered = false;
 
     FjulGrimnir::FjulGrimnir() :
-            Fyreslayer("Fjul-Grimnir", 4, g_wounds, 8, 4, false),
+            Fyreslayer("Fjul-Grimnir", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNEFATHER, FJUL_GRIMNIR};
         m_weapons = {&m_grandAxe};
@@ -62,7 +62,7 @@ namespace Fyreslayers {
         }
     }
 
-    int FjulGrimnir::ComputePoints(int /*numModels*/) {
+    int FjulGrimnir::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

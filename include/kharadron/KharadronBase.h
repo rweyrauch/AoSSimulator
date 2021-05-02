@@ -201,8 +201,8 @@ namespace KharadronOverlords {
         void setEndrinwork(Endrinwork endrinwork);
 
     protected:
-        KharadronBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        KharadronBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

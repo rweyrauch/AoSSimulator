@@ -20,8 +20,8 @@ namespace Wanderers {
 
     bool GladeGuard::s_registered = false;
 
-    GladeGuard::GladeGuard() :
-            Wanderer("Glade Guard", 6, g_wounds, 6, 6, false),
+    GladeGuard::GladeGuard(int points) :
+            Wanderer("Glade Guard", 6, g_wounds, 6, 6, false, points),
             m_longbow(Weapon::Type::Missile, "Longbow", 20, 1, 4, 4, 0, 1),
             m_longbowLord(Weapon::Type::Missile, "Longbow", 20, 2, 4, 4, 0, 1),
             m_gladeBlade(Weapon::Type::Melee, "Glade Blade", 1, 1, 5, 5, 0, 1) {
@@ -53,13 +53,11 @@ namespace Wanderers {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *GladeGuard::Create(const ParameterList &parameters) {
-        auto unit = new GladeGuard();
+        auto unit = new GladeGuard(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pennantBearer = GetBoolParam("Pennant Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -137,7 +135,8 @@ namespace Wanderers {
         }
     }
 
-    int GladeGuard::ComputePoints(int numModels) {
+    int GladeGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

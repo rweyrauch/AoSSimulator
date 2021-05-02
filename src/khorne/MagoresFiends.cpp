@@ -38,7 +38,7 @@ namespace Khorne {
     }
 
     MagoresFiends::MagoresFiends() :
-            KhorneBase("Magore's Fiends", 5, g_wounds, 6, 4, false) {
+            KhorneBase("Magore's Fiends", 5, g_wounds, 6, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOOD_WARRIORS, MAGORES_FIENDS};
         m_weapons = {&m_bellyMaw, &m_daemonicAxe, &m_goreaxe};
 
@@ -88,7 +88,7 @@ namespace Khorne {
         return KhorneBase::chargeRerolls();
     }
 
-    int MagoresFiends::ComputePoints(int /*numModels*/) {
+    int MagoresFiends::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -18,7 +18,7 @@ namespace Khorne {
     bool ValkiaTheBloody::s_registered = false;
 
     ValkiaTheBloody::ValkiaTheBloody(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Valkia the Bloody", 12, g_wounds, 9, 3, true) {
+            KhorneBase("Valkia the Bloody", 12, g_wounds, 9, 3, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, VALKIA_THE_BLOODY};
         m_weapons = {&m_slaupnir};
         m_battleFieldRole = Role::Leader;
@@ -82,7 +82,7 @@ namespace Khorne {
         return KhorneBase::targetWoundModifier(weapon, attacker);
     }
 
-    int ValkiaTheBloody::ComputePoints(int /*numModels*/) {
+    int ValkiaTheBloody::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

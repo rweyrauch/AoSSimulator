@@ -48,7 +48,7 @@ namespace Khorne {
     bool LordOfKhorneOnJuggernaut::s_registered = false;
 
     LordOfKhorneOnJuggernaut::LordOfKhorneOnJuggernaut(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Lord of Khorne on Juggernaut", 5, g_wounds, 9, 3, false) {
+            KhorneBase("Lord of Khorne on Juggernaut", 5, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, LORD_OF_KHORNE_ON_JUGGERNAUT};
         m_weapons = {&m_wrathforgedAxe, &m_brazenHooves};
         m_battleFieldRole = Role::Leader;
@@ -125,7 +125,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int LordOfKhorneOnJuggernaut::ComputePoints(int /*numModels*/) {
+    int LordOfKhorneOnJuggernaut::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

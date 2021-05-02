@@ -37,8 +37,8 @@ namespace Dispossessed {
         void setGrudge(Grudge grudge);
 
     protected:
-        Dispossessed(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        Dispossessed(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         void computeBattleshockEffect(int roll, int &numFled, int &numAdded) const override;
 

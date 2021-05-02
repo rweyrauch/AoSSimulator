@@ -16,7 +16,7 @@ namespace StormcastEternals {
     bool TheFarstriders::s_registered = false;
 
     TheFarstriders::TheFarstriders() :
-            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "The Farstriders", 6, g_wounds, 7, 4, false),
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "The Farstriders", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
             m_stormSaber(Weapon::Type::Melee, "Storm Sabre", 1, 2, 3, 4, 0, 1) {
@@ -69,7 +69,7 @@ namespace StormcastEternals {
         }
     }
 
-    int TheFarstriders::ComputePoints(int /*numModels*/) {
+    int TheFarstriders::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

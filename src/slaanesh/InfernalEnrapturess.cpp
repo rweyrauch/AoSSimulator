@@ -20,7 +20,7 @@ namespace Slaanesh {
     bool InfernalEnrapturess::s_registered = false;
 
     InfernalEnrapturess::InfernalEnrapturess() :
-            SlaaneshBase("Infernal Enrapturess Herald of Slaanesh", 6, g_wounds, 10, 5, false),
+            SlaaneshBase("Infernal Enrapturess Herald of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaw(Weapon::Type::Melee, "Ravaging Claw", 1, 3, 3, 4, -1, 1),
             m_lyreCacophonousMelody(Weapon::Type::Missile, "Heartstring Lyre: Cacophonous Melody", 18, 6, 3, 4, -1, 1),
             m_lyreEuphonicBlast(Weapon::Type::Missile, "Heartstring Lyre: Euphonic Blast", 24, 1, 2, 3, -3, RAND_D3) {
@@ -38,8 +38,6 @@ namespace Slaanesh {
         model->addMissileWeapon(&m_lyreEuphonicBlast);
         model->addMeleeWeapon(&m_ravagingClaw);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *InfernalEnrapturess::Create(const ParameterList &parameters) {
@@ -99,7 +97,7 @@ namespace Slaanesh {
         }
     }
 
-    int InfernalEnrapturess::ComputePoints(int /*numModels*/) {
+    int InfernalEnrapturess::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

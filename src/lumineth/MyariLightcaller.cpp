@@ -56,7 +56,7 @@ namespace LuminethRealmLords {
         return unit;
     }
 
-    int MyariLigthcaller::ComputePoints(int /*numModels*/) {
+    int MyariLigthcaller::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -80,7 +80,7 @@ namespace LuminethRealmLords {
     }
 
     MyariLigthcaller::MyariLigthcaller() :
-            LuminethBase("Myari Ligthcaller", 6, g_wounds, 8, 5, false),
+            LuminethBase("Myari Ligthcaller", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_beams(Weapon::Type::Missile, "Searing Beams", 18, 3, 3, 3, -2, 1),
             m_staff(Weapon::Type::Melee, "Staff of Enlightenment", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, YMETRICA, HERO, WIZARD, MYARI_LIGHTCALLER};
@@ -106,8 +106,6 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     void MyariLigthcaller::onStartHero(PlayerId player) {

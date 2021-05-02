@@ -17,11 +17,11 @@ namespace Nighthaunt {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        explicit DreadscytheHarridans(int numModels);
+        explicit DreadscytheHarridans(int numModels, int points);
 
         DreadscytheHarridans() = delete;
 

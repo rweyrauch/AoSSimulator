@@ -19,7 +19,7 @@ namespace Khorne {
     bool ScylaAnfingrimm::s_registered = false;
 
     ScylaAnfingrimm::ScylaAnfingrimm(SlaughterHost host) :
-            KhorneBase("Scyla Anfingrimm", 8, g_wounds, 9, 5, false) {
+            KhorneBase("Scyla Anfingrimm", 8, g_wounds, 9, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SCYLA_ANFINGRIMM};
         m_weapons = {&m_brutalFists, &m_serpentineTail};
         m_battleFieldRole = Role::Leader;
@@ -70,7 +70,7 @@ namespace Khorne {
         return attacks;
     }
 
-    int ScylaAnfingrimm::ComputePoints(int /*numModels*/) {
+    int ScylaAnfingrimm::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

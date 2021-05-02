@@ -101,7 +101,7 @@ namespace Tzeentch {
     }
 
     GauntSummonerOfTzeentch::GauntSummonerOfTzeentch() :
-            TzeentchBase("Gaunt Summoner of Tzeentch", 5, g_wounds, 8, 6, false),
+            TzeentchBase("Gaunt Summoner of Tzeentch", 5, g_wounds, 8, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Changestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_blade(Weapon::Type::Melee, "Warptongue Blade", 1, 1, 3, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, MORTAL, TZEENTCH, ARCANITE, SLAVES_TO_DARKNESS, EVERCHOSEN, HERO, WIZARD,
@@ -123,8 +123,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds
@@ -174,7 +172,7 @@ namespace Tzeentch {
         m_usedBookOfSecrets = false;
     }
 
-    int GauntSummonerOfTzeentch::ComputePoints(int /*numModels*/) {
+    int GauntSummonerOfTzeentch::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -17,7 +17,7 @@ namespace Khorne {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -27,7 +27,7 @@ namespace Khorne {
 
     protected:
 
-        BloodWarriors(SlaughterHost host, int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer);
+        BloodWarriors(SlaughterHost host, int numModels, bool pairedGoreax, int numGoreglaives, bool iconBearer, int points);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

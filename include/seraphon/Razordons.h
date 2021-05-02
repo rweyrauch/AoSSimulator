@@ -17,11 +17,11 @@ namespace Seraphon {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Razordons(WayOfTheSeraphon way, Constellation constellation, int numModels);
+        Razordons(WayOfTheSeraphon way, Constellation constellation, int numModels, int points);
 
         Razordons() = delete;
 

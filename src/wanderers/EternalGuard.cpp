@@ -19,8 +19,8 @@ namespace Wanderers {
 
     bool EternalGuard::s_registered = false;
 
-    EternalGuard::EternalGuard() :
-            Wanderer("Eternal Guard", 6, g_wounds, 7, 5, false),
+    EternalGuard::EternalGuard(int points) :
+            Wanderer("Eternal Guard", 6, g_wounds, 7, 5, false, points),
             m_spearStave(Weapon::Type::Melee, "Spear-stave", 2, 1, 4, 4, 0, 1),
             m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, WANDERER, ETERNAL_GUARD};
@@ -51,13 +51,11 @@ namespace Wanderers {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *EternalGuard::Create(const ParameterList &parameters) {
-        auto unit = new EternalGuard();
+        auto unit = new EternalGuard(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -126,7 +124,8 @@ namespace Wanderers {
         }
     }
 
-    int EternalGuard::ComputePoints(int numModels) {
+    int EternalGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

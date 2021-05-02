@@ -19,7 +19,7 @@ namespace BeastsOfChaos {
     bool GreatBrayShaman::s_registered = false;
 
     GreatBrayShaman::GreatBrayShaman(Greatfray fray, Lore lore, CommandTrait trait, Artefact artefact, bool general) :
-            BeastsOfChaosBase("Great Bray-shaman", 6, g_wounds, 6, 6, false),
+            BeastsOfChaosBase("Great Bray-shaman", 6, g_wounds, 6, 6, false, g_pointsPerUnit),
             m_fetishStaff(Weapon::Type::Melee, "Fetish Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, HERO, WIZARD, GREAT_BRAY_SHAMAN};
         m_weapons = {&m_fetishStaff};
@@ -90,7 +90,7 @@ namespace BeastsOfChaos {
         return 0;
     }
 
-    int GreatBrayShaman::ComputePoints(int /*numModels*/) {
+    int GreatBrayShaman::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

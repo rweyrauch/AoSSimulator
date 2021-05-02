@@ -19,7 +19,7 @@ namespace StormcastEternals {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         KnightVexillor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 

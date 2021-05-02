@@ -22,8 +22,8 @@ namespace Nurgle {
 
     bool PlagueDrones::s_registered = false;
 
-    PlagueDrones::PlagueDrones() :
-            NurgleBase("Plague Drones", 8, g_wounds, 10, 5, true),
+    PlagueDrones::PlagueDrones(int points) :
+            NurgleBase("Plague Drones", 8, g_wounds, 10, 5, true, points),
             m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
             m_plagueswordPlaguebringer(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1),
             m_deathsHead(Weapon::Type::Missile, "Death's Head", 14, 1, 4, 3, 0, 1),
@@ -84,13 +84,11 @@ namespace Nurgle {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *PlagueDrones::Create(const ParameterList &parameters) {
-        auto unit = new PlagueDrones();
+        auto unit = new PlagueDrones(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Prehensile_Proboscis);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
@@ -174,7 +172,8 @@ namespace Nurgle {
         return NurgleBase::EnumStringToInt(enumString);
     }
 
-    int PlagueDrones::ComputePoints(int numModels) {
+    int PlagueDrones::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

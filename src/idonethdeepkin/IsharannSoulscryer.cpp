@@ -57,7 +57,7 @@ namespace IdonethDeepkin {
     }
 
     IsharannSoulscryer::IsharannSoulscryer() :
-            IdonethDeepkinBase("Isharann Soulscryer", 6, g_wounds, 7, 6, false),
+            IdonethDeepkinBase("Isharann Soulscryer", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_shoal(Weapon::Type::Missile, "Scryfish Shoal", 18, 8, 5, 5, 0, 1),
             m_claw(Weapon::Type::Melee, "Finger-claw", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, PRIEST, SOULSCRYER};
@@ -75,7 +75,7 @@ namespace IdonethDeepkin {
         m_points = g_pointsPerUnit;
     }
 
-    int IsharannSoulscryer::ComputePoints(int /*numModels*/) {
+    int IsharannSoulscryer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

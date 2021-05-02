@@ -49,7 +49,7 @@ namespace Nurgle {
     }
 
     GutrotSpume::GutrotSpume() :
-            NurgleBase("Gutrot Spume", 4, g_wounds, 9, 3, false),
+            NurgleBase("Gutrot Spume", 4, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_axe(Weapon::Type::Melee, "Rot-pocked Axe", 2, 4, 3, 2, -1, 2),
             m_tentacles(Weapon::Type::Melee, "Flailing Tentacles", 1, RAND_D3, 2, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, GUTROT_SPUME};
@@ -62,11 +62,9 @@ namespace Nurgle {
         model->addMeleeWeapon(&m_axe);
         model->addMeleeWeapon(&m_tentacles);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
-    int GutrotSpume::ComputePoints(int /*numModels*/) {
+    int GutrotSpume::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

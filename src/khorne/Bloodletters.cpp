@@ -22,8 +22,8 @@ namespace Khorne {
 
     bool Bloodletters::s_registered = false;
 
-    Bloodletters::Bloodletters(SlaughterHost host, int numModels, bool iconBearer, bool standardBearer, bool hornblowers) :
-            KhorneBase("Bloodletters", 5, g_wounds, 10, 5, false) {
+    Bloodletters::Bloodletters(SlaughterHost host, int numModels, bool iconBearer, bool standardBearer, bool hornblowers, int points) :
+            KhorneBase("Bloodletters", 5, g_wounds, 10, 5, false, points) {
         m_keywords = {CHAOS, DAEMON, KHORNE, BLOODLETTERS};
         m_weapons = {&m_hellblade, &m_hellbladeReaper};
         m_battleFieldRole = Role::Battleline;
@@ -52,8 +52,6 @@ namespace Khorne {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Bloodletters::~Bloodletters() {
@@ -75,7 +73,7 @@ namespace Khorne {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        return new Bloodletters(host, numModels, iconBearer, standardBearer, hornblowers);
+        return new Bloodletters(host, numModels, iconBearer, standardBearer, hornblowers, ComputePoints(parameters));
     }
 
     void Bloodletters::Init() {
@@ -138,7 +136,8 @@ namespace Khorne {
         }
     }
 
-    int Bloodletters::ComputePoints(int numModels) {
+    int Bloodletters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

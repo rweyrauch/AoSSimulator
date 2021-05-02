@@ -18,7 +18,7 @@ namespace Seraphon {
     bool SaurusSunblood::s_registered = false;
 
     SaurusSunblood::SaurusSunblood(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Saurus Sunblood", 5, g_wounds, 8, 3, false) {
+            SeraphonBase("Saurus Sunblood", 5, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, SUNBLOOD};
         m_weapons = {&m_celestiteWarmace, &m_jaws};
         m_battleFieldRole = Role::Leader;
@@ -32,8 +32,6 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_celestiteWarmace);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SaurusSunblood::Create(const ParameterList &parameters) {
@@ -75,7 +73,7 @@ namespace Seraphon {
         return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusSunblood::ComputePoints(int /*numModels*/) {
+    int SaurusSunblood::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

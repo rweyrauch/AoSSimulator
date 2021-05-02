@@ -36,7 +36,7 @@ namespace DaughtersOfKhaine {
     bool MorathiTheShadowQueen::s_registered = false;
 
     MorathiTheShadowQueen::MorathiTheShadowQueen() :
-            DaughterOfKhaine("The Shadow Queen", 14, g_wounds, 9, 4, true),
+            DaughterOfKhaine("The Shadow Queen", 14, g_wounds, 9, 4, true, g_pointsPerUnit),
             m_gaze(Weapon::Type::Missile, "Gaze of the Shadow Queen", 18, 1, 2, 2, -3, RAND_D6),
             m_heartrender(Weapon::Type::Melee, "Heartrender", 2, 8, 3, 3, -2, 3),
             m_crown(Weapon::Type::Melee, "Crown of Serpents", 1, RAND_2D6, 3, 3, 0, 1),
@@ -122,7 +122,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int MorathiTheShadowQueen::ComputePoints(int /*numModels*/) {
+    int MorathiTheShadowQueen::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

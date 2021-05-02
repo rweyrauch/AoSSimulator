@@ -36,7 +36,7 @@ namespace FleshEaterCourt {
     bool RoyalTerrorgheist::s_registered = false;
 
     RoyalTerrorgheist::RoyalTerrorgheist() :
-            FleshEaterCourts("Royal Terrorgheist", 14, g_wounds, 10, 4, true),
+            FleshEaterCourts("Royal Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 1, 0, 0, 0, 0),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 3, 3, 4, 3, -2, RAND_D6) {
@@ -145,7 +145,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int RoyalTerrorgheist::ComputePoints(int /*numModels*/) {
+    int RoyalTerrorgheist::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

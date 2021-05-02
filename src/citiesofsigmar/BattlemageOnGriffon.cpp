@@ -92,7 +92,7 @@ namespace CitiesOfSigmar {
     }
 
     BattlemageOnGriffon::BattlemageOnGriffon() :
-            CitizenOfSigmar("Battlemage on Griffon", 15, g_wounds, 6, 5, true),
+            CitizenOfSigmar("Battlemage on Griffon", 15, g_wounds, 6, 5, true, g_pointsPerUnit),
             m_beastStaff(Weapon::Type::Melee, "Beaststaff", 2, 1, 4, 3, -1, RAND_D3),
             m_twinBeaks(Weapon::Type::Melee, "Twin Beaks", 2, 4, 3, 3, -1, 3),
             m_razorClaws(Weapon::Type::Melee, "Razor Claws", 2, 6, 4, 3, -1, 2) {
@@ -170,7 +170,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int BattlemageOnGriffon::ComputePoints(int /*numModels*/) {
+    int BattlemageOnGriffon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

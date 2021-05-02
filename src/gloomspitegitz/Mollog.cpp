@@ -44,12 +44,12 @@ namespace GloomspiteGitz {
         }
     }
 
-    int Mollog::ComputePoints(int /*numModels*/) {
+    int Mollog::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
     Mollog::Mollog() :
-            GloomspiteGitzBase("Mollog", 6, g_wounds, 7, 4, false),
+            GloomspiteGitzBase("Mollog", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_jabbertoad(Weapon::Type::Missile, "Jabbertoad", 12, 1, 4, 4, 0, 1),
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, MOLLOG};
@@ -68,8 +68,6 @@ namespace GloomspiteGitz {
         model->addMissileWeapon(&m_jabbertoad);
         model->addMeleeWeapon(&m_club);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     void Mollog::onStartHero(PlayerId player) {

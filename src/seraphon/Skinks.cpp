@@ -20,8 +20,8 @@ namespace Seraphon {
 
     bool Skinks::s_registered = false;
 
-    Skinks::Skinks(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons) :
-            SeraphonBase("Skinks", 8, g_wounds, 5, 6, false) {
+    Skinks::Skinks(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, int points) :
+            SeraphonBase("Skinks", 8, g_wounds, 5, 6, false, points) {
         m_keywords = {ORDER, DAEMON, CELESTIAL, SERAPHON, SKINKS};
         m_weapons = {&m_javelin, &m_boltspitter, &m_dagger, &m_daggerAlpha, &m_club, &m_clubAlpha};
 
@@ -72,8 +72,6 @@ namespace Seraphon {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Skinks::Create(const ParameterList &parameters) {
@@ -82,7 +80,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new Skinks(way, constellation, numModels, weapons);
+        return new Skinks(way, constellation, numModels, weapons, ComputePoints(parameters));
     }
 
     void Skinks::Init() {
@@ -138,7 +136,8 @@ namespace Seraphon {
         return modifier;
     }
 
-    int Skinks::ComputePoints(int numModels) {
+    int Skinks::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

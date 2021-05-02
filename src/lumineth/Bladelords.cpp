@@ -25,10 +25,11 @@ namespace LuminethRealmLords {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto dualBlades = GetBoolParam("Seneschal Dual Blades", parameters, false);
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        return new VanariBladelords(numModels, dualBlades, nation);
+        return new VanariBladelords(numModels, dualBlades, nation, ComputePoints(parameters));
     }
 
-    int VanariBladelords::ComputePoints(int numModels) {
+    int VanariBladelords::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -56,8 +57,8 @@ namespace LuminethRealmLords {
         }
     }
 
-    VanariBladelords::VanariBladelords(int numModels, bool seneschalDualBlades, GreatNation nation) :
-            LuminethBase("Vanari Bladelords", 6, g_wounds, 7, 4, false) {
+    VanariBladelords::VanariBladelords(int numModels, bool seneschalDualBlades, GreatNation nation, int points) :
+            LuminethBase("Vanari Bladelords", 6, g_wounds, 7, 4, false, points) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, BLADELORDS};
         m_weapons = {&m_greatbladeStrike, &m_greatbladeSeneschalStrike, &m_greatbladeBlows, &m_greatbladeSeneschalBlow, &m_dualBlades};
 
@@ -86,8 +87,6 @@ namespace LuminethRealmLords {
 
         m_greatbladeBlows.activate(true);
         m_greatbladeStrike.activate(false);
-
-        m_points = ComputePoints(numModels);
     }
 
     Wounds VanariBladelords::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

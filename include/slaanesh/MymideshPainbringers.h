@@ -17,11 +17,11 @@ namespace Slaanesh {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        MyrmideshPainbringers();
+        MyrmideshPainbringers(int points);
 
         ~MyrmideshPainbringers() override = default;
 

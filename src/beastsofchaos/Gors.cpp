@@ -20,8 +20,8 @@ namespace BeastsOfChaos {
 
     bool Gors::s_registered = false;
 
-    Gors::Gors(Greatfray fray, int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer) :
-            BeastsOfChaosBase("Gors", 6, g_wounds, 5, 5, false),
+    Gors::Gors(Greatfray fray, int numModels, bool pairedBlades, bool brayhorn, bool bannerBearer, int points) :
+            BeastsOfChaosBase("Gors", 6, g_wounds, 5, 5, false, points),
             m_gorBlade(Weapon::Type::Melee, "Gor Blade", 1, 1, 4, 3, 0, 1),
             m_gorBladeFoeRender(Weapon::Type::Melee, "Gor Blade", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, GORS};
@@ -48,8 +48,6 @@ namespace BeastsOfChaos {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Gors::Create(const ParameterList &parameters) {
@@ -59,7 +57,7 @@ namespace BeastsOfChaos {
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
 
-        return new Gors(fray, numModels, pairedBlades, brayhorn, bannerBearer);
+        return new Gors(fray, numModels, pairedBlades, brayhorn, bannerBearer, ComputePoints(parameters));
     }
 
     void Gors::Init() {
@@ -106,7 +104,8 @@ namespace BeastsOfChaos {
         return attacks;
     }
 
-    int Gors::ComputePoints(int numModels) {
+    int Gors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

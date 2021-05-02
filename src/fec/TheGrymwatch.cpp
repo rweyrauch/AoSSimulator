@@ -17,7 +17,7 @@ namespace FleshEaterCourt {
     bool TheGrymwatch::s_registered = false;
 
     TheGrymwatch::TheGrymwatch() :
-            FleshEaterCourts("The Grymwatch", 6, g_wounds, 10, 6, false),
+            FleshEaterCourts("The Grymwatch", 6, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_weaponsAndClaws(Weapon::Type::Melee, "Bone Weapons and Filthy Claws", 1, 2, 4, 4, 0, 1),
             m_fangs(Weapon::Type::Melee, "Fangs", 1, RAND_D6, 4, 4, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HOLLOWMOURNE, GRYMWATCH};
@@ -37,8 +37,6 @@ namespace FleshEaterCourt {
             model->addMeleeWeapon(&m_weaponsAndClaws);
             addModel(model);
         }
-
-        m_points = ComputePoints(1);
     }
 
     Unit *TheGrymwatch::Create(const ParameterList &parameters) {
@@ -66,7 +64,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int TheGrymwatch::ComputePoints(int numModels) {
+    int TheGrymwatch::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 

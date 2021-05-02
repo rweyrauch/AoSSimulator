@@ -22,8 +22,8 @@ namespace Slaanesh {
 
     bool SlaangorFiendbloods::s_registered = false;
 
-    SlaangorFiendbloods::SlaangorFiendbloods() :
-            SlaaneshBase("Slaangor Fiendbloods", 8, g_wounds, 6, 5, false),
+    SlaangorFiendbloods::SlaangorFiendbloods(int points) :
+            SlaaneshBase("Slaangor Fiendbloods", 8, g_wounds, 6, 5, false, points),
             m_claws(Weapon::Type::Melee, "Razor-sharp Claw(s)", 2, 3, 4, 3, -1, 1),
             m_gildedWeapon(Weapon::Type::Melee, "Gilded Weapon", 1, 2, 4, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, BEASTS_OF_CHAOS, SLAANGOR_FIENDBLOODS};
@@ -46,13 +46,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SlaangorFiendbloods::Create(const ParameterList &parameters) {
-        auto unit = new SlaangorFiendbloods();
+        auto unit = new SlaangorFiendbloods(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
@@ -84,7 +82,8 @@ namespace Slaanesh {
         }
     }
 
-    int SlaangorFiendbloods::ComputePoints(int numModels) {
+    int SlaangorFiendbloods::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

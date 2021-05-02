@@ -21,8 +21,8 @@ namespace Tzeentch {
 
     bool FlamersOfTzeentch::s_registered = false;
 
-    FlamersOfTzeentch::FlamersOfTzeentch() :
-            TzeentchBase("Flamers of Tzeentch", 9, g_wounds, 10, 5, true),
+    FlamersOfTzeentch::FlamersOfTzeentch(int points) :
+            TzeentchBase("Flamers of Tzeentch", 9, g_wounds, 10, 5, true, points),
             m_warpflame(Weapon::Type::Missile, "Warpflame", 18, 3, 4, 3, 0, RAND_D3),
             m_warpflamePyrocaster(Weapon::Type::Missile, "Warpflame", 18, 4, 4, 3, 0, RAND_D3),
             m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 1, 2, 5, 3, 0, 1) {
@@ -47,13 +47,11 @@ namespace Tzeentch {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *FlamersOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new FlamersOfTzeentch();
+        auto unit = new FlamersOfTzeentch(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
@@ -116,7 +114,8 @@ namespace Tzeentch {
         return mod;
     }
 
-    int FlamersOfTzeentch::ComputePoints(int numModels) {
+    int FlamersOfTzeentch::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

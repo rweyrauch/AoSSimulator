@@ -82,7 +82,7 @@ namespace Skaven {
     }
 
     GreySeer::GreySeer() :
-            Skaventide("Grey Seer", 6, g_wounds, 6, 5, false),
+            Skaventide("Grey Seer", 6, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Warpstone Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, HERO, WIZARD, GREY_SEER};
         m_weapons = {&m_staff};
@@ -101,11 +101,9 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int GreySeer::ComputePoints(int /*numModels*/) {
+    int GreySeer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

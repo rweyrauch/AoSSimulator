@@ -42,7 +42,7 @@ namespace OssiarchBonereapers {
     }
 
     ArchKavalosZandtos::ArchKavalosZandtos(Legion legion, bool isGeneral) :
-            OssiarchBonereaperBase("Arch-Kavalos Zandtos", 12, g_wounds, 10, 3, false) {
+            OssiarchBonereaperBase("Arch-Kavalos Zandtos", 12, g_wounds, 10, 3, false, g_pointsPerUnit) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTIS_PRAETORIANS, LIEGE, HERO, ARCH_KAVALOS_ZANDTOS};
         m_weapons = {&m_lance, &m_shield, &m_hoovesAndTeeth};
         m_battleFieldRole = Role::Leader;
@@ -57,8 +57,6 @@ namespace OssiarchBonereapers {
         model->addMeleeWeapon(&m_shield);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds ArchKavalosZandtos::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -79,7 +77,7 @@ namespace OssiarchBonereapers {
         return OssiarchBonereaperBase::toWoundRerolls(weapon, target);
     }
 
-    int ArchKavalosZandtos::ComputePoints(int /*numModels*/) {
+    int ArchKavalosZandtos::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

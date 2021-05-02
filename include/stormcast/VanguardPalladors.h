@@ -28,9 +28,9 @@ namespace StormcastEternals {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
-        VanguardPalladors(Stormhost stormhost, int numModels, WeaponOption weapons);
+        VanguardPalladors(Stormhost stormhost, int numModels, WeaponOption weapons, int points);
 
         ~VanguardPalladors() override = default;
 

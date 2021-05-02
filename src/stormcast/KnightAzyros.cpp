@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool KnightAzyros::s_registered = false;
 
     KnightAzyros::KnightAzyros(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Knight-Azyros", 12, g_wounds, 9, 3, true),
+            StormcastEternal(stormhost, "Knight-Azyros", 12, g_wounds, 9, 3, true, g_pointsPerUnit),
             m_starblade(Weapon::Type::Melee, "Starblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_AZYROS};
         m_weapons = {&m_starblade};
@@ -96,7 +96,7 @@ namespace StormcastEternals {
         return Rerolls::None;
     }
 
-    int KnightAzyros::ComputePoints(int /*numModels*/) {
+    int KnightAzyros::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

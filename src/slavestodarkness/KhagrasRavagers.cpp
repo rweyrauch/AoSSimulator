@@ -38,7 +38,7 @@ namespace SlavesToDarkness {
     }
 
     KhagrasRavagers::KhagrasRavagers() :
-            SlavesToDarknessBase("Khagra's Ravagers", 5, g_wounds, 7, 4, false) {
+            SlavesToDarknessBase("Khagra's Ravagers", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, UNDIVIDED, RAVAGERS, CHAOS_WARRIORS, KHAGRAS_RAVAGERS};
         m_weapons = {&m_handWeapons, &m_staff, &m_mace};
 
@@ -71,8 +71,6 @@ namespace SlavesToDarkness {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     Wounds KhagrasRavagers::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -92,7 +90,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::applyWoundSave(wounds, attackingUnit);
     }
 
-    int KhagrasRavagers::ComputePoints(int) {
+    int KhagrasRavagers::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -27,7 +27,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
 
-        return new ChaosMarauders(legion, mark, numModels, weapons, iconBearer, drummer);
+        return new ChaosMarauders(legion, mark, numModels, weapons, iconBearer, drummer, ComputePoints(parameters));
     }
 
     void ChaosMarauders::Init() {
@@ -53,8 +53,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosMarauders::ChaosMarauders(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool iconBearer, bool drummer) :
-            SlavesToDarknessBase("Chaos Marauders", 6, g_wounds, 5, 6, false) {
+    ChaosMarauders::ChaosMarauders(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool iconBearer, bool drummer, int points) :
+            SlavesToDarknessBase("Chaos Marauders", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDERS};
         m_weapons = {&m_axe, &m_flail, &m_axeChieftain, &m_flailChieftain};
         m_battleFieldRole = Role::Battleline;
@@ -108,8 +108,6 @@ namespace SlavesToDarkness {
         if (m_weaponOption == WeaponOption::Axe_And_Shield) {
             m_save = 5;
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     ChaosMarauders::~ChaosMarauders() {
@@ -162,7 +160,8 @@ namespace SlavesToDarkness {
         return rend;
     }
 
-    int ChaosMarauders::ComputePoints(int numModels) {
+    int ChaosMarauders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

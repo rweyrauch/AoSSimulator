@@ -21,8 +21,8 @@ namespace IdonethDeepkin {
 
     bool NamartiThralls::s_registered = false;
 
-    NamartiThralls::NamartiThralls() :
-            IdonethDeepkinBase("Namarti Thralls", 6, g_wounds, 6, 5, false),
+    NamartiThralls::NamartiThralls(int points) :
+            IdonethDeepkinBase("Namarti Thralls", 6, g_wounds, 6, 5, false, points),
             m_lanmariBlade(Weapon::Type::Melee, "Lanmari Blade", 1, 2, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, THRALLS};
         m_weapons = {&m_lanmariBlade};
@@ -48,13 +48,11 @@ namespace IdonethDeepkin {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *NamartiThralls::Create(const ParameterList &parameters) {
-        auto unit = new NamartiThralls();
+        auto unit = new NamartiThralls(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
 
@@ -89,7 +87,8 @@ namespace IdonethDeepkin {
         }
     }
 
-    int NamartiThralls::ComputePoints(int numModels) {
+    int NamartiThralls::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

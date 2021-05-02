@@ -39,7 +39,7 @@ namespace Ironjawz {
         return unit;
     }
 
-    int OrrukWeirdnobShaman::ComputePoints(int /*numModels*/) {
+    int OrrukWeirdnobShaman::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -65,7 +65,7 @@ namespace Ironjawz {
     }
 
     OrrukWeirdnobShaman::OrrukWeirdnobShaman() :
-            Ironjawz("Orruk Weirdnob Shaman", 4, g_wounds, 6, 5, false),
+            Ironjawz("Orruk Weirdnob Shaman", 4, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Waaagh! Staff", 1, 3, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, WIZARD, WEIRDNOB_SHAMAN};
         m_weapons = {&m_staff};

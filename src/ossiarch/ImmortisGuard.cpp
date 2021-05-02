@@ -23,7 +23,7 @@ namespace OssiarchBonereapers {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
 
-        return new ImmortisGuard(legion, numModels);
+        return new ImmortisGuard(legion, numModels, ComputePoints(parameters));
     }
 
     void ImmortisGuard::Init() {
@@ -44,8 +44,8 @@ namespace OssiarchBonereapers {
         }
     }
 
-    ImmortisGuard::ImmortisGuard(Legion legion, int numModels) :
-            OssiarchBonereaperBase("Immortis Guard", 5, g_wounds, 10, 3, false),
+    ImmortisGuard::ImmortisGuard(Legion legion, int numModels, int points) :
+            OssiarchBonereaperBase("Immortis Guard", 5, g_wounds, 10, 3, false, points),
             m_halberd(Weapon::Type::Melee, "Dread Halberd", 2, 2, 3, 3, -2, 2),
             m_battleShield(Weapon::Type::Melee, "Battle Shield", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, HEKATOS, IMMORTIS_GUARD};
@@ -59,8 +59,6 @@ namespace OssiarchBonereapers {
             model->addMeleeWeapon(&m_battleShield);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Wounds ImmortisGuard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -71,7 +69,8 @@ namespace OssiarchBonereapers {
         return OssiarchBonereaperBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int ImmortisGuard::ComputePoints(int numModels) {
+    int ImmortisGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

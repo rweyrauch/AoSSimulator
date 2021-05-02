@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool FreeguildCrossbowmen::s_registered = false;
 
     Unit *FreeguildCrossbowmen::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildCrossbowmen();
+        auto unit = new FreeguildCrossbowmen(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -67,8 +67,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildCrossbowmen::FreeguildCrossbowmen() :
-            CitizenOfSigmar("Freeguild Crossbowmen", 5, g_wounds, 5, 6, false),
+    FreeguildCrossbowmen::FreeguildCrossbowmen(int points) :
+            CitizenOfSigmar("Freeguild Crossbowmen", 5, g_wounds, 5, 6, false, points),
             m_crossbow(Weapon::Type::Missile, "Freeguild Crossbow", 24, 1, 4, 3, 0, 1),
             m_dagger(Weapon::Type::Melee, "Dagger", 1, 1, 5, 5, 0, 1),
             m_crossbowMarksman(Weapon::Type::Missile, "Freeguild Crossbow", 24, 1, 3, 3, 0, 1) {
@@ -104,8 +104,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -138,7 +136,8 @@ namespace CitiesOfSigmar {
         return extras;
     }
 
-    int FreeguildCrossbowmen::ComputePoints(int numModels) {
+    int FreeguildCrossbowmen::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

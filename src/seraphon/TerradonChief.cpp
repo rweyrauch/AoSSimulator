@@ -18,7 +18,7 @@ namespace Seraphon {
     bool TerradonChief::s_registered = false;
 
     TerradonChief::TerradonChief(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Terradon Chief", 16, g_wounds, 6, 6, true) {
+            SeraphonBase("Terradon Chief", 16, g_wounds, 6, 6, true, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SKINK, TERRADON, HERO, TERRADON_CHIEF};
         m_weapons = {&m_skyblade, &m_jaws};
         m_battleFieldRole = Role::Leader;
@@ -35,8 +35,6 @@ namespace Seraphon {
         alpha->addMeleeWeapon(&m_skyblade);
         alpha->addMeleeWeapon(&m_jaws);
         addModel(alpha);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *TerradonChief::Create(const ParameterList &parameters) {
@@ -71,7 +69,7 @@ namespace Seraphon {
         }
     }
 
-    int TerradonChief::ComputePoints(int /*numModels*/) {
+    int TerradonChief::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

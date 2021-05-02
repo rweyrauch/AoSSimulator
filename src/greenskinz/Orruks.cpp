@@ -21,8 +21,8 @@ namespace Greenskinz {
 
     bool Orruks::s_registered = false;
 
-    Orruks::Orruks() :
-            Unit("Orruks", 5, g_wounds, 5, 5, false),
+    Orruks::Orruks(int points) :
+            Unit("Orruks", 5, g_wounds, 5, 5, false, points),
             m_orrukBows(Weapon::Type::Missile, "Orruk Bows", 18, 1, 5, 4, 0, 1),
             m_choppa(Weapon::Type::Melee, "Choppa", 1, 1, 4, 4, -1, 1),
             m_pigstikkaSpear(Weapon::Type::Melee, "Pigstikka Spear", 2, 1, 4, 4, 0, 1),
@@ -100,13 +100,11 @@ namespace Greenskinz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Orruks::Create(const ParameterList &parameters) {
-        auto unit = new Orruks();
+        auto unit = new Orruks(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Choppa_And_Shield);
         bool drummer = GetBoolParam("Waaagh! Drummer", parameters, false);
@@ -245,7 +243,8 @@ namespace Greenskinz {
         return modifier;
     }
 
-    int Orruks::ComputePoints(int numModels) {
+    int Orruks::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

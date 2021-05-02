@@ -44,7 +44,7 @@ namespace Nighthaunt {
     }
 
     SpiritTorment::SpiritTorment(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            Nighthaunt("Spirit Torment", 6, g_wounds, 10, 4, true) {
+            Nighthaunt("Spirit Torment", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, SPIRIT_TORMENT};
         m_weapons = {&m_chains};
         m_battleFieldRole = Role::Leader;
@@ -58,15 +58,13 @@ namespace Nighthaunt {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chains);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     SpiritTorment::~SpiritTorment() {
         m_nagashsBiddingSlot.disconnect();
     }
 
-    int SpiritTorment::ComputePoints(int /*numModels*/) {
+    int SpiritTorment::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

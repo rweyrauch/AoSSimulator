@@ -18,7 +18,7 @@ namespace Sylvaneth {
     bool ArchRevenant::s_registered = false;
 
     ArchRevenant::ArchRevenant(Glade glade, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SylvanethBase("Arch-Revenant", 12, g_wounds, 8, 4, true),
+            SylvanethBase("Arch-Revenant", 12, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_glaive(Weapon::Type::Melee, "Revenant's Glaive", 2, 3, 3, 3, -2, 2),
             m_tailPincers(Weapon::Type::Melee, "Zephyrspite's Tail Pincers", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {ORDER, SYLVANETH, FREE_SPIRITS, HERO, ARCH_REVENANT};
@@ -96,7 +96,7 @@ namespace Sylvaneth {
         return SylvanethBase::toSaveRerolls(weapon, attacker);
     }
 
-    int ArchRevenant::ComputePoints(int /*numModels*/) {
+    int ArchRevenant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

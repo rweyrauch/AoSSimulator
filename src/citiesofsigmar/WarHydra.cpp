@@ -70,7 +70,7 @@ namespace CitiesOfSigmar {
     }
 
     WarHydra::WarHydra() :
-            CitizenOfSigmar("War Hydra", 8, g_wounds, 6, 4, false),
+            CitizenOfSigmar("War Hydra", 8, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 9, 6, 3, 3, -1, 1),
             m_fangs(Weapon::Type::Melee, "Razor-sharp Fangs", 2, 6, 4, 3, -1, RAND_D3),
             m_limbs(Weapon::Type::Melee, "Clawed Limbs", 1, 2, 3, 3, -1, 1),
@@ -119,7 +119,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int WarHydra::ComputePoints(int /*numModels*/) {
+    int WarHydra::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

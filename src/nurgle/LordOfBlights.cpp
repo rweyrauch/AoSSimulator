@@ -58,7 +58,7 @@ namespace Nurgle {
     }
 
     LordOfBlights::LordOfBlights() :
-            NurgleBase("Lord of Blights", 4, g_wounds, 8, 4, false),
+            NurgleBase("Lord of Blights", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_ripenedDeathsHead(Weapon::Type::Missile, "Thrice-ripened Death's Head", 14, 1, 3, 3, -3, RAND_D3),
             m_bountyDeathsHead(Weapon::Type::Missile, "Munificent Bounty Death's Head", 14, 1, 4, 3, 0, 1),
             m_hammer(Weapon::Type::Melee, "Bubotic Hammer", 1, 3, 3, 3, -1, 2) {
@@ -73,8 +73,6 @@ namespace Nurgle {
         model->addMissileWeapon(&m_bountyDeathsHead);
         model->addMeleeWeapon(&m_hammer);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Rerolls LordOfBlights::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
@@ -83,7 +81,7 @@ namespace Nurgle {
         return NurgleBase::toSaveRerolls(weapon, attacker);
     }
 
-    int LordOfBlights::ComputePoints(int /*numModels*/) {
+    int LordOfBlights::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

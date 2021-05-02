@@ -17,7 +17,7 @@ namespace Skaven {
     bool Doomwheel::s_registered = false;
 
     Doomwheel::Doomwheel() :
-            Skaventide("Doomwheel", RAND_4D6, g_wounds, 7, 4, false),
+            Skaventide("Doomwheel", RAND_4D6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_warpBolts(Weapon::Type::Missile, "Warp Bolts", 13, 0, 3, 3, -1, RAND_D3),
             m_grindingWheel(Weapon::Type::Melee, "Grinding Wheel", 1, RAND_D6, 3, 3, -1, 1),
             m_teethAndKnives(Weapon::Type::Melee, "Teeth and Knives", 1, 6, 5, 5, 0, 1) {
@@ -32,8 +32,6 @@ namespace Skaven {
         model->addMeleeWeapon(&m_grindingWheel);
         model->addMeleeWeapon(&m_teethAndKnives);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Doomwheel::Create(const ParameterList &parameters) {
@@ -95,7 +93,7 @@ namespace Skaven {
         }
     }
 
-    int Doomwheel::ComputePoints(int /*numModels*/) {
+    int Doomwheel::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

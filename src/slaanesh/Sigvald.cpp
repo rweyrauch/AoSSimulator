@@ -18,7 +18,7 @@ namespace Slaanesh {
     bool SigvaldPrinceOfSlaanesh::s_registered = false;
 
     SigvaldPrinceOfSlaanesh::SigvaldPrinceOfSlaanesh() :
-            SlaaneshBase("Sigvald Prince of Slaanesh", 6, g_wounds, 7, 4, false),
+            SlaaneshBase("Sigvald Prince of Slaanesh", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_shardslash(Weapon::Type::Melee, "Shardslash", 1, 5, 2, 3, -2, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, SIGVALD};
         m_weapons = {&m_shardslash};
@@ -29,8 +29,6 @@ namespace Slaanesh {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_shardslash);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *SigvaldPrinceOfSlaanesh::Create(const ParameterList &parameters) {
@@ -64,7 +62,7 @@ namespace Slaanesh {
         }
     }
 
-    int SigvaldPrinceOfSlaanesh::ComputePoints(int /*numModels*/) {
+    int SigvaldPrinceOfSlaanesh::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

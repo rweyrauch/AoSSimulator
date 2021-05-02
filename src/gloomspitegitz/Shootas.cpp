@@ -19,8 +19,8 @@ namespace GloomspiteGitz {
 
     bool Shootas::s_registered = false;
 
-    Shootas::Shootas() :
-            GloomspiteGitzBase("Shootas", 5, g_wounds, 4, 6, false),
+    Shootas::Shootas(int points) :
+            GloomspiteGitzBase("Shootas", 5, g_wounds, 4, 6, false, points),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1),
             m_moonclanBow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1),
@@ -33,7 +33,7 @@ namespace GloomspiteGitz {
 
 
     Unit *Shootas::Create(const ParameterList &parameters) {
-        auto unit = new Shootas();
+        auto unit = new Shootas(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
         int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
@@ -120,8 +120,6 @@ namespace GloomspiteGitz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         m_ranks = 4;
 
         return true;
@@ -184,7 +182,8 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int Shootas::ComputePoints(int numModels) {
+    int Shootas::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

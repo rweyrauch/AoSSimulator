@@ -35,12 +35,12 @@ namespace StormcastEternals {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
         Prosecutors(Stormhost stormhost, int numModels, WeaponOption weapons, GrandWeaponOption primeGrandWeapon,
-                    int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers);
+                    int numTridents, int numGrandaxes, int numGrandblades, int numGrandhammers, int points);
 
         ~Prosecutors() override = default;
 

@@ -20,8 +20,8 @@ namespace Seraphon {
 
     bool RipperdactylRiders::s_registered = false;
 
-    RipperdactylRiders::RipperdactylRiders(WayOfTheSeraphon way, Constellation constellation, int numModels) :
-            SeraphonBase("Ripperdactyl Riders", 12, g_wounds, 5, 5, true) {
+    RipperdactylRiders::RipperdactylRiders(WayOfTheSeraphon way, Constellation constellation, int numModels, int points) :
+            SeraphonBase("Ripperdactyl Riders", 12, g_wounds, 5, 5, true, points) {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, RIPPERDACTYL_RIDERS};
         m_weapons = {&m_spear, &m_spearAlpha, &m_jaws};
         m_hasMount = true;
@@ -42,8 +42,6 @@ namespace Seraphon {
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *RipperdactylRiders::Create(const ParameterList &parameters) {
@@ -51,7 +49,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new RipperdactylRiders(way, constellation, numModels);
+        return new RipperdactylRiders(way, constellation, numModels, ComputePoints(parameters));
     }
 
     void RipperdactylRiders::Init() {
@@ -74,7 +72,8 @@ namespace Seraphon {
         }
     }
 
-    int RipperdactylRiders::ComputePoints(int numModels) {
+    int RipperdactylRiders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

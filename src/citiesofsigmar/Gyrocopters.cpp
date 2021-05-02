@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool Gyrocopters::s_registered = false;
 
     Unit *Gyrocopters::Create(const ParameterList &parameters) {
-        auto unit = new Gyrocopters();
+        auto unit = new Gyrocopters(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Brimstone_Gun);
@@ -77,8 +77,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Gyrocopters::Gyrocopters() :
-            CitizenOfSigmar("Gyrocopters", 16, g_wounds, 6, 4, true),
+    Gyrocopters::Gyrocopters(int points) :
+            CitizenOfSigmar("Gyrocopters", 16, g_wounds, 6, 4, true, points),
             m_brimstoneGun(Weapon::Type::Missile, "Brimstone Gun", 16, 3, 3, 3, -1, 1),
             m_steamGun(Weapon::Type::Missile, "Steam Gun", 8, 1, 3, 4, -1, 1),
             m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1) {
@@ -104,12 +104,11 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
-    int Gyrocopters::ComputePoints(int numModels) {
+    int Gyrocopters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

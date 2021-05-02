@@ -61,7 +61,7 @@ namespace Ironjawz {
             };
 
     GordrakkTheFistOfGork::GordrakkTheFistOfGork() :
-            Ironjawz("Gordrakk the Fist of Gork", 12, g_wounds, 8, 3, true),
+            Ironjawz("Gordrakk the Fist of Gork", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_bellow(Weapon::Type::Missile, "Innard-bursting Bellow", 8, 6, 2, 3, -1, 1),
             m_smasha(Weapon::Type::Melee, "Smasha", 1, 5, 2, 3, -1, RAND_D3),
             m_kunnin(Weapon::Type::Melee, "Kunnin'", 1, 5, 2, 3, -1, 1),
@@ -195,7 +195,7 @@ namespace Ironjawz {
         Ironjawz::onEndCombat(player);
     }
 
-    int GordrakkTheFistOfGork::ComputePoints(int /*numModels*/) {
+    int GordrakkTheFistOfGork::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

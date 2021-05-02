@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool ShadowWarriors::s_registered = false;
 
     Unit *ShadowWarriors::Create(const ParameterList &parameters) {
-        auto unit = new ShadowWarriors();
+        auto unit = new ShadowWarriors(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
@@ -62,8 +62,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    ShadowWarriors::ShadowWarriors() :
-            CitizenOfSigmar("Shadow Warriors", 6, g_wounds, 6, 5, false),
+    ShadowWarriors::ShadowWarriors(int points) :
+            CitizenOfSigmar("Shadow Warriors", 6, g_wounds, 6, 5, false, points),
             m_bow(Weapon::Type::Missile, "Ranger Bow", 18, 1, 3, 4, -1, 1),
             m_blade(Weapon::Type::Melee, "Coldsteel Blade", 1, 2, 3, 4, 0, 1),
             m_bowWalker(Weapon::Type::Missile, "Ranger Bow", 18, 1, 2, 4, -1, 1) {
@@ -91,12 +91,11 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
-    int ShadowWarriors::ComputePoints(int numModels) {
+    int ShadowWarriors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -44,7 +44,7 @@ namespace Sylvaneth {
     }
 
     Ylthari::Ylthari(Lore lore, bool isGeneral) :
-            SylvanethBase("Ylthari", 5, g_wounds, 7, 5, false),
+            SylvanethBase("Ylthari", 5, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_briarStaff(Weapon::Type::Melee, "Briar Staff", 1, 1, 3, 3, -1, RAND_D3),
             m_thorns(Weapon::Type::Melee, "Spiteful Thorns", 1, 3, 4, 4, 0, 1),
             m_snappingMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1) {
@@ -71,7 +71,7 @@ namespace Sylvaneth {
         m_points = g_pointsPerUnit;
     }
 
-    int Ylthari::ComputePoints(int /*numModels*/) {
+    int Ylthari::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

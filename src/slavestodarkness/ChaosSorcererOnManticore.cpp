@@ -107,7 +107,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosSorcererOnManticore::ChaosSorcererOnManticore(DamnedLegion legion, MarkOfChaos mark, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Chaos Sorcerer On Manticore", 12, g_wounds, 8, 4, true) {
+            SlavesToDarknessBase("Chaos Sorcerer On Manticore", 12, g_wounds, 8, 4, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO,
                       WIZARD, CHAOS_SORCERER_LORD};
         m_weapons = {&m_staff, &m_fangsAndClaws, &m_tail};
@@ -170,7 +170,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::toHitRerolls(weapon, target);
     }
 
-    int ChaosSorcererOnManticore::ComputePoints(int /*numModels*/) {
+    int ChaosSorcererOnManticore::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

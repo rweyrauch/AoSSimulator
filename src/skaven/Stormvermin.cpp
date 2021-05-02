@@ -19,8 +19,8 @@ namespace Skaven {
 
     bool Stormvermin::s_registered = false;
 
-    Stormvermin::Stormvermin() :
-            Skaventide("Stormvermin", 6, g_wounds, 5, 5, false),
+    Stormvermin::Stormvermin(int points) :
+            Skaventide("Stormvermin", 6, g_wounds, 5, 5, false, points),
             m_rustyHalberd(Weapon::Type::Melee, "Rusty Halberd", 2, 2, 4, 3, -1, 1),
             m_rustyHalberdLeader(Weapon::Type::Melee, "Rusty Halberd", 2, 3, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, STORMVERMIN};
@@ -54,13 +54,11 @@ namespace Skaven {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Stormvermin::Create(const ParameterList &parameters) {
-        auto unit = new Stormvermin();
+        auto unit = new Stormvermin(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool clanshields = GetBoolParam("Clanshields", parameters, false);
         int standardBearers = GetIntParam("Standard Bearers", parameters, 0);
@@ -110,7 +108,8 @@ namespace Skaven {
         return modifier;
     }
 
-    int Stormvermin::ComputePoints(int numModels) {
+    int Stormvermin::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

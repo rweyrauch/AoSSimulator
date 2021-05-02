@@ -16,13 +16,13 @@ namespace SonsOfBehemat {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
         Mancrusher() = delete;
 
-        Mancrusher(Tribe tribe, int numModels, FierceLoathing loathing);
+        Mancrusher(Tribe tribe, int numModels, FierceLoathing loathing, int points);
 
         ~Mancrusher() override = default;
 

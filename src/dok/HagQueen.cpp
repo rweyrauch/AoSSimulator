@@ -20,7 +20,7 @@ namespace DaughtersOfKhaine {
     bool HagQueen::s_registered = false;
 
     HagQueen::HagQueen() :
-            DaughterOfKhaine("Hag Queen", 6, g_wounds, 8, 5, false),
+            DaughterOfKhaine("Hag Queen", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN};
         m_weapons = {&m_bladeOfKhaine};
@@ -79,7 +79,7 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int HagQueen::ComputePoints(int /*numModels*/) {
+    int HagQueen::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

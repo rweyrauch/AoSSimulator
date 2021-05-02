@@ -64,7 +64,7 @@ namespace Tzeentch {
     }
 
     MagisterOnDiscOfTzeentch::MagisterOnDiscOfTzeentch() :
-            TzeentchBase("Magister on Disc of Tzeentch", 16, g_wounds, 7, 5, true),
+            TzeentchBase("Magister on Disc of Tzeentch", 16, g_wounds, 7, 5, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Tzeentchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_sword(Weapon::Type::Melee, "Warpsteel Sword", 1, 1, 4, 4, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
@@ -91,11 +91,9 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int MagisterOnDiscOfTzeentch::ComputePoints(int /*numModels*/) {
+    int MagisterOnDiscOfTzeentch::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

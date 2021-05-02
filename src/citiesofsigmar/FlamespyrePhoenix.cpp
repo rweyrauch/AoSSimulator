@@ -90,7 +90,7 @@ namespace CitiesOfSigmar {
     }
 
     FlamespyrePhoenix::FlamespyrePhoenix() :
-            CitizenOfSigmar("Flamespyre Phoenix", 16, g_wounds, 8, 4, true),
+            CitizenOfSigmar("Flamespyre Phoenix", 16, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_talons(Weapon::Type::Melee, "Flaming Talons", 2, 6, 4, 3, -1, 2),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
@@ -161,7 +161,7 @@ namespace CitiesOfSigmar {
         return totalWounds;
     }
 
-    int FlamespyrePhoenix::ComputePoints(int /*numModels*/) {
+    int FlamespyrePhoenix::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

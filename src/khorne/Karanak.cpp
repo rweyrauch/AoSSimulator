@@ -19,7 +19,7 @@ namespace Khorne {
     bool Karanak::s_registered = false;
 
     Karanak::Karanak(SlaughterHost host) :
-            KhorneBase("Karanak", 8, g_wounds, 10, 4, false) {
+            KhorneBase("Karanak", 8, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, FLESH_HOUND, KHORNE, HERO, KARANAK};
         m_weapons = {&m_goreSlickClaws, &m_savageMaws};
 
@@ -85,7 +85,7 @@ namespace Khorne {
         KhorneBase::onBeginTurn(battleRound, player);
     }
 
-    int Karanak::ComputePoints(int /*numModels*/) {
+    int Karanak::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

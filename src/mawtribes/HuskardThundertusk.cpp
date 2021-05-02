@@ -91,9 +91,8 @@ namespace OgorMawtribes {
     }
 
     HuskardOnThundertusk::HuskardOnThundertusk(Mawtribe tribe, WeaponOption option, CommandTrait trait,
-                                               Artefact artefact, bool isGeneral, MountTrait mountTrait, Prayer prayer)
-            :
-            MawtribesBase(tribe, "Huskard on Thundertusk", 8, g_wounds, 8, 4, false) {
+                                               Artefact artefact, bool isGeneral, MountTrait mountTrait, Prayer prayer) :
+            MawtribesBase(tribe, "Huskard on Thundertusk", 8, g_wounds, 8, 4, false, g_pointsPerUnit) {
 
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, PRIEST,
                       HUSKARD};
@@ -129,8 +128,6 @@ namespace OgorMawtribes {
         if (trait == CommandTrait::Master_Of_The_Mournfangs) {
             s_globalBraveryMod.connect(this, &HuskardOnThundertusk::masterOfMournfangs, &m_masterOfMournfangs);
         }
-
-        m_points = HuskardOnThundertusk::ComputePoints(1);
     }
 
     void HuskardOnThundertusk::onRestore() {
@@ -192,7 +189,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int HuskardOnThundertusk::ComputePoints(int /*numModels*/) {
+    int HuskardOnThundertusk::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

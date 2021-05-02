@@ -72,7 +72,7 @@ namespace CitiesOfSigmar {
     }
 
     Anointed::Anointed() :
-            CitizenOfSigmar("Anointed", 6, g_wounds, 7, 4, false),
+            CitizenOfSigmar("Anointed", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, HERO, ANOINTED};
         m_weapons = {&m_halberd};
@@ -96,7 +96,7 @@ namespace CitiesOfSigmar {
         return ignoreWounds(totalWounds, 4);
     }
 
-    int Anointed::ComputePoints(int /*numModels*/) {
+    int Anointed::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

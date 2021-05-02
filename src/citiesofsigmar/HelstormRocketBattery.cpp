@@ -54,7 +54,7 @@ namespace CitiesOfSigmar {
     }
 
     HelstormRocketBattery::HelstormRocketBattery() :
-            CitizenOfSigmar("Helstorm Rocket Battery", 3, g_wounds, 5, 4, false),
+            CitizenOfSigmar("Helstorm Rocket Battery", 3, g_wounds, 5, 4, false, g_pointsPerUnit),
             m_rocketSalvo(Weapon::Type::Missile, "Helstorm Rocket Salvo", 36, 3, 5, 3, -2, RAND_D3),
             m_crewsTools(Weapon::Type::Melee, "Crew's Tools", 1, 3, 5, 5, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, HELSTORM_ROCKET_BATTERY};
@@ -91,7 +91,7 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::toHitRerolls(weapon, target);
     }
 
-    int HelstormRocketBattery::ComputePoints(int /*numModels*/) {
+    int HelstormRocketBattery::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

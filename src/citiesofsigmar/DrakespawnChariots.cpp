@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool DrakespawnChariots::s_registered = false;
 
     Unit *DrakespawnChariots::Create(const ParameterList &parameters) {
-        auto unit = new DrakespawnChariots();
+        auto unit = new DrakespawnChariots(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
@@ -63,8 +63,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DrakespawnChariots::DrakespawnChariots() :
-            CitizenOfSigmar("Drakespawn Chariots", 10, g_wounds, 7, 4, false),
+    DrakespawnChariots::DrakespawnChariots(int points) :
+            CitizenOfSigmar("Drakespawn Chariots", 10, g_wounds, 7, 4, false, points),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 5, 4, 0, 1),
             m_spear(Weapon::Type::Melee, "Barbed Spear", 2, 2, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 4, 3, 4, 0, 1) {
@@ -89,12 +89,11 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
-    int DrakespawnChariots::ComputePoints(int numModels) {
+    int DrakespawnChariots::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

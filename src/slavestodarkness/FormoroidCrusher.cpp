@@ -40,7 +40,7 @@ namespace SlavesToDarkness {
     }
 
     FomoroidCrusher::FomoroidCrusher(DamnedLegion legion) :
-            SlavesToDarknessBase("Fomoroid Crusher", 6, g_wounds, 10, 5, false) {
+            SlavesToDarknessBase("Fomoroid Crusher", 6, g_wounds, 10, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, FOMOROID_CRUSHER};
         m_weapons = {&m_hurledTerrain, &m_fists};
 
@@ -51,8 +51,6 @@ namespace SlavesToDarkness {
         model->addMissileWeapon(&m_hurledTerrain);
         model->addMeleeWeapon(&m_fists);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void FomoroidCrusher::onCharged() {
@@ -77,7 +75,7 @@ namespace SlavesToDarkness {
         return m_lastChargeDistance;
     }
 
-    int FomoroidCrusher::ComputePoints(int /*numModels*/) {
+    int FomoroidCrusher::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

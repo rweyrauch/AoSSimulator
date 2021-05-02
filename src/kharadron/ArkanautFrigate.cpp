@@ -92,7 +92,7 @@ namespace KharadronOverlords {
     }
 
     ArkanautFrigate::ArkanautFrigate() :
-            KharadronBase("Arkanaut Frigate", 12, g_wounds, 8, 4, true),
+            KharadronBase("Arkanaut Frigate", 12, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_cannonShrapnel(Weapon::Type::Missile, "Heavy Sky Cannon: Shrapnel", 24, RAND_D6, 3, 3, -1, 2),
             m_cannonShell(Weapon::Type::Missile, "Heavy Sky Cannon: Shell", 30, 1, 3, 2, -2, RAND_D6),
             m_skyhook(Weapon::Type::Missile, "Heavy Skyhook", 24, 1, 3, 2, -2, RAND_D6),
@@ -201,7 +201,7 @@ namespace KharadronOverlords {
         }
     }
 
-    int ArkanautFrigate::ComputePoints(int /*numModels*/) {
+    int ArkanautFrigate::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

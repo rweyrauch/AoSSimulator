@@ -20,8 +20,8 @@ namespace Nighthaunt {
 
     bool SpiritHosts::s_registered = false;
 
-    SpiritHosts::SpiritHosts() :
-            Nighthaunt("Spirit Hosts", 6, g_wounds, 10, 4, true),
+    SpiritHosts::SpiritHosts(int points) :
+            Nighthaunt("Spirit Hosts", 6, g_wounds, 10, 4, true, points),
             m_spectralClawsAndDaggars(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
         m_weapons = {&m_spectralClawsAndDaggars};
@@ -38,13 +38,11 @@ namespace Nighthaunt {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SpiritHosts::Create(const ParameterList &parameters) {
-        auto unit = new SpiritHosts();
+        auto unit = new SpiritHosts(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -80,7 +78,8 @@ namespace Nighthaunt {
         return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SpiritHosts::ComputePoints(int numModels) {
+    int SpiritHosts::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

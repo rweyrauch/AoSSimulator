@@ -37,7 +37,7 @@ namespace Khorne {
     bool VorgarothAndSkalok::s_registered = false;
 
     VorgarothAndSkalok::VorgarothAndSkalok(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Vorgaroth the Scarred & Skalok the Skull Host of Khorne", 14, g_wounds, 10, 3, true) {
+            KhorneBase("Vorgaroth the Scarred & Skalok the Skull Host of Khorne", 14, g_wounds, 10, 3, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, MONSTER,
                       VORGAROTH_THE_SCARRED_AND_SKALOK_THE_SKULL_HOST_OF_KHORNE};
         m_weapons = {&m_balefire, &m_skullCleaverAxeOfKhorne, &m_evisceratingClaws, &m_cavernousJaws,
@@ -156,7 +156,7 @@ namespace Khorne {
         return KhorneBase::applyWoundSave(wounds, attackingUnit);
     }
 
-    int VorgarothAndSkalok::ComputePoints(int /*numModels*/) {
+    int VorgarothAndSkalok::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

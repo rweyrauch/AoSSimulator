@@ -20,8 +20,8 @@ namespace Skaven {
 
     bool Stormfiends::s_registered = false;
 
-    Stormfiends::Stormfiends() :
-            Skaventide("Stormfiends", 6, g_wounds, 6, 4, false),
+    Stormfiends::Stormfiends(int points) :
+            Skaventide("Stormfiends", 6, g_wounds, 6, 4, false, points),
             m_ratlingCannons(Weapon::Type::Missile, "Ratling Cannons", 12, RAND_3D6, 4, 3, -1, 1),
             m_windlaunchers(Weapon::Type::Missile, "Windlaunchers", 24, 3, 4, 4, -3, RAND_D3),
             m_warpfireProjectors(Weapon::Type::Missile, "Warpfire Projectors", 8, 0, 0, 0, 0, 0),
@@ -81,13 +81,11 @@ namespace Skaven {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Stormfiends::Create(const ParameterList &parameters) {
-        auto unit = new Stormfiends();
+        auto unit = new Stormfiends(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption1 weapon1 = (WeaponOption1) GetEnumParam("Weapon A", parameters, Warpfire_Projectors);
         WeaponOption2 weapon2 = (WeaponOption2) GetEnumParam("Weapon B", parameters, Grinderfists);
@@ -165,7 +163,8 @@ namespace Skaven {
         return 0;
     }
 
-    int Stormfiends::ComputePoints(int numModels) {
+    int Stormfiends::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -37,7 +37,7 @@ namespace Sylvaneth {
             };
 
     DrychaHamadreth::DrychaHamadreth(Glade glade, Lore lore, bool isGeneral) :
-            SylvanethBase("Drycha Hamadreth", 9, g_wounds, 8, 3, false),
+            SylvanethBase("Drycha Hamadreth", 9, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_colonyOfFlitterfuries(Weapon::Type::Missile, "Colony of Flitterfuries", 18, 10, 4, 3, -1, 1),
             m_swarmOfSquirmlings(Weapon::Type::Missile, "Swarm of Squirmlings", 2, 10, 3, 4, 0, 1),
             m_slashingTalons(Weapon::Type::Melee, "Slashing Talons", 2, 6, 4, 3, -2, 2) {
@@ -142,7 +142,7 @@ namespace Sylvaneth {
         return extra;
     }
 
-    int DrychaHamadreth::ComputePoints(int /*numModels*/) {
+    int DrychaHamadreth::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

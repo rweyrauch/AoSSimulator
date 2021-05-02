@@ -21,8 +21,8 @@ namespace Dispossessed {
 
     bool Ironbreakers::s_registered = false;
 
-    Ironbreakers::Ironbreakers() :
-            Dispossessed("Ironbreakers", 4, g_wounds, 7, 4, false),
+    Ironbreakers::Ironbreakers(int points) :
+            Dispossessed("Ironbreakers", 4, g_wounds, 7, 4, false, points),
             m_drakefirePistol(Weapon::Type::Missile, "Drakefire Pistol", 8, 1, 4, 3, -1, 1),
             m_drakefirePistolMelee(Weapon::Type::Melee, "Drakefire Pistol", 1, 1, 4, 4, 0, 1),
             m_axeOrHammer(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 2, 3, 4, 0, 1),
@@ -65,13 +65,11 @@ namespace Dispossessed {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Ironbreakers::Create(const ParameterList &parameters) {
-        auto unit = new Ironbreakers();
+        auto unit = new Ironbreakers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironbeard Weapon", parameters,
                                                             (int) Ironbreaker_Axe_Or_Hammer);
@@ -178,7 +176,8 @@ namespace Dispossessed {
         return Unit::rollRunDistance();
     }
 
-    int Ironbreakers::ComputePoints(int numModels) {
+    int Ironbreakers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

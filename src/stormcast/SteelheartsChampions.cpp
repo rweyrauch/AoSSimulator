@@ -16,7 +16,7 @@ namespace StormcastEternals {
     bool SteelheartsChampions::s_registered = false;
 
     SteelheartsChampions::SteelheartsChampions() :
-            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Steelheart's Champions", 5, g_wounds, 7, 4, false),
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Steelheart's Champions", 5, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_broadSword(Weapon::Type::Melee, "Serevin's Broadsword", 1, 3, 3, 4, -1, 2),
             m_grandhammer(Weapon::Type::Melee, "Obryn's Grandhammer", 1, 2, 4, 3, -1, 3),
             m_warhammer(Weapon::Type::Melee, "Angharad's Warhammer", 1, 3, 3, 3, 0, 1) {
@@ -88,7 +88,7 @@ namespace StormcastEternals {
         return StormcastEternal::toHitRerolls(weapon, target);
     }
 
-    int SteelheartsChampions::ComputePoints(int /*numModels*/) {
+    int SteelheartsChampions::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

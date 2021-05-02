@@ -20,8 +20,8 @@ namespace Death {
 
     bool GraveGuard::s_registered = false;
 
-    GraveGuard::GraveGuard() :
-            LegionOfNagashBase("Grave Guard", 4, g_wounds, 10, 5, false),
+    GraveGuard::GraveGuard(int points) :
+            LegionOfNagashBase("Grave Guard", 4, g_wounds, 10, 5, false, points),
             m_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 4, -1, 1),
             m_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade", 1, 3, 3, 4, -1, 1),
             m_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 3, -1, 1),
@@ -69,13 +69,11 @@ namespace Death {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *GraveGuard::Create(const ParameterList &parameters) {
-        auto unit = new GraveGuard();
+        auto unit = new GraveGuard(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Wight_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
@@ -147,7 +145,8 @@ namespace Death {
         return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int GraveGuard::ComputePoints(int numModels) {
+    int GraveGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

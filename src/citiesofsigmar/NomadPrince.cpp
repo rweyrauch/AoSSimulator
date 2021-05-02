@@ -70,7 +70,7 @@ namespace CitiesOfSigmar {
     }
 
     NomadPrince::NomadPrince() :
-            CitizenOfSigmar("Nomad Prince", 6, g_wounds, 8, 3, false),
+            CitizenOfSigmar("Nomad Prince", 6, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_spear(Weapon::Type::Melee, "Starlight Spear", 2, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, HERO, NOMAD_PRINCE};
         m_weapons = {&m_spear};
@@ -97,7 +97,7 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    int NomadPrince::ComputePoints(int /*numModels*/) {
+    int NomadPrince::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

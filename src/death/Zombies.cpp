@@ -21,8 +21,8 @@ namespace Death {
 
     bool Zombies::s_registered = false;
 
-    Zombies::Zombies() :
-            LegionOfNagashBase("Zombies", 4, g_wounds, 10, NoSave, false),
+    Zombies::Zombies(int points) :
+            LegionOfNagashBase("Zombies", 4, g_wounds, 10, NoSave, false, points),
             m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
         m_weapons = {&m_zombieBite};
@@ -54,13 +54,11 @@ namespace Death {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Zombies::Create(const ParameterList &parameters) {
-        auto unit = new Zombies();
+        auto unit = new Zombies(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
@@ -131,7 +129,8 @@ namespace Death {
         return modifier;
     }
 
-    int Zombies::ComputePoints(int numModels) {
+    int Zombies::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

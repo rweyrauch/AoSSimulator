@@ -38,8 +38,8 @@ namespace SonsOfBehemat {
 
     bool Mancrusher::s_registered = false;
 
-    Mancrusher::Mancrusher(Tribe tribe, int numModels, FierceLoathing loathing) :
-            SonsOfBehematBase("Mancrusher Gargants", 8, g_wounds, 7, 5, false) {
+    Mancrusher::Mancrusher(Tribe tribe, int numModels, FierceLoathing loathing, int points) :
+            SonsOfBehematBase("Mancrusher Gargants", 8, g_wounds, 7, 5, false, points) {
         m_weapons = {&m_eadbutt, &m_club, &m_kick, &m_rocks};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MONSTER, MANCRUSHER};
@@ -54,8 +54,6 @@ namespace SonsOfBehemat {
             model->addMeleeWeapon(&m_kick);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     void Mancrusher::onWounded() {
@@ -85,7 +83,7 @@ namespace SonsOfBehemat {
         auto loathing = (FierceLoathing) GetEnumParam("Fierce Loathing", parameters, g_loathings[0]);
         auto tribe = (Tribe) GetEnumParam("Tribe", parameters, g_tribe[0]);
 
-        return new Mancrusher(tribe, numModels, loathing);
+        return new Mancrusher(tribe, numModels, loathing, ComputePoints(parameters));
     }
 
     void Mancrusher::Init() {
@@ -107,7 +105,8 @@ namespace SonsOfBehemat {
         }
     }
 
-    int Mancrusher::ComputePoints(int numModels) {
+    int Mancrusher::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

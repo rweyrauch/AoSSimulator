@@ -64,7 +64,7 @@ namespace Khorne {
     bool SkaaracTheBloodborn::s_registered = false;
 
     SkaaracTheBloodborn::SkaaracTheBloodborn(SlaughterHost host, bool isGeneral) :
-            KhorneBase("Skaarac the Bloodborn", 10, g_wounds, 10, 4, false) {
+            KhorneBase("Skaarac the Bloodborn", 10, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, KHORNE, MONSTER, HERO, SKAARAC_THE_BLOODBORN};
         m_weapons = {&m_burningBlood, &m_blades, &m_hooves};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -141,7 +141,7 @@ namespace Khorne {
         KhorneBase::onWounded();
     }
 
-    int SkaaracTheBloodborn::ComputePoints(int /*numModels*/) {
+    int SkaaracTheBloodborn::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

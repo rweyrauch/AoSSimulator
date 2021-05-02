@@ -21,7 +21,7 @@ namespace SlavesToDarkness {
         return new GodswornHunt(legion);
     }
 
-    int GodswornHunt::ComputePoints(int /*numModels*/) {
+    int GodswornHunt::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -43,7 +43,7 @@ namespace SlavesToDarkness {
     }
 
     GodswornHunt::GodswornHunt(DamnedLegion legion) :
-            SlavesToDarknessBase("Godsworn Hunt", 6, g_wounds, 6, 6, false) {
+            SlavesToDarknessBase("Godsworn Hunt", 6, g_wounds, 6, 6, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, GODSWORN_HUNT};
         m_weapons = {&m_huntingBow, &m_javelin, &m_knife, &m_greatWeapon, &m_bowMelee, &m_bite};
 
@@ -75,8 +75,6 @@ namespace SlavesToDarkness {
         grawl->addMeleeWeapon(&m_bite);
         grawl->setName("Grawl");
         addModel(grawl);
-
-        m_points = ComputePoints(1);
     }
 
     Rerolls GodswornHunt::toHitRerolls(const Weapon *weapon, const Unit *target) const {

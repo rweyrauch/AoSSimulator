@@ -25,7 +25,7 @@ namespace OssiarchBonereapers {
         bool necrophoros = GetBoolParam("Necrophoros", parameters, true);
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
 
-        return new KavalosDeathriders(legion, numModels, weapons, necrophoros);
+        return new KavalosDeathriders(legion, numModels, weapons, necrophoros, ComputePoints(parameters));
     }
 
     std::string KavalosDeathriders::ValueToString(const Parameter &parameter) {
@@ -67,8 +67,8 @@ namespace OssiarchBonereapers {
         }
     }
 
-    KavalosDeathriders::KavalosDeathriders(Legion legion, int numModels, WeaponOption option, bool necrophoros) :
-            OssiarchBonereaperBase("Kavalos Deathriders", 12, g_wounds, 10, 4, false) {
+    KavalosDeathriders::KavalosDeathriders(Legion legion, int numModels, WeaponOption option, bool necrophoros, int points) :
+            OssiarchBonereaperBase("Kavalos Deathriders", 12, g_wounds, 10, 4, false, points) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, KAVALOS_DEATHRIDERS};
         m_weapons = {&m_blade, &m_spear, &m_bladeHekatos, &m_spearHekatos, &m_hoovesAndTeeth};
         m_battleFieldRole = Role::Battleline;
@@ -98,8 +98,6 @@ namespace OssiarchBonereapers {
         }
 
         m_necrophoros = necrophoros;
-
-        m_points = ComputePoints(numModels);
     }
 
     int KavalosDeathriders::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
@@ -122,7 +120,8 @@ namespace OssiarchBonereapers {
         return mod;
     }
 
-    int KavalosDeathriders::ComputePoints(int numModels) {
+    int KavalosDeathriders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

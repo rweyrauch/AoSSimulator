@@ -23,8 +23,8 @@ namespace Khorne {
 
     bool Bloodreavers::s_registered = false;
 
-    Bloodreavers::Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers) :
-            KhorneBase("Bloodreavers", 6, g_wounds, 5, 6, false) {
+    Bloodreavers::Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers, int points) :
+            KhorneBase("Bloodreavers", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, BLOODREAVERS};
         m_weapons = {&m_reaverBlades, &m_reaverBladesChieftain, &m_meatripperAxe, &m_meatripperAxeChieftain};
         m_battleFieldRole = Role::Battleline;
@@ -60,7 +60,6 @@ namespace Khorne {
 
             addModel(model);
         }
-        m_points = ComputePoints(numModels);
     }
 
     Rerolls Bloodreavers::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
@@ -88,7 +87,7 @@ namespace Khorne {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        return new Bloodreavers(host, numModels, weapons, iconBearer, hornblowers);
+        return new Bloodreavers(host, numModels, weapons, iconBearer, hornblowers, ComputePoints(parameters));
     }
 
     void Bloodreavers::Init() {
@@ -158,7 +157,8 @@ namespace Khorne {
         return modifier;
     }
 
-    int Bloodreavers::ComputePoints(int numModels) {
+    int Bloodreavers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

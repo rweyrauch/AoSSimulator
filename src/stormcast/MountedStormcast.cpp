@@ -12,8 +12,8 @@
 namespace StormcastEternals {
 
     MountedStormcastEternal::MountedStormcastEternal(Stormhost stormhost, const std::string &name, int move, int wounds, int bravery,
-                                                     int save, bool fly) :
-            StormcastEternal(stormhost, name, move, wounds, bravery, save, fly) {
+                                                     int save, bool fly, int points) :
+            StormcastEternal(stormhost, name, move, wounds, bravery, save, fly, points) {
         s_globalToHitMod.connect(this, &MountedStormcastEternal::prideLeader, &m_prideLeaderConnection);
     }
 

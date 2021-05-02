@@ -19,8 +19,8 @@ namespace OssiarchBonereapers {
 
     bool MorghastHarbingers::s_registered = false;
 
-    MorghastHarbingers::MorghastHarbingers(Legion legion, int numModels, WeaponOptions weapons) :
-            OssiarchBonereaperBase("Morghast Harbingers", 9, g_wounds, 10, 4, true) {
+    MorghastHarbingers::MorghastHarbingers(Legion legion, int numModels, WeaponOptions weapons, int points) :
+            OssiarchBonereaperBase("Morghast Harbingers", 9, g_wounds, 10, 4, true, points) {
         m_keywords = {DEATH, MORGHAST, DEATHLORDS, OSSIARCH_BONEREAPERS, HEKATOS, MORGHAST_HARBINGERS};
         m_weapons = {&m_spiritHalberd, &m_spiritSwords};
 
@@ -37,8 +37,6 @@ namespace OssiarchBonereapers {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *MorghastHarbingers::Create(const ParameterList &parameters) {
@@ -46,7 +44,7 @@ namespace OssiarchBonereapers {
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Spirit_Halberd);
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
 
-        return new MorghastHarbingers(legion, numModels, weapons);
+        return new MorghastHarbingers(legion, numModels, weapons, ComputePoints(parameters));
     }
 
     std::string MorghastHarbingers::ValueToString(const Parameter &parameter) {
@@ -83,7 +81,8 @@ namespace OssiarchBonereapers {
         }
     }
 
-    int MorghastHarbingers::ComputePoints(int numModels) {
+    int MorghastHarbingers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

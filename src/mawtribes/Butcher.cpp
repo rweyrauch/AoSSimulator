@@ -85,9 +85,8 @@ namespace OgorMawtribes {
         }
     }
 
-    Butcher::Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact,
-                     bool isGeneral) :
-            MawtribesBase(tribe, "Butcher", 6, g_wounds, 8, 5, false) {
+    Butcher::Butcher(Mawtribe tribe, WeaponOption weaponOption, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            MawtribesBase(tribe, "Butcher", 6, g_wounds, 8, 5, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, HERO, WIZARD, BUTCHER};
         m_weapons = {&m_tenderizer, &m_cleaver, &m_bite};
         m_battleFieldRole = Role::Leader;
@@ -139,8 +138,6 @@ namespace OgorMawtribes {
         if (trait == CommandTrait::Growling_Stomach) {
             s_globalBraveryMod.connect(this, &Butcher::growlingStomach, &m_growlingStomach);
         }
-
-        m_points = g_pointsPerUnit;
     }
 
     Butcher::~Butcher() {
@@ -182,7 +179,7 @@ namespace OgorMawtribes {
         else heal(1);
     }
 
-    int Butcher::ComputePoints(int /*numModels*/) {
+    int Butcher::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

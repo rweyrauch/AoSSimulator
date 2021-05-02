@@ -21,8 +21,8 @@ namespace Nighthaunt {
 
     bool BladegheistRevenants::s_registered = false;
 
-    BladegheistRevenants::BladegheistRevenants() :
-            Nighthaunt("Bladegheist Revenants", 8, g_wounds, 10, 4, true),
+    BladegheistRevenants::BladegheistRevenants(int points) :
+            Nighthaunt("Bladegheist Revenants", 8, g_wounds, 10, 4, true, points),
             m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS};
         m_weapons = {&m_tombGreatblade};
@@ -41,13 +41,11 @@ namespace Nighthaunt {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *BladegheistRevenants::Create(const ParameterList &parameters) {
-        auto unit = new BladegheistRevenants();
+        auto unit = new BladegheistRevenants(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -97,7 +95,8 @@ namespace Nighthaunt {
         return attacks;
     }
 
-    int BladegheistRevenants::ComputePoints(int numModels) {
+    int BladegheistRevenants::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

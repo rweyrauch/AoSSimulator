@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool Judicators::s_registered = false;
 
-    Judicators::Judicators(Stormhost stormhost, int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows) :
-            StormcastEternal(stormhost, "Judicators", 5, g_wounds, 7, 4, false),
+    Judicators::Judicators(Stormhost stormhost, int numModels, WeaponOption weapons, int numShockboltBows, int numThunderboltCrossbows, int points) :
+            StormcastEternal(stormhost, "Judicators", 5, g_wounds, 7, 4, false, points),
             m_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1),
             m_skyboltPrime(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 2, 3, -1, 1),
             m_boltstormCrossbow(Weapon::Type::Missile, "Boltstorm Crossbow", 12, 3, 3, 4, 0, 1),
@@ -71,8 +71,6 @@ namespace StormcastEternals {
             model->addMeleeWeapon(&m_stormGladius);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Rerolls Judicators::toHitRerolls(const Weapon *weapon, const Unit *unit) const {
@@ -109,7 +107,7 @@ namespace StormcastEternals {
             // Invalid weapon configuration.
             return nullptr;
         }
-        return new Judicators(stormhost, numModels, weapons, numShockboltBows, numThunderboltCrossbows);
+        return new Judicators(stormhost, numModels, weapons, numShockboltBows, numThunderboltCrossbows, ComputePoints(parameters));
     }
 
     void Judicators::Init() {
@@ -183,7 +181,8 @@ namespace StormcastEternals {
 
     }
 
-    int Judicators::ComputePoints(int numModels) {
+    int Judicators::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

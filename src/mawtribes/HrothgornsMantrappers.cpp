@@ -43,7 +43,7 @@ namespace OgorMawtribes {
     }
 
     HrothgornsMantrappers::HrothgornsMantrappers() :
-            MawtribesBase(Mawtribe::Winterbite, "Hrothgorn's Mantrappers", 5, g_wounds, 4, 6, false) {
+            MawtribesBase(Mawtribe::Winterbite, "Hrothgorn's Mantrappers", 5, g_wounds, 4, 6, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, GROT, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, WINTERBITE, GNOBLARS,
                       HROTHGORNS_MANTRAPPERS};
         m_weapons = {&m_sharpStuff, &m_motleyWeapons};
@@ -65,11 +65,9 @@ namespace OgorMawtribes {
         luggitAndThwak->addMissileWeapon(&m_sharpStuff);
         luggitAndThwak->addMeleeWeapon(&m_motleyWeapons);
         addModel(luggitAndThwak);
-
-        m_points = ComputePoints(1);
     }
 
-    int HrothgornsMantrappers::ComputePoints(int /*numModels*/) {
+    int HrothgornsMantrappers::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

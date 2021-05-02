@@ -20,8 +20,8 @@ namespace IdonethDeepkin {
 
     bool AkhelianAllopexes::s_registered = false;
 
-    AkhelianAllopexes::AkhelianAllopexes() :
-            IdonethDeepkinBase("Akhelian Alloplexes", 14, g_wounds, 6, 4, true),
+    AkhelianAllopexes::AkhelianAllopexes(int points) :
+            IdonethDeepkinBase("Akhelian Alloplexes", 14, g_wounds, 6, 4, true, points),
             m_harpoonLauncher(Weapon::Type::Missile, "Razorshell Harpoon Launcher", 24, 4, 3, 3, -1, 1),
             m_netLauncher(Weapon::Type::Missile, "Retarius Net Launcher", 18, 1, 3, 3, 0, 3),
             m_hooksAndBlades(Weapon::Type::Melee, "Barbed Hooks and Blades", 1, 5, 3, 4, 0, 1),
@@ -50,13 +50,11 @@ namespace IdonethDeepkin {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *AkhelianAllopexes::Create(const ParameterList &parameters) {
-        auto unit = new AkhelianAllopexes();
+        auto unit = new AkhelianAllopexes(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Harpoon_Launcher);
 
@@ -112,7 +110,8 @@ namespace IdonethDeepkin {
         return IdonethDeepkinBase::EnumStringToInt(enumString);
     }
 
-    int AkhelianAllopexes::ComputePoints(int numModels) {
+    int AkhelianAllopexes::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

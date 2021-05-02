@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool ScourgerunnerChariots::s_registered = false;
 
     Unit *ScourgerunnerChariots::Create(const ParameterList &parameters) {
-        auto unit = new ScourgerunnerChariots();
+        auto unit = new ScourgerunnerChariots(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
@@ -62,8 +62,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    ScourgerunnerChariots::ScourgerunnerChariots() :
-            CitizenOfSigmar("Scourgerunner Chariots", 12, g_wounds, 6, 5, false),
+    ScourgerunnerChariots::ScourgerunnerChariots(int points) :
+            CitizenOfSigmar("Scourgerunner Chariots", 12, g_wounds, 6, 5, false, points),
             m_harpoon(Weapon::Type::Missile, "Ravager Harpoon", 18, 2, 3, 3, -1, RAND_D3),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 5, 4, 0, 1),
             m_hookSpear(Weapon::Type::Melee, "Hook-spear", 2, 2, 4, 4, 0, 1),
@@ -100,8 +100,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -114,7 +112,8 @@ namespace CitiesOfSigmar {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int ScourgerunnerChariots::ComputePoints(int numModels) {
+    int ScourgerunnerChariots::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -59,7 +59,7 @@ namespace Skaven {
     }
 
     ArchWarlock::ArchWarlock() :
-            Skaventide("Arch-Warlock", 6, g_wounds, 6, 3, false),
+            Skaventide("Arch-Warlock", 6, g_wounds, 6, 3, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Stormcage Halberd", 2, 1, 3, 3, -2, RAND_D3),
             m_claw(Weapon::Type::Melee, "Piston Claw", 1, 1, 4, 3, -2, 3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, HERO, WIZARD, WARLOCK_ENGINEER, ARCH_WARLOCK};
@@ -80,8 +80,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void ArchWarlock::onEndCombat(PlayerId player) {
@@ -132,7 +130,7 @@ namespace Skaven {
         }
     }
 
-    int ArchWarlock::ComputePoints(int /*numModels*/) {
+    int ArchWarlock::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

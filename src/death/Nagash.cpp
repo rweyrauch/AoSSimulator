@@ -37,7 +37,7 @@ namespace Death {
     bool Nagash::s_registered = false;
 
     Nagash::Nagash() :
-            LegionOfNagashBase("Nagash", 9, g_wounds, 10, 3, true),
+            LegionOfNagashBase("Nagash", 9, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_gaze(Weapon::Type::Missile, "Gaze of Nagash", 12, 1, 3, 2, -1, RAND_D6),
             m_alakanash(Weapon::Type::Melee, "Alakanash", 3, 1, 3, 2, -3, RAND_D6),
             m_zefetNebtar(Weapon::Type::Melee, "Zefet-nebtar", 2, 6, 3, 3, -2, 3),
@@ -133,7 +133,7 @@ namespace Death {
         return LegionOfNagashBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Nagash::ComputePoints(int /*numModels*/) {
+    int Nagash::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

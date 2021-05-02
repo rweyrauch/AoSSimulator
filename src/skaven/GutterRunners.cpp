@@ -19,8 +19,8 @@ namespace Skaven {
 
     bool GutterRunners::s_registered = false;
 
-    GutterRunners::GutterRunners() :
-            Skaventide("Gutter Runners", 7, g_wounds, 5, 5, false),
+    GutterRunners::GutterRunners(int points) :
+            Skaventide("Gutter Runners", 7, g_wounds, 5, 5, false, points),
             m_throwingStars(Weapon::Type::Missile, "Eshin Throwing Stars", 12, 2, 4, 5, 0, 1),
             m_punchDaggerAndBlade(Weapon::Type::Melee, "Punch Daggar and Blade", 1, 2, 3, 4, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, GUTTER_RUNNERS};
@@ -42,13 +42,11 @@ namespace Skaven {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *GutterRunners::Create(const ParameterList &parameters) {
-        auto unit = new GutterRunners();
+        auto unit = new GutterRunners(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -84,7 +82,8 @@ namespace Skaven {
         return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int GutterRunners::ComputePoints(int numModels) {
+    int GutterRunners::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -57,7 +57,7 @@ namespace Death {
         return unit;
     }
 
-    int BloodseekerPalanquin::ComputePoints(int /*numModels*/) {
+    int BloodseekerPalanquin::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -83,7 +83,7 @@ namespace Death {
     }
 
     BloodseekerPalanquin::BloodseekerPalanquin() :
-            LegionOfNagashBase("Bloodseeker Palanquin", 14, g_wounds, 10, 4, true),
+            LegionOfNagashBase("Bloodseeker Palanquin", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, -7, 0),
             m_blade(Weapon::Type::Melee, "Sanguinarch's Bloodletting Blade", 1, 4, 3, 3, -1, RAND_D3),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {

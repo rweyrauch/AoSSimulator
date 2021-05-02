@@ -57,7 +57,7 @@ namespace Nurgle {
     }
 
     SpoilpoxScrivenerHeraldOfNurgle::SpoilpoxScrivenerHeraldOfNurgle() :
-            NurgleBase("Spoilpox Scrivener, Herald of Nurgle", 4, g_wounds, 10, 4, false),
+            NurgleBase("Spoilpox Scrivener, Herald of Nurgle", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_sneeze(Weapon::Type::Missile, "Disgusting Sneeze", 6, RAND_D6, 2, 4, 0, 1),
             m_maw(Weapon::Type::Melee, "Distended Maw", 2, 2, 3, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SPOILPOX_SCRIVENER, HERALD_OF_NURGLE};
@@ -73,8 +73,6 @@ namespace Nurgle {
         model->addMissileWeapon(&m_sneeze);
         model->addMeleeWeapon(&m_maw);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -82,7 +80,7 @@ namespace Nurgle {
         return ignoreWounds(wounds, 5);
     }
 
-    int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(int /*numModels*/) {
+    int SpoilpoxScrivenerHeraldOfNurgle::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

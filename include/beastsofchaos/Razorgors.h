@@ -19,13 +19,13 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         Razorgors() = delete;
 
         ~Razorgors() override = default;
 
-        Razorgors(Greatfray fray, int numModels);
+        Razorgors(Greatfray fray, int numModels, int points);
 
     protected:
 

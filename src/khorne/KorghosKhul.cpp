@@ -49,7 +49,7 @@ namespace Khorne {
     bool KorghosKhul::s_registered = false;
 
     KorghosKhul::KorghosKhul(bool isGeneral) :
-            KhorneBase("Korghos Khul", 5, g_wounds, 9, 3, false) {
+            KhorneBase("Korghos Khul", 5, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, HERO, MIGHTY_LORD_OF_KHORNE, KORGHOS_KHUL};
         m_weapons = {&m_axeOfKhorne, &m_clawsAndFangs};
         m_battleFieldRole = Role::Leader;
@@ -102,7 +102,7 @@ namespace Khorne {
         return Rerolls::Failed;
     }
 
-    int KorghosKhul::ComputePoints(int /*numModels*/) {
+    int KorghosKhul::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

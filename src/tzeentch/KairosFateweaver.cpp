@@ -114,7 +114,7 @@ namespace Tzeentch {
     }
 
     KairosFateweaver::KairosFateweaver() :
-            TzeentchBase("Kairos Fateweaver", 12, g_wounds, 10, 4, true),
+            TzeentchBase("Kairos Fateweaver", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Staff of Tomorrow", 3, 3, 3, 1, -1, 2),
             m_beakAndTalons(Weapon::Type::Melee, "Beak and Claws", 1, 5, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, MONSTER, HERO, WIZARD, LORD_OF_CHANGE, KAIROS_FATEWEAVER};
@@ -134,8 +134,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<GiftOfChange>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void KairosFateweaver::onRestore() {
@@ -171,7 +169,7 @@ namespace Tzeentch {
         return unmodifiedRoll + castingModifier();
     }
 
-    int KairosFateweaver::ComputePoints(int /*numModels*/) {
+    int KairosFateweaver::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

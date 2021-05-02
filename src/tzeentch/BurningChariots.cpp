@@ -20,8 +20,8 @@ namespace Tzeentch {
 
     bool BurningChariotsOfTzeentch::s_registered = false;
 
-    BurningChariotsOfTzeentch::BurningChariotsOfTzeentch() :
-            TzeentchBase("Burning Chariots of Tzeentch", 14, g_wounds, 10, 5, true),
+    BurningChariotsOfTzeentch::BurningChariotsOfTzeentch(int points) :
+            TzeentchBase("Burning Chariots of Tzeentch", 14, g_wounds, 10, 5, true, points),
             m_warpflame(Weapon::Type::Missile, "Billowing Warpflame", 18, 6, 4, 3, -1, RAND_D3),
             m_bite(Weapon::Type::Melee, "Lamprey Bite", 1, 6, 4, 3, 0, 1),
             m_jabs(Weapon::Type::Melee, "Blue Horrors' Jabs", 1, 3, 5, 5, 0, 1),
@@ -46,13 +46,11 @@ namespace Tzeentch {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *BurningChariotsOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new BurningChariotsOfTzeentch();
+        auto unit = new BurningChariotsOfTzeentch(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
@@ -114,7 +112,8 @@ namespace Tzeentch {
         return TzeentchBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int BurningChariotsOfTzeentch::ComputePoints(int numModels) {
+    int BurningChariotsOfTzeentch::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

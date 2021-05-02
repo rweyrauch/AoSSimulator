@@ -54,7 +54,7 @@ namespace Skaven {
     }
 
     PlaguePriest::PlaguePriest() :
-            Skaventide("Plague Priest", 6, g_wounds, 6, 5, false),
+            Skaventide("Plague Priest", 6, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Warpstone-tipped Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_censer(Weapon::Type::Melee, "Plague Censer", 2, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, HERO, PRIEST, PLAGUE_PRIEST};
@@ -67,8 +67,6 @@ namespace Skaven {
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_censer);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void PlaguePriest::onEndCombat(PlayerId player) {
@@ -122,7 +120,7 @@ namespace Skaven {
         }
     }
 
-    int PlaguePriest::ComputePoints(int /*numModels*/) {
+    int PlaguePriest::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

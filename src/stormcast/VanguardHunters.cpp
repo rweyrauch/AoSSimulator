@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool VanguardHunters::s_registered = false;
 
-    VanguardHunters::VanguardHunters(Stormhost stormhost, int numModels, WeaponOption weapons, bool astralCompass) :
-            StormcastEternal(stormhost, "Vanguard-Hunters", 6, g_wounds, 7, 4, false),
+    VanguardHunters::VanguardHunters(Stormhost stormhost, int numModels, WeaponOption weapons, bool astralCompass, int points) :
+            StormcastEternal(stormhost, "Vanguard-Hunters", 6, g_wounds, 7, 4, false, points),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 4, 0, 1),
             m_boltstormPistolPrime(Weapon::Type::Missile, "Boltstorm Pistol", 9, 3, 3, 4, 0, 1),
             m_shockHandaxe(Weapon::Type::Melee, "Shock Handaxe", 1, 2, 4, 3, 0, 1),
@@ -59,8 +59,6 @@ namespace StormcastEternals {
             model->addMissileWeapon(&m_shockHandaxePrime);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *VanguardHunters::Create(const ParameterList &parameters) {
@@ -68,7 +66,7 @@ namespace StormcastEternals {
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Storm_Sabre);
         bool astralCompass = GetBoolParam("Astral Compass", parameters, false);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
-        return new VanguardHunters(stormhost, numModels, weapons, astralCompass);
+        return new VanguardHunters(stormhost, numModels, weapons, astralCompass, ComputePoints(parameters));
     }
 
     void VanguardHunters::Init() {
@@ -113,7 +111,8 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    int VanguardHunters::ComputePoints(int numModels) {
+    int VanguardHunters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

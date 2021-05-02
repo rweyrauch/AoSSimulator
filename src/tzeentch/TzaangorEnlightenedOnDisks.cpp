@@ -22,8 +22,8 @@ namespace Tzeentch {
 
     bool TzaangorEnlightenedOnDisks::s_registered = false;
 
-    TzaangorEnlightenedOnDisks::TzaangorEnlightenedOnDisks() :
-            TzeentchBase("Tzaangor Enlightened on Disks", 16, g_wounds, 6, 5, true),
+    TzaangorEnlightenedOnDisks::TzaangorEnlightenedOnDisks(int points) :
+            TzeentchBase("Tzaangor Enlightened on Disks", 16, g_wounds, 6, 5, true, points),
             m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
             m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
             m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
@@ -55,13 +55,11 @@ namespace Tzeentch {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *TzaangorEnlightenedOnDisks::Create(const ParameterList &parameters) {
-        auto *unit = new TzaangorEnlightenedOnDisks();
+        auto *unit = new TzaangorEnlightenedOnDisks(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
@@ -117,7 +115,8 @@ namespace Tzeentch {
         return TzeentchBase::toWoundRerolls(weapon, target);
     }
 
-    int TzaangorEnlightenedOnDisks::ComputePoints(int numModels) {
+    int TzaangorEnlightenedOnDisks::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

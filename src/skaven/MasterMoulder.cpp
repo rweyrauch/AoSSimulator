@@ -56,7 +56,7 @@ namespace Skaven {
     }
 
     MasterMoulder::MasterMoulder() :
-            Skaventide("Master Moulder", 6, g_wounds, 6, 5, false),
+            Skaventide("Master Moulder", 6, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_lash(Weapon::Type::Melee, "Warpstone-tipped Lash", 3, 6, 3, 4, -1, 1),
             m_catcher(Weapon::Type::Melee, "Things-catcher", 2, 4, 4, 4, -1, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, HERO, MASTER_MOULDER};
@@ -79,8 +79,6 @@ namespace Skaven {
         else if (option == Things_Catcher)
             model->addMeleeWeapon(&m_catcher);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int MasterMoulder::crackTheWhip(const Unit *attacker, const Weapon * /*weapon*/, const Unit * /*target*/) {
@@ -114,7 +112,7 @@ namespace Skaven {
         }
     }
 
-    int MasterMoulder::ComputePoints(int /*numModels*/) {
+    int MasterMoulder::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

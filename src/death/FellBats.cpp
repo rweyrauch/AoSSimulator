@@ -21,7 +21,7 @@ namespace Death {
     bool FellBats::s_registered = false;
 
     Unit *FellBats::Create(const ParameterList &parameters) {
-        auto unit = new FellBats();
+        auto unit = new FellBats(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
@@ -35,7 +35,8 @@ namespace Death {
         return unit;
     }
 
-    int FellBats::ComputePoints(int numModels) {
+    int FellBats::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;
@@ -61,8 +62,8 @@ namespace Death {
         }
     }
 
-    FellBats::FellBats() :
-            LegionOfNagashBase("Fell Bats", 14, g_wounds, 10, 6, true),
+    FellBats::FellBats(int points) :
+            LegionOfNagashBase("Fell Bats", 14, g_wounds, 10, 6, true, points),
             m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, FELL_BATS};
         m_weapons = {&m_fangs};
@@ -79,8 +80,6 @@ namespace Death {
             model->addMeleeWeapon(&m_fangs);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }

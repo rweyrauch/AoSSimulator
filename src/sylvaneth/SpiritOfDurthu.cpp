@@ -36,7 +36,7 @@ namespace Sylvaneth {
             };
 
     SpiritOfDurthu::SpiritOfDurthu(Glade glade, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SylvanethBase("Spirit of Durthu", 5, g_wounds, 9, 3, false),
+            SylvanethBase("Spirit of Durthu", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_verdantBlast(Weapon::Type::Missile, "Verdant Blast", 15, 6, 4, 3, -1, RAND_D3),
             m_guardianSword(Weapon::Type::Melee, "Guardian Sword", 3, 3, 3, 3, -2, 6),
             m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1) {
@@ -155,7 +155,7 @@ namespace Sylvaneth {
         return 0;
     }
 
-    int SpiritOfDurthu::ComputePoints(int /*numModels*/) {
+    int SpiritOfDurthu::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

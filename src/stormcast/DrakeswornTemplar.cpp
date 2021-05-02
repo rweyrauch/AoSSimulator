@@ -37,7 +37,7 @@ namespace StormcastEternals {
     bool DrakeswornTemplar::s_registered = false;
 
     DrakeswornTemplar::DrakeswornTemplar(Stormhost stormhost, WeaponOption weapons, bool skyboltBow, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
-            MountedStormcastEternal(stormhost, "Drakesworn Templar", 12, g_wounds, 9, 3, true),
+            MountedStormcastEternal(stormhost, "Drakesworn Templar", 12, g_wounds, 9, 3, true, g_pointsPerUnit),
             m_skyboltBow(Weapon::Type::Missile, "Skybolt Bow", 24, 1, 3, 3, -1, 1),
             m_tempestAxe(Weapon::Type::Melee, "Tempest Axe", 2, 6, 3, 3, 0, 1),
             m_arcHammer(Weapon::Type::Melee, "Arc Hammer", 1, 2, 3, 3, -1, 3),
@@ -264,7 +264,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int DrakeswornTemplar::ComputePoints(int /*numModels*/) {
+    int DrakeswornTemplar::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

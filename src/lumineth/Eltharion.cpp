@@ -20,7 +20,7 @@ namespace LuminethRealmLords {
     bool TheLightOfEltharion::s_registered = false;
 
     TheLightOfEltharion::TheLightOfEltharion() :
-            LuminethBase("The Light of Eltharion", 6, g_wounds, 10, 3, false),
+            LuminethBase("The Light of Eltharion", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_fangsword(Weapon::Type::Melee, "Fangsword of Eltharion", 1, 4, 2, 3, -3, RAND_D3),
             m_blade(Weapon::Type::Melee, "Celennari Blade", 1, 2, 2, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, HERO, LIGHT_OF_ELTHARION};
@@ -33,8 +33,6 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_fangsword);
         model->addMeleeWeapon(&m_blade);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *TheLightOfEltharion::Create(const ParameterList &parameters) {
@@ -69,7 +67,7 @@ namespace LuminethRealmLords {
         }
     }
 
-    int TheLightOfEltharion::ComputePoints(int /*numModels*/) {
+    int TheLightOfEltharion::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

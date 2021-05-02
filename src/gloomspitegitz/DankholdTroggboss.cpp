@@ -49,7 +49,7 @@ namespace GloomspiteGitz {
     bool DankholdTroggboss::s_registered = false;
 
     DankholdTroggboss::DankholdTroggboss() :
-            GloomspiteGitzBase("Dankhold Troggboss", 6, g_wounds, 7, 4, false),
+            GloomspiteGitzBase("Dankhold Troggboss", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
         m_weapons = {&m_boulderClub};
@@ -165,7 +165,7 @@ namespace GloomspiteGitz {
         return 0;
     }
 
-    int DankholdTroggboss::ComputePoints(int /*numModels*/) {
+    int DankholdTroggboss::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

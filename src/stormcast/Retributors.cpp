@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Retributors::s_registered = false;
 
-    Retributors::Retributors(Stormhost stormhost, int numModels, int numStarsoulMaces) :
-            StormcastEternal(stormhost, "Retributors", 4, g_wounds, 7, 4, false),
+    Retributors::Retributors(Stormhost stormhost, int numModels, int numStarsoulMaces, int points) :
+            StormcastEternal(stormhost, "Retributors", 4, g_wounds, 7, 4, false, points),
             m_lightningHammer(Weapon::Type::Melee, "Lightning Hammer", 1, 2, 3, 3, -1, 2),
             m_lightningHammerPrime(Weapon::Type::Melee, "Lightning Hammer", 1, 3, 3, 3, -1, 2),
             m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 0, 0, 0, 0, 0) {
@@ -45,8 +45,6 @@ namespace StormcastEternals {
             model->addMeleeWeapon(&m_lightningHammer);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Wounds Retributors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -74,7 +72,7 @@ namespace StormcastEternals {
             return nullptr;
         }
 
-        return new Retributors(stormhost, numModels, numStarsoulMaces);
+        return new Retributors(stormhost, numModels, numStarsoulMaces, ComputePoints(parameters));
     }
 
     void Retributors::Init() {
@@ -118,7 +116,8 @@ namespace StormcastEternals {
         }
     }
 
-    int Retributors::ComputePoints(int numModels) {
+    int Retributors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

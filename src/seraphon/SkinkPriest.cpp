@@ -19,7 +19,7 @@ namespace Seraphon {
     bool SkinkPriest::s_registered = false;
 
     SkinkPriest::SkinkPriest(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Skink Priest", 8, g_wounds, 6, 5, false) {
+            SeraphonBase("Skink Priest", 8, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SKINK, HERO, PRIEST};
         m_weapons = {&m_starbolt, &m_staff};
         m_battleFieldRole = Role::Leader;
@@ -33,8 +33,6 @@ namespace Seraphon {
         model->addMissileWeapon(&m_starbolt);
         model->addMeleeWeapon(&m_staff);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SkinkPriest::Create(const ParameterList &parameters) {
@@ -68,7 +66,7 @@ namespace Seraphon {
         }
     }
 
-    int SkinkPriest::ComputePoints(int /*numModels*/) {
+    int SkinkPriest::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

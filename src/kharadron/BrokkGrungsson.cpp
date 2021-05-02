@@ -46,7 +46,7 @@ namespace KharadronOverlords {
     }
 
     BrokkGrungsson::BrokkGrungsson() :
-            KharadronBase("Brokk Grungsson", 12, g_wounds, 8, 3, true),
+            KharadronBase("Brokk Grungsson", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_boast(Weapon::Type::Missile, "Grungsson's Boast", 18, 2, 3, 2, -2, RAND_D3),
             m_charter(Weapon::Type::Missile, "The Magnate's Charter", 18, 6, 3, 3, -1, 1),
             m_aetherblasters(Weapon::Type::Missile, "Aetherblasters", 9, 2, 3, 4, 0, 1),
@@ -67,7 +67,7 @@ namespace KharadronOverlords {
         m_points = g_pointsPerUnit;
     }
 
-    int BrokkGrungsson::ComputePoints(int /*numModels*/) {
+    int BrokkGrungsson::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

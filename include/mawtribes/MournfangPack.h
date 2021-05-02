@@ -24,7 +24,7 @@ namespace OgorMawtribes {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static std::string ValueToString(const Parameter &parameter);
 
@@ -38,7 +38,7 @@ namespace OgorMawtribes {
 
     protected:
 
-        MournfangPack(Mawtribe tribe, int numModels, WeaponOption weaponOption, bool hornblower, bool bannerBearer);
+        MournfangPack(Mawtribe tribe, int numModels, WeaponOption weaponOption, bool hornblower, bool bannerBearer, int points);
 
     protected:
 

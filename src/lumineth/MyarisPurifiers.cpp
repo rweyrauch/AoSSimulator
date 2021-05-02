@@ -28,7 +28,7 @@ namespace LuminethRealmLords {
         return unit;
     }
 
-    int MyarisPurifiers::ComputePoints(int /*numModels*/) {
+    int MyarisPurifiers::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -50,7 +50,7 @@ namespace LuminethRealmLords {
     }
 
     MyarisPurifiers::MyarisPurifiers() :
-            LuminethBase("Myari's Purifiers", 6, g_wounds, 7, 4, false),
+            LuminethBase("Myari's Purifiers", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_bow(Weapon::Type::Missile, "Auralan Bow", 18, 2, 3, 4, -1, 1),
             m_mallet(Weapon::Type::Melee, "Stone Mallet", 1, 3, 3, 3, -1, 1),
             m_greatsword(Weapon::Type::Melee, "Sunmetal Greatsword", 1, 2, 2, 2, -1, 1),
@@ -72,8 +72,6 @@ namespace LuminethRealmLords {
         senaela->addMeleeWeapon(&m_bow);
         senaela->addMeleeWeapon(&m_dagger);
         addModel(senaela);
-
-        m_points = ComputePoints(1);
     }
 
     Wounds MyarisPurifiers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

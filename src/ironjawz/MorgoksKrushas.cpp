@@ -16,7 +16,7 @@ namespace Ironjawz {
     bool MorgoksKrushas::s_registered = false;
 
     MorgoksKrushas::MorgoksKrushas() :
-            Ironjawz("Morgok's Krushas", 4, g_wounds, 6, 4, false),
+            Ironjawz("Morgok's Krushas", 4, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_krushaWeaponsMorgok(Weapon::Type::Melee, "Krusha Weapons", 1, 5, 3, 3, -1, 1),
             m_krushaWeapons(Weapon::Type::Melee, "Krusha Weapons", 1, 4, 3, 3, -1, 1),
             m_goreBasha(Weapon::Type::Melee, "Gore-basha", 2, 3, 4, 3, -1, 2) {
@@ -40,8 +40,6 @@ namespace Ironjawz {
         ardskull->addMeleeWeapon(&m_goreBasha);
         ardskull->setName("Ardskull");
         addModel(ardskull);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *MorgoksKrushas::Create(const ParameterList &parameters) {
@@ -77,7 +75,7 @@ namespace Ironjawz {
         return Ironjawz::toHitRerolls(weapon, target);
     }
 
-    int MorgoksKrushas::ComputePoints(int numModels) {
+    int MorgoksKrushas::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 

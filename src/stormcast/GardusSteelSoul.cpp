@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool GardusSteelSoul::s_registered = false;
 
     GardusSteelSoul::GardusSteelSoul(bool isGeneral) :
-            StormcastEternal(Stormhost::Hallowed_Knights, "Gardus Steel Soul", 6, g_wounds, 10, 4, false) {
+            StormcastEternal(Stormhost::Hallowed_Knights, "Gardus Steel Soul", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HALLOWED_KNIGHTS, STEEL_SOULS, HERO, LORD_CELESTANT, GARDUS_STEEL_SOUL};
         m_weapons = {&m_runeblade, &m_warhammer};
         m_battleFieldRole = Role::Leader;
@@ -80,7 +80,7 @@ namespace StormcastEternals {
         StormcastEternal::onStartShooting(player);
     }
 
-    int GardusSteelSoul::ComputePoints(int /*numModels*/) {
+    int GardusSteelSoul::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

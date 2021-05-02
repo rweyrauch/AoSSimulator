@@ -20,8 +20,8 @@ namespace Khorne {
 
     bool Bloodcrushers::s_registered = false;
 
-    Bloodcrushers::Bloodcrushers(SlaughterHost host, int numModels, bool iconBearer, bool hornblowers) :
-            KhorneBase("Bloodcrushers", 8, g_wounds, 10, 4, false) {
+    Bloodcrushers::Bloodcrushers(SlaughterHost host, int numModels, bool iconBearer, bool hornblowers, int points) :
+            KhorneBase("Bloodcrushers", 8, g_wounds, 10, 4, false, points) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, BLOODCRUSHERS};
         m_weapons = {&m_hellblade, &m_hellbladeHunter, &m_brazenHooves};
         m_hasMount = true;
@@ -50,8 +50,6 @@ namespace Khorne {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Bloodcrushers::~Bloodcrushers() {
@@ -64,7 +62,7 @@ namespace Khorne {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        return new Bloodcrushers(host, numModels, iconBearer, hornblowers);
+        return new Bloodcrushers(host, numModels, iconBearer, hornblowers, ComputePoints(parameters));
     }
 
     void Bloodcrushers::Init() {
@@ -117,7 +115,8 @@ namespace Khorne {
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Bloodcrushers::ComputePoints(int numModels) {
+    int Bloodcrushers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

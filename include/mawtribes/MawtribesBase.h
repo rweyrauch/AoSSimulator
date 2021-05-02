@@ -163,8 +163,8 @@ namespace OgorMawtribes {
         void setArtefact(Artefact artefact);
 
     protected:
-        MawtribesBase(Mawtribe tribe, const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {
+        MawtribesBase(Mawtribe tribe, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
             setMawtribe(tribe);
         }
 

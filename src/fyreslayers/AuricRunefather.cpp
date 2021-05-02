@@ -40,7 +40,7 @@ namespace Fyreslayers {
     bool AuricRunefather::s_registered = false;
 
     AuricRunefather::AuricRunefather() :
-            Fyreslayer("Auric Runefather", 4, g_wounds, 8, 4, false),
+            Fyreslayer("Auric Runefather", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNEFATHER};
@@ -98,7 +98,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunefather::ComputePoints(int /*numModels*/) {
+    int AuricRunefather::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

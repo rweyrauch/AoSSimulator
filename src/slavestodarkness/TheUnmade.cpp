@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *TheUnmade::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new TheUnmade(legion, numModels);
+        return new TheUnmade(legion, numModels, ComputePoints(parameters));
     }
 
     void TheUnmade::Init() {
@@ -44,8 +44,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    TheUnmade::TheUnmade(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("The Unmade", 6, g_wounds, 5, 6, false) {
+    TheUnmade::TheUnmade(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("The Unmade", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, THE_UNMADE};
         m_weapons = {&m_maimingWeapons, &m_maimingWeaponsLeader, &m_nigthmareSickles};
 
@@ -68,15 +68,14 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_maimingWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     TheUnmade::~TheUnmade() {
         m_connection.disconnect();
     }
 
-    int TheUnmade::ComputePoints(int numModels) {
+    int TheUnmade::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -20,8 +20,8 @@ namespace BeastsOfChaos {
 
     bool TuskgorChariots::s_registered = false;
 
-    TuskgorChariots::TuskgorChariots(Greatfray fray, int numModels) :
-            BeastsOfChaosBase("Tuskgor Chariots", 10, g_wounds, 6, 4, false),
+    TuskgorChariots::TuskgorChariots(Greatfray fray, int numModels, int points) :
+            BeastsOfChaosBase("Tuskgor Chariots", 10, g_wounds, 6, 4, false, points),
             m_despoilerAxe(Weapon::Type::Melee, "Despoiler Axe", 1, 2, 4, 3, -1, 1),
             m_gnarledSpear(Weapon::Type::Melee, "Gnarled Spear", 2, 1, 4, 4, 0, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 3, 0, 1) {
@@ -39,15 +39,13 @@ namespace BeastsOfChaos {
             model->addMeleeWeapon(&m_tusksAndHooves);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *TuskgorChariots::Create(const ParameterList &parameters) {
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
-        return new TuskgorChariots(fray, numModels);
+        return new TuskgorChariots(fray, numModels, ComputePoints(parameters));
     }
 
     void TuskgorChariots::Init() {
@@ -108,7 +106,8 @@ namespace BeastsOfChaos {
         return Rerolls::Failed;
     }
 
-    int TuskgorChariots::ComputePoints(int numModels) {
+    int TuskgorChariots::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

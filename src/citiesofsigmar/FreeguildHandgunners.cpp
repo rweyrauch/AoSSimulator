@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool FreeguildHandgunners::s_registered = false;
 
     Unit *FreeguildHandgunners::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildHandgunners();
+        auto unit = new FreeguildHandgunners(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -86,8 +86,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildHandgunners::FreeguildHandgunners() :
-            CitizenOfSigmar("Freeguild Handgunners", 5, g_wounds, 5, 6, false),
+    FreeguildHandgunners::FreeguildHandgunners(int points) :
+            CitizenOfSigmar("Freeguild Handgunners", 5, g_wounds, 5, 6, false, points),
             m_freeguildHandgun(Weapon::Type::Missile, "Freeguild Handgun", 16, 1, 4, 3, -1, 1),
             m_dagger(Weapon::Type::Melee, "Dagger", 1, 1, 5, 5, 0, 1),
             m_longRifle(Weapon::Type::Missile, "Long Rifle", 30, 1, 4, 3, -1, 2),
@@ -131,8 +131,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -164,7 +162,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int FreeguildHandgunners::ComputePoints(int numModels) {
+    int FreeguildHandgunners::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

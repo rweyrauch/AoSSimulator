@@ -19,7 +19,7 @@ namespace OgorMawtribes {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -29,7 +29,7 @@ namespace OgorMawtribes {
 
     protected:
 
-        Ironguts(Mawtribe tribe, int numModels, bool runeMawBearer, bool bellower);
+        Ironguts(Mawtribe tribe, int numModels, bool runeMawBearer, bool bellower, int points);
 
     protected:
 

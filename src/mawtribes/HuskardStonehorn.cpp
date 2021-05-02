@@ -91,9 +91,8 @@ namespace OgorMawtribes {
     }
 
     HuskardOnStonehorn::HuskardOnStonehorn(Mawtribe tribe, WeaponOption option, CommandTrait trait, Artefact artefact,
-                                           bool isGeneral,
-                                           MountTrait mountTrait) :
-            MawtribesBase(tribe, "Huskard on Stonehorn", 12, g_wounds, 9, 3, false) {
+                                           bool isGeneral, MountTrait mountTrait) :
+            MawtribesBase(tribe, "Huskard on Stonehorn", 12, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, HERO, HUSKARD};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -125,8 +124,6 @@ namespace OgorMawtribes {
         if (trait == CommandTrait::Master_Of_The_Mournfangs) {
             s_globalBraveryMod.connect(this, &HuskardOnStonehorn::masterOfMournfangs, &m_masterOfMournfangs);
         }
-
-        m_points = HuskardOnStonehorn::ComputePoints(1);
     }
 
     void HuskardOnStonehorn::onRestore() {
@@ -185,7 +182,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int HuskardOnStonehorn::ComputePoints(int /*numModels*/) {
+    int HuskardOnStonehorn::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

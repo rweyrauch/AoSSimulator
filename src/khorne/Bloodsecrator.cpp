@@ -18,7 +18,7 @@ namespace Khorne {
     bool Bloodsecrator::s_registered = false;
 
     Bloodsecrator::Bloodsecrator(SlaughterHost host, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Bloodsecrator", 4, g_wounds, 9, 3, false) {
+            KhorneBase("Bloodsecrator", 4, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, TOTEM, BLOODSECRATOR};
         m_weapons = {&m_ensorcelledAxe};
         m_battleFieldRole = Role::Leader;
@@ -73,7 +73,7 @@ namespace Khorne {
         }
     }
 
-    int Bloodsecrator::ComputePoints(int /*numModels*/) {
+    int Bloodsecrator::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

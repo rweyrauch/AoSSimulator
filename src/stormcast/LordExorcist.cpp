@@ -22,7 +22,7 @@ namespace StormcastEternals {
     bool LordExorcist::s_registered = false;
 
     LordExorcist::LordExorcist(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Lord-Exorcist", 5, g_wounds, 9, 3, false),
+            StormcastEternal(stormhost, "Lord-Exorcist", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_stave(Weapon::Type::Melee, "Redemption Stave", 2, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD, LORD_EXORCIST};
         m_weapons = {&m_stave};
@@ -103,7 +103,7 @@ namespace StormcastEternals {
         }
     }
 
-    int LordExorcist::ComputePoints(int /*numModels*/) {
+    int LordExorcist::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -53,7 +53,7 @@ namespace Nighthaunt {
     }
 
     DreadbladeHarrow::DreadbladeHarrow() :
-            Nighthaunt("Dreadblade Harrow", 12, g_wounds, 10, 4, true),
+            Nighthaunt("Dreadblade Harrow", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_dreadblade(Weapon::Type::Melee, "Dreadblade", 1, 3, 3, 3, -1, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, DREADBLADE_HARROW};
@@ -68,8 +68,6 @@ namespace Nighthaunt {
         model->addMeleeWeapon(&m_dreadblade);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     int DreadbladeHarrow::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
@@ -96,7 +94,7 @@ namespace Nighthaunt {
         return Unit::toWoundRerolls(weapon, target);
     }
 
-    int DreadbladeHarrow::ComputePoints(int /*numModels*/) {
+    int DreadbladeHarrow::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 } // namespace Nighthaunt

@@ -18,7 +18,7 @@ namespace GloomspiteGitz {
     bool Zarbag::s_registered = false;
 
     Zarbag::Zarbag() :
-            GloomspiteGitzBase("Zarbag", 5, g_wounds, 4, 6, false),
+            GloomspiteGitzBase("Zarbag", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_sickle(Weapon::Type::Melee, "Cursed Sickle", 2, 3, 3, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN, ZARBAG};
         m_weapons = {&m_sickle};
@@ -82,7 +82,7 @@ namespace GloomspiteGitz {
         return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
-    int Zarbag::ComputePoints(int /*numModels*/) {
+    int Zarbag::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

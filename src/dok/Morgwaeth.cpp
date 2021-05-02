@@ -19,7 +19,7 @@ namespace DaughtersOfKhaine {
     bool MorgwaethTheBloodied::s_registered = false;
 
     MorgwaethTheBloodied::MorgwaethTheBloodied() :
-            DaughterOfKhaine("Morgwaeth the Bloodied", 6, g_wounds, 8, 5, false),
+            DaughterOfKhaine("Morgwaeth the Bloodied", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_glaive(Weapon::Type::Melee, "Glaive of Khaine", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN, MORGWAETH_THE_BLOODIED};
         m_weapons = {&m_glaive};
@@ -68,7 +68,7 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int MorgwaethTheBloodied::ComputePoints(int /*numModels*/) {
+    int MorgwaethTheBloodied::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

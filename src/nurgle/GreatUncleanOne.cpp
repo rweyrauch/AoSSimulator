@@ -38,12 +38,12 @@ namespace Nurgle {
     bool GreatUncleanOne::s_registered = false;
 
     GreatUncleanOne::GreatUncleanOne() :
-            NurgleBase("Great Unclean One", 5, g_wounds, 10, 4, false),
+            NurgleBase("Great Unclean One", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_bile(Weapon::Type::Missile, "Noxious Bile", 7, RAND_D6, 3, 2, -2, 1),
-            m_flail(),
-            m_bilesword(),
-            m_bileblade(),
-            m_doomsdayBell(),
+            m_flail(Weapon::Type::Melee, "Plague Flail", 2, 3, 3, 2, -1, 2),
+            m_bilesword(Weapon::Type::Melee, "Massive Bilesword", 2, 3, 4, 3, -2, 3),
+            m_bileblade(Weapon::Type::Melee, "Bileblade", 2, 3, 3, 3, -1, 1),
+            m_doomsdayBell(Weapon::Type::Melee, "Doomsday Bell", 2, 4, 4, 3, -1, 1),
             m_nurglings(Weapon::Type::Melee, "Host of Nurglings", 1, 3, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, NURGLE, MONSTER, HERO, WIZARD, GREAT_UNCLEAN_ONE, ROTIGUS};
         m_weapons = {&m_bile, &m_flail, &m_bilesword, &m_bileblade, &m_doomsdayBell, &m_nurglings};
@@ -69,8 +69,6 @@ namespace Nurgle {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *GreatUncleanOne::Create(const ParameterList &parameters) {
@@ -203,7 +201,7 @@ namespace Nurgle {
         }
     }
 
-    int GreatUncleanOne::ComputePoints(int /*numModels*/) {
+    int GreatUncleanOne::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

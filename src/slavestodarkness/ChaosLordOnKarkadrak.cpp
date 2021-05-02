@@ -49,7 +49,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosLordOnKarkadrak::ChaosLordOnKarkadrak(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Chaos Lord On Karkadrak", 9, g_wounds, 8, 3, false) {
+            SlavesToDarknessBase("Chaos Lord On Karkadrak", 9, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_battleAxe, &m_blade, &m_hornsAndClaws, &m_tail};
         m_battleFieldRole = Role::Leader;
@@ -106,7 +106,7 @@ namespace SlavesToDarkness {
         return savedWounds;
     }
 
-    int ChaosLordOnKarkadrak::ComputePoints(int /*numModels*/) {
+    int ChaosLordOnKarkadrak::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

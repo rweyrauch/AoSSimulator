@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool Evocators::s_registered = false;
 
-    Evocators::Evocators(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore) :
-            StormcastEternal(stormhost, "Evocators", 5, g_wounds, 8, 4, false),
+    Evocators::Evocators(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore, int points) :
+            StormcastEternal(stormhost, "Evocators", 5, g_wounds, 8, 4, false, points),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
             m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1),
             m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
@@ -58,8 +58,6 @@ namespace StormcastEternals {
 
         m_knownSpells.push_back(std::make_unique<Empower>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
-
-        m_points = ComputePoints(numModels);
     }
 
     Rerolls Evocators::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
@@ -106,7 +104,7 @@ namespace StormcastEternals {
             return nullptr;
         }
 
-        return new Evocators(stormhost, numModels, numGrandstaves, primeGrandstave, lore);
+        return new Evocators(stormhost, numModels, numGrandstaves, primeGrandstave, lore, ComputePoints(parameters));
     }
 
     void Evocators::Init() {
@@ -139,7 +137,8 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    int Evocators::ComputePoints(int numModels) {
+    int Evocators::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

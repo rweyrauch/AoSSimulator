@@ -39,7 +39,7 @@ namespace LuminethRealmLords {
         return unit;
     }
 
-    int ScinariCathallar::ComputePoints(int /*numModels*/) {
+    int ScinariCathallar::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -66,7 +66,7 @@ namespace LuminethRealmLords {
     }
 
     ScinariCathallar::ScinariCathallar() :
-            LuminethBase("Scinari Cathallar", 6, g_wounds, 7, 5, false),
+            LuminethBase("Scinari Cathallar", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_touch(Weapon::Type::Melee, "Despairing Touch", 1, 1, 4, 2, 0, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, HERO, WIZARD, CATHALLAR};
         m_weapons = {&m_touch};
@@ -83,8 +83,6 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
 } // namespace LuminethRealmLords

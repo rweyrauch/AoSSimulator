@@ -66,7 +66,7 @@ namespace Nighthaunt {
     }
 
     LadyOlynder::LadyOlynder(Lore lore, bool isGeneral) :
-            Nighthaunt("Lady Olynder", 6, g_wounds, 10, 4, true) {
+            Nighthaunt("Lady Olynder", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MORTARCH, LADY_OLYNDER};
         m_weapons = {&m_staff, &m_claws};
         m_battleFieldRole = Role::Leader;
@@ -88,8 +88,6 @@ namespace Nighthaunt {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     LadyOlynder::~LadyOlynder() {
@@ -150,7 +148,7 @@ namespace Nighthaunt {
         m_graveSandsOfTimeUsed = false;
     }
 
-    int LadyOlynder::ComputePoints(int /*numModels*/) {
+    int LadyOlynder::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

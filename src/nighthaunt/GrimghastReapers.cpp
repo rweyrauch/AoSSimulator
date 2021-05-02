@@ -19,8 +19,8 @@ namespace Nighthaunt {
 
     bool GrimghastReapers::s_registered = false;
 
-    GrimghastReapers::GrimghastReapers() :
-            Nighthaunt("Grimghast Reapers", 8, g_wounds, 10, 4, true),
+    GrimghastReapers::GrimghastReapers(int points) :
+            Nighthaunt("Grimghast Reapers", 8, g_wounds, 10, 4, true, points),
             m_slasherScythe(Weapon::Type::Melee, "Slasher Scythe", 2, 2, 4, 3, -1, 1),
             m_deathKnell(Weapon::Type::Melee, "Death Knell", 2, 1, 3, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GRIMGHAST_REAPERS};
@@ -43,13 +43,11 @@ namespace Nighthaunt {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *GrimghastReapers::Create(const ParameterList &parameters) {
-        auto unit = new GrimghastReapers();
+        auto unit = new GrimghastReapers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -86,7 +84,8 @@ namespace Nighthaunt {
         return Nighthaunt::toHitRerolls(weapon, unit);
     }
 
-    int GrimghastReapers::ComputePoints(int numModels) {
+    int GrimghastReapers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

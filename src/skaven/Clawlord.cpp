@@ -53,7 +53,7 @@ namespace Skaven {
     }
 
     Clawlord::Clawlord() :
-            Skaventide("Clawlord", 6, g_wounds, 6, 4, false),
+            Skaventide("Clawlord", 6, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_blade(Weapon::Type::Melee, "Warpforged Blade", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD};
         m_weapons = {&m_blade};
@@ -64,8 +64,6 @@ namespace Skaven {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int Clawlord::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
@@ -77,7 +75,7 @@ namespace Skaven {
         return extra;
     }
 
-    int Clawlord::ComputePoints(int /*numModels*/) {
+    int Clawlord::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 } //namespace Skaven

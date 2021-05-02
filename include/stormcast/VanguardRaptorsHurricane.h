@@ -17,11 +17,11 @@ namespace StormcastEternals {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        VanguardRaptorsHurricane(Stormhost stormhost, int numModels);
+        VanguardRaptorsHurricane(Stormhost stormhost, int numModels, int points);
 
         ~VanguardRaptorsHurricane() override = default;
 

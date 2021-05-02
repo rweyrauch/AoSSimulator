@@ -18,7 +18,7 @@ namespace Greenskinz {
     bool OrrukGreatShaman::s_registered = false;
 
     OrrukGreatShaman::OrrukGreatShaman() :
-            Unit("Orruk Great Shaman", 5, g_wounds, 6, 5, false),
+            Unit("Orruk Great Shaman", 5, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_totemicStaff(Weapon::Type::Melee, "Totemic Staff", 2, 1, 4, 3, 0, RAND_D3),
             m_boarsTusks(Weapon::Type::Melee, "War Boar's Tusks", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, WIZARD, ORRUK_GREAT_SHAMAN};
@@ -84,7 +84,7 @@ namespace Greenskinz {
         return modifier;
     }
 
-    int OrrukGreatShaman::ComputePoints(int /*numModels*/) {
+    int OrrukGreatShaman::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

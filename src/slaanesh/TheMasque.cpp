@@ -18,7 +18,7 @@ namespace Slaanesh {
     bool TheMasque::s_registered = false;
 
     TheMasque::TheMasque() :
-            SlaaneshBase("The Masque", 10, g_wounds, 10, 5, false),
+            SlaaneshBase("The Masque", 10, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, THE_MASQUE};
         m_weapons = {&m_ravagingClaws};
@@ -35,8 +35,6 @@ namespace Slaanesh {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *TheMasque::Create(const ParameterList &parameters) {
@@ -70,7 +68,7 @@ namespace Slaanesh {
         }
     }
 
-    int TheMasque::ComputePoints(int /*numModels*/) {
+    int TheMasque::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

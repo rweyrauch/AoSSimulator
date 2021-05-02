@@ -35,7 +35,7 @@ namespace Sylvaneth {
             };
 
     Treelord::Treelord(Glade glade) :
-            SylvanethBase("Treelord", 6, g_wounds, 6, 3, false),
+            SylvanethBase("Treelord", 6, g_wounds, 6, 3, false, g_pointsPerUnit),
             m_strangleroots(Weapon::Type::Missile, "Strangleroots", 12, 5, 2, 3, -1, 1),
             m_sweepingBlows(Weapon::Type::Melee, "Sweeping Blows", 3, 4, 3, 3, -1, RAND_D6),
             m_massiveImpalingTalons(Weapon::Type::Melee, "Massive Impaling Talons", 1, 1, 3, 2, -2, 1) {
@@ -105,7 +105,7 @@ namespace Sylvaneth {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Treelord::ComputePoints(int /*numModels*/) {
+    int Treelord::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

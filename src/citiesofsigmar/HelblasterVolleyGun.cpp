@@ -53,7 +53,7 @@ namespace CitiesOfSigmar {
     }
 
     HelblasterVolleyGun::HelblasterVolleyGun() :
-            CitizenOfSigmar("Helblaster Volley Gun", 3, g_wounds, 5, 4, false),
+            CitizenOfSigmar("Helblaster Volley Gun", 3, g_wounds, 5, 4, false, g_pointsPerUnit),
             m_volley1(Weapon::Type::Missile, "Volley of Shots (1 Deck)", 24, RAND_D6, 4, 3, -1, 1),
             m_volley2(Weapon::Type::Missile, "Volley of Shots (2 Decks)", 24, RAND_2D6, 4, 3, -1, 1),
             m_volley3(Weapon::Type::Missile, "Volley of Shots (3 Decks)", 24, RAND_3D6, 4, 3, -1, 1),
@@ -86,7 +86,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int HelblasterVolleyGun::ComputePoints(int /*numModels*/) {
+    int HelblasterVolleyGun::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

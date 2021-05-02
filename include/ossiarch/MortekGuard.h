@@ -26,11 +26,11 @@ namespace OssiarchBonereapers {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        MortekGuard(Legion legion, int numModels, WeaponOption option, int numGreatblades, bool necrophoros);
+        MortekGuard(Legion legion, int numModels, WeaponOption option, int numGreatblades, bool necrophoros, int points);
 
         MortekGuard() = delete;
 

@@ -73,7 +73,7 @@ namespace Nighthaunt {
     }
 
     ReikenorTheGrimhailer::ReikenorTheGrimhailer() :
-            Nighthaunt("Reikenor the Grimhailer", 14, g_wounds, 10, 4, true),
+            Nighthaunt("Reikenor the Grimhailer", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_fellreaper(Weapon::Type::Melee, "Fellreaper", 2, 4, 4, 3, -1, 2),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, REIKENOR_THE_GRIMHAILER};
@@ -95,8 +95,6 @@ namespace Nighthaunt {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     Wounds
@@ -118,7 +116,7 @@ namespace Nighthaunt {
         return Nighthaunt::toHitRerolls(weapon, target);
     }
 
-    int ReikenorTheGrimhailer::ComputePoints(int /*numModels*/) {
+    int ReikenorTheGrimhailer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -30,7 +30,7 @@ namespace OgorMawtribes {
             bool mawBearer = GetBoolParam("Rune Maw Bearer", parameters, true);
             bool bellower = GetBoolParam("Bellower", parameters, true);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new Ironguts(tribe, numModels, mawBearer, bellower);
+            return new Ironguts(tribe, numModels, mawBearer, bellower, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -60,8 +60,8 @@ namespace OgorMawtribes {
         m_connection.disconnect();
     }
 
-    Ironguts::Ironguts(Mawtribe tribe, int numModels, bool runeMawBearer, bool bellower) :
-            MawtribesBase(tribe, "Ironguts", 6, g_wounds, 7, 4, false) {
+    Ironguts::Ironguts(Mawtribe tribe, int numModels, bool runeMawBearer, bool bellower, int points) :
+            MawtribesBase(tribe, "Ironguts", 6, g_wounds, 7, 4, false, points) {
 
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, IRONGUTS};
         m_weapons = {&m_bashingWeapon, &m_bite, &m_bashingWeaponGutlord};
@@ -87,11 +87,10 @@ namespace OgorMawtribes {
 
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int Ironguts::ComputePoints(int numModels) {
+    int Ironguts::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

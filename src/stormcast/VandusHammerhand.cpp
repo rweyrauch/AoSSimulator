@@ -20,7 +20,7 @@ namespace StormcastEternals {
     bool VandusHammerhand::s_registered = false;
 
     VandusHammerhand::VandusHammerhand(MountTrait trait, bool isGeneral) :
-            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Vandus Hammerhand", 10, g_wounds, 9, 3, false),
+            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Vandus Hammerhand", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_heldensen(Weapon::Type::Melee, "Heldensen", 2, 3, 3, 2, -1, 3),
             m_clawsAndFangs(Weapon::Type::Melee, "Claws and Fangs", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOTH, STORMCAST_ETERNAL, HERO, HAMMERS_OF_SIGMAR, LORD_CELESTANT,
@@ -103,7 +103,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int VandusHammerhand::ComputePoints(int /*numModels*/) {
+    int VandusHammerhand::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

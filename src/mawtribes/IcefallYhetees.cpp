@@ -28,7 +28,7 @@ namespace OgorMawtribes {
         if (AreValid(parameters)) {
             int numModels = GetIntParam("Models", parameters, g_minUnitSize);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new IcefallYhetees(tribe, numModels);
+            return new IcefallYhetees(tribe, numModels, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -51,8 +51,8 @@ namespace OgorMawtribes {
         }
     }
 
-    IcefallYhetees::IcefallYhetees(Mawtribe tribe, int numModels) :
-            MawtribesBase(tribe, "Icefall Yhetees", 9, g_wounds, 6, 6, false) {
+    IcefallYhetees::IcefallYhetees(Mawtribe tribe, int numModels, int points) :
+            MawtribesBase(tribe, "Icefall Yhetees", 9, g_wounds, 6, 6, false, points) {
         m_keywords = {DESTRUCTION, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, ICEFALL_YHETESS};
         m_weapons = {&m_clawsAndClubs};
 
@@ -64,11 +64,10 @@ namespace OgorMawtribes {
             model->addMeleeWeapon(&m_clawsAndClubs);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int IcefallYhetees::ComputePoints(int numModels) {
+    int IcefallYhetees::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

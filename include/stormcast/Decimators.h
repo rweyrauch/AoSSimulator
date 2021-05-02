@@ -17,11 +17,11 @@ namespace StormcastEternals {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Decimators(Stormhost stormhost, int numModels, int numStarsoulMaces);
+        Decimators(Stormhost stormhost, int numModels, int numStarsoulMaces, int points);
 
         ~Decimators() override;
 

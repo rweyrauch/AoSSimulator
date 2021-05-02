@@ -21,8 +21,8 @@ namespace Dispossessed {
 
     bool Quarrellers::s_registered = false;
 
-    Quarrellers::Quarrellers() :
-            Dispossessed("Quarrellers", 4, g_wounds, 6, 5, false),
+    Quarrellers::Quarrellers(int points) :
+            Dispossessed("Quarrellers", 4, g_wounds, 6, 5, false, points),
             m_duardinCrossbow(Weapon::Type::Missile, "Duardin Crossbow", 20, 1, 4, 4, 0, 1),
             m_duardinCrossbowVeteran(Weapon::Type::Missile, "Duardin Crossbow (Veteran)", 20, 1, 3, 4, 0, 1),
             m_rangersAxe(Weapon::Type::Melee, "Ranger's Axe", 1, 1, 4, 4, 0, 1) {
@@ -60,13 +60,11 @@ namespace Dispossessed {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Quarrellers::Create(const ParameterList &parameters) {
-        auto unit = new Quarrellers();
+        auto unit = new Quarrellers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool duardinBucklers = GetBoolParam("Duardin Bucklers", parameters, false);
         auto standard = (StandardOptions) GetEnumParam("Standard", parameters, None);
@@ -164,7 +162,8 @@ namespace Dispossessed {
         }
     }
 
-    int Quarrellers::ComputePoints(int numModels) {
+    int Quarrellers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

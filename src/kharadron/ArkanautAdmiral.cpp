@@ -64,7 +64,7 @@ namespace KharadronOverlords {
     }
 
     ArkanautAdmiral::ArkanautAdmiral() :
-            KharadronBase("Arkanaut Admiral", 4, g_wounds, 8, 3, false),
+            KharadronBase("Arkanaut Admiral", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_pistol(Weapon::Type::Missile, "Volley Pistol", 9, 3, 3, 4, -1, 1),
             m_skalfhammer(Weapon::Type::Melee, "Skalfhammer", 1, 3, 3, 2, -2, 2) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, ARKANAUT_ADMIRAL};
@@ -95,7 +95,7 @@ namespace KharadronOverlords {
         return KharadronBase::toWoundRerolls(weapon, target);
     }
 
-    int ArkanautAdmiral::ComputePoints(int /*numModels*/) {
+    int ArkanautAdmiral::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

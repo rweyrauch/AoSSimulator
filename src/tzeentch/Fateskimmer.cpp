@@ -51,7 +51,7 @@ namespace Tzeentch {
     }
 
     Fateskimmer::Fateskimmer(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            TzeentchBase("Fateskimmer", 16, g_wounds, 10, 5, true) {
+            TzeentchBase("Fateskimmer", 16, g_wounds, 10, 5, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, FATESKIMMER};
         m_weapons = {&m_magicalFlames, &m_staff, &m_dagger, &m_bite};
         m_battleFieldRole = Role::Leader;
@@ -77,8 +77,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds Fateskimmer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -89,7 +87,7 @@ namespace Tzeentch {
         return TzeentchBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Fateskimmer::ComputePoints(int /*numModels*/) {
+    int Fateskimmer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

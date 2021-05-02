@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
     bool AleguzzlerGargant::s_registered = false;
 
     AleguzzlerGargant::AleguzzlerGargant() :
-            GloomspiteGitzBase("Aleguzzler Gargant", 8, g_wounds, 6, 5, false),
+            GloomspiteGitzBase("Aleguzzler Gargant", 8, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_eadbutt(Weapon::Type::Melee, "'eadbutt", 1, 1, 4, 3, -3, RAND_D6),
             m_massiveClub(Weapon::Type::Melee, "Massive Club", 3, RAND_3D6, 3, 3, -1, 1),
             m_mightyKick(Weapon::Type::Melee, "Mighty Kick", 3, 1, 3, 3, -2, RAND_D3) {
@@ -100,7 +100,7 @@ namespace GloomspiteGitz {
         onWounded();
     }
 
-    int AleguzzlerGargant::ComputePoints(int /*numModels*/) {
+    int AleguzzlerGargant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

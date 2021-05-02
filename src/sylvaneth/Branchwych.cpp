@@ -22,7 +22,7 @@ namespace Sylvaneth {
     bool Branchwych::s_registered = false;
 
     Branchwych::Branchwych(Glade glade, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SylvanethBase("Branchwych", 7, g_wounds, 7, 5, false),
+            SylvanethBase("Branchwych", 7, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_greenwoodScythe(Weapon::Type::Melee, "Greenwood Scythe", 2, 2, 4, 3, 0, 2),
             m_bittergrubsMandibles(Weapon::Type::Melee, "Snapping Mandibles", 1, 1, 4, 4, -1, 1) {
         m_keywords = {ORDER, SYLVANETH, NOBLE_SPIRITS, HERO, WIZARD, BRANCHWYCH};
@@ -101,7 +101,7 @@ namespace Sylvaneth {
         return modifier;
     }
 
-    int Branchwych::ComputePoints(int /*numModels*/) {
+    int Branchwych::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

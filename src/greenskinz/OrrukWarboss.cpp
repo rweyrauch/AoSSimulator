@@ -18,7 +18,7 @@ namespace Greenskinz {
     bool OrrukWarboss::s_registered = false;
 
     OrrukWarboss::OrrukWarboss() :
-            Unit("Orruk Warboss", 5, g_wounds, 7, 4, false),
+            Unit("Orruk Warboss", 5, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 6, 3, 3, -1, 1),
             m_massiveChoppa(Weapon::Type::Melee, "Massive Choppa", 1, 3, 4, 3, -2, RAND_D3),
             m_greatWaaaghBanner(Weapon::Type::Melee, "Great Waaagh! Banner", 2, 4, 4, 4, 0, 1),
@@ -136,7 +136,7 @@ namespace Greenskinz {
         return Unit::toSaveRerolls(weapon, attacker);
     }
 
-    int OrrukWarboss::ComputePoints(int /*numModels*/) {
+    int OrrukWarboss::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

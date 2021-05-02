@@ -31,7 +31,7 @@ namespace OgorMawtribes {
             auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Culling_Club_Or_Prey_Hacker_And_Ironfist);
             bool banner = GetBoolParam("Banner Bearer", parameters, true);
             bool hornblower = GetBoolParam("Hornblower", parameters, true);
-            return new MournfangPack(tribe, numModels, weapons, hornblower, banner);
+            return new MournfangPack(tribe, numModels, weapons, hornblower, banner, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -59,8 +59,8 @@ namespace OgorMawtribes {
     }
 
     MournfangPack::MournfangPack(Mawtribe tribe, int numModels, WeaponOption weaponOption, bool hornblower,
-                                 bool bannerBearer) :
-            MawtribesBase(tribe, "Mournfang Pack", 9, g_wounds, 6, 4, false) {
+                                 bool bannerBearer, int points) :
+            MawtribesBase(tribe, "Mournfang Pack", 9, g_wounds, 6, 4, false, points) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MOURNFANG_PACK};
         m_weapons = {&m_pistol, &m_clubOrHacker, &m_gargantHacker, &m_tusks};
         m_hasMount = true;
@@ -94,11 +94,10 @@ namespace OgorMawtribes {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int MournfangPack::ComputePoints(int numModels) {
+    int MournfangPack::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

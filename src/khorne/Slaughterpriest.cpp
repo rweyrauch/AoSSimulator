@@ -18,7 +18,7 @@ namespace Khorne {
     bool Slaughterpriest::s_registered = false;
 
     Slaughterpriest::Slaughterpriest(SlaughterHost host, WeaponOption weapon, BloodBlessingsOfKhorne blessing, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Slaughterpriest", 6, g_wounds, 8, 5, false) {
+            KhorneBase("Slaughterpriest", 6, g_wounds, 8, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, PRIEST, SLAUGHTERPRIEST};
         m_weapons = {&m_bloodbathedAxe, &m_hackblade, &m_wrathHammer};
         m_battleFieldRole = Role::Leader;
@@ -108,7 +108,7 @@ namespace Khorne {
         return KhorneBase::EnumStringToInt(enumString);
     }
 
-    int Slaughterpriest::ComputePoints(int /*numModels*/) {
+    int Slaughterpriest::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

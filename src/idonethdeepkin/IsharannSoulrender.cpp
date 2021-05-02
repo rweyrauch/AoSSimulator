@@ -57,7 +57,7 @@ namespace IdonethDeepkin {
     }
 
     IsharannSoulrender::IsharannSoulrender() :
-            IdonethDeepkinBase("Isharann Soulrender", 6, g_wounds, 8, 4, false),
+            IdonethDeepkinBase("Isharann Soulrender", 6, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_talunhook(Weapon::Type::Melee, "Talunhook", 2, 2, 3, 3, -1, 2),
             m_bill(Weapon::Type::Melee, "Rakerdart's Serrated Bill", 3, RAND_D3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, SOULRENDER};
@@ -75,7 +75,7 @@ namespace IdonethDeepkin {
         m_points = g_pointsPerUnit;
     }
 
-    int IsharannSoulrender::ComputePoints(int /*numModels*/) {
+    int IsharannSoulrender::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

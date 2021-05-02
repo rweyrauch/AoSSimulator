@@ -49,7 +49,7 @@ namespace Nurgle {
     }
 
     MorbidexTwiceborn::MorbidexTwiceborn() :
-            NurgleBase("Morbidex Twicebornd", 10, g_wounds, 9, 3, false),
+            NurgleBase("Morbidex Twicebornd", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_tongues(Weapon::Type::Missile, "Slabrous Tongues", 6, 3, 3, 2, -1, 1),
             m_scythe(Weapon::Type::Melee, "Fleshreaper Scythe", 2, 5, 3, 3, -1, 2),
             m_claws(Weapon::Type::Melee, "Monstrous Claws", 3, 5, 4, 2, -1, 1) {
@@ -72,8 +72,6 @@ namespace Nurgle {
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int MorbidexTwiceborn::maliciousMitesWoundMod(const Unit *attacker, const Weapon * /*weapon*/,
@@ -82,7 +80,7 @@ namespace Nurgle {
         return 0;
     }
 
-    int MorbidexTwiceborn::ComputePoints(int /*numModels*/) {
+    int MorbidexTwiceborn::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

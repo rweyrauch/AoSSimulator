@@ -20,8 +20,8 @@ namespace Khorne {
 
     bool Wrathmongers::s_registered = false;
 
-    Wrathmongers::Wrathmongers(SlaughterHost host, int numModels) :
-            KhorneBase("Wrathmongers", 5, g_wounds, 7, 5, false) {
+    Wrathmongers::Wrathmongers(SlaughterHost host, int numModels, int points) :
+            KhorneBase("Wrathmongers", 5, g_wounds, 7, 5, false, points) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, WRATHMONGERS};
         m_weapons = {&m_wrathflails, &m_wrathflailsMaster};
 
@@ -38,8 +38,6 @@ namespace Khorne {
             model->addMeleeWeapon(&m_wrathflails);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Wrathmongers::~Wrathmongers() {
@@ -50,7 +48,7 @@ namespace Khorne {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
 
-        return new Wrathmongers(host, numModels);
+        return new Wrathmongers(host, numModels, ComputePoints(parameters));
     }
 
     void Wrathmongers::Init() {
@@ -81,7 +79,8 @@ namespace Khorne {
         return modifier;
     }
 
-    int Wrathmongers::ComputePoints(int numModels) {
+    int Wrathmongers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

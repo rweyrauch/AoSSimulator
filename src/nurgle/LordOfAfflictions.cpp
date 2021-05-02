@@ -58,7 +58,7 @@ namespace Nurgle {
     }
 
     LordOfAfflictions::LordOfAfflictions() :
-            NurgleBase("Lord of Afflictions", 8, g_wounds, 10, 4, true),
+            NurgleBase("Lord of Afflictions", 8, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_festerspike(Weapon::Type::Melee, "Festerspike", 2, 3, 3, 3, -1, RAND_D3),
             m_mouthparts(Weapon::Type::Melee, "Foul Mouthparts", 1, 2, 3, 3, 0, 1),
             m_sting(Weapon::Type::Melee, "Venomous String", 1, 1, 4, 3, -1, RAND_D3),
@@ -83,8 +83,6 @@ namespace Nurgle {
         model->addMeleeWeapon(&m_sting);
         model->addMeleeWeapon(&m_tocsin);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds LordOfAfflictions::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -128,7 +126,7 @@ namespace Nurgle {
         return Rerolls::None;
     }
 
-    int LordOfAfflictions::ComputePoints(int /*numModels*/) {
+    int LordOfAfflictions::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

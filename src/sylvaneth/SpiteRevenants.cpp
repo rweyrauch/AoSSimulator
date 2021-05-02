@@ -20,8 +20,8 @@ namespace Sylvaneth {
 
     bool SpiteRevenants::s_registered = false;
 
-    SpiteRevenants::SpiteRevenants(Glade glade, int numModels) :
-            SylvanethBase("Spite Revenants", 5, g_wounds, 6, 5, false),
+    SpiteRevenants::SpiteRevenants(Glade glade, int numModels, int points) :
+            SylvanethBase("Spite Revenants", 5, g_wounds, 6, 5, false, points),
             m_cruelTalonsAndFangs(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 3, 3, 3, 0, 1),
             m_cruelTalonsAndFangsShadestalker(Weapon::Type::Melee, "Cruel Talons and Fangs", 1, 4, 3, 3, 0, 1) {
         m_keywords = {ORDER, SYLVANETH, OUTCASTS, SPITE_REVENANTS};
@@ -41,8 +41,6 @@ namespace Sylvaneth {
             model->addMeleeWeapon(&m_cruelTalonsAndFangs);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     SpiteRevenants::~SpiteRevenants() {
@@ -53,7 +51,7 @@ namespace Sylvaneth {
     Unit *SpiteRevenants::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        return new SpiteRevenants(glade, numModels);
+        return new SpiteRevenants(glade, numModels, ComputePoints(parameters));
     }
 
     void SpiteRevenants::Init() {
@@ -82,7 +80,8 @@ namespace Sylvaneth {
         return SylvanethBase::toHitRerolls(weapon, target);
     }
 
-    int SpiteRevenants::ComputePoints(int numModels) {
+    int SpiteRevenants::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

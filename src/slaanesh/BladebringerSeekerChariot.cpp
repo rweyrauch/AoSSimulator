@@ -21,7 +21,7 @@ namespace Slaanesh {
     bool BladebringerOnSeekerChariot::s_registered = false;
 
     BladebringerOnSeekerChariot::BladebringerOnSeekerChariot() :
-            SlaaneshBase("Bladebringer, Herald on Seeker Chariot", 12, g_wounds, 10, 4, false),
+            SlaaneshBase("Bladebringer, Herald on Seeker Chariot", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -51,8 +51,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *BladebringerOnSeekerChariot::Create(const ParameterList &parameters) {
@@ -109,7 +107,7 @@ namespace Slaanesh {
         }
     }
 
-    int BladebringerOnSeekerChariot::ComputePoints(int /*numModels*/) {
+    int BladebringerOnSeekerChariot::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

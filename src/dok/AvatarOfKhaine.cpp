@@ -17,7 +17,7 @@ namespace DaughtersOfKhaine {
     bool AvatarOfKhaine::s_registered = false;
 
     AvatarOfKhaine::AvatarOfKhaine() :
-            DaughterOfKhaine("Avatar of Khaine", 9, g_wounds, 10, 4, false),
+            DaughterOfKhaine("Avatar of Khaine", 9, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_torrentOfBurningBlood(Weapon::Type::Missile, "Torrent of Burning Blood", 10, 6, 3, 3, -1, 1),
             m_sword(Weapon::Type::Melee, "Avatar of Khaine's Sword", 2, 4, 3, 3, -2, 3) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, TOTEM, AVATAR_OF_KHAINE};
@@ -74,7 +74,7 @@ namespace DaughtersOfKhaine {
         return 0;
     }
 
-    int AvatarOfKhaine::ComputePoints(int /*numModels*/) {
+    int AvatarOfKhaine::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

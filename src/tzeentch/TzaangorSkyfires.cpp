@@ -21,8 +21,8 @@ namespace Tzeentch {
 
     bool TzaangorSkyfires::s_registered = false;
 
-    TzaangorSkyfires::TzaangorSkyfires() :
-            TzeentchBase("Tzaangor Skyfires", 16, g_wounds, 6, 5, true),
+    TzaangorSkyfires::TzaangorSkyfires(int points) :
+            TzeentchBase("Tzaangor Skyfires", 16, g_wounds, 6, 5, true, points),
             m_arrowOfFate(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 4, 3, -1, RAND_D3),
             m_arrowOfFateAviarch(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 3, 3, -1, RAND_D3),
             m_bowStave(Weapon::Type::Melee, "Bow Stave", 1, 2, 5, 5, 0, 1),
@@ -57,13 +57,11 @@ namespace Tzeentch {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *TzaangorSkyfires::Create(const ParameterList &parameters) {
-        auto *unit = new TzaangorSkyfires();
+        auto *unit = new TzaangorSkyfires(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
@@ -127,7 +125,8 @@ namespace Tzeentch {
         return TzeentchBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int TzaangorSkyfires::ComputePoints(int numModels) {
+    int TzaangorSkyfires::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

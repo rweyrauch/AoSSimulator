@@ -60,7 +60,7 @@ namespace Death {
         return unit;
     }
 
-    int VampireLordOnZombieDragon::ComputePoints(int /*numModels*/) {
+    int VampireLordOnZombieDragon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -90,7 +90,7 @@ namespace Death {
     }
 
     VampireLordOnZombieDragon::VampireLordOnZombieDragon() :
-            LegionOfNagashBase("Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 4, true),
+            LegionOfNagashBase("Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_breath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_deathlance(Weapon::Type::Melee, "Deathlance", 1, 3, 3, 3, -1, 2),
             m_sword(Weapon::Type::Melee, "Vampiric Sword", 1, 4, 3, 3, -1, RAND_D3),

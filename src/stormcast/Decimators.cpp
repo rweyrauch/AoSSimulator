@@ -20,8 +20,8 @@ namespace StormcastEternals {
 
     bool Decimators::s_registered = false;
 
-    Decimators::Decimators(Stormhost stormhost, int numModels, int numStarsoulMaces) :
-            StormcastEternal(stormhost, "Decimators", 4, g_wounds, 7, 4, false),
+    Decimators::Decimators(Stormhost stormhost, int numModels, int numStarsoulMaces, int points) :
+            StormcastEternal(stormhost, "Decimators", 4, g_wounds, 7, 4, false, points),
             m_thunderaxe(Weapon::Type::Melee, "Thunderaxe", 2, 0, 3, 3, -1, 1),
             m_thunderaxePrime(Weapon::Type::Melee, "Thunderaxe", 2, 0, 3, 3, -1, 1),
             m_starsoulMace(Weapon::Type::Melee, "Starsoul Mace", 1, 1, 0, 0, 0, 0) {
@@ -48,7 +48,7 @@ namespace StormcastEternals {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
+        //m_points = computePoints();
     }
 
     Decimators::~Decimators() {
@@ -85,7 +85,7 @@ namespace StormcastEternals {
             // Invalid weapon configuration.
             return nullptr;
         }
-        return new Decimators(stormhost, numModels, numStarsoulMaces);
+        return new Decimators(stormhost, numModels, numStarsoulMaces, ComputePoints(parameters));
     }
 
     void Decimators::Init() {
@@ -117,7 +117,8 @@ namespace StormcastEternals {
         return extra;
     }
 
-    int Decimators::ComputePoints(int numModels) {
+    int Decimators::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

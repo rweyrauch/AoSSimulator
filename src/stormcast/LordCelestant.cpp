@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool LordCelestant::s_registered = false;
 
     LordCelestant::LordCelestant(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Lord-Celestant", 5, g_wounds, 9, 3, false),
+            StormcastEternal(stormhost, "Lord-Celestant", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_runeblade(Weapon::Type::Melee, "Sigmarite Runeblade", 1, 4, 3, 3, -1, 1),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CELESTANT};
@@ -90,7 +90,7 @@ namespace StormcastEternals {
         StormcastEternal::onStartShooting(player);
     }
 
-    int LordCelestant::ComputePoints(int /*numModels*/) {
+    int LordCelestant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

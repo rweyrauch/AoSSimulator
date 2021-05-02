@@ -81,7 +81,7 @@ namespace OgorMawtribes {
     }
 
     StonehornBeastriders::StonehornBeastriders(Mawtribe tribe, WeaponOption option) :
-            MawtribesBase(tribe, "Stonehorn Beastriders", 12, g_wounds, 9, 3, false) {
+            MawtribesBase(tribe, "Stonehorn Beastriders", 12, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, OGOR, STONEHORN, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER, STONEHORN_BEASTRIDERS};
         m_weapons = {&m_harpoon, &m_chaintrap, &m_kicks, &m_horns, &m_hooves};
         m_battleFieldRole = Role::Behemoth;
@@ -103,8 +103,6 @@ namespace OgorMawtribes {
         model->addMeleeWeapon(&m_hooves);
 
         addModel(model);
-
-        m_points = StonehornBeastriders::ComputePoints(1);
     }
 
     void StonehornBeastriders::onRestore() {
@@ -159,7 +157,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int StonehornBeastriders::ComputePoints(int /*numModels*/) {
+    int StonehornBeastriders::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

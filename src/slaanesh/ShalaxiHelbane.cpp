@@ -66,7 +66,7 @@ namespace Slaanesh {
     bool ShalaxiHelbane::s_registered = false;
 
     ShalaxiHelbane::ShalaxiHelbane() :
-            SlaaneshBase("Shalaxi Helbane", 14, g_wounds, 10, 4, false),
+            SlaaneshBase("Shalaxi Helbane", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
             m_soulpiercer(Weapon::Type::Melee, "Soulpiercer", 3, 1, 2, 2, -3, RAND_D6),
             m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5) {
@@ -96,8 +96,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *ShalaxiHelbane::Create(const ParameterList &parameters) {
@@ -202,7 +200,7 @@ namespace Slaanesh {
         return SlaaneshBase::EnumStringToInt(enumString);
     }
 
-    int ShalaxiHelbane::ComputePoints(int /*numModels*/) {
+    int ShalaxiHelbane::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

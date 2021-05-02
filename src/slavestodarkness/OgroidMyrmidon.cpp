@@ -40,7 +40,7 @@ namespace SlavesToDarkness {
     }
 
     OgroidMyrmidon::OgroidMyrmidon(DamnedLegion legion) :
-            SlavesToDarknessBase("Ogroid Myrmidon", 6, g_wounds, 8, 4, false) {
+            SlavesToDarknessBase("Ogroid Myrmidon", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EYE_OF_THE_GODS, OGROID_MYRMIDON};
         m_weapons = {&m_spearMissile, &m_spear, &m_horns};
         m_battleFieldRole = Role::Leader;
@@ -58,8 +58,6 @@ namespace SlavesToDarkness {
                                                                                  Ability::Ignore_Battleshock, 1,
                                                                                  Abilities::Target::Friendly,
                                                                                  std::vector<Keyword>(CULTISTS)));
-
-        m_points = g_pointsPerUnit;
     }
 
     int OgroidMyrmidon::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
@@ -70,7 +68,7 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int OgroidMyrmidon::ComputePoints(int /*numModels*/) {
+    int OgroidMyrmidon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

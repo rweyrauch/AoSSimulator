@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool SlickbladeSeekers::s_registered = false;
 
-    SlickbladeSeekers::SlickbladeSeekers() :
-            SlaaneshBase("Slickblade Seekers", 14, g_wounds, 6, 5, false),
+    SlickbladeSeekers::SlickbladeSeekers(int points) :
+            SlaaneshBase("Slickblade Seekers", 14, g_wounds, 6, 5, false, points),
             m_glaive(Weapon::Type::Melee, "Slickblade Glaive", 2, 3, 3, 3, -1, 1),
             m_glaiveHunter(Weapon::Type::Melee, "Slickblade Glaive", 2, 4, 3, 3, -1, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 3, 0, 1) {
@@ -51,13 +51,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SlickbladeSeekers::Create(const ParameterList &parameters) {
-        auto unit = new SlickbladeSeekers();
+        auto unit = new SlickbladeSeekers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
@@ -89,7 +87,8 @@ namespace Slaanesh {
         }
     }
 
-    int SlickbladeSeekers::ComputePoints(int numModels) {
+    int SlickbladeSeekers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -20,8 +20,8 @@ namespace Khorne {
 
     bool SkullCannons::s_registered = false;
 
-    SkullCannons::SkullCannons(SlaughterHost host, int numModels) :
-            KhorneBase("Skull Cannons", 8, g_wounds, 10, 4, false) {
+    SkullCannons::SkullCannons(SlaughterHost host, int numModels, int points) :
+            KhorneBase("Skull Cannons", 8, g_wounds, 10, 4, false, points) {
         m_keywords = {CHAOS, DAEMON, BLOODLETTER, KHORNE, SKULL_CANNONS};
         m_weapons = {&m_burningSkulls, &m_hellblades, &m_gnashingMaw};
         m_battleFieldRole = Role::Artillery;
@@ -37,15 +37,13 @@ namespace Khorne {
             model->addMeleeWeapon(&m_gnashingMaw);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *SkullCannons::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
 
-        return new SkullCannons(host, numModels);
+        return new SkullCannons(host, numModels, ComputePoints(parameters));
     }
 
     void SkullCannons::Init() {
@@ -84,7 +82,8 @@ namespace Khorne {
         return modifier;
     }
 
-    int SkullCannons::ComputePoints(int numModels) {
+    int SkullCannons::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

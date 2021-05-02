@@ -38,7 +38,7 @@ namespace DaughtersOfKhaine {
     bool BloodwrackShrine::s_registered = false;
 
     BloodwrackShrine::BloodwrackShrine() :
-            DaughterOfKhaine("Bloodwrack Shrine", 6, g_wounds, 8, 5, false),
+            DaughterOfKhaine("Bloodwrack Shrine", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_bloodwrackStare(Weapon::Type::Missile, "Bloodwrack Stare", 10, 1, 0, 0, -7, 0),
             m_whisperclaw(Weapon::Type::Melee, "Whisperclaw", 1, 4, 4, 3, 0, 1),
             m_tailOfSerpents(Weapon::Type::Melee, "Tail of Serpents", 2, RAND_D6, 4, 4, 0, 1),
@@ -172,7 +172,7 @@ namespace DaughtersOfKhaine {
         return DaughterOfKhaine::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int BloodwrackShrine::ComputePoints(int /*numModels*/) {
+    int BloodwrackShrine::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

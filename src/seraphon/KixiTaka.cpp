@@ -42,7 +42,7 @@ namespace Seraphon {
     bool KixiTakaTheDiviner::s_registered = false;
 
     KixiTakaTheDiviner::KixiTakaTheDiviner(bool isGeneral) :
-            SeraphonBase("Kixi-Taka The Diviner", 8, g_wounds, 6, 5, false) {
+            SeraphonBase("Kixi-Taka The Diviner", 8, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, COALESCED, THUNDER_LIZARD, SKINK, HERO, PRIEST, KIXI_TAKA};
         m_weapons = {&m_starbolt, &m_staff};
         m_battleFieldRole = Role::Leader;
@@ -56,7 +56,6 @@ namespace Seraphon {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<HeraldOfTheOldOnes>(this));
-        m_points = ComputePoints(1);
     }
 
     Unit *KixiTakaTheDiviner::Create(const ParameterList &parameters) {
@@ -81,7 +80,7 @@ namespace Seraphon {
         }
     }
 
-    int KixiTakaTheDiviner::ComputePoints(int /*numModels*/) {
+    int KixiTakaTheDiviner::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

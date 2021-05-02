@@ -45,7 +45,7 @@ namespace Nighthaunt {
     }
 
     KrulghastCruciator::KrulghastCruciator(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            Nighthaunt("Krulghast Cruciator", 6, g_wounds, 10, 4, true) {
+            Nighthaunt("Krulghast Cruciator", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, TOTEM, KRULGHAST_CRUCIATOR};
         m_weapons = {&m_torture, &m_talonsAndKnives};
         m_battleFieldRole = Role::Leader;
@@ -57,11 +57,9 @@ namespace Nighthaunt {
         model->addMissileWeapon(&m_torture);
         model->addMeleeWeapon(&m_talonsAndKnives);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
-    int KrulghastCruciator::ComputePoints(int /*numModels*/) {
+    int KrulghastCruciator::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

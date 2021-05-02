@@ -139,7 +139,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+        LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
 
         int braveryModifier() const override;
 

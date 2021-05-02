@@ -54,7 +54,7 @@ namespace Nurgle {
     }
 
     FestusTheLeechlord::FestusTheLeechlord() :
-            NurgleBase("Festus the Leechlord", 4, g_wounds, 7, 5, false),
+            NurgleBase("Festus the Leechlord", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Plague Staff", 1, 2, 4, 3, 0, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, WIZARD, FESTUS_THE_LEECHLORD};
         m_weapons = {&m_staff};
@@ -65,11 +65,9 @@ namespace Nurgle {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
-    int FestusTheLeechlord::ComputePoints(int /*numModels*/) {
+    int FestusTheLeechlord::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

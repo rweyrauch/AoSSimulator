@@ -17,11 +17,11 @@ namespace SlavesToDarkness {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        UntamedBeasts(DamnedLegion legion, int numModels);
+        UntamedBeasts(DamnedLegion legion, int numModels, int points);
 
         UntamedBeasts() = delete;
 

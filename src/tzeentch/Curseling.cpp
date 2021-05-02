@@ -52,7 +52,7 @@ namespace Tzeentch {
     }
 
     CurselingEyeOfTzeentch::CurselingEyeOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            TzeentchBase("Curseling Eye of Tzeentch", 5, g_wounds, 7, 4, false) {
+            TzeentchBase("Curseling Eye of Tzeentch", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, WIZARD, CURSELING};
         m_weapons = {&m_sword, &m_flail, &m_staff};
         m_battleFieldRole = Role::Leader;
@@ -74,11 +74,9 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int CurselingEyeOfTzeentch::ComputePoints(int /*numModels*/) {
+    int CurselingEyeOfTzeentch::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

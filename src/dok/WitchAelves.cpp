@@ -22,8 +22,8 @@ namespace DaughtersOfKhaine {
 
     bool WitchAelves::s_registered = false;
 
-    WitchAelves::WitchAelves() :
-            DaughterOfKhaine("Witch Aelves", 6, g_wounds, 7, 6, false),
+    WitchAelves::WitchAelves(int points) :
+            DaughterOfKhaine("Witch Aelves", 6, g_wounds, 7, 6, false, points),
             m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
             m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
@@ -56,13 +56,11 @@ namespace DaughtersOfKhaine {
             addModel(witch);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *WitchAelves::Create(const ParameterList &parameters) {
-        auto unit = new WitchAelves();
+        auto unit = new WitchAelves(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pairedKnives = GetBoolParam("Paired Knives", parameters, true);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -144,7 +142,8 @@ namespace DaughtersOfKhaine {
         return wounds;
     }
 
-    int WitchAelves::ComputePoints(int numModels) {
+    int WitchAelves::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

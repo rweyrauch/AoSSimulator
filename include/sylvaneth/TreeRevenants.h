@@ -17,7 +17,7 @@ namespace Sylvaneth {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -25,7 +25,7 @@ namespace Sylvaneth {
 
         ~TreeRevenants() override = default;
 
-        TreeRevenants(Glade glade, int numModels, bool scionGlaive, bool gladeBanners, bool waypipes);
+        TreeRevenants(Glade glade, int numModels, bool scionGlaive, bool gladeBanners, bool waypipes, int points);
 
     protected:
 

@@ -65,7 +65,7 @@ namespace GloomspiteGitz {
             };
 
     LoonbossOnManglerSquigs::LoonbossOnManglerSquigs() :
-            GloomspiteGitzBase("Loonboss on Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true),
+            GloomspiteGitzBase("Loonboss on Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
             m_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3),
@@ -207,7 +207,7 @@ namespace GloomspiteGitz {
         return GloomspiteGitzBase::toWoundRerolls(weapon, target);
     }
 
-    int LoonbossOnManglerSquigs::ComputePoints(int /*numModels*/) {
+    int LoonbossOnManglerSquigs::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

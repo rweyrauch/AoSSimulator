@@ -17,7 +17,7 @@ namespace Fyreslayers {
     bool AuricRunefatherOnMagmadroth::s_registered = false;
 
     AuricRunefatherOnMagmadroth::AuricRunefatherOnMagmadroth() :
-            Magmadroth("Auric Runefather on Magmadroth", 8),
+            Magmadroth("Auric Runefather on Magmadroth", 8, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
@@ -95,7 +95,7 @@ namespace Fyreslayers {
         }
     }
 
-    int AuricRunefatherOnMagmadroth::ComputePoints(int /*numModels*/) {
+    int AuricRunefatherOnMagmadroth::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

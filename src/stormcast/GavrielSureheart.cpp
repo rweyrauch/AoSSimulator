@@ -18,7 +18,7 @@ namespace StormcastEternals {
     bool GavrielSureheart::s_registered = false;
 
     GavrielSureheart::GavrielSureheart(bool isGeneral) :
-            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Gavriel Sureheart", 5, g_wounds, 9, 3, false),
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Gavriel Sureheart", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_starboundBlade(Weapon::Type::Melee, "Tempest Axe", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, LORD_CELESTANT,
                       GAVRIEL_SUREHEART};
@@ -88,7 +88,7 @@ namespace StormcastEternals {
         return attacks;
     }
 
-    int GavrielSureheart::ComputePoints(int /*numModels*/) {
+    int GavrielSureheart::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

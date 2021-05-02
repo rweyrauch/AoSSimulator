@@ -21,8 +21,8 @@ namespace BeastsOfChaos {
 
     bool ChaosSpawn::s_registered = false;
 
-    ChaosSpawn::ChaosSpawn(Greatfray fray, int numModels) :
-            BeastsOfChaosBase("Chaos Spawn", RAND_2D6, g_wounds, 10, 5, false) {
+    ChaosSpawn::ChaosSpawn(Greatfray fray, int numModels, int points) :
+            BeastsOfChaosBase("Chaos Spawn", RAND_2D6, g_wounds, 10, 5, false, points) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MORTAL, SLAVES_TO_DARKNESS, CHAOS_SPAWN};
         m_weapons = {&m_freakingMutations};
 
@@ -33,15 +33,13 @@ namespace BeastsOfChaos {
             model->addMeleeWeapon(&m_freakingMutations);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *ChaosSpawn::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
 
-        return new ChaosSpawn(fray, numModels);
+        return new ChaosSpawn(fray, numModels, ComputePoints(parameters));
     }
 
     void ChaosSpawn::Init() {
@@ -63,7 +61,8 @@ namespace BeastsOfChaos {
         }
     }
 
-    int ChaosSpawn::ComputePoints(int numModels) {
+    int ChaosSpawn::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

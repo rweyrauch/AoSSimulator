@@ -27,7 +27,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
 
-        return new Varanguard(legion, mark, numModels, weapons);
+        return new Varanguard(legion, mark, numModels, weapons, ComputePoints(parameters));
     }
 
     std::string Varanguard::ValueToString(const Parameter &parameter) {
@@ -75,8 +75,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    Varanguard::Varanguard(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption option) :
-            SlavesToDarknessBase("Varanguard", 10, g_wounds, 9, 3, false) {
+    Varanguard::Varanguard(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption option, int points) :
+            SlavesToDarknessBase("Varanguard", 10, g_wounds, 9, 3, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, MARK_OF_CHAOS, VARANGUARD};
         m_weapons = {&m_ensorcelledWeapon, &m_fellspear, &m_blade, &m_fangs};
         m_hasMount = true;
@@ -94,8 +94,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_fangs);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Wounds Varanguard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -128,7 +126,8 @@ namespace SlavesToDarkness {
         return mod;
     }
 
-    int Varanguard::ComputePoints(int numModels) {
+    int Varanguard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

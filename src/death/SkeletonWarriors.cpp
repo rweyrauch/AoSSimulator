@@ -21,8 +21,8 @@ namespace Death {
 
     bool SkeletonWarriors::s_registered = false;
 
-    SkeletonWarriors::SkeletonWarriors() :
-            LegionOfNagashBase("Skeleton Warriors", 4, g_wounds, 10, 6, false),
+    SkeletonWarriors::SkeletonWarriors(int points) :
+            LegionOfNagashBase("Skeleton Warriors", 4, g_wounds, 10, 6, false, points),
             m_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1),
             m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade", 1, 2, 4, 4, 0, 1),
             m_ancientSpear(Weapon::Type::Melee, "Ancient Spear", 2, 1, 5, 4, 0, 1),
@@ -68,13 +68,11 @@ namespace Death {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SkeletonWarriors::Create(const ParameterList &parameters) {
-        auto unit = new SkeletonWarriors();
+        auto unit = new SkeletonWarriors(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancient_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
@@ -165,7 +163,8 @@ namespace Death {
         return modifier;
     }
 
-    int SkeletonWarriors::ComputePoints(int numModels) {
+    int SkeletonWarriors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

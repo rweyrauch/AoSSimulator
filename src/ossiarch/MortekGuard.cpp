@@ -26,7 +26,7 @@ namespace OssiarchBonereapers {
         int numGreatblades = GetIntParam("Soulcleaver Greatblade", parameters, 1);
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
 
-        return new MortekGuard(legion, numModels, weapons, numGreatblades, necrophoros);
+        return new MortekGuard(legion, numModels, weapons, numGreatblades, necrophoros, ComputePoints(parameters));
     }
 
     std::string MortekGuard::ValueToString(const Parameter &parameter) {
@@ -69,8 +69,8 @@ namespace OssiarchBonereapers {
         }
     }
 
-    MortekGuard::MortekGuard(Legion legion, int numModels, WeaponOption option, int numGreatblades, bool necrophoros) :
-            OssiarchBonereaperBase("Mortek Guard", 4, g_wounds, 10, 4, false) {
+    MortekGuard::MortekGuard(Legion legion, int numModels, WeaponOption option, int numGreatblades, bool necrophoros, int points) :
+            OssiarchBonereaperBase("Mortek Guard", 4, g_wounds, 10, 4, false, points) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, MORTEK_GUARD};
         m_weapons = {&m_blade, &m_spear, &m_greatblade, &m_bladeHekatos, &m_spearHekatos, &m_greatbladeHekatos};
         m_battleFieldRole = Role::Battleline;
@@ -105,8 +105,6 @@ namespace OssiarchBonereapers {
         }
 
         m_necrophoros = necrophoros;
-
-        m_points = ComputePoints(numModels);
     }
 
     int MortekGuard::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
@@ -128,7 +126,8 @@ namespace OssiarchBonereapers {
         return mod;
     }
 
-    int MortekGuard::ComputePoints(int numModels) {
+    int MortekGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -19,13 +19,13 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         ChaosSpawn() = delete;
 
         ~ChaosSpawn() override = default;
 
-        ChaosSpawn(Greatfray fray, int numModelss);
+        ChaosSpawn(Greatfray fray, int numModels, int points);
 
     protected:
 

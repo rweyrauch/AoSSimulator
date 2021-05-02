@@ -46,7 +46,7 @@ namespace OgorMawtribes {
     }
 
     GnoblarScraplauncher::GnoblarScraplauncher(Mawtribe tribe) :
-            MawtribesBase(tribe, "Gnoblar Scraplauncher", 7, g_wounds, 5, 4, false) {
+            MawtribesBase(tribe, "Gnoblar Scraplauncher", 7, g_wounds, 5, 4, false, g_pointsPerUnit) {
         m_keywords = {DESTRUCTION, GROT, RHINOX, OGOR_MAWTRIBES, GUTBUSTERS, GNOBLAR_SCRAPLAUNCHER};
         m_weapons = {&m_scrap, &m_scrapperWeapons, &m_horns};
         m_battleFieldRole = Role::Artillery;
@@ -58,8 +58,6 @@ namespace OgorMawtribes {
         model->addMeleeWeapon(&m_horns);
 
         addModel(model);
-
-        m_points = GnoblarScraplauncher::ComputePoints(1);
     }
 
     int GnoblarScraplauncher::toHitModifier(const Weapon *weapon, const Unit *target) const {
@@ -86,7 +84,7 @@ namespace OgorMawtribes {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int GnoblarScraplauncher::ComputePoints(int /*numModels*/) {
+    int GnoblarScraplauncher::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

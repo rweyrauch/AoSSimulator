@@ -19,8 +19,8 @@ namespace GloomspiteGitz {
 
     bool SpiderRiders::s_registered = false;
 
-    SpiderRiders::SpiderRiders() :
-            GloomspiteGitzBase("Spider Riders", 10, g_wounds, 4, 5, true), // Wall Crawler treated as fly
+    SpiderRiders::SpiderRiders(int points) :
+            GloomspiteGitzBase("Spider Riders", 10, g_wounds, 4, 5, true, points), // Wall Crawler treated as fly
             m_spiderBow(Weapon::Type::Missile, "Spider-bow", 16, 2, 5, 5, 0, 1),
             m_crookedSpear(Weapon::Type::Melee, "Crooked Spear", 2, 1, 5, 4, 0, 1),
             m_crookedSpearBoss(Weapon::Type::Melee, "Crooked Spear", 2, 1, 4, 4, 0, 1),
@@ -61,13 +61,11 @@ namespace GloomspiteGitz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SpiderRiders::Create(const ParameterList &parameters) {
-        auto unit = new SpiderRiders();
+        auto unit = new SpiderRiders(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool drummers = GetBoolParam("Drummers", parameters, false);
         bool totemBearers = GetBoolParam("Totem Bearers", parameters, false);
@@ -121,7 +119,8 @@ namespace GloomspiteGitz {
         return GloomspiteGitzBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SpiderRiders::ComputePoints(int numModels) {
+    int SpiderRiders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -89,7 +89,7 @@ namespace IdonethDeepkin {
     }
 
     IsharannTidecaster::IsharannTidecaster() :
-            IdonethDeepkinBase("Isharann Tidecaster", 6, g_wounds, 7, 6, false),
+            IdonethDeepkinBase("Isharann Tidecaster", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Pelagic Staff", 1, 2, 3, 3, 0, RAND_D3) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, WIZARD, TIDECASTER};
         m_weapons = {&m_staff};
@@ -113,7 +113,7 @@ namespace IdonethDeepkin {
         m_points = g_pointsPerUnit;
     }
 
-    int IsharannTidecaster::ComputePoints(int /*numModels*/) {
+    int IsharannTidecaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

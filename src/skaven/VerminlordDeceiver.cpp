@@ -72,7 +72,7 @@ namespace Skaven {
     }
 
     VerminlordDeceiver::VerminlordDeceiver() :
-            Skaventide("Verminlord Deceiver", 12, g_wounds, 10, 4, false),
+            Skaventide("Verminlord Deceiver", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_doomstar(Weapon::Type::Missile, "Doomstar", 13, 1, 3, 3, -1, RAND_D3),
             m_tails(Weapon::Type::Missile, "Prehensile Tail", 6, 4, 3, 3, -1, 1),
             m_warpstiletto(Weapon::Type::Melee, "Warpstiletto", 1, 6, 3, 2, -3, RAND_D3) {
@@ -101,8 +101,6 @@ namespace Skaven {
         //m_knownSpells.push_back(std::make_unique<DreadedSkitterleap>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds VerminlordDeceiver::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -164,7 +162,7 @@ namespace Skaven {
         return 0;
     }
 
-    int VerminlordDeceiver::ComputePoints(int /*numModels*/) {
+    int VerminlordDeceiver::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -137,7 +137,7 @@ namespace Tzeentch {
     }
 
     LordOfChange::LordOfChange() :
-            TzeentchBase("Lord of Change", 12, g_wounds, 10, 4, true),
+            TzeentchBase("Lord of Change", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_rodOfSorcery(Weapon::Type::Missile, "Rod of Sorcery", 18, RAND_2D6, 3, 3, -1, 1),
             m_staff(Weapon::Type::Melee, "Staff of Tzeentch", 3, 4, 3, 1, 0, 2),
             m_sword(Weapon::Type::Melee, "Baleful Sword", 1, 2, 4, 2, -2, 3),
@@ -168,8 +168,6 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void LordOfChange::onRestore() {
@@ -205,7 +203,7 @@ namespace Tzeentch {
         return unmodifiedRoll + castingModifier();
     }
 
-    int LordOfChange::ComputePoints(int /*numModels*/) {
+    int LordOfChange::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -69,7 +69,7 @@ namespace CitiesOfSigmar {
     }
 
     FreeguildGeneral::FreeguildGeneral() :
-            CitizenOfSigmar("Freeguild General", 5, g_wounds, 7, 4, false),
+            CitizenOfSigmar("Freeguild General", 5, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_zweihander(Weapon::Type::Melee, "Zweihander", 1, 3, 3, 3, -2, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, HERO, FREEGUILD_GENERAL};
         m_weapons = {&m_zweihander};
@@ -109,7 +109,7 @@ namespace CitiesOfSigmar {
         return 0;
     }
 
-    int FreeguildGeneral::ComputePoints(int /*numModels*/) {
+    int FreeguildGeneral::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

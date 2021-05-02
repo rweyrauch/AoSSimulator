@@ -56,7 +56,7 @@ namespace Seraphon {
     bool LordKroak::s_registered = false;
 
     LordKroak::LordKroak(WayOfTheSeraphon way, Constellation constellation, Lore lore, bool isGeneral) :
-            SeraphonBase("Lord Kroak", 5, g_wounds, 9, 4, true) {
+            SeraphonBase("Lord Kroak", 5, g_wounds, 9, 4, true, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SLANN, HERO, WIZARD, STARMASTER, LORD_KROAK};
         m_weapons = {&m_barrier};
         m_battleFieldRole = Role::Leader;
@@ -79,8 +79,6 @@ namespace Seraphon {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateGiftFromTheHeavens(this)));
-
-        m_points = ComputePoints(1);
     }
 
     Unit *LordKroak::Create(const ParameterList &parameters) {
@@ -161,7 +159,7 @@ namespace Seraphon {
         return mod;
     }
 
-    int LordKroak::ComputePoints(int /*numModels*/) {
+    int LordKroak::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

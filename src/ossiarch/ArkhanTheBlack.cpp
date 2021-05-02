@@ -60,7 +60,7 @@ namespace OssiarchBonereapers {
     }
 
     ArkhanTheBlack::ArkhanTheBlack(Legion legion, bool isGeneral) :
-            OssiarchBonereaperBase("Arkhan the Black, Mortarch of Sacrament", 16, g_wounds, 10, 4, true) {
+            OssiarchBonereaperBase("Arkhan the Black, Mortarch of Sacrament", 16, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, SKELETON, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, ARKHAN};
         m_weapons = {&m_zefetKar, &m_khenashAn, &m_claws, &m_clawsAndDaggers};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -82,8 +82,6 @@ namespace OssiarchBonereapers {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void ArkhanTheBlack::onWounded() {
@@ -135,7 +133,7 @@ namespace OssiarchBonereapers {
         return mod;
     }
 
-    int ArkhanTheBlack::ComputePoints(int /*numModels*/) {
+    int ArkhanTheBlack::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

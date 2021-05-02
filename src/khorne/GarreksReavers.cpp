@@ -39,7 +39,7 @@ namespace Khorne {
     }
 
     GarreksReavers::GarreksReavers() :
-            KhorneBase("Garrek's Reavers", 6, g_wounds, 6, 6, false) {
+            KhorneBase("Garrek's Reavers", 6, g_wounds, 6, 6, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, GORETIDE, BLOODREAVERS, GARREKS_REAVERS};
         m_weapons = {&m_garreksAxe, &m_karusAxe, &m_saeksAxe, &m_blades};
 
@@ -104,7 +104,7 @@ namespace Khorne {
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int GarreksReavers::ComputePoints(int /*numModels*/) {
+    int GarreksReavers::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

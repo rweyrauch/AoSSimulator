@@ -18,7 +18,7 @@ namespace Ironjawz {
     bool OrrukMegaboss::s_registered = false;
 
     OrrukMegaboss::OrrukMegaboss() :
-            Ironjawz("Orruk Megaboss", 4, g_wounds, 8, 3, false),
+            Ironjawz("Orruk Megaboss", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_bossChoppaAndFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, MEGABOSS};
         m_weapons = {&m_bossChoppaAndFist};
@@ -101,7 +101,7 @@ namespace Ironjawz {
         Ironjawz::onEndCombat(player);
     }
 
-    int OrrukMegaboss::ComputePoints(int /*numModels*/) {
+    int OrrukMegaboss::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

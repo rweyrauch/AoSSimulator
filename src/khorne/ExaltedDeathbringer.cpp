@@ -19,7 +19,7 @@ namespace Khorne {
     bool ExaltedDeathbringer::s_registered = false;
 
     ExaltedDeathbringer::ExaltedDeathbringer(SlaughterHost host, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            KhorneBase("Exalted Deathbringer", 5, g_wounds, 8, 4, false) {
+            KhorneBase("Exalted Deathbringer", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, HERO, EXALTED_DEATHBRINGER};
         m_weapons = {&m_ruinousAxe, &m_bloodbiteAxe, &m_impalingSpear};
         m_battleFieldRole = Role::Leader;
@@ -154,7 +154,7 @@ namespace Khorne {
         return KhorneBase::computeReturnedDamage(weapon, saveRoll);
     }
 
-    int ExaltedDeathbringer::ComputePoints(int /*numModels*/) {
+    int ExaltedDeathbringer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

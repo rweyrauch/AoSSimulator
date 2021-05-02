@@ -56,7 +56,7 @@ namespace StormcastEternals {
     }
 
     CelestantPrime::CelestantPrime(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost,"Celestant Prime", 12, g_wounds, 10, 3, true),
+            StormcastEternal(stormhost,"Celestant Prime", 12, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_ghalMaraz(Weapon::Type::Melee, "Ghal Maraz, the Hammer of Sigmar", 2, 3, 3, 2, -3, 3) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, CELESTANT_PRIME};
         m_weapons = {&m_ghalMaraz};
@@ -88,7 +88,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int CelestantPrime::ComputePoints(int /*numModels*/) {
+    int CelestantPrime::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

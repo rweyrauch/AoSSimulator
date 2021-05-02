@@ -35,7 +35,7 @@ namespace Skaven {
     bool HellPitAbomination::s_registered = false;
 
     HellPitAbomination::HellPitAbomination() :
-            Skaventide("Hell Pit Abomination", RAND_2D6, g_wounds, 6, 5, false),
+            Skaventide("Hell Pit Abomination", RAND_2D6, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_gnashingTeath(Weapon::Type::Melee, "Gnashing Teeth", 1, 6, 3, 3, -3, 2),
             m_flailingFists(Weapon::Type::Melee, "Flailing Fists", 2, 6, 3, 3, -1, 3),
             m_avalancheOfFlesh(Weapon::Type::Melee, "Avalanche of Flesh", 1, 0, 0, 0, 0, 0) {
@@ -56,8 +56,6 @@ namespace Skaven {
         model->addMeleeWeapon(&m_flailingFists);
         model->addMeleeWeapon(&m_avalancheOfFlesh);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     size_t HellPitAbomination::getDamageTableIndex() const {
@@ -164,7 +162,7 @@ namespace Skaven {
         return 0;
     }
 
-    int HellPitAbomination::ComputePoints(int /*numModels*/) {
+    int HellPitAbomination::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

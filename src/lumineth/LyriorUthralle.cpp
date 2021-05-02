@@ -24,7 +24,7 @@ namespace LuminethRealmLords {
         return new LyriorUthralle(lore, general);
     }
 
-    int LyriorUthralle::ComputePoints(int numModels) {
+    int LyriorUthralle::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -47,7 +47,7 @@ namespace LuminethRealmLords {
     }
 
     LyriorUthralle::LyriorUthralle(Lore lore, bool isGeneral) :
-            LuminethBase("Lyrior Uthralle", 16, g_wounds, 9, 3, false) {
+            LuminethBase("Lyrior Uthralle", 16, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, WIZARD, LORD_REGENT, Sunmetal_Weapons};
         m_weapons = {&m_daemonbane, &m_daemonbaneMelee, &m_sword, &m_hornsAndClaws};
         m_battleFieldRole = Role::Leader;
@@ -63,7 +63,5 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_hornsAndClaws);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 }

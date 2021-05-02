@@ -20,8 +20,8 @@ namespace BeastsOfChaos {
 
     bool Centigors::s_registered = false;
 
-    Centigors::Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer) :
-            BeastsOfChaosBase("Centigors", 14, g_wounds, 5, 5, false) {
+    Centigors::Centigors(Greatfray fray, int numModels, bool brayhorn, bool bannerBearer, int points) :
+            BeastsOfChaosBase("Centigors", 14, g_wounds, 5, 5, false, points) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, BRAYHERD, CENTIGORS};
         m_weapons = {&m_centigorSpear, &m_centigorSpearGorehoof, &m_clawedForelimbs};
 
@@ -47,8 +47,6 @@ namespace BeastsOfChaos {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     bool Centigors::AreValid(const ParameterList &parameters) {
@@ -62,7 +60,7 @@ namespace BeastsOfChaos {
             bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
             bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
             auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
-            return new Centigors(fray, numModels, brayhorn, bannerBearer);
+            return new Centigors(fray, numModels, brayhorn, bannerBearer, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -132,7 +130,8 @@ namespace BeastsOfChaos {
         return BeastsOfChaosBase::toWoundRerolls(weapon, target);
     }
 
-    int Centigors::ComputePoints(int numModels) {
+    int Centigors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

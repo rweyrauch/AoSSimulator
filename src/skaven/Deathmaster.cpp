@@ -54,7 +54,7 @@ namespace Skaven {
     }
 
     Deathmaster::Deathmaster() :
-            Skaventide("Deathmaster", 7, g_wounds, 5, 4, false),
+            Skaventide("Deathmaster", 7, g_wounds, 5, 4, false, g_pointsPerUnit),
             m_stars(Weapon::Type::Missile, "Eshin Throwing Stars", 12, 4, 4, 5, 0, 1),
             m_blades(Weapon::Type::Melee, "Weeping Blades", 1, 3, 3, 3, -1, RAND_D3),
             m_claws(Weapon::Type::Melee, "Fighting Claws", 1, 7, 3, 3, 0, 1) {
@@ -74,8 +74,6 @@ namespace Skaven {
         else if (option == Fighting_Claws)
             model->addMeleeWeapon(&m_claws);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     std::string Deathmaster::ValueToString(const Parameter &parameter) {
@@ -94,7 +92,7 @@ namespace Skaven {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int Deathmaster::ComputePoints(int /*numModels*/) {
+    int Deathmaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

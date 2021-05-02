@@ -36,7 +36,7 @@ namespace Seraphon {
     bool SaurusScarVeteranOnCarnosaur::s_registered = false;
 
     SaurusScarVeteranOnCarnosaur::SaurusScarVeteranOnCarnosaur(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, g_wounds, 8, 4, false) {
+            SeraphonBase("Saurus Scar-Veteran on Carnosaur", 10, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, CARNOSAUR, SAURUS, MONSTER, HERO, SCAR_VETERAN};
         m_weapons = {&m_warblade, &m_warspear, &m_greatblade, &m_forelimbs, &m_jaws};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -61,8 +61,6 @@ namespace Seraphon {
         m_commandAbilities.push_back(std::make_unique<BuffAbilityCommandAbility>(this, "Saurian Savagery", 18, 18, GamePhase::Combat,
                                                                                  Ability::Extra_Hit_On_Value, 6, Abilities::Target::SelfAndFriendly,
                                                                                  std::vector<Keyword>(SAURUS)));
-
-        m_points = ComputePoints(1);
     }
 
     SaurusScarVeteranOnCarnosaur::~SaurusScarVeteranOnCarnosaur() {
@@ -186,7 +184,7 @@ namespace Seraphon {
         return 0;
     }
 
-    int SaurusScarVeteranOnCarnosaur::ComputePoints(int /*numModels*/) {
+    int SaurusScarVeteranOnCarnosaur::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

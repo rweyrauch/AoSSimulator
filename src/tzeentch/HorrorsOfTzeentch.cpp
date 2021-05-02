@@ -16,13 +16,14 @@ namespace Tzeentch {
     static const int g_wounds = 1;
     static const int g_minUnitSize = 10;
     static const int g_maxUnitSize = 20;
-    static const int g_pointsPerBlock = 220;
-    static const int g_pointsMaxUnitSize = 440;
+    static const int g_pointsPerBlockPink = 220;
+    static const int g_pointsPerBlockBlue = 100;
+    static const int g_pointsPerBlockBrimstone = 60;
 
     bool HorrorsOfTzeentch::s_registered = false;
 
-    HorrorsOfTzeentch::HorrorsOfTzeentch(ChangeCoven coven, int numPink, int numBlue, int numYellow, bool iconBearer, bool hornblower) :
-            TzeentchBase("Horrors of Tzeentch", 5, g_wounds, 10, 6, false) {
+    HorrorsOfTzeentch::HorrorsOfTzeentch(ChangeCoven coven, int numPink, int numBlue, int numYellow, bool iconBearer, bool hornblower, int points) :
+            TzeentchBase("Horrors of Tzeentch", 5, g_wounds, 10, 6, false, points) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, HORROR, HORROR_OF_TZEENTCH};
         m_weapons = {&m_magicalFlamesPink,
                      &m_magicalFlamesBlue,
@@ -74,8 +75,6 @@ namespace Tzeentch {
             model->setName("Blue");
             addModel(model);
         }
-
-        m_points = ComputePoints(numPink);
     }
 
     Unit *HorrorsOfTzeentch::Create(const ParameterList &parameters) {
@@ -86,7 +85,7 @@ namespace Tzeentch {
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
 
-        return new HorrorsOfTzeentch(coven, numPink, numBlue, numYellow, iconBearer, hornblower);
+        return new HorrorsOfTzeentch(coven, numPink, numBlue, numYellow, iconBearer, hornblower, ComputePoints(parameters));
     }
 
     void HorrorsOfTzeentch::Init() {
@@ -154,11 +153,13 @@ namespace Tzeentch {
         return modifier;
     }
 
-    int HorrorsOfTzeentch::ComputePoints(int numModels) {
-        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
-        if (numModels == g_maxUnitSize) {
-            points = g_pointsMaxUnitSize;
-        }
+    int HorrorsOfTzeentch::ComputePoints(const ParameterList& parameters) {
+        int numPink = GetIntParam("Models (Pink)", parameters, g_minUnitSize);
+        int numBlue = GetIntParam("Models (Blue)", parameters, 0);
+        int numYellow = GetIntParam("Models (Brimstone)", parameters, 0);
+        int points = numPink / g_minUnitSize * g_pointsPerBlockPink;
+        points += numBlue / g_minUnitSize * g_pointsPerBlockBlue;
+        points += numYellow / g_minUnitSize * g_pointsPerBlockBrimstone;
         return points;
     }
 

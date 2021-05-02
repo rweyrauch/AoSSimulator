@@ -20,8 +20,8 @@ namespace GloomspiteGitz {
 
     bool DankholdTroggoths::s_registered = false;
 
-    DankholdTroggoths::DankholdTroggoths() :
-            GloomspiteGitzBase("Dankhold Troggoths", 6, g_wounds, 6, 4, false),
+    DankholdTroggoths::DankholdTroggoths(int points) :
+            GloomspiteGitzBase("Dankhold Troggoths", 6, g_wounds, 6, 4, false, points),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 3, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD};
         m_weapons = {&m_boulderClub};
@@ -44,13 +44,11 @@ namespace GloomspiteGitz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *DankholdTroggoths::Create(const ParameterList &parameters) {
-        auto unit = new DankholdTroggoths();
+        auto unit = new DankholdTroggoths(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         bool ok = unit->configure(numModels);
@@ -123,7 +121,8 @@ namespace GloomspiteGitz {
         GloomspiteGitzBase::onStartCombat(player);
     }
 
-    int DankholdTroggoths::ComputePoints(int numModels) {
+    int DankholdTroggoths::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

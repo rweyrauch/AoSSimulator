@@ -17,11 +17,11 @@ namespace Sylvaneth {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Dryads(Glade glade, int numModels);
+        Dryads(Glade glade, int numModels, int points);
 
         Dryads() = delete;
 

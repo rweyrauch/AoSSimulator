@@ -22,8 +22,8 @@ namespace FleshEaterCourt {
 
     bool CryptFlayers::s_registered = false;
 
-    CryptFlayers::CryptFlayers() :
-            FleshEaterCourts("Crypt Flayers", 12, g_wounds, 10, 5, true),
+    CryptFlayers::CryptFlayers(int points) :
+            FleshEaterCourts("Crypt Flayers", 12, g_wounds, 10, 5, true, points),
             m_deathScream(Weapon::Type::Missile, "Death Scream", 10, 1, 0, 0, 0, 0),
             m_piercingTalons(Weapon::Type::Melee, "Piercing Talons", 1, 4, 4, 3, -1, 1),
             m_piercingTalonsInfernal(Weapon::Type::Melee, "Piercing Talons", 1, 5, 4, 3, -1, 1) {
@@ -48,13 +48,11 @@ namespace FleshEaterCourt {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *CryptFlayers::Create(const ParameterList &parameters) {
-        auto unit = new CryptFlayers();
+        auto unit = new CryptFlayers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
@@ -111,7 +109,8 @@ namespace FleshEaterCourt {
         return FleshEaterCourts::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int CryptFlayers::ComputePoints(int numModels) {
+    int CryptFlayers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

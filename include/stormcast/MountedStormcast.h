@@ -20,7 +20,7 @@ namespace StormcastEternals {
         ~MountedStormcastEternal() override;
 
     protected:
-        MountedStormcastEternal(Stormhost stormhost, const std::string &name, int move, int wounds, int bravery, int save, bool fly);
+        MountedStormcastEternal(Stormhost stormhost, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
 
         int moveModifier() const override;
 

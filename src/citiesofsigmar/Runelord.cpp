@@ -18,7 +18,7 @@ namespace CitiesOfSigmar {
     bool Runelord::s_registered = false;
 
     Runelord::Runelord() :
-            CitizenOfSigmar("Runelord", 4, g_wounds, 7, 4, false),
+            CitizenOfSigmar("Runelord", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_runeStaff(Weapon::Type::Melee, "Rune Staff", 1, 1, 4, 3, 0, RAND_D3),
             m_forgehammer(Weapon::Type::Melee, "Forgehammer", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, PRIEST, RUNELORD};
@@ -83,7 +83,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int Runelord::ComputePoints(int /*numModels*/) {
+    int Runelord::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

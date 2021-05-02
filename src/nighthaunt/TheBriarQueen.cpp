@@ -49,7 +49,7 @@ namespace Nighthaunt {
     }
 
     TheBriarQueen::TheBriarQueen() :
-            Nighthaunt("The Briar Queen", 6, g_wounds, 10, 4, true),
+            Nighthaunt("The Briar Queen", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_scream(Weapon::Type::Missile, "Rending Scream", 10, 3, 3, 3, -3, 1),
             m_whip(Weapon::Type::Melee, "Briar Whip", 3, 1, 3, 3, 2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MIRRORGHAST_BANSHEE, THE_BRIAR_QUEEN};
@@ -69,11 +69,9 @@ namespace Nighthaunt {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
-    int TheBriarQueen::ComputePoints(int /*numModels*/) {
+    int TheBriarQueen::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

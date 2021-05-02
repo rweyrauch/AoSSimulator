@@ -70,7 +70,7 @@ namespace Skaven {
     }
 
     ThanquolOnBoneripper::ThanquolOnBoneripper() :
-            Skaventide("Thanquol on Boneripper", 10, g_wounds, 7, 4, false),
+            Skaventide("Thanquol on Boneripper", 10, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_projectors(Weapon::Type::Missile, "Warpfire Projectors", 8, 0, 0, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Staff of the Horned Rat", 2, 2, 4, 3, -1, RAND_D3),
             m_braziers(Weapon::Type::Melee, "Warpfire Braziers", 2, 0, 3, 3, -2, 3),
@@ -100,8 +100,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
 
         return true;
     }
@@ -138,7 +136,7 @@ namespace Skaven {
         return 0;
     }
 
-    int ThanquolOnBoneripper::ComputePoints(int /*numModels*/) {
+    int ThanquolOnBoneripper::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

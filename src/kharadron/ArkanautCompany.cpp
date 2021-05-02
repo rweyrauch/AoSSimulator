@@ -21,7 +21,7 @@ namespace KharadronOverlords {
     bool ArkanautCompany::s_registered = false;
 
     Unit *ArkanautCompany::Create(const ParameterList &parameters) {
-        auto unit = new ArkanautCompany();
+        auto unit = new ArkanautCompany(ComputePoints(parameters));
         int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numVolleyGuns = GetIntParam("Volley Guns", parameters, 1);
         int numSkyhooks = GetIntParam("Light Skyhooks", parameters, 1);
@@ -84,8 +84,8 @@ namespace KharadronOverlords {
         }
     }
 
-    ArkanautCompany::ArkanautCompany() :
-            KharadronBase("Arkanaut Company", 4, g_wounds, 6, 4, false),
+    ArkanautCompany::ArkanautCompany(int points) :
+            KharadronBase("Arkanaut Company", 4, g_wounds, 6, 4, false, points),
             m_privateerPistol(Weapon::Type::Missile, "Privateer Pistol", 9, 2, 4, 4, 0, 1),
             m_volleyGun(Weapon::Type::Missile, "Aethermatic Volley Gun", 12, 6, 5, 4, -1, 1),
             m_skyhook(Weapon::Type::Missile, "Light Skyhook", 18, 1, 4, 3, -2, RAND_D3),
@@ -148,12 +148,11 @@ namespace KharadronOverlords {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
-    int ArkanautCompany::ComputePoints(int numModels) {
+    int ArkanautCompany::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

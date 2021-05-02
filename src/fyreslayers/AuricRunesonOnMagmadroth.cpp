@@ -17,7 +17,7 @@ namespace Fyreslayers {
     bool AuricRunesonOnMagmadroth::s_registered = false;
 
     AuricRunesonOnMagmadroth::AuricRunesonOnMagmadroth() :
-            Magmadroth("Auric Runeson on Magmadroth", 8),
+            Magmadroth("Auric Runeson on Magmadroth", 8, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_javelin(Weapon::Type::Missile, "Wyrmslayer Javelin", 12, 1, 4, 3, -1, RAND_D3),
             m_warAxe(Weapon::Type::Melee, "Ancestral War-axe", 1, 3, 3, 4, 0, RAND_D3),
@@ -103,7 +103,7 @@ namespace Fyreslayers {
         return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int AuricRunesonOnMagmadroth::ComputePoints(int /*numModels*/) {
+    int AuricRunesonOnMagmadroth::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

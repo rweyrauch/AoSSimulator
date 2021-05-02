@@ -24,7 +24,7 @@ namespace LuminethRealmLords {
         return new HurakanSpiritOfTheWind(nation);
     }
 
-    int HurakanSpiritOfTheWind::ComputePoints(int numModels) {
+    int HurakanSpiritOfTheWind::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -47,7 +47,7 @@ namespace LuminethRealmLords {
     }
 
     HurakanSpiritOfTheWind::HurakanSpiritOfTheWind(GreatNation nation) :
-            LuminethBase("Hurakan Spirit of the Wind", 24, g_wounds, 10, 5, true) {
+            LuminethBase("Hurakan Spirit of the Wind", 24, g_wounds, 10, 5, true, g_pointsPerUnit) {
         m_keywords = {ORDER, LUMINETH_REALM_LORDS, HURAKAN, SPIRIT_OF_THE_WIND};
         m_weapons = {&m_bow, &m_bowMelee, &m_shards};
         m_battleFieldRole = Role::Other;
@@ -59,8 +59,6 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_bowMelee);
         model->addMeleeWeapon(&m_shards);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Wounds HurakanSpiritOfTheWind::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

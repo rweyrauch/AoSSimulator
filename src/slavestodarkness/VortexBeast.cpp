@@ -42,7 +42,7 @@ namespace SlavesToDarkness {
         return new MutalithVortexBeast(legion, mark);
     }
 
-    int MutalithVortexBeast::ComputePoints(int /*numModels*/) {
+    int MutalithVortexBeast::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -65,7 +65,7 @@ namespace SlavesToDarkness {
     }
 
     MutalithVortexBeast::MutalithVortexBeast(DamnedLegion legion, MarkOfChaos mark) :
-            SlavesToDarknessBase("Mutalith Vortex Beast", 10, g_wounds, 7, 4, false) {
+            SlavesToDarknessBase("Mutalith Vortex Beast", 10, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, MONSTER, MUTALITH_VORTEX_BEAST};
         m_weapons = {&m_claws, &m_maw};
         m_battleFieldRole = Role::Behemoth;
@@ -77,8 +77,6 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_maw);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void MutalithVortexBeast::onStartHero(PlayerId player) {

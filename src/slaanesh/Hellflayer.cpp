@@ -19,7 +19,7 @@ namespace Slaanesh {
     bool Hellflayer::s_registered = false;
 
     Hellflayer::Hellflayer() :
-            SlaaneshBase("Hellflayer", 12, g_wounds, 10, 4, false),
+            SlaaneshBase("Hellflayer", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 4, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -36,8 +36,6 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongues);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Hellflayer::Create(const ParameterList &parameters) {
@@ -67,7 +65,7 @@ namespace Slaanesh {
         }
     }
 
-    int Hellflayer::ComputePoints(int /*numModels*/) {
+    int Hellflayer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

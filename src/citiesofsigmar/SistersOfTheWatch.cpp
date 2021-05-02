@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool SistersOfTheWatch::s_registered = false;
 
     Unit *SistersOfTheWatch::Create(const ParameterList &parameters) {
-        auto unit = new SistersOfTheWatch();
+        auto unit = new SistersOfTheWatch(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
@@ -63,8 +63,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    SistersOfTheWatch::SistersOfTheWatch() :
-            CitizenOfSigmar("Sisters of the Watch", 6, g_wounds, 7, 5, false),
+    SistersOfTheWatch::SistersOfTheWatch(int points) :
+            CitizenOfSigmar("Sisters of the Watch", 6, g_wounds, 7, 5, false, points),
             m_bow(Weapon::Type::Missile, "Watch Bow", 18, 1, 3, 3, 0, 1),
             m_sword(Weapon::Type::Melee, "Ithilmar Sword", 1, 1, 4, 4, 0, 1),
             m_bowHighSister(Weapon::Type::Missile, "Watch Bow", 18, 2, 3, 3, 0, 1) {
@@ -92,8 +92,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -118,7 +116,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SistersOfTheWatch::ComputePoints(int numModels) {
+    int SistersOfTheWatch::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

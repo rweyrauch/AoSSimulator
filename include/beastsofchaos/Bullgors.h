@@ -29,13 +29,13 @@ namespace BeastsOfChaos {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
         Bullgors() = delete;
 
-        Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer);
+        Bullgors(Greatfray fray, int numModels, WeaponOptions weapon, bool drummer, bool bannerBearer, int points);
 
         ~Bullgors() override = default;
 

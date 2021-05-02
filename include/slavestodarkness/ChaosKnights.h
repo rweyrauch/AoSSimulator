@@ -27,12 +27,12 @@ namespace SlavesToDarkness {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
         ChaosKnights(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon, 
-                     bool standardBearer, bool hornblower);
+                     bool standardBearer, bool hornblower, int points);
 
         ChaosKnights() = delete;
         

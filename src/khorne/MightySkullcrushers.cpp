@@ -20,8 +20,8 @@ namespace Khorne {
 
     bool MightySkullcrushers::s_registered = false;
 
-    MightySkullcrushers::MightySkullcrushers(SlaughterHost host, int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers) :
-            KhorneBase("Mighty Skullcrushers", 8, g_wounds, 6, 3, false) {
+    MightySkullcrushers::MightySkullcrushers(SlaughterHost host, int numModels, WeaponOption weapons, bool standardBearer, bool hornblowers, int points) :
+            KhorneBase("Mighty Skullcrushers", 8, g_wounds, 6, 3, false, points) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, MIGHTY_SKULLCRUSHERS};
         m_weapons = {&m_ensorcelledAxe, &m_bloodglaive, &m_ensorcelledAxeHunter, &m_bloodglaiveHunter, &m_brazenHooves};
         m_hasMount = true;
@@ -59,8 +59,6 @@ namespace Khorne {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *MightySkullcrushers::Create(const ParameterList &parameters) {
@@ -70,7 +68,7 @@ namespace Khorne {
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
 
-        return new MightySkullcrushers(host, numModels, weapons, standardBearer, hornblowers);
+        return new MightySkullcrushers(host, numModels, weapons, standardBearer, hornblowers, ComputePoints(parameters));
     }
 
     void MightySkullcrushers::Init() {
@@ -152,7 +150,8 @@ namespace Khorne {
         KhorneBase::onCharged();
     }
 
-    int MightySkullcrushers::ComputePoints(int numModels) {
+    int MightySkullcrushers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

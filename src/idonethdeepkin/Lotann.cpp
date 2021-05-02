@@ -49,7 +49,7 @@ namespace IdonethDeepkin {
     }
 
     Lotann::Lotann() :
-            IdonethDeepkinBase("Lotann", 6, g_wounds, 7, 6, false),
+            IdonethDeepkinBase("Lotann", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_quill(Weapon::Type::Melee, "Bone Quill", 1, 1, 3, 5, 0, 1),
             m_cudgel(Weapon::Type::Melee, "Ochtar's Cudgel", 3, 1, 4, 3, -1, 2),
             m_blade(Weapon::Type::Melee, "Ochtar's Blade", 3, 1, 3, 4, -1, 1),
@@ -91,7 +91,7 @@ namespace IdonethDeepkin {
         return 0;
     }
 
-    int Lotann::ComputePoints(int /*numModels*/) {
+    int Lotann::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

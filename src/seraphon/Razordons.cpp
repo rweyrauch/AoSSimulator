@@ -22,8 +22,8 @@ namespace Seraphon {
 
     bool Razordons::s_registered = false;
 
-    Razordons::Razordons(WayOfTheSeraphon way, Constellation constellation, int numModels) :
-            SeraphonBase("Razordons", 8, g_wounds, 5, 4, false) {
+    Razordons::Razordons(WayOfTheSeraphon way, Constellation constellation, int numModels, int points) :
+            SeraphonBase("Razordons", 8, g_wounds, 5, 4, false, points) {
         m_keywords = {ORDER, SERAPHON, SKINK, RAZORDON, HUNTING_PACK};
         m_weapons = {&m_spikes, &m_tail, &m_goad};
 
@@ -39,8 +39,6 @@ namespace Seraphon {
             model->addMeleeWeapon(&m_goad);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Razordons::Create(const ParameterList &parameters) {
@@ -48,7 +46,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new Razordons(way, constellation, numModels);
+        return new Razordons(way, constellation, numModels, ComputePoints(parameters));
     }
 
     void Razordons::Init() {
@@ -71,7 +69,8 @@ namespace Seraphon {
         }
     }
 
-    int Razordons::ComputePoints(int numModels) {
+    int Razordons::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

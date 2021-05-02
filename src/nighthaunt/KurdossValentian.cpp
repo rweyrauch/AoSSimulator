@@ -40,7 +40,7 @@ namespace Nighthaunt {
     }
 
     KurdossValentian::KurdossValentian(bool isGeneral) :
-            Nighthaunt("Kurdoss Valentian", 6, g_wounds, 10, 4, true) {
+            Nighthaunt("Kurdoss Valentian", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KURDOSS_VALENTIAN};
         m_weapons = {&m_sceptre, &m_claws};
         m_battleFieldRole = Role::Leader;
@@ -53,8 +53,6 @@ namespace Nighthaunt {
         model->addMeleeWeapon(&m_sceptre);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Wounds KurdossValentian::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -77,7 +75,7 @@ namespace Nighthaunt {
         return Nighthaunt::toHitRerolls(weapon, target);
     }
 
-    int KurdossValentian::ComputePoints(int /*numModels*/) {
+    int KurdossValentian::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

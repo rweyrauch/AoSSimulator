@@ -17,7 +17,7 @@ namespace Fyreslayers {
     bool Doomseeker::s_registered = false;
 
     Doomseeker::Doomseeker(Lodge lodge, Artefact artefact) :
-            Fyreslayer("Doomseeker", 4, g_wounds, 8, 4, false) {
+            Fyreslayer("Doomseeker", 4, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, DOOMSEEKER};
         m_weapons = {&m_throwingAxe, &m_warIron, &m_doomseekerAxe};
         m_battleFieldRole = Role::Leader;
@@ -70,7 +70,7 @@ namespace Fyreslayers {
         return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Doomseeker::ComputePoints(int /*numModels*/) {
+    int Doomseeker::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

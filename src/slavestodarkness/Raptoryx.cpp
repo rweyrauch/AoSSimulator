@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *Raptoryx::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new Raptoryx(legion, numModels);
+        return new Raptoryx(legion, numModels, ComputePoints(parameters));
     }
 
     void Raptoryx::Init() {
@@ -43,8 +43,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    Raptoryx::Raptoryx(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Raptoryx", 10, g_wounds, 6, NoSave, true) {
+    Raptoryx::Raptoryx(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Raptoryx", 10, g_wounds, 6, NoSave, true, points) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, RAPTORYX};
         m_weapons = {&m_beakAndTalons};
 
@@ -55,8 +55,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_beakAndTalons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     int Raptoryx::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
@@ -68,7 +66,8 @@ namespace SlavesToDarkness {
         return extra;
     }
 
-    int Raptoryx::ComputePoints(int numModels) {
+    int Raptoryx::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

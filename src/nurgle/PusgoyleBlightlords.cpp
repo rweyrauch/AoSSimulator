@@ -21,8 +21,8 @@ namespace Nurgle {
 
     bool PusgoyleBlightlords::s_registered = false;
 
-    PusgoyleBlightlords::PusgoyleBlightlords() :
-            NurgleBase("Pusgoyle Blightlords", 8, g_wounds, 10, 4, true),
+    PusgoyleBlightlords::PusgoyleBlightlords(int points) :
+            NurgleBase("Pusgoyle Blightlords", 8, g_wounds, 10, 4, true, points),
             m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1),
             m_dolorousTocsin(Weapon::Type::Melee, "Dolorous Tocsin", 1, 1, 4, 3, -2, 2),
             m_mouthparts(Weapon::Type::Melee, "Foul Mouthparts", 1, 2, 3, 3, 0, 1),
@@ -54,13 +54,11 @@ namespace Nurgle {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *PusgoyleBlightlords::Create(const ParameterList &parameters) {
-        auto unit = new PusgoyleBlightlords();
+        auto unit = new PusgoyleBlightlords(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numTocsins = GetIntParam("Dolorous Tocsin", parameters, 0);
 
@@ -122,7 +120,8 @@ namespace Nurgle {
         NurgleBase::onStartHero(player);
     }
 
-    int PusgoyleBlightlords::ComputePoints(int numModels) {
+    int PusgoyleBlightlords::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

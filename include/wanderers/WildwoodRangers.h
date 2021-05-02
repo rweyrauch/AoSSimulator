@@ -17,11 +17,11 @@ namespace Wanderers {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        WildwoodRangers();
+        WildwoodRangers(int points);
 
         ~WildwoodRangers() override = default;
 

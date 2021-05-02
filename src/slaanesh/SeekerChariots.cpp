@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool SeekerChariots::s_registered = false;
 
-    SeekerChariots::SeekerChariots() :
-            SlaaneshBase("Seeker Chariots", 12, g_wounds, 10, 4, false),
+    SeekerChariots::SeekerChariots(int points) :
+            SlaaneshBase("Seeker Chariots", 12, g_wounds, 10, 4, false, points),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 4, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -48,13 +48,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SeekerChariots::Create(const ParameterList &parameters) {
-        auto unit = new SeekerChariots();
+        auto unit = new SeekerChariots(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
@@ -98,7 +96,8 @@ namespace Slaanesh {
         }
     }
 
-    int SeekerChariots::ComputePoints(int numModels) {
+    int SeekerChariots::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

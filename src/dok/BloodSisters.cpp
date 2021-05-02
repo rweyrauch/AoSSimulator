@@ -22,8 +22,8 @@ namespace DaughtersOfKhaine {
 
     bool BloodSisters::s_registered = false;
 
-    BloodSisters::BloodSisters() :
-            DaughterOfKhaine("Blood Sisters", 8, g_wounds, 8, 5, false),
+    BloodSisters::BloodSisters(int points) :
+            DaughterOfKhaine("Blood Sisters", 8, g_wounds, 8, 5, false, points),
             m_heartshardGlaive(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 3, 3, -1, 1),
             m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS};
@@ -45,13 +45,11 @@ namespace DaughtersOfKhaine {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *BloodSisters::Create(const ParameterList &parameters) {
-        auto unit = new BloodSisters();
+        auto unit = new BloodSisters(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
@@ -83,7 +81,8 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int BloodSisters::ComputePoints(int numModels) {
+    int BloodSisters::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

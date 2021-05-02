@@ -18,7 +18,7 @@ namespace Seraphon {
     bool SaurusAstrolithBearer::s_registered = false;
 
     SaurusAstrolithBearer::SaurusAstrolithBearer(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Saurus Astrolith Bearer", 5, g_wounds, 8, 4, false),
+            SeraphonBase("Saurus Astrolith Bearer", 5, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_warpick(Weapon::Type::Melee, "Celestite Warpick", 1, 3, 3, 3, -1, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, TOTEM, ASTROLITH_BEARER};
@@ -34,8 +34,6 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_warpick);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SaurusAstrolithBearer::Create(const ParameterList &parameters) {
@@ -70,7 +68,7 @@ namespace Seraphon {
         }
     }
 
-    int SaurusAstrolithBearer::ComputePoints(int /*numModels*/) {
+    int SaurusAstrolithBearer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

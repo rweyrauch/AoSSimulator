@@ -50,7 +50,7 @@ namespace BeastsOfChaos {
     bool DragonOgorShaggoth::s_registered = false;
 
     DragonOgorShaggoth::DragonOgorShaggoth(Greatfray fray, Lore lore, CommandTrait trait, Artefact artefact, bool general) :
-            BeastsOfChaosBase("Dragon Ogor Shaggoth", 8, g_wounds, 7, 4, false),
+            BeastsOfChaosBase("Dragon Ogor Shaggoth", 8, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_stormWroughtAxe(Weapon::Type::Melee, "Storm-wrought Axe", 2, 3, 3, 3, -1, 3),
             m_sweepingTail(Weapon::Type::Melee, "Sweeping Tail", 3, RAND_D3, 4, 3, 0, 1),
             m_talonedForelimbs(Weapon::Type::Melee, "Taloned Forelimbs", 1, 2, 3, 3, -1, 1) {
@@ -112,7 +112,7 @@ namespace BeastsOfChaos {
         }
     }
 
-    int DragonOgorShaggoth::ComputePoints(int /*numModels*/) {
+    int DragonOgorShaggoth::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

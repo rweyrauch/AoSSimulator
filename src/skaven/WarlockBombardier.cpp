@@ -58,7 +58,7 @@ namespace Skaven {
     }
 
     WarlockBombardier::WarlockBombardier() :
-            Skaventide("Warlock Bombardier", 6, g_wounds, 5, 5, false),
+            Skaventide("Warlock Bombardier", 6, g_wounds, 5, 5, false, g_pointsPerUnit),
             m_doomrocket(Weapon::Type::Missile, "Doomrocket", 18, 1, 4, 3, -1, RAND_D6),
             m_pole(Weapon::Type::Melee, "Firing Pole", 1, 1, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, HERO, WIZARD, WARLOCK_ENGINEER,
@@ -80,8 +80,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void WarlockBombardier::onRestore() {
@@ -118,7 +116,7 @@ namespace Skaven {
         return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int WarlockBombardier::ComputePoints(int /*numModels*/) {
+    int WarlockBombardier::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 } //namespace Skaven

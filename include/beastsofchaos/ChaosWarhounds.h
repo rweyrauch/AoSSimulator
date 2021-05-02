@@ -19,13 +19,13 @@ namespace BeastsOfChaos {
 
         static void Init();
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         ChaosWarhounds() = delete;
 
         ~ChaosWarhounds() override = default;
 
-        ChaosWarhounds(Greatfray fray, int numModels);
+        ChaosWarhounds(Greatfray fray, int numModels, int points);
 
     protected:
 

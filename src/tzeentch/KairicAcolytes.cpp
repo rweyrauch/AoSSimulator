@@ -51,8 +51,8 @@ namespace Tzeentch {
 
     bool KairicAcolytes::s_registered = false;
 
-    KairicAcolytes::KairicAcolytes() :
-            TzeentchBase("Kairic Acolytes", 6, g_wounds, 5, 5, false),
+    KairicAcolytes::KairicAcolytes(int points) :
+            TzeentchBase("Kairic Acolytes", 6, g_wounds, 5, 5, false, points),
             m_sorcerousBolt(Weapon::Type::Missile, "Sorcerous Bolt", 18, 1, 4, 3, 0, 1),
             m_cursedBlade(Weapon::Type::Melee, "Cursed Blade", 1, 1, 4, 3, 0, 1),
             m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 3, -1, 2),
@@ -108,8 +108,6 @@ namespace Tzeentch {
 
         m_knownSpells.push_back(std::make_unique<GestaltSorcery>(this));
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -147,7 +145,7 @@ namespace Tzeentch {
     }
 
     Unit *KairicAcolytes::Create(const ParameterList &parameters) {
-        auto unit = new KairicAcolytes();
+        auto unit = new KairicAcolytes(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Cursed_Blade);
         int numCursedGlaives = GetIntParam("Cursed Glaives", parameters, 0);
@@ -207,7 +205,8 @@ namespace Tzeentch {
         return TzeentchBase::toHitRerolls(weapon, target);
     }
 
-    int KairicAcolytes::ComputePoints(int numModels) {
+    int KairicAcolytes::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

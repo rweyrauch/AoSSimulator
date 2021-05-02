@@ -121,7 +121,7 @@ namespace CitiesOfSigmar {
     }
 
     Sorceress::Sorceress() :
-            CitizenOfSigmar("Sorceress", 6, g_wounds, 7, 6, false),
+            CitizenOfSigmar("Sorceress", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_witchstaff(Weapon::Type::Melee, "Witchstaff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, HERO, WIZARD, SORCERESS};
         m_weapons = {&m_witchstaff};
@@ -148,7 +148,7 @@ namespace CitiesOfSigmar {
         return true;
     }
 
-    int Sorceress::ComputePoints(int /*numModels*/) {
+    int Sorceress::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -18,7 +18,7 @@ namespace Seraphon {
     bool SaurusEternityWarden::s_registered = false;
 
     SaurusEternityWarden::SaurusEternityWarden(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Saurus Eternity Warden", 5, g_wounds, 8, 3, false) {
+            SeraphonBase("Saurus Eternity Warden", 5, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, ETERNITY_WARDEN};
         m_weapons = {&m_mace, &m_jaws};
         m_battleFieldRole = Role::Leader;
@@ -32,8 +32,6 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_mace);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SaurusEternityWarden::Create(const ParameterList &parameters) {
@@ -76,7 +74,7 @@ namespace Seraphon {
         return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusEternityWarden::ComputePoints(int /*numModels*/) {
+    int SaurusEternityWarden::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

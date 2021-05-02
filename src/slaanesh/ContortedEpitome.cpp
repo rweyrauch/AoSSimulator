@@ -60,7 +60,7 @@ namespace Slaanesh {
     bool TheContortedEpitome::s_registered = false;
 
     TheContortedEpitome::TheContortedEpitome() :
-            SlaaneshBase("The Contorted Epitome", 12, g_wounds, 10, 5, false),
+            SlaaneshBase("The Contorted Epitome", 12, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 9, 3, 4, -1, 1),
             m_coiledTentacles(Weapon::Type::Melee, "Coiled Tentacles", 3, 2, 3, 4, -2, 2) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH,
@@ -82,8 +82,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *TheContortedEpitome::Create(const ParameterList &parameters) {
@@ -140,7 +138,7 @@ namespace Slaanesh {
         return totalWounds;
     }
 
-    int TheContortedEpitome::ComputePoints(int /*numModels*/) {
+    int TheContortedEpitome::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -20,8 +20,8 @@ namespace Ironjawz {
 
     bool OrrukGoreGruntas::s_registered = false;
 
-    OrrukGoreGruntas::OrrukGoreGruntas() :
-            Ironjawz("Orruk Gore-gruntas", 9, g_wounds, 7, 4, false),
+    OrrukGoreGruntas::OrrukGoreGruntas(int points) :
+            Ironjawz("Orruk Gore-gruntas", 9, g_wounds, 7, 4, false, points),
             m_pigironChoppa(Weapon::Type::Melee, "Pig-iron Choppa", 1, 4, 3, 3, -1, 1),
             m_jaggedGorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 3, 3, -1, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 4, 4, 4, 0, 1),
@@ -62,13 +62,11 @@ namespace Ironjawz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *OrrukGoreGruntas::Create(const ParameterList &parameters) {
-        auto unit = new OrrukGoreGruntas();
+        auto unit = new OrrukGoreGruntas(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Pig_Iron_Choppa);
 
@@ -123,7 +121,8 @@ namespace Ironjawz {
         }
     }
 
-    int OrrukGoreGruntas::ComputePoints(int numModels) {
+    int OrrukGoreGruntas::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

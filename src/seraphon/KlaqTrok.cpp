@@ -17,7 +17,7 @@ namespace Seraphon {
     bool KlaqTrok::s_registered = false;
 
     KlaqTrok::KlaqTrok(bool isGeneral) :
-            SeraphonBase("Klaq-Trok", 6, g_wounds, 8, 4, false),
+            SeraphonBase("Klaq-Trok", 6, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_warblade(Weapon::Type::Melee, "Celestite Warblade", 1, 5, 3, 3, 0, 1),
             m_jaws(Weapon::Type::Melee, "Fearsome Jaws", 1, 1, 4, 3, 0, 1) {
         m_keywords = {ORDER, SERAPHON, COALESCED, THUNDER_LIZARD, SAURUS, HERO, OLDBLOOD, KLAQ_TROK};
@@ -31,8 +31,6 @@ namespace Seraphon {
         model->addMeleeWeapon(&m_warblade);
         model->addMeleeWeapon(&m_jaws);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *KlaqTrok::Create(const ParameterList &parameters) {
@@ -66,7 +64,7 @@ namespace Seraphon {
         return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int KlaqTrok::ComputePoints(int /*numModels*/) {
+    int KlaqTrok::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

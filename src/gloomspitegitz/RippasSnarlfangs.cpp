@@ -40,7 +40,7 @@ namespace GloomspiteGitz {
     }
 
     RippasSnarlfangs::RippasSnarlfangs() :
-            GloomspiteGitzBase("Rippa's Snarlfangs", 12, g_wounds, 4, 5, false),
+            GloomspiteGitzBase("Rippa's Snarlfangs", 12, g_wounds, 4, 5, false, g_pointsPerUnit),
             m_grotBow(Weapon::Type::Missile, "Grot Bow", 18, 1, 4, 4, 0, 1),
             m_bossLoppa(Weapon::Type::Melee, "Boss Loppa", 1, 2, 3, 4, -1, 1),
             m_stikka(Weapon::Type::Melee, "Stabbin' Stikka", 2, 1, 4, 4, 0, 1),
@@ -86,7 +86,7 @@ namespace GloomspiteGitz {
         return mod;
     }
 
-    int RippasSnarlfangs::ComputePoints(int /*numModels*/) {
+    int RippasSnarlfangs::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

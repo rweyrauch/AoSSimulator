@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool SymbareshTwinsouls::s_registered = false;
 
-    SymbareshTwinsouls::SymbareshTwinsouls() :
-            SlaaneshBase("Symbaresh Twinsouls", 8, g_wounds, 7, 4, false),
+    SymbareshTwinsouls::SymbareshTwinsouls(int points) :
+            SlaaneshBase("Symbaresh Twinsouls", 8, g_wounds, 7, 4, false, points),
             m_blades(Weapon::Type::Missile, "Merciless Blades", 2, 3, 4, 3, 0, 2),
             m_bladesEgopomp(Weapon::Type::Melee, "Merciless Blades", 2, 4, 4, 3, 0, 2) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, SYMBARESH_TWINSOULS};
@@ -45,13 +45,11 @@ namespace Slaanesh {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *SymbareshTwinsouls::Create(const ParameterList &parameters) {
-        auto unit = new SymbareshTwinsouls();
+        auto unit = new SymbareshTwinsouls(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
@@ -83,7 +81,8 @@ namespace Slaanesh {
         }
     }
 
-    int SymbareshTwinsouls::ComputePoints(int numModels) {
+    int SymbareshTwinsouls::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

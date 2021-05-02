@@ -92,8 +92,8 @@ namespace Bonesplitterz {
         void setArtefact(Artefact artefact);
 
     protected:
-        Bonesplitterz(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        Bonesplitterz(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
     protected:
 

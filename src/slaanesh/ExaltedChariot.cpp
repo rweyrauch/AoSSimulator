@@ -20,7 +20,7 @@ namespace Slaanesh {
     bool ExaltedChariot::s_registered = false;
 
     ExaltedChariot::ExaltedChariot() :
-            SlaaneshBase("Exalted Chariot", 10, g_wounds, 10, 4, false),
+            SlaaneshBase("Exalted Chariot", 10, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 4, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 9, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1) {
@@ -37,8 +37,6 @@ namespace Slaanesh {
         model->addMeleeWeapon(&m_piercingClaws);
         model->addMeleeWeapon(&m_poisonedTongues);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *ExaltedChariot::Create(const ParameterList &parameters) {
@@ -83,7 +81,7 @@ namespace Slaanesh {
         }
     }
 
-    int ExaltedChariot::ComputePoints(int /*numModels*/) {
+    int ExaltedChariot::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

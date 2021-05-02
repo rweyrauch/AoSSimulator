@@ -20,8 +20,8 @@ namespace BeastsOfChaos {
 
     bool Ungors::s_registered = false;
 
-    Ungors::Ungors(Greatfray fray, int numModels, WeaponOptions weapons, bool brayhorn, bool bannerBearer) :
-            BeastsOfChaosBase("Ungors", 6, g_wounds, 4, 6, false),
+    Ungors::Ungors(Greatfray fray, int numModels, WeaponOptions weapons, bool brayhorn, bool bannerBearer, int points) :
+            BeastsOfChaosBase("Ungors", 6, g_wounds, 4, 6, false, points),
             m_ungorBlade(Weapon::Type::Melee, "Ungor Blade", 1, 1, 4, 4, 0, 1),
             m_ungorBladeHalfhorn(Weapon::Type::Melee, "Ungor Blade", 1, 2, 4, 4, 0, 1),
             m_gnarledShortspear(Weapon::Type::Melee, "Gnarled Shortspear", 2, 1, 5, 4, 0, 1),
@@ -58,8 +58,6 @@ namespace BeastsOfChaos {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Ungors::Create(const ParameterList &parameters) {
@@ -69,7 +67,7 @@ namespace BeastsOfChaos {
         bool brayhorn = GetBoolParam("Brayhorn", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
 
-        return new Ungors(fray, numModels, weapon, brayhorn, bannerBearer);
+        return new Ungors(fray, numModels, weapon, brayhorn, bannerBearer, ComputePoints(parameters));
     }
 
     void Ungors::Init() {
@@ -129,7 +127,8 @@ namespace BeastsOfChaos {
         return modifier;
     }
 
-    int Ungors::ComputePoints(int numModels) {
+    int Ungors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -18,7 +18,7 @@ namespace Fyreslayers {
     bool GrimwrathBerzerker::s_registered = false;
 
     GrimwrathBerzerker::GrimwrathBerzerker(Lodge lodge, Artefact artefact) :
-            Fyreslayer("Grimwrath Berzerker", 4, g_wounds, 9, 4, false) {
+            Fyreslayer("Grimwrath Berzerker", 4, g_wounds, 9, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, GRIMWRATH_BERZERKER};
         m_weapons = {&m_throwingAxe, &m_greatAxe};
 
@@ -57,7 +57,7 @@ namespace Fyreslayers {
         }
     }
 
-    int GrimwrathBerzerker::ComputePoints(int /*numModels*/) {
+    int GrimwrathBerzerker::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
             };
 
     ColossalSquig::ColossalSquig() :
-            GloomspiteGitzBase("Colossal Squig", RAND_4D6, g_wounds, 10, 5, false),
+            GloomspiteGitzBase("Colossal Squig", RAND_4D6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_puffSpores(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
             m_enormousJaws(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3),
             m_tramplingFeet(Weapon::Type::Melee, "Trampling Feet", 1, 10, 5, 3, -1, 1) {
@@ -144,7 +144,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    int ColossalSquig::ComputePoints(int /*numModels*/) {
+    int ColossalSquig::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

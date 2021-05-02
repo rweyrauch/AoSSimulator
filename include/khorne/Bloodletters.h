@@ -17,7 +17,7 @@ namespace Khorne {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -27,7 +27,7 @@ namespace Khorne {
 
     protected:
 
-        Bloodletters(SlaughterHost host, int numModels, bool iconBearer, bool standardBearer, bool hornblowers);
+        Bloodletters(SlaughterHost host, int numModels, bool iconBearer, bool standardBearer, bool hornblowers, int points);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

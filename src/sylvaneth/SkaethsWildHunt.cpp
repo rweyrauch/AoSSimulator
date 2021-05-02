@@ -36,7 +36,7 @@ namespace Sylvaneth {
     }
 
     SkaethsWildHunt::SkaethsWildHunt() :
-            SylvanethBase("Skaeth's Wild Hunt", 6, g_wounds, 6, 5, false) {
+            SylvanethBase("Skaeth's Wild Hunt", 6, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SYLVANETH, OAKENBROW, SKAETHS_WILD_HUNT};
         m_weapons = {&m_seekerBow, &m_javalin, &m_javalinMelee, &m_huntingWeapon, &m_teethAndClaws};
 
@@ -79,7 +79,7 @@ namespace Sylvaneth {
         m_points = g_pointsPerUnit;
     }
 
-    int SkaethsWildHunt::ComputePoints(int /*numModels*/) {
+    int SkaethsWildHunt::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

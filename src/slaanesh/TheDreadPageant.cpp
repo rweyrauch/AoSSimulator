@@ -18,7 +18,7 @@ namespace Slaanesh {
     bool TheDreadPageant::s_registered = false;
 
     TheDreadPageant::TheDreadPageant() :
-            SlaaneshBase("The Dread Pageant", 6, g_wounds, 7, 5, false),
+            SlaaneshBase("The Dread Pageant", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_bow(Weapon::Type::Missile, "Blissbarb Bow", 18, 2, 4, 4, -1, 1),
             m_clawAndWeapon(Weapon::Type::Melee, "Crushing Claw and Gilded Weapon", 1, 4, 4, 3, -2, 2),
             m_glaive(Weapon::Type::Melee, "Slickblade Glaive", 1, 3, 3, 3, -1, 1),
@@ -47,8 +47,6 @@ namespace Slaanesh {
         hadzu->setName("Hadzu");
         hadzu->addMissileWeapon(&m_bow);
         addModel(hadzu);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *TheDreadPageant::Create(const ParameterList &parameters) {
@@ -78,7 +76,7 @@ namespace Slaanesh {
         }
     }
 
-    int TheDreadPageant::ComputePoints(int /*numModels*/) {
+    int TheDreadPageant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

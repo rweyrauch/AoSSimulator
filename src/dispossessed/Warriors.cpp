@@ -20,8 +20,8 @@ namespace Dispossessed {
 
     bool Warriors::s_registered = false;
 
-    Warriors::Warriors() :
-            Dispossessed("Warriors", 4, g_wounds, 6, 5, false),
+    Warriors::Warriors(int points) :
+            Dispossessed("Warriors", 4, g_wounds, 6, 5, false, points),
             m_duardinAxeOrHammer(Weapon::Type::Melee, "Duardin Axe or Duardin Hammer", 1, 1, 3, 4, 0, 1),
             m_duardinAxeOrHammerVeteran(Weapon::Type::Melee, "Duardin Axe or Duardin Hammer", 1, 2, 3, 4, 0, 1),
             m_doubleHandedAxe(Weapon::Type::Melee, "Double-handed Duardin Axe", 1, 1, 4, 3, -1, 1),
@@ -67,13 +67,11 @@ namespace Dispossessed {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Warriors::Create(const ParameterList &parameters) {
-        auto unit = new Warriors();
+        auto unit = new Warriors(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Duardin_Axe_Or_Hammer);
         bool duardinShields = GetBoolParam("Duardin Shields", parameters, false);
@@ -189,7 +187,8 @@ namespace Dispossessed {
         }
     }
 
-    int Warriors::ComputePoints(int numModels) {
+    int Warriors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

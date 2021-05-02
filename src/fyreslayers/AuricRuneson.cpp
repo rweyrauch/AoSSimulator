@@ -40,7 +40,7 @@ namespace Fyreslayers {
     bool AuricRuneson::s_registered = false;
 
     AuricRuneson::AuricRuneson() :
-            Fyreslayer("Auric Runeson", 4, g_wounds, 7, 4, false),
+            Fyreslayer("Auric Runeson", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_javelin(Weapon::Type::Missile, "Wyrmslayer Javelin", 12, 1, 4, 3, -1, RAND_D3),
             m_warAxe(Weapon::Type::Melee, "Ancestral War-axe", 1, 3, 3, 4, 0, RAND_D3),
@@ -118,7 +118,7 @@ namespace Fyreslayers {
         return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int AuricRuneson::ComputePoints(int /*numModels*/) {
+    int AuricRuneson::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

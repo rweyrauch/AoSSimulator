@@ -53,15 +53,13 @@ namespace Nighthaunt {
     }
 
     Mourngul::Mourngul() :
-            Nighthaunt("Mourngul", 12, g_wounds, 10, 4, true) {
+            Nighthaunt("Mourngul", 12, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, MONSTER, MOURNGUL};
         m_weapons = {&m_clawsAndFangs};
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_clawsAndFangs);
         addModel(model);
-
-        m_points = ComputePoints(1);
     }
 
     void Mourngul::onWounded() {
@@ -97,7 +95,7 @@ namespace Nighthaunt {
         onWounded();
     }
 
-    int Mourngul::ComputePoints(int /*numModels*/) {
+    int Mourngul::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

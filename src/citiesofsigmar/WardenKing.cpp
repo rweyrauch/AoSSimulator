@@ -18,7 +18,7 @@ namespace CitiesOfSigmar {
     bool WardenKing::s_registered = false;
 
     WardenKing::WardenKing() :
-            CitizenOfSigmar("Warden King", 4, g_wounds, 8, 3, false),
+            CitizenOfSigmar("Warden King", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_runeWeapon(Weapon::Type::Melee, "Rune Hammer", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
         m_weapons = {&m_runeWeapon};
@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    int WardenKing::ComputePoints(int /*numModels*/) {
+    int WardenKing::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

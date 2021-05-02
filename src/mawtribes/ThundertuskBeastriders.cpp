@@ -81,7 +81,7 @@ namespace OgorMawtribes {
     }
 
     ThundertuskBeastriders::ThundertuskBeastriders(Mawtribe tribe, WeaponOption option) :
-            MawtribesBase(tribe, "Thundertusk Beastriders", 8, g_wounds, 7, 4, false) {
+            MawtribesBase(tribe, "Thundertusk Beastriders", 8, g_wounds, 7, 4, false, g_pointsPerUnit) {
 
         m_keywords = {DESTRUCTION, OGOR, THUNDERTUSK, OGOR_MAWTRIBES, BEASTCLAW_RAIDERS, MONSTER,
                       THUNDERTUSK_BEASTRIDERS};
@@ -104,8 +104,6 @@ namespace OgorMawtribes {
         model->addMeleeWeapon(&m_tusks);
 
         addModel(model);
-
-        m_points = ThundertuskBeastriders::ComputePoints(1);
     }
 
     void ThundertuskBeastriders::onRestore() {
@@ -163,7 +161,7 @@ namespace OgorMawtribes {
         }
     }
 
-    int ThundertuskBeastriders::ComputePoints(int /*numModels*/) {
+    int ThundertuskBeastriders::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

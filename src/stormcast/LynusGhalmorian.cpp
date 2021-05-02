@@ -83,7 +83,7 @@ namespace StormcastEternals {
     bool LynusGhalmorianOnGryphcharger::s_registered = false;
 
     LynusGhalmorianOnGryphcharger::LynusGhalmorianOnGryphcharger(Lore lore, MountTrait trait, bool isGeneral) :
-            MountedStormcastEternal(Stormhost::Anvils_Of_The_Heldenhammer, "Lynus Ghalmorian on Gryph-charger", 12, g_wounds, 9, 3, false),
+            MountedStormcastEternal(Stormhost::Anvils_Of_The_Heldenhammer, "Lynus Ghalmorian on Gryph-charger", 12, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_beakAndClaws(Weapon::Type::Melee, "Razor Beak and Claws", 1, 3, 3, 3, -2, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, GRYPH_CHARGER, STORMCAST_ETERNAL, SACROSANCT, HERO, WIZARD,
@@ -165,7 +165,7 @@ namespace StormcastEternals {
         }
     }
 
-    int LynusGhalmorianOnGryphcharger::ComputePoints(int /*numModels*/) {
+    int LynusGhalmorianOnGryphcharger::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

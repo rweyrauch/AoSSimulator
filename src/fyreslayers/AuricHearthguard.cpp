@@ -19,8 +19,8 @@ namespace Fyreslayers {
 
     bool AuricHearthguard::s_registered = false;
 
-    AuricHearthguard::AuricHearthguard() :
-            Fyreslayer("Auric Hearthguard", 4, g_wounds, 7, 5, false),
+    AuricHearthguard::AuricHearthguard(int points) :
+            Fyreslayer("Auric Hearthguard", 4, g_wounds, 7, 5, false, points),
             m_magmapike(Weapon::Type::Missile, "Magmapike", 18, 2, 4, 3, -1, 1),
             m_magmapikeKarl(Weapon::Type::Missile, "Magmapike", 18, 3, 4, 3, -1, 1),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
@@ -49,13 +49,11 @@ namespace Fyreslayers {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *AuricHearthguard::Create(const ParameterList &parameters) {
-        auto unit = new AuricHearthguard();
+        auto unit = new AuricHearthguard(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
@@ -95,7 +93,8 @@ namespace Fyreslayers {
         return Fyreslayer::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int AuricHearthguard::ComputePoints(int numModels) {
+    int AuricHearthguard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

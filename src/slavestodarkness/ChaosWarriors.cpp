@@ -27,7 +27,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
 
-        return new ChaosWarriors(legion, mark, numModels, weapons, standardBearer, hornblower);
+        return new ChaosWarriors(legion, mark, numModels, weapons, standardBearer, hornblower, ComputePoints(parameters));
     }
 
     void ChaosWarriors::Init() {
@@ -55,8 +55,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosWarriors::ChaosWarriors(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool standardBearer, bool hornblower) :
-            SlavesToDarknessBase("Chaos Warriors", 5, g_wounds, 7, 4, false) {
+    ChaosWarriors::ChaosWarriors(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool standardBearer, bool hornblower, int points) :
+            SlavesToDarknessBase("Chaos Warriors", 5, g_wounds, 7, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_WARRIORS};
         m_weapons = {&m_handWeapons, &m_halberd, &m_greatBlade, &m_handWeaponsChampion, &m_halberdChampion,
                      &m_greatBladeChampion};
@@ -124,8 +124,6 @@ namespace SlavesToDarkness {
                 model->addMeleeWeapon(&m_handWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     std::string ChaosWarriors::ValueToString(const Parameter &parameter) {
@@ -203,7 +201,8 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::toSaveRerolls(weapon, attacker);
     }
 
-    int ChaosWarriors::ComputePoints(int numModels) {
+    int ChaosWarriors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

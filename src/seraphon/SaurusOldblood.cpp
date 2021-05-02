@@ -18,7 +18,7 @@ namespace Seraphon {
     bool SaurusOldblood::s_registered = false;
 
     SaurusOldblood::SaurusOldblood(WayOfTheSeraphon way, Constellation constellation, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Saurus Oldblood", 5, g_wounds, 8, 3, false) {
+            SeraphonBase("Saurus Oldblood", 5, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SAURUS, HERO, OLDBLOOD};
         m_weapons = {&m_maul, &m_warblade, &m_warspear, &m_greatblade, &m_jaws};
         m_battleFieldRole = Role::Leader;
@@ -44,8 +44,6 @@ namespace Seraphon {
         m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Wrath of the Seraphon", 18, 18, GamePhase::Combat,
                                                                                   Attribute::To_Hit_Melee, 1, Abilities::Target::SelfAndFriendly,
                                                                                   std::vector<Keyword>(SAURUS)));
-
-        m_points = ComputePoints(1);
     }
 
     Unit *SaurusOldblood::Create(const ParameterList &parameters) {
@@ -114,7 +112,7 @@ namespace Seraphon {
         return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int SaurusOldblood::ComputePoints(int /*numModels*/) {
+    int SaurusOldblood::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

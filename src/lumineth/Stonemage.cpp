@@ -63,7 +63,7 @@ namespace LuminethRealmLords {
         return unit;
     }
 
-    int AlarithStonemage::ComputePoints(int /*numModels*/) {
+    int AlarithStonemage::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -90,7 +90,7 @@ namespace LuminethRealmLords {
     }
 
     AlarithStonemage::AlarithStonemage() :
-            LuminethBase("Alarith Stonemage", 6, g_wounds, 8, 5, false),
+            LuminethBase("Alarith Stonemage", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Staff of the High Peaks", 3, RAND_D3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, AELEMENTIRI, ALARITH, HERO, WIZARD, STONEMAGE};
         m_weapons = {&m_staff};
@@ -108,8 +108,6 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 
     void AlarithStonemage::onStartCombat(PlayerId player) {

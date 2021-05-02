@@ -153,8 +153,8 @@ namespace Khorne {
         void setArtefact(Artefact artefact);
 
     protected:
-        KhorneBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly) :
-                Unit(name, move, wounds, bravery, save, fly) {}
+        KhorneBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {}
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

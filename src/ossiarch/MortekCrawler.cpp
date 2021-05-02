@@ -56,7 +56,7 @@ namespace OssiarchBonereapers {
     }
 
     MortekCrawler::MortekCrawler(Legion legion) :
-            OssiarchBonereaperBase("Mortek Crawler", 4, g_wounds, 10, 4, false) {
+            OssiarchBonereaperBase("Mortek Crawler", 4, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, WAR_MACHINE, MORTEK_CRAWLER};
         m_weapons = {&m_catapultSkulls, &m_catapultCauldron, &m_catapultSkulls, &m_tools};
         m_battleFieldRole = Role::Artillery_Behemoth;
@@ -73,8 +73,6 @@ namespace OssiarchBonereapers {
         m_catapultStele.activate(false);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void MortekCrawler::onWounded() {
@@ -94,7 +92,7 @@ namespace OssiarchBonereapers {
         return 0;
     }
 
-    int MortekCrawler::ComputePoints(int /*numModels*/) {
+    int MortekCrawler::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

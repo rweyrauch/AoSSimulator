@@ -21,8 +21,8 @@ namespace Sylvaneth {
 
     bool Dryads::s_registered = false;
 
-    Dryads::Dryads(Glade glade, int numModels) :
-            SylvanethBase("Dryads", 7, g_wounds, 6, 5, false),
+    Dryads::Dryads(Glade glade, int numModels, int points) :
+            SylvanethBase("Dryads", 7, g_wounds, 6, 5, false, points),
             m_wrackingTalons(Weapon::Type::Melee, "Wracking Talons", 2, 2, 4, 4, 0, 1),
             m_wrackingTalonsNymph(Weapon::Type::Melee, "Wracking Talons", 2, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, SYLVANETH, FOREST_FOLK, DRYADS};
@@ -42,14 +42,12 @@ namespace Sylvaneth {
         }
 
         m_ranks = std::max(1, (numModels / g_minUnitSize) / 2);
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Dryads::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto glade = (Glade) GetEnumParam("Glade", parameters, g_glade[0]);
-        return new Dryads(glade, numModels);
+        return new Dryads(glade, numModels, ComputePoints(parameters));
     }
 
     void Dryads::Init() {
@@ -91,7 +89,8 @@ namespace Sylvaneth {
         return modifier;
     }
 
-    int Dryads::ComputePoints(int numModels) {
+    int Dryads::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

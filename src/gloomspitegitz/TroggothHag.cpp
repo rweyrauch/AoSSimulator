@@ -38,7 +38,7 @@ namespace GloomspiteGitz {
             };
 
     TroggothHag::TroggothHag() :
-            GloomspiteGitzBase("Troggoth Hag", RAND_4D6, g_wounds, 10, 5, false),
+            GloomspiteGitzBase("Troggoth Hag", RAND_4D6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_vomit(Weapon::Type::Missile, "Copious Vomit", 10, 6, 3, 3, -2, RAND_D3),
             m_staff(Weapon::Type::Melee, "Deadwood Staff", 2, 4, 4, 2, -1, 3),
             m_bulk(Weapon::Type::Melee, "Crushing Bulk", 1, RAND_D3, 4, 3, 0, RAND_D6) {
@@ -139,7 +139,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    int TroggothHag::ComputePoints(int /*numModels*/) {
+    int TroggothHag::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

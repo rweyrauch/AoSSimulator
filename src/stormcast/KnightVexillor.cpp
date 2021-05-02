@@ -19,7 +19,7 @@ namespace StormcastEternals {
     bool KnightVexillor::s_registered = false;
 
     KnightVexillor::KnightVexillor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Knight-Vexillor", 5, g_wounds, 8, 3, false),
+            StormcastEternal(stormhost, "Knight-Vexillor", 5, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 4, 4, 3, 0, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, TOTEM, KNIGHT_VEXILLOR};
         m_weapons = {&m_warhammer};
@@ -77,7 +77,7 @@ namespace StormcastEternals {
         return Rerolls::None;
     }
 
-    int KnightVexillor::ComputePoints(int /*numModels*/) {
+    int KnightVexillor::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

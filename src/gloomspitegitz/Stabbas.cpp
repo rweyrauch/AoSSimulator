@@ -20,8 +20,8 @@ namespace GloomspiteGitz {
 
     bool Stabbas::s_registered = false;
 
-    Stabbas::Stabbas() :
-            GloomspiteGitzBase("Stabbas", 5, g_wounds, 4, 6, false),
+    Stabbas::Stabbas(int points) :
+            GloomspiteGitzBase("Stabbas", 5, g_wounds, 4, 6, false, points),
             m_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1),
             m_stabbaBoss(Weapon::Type::Melee, "Stabba", 1, 1, 3, 4, 0, 1),
             m_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1),
@@ -91,13 +91,11 @@ namespace GloomspiteGitz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *Stabbas::Create(const ParameterList &parameters) {
-        auto unit = new Stabbas();
+        auto unit = new Stabbas(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stabba);
         WeaponOption bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, Stabba);
@@ -222,7 +220,8 @@ namespace GloomspiteGitz {
         return modifier;
     }
 
-    int Stabbas::ComputePoints(int numModels) {
+    int Stabbas::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

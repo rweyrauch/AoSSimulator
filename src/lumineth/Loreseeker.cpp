@@ -28,7 +28,7 @@ namespace LuminethRealmLords {
         return new ScinariLoreseeker(nation, lore, trait, artefact, general);
     }
 
-    int ScinariLoreseeker::ComputePoints(int /*numModels*/) {
+    int ScinariLoreseeker::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -55,7 +55,7 @@ namespace LuminethRealmLords {
     }
 
     ScinariLoreseeker::ScinariLoreseeker(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Scinari Loreseeker", 6, g_wounds, 8, 4, false) {
+            LuminethBase("Scinari Loreseeker", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, HERO, WIZARD, LORESEEKER};
         m_weapons = {&m_staff, &m_blade};
         m_battleFieldRole = Role::Leader;
@@ -75,7 +75,5 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 }

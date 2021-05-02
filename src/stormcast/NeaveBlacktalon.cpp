@@ -18,7 +18,7 @@ namespace StormcastEternals {
     bool NeaveBlacktalon::s_registered = false;
 
     NeaveBlacktalon::NeaveBlacktalon(bool isGeneral) :
-            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Neave Blacktalon", 6, g_wounds, 9, 3, false),
+            StormcastEternal(Stormhost::Hammers_Of_Sigmar, "Neave Blacktalon", 6, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_boltstormPistol(Weapon::Type::Missile, "Boltstorm Pistol", 9, 2, 3, 3, 0, 1),
             m_whirlwindAxes(Weapon::Type::Melee, "The Whirlwind Axes", 1, 7, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, HERO, KNIGHT_ZEPHYROS,
@@ -79,7 +79,7 @@ namespace StormcastEternals {
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int NeaveBlacktalon::ComputePoints(int /*numModels*/) {
+    int NeaveBlacktalon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

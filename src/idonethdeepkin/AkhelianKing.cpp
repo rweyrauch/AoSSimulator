@@ -18,7 +18,7 @@ namespace IdonethDeepkin {
     bool AkhelianKing::s_registered = false;
 
     AkhelianKing::AkhelianKing() :
-            IdonethDeepkinBase("Akhelian King", 14, g_wounds, 8, 3, true),
+            IdonethDeepkinBase("Akhelian King", 14, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_bladedPolearm(Weapon::Type::Melee, "Bladed Polearm", 2, 3, 3, 3, -2, RAND_D3),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 4, 3, 3, -1, RAND_D3),
             m_falchion(Weapon::Type::Melee, "Falchion", 1, 3, 3, 4, 0, 1),
@@ -136,7 +136,7 @@ namespace IdonethDeepkin {
         Unit::onCharged();
     }
 
-    int AkhelianKing::ComputePoints(int /*numModels*/) {
+    int AkhelianKing::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -78,7 +78,7 @@ namespace CitiesOfSigmar {
     }
 
     SteamTank::SteamTank() :
-            CitizenOfSigmar("Steam Tank", RAND_2D6, g_wounds, 8, 3, false),
+            CitizenOfSigmar("Steam Tank", RAND_2D6, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_steamCannon(Weapon::Type::Missile, "Steam Cannon", 30, 1, 4, 2, -2, RAND_D6),
             m_steamGun(Weapon::Type::Missile, "Steam Gun", 8, RAND_2D6, 4, 2, 0, 1),
             m_longRifle(Weapon::Type::Missile, "Long Rifle", 30, 1, 3, 3, -1, 2),
@@ -191,7 +191,7 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int SteamTank::ComputePoints(int /*numModels*/) {
+    int SteamTank::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

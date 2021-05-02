@@ -20,8 +20,8 @@ namespace Ironjawz {
 
     bool OrrukArdboys::s_registered = false;
 
-    OrrukArdboys::OrrukArdboys() :
-            Ironjawz("Orruk Ardboys", 4, g_wounds, 6, 4, false),
+    OrrukArdboys::OrrukArdboys(int points) :
+            Ironjawz("Orruk Ardboys", 4, g_wounds, 6, 4, false, points),
             m_choppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 2, 3, 3, -1, 1),
             m_bossChoppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 4, 3, 3, -1, 1) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, ARDBOYS};
@@ -70,13 +70,11 @@ namespace Ironjawz {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *OrrukArdboys::Create(const ParameterList &parameters) {
-        auto unit = new OrrukArdboys();
+        auto unit = new OrrukArdboys(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numShields = GetIntParam("Shields", parameters, 0);
         bool drummer = GetBoolParam("Drummer", parameters, false);
@@ -173,7 +171,8 @@ namespace Ironjawz {
         return Ironjawz::EnumStringToInt(enumString);
     }
 
-    int OrrukArdboys::ComputePoints(int numModels) {
+    int OrrukArdboys::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

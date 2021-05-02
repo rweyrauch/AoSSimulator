@@ -21,8 +21,8 @@ namespace Skaven {
 
     bool PlagueMonks::s_registered = false;
 
-    PlagueMonks::PlagueMonks() :
-            Skaventide("Plague Monks", 6, g_wounds, 5, 6, false),
+    PlagueMonks::PlagueMonks(int points) :
+            Skaventide("Plague Monks", 6, g_wounds, 5, 6, false, points),
             m_pairedBlades(Weapon::Type::Melee, "Pair of Foetid Blade", 1, 2, 4, 4, 0, 1),
             m_bladeAndStave(Weapon::Type::Melee, "Foetid Blade Woe-stave", 2, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, PLAGUE_MONKS};
@@ -65,13 +65,11 @@ namespace Skaven {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *PlagueMonks::Create(const ParameterList &parameters) {
-        auto unit = new PlagueMonks();
+        auto unit = new PlagueMonks(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Paired_Foetid_Blades);
         int numBanners = GetIntParam("Standard Bearers", parameters, 1);
@@ -168,7 +166,8 @@ namespace Skaven {
         return 0;
     }
 
-    int PlagueMonks::ComputePoints(int numModels) {
+    int PlagueMonks::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

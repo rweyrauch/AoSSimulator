@@ -56,7 +56,7 @@ namespace Death {
         return unit;
     }
 
-    int CovenThrone::ComputePoints(int /*numModels*/) {
+    int CovenThrone::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -82,7 +82,7 @@ namespace Death {
     }
 
     CovenThrone::CovenThrone() :
-            LegionOfNagashBase("Coven Throne", 14, g_wounds, 10, 4, true),
+            LegionOfNagashBase("Coven Throne", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_bite(Weapon::Type::Melee, "Vampire Queen's Predatory Bite", 1, 1, 3, 4, 0, RAND_D3),
             m_stiletto(Weapon::Type::Melee, "Vampire Queen's Stiletto", 1, 4, 3, 3, -1, 1),
             m_poniards(Weapon::Type::Melee, "Handmaidens' Needle-sharp Poniards", 1, 8, 3, 3, 0, 1),

@@ -20,7 +20,7 @@ namespace KharadronOverlords {
     bool GrundstokThunderers::s_registered = false;
 
     Unit *GrundstokThunderers::Create(const ParameterList &parameters) {
-        auto unit = new GrundstokThunderers();
+        auto unit = new GrundstokThunderers(ComputePoints(parameters));
         int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numMortars = GetIntParam("Grundstok Mortars", parameters, 1);
         int numCannons = GetIntParam("Aethercannons", parameters, 1);
@@ -78,8 +78,8 @@ namespace KharadronOverlords {
         }
     }
 
-    GrundstokThunderers::GrundstokThunderers() :
-            KharadronBase("Grundstok Thunderers", 4, g_wounds, 7, 4, false),
+    GrundstokThunderers::GrundstokThunderers(int points) :
+            KharadronBase("Grundstok Thunderers", 4, g_wounds, 7, 4, false, points),
             m_rifle(Weapon::Type::Missile, "Aethershot Rifle", 18, 2, 3, 4, -1, 1),
             m_doubleBarrelledRifle(Weapon::Type::Missile, "Double-barrelled Aethershot Rifle", 18, 4, 3, 4, -1, 1),
             m_fumigator(Weapon::Type::Missile, "Aetheric Fumigator", 9, 3, 3, 3, -1, 1),
@@ -143,12 +143,11 @@ namespace KharadronOverlords {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
-    int GrundstokThunderers::ComputePoints(int numModels) {
+    int GrundstokThunderers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

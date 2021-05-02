@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *CorvusCabal::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new CorvusCabal(legion, numModels);
+        return new CorvusCabal(legion, numModels, ComputePoints(parameters));
     }
 
     void CorvusCabal::Init() {
@@ -43,8 +43,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    CorvusCabal::CorvusCabal(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Corvus Cabal", 8, g_wounds, 5, 6, true) {
+    CorvusCabal::CorvusCabal(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Corvus Cabal", 8, g_wounds, 5, 6, true, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CORVUS_CABAL};
         m_weapons = {&m_ravenDarts, &m_corvusWeapons, &m_corvusWeaponsLeader};
 
@@ -68,8 +68,6 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_corvusWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Rerolls CorvusCabal::chargeRerolls() const {
@@ -79,7 +77,8 @@ namespace SlavesToDarkness {
         return SlavesToDarknessBase::chargeRerolls();
     }
 
-    int CorvusCabal::ComputePoints(int numModels) {
+    int CorvusCabal::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

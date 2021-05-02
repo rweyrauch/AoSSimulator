@@ -40,7 +40,7 @@ namespace Skaven {
     }
 
     Plagueclaw::Plagueclaw() :
-            Skaventide("Plagueclaw", 3, g_wounds, 4, 5, false),
+            Skaventide("Plagueclaw", 3, g_wounds, 4, 5, false, g_pointsPerUnit),
             m_catapult(Weapon::Type::Missile, "Plagueclaw Catapult", 31, 1, 3, 3, -2, RAND_D6),
             m_knives(Weapon::Type::Melee, "Rusty Knives", 1, RAND_D6, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, WAR_MACHINE, PLAGUECLAW};
@@ -53,8 +53,6 @@ namespace Skaven {
         model->addMissileWeapon(&m_catapult);
         model->addMeleeWeapon(&m_knives);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int Plagueclaw::toHitModifier(const Weapon *weapon, const Unit *target) const {
@@ -76,7 +74,7 @@ namespace Skaven {
         return wounds;
     }
 
-    int Plagueclaw::ComputePoints(int /*numModels*/) {
+    int Plagueclaw::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -38,7 +38,7 @@ namespace StormcastEternals {
     bool LordCelestantOnStardrake::s_registered = false;
 
     LordCelestantOnStardrake::LordCelestantOnStardrake(Stormhost stormhost, WeaponOption weapons, CommandTrait trait, Artefact artefact, MountTrait mountTrait, bool isGeneral) :
-            MountedStormcastEternal(stormhost, "Lord-Celestant on Stardrake", 12, g_wounds, 9, 3, true),
+            MountedStormcastEternal(stormhost, "Lord-Celestant on Stardrake", 12, g_wounds, 9, 3, true, g_pointsPerUnit),
             m_celestineHammer(Weapon::Type::Melee, "Celestine Hammer", 2, 3, 3, 2, -1, RAND_D3),
             m_stormboundBlade(Weapon::Type::Melee, "Stormbound Blade", 2, 3, 3, 4, -1, 2),
             m_greatClaws(Weapon::Type::Melee, "Great Claws", 1, 4, 3, 3, -1, RAND_D3) {
@@ -273,7 +273,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int LordCelestantOnStardrake::ComputePoints(int /*numModels*/) {
+    int LordCelestantOnStardrake::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

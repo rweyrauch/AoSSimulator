@@ -73,7 +73,7 @@ namespace Skaven {
     }
 
     VerminlordWarbringer::VerminlordWarbringer() :
-            Skaventide("Verminlord Warbringer", 12, g_wounds, 10, 4, false),
+            Skaventide("Verminlord Warbringer", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_tails(Weapon::Type::Missile, "Prehensile Tails", 6, 4, 3, 3, -1, 1),
             m_glaive(Weapon::Type::Melee, "Doom Glaive", 3, 6, 3, 3, -1, RAND_D3),
             m_fist(Weapon::Type::Melee, "Spike-fist", 1, 1, 3, 2, -2, 2) {
@@ -102,8 +102,6 @@ namespace Skaven {
         //m_knownSpells.push_back(std::make_unique<DreadedDeathFrenzy>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds VerminlordWarbringer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -171,7 +169,7 @@ namespace Skaven {
         return 0;
     }
 
-    int VerminlordWarbringer::ComputePoints(int /*numModels*/) {
+    int VerminlordWarbringer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

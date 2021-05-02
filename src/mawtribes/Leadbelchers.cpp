@@ -28,7 +28,7 @@ namespace OgorMawtribes {
         if (AreValid(parameters)) {
             int numModels = GetIntParam("Models", parameters, g_minUnitSize);
             auto tribe = (Mawtribe) GetEnumParam("Mawtribe", parameters, g_mawtribe[0]);
-            return new Leadbelchers(tribe, numModels);
+            return new Leadbelchers(tribe, numModels, ComputePoints(parameters));
         }
         return nullptr;
     }
@@ -51,8 +51,8 @@ namespace OgorMawtribes {
         }
     }
 
-    Leadbelchers::Leadbelchers(Mawtribe tribe, int numModels) :
-            MawtribesBase(tribe, "Leadbelchers", 6, g_wounds, 6, 5, false) {
+    Leadbelchers::Leadbelchers(Mawtribe tribe, int numModels, int points) :
+            MawtribesBase(tribe, "Leadbelchers", 6, g_wounds, 6, 5, false, points) {
         m_keywords = {DESTRUCTION, OGOR, OGOR_MAWTRIBES, GUTBUSTERS, LEADBELCHERS};
         m_weapons = {&m_gun, &m_blow, &m_bite, &m_blowThunderfist};
 
@@ -74,8 +74,6 @@ namespace OgorMawtribes {
             model->addMeleeWeapon(&m_bite);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     void Leadbelchers::onStartShooting(PlayerId player) {
@@ -88,7 +86,8 @@ namespace OgorMawtribes {
         }
     }
 
-    int Leadbelchers::ComputePoints(int numModels) {
+    int Leadbelchers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -17,11 +17,11 @@ namespace Dispossessed {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Hammerers();
+        Hammerers(int points);
 
         ~Hammerers() override = default;
 

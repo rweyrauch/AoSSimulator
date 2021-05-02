@@ -35,7 +35,7 @@ namespace BeastsOfChaos {
             };
 
     Cygor::Cygor(Greatfray fray) :
-            BeastsOfChaosBase("Cygor", 8, g_wounds, 7, 5, false),
+            BeastsOfChaosBase("Cygor", 8, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_desecratedBoulder(Weapon::Type::Missile, "Desecrated Boulder", 18, 1, 4, 2, -2, RAND_D6),
             m_massiveHorns(Weapon::Type::Melee, "Massive Horns", 2, 8, 4, 3, -1, 1) {
         m_keywords = {CHAOS, BULLGOR, BEASTS_OF_CHAOS, WARHERD, MONSTER, CYGOR};
@@ -107,7 +107,7 @@ namespace BeastsOfChaos {
         return BeastsOfChaosBase::toHitRerolls(weapon, target);
     }
 
-    int Cygor::ComputePoints(int /*numModels*/) {
+    int Cygor::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

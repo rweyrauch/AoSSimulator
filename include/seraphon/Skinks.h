@@ -28,11 +28,11 @@ namespace Seraphon {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
-        Skinks(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons);
+        Skinks(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, int points);
 
         Skinks() = delete;
 

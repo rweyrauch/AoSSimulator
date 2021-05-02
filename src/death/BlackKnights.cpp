@@ -20,8 +20,8 @@ namespace Death {
 
     bool BlackKnights::s_registered = false;
 
-    BlackKnights::BlackKnights() :
-            LegionOfNagashBase("Black Knights", 12, g_wounds, 10, 5, false),
+    BlackKnights::BlackKnights(int points) :
+            LegionOfNagashBase("Black Knights", 12, g_wounds, 10, 5, false, points),
             m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1),
             m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 1, 3, 3, 4, 0, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
@@ -63,13 +63,11 @@ namespace Death {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *BlackKnights::Create(const ParameterList &parameters) {
-        auto unit = new BlackKnights();
+        auto unit = new BlackKnights(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -134,7 +132,8 @@ namespace Death {
         return modifier;
     }
 
-    int BlackKnights::ComputePoints(int numModels) {
+    int BlackKnights::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

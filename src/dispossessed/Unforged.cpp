@@ -18,7 +18,7 @@ namespace Dispossessed {
     bool Unforged::s_registered = false;
 
     Unforged::Unforged() :
-            Dispossessed("Unforged", 4, g_wounds, 10, 6, false),
+            Dispossessed("Unforged", 4, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_runicAxes(Weapon::Type::Melee, "Runic Axes", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, UNFORGED};
         m_weapons = {&m_runicAxes};
@@ -83,7 +83,7 @@ namespace Dispossessed {
         return modifier;
     }
 
-    int Unforged::ComputePoints(int /*numModels*/) {
+    int Unforged::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

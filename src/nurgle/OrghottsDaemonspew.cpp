@@ -49,7 +49,7 @@ namespace Nurgle {
     }
 
     OrghottsDaemonspew::OrghottsDaemonspew() :
-            NurgleBase("Orghotts Daemonspew", 10, g_wounds, 9, 3, false),
+            NurgleBase("Orghotts Daemonspew", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_tongue(Weapon::Type::Missile, "Whippermaw's Grasping Tongue", 6, 1, 3, 2, -1, RAND_D6),
             m_rotaxes(Weapon::Type::Melee, "The Rotaxes", 2, 5, 3, 3, -1, 1),
             m_claws(Weapon::Type::Melee, "Whippermaw's Monstrous Claws", 3, 5, 4, 2, -1, 1) {
@@ -67,8 +67,6 @@ namespace Nurgle {
         model->addMeleeWeapon(&m_rotaxes);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int OrghottsDaemonspew::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
@@ -80,7 +78,7 @@ namespace Nurgle {
         return extra;
     }
 
-    int OrghottsDaemonspew::ComputePoints(int /*numModels*/) {
+    int OrghottsDaemonspew::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

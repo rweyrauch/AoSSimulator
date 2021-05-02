@@ -18,7 +18,7 @@ namespace Death {
     bool WightKingWithBlackAxe::s_registered = false;
 
     WightKingWithBlackAxe::WightKingWithBlackAxe() :
-            LegionOfNagashBase("Wight King with Black Axe", 4, g_wounds, 10, 4, false),
+            LegionOfNagashBase("Wight King with Black Axe", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
         m_weapons = {&m_blackAxe};
@@ -77,7 +77,7 @@ namespace Death {
         return {(wounds.normal + 1) / 2, wounds.mortal};
     }
 
-    int WightKingWithBlackAxe::ComputePoints(int /*numModels*/) {
+    int WightKingWithBlackAxe::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

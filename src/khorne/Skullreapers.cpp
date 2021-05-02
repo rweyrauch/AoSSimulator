@@ -20,8 +20,8 @@ namespace Khorne {
 
     bool Skullreapers::s_registered = false;
 
-    Skullreapers::Skullreapers(SlaughterHost host, int numModels, bool iconBearer) :
-            KhorneBase("Skullreapers", 5, g_wounds, 7, 4, false) {
+    Skullreapers::Skullreapers(SlaughterHost host, int numModels, bool iconBearer, int points) :
+            KhorneBase("Skullreapers", 5, g_wounds, 7, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, KHORNE, BLOODBOUND, SKULLREAPERS};
         m_weapons = {&m_blades, &m_viciousMutation};
 
@@ -47,8 +47,6 @@ namespace Khorne {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Unit *Skullreapers::Create(const ParameterList &parameters) {
@@ -56,7 +54,7 @@ namespace Khorne {
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, true);
         auto host = (SlaughterHost) GetEnumParam("Slaughter Host", parameters, g_slaughterHost[0]);
 
-        return new Skullreapers(host, numModels, iconBearer);
+        return new Skullreapers(host, numModels, iconBearer, ComputePoints(parameters));
     }
 
     void Skullreapers::Init() {
@@ -95,7 +93,8 @@ namespace Khorne {
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Skullreapers::ComputePoints(int numModels) {
+    int Skullreapers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

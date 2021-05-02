@@ -20,8 +20,8 @@ namespace Seraphon {
 
     bool SaurusWarriors::s_registered = false;
 
-    SaurusWarriors::SaurusWarriors(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, bool iconBearer, bool wardrum) :
-            SeraphonBase("Saurus Warriors", 5, g_wounds, 8, 4, false) {
+    SaurusWarriors::SaurusWarriors(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, bool iconBearer, bool wardrum, int points) :
+            SeraphonBase("Saurus Warriors", 5, g_wounds, 8, 4, false, points) {
         m_keywords = {ORDER, SERAPHON, SAURUS, SAURUS_WARRIORS};
         m_weapons = {&m_celestiteClub, &m_celestiteClubAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws};
         m_battleFieldRole = Role::Battleline;
@@ -60,8 +60,6 @@ namespace Seraphon {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     SaurusWarriors::~SaurusWarriors() {
@@ -76,7 +74,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new SaurusWarriors(way, constellation, numModels, weapons, iconBearer, wardrum);
+        return new SaurusWarriors(way, constellation, numModels, weapons, iconBearer, wardrum, ComputePoints(parameters));
     }
 
     std::string SaurusWarriors::ValueToString(const Parameter &parameter) {
@@ -128,7 +126,8 @@ namespace Seraphon {
         return extra;
     }
 
-    int SaurusWarriors::ComputePoints(int numModels) {
+    int SaurusWarriors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

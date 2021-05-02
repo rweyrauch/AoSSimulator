@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool EvocatorsOnCelestialDracolines::s_registered = false;
 
-    EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore) :
-            StormcastEternal(stormhost, "Evocators on Celestial Dracolines", 12, g_wounds, 8, 4, false),
+    EvocatorsOnCelestialDracolines::EvocatorsOnCelestialDracolines(Stormhost stormhost, int numModels, int numGrandstaves, bool primeGrandstave, Lore lore, int points) :
+            StormcastEternal(stormhost, "Evocators on Celestial Dracolines", 12, g_wounds, 8, 4, false, points),
             m_tempestBladeAndStave(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 4, 3, 3, -1, 1),
             m_tempestBladeAndStavePrime(Weapon::Type::Melee, "Tempest Blade and Stormstave", 1, 5, 3, 3, -1, 1),
             m_grandStave(Weapon::Type::Melee, "Grandstave", 2, 3, 3, 3, 0, 2),
@@ -67,8 +67,6 @@ namespace StormcastEternals {
 
         m_knownSpells.push_back(std::make_unique<Empower>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
-
-        m_points = ComputePoints(numModels);
     }
 
     EvocatorsOnCelestialDracolines::~EvocatorsOnCelestialDracolines() {
@@ -118,7 +116,7 @@ namespace StormcastEternals {
             // Invalid weapon configuration.
             return nullptr;
         }
-        return new EvocatorsOnCelestialDracolines(stormhost, numModels, numGrandstaves, primeGrandstave, invigoration);
+        return new EvocatorsOnCelestialDracolines(stormhost, numModels, numGrandstaves, primeGrandstave, invigoration, ComputePoints(parameters));
     }
 
     void EvocatorsOnCelestialDracolines::Init() {
@@ -157,7 +155,8 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    int EvocatorsOnCelestialDracolines::ComputePoints(int numModels) {
+    int EvocatorsOnCelestialDracolines::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

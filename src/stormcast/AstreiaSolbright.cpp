@@ -21,7 +21,7 @@ namespace StormcastEternals {
     bool AstreiaSolbright::s_registered = false;
 
     AstreiaSolbright::AstreiaSolbright(Lore lore, MountTrait trait, bool isGeneral) :
-            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Astreia Solblight", 12, g_wounds, 9, 3, false),
+            MountedStormcastEternal(Stormhost::Hammers_Of_Sigmar, "Astreia Solblight", 12, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_aetherstave(Weapon::Type::Melee, "Aetherstave", 2, 4, 3, 3, -1, RAND_D3),
             m_monstrousClaws(Weapon::Type::Melee, "Monstrous Claws", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, DRACOLINE, STORMCAST_ETERNAL, HAMMERS_OF_SIGMAR, SACROSANCT, HERO,
@@ -116,7 +116,7 @@ namespace StormcastEternals {
         return 0;
     }
 
-    int AstreiaSolbright::ComputePoints(int /*numModels*/) {
+    int AstreiaSolbright::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

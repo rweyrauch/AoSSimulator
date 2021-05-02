@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
             };
 
     ManglerSquigs::ManglerSquigs() :
-            GloomspiteGitzBase("Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true),
+            GloomspiteGitzBase("Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6),
             m_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3),
             m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1) {
@@ -128,7 +128,7 @@ namespace GloomspiteGitz {
         GloomspiteGitzBase::onFriendlyUnitSlain(nullptr);
     }
 
-    int ManglerSquigs::ComputePoints(int /*numModels*/) {
+    int ManglerSquigs::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

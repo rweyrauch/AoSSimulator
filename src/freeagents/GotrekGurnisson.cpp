@@ -17,7 +17,7 @@ namespace FreeAgent {
     bool GotrekGurnisson::s_registered = false;
 
     GotrekGurnisson::GotrekGurnisson() :
-            Unit("Gotrek Gurnisson", 4, g_wounds, 10, 4, false),
+            Unit("Gotrek Gurnisson", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_zangromThaz(Weapon::Type::Melee, "Zangrom-Thaz", 1, 6, 3, 3, -2, 3) {
         m_keywords = {ORDER, DUARDIN, HERO, GOTREK_GURNISSON};
         m_weapons = {&m_zangromThaz};
@@ -121,7 +121,7 @@ namespace FreeAgent {
         Unit::onEndCombat(player);
     }
 
-    int GotrekGurnisson::ComputePoints(int /*numModels*/) {
+    int GotrekGurnisson::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

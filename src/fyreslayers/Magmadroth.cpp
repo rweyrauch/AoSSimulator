@@ -28,8 +28,8 @@ namespace Fyreslayers {
                     {6,  RAND_3D6, 2}
             };
 
-    Magmadroth::Magmadroth(const std::string &name, int bravery) :
-            Fyreslayer(name, 12, g_wounds, bravery, 4, false),
+    Magmadroth::Magmadroth(const std::string &name, int bravery, int points) :
+            Fyreslayer(name, 12, g_wounds, bravery, 4, false, points),
             m_fyrestream(Weapon::Type::Missile, "", 12, 1, 0, 0, 0, 0),
             m_clawsAndHorns(Weapon::Type::Melee, "Claws and Horns", 1, 6, 4, 3, -1, 2),
             m_blazingMaw(Weapon::Type::Melee, "Blazing Maw", 1, 1, 4, 2, -2, RAND_D3) {

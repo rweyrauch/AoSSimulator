@@ -22,7 +22,7 @@ namespace SlavesToDarkness {
     Unit *UntamedBeasts::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
-        return new UntamedBeasts(legion, numModels);
+        return new UntamedBeasts(legion, numModels, ComputePoints(parameters));
     }
 
     void UntamedBeasts::Init() {
@@ -44,8 +44,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    UntamedBeasts::UntamedBeasts(DamnedLegion legion, int numModels) :
-            SlavesToDarknessBase("Untamed Beasts", 6, g_wounds, 5, 6, false) {
+    UntamedBeasts::UntamedBeasts(DamnedLegion legion, int numModels, int points) :
+            SlavesToDarknessBase("Untamed Beasts", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, UNTAMED_BEASTS};
         m_weapons = {&m_harpoonFirstFang, &m_huntingWeapons, &m_huntingWeaponsHeartEater};
 
@@ -75,11 +75,10 @@ namespace SlavesToDarkness {
             model->addMeleeWeapon(&m_huntingWeapons);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
-    int UntamedBeasts::ComputePoints(int numModels) {
+    int UntamedBeasts::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

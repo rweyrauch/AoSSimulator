@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool WildRiders::s_registered = false;
 
     Unit *WildRiders::Create(const ParameterList &parameters) {
-        auto unit = new WildRiders();
+        auto unit = new WildRiders(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -66,8 +66,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    WildRiders::WildRiders() :
-            CitizenOfSigmar("Wild Riders", 12, g_wounds, 8, 5, false),
+    WildRiders::WildRiders(int points) :
+            CitizenOfSigmar("Wild Riders", 12, g_wounds, 8, 5, false, points),
             m_spear(Weapon::Type::Melee, "Hunting Spear", 2, 2, 3, 4, -1, 1),
             m_hooves(Weapon::Type::Melee, "Antlers and Hooves", 1, 2, 4, 4, 0, 1),
             m_spearHunter(Weapon::Type::Melee, "Hunting Spear", 2, 3, 3, 4, -1, 1) {
@@ -103,8 +103,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }
@@ -144,7 +142,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int WildRiders::ComputePoints(int numModels) {
+    int WildRiders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

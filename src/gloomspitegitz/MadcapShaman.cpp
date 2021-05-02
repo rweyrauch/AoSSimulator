@@ -20,7 +20,7 @@ namespace GloomspiteGitz {
     bool MadcapShaman::s_registered = false;
 
     MadcapShaman::MadcapShaman() :
-            GloomspiteGitzBase("Madcap Shaman", 5, g_wounds, 4, 6, false),
+            GloomspiteGitzBase("Madcap Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_moonStaff(Weapon::Type::Melee, "Moon Staff", 2, 1, 4, 4, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN};
         m_weapons = {&m_moonStaff};
@@ -98,7 +98,7 @@ namespace GloomspiteGitz {
         return GloomspiteGitzBase::EnumStringToInt(enumString);
     }
 
-    int MadcapShaman::ComputePoints(int /*numModels*/) {
+    int MadcapShaman::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

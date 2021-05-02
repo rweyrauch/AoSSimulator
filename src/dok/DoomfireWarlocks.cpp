@@ -51,8 +51,8 @@ namespace DaughtersOfKhaine {
 
     bool DoomfireWarlocks::s_registered = false;
 
-    DoomfireWarlocks::DoomfireWarlocks() :
-            DaughterOfKhaine("Doomfire Warlocks", 14, g_wounds, 6, 5, false),
+    DoomfireWarlocks::DoomfireWarlocks(int points) :
+            DaughterOfKhaine("Doomfire Warlocks", 14, g_wounds, 6, 5, false, points),
             m_crossBow(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 4, 4, 0, 1),
             m_scimitar(Weapon::Type::Melee, "Cursed Scimitar", 1, 2, 4, 4, -1, 1),
             m_crossBowMaster(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 3, 4, 0, 1),
@@ -94,13 +94,11 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *DoomfireWarlocks::Create(const ParameterList &parameters) {
-        auto unit = new DoomfireWarlocks();
+        auto unit = new DoomfireWarlocks(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool crossbows = GetBoolParam("Crossbows", parameters, false);
 
@@ -134,7 +132,8 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int DoomfireWarlocks::ComputePoints(int numModels) {
+    int DoomfireWarlocks::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

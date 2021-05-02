@@ -21,7 +21,7 @@ namespace KharadronOverlords {
     bool Endrinriggers::s_registered = false;
 
     Unit *Endrinriggers::Create(const ParameterList &parameters) {
-        auto unit = new Endrinriggers();
+        auto unit = new Endrinriggers(ComputePoints(parameters));
         int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numVolleyGuns = GetIntParam("Volley Guns", parameters, 1);
         int numDrills = GetIntParam("Drill Launchers", parameters, 0);
@@ -77,8 +77,8 @@ namespace KharadronOverlords {
         }
     }
 
-    Endrinriggers::Endrinriggers() :
-            KharadronBase("Endrinriggers", 12, g_wounds, 7, 4, true),
+    Endrinriggers::Endrinriggers(int points) :
+            KharadronBase("Endrinriggers", 12, g_wounds, 7, 4, true, points),
             m_volleyGun(Weapon::Type::Missile, "Aeathermatic Volley Gun", 24, 6, 4, 4, -1, 1),
             m_skyhook(Weapon::Type::Missile, "Grapnel Launcher or Skyhook", 24, 1, 4, 3, -2, 3),
             m_drillLauncher(Weapon::Type::Missile, "Drill Launcher", 24, 1, 4, 3, -3, RAND_D3),
@@ -149,8 +149,6 @@ namespace KharadronOverlords {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -176,7 +174,8 @@ namespace KharadronOverlords {
         return mod;
     }
 
-    int Endrinriggers::ComputePoints(int numModels) {
+    int Endrinriggers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

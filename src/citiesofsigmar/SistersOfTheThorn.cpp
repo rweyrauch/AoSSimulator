@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool SistersOfTheThorn::s_registered = false;
 
     Unit *SistersOfTheThorn::Create(const ParameterList &parameters) {
-        auto unit = new SistersOfTheThorn();
+        auto unit = new SistersOfTheThorn(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -67,8 +67,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    SistersOfTheThorn::SistersOfTheThorn() :
-            CitizenOfSigmar("Sisters of the Thorn", 12, g_wounds, 7, 5, false),
+    SistersOfTheThorn::SistersOfTheThorn(int points) :
+            CitizenOfSigmar("Sisters of the Thorn", 12, g_wounds, 7, 5, false, points),
             m_javelin(Weapon::Type::Missile, "Blackbriar Javelin", 9, 2, 4, 4, -1, 1),
             m_staff(Weapon::Type::Melee, "Deepwood Coven Staff", 2, 1, 4, 4, 0, 1),
             m_antlersAndHooves(Weapon::Type::Melee, "Antlers and Horns", 1, 2, 4, 4, 0, 1),
@@ -114,8 +114,6 @@ namespace CitiesOfSigmar {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -137,7 +135,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int SistersOfTheThorn::ComputePoints(int numModels) {
+    int SistersOfTheThorn::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

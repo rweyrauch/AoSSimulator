@@ -20,8 +20,8 @@ namespace Death {
 
     bool BloodKnights::s_registered = false;
 
-    BloodKnights::BloodKnights() :
-            LegionOfNagashBase("Blood Knights", 10, g_wounds, 10, 4, false),
+    BloodKnights::BloodKnights(int points) :
+            LegionOfNagashBase("Blood Knights", 10, g_wounds, 10, 4, false, points),
             m_templarLanceOrBlade(Weapon::Type::Melee, "Templar Lance or Blade", 1, 3, 3, 3, -1, 1),
             m_templarLanceOrBladeKastellan(Weapon::Type::Melee, "Template Lance or Blade", 1, 4, 3, 3, -1, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
@@ -62,13 +62,11 @@ namespace Death {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *BloodKnights::Create(const ParameterList &parameters) {
-        auto unit = new BloodKnights();
+        auto unit = new BloodKnights(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -123,7 +121,8 @@ namespace Death {
         return modifier;
     }
 
-    int BloodKnights::ComputePoints(int numModels) {
+    int BloodKnights::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

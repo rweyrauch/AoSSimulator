@@ -22,8 +22,8 @@ namespace StormcastEternals {
 
     bool Sequitors::s_registered = false;
 
-    Sequitors::Sequitors(Stormhost stormhost, int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache) :
-            StormcastEternal(stormhost, "Sequitors", 5, g_wounds, 7, 4, false),
+    Sequitors::Sequitors(Stormhost stormhost, int numModels, WeaponOption weapons, int numGreatmaces, bool primeGreatmace, bool redemptionCache, int points) :
+            StormcastEternal(stormhost, "Sequitors", 5, g_wounds, 7, 4, false, points),
             m_stormsmiteMaul(Weapon::Type::Melee, "Stormsmite Maul", 1, 2, 3, 3, 0, 1),
             m_stormsmiteMaulPrime(Weapon::Type::Melee, "Stormsmite Maul", 1, 3, 3, 3, 0, 1),
             m_tempestBlade(Weapon::Type::Melee, "Tempest Blade", 1, 3, 3, 4, 0, 1),
@@ -73,8 +73,6 @@ namespace StormcastEternals {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     Rerolls Sequitors::toSaveRerolls(const Weapon *weapon, const Unit *attacker) const {
@@ -140,7 +138,7 @@ namespace StormcastEternals {
             return nullptr;
         }
 
-        return new Sequitors(stormhost, numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache);
+        return new Sequitors(stormhost, numModels, weapons, numGreatmaces, primeGreatmace, redemptionCache, ComputePoints(parameters));
     }
 
     void Sequitors::Init() {
@@ -205,7 +203,8 @@ namespace StormcastEternals {
         }
     }
 
-    int Sequitors::ComputePoints(int numModels) {
+    int Sequitors::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

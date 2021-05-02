@@ -36,7 +36,7 @@ namespace BeastsOfChaos {
     bool ChaosGargant::s_registered = false;
 
     ChaosGargant::ChaosGargant(Greatfray fray) :
-            BeastsOfChaosBase("Chaos Gargant", 8, g_wounds, 6, 5, false) {
+            BeastsOfChaosBase("Chaos Gargant", 8, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, GARGANT, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, CHAOS_GARGANT};
         m_weapons = {&m_eadbutt, &m_massiveClub, &m_mightyKick};
         m_battleFieldRole = Role::Behemoth;
@@ -98,7 +98,7 @@ namespace BeastsOfChaos {
         onWounded();
     }
 
-    int ChaosGargant::ComputePoints(int /*numModels*/) {
+    int ChaosGargant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

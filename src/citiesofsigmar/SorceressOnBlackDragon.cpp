@@ -144,7 +144,7 @@ namespace CitiesOfSigmar {
     }
 
     SorceressOnBlackDragon::SorceressOnBlackDragon() :
-            CitizenOfSigmar("Sorceress on Black Dragon", 14, g_wounds, 7, 5, true),
+            CitizenOfSigmar("Sorceress on Black Dragon", 14, g_wounds, 7, 5, true, g_pointsPerUnit),
             m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, -7, 0),
             m_rod(Weapon::Type::Melee, "Witch Rod", 1, 1, 4, 3, -1, RAND_D3),
             m_sword(Weapon::Type::Melee, "Darkling Sword", 1, 3, 4, 4, 0, 1),
@@ -231,7 +231,7 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SorceressOnBlackDragon::ComputePoints(int /*numModels*/) {
+    int SorceressOnBlackDragon::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

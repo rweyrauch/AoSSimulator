@@ -19,7 +19,7 @@ namespace StormcastEternals {
     bool LordCastellant::s_registered = false;
 
     LordCastellant::LordCastellant(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            StormcastEternal(stormhost, "Lord-Castellant", 5, g_wounds, 9, 3, false),
+            StormcastEternal(stormhost, "Lord-Castellant", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Castellant's Halberd", 2, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, LORD_CASTELLANT};
         m_weapons = {&m_halberd};
@@ -65,7 +65,7 @@ namespace StormcastEternals {
         }
     }
 
-    int LordCastellant::ComputePoints(int /*numModels*/) {
+    int LordCastellant::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

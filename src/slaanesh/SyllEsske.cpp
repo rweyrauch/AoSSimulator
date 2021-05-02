@@ -20,7 +20,7 @@ namespace Slaanesh {
     bool SyllEsske::s_registered = false;
 
     SyllEsske::SyllEsske() :
-            SlaaneshBase("Syll'Esske The Vengeful Allegiance", 8, g_wounds, 10, 4, false),
+            SlaaneshBase("Syll'Esske The Vengeful Allegiance", 8, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_axeOfDominion(Weapon::Type::Melee, "Axe of Dominion", 2, 4, 4, 3, -2, RAND_D3),
             m_scourgingWhip(Weapon::Type::Melee, "Scourging Whip", 2, 8, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, SYLL_ESSKE,
@@ -54,7 +54,6 @@ namespace Slaanesh {
                                                             Ability::Ignore_Battleshock, 1,
                                                             Abilities::Target::Friendly,
                                                             std::vector<Keyword>{SLAANESH}));
-        m_points = g_pointsPerUnit;
     }
 
     Unit *SyllEsske::Create(const ParameterList &parameters) {
@@ -91,7 +90,7 @@ namespace Slaanesh {
         }
     }
 
-    int SyllEsske::ComputePoints(int /*numModels*/) {
+    int SyllEsske::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

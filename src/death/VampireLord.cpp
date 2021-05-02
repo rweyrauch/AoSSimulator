@@ -44,7 +44,7 @@ namespace Death {
         return unit;
     }
 
-    int VampireLord::ComputePoints(int /*numModels*/) {
+    int VampireLord::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -73,7 +73,7 @@ namespace Death {
     }
 
     VampireLord::VampireLord() :
-            LegionOfNagashBase("Vampire Lord", 5, g_wounds, 10, 4, false),
+            LegionOfNagashBase("Vampire Lord", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_blades(Weapon::Type::Melee, "Spirit-possessed Blades", 1, 4, 3, 3, -1, RAND_D3),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, HERO, WIZARD, VAMPIRE_LORD};

@@ -37,7 +37,7 @@ namespace Nurgle {
     bool Rotigus::s_registered = false;
 
     Rotigus::Rotigus() :
-            NurgleBase("Rotigus", 5, g_wounds, 10, 4, false),
+            NurgleBase("Rotigus", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_gnarlrod(Weapon::Type::Melee, "Gnarlrod", 3, 5, 2, 3, -1, 2),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 3, 2, -2, 2),
             m_nurglings(Weapon::Type::Melee, "Host of Nurglings", 1, 3, 5, 5, 0, 1) {
@@ -58,8 +58,6 @@ namespace Nurgle {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Rotigus::Create(const ParameterList &parameters) {
@@ -167,7 +165,7 @@ namespace Nurgle {
         }
     }
 
-    int Rotigus::ComputePoints(int /*numModels*/) {
+    int Rotigus::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

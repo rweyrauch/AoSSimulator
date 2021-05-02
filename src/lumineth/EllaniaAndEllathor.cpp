@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
         return new EllaniaAndEllathor(lore, general);
     }
 
-    int EllaniaAndEllathor::ComputePoints(int numModels) {
+    int EllaniaAndEllathor::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -48,7 +48,7 @@ namespace LuminethRealmLords {
     }
 
     EllaniaAndEllathor::EllaniaAndEllathor(Lore lore, bool isGeneral) :
-            LuminethBase("Ellania and Ellathor", 6, g_wounds, 8, 3, false) {
+            LuminethBase("Ellania and Ellathor", 6, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, VANARI, YMETRICA, HERO, WIZARD, ELLANIA_AND_ELLATHOR};
         m_weapons = {&m_altairi, &m_dianaer, &m_talons};
         m_battleFieldRole = Role::Leader;
@@ -65,7 +65,5 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 }

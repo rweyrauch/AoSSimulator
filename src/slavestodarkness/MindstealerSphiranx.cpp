@@ -41,7 +41,7 @@ namespace SlavesToDarkness {
     }
 
     MindstealerSphiranx::MindstealerSphiranx(DamnedLegion legion) :
-            SlavesToDarknessBase("Mindstealer Sphiranx", 10, g_wounds, 10, 5, false) {
+            SlavesToDarknessBase("Mindstealer Sphiranx", 10, g_wounds, 10, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, MINDSTEALER_SPHIRANX};
 
         s_globalBraveryMod.connect(this, &MindstealerSphiranx::telepathicDread, &m_connection);
@@ -53,8 +53,6 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_tail);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     MindstealerSphiranx::~MindstealerSphiranx() {
@@ -70,7 +68,7 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    int MindstealerSphiranx::ComputePoints(int /*numModels*/) {
+    int MindstealerSphiranx::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

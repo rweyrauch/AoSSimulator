@@ -72,7 +72,7 @@ namespace Skaven {
     }
 
     PlaguePriestOnPlagueFurnace::PlaguePriestOnPlagueFurnace() :
-            Skaventide("Plague Priest on Plague Furnace", 6, g_wounds, 10, 4, false),
+            Skaventide("Plague Priest on Plague Furnace", 6, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_censer(Weapon::Type::Melee, "Great Plague Censer", 3, 1, 2, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Warpstone-tipped Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_blades(Weapon::Type::Melee, "Foetid Blades", 1, 6, 4, 4, 0, 1),
@@ -96,8 +96,6 @@ namespace Skaven {
         model->addMeleeWeapon(&m_blades);
         model->addMeleeWeapon(&m_spikes);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void PlaguePriestOnPlagueFurnace::onWounded() {
@@ -213,7 +211,7 @@ namespace Skaven {
 
     }
 
-    int PlaguePriestOnPlagueFurnace::ComputePoints(int /*numModels*/) {
+    int PlaguePriestOnPlagueFurnace::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

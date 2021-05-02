@@ -17,7 +17,7 @@ namespace LuminethRealmLords {
 
         static Unit *Create(const ParameterList &parameters);
 
-        static int ComputePoints(int numModels);
+        static int ComputePoints(const ParameterList& parameters);
 
         static void Init();
 
@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        VanariBladelords(int numModels, bool seneschalDualBlades, GreatNation nation);
+        VanariBladelords(int numModels, bool seneschalDualBlades, GreatNation nation, int points);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

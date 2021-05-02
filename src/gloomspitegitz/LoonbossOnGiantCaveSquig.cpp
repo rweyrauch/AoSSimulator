@@ -47,7 +47,7 @@ namespace GloomspiteGitz {
     bool LoonbossOnGiantCaveSquig::s_registered = false;
 
     LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
-            GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true),
+            GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
             m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1) {
@@ -160,7 +160,7 @@ namespace GloomspiteGitz {
         return GloomspiteGitzBase::toWoundRerolls(weapon, target);
     }
 
-    int LoonbossOnGiantCaveSquig::ComputePoints(int /*numModels*/) {
+    int LoonbossOnGiantCaveSquig::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

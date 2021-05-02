@@ -44,7 +44,7 @@ namespace DaughtersOfKhaine {
     bool MelusaiIronscale::s_registered = false;
 
     MelusaiIronscale::MelusaiIronscale() :
-            DaughterOfKhaine("Melusai Ironscale", 6, g_wounds, 9, 5, false),
+            DaughterOfKhaine("Melusai Ironscale", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
             m_keldrisaithShooting(Weapon::Type::Missile, "Keldrisaith", 18, 3, 3, 3, -1, 1),
             m_keldrisaith(Weapon::Type::Melee, "Keldrisaith", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, HERO, MELUSAI_IRONSCALE};
@@ -106,7 +106,7 @@ namespace DaughtersOfKhaine {
         }
     }
 
-    int MelusaiIronscale::ComputePoints(int /*numModels*/) {
+    int MelusaiIronscale::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

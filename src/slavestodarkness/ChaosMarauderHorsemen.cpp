@@ -27,7 +27,7 @@ namespace SlavesToDarkness {
         auto legion = (DamnedLegion) GetEnumParam("Damned Legion", parameters, g_damnedLegion[0]);
         auto mark = (MarkOfChaos) GetEnumParam("Mark of Chaos", parameters, g_markOfChaos[0]);
 
-        return new ChaosMarauderHorsemen(legion, mark, numModels, weapons, iconBearer, hornblower);
+        return new ChaosMarauderHorsemen(legion, mark, numModels, weapons, iconBearer, hornblower, ComputePoints(parameters));
     }
 
     void ChaosMarauderHorsemen::Init() {
@@ -54,8 +54,8 @@ namespace SlavesToDarkness {
         }
     }
 
-    ChaosMarauderHorsemen::ChaosMarauderHorsemen(DamnedLegion legion, MarkOfChaos mark,  int numModels, WeaponOption weapons, bool iconBearer, bool hornblower) :
-            SlavesToDarknessBase("Chaos Marauder Horsemen", 12, g_wounds, 5, 6, false) {
+    ChaosMarauderHorsemen::ChaosMarauderHorsemen(DamnedLegion legion, MarkOfChaos mark,  int numModels, WeaponOption weapons, bool iconBearer, bool hornblower, int points) :
+            SlavesToDarknessBase("Chaos Marauder Horsemen", 12, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDER_HORSEMEN};
         m_weapons = {&m_javelinMissile, &m_axe, &m_flail, &m_javelin, &m_axeMaster, &m_flailMaster, &m_javelinMaster,
                      &m_hooves};
@@ -134,8 +134,6 @@ namespace SlavesToDarkness {
         if (m_weaponOption == Axe_And_Shield || m_weaponOption == Javelin_And_Shield) {
             m_save = 5;
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     ChaosMarauderHorsemen::~ChaosMarauderHorsemen() {
@@ -192,7 +190,8 @@ namespace SlavesToDarkness {
         return rend;
     }
 
-    int ChaosMarauderHorsemen::ComputePoints(int numModels) {
+    int ChaosMarauderHorsemen::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

@@ -20,8 +20,8 @@ namespace Seraphon {
 
     bool SaurusKnights::s_registered = false;
 
-    SaurusKnights::SaurusKnights(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, bool iconBearer, bool wardrum) :
-            SeraphonBase("Saurus Knights", 8, g_wounds, 8, 4, false) {
+    SaurusKnights::SaurusKnights(WayOfTheSeraphon way, Constellation constellation, int numModels, WeaponOption weapons, bool iconBearer, bool wardrum, int points) :
+            SeraphonBase("Saurus Knights", 8, g_wounds, 8, 4, false, points) {
         m_keywords = {ORDER, SERAPHON, SAURUS, COLD_ONE, SAURUS_KNIGHTS};
         m_weapons = {&m_celestiteBlade, &m_celestiteBladeAlpha, &m_celestiteSpear, &m_celestiteSpearAlpha, &m_jaws,
                      &m_coldOneJaws};
@@ -63,8 +63,6 @@ namespace Seraphon {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     SaurusKnights::~SaurusKnights() {
@@ -79,7 +77,7 @@ namespace Seraphon {
         auto way = (WayOfTheSeraphon) GetEnumParam("Way of the Seraphon", parameters, g_wayOfTheSeraphon[0]);
         auto constellation = (Constellation) GetEnumParam("Constellation", parameters, g_constellation[0]);
 
-        return new SaurusKnights(way, constellation, numModels, weapons, iconBearer, wardrum);
+        return new SaurusKnights(way, constellation, numModels, weapons, iconBearer, wardrum, ComputePoints(parameters));
     }
 
     std::string SaurusKnights::ValueToString(const Parameter &parameter) {
@@ -128,7 +126,8 @@ namespace Seraphon {
         return SeraphonBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int SaurusKnights::ComputePoints(int numModels) {
+    int SaurusKnights::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

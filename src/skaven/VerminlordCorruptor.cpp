@@ -96,7 +96,7 @@ namespace Skaven {
     }
 
     VerminlordCorruptor::VerminlordCorruptor() :
-            Skaventide("Verminlord Corruptor", 12, g_wounds, 10, 4, false),
+            Skaventide("Verminlord Corruptor", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_tails(Weapon::Type::Missile, "Prehensile Tails", 6, 4, 3, 3, -1, 1),
             m_plaguereapers(Weapon::Type::Melee, "Plaguereapers", 1, 10, 3, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, NURGLE, CLANS_PESTILENS, MONSTER, HERO,
@@ -123,8 +123,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::make_unique<DreadedPlague>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds VerminlordCorruptor::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -190,7 +188,7 @@ namespace Skaven {
         return 0;
     }
 
-    int VerminlordCorruptor::ComputePoints(int /*numModels*/) {
+    int VerminlordCorruptor::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

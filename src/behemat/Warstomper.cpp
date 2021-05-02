@@ -37,7 +37,7 @@ namespace SonsOfBehemat {
     bool Warstomper::s_registered = false;
 
     Warstomper::Warstomper(CommandTrait trait, Artefact artefact, FierceLoathing loathing, bool isGeneral) :
-            SonsOfBehematBase("Warstomper Mega-Gargant", 10, g_wounds, 7, 4, false) {
+            SonsOfBehematBase("Warstomper Mega-Gargant", 10, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_weapons = {&m_grip, &m_jump, &m_club};
         m_battleFieldRole = Role::Behemoth;
         m_keywords = {DESTRUCTION, SONS_OF_BEHEMAT, GARGANT, MEGA_GARGANT, MONSTER, HERO, WARSTOMPER};
@@ -88,7 +88,7 @@ namespace SonsOfBehemat {
         }
     }
 
-    int Warstomper::ComputePoints(int /*numModels*/) {
+    int Warstomper::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

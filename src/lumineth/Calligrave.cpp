@@ -28,7 +28,7 @@ namespace LuminethRealmLords {
         return new ScinariCalligrave(nation, lore, trait, artefact, general);
     }
 
-    int ScinariCalligrave::ComputePoints(int numModels) {
+    int ScinariCalligrave::ComputePoints(const ParameterList& parameters) {
         return g_pointsPerUnit;
     }
 
@@ -55,7 +55,7 @@ namespace LuminethRealmLords {
     }
 
     ScinariCalligrave::ScinariCalligrave(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Scinari Calligrave", 6, g_wounds, 7, 5, false) {
+            LuminethBase("Scinari Calligrave", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, HERO, WIZARD, CALLIGRAVE};
         m_weapons = {&m_blade};
         m_battleFieldRole = Role::Leader;
@@ -74,7 +74,5 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = ComputePoints(1);
     }
 }

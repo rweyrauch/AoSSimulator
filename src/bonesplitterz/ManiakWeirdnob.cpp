@@ -61,7 +61,7 @@ namespace Bonesplitterz {
     }
 
     ManiakWeirdnob::ManiakWeirdnob() :
-            Bonesplitterz("Maniak Weirdnob", 12, g_wounds, 7, 6, false),
+            Bonesplitterz("Maniak Weirdnob", 12, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_bonebeastStaff(Weapon::Type::Melee, "Bonebeast Staff", 1, 3, 4, 3, 0, RAND_D3),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, MANIAK_WEIRDNOB};
@@ -88,7 +88,7 @@ namespace Bonesplitterz {
         m_points = g_pointsPerUnit;
     }
 
-    int ManiakWeirdnob::ComputePoints(int /*numModels*/) {
+    int ManiakWeirdnob::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

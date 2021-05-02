@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
     bool ZarbagsGitz::s_registered = false;
 
     ZarbagsGitz::ZarbagsGitz() :
-            GloomspiteGitzBase("Zarbag's Gitz", 5, g_wounds, 4, 6, false),
+            GloomspiteGitzBase("Zarbag's Gitz", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_bow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1),
             m_teeth(Weapon::Type::Melee, "Massive Gob Full of Teeth", 1, 2, 4, 3, -1, 1),
             m_prodder(Weapon::Type::Melee, "Squig Prodder", 2, 1, 5, 4, 0, 1),
@@ -110,7 +110,7 @@ namespace GloomspiteGitz {
         GloomspiteGitzBase::onModelFled(model);
     }
 
-    int ZarbagsGitz::ComputePoints(int /*numModels*/) {
+    int ZarbagsGitz::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

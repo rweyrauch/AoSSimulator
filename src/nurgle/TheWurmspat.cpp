@@ -45,7 +45,7 @@ namespace Nurgle {
     }
 
     TheWurmspat::TheWurmspat() :
-            NurgleBase("The Wurmspat", 4, g_wounds, 8, 4, false),
+            NurgleBase("The Wurmspat", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_blightedWeapons(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, BLESSED_SONS, PUTRID_BLIGHTKINGS, THE_WURMSPAT};
         m_weapons = {&m_blightedWeapons};
@@ -59,8 +59,6 @@ namespace Nurgle {
         auto ghulgoch = new Model(g_basesize, wounds());
         ghulgoch->addMeleeWeapon(&m_blightedWeapons);
         addModel(ghulgoch);
-
-        m_points = g_pointsPerUnit;
     }
 
     int TheWurmspat::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
@@ -73,7 +71,7 @@ namespace Nurgle {
         return NurgleBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int TheWurmspat::ComputePoints(int /*numModels*/) {
+    int TheWurmspat::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

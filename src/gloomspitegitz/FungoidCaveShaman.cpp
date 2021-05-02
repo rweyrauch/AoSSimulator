@@ -22,7 +22,7 @@ namespace GloomspiteGitz {
     bool FungoidCaveShaman::s_registered = false;
 
     FungoidCaveShaman::FungoidCaveShaman() :
-            GloomspiteGitzBase("Fungoid Cave-shaman", 5, g_wounds, 4, 6, false),
+            GloomspiteGitzBase("Fungoid Cave-shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_moonSickle(Weapon::Type::Melee, "Moon-sickle", 1, 3, 4, 4, -1, 1),
             m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
@@ -108,7 +108,7 @@ namespace GloomspiteGitz {
         }
     }
 
-    int FungoidCaveShaman::ComputePoints(int /*numModels*/) {
+    int FungoidCaveShaman::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

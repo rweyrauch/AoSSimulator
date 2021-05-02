@@ -17,7 +17,7 @@ namespace Skaven {
     bool WarpfireThrower::s_registered = false;
 
     WarpfireThrower::WarpfireThrower() :
-            Skaventide("Warpfire Thrower", 6, g_wounds, 4, 6, false),
+            Skaventide("Warpfire Thrower", 6, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_warpfireThrower(Weapon::Type::Missile, "Warpfire Thrower", 8, 0, 0, 0, 0, 0),
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, WARPFIRE_THROWER};
@@ -29,8 +29,6 @@ namespace Skaven {
         model->addMissileWeapon(&m_warpfireThrower);
         model->addMeleeWeapon(&m_rustyKnives);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *WarpfireThrower::Create(const ParameterList &parameters) {
@@ -86,7 +84,7 @@ namespace Skaven {
         return mortalWounds;
     }
 
-    int WarpfireThrower::ComputePoints(int /*numModels*/) {
+    int WarpfireThrower::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

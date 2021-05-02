@@ -48,7 +48,7 @@ namespace Death {
         return unit;
     }
 
-    int MannfredMortarchOfNight::ComputePoints(int /*numModels*/) {
+    int MannfredMortarchOfNight::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -72,7 +72,7 @@ namespace Death {
     }
 
     MannfredMortarchOfNight::MannfredMortarchOfNight() :
-            LegionOfNagashBase("Mannfred, Mortarch of Night", 16, g_wounds, 10, 4, true),
+            LegionOfNagashBase("Mannfred, Mortarch of Night", 16, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_gheistvor(Weapon::Type::Melee, "Gheistvor", 1, 4, 3, 3, -1, RAND_D3),
             m_glaive(Weapon::Type::Melee, "Sickle-glaive", 2, 2, 3, 3, -1, 2),
             m_ebonClaws(Weapon::Type::Melee, "Ashigaroth's Ebon Claws", 1, 6, 4, 3, -2, 2),

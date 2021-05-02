@@ -96,7 +96,7 @@ namespace Tzeentch {
     }
 
     TzaangorShaman::TzaangorShaman() :
-            TzeentchBase("Tzaangor Shaman", 16, g_wounds, 6, 5, true),
+            TzeentchBase("Tzaangor Shaman", 16, g_wounds, 6, 5, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
@@ -126,11 +126,9 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
-    int TzaangorShaman::ComputePoints(int /*numModels*/) {
+    int TzaangorShaman::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

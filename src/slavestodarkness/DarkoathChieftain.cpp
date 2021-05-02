@@ -47,7 +47,7 @@ namespace SlavesToDarkness {
     }
 
     DarkoathChieftain::DarkoathChieftain(DamnedLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Darkoath Chieftain", 6, g_wounds, 8, 5, false) {
+            SlavesToDarknessBase("Darkoath Chieftain", 6, g_wounds, 8, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_CHIEFTAIN};
         m_weapons = {&m_axe, &m_broadsword};
         m_battleFieldRole = Role::Leader;
@@ -61,8 +61,6 @@ namespace SlavesToDarkness {
         model->addMeleeWeapon(&m_axe);
         model->addMeleeWeapon(&m_broadsword);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int DarkoathChieftain::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
@@ -74,7 +72,7 @@ namespace SlavesToDarkness {
         return extra;
     }
 
-    int DarkoathChieftain::ComputePoints(int /*numModels*/) {
+    int DarkoathChieftain::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

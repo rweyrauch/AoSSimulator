@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool Dreadspears::s_registered = false;
 
     Unit *Dreadspears::Create(const ParameterList &parameters) {
-        auto unit = new Dreadspears();
+        auto unit = new Dreadspears(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -66,8 +66,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Dreadspears::Dreadspears() :
-            CitizenOfSigmar("Dreadspears", 6, g_wounds, 6, 4, false),
+    Dreadspears::Dreadspears(int points) :
+            CitizenOfSigmar("Dreadspears", 6, g_wounds, 6, 4, false, points),
             m_spear(Weapon::Type::Melee, "Darkling Spear", 2, 1, 4, 4, 0, 1),
             m_spearLordling(Weapon::Type::Melee, "Darkling Spear", 2, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, DREADSPEARS};
@@ -99,8 +99,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }
@@ -138,7 +136,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int Dreadspears::ComputePoints(int numModels) {
+    int Dreadspears::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

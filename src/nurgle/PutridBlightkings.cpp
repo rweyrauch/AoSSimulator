@@ -21,8 +21,8 @@ namespace Nurgle {
 
     bool PutridBlightkings::s_registered = false;
 
-    PutridBlightkings::PutridBlightkings() :
-            NurgleBase("Putrid Blightkings", 4, g_wounds, 8, 4, false),
+    PutridBlightkings::PutridBlightkings(int points) :
+            NurgleBase("Putrid Blightkings", 4, g_wounds, 8, 4, false, points),
             m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS};
         m_weapons = {&m_blightedWeapon};
@@ -50,13 +50,11 @@ namespace Nurgle {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *PutridBlightkings::Create(const ParameterList &parameters) {
-        auto unit = new PutridBlightkings();
+        auto unit = new PutridBlightkings(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool sonorousTocsin = GetBoolParam("Sonorous Tocsin", parameters, false);
@@ -118,7 +116,8 @@ namespace Nurgle {
         return modifier;
     }
 
-    int PutridBlightkings::ComputePoints(int numModels) {
+    int PutridBlightkings::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

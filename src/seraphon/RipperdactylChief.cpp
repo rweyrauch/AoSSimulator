@@ -18,7 +18,7 @@ namespace Seraphon {
     bool RipperdactylChief::s_registered = false;
 
     RipperdactylChief::RipperdactylChief(WayOfTheSeraphon way, Constellation constellation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SeraphonBase("Ripperdactyl Chief", 12, g_wounds, 6, 5, true) {
+            SeraphonBase("Ripperdactyl Chief", 12, g_wounds, 6, 5, true, g_pointsPerUnit) {
         m_keywords = {ORDER, SERAPHON, SKINK, RIPPERDACTYL, HERO, RIPPERDACTYL_CHIEF};
         m_weapons = {&m_skyblade, &m_jaws};
         m_battleFieldRole = Role::Leader;
@@ -34,8 +34,6 @@ namespace Seraphon {
         alpha->addMeleeWeapon(&m_skyblade);
         alpha->addMeleeWeapon(&m_jaws);
         addModel(alpha);
-
-        m_points = ComputePoints(1);
     }
 
     Unit *RipperdactylChief::Create(const ParameterList &parameters) {
@@ -77,7 +75,7 @@ namespace Seraphon {
         return SeraphonBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
-    int RipperdactylChief::ComputePoints(int /*numModels*/) {
+    int RipperdactylChief::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -20,8 +20,8 @@ namespace IdonethDeepkin {
 
     bool AkhelianIshlaenGuard::s_registered = false;
 
-    AkhelianIshlaenGuard::AkhelianIshlaenGuard() :
-            IdonethDeepkinBase("Akhelian Ishlaen Guard", 14, g_wounds, 6, 4, true),
+    AkhelianIshlaenGuard::AkhelianIshlaenGuard(int points) :
+            IdonethDeepkinBase("Akhelian Ishlaen Guard", 14, g_wounds, 6, 4, true, points),
             m_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1),
             m_helsabrePrince(Weapon::Type::Melee, "Helsabre", 1, 4, 3, 3, 0, 1),
             m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
@@ -59,13 +59,11 @@ namespace IdonethDeepkin {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters) {
-        auto unit = new AkhelianIshlaenGuard();
+        auto unit = new AkhelianIshlaenGuard(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
         bool musicians = GetBoolParam("Musicians", parameters, true);
@@ -128,7 +126,8 @@ namespace IdonethDeepkin {
         return modifier;
     }
 
-    int AkhelianIshlaenGuard::ComputePoints(int numModels) {
+    int AkhelianIshlaenGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

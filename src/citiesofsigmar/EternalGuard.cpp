@@ -20,8 +20,8 @@ namespace CitiesOfSigmar {
 
     bool EternalGuard::s_registered = false;
 
-    EternalGuard::EternalGuard() :
-            CitizenOfSigmar("Eternal Guard", 6, g_wounds, 7, 4, false),
+    EternalGuard::EternalGuard(int points) :
+            CitizenOfSigmar("Eternal Guard", 6, g_wounds, 7, 4, false, points),
             m_spearStave(Weapon::Type::Melee, "Spear-stave", 2, 2, 3, 4, 0, 1),
             m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave", 2, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, ETERNAL_GUARD};
@@ -53,13 +53,11 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
     Unit *EternalGuard::Create(const ParameterList &parameters) {
-        auto unit = new EternalGuard();
+        auto unit = new EternalGuard(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
@@ -142,7 +140,8 @@ namespace CitiesOfSigmar {
         return mod;
     }
 
-    int EternalGuard::ComputePoints(int numModels) {
+    int EternalGuard::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

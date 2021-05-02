@@ -37,7 +37,7 @@ namespace Nurgle {
     bool TheGlottkin::s_registered = false;
 
     TheGlottkin::TheGlottkin() :
-            NurgleBase("The Glottkin", 8, g_wounds, 9, 4, false),
+            NurgleBase("The Glottkin", 8, g_wounds, 9, 4, false, g_pointsPerUnit),
             m_pestilentTorrent(Weapon::Type::Missile, "Pestilent Torrent", 12, 1, 3, 4, -2, RAND_2D6),
             m_flailingTentacle(Weapon::Type::Melee, "Ghurk's Flailing Tentacle", 3, 6, 4, 2, -2, 2),
             m_lampreyMaw(Weapon::Type::Melee, "Ghurk's Lamprey Maw", 2, 1, 3, 2, -1, RAND_D3),
@@ -60,8 +60,6 @@ namespace Nurgle {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *TheGlottkin::Create(const ParameterList &parameters) {
@@ -149,7 +147,7 @@ namespace Nurgle {
         NurgleBase::onCharged();
     }
 
-    int TheGlottkin::ComputePoints(int /*numModels*/) {
+    int TheGlottkin::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

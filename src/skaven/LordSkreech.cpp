@@ -69,7 +69,7 @@ namespace Skaven {
     }
 
     LordSkreechVerminking::LordSkreechVerminking() :
-            Skaventide("Lord Skreech Verminking", 12, g_wounds, 10, 4, false),
+            Skaventide("Lord Skreech Verminking", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_tails(Weapon::Type::Missile, "Prehensile Tails", 6, 4, 3, 3, -1, 1),
             m_glaive(Weapon::Type::Melee, "Doom Glaive", 3, 6, 3, 3, -1, RAND_D3),
             m_plaguereaper(Weapon::Type::Melee, "Plaguereaper", 1, 8, 3, 3, -1, 1) {
@@ -99,8 +99,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds LordSkreechVerminking::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -144,7 +142,7 @@ namespace Skaven {
         return 0;
     }
 
-    int LordSkreechVerminking::ComputePoints(int /*numModels*/) {
+    int LordSkreechVerminking::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

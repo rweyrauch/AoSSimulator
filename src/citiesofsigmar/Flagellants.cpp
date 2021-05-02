@@ -22,7 +22,7 @@ namespace CitiesOfSigmar {
     bool Flagellants::s_registered = false;
 
     Unit *Flagellants::Create(const ParameterList &parameters) {
-        auto unit = new Flagellants();
+        auto unit = new Flagellants(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
 
@@ -63,8 +63,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Flagellants::Flagellants() :
-            CitizenOfSigmar("Flagellants", 6, g_wounds, 8, NoSave, false),
+    Flagellants::Flagellants(int points) :
+            CitizenOfSigmar("Flagellants", 6, g_wounds, 8, NoSave, false, points),
             m_flailsAndClubs(Weapon::Type::Melee, "Castigating Flails and Clubs", 1, 2, 5, 4, 0, 1),
             m_flailsAndClubsProphet(Weapon::Type::Melee, "Castigating Flails and Clubs", 1, 3, 5, 4, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, DEVOTED_OF_SIGMAR, FLAGELLANTS};
@@ -88,8 +88,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_flailsAndClubs);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
 
         return true;
     }
@@ -139,7 +137,8 @@ namespace CitiesOfSigmar {
         CitizenOfSigmar::onFlee(numFled);
     }
 
-    int Flagellants::ComputePoints(int numModels) {
+    int Flagellants::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

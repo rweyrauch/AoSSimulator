@@ -20,7 +20,7 @@ namespace FleshEaterCourt {
     bool DukeCrakmarrow::s_registered = false;
 
     DukeCrakmarrow::DukeCrakmarrow() :
-            FleshEaterCourts("Duke Crakmarrow", 6, g_wounds, 10, 5, false),
+            FleshEaterCourts("Duke Crakmarrow", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Halberd", 2, 3, 3, 3, -1, 2) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HOLLOWMOURNE, HERO, COURTIER, DUKE_CRAKMARROW};
         m_weapons = {&m_halberd};
@@ -64,7 +64,7 @@ namespace FleshEaterCourt {
         }
     }
 
-    int DukeCrakmarrow::ComputePoints(int /*numModels*/) {
+    int DukeCrakmarrow::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

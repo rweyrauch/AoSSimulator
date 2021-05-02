@@ -57,7 +57,7 @@ namespace Nighthaunt {
     }
 
     TombBanshee::TombBanshee() :
-            Nighthaunt("Tomb Banshee", 6, g_wounds, 10, 4, true),
+            Nighthaunt("Tomb Banshee", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, TOMB_BANSHEE};
         m_weapons = {&m_dagger};
@@ -68,8 +68,6 @@ namespace Nighthaunt {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_dagger);
         addModel(model);
-
-        m_points = ComputePoints(1);
 
         return true;
     }
@@ -97,7 +95,7 @@ namespace Nighthaunt {
         }
     }
 
-    int TombBanshee::ComputePoints(int /*numModels*/) {
+    int TombBanshee::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

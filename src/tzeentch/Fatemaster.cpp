@@ -59,7 +59,7 @@ namespace Tzeentch {
     }
 
     Fatemaster::Fatemaster() :
-            TzeentchBase("Fatemaster", 16, g_wounds, 8, 4, true),
+            TzeentchBase("Fatemaster", 16, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_glaive(Weapon::Type::Melee, "Fireglaive of Tzeentch", 2, 3, 3, 4, 0, RAND_D3),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, FATEMASTER};
@@ -74,11 +74,9 @@ namespace Tzeentch {
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_teethAndHorns);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
-    int Fatemaster::ComputePoints(int /*numModels*/) {
+    int Fatemaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

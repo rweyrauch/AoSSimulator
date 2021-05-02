@@ -28,7 +28,7 @@ namespace Death {
         return unit;
     }
 
-    int CorpseCartWithBalefireBrazier::ComputePoints(int /*numModels*/) {
+    int CorpseCartWithBalefireBrazier::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
@@ -50,7 +50,7 @@ namespace Death {
     }
 
     CorpseCartWithBalefireBrazier::CorpseCartWithBalefireBrazier() :
-            LegionOfNagashBase("Corpse Cart with Balefire Brazier", 4, g_wounds, 10, 6, false),
+            LegionOfNagashBase("Corpse Cart with Balefire Brazier", 4, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_goad(Weapon::Type::Melee, "Corpsemaster's Goad", 2, 2, 4, 4, 0, 1),
             m_lash(Weapon::Type::Melee, "Corpsemaster's Lash", 1, 3, 4, 4, 0, 1),
             m_blades(Weapon::Type::Melee, "Zombies' Rusty Blades", 1, RAND_2D6, 5, 5, 0, 1) {

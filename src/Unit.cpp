@@ -296,14 +296,14 @@ int Unit::applyBattleshock() {
     return numFled;
 }
 
-Unit::Unit(std::string name, int move, int wounds, int bravery, int save, bool fly) :
+Unit::Unit(std::string name, int move, int wounds, int bravery, int save, bool fly, int points) :
         m_name(std::move(name)),
         m_move(move),
         m_wounds(wounds),
         m_bravery(bravery),
         m_save(save),
-        m_fly(fly),
-        m_modelsSlain(0) {
+        m_points(points),
+        m_fly(fly) {
 }
 
 void Unit::beginRound(int battleRound) {
@@ -1874,7 +1874,6 @@ Wounds Unit::ignoreWounds(const Wounds &wounds, int ignoreOnRoll) const {
     return totalWounds.clamp();
 }
 
-CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save,
-                       bool fly) :
-        Unit(name, move, wounds, bravery, save, fly) {
+CustomUnit::CustomUnit(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+        Unit(name, move, wounds, bravery, save, fly, points) {
 }

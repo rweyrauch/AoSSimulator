@@ -21,8 +21,8 @@ namespace StormcastEternals {
 
     bool Liberators::s_registered = false;
 
-    Liberators::Liberators(Stormhost stormhost, int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades) :
-            StormcastEternal(stormhost, "Liberators", 5, g_wounds, 7, 4, false),
+    Liberators::Liberators(Stormhost stormhost, int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades, int points) :
+            StormcastEternal(stormhost, "Liberators", 5, g_wounds, 7, 4, false, points),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1),
             m_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1),
             m_warblade(Weapon::Type::Melee, "Warblade", 1, 2, 3, 4, 0, 1),
@@ -65,8 +65,6 @@ namespace StormcastEternals {
             }
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     int Liberators::toHitModifier(const Weapon *weapon, const Unit *unit) const {
@@ -118,7 +116,7 @@ namespace StormcastEternals {
             return nullptr;
         }
 
-        return new Liberators(stormhost, numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades);
+        return new Liberators(stormhost, numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades, ComputePoints(parameters));
     }
 
     void Liberators::Init() {
@@ -166,7 +164,8 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    int Liberators::ComputePoints(int numModels) {
+    int Liberators::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

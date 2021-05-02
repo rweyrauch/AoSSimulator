@@ -19,7 +19,7 @@ namespace EldritchCouncil {
     bool Archmage::s_registered = false;
 
     Archmage::Archmage() :
-            Unit("Archmage", 6, g_wounds, 7, 6, false),
+            Unit("Archmage", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_seerstaff(Weapon::Type::Melee, "Seerstaff", 2, 1, 4, 3, -1, 1),
             m_steedHooves(Weapon::Type::Melee, "Aelven Steed's Swift Hooves", 1, 2, 4, 5, 0, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, ARCHMAGE};
@@ -75,7 +75,7 @@ namespace EldritchCouncil {
         }
     }
 
-    int Archmage::ComputePoints(int /*numModels*/) {
+    int Archmage::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

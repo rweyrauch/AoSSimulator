@@ -101,7 +101,7 @@ namespace Skaven {
     }
 
     GreySeerOnScreamingBell::GreySeerOnScreamingBell() :
-            Skaventide("Grey Seer on Screaming Bell", 6, g_wounds, 6, 4, false),
+            Skaventide("Grey Seer on Screaming Bell", 6, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Warpstone Staff", 2, 3, 4, 4, -1, 1),
             m_clawsAndFangs(Weapon::Type::Melee, "Tearing Claws and Fangs", 1, 4, 4, 3, -1, 2),
             m_spikes(Weapon::Type::Melee, "Rusty Spikes", 1, RAND_D6, 2, 3, -1, 1) {
@@ -134,8 +134,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -276,7 +274,7 @@ namespace Skaven {
         return 0;
     }
 
-    int GreySeerOnScreamingBell::ComputePoints(int /*numModels*/) {
+    int GreySeerOnScreamingBell::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

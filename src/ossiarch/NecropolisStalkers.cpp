@@ -24,7 +24,7 @@ namespace OssiarchBonereapers {
         int numFalchions = GetIntParam("Dread Falchions", parameters, 1);
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legion[0]);
 
-        return new NecropolisStalkers(legion, numModels, numFalchions);
+        return new NecropolisStalkers(legion, numModels, numFalchions, ComputePoints(parameters));
     }
 
     void NecropolisStalkers::Init() {
@@ -46,8 +46,8 @@ namespace OssiarchBonereapers {
         }
     }
 
-    NecropolisStalkers::NecropolisStalkers(Legion legion, int numModels, int numFalchions) :
-            OssiarchBonereaperBase("Necropolis Stalkers", 6, g_wounds, 10, 4, false) {
+    NecropolisStalkers::NecropolisStalkers(Legion legion, int numModels, int numFalchions, int points) :
+            OssiarchBonereaperBase("Necropolis Stalkers", 6, g_wounds, 10, 4, false, points) {
         m_keywords = {DEATH, OSSIARCH_BONEREAPERS, HEKATOS, NECROPOLIS_STALKERS};
         m_weapons = {&m_falchions, &m_blades};
 
@@ -63,8 +63,6 @@ namespace OssiarchBonereapers {
             model->addMeleeWeapon(&m_blades);
             addModel(model);
         }
-
-        m_points = ComputePoints(numModels);
     }
 
     void NecropolisStalkers::onStartCombat(PlayerId player) {
@@ -101,7 +99,8 @@ namespace OssiarchBonereapers {
         return rend;
     }
 
-    int NecropolisStalkers::ComputePoints(int numModels) {
+    int NecropolisStalkers::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

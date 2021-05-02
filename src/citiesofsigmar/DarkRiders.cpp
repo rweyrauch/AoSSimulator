@@ -21,7 +21,7 @@ namespace CitiesOfSigmar {
     bool DarkRiders::s_registered = false;
 
     Unit *DarkRiders::Create(const ParameterList &parameters) {
-        auto unit = new DarkRiders();
+        auto unit = new DarkRiders(ComputePoints(parameters));
 
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
@@ -67,8 +67,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DarkRiders::DarkRiders() :
-            CitizenOfSigmar("Dark Riders", 14, g_wounds, 6, 4, false),
+    DarkRiders::DarkRiders(int points) :
+            CitizenOfSigmar("Dark Riders", 14, g_wounds, 6, 4, false, points),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 3, 5, 4, 0, 1),
             m_spear(Weapon::Type::Melee, "Barbed Spear", 2, 1, 4, 4, 0, 1),
             m_bite(Weapon::Type::Melee, "Vicious Bite", 1, 2, 4, 5, 0, 1),
@@ -114,8 +114,6 @@ namespace CitiesOfSigmar {
             addModel(model);
         }
 
-        m_points = ComputePoints(numModels);
-
         return true;
     }
 
@@ -139,7 +137,8 @@ namespace CitiesOfSigmar {
         return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    int DarkRiders::ComputePoints(int numModels) {
+    int DarkRiders::ComputePoints(const ParameterList& parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {
             points = g_pointsMaxUnitSize;

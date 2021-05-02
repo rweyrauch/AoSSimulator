@@ -20,7 +20,7 @@ namespace Slaanesh {
     bool ViceleaderHeraldOfSlaanesh::s_registered = false;
 
     ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
-            SlaaneshBase("Viceleader Herald of Slaanesh", 6, g_wounds, 10, 5, false),
+            SlaaneshBase("Viceleader Herald of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, VICELEADER};
         m_weapons = {&m_ravagingClaws};
@@ -42,8 +42,6 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *ViceleaderHeraldOfSlaanesh::Create(const ParameterList &parameters) {
@@ -94,7 +92,7 @@ namespace Slaanesh {
         return Unit::applyWoundSave(totalWounds, attackingUnit);
     }
 
-    int ViceleaderHeraldOfSlaanesh::ComputePoints(int /*numModels*/) {
+    int ViceleaderHeraldOfSlaanesh::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

@@ -18,7 +18,7 @@ namespace EldritchCouncil {
     bool Loremaster::s_registered = false;
 
     Loremaster::Loremaster() :
-            Unit("Loremaster", 6, g_wounds, 7, 4, false),
+            Unit("Loremaster", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, LOREMASTER};
         m_weapons = {&m_greatsword};
@@ -73,7 +73,7 @@ namespace EldritchCouncil {
         return Unit::toSaveRerolls(weapon, attacker);
     }
 
-    int Loremaster::ComputePoints(int /*numModels*/) {
+    int Loremaster::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

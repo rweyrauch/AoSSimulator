@@ -54,7 +54,7 @@ namespace Nurgle {
     }
 
     BloabRotspawned::BloabRotspawned() :
-            NurgleBase("Bloab Rotspawned", 10, g_wounds, 9, 4, false),
+            NurgleBase("Bloab Rotspawned", 10, g_wounds, 9, 4, false, g_pointsPerUnit),
             m_bile(Weapon::Type::Missile, "Bilespurter's Vile Bile", 12, RAND_D3, 4, 2, -2, RAND_D3),
             m_scythe(Weapon::Type::Melee, "Harvestman's Scythe", 2, 3, 3, 3, -1, 2),
             m_claws(Weapon::Type::Melee, "Bilespurter's Monstrous Claws", 3, 5, 4, 2, -1, 1) {
@@ -83,8 +83,6 @@ namespace Nurgle {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     int BloabRotspawned::windspeakerBellsCastingMod(const Unit *caster) {
@@ -95,7 +93,7 @@ namespace Nurgle {
         return 0;
     }
 
-    int BloabRotspawned::ComputePoints(int /*numModels*/) {
+    int BloabRotspawned::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 

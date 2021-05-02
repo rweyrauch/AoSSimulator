@@ -19,7 +19,7 @@ namespace Ironjawz {
     bool OrrukWarchanter::s_registered = false;
 
     OrrukWarchanter::OrrukWarchanter() :
-            Ironjawz("Orruk Warchanter", 4, g_wounds, 7, 4, false),
+            Ironjawz("Orruk Warchanter", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_stikks(Weapon::Type::Melee, "Gorkstikk and Morkstikk", 1, 6, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, TOTEM, WARCHANTER};
         m_weapons = {&m_stikks};
@@ -69,7 +69,7 @@ namespace Ironjawz {
         }
     }
 
-    int OrrukWarchanter::ComputePoints(int /*numModels*/) {
+    int OrrukWarchanter::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
     }
 
