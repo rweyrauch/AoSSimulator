@@ -54,24 +54,12 @@ namespace Tzeentch {
     bool TzaangorShaman::s_registered = false;
 
     Unit *TzaangorShaman::Create(const ParameterList &parameters) {
-        auto unit = new TzaangorShaman();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfFate[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new TzaangorShaman(coven, lore, trait, artefact, general);
     }
 
     void TzaangorShaman::Init() {
@@ -95,8 +83,8 @@ namespace Tzeentch {
         }
     }
 
-    TzaangorShaman::TzaangorShaman() :
-            TzeentchBase("Tzaangor Shaman", 16, g_wounds, 6, 5, true, g_pointsPerUnit),
+    TzaangorShaman::TzaangorShaman(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "Tzaangor Shaman", 16, g_wounds, 6, 5, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
@@ -109,13 +97,11 @@ namespace Tzeentch {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    TzaangorShaman::~TzaangorShaman() {
-        m_visionsSlot.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void TzaangorShaman::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_dagger);
@@ -126,6 +112,10 @@ namespace Tzeentch {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    TzaangorShaman::~TzaangorShaman() {
+        m_visionsSlot.disconnect();
     }
 
     int TzaangorShaman::ComputePoints(const ParameterList& /*parameters*/) {

@@ -20,20 +20,11 @@ namespace Bonesplitterz {
     bool SavageBoarboyManiaks::s_registered = false;
 
     Unit *SavageBoarboyManiaks::Create(const ParameterList &parameters) {
-        auto unit = new SavageBoarboyManiaks(ComputePoints(parameters));
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool thumper = GetBoolParam("Boar Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
-
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels, thumper, totem);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SavageBoarboyManiaks(warclan, numModels, thumper, totem, ComputePoints(parameters));
     }
 
     void SavageBoarboyManiaks::Init() {
@@ -57,23 +48,12 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageBoarboyManiaks::SavageBoarboyManiaks(int points) :
-            Bonesplitterz("Savage Boarboy Maniaks", 12, g_wounds, 6, 6, false, points),
-            m_chompas(Weapon::Type::Melee, "Pair of Chompas", 1, 4, 4, 3, 0, 1),
-            m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
-            m_chompasBoss(Weapon::Type::Melee, "Pair of Chompas", 1, 5, 4, 3, 0, 1) {
+    SavageBoarboyManiaks::SavageBoarboyManiaks(Warclan warclan, int numModels, bool boarThumper, bool totemBearer, int points) :
+            Bonesplitterz(warclan, "Savage Boarboy Maniaks", 12, g_wounds, 6, 6, false, points) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, BOARBOYS, SAVAGE_BOARBOY_MANIAKS};
         m_weapons = {&m_chompas, &m_tusksAndHooves, &m_chompasBoss};
         m_hasMount = true;
         m_tusksAndHooves.setMount(true);
-    }
-
-    bool SavageBoarboyManiaks::configure(int numModels, bool boarThumper, bool totemBearer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
@@ -95,12 +75,9 @@ namespace Bonesplitterz {
 
             addModel(model);
         }
-
-        return true;
     }
 
-    int
-    SavageBoarboyManiaks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+    int SavageBoarboyManiaks::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto extra = Bonesplitterz::extraAttacks(attackingModel, weapon, target);
         // Maniak Fury
         if (weapon->name() == m_chompas.name() && remainingModels() >= 5) {

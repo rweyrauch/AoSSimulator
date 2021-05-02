@@ -21,20 +21,11 @@ namespace Bonesplitterz {
     bool SavageOrrukMorboys::s_registered = false;
 
     Unit *SavageOrrukMorboys::Create(const ParameterList &parameters) {
-        auto unit = new SavageOrrukMorboys(ComputePoints(parameters));
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
-
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels, thumper, totem);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SavageOrrukMorboys(warclan, numModels, thumper, totem, ComputePoints(parameters));
     }
 
     void SavageOrrukMorboys::Init() {
@@ -57,20 +48,12 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageOrrukMorboys::SavageOrrukMorboys(int points) :
-            Bonesplitterz("Savage Orruk Morboys", 5, g_wounds, 6, 6, false, points),
+    SavageOrrukMorboys::SavageOrrukMorboys(Warclan warclan, int numModels, bool skullThumper, bool totemBearer, int points) :
+            Bonesplitterz(warclan, "Savage Orruk Morboys", 5, g_wounds, 6, 6, false, points),
             m_chompaAndShiv(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 3, 4, 3, 0, 1),
             m_chompaAndShivBoss(Weapon::Type::Melee, "Chompa and Toof Shiv", 1, 4, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUK_MORBOYS};
         m_weapons = {&m_chompaAndShiv, &m_chompaAndShivBoss};
-    }
-
-    bool SavageOrrukMorboys::configure(int numModels, bool skullThumper, bool totemBearer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
@@ -89,8 +72,6 @@ namespace Bonesplitterz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int SavageOrrukMorboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

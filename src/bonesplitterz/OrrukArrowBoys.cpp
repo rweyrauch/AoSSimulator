@@ -20,20 +20,12 @@ namespace Bonesplitterz {
     bool SavageOrrukArrowboys::s_registered = false;
 
     Unit *SavageOrrukArrowboys::Create(const ParameterList &parameters) {
-        auto unit = new SavageOrrukArrowboys(ComputePoints(parameters));
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels, thumper, totem);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SavageOrrukArrowboys(warclan, numModels, thumper, totem, ComputePoints(parameters));
     }
 
     void SavageOrrukArrowboys::Init() {
@@ -56,21 +48,13 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageOrrukArrowboys::SavageOrrukArrowboys(int points) :
-            Bonesplitterz("Savage Orruk Arrowboys", 5, g_wounds, 5, 6, false, points),
+    SavageOrrukArrowboys::SavageOrrukArrowboys(Warclan warclan, int numModels, bool skullThumper, bool totemBearer, int points) :
+            Bonesplitterz(warclan, "Savage Orruk Arrowboys", 5, g_wounds, 5, 6, false, points),
             m_stingaBow(Weapon::Type::Missile, "Stinga Bow", 18, 2, 5, 4, 0, 1),
             m_boneShiv(Weapon::Type::Melee, "Bone Shiv", 1, 1, 4, 4, 0, 1),
             m_chompa(Weapon::Type::Melee, "Chompa", 1, 3, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUK_ARROWBOYS};
         m_weapons = {&m_stingaBow, &m_boneShiv, &m_chompa};
-    }
-
-    bool SavageOrrukArrowboys::configure(int numModels, bool skullThumper, bool totemBearer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
@@ -91,12 +75,9 @@ namespace Bonesplitterz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
-    int
-    SavageOrrukArrowboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+    int SavageOrrukArrowboys::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto extra = Bonesplitterz::extraAttacks(attackingModel, weapon, target);
         // Loadsa Arrows
         if (weapon->name() == m_stingaBow.name() && remainingModels() >= 15) {

@@ -21,21 +21,13 @@ namespace Tzeentch {
 
     bool TzaangorEnlightened::s_registered = false;
 
-    TzaangorEnlightened::TzaangorEnlightened(int points) :
-            TzeentchBase("Tzaangor Enlightened", 6, g_wounds, 6, 5, false, points),
+    TzaangorEnlightened::TzaangorEnlightened(ChangeCoven coven, int numModels, int points) :
+            TzeentchBase(coven, "Tzaangor Enlightened", 6, g_wounds, 6, 5, false, points),
             m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
             m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
             m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1) {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, BRAYHERD, TZEENTCH, ARCANITE, TZAANGOR_ENLIGHTENED};
         m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak};
-    }
-
-    bool TzaangorEnlightened::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto aviarch = new Model(g_basesize, wounds());
         aviarch->addMeleeWeapon(&m_tzeentchianSpearAviarch);
@@ -48,23 +40,12 @@ namespace Tzeentch {
             model->addMeleeWeapon(&m_viciousBeak);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *TzaangorEnlightened::Create(const ParameterList &parameters) {
-        auto *unit = new TzaangorEnlightened(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new TzaangorEnlightened(coven, numModels, ComputePoints(parameters));
     }
 
     void TzaangorEnlightened::Init() {

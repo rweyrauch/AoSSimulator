@@ -21,24 +21,12 @@ namespace Tzeentch {
     bool Magister::s_registered = false;
 
     Unit *Magister::Create(const ParameterList &parameters) {
-        auto unit = new Magister();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfFate[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new Magister(coven, lore, trait, artefact, general);
     }
 
     void Magister::Init() {
@@ -63,8 +51,8 @@ namespace Tzeentch {
         }
     }
 
-    Magister::Magister() :
-            TzeentchBase("Magister", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
+    Magister::Magister(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "Magister", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Tzeentchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_sword(Weapon::Type::Melee, "Warpsteel Sword", 1, 1, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, WIZARD, MAGISTER};
@@ -74,9 +62,11 @@ namespace Tzeentch {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void Magister::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_sword);

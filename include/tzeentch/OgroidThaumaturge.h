@@ -21,13 +21,11 @@ namespace Tzeentch {
 
         static void Init();
 
-        OgroidThaumaturge();
+        OgroidThaumaturge(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~OgroidThaumaturge() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onCharged() override;
 

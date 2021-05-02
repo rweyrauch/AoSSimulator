@@ -52,7 +52,7 @@ namespace Tzeentch {
     }
 
     CurselingEyeOfTzeentch::CurselingEyeOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            TzeentchBase("Curseling Eye of Tzeentch", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
+            TzeentchBase(coven, "Curseling Eye of Tzeentch", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, WIZARD, CURSELING};
         m_weapons = {&m_sword, &m_flail, &m_staff};
         m_battleFieldRole = Role::Leader;
@@ -60,7 +60,6 @@ namespace Tzeentch {
         m_totalSpells = 2;
         m_totalUnbinds = 2;
 
-        setChangeCoven(coven);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

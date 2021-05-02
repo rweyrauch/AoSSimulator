@@ -21,11 +21,9 @@ namespace Tzeentch {
 
         static void Init();
 
-        TzaangorSkyfires(int points);
+        TzaangorSkyfires(ChangeCoven coven, int numModels, int points);
 
         ~TzaangorSkyfires() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

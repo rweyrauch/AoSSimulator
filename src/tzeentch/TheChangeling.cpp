@@ -20,24 +20,12 @@ namespace Tzeentch {
     bool TheChangeling::s_registered = false;
 
     Unit *TheChangeling::Create(const ParameterList &parameters) {
-        auto unit = new TheChangeling();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new TheChangeling(coven, lore, trait, artefact, general);
     }
 
     void TheChangeling::Init() {
@@ -61,8 +49,8 @@ namespace Tzeentch {
         }
     }
 
-    TheChangeling::TheChangeling() :
-            TzeentchBase("The Changeling", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
+    TheChangeling::TheChangeling(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "The Changeling", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "The Trickster's Staff", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, THE_CHANGELING};
         m_weapons = {&m_staff};
@@ -70,9 +58,11 @@ namespace Tzeentch {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void TheChangeling::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

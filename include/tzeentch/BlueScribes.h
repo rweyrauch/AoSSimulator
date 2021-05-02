@@ -21,13 +21,9 @@ namespace Tzeentch {
 
         static void Init();
 
-        TheBlueScribes();
+        TheBlueScribes(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~TheBlueScribes() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

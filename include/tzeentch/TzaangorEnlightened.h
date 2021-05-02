@@ -21,11 +21,9 @@ namespace Tzeentch {
 
         static void Init();
 
-        TzaangorEnlightened(int points);
+        TzaangorEnlightened(ChangeCoven coven, int numModels, int points);
 
         ~TzaangorEnlightened() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

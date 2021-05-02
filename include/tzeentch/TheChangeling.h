@@ -21,13 +21,9 @@ namespace Tzeentch {
 
         static void Init();
 
-        TheChangeling();
+        TheChangeling(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~TheChangeling() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

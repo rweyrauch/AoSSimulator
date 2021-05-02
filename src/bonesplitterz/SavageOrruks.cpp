@@ -20,21 +20,13 @@ namespace Bonesplitterz {
     bool SavageOrruks::s_registered = false;
 
     Unit *SavageOrruks::Create(const ParameterList &parameters) {
-        auto unit = new SavageOrruks(ComputePoints(parameters));
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Chompa);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels, weapons, thumper, totem);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SavageOrruks(warclan, numModels, weapons, thumper, totem, ComputePoints(parameters));
     }
 
     void SavageOrruks::Init() {
@@ -60,8 +52,8 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageOrruks::SavageOrruks(int points) :
-            Bonesplitterz("Savage Orruks", 5, g_wounds, 5, 6, false, points),
+    SavageOrruks::SavageOrruks(Warclan warclan, int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer, int points) :
+            Bonesplitterz(warclan, "Savage Orruks", 5, g_wounds, 5, 6, false, points),
             m_chompa(Weapon::Type::Melee, "Chompa", 1, 2, 4, 3, 0, 1),
             m_stikka(Weapon::Type::Melee, "Savage Stikka", 2, 2, 4, 4, 0, 1),
             m_chompaBoss(Weapon::Type::Melee, "Chompa", 1, 3, 4, 3, 0, 1),
@@ -69,14 +61,6 @@ namespace Bonesplitterz {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_ORRUKS};
         m_weapons = {&m_chompa, &m_stikka, &m_chompaBoss, &m_stikkaBoss};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool SavageOrruks::configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
@@ -103,8 +87,6 @@ namespace Bonesplitterz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     std::string SavageOrruks::ValueToString(const Parameter &parameter) {

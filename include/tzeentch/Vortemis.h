@@ -21,7 +21,7 @@ namespace Tzeentch {
 
         static void Init();
 
-        VortemisTheAllSeeing();
+        VortemisTheAllSeeing(Lore lore, bool isGeneral);
 
         ~VortemisTheAllSeeing() override = default;
 

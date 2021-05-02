@@ -23,7 +23,7 @@ namespace Tzeentch {
 
     Tzaangors::Tzaangors(ChangeCoven coven, int numModels, WeaponOptions weapons, int numGreatblades, int numMutants, bool iconBearer,
                          bool brayhorns, int points) :
-            TzeentchBase("Tzaangors", 6, g_wounds, 5, 5, false, points) {
+            TzeentchBase(coven, "Tzaangors", 6, g_wounds, 5, 5, false, points) {
         m_keywords = {CHAOS, GOR, TZEENTCH, ARCANITE, TZAANGORS};
         m_weapons = {&m_savageBlade, &m_savageBladeTwistbray, &m_savageGreatblade, &m_savageGreatbladeTwistbray,
                      &m_viciousBeak, &m_viciousBeakTwistbray};

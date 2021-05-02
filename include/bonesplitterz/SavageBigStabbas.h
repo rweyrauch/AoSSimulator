@@ -20,13 +20,11 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SavageBigStabbas(int points);
+        SavageBigStabbas(Warclan warclan, int numModels, int points);
 
         ~SavageBigStabbas() override = default;
 
     protected:
-
-        bool configure(int numModels);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

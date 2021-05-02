@@ -21,13 +21,11 @@ namespace Tzeentch {
 
         static void Init();
 
-        GauntSummonerOfTzeentch();
+        GauntSummonerOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~GauntSummonerOfTzeentch() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

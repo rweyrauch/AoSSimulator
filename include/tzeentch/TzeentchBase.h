@@ -134,16 +134,18 @@ namespace Tzeentch {
 
         ~TzeentchBase() override = default;
 
-        void setChangeCoven(ChangeCoven coven);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
 
     protected:
 
-        TzeentchBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        TzeentchBase(ChangeCoven coven, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setChangeCoven(coven);
+        }
+
+        void setChangeCoven(ChangeCoven coven);
 
     protected:
 

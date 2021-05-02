@@ -52,24 +52,13 @@ namespace Bonesplitterz {
     bool WurrgogProphet::s_registered = false;
 
     Unit *WurrgogProphet::Create(const ParameterList &parameters) {
-        auto unit = new WurrgogProphet();
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_prophetBossCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_prophetBossCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
 
-        unit->configure(lore);
-        return unit;
+        return new WurrgogProphet(warclan, lore, trait, artefact, general);
     }
 
     void WurrgogProphet::Init() {
@@ -93,8 +82,8 @@ namespace Bonesplitterz {
         }
     }
 
-    WurrgogProphet::WurrgogProphet() :
-            Bonesplitterz("Wurrgog Prophet", 5, g_wounds, 8, 5, false, g_pointsPerUnit),
+    WurrgogProphet::WurrgogProphet(Warclan warclan, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Bonesplitterz(warclan, "Wurrgog Prophet", 5, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_staffAndShiv(Weapon::Type::Melee, "Wurrgog Staff and Bone Shiv", 1, 4, 4, 3, 0, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, WIZARD, WURRGOG_PROPHET};
@@ -102,9 +91,11 @@ namespace Bonesplitterz {
         m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    void WurrgogProphet::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staffAndShiv);
         model->addMeleeWeapon(&m_fangedMaw);
@@ -113,8 +104,6 @@ namespace Bonesplitterz {
         m_knownSpells.push_back(std::make_unique<FistsOfGork>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     int WurrgogProphet::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

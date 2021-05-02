@@ -82,16 +82,10 @@ namespace Tzeentch {
     bool KairosFateweaver::s_registered = false;
 
     Unit *KairosFateweaver::Create(const ParameterList &parameters) {
-        auto unit = new KairosFateweaver();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new KairosFateweaver(coven, lore, general);
     }
 
     void KairosFateweaver::Init() {
@@ -113,8 +107,8 @@ namespace Tzeentch {
         }
     }
 
-    KairosFateweaver::KairosFateweaver() :
-            TzeentchBase("Kairos Fateweaver", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
+    KairosFateweaver::KairosFateweaver(ChangeCoven coven, Lore lore, bool isGeneral) :
+            TzeentchBase(coven, "Kairos Fateweaver", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Staff of Tomorrow", 3, 3, 3, 1, -1, 2),
             m_beakAndTalons(Weapon::Type::Melee, "Beak and Claws", 1, 5, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, MONSTER, HERO, WIZARD, LORD_OF_CHANGE, KAIROS_FATEWEAVER};
@@ -123,9 +117,9 @@ namespace Tzeentch {
 
         m_totalSpells = 3;
         m_totalUnbinds = 3;
-    }
 
-    void KairosFateweaver::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_beakAndTalons);
         model->addMeleeWeapon(&m_staff);
@@ -145,7 +139,7 @@ namespace Tzeentch {
     void KairosFateweaver::onWounded() {
         TzeentchBase::onWounded();
 
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_staff.setToWound(g_damageTable[damageIndex].m_staffToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }

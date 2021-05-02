@@ -58,24 +58,12 @@ namespace Tzeentch {
     bool GauntSummonerOfTzeentch::s_registered = false;
 
     Unit *GauntSummonerOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new GauntSummonerOfTzeentch();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new GauntSummonerOfTzeentch(coven, lore, trait, artefact, general);
     }
 
     void GauntSummonerOfTzeentch::Init() {
@@ -100,8 +88,8 @@ namespace Tzeentch {
         }
     }
 
-    GauntSummonerOfTzeentch::GauntSummonerOfTzeentch() :
-            TzeentchBase("Gaunt Summoner of Tzeentch", 5, g_wounds, 8, 6, false, g_pointsPerUnit),
+    GauntSummonerOfTzeentch::GauntSummonerOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "Gaunt Summoner of Tzeentch", 5, g_wounds, 8, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Changestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_blade(Weapon::Type::Melee, "Warptongue Blade", 1, 1, 3, 4, 0, 1) {
         m_keywords = {CHAOS, DAEMON, MORTAL, TZEENTCH, ARCANITE, SLAVES_TO_DARKNESS, EVERCHOSEN, HERO, WIZARD,
@@ -111,9 +99,7 @@ namespace Tzeentch {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void GauntSummonerOfTzeentch::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_blade);

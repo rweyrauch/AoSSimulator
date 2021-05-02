@@ -86,14 +86,14 @@ namespace Bonesplitterz {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        void setWarclan(Warclan warclan);
-
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
 
     protected:
-        Bonesplitterz(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+        Bonesplitterz(Warclan warclan, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
                 Unit(name, move, wounds, bravery, save, fly, points) {}
+
+        void setWarclan(Warclan warclan);
 
     protected:
 

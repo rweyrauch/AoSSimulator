@@ -21,13 +21,9 @@ namespace Tzeentch {
 
         static void Init();
 
-        ChangecasterHeraldOfTzeentch();
+        ChangecasterHeraldOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~ChangecasterHeraldOfTzeentch() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

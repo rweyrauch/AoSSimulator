@@ -19,13 +19,9 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SavageBigBoss();
+        SavageBigBoss(Warclan warclan, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SavageBigBoss() override = default;
-
-    protected:
-
-        void configure();
 
     private:
 

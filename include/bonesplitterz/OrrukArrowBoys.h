@@ -20,16 +20,14 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SavageOrrukArrowboys(int points);
+        SavageOrrukArrowboys(Warclan warclan, int numModels, bool skullThumper, bool totemBearer, int points);
 
         ~SavageOrrukArrowboys() override = default;
 
     protected:
 
-        bool configure(int numModels, bool skullThumper, bool totemBearer);
-
         int chargeModifier() const override {
-            int mod = Unit::chargeModifier();
+            int mod = Bonesplitterz::chargeModifier();
             if (isNamedModelAlive("Skull Thumper")) {
                 mod += 2;
             }
@@ -37,7 +35,7 @@ namespace Bonesplitterz {
         }
 
         int braveryModifier() const override {
-            int mod = Unit::braveryModifier();
+            int mod = Bonesplitterz::braveryModifier();
             if (isNamedModelAlive("Totem Bearer")) {
                 mod++;
             }

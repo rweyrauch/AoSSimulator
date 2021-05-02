@@ -20,8 +20,8 @@ namespace Tzeentch {
 
     bool BurningChariotsOfTzeentch::s_registered = false;
 
-    BurningChariotsOfTzeentch::BurningChariotsOfTzeentch(int points) :
-            TzeentchBase("Burning Chariots of Tzeentch", 14, g_wounds, 10, 5, true, points),
+    BurningChariotsOfTzeentch::BurningChariotsOfTzeentch(ChangeCoven coven, int numModels, int points) :
+            TzeentchBase(coven, "Burning Chariots of Tzeentch", 14, g_wounds, 10, 5, true, points),
             m_warpflame(Weapon::Type::Missile, "Billowing Warpflame", 18, 6, 4, 3, -1, RAND_D3),
             m_bite(Weapon::Type::Melee, "Lamprey Bite", 1, 6, 4, 3, 0, 1),
             m_jabs(Weapon::Type::Melee, "Blue Horrors' Jabs", 1, 3, 5, 5, 0, 1),
@@ -30,12 +30,6 @@ namespace Tzeentch {
         m_weapons = {&m_warpflame, &m_bite, &m_jabs, &m_flamingMaw};
         m_hasMount = true;
         m_bite.setMount(true);
-    }
-
-    bool BurningChariotsOfTzeentch::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -45,23 +39,12 @@ namespace Tzeentch {
             model->addMeleeWeapon(&m_bite);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *BurningChariotsOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new BurningChariotsOfTzeentch(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new BurningChariotsOfTzeentch(coven, numModels, ComputePoints(parameters));
     }
 
     void BurningChariotsOfTzeentch::Init() {

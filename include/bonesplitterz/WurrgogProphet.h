@@ -20,13 +20,11 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        WurrgogProphet();
+        WurrgogProphet(Warclan warclan, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WurrgogProphet() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 

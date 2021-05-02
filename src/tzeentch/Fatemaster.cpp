@@ -20,22 +20,11 @@ namespace Tzeentch {
     bool Fatemaster::s_registered = false;
 
     Unit *Fatemaster::Create(const ParameterList &parameters) {
-        auto unit = new Fatemaster();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Fatemaster(coven, trait, artefact, general);
     }
 
     void Fatemaster::Init() {
@@ -58,8 +47,8 @@ namespace Tzeentch {
         }
     }
 
-    Fatemaster::Fatemaster() :
-            TzeentchBase("Fatemaster", 16, g_wounds, 8, 4, true, g_pointsPerUnit),
+    Fatemaster::Fatemaster(ChangeCoven coven, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "Fatemaster", 16, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_glaive(Weapon::Type::Melee, "Fireglaive of Tzeentch", 2, 3, 3, 4, 0, RAND_D3),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, TZEENTCH, ARCANITE, HERO, FATEMASTER};
@@ -67,9 +56,11 @@ namespace Tzeentch {
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_teethAndHorns.setMount(true);
-    }
 
-    void Fatemaster::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         model->addMeleeWeapon(&m_teethAndHorns);

@@ -19,24 +19,13 @@ namespace Bonesplitterz {
     bool Wardokk::s_registered = false;
 
     Unit *Wardokk::Create(const ParameterList &parameters) {
-        auto unit = new Wardokk();
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_wizardCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_wizardCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
 
-        unit->configure(lore);
-        return unit;
+        return new Wardokk(warclan, lore, trait, artefact, general);
     }
 
     void Wardokk::Init() {
@@ -61,25 +50,25 @@ namespace Bonesplitterz {
         }
     }
 
-    Wardokk::Wardokk() :
-            Bonesplitterz("Wardokk", 5, g_wounds, 7, 6, false, g_pointsPerUnit),
+    Wardokk::Wardokk(Warclan warclan, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Bonesplitterz(warclan, "Wardokk", 5, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_bonebeastStikk(Weapon::Type::Melee, "Bonebeast Stikk", 1, 1, 4, 3, 0, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, PRIEST, WIZARD, WARDOKK};
         m_weapons = {&m_bonebeastStikk};
         m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void Wardokk::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bonebeastStikk);
         addModel(model);
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     int Wardokk::ComputePoints(const ParameterList& /*parameters*/) {

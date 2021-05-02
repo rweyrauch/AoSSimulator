@@ -21,19 +21,13 @@ namespace Tzeentch {
 
     bool FlamersOfTzeentch::s_registered = false;
 
-    FlamersOfTzeentch::FlamersOfTzeentch(int points) :
-            TzeentchBase("Flamers of Tzeentch", 9, g_wounds, 10, 5, true, points),
+    FlamersOfTzeentch::FlamersOfTzeentch(ChangeCoven coven, int numModels, int points) :
+            TzeentchBase(coven, "Flamers of Tzeentch", 9, g_wounds, 10, 5, true, points),
             m_warpflame(Weapon::Type::Missile, "Warpflame", 18, 3, 4, 3, 0, RAND_D3),
             m_warpflamePyrocaster(Weapon::Type::Missile, "Warpflame", 18, 4, 4, 3, 0, RAND_D3),
             m_flamingMaw(Weapon::Type::Melee, "Flaming Maw", 1, 2, 5, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, FLAMER, FLAMERS_OF_TZEENTCH};
         m_weapons = {&m_warpflame, &m_warpflamePyrocaster, &m_flamingMaw};
-    }
-
-    bool FlamersOfTzeentch::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto pyrocaster = new Model(g_basesize, wounds());
         pyrocaster->addMissileWeapon(&m_warpflamePyrocaster);
@@ -46,23 +40,12 @@ namespace Tzeentch {
             model->addMeleeWeapon(&m_flamingMaw);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *FlamersOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new FlamersOfTzeentch(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new FlamersOfTzeentch(coven, numModels, ComputePoints(parameters));
     }
 
     void FlamersOfTzeentch::Init() {

@@ -21,7 +21,7 @@ namespace Tzeentch {
 
         static void Init();
 
-        TzaangorEnlightenedOnDisks(int points);
+        TzaangorEnlightenedOnDisks(ChangeCoven const, int numModels, int points);
 
         ~TzaangorEnlightenedOnDisks() override = default;
 

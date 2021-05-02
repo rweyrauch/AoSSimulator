@@ -28,16 +28,14 @@ namespace Bonesplitterz {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        SavageOrruks(int points);
+        SavageOrruks(Warclan warclan, int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer, int points);
 
         ~SavageOrruks() override = default;
 
     protected:
 
-        bool configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer);
-
         int chargeModifier() const override {
-            int mod = Unit::chargeModifier();
+            int mod = Bonesplitterz::chargeModifier();
             if (isNamedModelAlive("Skull Thumper")) {
                 mod += 2;
             }
@@ -45,7 +43,7 @@ namespace Bonesplitterz {
         }
 
         int braveryModifier() const override {
-            int mod = Unit::braveryModifier();
+            int mod = Bonesplitterz::braveryModifier();
             if (isNamedModelAlive("Totem Bearer")) {
                 mod++;
             }

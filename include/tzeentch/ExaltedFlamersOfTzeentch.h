@@ -21,11 +21,9 @@ namespace Tzeentch {
 
         static void Init();
 
-        ExaltedFlamersOfTzeentch(int points);
+        ExaltedFlamersOfTzeentch(ChangeCoven coven, int numModels, int points);
 
         ~ExaltedFlamersOfTzeentch() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

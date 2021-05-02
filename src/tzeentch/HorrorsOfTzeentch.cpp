@@ -23,7 +23,7 @@ namespace Tzeentch {
     bool HorrorsOfTzeentch::s_registered = false;
 
     HorrorsOfTzeentch::HorrorsOfTzeentch(ChangeCoven coven, int numPink, int numBlue, int numYellow, bool iconBearer, bool hornblower, int points) :
-            TzeentchBase("Horrors of Tzeentch", 5, g_wounds, 10, 6, false, points) {
+            TzeentchBase(coven, "Horrors of Tzeentch", 5, g_wounds, 10, 6, false, points) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, HORROR, HORROR_OF_TZEENTCH};
         m_weapons = {&m_magicalFlamesPink,
                      &m_magicalFlamesBlue,
@@ -35,8 +35,6 @@ namespace Tzeentch {
         m_battleFieldRole = (numPink > 0) ? Role::Battleline : Role::Other;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-
-        setChangeCoven(coven);
 
         auto horror = new Model(g_basesize, wounds());
         horror->addMissileWeapon(&m_magicalFlamesPink);

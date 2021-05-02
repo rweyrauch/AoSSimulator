@@ -31,7 +31,7 @@ namespace Tzeentch {
 
         static void Init();
 
-        LordOfChange();
+        LordOfChange(ChangeCoven coven, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordOfChange() override = default;
 

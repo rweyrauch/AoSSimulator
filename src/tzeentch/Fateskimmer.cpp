@@ -51,7 +51,7 @@ namespace Tzeentch {
     }
 
     Fateskimmer::Fateskimmer(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            TzeentchBase("Fateskimmer", 16, g_wounds, 10, 5, true, g_pointsPerUnit) {
+            TzeentchBase(coven, "Fateskimmer", 16, g_wounds, 10, 5, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, HORROR, TZEENTCH, HERO, WIZARD, FATESKIMMER};
         m_weapons = {&m_magicalFlames, &m_staff, &m_dagger, &m_bite};
         m_battleFieldRole = Role::Leader;
@@ -60,7 +60,6 @@ namespace Tzeentch {
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 
-        setChangeCoven(coven);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

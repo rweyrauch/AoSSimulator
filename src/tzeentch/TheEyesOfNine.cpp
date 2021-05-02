@@ -16,12 +16,7 @@ namespace Tzeentch {
     bool TheEyesOfTheNine::s_registered = false;
 
     Unit *TheEyesOfTheNine::Create(const ParameterList &parameters) {
-        auto unit = new TheEyesOfTheNine();
-
-        unit->setChangeCoven(ChangeCoven::Cult_Of_The_Transient_Form);
-
-        unit->configure();
-        return unit;
+        return new TheEyesOfTheNine();
     }
 
     int TheEyesOfTheNine::ComputePoints(const ParameterList& /*parameters*/) {
@@ -45,7 +40,7 @@ namespace Tzeentch {
     }
 
     TheEyesOfTheNine::TheEyesOfTheNine() :
-            TzeentchBase("The Eyes of the Nine", 6, g_wounds, 6, 6, false, g_pointsPerUnit),
+            TzeentchBase(ChangeCoven::Cult_Of_The_Transient_Form, "The Eyes of the Nine", 6, g_wounds, 6, 6, false, g_pointsPerUnit),
             m_flames(Weapon::Type::Missile, "Magical Flames", 12, 2, 5, 4, 0, 1),
             m_bolt(Weapon::Type::Missile, "Sorcerous Bolt", 12, 1, 5, 4, 0, 1),
             m_greatblade(Weapon::Type::Melee, "Savage Greatblade", 1, 1, 4, 4, -1, 2),
@@ -54,9 +49,7 @@ namespace Tzeentch {
             m_hands(Weapon::Type::Melee, "Taloned Hands", 1, 1, 5, 4, 0, 1) {
         m_keywords = {CHAOS, TZEENTCH, CULT_OF_THE_TRANSIENT_FORM, EYES_OF_THE_NINE};
         m_weapons = {&m_flames, &m_bolt, &m_greatblade, &m_blade, &m_beak, &m_hands};
-    }
 
-    void TheEyesOfTheNine::configure() {
         auto narvia = new Model(g_basesize, wounds());
         narvia->addMissileWeapon(&m_bolt);
         narvia->addMeleeWeapon(&m_blade);

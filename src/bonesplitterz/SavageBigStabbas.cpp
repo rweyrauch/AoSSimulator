@@ -21,18 +21,9 @@ namespace Bonesplitterz {
     bool SavageBigStabbas::s_registered = false;
 
     Unit *SavageBigStabbas::Create(const ParameterList &parameters) {
-        auto unit = new SavageBigStabbas(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new SavageBigStabbas(warclan, numModels, ComputePoints(parameters));
     }
 
     void SavageBigStabbas::Init() {
@@ -54,13 +45,19 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageBigStabbas::SavageBigStabbas(int points) :
-            Bonesplitterz("Savage Big Stabbas", 5, g_wounds, 6, 6, false, points),
+    SavageBigStabbas::SavageBigStabbas(Warclan warclan, int numModels, int points) :
+            Bonesplitterz(warclan, "Savage Big Stabbas", 5, g_wounds, 6, 6, false, points),
             m_gorkToof(Weapon::Type::Melee, "Gorktoof", 3, 3, 3, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, SAVAGE_BIG_STABBAS};
         m_weapons = {&m_gorkToof};
         // Savagely Enthusiastic
         m_runAndCharge = true;
+
+        for (auto i = 0; i < numModels; i++) {
+            auto model = new Model(g_basesize, wounds());
+            model->addMeleeWeapon(&m_gorkToof);
+            addModel(model);
+        }
     }
 
     void SavageBigStabbas::onFriendlyModelSlain(int numSlain, Unit *attacker, Wounds::Source source) {
@@ -76,22 +73,6 @@ namespace Bonesplitterz {
             }
         }
         Bonesplitterz::onFriendlyModelSlain(numSlain, attacker, source);
-    }
-
-    bool SavageBigStabbas::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-
-        for (auto i = 0; i < numModels; i++) {
-            auto model = new Model(g_basesize, wounds());
-            model->addMeleeWeapon(&m_gorkToof);
-            addModel(model);
-        }
-
-        return true;
     }
 
     Wounds SavageBigStabbas::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

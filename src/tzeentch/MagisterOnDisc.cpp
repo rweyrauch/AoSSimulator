@@ -22,24 +22,12 @@ namespace Tzeentch {
     bool MagisterOnDiscOfTzeentch::s_registered = false;
 
     Unit *MagisterOnDiscOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new MagisterOnDiscOfTzeentch();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfFate[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new MagisterOnDiscOfTzeentch(coven, lore, trait, artefact, general);
     }
 
     void MagisterOnDiscOfTzeentch::Init() {
@@ -63,8 +51,8 @@ namespace Tzeentch {
         }
     }
 
-    MagisterOnDiscOfTzeentch::MagisterOnDiscOfTzeentch() :
-            TzeentchBase("Magister on Disc of Tzeentch", 16, g_wounds, 7, 5, true, g_pointsPerUnit),
+    MagisterOnDiscOfTzeentch::MagisterOnDiscOfTzeentch(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "Magister on Disc of Tzeentch", 16, g_wounds, 7, 5, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Tzeentchian Runestaff", 18, 1, 3, 4, 0, RAND_D3),
             m_sword(Weapon::Type::Melee, "Warpsteel Sword", 1, 1, 4, 4, 0, 1),
             m_teethAndHorns(Weapon::Type::Melee, "Teeth and Horns", 1, RAND_D3, 4, 3, -1, RAND_D3) {
@@ -78,9 +66,11 @@ namespace Tzeentch {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void MagisterOnDiscOfTzeentch::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_sword);

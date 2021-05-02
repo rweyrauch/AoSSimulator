@@ -21,8 +21,8 @@ namespace Tzeentch {
 
     bool TzaangorSkyfires::s_registered = false;
 
-    TzaangorSkyfires::TzaangorSkyfires(int points) :
-            TzeentchBase("Tzaangor Skyfires", 16, g_wounds, 6, 5, true, points),
+    TzaangorSkyfires::TzaangorSkyfires(ChangeCoven coven, int numModels, int points) :
+            TzeentchBase(coven, "Tzaangor Skyfires", 16, g_wounds, 6, 5, true, points),
             m_arrowOfFate(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 4, 3, -1, RAND_D3),
             m_arrowOfFateAviarch(Weapon::Type::Missile, "Arrow of Fate", 24, 1, 3, 3, -1, RAND_D3),
             m_bowStave(Weapon::Type::Melee, "Bow Stave", 1, 2, 5, 5, 0, 1),
@@ -32,14 +32,6 @@ namespace Tzeentch {
         m_weapons = {&m_arrowOfFate, &m_arrowOfFateAviarch, &m_bowStave, &m_viciousBeak, &m_teethAndHorns};
         m_hasMount = true;
         m_teethAndHorns.setMount(true);
-    }
-
-    bool TzaangorSkyfires::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto aviarch = new Model(g_basesize, wounds());
         aviarch->addMissileWeapon(&m_arrowOfFateAviarch);
@@ -56,23 +48,12 @@ namespace Tzeentch {
             model->addMeleeWeapon(&m_teethAndHorns);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *TzaangorSkyfires::Create(const ParameterList &parameters) {
-        auto *unit = new TzaangorSkyfires(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new TzaangorSkyfires(coven, numModels, ComputePoints(parameters));
     }
 
     void TzaangorSkyfires::Init() {

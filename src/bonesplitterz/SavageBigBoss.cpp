@@ -17,22 +17,12 @@ namespace Bonesplitterz {
     bool SavageBigBoss::s_registered = false;
 
     Unit *SavageBigBoss::Create(const ParameterList &parameters) {
-        auto unit = new SavageBigBoss();
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_prophetBossCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heroArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
 
-        unit->configure();
-        return unit;
+        return new SavageBigBoss(warclan, trait, artefact, general);
     }
 
     void SavageBigBoss::Init() {
@@ -56,15 +46,17 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageBigBoss::SavageBigBoss() :
-            Bonesplitterz("Savage Big Boss", 5, g_wounds, 7, 6, false, g_pointsPerUnit),
+    SavageBigBoss::SavageBigBoss(Warclan warclan, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Bonesplitterz(warclan, "Savage Big Boss", 5, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_chompasBoss(Weapon::Type::Melee, "Boss Chompa", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, BONESPLITTERZ, HERO, SAVAGE_BIG_BOSS};
         m_weapons = {&m_chompasBoss};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void SavageBigBoss::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chompasBoss);
         addModel(model);
@@ -74,8 +66,6 @@ namespace Bonesplitterz {
                                                             Ability::Extra_Hit_On_Value,
                                                             6, Abilities::Target::SelfAndFriendly,
                                                             std::vector<Keyword>{BONESPLITTERZ}));
-
-        m_points = g_pointsPerUnit;
     }
 
     int SavageBigBoss::ComputePoints(const ParameterList& /*parameters*/) {

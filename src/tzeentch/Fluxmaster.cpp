@@ -52,24 +52,12 @@ namespace Tzeentch {
     bool FluxmasterHeraldOfTzeentchOnDisc::s_registered = false;
 
     Unit *FluxmasterHeraldOfTzeentchOnDisc::Create(const ParameterList &parameters) {
-        auto unit = new FluxmasterHeraldOfTzeentchOnDisc();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new FluxmasterHeraldOfTzeentchOnDisc(coven, lore, trait, artefact, general);
     }
 
     int FluxmasterHeraldOfTzeentchOnDisc::ComputePoints(const ParameterList& /*parameters*/) {
@@ -97,8 +85,8 @@ namespace Tzeentch {
         }
     }
 
-    FluxmasterHeraldOfTzeentchOnDisc::FluxmasterHeraldOfTzeentchOnDisc() :
-            TzeentchBase("Fluxmaster Herald of Tzeentch on Disc", 16, g_wounds, 10, 5, true, g_pointsPerUnit),
+    FluxmasterHeraldOfTzeentchOnDisc::FluxmasterHeraldOfTzeentchOnDisc(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "Fluxmaster Herald of Tzeentch on Disc", 16, g_wounds, 10, 5, true, g_pointsPerUnit),
             m_flames(Weapon::Type::Missile, "Magical Flames", 18, 3, 4, 4, -1, 1),
             m_staff(Weapon::Type::Melee, "Staff of Change", 2, 1, 4, 3, -1, RAND_D3),
             m_dagger(Weapon::Type::Melee, "Ritual Dagger", 1, 2, 4, 4, 0, 1),
@@ -109,11 +97,13 @@ namespace Tzeentch {
         m_teethAndHorns.setMount(true);
         m_battleFieldRole = Role::Leader;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void FluxmasterHeraldOfTzeentchOnDisc::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_flames);
         model->addMeleeWeapon(&m_staff);

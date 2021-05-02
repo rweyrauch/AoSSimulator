@@ -76,25 +76,13 @@ namespace Tzeentch {
     bool LordOfChange::s_registered = false;
 
     Unit *LordOfChange::Create(const ParameterList &parameters) {
-        auto unit = new LordOfChange();
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Baleful_Sword);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Baleful_Sword);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfChange[0]);
-
-        unit->configure(weapon, lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new LordOfChange(coven, weapon, lore, trait, artefact, general);
     }
 
     std::string LordOfChange::ValueToString(const Parameter &parameter) {
@@ -136,8 +124,8 @@ namespace Tzeentch {
         }
     }
 
-    LordOfChange::LordOfChange() :
-            TzeentchBase("Lord of Change", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
+    LordOfChange::LordOfChange(ChangeCoven coven, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "Lord of Change", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_rodOfSorcery(Weapon::Type::Missile, "Rod of Sorcery", 18, RAND_2D6, 3, 3, -1, 1),
             m_staff(Weapon::Type::Melee, "Staff of Tzeentch", 3, 4, 3, 1, 0, 2),
             m_sword(Weapon::Type::Melee, "Baleful Sword", 1, 2, 4, 2, -2, 3),
@@ -151,9 +139,11 @@ namespace Tzeentch {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void LordOfChange::configure(WeaponOption option, Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         if (option == Rod_Of_Sorcery)
             model->addMissileWeapon(&m_rodOfSorcery);

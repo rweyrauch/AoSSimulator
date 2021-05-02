@@ -20,21 +20,13 @@ namespace Bonesplitterz {
     bool SavageBoarboys::s_registered = false;
 
     Unit *SavageBoarboys::Create(const ParameterList &parameters) {
-        auto unit = new SavageBoarboys(ComputePoints(parameters));
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Chompa);
         bool thumper = GetBoolParam("Skull Thumper", parameters, true);
         bool totem = GetBoolParam("Bone Totem Bearer", parameters, true);
 
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels, weapons, thumper, totem);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SavageBoarboys(warclan, numModels, weapons, thumper, totem, ComputePoints(parameters));
     }
 
     void SavageBoarboys::Init() {
@@ -60,8 +52,8 @@ namespace Bonesplitterz {
         }
     }
 
-    SavageBoarboys::SavageBoarboys(int points) :
-            Bonesplitterz("Savage Boarboys", 12, g_wounds, 5, 6, false, points),
+    SavageBoarboys::SavageBoarboys(Warclan warclan, int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer, int points) :
+            Bonesplitterz(warclan, "Savage Boarboys", 12, g_wounds, 5, 6, false, points),
             m_chompa(Weapon::Type::Melee, "Chompa", 1, 3, 4, 3, 0, 1),
             m_stikka(Weapon::Type::Melee, "Savage Stikka", 2, 3, 4, 4, 0, 1),
             m_tusksAndHooves(Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1),
@@ -71,14 +63,6 @@ namespace Bonesplitterz {
         m_weapons = {&m_chompa, &m_stikka, &m_tusksAndHooves, &m_chompaBoss, &m_stikkaBoss};
         m_hasMount = true;
         m_tusksAndHooves.setMount(true);
-    }
-
-    bool SavageBoarboys::configure(int numModels, WeaponOption weapons, bool skullThumper, bool totemBearer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Boss
         auto bossModel = new Model(g_basesize, wounds());
@@ -107,8 +91,6 @@ namespace Bonesplitterz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
 

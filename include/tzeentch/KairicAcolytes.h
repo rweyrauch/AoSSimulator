@@ -31,12 +31,10 @@ namespace Tzeentch {
 
         static void Init();
 
-        KairicAcolytes(int points);
+        KairicAcolytes(ChangeCoven coven, int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts,
+                       int numVulcharcs, int points);
 
         ~KairicAcolytes() override = default;
-
-        bool configure(int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts,
-                       int numVulcharcs);
 
         void activateGestaltSorcery() { m_gestaltSorceryActive = true; }
 

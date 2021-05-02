@@ -19,13 +19,11 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SavageOrrukMorboys(int points);
+        SavageOrrukMorboys(Warclan warclan, int numModels, bool skullThumper, bool totemBearer, int points);
 
         ~SavageOrrukMorboys() override = default;
 
     protected:
-
-        bool configure(int numModels, bool skullThumper, bool totemBearer);
 
         int chargeModifier() const override {
             int mod = Unit::chargeModifier();

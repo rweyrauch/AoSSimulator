@@ -51,8 +51,9 @@ namespace Tzeentch {
 
     bool KairicAcolytes::s_registered = false;
 
-    KairicAcolytes::KairicAcolytes(int points) :
-            TzeentchBase("Kairic Acolytes", 6, g_wounds, 5, 5, false, points),
+    KairicAcolytes::KairicAcolytes(ChangeCoven coven, int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts,
+                                   int numVulcharcs, int points) :
+            TzeentchBase(coven, "Kairic Acolytes", 6, g_wounds, 5, 5, false, points),
             m_sorcerousBolt(Weapon::Type::Missile, "Sorcerous Bolt", 18, 1, 4, 3, 0, 1),
             m_cursedBlade(Weapon::Type::Melee, "Cursed Blade", 1, 1, 4, 3, 0, 1),
             m_cursedGlaive(Weapon::Type::Melee, "Cursed Glaive", 1, 1, 4, 3, -1, 2),
@@ -63,23 +64,6 @@ namespace Tzeentch {
         m_battleFieldRole = Role::Battleline;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
-
-    bool KairicAcolytes::configure(int numModels, WeaponOptions weapons, int numCursedGlaives, int numScrollsOfDarkArts,
-                                   int numVulcharcs) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxGlaives = (numModels / 10) * 3;
-        if (numCursedGlaives > maxGlaives) {
-            // Invalid weapon configuration.
-            return false;
-        }
-        const int maxScrolls = numModels / 10;
-        const int maxVulcharcs = numModels / 10;
-        if (numScrollsOfDarkArts > maxScrolls || numVulcharcs > maxVulcharcs) {
-            return false;
-        }
 
         m_weaponOption = weapons;
         m_numCursedGlaives = numCursedGlaives;
@@ -107,8 +91,6 @@ namespace Tzeentch {
         }
 
         m_knownSpells.push_back(std::make_unique<GestaltSorcery>(this));
-
-        return true;
     }
 
     Wounds KairicAcolytes::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
@@ -145,22 +127,13 @@ namespace Tzeentch {
     }
 
     Unit *KairicAcolytes::Create(const ParameterList &parameters) {
-        auto unit = new KairicAcolytes(ComputePoints(parameters));
+        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Cursed_Blade);
         int numCursedGlaives = GetIntParam("Cursed Glaives", parameters, 0);
         int numScrollsOfDarkArts = GetIntParam("Scrolls Of Dark Arts", parameters, 0);
         int numVulcharcs = GetIntParam("Vulcharcs", parameters, 0);
-
-        auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, g_changeCoven[0]);
-        unit->setChangeCoven(coven);
-
-        bool ok = unit->configure(numModels, weapons, numCursedGlaives, numScrollsOfDarkArts, numVulcharcs);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new KairicAcolytes(coven, numModels, weapons, numCursedGlaives, numScrollsOfDarkArts, numVulcharcs, ComputePoints(parameters));
     }
 
     std::string KairicAcolytes::ValueToString(const Parameter &parameter) {

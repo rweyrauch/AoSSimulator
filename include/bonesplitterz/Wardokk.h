@@ -20,13 +20,11 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Wardokk();
+        Wardokk(Warclan warclan, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Wardokk() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

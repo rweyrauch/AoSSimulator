@@ -21,11 +21,9 @@ namespace Tzeentch {
 
         static void Init();
 
-        BurningChariotsOfTzeentch(int points);
+        BurningChariotsOfTzeentch(ChangeCoven coven, int numModels, int points);
 
         ~BurningChariotsOfTzeentch() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

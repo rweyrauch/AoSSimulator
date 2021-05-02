@@ -21,7 +21,7 @@ namespace Tzeentch {
 
         static void Init();
 
-        Fatemaster();
+        Fatemaster(ChangeCoven coven, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Fatemaster() override = default;
 

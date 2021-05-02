@@ -21,15 +21,13 @@ namespace Tzeentch {
 
         static void Init();
 
-        FluxmasterHeraldOfTzeentchOnDisc();
+        FluxmasterHeraldOfTzeentchOnDisc(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~FluxmasterHeraldOfTzeentchOnDisc() override = default;
 
         int rollCasting(UnmodifiedCastingRoll &unmodifiedRoll) const override;
 
     protected:
-
-        void configure(Lore lore);
 
         void onRestore() override {
             TzeentchBase::onRestore();

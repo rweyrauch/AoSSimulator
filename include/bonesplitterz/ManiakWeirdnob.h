@@ -20,13 +20,11 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        ManiakWeirdnob();
+        ManiakWeirdnob(Warclan warclan, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~ManiakWeirdnob() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

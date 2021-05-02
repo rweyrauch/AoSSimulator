@@ -21,40 +21,23 @@ namespace Tzeentch {
 
     bool ScreamersOfTzeentch::s_registered = false;
 
-    ScreamersOfTzeentch::ScreamersOfTzeentch(int points) :
-            TzeentchBase("Screamers of Tzeentch", 16, g_wounds, 10, 5, true, points),
+    ScreamersOfTzeentch::ScreamersOfTzeentch(ChangeCoven coven, int numModels, int points) :
+            TzeentchBase(coven, "Screamers of Tzeentch", 16, g_wounds, 10, 5, true, points),
             m_bite(Weapon::Type::Melee, "Lamprey Bite", 1, 3, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, TZEENTCH, SCREAMERS};
         m_weapons = {&m_bite};
-    }
-
-    bool ScreamersOfTzeentch::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_bite);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *ScreamersOfTzeentch::Create(const ParameterList &parameters) {
-        auto unit = new ScreamersOfTzeentch(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new ScreamersOfTzeentch(coven, numModels, ComputePoints(parameters));
     }
 
     void ScreamersOfTzeentch::Init() {

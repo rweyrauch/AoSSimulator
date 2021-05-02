@@ -21,13 +21,11 @@ namespace Tzeentch {
 
         static void Init();
 
-        TzaangorShaman();
+        TzaangorShaman(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~TzaangorShaman() override;
 
     protected:
-
-        void configure(Lore lore);
 
         int visionsToHitMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
 

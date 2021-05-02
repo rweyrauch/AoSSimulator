@@ -21,7 +21,7 @@ namespace Tzeentch {
 
         static void Init();
 
-        KairosFateweaver();
+        KairosFateweaver(ChangeCoven coven, Lore lore, bool isGeneral);
 
         ~KairosFateweaver() override = default;
 
@@ -30,8 +30,6 @@ namespace Tzeentch {
         int getGiftOfChangeDamage() const;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

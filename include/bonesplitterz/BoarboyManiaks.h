@@ -20,16 +20,14 @@ namespace Bonesplitterz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SavageBoarboyManiaks(int points);
+        SavageBoarboyManiaks(Warclan warclan, int numModels, bool boarThumper, bool totemBearer, int points);
 
         ~SavageBoarboyManiaks() override = default;
 
     protected:
 
-        bool configure(int numModels, bool boarThumper, bool totemBearer);
-
         int chargeModifier() const override {
-            int mod = Unit::chargeModifier();
+            int mod = Bonesplitterz::chargeModifier();
             if (isNamedModelAlive("Boar Thumper")) {
                 mod += 2;
             }
@@ -37,7 +35,7 @@ namespace Bonesplitterz {
         }
 
         int braveryModifier() const override {
-            int mod = Unit::braveryModifier();
+            int mod = Bonesplitterz::braveryModifier();
             if (isNamedModelAlive("Totem Bearer")) {
                 mod++;
             }
@@ -52,9 +50,9 @@ namespace Bonesplitterz {
 
     private:
 
-        Weapon m_chompas,
-                m_tusksAndHooves,
-                m_chompasBoss;
+        Weapon  m_chompas{Weapon::Type::Melee, "Pair of Chompas", 1, 4, 4, 3, 0, 1},
+                m_tusksAndHooves{Weapon::Type::Melee, "Tusks and Hooves", 1, 2, 4, 4, 0, 1},
+                m_chompasBoss{Weapon::Type::Melee, "Pair of Chompas", 1, 5, 4, 3, 0, 1};
 
         static bool s_registered;
     };

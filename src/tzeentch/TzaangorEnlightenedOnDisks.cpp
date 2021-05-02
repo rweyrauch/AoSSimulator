@@ -22,8 +22,8 @@ namespace Tzeentch {
 
     bool TzaangorEnlightenedOnDisks::s_registered = false;
 
-    TzaangorEnlightenedOnDisks::TzaangorEnlightenedOnDisks(int points) :
-            TzeentchBase("Tzaangor Enlightened on Disks", 16, g_wounds, 6, 5, true, points),
+    TzaangorEnlightenedOnDisks::TzaangorEnlightenedOnDisks(ChangeCoven coven, int numModels, int points) :
+            TzeentchBase(coven, "Tzaangor Enlightened on Disks", 16, g_wounds, 6, 5, true, points),
             m_tzeentchianSpear(Weapon::Type::Melee, "Tzeentchian Spear", 2, 3, 4, 3, -1, 2),
             m_tzeentchianSpearAviarch(Weapon::Type::Melee, "Tzeentchian Spear", 2, 4, 4, 3, -1, 2),
             m_viciousBeak(Weapon::Type::Melee, "Vicious Beak", 1, 1, 4, 5, 0, 1),
@@ -32,14 +32,6 @@ namespace Tzeentch {
         m_weapons = {&m_tzeentchianSpear, &m_tzeentchianSpearAviarch, &m_viciousBeak, &m_teethAndHorns};
         m_hasMount = true;
         m_teethAndHorns.setMount(true);
-    }
-
-    bool TzaangorEnlightenedOnDisks::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto aviarch = new Model(g_basesize, wounds());
         aviarch->addMeleeWeapon(&m_tzeentchianSpearAviarch);
@@ -54,23 +46,12 @@ namespace Tzeentch {
             model->addMeleeWeapon(&m_teethAndHorns);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *TzaangorEnlightenedOnDisks::Create(const ParameterList &parameters) {
-        auto *unit = new TzaangorEnlightenedOnDisks(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        auto numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new TzaangorEnlightenedOnDisks(coven, numModels, ComputePoints(parameters));
     }
 
     void TzaangorEnlightenedOnDisks::Init() {

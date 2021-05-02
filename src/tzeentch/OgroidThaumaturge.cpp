@@ -52,24 +52,12 @@ namespace Tzeentch {
     bool OgroidThaumaturge::s_registered = false;
 
     Unit *OgroidThaumaturge::Create(const ParameterList &parameters) {
-        auto unit = new OgroidThaumaturge();
-
         auto coven = (ChangeCoven) GetEnumParam("Change Coven", parameters, (int) ChangeCoven::None);
-        unit->setChangeCoven(coven);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfFate[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_arcaniteCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaniteArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new OgroidThaumaturge(coven, lore, trait, artefact, general);
     }
 
     void OgroidThaumaturge::Init() {
@@ -93,8 +81,8 @@ namespace Tzeentch {
         }
     }
 
-    OgroidThaumaturge::OgroidThaumaturge() :
-            TzeentchBase("OgroidT haumaturge", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
+    OgroidThaumaturge::OgroidThaumaturge(ChangeCoven coven, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            TzeentchBase(coven, "OgroidT haumaturge", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Thaumaturge Staff", 2, 3, 3, 3, -1, RAND_D3),
             m_horns(Weapon::Type::Melee, "Great Horns", 1, 2, 3, 3, -2, 3),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 4, 4, 3, 0, 1) {
@@ -104,9 +92,11 @@ namespace Tzeentch {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void OgroidThaumaturge::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_horns);
