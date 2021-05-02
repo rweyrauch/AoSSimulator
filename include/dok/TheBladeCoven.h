@@ -27,8 +27,6 @@ namespace DaughtersOfKhaine {
 
     protected:
 
-        void configure();
-
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
     private:

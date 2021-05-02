@@ -21,11 +21,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        KhineraiHeartrenders(int points);
+        KhineraiHeartrenders(Temple temple, int numModels, int points);
 
         ~KhineraiHeartrenders() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

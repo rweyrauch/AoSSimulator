@@ -37,8 +37,8 @@ namespace DaughtersOfKhaine {
 
     bool BloodwrackShrine::s_registered = false;
 
-    BloodwrackShrine::BloodwrackShrine() :
-            DaughterOfKhaine("Bloodwrack Shrine", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
+    BloodwrackShrine::BloodwrackShrine(Temple temple, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            DaughterOfKhaine(temple, "Bloodwrack Shrine", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_bloodwrackStare(Weapon::Type::Missile, "Bloodwrack Stare", 10, 1, 0, 0, -7, 0),
             m_whisperclaw(Weapon::Type::Melee, "Whisperclaw", 1, 4, 4, 3, 0, 1),
             m_tailOfSerpents(Weapon::Type::Melee, "Tail of Serpents", 2, RAND_D6, 4, 4, 0, 1),
@@ -50,9 +50,11 @@ namespace DaughtersOfKhaine {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void BloodwrackShrine::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bloodwrackStare);
         model->addMeleeWeapon(&m_whisperclaw);
@@ -69,29 +71,15 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         configureCommon();
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *BloodwrackShrine::Create(const ParameterList &parameters) {
-        auto unit = new BloodwrackShrine();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_medusaCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_medusaCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_wizardArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new BloodwrackShrine(temple, lore, trait, artefact, general);
     }
 
     void BloodwrackShrine::Init() {

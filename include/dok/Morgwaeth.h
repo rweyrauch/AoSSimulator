@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        MorgwaethTheBloodied();
+        MorgwaethTheBloodied(Prayer prayer, bool isGeneral);
 
         ~MorgwaethTheBloodied() override = default;
 
     protected:
-
-        void configure(Prayer prayer);
 
         void onStartHero(PlayerId player) override;
 

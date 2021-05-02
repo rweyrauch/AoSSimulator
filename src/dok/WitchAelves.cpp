@@ -22,19 +22,13 @@ namespace DaughtersOfKhaine {
 
     bool WitchAelves::s_registered = false;
 
-    WitchAelves::WitchAelves(int points) :
-            DaughterOfKhaine("Witch Aelves", 6, g_wounds, 7, 6, false, points),
+    WitchAelves::WitchAelves(Temple temple, int numModels, bool pairedKnives, bool hornblowers, bool standardBearers, int points) :
+            DaughterOfKhaine(temple, "Witch Aelves", 6, g_wounds, 7, 6, false, points),
             m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
             m_sacrificialKnifeHag(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 2, 4, 0, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, WITCH_AELVES};
         m_weapons = {&m_sacrificialKnife, &m_sacrificialKnifeHag};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool WitchAelves::configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_pairedKnives = pairedKnives;
         m_runAndCharge = hornblowers;
@@ -55,26 +49,15 @@ namespace DaughtersOfKhaine {
             }
             addModel(witch);
         }
-
-        return true;
     }
 
     Unit *WitchAelves::Create(const ParameterList &parameters) {
-        auto unit = new WitchAelves(ComputePoints(parameters));
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool pairedKnives = GetBoolParam("Paired Knives", parameters, true);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
-
-        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels, pairedKnives, hornblowers, standardBearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new WitchAelves(temple, numModels, pairedKnives, hornblowers, standardBearers, ComputePoints(parameters));
     }
 
     void WitchAelves::Init() {

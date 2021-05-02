@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        MelusaiIronscale();
+        MelusaiIronscale(Temple temple, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~MelusaiIronscale() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

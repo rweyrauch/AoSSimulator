@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        MorathiTheShadowQueen();
+        MorathiTheShadowQueen(Temple temple, bool isGeneral);
 
         ~MorathiTheShadowQueen() override;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

@@ -21,11 +21,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        SistersOfSlaughter(int points);
+        SistersOfSlaughter(Temple temple, int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers, int points);
 
         ~SistersOfSlaughter() override = default;
-
-        bool configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers);
 
     protected:
 

@@ -21,11 +21,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        WitchAelves(int points);
+        WitchAelves(Temple temple, int numModels, bool pairedKnives, bool hornblowers, bool standardBearers, int points);
 
         ~WitchAelves() override = default;
-
-        bool configure(int numModels, bool pairedKnives, bool hornblowers, bool standardBearers);
 
     protected:
 

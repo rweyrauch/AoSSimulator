@@ -21,11 +21,9 @@ namespace Wanderers {
 
         static void Init();
 
-        EternalGuard(int points);
+        EternalGuard(int numModels, bool standardBearer, bool hornblower, bool gladeShields, int points);
 
         ~EternalGuard() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields);
 
     protected:
 

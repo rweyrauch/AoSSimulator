@@ -19,43 +19,31 @@ namespace DaughtersOfKhaine {
 
     bool HagQueen::s_registered = false;
 
-    HagQueen::HagQueen() :
-            DaughterOfKhaine("Hag Queen", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
+    HagQueen::HagQueen(Temple temple, Prayer prayer, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            DaughterOfKhaine(temple, "Hag Queen", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN};
         m_weapons = {&m_bladeOfKhaine};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void HagQueen::configure(Prayer prayer) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfKhaine);
         addModel(model);
 
         configureCommon();
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *HagQueen::Create(const ParameterList &parameters) {
-        auto unit = new HagQueen();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
-
-        unit->configure(prayer);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new HagQueen(temple, prayer, trait, artefact, general);
     }
 
     void HagQueen::Init() {

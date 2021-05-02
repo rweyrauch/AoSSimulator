@@ -43,8 +43,8 @@ namespace DaughtersOfKhaine {
 
     bool MelusaiIronscale::s_registered = false;
 
-    MelusaiIronscale::MelusaiIronscale() :
-            DaughterOfKhaine("Melusai Ironscale", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
+    MelusaiIronscale::MelusaiIronscale(Temple temple, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            DaughterOfKhaine(temple, "Melusai Ironscale", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
             m_keldrisaithShooting(Weapon::Type::Missile, "Keldrisaith", 18, 3, 3, 3, -1, 1),
             m_keldrisaith(Weapon::Type::Melee, "Keldrisaith", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, HERO, MELUSAI_IRONSCALE};
@@ -53,9 +53,11 @@ namespace DaughtersOfKhaine {
 
         // Pact of Blood
         m_totalUnbinds = 1;
-    }
 
-    void MelusaiIronscale::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_keldrisaithShooting);
         model->addMeleeWeapon(&m_keldrisaith);
@@ -63,27 +65,14 @@ namespace DaughtersOfKhaine {
 
         m_commandAbilities.push_back(std::make_unique<WrathOfTheScathborn>(this));
         configureCommon();
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *MelusaiIronscale::Create(const ParameterList &parameters) {
-        auto unit = new MelusaiIronscale();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_melusaiCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new MelusaiIronscale(temple, trait, artefact, general);
     }
 
     void MelusaiIronscale::Init() {

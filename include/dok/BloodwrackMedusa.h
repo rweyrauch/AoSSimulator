@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        BloodwrackMedusa();
+        BloodwrackMedusa(Temple temple, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BloodwrackMedusa() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

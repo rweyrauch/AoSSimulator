@@ -51,8 +51,8 @@ namespace DaughtersOfKhaine {
 
     bool DoomfireWarlocks::s_registered = false;
 
-    DoomfireWarlocks::DoomfireWarlocks(int points) :
-            DaughterOfKhaine("Doomfire Warlocks", 14, g_wounds, 6, 5, false, points),
+    DoomfireWarlocks::DoomfireWarlocks(Temple temple, int numModels, bool crossbows, int points) :
+            DaughterOfKhaine(temple, "Doomfire Warlocks", 14, g_wounds, 6, 5, false, points),
             m_crossBow(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 4, 4, 0, 1),
             m_scimitar(Weapon::Type::Melee, "Cursed Scimitar", 1, 2, 4, 4, -1, 1),
             m_crossBowMaster(Weapon::Type::Missile, "Doomfire Crossbow", 10, 2, 3, 4, 0, 1),
@@ -65,12 +65,6 @@ namespace DaughtersOfKhaine {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
-
-    bool DoomfireWarlocks::configure(int numModels, bool crossbows) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto master = new Model(g_basesize, wounds());
         master->addMeleeWeapon(&m_scimitarMaster);
@@ -93,24 +87,13 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::make_unique<Doomfire>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        return true;
     }
 
     Unit *DoomfireWarlocks::Create(const ParameterList &parameters) {
-        auto unit = new DoomfireWarlocks(ComputePoints(parameters));
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool crossbows = GetBoolParam("Crossbows", parameters, false);
-
-        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels, crossbows);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new DoomfireWarlocks(temple, numModels, crossbows, ComputePoints(parameters));
     }
 
     void DoomfireWarlocks::Init() {

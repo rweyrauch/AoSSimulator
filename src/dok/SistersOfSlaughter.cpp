@@ -21,8 +21,8 @@ namespace DaughtersOfKhaine {
 
     bool SistersOfSlaughter::s_registered = false;
 
-    SistersOfSlaughter::SistersOfSlaughter(int points) :
-            DaughterOfKhaine("Sisters of Slaughter", 6, g_wounds, 7, 6, false, points),
+    SistersOfSlaughter::SistersOfSlaughter(Temple temple, int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers, int points) :
+            DaughterOfKhaine(temple, "Sisters of Slaughter", 6, g_wounds, 7, 6, false, points),
             m_sacrificialKnife(Weapon::Type::Melee, "Sacrificial Knife", 1, 2, 3, 4, 0, 1),
             m_sacrificialKnifeHandmaiden(Weapon::Type::Melee, "Sacrificial Knife (Handmaiden)", 1, 2, 2, 4, 0, 1),
             m_barbedWhip(Weapon::Type::Melee, "Barbed Whip", 2, 2, 3, 4, 0, 1),
@@ -33,12 +33,6 @@ namespace DaughtersOfKhaine {
 
         // Dance of Death
         m_pileInMove = 6;
-    }
-
-    bool SistersOfSlaughter::configure(int numModels, bool sacrificialKnife, bool hornblowers, bool standardBearers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_hasSacrificialKnife = sacrificialKnife;
         m_runAndCharge = hornblowers;
@@ -66,26 +60,15 @@ namespace DaughtersOfKhaine {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SistersOfSlaughter::Create(const ParameterList &parameters) {
-        auto unit = new SistersOfSlaughter(ComputePoints(parameters));
+        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool sacrificialKnife = GetBoolParam("Sacrificial Knife", parameters, true);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
-
-        auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels, sacrificialKnife, hornblowers, standardBearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SistersOfSlaughter(temple, numModels, sacrificialKnife, hornblowers, standardBearers, ComputePoints(parameters));
     }
 
     void SistersOfSlaughter::Init() {

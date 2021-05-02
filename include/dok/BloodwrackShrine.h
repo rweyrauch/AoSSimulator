@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        BloodwrackShrine();
+        BloodwrackShrine(Temple temple, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BloodwrackShrine() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

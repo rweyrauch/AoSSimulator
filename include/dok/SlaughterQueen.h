@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        SlaughterQueen();
+        SlaughterQueen(Temple temple, Prayer prayer, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SlaughterQueen() override = default;
 
     protected:
-
-        void configure(Prayer prayer);
 
         void onStartHero(PlayerId player) override;
 

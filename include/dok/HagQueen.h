@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        HagQueen();
+        HagQueen(Temple temple, Prayer prayer, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~HagQueen() override = default;
 
     protected:
-
-        void configure(Prayer prayer);
 
         void onStartHero(PlayerId player) override;
 

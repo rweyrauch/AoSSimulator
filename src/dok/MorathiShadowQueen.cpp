@@ -35,8 +35,8 @@ namespace DaughtersOfKhaine {
 
     bool MorathiTheShadowQueen::s_registered = false;
 
-    MorathiTheShadowQueen::MorathiTheShadowQueen() :
-            DaughterOfKhaine("The Shadow Queen", 14, g_wounds, 9, 4, true, g_pointsPerUnit),
+    MorathiTheShadowQueen::MorathiTheShadowQueen(Temple temple, bool isGeneral) :
+            DaughterOfKhaine(temple, "The Shadow Queen", 14, g_wounds, 9, 4, true, g_pointsPerUnit),
             m_gaze(Weapon::Type::Missile, "Gaze of the Shadow Queen", 18, 1, 2, 2, -3, RAND_D6),
             m_heartrender(Weapon::Type::Melee, "Heartrender", 2, 8, 3, 3, -2, 3),
             m_crown(Weapon::Type::Melee, "Crown of Serpents", 1, RAND_2D6, 3, 3, 0, 1),
@@ -46,34 +46,25 @@ namespace DaughtersOfKhaine {
         m_battleFieldRole = Role::Leader;
 
         s_globalAttackMod.connect(this, &MorathiTheShadowQueen::furyOfTheShadowQueen, &m_furySlot);
-    }
 
-    MorathiTheShadowQueen::~MorathiTheShadowQueen() {
-        m_furySlot.disconnect();
-    }
+        setGeneral(isGeneral);
 
-    void MorathiTheShadowQueen::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_gaze);
         model->addMeleeWeapon(&m_heartrender);
         model->addMeleeWeapon(&m_crown);
         model->addMeleeWeapon(&m_tail);
         addModel(model);
+    }
 
-        m_points = g_pointsPerUnit;
+    MorathiTheShadowQueen::~MorathiTheShadowQueen() {
+        m_furySlot.disconnect();
     }
 
     Unit *MorathiTheShadowQueen::Create(const ParameterList &parameters) {
-        auto unit = new MorathiTheShadowQueen();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new MorathiTheShadowQueen(temple, general);
     }
 
     void MorathiTheShadowQueen::Init() {

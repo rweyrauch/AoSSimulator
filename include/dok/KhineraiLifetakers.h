@@ -21,11 +21,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        KhineraiLifetakers(int points);
+        KhineraiLifetakers(Temple temple, int numModels, int points);
 
         ~KhineraiLifetakers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

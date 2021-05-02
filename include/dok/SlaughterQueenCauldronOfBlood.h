@@ -21,7 +21,7 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        SlaughterQueenOnCauldronOfBlood();
+        SlaughterQueenOnCauldronOfBlood(Temple temple, Prayer prayer, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SlaughterQueenOnCauldronOfBlood() override;
 
@@ -30,8 +30,6 @@ namespace DaughtersOfKhaine {
         bool isAnimated() const;
 
     protected:
-
-        void configure(Prayer prayer);
 
         void onWounded() override;
 

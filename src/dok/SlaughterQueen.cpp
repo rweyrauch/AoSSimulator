@@ -18,8 +18,8 @@ namespace DaughtersOfKhaine {
 
     bool SlaughterQueen::s_registered = false;
 
-    SlaughterQueen::SlaughterQueen() :
-            DaughterOfKhaine("Slaughter Queen", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
+    SlaughterQueen::SlaughterQueen(Temple temple, Prayer prayer, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            DaughterOfKhaine(temple, "Slaughter Queen", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
             m_bladeOfKhaine(Weapon::Type::Melee, "Blade of Khaine", 1, 4, 3, 4, -1, 1),
             m_deathsword(Weapon::Type::Melee, "Deathsword", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, SLAUGHTER_QUEEN};
@@ -28,38 +28,26 @@ namespace DaughtersOfKhaine {
 
         // Pact of Blood
         m_totalUnbinds = 1;
-    }
 
-    void SlaughterQueen::configure(Prayer prayer) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bladeOfKhaine);
         model->addMeleeWeapon(&m_deathsword);
         addModel(model);
 
         configureCommon();
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *SlaughterQueen::Create(const ParameterList &parameters) {
-        auto unit = new SlaughterQueen();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
-
-        unit->configure(prayer);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new SlaughterQueen(temple, prayer, trait, artefact, general);
     }
 
     void SlaughterQueen::Init() {

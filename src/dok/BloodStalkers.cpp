@@ -21,19 +21,13 @@ namespace DaughtersOfKhaine {
 
     bool BloodStalkers::s_registered = false;
 
-    BloodStalkers::BloodStalkers(int points) :
-            DaughterOfKhaine("Blood Stalkers", 8, g_wounds, 8, 5, false, points),
+    BloodStalkers::BloodStalkers(Temple temple, int numModels, int points) :
+            DaughterOfKhaine(temple, "Blood Stalkers", 8, g_wounds, 8, 5, false, points),
             m_heartseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 2, 3, 3, -1, 1),
             m_scianlar(Weapon::Type::Melee, "Scianlar", 1, 2, 3, 4, 0, 1),
             m_bloodWyrm(Weapon::Type::Melee, "Blood Wyrm", 1, 1, 3, 3, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_STALKERS};
         m_weapons = {&m_heartseekerBow, &m_scianlar, &m_bloodWyrm};
-    }
-
-    bool BloodStalkers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto krone = new Model(g_basesize, wounds());
         krone->addMissileWeapon(&m_heartseekerBow);
@@ -47,23 +41,12 @@ namespace DaughtersOfKhaine {
             model->addMeleeWeapon(&m_scianlar);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *BloodStalkers::Create(const ParameterList &parameters) {
-        auto unit = new BloodStalkers(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new BloodStalkers(temple, numModels, ComputePoints(parameters));
     }
 
     void BloodStalkers::Init() {

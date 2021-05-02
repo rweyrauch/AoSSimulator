@@ -122,8 +122,6 @@ namespace DaughtersOfKhaine {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        void setTemple(Temple temple);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
@@ -133,8 +131,12 @@ namespace DaughtersOfKhaine {
         void configureCommon();
 
     protected:
-        DaughterOfKhaine(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        DaughterOfKhaine(Temple temple, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setTemple(temple);
+        }
+        
+        void setTemple(Temple temple);
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 

@@ -21,11 +21,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        BloodSisters(int points);
+        BloodSisters(Temple temple, int numModels, int points);
 
         ~BloodSisters() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

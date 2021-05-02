@@ -21,18 +21,12 @@ namespace DaughtersOfKhaine {
 
     bool KhineraiLifetakers::s_registered = false;
 
-    KhineraiLifetakers::KhineraiLifetakers(int points) :
-            DaughterOfKhaine("Khinerai Lifetakers", 14, g_wounds, 7, 6, true, points),
+    KhineraiLifetakers::KhineraiLifetakers(Temple temple, int numModels, int points) :
+            DaughterOfKhaine(temple, "Khinerai Lifetakers", 14, g_wounds, 7, 6, true, points),
             m_barbedSickle(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 3, 4, 0, 1),
             m_barbedSickleHarridynn(Weapon::Type::Melee, "Barbed Sickle", 1, 2, 2, 4, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, KHINERAI_HARPIES, KHINERAI_LIFETAKERS};
         m_weapons = {&m_barbedSickle, &m_barbedSickleHarridynn};
-    }
-
-    bool KhineraiLifetakers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto harridynn = new Model(g_basesize, wounds());
         harridynn->addMeleeWeapon(&m_barbedSickleHarridynn);
@@ -43,23 +37,12 @@ namespace DaughtersOfKhaine {
             model->addMeleeWeapon(&m_barbedSickle);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *KhineraiLifetakers::Create(const ParameterList &parameters) {
-        auto unit = new KhineraiLifetakers(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new KhineraiLifetakers(temple, numModels, ComputePoints(parameters));
     }
 
     void KhineraiLifetakers::Init() {

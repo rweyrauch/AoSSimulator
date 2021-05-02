@@ -21,13 +21,11 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        MorathiHighOracleOfKhaine();
+        MorathiHighOracleOfKhaine(Temple temple, Lore lore, bool isGeneral);
 
         ~MorathiHighOracleOfKhaine() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 

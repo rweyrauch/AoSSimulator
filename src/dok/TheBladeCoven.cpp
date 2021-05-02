@@ -19,14 +19,11 @@ namespace DaughtersOfKhaine {
     bool TheBladeCoven::s_registered = false;
 
     TheBladeCoven::TheBladeCoven() :
-            DaughterOfKhaine("The Blade Coven", 8, g_wounds, 8, 5, false, g_pointsPerUnit),
+            DaughterOfKhaine(Temple::Hagg_Nar, "The Blade Coven", 8, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_heartseekerBow(Weapon::Type::Missile, "Heartseeker Bow", 24, 1, 3, 3, -1, 1),
             m_sacrificialWeapons(Weapon::Type::Melee, "Sacrificial Weapons", 1, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, THE_BLADE_COVEN};
         m_weapons = {&m_heartseekerBow, &m_sacrificialWeapons};
-    }
-
-    void TheBladeCoven::configure() {
 
         auto kyrae = new Model(g_basesize, wounds() + 1);
         kyrae->addMissileWeapon(&m_heartseekerBow);
@@ -51,11 +48,7 @@ namespace DaughtersOfKhaine {
     }
 
     Unit *TheBladeCoven::Create(const ParameterList &parameters) {
-        auto unit = new TheBladeCoven();
-        unit->setTemple(Temple::Hagg_Nar);
-
-        unit->configure();
-        return unit;
+        return new TheBladeCoven();
     }
 
     void TheBladeCoven::Init() {

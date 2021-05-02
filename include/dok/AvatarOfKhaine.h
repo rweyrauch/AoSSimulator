@@ -21,7 +21,7 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        AvatarOfKhaine();
+        explicit AvatarOfKhaine(Temple temple);
 
         ~AvatarOfKhaine() override;
 
@@ -30,8 +30,6 @@ namespace DaughtersOfKhaine {
         bool isAnimated() const;
 
     protected:
-
-        void configure();
 
         int idolOfWorship(const Unit *unit);
 

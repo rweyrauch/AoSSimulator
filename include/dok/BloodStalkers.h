@@ -22,11 +22,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        BloodStalkers(int points);
+        BloodStalkers(Temple temple, int numModels, int points);
 
         ~BloodStalkers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

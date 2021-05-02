@@ -21,8 +21,8 @@ namespace DaughtersOfKhaine {
 
     bool KhineraiHeartrenders::s_registered = false;
 
-    KhineraiHeartrenders::KhineraiHeartrenders(int points) :
-            DaughterOfKhaine("Khinerai Heartrenders", 14, g_wounds, 7, 6, true, points),
+    KhineraiHeartrenders::KhineraiHeartrenders(Temple temple, int numModels, int points) :
+            DaughterOfKhaine(temple, "Khinerai Heartrenders", 14, g_wounds, 7, 6, true, points),
             m_barbedJavelinMissile(Weapon::Type::Missile, "Barbed Javelin", 12, 1, 3, 3, -1, 1),
             m_barbedJavelin(Weapon::Type::Melee, "Barbed Javelin", 2, 1, 4, 4, -1, 1),
             m_barbedJavelinShrykeMissile(Weapon::Type::Missile, "Barbed Javelin", 12, 2, 3, 3, -1, 1),
@@ -32,12 +32,6 @@ namespace DaughtersOfKhaine {
 
         // Death From Above
         m_runAndShoot = true;
-    }
-
-    bool KhineraiHeartrenders::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto shryke = new Model(g_basesize, wounds());
         shryke->addMissileWeapon(&m_barbedJavelinShrykeMissile);
@@ -52,23 +46,12 @@ namespace DaughtersOfKhaine {
         }
 
         m_setupInRound = 0;
-
-        return true;
     }
 
     Unit *KhineraiHeartrenders::Create(const ParameterList &parameters) {
-        auto unit = new KhineraiHeartrenders(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new KhineraiHeartrenders(temple, numModels, ComputePoints(parameters));
     }
 
     void KhineraiHeartrenders::Init() {

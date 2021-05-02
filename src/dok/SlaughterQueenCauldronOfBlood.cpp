@@ -37,8 +37,8 @@ namespace DaughtersOfKhaine {
 
     bool SlaughterQueenOnCauldronOfBlood::s_registered = false;
 
-    SlaughterQueenOnCauldronOfBlood::SlaughterQueenOnCauldronOfBlood() :
-            DaughterOfKhaine("Slaughter Queen on Cauldron of Blood", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
+    SlaughterQueenOnCauldronOfBlood::SlaughterQueenOnCauldronOfBlood(Temple temple, Prayer prayer, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            DaughterOfKhaine(temple, "Slaughter Queen on Cauldron of Blood", 6, g_wounds, 9, 5, false, g_pointsPerUnit),
             m_burningBlood(Weapon::Type::Missile, "Torrent of Burning Blood", 10, 6, 3, 3, -1, 1),
             m_knives(Weapon::Type::Melee, "Witch Aelves' Sacrificial Knives", 1, 8, 3, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Slaughter Queen's Blade of Khaine", 1, 4, 3, 4, -1, 1),
@@ -52,16 +52,13 @@ namespace DaughtersOfKhaine {
         // Pact of Blood
         m_totalUnbinds = 1;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &SlaughterQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
         s_globalSaveMod.connect(this, &SlaughterQueenOnCauldronOfBlood::bloodShield, &m_bloodshieldSlot);
-    }
 
-    SlaughterQueenOnCauldronOfBlood::~SlaughterQueenOnCauldronOfBlood() {
-        m_idolSlot.disconnect();
-        m_bloodshieldSlot.disconnect();
-    }
-
-    void SlaughterQueenOnCauldronOfBlood::configure(Prayer prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_burningBlood);
         model->addMeleeWeapon(&m_knives);
@@ -71,29 +68,20 @@ namespace DaughtersOfKhaine {
         addModel(model);
 
         configureCommon();
+    }
 
-        m_points = g_pointsPerUnit;
+    SlaughterQueenOnCauldronOfBlood::~SlaughterQueenOnCauldronOfBlood() {
+        m_idolSlot.disconnect();
+        m_bloodshieldSlot.disconnect();
     }
 
     Unit *SlaughterQueenOnCauldronOfBlood::Create(const ParameterList &parameters) {
-        auto unit = new SlaughterQueenOnCauldronOfBlood();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
-
-        unit->configure(prayer);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new SlaughterQueenOnCauldronOfBlood(temple, prayer, trait, artefact, general);
     }
 
     void SlaughterQueenOnCauldronOfBlood::Init() {

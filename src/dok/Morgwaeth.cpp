@@ -18,36 +18,24 @@ namespace DaughtersOfKhaine {
 
     bool MorgwaethTheBloodied::s_registered = false;
 
-    MorgwaethTheBloodied::MorgwaethTheBloodied() :
-            DaughterOfKhaine("Morgwaeth the Bloodied", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
+    MorgwaethTheBloodied::MorgwaethTheBloodied(Prayer prayer, bool isGeneral) :
+            DaughterOfKhaine(Temple::Hagg_Nar, "Morgwaeth the Bloodied", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_glaive(Weapon::Type::Melee, "Glaive of Khaine", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, PRIEST, HAG_QUEEN, MORGWAETH_THE_BLOODIED};
         m_weapons = {&m_glaive};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void MorgwaethTheBloodied::configure(Prayer prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_glaive);
         addModel(model);
 
         configureCommon();
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *MorgwaethTheBloodied::Create(const ParameterList &parameters) {
-        auto unit = new MorgwaethTheBloodied();
-
-        unit->setTemple(Temple::Hagg_Nar);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
-
-        unit->configure(prayer);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new MorgwaethTheBloodied(prayer, general);
     }
 
     void MorgwaethTheBloodied::Init() {

@@ -22,18 +22,12 @@ namespace DaughtersOfKhaine {
 
     bool BloodSisters::s_registered = false;
 
-    BloodSisters::BloodSisters(int points) :
-            DaughterOfKhaine("Blood Sisters", 8, g_wounds, 8, 5, false, points),
+    BloodSisters::BloodSisters(Temple temple, int numModels, int points) :
+            DaughterOfKhaine(temple, "Blood Sisters", 8, g_wounds, 8, 5, false, points),
             m_heartshardGlaive(Weapon::Type::Melee, "Heartshard Glaive", 2, 3, 3, 3, -1, 1),
             m_heartshardGlaiveGorgai(Weapon::Type::Melee, "Heartshard Glaive", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, DAUGHTERS_OF_KHAINE, MELUSAI, BLOOD_SISTERS};
         m_weapons = {&m_heartshardGlaive, &m_heartshardGlaiveGorgai};
-    }
-
-    bool BloodSisters::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto gorgai = new Model(g_basesize, wounds());
         gorgai->addMeleeWeapon(&m_heartshardGlaiveGorgai);
@@ -44,23 +38,12 @@ namespace DaughtersOfKhaine {
             model->addMeleeWeapon(&m_heartshardGlaive);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *BloodSisters::Create(const ParameterList &parameters) {
-        auto unit = new BloodSisters(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new BloodSisters(temple, numModels, ComputePoints(parameters));
     }
 
     void BloodSisters::Init() {

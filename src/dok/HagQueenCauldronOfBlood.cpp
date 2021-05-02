@@ -37,8 +37,8 @@ namespace DaughtersOfKhaine {
 
     bool HagQueenOnCauldronOfBlood::s_registered = false;
 
-    HagQueenOnCauldronOfBlood::HagQueenOnCauldronOfBlood() :
-            DaughterOfKhaine("Hag Queen on Cauldron of Blood", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
+    HagQueenOnCauldronOfBlood::HagQueenOnCauldronOfBlood(Temple temple, Prayer prayer, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            DaughterOfKhaine(temple, "Hag Queen on Cauldron of Blood", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_burningBlood(Weapon::Type::Missile, "Torrent of Burning Blood", 10, 6, 3, 3, -1, 1),
             m_knives(Weapon::Type::Melee, "Witch Aelves' Sacrificial Knives", 1, 8, 3, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Haq Queen's Blade of Khaine", 1, 4, 3, 4, -1, 1),
@@ -48,16 +48,13 @@ namespace DaughtersOfKhaine {
         m_weapons = {&m_burningBlood, &m_knives, &m_blade, &m_sword};
         m_battleFieldRole = Role::Leader_Behemoth;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &HagQueenOnCauldronOfBlood::idolOfWorship, &m_idolSlot);
         s_globalSaveMod.connect(this, &HagQueenOnCauldronOfBlood::bloodShield, &m_bloodshieldSlot);
-    }
 
-    HagQueenOnCauldronOfBlood::~HagQueenOnCauldronOfBlood() {
-        m_idolSlot.disconnect();
-        m_bloodshieldSlot.disconnect();
-    }
-
-    void HagQueenOnCauldronOfBlood::configure(Prayer prayer) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_burningBlood);
         model->addMeleeWeapon(&m_knives);
@@ -69,29 +66,20 @@ namespace DaughtersOfKhaine {
         m_sword.activate(false);
 
         configureCommon();
+    }
 
-        m_points = g_pointsPerUnit;
+    HagQueenOnCauldronOfBlood::~HagQueenOnCauldronOfBlood() {
+        m_idolSlot.disconnect();
+        m_bloodshieldSlot.disconnect();
     }
 
     Unit *HagQueenOnCauldronOfBlood::Create(const ParameterList &parameters) {
-        auto unit = new HagQueenOnCauldronOfBlood();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto prayer = (Prayer) GetEnumParam("Prayer", parameters, g_prayers[0]);
-
-        unit->configure(prayer);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_aelfCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_priestArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new HagQueenOnCauldronOfBlood(temple, prayer, trait, artefact, general);
     }
 
     void HagQueenOnCauldronOfBlood::Init() {

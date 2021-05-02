@@ -19,8 +19,8 @@ namespace DaughtersOfKhaine {
 
     bool MorathiHighOracleOfKhaine::s_registered = false;
 
-    MorathiHighOracleOfKhaine::MorathiHighOracleOfKhaine() :
-            DaughterOfKhaine("Morathi-Khaine", 6, g_wounds, 8, 4, false, g_pointsPerUnit),
+    MorathiHighOracleOfKhaine::MorathiHighOracleOfKhaine(Temple temple, Lore lore, bool isGeneral) :
+            DaughterOfKhaine(temple, "Morathi-Khaine", 6, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_heartrender(Weapon::Type::Melee, "Heartrender", 2, 3, 3, 3, -1, RAND_D3),
             m_wings(Weapon::Type::Melee, "Bladed Wings", 2, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, HERO, WIZARD, MORATHI_KHAINE};
@@ -29,9 +29,9 @@ namespace DaughtersOfKhaine {
 
         m_totalSpells = 3;
         m_totalUnbinds = 2;
-    }
 
-    void MorathiHighOracleOfKhaine::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_heartrender);
         model->addMeleeWeapon(&m_wings);
@@ -42,23 +42,13 @@ namespace DaughtersOfKhaine {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         configureCommon();
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *MorathiHighOracleOfKhaine::Create(const ParameterList &parameters) {
-        auto unit = new MorathiHighOracleOfKhaine();
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new MorathiHighOracleOfKhaine(temple, lore, general);
     }
 
     void MorathiHighOracleOfKhaine::Init() {

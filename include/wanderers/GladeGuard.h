@@ -21,11 +21,9 @@ namespace Wanderers {
 
         static void Init();
 
-        GladeGuard(int points);
+        GladeGuard(int numModels, bool pennantBearer, bool hornblower, int points);
 
         ~GladeGuard() override = default;
-
-        bool configure(int numModels, bool pennantBearer, bool hornblower);
 
     protected:
 

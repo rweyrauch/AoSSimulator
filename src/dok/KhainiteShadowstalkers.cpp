@@ -21,19 +21,13 @@ namespace DaughtersOfKhaine {
 
     bool KhainiteShadowstalkers::s_registered = false;
 
-    KhainiteShadowstalkers::KhainiteShadowstalkers(int points) :
-            DaughterOfKhaine("Khainite Shadowstalkers", 6, g_wounds, 7, 5, false, points),
+    KhainiteShadowstalkers::KhainiteShadowstalkers(Temple temple, int numModels, int points) :
+            DaughterOfKhaine(temple, "Khainite Shadowstalkers", 6, g_wounds, 7, 5, false, points),
             m_cursedMissiles(Weapon::Type::Missile, "Cursed Missiles", 6, 1, 4, 3, 0, 1),
             m_assassinsBlades(Weapon::Type::Melee, "Assassin's Blades", 1, 2, 4, 3, 0, 1),
             m_umbralBlades(Weapon::Type::Melee, "Umbral Blades", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, DAUGHTERS_OF_KHAINE, KHAINITE_SHADOWSTALKERS};
         m_weapons = {&m_cursedMissiles, &m_assassinsBlades, &m_umbralBlades};
-    }
-
-    bool KhainiteShadowstalkers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto queen = new Model(g_basesize, wounds() + 2);
         queen->addMissileWeapon(&m_cursedMissiles);
@@ -47,23 +41,12 @@ namespace DaughtersOfKhaine {
             model->addMeleeWeapon(&m_assassinsBlades);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *KhainiteShadowstalkers::Create(const ParameterList &parameters) {
-        auto unit = new KhainiteShadowstalkers(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto temple = (Temple) GetEnumParam("Temple", parameters, g_temple[0]);
-        unit->setTemple(temple);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new KhainiteShadowstalkers(temple, numModels, ComputePoints(parameters));
     }
 
     void KhainiteShadowstalkers::Init() {

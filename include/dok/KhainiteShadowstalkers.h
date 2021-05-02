@@ -21,11 +21,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        KhainiteShadowstalkers(int points);
+        KhainiteShadowstalkers(Temple temple, int numModels, int points);
 
         ~KhainiteShadowstalkers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

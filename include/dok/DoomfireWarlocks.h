@@ -21,11 +21,9 @@ namespace DaughtersOfKhaine {
 
         static void Init();
 
-        DoomfireWarlocks(int points);
+        DoomfireWarlocks(Temple temple, int numModels, bool crossbows, int points);
 
         ~DoomfireWarlocks() override = default;
-
-        bool configure(int numModels, bool crossbows);
 
     protected:
 
