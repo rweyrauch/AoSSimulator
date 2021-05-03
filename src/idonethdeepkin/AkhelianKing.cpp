@@ -17,8 +17,8 @@ namespace IdonethDeepkin {
 
     bool AkhelianKing::s_registered = false;
 
-    AkhelianKing::AkhelianKing() :
-            IdonethDeepkinBase("Akhelian King", 14, g_wounds, 8, 3, true, g_pointsPerUnit),
+    AkhelianKing::AkhelianKing(Enclave enclave, WeaponOption weapon, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            IdonethDeepkinBase(enclave, "Akhelian King", 14, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_bladedPolearm(Weapon::Type::Melee, "Bladed Polearm", 2, 3, 3, 3, -2, RAND_D3),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 4, 3, 3, -1, RAND_D3),
             m_falchion(Weapon::Type::Melee, "Falchion", 1, 3, 3, 4, 0, 1),
@@ -31,10 +31,8 @@ namespace IdonethDeepkin {
         m_hasMount = true;
         m_deepmareJawsTalons.setMount(true);
         m_deepmareTails.setMount(true);
-    }
 
-    void AkhelianKing::configure(WeaponOption weapon, MountTrait trait) {
-        auto model = new Model(g_basesize, wounds());
+       auto model = new Model(g_basesize, wounds());
         if (weapon == Bladed_Polearm) {
             model->addMeleeWeapon(&m_bladedPolearm);
         } else {
@@ -45,30 +43,16 @@ namespace IdonethDeepkin {
         model->addMeleeWeapon(&m_deepmareTails);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *AkhelianKing::Create(const ParameterList &parameters) {
-        auto unit = new AkhelianKing();
-        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Bladed_Polearm);
-
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_akhelianArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Bladed_Polearm);
         auto mountTrait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_leviadonTrait[0]);
-
-        unit->configure(weapon, mountTrait);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_akhelianArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AkhelianKing(enclave, weapon, mountTrait, trait, artefact, general);
     }
 
     void AkhelianKing::Init() {

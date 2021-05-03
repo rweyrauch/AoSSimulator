@@ -69,24 +69,12 @@ namespace IdonethDeepkin {
     bool EidolonOfMathlannAspectOfTheSea::s_registered = false;
 
     Unit *EidolonOfMathlannAspectOfTheSea::Create(const ParameterList &parameters) {
-        auto unit = new EidolonOfMathlannAspectOfTheSea();
-
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaneArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaneArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new EidolonOfMathlannAspectOfTheSea(enclave, lore, trait, artefact, general);
     }
 
     void EidolonOfMathlannAspectOfTheSea::Init() {
@@ -111,8 +99,8 @@ namespace IdonethDeepkin {
         }
     }
 
-    EidolonOfMathlannAspectOfTheSea::EidolonOfMathlannAspectOfTheSea() :
-            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Sea", 10, g_wounds, 10, 3, true, g_pointsPerUnit),
+    EidolonOfMathlannAspectOfTheSea::EidolonOfMathlannAspectOfTheSea(Enclave enclave, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            IdonethDeepkinBase(enclave, "Eidolon of Mathlann Aspect of the Sea", 10, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_abyssalEnergy(Weapon::Type::Missile, "Blasts of Abyssal Energy", 15, RAND_D3, 3, 3, -2, 2),
             m_trident(Weapon::Type::Melee, "Psi-trident", 2, 3, 3, 3, -2, 2),
             m_sceptre(Weapon::Type::Melee, "Deep-sea Sceptre", 1, 3, 3, 3, -1, 1),
@@ -125,13 +113,11 @@ namespace IdonethDeepkin {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    EidolonOfMathlannAspectOfTheSea::~EidolonOfMathlannAspectOfTheSea() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void EidolonOfMathlannAspectOfTheSea::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_abyssalEnergy);
         model->addMeleeWeapon(&m_trident);
@@ -145,8 +131,10 @@ namespace IdonethDeepkin {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
 
-        m_points = g_pointsPerUnit;
+    EidolonOfMathlannAspectOfTheSea::~EidolonOfMathlannAspectOfTheSea() {
+        m_connection.disconnect();
     }
 
     int EidolonOfMathlannAspectOfTheSea::tranquilityOfTheAbyss(const Unit *target) {
@@ -155,7 +143,6 @@ namespace IdonethDeepkin {
             (distanceTo(target) <= 18.0)) {
             return 3;
         }
-
         return 0;
     }
 

@@ -21,11 +21,9 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        NamartiThralls(int points);
+        NamartiThralls(Enclave enclave, int numModels, int numIconBearers, int points);
 
         ~NamartiThralls() override = default;
-
-        bool configure(int numModels, int numIconBearers);
 
     private:
 

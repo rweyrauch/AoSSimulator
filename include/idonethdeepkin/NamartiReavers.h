@@ -21,11 +21,9 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        NamartiReavers(int points);
+        NamartiReavers(Enclave enclave, int numModels, int numIconBearers, int points);
 
         ~NamartiReavers() override = default;
-
-        bool configure(int numModels, int numIconBearers);
 
     protected:
 

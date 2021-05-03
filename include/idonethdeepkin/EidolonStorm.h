@@ -21,13 +21,11 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        EidolonOfMathlannAspectOfTheStorm();
+        EidolonOfMathlannAspectOfTheStorm(Enclave enclave, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~EidolonOfMathlannAspectOfTheStorm() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

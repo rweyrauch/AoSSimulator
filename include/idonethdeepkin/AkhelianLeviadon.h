@@ -21,7 +21,7 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        AkhelianLeviadon();
+        AkhelianLeviadon(Enclave enclave, MountTrait mountTrait);
 
         ~AkhelianLeviadon() override;
 
@@ -30,8 +30,6 @@ namespace IdonethDeepkin {
         void onRestore() override;
 
     private:
-
-        void configure(MountTrait trait);
 
         size_t getDamageTableIndex() const;
 

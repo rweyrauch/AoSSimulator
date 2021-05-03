@@ -30,13 +30,11 @@ namespace IdonethDeepkin {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        AkhelianKing();
+        AkhelianKing(Enclave enclave, WeaponOption weapon, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AkhelianKing() override = default;
 
     protected:
-
-        void configure(WeaponOption weapon, MountTrait trait);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

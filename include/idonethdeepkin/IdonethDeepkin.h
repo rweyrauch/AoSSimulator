@@ -116,14 +116,17 @@ namespace IdonethDeepkin {
 
         ~IdonethDeepkinBase() override = default;
 
-        void setEnclave(Enclave enclave);
-
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
+
     protected:
 
-        IdonethDeepkinBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        IdonethDeepkinBase(Enclave enclave, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setEnclave(enclave);
+        }
+
+        void setEnclave(Enclave enclave);
 
     protected:
 

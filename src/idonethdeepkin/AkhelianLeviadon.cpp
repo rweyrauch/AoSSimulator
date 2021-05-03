@@ -32,8 +32,8 @@ namespace IdonethDeepkin {
 
     bool AkhelianLeviadon::s_registered = false;
 
-    AkhelianLeviadon::AkhelianLeviadon() :
-            IdonethDeepkinBase("Akhelian Leviadon", 10, g_wounds, 6, 2, true, g_pointsPerUnit),
+    AkhelianLeviadon::AkhelianLeviadon(Enclave enclave, MountTrait mountTrait) :
+            IdonethDeepkinBase(enclave, "Akhelian Leviadon", 10, g_wounds, 6, 2, true, g_pointsPerUnit),
             m_harpoonLauncher(Weapon::Type::Missile, "Harpoon Launchers", 24, 8, 3, 3, -1, 1),
             m_crushingJaws(Weapon::Type::Melee, "Crushing Jaws", 1, 2, 2, 2, -2, 3),
             m_scythedFins(Weapon::Type::Melee, "Massive Scythed Fins", 2, 4, 2, 3, -1, 4),
@@ -47,14 +47,7 @@ namespace IdonethDeepkin {
 
         s_globalSaveMod.connect(this, &AkhelianLeviadon::voidDrumSaveMod, &m_voidDrumSaveSlot);
         s_globalToHitMod.connect(this, &AkhelianLeviadon::voidDrumToHitMod, &m_voidDrumHitSlot);
-    }
 
-    AkhelianLeviadon::~AkhelianLeviadon() {
-        m_voidDrumHitSlot.disconnect();
-        m_voidDrumSaveSlot.disconnect();
-    }
-
-    void AkhelianLeviadon::configure(MountTrait trait) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_harpoonLauncher);
         model->addMeleeWeapon(&m_crushingJaws);
@@ -62,20 +55,17 @@ namespace IdonethDeepkin {
         model->addMeleeWeapon(&m_spearAndHarpoons);
 
         addModel(model);
+    }
 
-        m_points = g_pointsPerUnit;
+    AkhelianLeviadon::~AkhelianLeviadon() {
+        m_voidDrumHitSlot.disconnect();
+        m_voidDrumSaveSlot.disconnect();
     }
 
     Unit *AkhelianLeviadon::Create(const ParameterList &parameters) {
-        auto unit = new AkhelianLeviadon();
-
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
         auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_leviadonTrait[0]);
-
-        unit->configure(trait);
-        return unit;
+        return new AkhelianLeviadon(enclave, trait);
     }
 
     void AkhelianLeviadon::Init() {

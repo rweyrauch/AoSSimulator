@@ -21,11 +21,9 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        AkhelianIshlaenGuard(int points);
+        AkhelianIshlaenGuard(Enclave enclave, int numModels, bool standardBearers, bool musicians, int points);
 
         ~AkhelianIshlaenGuard() override = default;
-
-        bool configure(int numModels, bool standardBearers, bool musicians);
 
     protected:
 

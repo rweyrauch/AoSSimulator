@@ -21,13 +21,9 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        IsharannSoulrender();
+        IsharannSoulrender(Enclave enclave, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~IsharannSoulrender() override = default;
-
-    protected:
-
-        void configure();
 
     private:
 

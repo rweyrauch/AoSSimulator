@@ -21,13 +21,11 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        EidolonOfMathlannAspectOfTheSea();
+        EidolonOfMathlannAspectOfTheSea(Enclave enclave, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~EidolonOfMathlannAspectOfTheSea() override;
 
     protected:
-
-        void configure(Lore lore);
 
         int tranquilityOfTheAbyss(const Unit *target);
 

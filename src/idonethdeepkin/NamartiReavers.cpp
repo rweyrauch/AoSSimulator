@@ -22,23 +22,13 @@ namespace IdonethDeepkin {
 
     bool NamartiReavers::s_registered = false;
 
-    NamartiReavers::NamartiReavers(int points) :
-            IdonethDeepkinBase("Namarti Reavers", 8, g_wounds, 6, 5, false, points),
+    NamartiReavers::NamartiReavers(Enclave enclave, int numModels, int numIconBearers, int points) :
+            IdonethDeepkinBase(enclave, "Namarti Reavers", 8, g_wounds, 6, 5, false, points),
             m_keeningBlade(Weapon::Type::Melee, "Keening Blade", 1, 2, 3, 4, 0, 1),
             m_whisperbowAimedFire(Weapon::Type::Missile, "Whisperbow: Aimed Fire", 18, 1, 4, 4, 0, 1),
             m_whisperbowStormFire(Weapon::Type::Missile, "Whisperbow: Storm Fire", 9, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, REAVERS};
         m_weapons = {&m_keeningBlade, &m_whisperbowAimedFire, &m_whisperbowStormFire};
-    }
-
-    bool NamartiReavers::configure(int numModels, int numIconBearers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-
-        if (numIconBearers > g_maxUnitSize / 10) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -51,24 +41,13 @@ namespace IdonethDeepkin {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *NamartiReavers::Create(const ParameterList &parameters) {
-        auto unit = new NamartiReavers(ComputePoints(parameters));
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
-
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        bool ok = unit->configure(numModels, numIconBearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new NamartiReavers(enclave, numModels, numIconBearers, ComputePoints(parameters));
     }
 
     void NamartiReavers::Init() {

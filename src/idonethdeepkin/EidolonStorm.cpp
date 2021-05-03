@@ -17,22 +17,11 @@ namespace IdonethDeepkin {
     bool EidolonOfMathlannAspectOfTheStorm::s_registered = false;
 
     Unit *EidolonOfMathlannAspectOfTheStorm::Create(const ParameterList &parameters) {
-        auto unit = new EidolonOfMathlannAspectOfTheStorm();
-
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_idonethArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new EidolonOfMathlannAspectOfTheStorm(enclave, trait, artefact, general);
     }
 
     void EidolonOfMathlannAspectOfTheStorm::Init() {
@@ -56,8 +45,8 @@ namespace IdonethDeepkin {
         }
     }
 
-    EidolonOfMathlannAspectOfTheStorm::EidolonOfMathlannAspectOfTheStorm() :
-            IdonethDeepkinBase("Eidolon of Mathlann Aspect of the Storm", 12, g_wounds, 10, 3, true, g_pointsPerUnit),
+    EidolonOfMathlannAspectOfTheStorm::EidolonOfMathlannAspectOfTheStorm(Enclave enclave, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            IdonethDeepkinBase(enclave, "Eidolon of Mathlann Aspect of the Storm", 12, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_spear(Weapon::Type::Melee, "Spear of Repressed Fury", 2, 4, 3, 2, -2, 2),
             m_crulhook(Weapon::Type::Melee, "Crulhook", 1, 4, 3, 2, -1, 1),
             m_fangs(Weapon::Type::Melee, "Sharp Fangs", 3, RAND_2D6, 4, 4, 0, 1) {
@@ -65,17 +54,17 @@ namespace IdonethDeepkin {
         m_weapons = {&m_spear, &m_crulhook, &m_fangs};
         m_battleFieldRole = Role::Leader;
         m_retreatAndCharge = true;
-    }
 
-    void EidolonOfMathlannAspectOfTheStorm::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_spear);
         model->addMeleeWeapon(&m_crulhook);
         model->addMeleeWeapon(&m_fangs);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Rerolls EidolonOfMathlannAspectOfTheStorm::toHitRerolls(const Weapon *weapon, const Unit *target) const {

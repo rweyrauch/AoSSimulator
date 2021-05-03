@@ -21,15 +21,13 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        IsharannTidecaster();
+        IsharannTidecaster(Enclave enclave, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~IsharannTidecaster() override = default;
 
         void setRiptideTarget(Unit* target) { m_riptideTarget = target; }
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

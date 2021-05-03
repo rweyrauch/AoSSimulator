@@ -20,8 +20,8 @@ namespace IdonethDeepkin {
 
     bool AkhelianAllopexes::s_registered = false;
 
-    AkhelianAllopexes::AkhelianAllopexes(int points) :
-            IdonethDeepkinBase("Akhelian Alloplexes", 14, g_wounds, 6, 4, true, points),
+    AkhelianAllopexes::AkhelianAllopexes(Enclave enclave, int numModels, WeaponOption weapons, int points) :
+            IdonethDeepkinBase(enclave, "Akhelian Alloplexes", 14, g_wounds, 6, 4, true, points),
             m_harpoonLauncher(Weapon::Type::Missile, "Razorshell Harpoon Launcher", 24, 4, 3, 3, -1, 1),
             m_netLauncher(Weapon::Type::Missile, "Retarius Net Launcher", 18, 1, 3, 3, 0, 3),
             m_hooksAndBlades(Weapon::Type::Melee, "Barbed Hooks and Blades", 1, 5, 3, 4, 0, 1),
@@ -30,12 +30,6 @@ namespace IdonethDeepkin {
         m_weapons = {&m_harpoonLauncher, &m_netLauncher, &m_hooksAndBlades, &m_allopexBite};
         m_hasMount = true;
         m_allopexBite.setMount(true);
-    }
-
-    bool AkhelianAllopexes::configure(int numModels, WeaponOption weapons) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -49,24 +43,13 @@ namespace IdonethDeepkin {
             model->addMeleeWeapon(&m_allopexFins);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *AkhelianAllopexes::Create(const ParameterList &parameters) {
-        auto unit = new AkhelianAllopexes(ComputePoints(parameters));
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Harpoon_Launcher);
-
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new AkhelianAllopexes(enclave, numModels, weapons, ComputePoints(parameters));
     }
 
     void AkhelianAllopexes::Init() {

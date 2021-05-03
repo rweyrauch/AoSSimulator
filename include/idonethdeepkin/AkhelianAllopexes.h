@@ -30,11 +30,9 @@ namespace IdonethDeepkin {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        AkhelianAllopexes(int points);
+        AkhelianAllopexes(Enclave enclave, int numModels, WeaponOption weapons, int points);
 
         ~AkhelianAllopexes() override = default;
-
-        bool configure(int numModels, WeaponOption weapons);
 
     protected:
 

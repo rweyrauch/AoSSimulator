@@ -20,8 +20,8 @@ namespace IdonethDeepkin {
 
     bool AkhelianMorrsarrGuard::s_registered = false;
 
-    AkhelianMorrsarrGuard::AkhelianMorrsarrGuard(int points) :
-            IdonethDeepkinBase("Akhelian Morrsarr Guard", 14, g_wounds, 6, 4, true, points),
+    AkhelianMorrsarrGuard::AkhelianMorrsarrGuard(Enclave enclave, int numModels, bool standardBearers, bool musicians, int points) :
+            IdonethDeepkinBase(enclave, "Akhelian Morrsarr Guard", 14, g_wounds, 6, 4, true, points),
             m_voltspear(Weapon::Type::Melee, "Voltspear", 2, 2, 3, 3, 0, 1),
             m_voltspearPrince(Weapon::Type::Melee, "Voltspear", 2, 3, 3, 3, 0, 1),
             m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
@@ -31,12 +31,6 @@ namespace IdonethDeepkin {
         m_hasMount = true;
         m_fangmoraLashingTail.setMount(true);
         m_fangmoraFangedMaw.setMount(true);
-    }
-
-    bool AkhelianMorrsarrGuard::configure(int numModels, bool standardBearers, bool musicians) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto prince = new Model(g_basesize, wounds());
         prince->addMeleeWeapon(&m_voltspearPrince);
@@ -58,25 +52,14 @@ namespace IdonethDeepkin {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *AkhelianMorrsarrGuard::Create(const ParameterList &parameters) {
-        auto unit = new AkhelianMorrsarrGuard(ComputePoints(parameters));
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
         bool musicians = GetBoolParam("Musicians", parameters, true);
-
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        bool ok = unit->configure(numModels, standardBearers, musicians);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new AkhelianMorrsarrGuard(enclave, numModels, standardBearers, musicians, ComputePoints(parameters));
     }
 
     void AkhelianMorrsarrGuard::Init() {

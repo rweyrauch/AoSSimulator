@@ -20,8 +20,8 @@ namespace IdonethDeepkin {
 
     bool AkhelianIshlaenGuard::s_registered = false;
 
-    AkhelianIshlaenGuard::AkhelianIshlaenGuard(int points) :
-            IdonethDeepkinBase("Akhelian Ishlaen Guard", 14, g_wounds, 6, 4, true, points),
+    AkhelianIshlaenGuard::AkhelianIshlaenGuard(Enclave enclave, int numModels, bool standardBearers, bool musicians, int points) :
+            IdonethDeepkinBase(enclave, "Akhelian Ishlaen Guard", 14, g_wounds, 6, 4, true, points),
             m_helsabre(Weapon::Type::Melee, "Helsabre", 1, 3, 3, 3, 0, 1),
             m_helsabrePrince(Weapon::Type::Melee, "Helsabre", 1, 4, 3, 3, 0, 1),
             m_fangmoraFangedMaw(Weapon::Type::Melee, "Fangmora's Fanged Maw", 1, 1, 3, 3, 0, RAND_D3),
@@ -31,12 +31,6 @@ namespace IdonethDeepkin {
         m_hasMount = true;
         m_fangmoraFangedMaw.setMount(true);
         m_fangmoraLashingTail.setMount(true);
-    }
-
-    bool AkhelianIshlaenGuard::configure(int numModels, bool standardBearers, bool musicians) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto prince = new Model(g_basesize, wounds());
         prince->addMeleeWeapon(&m_helsabrePrince);
@@ -58,25 +52,14 @@ namespace IdonethDeepkin {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *AkhelianIshlaenGuard::Create(const ParameterList &parameters) {
-        auto unit = new AkhelianIshlaenGuard(ComputePoints(parameters));
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, true);
         bool musicians = GetBoolParam("Musicians", parameters, true);
-
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        bool ok = unit->configure(numModels, standardBearers, musicians);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new AkhelianIshlaenGuard(enclave, numModels, standardBearers, musicians, ComputePoints(parameters));
     }
 
     void AkhelianIshlaenGuard::Init() {

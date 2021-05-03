@@ -21,13 +21,11 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        Volturnos();
+        Volturnos(Enclave enclave, MountTrait trait, bool isGeneral);
 
         ~Volturnos() override;
 
     protected:
-
-        void configure(MountTrait trait);
 
         void onCharged() override;
 

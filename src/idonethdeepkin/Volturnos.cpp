@@ -17,8 +17,8 @@ namespace IdonethDeepkin {
 
     bool Volturnos::s_registered = false;
 
-    Volturnos::Volturnos() :
-            IdonethDeepkinBase("Volturnos", 14, g_wounds, 8, 3, true, g_pointsPerUnit),
+    Volturnos::Volturnos(Enclave enclave, MountTrait trait, bool isGeneral) :
+            IdonethDeepkinBase(enclave, "Volturnos", 14, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_theAstraSolus(Weapon::Type::Melee, "The Astra Solus", 1, 5, 3, 3, -1, RAND_D3),
             m_deepmareJawsTalons(Weapon::Type::Melee, "Deepmare's Fanged Jaw and Talons", 2, 3, 3, 3, -1, 1),
             m_deepmareTails(Weapon::Type::Melee, "Deepmare's Lashing Tails", 2, 3, 3, 3, 0, 2) {
@@ -29,36 +29,26 @@ namespace IdonethDeepkin {
         m_deepmareTails.setMount(true);
         m_deepmareJawsTalons.setMount(true);
 
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &Volturnos::crestOfTheHighKings, &m_connection);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_theAstraSolus);
+        model->addMeleeWeapon(&m_deepmareJawsTalons);
+        model->addMeleeWeapon(&m_deepmareTails);
+        addModel(model);
     }
 
     Volturnos::~Volturnos() {
         m_connection.disconnect();
     }
 
-    void Volturnos::configure(MountTrait trait) {
-        auto model = new Model(g_basesize, wounds());
-        model->addMeleeWeapon(&m_theAstraSolus);
-        model->addMeleeWeapon(&m_deepmareJawsTalons);
-        model->addMeleeWeapon(&m_deepmareTails);
-        addModel(model);
-
-        m_points = g_pointsPerUnit;
-    }
-
     Unit *Volturnos::Create(const ParameterList &parameters) {
-        auto unit = new Volturnos();
-
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto trait = (MountTrait) GetEnumParam("Mount Trait", parameters, g_leviadonTrait[0]);
-
-        unit->configure(trait);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new Volturnos(enclave, trait, general);
     }
 
     void Volturnos::Init() {

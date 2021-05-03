@@ -46,24 +46,12 @@ namespace IdonethDeepkin {
     bool IsharannTidecaster::s_registered = false;
 
     Unit *IsharannTidecaster::Create(const ParameterList &parameters) {
-        auto unit = new IsharannTidecaster();
-
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaneArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_arcaneArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new IsharannTidecaster(enclave, lore, trait, artefact, general);
     }
 
     void IsharannTidecaster::Init() {
@@ -88,8 +76,8 @@ namespace IdonethDeepkin {
         }
     }
 
-    IsharannTidecaster::IsharannTidecaster() :
-            IdonethDeepkinBase("Isharann Tidecaster", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
+    IsharannTidecaster::IsharannTidecaster(Enclave enclave, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            IdonethDeepkinBase(enclave, "Isharann Tidecaster", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Pelagic Staff", 1, 2, 3, 3, 0, RAND_D3) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, WIZARD, TIDECASTER};
         m_weapons = {&m_staff};
@@ -97,9 +85,11 @@ namespace IdonethDeepkin {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void IsharannTidecaster::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
 
@@ -109,8 +99,6 @@ namespace IdonethDeepkin {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     int IsharannTidecaster::ComputePoints(const ParameterList& /*parameters*/) {

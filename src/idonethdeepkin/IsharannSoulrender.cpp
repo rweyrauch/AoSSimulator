@@ -17,22 +17,11 @@ namespace IdonethDeepkin {
     bool IsharannSoulrender::s_registered = false;
 
     Unit *IsharannSoulrender::Create(const ParameterList &parameters) {
-        auto unit = new IsharannSoulrender();
-
         auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_isharannArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new IsharannSoulrender(enclave, trait, artefact, general);
     }
 
     void IsharannSoulrender::Init() {
@@ -51,28 +40,27 @@ namespace IdonethDeepkin {
                     ORDER,
                     {IDONETH_DEEPKIN}
             };
-
             s_registered = UnitFactory::Register("Isharann Soulrender", factoryMethod);
         }
     }
 
-    IsharannSoulrender::IsharannSoulrender() :
-            IdonethDeepkinBase("Isharann Soulrender", 6, g_wounds, 8, 4, false, g_pointsPerUnit),
+    IsharannSoulrender::IsharannSoulrender(Enclave enclave, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            IdonethDeepkinBase(enclave, "Isharann Soulrender", 6, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_talunhook(Weapon::Type::Melee, "Talunhook", 2, 2, 3, 3, -1, 2),
             m_bill(Weapon::Type::Melee, "Rakerdart's Serrated Bill", 3, RAND_D3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, ISHARANN, HERO, SOULRENDER};
         m_weapons = {&m_talunhook, &m_bill};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void IsharannSoulrender::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_talunhook);
         model->addMeleeWeapon(&m_bill);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int IsharannSoulrender::ComputePoints(const ParameterList& /*parameters*/) {

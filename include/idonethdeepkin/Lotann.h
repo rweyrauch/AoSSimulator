@@ -21,13 +21,11 @@ namespace IdonethDeepkin {
 
         static void Init();
 
-        Lotann();
+        Lotann(Enclave enclave, bool isGeneral);
 
         ~Lotann() override;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

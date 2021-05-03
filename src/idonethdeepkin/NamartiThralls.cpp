@@ -21,22 +21,12 @@ namespace IdonethDeepkin {
 
     bool NamartiThralls::s_registered = false;
 
-    NamartiThralls::NamartiThralls(int points) :
-            IdonethDeepkinBase("Namarti Thralls", 6, g_wounds, 6, 5, false, points),
+    NamartiThralls::NamartiThralls(Enclave enclave, int numModels, int numIconBearers, int points) :
+            IdonethDeepkinBase(enclave, "Namarti Thralls", 6, g_wounds, 6, 5, false, points),
             m_lanmariBlade(Weapon::Type::Melee, "Lanmari Blade", 1, 2, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, IDONETH_DEEPKIN, NAMARTI, THRALLS};
         m_weapons = {&m_lanmariBlade};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool NamartiThralls::configure(int numModels, int numIconBearers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-
-        if (numIconBearers > g_maxUnitSize / 10) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -47,24 +37,13 @@ namespace IdonethDeepkin {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *NamartiThralls::Create(const ParameterList &parameters) {
-        auto unit = new NamartiThralls(ComputePoints(parameters));
+        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numIconBearers = GetIntParam("Icon Bearers", parameters, 0);
-
-        auto enclave = (Enclave) GetEnumParam("Enclave", parameters, g_enclave[0]);
-        unit->setEnclave(enclave);
-
-        bool ok = unit->configure(numModels, numIconBearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new NamartiThralls(enclave, numModels, numIconBearers, ComputePoints(parameters));
     }
 
     void NamartiThralls::Init() {
