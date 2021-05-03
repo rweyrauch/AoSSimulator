@@ -132,15 +132,17 @@ namespace Fyreslayers {
 
         ~Fyreslayer() override = default;
 
-        void setLodge(Lodge lodge);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
 
     protected:
-        Fyreslayer(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        Fyreslayer(Lodge lodge, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setLodge(lodge);
+        }
+
+        void setLodge(Lodge lodge);
 
         void onBeginRound(int battleRound) override;
 

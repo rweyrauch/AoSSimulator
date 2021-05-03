@@ -17,15 +17,13 @@ namespace Fyreslayers {
     bool TheChosenAxes::s_registered = false;
 
     TheChosenAxes::TheChosenAxes() :
-            Fyreslayer("The Chosen Axes", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
+            Fyreslayer(Lodge::Vostarg, "The Chosen Axes", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_handaxes(Weapon::Type::Melee, "Fyresteel Handaxes", 1, 2, 3, 3, 0, 1),
             m_handaxesTefk(Weapon::Type::Melee, "Fyresteel Handaxes", 1, 3, 3, 3, 0, 1),
             m_greatAxe(Weapon::Type::Missile, "Fyresteel Great Axe", 1, 2, 3, 4, -1, 2) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, VULKITE_BERZERKERS, CHOSEN_AXES};
         m_weapons = {&m_handaxes, &m_handaxesTefk, &m_greatAxe};
-    }
 
-    void TheChosenAxes::configure() {
         auto tefk = new Model(g_basesize, wounds());
         tefk->addMeleeWeapon(&m_handaxesTefk);
         tefk->setName("Tefk Flamebearer");
@@ -43,12 +41,7 @@ namespace Fyreslayers {
     }
 
     Unit *TheChosenAxes::Create(const ParameterList &parameters) {
-        auto unit = new TheChosenAxes();
-
-        unit->setLodge(Lodge::Vostarg);
-
-        unit->configure();
-        return unit;
+        return new TheChosenAxes();
     }
 
     void TheChosenAxes::Init() {

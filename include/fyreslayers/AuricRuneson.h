@@ -21,13 +21,11 @@ namespace Fyreslayers {
 
         static void Init();
 
-        AuricRuneson();
+        AuricRuneson(Lodge lodge, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AuricRuneson() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

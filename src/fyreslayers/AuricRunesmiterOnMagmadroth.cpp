@@ -40,19 +40,20 @@ namespace Fyreslayers {
 
     bool AuricRunesmiterOnMagmadroth::s_registered = false;
 
-    AuricRunesmiterOnMagmadroth::AuricRunesmiterOnMagmadroth() :
-            Magmadroth("Auric Runesmiter on Magmadroth", 8, g_pointsPerUnit),
+    AuricRunesmiterOnMagmadroth::AuricRunesmiterOnMagmadroth(Lodge lodge, Blessing blessing, WeaponOption weapons, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Magmadroth(lodge, "Auric Runesmiter on Magmadroth", 8, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_latchAxe(Weapon::Type::Melee, "Latch-axe", 1, 1, 3, 3, 0, 2),
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, PRIEST, AURIC_RUNESMITER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_latchAxe, &m_runicIron};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void AuricRunesmiterOnMagmadroth::configure(Blessing prayer, WeaponOption weaponOption, MountTrait trait) {
+        m_weaponOption = weapons;
 
-        m_weaponOption = weaponOption;
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
@@ -60,41 +61,27 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_clawsAndHorns);
         model->addMeleeWeapon(&m_blazingMaw);
         model->addMeleeWeapon(&m_latchAxe);
-        if (weaponOption == Runic_Iron) {
+        if (weapons == Runic_Iron) {
             model->addMeleeWeapon(&m_runicIron);
         }
 
         addModel(model);
 
         m_knownPrayers.push_back(std::make_unique<RunicEmpowerment>(this, (m_weaponOption == Forge_Key) ? 18 : 12));
-        m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateZharrgrimBlessing(prayer, this)));
+        m_knownPrayers.push_back(std::unique_ptr<Prayer>(CreateZharrgrimBlessing(blessing, this)));
 
-        m_mountTrait = trait;
-
-        m_points = g_pointsPerUnit;
+        m_mountTrait = mountTrait;
     }
 
     Unit *AuricRunesmiterOnMagmadroth::Create(const ParameterList &parameters) {
-        auto unit = new AuricRunesmiterOnMagmadroth();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterSmiterTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_forgeTempleArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto prayer = (Blessing) GetEnumParam("Prayer", parameters, g_prayers[0]);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Runic_Iron);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
-
-        unit->configure(prayer, weapons, mount);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterSmiterTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_forgeTempleArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AuricRunesmiterOnMagmadroth(lodge, prayer, weapons, mount, trait, artefact, general);
     }
 
     void AuricRunesmiterOnMagmadroth::Init() {

@@ -27,8 +27,6 @@ namespace Fyreslayers {
 
     protected:
 
-        void configure();
-
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 
         void onRestore() override;

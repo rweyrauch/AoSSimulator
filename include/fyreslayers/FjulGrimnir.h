@@ -21,7 +21,7 @@ namespace Fyreslayers {
 
         static void Init();
 
-        FjulGrimnir();
+        FjulGrimnir(bool isGeneral);
 
         ~FjulGrimnir() override = default;
 

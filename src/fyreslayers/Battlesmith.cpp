@@ -16,38 +16,28 @@ namespace Fyreslayers {
 
     bool Battlesmith::s_registered = false;
 
-    Battlesmith::Battlesmith() :
-            Fyreslayer("Battlesmith", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
+    Battlesmith::Battlesmith(Lodge lodge, Artefact artefact, bool isGeneral) :
+            Fyreslayer(lodge, "Battlesmith", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_battleAxe(Weapon::Type::Melee, "Ancestral Battle-axe", 1, 3, 3, 3, -1, 2) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, TOTEM, BATTLESMITH};
         m_weapons = {&m_throwingAxe, &m_battleAxe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Battlesmith::configure() {
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_battleAxe);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Battlesmith::Create(const ParameterList &parameters) {
-        auto unit = new Battlesmith();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_iconArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Battlesmith(lodge, artefact, general);
     }
 
     void Battlesmith::Init() {

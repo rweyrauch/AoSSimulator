@@ -30,13 +30,9 @@ namespace Fyreslayers {
 
         static void Init();
 
-        AuricRunesmiterOnMagmadroth();
+        AuricRunesmiterOnMagmadroth(Lodge lodge, Blessing blessing, WeaponOption weapons, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AuricRunesmiterOnMagmadroth() override = default;
-
-    protected:
-
-        void configure(Blessing blessing, WeaponOption weapons, MountTrait trait);
 
     private:
 

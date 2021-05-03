@@ -17,12 +17,11 @@ namespace Fyreslayers {
     bool Doomseeker::s_registered = false;
 
     Doomseeker::Doomseeker(Lodge lodge, Artefact artefact) :
-            Fyreslayer("Doomseeker", 4, g_wounds, 8, 4, false, g_pointsPerUnit) {
+            Fyreslayer(lodge, "Doomseeker", 4, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, DOOMSEEKER};
         m_weapons = {&m_throwingAxe, &m_warIron, &m_doomseekerAxe};
         m_battleFieldRole = Role::Leader;
 
-        setLodge(lodge);
         setArtefact(artefact);
 
         auto model = new Model(g_basesize, wounds());
@@ -30,8 +29,6 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_warIron);
         model->addMeleeWeapon(&m_doomseekerAxe);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Doomseeker::Create(const ParameterList &parameters) {

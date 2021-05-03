@@ -18,19 +18,16 @@ namespace Fyreslayers {
     bool GrimwrathBerzerker::s_registered = false;
 
     GrimwrathBerzerker::GrimwrathBerzerker(Lodge lodge, Artefact artefact) :
-            Fyreslayer("Grimwrath Berzerker", 4, g_wounds, 9, 4, false, g_pointsPerUnit) {
+            Fyreslayer(lodge, "Grimwrath Berzerker", 4, g_wounds, 9, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, GRIMWRATH_BERZERKER};
         m_weapons = {&m_throwingAxe, &m_greatAxe};
 
-        setLodge(lodge);
         setArtefact(artefact);
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_greatAxe);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *GrimwrathBerzerker::Create(const ParameterList &parameters) {

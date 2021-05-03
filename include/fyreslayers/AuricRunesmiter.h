@@ -30,13 +30,9 @@ namespace Fyreslayers {
 
         static void Init();
 
-        AuricRunesmiter();
+        AuricRunesmiter(Lodge lodge, Blessing blessing, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AuricRunesmiter() override = default;
-
-    protected:
-
-        void configure(Blessing blessing, WeaponOption weapons);
 
     private:
 

@@ -19,20 +19,14 @@ namespace Fyreslayers {
 
     bool AuricHearthguard::s_registered = false;
 
-    AuricHearthguard::AuricHearthguard(int points) :
-            Fyreslayer("Auric Hearthguard", 4, g_wounds, 7, 5, false, points),
+    AuricHearthguard::AuricHearthguard(Lodge lodge, int numModels, int points) :
+            Fyreslayer(lodge, "Auric Hearthguard", 4, g_wounds, 7, 5, false, points),
             m_magmapike(Weapon::Type::Missile, "Magmapike", 18, 2, 4, 3, -1, 1),
             m_magmapikeKarl(Weapon::Type::Missile, "Magmapike", 18, 3, 4, 3, -1, 1),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_magmapikeMelee(Weapon::Type::Melee, "Magmapike", 1, 1, 3, 3, 0, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, AURIC_HEARTHGUARD};
         m_weapons = {&m_magmapike, &m_magmapikeKarl, &m_throwingAxe, &m_magmapikeMelee};
-    }
-
-    bool AuricHearthguard::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto karl = new Model(g_basesize, wounds());
         karl->addMissileWeapon(&m_magmapikeKarl);
@@ -48,23 +42,12 @@ namespace Fyreslayers {
             model->addMeleeWeapon(&m_magmapikeMelee);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *AuricHearthguard::Create(const ParameterList &parameters) {
-        auto unit = new AuricHearthguard(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new AuricHearthguard(lodge, numModels, ComputePoints(parameters));
     }
 
     void AuricHearthguard::Init() {

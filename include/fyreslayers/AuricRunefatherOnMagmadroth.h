@@ -21,13 +21,11 @@ namespace Fyreslayers {
 
         static void Init();
 
-        AuricRunefatherOnMagmadroth();
+        AuricRunefatherOnMagmadroth(Lodge lodge, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AuricRunefatherOnMagmadroth() override = default;
 
     protected:
-
-        void configure(MountTrait trait);
 
         void onEndCombat(PlayerId player) override;
 

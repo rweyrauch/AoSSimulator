@@ -16,16 +16,18 @@ namespace Fyreslayers {
 
     bool AuricRunefatherOnMagmadroth::s_registered = false;
 
-    AuricRunefatherOnMagmadroth::AuricRunefatherOnMagmadroth() :
-            Magmadroth("Auric Runefather on Magmadroth", 8, g_pointsPerUnit),
+    AuricRunefatherOnMagmadroth::AuricRunefatherOnMagmadroth(Lodge lodge, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Magmadroth(lodge, "Auric Runefather on Magmadroth", 8, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, MAGMADROTH, FYRESLAYERS, MONSTER, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_grandAxe};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void AuricRunefatherOnMagmadroth::configure(MountTrait trait) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_fyrestream);
@@ -34,30 +36,16 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_grandAxe);
         addModel(model);
 
-        m_mountTrait = trait;
-
-        m_points = g_pointsPerUnit;
+        m_mountTrait = mountTrait;
     }
 
     Unit *AuricRunefatherOnMagmadroth::Create(const ParameterList &parameters) {
-        auto unit = new AuricRunefatherOnMagmadroth();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
-
-        unit->configure(mount);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AuricRunefatherOnMagmadroth(lodge, mount, trait, artefact, general);
     }
 
     void AuricRunefatherOnMagmadroth::Init() {

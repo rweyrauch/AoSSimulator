@@ -31,11 +31,9 @@ namespace Fyreslayers {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        VulkiteBerzerkers(int points);
+        VulkiteBerzerkers(Lodge lodge, int numModels, WeaponOption weapons, bool hornOfGrimnir, int points);
 
         ~VulkiteBerzerkers() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, bool hornOfGrimnir);
 
     protected:
 

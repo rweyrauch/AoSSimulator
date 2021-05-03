@@ -21,13 +21,11 @@ namespace Fyreslayers {
 
         static void Init();
 
-        AuricRunefather();
+        AuricRunefather(Lodge lodge, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AuricRunefather() override = default;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

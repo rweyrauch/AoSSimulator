@@ -30,11 +30,9 @@ namespace Fyreslayers {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        HearthguardBerzerkers(int points);
+        HearthguardBerzerkers(Lodge lodge, int numModels, WeaponOption weapons, int points);
 
         ~HearthguardBerzerkers() override = default;
-
-        bool configure(int numModels, WeaponOption weapons);
 
     protected:
 

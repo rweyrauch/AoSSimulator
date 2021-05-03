@@ -39,8 +39,8 @@ namespace Fyreslayers {
 
     bool AuricRuneson::s_registered = false;
 
-    AuricRuneson::AuricRuneson() :
-            Fyreslayer("Auric Runeson", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
+    AuricRuneson::AuricRuneson(Lodge lodge, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Fyreslayer(lodge, "Auric Runeson", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_javelin(Weapon::Type::Missile, "Wyrmslayer Javelin", 12, 1, 4, 3, -1, RAND_D3),
             m_warAxe(Weapon::Type::Melee, "Ancestral War-axe", 1, 3, 3, 4, 0, RAND_D3),
@@ -48,9 +48,11 @@ namespace Fyreslayers {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNESON};
         m_weapons = {&m_throwingAxe, &m_javelin, &m_warAxe, &m_javelinMelee};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void AuricRuneson::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_javelin);
@@ -59,27 +61,14 @@ namespace Fyreslayers {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<DauntlessAssault>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *AuricRuneson::Create(const ParameterList &parameters) {
-        auto unit = new AuricRuneson();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new AuricRuneson(lodge, trait, artefact, general);
     }
 
     void AuricRuneson::Init() {

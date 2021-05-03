@@ -21,13 +21,11 @@ namespace Fyreslayers {
 
         static void Init();
 
-        AuricRunesonOnMagmadroth();
+        AuricRunesonOnMagmadroth(Lodge lodge, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AuricRunesonOnMagmadroth() override = default;
 
     protected:
-
-        void configure(MountTrait trait);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

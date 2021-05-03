@@ -21,13 +21,9 @@ namespace Fyreslayers {
 
         static void Init();
 
-        Battlesmith();
+        Battlesmith(Lodge lodge, Artefact artefact, bool isGeneral);
 
         ~Battlesmith() override = default;
-
-    protected:
-
-        void configure();
 
     private:
 

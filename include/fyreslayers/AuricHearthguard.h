@@ -21,11 +21,9 @@ namespace Fyreslayers {
 
         static void Init();
 
-        AuricHearthguard(int points);
+        AuricHearthguard(Lodge lodge, int numModels, int points);
 
         ~AuricHearthguard() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

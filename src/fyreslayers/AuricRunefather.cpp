@@ -39,43 +39,32 @@ namespace Fyreslayers {
 
     bool AuricRunefather::s_registered = false;
 
-    AuricRunefather::AuricRunefather() :
-            Fyreslayer("Auric Runefather", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
+    AuricRunefather::AuricRunefather(Lodge lodge, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Fyreslayer(lodge, "Auric Runefather", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNEFATHER};
         m_weapons = {&m_throwingAxe, &m_grandAxe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void AuricRunefather::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_grandAxe);
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<LodgeLeader>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *AuricRunefather::Create(const ParameterList &parameters) {
-        auto unit = new AuricRunefather();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new AuricRunefather(lodge, trait, artefact, general);
     }
 
     void AuricRunefather::Init() {

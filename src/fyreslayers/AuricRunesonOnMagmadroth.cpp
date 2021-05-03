@@ -16,8 +16,8 @@ namespace Fyreslayers {
 
     bool AuricRunesonOnMagmadroth::s_registered = false;
 
-    AuricRunesonOnMagmadroth::AuricRunesonOnMagmadroth() :
-            Magmadroth("Auric Runeson on Magmadroth", 8, g_pointsPerUnit),
+    AuricRunesonOnMagmadroth::AuricRunesonOnMagmadroth(Lodge lodge, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Magmadroth(lodge, "Auric Runeson on Magmadroth", 8, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_javelin(Weapon::Type::Missile, "Wyrmslayer Javelin", 12, 1, 4, 3, -1, RAND_D3),
             m_warAxe(Weapon::Type::Melee, "Ancestral War-axe", 1, 3, 3, 4, 0, RAND_D3),
@@ -26,9 +26,11 @@ namespace Fyreslayers {
         m_weapons = {&m_throwingAxe, &m_fyrestream, &m_clawsAndHorns, &m_blazingMaw, &m_javelin, &m_warAxe,
                      &m_javelinMelee};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void AuricRunesonOnMagmadroth::configure(MountTrait trait) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMissileWeapon(&m_fyrestream);
@@ -39,30 +41,16 @@ namespace Fyreslayers {
         model->addMeleeWeapon(&m_javelinMelee);
         addModel(model);
 
-        m_mountTrait = trait;
-
-        m_points = g_pointsPerUnit;
+        m_mountTrait = mountTrait;
     }
 
     Unit *AuricRunesonOnMagmadroth::Create(const ParameterList &parameters) {
-        auto unit = new AuricRunesonOnMagmadroth();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTraits[0]);
-
-        unit->configure(mount);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fatherSonTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_heirloomArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AuricRunesonOnMagmadroth(lodge, mount, trait, artefact, general);
     }
 
     void AuricRunesonOnMagmadroth::Init() {

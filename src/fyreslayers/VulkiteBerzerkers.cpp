@@ -20,8 +20,8 @@ namespace Fyreslayers {
 
     bool VulkiteBerzerkers::s_registered = false;
 
-    VulkiteBerzerkers::VulkiteBerzerkers(int points) :
-            Fyreslayer("Vulkite Berzerkers", 4, g_wounds, 7, 5, false, points),
+    VulkiteBerzerkers::VulkiteBerzerkers(Lodge lodge, int numModels, WeaponOption weapons, bool hornOfGrimnir, int points) :
+            Fyreslayer(lodge, "Vulkite Berzerkers", 4, g_wounds, 7, 5, false, points),
             m_handaxe(Weapon::Type::Melee, "Fyresteel Handaxe", 1, 2, 3, 3, 0, 1),
             m_handaxeKarl(Weapon::Type::Melee, "Fyresteel Handaxe", 1, 3, 3, 3, 0, 1),
             m_warpick(Weapon::Type::Melee, "Fyresteel War-pick", 1, 2, 3, 4, -1, 1),
@@ -30,12 +30,6 @@ namespace Fyreslayers {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, VULKITE_BERZERKERS};
         m_weapons = {&m_handaxe, &m_handaxeKarl, &m_warpick, &m_warpickKarl, &m_throwingAxe};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool VulkiteBerzerkers::configure(int numModels, WeaponOption weapons, bool hornOfGrimnir) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_weaponOption = weapons;
         m_hornOfGrimnir = hornOfGrimnir;
@@ -60,25 +54,14 @@ namespace Fyreslayers {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *VulkiteBerzerkers::Create(const ParameterList &parameters) {
-        auto unit = new VulkiteBerzerkers(ComputePoints(parameters));
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Handaxe_And_Shield);
         auto horn = GetBoolParam("Horn of Grimnir", parameters, false);
-
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
-        bool ok = unit->configure(numModels, weapons, horn);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new VulkiteBerzerkers(lodge, numModels, weapons, horn, ComputePoints(parameters));
     }
 
     void VulkiteBerzerkers::Init() {

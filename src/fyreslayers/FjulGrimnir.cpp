@@ -17,32 +17,23 @@ namespace Fyreslayers {
 
     bool FjulGrimnir::s_registered = false;
 
-    FjulGrimnir::FjulGrimnir() :
-            Fyreslayer("Fjul-Grimnir", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
+    FjulGrimnir::FjulGrimnir(bool isGeneral) :
+            Fyreslayer(Lodge::Vostarg, "Fjul-Grimnir", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_grandAxe(Weapon::Type::Melee, "Latchkey Grandaxe", 3, 3, 3, 3, -1, 3) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HERO, AURIC_RUNEFATHER, FJUL_GRIMNIR};
         m_weapons = {&m_grandAxe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void FjulGrimnir::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_grandAxe);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *FjulGrimnir::Create(const ParameterList &parameters) {
-        auto unit = new FjulGrimnir();
-
-        unit->setLodge(Lodge::Vostarg);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new FjulGrimnir(general);
     }
 
     void FjulGrimnir::Init() {

@@ -17,8 +17,8 @@ namespace Fyreslayers {
 
     bool AuricRunemaster::s_registered = false;
 
-    AuricRunemaster::AuricRunemaster() :
-            Fyreslayer("Auric Runemaster", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
+    AuricRunemaster::AuricRunemaster(Lodge lodge, Blessing blessing, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Fyreslayer(lodge, "Auric Runemaster", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1),
             m_brazierStaff(Weapon::Type::Melee, "Brazier-staff", 2, 1, 4, 3, -1, RAND_D3),
             m_runicIron(Weapon::Type::Melee, "Runic Iron", 1, 2, 3, 4, 0, 1) {
@@ -28,14 +28,11 @@ namespace Fyreslayers {
 
         s_globalToHitReroll.connect(this, &AuricRunemaster::holySeekerToHitRerolls, &m_holySeekerToHitSlot);
         s_globalToWoundReroll.connect(this, &AuricRunemaster::holySeekerToWoundRerolls, &m_holySeekerToWoundSlot);
-    }
 
-    AuricRunemaster::~AuricRunemaster() {
-        m_holySeekerToHitSlot.disconnect();
-        m_holySeekerToWoundSlot.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void AuricRunemaster::configure(Blessing blessing) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_throwingAxe);
         model->addMeleeWeapon(&m_brazierStaff);
@@ -43,29 +40,20 @@ namespace Fyreslayers {
         addModel(model);
 
         m_prayer = blessing;
+    }
 
-        m_points = g_pointsPerUnit;
+    AuricRunemaster::~AuricRunemaster() {
+        m_holySeekerToHitSlot.disconnect();
+        m_holySeekerToWoundSlot.disconnect();
     }
 
     Unit *AuricRunemaster::Create(const ParameterList &parameters) {
-        auto unit = new AuricRunemaster();
-
         auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterSmiterTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_forgeTempleArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto prayer = (Blessing) GetEnumParam("Prayer", parameters, g_prayers[0]);
-
-        unit->configure(prayer);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterSmiterTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_forgeTempleArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AuricRunemaster(lodge, prayer, trait, artefact, general);
     }
 
     void AuricRunemaster::Init() {

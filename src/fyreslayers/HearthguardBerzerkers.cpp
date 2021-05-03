@@ -20,8 +20,8 @@ namespace Fyreslayers {
 
     bool HearthguardBerzerkers::s_registered = false;
 
-    HearthguardBerzerkers::HearthguardBerzerkers(int points) :
-            Fyreslayer("Hearthguard Berzerkers", 4, g_wounds, 8, 5, false, points),
+    HearthguardBerzerkers::HearthguardBerzerkers(Lodge lodge, int numModels, WeaponOption weapons, int points) :
+            Fyreslayer(lodge, "Hearthguard Berzerkers", 4, g_wounds, 8, 5, false, points),
             m_broadaxe(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 2, 3, 3, -1, 2),
             m_broadaxeKarl(Weapon::Type::Melee, "Berzerker Broadaxe", 2, 3, 3, 3, -1, 2),
             m_poleaxe(Weapon::Type::Melee, "Flamestrike Poleaxe", 2, 2, 3, 3, 0, 1),
@@ -29,12 +29,6 @@ namespace Fyreslayers {
             m_throwingAxe(Weapon::Type::Missile, "Fyresteel Throwing Axe", 8, 1, 5, 5, 0, 1) {
         m_keywords = {ORDER, DUARDIN, FYRESLAYERS, HEARTHGUARD_BERZERKERS};
         m_weapons = {&m_broadaxe, &m_broadaxeKarl, &m_poleaxe, &m_poleaxeKarl, &m_throwingAxe};
-    }
-
-    bool HearthguardBerzerkers::configure(int numModels, WeaponOption weapons) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto karl = new Model(g_basesize, wounds());
         karl->addMissileWeapon(&m_throwingAxe);
@@ -56,24 +50,13 @@ namespace Fyreslayers {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *HearthguardBerzerkers::Create(const ParameterList &parameters) {
-        auto unit = new HearthguardBerzerkers(ComputePoints(parameters));
+        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Berzerker_Broadaxe);
-
-        auto lodge = (Lodge) GetEnumParam("Lodge", parameters, g_lodge[0]);
-        unit->setLodge(lodge);
-
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new HearthguardBerzerkers(lodge, numModels, weapons, ComputePoints(parameters));
     }
 
     void HearthguardBerzerkers::Init() {
