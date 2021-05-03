@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
 
     bool MadcapShaman::s_registered = false;
 
-    MadcapShaman::MadcapShaman() :
+    MadcapShaman::MadcapShaman(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Madcap Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_moonStaff(Weapon::Type::Melee, "Moon Staff", 2, 1, 4, 4, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN};
@@ -28,9 +28,7 @@ namespace GloomspiteGitz {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void MadcapShaman::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonStaff);
 
@@ -46,25 +44,14 @@ namespace GloomspiteGitz {
         }
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *MadcapShaman::Create(const ParameterList &parameters) {
-        auto unit = new MadcapShaman();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_foetidFetishes[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
+        return new MadcapShaman(lore, trait, artefact, general);
     }
 
     void MadcapShaman::Init() {

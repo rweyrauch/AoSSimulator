@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
 
     bool Shootas::s_registered = false;
 
-    Shootas::Shootas(int points) :
+    Shootas::Shootas(int numModels, int numBarbedNets, int numGongbashers, int numFlagbearers, int numIconbearers, int points) :
             GloomspiteGitzBase("Shootas", 5, g_wounds, 4, 6, false, points),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1),
@@ -29,63 +29,6 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SHOOTAS};
         m_weapons = {&m_slitta, &m_slittaBoss, &m_moonclanBow, &m_moonclanBowBoss, &m_barbedNet};
         m_battleFieldRole = Role::Battleline;
-    }
-
-
-    Unit *Shootas::Create(const ParameterList &parameters) {
-        auto unit = new Shootas(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
-        int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
-        int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
-        int numIconbearers = GetIntParam("Icon Bearers", parameters, 0);
-
-        bool ok = unit->configure(numModels, numBarbedNets, numGongbashers, numFlagbearers, numIconbearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
-    }
-
-    void Shootas::Init() {
-        if (!s_registered) {
-            static FactoryMethod factoryMethod = {
-                    Shootas::Create,
-                    GloomspiteGitzBase::ValueToString,
-                    GloomspiteGitzBase::EnumStringToInt,
-                    Shootas::ComputePoints,
-                    {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            IntegerParameter("Barbed Nets", 0, 0, 3 * g_maxUnitSize / g_minUnitSize, 1),
-                            IntegerParameter("Gong Bashers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
-                            IntegerParameter("Flag Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
-                            IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
-                    },
-                    DESTRUCTION,
-                    {GLOOMSPITE_GITZ}
-            };
-            s_registered = UnitFactory::Register("Shootas", factoryMethod);
-        }
-    }
-
-    bool
-    Shootas::configure(int numModels, int numBarbedNets, int numGongbashers, int numFlagbearers, int numIconbearers) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-
-        if (numBarbedNets > 3 * numModels / g_minUnitSize) {
-            return false;
-        }
-        if (numGongbashers > numModels / g_minUnitSize) {
-            return false;
-        }
-        if (numFlagbearers + numIconbearers > numModels / g_minUnitSize) {
-            return false;
-        }
 
         // Add the boss
         auto boss = new Model(g_basesize, wounds());
@@ -121,8 +64,37 @@ namespace GloomspiteGitz {
         }
 
         m_ranks = 4;
+    }
 
-        return true;
+
+    Unit *Shootas::Create(const ParameterList &parameters) {
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
+        int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
+        int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
+        int numIconbearers = GetIntParam("Icon Bearers", parameters, 0);
+        return new Shootas(numModels, numBarbedNets, numGongbashers, numFlagbearers, numIconbearers, ComputePoints(parameters));
+    }
+
+    void Shootas::Init() {
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Shootas::Create,
+                    GloomspiteGitzBase::ValueToString,
+                    GloomspiteGitzBase::EnumStringToInt,
+                    Shootas::ComputePoints,
+                    {
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Barbed Nets", 0, 0, 3 * g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Gong Bashers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Flag Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                    },
+                    DESTRUCTION,
+                    {GLOOMSPITE_GITZ}
+            };
+            s_registered = UnitFactory::Register("Shootas", factoryMethod);
+        }
     }
 
     int Shootas::toWoundModifier(const Weapon *weapon, const Unit *unit) const {

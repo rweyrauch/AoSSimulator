@@ -21,13 +21,11 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        LoonbossOnManglerSquigs();
+        LoonbossOnManglerSquigs(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LoonbossOnManglerSquigs() override = default;
 
     protected:
-
-        void configure();
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 

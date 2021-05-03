@@ -20,15 +20,8 @@ namespace GloomspiteGitz {
     bool LoonsmashaFanatics::s_registered = false;
 
     Unit *LoonsmashaFanatics::Create(const ParameterList &parameters) {
-        auto unit = new LoonsmashaFanatics(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new LoonsmashaFanatics(numModels, ComputePoints(parameters));
     }
 
     int LoonsmashaFanatics::ComputePoints(const ParameterList& parameters) {
@@ -57,27 +50,17 @@ namespace GloomspiteGitz {
         }
     }
 
-    LoonsmashaFanatics::LoonsmashaFanatics(int points) :
+    LoonsmashaFanatics::LoonsmashaFanatics(int numModels, int points) :
             GloomspiteGitzBase("Loonsplatta Fanatics", RAND_2D6, g_wounds, 10, 6, false, points),
             m_ballAndChain(Weapon::Type::Melee, "Ball and Chain", 1, RAND_D6, 4, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, MOONCLAN, FANATIC, LOONSMASHA};
         m_weapons = {&m_ballAndChain};
-    }
-
-    bool LoonsmashaFanatics::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_ballAndChain);
             addModel(model);
         }
-
-        return true;
     }
 
 } // namespace GloomspiteGitz

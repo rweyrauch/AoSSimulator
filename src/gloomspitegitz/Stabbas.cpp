@@ -20,7 +20,8 @@ namespace GloomspiteGitz {
 
     bool Stabbas::s_registered = false;
 
-    Stabbas::Stabbas(int points) :
+    Stabbas::Stabbas(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
+                     int numGongbashers, int numFlagbearers, int numIconbearers, int points) :
             GloomspiteGitzBase("Stabbas", 5, g_wounds, 4, 6, false, points),
             m_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1),
             m_stabbaBoss(Weapon::Type::Melee, "Stabba", 1, 1, 3, 4, 0, 1),
@@ -30,25 +31,6 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, STABBAS};
         m_weapons = {&m_stabba, &m_stabbaBoss, &m_pokinSpear, &m_pokinSpearBoss, &m_barbedNet};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool Stabbas::configure(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
-                            int numGongbashers, int numFlagbearers, int numIconbearers) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-
-        if (numBarbedNets > 3 * numModels / g_minUnitSize) {
-            return false;
-        }
-        if (numGongbashers > numModels / g_minUnitSize) {
-            return false;
-        }
-        if (numFlagbearers + numIconbearers > numModels / g_minUnitSize) {
-            return false;
-        }
 
         // Add the boss
         auto boss = new Model(g_basesize, wounds());
@@ -90,27 +72,18 @@ namespace GloomspiteGitz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Stabbas::Create(const ParameterList &parameters) {
-        auto unit = new Stabbas(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stabba);
-        WeaponOption bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, Stabba);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stabba);
+        auto bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, Stabba);
         int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
         int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
         int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
         int numIconbearers = GetIntParam("Icon Bearers", parameters, 0);
-
-        bool ok = unit->configure(numModels, weapons, bossWeapon, numBarbedNets, numGongbashers, numFlagbearers,
-                                  numIconbearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Stabbas(numModels, weapons, bossWeapon, numBarbedNets, numGongbashers, numFlagbearers,
+                           numIconbearers, ComputePoints(parameters));
     }
 
     void Stabbas::Init() {

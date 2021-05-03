@@ -21,12 +21,9 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        Shootas(int points);
+        Shootas(int numModels, int numBarbedNets, int numGongbashers, int numFlagbearers, int numIconbearers, int points);
 
         ~Shootas() override = default;
-
-        bool configure(int numModels, int numBarbedNets,
-                       int numGongbashers, int numFlagbearers, int numIconbearers);
 
     protected:
 

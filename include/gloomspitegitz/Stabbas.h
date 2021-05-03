@@ -30,12 +30,10 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        Stabbas(int points);
+        Stabbas(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
+                int numGongbashers, int numFlagbearers, int numIconbearers, int points);
 
         ~Stabbas() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
-                       int numGongbashers, int numFlagbearers, int numIconbearers);
 
     protected:
 

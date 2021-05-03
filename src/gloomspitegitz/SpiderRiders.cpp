@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
 
     bool SpiderRiders::s_registered = false;
 
-    SpiderRiders::SpiderRiders(int points) :
+    SpiderRiders::SpiderRiders(int numModels, bool drummers, bool totemBearers, int points) :
             GloomspiteGitzBase("Spider Riders", 10, g_wounds, 4, 5, true, points), // Wall Crawler treated as fly
             m_spiderBow(Weapon::Type::Missile, "Spider-bow", 16, 2, 5, 5, 0, 1),
             m_crookedSpear(Weapon::Type::Melee, "Crooked Spear", 2, 1, 5, 4, 0, 1),
@@ -29,14 +29,6 @@ namespace GloomspiteGitz {
         m_weapons = {&m_spiderBow, &m_crookedSpear, &m_crookedSpearBoss, &m_fangs};
         m_hasMount = true;
         m_fangs.setMount(true);
-    }
-
-    bool SpiderRiders::configure(int numModels, bool drummers, bool totemBearers) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the boss
         auto boss = new Model(g_basesize, wounds());
@@ -60,22 +52,13 @@ namespace GloomspiteGitz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SpiderRiders::Create(const ParameterList &parameters) {
-        auto unit = new SpiderRiders(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool drummers = GetBoolParam("Drummers", parameters, false);
         bool totemBearers = GetBoolParam("Totem Bearers", parameters, false);
-
-        bool ok = unit->configure(numModels, drummers, totemBearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SpiderRiders(numModels, drummers, totemBearers, ComputePoints(parameters));
     }
 
     void SpiderRiders::Init() {

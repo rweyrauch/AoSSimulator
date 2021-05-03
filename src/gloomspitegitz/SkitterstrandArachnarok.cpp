@@ -40,15 +40,11 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
         m_weapons = {&m_chitinousLegs, &m_monstrousFangs};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void SkitterstrandArachnarok::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_chitinousLegs);
         model->addMeleeWeapon(&m_monstrousFangs);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void SkitterstrandArachnarok::onRestore() {
@@ -74,10 +70,7 @@ namespace GloomspiteGitz {
     }
 
     Unit *SkitterstrandArachnarok::Create(const ParameterList &parameters) {
-        auto unit = new SkitterstrandArachnarok();
-
-        unit->configure();
-        return unit;
+        return new SkitterstrandArachnarok();
     }
 
     void SkitterstrandArachnarok::Init() {

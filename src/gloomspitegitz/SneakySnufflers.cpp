@@ -20,20 +20,12 @@ namespace GloomspiteGitz {
 
     bool SneakySnufflers::s_registered = false;
 
-    SneakySnufflers::SneakySnufflers(int points) :
+    SneakySnufflers::SneakySnufflers(int numModels, int points) :
             GloomspiteGitzBase("Sneaky Snufflers", 5, g_wounds, 4, 6, false, points),
             m_sickle(Weapon::Type::Melee, "Loonfungus Sickle", 1, 1, 4, 4, 0, 1),
             m_gnashers(Weapon::Type::Melee, "Gnashers", 1, 1, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SNEAKY_SNUFFERS};
         m_weapons = {&m_sickle, &m_gnashers};
-    }
-
-    bool SneakySnufflers::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -41,20 +33,11 @@ namespace GloomspiteGitz {
             model->addMeleeWeapon(&m_gnashers);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SneakySnufflers::Create(const ParameterList &parameters) {
-        auto unit = new SneakySnufflers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SneakySnufflers(numModels, ComputePoints(parameters));
     }
 
     void SneakySnufflers::Init() {

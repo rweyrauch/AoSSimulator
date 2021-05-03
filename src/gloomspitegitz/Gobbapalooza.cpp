@@ -19,10 +19,7 @@ namespace GloomspiteGitz {
     bool Gobbapalooza::s_registered = false;
 
     Unit *Gobbapalooza::Create(const ParameterList &parameters) {
-        auto unit = new Gobbapalooza();
-
-        unit->configure();
-        return unit;
+        return new Gobbapalooza();
     }
 
     void Gobbapalooza::Init() {
@@ -56,9 +53,6 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, GOBBAPALOOZA, SCAREMONGER,
                       BREWGIT, SPIKER, WIZARD, BOGGLEYE, SHROOMANCER};
         m_weapons = {&m_tusksAndFangs, &m_stikka, &m_scorpisquigStikka, &m_staff, &m_knife};
-    }
-
-    void Gobbapalooza::configure() {
 
         auto scaremonger = new Model(g_basesize, g_woundsScaremonger);
         scaremonger->addMeleeWeapon(&m_tusksAndFangs);

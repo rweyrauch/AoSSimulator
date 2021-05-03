@@ -42,6 +42,12 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, MONSTER, HERO, COLOSSAL_SQUIG};
         m_weapons = {&m_puffSpores, &m_enormousJaws, &m_tramplingFeet};
         m_battleFieldRole = Role::Behemoth;
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_enormousJaws);
+        model->addMeleeWeapon(&m_tramplingFeet);
+        model->addMissileWeapon(&m_puffSpores);
+        addModel(model);
     }
 
     void ColossalSquig::onRestore() {
@@ -49,16 +55,6 @@ namespace GloomspiteGitz {
 
         // Restore table-driven attributes
         onWounded();
-    }
-
-    void ColossalSquig::configure() {
-        auto model = new Model(g_basesize, wounds());
-        model->addMeleeWeapon(&m_enormousJaws);
-        model->addMeleeWeapon(&m_tramplingFeet);
-        model->addMissileWeapon(&m_puffSpores);
-        addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void ColossalSquig::onWounded() {
@@ -102,10 +98,7 @@ namespace GloomspiteGitz {
 
 
     Unit *ColossalSquig::Create(const ParameterList &parameters) {
-        auto unit = new ColossalSquig();
-
-        unit->configure();
-        return unit;
+        return new ColossalSquig();
     }
 
     void ColossalSquig::Init() {

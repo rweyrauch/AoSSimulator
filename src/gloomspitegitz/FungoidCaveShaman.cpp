@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
     bool FungoidCaveShaman::s_registered = false;
 
-    FungoidCaveShaman::FungoidCaveShaman() :
+    FungoidCaveShaman::FungoidCaveShaman(Lore lore, CommandTrait trait, bool isGeneral) :
             GloomspiteGitzBase("Fungoid Cave-shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_moonSickle(Weapon::Type::Melee, "Moon-sickle", 1, 3, 4, 4, -1, 1),
             m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1) {
@@ -31,9 +31,10 @@ namespace GloomspiteGitz {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void FungoidCaveShaman::configure(Lore lore) {
+        setCommandTrait(trait);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonSickle);
         model->addMeleeWeapon(&m_squigsTeeth);
@@ -48,22 +49,13 @@ namespace GloomspiteGitz {
         }
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *FungoidCaveShaman::Create(const ParameterList &parameters) {
-        auto unit = new FungoidCaveShaman();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
-        unit->setCommandTrait(trait);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
+        return new FungoidCaveShaman(lore, trait, general);
     }
 
     void FungoidCaveShaman::Init() {
@@ -81,7 +73,6 @@ namespace GloomspiteGitz {
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
             };
-
             s_registered = UnitFactory::Register("Fungoid Cave-shaman", factoryMethod);
         }
     }

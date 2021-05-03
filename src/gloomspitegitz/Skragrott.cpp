@@ -20,7 +20,7 @@ namespace GloomspiteGitz {
 
     bool Skragrott::s_registered = false;
 
-    Skragrott::Skragrott() :
+    Skragrott::Skragrott(Lore lore, bool isGeneral) :
             GloomspiteGitzBase("Skragrott", 4, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
             m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3) {
@@ -30,9 +30,7 @@ namespace GloomspiteGitz {
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    void Skragrott::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
         model->addMeleeWeapon(&m_daMoonOnnaStikk);
@@ -43,20 +41,12 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Skragrott::Create(const ParameterList &parameters) {
-        auto unit = new Skragrott();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new Skragrott(lore, general);
     }
 
     void Skragrott::Init() {

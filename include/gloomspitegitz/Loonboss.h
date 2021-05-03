@@ -21,13 +21,11 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        Loonboss();
+        Loonboss(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Loonboss() override = default;
 
     protected:
-
-        void configure();
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 

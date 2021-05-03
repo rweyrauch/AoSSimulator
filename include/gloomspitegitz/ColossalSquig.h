@@ -27,8 +27,6 @@ namespace GloomspiteGitz {
 
     protected:
 
-        void configure();
-
         void onWounded() override;
 
         void onFriendlyUnitSlain(const Unit *attacker) override;

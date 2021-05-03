@@ -26,9 +26,7 @@ namespace GloomspiteGitz {
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, ZARBAGS_GITZ};
         m_weapons = {&m_bow, &m_teeth, &m_prodder, &m_slitta};
-    }
 
-    void ZarbagsGitz::configure() {
         auto herder = new Model(g_basesize, g_squigWounds);
         herder->addMeleeWeapon(&m_prodder);
         herder->setName("Herder");
@@ -58,15 +56,10 @@ namespace GloomspiteGitz {
             shoota->setName("Shoota");
             addModel(shoota);
         }
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *ZarbagsGitz::Create(const ParameterList &parameters) {
-        auto unit = new ZarbagsGitz();
-
-        unit->configure();
-        return unit;
+        return new ZarbagsGitz();
     }
 
     void ZarbagsGitz::Init() {

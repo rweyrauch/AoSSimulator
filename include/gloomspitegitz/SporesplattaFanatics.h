@@ -21,13 +21,9 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        SporesmashaFanatics(int points);
+        SporesmashaFanatics(int numModels, int points);
 
         ~SporesmashaFanatics() override = default;
-
-        bool configure(int numModels);
-
-    protected:
 
     private:
 

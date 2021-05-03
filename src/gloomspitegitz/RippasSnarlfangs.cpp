@@ -17,10 +17,7 @@ namespace GloomspiteGitz {
     bool RippasSnarlfangs::s_registered = false;
 
     Unit *RippasSnarlfangs::Create(const ParameterList &parameters) {
-        auto unit = new RippasSnarlfangs();
-
-        unit->configure();
-        return unit;
+        return new RippasSnarlfangs();
     }
 
     void RippasSnarlfangs::Init() {
@@ -51,9 +48,7 @@ namespace GloomspiteGitz {
 
         // Ferocious Pounce
         m_pileInMove = 6;
-    }
 
-    void RippasSnarlfangs::configure() {
         auto rippa = new Model(g_basesize, wounds());
         rippa->addMeleeWeapon(&m_bossLoppa);
         rippa->addMeleeWeapon(&m_jaws);
@@ -71,8 +66,6 @@ namespace GloomspiteGitz {
         meanEye->addMeleeWeapon(&m_bowStave);
         meanEye->addMeleeWeapon(&m_jaws);
         addModel(meanEye);
-
-        m_points = g_pointsPerUnit;
     }
 
     int RippasSnarlfangs::toHitModifier(const Weapon *weapon, const Unit *target) const {

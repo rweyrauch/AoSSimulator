@@ -24,24 +24,17 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, SQUIG, MOONCLAN, MONSTER, SQUIG_GOBBA};
         m_weapons = {&m_spitSquigs, &m_bashinSticks, &m_cavernousMaw};
         m_battleFieldRole = Role::Artillery;
-    }
 
-    void SquigGobba::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spitSquigs);
         model->addMeleeWeapon(&m_bashinSticks);
         model->addMeleeWeapon(&m_cavernousMaw);
 
-        m_points = g_pointsPerUnit;
-
         addModel(model);
     }
 
     Unit *SquigGobba::Create(const ParameterList &parameters) {
-        auto unit = new SquigGobba();
-
-        unit->configure();
-        return unit;
+        return new SquigGobba();
     }
 
     void SquigGobba::Init() {

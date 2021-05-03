@@ -21,11 +21,9 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        RockgutTroggoths(int points);
+        RockgutTroggoths(int numModels, int points);
 
         ~RockgutTroggoths() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

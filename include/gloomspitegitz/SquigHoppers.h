@@ -21,11 +21,9 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SquiqHoppers(int points);
+        SquiqHoppers(int numModels, int points);
 
         ~SquiqHoppers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

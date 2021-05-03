@@ -21,11 +21,9 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        LoonsmashaFanatics(int points);
+        LoonsmashaFanatics(int numModels, int points);
 
         ~LoonsmashaFanatics() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

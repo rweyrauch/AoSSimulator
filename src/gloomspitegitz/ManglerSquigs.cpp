@@ -44,21 +44,17 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_hugeFangFilledGob.setMount(true);
-    }
 
-    void ManglerSquigs::onRestore() {
-        // Reset table-driven attributes
-        onWounded();
-    }
-
-    void ManglerSquigs::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_hugeFangFilledGob);
         model->addMeleeWeapon(&m_ballsAndChains);
         model->addMeleeWeapon(&m_grotsBashinStikk);
         addModel(model);
+    }
 
-        m_points = g_pointsPerUnit;
+    void ManglerSquigs::onRestore() {
+        // Reset table-driven attributes
+        onWounded();
     }
 
     int ManglerSquigs::toHitModifier(const Weapon *weapon, const Unit *unit) const {
@@ -68,7 +64,6 @@ namespace GloomspiteGitz {
         if (m_charged) {
             modifier++;
         }
-
         return modifier;
     }
 
@@ -91,10 +86,7 @@ namespace GloomspiteGitz {
 
 
     Unit *ManglerSquigs::Create(const ParameterList &parameters) {
-        auto unit = new ManglerSquigs();
-
-        unit->configure();
-        return unit;
+        return new ManglerSquigs();
     }
 
     void ManglerSquigs::Init() {

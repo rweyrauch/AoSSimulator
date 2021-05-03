@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
 
     bool SquiqHoppers::s_registered = false;
 
-    SquiqHoppers::SquiqHoppers(int points) :
+    SquiqHoppers::SquiqHoppers(int numModels, int points) :
             GloomspiteGitzBase("Squig Hoppers", RAND_3D6, g_wounds, 4, 6, true, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
@@ -28,14 +28,6 @@ namespace GloomspiteGitz {
         m_weapons = {&m_fangFilledGob, &m_slitta, &m_slittaBoss};
         m_hasMount = true;
         m_fangFilledGob.setMount(true);
-    }
-
-    bool SquiqHoppers::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the boss
         auto boss = new Model(g_basesize, wounds());
@@ -50,20 +42,11 @@ namespace GloomspiteGitz {
             model->addMeleeWeapon(&m_fangFilledGob);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SquiqHoppers::Create(const ParameterList &parameters) {
-        auto unit = new SquiqHoppers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SquiqHoppers(numModels, ComputePoints(parameters));
     }
 
     void SquiqHoppers::Init() {

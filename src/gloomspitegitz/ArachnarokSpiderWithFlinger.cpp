@@ -46,9 +46,7 @@ namespace GloomspiteGitz {
         m_hasMount = true;
         m_chitinousLegs.setMount(true);
         m_monstrousFangs.setMount(true);
-    }
 
-    void ArachnarokSpiderWithFlinger::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spiderBows);
         model->addMissileWeapon(&m_flinger);
@@ -56,8 +54,6 @@ namespace GloomspiteGitz {
         model->addMeleeWeapon(&m_monstrousFangs);
         model->addMeleeWeapon(&m_crookedSpears);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void ArachnarokSpiderWithFlinger::onRestore() {
@@ -85,10 +81,7 @@ namespace GloomspiteGitz {
     }
 
     Unit *ArachnarokSpiderWithFlinger::Create(const ParameterList &parameters) {
-        auto unit = new ArachnarokSpiderWithFlinger();
-
-        unit->configure();
-        return unit;
+        return new ArachnarokSpiderWithFlinger();
     }
 
     void ArachnarokSpiderWithFlinger::Init() {

@@ -17,13 +17,8 @@ namespace GloomspiteGitz {
     bool Mollog::s_registered = false;
 
     Unit *Mollog::Create(const ParameterList &parameters) {
-        auto unit = new Mollog();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Mollog(general);
     }
 
     void Mollog::Init() {
@@ -48,7 +43,7 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Mollog::Mollog() :
+    Mollog::Mollog(bool isGeneral) :
             GloomspiteGitzBase("Mollog", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_jabbertoad(Weapon::Type::Missile, "Jabbertoad", 12, 1, 4, 4, 0, 1),
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
@@ -57,17 +52,17 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Leader;
 
         s_globalBraveryMod.connect(this, &Mollog::reassuringPresence, &m_connection);
-    }
 
-    Mollog::~Mollog() {
-        m_connection.disconnect();
-    }
+        setGeneral(isGeneral);
 
-    void Mollog::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_jabbertoad);
         model->addMeleeWeapon(&m_club);
         addModel(model);
+    }
+
+    Mollog::~Mollog() {
+        m_connection.disconnect();
     }
 
     void Mollog::onStartHero(PlayerId player) {

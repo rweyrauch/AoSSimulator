@@ -21,11 +21,9 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SpiderRiders(int points);
+        SpiderRiders(int numModels, bool drummers, bool totemBearers, int points);
 
         ~SpiderRiders() override = default;
-
-        bool configure(int numModels, bool drummers, bool totemBearers);
 
     protected:
 

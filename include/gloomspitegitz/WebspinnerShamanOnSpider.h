@@ -26,13 +26,11 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        WebspinnerShamanOnArachnarokSpider();
+        WebspinnerShamanOnArachnarokSpider(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WebspinnerShamanOnArachnarokSpider() override;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

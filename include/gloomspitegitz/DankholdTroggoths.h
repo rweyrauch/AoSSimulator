@@ -21,11 +21,9 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        DankholdTroggoths(int points);
+        DankholdTroggoths(int numModels, int points);
 
         ~DankholdTroggoths() override;
-
-        bool configure(int numModels);
 
     protected:
 

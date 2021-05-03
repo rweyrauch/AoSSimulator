@@ -20,15 +20,8 @@ namespace GloomspiteGitz {
     bool SporesmashaFanatics::s_registered = false;
 
     Unit *SporesmashaFanatics::Create(const ParameterList &parameters) {
-        auto unit = new SporesmashaFanatics(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SporesmashaFanatics(numModels, ComputePoints(parameters));
     }
 
     int SporesmashaFanatics::ComputePoints(const ParameterList& parameters) {
@@ -57,27 +50,17 @@ namespace GloomspiteGitz {
         }
     }
 
-    SporesmashaFanatics::SporesmashaFanatics(int points) :
+    SporesmashaFanatics::SporesmashaFanatics(int numModels, int points) :
             GloomspiteGitzBase("Sporesplatta Fanatics", RAND_2D6, g_wounds, 10, 6, false, points),
             m_ballAndChain(Weapon::Type::Melee, "Spore-ball and Chain", 1, RAND_D3, 2, 4, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, MOONCLAN, FANATIC, SPORESPLATTA};
         m_weapons = {&m_ballAndChain};
-    }
-
-    bool SporesmashaFanatics::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_ballAndChain);
             addModel(model);
         }
-
-        return true;
     }
 
 } // namespace GloomspiteGitz

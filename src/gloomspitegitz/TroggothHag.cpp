@@ -37,7 +37,7 @@ namespace GloomspiteGitz {
                     {4, 2, 5}
             };
 
-    TroggothHag::TroggothHag() :
+    TroggothHag::TroggothHag(CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Troggoth Hag", RAND_4D6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_vomit(Weapon::Type::Missile, "Copious Vomit", 10, 6, 3, 3, -2, RAND_D3),
             m_staff(Weapon::Type::Melee, "Deadwood Staff", 2, 4, 4, 2, -1, 3),
@@ -46,16 +46,13 @@ namespace GloomspiteGitz {
         m_weapons = {&m_vomit, &m_staff, &m_bulk};
         m_battleFieldRole = Role::Leader_Behemoth;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void TroggothHag::onRestore() {
-        // Restore table-driven attributes
-        onWounded();
-    }
-
-    void TroggothHag::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_bulk);
@@ -70,8 +67,11 @@ namespace GloomspiteGitz {
                                                                     Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
 
-        m_points = g_pointsPerUnit;
+    void TroggothHag::onRestore() {
+        // Restore table-driven attributes
+        onWounded();
     }
 
     void TroggothHag::onWounded() {
@@ -104,19 +104,10 @@ namespace GloomspiteGitz {
     }
 
     Unit *TroggothHag::Create(const ParameterList &parameters) {
-        auto unit = new TroggothHag();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fortuitousTroggbossTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_glintyGubbinzThatTroggothsFound[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new TroggothHag(trait, artefact, general);
     }
 
     void TroggothHag::Init() {

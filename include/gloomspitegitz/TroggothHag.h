@@ -21,13 +21,11 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        TroggothHag();
+        TroggothHag(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~TroggothHag() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

@@ -63,7 +63,7 @@ namespace GloomspiteGitz {
 
     bool WebspinnerShaman::s_registered = false;
 
-    WebspinnerShaman::WebspinnerShaman() :
+    WebspinnerShaman::WebspinnerShaman(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Webspinner Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, WIZARD, WEBSPINNER_SHAMAN};
@@ -72,9 +72,11 @@ namespace GloomspiteGitz {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void WebspinnerShaman::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_spiderGodStaff);
 
@@ -84,25 +86,14 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *WebspinnerShaman::Create(const ParameterList &parameters) {
-        auto unit = new WebspinnerShaman();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheSpiderFangs[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
+        return new WebspinnerShaman(lore, trait, artefact, general);
     }
 
     void WebspinnerShaman::Init() {

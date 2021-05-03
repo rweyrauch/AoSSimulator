@@ -21,37 +21,22 @@ namespace GloomspiteGitz {
 
     bool RockgutTroggoths::s_registered = false;
 
-    RockgutTroggoths::RockgutTroggoths(int points) :
+    RockgutTroggoths::RockgutTroggoths(int numModels, int points) :
             GloomspiteGitzBase("Rockgut Troggoths", 6, g_wounds, 5, 5, false, points),
             m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT};
         m_weapons = {&m_massiveStoneMaul};
-    }
-
-    bool RockgutTroggoths::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_massiveStoneMaul);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *RockgutTroggoths::Create(const ParameterList &parameters) {
-        auto unit = new RockgutTroggoths(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new RockgutTroggoths(numModels, ComputePoints(parameters));
     }
 
     void RockgutTroggoths::Init() {

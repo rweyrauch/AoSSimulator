@@ -46,7 +46,7 @@ namespace GloomspiteGitz {
 
     bool LoonbossOnGiantCaveSquig::s_registered = false;
 
-    LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig() :
+    LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig(WeaponOptions weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
@@ -56,9 +56,11 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_massiveFangFilledGob.setMount(true);
-    }
 
-    void LoonbossOnGiantCaveSquig::configure(WeaponOptions weapon) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_massiveFangFilledGob);
@@ -70,25 +72,14 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<LetsGetBouncing>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters) {
-        auto unit = new LoonbossOnGiantCaveSquig();
-        WeaponOptions weapon = (WeaponOptions) GetEnumParam("weapons", parameters, Mooncutta);
-
+        auto weapon = (WeaponOptions) GetEnumParam("weapons", parameters, Mooncutta);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(weapon);
-        return unit;
+        return new LoonbossOnGiantCaveSquig(weapon, trait, artefact, general);
     }
 
     std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter &parameter) {

@@ -26,13 +26,11 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Zarbag();
+        Zarbag(Lore lore, bool isGeneral);
 
         ~Zarbag() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onRestore() override {
             GloomspiteGitzBase::onRestore();

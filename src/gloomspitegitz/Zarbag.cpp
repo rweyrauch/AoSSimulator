@@ -17,7 +17,7 @@ namespace GloomspiteGitz {
 
     bool Zarbag::s_registered = false;
 
-    Zarbag::Zarbag() :
+    Zarbag::Zarbag(Lore lore, bool isGeneral) :
             GloomspiteGitzBase("Zarbag", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_sickle(Weapon::Type::Melee, "Cursed Sickle", 2, 3, 3, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN, ZARBAG};
@@ -26,9 +26,9 @@ namespace GloomspiteGitz {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void Zarbag::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_sickle);
 
@@ -38,19 +38,12 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Zarbag::Create(const ParameterList &parameters) {
-        auto unit = new Zarbag();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
+        return new Zarbag(lore, general);
     }
 
     void Zarbag::Init() {

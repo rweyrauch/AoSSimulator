@@ -19,15 +19,17 @@ namespace GloomspiteGitz {
 
     bool Loonboss::s_registered = false;
 
-    Loonboss::Loonboss() :
+    Loonboss::Loonboss(CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Loonboss", 5, g_wounds, 5, 5, false, g_pointsPerUnit),
             m_moonslicer(Weapon::Type::Melee, "Moon-slicer", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_moonslicer};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Loonboss::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_moonslicer);
         addModel(model);
@@ -38,19 +40,10 @@ namespace GloomspiteGitz {
     }
 
     Unit *Loonboss::Create(const ParameterList &parameters) {
-        auto unit = new Loonboss();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Loonboss(trait, artefact, general);
     }
 
     void Loonboss::Init() {

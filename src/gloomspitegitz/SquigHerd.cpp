@@ -21,20 +21,12 @@ namespace GloomspiteGitz {
 
     bool SquiqHerd::s_registered = false;
 
-    SquiqHerd::SquiqHerd(int points) :
+    SquiqHerd::SquiqHerd(int numModels, int points) :
             GloomspiteGitzBase("Squig Herd", 5, g_wounds, 3, 6, false, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD};
         m_weapons = {&m_fangFilledGob, &m_squigProdder};
-    }
-
-    bool SquiqHerd::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         const int numHerders = (numModels + 5) / 6;
 
@@ -52,20 +44,11 @@ namespace GloomspiteGitz {
             model->addMeleeWeapon(&m_fangFilledGob);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SquiqHerd::Create(const ParameterList &parameters) {
-        auto unit = new SquiqHerd(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SquiqHerd(numModels, ComputePoints(parameters));
     }
 
     void SquiqHerd::Init() {

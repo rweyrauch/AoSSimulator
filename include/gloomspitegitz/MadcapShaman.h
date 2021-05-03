@@ -26,13 +26,9 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        MadcapShaman();
+        MadcapShaman(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~MadcapShaman() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

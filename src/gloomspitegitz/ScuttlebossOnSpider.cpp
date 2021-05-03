@@ -54,7 +54,7 @@ namespace GloomspiteGitz {
 
     bool ScuttlebossOnGiganticSpider::s_registered = false;
 
-    ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider() :
+    ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider(CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spear(Weapon::Type::Melee, "Envenomed Spear", 2, 4, 4, 4, -1, 1),
             m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1) {
@@ -64,6 +64,17 @@ namespace GloomspiteGitz {
         m_hasMount = true;
         m_fangs.setMount(true);
         s_globalBraveryMod.connect(this, &ScuttlebossOnGiganticSpider::ululatingBattleCry, &m_battleCryConnection);
+
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_spear);
+        model->addMeleeWeapon(&m_fangs);
+        addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<RideEmAllDown>(this));
     }
 
 
@@ -71,31 +82,11 @@ namespace GloomspiteGitz {
         m_battleCryConnection.disconnect();
     }
 
-    void ScuttlebossOnGiganticSpider::configure() {
-        auto model = new Model(g_basesize, wounds());
-        model->addMeleeWeapon(&m_spear);
-        model->addMeleeWeapon(&m_fangs);
-        addModel(model);
-
-        m_commandAbilities.push_back(std::make_unique<RideEmAllDown>(this));
-
-        m_points = g_pointsPerUnit;
-    }
-
     Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters) {
-        auto unit = new ScuttlebossOnGiganticSpider();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_marksOfTheSpiderGodsFavour[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new ScuttlebossOnGiganticSpider(trait, artefact, general);
     }
 
     void ScuttlebossOnGiganticSpider::Init() {

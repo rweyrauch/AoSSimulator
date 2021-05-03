@@ -19,7 +19,7 @@ namespace GloomspiteGitz {
 
     bool BoingrotBounderz::s_registered = false;
 
-    BoingrotBounderz::BoingrotBounderz(int points) :
+    BoingrotBounderz::BoingrotBounderz(int numModels, int points) :
             GloomspiteGitzBase("Boingrot Bounderz", RAND_2D6, g_wounds, 5, 4, true, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1),
@@ -28,14 +28,6 @@ namespace GloomspiteGitz {
         m_weapons = {&m_fangFilledGob, &m_pokinLance, &m_pokinLanceBoss};
         m_hasMount = true;
         m_fangFilledGob.setMount(true);
-    }
-
-    bool BoingrotBounderz::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the boss
         auto boss = new Model(g_basesize, wounds());
@@ -50,20 +42,11 @@ namespace GloomspiteGitz {
             model->addMeleeWeapon(&m_fangFilledGob);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *BoingrotBounderz::Create(const ParameterList &parameters) {
-        auto unit = new BoingrotBounderz(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new BoingrotBounderz(numModels, ComputePoints(parameters));
     }
 
     void BoingrotBounderz::Init() {

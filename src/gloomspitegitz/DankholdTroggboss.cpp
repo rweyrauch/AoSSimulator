@@ -48,44 +48,35 @@ namespace GloomspiteGitz {
 
     bool DankholdTroggboss::s_registered = false;
 
-    DankholdTroggboss::DankholdTroggboss() :
+    DankholdTroggboss::DankholdTroggboss(CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Dankhold Troggboss", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
         m_weapons = {&m_boulderClub};
         m_battleFieldRole = Role::Leader;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         s_globalBraveryMod.connect(this, &DankholdTroggboss::reassuringPresence, &m_connection);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_boulderClub);
+        addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<InstinctiveLeader>(this));
     }
 
     DankholdTroggboss::~DankholdTroggboss() {
         m_connection.disconnect();
     }
 
-    void DankholdTroggboss::configure() {
-        auto model = new Model(g_basesize, wounds());
-        model->addMeleeWeapon(&m_boulderClub);
-        addModel(model);
-
-        m_commandAbilities.push_back(std::make_unique<InstinctiveLeader>(this));
-
-        m_points = g_pointsPerUnit;
-    }
-
     Unit *DankholdTroggboss::Create(const ParameterList &parameters) {
-        auto unit = new DankholdTroggboss();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fortuitousTroggbossTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_glintyGubbinzThatTroggothsFound[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new DankholdTroggboss(trait, artefact, general);
     }
 
     void DankholdTroggboss::Init() {

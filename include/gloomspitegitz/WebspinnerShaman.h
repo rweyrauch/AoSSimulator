@@ -26,13 +26,11 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        WebspinnerShaman();
+        WebspinnerShaman(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WebspinnerShaman() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;
 

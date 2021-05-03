@@ -42,16 +42,12 @@ namespace GloomspiteGitz {
         m_keywords = {DESTRUCTION, GARGANT, GLOOMSPITE_GITZ, ALEGUZZLER, MONSTER};
         m_weapons = {&m_eadbutt, &m_massiveClub, &m_mightyKick};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void AleguzzlerGargant::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_eadbutt);
         model->addMeleeWeapon(&m_massiveClub);
         model->addMeleeWeapon(&m_mightyKick);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void AleguzzlerGargant::onWounded() {
@@ -61,10 +57,7 @@ namespace GloomspiteGitz {
     }
 
     Unit *AleguzzlerGargant::Create(const ParameterList &parameters) {
-        auto unit = new AleguzzlerGargant();
-
-        unit->configure();
-        return unit;
+        return new AleguzzlerGargant();
     }
 
     void AleguzzlerGargant::Init() {

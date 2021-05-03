@@ -27,8 +27,6 @@ namespace GloomspiteGitz {
 
     protected:
 
-        void configure();
-
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
         void onModelFled(const Model* model) override;

@@ -64,7 +64,7 @@ namespace GloomspiteGitz {
                     {RAND_3D6, 3, 7}
             };
 
-    LoonbossOnManglerSquigs::LoonbossOnManglerSquigs() :
+    LoonbossOnManglerSquigs::LoonbossOnManglerSquigs(CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Loonboss on Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
@@ -75,9 +75,11 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
         m_hugeFangFilledGob.setMount(true);
-    }
 
-    void LoonbossOnManglerSquigs::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_moonCutta);
@@ -88,8 +90,6 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<BiteDaMoon>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     int LoonbossOnManglerSquigs::toHitModifier(const Weapon *weapon, const Unit *unit) const {
@@ -128,19 +128,10 @@ namespace GloomspiteGitz {
     }
 
     Unit *LoonbossOnManglerSquigs::Create(const ParameterList &parameters) {
-        auto unit = new LoonbossOnManglerSquigs();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new LoonbossOnManglerSquigs(trait, artefact, general);
     }
 
     void LoonbossOnManglerSquigs::Init() {

@@ -27,8 +27,6 @@ namespace GloomspiteGitz {
 
     protected:
 
-        void configure();
-
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 
         void onWounded() override;

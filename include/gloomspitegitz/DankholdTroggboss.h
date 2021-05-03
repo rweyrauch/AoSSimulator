@@ -21,13 +21,11 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        DankholdTroggboss();
+        DankholdTroggboss(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~DankholdTroggboss() override;
 
     protected:
-
-        void configure();
 
         void onStartCombat(PlayerId player) override;
 

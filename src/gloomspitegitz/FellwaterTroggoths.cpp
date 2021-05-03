@@ -20,18 +20,12 @@ namespace GloomspiteGitz {
 
     bool FellwaterTroggoths::s_registered = false;
 
-    FellwaterTroggoths::FellwaterTroggoths(int points) :
+    FellwaterTroggoths::FellwaterTroggoths(int numModels, int points) :
             GloomspiteGitzBase("Fellwater Troggoths", 6, g_wounds, 5, 5, false, points),
             m_noxiousVomit(Weapon::Type::Missile, "Noxious Vomit", 6, 1, 2, 3, -2, RAND_D3),
             m_spikedClub(Weapon::Type::Melee, "Spiked Club", 2, 4, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, FELLWATER};
         m_weapons = {&m_noxiousVomit, &m_spikedClub};
-    }
-
-    bool FellwaterTroggoths::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -39,20 +33,11 @@ namespace GloomspiteGitz {
             model->addMeleeWeapon(&m_spikedClub);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *FellwaterTroggoths::Create(const ParameterList &parameters) {
-        auto unit = new FellwaterTroggoths(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new FellwaterTroggoths(numModels, ComputePoints(parameters));
     }
 
     void FellwaterTroggoths::Init() {

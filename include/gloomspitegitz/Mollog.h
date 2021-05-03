@@ -22,13 +22,11 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Mollog();
+        explicit Mollog(bool isGeneral);
 
         ~Mollog() override;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

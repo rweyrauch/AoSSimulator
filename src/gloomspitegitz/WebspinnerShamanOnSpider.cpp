@@ -35,7 +35,7 @@ namespace GloomspiteGitz {
 
     bool WebspinnerShamanOnArachnarokSpider::s_registered = false;
 
-    WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider() :
+    WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Webspinner Shaman on Arachnarok Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spiderBows(Weapon::Type::Missile, "Spider-bows", 16, 8, 5, 5, 0, 1),
             m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3),
@@ -56,14 +56,11 @@ namespace GloomspiteGitz {
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    WebspinnerShamanOnArachnarokSpider::~WebspinnerShamanOnArachnarokSpider() {
-        m_shrineConnection.disconnect();
-        m_prophetConnection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void WebspinnerShamanOnArachnarokSpider::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_spiderBows);
         model->addMeleeWeapon(&m_spiderGodStaff);
@@ -76,8 +73,11 @@ namespace GloomspiteGitz {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
 
-        m_points = g_pointsPerUnit;
+    WebspinnerShamanOnArachnarokSpider::~WebspinnerShamanOnArachnarokSpider() {
+        m_shrineConnection.disconnect();
+        m_prophetConnection.disconnect();
     }
 
     void WebspinnerShamanOnArachnarokSpider::onRestore() {
@@ -103,20 +103,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *WebspinnerShamanOnArachnarokSpider::Create(const ParameterList &parameters) {
-        auto unit = new WebspinnerShamanOnArachnarokSpider();
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheSpiderFangs[0]);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
+        return new WebspinnerShamanOnArachnarokSpider(lore, trait, artefact, general);
     }
 
     void WebspinnerShamanOnArachnarokSpider::Init() {

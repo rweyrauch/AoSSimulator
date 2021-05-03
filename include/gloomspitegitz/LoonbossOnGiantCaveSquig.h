@@ -30,7 +30,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        LoonbossOnGiantCaveSquig();
+        LoonbossOnGiantCaveSquig(WeaponOptions weapon, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LoonbossOnGiantCaveSquig() override = default;
 

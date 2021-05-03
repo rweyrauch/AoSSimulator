@@ -26,13 +26,11 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Skragrott();
+        Skragrott(Lore lore, bool isGeneral);
 
         ~Skragrott() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         int castingModifier() const override;
 

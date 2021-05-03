@@ -20,43 +20,28 @@ namespace GloomspiteGitz {
 
     bool DankholdTroggoths::s_registered = false;
 
-    DankholdTroggoths::DankholdTroggoths(int points) :
+    DankholdTroggoths::DankholdTroggoths(int numModels, int points) :
             GloomspiteGitzBase("Dankhold Troggoths", 6, g_wounds, 6, 4, false, points),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 3, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD};
         m_weapons = {&m_boulderClub};
 
         s_globalBraveryMod.connect(this, &DankholdTroggoths::reassuringPresence, &m_connection);
-    }
-
-    DankholdTroggoths::~DankholdTroggoths() {
-        m_connection.disconnect();
-    }
-
-    bool DankholdTroggoths::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_boulderClub);
             addModel(model);
         }
+    }
 
-        return true;
+    DankholdTroggoths::~DankholdTroggoths() {
+        m_connection.disconnect();
     }
 
     Unit *DankholdTroggoths::Create(const ParameterList &parameters) {
-        auto unit = new DankholdTroggoths(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new DankholdTroggoths(numModels, ComputePoints(parameters));
     }
 
     void DankholdTroggoths::Init() {

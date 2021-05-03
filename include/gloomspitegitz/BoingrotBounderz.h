@@ -21,11 +21,9 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        BoingrotBounderz(int points);
+        BoingrotBounderz(int numModels, int points);
 
         ~BoingrotBounderz() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

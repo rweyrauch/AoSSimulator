@@ -20,7 +20,7 @@ namespace GloomspiteGitz {
 
     bool LoonbossWithGiantCaveSquig::s_registered = false;
 
-    LoonbossWithGiantCaveSquig::LoonbossWithGiantCaveSquig() :
+    LoonbossWithGiantCaveSquig::LoonbossWithGiantCaveSquig(CommandTrait trait, Artefact artefact, bool isGeneral) :
             GloomspiteGitzBase("Loonboss with Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_moonProdderMissile(Weapon::Type::Missile, "Moon-prodder", 14, RAND_D6, 4, 3, -1, 1),
             m_moonProdder(Weapon::Type::Melee, "Moon-prodder", 2, 4, 4, 3, -1, 1),
@@ -30,9 +30,11 @@ namespace GloomspiteGitz {
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_massiveFangFilledGob.setMount(true);
-    }
 
-    void LoonbossWithGiantCaveSquig::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_moonProdderMissile);
         model->addMeleeWeapon(&m_moonProdder);
@@ -40,24 +42,13 @@ namespace GloomspiteGitz {
         addModel(model);
 
         m_commandAbilities.push_back(std::unique_ptr<CommandAbility>(CreateImDaBossNoStabEmGood(this)));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *LoonbossWithGiantCaveSquig::Create(const ParameterList &parameters) {
-        auto unit = new LoonbossWithGiantCaveSquig();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new LoonbossWithGiantCaveSquig(trait, artefact, general);
     }
 
     void LoonbossWithGiantCaveSquig::Init() {
