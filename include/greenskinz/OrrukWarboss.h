@@ -33,13 +33,11 @@ namespace Greenskinz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        OrrukWarboss();
+        OrrukWarboss(WeaponOption weapon, bool warboar, bool isGeneral);
 
         ~OrrukWarboss() override = default;
 
     protected:
-
-        void configure(WeaponOption weapon, bool warboar);
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

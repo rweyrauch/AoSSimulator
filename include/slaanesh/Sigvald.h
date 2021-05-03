@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        SigvaldPrinceOfSlaanesh();
+        SigvaldPrinceOfSlaanesh(Host host, bool isGeneral);
 
         ~SigvaldPrinceOfSlaanesh() override = default;
 
     protected:
-
-        void configure();
 
         // Powered by Vainglory
         int chargeModifier() const override { return 3; }

@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        InfernalEnrapturess();
+        InfernalEnrapturess(Host host, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~InfernalEnrapturess() override = default;
 
     protected:
-
-        void configure();
 
         void onStartShooting(PlayerId player) override;
 

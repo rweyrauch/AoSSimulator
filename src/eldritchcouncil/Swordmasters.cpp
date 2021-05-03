@@ -19,18 +19,12 @@ namespace EldritchCouncil {
 
     bool Swordmasters::s_registered = false;
 
-    Swordmasters::Swordmasters(int points) :
+    Swordmasters::Swordmasters(int numModels, bool hornblower, bool standardBearer, int points) :
             Unit("Swordmasters", 6, g_wounds, 7, 4, false, points),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1),
             m_greatswordLord(Weapon::Type::Melee, "Greatsword", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, SWORDMASTERS};
         m_weapons = {&m_greatsword, &m_greatswordLord};
-    }
-
-    bool Swordmasters::configure(int numModels, bool hornblower, bool standardBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto lord = new Model(g_basesize, wounds());
         lord->addMeleeWeapon(&m_greatswordLord);
@@ -48,22 +42,13 @@ namespace EldritchCouncil {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Swordmasters::Create(const ParameterList &parameters) {
-        auto unit = new Swordmasters(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
-        bool ok = unit->configure(numModels, hornblower, standardBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Swordmasters(numModels, standardBearer, hornblower, ComputePoints(parameters));
     }
 
     void Swordmasters::Init() {

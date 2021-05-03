@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool MyrmideshPainbringers::s_registered = false;
 
-    MyrmideshPainbringers::MyrmideshPainbringers(int points) :
-            SlaaneshBase("Myrmidesh Painbringers", 6, g_wounds, 7, 4, false, points),
+    MyrmideshPainbringers::MyrmideshPainbringers(Host host, int numModels, int points) :
+            SlaaneshBase(host, "Myrmidesh Painbringers", 6, g_wounds, 7, 4, false, points),
             m_scimitar(Weapon::Type::Missile, "Scimitar", 1, 2, 3, 3, -1, 1),
             m_scimitarMaster(Weapon::Type::Melee, "Scimitar", 1, 3, 3, 3, -1, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, SEEKERS, MYRMIDESH_PAINBRINGERS};
@@ -30,12 +30,6 @@ namespace Slaanesh {
 
         // Flawless Accuracy
         m_runAndCharge = true;
-    }
-
-    bool MyrmideshPainbringers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto tempter = new Model(g_basesize, wounds());
         tempter->addMeleeWeapon(&m_scimitarMaster);
@@ -47,23 +41,12 @@ namespace Slaanesh {
             model->addMeleeWeapon(&m_scimitar);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *MyrmideshPainbringers::Create(const ParameterList &parameters) {
-        auto unit = new MyrmideshPainbringers(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new MyrmideshPainbringers(host, numModels, ComputePoints(parameters));
     }
 
     void MyrmideshPainbringers::Init() {

@@ -69,8 +69,8 @@ namespace Slaanesh {
 
     bool KeeperOfSecrets::s_registered = false;
 
-    KeeperOfSecrets::KeeperOfSecrets() :
-            SlaaneshBase("Keeper of Secrets", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
+    KeeperOfSecrets::KeeperOfSecrets(Host host, WeaponOption weapon, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlaaneshBase(host, "Keeper of Secrets", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
             m_ritualKnifeOrHand(Weapon::Type::Melee, "Ritual Knife or Sinistrous Hand", 1, 1, 2, 3, -1, 1),
             m_greatblade(Weapon::Type::Melee, "Elegant Greatblade", 2, 4, 3, 3, -1, 2),
@@ -81,9 +81,11 @@ namespace Slaanesh {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void KeeperOfSecrets::configure(WeaponOption weapon, Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         m_weapon = weapon;
@@ -105,25 +107,13 @@ namespace Slaanesh {
     }
 
     Unit *KeeperOfSecrets::Create(const ParameterList &parameters) {
-        auto unit = new KeeperOfSecrets();
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Ritual_Knife);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Ritual_Knife);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greaterDaemonLore[0]);
-
-        unit->configure(weapon, lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new KeeperOfSecrets(host, weapon, lore, trait, artefact, general);
     }
 
     void KeeperOfSecrets::Init() {

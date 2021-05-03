@@ -17,7 +17,7 @@ namespace Greenskinz {
 
     bool OrrukWarboss::s_registered = false;
 
-    OrrukWarboss::OrrukWarboss() :
+    OrrukWarboss::OrrukWarboss(WeaponOption weapon, bool warboar, bool isGeneral) :
             Unit("Orruk Warboss", 5, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 6, 3, 3, -1, 1),
             m_massiveChoppa(Weapon::Type::Melee, "Massive Choppa", 1, 3, 4, 3, -2, RAND_D3),
@@ -26,9 +26,9 @@ namespace Greenskinz {
         m_keywords = {DESTRUCTION, ORRUK, GREENSKINZ, HERO, ORRUK_WARBOSS};
         m_weapons = {&m_bossChoppa, &m_massiveChoppa, &m_greatWaaaghBanner, &m_boarTusks};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void OrrukWarboss::configure(WeaponOption weapon, bool warboar) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         m_weapon = weapon;
@@ -54,20 +54,13 @@ namespace Greenskinz {
             m_move = 9;
         }
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *OrrukWarboss::Create(const ParameterList &parameters) {
-        auto unit = new OrrukWarboss();
         WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Boss_Choppa_And_Shield);
         bool warboar = GetBoolParam("War Boar", parameters, false);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(weapon, warboar);
-        return unit;
+        return new OrrukWarboss(weapon, warboar, general);
     }
 
     void OrrukWarboss::Init() {

@@ -21,13 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        SyllEsske();
+        SyllEsske(Host host, Lore lore, bool isGeneral);
 
         ~SyllEsske() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

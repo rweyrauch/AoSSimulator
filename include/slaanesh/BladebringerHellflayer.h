@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        BladebringerOnHellflayer();
+        BladebringerOnHellflayer(Host host, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BladebringerOnHellflayer() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartCombat(PlayerId player) override;
 

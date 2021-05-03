@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        TheMasque();
+        TheMasque(Host host, bool isGeneral);
 
         ~TheMasque() override = default;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

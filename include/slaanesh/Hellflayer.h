@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        Hellflayer();
+        Hellflayer(Host host);
 
         ~Hellflayer() override = default;
 
     protected:
-
-        void configure();
 
         void onStartCombat(PlayerId player) override;
 

@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        Daemonettes(int points);
+        Daemonettes(Host host, int numModels, bool iconBearer, bool bannerBearer, bool hornblower, int points);
 
         ~Daemonettes() override;
-
-        bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
     protected:
 

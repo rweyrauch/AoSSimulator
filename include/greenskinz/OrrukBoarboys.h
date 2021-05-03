@@ -31,11 +31,9 @@ namespace Greenskinz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        OrrukBoarboys(int points);
+        OrrukBoarboys(int numModels, WeaponOption weapons, bool glyphBearer, bool horns, int points);
 
         ~OrrukBoarboys() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, bool glyphBearer, bool horns);
 
     protected:
 

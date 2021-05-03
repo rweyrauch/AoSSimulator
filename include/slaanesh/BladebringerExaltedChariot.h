@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        BladebringerOnExaltedChariot();
+        BladebringerOnExaltedChariot(Host host, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BladebringerOnExaltedChariot() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onCharged() override;
 

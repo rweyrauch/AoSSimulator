@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        SeekerChariots(int points);
+        SeekerChariots(Host host, int numModels, int points);
 
         ~SeekerChariots() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

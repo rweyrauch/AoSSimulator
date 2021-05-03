@@ -19,8 +19,8 @@ namespace Slaanesh {
 
     bool SyllEsske::s_registered = false;
 
-    SyllEsske::SyllEsske() :
-            SlaaneshBase("Syll'Esske The Vengeful Allegiance", 8, g_wounds, 10, 4, false, g_pointsPerUnit),
+    SyllEsske::SyllEsske(Host host, Lore lore, bool isGeneral) :
+            SlaaneshBase(host, "Syll'Esske The Vengeful Allegiance", 8, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_axeOfDominion(Weapon::Type::Melee, "Axe of Dominion", 2, 4, 4, 3, -2, RAND_D3),
             m_scourgingWhip(Weapon::Type::Melee, "Scourging Whip", 2, 8, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, SYLL_ESSKE,
@@ -34,9 +34,9 @@ namespace Slaanesh {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void SyllEsske::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axeOfDominion);
         model->addMeleeWeapon(&m_scourgingWhip);
@@ -57,18 +57,10 @@ namespace Slaanesh {
     }
 
     Unit *SyllEsske::Create(const ParameterList &parameters) {
-        auto unit = new SyllEsske();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new SyllEsske(host, lore, general);
     }
 
     void SyllEsske::Init() {

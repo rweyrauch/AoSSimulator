@@ -21,18 +21,12 @@ namespace Slaanesh {
 
     bool SymbareshTwinsouls::s_registered = false;
 
-    SymbareshTwinsouls::SymbareshTwinsouls(int points) :
-            SlaaneshBase("Symbaresh Twinsouls", 8, g_wounds, 7, 4, false, points),
+    SymbareshTwinsouls::SymbareshTwinsouls(Host host, int numModels, int points) :
+            SlaaneshBase(host, "Symbaresh Twinsouls", 8, g_wounds, 7, 4, false, points),
             m_blades(Weapon::Type::Missile, "Merciless Blades", 2, 3, 4, 3, 0, 2),
             m_bladesEgopomp(Weapon::Type::Melee, "Merciless Blades", 2, 4, 4, 3, 0, 2) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, SYMBARESH_TWINSOULS};
         m_weapons = {&m_blades, &m_bladesEgopomp};
-    }
-
-    bool SymbareshTwinsouls::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto egopomp = new Model(g_basesize, wounds());
         egopomp->addMeleeWeapon(&m_bladesEgopomp);
@@ -44,23 +38,12 @@ namespace Slaanesh {
             model->addMeleeWeapon(&m_blades);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SymbareshTwinsouls::Create(const ParameterList &parameters) {
-        auto unit = new SymbareshTwinsouls(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new SymbareshTwinsouls(host, numModels, ComputePoints(parameters));
     }
 
     void SymbareshTwinsouls::Init() {

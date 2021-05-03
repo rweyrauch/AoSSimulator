@@ -56,8 +56,8 @@ namespace Slaanesh {
 
     bool GlutosOrscollion::s_registered = false;
 
-    GlutosOrscollion::GlutosOrscollion() :
-            SlaaneshBase("Glutos Orscollion", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
+    GlutosOrscollion::GlutosOrscollion(Host host, Lore lore, bool isGeneral) :
+            SlaaneshBase(host, "Glutos Orscollion", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_greatblade(Weapon::Type::Melee, "Wailing Greatblade", 1, 3, 3, 3, -2, 2),
             m_scourge(Weapon::Type::Melee, "Flaying Scourge", 1, 2, 3, 4, 0, 1),
             m_dagger(Weapon::Type::Melee, "Sacrificial Dagger", 1, 1, 4, 3, 0, 1),
@@ -73,14 +73,7 @@ namespace Slaanesh {
 
         s_globalToHitMod.connect(this, &GlutosOrscollion::fogOfTemptation, &m_fogConnection);
         s_globalBraveryMod.connect(this, &GlutosOrscollion::aperitif, &m_aperitifConnection);
-    }
 
-    GlutosOrscollion::~GlutosOrscollion() {
-        m_fogConnection.disconnect();
-        m_aperitifConnection.disconnect();
-    }
-
-    void GlutosOrscollion::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_greatblade);
@@ -95,18 +88,16 @@ namespace Slaanesh {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
 
+    GlutosOrscollion::~GlutosOrscollion() {
+        m_fogConnection.disconnect();
+        m_aperitifConnection.disconnect();
+    }
+
     Unit *GlutosOrscollion::Create(const ParameterList &parameters) {
-        auto unit = new GlutosOrscollion();
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greaterDaemonLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new GlutosOrscollion(host, lore, general);
     }
 
     void GlutosOrscollion::Init() {

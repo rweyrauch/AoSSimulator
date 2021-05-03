@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        Fiends(int points);
+        Fiends(Host host, int numModels, int points);
 
         ~Fiends() override;
-
-        bool configure(int numModels);
 
     protected:
 

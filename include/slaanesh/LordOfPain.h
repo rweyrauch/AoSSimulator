@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        LordOfPain();
+        LordOfPain(Host host, bool isGeneral);
 
         ~LordOfPain() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

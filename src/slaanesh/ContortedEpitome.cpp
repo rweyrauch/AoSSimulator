@@ -59,8 +59,8 @@ namespace Slaanesh {
 
     bool TheContortedEpitome::s_registered = false;
 
-    TheContortedEpitome::TheContortedEpitome() :
-            SlaaneshBase("The Contorted Epitome", 12, g_wounds, 10, 5, false, g_pointsPerUnit),
+    TheContortedEpitome::TheContortedEpitome(Host host, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlaaneshBase(host, "The Contorted Epitome", 12, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 9, 3, 4, -1, 1),
             m_coiledTentacles(Weapon::Type::Melee, "Coiled Tentacles", 3, 2, 3, 4, -2, 2) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH,
@@ -70,9 +70,11 @@ namespace Slaanesh {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void TheContortedEpitome::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         model->addMeleeWeapon(&m_coiledTentacles);
@@ -85,24 +87,12 @@ namespace Slaanesh {
     }
 
     Unit *TheContortedEpitome::Create(const ParameterList &parameters) {
-        auto unit = new TheContortedEpitome();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new TheContortedEpitome(host, lore, trait, artefact, general);
     }
 
     void TheContortedEpitome::Init() {

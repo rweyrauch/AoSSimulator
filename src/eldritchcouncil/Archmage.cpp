@@ -18,18 +18,18 @@ namespace EldritchCouncil {
 
     bool Archmage::s_registered = false;
 
-    Archmage::Archmage() :
+    Archmage::Archmage(bool steed, bool isGeneral) :
             Unit("Archmage", 6, g_wounds, 7, 6, false, g_pointsPerUnit),
             m_seerstaff(Weapon::Type::Melee, "Seerstaff", 2, 1, 4, 3, -1, 1),
             m_steedHooves(Weapon::Type::Melee, "Aelven Steed's Swift Hooves", 1, 2, 4, 5, 0, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, ARCHMAGE};
         m_weapons = {&m_seerstaff, &m_steedHooves};
 
+        setGeneral(isGeneral);
+
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void Archmage::configure(bool steed) {
         m_steed = steed;
 
         auto model = new Model(steed ? g_basesizeSteed : g_basesize, wounds());
@@ -42,19 +42,12 @@ namespace EldritchCouncil {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Archmage::Create(const ParameterList &parameters) {
-        auto unit = new Archmage();
         bool steed = GetBoolParam("Steed", parameters, false);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(steed);
-        return unit;
+        return new Archmage(steed, general);
     }
 
     void Archmage::Init() {

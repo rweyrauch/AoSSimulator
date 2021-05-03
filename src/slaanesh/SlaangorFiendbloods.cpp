@@ -22,18 +22,12 @@ namespace Slaanesh {
 
     bool SlaangorFiendbloods::s_registered = false;
 
-    SlaangorFiendbloods::SlaangorFiendbloods(int points) :
-            SlaaneshBase("Slaangor Fiendbloods", 8, g_wounds, 6, 5, false, points),
+    SlaangorFiendbloods::SlaangorFiendbloods(Host host, int numModels, int points) :
+            SlaaneshBase(host, "Slaangor Fiendbloods", 8, g_wounds, 6, 5, false, points),
             m_claws(Weapon::Type::Melee, "Razor-sharp Claw(s)", 2, 3, 4, 3, -1, 1),
             m_gildedWeapon(Weapon::Type::Melee, "Gilded Weapon", 1, 2, 4, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, BEASTS_OF_CHAOS, SLAANGOR_FIENDBLOODS};
         m_weapons = {&m_claws, &m_gildedWeapon};
-    }
-
-    bool SlaangorFiendbloods::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto slake = new Model(g_basesize, wounds());
         slake->addMeleeWeapon(&m_claws);
@@ -45,23 +39,12 @@ namespace Slaanesh {
             model->addMeleeWeapon(&m_claws);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SlaangorFiendbloods::Create(const ParameterList &parameters) {
-        auto unit = new SlaangorFiendbloods(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new SlaangorFiendbloods(host, numModels, ComputePoints(parameters));
     }
 
     void SlaangorFiendbloods::Init() {

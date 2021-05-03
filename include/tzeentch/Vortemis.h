@@ -25,10 +25,6 @@ namespace Tzeentch {
 
         ~VortemisTheAllSeeing() override = default;
 
-    protected:
-
-        void configure(Lore lore);
-
     private:
 
         Weapon m_staffMissile,

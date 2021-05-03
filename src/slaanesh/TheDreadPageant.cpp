@@ -17,17 +17,15 @@ namespace Slaanesh {
 
     bool TheDreadPageant::s_registered = false;
 
-    TheDreadPageant::TheDreadPageant() :
-            SlaaneshBase("The Dread Pageant", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
+    TheDreadPageant::TheDreadPageant(Host host) :
+            SlaaneshBase(host, "The Dread Pageant", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_bow(Weapon::Type::Missile, "Blissbarb Bow", 18, 2, 4, 4, -1, 1),
             m_clawAndWeapon(Weapon::Type::Melee, "Crushing Claw and Gilded Weapon", 1, 4, 4, 3, -2, 2),
             m_glaive(Weapon::Type::Melee, "Slickblade Glaive", 1, 3, 3, 3, -1, 1),
             m_harpoon(Weapon::Type::Melee, "Dread Harpoon", 1, 4, 2, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, DREAD_PAGEANT};
         m_weapons = {&m_bow, &m_clawAndWeapon, &m_glaive, &m_harpoon};
-    }
 
-    void TheDreadPageant::configure() {
         auto vasillac = new Model(g_basesize, wounds() + 2);
         vasillac->setName("Vasillac");
         vasillac->addMeleeWeapon(&m_harpoon);
@@ -50,13 +48,8 @@ namespace Slaanesh {
     }
 
     Unit *TheDreadPageant::Create(const ParameterList &parameters) {
-        auto unit = new TheDreadPageant();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        unit->configure();
-        return unit;
+        return new TheDreadPageant(host);
     }
 
     void TheDreadPageant::Init() {

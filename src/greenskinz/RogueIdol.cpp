@@ -41,22 +41,15 @@ namespace Greenskinz {
         m_keywords = {DESTRUCTION, GREENSKINZ, MONSTER, ROGUE_IDOL};
         m_weapons = {&m_boulderFists, &m_stompinFeet};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void RogueIdol::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_boulderFists);
         model->addMeleeWeapon(&m_stompinFeet);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *RogueIdol::Create(const ParameterList &parameters) {
-        auto unit = new RogueIdol();
-
-        unit->configure();
-        return unit;
+        return new RogueIdol();
     }
 
     void RogueIdol::Init() {

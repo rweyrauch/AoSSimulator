@@ -132,8 +132,6 @@ namespace Slaanesh {
 
         ~SlaaneshBase() override = default;
 
-        void setHost(Host host);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
@@ -147,8 +145,12 @@ namespace Slaanesh {
         }
 
     protected:
-        SlaaneshBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        SlaaneshBase(Host host, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setHost(host);
+        }
+
+        void setHost(Host host);
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

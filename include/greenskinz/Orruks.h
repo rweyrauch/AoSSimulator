@@ -39,11 +39,9 @@ namespace Greenskinz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Orruks(int points);
+        Orruks(int numModels, WeaponOption weapons, bool drummer, StandardOption standardBearer, int points);
 
         ~Orruks() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, bool drummer, StandardOption standardBearer);
 
     protected:
 

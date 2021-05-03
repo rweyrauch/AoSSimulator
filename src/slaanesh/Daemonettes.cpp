@@ -22,8 +22,8 @@ namespace Slaanesh {
 
     bool Daemonettes::s_registered = false;
 
-    Daemonettes::Daemonettes(int points) :
-            SlaaneshBase("Daemonettes", 6, g_wounds, 10, 5, false, points),
+    Daemonettes::Daemonettes(Host host, int numModels, bool iconBearer, bool bannerBearer, bool hornblower, int points) :
+            SlaaneshBase(host, "Daemonettes", 6, g_wounds, 10, 5, false, points),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 4, 4, -1, 1),
             m_piercingClawsAlluress(Weapon::Type::Melee, "Piercing Claws", 1, 3, 4, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, SLAANESH, HEDONITE, DAEMONETTES};
@@ -34,16 +34,6 @@ namespace Slaanesh {
         m_runAndCharge = true;
 
         s_globalBattleshockReroll.connect(this, &Daemonettes::hornblowerBattleshockReroll, &m_hornblowerSlot);
-    }
-
-    Daemonettes::~Daemonettes() {
-        m_hornblowerSlot.disconnect();
-    }
-
-    bool Daemonettes::configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Add the Alluress
         auto reaperModel = new Model(g_basesize, wounds());
@@ -65,26 +55,19 @@ namespace Slaanesh {
             }
             addModel(model);
         }
+    }
 
-        return true;
+    Daemonettes::~Daemonettes() {
+        m_hornblowerSlot.disconnect();
     }
 
     Unit *Daemonettes::Create(const ParameterList &parameters) {
-        auto unit = new Daemonettes(ComputePoints(parameters));
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels, iconBearer, bannerBearer, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Daemonettes(host, numModels, iconBearer, bannerBearer, hornblowers, ComputePoints(parameters));
     }
 
     void Daemonettes::Init() {

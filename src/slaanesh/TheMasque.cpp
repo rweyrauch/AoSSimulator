@@ -17,8 +17,8 @@ namespace Slaanesh {
 
     bool TheMasque::s_registered = false;
 
-    TheMasque::TheMasque() :
-            SlaaneshBase("The Masque", 10, g_wounds, 10, 5, false, g_pointsPerUnit),
+    TheMasque::TheMasque(Host host, bool isGeneral) :
+            SlaaneshBase(host, "The Masque", 10, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, HERALD_OF_SLAANESH, THE_MASQUE};
         m_weapons = {&m_ravagingClaws};
@@ -29,25 +29,18 @@ namespace Slaanesh {
 
         // The Endless Dance
         m_pileInMove = 6;
-    }
 
-    void TheMasque::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         addModel(model);
     }
 
     Unit *TheMasque::Create(const ParameterList &parameters) {
-        auto unit = new TheMasque();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new TheMasque(host, general);
     }
 
     void TheMasque::Init() {

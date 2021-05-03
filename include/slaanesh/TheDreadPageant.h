@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        TheDreadPageant();
+        TheDreadPageant(Host host);
 
         ~TheDreadPageant() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

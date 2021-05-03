@@ -21,7 +21,7 @@ namespace Slaanesh {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        HellstridersWithHellscourges(int points);
+        HellstridersWithHellscourges(Host host, int numModels, bool iconBearer, bool bannerBearer, bool hornblower, int points);
 
         ~HellstridersWithHellscourges() override;
 

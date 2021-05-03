@@ -22,7 +22,7 @@ namespace Greenskinz {
 
         static void Init();
 
-        OrrukGreatShaman();
+        OrrukGreatShaman(bool warboar, bool isGeneral);
 
         ~OrrukGreatShaman() override = default;
 

@@ -32,13 +32,11 @@ namespace Slaanesh {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        KeeperOfSecrets();
+        KeeperOfSecrets(Host host, WeaponOption weapon, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~KeeperOfSecrets() override = default;
 
     protected:
-
-        void configure(WeaponOption weapon, Lore lore);
 
         size_t getDamageTableIndex() const;
 

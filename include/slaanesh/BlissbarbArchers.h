@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        BlissbarbArchers(int points);
+        BlissbarbArchers(Host host, int numModels, int points);
 
         ~BlissbarbArchers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

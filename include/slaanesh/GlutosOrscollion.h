@@ -26,13 +26,11 @@ namespace Slaanesh {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        GlutosOrscollion();
+        GlutosOrscollion(Host host, Lore lore, bool isGeneral);
 
         ~GlutosOrscollion() override;
 
     protected:
-
-        void configure(Lore lore);
 
         size_t getDamageTableIndex() const;
 

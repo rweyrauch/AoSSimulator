@@ -28,8 +28,6 @@ namespace Greenskinz {
 
     protected:
 
-        void configure();
-
         size_t getDamageTableIndex() const;
 
         void onWounded() override;

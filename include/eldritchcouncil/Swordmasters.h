@@ -22,11 +22,9 @@ namespace EldritchCouncil {
 
         static void Init();
 
-        Swordmasters(int points);
+        Swordmasters(int numModels, bool hornblower, bool standardBearer, int points);
 
         ~Swordmasters() override = default;
-
-        bool configure(int numModels, bool hornblower, bool standardBearer);
 
     protected:
 

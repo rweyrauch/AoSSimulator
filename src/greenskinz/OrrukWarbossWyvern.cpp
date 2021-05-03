@@ -33,7 +33,7 @@ namespace Greenskinz {
 
     bool OrrukWarbossOnWyvern::s_registered = false;
 
-    OrrukWarbossOnWyvern::OrrukWarbossOnWyvern() :
+    OrrukWarbossOnWyvern::OrrukWarbossOnWyvern(bool pairedChoppas, bool isGeneral) :
             Unit("Orruk Warboss on Wyvern", 12, g_wounds, 7, 4, true, g_pointsPerUnit),
             m_bossChoppa(Weapon::Type::Melee, "Boss Choppa", 1, 6, 3, 3, -1, 1),
             m_hornsClawsAndTeeth(Weapon::Type::Melee, "Wyvern's Horns, Claws and Teeth", 2, 5, 4, 3, -1, 2),
@@ -44,9 +44,9 @@ namespace Greenskinz {
         m_hasMount = true;
         m_hornsClawsAndTeeth.setMount(true);
         m_barbedTail.setMount(true);
-    }
 
-    void OrrukWarbossOnWyvern::configure(bool pairedChoppas) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         m_pairedChoppas = pairedChoppas;
@@ -60,14 +60,9 @@ namespace Greenskinz {
     }
 
     Unit *OrrukWarbossOnWyvern::Create(const ParameterList &parameters) {
-        auto unit = new OrrukWarbossOnWyvern();
         bool pairedChoppas = GetBoolParam("Two Boss Choppas", parameters, false);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(pairedChoppas);
-        return unit;
+        return new OrrukWarbossOnWyvern(pairedChoppas, general);
     }
 
     void OrrukWarbossOnWyvern::Init() {

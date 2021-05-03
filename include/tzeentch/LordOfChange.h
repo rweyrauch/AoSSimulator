@@ -41,8 +41,6 @@ namespace Tzeentch {
 
     protected:
 
-        void configure(WeaponOption option, Lore lore);
-
         void onWounded() override;
 
         void onRestore() override;

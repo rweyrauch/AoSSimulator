@@ -18,15 +18,15 @@ namespace Slaanesh {
 
     bool LordOfPain::s_registered = false;
 
-    LordOfPain::LordOfPain() :
-            SlaaneshBase("Lord of Pain", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
+    LordOfPain::LordOfPain(Host host, bool isGeneral) :
+            SlaaneshBase(host, "Lord of Pain", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_mace(Weapon::Type::Melee, "Soulpiercer Mace", 2, 5, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, LORD_OF_PAIN};
         m_weapons = {&m_mace};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void LordOfPain::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_mace);
         addModel(model);
@@ -39,16 +39,9 @@ namespace Slaanesh {
     }
 
     Unit *LordOfPain::Create(const ParameterList &parameters) {
-        auto unit = new LordOfPain();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new LordOfPain(host, general);
     }
 
     void LordOfPain::Init() {

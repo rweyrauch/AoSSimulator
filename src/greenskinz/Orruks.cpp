@@ -21,7 +21,7 @@ namespace Greenskinz {
 
     bool Orruks::s_registered = false;
 
-    Orruks::Orruks(int points) :
+    Orruks::Orruks(int numModels, WeaponOption weapons, bool drummer, StandardOption standardBearer, int points) :
             Unit("Orruks", 5, g_wounds, 5, 5, false, points),
             m_orrukBows(Weapon::Type::Missile, "Orruk Bows", 18, 1, 5, 4, 0, 1),
             m_choppa(Weapon::Type::Melee, "Choppa", 1, 1, 4, 4, -1, 1),
@@ -40,14 +40,6 @@ namespace Greenskinz {
                      &m_choppaBoss,
                      &m_pigstikkaSpearBoss,
                      &m_cuttaBoss};
-    }
-
-    bool Orruks::configure(int numModels, WeaponOption weapons, bool drummer, StandardOption standardBearer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         m_weaponOption = weapons;
 
@@ -99,23 +91,14 @@ namespace Greenskinz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Orruks::Create(const ParameterList &parameters) {
-        auto unit = new Orruks(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Choppa_And_Shield);
         bool drummer = GetBoolParam("Waaagh! Drummer", parameters, false);
         auto standardBearer = (StandardOption) GetEnumParam("Standard Bearer", parameters, Orruk_Banner);
-
-        bool ok = unit->configure(numModels, weapons, drummer, standardBearer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Orruks(numModels, weapons, drummer, standardBearer, ComputePoints(parameters));
     }
 
     void Orruks::Init() {

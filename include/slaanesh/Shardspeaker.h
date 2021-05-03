@@ -21,13 +21,11 @@ namespace Slaanesh {
 
         static void Init();
 
-        ShardspeakerOfSlaanesh();
+        ShardspeakerOfSlaanesh(Host host, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~ShardspeakerOfSlaanesh() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

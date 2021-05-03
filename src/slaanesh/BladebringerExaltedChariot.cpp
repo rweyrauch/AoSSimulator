@@ -20,8 +20,8 @@ namespace Slaanesh {
 
     bool BladebringerOnExaltedChariot::s_registered = false;
 
-    BladebringerOnExaltedChariot::BladebringerOnExaltedChariot() :
-            SlaaneshBase("Bladebringer, Herald on Exalted Chariot", 10, g_wounds, 10, 4, false, g_pointsPerUnit),
+    BladebringerOnExaltedChariot::BladebringerOnExaltedChariot(Host host, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlaaneshBase(host, "Bladebringer, Herald on Exalted Chariot", 10, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 9, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1) {
@@ -34,9 +34,11 @@ namespace Slaanesh {
         m_poisonedTongues.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void BladebringerOnExaltedChariot::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
@@ -50,24 +52,12 @@ namespace Slaanesh {
     }
 
     Unit *BladebringerOnExaltedChariot::Create(const ParameterList &parameters) {
-        auto unit = new BladebringerOnExaltedChariot();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new BladebringerOnExaltedChariot(host, lore, trait, artefact, general);
     }
 
     void BladebringerOnExaltedChariot::Init() {

@@ -22,13 +22,9 @@ namespace EldritchCouncil {
 
         static void Init();
 
-        Archmage();
+        Archmage(bool steed, bool isGeneral);
 
         ~Archmage() override = default;
-
-    protected:
-
-        void configure(bool steed);
 
     private:
 

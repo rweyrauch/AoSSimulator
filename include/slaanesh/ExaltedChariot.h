@@ -21,7 +21,7 @@ namespace Slaanesh {
 
         static void Init();
 
-        ExaltedChariot();
+        ExaltedChariot(Host host);
 
         ~ExaltedChariot() override = default;
 

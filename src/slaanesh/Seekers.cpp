@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool Seekers::s_registered = false;
 
-    Seekers::Seekers(int points) :
-            SlaaneshBase("Seekers", 14, g_wounds, 10, 5, false, points),
+    Seekers::Seekers(Host host, int numModels, bool iconBearer, bool bannerBearer, bool hornblower, int points) :
+            SlaaneshBase(host, "Seekers", 14, g_wounds, 10, 5, false, points),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 2, 3, 4, -1, 1),
             m_piercingClawsHeartseeker(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
@@ -34,16 +34,6 @@ namespace Slaanesh {
         m_runAndCharge = true;
 
         s_globalBattleshockReroll.connect(this, &Seekers::hornblowerBattleshockReroll, &m_hornblowerSlot);
-    }
-
-    Seekers::~Seekers() {
-        m_hornblowerSlot.disconnect();
-    }
-
-    bool Seekers::configure(int numModels, bool iconBearer, bool standardBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Add the Heartseeker
         auto reaperModel = new Model(g_basesize, wounds());
@@ -58,35 +48,28 @@ namespace Slaanesh {
             if (iconBearer) {
                 model->setName(Model::IconBearer);
                 iconBearer = false;
-            } else if (standardBearer) {
+            } else if (bannerBearer) {
                 model->setName(Model::BannerBearer);
-                standardBearer = false;
+                bannerBearer = false;
             } else if (hornblower) {
                 model->setName(Model::Hornblower);
                 hornblower = false;
             }
             addModel(model);
         }
+    }
 
-        return true;
+    Seekers::~Seekers() {
+        m_hornblowerSlot.disconnect();
     }
 
     Unit *Seekers::Create(const ParameterList &parameters) {
-        auto unit = new Seekers(ComputePoints(parameters));
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels, iconBearer, standardBearer, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Seekers(host, numModels, iconBearer, standardBearer, hornblowers, ComputePoints(parameters));
     }
 
     void Seekers::Init() {

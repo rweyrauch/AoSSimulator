@@ -17,7 +17,7 @@ namespace EldritchCouncil {
 
     bool Loremaster::s_registered = false;
 
-    Loremaster::Loremaster() :
+    Loremaster::Loremaster(bool isGeneral) :
             Unit("Loremaster", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_greatsword(Weapon::Type::Melee, "Greatsword", 1, 2, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, ELDRITCH_COUNCIL, HERO, WIZARD, LOREMASTER};
@@ -25,9 +25,9 @@ namespace EldritchCouncil {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void Loremaster::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_greatsword);
         addModel(model);
@@ -39,13 +39,8 @@ namespace EldritchCouncil {
     }
 
     Unit *Loremaster::Create(const ParameterList &parameters) {
-        auto unit = new Loremaster();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Loremaster(general);
     }
 
     void Loremaster::Init() {

@@ -25,8 +25,6 @@ namespace Tzeentch {
 
         ~TzaangorEnlightenedOnDisks() override = default;
 
-        bool configure(int numModels);
-
     protected:
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;

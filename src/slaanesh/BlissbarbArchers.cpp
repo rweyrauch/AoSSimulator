@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool BlissbarbArchers::s_registered = false;
 
-    BlissbarbArchers::BlissbarbArchers(int points) :
-            SlaaneshBase("Blissbarb Archers", 6, g_wounds, 6, 6, false, points),
+    BlissbarbArchers::BlissbarbArchers(Host host, int numModels, int points) :
+            SlaaneshBase(host, "Blissbarb Archers", 6, g_wounds, 6, 6, false, points),
             m_bow(Weapon::Type::Missile, "Blissbarb Bow", 18, 2, 4, 4, -1, 1),
             m_bowTempter(Weapon::Type::Missile, "Blissbarb Bow", 18, 3, 4, 4, -1, 1),
             m_blade(Weapon::Type::Melee, "Sybarite Blade", 1, 1, 4, 4, 0, 1) {
@@ -31,12 +31,6 @@ namespace Slaanesh {
 
         // Light-footed Killers
         m_runAndCharge = true;
-    }
-
-    bool BlissbarbArchers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Add the High Tempter
         auto tempter = new Model(g_basesize, wounds());
@@ -54,23 +48,12 @@ namespace Slaanesh {
             model->addMissileWeapon(&m_bow);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *BlissbarbArchers::Create(const ParameterList &parameters) {
-        auto unit = new BlissbarbArchers(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new BlissbarbArchers(host, numModels, ComputePoints(parameters));
     }
 
     void BlissbarbArchers::Init() {

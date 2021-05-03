@@ -22,13 +22,11 @@ namespace EldritchCouncil {
 
         static void Init();
 
-        ArchmageOnDragon();
+        ArchmageOnDragon(bool arcaneTome, bool talisman, bool isGeneral);
 
         ~ArchmageOnDragon() override = default;
 
     protected:
-
-        void configure(bool arcaneTome, bool talisman);
 
         void onWounded() override;
 

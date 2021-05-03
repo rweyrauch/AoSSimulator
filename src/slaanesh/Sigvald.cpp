@@ -17,31 +17,24 @@ namespace Slaanesh {
 
     bool SigvaldPrinceOfSlaanesh::s_registered = false;
 
-    SigvaldPrinceOfSlaanesh::SigvaldPrinceOfSlaanesh() :
-            SlaaneshBase("Sigvald Prince of Slaanesh", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
+    SigvaldPrinceOfSlaanesh::SigvaldPrinceOfSlaanesh(Host host, bool isGeneral) :
+            SlaaneshBase(host, "Sigvald Prince of Slaanesh", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_shardslash(Weapon::Type::Melee, "Shardslash", 1, 5, 2, 3, -2, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, SIGVALD};
         m_weapons = {&m_shardslash};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void SigvaldPrinceOfSlaanesh::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_shardslash);
         addModel(model);
     }
 
     Unit *SigvaldPrinceOfSlaanesh::Create(const ParameterList &parameters) {
-        auto unit = new SigvaldPrinceOfSlaanesh();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new SigvaldPrinceOfSlaanesh(host, general);
     }
 
     void SigvaldPrinceOfSlaanesh::Init() {

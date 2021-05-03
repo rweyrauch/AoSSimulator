@@ -27,8 +27,6 @@ namespace Tzeentch {
 
     protected:
 
-        void configure();
-
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;

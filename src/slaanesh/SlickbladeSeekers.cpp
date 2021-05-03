@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool SlickbladeSeekers::s_registered = false;
 
-    SlickbladeSeekers::SlickbladeSeekers(int points) :
-            SlaaneshBase("Slickblade Seekers", 14, g_wounds, 6, 5, false, points),
+    SlickbladeSeekers::SlickbladeSeekers(Host host, int numModels, int points) :
+            SlaaneshBase(host, "Slickblade Seekers", 14, g_wounds, 6, 5, false, points),
             m_glaive(Weapon::Type::Melee, "Slickblade Glaive", 2, 3, 3, 3, -1, 1),
             m_glaiveHunter(Weapon::Type::Melee, "Slickblade Glaive", 2, 4, 3, 3, -1, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 3, 0, 1) {
@@ -30,12 +30,6 @@ namespace Slaanesh {
         m_weapons = {&m_glaive, &m_glaiveHunter, &m_poisonedTongue};
         m_hasMount = true;
         m_poisonedTongue.setMount(true);
-    }
-
-    bool SlickbladeSeekers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Add the High Tempter
         auto tempter = new Model(g_basesize, wounds());
@@ -50,23 +44,12 @@ namespace Slaanesh {
             model->addMeleeWeapon(&m_glaive);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SlickbladeSeekers::Create(const ParameterList &parameters) {
-        auto unit = new SlickbladeSeekers(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new SlickbladeSeekers(host, numModels, ComputePoints(parameters));
     }
 
     void SlickbladeSeekers::Init() {

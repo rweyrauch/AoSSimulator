@@ -65,8 +65,8 @@ namespace Slaanesh {
 
     bool ShalaxiHelbane::s_registered = false;
 
-    ShalaxiHelbane::ShalaxiHelbane() :
-            SlaaneshBase("Shalaxi Helbane", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
+    ShalaxiHelbane::ShalaxiHelbane(Host host, WeaponOption weapon, Lore lore, bool isGeneral) :
+            SlaaneshBase(host, "Shalaxi Helbane", 14, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_livingWhip(Weapon::Type::Missile, "Living Whip", 6, 1, 3, 3, -1, 1),
             m_soulpiercer(Weapon::Type::Melee, "Soulpiercer", 3, 1, 2, 2, -3, RAND_D6),
             m_impalingClaws(Weapon::Type::Melee, "Impaling Claws", 3, 2, 3, 3, -2, 5) {
@@ -77,9 +77,9 @@ namespace Slaanesh {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void ShalaxiHelbane::configure(WeaponOption weapon, Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         m_weapon = weapon;
@@ -99,19 +99,11 @@ namespace Slaanesh {
     }
 
     Unit *ShalaxiHelbane::Create(const ParameterList &parameters) {
-        auto unit = new ShalaxiHelbane();
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Living_Whip);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Living_Whip);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greaterDaemonLore[0]);
-
-        unit->configure(weapon, lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new ShalaxiHelbane(host, weapon, lore, general);
     }
 
     void ShalaxiHelbane::Init() {

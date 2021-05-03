@@ -18,8 +18,8 @@ namespace Slaanesh {
 
     bool Hellflayer::s_registered = false;
 
-    Hellflayer::Hellflayer() :
-            SlaaneshBase("Hellflayer", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
+    Hellflayer::Hellflayer(Host host) :
+            SlaaneshBase(host, "Hellflayer", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 6, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 4, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -28,9 +28,7 @@ namespace Slaanesh {
         m_hasMount = true;
         m_piercingClaws.setMount(true);
         m_poisonedTongues.setMount(true);
-    }
 
-    void Hellflayer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
@@ -39,13 +37,8 @@ namespace Slaanesh {
     }
 
     Unit *Hellflayer::Create(const ParameterList &parameters) {
-        auto unit = new Hellflayer();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        unit->configure();
-        return unit;
+        return new Hellflayer(host);
     }
 
     void Hellflayer::Init() {

@@ -30,15 +30,13 @@ namespace Slaanesh {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        ShalaxiHelbane();
+        ShalaxiHelbane(Host host, WeaponOption weapon, Lore lore, bool isGeneral);
 
         ~ShalaxiHelbane() override = default;
 
         void enableRefineSenses() { m_refinedSensesActive = true; };
 
     protected:
-
-        void configure(WeaponOption weapon, Lore lore);
 
         size_t getDamageTableIndex() const;
 

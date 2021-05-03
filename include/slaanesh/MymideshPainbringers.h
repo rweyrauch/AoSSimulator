@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        MyrmideshPainbringers(int points);
+        MyrmideshPainbringers(Host host, int numModels, int points);
 
         ~MyrmideshPainbringers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

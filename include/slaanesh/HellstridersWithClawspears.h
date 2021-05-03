@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        HellstridersWithClawspears(int points);
+        HellstridersWithClawspears(Host host, int numModels, bool iconBearer, bool bannerBearer, bool hornblower, int points);
 
         ~HellstridersWithClawspears() override;
-
-        bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
     protected:
 

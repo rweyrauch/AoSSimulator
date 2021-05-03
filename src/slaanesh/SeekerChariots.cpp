@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool SeekerChariots::s_registered = false;
 
-    SeekerChariots::SeekerChariots(int points) :
-            SlaaneshBase("Seeker Chariots", 12, g_wounds, 10, 4, false, points),
+    SeekerChariots::SeekerChariots(Host host, int numModels, int points) :
+            SlaaneshBase(host, "Seeker Chariots", 12, g_wounds, 10, 4, false, points),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 4, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 3, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 4, 3, 4, 0, 1) {
@@ -33,12 +33,6 @@ namespace Slaanesh {
         m_piercingClaws.setMount(true);
         // Impossibly Swift
         m_retreatAndCharge = true;
-    }
-
-    bool SeekerChariots::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -47,23 +41,12 @@ namespace Slaanesh {
             model->addMeleeWeapon(&m_poisonedTongues);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SeekerChariots::Create(const ParameterList &parameters) {
-        auto unit = new SeekerChariots(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new SeekerChariots(host, numModels, ComputePoints(parameters));
     }
 
     void SeekerChariots::Init() {

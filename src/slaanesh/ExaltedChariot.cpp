@@ -19,8 +19,8 @@ namespace Slaanesh {
 
     bool ExaltedChariot::s_registered = false;
 
-    ExaltedChariot::ExaltedChariot() :
-            SlaaneshBase("Exalted Chariot", 10, g_wounds, 10, 4, false, g_pointsPerUnit),
+    ExaltedChariot::ExaltedChariot(Host host) :
+            SlaaneshBase(host, "Exalted Chariot", 10, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_flensingWhips(Weapon::Type::Melee, "Flensing Whips", 2, 4, 3, 4, -1, 1),
             m_piercingClaws(Weapon::Type::Melee, "Piercing Claws", 1, 9, 3, 4, -1, 1),
             m_poisonedTongues(Weapon::Type::Melee, "Poisoned Tongues", 1, 8, 3, 4, 0, 1) {
@@ -29,9 +29,7 @@ namespace Slaanesh {
         m_hasMount = true;
         m_poisonedTongues.setMount(true);
         m_piercingClaws.setMount(true);
-    }
 
-    void ExaltedChariot::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_flensingWhips);
         model->addMeleeWeapon(&m_piercingClaws);
@@ -40,13 +38,8 @@ namespace Slaanesh {
     }
 
     Unit *ExaltedChariot::Create(const ParameterList &parameters) {
-        auto unit = new ExaltedChariot();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        unit->configure();
-        return unit;
+        return new ExaltedChariot(host);
     }
 
     void ExaltedChariot::Init() {

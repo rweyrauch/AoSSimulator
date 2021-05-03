@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        SlickbladeSeekers(int points);
+        SlickbladeSeekers(Host host, int numModels, int points);
 
         ~SlickbladeSeekers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

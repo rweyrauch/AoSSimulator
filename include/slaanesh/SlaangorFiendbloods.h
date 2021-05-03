@@ -21,7 +21,7 @@ namespace Slaanesh {
 
         static void Init();
 
-        SlaangorFiendbloods(int points);
+        SlaangorFiendbloods(Host host, int numModels, int points);
 
         ~SlaangorFiendbloods() override = default;
 

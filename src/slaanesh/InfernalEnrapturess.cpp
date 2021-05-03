@@ -19,8 +19,8 @@ namespace Slaanesh {
 
     bool InfernalEnrapturess::s_registered = false;
 
-    InfernalEnrapturess::InfernalEnrapturess() :
-            SlaaneshBase("Infernal Enrapturess Herald of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
+    InfernalEnrapturess::InfernalEnrapturess(Host host, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlaaneshBase(host, "Infernal Enrapturess Herald of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaw(Weapon::Type::Melee, "Ravaging Claw", 1, 3, 3, 4, -1, 1),
             m_lyreCacophonousMelody(Weapon::Type::Missile, "Heartstring Lyre: Cacophonous Melody", 18, 6, 3, 4, -1, 1),
             m_lyreEuphonicBlast(Weapon::Type::Missile, "Heartstring Lyre: Euphonic Blast", 24, 1, 2, 3, -3, RAND_D3) {
@@ -30,9 +30,11 @@ namespace Slaanesh {
 
         // Discordant Disruption
         m_totalUnbinds = 1;
-    }
 
-    void InfernalEnrapturess::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_lyreCacophonousMelody);
         model->addMissileWeapon(&m_lyreEuphonicBlast);
@@ -41,22 +43,11 @@ namespace Slaanesh {
     }
 
     Unit *InfernalEnrapturess::Create(const ParameterList &parameters) {
-        auto unit = new InfernalEnrapturess();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new InfernalEnrapturess(host, trait, artefact, general);
     }
 
     void InfernalEnrapturess::Init() {

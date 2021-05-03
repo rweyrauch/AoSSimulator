@@ -22,11 +22,9 @@ namespace Greenskinz {
 
         static void Init();
 
-        OrrukBoarChariots(int points);
+        OrrukBoarChariots(int numModels, int points);
 
         ~OrrukBoarChariots() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

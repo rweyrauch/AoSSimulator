@@ -19,8 +19,8 @@ namespace Slaanesh {
 
     bool ViceleaderHeraldOfSlaanesh::s_registered = false;
 
-    ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh() :
-            SlaaneshBase("Viceleader Herald of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
+    ViceleaderHeraldOfSlaanesh::ViceleaderHeraldOfSlaanesh(Host host, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlaaneshBase(host, "Viceleader Herald of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_ravagingClaws(Weapon::Type::Melee, "Ravaging Claws", 1, 6, 3, 4, -1, 1) {
         m_keywords = {CHAOS, DAEMON, DAEMONETTE, SLAANESH, HEDONITE, HERO, WIZARD, HERALD_OF_SLAANESH, VICELEADER};
         m_weapons = {&m_ravagingClaws};
@@ -31,9 +31,11 @@ namespace Slaanesh {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void ViceleaderHeraldOfSlaanesh::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_ravagingClaws);
         addModel(model);
@@ -45,24 +47,12 @@ namespace Slaanesh {
     }
 
     Unit *ViceleaderHeraldOfSlaanesh::Create(const ParameterList &parameters) {
-        auto unit = new ViceleaderHeraldOfSlaanesh();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new ViceleaderHeraldOfSlaanesh(host, lore, trait, artefact, general);
     }
 
     void ViceleaderHeraldOfSlaanesh::Init() {

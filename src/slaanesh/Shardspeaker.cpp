@@ -19,8 +19,8 @@ namespace Slaanesh {
 
     bool ShardspeakerOfSlaanesh::s_registered = false;
 
-    ShardspeakerOfSlaanesh::ShardspeakerOfSlaanesh() :
-            SlaaneshBase("Shardspeaker of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
+    ShardspeakerOfSlaanesh::ShardspeakerOfSlaanesh(Host host, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SlaaneshBase(host, "Shardspeaker of Slaanesh", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Haze Staff", 1, 2, 4, 3, 0, RAND_D3),
             m_claws(Weapon::Type::Melee, "Shadow-cloaked Claws", 2, 4, 3, 3, -2, 1) {
         m_keywords = {CHAOS, MORTAL, SLAANESH, HEDONITE, HERO, WIZARD, SHARDSPEAKER};
@@ -31,9 +31,11 @@ namespace Slaanesh {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void ShardspeakerOfSlaanesh::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_claws);
         model->addMeleeWeapon(&m_staff);
@@ -51,24 +53,12 @@ namespace Slaanesh {
     }
 
     Unit *ShardspeakerOfSlaanesh::Create(const ParameterList &parameters) {
-        auto unit = new ShardspeakerOfSlaanesh();
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new ShardspeakerOfSlaanesh(host, lore, trait, artefact, general);
     }
 
     void ShardspeakerOfSlaanesh::Init() {

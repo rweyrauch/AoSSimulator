@@ -21,7 +21,7 @@ namespace Greenskinz {
 
     bool OrrukBoarboys::s_registered = false;
 
-    OrrukBoarboys::OrrukBoarboys(int points) :
+    OrrukBoarboys::OrrukBoarboys(int numModels, WeaponOption weapons, bool glyphBearer, bool horns, int points) :
             Unit("Orruk Boarboys", 9, g_wounds, 5, 5, false, points),
             m_choppa(Weapon::Type::Melee, "Choppa", 1, 1, 4, 4, -1, 1),
             m_pigstikkaSpear(Weapon::Type::Melee, "Pigstikka Spear", 2, 1, 4, 4, 0, 1),
@@ -32,14 +32,6 @@ namespace Greenskinz {
         m_weapons = {&m_choppa, &m_pigstikkaSpear, &m_warBoarsTusks, &m_choppaBoss, &m_pigstikkaSpearBoss};
         m_hasMount = true;
         m_warBoarsTusks.setMount(true);
-    }
-
-    bool OrrukBoarboys::configure(int numModels, WeaponOption weapons, bool glyphBearer, bool horns) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         m_weaponOption = weapons;
 
@@ -76,23 +68,14 @@ namespace Greenskinz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *OrrukBoarboys::Create(const ParameterList &parameters) {
-        auto unit = new OrrukBoarboys(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Choppa);
         bool glyphBearer = GetBoolParam("Glyph Bearer", parameters, false);
         bool horns = GetBoolParam("Waaagh! Horns", parameters, false);
-
-        bool ok = unit->configure(numModels, weapons, glyphBearer, horns);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new OrrukBoarboys(numModels, weapons, glyphBearer, horns, ComputePoints(parameters));
     }
 
     void OrrukBoarboys::Init() {

@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        SymbareshTwinsouls(int points);
+        SymbareshTwinsouls(Host host, int numModels, int points);
 
         ~SymbareshTwinsouls() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

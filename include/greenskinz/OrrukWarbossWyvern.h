@@ -22,13 +22,11 @@ namespace Greenskinz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        OrrukWarbossOnWyvern();
+        OrrukWarbossOnWyvern(bool pairedChoppas, bool isGeneral);
 
         ~OrrukWarbossOnWyvern() override = default;
 
     protected:
-
-        void configure(bool pairedChoppas);
 
         size_t getDamageTableIndex() const;
 

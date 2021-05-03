@@ -22,13 +22,11 @@ namespace EldritchCouncil {
 
         static void Init();
 
-        Loremaster();
+        Loremaster(bool isGeneral);
 
         ~Loremaster() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit* attacker) const override;
 

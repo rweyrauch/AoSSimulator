@@ -21,11 +21,9 @@ namespace Slaanesh {
 
         static void Init();
 
-        Seekers(int points);
+        Seekers(Host host, int numModels, bool iconBearer, bool bannerBearer, bool hornblower, int points);
 
         ~Seekers() override;
-
-        bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
 
     protected:
 

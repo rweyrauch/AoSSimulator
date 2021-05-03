@@ -34,7 +34,7 @@ namespace EldritchCouncil {
 
     bool ArchmageOnDragon::s_registered = false;
 
-    ArchmageOnDragon::ArchmageOnDragon() :
+    ArchmageOnDragon::ArchmageOnDragon(bool arcaneTome, bool talisman, bool isGeneral) :
             Unit("Archmage On Dragon", 14, g_wounds, 7, 5, true, g_pointsPerUnit),
             m_magestaff(Weapon::Type::Melee, "Magestaff", 2, 1, 4, 3, -1, RAND_D3),
             m_sorcerousBlade(Weapon::Type::Melee, "Sorcerous Blade", 1, 3, 4, 4, 0, 1),
@@ -47,9 +47,9 @@ namespace EldritchCouncil {
         m_dragonJaws.setMount(true);
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void ArchmageOnDragon::configure(bool arcaneTome, bool talisman) {
+        setGeneral(isGeneral);
+
         m_arcaneTome = arcaneTome;
         m_talismanOfArcanePower = talisman;
 
@@ -69,20 +69,13 @@ namespace EldritchCouncil {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *ArchmageOnDragon::Create(const ParameterList &parameters) {
-        auto unit = new ArchmageOnDragon();
         bool tome = GetBoolParam("Arcane Tome", parameters, false);
         bool talisman = GetBoolParam("Talisman of Arcane Power", parameters, false);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(tome, talisman);
-        return unit;
+        return new ArchmageOnDragon(tome, talisman, general);
     }
 
     int ArchmageOnDragon::unbindingModifier() const {

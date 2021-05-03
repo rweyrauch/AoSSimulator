@@ -21,8 +21,8 @@ namespace Slaanesh {
 
     bool Fiends::s_registered = false;
 
-    Fiends::Fiends(int points) :
-            SlaaneshBase("Fiends", 12, g_wounds, 10, 5, false, points),
+    Fiends::Fiends(Host host, int numModels, int points) :
+            SlaaneshBase(host, "Fiends", 12, g_wounds, 10, 5, false, points),
             m_deadlyPincers(Weapon::Type::Melee, "Deadly Pincers", 1, 4, 3, 3, -1, 1),
             m_deadlyPincersBlissbringer(Weapon::Type::Melee, "Deadly Pincers", 1, 5, 3, 3, -1, 1),
             m_barbedStinger(Weapon::Type::Melee, "Barbed Stinger", 2, 1, 3, 3, -1, 1) {
@@ -30,16 +30,6 @@ namespace Slaanesh {
         m_weapons = {&m_deadlyPincers, &m_deadlyPincersBlissbringer, &m_barbedStinger};
 
         s_globalCastMod.connect(this, &Fiends::disruptiveSong, &m_connection);
-    }
-
-    Fiends::~Fiends() {
-        m_connection.disconnect();
-    }
-
-    bool Fiends::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto blissbringer = new Model(g_basesize, wounds());
         blissbringer->addMeleeWeapon(&m_deadlyPincersBlissbringer);
@@ -52,23 +42,16 @@ namespace Slaanesh {
             model->addMeleeWeapon(&m_barbedStinger);
             addModel(model);
         }
+    }
 
-        return true;
+    Fiends::~Fiends() {
+        m_connection.disconnect();
     }
 
     Unit *Fiends::Create(const ParameterList &parameters) {
-        auto unit = new Fiends(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new Fiends(host, numModels, ComputePoints(parameters));
     }
 
     void Fiends::Init() {

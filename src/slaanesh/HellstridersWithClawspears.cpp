@@ -20,8 +20,8 @@ namespace Slaanesh {
 
     bool HellstridersWithClawspears::s_registered = false;
 
-    HellstridersWithClawspears::HellstridersWithClawspears(int points) :
-            SlaaneshBase("Hellstriders with Claw-spears", 14, g_wounds, 6, 4, false, points),
+    HellstridersWithClawspears::HellstridersWithClawspears(Host host, int numModels, bool iconBearer, bool bannerBearer, bool hornblower, int points) :
+            SlaaneshBase(host, "Hellstriders with Claw-spears", 14, g_wounds, 6, 4, false, points),
             m_clawSpear(Weapon::Type::Melee, "Claw-spear", 1, 1, 3, 4, -1, 1),
             m_clawSpearReaver(Weapon::Type::Melee, "Claw-spear", 1, 2, 3, 4, -1, 1),
             m_poisonedTongue(Weapon::Type::Melee, "Poisoned Tongue", 1, 2, 3, 4, 0, 1) {
@@ -31,17 +31,6 @@ namespace Slaanesh {
         m_poisonedTongue.setMount(true);
         s_globalBattleshockReroll.connect(this, &HellstridersWithClawspears::hornblowerBattleshockReroll,
                                           &m_hornblowerSlot);
-    }
-
-    HellstridersWithClawspears::~HellstridersWithClawspears() {
-        m_hornblowerSlot.disconnect();
-    }
-
-    bool
-    HellstridersWithClawspears::configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto reaver = new Model(g_basesize, wounds());
         reaver->addMeleeWeapon(&m_clawSpearReaver);
@@ -64,26 +53,19 @@ namespace Slaanesh {
             }
             addModel(model);
         }
+    }
 
-        return true;
+    HellstridersWithClawspears::~HellstridersWithClawspears() {
+        m_hornblowerSlot.disconnect();
     }
 
     Unit *HellstridersWithClawspears::Create(const ParameterList &parameters) {
-        auto unit = new HellstridersWithClawspears(ComputePoints(parameters));
+        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bannerBearer = GetBoolParam("Banner Bearer", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-        auto host = (Host) GetEnumParam("Host", parameters, g_host[0]);
-        unit->setHost(host);
-
-        bool ok = unit->configure(numModels, iconBearer, bannerBearer, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new HellstridersWithClawspears(host, numModels, iconBearer, bannerBearer, hornblowers, ComputePoints(parameters));
     }
 
     void HellstridersWithClawspears::Init() {
