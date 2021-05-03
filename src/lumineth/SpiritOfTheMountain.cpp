@@ -36,17 +36,19 @@ namespace LuminethRealmLords {
 
     bool AlarithSpiritOfTheMountain::s_registered = false;
 
-    AlarithSpiritOfTheMountain::AlarithSpiritOfTheMountain() :
-            LuminethBase("Alarith Spirit of the Mountain", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
+    AlarithSpiritOfTheMountain::AlarithSpiritOfTheMountain(GreatNation nation, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LuminethBase(nation, "Alarith Spirit of the Mountain", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_blast(Weapon::Type::Missile, "Geomantic Blast", 30, 1, 3, 2, -2, RAND_D6),
             m_hammer(Weapon::Type::Melee, "Stoneheart Worldhammer", 3, 4, 3, 2, -2, 5),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 2, 3, 3, -1, 2) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, HERO, ALARITH, MONSTER, SPIRIT_OF_THE_MOUNTAIN};
         m_weapons = {&m_blast, &m_hammer, &m_hooves};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void AlarithSpiritOfTheMountain::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_blast);
         model->addMeleeWeapon(&m_hammer);
@@ -55,22 +57,11 @@ namespace LuminethRealmLords {
     }
 
     Unit *AlarithSpiritOfTheMountain::Create(const ParameterList &parameters) {
-        auto unit = new AlarithSpiritOfTheMountain();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsAlarith[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
-        unit->setArtefact(artefact);
-
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        unit->setNation(nation);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsAlarith[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AlarithSpiritOfTheMountain(nation, trait, artefact, general);
     }
 
     void AlarithSpiritOfTheMountain::Init() {

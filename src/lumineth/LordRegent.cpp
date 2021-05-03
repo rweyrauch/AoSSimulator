@@ -54,14 +54,13 @@ namespace LuminethRealmLords {
     }
 
     VanariLordRegent::VanariLordRegent(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-        LuminethBase("Vanari Lord Regent", 14, g_wounds, 8, 3, false, g_pointsPerUnit) {
+        LuminethBase(nation, "Vanari Lord Regent", 14, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, WIZARD, LORD_REGENT, Sunmetal_Weapons};
         m_weapons = {&m_sword, &m_hornsAndClaws};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hornsAndClaws.setMount(true);
 
-        setNation(nation);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

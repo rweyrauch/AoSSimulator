@@ -21,13 +21,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        TheLightOfEltharion();
+        TheLightOfEltharion(GreatNation nation, bool isGeneral);
 
         ~TheLightOfEltharion() override = default;
 
     protected:
-
-        void configure();
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
 

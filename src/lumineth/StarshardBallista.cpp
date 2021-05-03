@@ -46,12 +46,10 @@ namespace LuminethRealmLords {
     }
 
     VanariStarshardBallistas::VanariStarshardBallistas(GreatNation nation) :
-            LuminethBase("Vanari Starshard Ballistas", 6, g_wounds, 6, 5, false, g_pointsPerUnit) {
+            LuminethBase(nation, "Vanari Starshard Ballistas", 6, g_wounds, 6, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, STARSHARD_BALLISTAS};
         m_weapons = {&m_bolts, &m_swords};
         m_battleFieldRole = Role::Artillery;
-
-        setNation(nation);
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bolts);

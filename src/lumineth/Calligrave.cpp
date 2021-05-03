@@ -55,14 +55,13 @@ namespace LuminethRealmLords {
     }
 
     ScinariCalligrave::ScinariCalligrave(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Scinari Calligrave", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
+            LuminethBase(nation, "Scinari Calligrave", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, HERO, WIZARD, CALLIGRAVE};
         m_weapons = {&m_blade};
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 
-        setNation(nation);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

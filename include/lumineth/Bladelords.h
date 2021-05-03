@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        VanariBladelords(int numModels, bool seneschalDualBlades, GreatNation nation, int points);
+        VanariBladelords(GreatNation nation, int numModels, bool seneschalDualBlades, int points);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

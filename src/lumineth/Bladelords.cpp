@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto dualBlades = GetBoolParam("Seneschal Dual Blades", parameters, false);
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        return new VanariBladelords(numModels, dualBlades, nation, ComputePoints(parameters));
+        return new VanariBladelords(nation, numModels, dualBlades, ComputePoints(parameters));
     }
 
     int VanariBladelords::ComputePoints(const ParameterList& parameters) {
@@ -57,12 +57,10 @@ namespace LuminethRealmLords {
         }
     }
 
-    VanariBladelords::VanariBladelords(int numModels, bool seneschalDualBlades, GreatNation nation, int points) :
-            LuminethBase("Vanari Bladelords", 6, g_wounds, 7, 4, false, points) {
+    VanariBladelords::VanariBladelords(GreatNation nation, int numModels, bool seneschalDualBlades, int points) :
+            LuminethBase(nation, "Vanari Bladelords", 6, g_wounds, 7, 4, false, points) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, BLADELORDS};
         m_weapons = {&m_greatbladeStrike, &m_greatbladeSeneschalStrike, &m_greatbladeBlows, &m_greatbladeSeneschalBlow, &m_dualBlades};
-
-        setNation(nation);
 
         auto seneschal = new Model(g_basesize, wounds());
         if (seneschalDualBlades) {

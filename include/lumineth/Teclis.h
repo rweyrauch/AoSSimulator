@@ -21,7 +21,7 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        ArchmageTeclis();
+        ArchmageTeclis(GreatNation nation, Lore lore, bool isGeneral);
 
         ~ArchmageTeclis() override;
 
@@ -30,8 +30,6 @@ namespace LuminethRealmLords {
         void enableProtectionOfTeclis();
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

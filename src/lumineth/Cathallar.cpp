@@ -19,24 +19,12 @@ namespace LuminethRealmLords {
     bool ScinariCathallar::s_registered = false;
 
     Unit *ScinariCathallar::Create(const ParameterList &parameters) {
-        auto unit = new ScinariCathallar();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsScinari[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsScinari[0]);
-        unit->setArtefact(artefact);
-
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        unit->setNation(nation);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsScinari[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefactsScinari[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new ScinariCathallar(nation, lore, trait, artefact, general);
     }
 
     int ScinariCathallar::ComputePoints(const ParameterList& /*parameters*/) {
@@ -65,17 +53,19 @@ namespace LuminethRealmLords {
         }
     }
 
-    ScinariCathallar::ScinariCathallar() :
-            LuminethBase("Scinari Cathallar", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
+    ScinariCathallar::ScinariCathallar(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LuminethBase(nation, "Scinari Cathallar", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_touch(Weapon::Type::Melee, "Despairing Touch", 1, 1, 4, 2, 0, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, HERO, WIZARD, CATHALLAR};
         m_weapons = {&m_touch};
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void ScinariCathallar::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_touch);
         addModel(model);

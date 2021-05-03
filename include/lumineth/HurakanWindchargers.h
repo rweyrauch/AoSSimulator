@@ -25,7 +25,7 @@ namespace LuminethRealmLords {
 
     protected:
 
-        HurakanWindchargers(int numModels, GreatNation nation, int points);
+        HurakanWindchargers(GreatNation nation, int numModels, int points);
 
     private:
 

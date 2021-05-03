@@ -89,18 +89,10 @@ namespace LuminethRealmLords {
     bool ArchmageTeclis::s_registered = false;
 
     Unit *ArchmageTeclis::Create(const ParameterList &parameters) {
-        auto unit = new ArchmageTeclis();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        unit->setNation(nation);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreTeclis[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new ArchmageTeclis(nation, lore, general);
     }
 
     int ArchmageTeclis::ComputePoints(const ParameterList& /*parameters*/) {
@@ -127,8 +119,8 @@ namespace LuminethRealmLords {
         }
     }
 
-    ArchmageTeclis::ArchmageTeclis() :
-            LuminethBase("Archmage Teclis", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
+    ArchmageTeclis::ArchmageTeclis(GreatNation nation, Lore lore, bool isGeneral) :
+            LuminethBase(nation, "Archmage Teclis", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_staff(Weapon::Type::Missile, "Lunar Staff", 18, 1, 2, 2, -3, RAND_D3),
             m_sword(Weapon::Type::Melee, "Sword of Teclis", 1, 2, 4, 2, -3, RAND_D3),
             m_talons(Weapon::Type::Melee, "Moonbright Talons", 1, 6, 3, 3, -2, 2) {
@@ -140,16 +132,10 @@ namespace LuminethRealmLords {
         m_talons.setMount(true);
         m_battleFieldRole = Role::Leader;
 
+        setGeneral(isGeneral);
+
         s_globalCastMod.connect(this, &ArchmageTeclis::auraOfCelennar, &m_auraConnection);
         s_globalWoundSave.connect(this, &ArchmageTeclis::protectionAuras, &m_protectionConnection);
-    }
-
-    ArchmageTeclis::~ArchmageTeclis() {
-        m_auraConnection.disconnect();
-        m_protectionConnection.disconnect();
-    }
-
-    void ArchmageTeclis::configure(Lore lore) {
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
@@ -162,6 +148,11 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    ArchmageTeclis::~ArchmageTeclis() {
+        m_auraConnection.disconnect();
+        m_protectionConnection.disconnect();
     }
 
     void ArchmageTeclis::onWounded() {

@@ -21,7 +21,7 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        MyariLigthcaller();
+        MyariLigthcaller(Lore lore, bool isGeneral);
 
         ~MyariLigthcaller() override;
 
@@ -30,8 +30,6 @@ namespace LuminethRealmLords {
         }
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

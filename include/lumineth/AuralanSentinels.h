@@ -21,13 +21,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        AuralanSentinels(int points);
+        AuralanSentinels(GreatNation nation, int numModels, int points);
 
         ~AuralanSentinels() override = default;
 
     protected:
-
-        bool configure(int numModels);
 
         void onRestore() override;
 

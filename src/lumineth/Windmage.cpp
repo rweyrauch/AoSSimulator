@@ -54,14 +54,13 @@ namespace LuminethRealmLords {
     }
 
     HurakanWindmage::HurakanWindmage(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Hurakan Windmage", 16, g_wounds, 7, 5, true, g_pointsPerUnit) {
+            LuminethBase(nation, "Hurakan Windmage", 16, g_wounds, 7, 5, true, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, AELEMENTIRI, HURAKAN, HERO, WIZARD, WINDMAGE};
         m_weapons = {&m_aspiragillum};
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 
-        setNation(nation);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

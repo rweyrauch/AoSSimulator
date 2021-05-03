@@ -21,13 +21,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        AlarithSpiritOfTheMountain();
+        AlarithSpiritOfTheMountain(GreatNation nation, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AlarithSpiritOfTheMountain() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

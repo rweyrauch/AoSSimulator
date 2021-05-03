@@ -35,8 +35,8 @@ namespace LuminethRealmLords {
 
     bool AvalenorTheStoneheartKing::s_registered = false;
 
-    AvalenorTheStoneheartKing::AvalenorTheStoneheartKing() :
-            LuminethBase("Avalenor, the Stoneheart King", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
+    AvalenorTheStoneheartKing::AvalenorTheStoneheartKing(bool isGeneral) :
+            LuminethBase(GreatNation::Ymetrica, "Avalenor, the Stoneheart King", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_blast(Weapon::Type::Missile, "Geomantic Blast", 30, 1, 3, 2, -2, RAND_D6),
             m_hammer(Weapon::Type::Melee, "Firestealer Hammers", 2, 6, 3, 3, -1, 5),
             m_hooves(Weapon::Type::Melee, "Cloven Hooves", 1, 2, 3, 3, -1, 2) {
@@ -44,9 +44,9 @@ namespace LuminethRealmLords {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, HERO, ALARITH, YMETRICA, MONSTER, SPIRIT_OF_THE_MOUNTAIN,
                       AVALENOR};
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void AvalenorTheStoneheartKing::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_blast);
         model->addMeleeWeapon(&m_hammer);
@@ -55,15 +55,8 @@ namespace LuminethRealmLords {
     }
 
     Unit *AvalenorTheStoneheartKing::Create(const ParameterList &parameters) {
-        auto unit = new AvalenorTheStoneheartKing();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->setNation(GreatNation::Ymetrica);
-
-        unit->configure();
-        return unit;
+        return new AvalenorTheStoneheartKing(general);
     }
 
     void AvalenorTheStoneheartKing::Init() {

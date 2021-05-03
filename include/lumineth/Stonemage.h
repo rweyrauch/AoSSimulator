@@ -21,13 +21,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        AlarithStonemage();
+        AlarithStonemage(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AlarithStonemage() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartCombat(PlayerId player) override;
 

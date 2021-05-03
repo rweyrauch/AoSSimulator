@@ -43,24 +43,12 @@ namespace LuminethRealmLords {
     bool AlarithStonemage::s_registered = false;
 
     Unit *AlarithStonemage::Create(const ParameterList &parameters) {
-        auto unit = new AlarithStonemage();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsAlarith[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
-        unit->setArtefact(artefact);
-
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        unit->setNation(nation);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHighPeaks[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraitsAlarith[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_commandTraitsAlarith[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AlarithStonemage(nation, lore, trait, artefact, general);
     }
 
     int AlarithStonemage::ComputePoints(const ParameterList& /*parameters*/) {
@@ -89,17 +77,19 @@ namespace LuminethRealmLords {
         }
     }
 
-    AlarithStonemage::AlarithStonemage() :
-            LuminethBase("Alarith Stonemage", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
+    AlarithStonemage::AlarithStonemage(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LuminethBase(nation, "Alarith Stonemage", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Staff of the High Peaks", 3, RAND_D3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, AELEMENTIRI, ALARITH, HERO, WIZARD, STONEMAGE};
         m_weapons = {&m_staff};
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void AlarithStonemage::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

@@ -19,16 +19,16 @@ namespace LuminethRealmLords {
 
     bool TheLightOfEltharion::s_registered = false;
 
-    TheLightOfEltharion::TheLightOfEltharion() :
-            LuminethBase("The Light of Eltharion", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
+    TheLightOfEltharion::TheLightOfEltharion(GreatNation nation, bool isGeneral) :
+            LuminethBase(nation, "The Light of Eltharion", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_fangsword(Weapon::Type::Melee, "Fangsword of Eltharion", 1, 4, 2, 3, -3, RAND_D3),
             m_blade(Weapon::Type::Melee, "Celennari Blade", 1, 2, 2, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, HERO, LIGHT_OF_ELTHARION};
         m_weapons = {&m_fangsword, &m_blade};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void TheLightOfEltharion::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_fangsword);
         model->addMeleeWeapon(&m_blade);
@@ -36,16 +36,9 @@ namespace LuminethRealmLords {
     }
 
     Unit *TheLightOfEltharion::Create(const ParameterList &parameters) {
-        auto unit = new TheLightOfEltharion();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        unit->setNation(nation);
-
-        unit->configure();
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new TheLightOfEltharion(nation, general);
     }
 
     void TheLightOfEltharion::Init() {

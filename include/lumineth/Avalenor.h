@@ -21,13 +21,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        AvalenorTheStoneheartKing();
+        AvalenorTheStoneheartKing(bool isGeneral);
 
         ~AvalenorTheStoneheartKing() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

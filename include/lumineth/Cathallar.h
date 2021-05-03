@@ -21,7 +21,7 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        ScinariCathallar();
+        ScinariCathallar(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~ScinariCathallar() override = default;
 

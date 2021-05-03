@@ -55,14 +55,13 @@ namespace LuminethRealmLords {
     }
 
     ScinariLoreseeker::ScinariLoreseeker(GreatNation nation, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Scinari Loreseeker", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
+            LuminethBase(nation, "Scinari Loreseeker", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, HERO, WIZARD, LORESEEKER};
         m_weapons = {&m_staff, &m_blade};
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 
-        setNation(nation);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

@@ -20,12 +20,7 @@ namespace LuminethRealmLords {
     bool MyarisPurifiers::s_registered = false;
 
     Unit *MyarisPurifiers::Create(const ParameterList &parameters) {
-        auto unit = new MyarisPurifiers();
-
-        unit->setNation(GreatNation::Ymetrica);
-
-        unit->configure();
-        return unit;
+        return new MyarisPurifiers();
     }
 
     int MyarisPurifiers::ComputePoints(const ParameterList& /*parameters*/) {
@@ -50,16 +45,14 @@ namespace LuminethRealmLords {
     }
 
     MyarisPurifiers::MyarisPurifiers() :
-            LuminethBase("Myari's Purifiers", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
+            LuminethBase(GreatNation::Ymetrica, "Myari's Purifiers", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_bow(Weapon::Type::Missile, "Auralan Bow", 18, 2, 3, 4, -1, 1),
             m_mallet(Weapon::Type::Melee, "Stone Mallet", 1, 3, 3, 3, -1, 1),
             m_greatsword(Weapon::Type::Melee, "Sunmetal Greatsword", 1, 2, 2, 2, -1, 1),
             m_dagger(Weapon::Type::Melee, "Vanari Dagger", 1, 1, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, YMETRICA, MYARIS_PURIFIERS, Sunmetal_Weapons};
         m_weapons = {&m_bow, &m_mallet, &m_greatsword, &m_dagger};
-    }
 
-    void MyarisPurifiers::configure() {
         auto ailenn = new Model(g_basesize, wounds());
         ailenn->addMeleeWeapon(&m_greatsword);
         addModel(ailenn);

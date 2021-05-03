@@ -47,12 +47,10 @@ namespace LuminethRealmLords {
     }
 
     HurakanSpiritOfTheWind::HurakanSpiritOfTheWind(GreatNation nation) :
-            LuminethBase("Hurakan Spirit of the Wind", 24, g_wounds, 10, 5, true, g_pointsPerUnit) {
+            LuminethBase(nation, "Hurakan Spirit of the Wind", 24, g_wounds, 10, 5, true, g_pointsPerUnit) {
         m_keywords = {ORDER, LUMINETH_REALM_LORDS, HURAKAN, SPIRIT_OF_THE_WIND};
         m_weapons = {&m_bow, &m_bowMelee, &m_shards};
         m_battleFieldRole = Role::Other;
-
-        setNation(nation);
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bow);

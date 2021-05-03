@@ -131,15 +131,15 @@ namespace LuminethRealmLords {
 
         ~LuminethBase() override;
 
-        void setNation(GreatNation nation);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
 
     protected:
 
-        LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
+        LuminethBase(GreatNation nation, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
+        
+        void setNation(GreatNation nation);
 
         int braveryModifier() const override;
 

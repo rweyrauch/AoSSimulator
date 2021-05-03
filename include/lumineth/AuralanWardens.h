@@ -21,7 +21,7 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        AuralanWardens(int points);
+        AuralanWardens(GreatNation nation, int numModels, int points);
 
         ~AuralanWardens() override = default;
 

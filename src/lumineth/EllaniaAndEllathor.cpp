@@ -48,12 +48,11 @@ namespace LuminethRealmLords {
     }
 
     EllaniaAndEllathor::EllaniaAndEllathor(Lore lore, bool isGeneral) :
-            LuminethBase("Ellania and Ellathor", 6, g_wounds, 8, 3, false, g_pointsPerUnit) {
+            LuminethBase(GreatNation::Ymetrica, "Ellania and Ellathor", 6, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, VANARI, YMETRICA, HERO, WIZARD, ELLANIA_AND_ELLATHOR};
         m_weapons = {&m_altairi, &m_dianaer, &m_talons};
         m_battleFieldRole = Role::Leader;
 
-        setNation(GreatNation::Ymetrica);
         setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());

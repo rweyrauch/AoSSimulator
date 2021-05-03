@@ -47,14 +47,13 @@ namespace LuminethRealmLords {
     }
 
     LyriorUthralle::LyriorUthralle(Lore lore, bool isGeneral) :
-            LuminethBase("Lyrior Uthralle", 16, g_wounds, 9, 3, false, g_pointsPerUnit) {
+            LuminethBase(GreatNation::Ymetrica, "Lyrior Uthralle", 16, g_wounds, 9, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, WIZARD, LORD_REGENT, Sunmetal_Weapons};
         m_weapons = {&m_daemonbane, &m_daemonbaneMelee, &m_sword, &m_hornsAndClaws};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_hornsAndClaws.setMount(true);
 
-        setNation(GreatNation::Ymetrica);
         setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());
@@ -63,5 +62,7 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_hornsAndClaws);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
     }
 }

@@ -30,13 +30,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        AlarithStoneguard(int points);
+        AlarithStoneguard(GreatNation nation, int numModels, WeaponOption weaponOption, bool standardBearer, int points);
 
         ~AlarithStoneguard() override = default;
 
     protected:
-
-        bool configure(int numModels, WeaponOption weaponOption, bool standardBearer);
 
         Rerolls battleshockRerolls() const override;
 

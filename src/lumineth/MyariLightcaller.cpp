@@ -43,17 +43,9 @@ namespace LuminethRealmLords {
     bool MyariLigthcaller::s_registered = false;
 
     Unit *MyariLigthcaller::Create(const ParameterList &parameters) {
-        auto unit = new MyariLigthcaller();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->setNation(GreatNation::Ymetrica);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_loreOfHysh[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new MyariLigthcaller(lore, general);
     }
 
     int MyariLigthcaller::ComputePoints(const ParameterList& /*parameters*/) {
@@ -79,8 +71,8 @@ namespace LuminethRealmLords {
         }
     }
 
-    MyariLigthcaller::MyariLigthcaller() :
-            LuminethBase("Myari Ligthcaller", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
+    MyariLigthcaller::MyariLigthcaller(Lore lore, bool isGeneral) :
+            LuminethBase(GreatNation::Ymetrica, "Myari Ligthcaller", 6, g_wounds, 8, 5, false, g_pointsPerUnit),
             m_beams(Weapon::Type::Missile, "Searing Beams", 18, 3, 3, 3, -2, 1),
             m_staff(Weapon::Type::Melee, "Staff of Enlightenment", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, SCINARI, YMETRICA, HERO, WIZARD, MYARI_LIGHTCALLER};
@@ -89,14 +81,9 @@ namespace LuminethRealmLords {
         m_totalSpells = 1;
         m_totalUnbinds = 1;
 
+        setGeneral(isGeneral);
         s_globalToHitMod.connect(this, &MyariLigthcaller::dazzlingLight, &m_lightConnection);
-    }
 
-    MyariLigthcaller::~MyariLigthcaller() {
-        m_lightConnection.disconnect();
-    }
-
-    void MyariLigthcaller::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_beams);
         model->addMeleeWeapon(&m_staff);
@@ -106,6 +93,10 @@ namespace LuminethRealmLords {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    MyariLigthcaller::~MyariLigthcaller() {
+        m_lightConnection.disconnect();
     }
 
     void MyariLigthcaller::onStartHero(PlayerId player) {

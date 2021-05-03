@@ -74,8 +74,9 @@ namespace LuminethRealmLords {
         return 0;
     }
 
-    LuminethBase::LuminethBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+    LuminethBase::LuminethBase(GreatNation nation, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
             Unit(name, move, wounds, bravery, save, fly, points) {
+        setNation(nation);
         s_globalBraveryMod.connect(this, &LuminethBase::majestic, &m_majesticConnection);
     }
 

@@ -52,12 +52,11 @@ namespace LuminethRealmLords {
     }
 
     VanariBannerblade::VanariBannerblade(GreatNation nation, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            LuminethBase("Vanari Bannerblade", 6, g_wounds, 8, 3, false, g_pointsPerUnit) {
+            LuminethBase(nation, "Vanari Bannerblade", 6, g_wounds, 8, 3, false, g_pointsPerUnit) {
         m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, TOTEM, BANNERBLADE, Sunmetal_Weapons};
         m_weapons = {&m_sword};
         m_battleFieldRole = Role::Leader;
 
-        setNation(nation);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

@@ -21,8 +21,8 @@ namespace LuminethRealmLords {
 
     bool Dawnriders::s_registered = false;
 
-    Dawnriders::Dawnriders(int points) :
-            LuminethBase("Vanari Dawnriders", 14, g_wounds, 7, 4, false, points),
+    Dawnriders::Dawnriders(GreatNation nation, int numModels, bool standardBearer, int points) :
+            LuminethBase(nation, "Vanari Dawnriders", 14, g_wounds, 7, 4, false, points),
             m_guardiansSword(Weapon::Type::Melee, "Guardian's Sword", 1, 2, 3, 4, -1, 1),
             m_lance(Weapon::Type::Melee, "Sunmetal Lance", 2, 1, 3, 4, 0, 1),
             m_hooves(Weapon::Type::Melee, "Dashing Hooves", 1, 2, 4, 4, 0, 1) {
@@ -33,12 +33,6 @@ namespace LuminethRealmLords {
         m_hooves.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
-
-    bool Dawnriders::configure(int numModels, bool standardBearer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto master = new Model(g_basesize, wounds());
         master->addMeleeWeapon(&m_guardiansSword);
@@ -58,24 +52,13 @@ namespace LuminethRealmLords {
         }
 
         m_knownSpells.push_back(std::make_unique<PowerOfHysh>(this));
-
-        return true;
     }
 
     Unit *Dawnriders::Create(const ParameterList &parameters) {
-        auto unit = new Dawnriders(ComputePoints(parameters));
+        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto standard = GetBoolParam("Standard Bearer", parameters, true);
-
-        auto nation = (GreatNation) GetEnumParam("Nation", parameters, (int) GreatNation::None);
-        unit->setNation(nation);
-
-        bool ok = unit->configure(numModels, standard);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Dawnriders(nation, numModels, standard, ComputePoints(parameters));
     }
 
     void Dawnriders::Init() {

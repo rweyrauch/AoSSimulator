@@ -21,13 +21,11 @@ namespace LuminethRealmLords {
 
         static void Init();
 
-        Dawnriders(int points);
+        Dawnriders(GreatNation nation, int numModels, bool standardBearer, int points);
 
         ~Dawnriders() override = default;
 
     protected:
-
-        bool configure(int numModels, bool standardBearer);
 
         void onRestore() override;
 
