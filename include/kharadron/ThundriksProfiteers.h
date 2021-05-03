@@ -25,10 +25,6 @@ namespace KharadronOverlords {
 
         ~ThundriksProfiteers() override = default;
 
-    protected:
-
-        void configure();
-
     private:
 
         Weapon m_volleyGun,

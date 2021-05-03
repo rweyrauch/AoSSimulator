@@ -22,7 +22,7 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        VarghulfCourtier();
+        VarghulfCourtier(GrandCourt court, Delusion delusion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VarghulfCourtier() override = default;
 

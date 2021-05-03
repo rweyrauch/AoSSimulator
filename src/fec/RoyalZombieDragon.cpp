@@ -34,8 +34,8 @@ namespace FleshEaterCourt {
 
     bool RoyalZombieDragon::s_registered = false;
 
-    RoyalZombieDragon::RoyalZombieDragon() :
-            FleshEaterCourts("Royal Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    RoyalZombieDragon::RoyalZombieDragon(GrandCourt court, Delusion delusion) :
+            FleshEaterCourts(court, delusion, "Royal Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_pestilentialBreath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_snappingMaw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_swordlikeClaws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2) {
@@ -45,9 +45,7 @@ namespace FleshEaterCourt {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void RoyalZombieDragon::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentialBreath);
         model->addMeleeWeapon(&m_snappingMaw);
@@ -56,23 +54,12 @@ namespace FleshEaterCourt {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *RoyalZombieDragon::Create(const ParameterList &parameters) {
-        auto unit = new RoyalZombieDragon();
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        unit->configure();
-        return unit;
+        return new RoyalZombieDragon(court, delusion);
     }
 
     void RoyalZombieDragon::Init() {

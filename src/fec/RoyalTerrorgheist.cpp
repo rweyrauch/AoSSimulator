@@ -35,39 +35,26 @@ namespace FleshEaterCourt {
 
     bool RoyalTerrorgheist::s_registered = false;
 
-    RoyalTerrorgheist::RoyalTerrorgheist() :
-            FleshEaterCourts("Royal Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    RoyalTerrorgheist::RoyalTerrorgheist(GrandCourt court, Delusion delusion) :
+            FleshEaterCourts(court, delusion, "Royal Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 1, 0, 0, 0, 0),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 3, 3, 4, 3, -2, RAND_D6) {
         m_keywords = {DEATH, FLESH_EATER_COURTS, MENAGERIE, MONSTER, ROYAL_TERRORGHEIST};
         m_weapons = {&m_deathShriek, &m_skeletalClaws, &m_fangedMaw};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void RoyalTerrorgheist::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_deathShriek);
         model->addMeleeWeapon(&m_skeletalClaws);
         model->addMeleeWeapon(&m_fangedMaw);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *RoyalTerrorgheist::Create(const ParameterList &parameters) {
-        auto unit = new RoyalTerrorgheist();
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        unit->configure();
-        return unit;
+        return new RoyalTerrorgheist(court, delusion);
     }
 
     void RoyalTerrorgheist::Init() {

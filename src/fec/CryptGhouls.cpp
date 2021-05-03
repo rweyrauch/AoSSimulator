@@ -21,19 +21,13 @@ namespace FleshEaterCourt {
 
     bool CryptGhouls::s_registered = false;
 
-    CryptGhouls::CryptGhouls(int points) :
-            FleshEaterCourts("Crypt Ghouls", 6, g_wounds, 10, 6, false, points),
+    CryptGhouls::CryptGhouls(GrandCourt court, Delusion delusion, int numModels, int points) :
+            FleshEaterCourts(court, delusion, "Crypt Ghouls", 6, g_wounds, 10, 6, false, points),
             m_teethAndClaws(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 4, 0, 1),
             m_teethAndClawsGhast(Weapon::Type::Melee, "Sharpened Teeth and Filthy Claws", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, SERFS, CRYPT_GHOULS};
         m_weapons = {&m_teethAndClaws, &m_teethAndClawsGhast};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool CryptGhouls::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto ghast = new Model(g_basesize, wounds());
         ghast->addMeleeWeapon(&m_teethAndClawsGhast);
@@ -44,27 +38,13 @@ namespace FleshEaterCourt {
             model->addMeleeWeapon(&m_teethAndClaws);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *CryptGhouls::Create(const ParameterList &parameters) {
-        auto unit = new CryptGhouls(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new CryptGhouls(court, delusion, numModels, ComputePoints(parameters));
     }
 
     void CryptGhouls::Init() {

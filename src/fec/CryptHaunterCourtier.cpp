@@ -19,45 +19,31 @@ namespace FleshEaterCourt {
 
     bool CryptHaunterCourtier::s_registered = false;
 
-    CryptHaunterCourtier::CryptHaunterCourtier() :
-            FleshEaterCourts("Crypt Haunter Courtier", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
+    CryptHaunterCourtier::CryptHaunterCourtier(GrandCourt court, Delusion delusion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            FleshEaterCourts(court, delusion, "Crypt Haunter Courtier", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_massiveBoneClub(Weapon::Type::Melee, "Massive Bone Clube", 1, 3, 4, 3, 0, 3),
             m_rancidTalons(Weapon::Type::Melee, "Rancid Talons", 1, 2, 4, 3, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HERO, COURTIER, CRYPT_HAUNTER_COURTIER};
         m_weapons = {&m_massiveBoneClub, &m_rancidTalons};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void CryptHaunterCourtier::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto infernal = new Model(g_basesize, wounds());
         infernal->addMeleeWeapon(&m_massiveBoneClub);
         infernal->addMeleeWeapon(&m_rancidTalons);
         addModel(infernal);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *CryptHaunterCourtier::Create(const ParameterList &parameters) {
-        auto unit = new CryptHaunterCourtier();
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_courtierCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_courtierArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new CryptHaunterCourtier(court, delusion, trait, artefact, general);
     }
 
     void CryptHaunterCourtier::Init() {

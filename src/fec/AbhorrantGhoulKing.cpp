@@ -18,8 +18,8 @@ namespace FleshEaterCourt {
 
     bool AbhorrantGhoulKing::s_registered = false;
 
-    AbhorrantGhoulKing::AbhorrantGhoulKing() :
-            FleshEaterCourts("Abhorrant Ghoul King", 6, g_wounds, 10, 4, false, g_pointsPerUnit),
+    AbhorrantGhoulKing::AbhorrantGhoulKing(GrandCourt court, Delusion delusion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            FleshEaterCourts(court, delusion, "Abhorrant Ghoul King", 6, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 6, 3, 3, -1, 1) {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD,
                       ABHORRANT_GHOUL_KING};
@@ -28,9 +28,11 @@ namespace FleshEaterCourt {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void AbhorrantGhoulKing::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
@@ -47,34 +49,16 @@ namespace FleshEaterCourt {
         unitDesc.push_back({"Crypt Ghouls", 10});
         m_commandAbilities.push_back(
                 std::make_unique<SummonAbility>(this, getRoster(), "Summon Men-at-arms", unitDesc));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *AbhorrantGhoulKing::Create(const ParameterList &parameters) {
-        auto unit = new AbhorrantGhoulKing();
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_abhorrantCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_abhorrantCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AbhorrantGhoulKing(court, delusion, lore, trait, artefact, general);
     }
 
     void AbhorrantGhoulKing::Init() {

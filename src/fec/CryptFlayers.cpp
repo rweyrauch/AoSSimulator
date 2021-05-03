@@ -22,19 +22,13 @@ namespace FleshEaterCourt {
 
     bool CryptFlayers::s_registered = false;
 
-    CryptFlayers::CryptFlayers(int points) :
-            FleshEaterCourts("Crypt Flayers", 12, g_wounds, 10, 5, true, points),
+    CryptFlayers::CryptFlayers(GrandCourt court, Delusion delusion, int numModels, int points) :
+            FleshEaterCourts(court, delusion, "Crypt Flayers", 12, g_wounds, 10, 5, true, points),
             m_deathScream(Weapon::Type::Missile, "Death Scream", 10, 1, 0, 0, 0, 0),
             m_piercingTalons(Weapon::Type::Melee, "Piercing Talons", 1, 4, 4, 3, -1, 1),
             m_piercingTalonsInfernal(Weapon::Type::Melee, "Piercing Talons", 1, 5, 4, 3, -1, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_FLAYERS};
         m_weapons = {&m_deathScream, &m_piercingTalons, &m_piercingTalonsInfernal};
-    }
-
-    bool CryptFlayers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto infernal = new Model(g_basesize, wounds());
         infernal->addMissileWeapon(&m_deathScream);
@@ -47,28 +41,13 @@ namespace FleshEaterCourt {
             model->addMeleeWeapon(&m_piercingTalons);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *CryptFlayers::Create(const ParameterList &parameters) {
-        auto unit = new CryptFlayers(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new CryptFlayers(court, delusion, numModels, ComputePoints(parameters));
     }
 
     void CryptFlayers::Init() {

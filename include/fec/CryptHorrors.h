@@ -22,11 +22,9 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        CryptHorrors(int points);
+        CryptHorrors(GrandCourt court, Delusion delusion, int numModels, int points);
 
         ~CryptHorrors() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

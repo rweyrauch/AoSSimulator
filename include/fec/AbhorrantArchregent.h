@@ -22,13 +22,11 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        AbhorrantArchregent();
+        AbhorrantArchregent(GrandCourt court, Delusion delusion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AbhorrantArchregent() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

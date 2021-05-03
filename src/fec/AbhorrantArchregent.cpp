@@ -20,17 +20,19 @@ namespace FleshEaterCourt {
 
     bool AbhorrantArchregent::s_registered = false;
 
-    AbhorrantArchregent::AbhorrantArchregent() :
-            FleshEaterCourts("Abhorrant Archregent", 6, g_wounds, 10, 4, false, g_pointsPerUnit),
+    AbhorrantArchregent::AbhorrantArchregent(GrandCourt court, Delusion delusion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            FleshEaterCourts(court, delusion, "Abhorrant Archregent", 6, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 7, 3, 3, -1, 1) {
         m_keywords = {DEATH, VAMPIRE, FLESH_EATER_COURTS, ABHORRANT, HERO, WIZARD, ABHORRANT_ARCHREGENT};
         m_weapons = {&m_goryTalonsAndFangs};
         m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    void AbhorrantArchregent::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
         addModel(model);
@@ -54,34 +56,16 @@ namespace FleshEaterCourt {
 
         m_commandAbilities.push_back(
                 std::make_unique<SummonAbility>(this, getRoster(), "Summon Imperial Guard", unitDesc));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *AbhorrantArchregent::Create(const ParameterList &parameters) {
-        auto unit = new AbhorrantArchregent();
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_abhorrantCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_abhorrantCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AbhorrantArchregent(court, delusion, lore, trait, artefact, general);
     }
 
     void AbhorrantArchregent::Init() {

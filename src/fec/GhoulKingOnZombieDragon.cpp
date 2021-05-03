@@ -62,8 +62,8 @@ namespace FleshEaterCourt {
 
     bool AbhorrantGhoulKingOnZombieDragon::s_registered = false;
 
-    AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon() :
-            FleshEaterCourts("Abhorrant Ghoul King on Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    AbhorrantGhoulKingOnZombieDragon::AbhorrantGhoulKingOnZombieDragon(GrandCourt court, Delusion delusion, Lore lore, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            FleshEaterCourts(court, delusion, "Abhorrant Ghoul King on Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_pestilentialBreath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_goryTalonsAndFangs(Weapon::Type::Melee, "Gory Talons and Fangs", 1, 5, 3, 3, -1, 1),
             m_snappingMaw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
@@ -78,9 +78,11 @@ namespace FleshEaterCourt {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void AbhorrantGhoulKingOnZombieDragon::configure(Lore lore, MountTrait trait) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentialBreath);
         model->addMeleeWeapon(&m_goryTalonsAndFangs);
@@ -100,39 +102,21 @@ namespace FleshEaterCourt {
         unitDesc.push_back({"Crypt Haunter Courtier", 1});
         m_commandAbilities.push_back(std::make_unique<SummonAbility>(this, getRoster(), "Summon Courtier", unitDesc));
 
-        m_mountTrait = trait;
+        m_mountTrait = mountTrait;
         if (m_mountTrait == MountTrait::Deathly_Fast) {
             m_runAndShoot = true;
         }
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *AbhorrantGhoulKingOnZombieDragon::Create(const ParameterList &parameters) {
-        auto unit = new AbhorrantGhoulKingOnZombieDragon();
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_abhorrantCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_dragonMountTraits[0]);
-
-        unit->configure(lore, mount);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_abhorrantCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_abhorrantArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new AbhorrantGhoulKingOnZombieDragon(court, delusion, lore, mount, trait, artefact, general);
     }
 
     void AbhorrantGhoulKingOnZombieDragon::Init() {

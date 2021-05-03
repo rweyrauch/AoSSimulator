@@ -21,7 +21,7 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        DukeCrakmarrow();
+        DukeCrakmarrow(bool isGeneral);
 
         ~DukeCrakmarrow() override = default;
 

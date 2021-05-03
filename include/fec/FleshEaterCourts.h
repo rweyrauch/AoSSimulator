@@ -15,7 +15,7 @@
 namespace FleshEaterCourt {
 
     enum class GrandCourt : int {
-        None = 0,
+        None,
         Morgaunt,
         Hollowmourne,
         Blisterskin,
@@ -23,7 +23,8 @@ namespace FleshEaterCourt {
     };
 
     enum class Delusion : int {
-        Crusading_Army = 0,
+        None,
+        Crusading_Army,
         The_Royal_Hunt,
         The_Feast_Day,
         A_Matter_Of_Honour,
@@ -92,7 +93,6 @@ namespace FleshEaterCourt {
         Miasmal_Shroud,
         Deranged_Transformation,
         Blood_Feast,
-
     };
 
     enum class MountTrait : int {
@@ -127,12 +127,6 @@ namespace FleshEaterCourt {
 
         ~FleshEaterCourts() override = default;
 
-        void setGrandCourt(GrandCourt court);
-
-        void setCourtsOfDelusion(Delusion delusion) {
-            m_delusion = delusion;
-        }
-
         void setCommandTrait(CommandTrait trait) {
             m_commandTrait = trait;
         }
@@ -142,8 +136,17 @@ namespace FleshEaterCourt {
         }
 
     protected:
-        FleshEaterCourts(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        FleshEaterCourts(GrandCourt court, Delusion delusion, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setGrandCourt(court);
+            setCourtsOfDelusion(delusion);
+        }
+
+        void setGrandCourt(GrandCourt court);
+
+        void setCourtsOfDelusion(Delusion delusion) {
+            m_delusion = delusion;
+        }
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

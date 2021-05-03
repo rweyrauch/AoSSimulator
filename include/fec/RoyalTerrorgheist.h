@@ -22,15 +22,13 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        RoyalTerrorgheist();
+        RoyalTerrorgheist(GrandCourt court, Delusion delusion);
 
         ~RoyalTerrorgheist() override = default;
 
         void onFriendlyUnitSlain(const Unit *attacker) override;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

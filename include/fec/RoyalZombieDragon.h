@@ -22,13 +22,11 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        RoyalZombieDragon();
+        RoyalZombieDragon(GrandCourt court, Delusion delusion);
 
         ~RoyalZombieDragon() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

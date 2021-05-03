@@ -22,7 +22,7 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        CryptInfernalCourtier();
+        CryptInfernalCourtier(GrandCourt court, Delusion delusion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~CryptInfernalCourtier() override = default;
 

@@ -17,14 +17,11 @@ namespace FleshEaterCourt {
     bool TheGrymwatch::s_registered = false;
 
     TheGrymwatch::TheGrymwatch() :
-            FleshEaterCourts("The Grymwatch", 6, g_wounds, 10, 6, false, g_pointsPerUnit),
+            FleshEaterCourts(GrandCourt::Hollowmourne, Delusion::None, "The Grymwatch", 6, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_weaponsAndClaws(Weapon::Type::Melee, "Bone Weapons and Filthy Claws", 1, 2, 4, 4, 0, 1),
             m_fangs(Weapon::Type::Melee, "Fangs", 1, RAND_D6, 4, 4, 0, 1) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HOLLOWMOURNE, GRYMWATCH};
         m_weapons = {&m_weaponsAndClaws, &m_fangs};
-    }
-
-    void TheGrymwatch::configure() {
 
         for (auto i = 0; i < 2; i++) {
             auto harrier = new Model(g_basesize, wounds());
@@ -40,12 +37,7 @@ namespace FleshEaterCourt {
     }
 
     Unit *TheGrymwatch::Create(const ParameterList &parameters) {
-        auto unit = new TheGrymwatch();
-
-        unit->setGrandCourt(GrandCourt::Hollowmourne);
-
-        unit->configure();
-        return unit;
+        return new TheGrymwatch();
     }
 
     void TheGrymwatch::Init() {

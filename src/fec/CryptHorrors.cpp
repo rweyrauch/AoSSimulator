@@ -22,18 +22,12 @@ namespace FleshEaterCourt {
 
     bool CryptHorrors::s_registered = false;
 
-    CryptHorrors::CryptHorrors(int points) :
-            FleshEaterCourts("Crypt Horrors", 7, g_wounds, 10, 5, false, points),
+    CryptHorrors::CryptHorrors(GrandCourt court, Delusion delusion, int numModels, int points) :
+            FleshEaterCourts(court, delusion, "Crypt Horrors", 7, g_wounds, 10, 5, false, points),
             m_clubsAndTalons(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 3, 4, 3, 0, 2),
             m_clubsAndTalonsHaunter(Weapon::Type::Melee, "Clubs and Septic Talons", 1, 4, 4, 3, 0, 2) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, KNIGHTS, CRYPT_HORRORS};
         m_weapons = {&m_clubsAndTalons, &m_clubsAndTalonsHaunter};
-    }
-
-    bool CryptHorrors::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto haunter = new Model(g_basesize, wounds());
         haunter->addMeleeWeapon(&m_clubsAndTalonsHaunter);
@@ -44,28 +38,13 @@ namespace FleshEaterCourt {
             model->addMeleeWeapon(&m_clubsAndTalons);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *CryptHorrors::Create(const ParameterList &parameters) {
-        auto unit = new CryptHorrors(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new CryptHorrors(court, delusion, numModels, ComputePoints(parameters));
     }
 
     void CryptHorrors::Init() {

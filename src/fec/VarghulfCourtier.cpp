@@ -19,46 +19,31 @@ namespace FleshEaterCourt {
 
     bool VarghulfCourtier::s_registered = false;
 
-    VarghulfCourtier::VarghulfCourtier() :
-            FleshEaterCourts("Varghulf Courtier", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
+    VarghulfCourtier::VarghulfCourtier(GrandCourt court, Delusion delusion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            FleshEaterCourts(court, delusion, "Varghulf Courtier", 12, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_immenseClaws(Weapon::Type::Melee, "Immense Claws", 2, 4, 3, 3, -1, 2),
             m_daggerlikeFangs(Weapon::Type::Melee, "Dagger-like Fangs", 1, 1, 3, 2, -2, RAND_D3) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, COURTIER, HERO, VARGHULF_COURTIER};
         m_weapons = {&m_immenseClaws, &m_daggerlikeFangs};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void VarghulfCourtier::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto courtier = new Model(g_basesize, wounds());
         courtier->addMeleeWeapon(&m_immenseClaws);
         courtier->addMeleeWeapon(&m_daggerlikeFangs);
         addModel(courtier);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *VarghulfCourtier::Create(const ParameterList &parameters) {
-        auto unit = new VarghulfCourtier();
-
         auto court = (GrandCourt) GetEnumParam("Grand Court", parameters, g_grandCourt[0]);
         auto delusion = (Delusion) GetEnumParam("Delusion", parameters, g_delusion[0]);
-
-        // Can only select delusion if GrandCourt is NoCourt.
-        unit->setGrandCourt(court);
-        if (court == GrandCourt::None)
-            unit->setCourtsOfDelusion(delusion);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_courtierCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_courtierArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new VarghulfCourtier(court, delusion, trait, artefact, general);
     }
 
     void VarghulfCourtier::Init() {

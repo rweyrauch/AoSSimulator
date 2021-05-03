@@ -22,7 +22,7 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        AbhorrantGhoulKingOnTerrorgheist();
+        AbhorrantGhoulKingOnTerrorgheist(GrandCourt court, Delusion delusion, Lore lore, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AbhorrantGhoulKingOnTerrorgheist() override = default;
 

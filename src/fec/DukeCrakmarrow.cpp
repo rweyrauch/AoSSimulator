@@ -19,32 +19,23 @@ namespace FleshEaterCourt {
 
     bool DukeCrakmarrow::s_registered = false;
 
-    DukeCrakmarrow::DukeCrakmarrow() :
-            FleshEaterCourts("Duke Crakmarrow", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
+    DukeCrakmarrow::DukeCrakmarrow(bool isGeneral) :
+            FleshEaterCourts(GrandCourt::Hollowmourne, Delusion::None, "Duke Crakmarrow", 6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Halberd", 2, 3, 3, 3, -1, 2) {
         m_keywords = {DEATH, MORDANT, FLESH_EATER_COURTS, HOLLOWMOURNE, HERO, COURTIER, DUKE_CRAKMARROW};
         m_weapons = {&m_halberd};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void DukeCrakmarrow::configure() {
+        setGeneral(isGeneral);
+
         auto infernal = new Model(g_basesize, wounds());
         infernal->addMeleeWeapon(&m_halberd);
         addModel(infernal);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *DukeCrakmarrow::Create(const ParameterList &parameters) {
-        auto unit = new DukeCrakmarrow();
-
-        unit->setGrandCourt(GrandCourt::Hollowmourne);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new DukeCrakmarrow(general);
     }
 
     void DukeCrakmarrow::Init() {

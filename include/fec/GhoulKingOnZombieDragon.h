@@ -22,7 +22,7 @@ namespace FleshEaterCourt {
 
         static void Init();
 
-        AbhorrantGhoulKingOnZombieDragon();
+        AbhorrantGhoulKingOnZombieDragon(GrandCourt court, Delusion delusion, Lore lore, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AbhorrantGhoulKingOnZombieDragon() override = default;
 

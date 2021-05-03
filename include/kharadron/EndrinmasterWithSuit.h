@@ -27,8 +27,6 @@ namespace KharadronOverlords {
 
     protected:
 
-        void configure();
-
         void onStartHero(PlayerId player) override;
 
     private:
