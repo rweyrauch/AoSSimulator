@@ -16,15 +16,12 @@ namespace Ironjawz {
     bool MorgoksKrushas::s_registered = false;
 
     MorgoksKrushas::MorgoksKrushas() :
-            Ironjawz("Morgok's Krushas", 4, g_wounds, 6, 4, false, g_pointsPerUnit),
+            Ironjawz(Warclan::Ironsunz, "Morgok's Krushas", 4, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_krushaWeaponsMorgok(Weapon::Type::Melee, "Krusha Weapons", 1, 5, 3, 3, -1, 1),
             m_krushaWeapons(Weapon::Type::Melee, "Krusha Weapons", 1, 4, 3, 3, -1, 1),
             m_goreBasha(Weapon::Type::Melee, "Gore-basha", 2, 3, 4, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, BRUTES, MORGOKS_KRUSHAS};
         m_weapons = {&m_krushaWeaponsMorgok, &m_krushaWeapons, &m_goreBasha};
-    }
-
-    void MorgoksKrushas::configure() {
 
         auto bossModel = new Model(g_basesize, wounds());
         bossModel->addMeleeWeapon(&m_krushaWeaponsMorgok);
@@ -43,12 +40,7 @@ namespace Ironjawz {
     }
 
     Unit *MorgoksKrushas::Create(const ParameterList &parameters) {
-        auto unit = new MorgoksKrushas();
-
-        unit->setWarclan(Warclan::Ironsunz);
-
-        unit->configure();
-        return unit;
+        return new MorgoksKrushas();
     }
 
     void MorgoksKrushas::Init() {

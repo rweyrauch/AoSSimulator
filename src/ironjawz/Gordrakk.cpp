@@ -60,8 +60,8 @@ namespace Ironjawz {
                     {4,  5, 5}
             };
 
-    GordrakkTheFistOfGork::GordrakkTheFistOfGork() :
-            Ironjawz("Gordrakk the Fist of Gork", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
+    GordrakkTheFistOfGork::GordrakkTheFistOfGork(Warclan warclan, MountTrait trait, bool isGeneral) :
+            Ironjawz(warclan, "Gordrakk the Fist of Gork", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_bellow(Weapon::Type::Missile, "Innard-bursting Bellow", 8, 6, 2, 3, -1, 1),
             m_smasha(Weapon::Type::Melee, "Smasha", 1, 5, 2, 3, -1, RAND_D3),
             m_kunnin(Weapon::Type::Melee, "Kunnin'", 1, 5, 2, 3, -1, 1),
@@ -71,9 +71,9 @@ namespace Ironjawz {
         m_hasMount = true;
         m_fistsAndTail.setMount(true);
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void GordrakkTheFistOfGork::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bellow);
         model->addMeleeWeapon(&m_smasha);
@@ -82,24 +82,13 @@ namespace Ironjawz {
         addModel(model);
 
         m_commandAbilities.push_back(std::make_unique<VoiceOfGork>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *GordrakkTheFistOfGork::Create(const ParameterList &parameters) {
-        auto unit = new GordrakkTheFistOfGork();
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
-        unit->setMountTrait(mount);
-
-        unit->configure();
-        return unit;
+        return new GordrakkTheFistOfGork(warclan, mount, general);
     }
 
     void GordrakkTheFistOfGork::Init() {

@@ -20,8 +20,8 @@ namespace Ironjawz {
 
     bool OrrukBrutes::s_registered = false;
 
-    OrrukBrutes::OrrukBrutes(int points) :
-            Ironjawz("Orruk Brutes", 4, g_wounds, 6, 4, false, points),
+    OrrukBrutes::OrrukBrutes(Warclan warclan, int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon, int points) :
+            Ironjawz(warclan, "Orruk Brutes", 4, g_wounds, 6, 4, false, points),
             m_twoBruteChoppas(Weapon::Type::Melee, "Pair of Brute Choppas", 1, 4, 3, 3, -1, 1),
             m_gorehacka(Weapon::Type::Melee, "Jagged Gore-hacka", 2, 3, 3, 3, -1, 1),
             m_gorechoppa(Weapon::Type::Melee, "Gore-choppa", 2, 3, 4, 3, -1, 2),
@@ -29,19 +29,6 @@ namespace Ironjawz {
             m_bossKlawAndBruteSmasha(Weapon::Type::Melee, "Boss Klaw and Brute Smasha", 1, 4, 4, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, BRUTES};
         m_weapons = {&m_twoBruteChoppas, &m_gorehacka, &m_gorechoppa, &m_bossChoppa, &m_bossKlawAndBruteSmasha};
-    }
-
-    bool OrrukBrutes::configure(int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxGoreChoppas = numModels / 5;
-        if (numGoreChoppas > maxGoreChoppas) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         auto bossModel = new Model(g_basesize, wounds());
         if (bossWeapon == Boss_Choppa) {
@@ -67,26 +54,15 @@ namespace Ironjawz {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *OrrukBrutes::Create(const ParameterList &parameters) {
-        auto unit = new OrrukBrutes(ComputePoints(parameters));
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Two_Brute_Choppas);
         int numGoreChoppas = GetIntParam("Gore Choppas", parameters, 0);
         BossWeaponOption bossWeapon = (BossWeaponOption) GetEnumParam("Boss Weapon", parameters, Boss_Choppa);
-
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels, weapons, numGoreChoppas, bossWeapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new OrrukBrutes(warclan, numModels, weapons, numGoreChoppas, bossWeapon, ComputePoints(parameters));
     }
 
     void OrrukBrutes::Init() {

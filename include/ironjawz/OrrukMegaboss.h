@@ -20,13 +20,11 @@ namespace Ironjawz {
 
         static void Init();
 
-        OrrukMegaboss();
+        OrrukMegaboss(Warclan warclan, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~OrrukMegaboss() override = default;
 
     protected:
-
-        void configure();
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 

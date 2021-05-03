@@ -20,31 +20,14 @@ namespace Ironjawz {
 
     bool OrrukArdboys::s_registered = false;
 
-    OrrukArdboys::OrrukArdboys(int points) :
-            Ironjawz("Orruk Ardboys", 4, g_wounds, 6, 4, false, points),
+    OrrukArdboys::OrrukArdboys(Warclan warclan, int numModels, int numShields, bool drummer, StandardOption standard, int points) :
+            Ironjawz(warclan, "Orruk Ardboys", 4, g_wounds, 6, 4, false, points),
             m_choppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 2, 3, 3, -1, 1),
             m_bossChoppa(Weapon::Type::Melee, "Ardboy Choppa", 1, 4, 3, 3, -1, 1) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, ARDBOYS};
         m_weapons = {&m_choppa, &m_bossChoppa};
 
         s_globalBraveryMod.connect(this, &OrrukArdboys::glyphBearer, &m_connection);
-    }
-
-    OrrukArdboys::~OrrukArdboys() {
-        m_connection.disconnect();
-    }
-
-    bool OrrukArdboys::configure(int numModels, int numShields, bool drummer, StandardOption standard) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-        const int maxShields = (numModels / 5) * 2;
-        if (numShields > maxShields) {
-            // Invalid weapon configuration.
-            return false;
-        }
 
         m_numShields = numShields;
 
@@ -66,29 +49,21 @@ namespace Ironjawz {
                 model->setName(Model::Drummer);
                 drummer = false;
             }
-
             addModel(model);
         }
+    }
 
-        return true;
+    OrrukArdboys::~OrrukArdboys() {
+        m_connection.disconnect();
     }
 
     Unit *OrrukArdboys::Create(const ParameterList &parameters) {
-        auto unit = new OrrukArdboys(ComputePoints(parameters));
+        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numShields = GetIntParam("Shields", parameters, 0);
         bool drummer = GetBoolParam("Drummer", parameters, false);
         StandardOption standard = (StandardOption) GetEnumParam("Standard", parameters, None);
-
-        auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        bool ok = unit->configure(numModels, numShields, drummer, standard);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new OrrukArdboys(warclan, numModels, numShields, drummer, standard, ComputePoints(parameters));
     }
 
     void OrrukArdboys::Init() {

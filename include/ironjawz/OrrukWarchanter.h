@@ -21,13 +21,11 @@ namespace Ironjawz {
 
         static void Init();
 
-        OrrukWarchanter();
+        OrrukWarchanter(Warclan warclan, Warbeat warbeat, bool isGeneral);
 
         ~OrrukWarchanter() override = default;
 
     protected:
-
-        void configure(Warbeat warbeat);
 
         void onStartHero(PlayerId player) override;
 

@@ -106,8 +106,6 @@ namespace Ironjawz {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        void setWarclan(Warclan warclan);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
@@ -117,8 +115,12 @@ namespace Ironjawz {
         }
 
     protected:
-        Ironjawz(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        Ironjawz(Warclan warclan, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setWarclan(warclan);
+        }
+
+        void setWarclan(Warclan warclan);
 
     protected:
 

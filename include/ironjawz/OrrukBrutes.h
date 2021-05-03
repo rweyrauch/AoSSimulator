@@ -34,11 +34,9 @@ namespace Ironjawz {
 
         static void Init();
 
-        OrrukBrutes(int points);
+        OrrukBrutes(Warclan warclan, int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon, int points);
 
         ~OrrukBrutes() override = default;
-
-        bool configure(int numModels, WeaponOption weapons, int numGoreChoppas, BossWeaponOption bossWeapon);
 
     protected:
 

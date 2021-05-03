@@ -31,11 +31,9 @@ namespace Ironjawz {
 
         static void Init();
 
-        OrrukArdboys(int points);
+        OrrukArdboys(Warclan warclan, int numModels,  int numShields, bool drummer, StandardOption standard, int points);
 
         ~OrrukArdboys() override;
-
-        bool configure(int numModels, int numShields, bool drummer, StandardOption standard);
 
     protected:
 

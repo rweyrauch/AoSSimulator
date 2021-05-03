@@ -29,13 +29,11 @@ namespace Ironjawz {
 
         static void Init();
 
-        MegabossOnMawKrusha();
+        MegabossOnMawKrusha(Warclan warclan, WeaponOption option, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~MegabossOnMawKrusha() override = default;
 
     protected:
-
-        void configure(WeaponOption weapons);
 
         void onWounded() override;
 

@@ -35,8 +35,8 @@ namespace Ironjawz {
                     {4,  4, 4}
             };
 
-    MegabossOnMawKrusha::MegabossOnMawKrusha() :
-            Ironjawz("Megaboss on Maw-Krusha", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
+    MegabossOnMawKrusha::MegabossOnMawKrusha(Warclan warclan, WeaponOption option, MountTrait mountTrait, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Ironjawz(warclan, "Megaboss on Maw-Krusha", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_bellow(Weapon::Type::Missile, "Innard-bursting Bellow", 8, RAND_D6, 2, 3, -1, 1),
             m_hackaAndChoppa(Weapon::Type::Melee, "Boss Gore-hacka and Choppa", 2, 8, 3, 3, -1, 2),
             m_ripToofFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2),
@@ -46,15 +46,17 @@ namespace Ironjawz {
         m_hasMount = true;
         m_fistsAndTail.setMount(true);
         m_battleFieldRole = Role::Leader_Behemoth;
-    }
 
-    void MegabossOnMawKrusha::configure(WeaponOption weapons) {
+        setMountTrait(mountTrait);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bellow);
 
-        if (weapons == Hacka_And_Choppa) {
+        if (option == Hacka_And_Choppa) {
             model->addMeleeWeapon(&m_hackaAndChoppa);
-        } else if (weapons == Choppa_And_Riptoof_Fist) {
+        } else if (option == Choppa_And_Riptoof_Fist) {
             model->addMeleeWeapon(&m_ripToofFist);
         }
         model->addMeleeWeapon(&m_fistsAndTail);
@@ -67,32 +69,17 @@ namespace Ironjawz {
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>{IRONJAWZ}));
 
-        m_weaponOption = weapons;
-
-        m_points = g_pointsPerUnit;
+        m_weaponOption = option;
     }
 
     Unit *MegabossOnMawKrusha::Create(const ParameterList &parameters) {
-        auto unit = new MegabossOnMawKrusha();
-        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Hacka_And_Choppa);
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_bossCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_bossArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        WeaponOption weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Hacka_And_Choppa);
         auto mount = (MountTrait) GetEnumParam("Mount Trait", parameters, g_mountTrait[0]);
-        unit->setMountTrait(mount);
-
-        unit->configure(weapons);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_bossCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_bossArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new MegabossOnMawKrusha(warclan, weapons, mount, trait, artefact, general);
     }
 
     void MegabossOnMawKrusha::Init() {

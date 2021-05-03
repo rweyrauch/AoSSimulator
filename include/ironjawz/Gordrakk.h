@@ -20,13 +20,11 @@ namespace Ironjawz {
 
         static void Init();
 
-        GordrakkTheFistOfGork();
+        GordrakkTheFistOfGork(Warclan warclan, MountTrait trait, bool isGeneral);
 
         ~GordrakkTheFistOfGork() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

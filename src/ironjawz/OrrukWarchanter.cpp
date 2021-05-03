@@ -18,36 +18,27 @@ namespace Ironjawz {
 
     bool OrrukWarchanter::s_registered = false;
 
-    OrrukWarchanter::OrrukWarchanter() :
-            Ironjawz("Orruk Warchanter", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
+    OrrukWarchanter::OrrukWarchanter(Warclan warclan, Warbeat warbeat, bool isGeneral) :
+            Ironjawz(warclan, "Orruk Warchanter", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_stikks(Weapon::Type::Melee, "Gorkstikk and Morkstikk", 1, 6, 4, 3, 0, 1) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, TOTEM, WARCHANTER};
         m_weapons = {&m_stikks};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void OrrukWarchanter::configure(Warbeat warbeat) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_stikks);
         addModel(model);
 
         m_warbeat = warbeat;
-        m_points = g_pointsPerUnit;
     }
 
     Unit *OrrukWarchanter::Create(const ParameterList &parameters) {
-        auto unit = new OrrukWarchanter();
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto beat = (Warbeat) GetEnumParam("Warbeat", parameters, g_warbeats[0]);
-
-        unit->configure(beat);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new OrrukWarchanter(warclan, beat, general);
     }
 
     void OrrukWarchanter::Init() {

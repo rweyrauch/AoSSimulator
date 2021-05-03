@@ -21,13 +21,11 @@ namespace Ironjawz {
 
         static void Init();
 
-        OrrukWeirdnobShaman();
+        OrrukWeirdnobShaman(Warclan warclan, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~OrrukWeirdnobShaman() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onEndHero(PlayerId player) override;
 

@@ -29,11 +29,9 @@ namespace Ironjawz {
 
         static void Init();
 
-        OrrukGoreGruntas(int points);
+        OrrukGoreGruntas(Warclan warclan, int numModels, WeaponOption weapons, int points);
 
         ~OrrukGoreGruntas() override = default;
-
-        bool configure(int numModels, WeaponOption weapons);
 
     protected:
 

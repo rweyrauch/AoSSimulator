@@ -21,13 +21,11 @@ namespace Ironjawz {
 
         static void Init();
 
-        IronskullsBoyz();
+        IronskullsBoyz(Warclan warclan);
 
         ~IronskullsBoyz() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

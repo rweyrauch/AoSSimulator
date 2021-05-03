@@ -17,15 +17,17 @@ namespace Ironjawz {
 
     bool OrrukMegaboss::s_registered = false;
 
-    OrrukMegaboss::OrrukMegaboss() :
-            Ironjawz("Orruk Megaboss", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
+    OrrukMegaboss::OrrukMegaboss(Warclan warclan, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Ironjawz(warclan, "Orruk Megaboss", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_bossChoppaAndFist(Weapon::Type::Melee, "Boss Choppa and Rip-toof Fist", 1, 6, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, MEGABOSS};
         m_weapons = {&m_bossChoppaAndFist};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void OrrukMegaboss::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bossChoppaAndFist);
         addModel(model);
@@ -35,26 +37,14 @@ namespace Ironjawz {
                                                              Attribute::To_Hit_Melee, 1,
                                                              Abilities::Target::SelfAndFriendly,
                                                              std::vector<Keyword>{IRONJAWZ}));
-        m_points = g_pointsPerUnit;
     }
 
     Unit *OrrukMegaboss::Create(const ParameterList &parameters) {
-        auto unit = new OrrukMegaboss();
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_bossCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_bossArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new OrrukMegaboss(warclan, trait, artefact, general);
     }
 
     void OrrukMegaboss::Init() {

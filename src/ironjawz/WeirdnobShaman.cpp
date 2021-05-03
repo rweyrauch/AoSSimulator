@@ -19,24 +19,12 @@ namespace Ironjawz {
     bool OrrukWeirdnobShaman::s_registered = false;
 
     Unit *OrrukWeirdnobShaman::Create(const ParameterList &parameters) {
-        auto unit = new OrrukWeirdnobShaman();
-
         auto warclan = (Warclan) GetEnumParam("Warclan", parameters, g_warclan[0]);
-        unit->setWarclan(warclan);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_shamanCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_shamanArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_shamanCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_shamanArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new OrrukWeirdnobShaman(warclan, lore, trait, artefact, general);
     }
 
     int OrrukWeirdnobShaman::ComputePoints(const ParameterList& /*parameters*/) {
@@ -64,17 +52,19 @@ namespace Ironjawz {
         }
     }
 
-    OrrukWeirdnobShaman::OrrukWeirdnobShaman() :
-            Ironjawz("Orruk Weirdnob Shaman", 4, g_wounds, 6, 5, false, g_pointsPerUnit),
+    OrrukWeirdnobShaman::OrrukWeirdnobShaman(Warclan warclan, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Ironjawz(warclan, "Orruk Weirdnob Shaman", 4, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Waaagh! Staff", 1, 3, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ORRUK, IRONJAWZ, HERO, WIZARD, WEIRDNOB_SHAMAN};
         m_weapons = {&m_staff};
         m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void OrrukWeirdnobShaman::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -82,8 +72,6 @@ namespace Ironjawz {
         m_knownSpells.push_back(std::make_unique<LineOfEffectSpell>(this, "Green Puke", 6, RAND_2D6, RAND_D3, 0));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void OrrukWeirdnobShaman::onEndHero(PlayerId player) {
