@@ -21,13 +21,11 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        ArkanautAdmiral();
+        ArkanautAdmiral(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~ArkanautAdmiral() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

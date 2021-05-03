@@ -21,27 +21,16 @@ namespace KharadronOverlords {
     bool Endrinriggers::s_registered = false;
 
     Unit *Endrinriggers::Create(const ParameterList &parameters) {
-        auto unit = new Endrinriggers(ComputePoints(parameters));
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
+        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
+        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
+        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
         int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numVolleyGuns = GetIntParam("Volley Guns", parameters, 1);
         int numDrills = GetIntParam("Drill Launchers", parameters, 0);
         int numGrapnels = GetIntParam("Grapnel Launchers", parameters, 1);
         int numSkyhooks = GetIntParam("Skyhooks", parameters, 0);
-
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
-        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
-        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
-        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
-        bool ok = unit->configure(numModel, numVolleyGuns, numDrills, numGrapnels, numSkyhooks);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Endrinriggers(port, artycle, amendment, footnote, numModel, numVolleyGuns, numDrills, numGrapnels, numSkyhooks, ComputePoints(parameters));
     }
 
     std::string Endrinriggers::ValueToString(const Parameter &parameter) {
@@ -77,8 +66,9 @@ namespace KharadronOverlords {
         }
     }
 
-    Endrinriggers::Endrinriggers(int points) :
-            KharadronBase("Endrinriggers", 12, g_wounds, 7, 4, true, points),
+    Endrinriggers::Endrinriggers(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, int numModels, int numVolleyGuns,
+                                 int numDrills, int numGrapnels, int numSkyhooks, int points) :
+            KharadronBase(port, artycle, amendment, footnote, "Endrinriggers", 12, g_wounds, 7, 4, true, points),
             m_volleyGun(Weapon::Type::Missile, "Aeathermatic Volley Gun", 24, 6, 4, 4, -1, 1),
             m_skyhook(Weapon::Type::Missile, "Grapnel Launcher or Skyhook", 24, 1, 4, 3, -2, 3),
             m_drillLauncher(Weapon::Type::Missile, "Drill Launcher", 24, 1, 4, 3, -3, RAND_D3),
@@ -90,16 +80,6 @@ namespace KharadronOverlords {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, SKYFARERS, ENDRINRIGGERS};
         m_weapons = {&m_volleyGun, &m_skyhook, &m_drillLauncher, &m_rivetGun, &m_saw,
                      &m_gunButt, &m_sawMaster, &m_gunButtMaster};
-    }
-
-    bool Endrinriggers::configure(int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxSpecials = numModels / g_minUnitSize;
-        if (numVolleyGuns > maxSpecials || (numDrills + numSkyhooks + numGrapnels) > maxSpecials) {
-            return false;
-        }
 
         auto master = new Model(g_basesize, wounds());
         if (numVolleyGuns > 0) {
@@ -148,8 +128,6 @@ namespace KharadronOverlords {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Wounds Endrinriggers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

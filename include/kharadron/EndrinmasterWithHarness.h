@@ -21,7 +21,7 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        EndrinmasterWithEndrinharness();
+        EndrinmasterWithEndrinharness(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~EndrinmasterWithEndrinharness() override = default;
 

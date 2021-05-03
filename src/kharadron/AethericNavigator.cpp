@@ -18,27 +18,14 @@ namespace KharadronOverlords {
     bool AethericNavigator::s_registered = false;
 
     Unit *AethericNavigator::Create(const ParameterList &parameters) {
-        auto unit = new AethericNavigator();
-
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
         auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
         auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
         auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_navigatorCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_navigatorArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new AethericNavigator(port, artycle, amendment, footnote, trait, artefact, general);
     }
 
     void AethericNavigator::Init() {
@@ -64,8 +51,8 @@ namespace KharadronOverlords {
         }
     }
 
-    AethericNavigator::AethericNavigator() :
-            KharadronBase("Aetheric Navigator", 4, g_wounds, 7, 3, false, g_pointsPerUnit),
+    AethericNavigator::AethericNavigator(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            KharadronBase(port, artycle, amendment, footnote, "Aetheric Navigator", 4, g_wounds, 7, 3, false, g_pointsPerUnit),
             m_pistol(Weapon::Type::Missile, "Ranging Pistol", 15, 2, 3, 3, -1, 1),
             m_zephyrscope(Weapon::Type::Melee, "Zephyrscope", 1, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHERIC_NAVIGATOR};
@@ -74,15 +61,15 @@ namespace KharadronOverlords {
 
         // Aethersight
         m_totalUnbinds = 1;
-    }
 
-    void AethericNavigator::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistol);
         model->addMeleeWeapon(&m_zephyrscope);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int AethericNavigator::ComputePoints(const ParameterList& /*parameters*/) {

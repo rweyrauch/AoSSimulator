@@ -16,12 +16,7 @@ namespace KharadronOverlords {
     bool ThundriksProfiteers::s_registered = false;
 
     Unit *ThundriksProfiteers::Create(const ParameterList &parameters) {
-        auto unit = new ThundriksProfiteers();
-
-        unit->setSkyport(Skyport::Barak_Nar);
-
-        unit->configure();
-        return unit;
+        return new ThundriksProfiteers();
     }
 
     int ThundriksProfiteers::ComputePoints(const ParameterList& /*parameters*/) {
@@ -44,7 +39,7 @@ namespace KharadronOverlords {
     }
 
     ThundriksProfiteers::ThundriksProfiteers() :
-            KharadronBase("Thundrik's Profiteers", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
+            KharadronBase(Skyport::Barak_Nar, Artycle::None, Amendment::None, Footnote::None, "Thundrik's Profiteers", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_volleyGun(Weapon::Type::Missile, "Aethermatic Volley Gun", 18, 6, 5, 4, -1, 1),
             m_rifle(Weapon::Type::Missile, "Aethershot Rifle", 18, 4, 3, 4, -1, 1),
             m_privateerPistol(Weapon::Type::Missile, "Privateer Pistol", 12, 2, 4, 4, 0, 1),
@@ -56,9 +51,6 @@ namespace KharadronOverlords {
                       MARINE, THUNDRIKS_PROFITEERS};
         m_weapons = {&m_volleyGun, &m_rifle, &m_privateerPistol, &m_vulcaniserPistol, &m_cutter,
                      &m_gunButt, &m_skypike};
-    }
-
-    void ThundriksProfiteers::configure() {
 
         auto garodd = new Model(g_basesize, wounds());
         garodd->addMissileWeapon(&m_privateerPistol);

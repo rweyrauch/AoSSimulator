@@ -36,22 +36,13 @@ namespace KharadronOverlords {
     bool ArkanautFrigate::s_registered = false;
 
     Unit *ArkanautFrigate::Create(const ParameterList &parameters) {
-        auto unit = new ArkanautFrigate();
-        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Heavy_Sky_Cannon);
-
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
         auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
         auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
         auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
+        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Heavy_Sky_Cannon);
         auto endrinwork = (Endrinwork) GetEnumParam("Endrinwork", parameters, g_frigateEndrinworks[0]);
-        unit->setEndrinwork(endrinwork);
-
-        unit->configure(option);
-        return unit;
+        return new ArkanautFrigate(port, artycle, amendment, footnote, option, endrinwork);
     }
 
     std::string ArkanautFrigate::ValueToString(const Parameter &parameter) {
@@ -91,8 +82,8 @@ namespace KharadronOverlords {
         }
     }
 
-    ArkanautFrigate::ArkanautFrigate() :
-            KharadronBase("Arkanaut Frigate", 12, g_wounds, 8, 4, true, g_pointsPerUnit),
+    ArkanautFrigate::ArkanautFrigate(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, WeaponOption option, Endrinwork endrinwork) :
+            KharadronBase(port, artycle, amendment, footnote, "Arkanaut Frigate", 12, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_cannonShrapnel(Weapon::Type::Missile, "Heavy Sky Cannon: Shrapnel", 24, RAND_D6, 3, 3, -1, 2),
             m_cannonShell(Weapon::Type::Missile, "Heavy Sky Cannon: Shell", 30, 1, 3, 2, -2, RAND_D6),
             m_skyhook(Weapon::Type::Missile, "Heavy Skyhook", 24, 1, 3, 2, -2, RAND_D6),
@@ -105,9 +96,9 @@ namespace KharadronOverlords {
                      &m_carbines,
                      &m_boardingWeapons};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void ArkanautFrigate::configure(WeaponOption option) {
+        setEndrinwork(endrinwork);
+
         auto model = new Model(g_basesize, wounds());
         if (option == Heavy_Sky_Cannon) {
             model->addMissileWeapon(&m_cannonShrapnel);
@@ -121,8 +112,6 @@ namespace KharadronOverlords {
         addModel(model);
 
         m_weaponOption = option;
-
-        m_points = g_pointsPerUnit;
     }
 
     void ArkanautFrigate::onRestore() {

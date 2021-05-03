@@ -17,15 +17,8 @@ namespace KharadronOverlords {
     bool BrokkGrungsson::s_registered = false;
 
     Unit *BrokkGrungsson::Create(const ParameterList &parameters) {
-        auto unit = new BrokkGrungsson();
-
-        unit->setSkyport(Skyport::Barak_Nar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new BrokkGrungsson(general);
     }
 
     void BrokkGrungsson::Init() {
@@ -45,8 +38,8 @@ namespace KharadronOverlords {
         }
     }
 
-    BrokkGrungsson::BrokkGrungsson() :
-            KharadronBase("Brokk Grungsson", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
+    BrokkGrungsson::BrokkGrungsson(bool isGeneral) :
+            KharadronBase(Skyport::Barak_Nar, Artycle::None, Amendment::None, Footnote::None, "Brokk Grungsson", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_boast(Weapon::Type::Missile, "Grungsson's Boast", 18, 2, 3, 2, -2, RAND_D3),
             m_charter(Weapon::Type::Missile, "The Magnate's Charter", 18, 6, 3, 3, -1, 1),
             m_aetherblasters(Weapon::Type::Missile, "Aetherblasters", 9, 2, 3, 4, 0, 1),
@@ -54,17 +47,15 @@ namespace KharadronOverlords {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, BROKK_GRUNGSSON};
         m_weapons = {&m_boast, &m_charter, &m_aetherblasters, &m_saw};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void BrokkGrungsson::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_boast);
         model->addMissileWeapon(&m_charter);
         model->addMissileWeapon(&m_aetherblasters);
         model->addMeleeWeapon(&m_saw);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int BrokkGrungsson::ComputePoints(const ParameterList& /*parameters*/) {

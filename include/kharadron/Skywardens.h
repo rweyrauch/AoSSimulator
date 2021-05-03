@@ -25,11 +25,10 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        Skywardens(int points);
+        Skywardens(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote,
+                   int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks, int points);
 
         ~Skywardens() override = default;
-
-        bool configure(int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks);
 
     protected:
 

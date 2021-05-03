@@ -30,13 +30,11 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        ArkanautFrigate();
+        ArkanautFrigate(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, WeaponOption option, Endrinwork endrinwork);
 
         ~ArkanautFrigate() override = default;
 
     protected:
-
-        void configure(WeaponOption option);
 
         void onWounded() override;
 

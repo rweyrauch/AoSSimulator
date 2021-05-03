@@ -18,27 +18,14 @@ namespace KharadronOverlords {
     bool EndrinmasterWithDirigibleSuit::s_registered = false;
 
     Unit *EndrinmasterWithDirigibleSuit::Create(const ParameterList &parameters) {
-        auto unit = new EndrinmasterWithDirigibleSuit();
-
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
         auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
         auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
         auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_endrinmasterCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_dirigibleArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new EndrinmasterWithDirigibleSuit(port, artycle, amendment, footnote, trait, artefact, general);
     }
 
     void EndrinmasterWithDirigibleSuit::Init() {
@@ -65,8 +52,9 @@ namespace KharadronOverlords {
         }
     }
 
-    EndrinmasterWithDirigibleSuit::EndrinmasterWithDirigibleSuit() :
-            KharadronBase("Endrinmaster with Dirigible Suit", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
+    EndrinmasterWithDirigibleSuit::EndrinmasterWithDirigibleSuit(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote,
+                                                                 CommandTrait trait, Artefact artefact, bool isGeneral) :
+            KharadronBase(port, artycle, amendment, footnote, "Endrinmaster with Dirigible Suit", 12, g_wounds, 8, 3, true, g_pointsPerUnit),
             m_aethercannon(Weapon::Type::Missile, "Aethercannon", 12, 1, 3, 2, -2, RAND_D3),
             m_weaponBattery(Weapon::Type::Missile, "Dirigible Suit Weapon Battery", 18, 6, 3, 3, -1, 1),
             m_gaze(Weapon::Type::Missile, "Gaze of Grungni", 9, 1, 3, 2, -1, RAND_D3),
@@ -74,17 +62,17 @@ namespace KharadronOverlords {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, ENDRINMASTER};
         m_weapons = {&m_aethercannon, &m_weaponBattery, &m_gaze, &m_saw};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void EndrinmasterWithDirigibleSuit::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_aethercannon);
         model->addMissileWeapon(&m_weaponBattery);
         model->addMissileWeapon(&m_gaze);
         model->addMeleeWeapon(&m_saw);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     int EndrinmasterWithDirigibleSuit::ComputePoints(const ParameterList& /*parameters*/) {

@@ -25,12 +25,10 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        GrundstokThunderers(int points);
+        GrundstokThunderers(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, int numModels, int numMortars,
+                            int numCannons, int numFumigators, int numDecksweeper, int numHonourBearers, int points);
 
         ~GrundstokThunderers() override = default;
-
-        bool configure(int numModels, int numMortars, int numCannons, int numFumigators, int numDecksweeper,
-                       int numHonourBearers);
 
     protected:
 

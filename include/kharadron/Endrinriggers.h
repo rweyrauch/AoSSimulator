@@ -25,11 +25,10 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        Endrinriggers(int points);
+        Endrinriggers(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, int numModels, int numVolleyGuns,
+                      int numDrills, int numGrapnels, int numSkyhooks, int points);
 
         ~Endrinriggers() override = default;
-
-        bool configure(int numModels, int numVolleyGuns, int numDrills, int numGrapnels, int numSkyhooks);
 
     protected:
 

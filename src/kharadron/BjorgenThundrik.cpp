@@ -17,15 +17,8 @@ namespace KharadronOverlords {
     bool BjorgenThundrik::s_registered = false;
 
     Unit *BjorgenThundrik::Create(const ParameterList &parameters) {
-        auto unit = new BjorgenThundrik();
-
-        unit->setSkyport(Skyport::Barak_Nar);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new BjorgenThundrik(general);
     }
 
     int BjorgenThundrik::ComputePoints(const ParameterList& /*parameters*/) {
@@ -49,8 +42,8 @@ namespace KharadronOverlords {
         }
     }
 
-    BjorgenThundrik::BjorgenThundrik() :
-            KharadronBase("Bjorgen Thundrik", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
+    BjorgenThundrik::BjorgenThundrik(bool isGeneral) :
+            KharadronBase(Skyport::Barak_Nar, Artycle::None, Amendment::None, Footnote::None, "Bjorgen Thundrik", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_anatomiser(Weapon::Type::Missile, "Atmospheric Anatomiser", 9, RAND_3D6, 4, 4, -2, 1),
             m_instruments(Weapon::Type::Melee, "Heavy Instruments", 1, 3, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, BARAK_NAR, HERO, SKYFARER, MARINE,
@@ -58,17 +51,17 @@ namespace KharadronOverlords {
         m_weapons = {&m_anatomiser, &m_instruments};
         m_battleFieldRole = Role::Leader;
         s_globalToHitMod.connect(this, &BjorgenThundrik::atmosphericIsolation, &m_connection);
-    }
 
-    BjorgenThundrik::~BjorgenThundrik() {
-        m_connection.disconnect();
-    }
+        setGeneral(isGeneral);
 
-    void BjorgenThundrik::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_anatomiser);
         model->addMeleeWeapon(&m_instruments);
         addModel(model);
+    }
+
+    BjorgenThundrik::~BjorgenThundrik() {
+        m_connection.disconnect();
     }
 
     void BjorgenThundrik::onStartHero(PlayerId player) {

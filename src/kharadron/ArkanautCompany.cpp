@@ -21,27 +21,16 @@ namespace KharadronOverlords {
     bool ArkanautCompany::s_registered = false;
 
     Unit *ArkanautCompany::Create(const ParameterList &parameters) {
-        auto unit = new ArkanautCompany(ComputePoints(parameters));
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
+        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
+        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
+        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
         int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numVolleyGuns = GetIntParam("Volley Guns", parameters, 1);
         int numSkyhooks = GetIntParam("Light Skyhooks", parameters, 1);
         int numSkypikes = GetIntParam("Skypikes", parameters, 1);
         auto option = (CaptainWeapon) GetEnumParam("Captain Weapon", parameters, Aetherflare_Pistol);
-
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
-        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
-        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
-        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
-        bool ok = unit->configure(numModel, numVolleyGuns, numSkyhooks, numSkypikes, option);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ArkanautCompany(port, artycle, amendment, footnote, numModel, numVolleyGuns, numSkyhooks, numSkypikes, option, ComputePoints(parameters));
     }
 
     std::string ArkanautCompany::ValueToString(const Parameter &parameter) {
@@ -84,8 +73,9 @@ namespace KharadronOverlords {
         }
     }
 
-    ArkanautCompany::ArkanautCompany(int points) :
-            KharadronBase("Arkanaut Company", 4, g_wounds, 6, 4, false, points),
+    ArkanautCompany::ArkanautCompany(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote,
+                                     int numModels, int numVolleyGuns, int numSkyhooks, int numSkypikes, CaptainWeapon option, int points) :
+            KharadronBase(port, artycle, amendment, footnote, "Arkanaut Company", 4, g_wounds, 6, 4, false, points),
             m_privateerPistol(Weapon::Type::Missile, "Privateer Pistol", 9, 2, 4, 4, 0, 1),
             m_volleyGun(Weapon::Type::Missile, "Aethermatic Volley Gun", 12, 6, 5, 4, -1, 1),
             m_skyhook(Weapon::Type::Missile, "Light Skyhook", 18, 1, 4, 3, -2, RAND_D3),
@@ -98,17 +88,6 @@ namespace KharadronOverlords {
         m_weapons = {&m_privateerPistol, &m_volleyGun, &m_skyhook, &m_aetherflarePistol, &m_volleyPistol, &m_cutter,
                      &m_gunButt, &m_skypike};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool ArkanautCompany::configure(int numModels, int numVolleyGuns, int numSkyhooks, int numSkypikes,
-                                    CaptainWeapon option) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxSpecials = numModels / g_minUnitSize;
-        if (numVolleyGuns > maxSpecials || numSkyhooks > maxSpecials || numSkypikes > maxSpecials) {
-            return false;
-        }
 
         // Add the Captain
         auto captain = new Model(g_basesize, wounds());
@@ -147,8 +126,6 @@ namespace KharadronOverlords {
             model->addMeleeWeapon(&m_cutter);
             addModel(model);
         }
-
-        return true;
     }
 
     int ArkanautCompany::ComputePoints(const ParameterList& parameters) {

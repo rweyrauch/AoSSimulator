@@ -20,28 +20,17 @@ namespace KharadronOverlords {
     bool GrundstokThunderers::s_registered = false;
 
     Unit *GrundstokThunderers::Create(const ParameterList &parameters) {
-        auto unit = new GrundstokThunderers(ComputePoints(parameters));
+        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
+        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
+        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
+        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
         int numModel = GetIntParam("Models", parameters, g_minUnitSize);
         int numMortars = GetIntParam("Grundstok Mortars", parameters, 1);
         int numCannons = GetIntParam("Aethercannons", parameters, 1);
         int numFumigators = GetIntParam("Aetheric Fumigators", parameters, 1);
         int numDecksweepers = GetIntParam("Desksweepers", parameters, 1);
         int numHonourBearers = GetIntParam("Honour Bearers", parameters, 1);
-
-        auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
-        auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
-        auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
-        auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
-        bool ok = unit->configure(numModel, numMortars, numCannons, numFumigators, numDecksweepers, numHonourBearers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new GrundstokThunderers(port, artycle, amendment, footnote, numModel, numMortars, numCannons, numFumigators, numDecksweepers, numHonourBearers, ComputePoints(parameters));
     }
 
     std::string GrundstokThunderers::ValueToString(const Parameter &parameter) {
@@ -78,8 +67,9 @@ namespace KharadronOverlords {
         }
     }
 
-    GrundstokThunderers::GrundstokThunderers(int points) :
-            KharadronBase("Grundstok Thunderers", 4, g_wounds, 7, 4, false, points),
+    GrundstokThunderers::GrundstokThunderers(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, int numModels, int numMortars,
+                                             int numCannons, int numFumigators, int numDecksweeper, int numHonourBearers, int points) :
+            KharadronBase(port, artycle, amendment, footnote, "Grundstok Thunderers", 4, g_wounds, 7, 4, false, points),
             m_rifle(Weapon::Type::Missile, "Aethershot Rifle", 18, 2, 3, 4, -1, 1),
             m_doubleBarrelledRifle(Weapon::Type::Missile, "Double-barrelled Aethershot Rifle", 18, 4, 3, 4, -1, 1),
             m_fumigator(Weapon::Type::Missile, "Aetheric Fumigator", 9, 3, 3, 3, -1, 1),
@@ -97,20 +87,6 @@ namespace KharadronOverlords {
                      &m_mortar,
                      &m_drillbill,
                      &m_gunButt};
-    }
-
-    bool
-    GrundstokThunderers::configure(int numModels, int numMortars, int numCannons, int numFumigators, int numDecksweeper,
-                                   int numHonourBearers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-
-        const int maxSpecials = numModels / g_minUnitSize;
-        if (numMortars > maxSpecials || numCannons > maxSpecials || numFumigators > maxSpecials ||
-            numDecksweeper > maxSpecials || numHonourBearers > maxSpecials) {
-            return false;
-        }
 
         auto sergeant = new Model(g_basesize, wounds());
         sergeant->addMissileWeapon(&m_doubleBarrelledRifle);
@@ -142,8 +118,6 @@ namespace KharadronOverlords {
             model->addMeleeWeapon(&m_gunButt);
             addModel(model);
         }
-
-        return true;
     }
 
     int GrundstokThunderers::ComputePoints(const ParameterList& parameters) {

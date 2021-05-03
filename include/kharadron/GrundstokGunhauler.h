@@ -30,13 +30,11 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        GrundstokGunhauler();
+        GrundstokGunhauler(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, WeaponOption option, Endrinwork endrinwork);
 
         ~GrundstokGunhauler() override = default;
 
     protected:
-
-        void configure(WeaponOption option);
 
         int moveModifier() const override;
 

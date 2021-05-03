@@ -31,11 +31,10 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        ArkanautCompany(int points);
+        ArkanautCompany(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote,
+                        int numModels, int numVolleyGuns, int numSkyhooks, int numSkypikes, CaptainWeapon option, int points);
 
         ~ArkanautCompany() override = default;
-
-        bool configure(int numModels, int numVolleyGuns, int numSkyhooks, int numSkypikes, CaptainWeapon option);
 
     protected:
 

@@ -190,10 +190,6 @@ namespace KharadronOverlords {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        void setSkyport(Skyport skyport);
-
-        void setCode(Artycle artycle, Amendment amendment, Footnote footnote);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
@@ -201,8 +197,16 @@ namespace KharadronOverlords {
         void setEndrinwork(Endrinwork endrinwork);
 
     protected:
-        KharadronBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        KharadronBase(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, const std::string &name,
+                      int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setSkyport(port);
+            setCode(artycle, amendment, footnote);
+        }
+
+        void setSkyport(Skyport skyport);
+
+        void setCode(Artycle artycle, Amendment amendment, Footnote footnote);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
 

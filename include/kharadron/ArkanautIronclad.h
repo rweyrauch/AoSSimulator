@@ -31,13 +31,11 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        ArkanautIronclad();
+        ArkanautIronclad(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, WeaponOption option, Endrinwork endrinwork);
 
         ~ArkanautIronclad() override = default;
 
     protected:
-
-        void configure(WeaponOption option);
 
         void onWounded() override;
 

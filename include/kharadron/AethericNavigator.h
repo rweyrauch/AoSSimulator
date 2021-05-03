@@ -21,13 +21,11 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        AethericNavigator();
+        AethericNavigator(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AethericNavigator() override = default;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

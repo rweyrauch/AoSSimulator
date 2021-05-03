@@ -17,27 +17,14 @@ namespace KharadronOverlords {
     bool ArkanautAdmiral::s_registered = false;
 
     Unit *ArkanautAdmiral::Create(const ParameterList &parameters) {
-        auto unit = new ArkanautAdmiral();
-
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
         auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
         auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
         auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_admiralCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_admiralArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new ArkanautAdmiral(port, artycle, amendment, footnote, trait, artefact, general);
     }
 
     void ArkanautAdmiral::Init() {
@@ -63,22 +50,22 @@ namespace KharadronOverlords {
         }
     }
 
-    ArkanautAdmiral::ArkanautAdmiral() :
-            KharadronBase("Arkanaut Admiral", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
+    ArkanautAdmiral::ArkanautAdmiral(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            KharadronBase(port, artycle, amendment, footnote, "Arkanaut Admiral", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_pistol(Weapon::Type::Missile, "Volley Pistol", 9, 3, 3, 4, -1, 1),
             m_skalfhammer(Weapon::Type::Melee, "Skalfhammer", 1, 3, 3, 2, -2, 2) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, ARKANAUT_ADMIRAL};
         m_weapons = {&m_pistol, &m_skalfhammer};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void ArkanautAdmiral::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistol);
         model->addMeleeWeapon(&m_skalfhammer);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Rerolls ArkanautAdmiral::toHitRerolls(const Weapon *weapon, const Unit *target) const {

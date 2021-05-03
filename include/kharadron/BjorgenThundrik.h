@@ -21,7 +21,7 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        BjorgenThundrik();
+        BjorgenThundrik(bool isGeneral);
 
         ~BjorgenThundrik() override;
 

@@ -18,27 +18,14 @@ namespace KharadronOverlords {
     bool AetherKhemist::s_registered = false;
 
     Unit *AetherKhemist::Create(const ParameterList &parameters) {
-        auto unit = new AetherKhemist();
-
         auto port = (Skyport) GetEnumParam("Skyport", parameters, g_skyport[0]);
-        unit->setSkyport(port);
-
         auto artycle = (Artycle) GetEnumParam("Artycle", parameters, g_artycles[0]);
         auto amendment = (Amendment) GetEnumParam("Amendment", parameters, g_amendments[0]);
         auto footnote = (Footnote) GetEnumParam("Footnote", parameters, g_footnotes[0]);
-        unit->setCode(artycle, amendment, footnote);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_khemistCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_khemistArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new AetherKhemist(port, artycle, amendment, footnote, trait, artefact, general);
     }
 
     void AetherKhemist::Init() {
@@ -65,8 +52,8 @@ namespace KharadronOverlords {
         }
     }
 
-    AetherKhemist::AetherKhemist() :
-            KharadronBase("Aether Khemist", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
+    AetherKhemist::AetherKhemist(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            KharadronBase(port, artycle, amendment, footnote, "Aether Khemist", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_anatomiser(Weapon::Type::Missile, "Atmospheric Anatomiser", 9, RAND_3D6, 4, 4, -2, 1),
             m_instruments(Weapon::Type::Melee, "Heavy Instruments", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, KHARADRON_OVERLORDS, HERO, SKYFARER, MARINE, AETHER_KHEMIST};
@@ -74,19 +61,19 @@ namespace KharadronOverlords {
         m_battleFieldRole = Role::Leader;
 
         s_globalToHitMod.connect(this, &AetherKhemist::atmosphericIsolation, &m_connection);
-    }
 
-    AetherKhemist::~AetherKhemist() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void AetherKhemist::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_anatomiser);
         model->addMeleeWeapon(&m_instruments);
         addModel(model);
+    }
 
-        m_points = g_pointsPerUnit;
+    AetherKhemist::~AetherKhemist() {
+        m_connection.disconnect();
     }
 
     int AetherKhemist::atmosphericIsolation(const Unit * /*attacker*/, const Weapon * /*weapon*/, const Unit *target) {

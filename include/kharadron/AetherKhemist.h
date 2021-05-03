@@ -21,13 +21,11 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        AetherKhemist();
+        AetherKhemist(Skyport port, Artycle artycle, Amendment amendment, Footnote footnote, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~AetherKhemist() override;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

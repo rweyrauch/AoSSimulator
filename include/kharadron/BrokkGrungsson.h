@@ -21,7 +21,7 @@ namespace KharadronOverlords {
 
         static void Init();
 
-        BrokkGrungsson();
+        BrokkGrungsson(bool isGeneral);
 
         ~BrokkGrungsson() override = default;
 
