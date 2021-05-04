@@ -26,13 +26,11 @@ namespace Death {
 
         static void Init();
 
-        VampireLordOnZombieDragon();
+        VampireLordOnZombieDragon(Legion legion, WeaponOption option, bool shield, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VampireLordOnZombieDragon() override = default;
 
     protected:
-
-        void configure(WeaponOption option, bool shield, bool chalice, Lore lore);
 
         void onWounded() override;
 

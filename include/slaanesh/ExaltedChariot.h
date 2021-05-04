@@ -27,8 +27,6 @@ namespace Slaanesh {
 
     protected:
 
-        void configure();
-
         void onCharged() override;
 
         void onStartCombat(PlayerId player) override;

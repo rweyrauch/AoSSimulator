@@ -21,11 +21,9 @@ namespace Death {
 
         static void Init();
 
-        BloodKnights(int points);
+        BloodKnights(Legion legion, int numModels, bool standardBearers, bool hornblowers, int points);
 
         ~BloodKnights() override;
-
-        bool configure(int numModels, bool standardBearers, bool hornblowers);
 
     protected:
 

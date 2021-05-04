@@ -20,20 +20,15 @@ namespace Death {
 
         static void Init();
 
-        FellBats(int points);
+        FellBats(Legion legion, int numModels, int points);
 
         ~FellBats() override = default;
-
-        bool configure(int numModels);
-
-    protected:
 
     private:
 
         Weapon m_fangs;
 
         static bool s_registered;
-
     };
 
 //

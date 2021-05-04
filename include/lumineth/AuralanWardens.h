@@ -27,8 +27,6 @@ namespace LuminethRealmLords {
 
     protected:
 
-        bool configure(int numModels);
-
         void onRestore() override;
 
         void onStartCombat(PlayerId player) override;

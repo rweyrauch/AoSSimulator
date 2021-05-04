@@ -20,28 +20,15 @@ namespace Death {
     bool VampireLord::s_registered = false;
 
     Unit *VampireLord::Create(const ParameterList &parameters) {
-        auto unit = new VampireLord();
-
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         bool withSteed = GetBoolParam("Steed", parameters, false);
         bool withWings = GetBoolParam("Wings", parameters, false);
         bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
-
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
-
-        unit->configure(withSteed, withWings, chalice, lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new VampireLord(legion, withSteed, withWings, chalice, lore, trait, artefact, general);
     }
 
     int VampireLord::ComputePoints(const ParameterList& /*parameters*/) {
@@ -72,8 +59,8 @@ namespace Death {
         }
     }
 
-    VampireLord::VampireLord() :
-            LegionOfNagashBase("Vampire Lord", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
+    VampireLord::VampireLord(Legion legion, bool withSteed, bool withWings, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LegionOfNagashBase(legion, "Vampire Lord", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_blades(Weapon::Type::Melee, "Spirit-possessed Blades", 1, 4, 3, 3, -1, RAND_D3),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, HERO, WIZARD, VAMPIRE_LORD};
@@ -81,9 +68,7 @@ namespace Death {
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void VampireLord::configure(bool withSteed, bool withWings, bool chalice, Lore lore) {
         auto model = new Model(withSteed ? g_basesizeWithSteed : g_basesize, wounds());
 
         if (withSteed) {
@@ -97,6 +82,10 @@ namespace Death {
             m_hasMount = true;
         }
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         model->addMeleeWeapon(&m_blades);
         addModel(model);
 
@@ -104,8 +93,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_haveChaliceOfBlood = chalice;
-
-        m_points = g_pointsPerUnit;
     }
 
     void VampireLord::onStartHero(PlayerId player) {

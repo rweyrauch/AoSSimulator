@@ -30,11 +30,9 @@ namespace Death {
 
         static void Init();
 
-        SkeletonWarriors(int points);
+        SkeletonWarriors(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points);
 
         ~SkeletonWarriors() override;
-
-        bool configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers);
 
     protected:
 

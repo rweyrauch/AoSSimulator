@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        NeferataMortarchOfBlood();
+        NeferataMortarchOfBlood(Legion legion, Lore lore, bool isGeneral);
 
         ~NeferataMortarchOfBlood() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

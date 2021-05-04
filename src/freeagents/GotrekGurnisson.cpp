@@ -16,29 +16,22 @@ namespace FreeAgent {
 
     bool GotrekGurnisson::s_registered = false;
 
-    GotrekGurnisson::GotrekGurnisson() :
+    GotrekGurnisson::GotrekGurnisson(bool isGeneral) :
             Unit("Gotrek Gurnisson", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_zangromThaz(Weapon::Type::Melee, "Zangrom-Thaz", 1, 6, 3, 3, -2, 3) {
         m_keywords = {ORDER, DUARDIN, HERO, GOTREK_GURNISSON};
         m_weapons = {&m_zangromThaz};
-    }
 
-    void GotrekGurnisson::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_zangromThaz);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *GotrekGurnisson::Create(const ParameterList &parameters) {
-        auto unit = new GotrekGurnisson();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new GotrekGurnisson(general);
     }
 
     void GotrekGurnisson::Init() {

@@ -36,13 +36,8 @@ namespace Death {
     bool MortisEngine::s_registered = false;
 
     Unit *MortisEngine::Create(const ParameterList &parameters) {
-        auto unit = new MortisEngine();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        return new MortisEngine(legion);
     }
 
     int MortisEngine::ComputePoints(const ParameterList& /*parameters*/) {
@@ -66,24 +61,20 @@ namespace Death {
         }
     }
 
-    MortisEngine::MortisEngine() :
-            LegionOfNagashBase("Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    MortisEngine::MortisEngine(Legion legion) :
+            LegionOfNagashBase(legion, "Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Corpsemaster's Mortis Staff", 1, 1, 4, 3, -1, RAND_D3),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, DEATHMAGES, MORTIS_ENGINE};
         m_weapons = {&m_wail, &m_staff, &m_etherealWeapons};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void MortisEngine::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_etherealWeapons);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     void MortisEngine::onWounded() {

@@ -17,39 +17,28 @@ namespace Death {
 
     bool WightKingWithBlackAxe::s_registered = false;
 
-    WightKingWithBlackAxe::WightKingWithBlackAxe() :
-            LegionOfNagashBase("Wight King with Black Axe", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
+    WightKingWithBlackAxe::WightKingWithBlackAxe(Legion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LegionOfNagashBase(legion, "Wight King with Black Axe", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
         m_weapons = {&m_blackAxe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void WightKingWithBlackAxe::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blackAxe);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *WightKingWithBlackAxe::Create(const ParameterList &parameters) {
-        auto unit = new WightKingWithBlackAxe();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new WightKingWithBlackAxe(legion, trait, artefact, general);
     }
 
     void WightKingWithBlackAxe::Init() {

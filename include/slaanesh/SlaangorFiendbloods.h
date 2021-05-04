@@ -25,8 +25,6 @@ namespace Slaanesh {
 
         ~SlaangorFiendbloods() override = default;
 
-        bool configure(int numModels);
-
     protected:
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;

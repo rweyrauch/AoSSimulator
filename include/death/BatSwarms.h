@@ -20,11 +20,9 @@ namespace Death {
 
         static void Init();
 
-        BatSwarms(int points);
+        BatSwarms(Legion legion, int numModels, int points);
 
         ~BatSwarms() override;
-
-        bool configure(int numModels);
 
     protected:
 

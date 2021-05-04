@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        CorpseCartWithUnholyLodestone();
+        explicit CorpseCartWithUnholyLodestone(Legion legion);
 
         ~CorpseCartWithUnholyLodestone() override;
 
     protected:
-
-        void configure();
 
         int unholyLodestoneCastingMod(const Unit *caster);
 

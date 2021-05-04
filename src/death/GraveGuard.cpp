@@ -20,8 +20,8 @@ namespace Death {
 
     bool GraveGuard::s_registered = false;
 
-    GraveGuard::GraveGuard(int points) :
-            LegionOfNagashBase("Grave Guard", 4, g_wounds, 10, 5, false, points),
+    GraveGuard::GraveGuard(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
+            LegionOfNagashBase(legion, "Grave Guard", 4, g_wounds, 10, 5, false, points),
             m_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 4, -1, 1),
             m_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade", 1, 3, 3, 4, -1, 1),
             m_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 3, -1, 1),
@@ -29,19 +29,6 @@ namespace Death {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, GRAVE_GUARD};
         m_weapons = {&m_wightBlade, &m_wightBladeSeneschal, &m_greatWightBlade, &m_greatWightBladeSeneschal};
         s_globalBraveryMod.connect(this, &GraveGuard::standardBearerBraveryMod, &m_standardSlot);
-    }
-
-    GraveGuard::~GraveGuard() {
-        m_standardSlot.disconnect();
-    }
-
-    bool GraveGuard::configure(int numModels, GraveGuard::WeaponOptions weapons,
-                               bool standardBearers, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
-
         m_weaponOption = weapons;
 
         auto seneschal = new Model(g_basesize, wounds());
@@ -68,26 +55,19 @@ namespace Death {
             }
             addModel(model);
         }
+    }
 
-        return true;
+    GraveGuard::~GraveGuard() {
+        m_standardSlot.disconnect();
     }
 
     Unit *GraveGuard::Create(const ParameterList &parameters) {
-        auto unit = new GraveGuard(ComputePoints(parameters));
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Wight_Blade);
+        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Wight_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, weapons, standardBearers, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new GraveGuard(legion, numModels, weapons, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void GraveGuard::Init() {

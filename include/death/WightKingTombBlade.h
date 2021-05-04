@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        WightKingWithBalefulTombBlade();
+        WightKingWithBalefulTombBlade(Legion legion, bool hasSteed, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WightKingWithBalefulTombBlade() override = default;
 
     protected:
-
-        void configure(bool hasSteed);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

@@ -28,8 +28,6 @@ namespace FleshEaterCourt {
 
     protected:
 
-        void configure();
-
         void onStartHero(PlayerId player) override;
 
     private:

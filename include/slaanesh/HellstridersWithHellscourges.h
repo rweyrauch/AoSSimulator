@@ -25,8 +25,6 @@ namespace Slaanesh {
 
         ~HellstridersWithHellscourges() override;
 
-        bool configure(int numModels, bool iconBearer, bool bannerBearer, bool hornblower);
-
     protected:
 
         Rerolls chargeRerolls() const override;

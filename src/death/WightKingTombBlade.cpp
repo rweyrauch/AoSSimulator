@@ -18,33 +18,39 @@ namespace Death {
 
     bool WightKingWithBalefulTombBlade::s_registered = false;
 
-    WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade() :
-            LegionOfNagashBase("Wight King with Baleful Tomb Blade", 4, g_wounds, 10, 3, false, g_pointsPerUnit),
+    WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade(Legion legion, bool hasSteed, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LegionOfNagashBase(legion, "Wight King with Baleful Tomb Blade", 4, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_balefulTombBlade(Weapon::Type::Melee, "Baleful Tomb Blade", 1, 4, 3, 3, -1, 1),
             m_steedsHoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
         m_weapons = {&m_balefulTombBlade, &m_steedsHoovesAndTeeth};
         m_battleFieldRole = Role::Leader;
+
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
+        auto model = new Model(hasSteed ? g_basesizeMount : g_basesize, wounds());
+
+        m_hasSteed = hasSteed;
+        m_hasMount = hasSteed;
+
+        model->addMeleeWeapon(&m_balefulTombBlade);
+        if (m_hasSteed) {
+            model->addMeleeWeapon(&m_steedsHoovesAndTeeth);
+            m_steedsHoovesAndTeeth.setMount(true);
+            m_move = 12;
+        }
+        addModel(model);
     }
 
     Unit *WightKingWithBalefulTombBlade::Create(const ParameterList &parameters) {
-        auto unit = new WightKingWithBalefulTombBlade();
-        bool steed = GetBoolParam("Steed", parameters, false);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
+        bool steed = GetBoolParam("Steed", parameters, false);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(steed);
-        return unit;
+        return new WightKingWithBalefulTombBlade(legion, steed, trait, artefact, general);
     }
 
     void WightKingWithBalefulTombBlade::Init() {
@@ -66,23 +72,6 @@ namespace Death {
             };
             s_registered = UnitFactory::Register("Wight King with Baleful Tomb Blade", factoryMethod);
         }
-    }
-
-    void WightKingWithBalefulTombBlade::configure(bool hasSteed) {
-        auto model = new Model(hasSteed ? g_basesizeMount : g_basesize, wounds());
-
-        m_hasSteed = hasSteed;
-        m_hasMount = hasSteed;
-
-        model->addMeleeWeapon(&m_balefulTombBlade);
-        if (m_hasSteed) {
-            model->addMeleeWeapon(&m_steedsHoovesAndTeeth);
-            m_steedsHoovesAndTeeth.setMount(true);
-            m_move = 12;
-        }
-        addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds WightKingWithBalefulTombBlade::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,

@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        CovenThrone();
+        CovenThrone(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~CovenThrone() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

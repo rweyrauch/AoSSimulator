@@ -15,6 +15,8 @@
 namespace Death {
 
     enum class Legion : int {
+        None,
+
         Grand_Host_Of_Nagash,
         Legion_Of_Sacrament,
         Legion_Of_Blood,
@@ -141,16 +143,18 @@ namespace Death {
 
         ~LegionOfNagashBase() override = default;
 
-        void setLegion(Legion legion);
-
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
 
     protected:
 
-        LegionOfNagashBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        LegionOfNagashBase(Legion legion, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setLegion(legion);
+        }
+
+        void setLegion(Legion legion);
 
         void deathlyInvocations(int numUnits, double range);
 

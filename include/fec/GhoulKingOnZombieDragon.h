@@ -28,8 +28,6 @@ namespace FleshEaterCourt {
 
     protected:
 
-        void configure(Lore lore, MountTrait trait);
-
         void onStartHero(PlayerId player) override;
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;

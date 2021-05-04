@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        WightKingWithBlackAxe();
+        WightKingWithBlackAxe(Legion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WightKingWithBlackAxe() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnitk) override;
 

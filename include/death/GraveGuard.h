@@ -30,11 +30,9 @@ namespace Death {
 
         static void Init();
 
-        GraveGuard(int points);
+        GraveGuard(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points);
 
         ~GraveGuard() override;
-
-        bool configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers);
 
     protected:
 

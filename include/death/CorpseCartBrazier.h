@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        CorpseCartWithBalefireBrazier();
+        explicit CorpseCartWithBalefireBrazier(Legion legion);
 
         ~CorpseCartWithBalefireBrazier() override;
 
     protected:
-
-        void configure();
 
         void onStartHero(PlayerId player) override;
 

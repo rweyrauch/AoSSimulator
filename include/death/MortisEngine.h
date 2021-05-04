@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        MortisEngine();
+        MortisEngine(Legion legion);
 
         ~MortisEngine() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

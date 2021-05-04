@@ -20,13 +20,9 @@ namespace Death {
 
         static void Init();
 
-        Vargheists(int points);
+        Vargheists(Legion legion, int numModels, int points);
 
         ~Vargheists() override = default;
-
-        bool configure(int numModels);
-
-    protected:
 
     private:
 

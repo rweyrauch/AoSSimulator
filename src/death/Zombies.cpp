@@ -21,25 +21,14 @@ namespace Death {
 
     bool Zombies::s_registered = false;
 
-    Zombies::Zombies(int points) :
-            LegionOfNagashBase("Zombies", 4, g_wounds, 10, NoSave, false, points),
+    Zombies::Zombies(Legion legion, int numModels, bool standardBearer, bool noiseMaker, int points) :
+            LegionOfNagashBase(legion, "Zombies", 4, g_wounds, 10, NoSave, false, points),
             m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
         m_weapons = {&m_zombieBite};
         m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &Zombies::standardBearerBraveryMod, &m_standardSlot);
-    }
-
-    Zombies::~Zombies() {
-        m_standardSlot.disconnect();
-    }
-
-    bool Zombies::configure(int numModels, bool standardBearer, bool noiseMaker) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -53,25 +42,18 @@ namespace Death {
             }
             addModel(model);
         }
+    }
 
-        return true;
+    Zombies::~Zombies() {
+        m_standardSlot.disconnect();
     }
 
     Unit *Zombies::Create(const ParameterList &parameters) {
-        auto unit = new Zombies(ComputePoints(parameters));
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
-
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, standardBearers, noisemaker);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Zombies(legion, numModels, standardBearers, noisemaker, ComputePoints(parameters));
     }
 
     void Zombies::Init() {

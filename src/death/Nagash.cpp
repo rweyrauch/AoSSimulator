@@ -36,8 +36,8 @@ namespace Death {
 
     bool Nagash::s_registered = false;
 
-    Nagash::Nagash() :
-            LegionOfNagashBase("Nagash", 9, g_wounds, 10, 3, true, g_pointsPerUnit),
+    Nagash::Nagash(Legion legion, bool isGeneral) :
+            LegionOfNagashBase(legion, "Nagash", 9, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_gaze(Weapon::Type::Missile, "Gaze of Nagash", 12, 1, 3, 2, -1, RAND_D6),
             m_alakanash(Weapon::Type::Melee, "Alakanash", 3, 1, 3, 2, -3, RAND_D6),
             m_zefetNebtar(Weapon::Type::Melee, "Zefet-nebtar", 2, 6, 3, 3, -2, 3),
@@ -49,19 +49,25 @@ namespace Death {
         m_totalSpells = 8;
         m_totalUnbinds = 8;
         m_canRecastArcaneBoldAndMysticShield = true;
+
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
+
+        model->addMissileWeapon(&m_gaze);
+        model->addMeleeWeapon(&m_alakanash);
+        model->addMeleeWeapon(&m_zefetNebtar);
+        model->addMeleeWeapon(&m_clawsAndDaggers);
+        addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
 
     Unit *Nagash::Create(const ParameterList &parameters) {
-        auto unit = new Nagash();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Nagash(legion, general);
     }
 
     void Nagash::Init() {
@@ -80,21 +86,6 @@ namespace Death {
             };
             s_registered = UnitFactory::Register("Nagash", factoryMethod);
         }
-    }
-
-    void Nagash::configure() {
-        auto model = new Model(g_basesize, wounds());
-
-        model->addMissileWeapon(&m_gaze);
-        model->addMeleeWeapon(&m_alakanash);
-        model->addMeleeWeapon(&m_zefetNebtar);
-        model->addMeleeWeapon(&m_clawsAndDaggers);
-        addModel(model);
-
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     size_t Nagash::getDamageTableIndex() const {

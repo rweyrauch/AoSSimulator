@@ -37,18 +37,10 @@ namespace Death {
     bool PrinceVhordrai::s_registered = false;
 
     Unit *PrinceVhordrai::Create(const ParameterList &parameters) {
-        auto unit = new PrinceVhordrai();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new PrinceVhordrai(legion, lore, general);
     }
 
     int PrinceVhordrai::ComputePoints(const ParameterList& /*parameters*/) {
@@ -74,8 +66,8 @@ namespace Death {
         }
     }
 
-    PrinceVhordrai::PrinceVhordrai() :
-            LegionOfNagashBase("Prince Vhordrai", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
+    PrinceVhordrai::PrinceVhordrai(Legion legion, Lore lore, bool isGeneral) :
+            LegionOfNagashBase(legion, "Prince Vhordrai", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_bloodlance(Weapon::Type::Melee, "Bloodlance", 2, 4, 3, 3, -2, 2),
             m_maw(Weapon::Type::Melee, "Shordemaire's Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_claws(Weapon::Type::Melee, "Shordemaire's Sword-like Claws", 2, 7, 4, 3, -1, 2) {
@@ -87,9 +79,9 @@ namespace Death {
         m_claws.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void PrinceVhordrai::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bloodlance);
         model->addMeleeWeapon(&m_maw);
@@ -98,8 +90,6 @@ namespace Death {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void PrinceVhordrai::onWounded() {

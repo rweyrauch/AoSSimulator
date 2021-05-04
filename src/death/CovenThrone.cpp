@@ -36,24 +36,12 @@ namespace Death {
     bool CovenThrone::s_registered = false;
 
     Unit *CovenThrone::Create(const ParameterList &parameters) {
-        auto unit = new CovenThrone();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new CovenThrone(legion, lore, trait, artefact, general);
     }
 
     int CovenThrone::ComputePoints(const ParameterList& /*parameters*/) {
@@ -81,8 +69,8 @@ namespace Death {
         }
     }
 
-    CovenThrone::CovenThrone() :
-            LegionOfNagashBase("Coven Throne", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    CovenThrone::CovenThrone(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LegionOfNagashBase(legion, "Coven Throne", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_bite(Weapon::Type::Melee, "Vampire Queen's Predatory Bite", 1, 1, 3, 4, 0, RAND_D3),
             m_stiletto(Weapon::Type::Melee, "Vampire Queen's Stiletto", 1, 4, 3, 3, -1, 1),
             m_poniards(Weapon::Type::Melee, "Handmaidens' Needle-sharp Poniards", 1, 8, 3, 3, 0, 1),
@@ -94,9 +82,11 @@ namespace Death {
         m_etherealWeapons.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void CovenThrone::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bite);
         model->addMeleeWeapon(&m_stiletto);
@@ -106,8 +96,6 @@ namespace Death {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void CovenThrone::onWounded() {

@@ -37,24 +37,12 @@ namespace Death {
     bool BloodseekerPalanquin::s_registered = false;
 
     Unit *BloodseekerPalanquin::Create(const ParameterList &parameters) {
-        auto unit = new BloodseekerPalanquin();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new BloodseekerPalanquin(legion, lore, trait, artefact, general);
     }
 
     int BloodseekerPalanquin::ComputePoints(const ParameterList& /*parameters*/) {
@@ -82,8 +70,8 @@ namespace Death {
         }
     }
 
-    BloodseekerPalanquin::BloodseekerPalanquin() :
-            LegionOfNagashBase("Bloodseeker Palanquin", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    BloodseekerPalanquin::BloodseekerPalanquin(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LegionOfNagashBase(legion, "Bloodseeker Palanquin", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 9, 1, 0, 0, -7, 0),
             m_blade(Weapon::Type::Melee, "Sanguinarch's Bloodletting Blade", 1, 4, 3, 3, -1, RAND_D3),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Host's Ethereal Weapons", 1, 12, 5, 4, 0, 1) {
@@ -96,9 +84,11 @@ namespace Death {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void BloodseekerPalanquin::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_blade);
@@ -107,8 +97,6 @@ namespace Death {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void BloodseekerPalanquin::onWounded() {

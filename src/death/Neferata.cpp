@@ -36,18 +36,10 @@ namespace Death {
     bool NeferataMortarchOfBlood::s_registered = false;
 
     Unit *NeferataMortarchOfBlood::Create(const ParameterList &parameters) {
-        auto unit = new NeferataMortarchOfBlood();
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new NeferataMortarchOfBlood(legion, lore, general);
     }
 
     int NeferataMortarchOfBlood::ComputePoints(const ParameterList& /*parameters*/) {
@@ -73,8 +65,8 @@ namespace Death {
         }
     }
 
-    NeferataMortarchOfBlood::NeferataMortarchOfBlood() :
-            LegionOfNagashBase("Neferata, Mortarch of Blood", 16, g_wounds, 10, 4, true, g_pointsPerUnit),
+    NeferataMortarchOfBlood::NeferataMortarchOfBlood(Legion legion, Lore lore, bool isGeneral) :
+            LegionOfNagashBase(legion, "Neferata, Mortarch of Blood", 16, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_akmetHar(Weapon::Type::Melee, "Akmet-har", 1, 5, 2, 3, -1, 1),
             m_akenSeth(Weapon::Type::Melee, "Aken-seth", 1, 2, 2, 3, -2, 2),
             m_skeletalClaws(Weapon::Type::Melee, "Nagadron's Skeletal Claws", 1, 6, 4, 3, -2, 2),
@@ -86,9 +78,9 @@ namespace Death {
         m_skeletalClaws.setMount(true);
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void NeferataMortarchOfBlood::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_akmetHar);
         model->addMeleeWeapon(&m_akenSeth);
@@ -98,8 +90,6 @@ namespace Death {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
     }
 
     void NeferataMortarchOfBlood::onWounded() {

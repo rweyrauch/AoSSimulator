@@ -36,28 +36,15 @@ namespace Death {
     bool VampireLordOnZombieDragon::s_registered = false;
 
     Unit *VampireLordOnZombieDragon::Create(const ParameterList &parameters) {
-        auto unit = new VampireLordOnZombieDragon();
-
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Deathlance);
         bool shield = GetBoolParam("Ancient Shield", parameters, true);
         bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
-
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
-
-        unit->configure(weapon, shield, chalice, lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new VampireLordOnZombieDragon(legion, weapon, shield, chalice, lore, trait, artefact, general);
     }
 
     int VampireLordOnZombieDragon::ComputePoints(const ParameterList& /*parameters*/) {
@@ -89,8 +76,8 @@ namespace Death {
         }
     }
 
-    VampireLordOnZombieDragon::VampireLordOnZombieDragon() :
-            LegionOfNagashBase("Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    VampireLordOnZombieDragon::VampireLordOnZombieDragon(Legion legion, WeaponOption option, bool shield, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            LegionOfNagashBase(legion, "Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_breath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_deathlance(Weapon::Type::Melee, "Deathlance", 1, 3, 3, 3, -1, 2),
             m_sword(Weapon::Type::Melee, "Vampiric Sword", 1, 4, 3, 3, -1, RAND_D3),
@@ -104,9 +91,11 @@ namespace Death {
         m_claws.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void VampireLordOnZombieDragon::configure(WeaponOption option, bool shield, bool chalice, Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_breath);
 
@@ -128,8 +117,6 @@ namespace Death {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_haveChaliceOfBlood = chalice;
-
-        m_points = g_pointsPerUnit;
     }
 
     void VampireLordOnZombieDragon::onWounded() {

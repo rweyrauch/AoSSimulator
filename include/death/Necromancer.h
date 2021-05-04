@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        Necromancer();
+        Necromancer(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Necromancer() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

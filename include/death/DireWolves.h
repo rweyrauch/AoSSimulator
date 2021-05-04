@@ -20,11 +20,9 @@ namespace Death {
 
         static void Init();
 
-        DireWolves(int points);
+        DireWolves(Legion legion, int numModels, int points);
 
         ~DireWolves() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

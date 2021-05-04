@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        BloodseekerPalanquin();
+        BloodseekerPalanquin(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BloodseekerPalanquin() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

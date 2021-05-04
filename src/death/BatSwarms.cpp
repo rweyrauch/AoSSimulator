@@ -21,18 +21,9 @@ namespace Death {
     bool BatSwarms::s_registered = false;
 
     Unit *BatSwarms::Create(const ParameterList &parameters) {
-        auto unit = new BatSwarms(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new BatSwarms(legion, numModels, ComputePoints(parameters));
     }
 
     int BatSwarms::ComputePoints(const ParameterList& parameters) {
@@ -62,32 +53,23 @@ namespace Death {
         }
     }
 
-    BatSwarms::BatSwarms(int points) :
-            LegionOfNagashBase("Bat Swarms", 12, g_wounds, 10, NoSave, true, points),
+    BatSwarms::BatSwarms(Legion legion, int numModels, int points) :
+            LegionOfNagashBase(legion, "Bat Swarms", 12, g_wounds, 10, NoSave, true, points),
             m_teeth(Weapon::Type::Melee, "Razor-sharp Teeth", 3, 5, 5, 5, 0, 1) {
         m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, BAT_SWARMS};
         m_weapons = {&m_teeth};
 
         s_globalToHitMod.connect(this, &BatSwarms::cloudOfHorrors, &m_cloudSlot);
-    }
-
-    BatSwarms::~BatSwarms() {
-        m_cloudSlot.disconnect();
-    }
-
-    bool BatSwarms::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_teeth);
             addModel(model);
         }
+    }
 
-        return true;
+    BatSwarms::~BatSwarms() {
+        m_cloudSlot.disconnect();
     }
 
     int BatSwarms::cloudOfHorrors(const Unit * /*attacker*/, const Weapon *weapon, const Unit *target) {

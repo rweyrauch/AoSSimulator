@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        VampireLord();
+        VampireLord(Legion legion, bool withSteed, bool withWings, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VampireLord() override = default;
 
     protected:
-
-        void configure(bool withSteed, bool withWings, bool chalice, Lore lore);
 
         void onStartHero(PlayerId player) override;
 

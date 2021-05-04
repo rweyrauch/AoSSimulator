@@ -20,8 +20,8 @@ namespace Death {
 
     bool BloodKnights::s_registered = false;
 
-    BloodKnights::BloodKnights(int points) :
-            LegionOfNagashBase("Blood Knights", 10, g_wounds, 10, 4, false, points),
+    BloodKnights::BloodKnights(Legion legion, int numModels, bool standardBearers, bool hornblowers, int points) :
+            LegionOfNagashBase(legion, "Blood Knights", 10, g_wounds, 10, 4, false, points),
             m_templarLanceOrBlade(Weapon::Type::Melee, "Templar Lance or Blade", 1, 3, 3, 3, -1, 1),
             m_templarLanceOrBladeKastellan(Weapon::Type::Melee, "Template Lance or Blade", 1, 4, 3, 3, -1, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
@@ -31,17 +31,6 @@ namespace Death {
         m_hoovesAndTeeth.setMount(true);
 
         s_globalBraveryMod.connect(this, &BloodKnights::standardBearerBraveryMod, &m_standardSlot);
-    }
-
-    BloodKnights::~BloodKnights() {
-        m_standardSlot.disconnect();
-    }
-
-    bool BloodKnights::configure(int numModels, bool standardBearers, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto kastellan = new Model(g_basesize, wounds());
         kastellan->addMeleeWeapon(&m_templarLanceOrBladeKastellan);
@@ -61,25 +50,18 @@ namespace Death {
             }
             addModel(model);
         }
+    }
 
-        return true;
+    BloodKnights::~BloodKnights() {
+        m_standardSlot.disconnect();
     }
 
     Unit *BloodKnights::Create(const ParameterList &parameters) {
-        auto unit = new BloodKnights(ComputePoints(parameters));
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, standardBearers, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new BloodKnights(legion, numModels, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void BloodKnights::Init() {

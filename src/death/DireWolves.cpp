@@ -21,20 +21,13 @@ namespace Death {
 
     bool DireWolves::s_registered = false;
 
-    DireWolves::DireWolves(int points) :
-            LegionOfNagashBase("Dire Wolves", 10, g_wounds, 10, 5, false, points),
+    DireWolves::DireWolves(Legion legion, int numModels, int points) :
+            LegionOfNagashBase(legion, "Dire Wolves", 10, g_wounds, 10, 5, false, points),
             m_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1),
             m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
         m_weapons = {&m_fangsAndClaws, &m_fangsAndClawsDoom};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool DireWolves::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto doomWolf = new Model(g_basesize, wounds());
         doomWolf->addMeleeWeapon(&m_fangsAndClawsDoom);
@@ -45,23 +38,12 @@ namespace Death {
             model->addMeleeWeapon(&m_fangsAndClaws);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *DireWolves::Create(const ParameterList &parameters) {
-        auto unit = new DireWolves(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new DireWolves(legion, numModels, ComputePoints(parameters));
     }
 
     void DireWolves::Init() {

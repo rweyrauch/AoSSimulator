@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        MannfredMortarchOfNight();
+        MannfredMortarchOfNight(Legion legion, bool isGeneral);
 
         ~MannfredMortarchOfNight() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

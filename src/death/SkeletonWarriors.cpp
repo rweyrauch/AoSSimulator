@@ -21,8 +21,8 @@ namespace Death {
 
     bool SkeletonWarriors::s_registered = false;
 
-    SkeletonWarriors::SkeletonWarriors(int points) :
-            LegionOfNagashBase("Skeleton Warriors", 4, g_wounds, 10, 6, false, points),
+    SkeletonWarriors::SkeletonWarriors(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
+            LegionOfNagashBase(legion, "Skeleton Warriors", 4, g_wounds, 10, 6, false, points),
             m_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1),
             m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade", 1, 2, 4, 4, 0, 1),
             m_ancientSpear(Weapon::Type::Melee, "Ancient Spear", 2, 1, 5, 4, 0, 1),
@@ -31,17 +31,6 @@ namespace Death {
         m_weapons = {&m_ancientBlade, &m_ancientBladeChampion, &m_ancientSpear, &m_ancientSpearChampion};
         m_battleFieldRole = Role::Battleline;
         s_globalBraveryMod.connect(this, &SkeletonWarriors::standardBearerBraveryMod, &m_standardSlot);
-    }
-
-    SkeletonWarriors::~SkeletonWarriors() {
-        m_standardSlot.disconnect();
-    }
-
-    bool SkeletonWarriors::configure(int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto champion = new Model(g_basesize, wounds());
         if (weapons == Ancient_Blade) {
@@ -67,26 +56,19 @@ namespace Death {
             }
             addModel(model);
         }
+    }
 
-        return true;
+    SkeletonWarriors::~SkeletonWarriors() {
+        m_standardSlot.disconnect();
     }
 
     Unit *SkeletonWarriors::Create(const ParameterList &parameters) {
-        auto unit = new SkeletonWarriors(ComputePoints(parameters));
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancient_Blade);
+        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancient_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, weapons, standardBearers, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SkeletonWarriors(legion, numModels, weapons, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void SkeletonWarriors::Init() {

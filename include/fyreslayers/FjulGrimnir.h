@@ -27,8 +27,6 @@ namespace Fyreslayers {
 
     protected:
 
-        void configure();
-
         void onStartHero(PlayerId player) override;
 
         void onEndCombat(PlayerId player) override;

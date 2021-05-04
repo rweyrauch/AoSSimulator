@@ -28,8 +28,6 @@ namespace Greenskinz {
 
     protected:
 
-        void configure(bool warboar);
-
         int castingModifier() const override;
 
     private:

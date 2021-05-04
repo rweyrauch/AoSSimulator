@@ -20,8 +20,8 @@ namespace Death {
 
     bool BlackKnights::s_registered = false;
 
-    BlackKnights::BlackKnights(int points) :
-            LegionOfNagashBase("Black Knights", 12, g_wounds, 10, 5, false, points),
+    BlackKnights::BlackKnights(Legion legion, int numModels, bool standardBearers, bool hornblowers, int points) :
+            LegionOfNagashBase(legion, "Black Knights", 12, g_wounds, 10, 5, false, points),
             m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1),
             m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 1, 3, 3, 4, 0, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
@@ -31,17 +31,6 @@ namespace Death {
         m_hoovesAndTeeth.setMount(true);
 
         s_globalBraveryMod.connect(this, &BlackKnights::standardBearerBraveryMod, &m_standardSlot);
-    }
-
-    BlackKnights::~BlackKnights() {
-        m_standardSlot.disconnect();
-    }
-
-    bool BlackKnights::configure(int numModels, bool standardBearers, bool hornblowers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto hellKnight = new Model(g_basesize, wounds());
         hellKnight->addMeleeWeapon(&m_barrowLanceKnight);
@@ -62,25 +51,18 @@ namespace Death {
 
             addModel(model);
         }
+    }
 
-        return true;
+    BlackKnights::~BlackKnights() {
+        m_standardSlot.disconnect();
     }
 
     Unit *BlackKnights::Create(const ParameterList &parameters) {
-        auto unit = new BlackKnights(ComputePoints(parameters));
+        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, standardBearers, hornblowers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new BlackKnights(legion, numModels, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void BlackKnights::Init() {

@@ -20,11 +20,9 @@ namespace Death {
 
         static void Init();
 
-        Zombies(int points);
+        Zombies(Legion legion, int numModels, bool standardBearer, bool noiseMaker, int points);
 
         ~Zombies() override;
-
-        bool configure(int numModels, bool standardBearer, bool noiseMaker);
 
     protected:
 

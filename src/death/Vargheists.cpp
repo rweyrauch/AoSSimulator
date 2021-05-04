@@ -20,19 +20,12 @@ namespace Death {
 
     bool Vargheists::s_registered = false;
 
-    Vargheists::Vargheists(int points) :
-            LegionOfNagashBase("Vargheists", 12, g_wounds, 10, 5, true, points),
+    Vargheists::Vargheists(Legion legion, int numModels, int points) :
+            LegionOfNagashBase(legion, "Vargheists", 12, g_wounds, 10, 5, true, points),
             m_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2),
             m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 4, 3, 3, -1, 2) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, VARGHEISTS};
         m_weapons = {&m_fangsAndTalons, &m_fangsAndTalonsVargoyle};
-    }
-
-    bool Vargheists::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         auto vargoyle = new Model(g_basesize, wounds());
         vargoyle->addMeleeWeapon(&m_fangsAndTalonsVargoyle);
@@ -43,23 +36,12 @@ namespace Death {
             model->addMeleeWeapon(&m_fangsAndTalons);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Vargheists::Create(const ParameterList &parameters) {
-        auto unit = new Vargheists(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new Vargheists(legion, numModels, ComputePoints(parameters));
     }
 
     void Vargheists::Init() {

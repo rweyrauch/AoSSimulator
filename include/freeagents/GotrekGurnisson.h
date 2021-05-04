@@ -23,13 +23,11 @@ namespace FreeAgent {
 
         static void Init();
 
-        GotrekGurnisson();
+        explicit GotrekGurnisson(bool isGeneral);
 
         ~GotrekGurnisson() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

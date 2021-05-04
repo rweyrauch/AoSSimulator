@@ -21,13 +21,11 @@ namespace Death {
 
         static void Init();
 
-        PrinceVhordrai();
+        PrinceVhordrai(Legion legion, Lore lore, bool isGeneral);
 
         ~PrinceVhordrai() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

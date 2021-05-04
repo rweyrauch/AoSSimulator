@@ -28,8 +28,6 @@ namespace FleshEaterCourt {
 
     protected:
 
-        void configure();
-
         void onStartHero(PlayerId player) override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;

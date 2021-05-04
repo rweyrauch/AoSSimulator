@@ -21,15 +21,13 @@ namespace Death {
 
         static void Init();
 
-        Nagash();
+        Nagash(Legion legion, bool isGeneral);
 
         ~Nagash() override = default;
 
         int castingModifier() const override;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

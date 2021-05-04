@@ -93,6 +93,8 @@ namespace Death {
             case Legion::Legion_Of_Blood:
                 addKeyword(LEGION_OF_BLOOD);
                 break;
+            default:
+                break;
         }
     }
 
