@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        PlaguePriestOnPlagueFurnace();
+        PlaguePriestOnPlagueFurnace(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~PlaguePriestOnPlagueFurnace() override;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

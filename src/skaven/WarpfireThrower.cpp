@@ -22,9 +22,7 @@ namespace Skaven {
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, WARPFIRE_THROWER};
         m_weapons = {&m_warpfireThrower, &m_rustyKnives};
-    }
 
-    void WarpfireThrower::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpfireThrower);
         model->addMeleeWeapon(&m_rustyKnives);
@@ -32,10 +30,7 @@ namespace Skaven {
     }
 
     Unit *WarpfireThrower::Create(const ParameterList &parameters) {
-        auto unit = new WarpfireThrower();
-
-        unit->configure();
-        return unit;
+        return new WarpfireThrower();
     }
 
     void WarpfireThrower::Init() {

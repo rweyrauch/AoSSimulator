@@ -22,9 +22,7 @@ namespace Skaven {
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, DOOM_FLAYER};
         m_weapons = {&m_whirlingBlades, &m_rustyKnives};
-    }
 
-    void Doomflayer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_whirlingBlades);
         model->addMeleeWeapon(&m_rustyKnives);
@@ -32,10 +30,7 @@ namespace Skaven {
     }
 
     Unit *Doomflayer::Create(const ParameterList &parameters) {
-        auto unit = new Doomflayer();
-
-        unit->configure();
-        return unit;
+        return new Doomflayer();
     }
 
     void Doomflayer::Init() {

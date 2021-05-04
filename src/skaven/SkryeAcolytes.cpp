@@ -20,15 +20,8 @@ namespace Skaven {
     bool SkryeAcolytes::s_registered = false;
 
     Unit *SkryeAcolytes::Create(const ParameterList &parameters) {
-        auto unit = new SkryeAcolytes(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SkryeAcolytes(numModels, ComputePoints(parameters));
     }
 
     int SkryeAcolytes::ComputePoints(const ParameterList& parameters) {
@@ -58,7 +51,7 @@ namespace Skaven {
         }
     }
 
-    SkryeAcolytes::SkryeAcolytes(int points) :
+    SkryeAcolytes::SkryeAcolytes(int numModels, int points) :
             Skaventide("Skrye Acolytes", 6, g_wounds, 4, 6, false, points),
             m_globe(Weapon::Type::Missile, "Poisoned Wind Globe", 8, 1, 4, 4, -2, RAND_D3),
             m_knife(Weapon::Type::Melee, "Rusty Knife", 1, 1, 5, 5, 0, 1) {
@@ -67,12 +60,6 @@ namespace Skaven {
 
         // Quick-quick Volley!
         m_runAndShoot = true;
-    }
-
-    bool SkryeAcolytes::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -80,8 +67,6 @@ namespace Skaven {
             model->addMeleeWeapon(&m_knife);
             addModel(model);
         }
-
-        return true;
     }
 
     int SkryeAcolytes::toHitModifier(const Weapon *weapon, const Unit *target) const {

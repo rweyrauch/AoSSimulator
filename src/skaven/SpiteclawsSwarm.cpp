@@ -16,10 +16,7 @@ namespace Skaven {
     bool SpiteclawsSwarm::s_registered = false;
 
     Unit *SpiteclawsSwarm::Create(const ParameterList &parameters) {
-        auto unit = new SpiteclawsSwarm();
-
-        unit->configure();
-        return unit;
+        return new SpiteclawsSwarm();
     }
 
     int SpiteclawsSwarm::ComputePoints(const ParameterList& /*parameters*/) {
@@ -51,9 +48,7 @@ namespace Skaven {
             m_punchDaggers(Weapon::Type::Melee, "Lurking Skaven's Punch Daggers", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, SPITECLAWS_SWARM};
         m_weapons = {&m_stabbingBlade, &m_rustyFlail, &m_rustySpear, &m_punchDaggers};
-    }
 
-    void SpiteclawsSwarm::configure() {
         auto krrk = new Model(g_basesize, wounds());
         krrk->addMeleeWeapon(&m_rustySpear);
         krrk->setName("Krrk the Almost-trusted");

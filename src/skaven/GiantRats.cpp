@@ -20,15 +20,8 @@ namespace Skaven {
     bool GiantRats::s_registered = false;
 
     Unit *GiantRats::Create(const ParameterList &parameters) {
-        auto unit = new GiantRats(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new GiantRats(numModels, ComputePoints(parameters));
     }
 
     int GiantRats::ComputePoints(const ParameterList& parameters) {
@@ -58,18 +51,11 @@ namespace Skaven {
         }
     }
 
-    GiantRats::GiantRats(int points) :
+    GiantRats::GiantRats(int numModels, int points) :
             Skaventide("Giant Rats", 8, g_wounds, 3, NoSave, false, points),
             m_teeth(Weapon::Type::Melee, "Vicious Teeth", 1, 1, 4, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVENTIDE, CLANS_MOULDER, PACK, GIANT_RATS};
         m_weapons = {&m_teeth};
-    }
-
-    bool GiantRats::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -78,8 +64,6 @@ namespace Skaven {
         }
 
         setTeethRange();
-
-        return true;
     }
 
     void GiantRats::setTeethRange() {

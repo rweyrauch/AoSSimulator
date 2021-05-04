@@ -24,9 +24,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, DOOMWHEEL};
         m_weapons = {&m_warpBolts, &m_grindingWheel, &m_teethAndKnives};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    void Doomwheel::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpBolts);
         model->addMeleeWeapon(&m_grindingWheel);
@@ -35,10 +33,7 @@ namespace Skaven {
     }
 
     Unit *Doomwheel::Create(const ParameterList &parameters) {
-        auto unit = new Doomwheel();
-
-        unit->configure();
-        return unit;
+        return new Doomwheel();
     }
 
     void Doomwheel::Init() {

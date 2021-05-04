@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        GutterRunners(int points);
+        GutterRunners(int numModels, int points);
 
         ~GutterRunners() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

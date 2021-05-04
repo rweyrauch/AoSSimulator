@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        WarlockBombardier();
+        WarlockBombardier(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WarlockBombardier() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onRestore() override;
 

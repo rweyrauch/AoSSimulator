@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        SkryeAcolytes(int points);
+        SkryeAcolytes(int numModels, int points);
 
         ~SkryeAcolytes() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

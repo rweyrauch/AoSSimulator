@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        GiantRats(int points);
+        GiantRats(int numModels, int points);
 
         ~GiantRats() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

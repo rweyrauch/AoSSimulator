@@ -25,10 +25,6 @@ namespace Skaven {
 
         ~WarpGrinder() override = default;
 
-    protected:
-
-        void configure();
-
     private:
 
         Weapon m_warpGrinder;

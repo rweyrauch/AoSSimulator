@@ -37,18 +37,10 @@ namespace Skaven {
     bool PlaguePriestOnPlagueFurnace::s_registered = false;
 
     Unit *PlaguePriestOnPlagueFurnace::Create(const ParameterList &parameters) {
-        auto unit = new PlaguePriestOnPlagueFurnace();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_pestilensCommandTraits[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_pestilensArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new PlaguePriestOnPlagueFurnace(trait, artefact, general);
     }
 
     void PlaguePriestOnPlagueFurnace::Init() {
@@ -71,7 +63,7 @@ namespace Skaven {
         }
     }
 
-    PlaguePriestOnPlagueFurnace::PlaguePriestOnPlagueFurnace() :
+    PlaguePriestOnPlagueFurnace::PlaguePriestOnPlagueFurnace(CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Plague Priest on Plague Furnace", 6, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_censer(Weapon::Type::Melee, "Great Plague Censer", 3, 1, 2, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Warpstone-tipped Staff", 2, 1, 4, 3, -1, RAND_D3),
@@ -83,19 +75,21 @@ namespace Skaven {
         m_battleFieldRole = Role::Leader_Behemoth;
 
         s_globalBraveryMod.connect(this, &PlaguePriestOnPlagueFurnace::altarOfTheHornedRat, &m_connection);
-    }
 
-    PlaguePriestOnPlagueFurnace::~PlaguePriestOnPlagueFurnace() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void PlaguePriestOnPlagueFurnace::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_censer);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_blades);
         model->addMeleeWeapon(&m_spikes);
         addModel(model);
+    }
+
+    PlaguePriestOnPlagueFurnace::~PlaguePriestOnPlagueFurnace() {
+        m_connection.disconnect();
     }
 
     void PlaguePriestOnPlagueFurnace::onWounded() {

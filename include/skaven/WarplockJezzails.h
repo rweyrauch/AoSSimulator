@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        WarplockJezzails(int points);
+        WarplockJezzails(int numModels, int points);
 
         ~WarplockJezzails() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

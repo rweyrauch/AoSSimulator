@@ -30,11 +30,9 @@ namespace Skaven {
 
         static void Init();
 
-        PlagueMonks(int points);
+        PlagueMonks(int numModels, WeaponOptions weapons, int bannerBearers, int harbingers, int points);
 
         ~PlagueMonks() override = default;
-
-        bool configure(int numModels, WeaponOptions weapons, int bannerBearers, int harbingers);
 
     protected:
 

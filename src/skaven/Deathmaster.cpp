@@ -18,29 +18,23 @@ namespace Skaven {
     bool Deathmaster::s_registered = false;
 
     Unit *Deathmaster::Create(const ParameterList &parameters) {
-        auto unit = new Deathmaster();
-        WeaponOption option = Weeping_Blades;
-
+        auto option = (WeaponOption) GetEnumParam("Weapon", parameters, Weeping_Blades);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_eshinClanCommandTraits[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_eshinArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(option);
-        return unit;
+        return new Deathmaster(option, trait, artefact, general);
     }
 
     void Deathmaster::Init() {
         if (!s_registered) {
+            static const std::array<int, 2> weapons = {Weeping_Blades, Fighting_Claws};
             static FactoryMethod factoryMethod = {
                     Create,
                     ValueToString,
                     EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Weapon", Weeping_Blades, weapons),
                             EnumParameter("Command Trait", g_eshinClanCommandTraits[0], g_eshinClanCommandTraits),
                             EnumParameter("Artefact", g_eshinArtefacts[0], g_eshinArtefacts),
                             BoolParameter("General")
@@ -53,7 +47,7 @@ namespace Skaven {
         }
     }
 
-    Deathmaster::Deathmaster() :
+    Deathmaster::Deathmaster(WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Deathmaster", 7, g_wounds, 5, 4, false, g_pointsPerUnit),
             m_stars(Weapon::Type::Missile, "Eshin Throwing Stars", 12, 4, 4, 5, 0, 1),
             m_blades(Weapon::Type::Melee, "Weeping Blades", 1, 3, 3, 3, -1, RAND_D3),
@@ -64,9 +58,11 @@ namespace Skaven {
 
         // Running Death
         m_runAndShoot = true;
-    }
 
-    void Deathmaster::configure(WeaponOption option) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_stars);
         if (option == Weeping_Blades)

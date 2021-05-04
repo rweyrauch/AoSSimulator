@@ -21,13 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        GreySeer();
+        GreySeer(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~GreySeer() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

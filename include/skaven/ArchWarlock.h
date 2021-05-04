@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        ArchWarlock();
+        ArchWarlock(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~ArchWarlock() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onRestore() override;
 

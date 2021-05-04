@@ -38,11 +38,9 @@ namespace Skaven {
 
         static void Init();
 
-        Stormfiends(int points);
+        Stormfiends(int numModels, WeaponOption1 weapon1, WeaponOption2 weapon2, WeaponOption3 weapon3, int points);
 
         ~Stormfiends() override = default;
-
-        bool configure(int numModels, WeaponOption1 weapon1, WeaponOption2 weapon2, WeaponOption3 weapon3);
 
     protected:
 

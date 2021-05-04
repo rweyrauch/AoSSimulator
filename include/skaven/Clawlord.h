@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        Clawlord();
+        Clawlord(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Clawlord() override = default;
 
     protected:
-
-        void configure();
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

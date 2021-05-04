@@ -61,18 +61,10 @@ namespace Skaven {
     bool VerminlordCorruptor::s_registered = false;
 
     Unit *VerminlordCorruptor::Create(const ParameterList &parameters) {
-        auto unit = new VerminlordCorruptor();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_pestilensCommandTraits[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_pestilensArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new VerminlordCorruptor(trait, artefact, general);
     }
 
     void VerminlordCorruptor::Init() {
@@ -95,12 +87,11 @@ namespace Skaven {
         }
     }
 
-    VerminlordCorruptor::VerminlordCorruptor() :
+    VerminlordCorruptor::VerminlordCorruptor(CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Verminlord Corruptor", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_tails(Weapon::Type::Missile, "Prehensile Tails", 6, 4, 3, 3, -1, 1),
             m_plaguereapers(Weapon::Type::Melee, "Plaguereapers", 1, 10, 3, 3, 0, 1) {
-        m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, NURGLE, CLANS_PESTILENS, MONSTER, HERO,
-                      WIZARD, VERMINLORD_CORRUPTOR};
+        m_keywords = {CHAOS, DAEMON, VERMINLORD, SKAVENTIDE, NURGLE, CLANS_PESTILENS, MONSTER, HERO, WIZARD, VERMINLORD_CORRUPTOR};
         m_weapons = {&m_tails, &m_plaguereapers};
         m_battleFieldRole = Role::Leader_Behemoth;
 
@@ -108,13 +99,11 @@ namespace Skaven {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    VerminlordCorruptor::~VerminlordCorruptor() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void VerminlordCorruptor::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_plaguereapers);
@@ -123,6 +112,10 @@ namespace Skaven {
         m_knownSpells.push_back(std::make_unique<DreadedPlague>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    VerminlordCorruptor::~VerminlordCorruptor() {
+        m_connection.disconnect();
     }
 
     Wounds VerminlordCorruptor::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

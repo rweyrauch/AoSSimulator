@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        ThanquolOnBoneripper();
+        ThanquolOnBoneripper(int numProjectors, Lore lore, bool isGeneral);
 
         ~ThanquolOnBoneripper() override = default;
-
-        bool configure(int numProjectors, Lore lore);
 
     protected:
 

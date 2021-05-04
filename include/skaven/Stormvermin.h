@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        Stormvermin(int points);
+        Stormvermin(int numModels, bool clanshields, int standardBearers, int drummers, int points);
 
         ~Stormvermin() override = default;
-
-        bool configure(int numModels, bool clanshields, int standardBearers, int drummers);
 
     protected:
 

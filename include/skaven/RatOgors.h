@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        RatOgors(int points);
+        RatOgors(int numModels, int numGuns, int points);
 
         ~RatOgors() override = default;
-
-        bool configure(int numModels, int numGuns);
 
     protected:
 

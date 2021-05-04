@@ -20,7 +20,7 @@ namespace Skaven {
 
     bool Clanrats::s_registered = false;
 
-    Clanrats::Clanrats(int points) :
+    Clanrats::Clanrats(int numModels, WeaponOptions weapons, bool clanshields, int standardBearers, int bellRingers, int points) :
             Skaventide("Clanrats", 6, g_wounds, 4, 6, false, points),
             m_rustySpear(Weapon::Type::Melee, "Rusty Spear", 2, 1, 5, 4, 0, 1),
             m_rustySpearLeader(Weapon::Type::Melee, "Rusty Spear", 2, 2, 5, 4, 0, 1),
@@ -29,18 +29,6 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, CLANRATS};
         m_weapons = {&m_rustySpear, &m_rustySpearLeader, &m_rustyBlade, &m_rustyBladeLeader};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool Clanrats::configure(int numModels, Clanrats::WeaponOptions weapons, bool clanshields, int standardBearers,
-                             int bellRingers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        int maxStandardBearers = numModels / g_minUnitSize;
-        int maxBellRingers = numModels / g_minUnitSize;
-        if (standardBearers > maxStandardBearers || bellRingers > maxBellRingers) {
-            return false;
-        }
 
         m_clanshields = clanshields;
         m_numStandardBearers = standardBearers;
@@ -66,24 +54,15 @@ namespace Skaven {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Clanrats::Create(const ParameterList &parameters) {
-        auto unit = new Clanrats(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOptions weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, (int) Rusty_Spear);
+        auto weapon = (WeaponOptions) GetEnumParam("Weapons", parameters, (int) Rusty_Spear);
         bool clanshields = GetBoolParam("Clanshields", parameters, false);
         int standardBearers = GetIntParam("Standard Bearers", parameters, 0);
         int bellRingers = GetIntParam("Bell Ringers", parameters, 0);
-
-        bool ok = unit->configure(numModels, weapon, clanshields, standardBearers, bellRingers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Clanrats(numModels, weapon, clanshields, standardBearers, bellRingers, ComputePoints(parameters));
     }
 
     void Clanrats::Init() {

@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        WarlockEngineer();
+        WarlockEngineer(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WarlockEngineer() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onRestore() override;
 

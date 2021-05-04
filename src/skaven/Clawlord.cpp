@@ -18,18 +18,10 @@ namespace Skaven {
     bool Clawlord::s_registered = false;
 
     Unit *Clawlord::Create(const ParameterList &parameters) {
-        auto unit = new Clawlord();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_verminousCommandTraits[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_verminousArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new Clawlord(trait, artefact, general);
     }
 
     void Clawlord::Init() {
@@ -52,15 +44,17 @@ namespace Skaven {
         }
     }
 
-    Clawlord::Clawlord() :
+    Clawlord::Clawlord(CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Clawlord", 6, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_blade(Weapon::Type::Melee, "Warpforged Blade", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD};
         m_weapons = {&m_blade};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void Clawlord::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blade);
         addModel(model);

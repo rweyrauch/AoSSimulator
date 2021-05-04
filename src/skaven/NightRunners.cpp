@@ -19,19 +19,13 @@ namespace Skaven {
 
     bool NightRunners::s_registered = false;
 
-    NightRunners::NightRunners(int points) :
+    NightRunners::NightRunners(int numModels, int points) :
             Skaventide("Night Runners", 7, g_wounds, 4, 6, false, points),
             m_throwingWeapons(Weapon::Type::Missile, "Eshin Throwing Weapons", 12, 1, 4, 5, 0, 1),
             m_stabbingBlade(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1),
             m_stabbingBladeLeader(Weapon::Type::Melee, "Stabbing Blade", 1, 1, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_ESHIN, NIGHT_RUNNERS};
         m_weapons = {&m_throwingWeapons, &m_stabbingBlade, &m_stabbingBladeLeader};
-    }
-
-    bool NightRunners::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Running Death
         m_runAndShoot = true;
@@ -47,20 +41,11 @@ namespace Skaven {
             model->addMeleeWeapon(&m_stabbingBlade);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *NightRunners::Create(const ParameterList &parameters) {
-        auto unit = new NightRunners(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new NightRunners(numModels, ComputePoints(parameters));
     }
 
     void NightRunners::Init() {

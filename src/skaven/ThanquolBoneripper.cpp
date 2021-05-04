@@ -38,16 +38,10 @@ namespace Skaven {
     bool ThanquolOnBoneripper::s_registered = false;
 
     Unit *ThanquolOnBoneripper::Create(const ParameterList &parameters) {
-        auto unit = new ThanquolOnBoneripper();
-        int numProjectors = 0;
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto projectors = GetIntParam("Projectors", parameters, 2);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greySeerLore[0]);
-
-        unit->configure(numProjectors, lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new ThanquolOnBoneripper(projectors, lore, general);
     }
 
     void ThanquolOnBoneripper::Init() {
@@ -58,6 +52,7 @@ namespace Skaven {
                     Skaventide::EnumStringToInt,
                     ComputePoints,
                     {
+                            IntegerParameter("Projectors", 2, 0, 4, 1),
                             EnumParameter("Lore", g_greySeerLore[0], g_greySeerLore),
                             BoolParameter("General")
                     },
@@ -69,7 +64,7 @@ namespace Skaven {
         }
     }
 
-    ThanquolOnBoneripper::ThanquolOnBoneripper() :
+    ThanquolOnBoneripper::ThanquolOnBoneripper(int numProjectors, Lore lore, bool isGeneral) :
             Skaventide("Thanquol on Boneripper", 10, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_projectors(Weapon::Type::Missile, "Warpfire Projectors", 8, 0, 0, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Staff of the Horned Rat", 2, 2, 4, 3, -1, RAND_D3),
@@ -82,9 +77,9 @@ namespace Skaven {
         m_blows.setMount(true);
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    bool ThanquolOnBoneripper::configure(int numProjectors, Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         for (auto i = 0; i < numProjectors; i++)
@@ -100,8 +95,6 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        return true;
     }
 
     Wounds ThanquolOnBoneripper::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

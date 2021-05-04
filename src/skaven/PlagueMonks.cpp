@@ -21,26 +21,12 @@ namespace Skaven {
 
     bool PlagueMonks::s_registered = false;
 
-    PlagueMonks::PlagueMonks(int points) :
+    PlagueMonks::PlagueMonks(int numModels, WeaponOptions weapons, int bannerBearers, int harbingers, int points) :
             Skaventide("Plague Monks", 6, g_wounds, 5, 6, false, points),
             m_pairedBlades(Weapon::Type::Melee, "Pair of Foetid Blade", 1, 2, 4, 4, 0, 1),
             m_bladeAndStave(Weapon::Type::Melee, "Foetid Blade Woe-stave", 2, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, PLAGUE_MONKS};
         m_weapons = {&m_pairedBlades, &m_bladeAndStave};
-    }
-
-    bool PlagueMonks::configure(int numModels, WeaponOptions weapons, int bannerBearers, int harbingers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        int maxBanners = numModels / g_minUnitSize;
-        int maxHarbingers = numModels / g_minUnitSize;
-        if (bannerBearers > maxBanners) {
-            return false;
-        }
-        if (harbingers > maxHarbingers) {
-            return false;
-        }
 
         m_weaponOption = weapons;
         m_numBanners = bannerBearers;
@@ -64,23 +50,14 @@ namespace Skaven {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *PlagueMonks::Create(const ParameterList &parameters) {
-        auto unit = new PlagueMonks(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOptions weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Paired_Foetid_Blades);
+        auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Paired_Foetid_Blades);
         int numBanners = GetIntParam("Standard Bearers", parameters, 1);
         int numHarbingers = GetIntParam("Plague Harbingers", parameters, 1);
-
-        bool ok = unit->configure(numModels, weapons, numBanners, numHarbingers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new PlagueMonks(numModels, weapons, numBanners, numHarbingers, ComputePoints(parameters));
     }
 
     void PlagueMonks::Init() {

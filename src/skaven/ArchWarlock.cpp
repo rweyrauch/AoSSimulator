@@ -21,20 +21,11 @@ namespace Skaven {
     bool ArchWarlock::s_registered = false;
 
     Unit *ArchWarlock::Create(const ParameterList &parameters) {
-        auto unit = new ArchWarlock();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skryreCommandTraits[0]);
-        unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_skryreArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_skryreLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skryreCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_skryreArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new ArchWarlock(lore, trait, artefact, general);
     }
 
     void ArchWarlock::Init() {
@@ -58,7 +49,7 @@ namespace Skaven {
         }
     }
 
-    ArchWarlock::ArchWarlock() :
+    ArchWarlock::ArchWarlock(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Arch-Warlock", 6, g_wounds, 6, 3, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Stormcage Halberd", 2, 1, 3, 3, -2, RAND_D3),
             m_claw(Weapon::Type::Melee, "Piston Claw", 1, 1, 4, 3, -2, 3) {
@@ -68,9 +59,11 @@ namespace Skaven {
 
         m_totalSpells = 2;
         m_totalUnbinds = 1;
-    }
 
-    void ArchWarlock::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         model->addMeleeWeapon(&m_claw);

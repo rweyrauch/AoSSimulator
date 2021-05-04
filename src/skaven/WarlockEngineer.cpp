@@ -20,20 +20,11 @@ namespace Skaven {
     bool WarlockEngineer::s_registered = false;
 
     Unit *WarlockEngineer::Create(const ParameterList &parameters) {
-        auto unit = new WarlockEngineer();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skryreCommandTraits[0]);
-        unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_skryreArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_skryreLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_skryreCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_skryreArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new WarlockEngineer(lore, trait, artefact, general);
     }
 
     void WarlockEngineer::Init() {
@@ -57,7 +48,7 @@ namespace Skaven {
         }
     }
 
-    WarlockEngineer::WarlockEngineer() :
+    WarlockEngineer::WarlockEngineer(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Warlock Engineer", 6, g_wounds, 5, 5, false, g_pointsPerUnit),
             m_pistol(Weapon::Type::Missile, "Warplock Pistol", 9, 1, 3, 3, -1, RAND_D3),
             m_blade(Weapon::Type::Melee, "Warp-energy Blade", 1, 1, 4, 3, -1, RAND_D3) {
@@ -67,9 +58,11 @@ namespace Skaven {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void WarlockEngineer::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistol);
         model->addMeleeWeapon(&m_blade);

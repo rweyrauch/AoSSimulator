@@ -30,13 +30,11 @@ namespace Skaven {
 
         static void Init();
 
-        Deathmaster();
+        Deathmaster(WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Deathmaster() override = default;
 
     protected:
-
-        void configure(WeaponOption option);
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

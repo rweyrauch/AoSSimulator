@@ -25,10 +25,6 @@ namespace Skaven {
 
         ~SpiteclawsSwarm() override = default;
 
-    protected:
-
-        void configure();
-
     private:
 
         Weapon m_stabbingBlade,

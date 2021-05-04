@@ -27,8 +27,6 @@ namespace Skaven {
 
     protected:
 
-        void configure();
-
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 
         void onRestore() override;

@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        PlagueCenserBearers(int points);
+        PlagueCenserBearers(int numModels, int points);
 
         ~PlagueCenserBearers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

@@ -17,9 +17,7 @@ namespace Skaven {
     bool Plagueclaw::s_registered = false;
 
     Unit *Plagueclaw::Create(const ParameterList &parameters) {
-        auto unit = new Plagueclaw();
-        unit->configure();
-        return unit;
+        return new Plagueclaw();
     }
 
     void Plagueclaw::Init() {
@@ -46,9 +44,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, WAR_MACHINE, PLAGUECLAW};
         m_weapons = {&m_catapult, &m_knives};
         m_battleFieldRole = Role::Artillery;
-    }
 
-    void Plagueclaw::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_catapult);
         model->addMeleeWeapon(&m_knives);

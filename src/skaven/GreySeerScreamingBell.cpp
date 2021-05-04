@@ -63,20 +63,11 @@ namespace Skaven {
     bool GreySeerOnScreamingBell::s_registered = false;
 
     Unit *GreySeerOnScreamingBell::Create(const ParameterList &parameters) {
-        auto unit = new GreySeerOnScreamingBell();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterClanCommandTraits[0]);
-        unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_masterClanArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greySeerLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterClanCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_masterClanArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new GreySeerOnScreamingBell(lore, trait, artefact, general);
     }
 
     void GreySeerOnScreamingBell::Init() {
@@ -100,13 +91,12 @@ namespace Skaven {
         }
     }
 
-    GreySeerOnScreamingBell::GreySeerOnScreamingBell() :
+    GreySeerOnScreamingBell::GreySeerOnScreamingBell(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Grey Seer on Screaming Bell", 6, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Warpstone Staff", 2, 3, 4, 4, -1, 1),
             m_clawsAndFangs(Weapon::Type::Melee, "Tearing Claws and Fangs", 1, 4, 4, 3, -1, 2),
             m_spikes(Weapon::Type::Melee, "Rusty Spikes", 1, RAND_D6, 2, 3, -1, 1) {
-        m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, WAR_MACHINE, HERO, WIZARD, SCREAMING_BELL,
-                      GREY_SEER};
+        m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, WAR_MACHINE, HERO, WIZARD, SCREAMING_BELL, GREY_SEER};
         m_weapons = {&m_staff, &m_clawsAndFangs, &m_spikes};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
@@ -116,14 +106,11 @@ namespace Skaven {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    GreySeerOnScreamingBell::~GreySeerOnScreamingBell() {
-        m_connection.disconnect();
-        m_unholySoundConnection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void GreySeerOnScreamingBell::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_clawsAndFangs);
@@ -134,6 +121,11 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    GreySeerOnScreamingBell::~GreySeerOnScreamingBell() {
+        m_connection.disconnect();
+        m_unholySoundConnection.disconnect();
     }
 
     Wounds GreySeerOnScreamingBell::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

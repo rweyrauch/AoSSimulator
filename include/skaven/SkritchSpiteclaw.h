@@ -21,13 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        SkritchSpiteclaw();
+        explicit SkritchSpiteclaw(bool isGeneral);
 
         ~SkritchSpiteclaw() override = default;
-
-    protected:
-
-        void configure();
 
     private:
 

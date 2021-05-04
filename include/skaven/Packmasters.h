@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        Packmasters(int points);
+        Packmasters(int numModels, int numCatchers, int points);
 
         ~Packmasters() override;
-
-        bool configure(int numModels, int numCatchers);
 
     protected:
 

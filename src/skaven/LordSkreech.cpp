@@ -38,15 +38,9 @@ namespace Skaven {
     bool LordSkreechVerminking::s_registered = false;
 
     Unit *LordSkreechVerminking::Create(const ParameterList &parameters) {
-        auto unit = new LordSkreechVerminking();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_skryreLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new LordSkreechVerminking(lore, general);
     }
 
     void LordSkreechVerminking::Init() {
@@ -68,7 +62,7 @@ namespace Skaven {
         }
     }
 
-    LordSkreechVerminking::LordSkreechVerminking() :
+    LordSkreechVerminking::LordSkreechVerminking(Lore lore, bool isGeneral) :
             Skaventide("Lord Skreech Verminking", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_tails(Weapon::Type::Missile, "Prehensile Tails", 6, 4, 3, 3, -1, 1),
             m_glaive(Weapon::Type::Melee, "Doom Glaive", 3, 6, 3, 3, -1, RAND_D3),
@@ -82,13 +76,9 @@ namespace Skaven {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    LordSkreechVerminking::~LordSkreechVerminking() {
-        m_connection.disconnect();
-    }
+        setGeneral(isGeneral);
 
-    void LordSkreechVerminking::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_glaive);
@@ -99,6 +89,10 @@ namespace Skaven {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    LordSkreechVerminking::~LordSkreechVerminking() {
+        m_connection.disconnect();
     }
 
     Wounds LordSkreechVerminking::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

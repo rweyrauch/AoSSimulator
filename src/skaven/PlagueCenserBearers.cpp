@@ -21,15 +21,8 @@ namespace Skaven {
     bool PlagueCenserBearers::s_registered = false;
 
     Unit *PlagueCenserBearers::Create(const ParameterList &parameters) {
-        auto unit = new PlagueCenserBearers(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new PlagueCenserBearers(numModels, ComputePoints(parameters));
     }
 
     int PlagueCenserBearers::ComputePoints(const ParameterList& parameters) {
@@ -59,25 +52,17 @@ namespace Skaven {
         }
     }
 
-    PlagueCenserBearers::PlagueCenserBearers(int points) :
+    PlagueCenserBearers::PlagueCenserBearers(int numModels, int points) :
             Skaventide("Plague Censer Bearers", 6, g_wounds, 5, 6, false, points),
             m_censer(Weapon::Type::Melee, "Plague Censer", 2, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, PLAGUE_CENSER_BEARERS};
         m_weapons = {&m_censer};
-    }
-
-    bool PlagueCenserBearers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_censer);
             addModel(model);
         }
-
-        return true;
     }
 
     int PlagueCenserBearers::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

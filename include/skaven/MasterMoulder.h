@@ -26,13 +26,11 @@ namespace Skaven {
 
         static void Init();
 
-        MasterMoulder();
+        MasterMoulder(WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~MasterMoulder() override;
 
     protected:
-
-        void configure(WeaponOption option);
 
         void onStartHero(PlayerId player) override;
 

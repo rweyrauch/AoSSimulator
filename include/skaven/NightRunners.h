@@ -21,11 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        NightRunners(int points);
+        NightRunners(int numModels, int points);
 
         ~NightRunners() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

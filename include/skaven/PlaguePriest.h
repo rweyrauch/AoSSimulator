@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        PlaguePriest();
+        PlaguePriest(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~PlaguePriest() override = default;
 
     protected:
-
-        void configure();
 
         void onEndCombat(PlayerId player) override;
 

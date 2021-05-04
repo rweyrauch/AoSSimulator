@@ -27,8 +27,6 @@ namespace Skaven {
 
     protected:
 
-        void configure();
-
         void onStartHero(PlayerId player) override;
 
         int generateMortalWounds(const Unit *unit) override;

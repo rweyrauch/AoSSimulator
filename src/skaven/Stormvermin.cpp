@@ -19,23 +19,12 @@ namespace Skaven {
 
     bool Stormvermin::s_registered = false;
 
-    Stormvermin::Stormvermin(int points) :
+    Stormvermin::Stormvermin(int numModels, bool clanshields, int standardBearers, int drummers, int points) :
             Skaventide("Stormvermin", 6, g_wounds, 5, 5, false, points),
             m_rustyHalberd(Weapon::Type::Melee, "Rusty Halberd", 2, 2, 4, 3, -1, 1),
             m_rustyHalberdLeader(Weapon::Type::Melee, "Rusty Halberd", 2, 3, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, STORMVERMIN};
         m_weapons = {&m_rustyHalberd, &m_rustyHalberdLeader};
-    }
-
-    bool Stormvermin::configure(int numModels, bool clanshields, int standardBearers, int drummers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        int maxStandardBearers = numModels / g_minUnitSize;
-        int maxDummers = numModels / g_minUnitSize;
-        if (standardBearers > maxStandardBearers || drummers > maxDummers) {
-            return false;
-        }
 
         m_clanshields = clanshields;
         m_numStandardBearers = standardBearers;
@@ -53,23 +42,14 @@ namespace Skaven {
             model->addMeleeWeapon(&m_rustyHalberd);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Stormvermin::Create(const ParameterList &parameters) {
-        auto unit = new Stormvermin(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool clanshields = GetBoolParam("Clanshields", parameters, false);
         int standardBearers = GetIntParam("Standard Bearers", parameters, 0);
         int drummers = GetIntParam("Drummers", parameters, 0);
-
-        bool ok = unit->configure(numModels, clanshields, standardBearers, drummers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Stormvermin(numModels, clanshields, standardBearers, drummers, ComputePoints(parameters));
     }
 
     void Stormvermin::Init() {

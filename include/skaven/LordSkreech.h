@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        LordSkreechVerminking();
+        LordSkreechVerminking(Lore lore, bool isGeneral);
 
         ~LordSkreechVerminking() override;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

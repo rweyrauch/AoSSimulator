@@ -21,13 +21,9 @@ namespace Skaven {
 
         static void Init();
 
-        RatSwarms(int points);
+        RatSwarms(int numModels, int points);
 
         ~RatSwarms() override = default;
-
-        bool configure(int numModels);
-
-    protected:
 
     private:
 

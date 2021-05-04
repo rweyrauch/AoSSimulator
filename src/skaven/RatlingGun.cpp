@@ -22,9 +22,7 @@ namespace Skaven {
             m_rustyKnives(Weapon::Type::Melee, "Rusty Knives", 1, 2, 5, 5, 0, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, RATLING_GUN};
         m_weapons = {&m_ratlingGun, &m_rustyKnives};
-    }
 
-    void RatlingGun::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_ratlingGun);
         model->addMeleeWeapon(&m_rustyKnives);
@@ -32,10 +30,7 @@ namespace Skaven {
     }
 
     Unit *RatlingGun::Create(const ParameterList &parameters) {
-        auto unit = new RatlingGun();
-
-        unit->configure();
-        return unit;
+        return new RatlingGun();
     }
 
     void RatlingGun::Init() {

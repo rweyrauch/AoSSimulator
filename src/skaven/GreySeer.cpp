@@ -44,20 +44,11 @@ namespace Skaven {
     bool GreySeer::s_registered = false;
 
     Unit *GreySeer::Create(const ParameterList &parameters) {
-        auto unit = new GreySeer();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterClanCommandTraits[0]);
-        unit->setCommandTrait(trait);
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_masterClanArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_greySeerLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_masterClanCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_masterClanArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new GreySeer(lore, trait, artefact, general);
     }
 
     void GreySeer::Init() {
@@ -81,7 +72,7 @@ namespace Skaven {
         }
     }
 
-    GreySeer::GreySeer() :
+    GreySeer::GreySeer(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Grey Seer", 6, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Warpstone Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, MASTERCLAN, HERO, WIZARD, GREY_SEER};
@@ -90,9 +81,11 @@ namespace Skaven {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    void GreySeer::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

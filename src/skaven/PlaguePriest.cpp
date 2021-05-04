@@ -19,18 +19,10 @@ namespace Skaven {
     bool PlaguePriest::s_registered = false;
 
     Unit *PlaguePriest::Create(const ParameterList &parameters) {
-        auto unit = new PlaguePriest();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_pestilensCommandTraits[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_pestilensArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new PlaguePriest(trait, artefact, general);
     }
 
     void PlaguePriest::Init() {
@@ -53,16 +45,18 @@ namespace Skaven {
         }
     }
 
-    PlaguePriest::PlaguePriest() :
+    PlaguePriest::PlaguePriest(CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Plague Priest", 6, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Warpstone-tipped Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_censer(Weapon::Type::Melee, "Plague Censer", 2, 2, 4, 3, -1, 1) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, NURGLE, CLANS_PESTILENS, HERO, PRIEST, PLAGUE_PRIEST};
         m_weapons = {&m_staff, &m_censer};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void PlaguePriest::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_censer);

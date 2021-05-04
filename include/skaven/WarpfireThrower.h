@@ -27,8 +27,6 @@ namespace Skaven {
 
     protected:
 
-        void configure();
-
         int generateMortalWounds(const Unit *unit) override;
 
     private:

@@ -44,18 +44,16 @@ namespace Skaven {
         m_battleFieldRole = Role::Behemoth;
 
         s_globalBraveryMod.connect(this, &HellPitAbomination::terrifying, &m_connection);
-    }
 
-    HellPitAbomination::~HellPitAbomination() {
-        m_connection.disconnect();
-    }
-
-    void HellPitAbomination::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gnashingTeath);
         model->addMeleeWeapon(&m_flailingFists);
         model->addMeleeWeapon(&m_avalancheOfFlesh);
         addModel(model);
+    }
+
+    HellPitAbomination::~HellPitAbomination() {
+        m_connection.disconnect();
     }
 
     size_t HellPitAbomination::getDamageTableIndex() const {
@@ -69,10 +67,7 @@ namespace Skaven {
     }
 
     Unit *HellPitAbomination::Create(const ParameterList &parameters) {
-        auto unit = new HellPitAbomination();
-
-        unit->configure();
-        return unit;
+        return new HellPitAbomination();
     }
 
     void HellPitAbomination::Init() {

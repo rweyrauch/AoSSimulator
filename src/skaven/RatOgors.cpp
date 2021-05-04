@@ -20,16 +20,9 @@ namespace Skaven {
     bool RatOgors::s_registered = false;
 
     Unit *RatOgors::Create(const ParameterList &parameters) {
-        auto unit = new RatOgors(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numGuns = GetIntParam("Warpfire Guns", parameters, g_minUnitSize / 2);
-
-        bool ok = unit->configure(numModels, numGuns);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new RatOgors(numModels, numGuns, ComputePoints(parameters));
     }
 
     int RatOgors::ComputePoints(const ParameterList& parameters) {
@@ -61,22 +54,12 @@ namespace Skaven {
         }
     }
 
-    RatOgors::RatOgors(int points) :
+    RatOgors::RatOgors(int numModels, int numGuns, int points) :
             Skaventide("Rat Ogors", 6, g_wounds, 5, 5, false, points),
             m_gun(Weapon::Type::Missile, "Warpfire Gun", 16, 1, 5, 3, -1, RAND_D3),
             m_clawsBladesAndFangs(Weapon::Type::Melee, "Tearing Claws, Blades and Fangs", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, FIGHTING_BEAST, PACK, RAT_OGORS};
         m_weapons = {&m_gun, &m_clawsBladesAndFangs};
-    }
-
-    bool RatOgors::configure(int numModels, int numGuns) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxGuns = numModels / 2;
-        if (numGuns > maxGuns) {
-            return false;
-        }
 
         for (auto i = 0; i < numGuns; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -89,8 +72,6 @@ namespace Skaven {
             model->addMeleeWeapon(&m_clawsBladesAndFangs);
             addModel(model);
         }
-
-        return true;
     }
 
     int RatOgors::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {

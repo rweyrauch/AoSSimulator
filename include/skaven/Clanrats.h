@@ -30,11 +30,9 @@ namespace Skaven {
 
         static void Init();
 
-        Clanrats(int points);
+        Clanrats(int numModels, WeaponOptions weapons, bool clanshields, int standardBearers, int bellRingers, int points);
 
         ~Clanrats() override = default;
-
-        bool configure(int numModels, WeaponOptions weapons, bool clanshields, int standardBearers, int bellRingers);
 
     protected:
 

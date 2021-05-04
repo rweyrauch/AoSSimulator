@@ -24,9 +24,7 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WAR_MACHINE, WARP_LIGHTNING_CANNON};
         m_weapons = {&m_warpLightningBlast, &m_teethAndKnives};
         m_battleFieldRole = Role::Artillery;
-    }
 
-    void WarpLightningCannon::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_warpLightningBlast);
         model->addMeleeWeapon(&m_teethAndKnives);
@@ -34,10 +32,7 @@ namespace Skaven {
     }
 
     Unit *WarpLightningCannon::Create(const ParameterList &parameters) {
-        auto unit = new WarpLightningCannon();
-
-        unit->configure();
-        return unit;
+        return new WarpLightningCannon();
     }
 
     void WarpLightningCannon::Init() {

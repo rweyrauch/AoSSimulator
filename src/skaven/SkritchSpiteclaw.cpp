@@ -16,13 +16,8 @@ namespace Skaven {
     bool SkritchSpiteclaw::s_registered = false;
 
     Unit *SkritchSpiteclaw::Create(const ParameterList &parameters) {
-        auto unit = new SkritchSpiteclaw();
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new SkritchSpiteclaw(general);
     }
 
     int SkritchSpiteclaw::ComputePoints(const ParameterList& /*parameters*/) {
@@ -47,15 +42,15 @@ namespace Skaven {
         }
     }
 
-    SkritchSpiteclaw::SkritchSpiteclaw() :
+    SkritchSpiteclaw::SkritchSpiteclaw(bool isGeneral) :
             Skaventide("Skritch Spiteclaw", 6, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Wicked Halberd", 2, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_VERMINUS, HERO, CLAWLORD, SKRITCH_SPITECLAW};
         m_weapons = {&m_halberd};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void SkritchSpiteclaw::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);

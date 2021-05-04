@@ -37,18 +37,10 @@ namespace Skaven {
     bool VerminlordDeceiver::s_registered = false;
 
     Unit *VerminlordDeceiver::Create(const ParameterList &parameters) {
-        auto unit = new VerminlordDeceiver();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_eshinClanCommandTraits[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_eshinArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new VerminlordDeceiver(trait, artefact, general);
     }
 
     void VerminlordDeceiver::Init() {
@@ -71,7 +63,7 @@ namespace Skaven {
         }
     }
 
-    VerminlordDeceiver::VerminlordDeceiver() :
+    VerminlordDeceiver::VerminlordDeceiver(CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Verminlord Deceiver", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_doomstar(Weapon::Type::Missile, "Doomstar", 13, 1, 3, 3, -1, RAND_D3),
             m_tails(Weapon::Type::Missile, "Prehensile Tail", 6, 4, 3, 3, -1, 1),
@@ -85,13 +77,11 @@ namespace Skaven {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    VerminlordDeceiver::~VerminlordDeceiver() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void VerminlordDeceiver::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_doomstar);
         model->addMissileWeapon(&m_tails);
@@ -101,6 +91,10 @@ namespace Skaven {
         //m_knownSpells.push_back(std::make_unique<DreadedSkitterleap>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    VerminlordDeceiver::~VerminlordDeceiver() {
+        m_connection.disconnect();
     }
 
     Wounds VerminlordDeceiver::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

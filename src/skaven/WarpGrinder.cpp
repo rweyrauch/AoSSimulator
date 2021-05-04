@@ -17,10 +17,7 @@ namespace Skaven {
     bool WarpGrinder::s_registered = false;
 
     Unit *WarpGrinder::Create(const ParameterList &parameters) {
-        auto unit = new WarpGrinder();
-
-        unit->configure();
-        return unit;
+        return new WarpGrinder();
     }
 
     void WarpGrinder::Init() {
@@ -45,9 +42,7 @@ namespace Skaven {
             m_warpGrinder(Weapon::Type::Melee, "Warp-grinder", 1, 1, 4, 3, -2, 2) {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_SKRYRE, WEAPON_TEAM, WARP_GRINDER};
         m_weapons = {&m_warpGrinder};
-    }
 
-    void WarpGrinder::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warpGrinder);
         addModel(model);

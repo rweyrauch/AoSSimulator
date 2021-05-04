@@ -20,16 +20,9 @@ namespace Skaven {
     bool Packmasters::s_registered = false;
 
     Unit *Packmasters::Create(const ParameterList &parameters) {
-        auto unit = new Packmasters(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numCatchers = GetIntParam("Thing-catchers", parameters, g_minUnitSize / 3);
-
-        bool ok = unit->configure(numModels, numCatchers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Packmasters(numModels, numCatchers, ComputePoints(parameters));
     }
 
     int Packmasters::ComputePoints(const ParameterList& parameters) {
@@ -61,7 +54,7 @@ namespace Skaven {
         }
     }
 
-    Packmasters::Packmasters(int points) :
+    Packmasters::Packmasters(int numModels, int numCatchers, int points) :
             Skaventide("Packmasters", 6, g_wounds, 5, 6, false, points),
             m_whip(Weapon::Type::Melee, "Herding Whip", 3, 1, 4, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Rusty Blade", 1, 2, 4, 4, 0, 1),
@@ -71,21 +64,6 @@ namespace Skaven {
 
         s_globalToHitMod.connect(this, &Packmasters::crackTheWhip, &m_whipSlot);
         s_globalBraveryMod.connect(this, &Packmasters::crackTheWhipBravery, &m_whipBraverySlot);
-    }
-
-    Packmasters::~Packmasters() {
-        m_whipSlot.disconnect();
-        m_whipBraverySlot.disconnect();
-    }
-
-    bool Packmasters::configure(int numModels, int numCatchers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-        const int maxCatchers = numModels / 3;
-        if (numCatchers > maxCatchers) {
-            return false;
-        }
 
         for (auto i = 0; i < numCatchers; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -99,8 +77,11 @@ namespace Skaven {
             model->addMeleeWeapon(&m_blade);
             addModel(model);
         }
+    }
 
-        return true;
+    Packmasters::~Packmasters() {
+        m_whipSlot.disconnect();
+        m_whipBraverySlot.disconnect();
     }
 
     int Packmasters::crackTheWhip(const Unit *attacker, const Weapon * /*weapon*/, const Unit * /*target*/) {

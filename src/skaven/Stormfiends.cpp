@@ -20,7 +20,7 @@ namespace Skaven {
 
     bool Stormfiends::s_registered = false;
 
-    Stormfiends::Stormfiends(int points) :
+    Stormfiends::Stormfiends(int numModels, WeaponOption1 weapon1, WeaponOption2 weapon2, WeaponOption3 weapon3, int points) :
             Skaventide("Stormfiends", 6, g_wounds, 6, 4, false, points),
             m_ratlingCannons(Weapon::Type::Missile, "Ratling Cannons", 12, RAND_3D6, 4, 3, -1, 1),
             m_windlaunchers(Weapon::Type::Missile, "Windlaunchers", 24, 3, 4, 4, -3, RAND_D3),
@@ -32,13 +32,6 @@ namespace Skaven {
         m_keywords = {CHAOS, SKAVEN, SKAVENTIDE, CLANS_MOULDER, CLANS_SKRYRE, STORMFIENDS};
         m_weapons = {&m_ratlingCannons, &m_windlaunchers, &m_warpfireProjectors, &m_doomfireGauntlets, &m_grinderfists,
                      &m_shockGauntlets, &m_clubbingBlows};
-    }
-
-    bool Stormfiends::configure(int numModels, Stormfiends::WeaponOption1 weapon1, Stormfiends::WeaponOption2 weapon2,
-                                Stormfiends::WeaponOption3 weapon3) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_weapons1 = weapon1;
         m_weapons2 = weapon2;
@@ -80,23 +73,14 @@ namespace Skaven {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Stormfiends::Create(const ParameterList &parameters) {
-        auto unit = new Stormfiends(ComputePoints(parameters));
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOption1 weapon1 = (WeaponOption1) GetEnumParam("Weapon A", parameters, Warpfire_Projectors);
-        WeaponOption2 weapon2 = (WeaponOption2) GetEnumParam("Weapon B", parameters, Grinderfists);
-        WeaponOption3 weapon3 = (WeaponOption3) GetEnumParam("Weapon C", parameters, Doomflayer_Gauntlets);
-
-        bool ok = unit->configure(numModels, weapon1, weapon2, weapon3);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        auto weapon1 = (WeaponOption1) GetEnumParam("Weapon A", parameters, Warpfire_Projectors);
+        auto weapon2 = (WeaponOption2) GetEnumParam("Weapon B", parameters, Grinderfists);
+        auto weapon3 = (WeaponOption3) GetEnumParam("Weapon C", parameters, Doomflayer_Gauntlets);
+        return new Stormfiends(numModels, weapon1, weapon2, weapon3, ComputePoints(parameters));
     }
 
     void Stormfiends::Init() {

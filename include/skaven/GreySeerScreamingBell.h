@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        GreySeerOnScreamingBell();
+        GreySeerOnScreamingBell(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~GreySeerOnScreamingBell() override;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

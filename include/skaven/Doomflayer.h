@@ -28,8 +28,6 @@ namespace Skaven {
 
     protected:
 
-        void configure();
-
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;

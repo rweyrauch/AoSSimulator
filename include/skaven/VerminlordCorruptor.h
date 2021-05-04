@@ -21,13 +21,11 @@ namespace Skaven {
 
         static void Init();
 
-        VerminlordCorruptor();
+        VerminlordCorruptor(CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VerminlordCorruptor() override;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

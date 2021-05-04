@@ -38,18 +38,10 @@ namespace Skaven {
     bool VerminlordWarbringer::s_registered = false;
 
     Unit *VerminlordWarbringer::Create(const ParameterList &parameters) {
-        auto unit = new VerminlordWarbringer();
-
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_verminousCommandTraits[0]);
-        unit->setCommandTrait(trait);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_verminousArtefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new VerminlordWarbringer(trait, artefact, general);
     }
 
     void VerminlordWarbringer::Init() {
@@ -72,7 +64,7 @@ namespace Skaven {
         }
     }
 
-    VerminlordWarbringer::VerminlordWarbringer() :
+    VerminlordWarbringer::VerminlordWarbringer(CommandTrait trait, Artefact artefact, bool isGeneral) :
             Skaventide("Verminlord Warbringer", 12, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_tails(Weapon::Type::Missile, "Prehensile Tails", 6, 4, 3, 3, -1, 1),
             m_glaive(Weapon::Type::Melee, "Doom Glaive", 3, 6, 3, 3, -1, RAND_D3),
@@ -86,13 +78,11 @@ namespace Skaven {
 
         m_totalSpells = 2;
         m_totalUnbinds = 2;
-    }
 
-    VerminlordWarbringer::~VerminlordWarbringer() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void VerminlordWarbringer::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tails);
         model->addMeleeWeapon(&m_glaive);
@@ -102,6 +92,10 @@ namespace Skaven {
         //m_knownSpells.push_back(std::make_unique<DreadedDeathFrenzy>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    VerminlordWarbringer::~VerminlordWarbringer() {
+        m_connection.disconnect();
     }
 
     Wounds VerminlordWarbringer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
