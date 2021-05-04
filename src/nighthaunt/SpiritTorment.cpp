@@ -17,11 +17,12 @@ namespace Nighthaunt {
     bool SpiritTorment::s_registered = false;
 
     Unit *SpiritTorment::Create(const ParameterList &parameters) {
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
 
-        return new SpiritTorment(trait, artefact, general);
+        return new SpiritTorment(procession, trait, artefact, general);
     }
 
     void SpiritTorment::Init() {
@@ -32,6 +33,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     SpiritTorment::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
@@ -43,8 +45,8 @@ namespace Nighthaunt {
         }
     }
 
-    SpiritTorment::SpiritTorment(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            Nighthaunt("Spirit Torment", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
+    SpiritTorment::SpiritTorment(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Nighthaunt(procession, "Spirit Torment", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, SPIRIT_TORMENT};
         m_weapons = {&m_chains};
         m_battleFieldRole = Role::Leader;

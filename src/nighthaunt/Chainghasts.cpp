@@ -9,6 +9,7 @@
 #include <nighthaunt/Chainghasts.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 32;
@@ -20,8 +21,8 @@ namespace Nighthaunt {
 
     bool Chainghasts::s_registered = false;
 
-    Chainghasts::Chainghasts(int numModels, int points) :
-            Nighthaunt("Chainghasts", 6, g_wounds, 10, 4, true, points) {
+    Chainghasts::Chainghasts(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Chainghasts", 6, g_wounds, 10, 4, true, points) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
         m_weapons = {&m_ghastflailsMissile, &m_ghastflails};
 
@@ -41,7 +42,8 @@ namespace Nighthaunt {
 
     Unit *Chainghasts::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new Chainghasts(numModels, ComputePoints(parameters));
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
+        return new Chainghasts(procession, numModels, ComputePoints(parameters));
     }
 
     void Chainghasts::Init() {
@@ -52,6 +54,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     Chainghasts::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,

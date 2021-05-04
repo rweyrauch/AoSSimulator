@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        MyrmournBanshees(int points);
+        MyrmournBanshees(Procession procession, int numModels, int points);
 
         ~MyrmournBanshees() override = default;
-
-        bool configure(int numModels);
 
     private:
 

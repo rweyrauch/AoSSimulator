@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "nighthaunt/Mourngul.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 170; // x105 oval
@@ -33,7 +34,8 @@ namespace Nighthaunt {
             };
 
     Unit *Mourngul::Create(const ParameterList &parameters) {
-        return new Mourngul();
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
+        return new Mourngul(procession);
     }
 
     void Mourngul::Init() {
@@ -44,6 +46,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     Mourngul::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -52,8 +55,8 @@ namespace Nighthaunt {
         }
     }
 
-    Mourngul::Mourngul() :
-            Nighthaunt("Mourngul", 12, g_wounds, 10, 4, true, g_pointsPerUnit) {
+    Mourngul::Mourngul(Procession procession) :
+            Nighthaunt(procession, "Mourngul", 12, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, MONSTER, MOURNGUL};
         m_weapons = {&m_clawsAndFangs};
 

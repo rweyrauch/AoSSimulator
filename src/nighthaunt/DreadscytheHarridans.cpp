@@ -8,6 +8,7 @@
 #include <nighthaunt/DreadscytheHarridans.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 32;
@@ -19,8 +20,8 @@ namespace Nighthaunt {
 
     bool DreadscytheHarridans::s_registered = false;
 
-    DreadscytheHarridans::DreadscytheHarridans(int numModels, int points) :
-            Nighthaunt("Dreadscythe Harridans", 8, g_wounds, 10, 4, true, points) {
+    DreadscytheHarridans::DreadscytheHarridans(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Dreadscythe Harridans", 8, g_wounds, 10, 4, true, points) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, DREADSCYTHE_HARRIDANS};
         m_weapons = {&m_scythedLimbs, &m_scythedLimbsCrone};
 
@@ -36,8 +37,9 @@ namespace Nighthaunt {
     }
 
     Unit *DreadscytheHarridans::Create(const ParameterList &parameters) {
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new DreadscytheHarridans(numModels, ComputePoints(parameters));
+        return new DreadscytheHarridans(procession, numModels, ComputePoints(parameters));
     }
 
     void DreadscytheHarridans::Init() {
@@ -48,6 +50,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     DreadscytheHarridans::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,

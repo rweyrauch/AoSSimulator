@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        Hexwraiths(int points);
+        Hexwraiths(Procession procession, int numModels, int points);
 
         ~Hexwraiths() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

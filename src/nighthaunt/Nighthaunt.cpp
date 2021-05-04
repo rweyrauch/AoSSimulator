@@ -37,8 +37,9 @@
 
 namespace Nighthaunt {
 
-    Nighthaunt::Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+    Nighthaunt::Nighthaunt(Procession procession, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
             Unit(name, move, wounds, bravery, save, fly, points) {
+        setProcession(procession);
         s_globalBraveryMod.connect(this, &Nighthaunt::auraOfDread, &m_auraOfDreadSlot);
     }
 

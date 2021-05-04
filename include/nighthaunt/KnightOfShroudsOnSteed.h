@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        KnightOfShroudsOnEtherealSteed(CommandTrait trait, Artefact artefact, bool isGeneral);
+        KnightOfShroudsOnEtherealSteed(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         KnightOfShroudsOnEtherealSteed() = delete;
 

@@ -42,9 +42,10 @@ namespace Nighthaunt {
     bool LadyOlynder::s_registered = false;
 
     Unit *LadyOlynder::Create(const ParameterList &parameters) {
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto general = GetBoolParam("General", parameters, false);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-        return new LadyOlynder(lore, general);
+        return new LadyOlynder(procession, lore, general);
     }
 
     void LadyOlynder::Init() {
@@ -55,6 +56,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     LadyOlynder::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Lore", g_lore[0], g_lore),
                             BoolParameter("General")
                     },
@@ -65,8 +67,8 @@ namespace Nighthaunt {
         }
     }
 
-    LadyOlynder::LadyOlynder(Lore lore, bool isGeneral) :
-            Nighthaunt("Lady Olynder", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
+    LadyOlynder::LadyOlynder(Procession procession, Lore lore, bool isGeneral) :
+            Nighthaunt(procession, "Lady Olynder", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MORTARCH, LADY_OLYNDER};
         m_weapons = {&m_staff, &m_claws};
         m_battleFieldRole = Role::Leader;

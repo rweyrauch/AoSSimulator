@@ -8,6 +8,7 @@
 #include <nighthaunt/ThornsOfTheBriarQueen.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_numModels = 6;
@@ -17,16 +18,13 @@ namespace Nighthaunt {
 
     bool ThornsOfTheBriarQueen::s_registered = false;
 
-    ThornsOfTheBriarQueen::ThornsOfTheBriarQueen() :
-            Nighthaunt("Thorns of the Briar Queen", 6, g_wounds, 6, 5, true, g_pointsPerUnit), // todo: bravery 6 when no Dreadwarden
+    ThornsOfTheBriarQueen::ThornsOfTheBriarQueen(Procession procession) :
+            Nighthaunt(procession, "Thorns of the Briar Queen", 6, g_wounds, 6, 5, true, g_pointsPerUnit), // todo: bravery 6 when no Dreadwarden
             m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
             m_malignantWeaponVarclav(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, CHAINRASP_HORDE, THORNS_OF_THE_BRIAR_QUEEN};
         m_weapons = {&m_malignantWeapon, &m_malignantWeaponVarclav};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    void ThornsOfTheBriarQueen::configure() {
 
         auto warden = new Model(g_basesize, wounds());
         warden->addMeleeWeapon(&m_malignantWeaponVarclav);
@@ -40,10 +38,8 @@ namespace Nighthaunt {
     }
 
     Unit *ThornsOfTheBriarQueen::Create(const ParameterList &parameters) {
-        auto unit = new ThornsOfTheBriarQueen();
-
-        unit->configure();
-        return unit;
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
+        return new ThornsOfTheBriarQueen(procession);
     }
 
     void ThornsOfTheBriarQueen::Init() {
@@ -54,6 +50,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     ThornsOfTheBriarQueen::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                     },
                     DEATH,
                     {NIGHTHAUNT}

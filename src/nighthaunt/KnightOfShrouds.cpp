@@ -17,11 +17,11 @@ namespace Nighthaunt {
     bool KnightOfShrouds::s_registered = false;
 
     Unit *KnightOfShrouds::Create(const ParameterList &parameters) {
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-
-        return new KnightOfShrouds(trait, artefact, general);
+        return new KnightOfShrouds(procession, trait, artefact, general);
     }
 
     void KnightOfShrouds::Init() {
@@ -32,6 +32,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     KnightOfShrouds::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
@@ -43,8 +44,8 @@ namespace Nighthaunt {
         }
     }
 
-    KnightOfShrouds::KnightOfShrouds(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            Nighthaunt("Knight of Shrouds", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
+    KnightOfShrouds::KnightOfShrouds(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Nighthaunt(procession, "Knight of Shrouds", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KNIGHT_OF_SHROUDS};
         m_weapons = {&m_sword};
         m_battleFieldRole = Role::Leader;

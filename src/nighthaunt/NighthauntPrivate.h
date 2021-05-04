@@ -13,6 +13,12 @@
 
 namespace Nighthaunt {
 
+    constexpr std::array<int, 3> g_processions = {
+            ToInteger(Procession::None),
+            ToInteger(Procession::Emerald_Host),
+            ToInteger(Procession::Reikenors_Condemned),
+    };
+
     constexpr std::array<int, 7> g_commandTraits = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Hatred_Of_The_Living),

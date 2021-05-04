@@ -8,6 +8,7 @@
 
 #include <nighthaunt/SpiritHosts.h>
 #include <UnitFactory.h>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 50;
@@ -20,37 +21,23 @@ namespace Nighthaunt {
 
     bool SpiritHosts::s_registered = false;
 
-    SpiritHosts::SpiritHosts(int points) :
-            Nighthaunt("Spirit Hosts", 6, g_wounds, 10, 4, true, points),
+    SpiritHosts::SpiritHosts(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Spirit Hosts", 6, g_wounds, 10, 4, true, points),
             m_spectralClawsAndDaggars(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, SPIRIT_HOSTS};
         m_weapons = {&m_spectralClawsAndDaggars};
-    }
-
-    bool SpiritHosts::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_spectralClawsAndDaggars);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *SpiritHosts::Create(const ParameterList &parameters) {
-        auto unit = new SpiritHosts(ComputePoints(parameters));
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SpiritHosts(procession, numModels, ComputePoints(parameters));
     }
 
     void SpiritHosts::Init() {
@@ -61,6 +48,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     SpiritHosts::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,

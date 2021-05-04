@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        LadyOlynder(Lore lore, bool isGeneral);
+        LadyOlynder(Procession procession, Lore lore, bool isGeneral);
 
         LadyOlynder() = delete;
 

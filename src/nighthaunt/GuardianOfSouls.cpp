@@ -48,12 +48,12 @@ namespace Nighthaunt {
     bool GuardianOfSouls::s_registered = false;
 
     Unit *GuardianOfSouls::Create(const ParameterList &parameters) {
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        return new GuardianOfSouls(lore, trait, artefact, general);
+        return new GuardianOfSouls(procession, lore, trait, artefact, general);
     }
 
     void GuardianOfSouls::Init() {
@@ -64,6 +64,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     GuardianOfSouls::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             EnumParameter("Lore", g_lore[0], g_lore),
@@ -76,8 +77,8 @@ namespace Nighthaunt {
         }
     }
 
-    GuardianOfSouls::GuardianOfSouls(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            Nighthaunt("Guardian of Souls with Nightmare Lantern", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
+    GuardianOfSouls::GuardianOfSouls(Procession procession, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Nighthaunt(procession, "Guardian of Souls with Nightmare Lantern", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, GUARDIAN_OF_SOULS};
         m_weapons = {&m_blade, &m_maul};
         m_battleFieldRole = Role::Leader;

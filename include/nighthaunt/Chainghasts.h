@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        explicit Chainghasts(int numModels, int points);
+        explicit Chainghasts(Procession procession, int numModels, int points);
 
         Chainghasts() = delete;
 

@@ -18,19 +18,11 @@ namespace Nighthaunt {
     bool CairnWraith::s_registered = false;
 
     Unit *CairnWraith::Create(const ParameterList &parameters) {
-        auto unit = new CairnWraith();
-
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure();
-        return unit;
+        return new CairnWraith(procession, trait, artefact, general);
     }
 
     int CairnWraith::ComputePoints(const ParameterList& /*parameters*/) {
@@ -45,6 +37,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
@@ -56,15 +49,17 @@ namespace Nighthaunt {
         }
     }
 
-    CairnWraith::CairnWraith() :
-            Nighthaunt("Cairn Wraith", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
+    CairnWraith::CairnWraith(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Nighthaunt(procession, "Cairn Wraith", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_scythe(Weapon::Type::Melee, "Reaper Scythe", 2, 3, 4, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, CAIRN_WRAITH};
         m_weapons = {&m_scythe};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void CairnWraith::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         addModel(model);

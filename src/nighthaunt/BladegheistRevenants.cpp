@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 32;
@@ -21,17 +22,11 @@ namespace Nighthaunt {
 
     bool BladegheistRevenants::s_registered = false;
 
-    BladegheistRevenants::BladegheistRevenants(int points) :
-            Nighthaunt("Bladegheist Revenants", 8, g_wounds, 10, 4, true, points),
+    BladegheistRevenants::BladegheistRevenants(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Bladegheist Revenants", 8, g_wounds, 10, 4, true, points),
             m_tombGreatblade(Weapon::Type::Melee, "Tomb Greatblade", 1, 2, 3, 3, -1, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, BLADEGHEIST_REVENANTS};
         m_weapons = {&m_tombGreatblade};
-    }
-
-    bool BladegheistRevenants::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_retreatAndCharge = true;
 
@@ -40,20 +35,12 @@ namespace Nighthaunt {
             model->addMeleeWeapon(&m_tombGreatblade);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *BladegheistRevenants::Create(const ParameterList &parameters) {
-        auto unit = new BladegheistRevenants(ComputePoints(parameters));
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new BladegheistRevenants(procession, numModels, ComputePoints(parameters));
     }
 
     void BladegheistRevenants::Init() {
@@ -64,6 +51,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     BladegheistRevenants::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,

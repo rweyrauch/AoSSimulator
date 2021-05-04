@@ -18,23 +18,11 @@ namespace Nighthaunt {
     bool TombBanshee::s_registered = false;
 
     Unit *TombBanshee::Create(const ParameterList &parameters) {
-        auto unit = new TombBanshee();
-
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        bool ok = unit->configure();
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new TombBanshee(procession, trait, artefact, general);
     }
 
     void TombBanshee::Init() {
@@ -45,6 +33,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     TombBanshee::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
@@ -56,20 +45,20 @@ namespace Nighthaunt {
         }
     }
 
-    TombBanshee::TombBanshee() :
-            Nighthaunt("Tomb Banshee", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
+    TombBanshee::TombBanshee(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            Nighthaunt(procession, "Tomb Banshee", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, TOMB_BANSHEE};
         m_weapons = {&m_dagger};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool TombBanshee::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_dagger);
         addModel(model);
-
-        return true;
     }
 
     Wounds TombBanshee::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

@@ -8,6 +8,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include "nighthaunt/BlackCoach.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 170; // x105 oval
@@ -33,10 +34,8 @@ namespace Nighthaunt {
             };
 
     Unit *BlackCoach::Create(const ParameterList &parameters) {
-        auto unit = new BlackCoach();
-
-        unit->configure();
-        return unit;
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
+        return new BlackCoach(procession);
     }
 
     void BlackCoach::Init() {
@@ -47,6 +46,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     BlackCoach::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                     },
                     DEATH,
                     {NIGHTHAUNT}
@@ -55,8 +55,8 @@ namespace Nighthaunt {
         }
     }
 
-    BlackCoach::BlackCoach() :
-            Nighthaunt("Black Coach", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    BlackCoach::BlackCoach(Procession procession) :
+            Nighthaunt(procession, "Black Coach", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_graspMissile(Weapon::Type::Missile, "Cairn Wraith's Soulreach Grasp", 10, 1, 3, 3, -3, RAND_D3),
             m_scythe(Weapon::Type::Melee, "Cairn Wraith's Reaper Scythe", 1, 3, 4, 3, -1, 2),
             m_grasp(Weapon::Type::Melee, "Cairn Wraith's Soulreach Grasp", 3, 1, 3, 3, -3, RAND_D3),
@@ -68,9 +68,7 @@ namespace Nighthaunt {
         m_hasMount = true;
         m_claws.setMount(true);
         m_hoovesAndTeeth.setMount(true);
-    }
 
-    void BlackCoach::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_graspMissile);
         model->addMeleeWeapon(&m_scythe);

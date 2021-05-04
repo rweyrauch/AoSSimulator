@@ -21,13 +21,11 @@ namespace Nighthaunt {
 
         static void Init();
 
-        DreadbladeHarrow();
+        DreadbladeHarrow(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~DreadbladeHarrow() override = default;
 
     protected:
-
-        void configure();
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

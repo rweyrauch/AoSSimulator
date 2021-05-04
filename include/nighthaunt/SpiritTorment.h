@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        SpiritTorment(CommandTrait trait, Artefact artefact, bool isGeneral);
+        SpiritTorment(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         SpiritTorment() = delete;
 

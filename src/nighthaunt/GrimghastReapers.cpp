@@ -8,6 +8,7 @@
 #include <nighthaunt/GrimghastReapers.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 32;
@@ -19,18 +20,12 @@ namespace Nighthaunt {
 
     bool GrimghastReapers::s_registered = false;
 
-    GrimghastReapers::GrimghastReapers(int points) :
-            Nighthaunt("Grimghast Reapers", 8, g_wounds, 10, 4, true, points),
+    GrimghastReapers::GrimghastReapers(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Grimghast Reapers", 8, g_wounds, 10, 4, true, points),
             m_slasherScythe(Weapon::Type::Melee, "Slasher Scythe", 2, 2, 4, 3, -1, 1),
             m_deathKnell(Weapon::Type::Melee, "Death Knell", 2, 1, 3, 3, -1, 2) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, GRIMGHAST_REAPERS};
         m_weapons = {&m_slasherScythe, &m_deathKnell};
-    }
-
-    bool GrimghastReapers::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto extoller = new Model(g_basesize, wounds());
         // TODO: implement 'For Whom the Bell Tolls' (mortal wounds)
@@ -42,20 +37,12 @@ namespace Nighthaunt {
             model->addMeleeWeapon(&m_slasherScythe);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *GrimghastReapers::Create(const ParameterList &parameters) {
-        auto unit = new GrimghastReapers(ComputePoints(parameters));
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new GrimghastReapers(procession, numModels, ComputePoints(parameters));
     }
 
     void GrimghastReapers::Init() {
@@ -66,6 +53,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     GrimghastReapers::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,

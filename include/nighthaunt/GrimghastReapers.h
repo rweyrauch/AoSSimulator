@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        GrimghastReapers(int points);
+        GrimghastReapers(Procession procession, int numModels, int points);
 
         ~GrimghastReapers() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

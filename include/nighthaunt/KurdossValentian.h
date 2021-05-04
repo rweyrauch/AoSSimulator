@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        explicit KurdossValentian(bool isGeneral);
+        explicit KurdossValentian(Procession procession, bool isGeneral);
 
         KurdossValentian() = delete;
 

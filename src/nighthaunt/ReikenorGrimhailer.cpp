@@ -43,15 +43,10 @@ namespace Nighthaunt {
     bool ReikenorTheGrimhailer::s_registered = false;
 
     Unit *ReikenorTheGrimhailer::Create(const ParameterList &parameters) {
-        auto unit = new ReikenorTheGrimhailer();
-
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
         auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        unit->configure(lore);
-        return unit;
+        return new ReikenorTheGrimhailer(procession, lore, general);
     }
 
     void ReikenorTheGrimhailer::Init() {
@@ -62,6 +57,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     ReikenorTheGrimhailer::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Lore", g_lore[0], g_lore),
                             BoolParameter("General")
                     },
@@ -72,8 +68,8 @@ namespace Nighthaunt {
         }
     }
 
-    ReikenorTheGrimhailer::ReikenorTheGrimhailer() :
-            Nighthaunt("Reikenor the Grimhailer", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    ReikenorTheGrimhailer::ReikenorTheGrimhailer(Procession procession, Lore lore, bool isGeneral) :
+            Nighthaunt(procession, "Reikenor the Grimhailer", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_fellreaper(Weapon::Type::Melee, "Fellreaper", 2, 4, 4, 3, -1, 2),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Ghostly Hooves and Teeth", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, REIKENOR_THE_GRIMHAILER};
@@ -83,9 +79,9 @@ namespace Nighthaunt {
         m_hoovesAndTeeth.setMount(true);
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void ReikenorTheGrimhailer::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_fellreaper);
         model->addMeleeWeapon(&m_hoovesAndTeeth);

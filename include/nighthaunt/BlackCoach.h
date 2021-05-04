@@ -21,13 +21,11 @@ namespace Nighthaunt {
 
         static void Init();
 
-        BlackCoach();
+        BlackCoach(Procession procession);
 
         ~BlackCoach() override = default;
 
     protected:
-
-        void configure();
 
         void onWounded() override;
 

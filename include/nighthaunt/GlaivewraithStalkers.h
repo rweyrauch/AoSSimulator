@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        GlaivewraithStalkers(int points);
+        GlaivewraithStalkers(Procession procession, int numModels, bool drummer, int points);
 
         ~GlaivewraithStalkers() override = default;
-
-        bool configure(int numModels, bool drummer);
 
     protected:
 

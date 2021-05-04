@@ -8,6 +8,7 @@
 #include <nighthaunt/ChainraspHorde.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 25;
@@ -19,19 +20,13 @@ namespace Nighthaunt {
 
     bool ChainraspHorde::s_registered = false;
 
-    ChainraspHorde::ChainraspHorde(int points) :
-            Nighthaunt("Chainrasp Horde", 6, g_wounds, 10, 5, true, points), // todo: bravery 6 when no Dreadwarden
+    ChainraspHorde::ChainraspHorde(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Chainrasp Horde", 6, g_wounds, 10, 5, true, points), // todo: bravery 6 when no Dreadwarden
             m_malignantWeapon(Weapon::Type::Melee, "Malignant Weapon", 1, 2, 4, 4, 0, 1),
             m_malignantWeaponWarden(Weapon::Type::Melee, "Malignant Weapon", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, CHAINRASP_HORDE};
         m_weapons = {&m_malignantWeapon, &m_malignantWeaponWarden};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool ChainraspHorde::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto warden = new Model(g_basesize, wounds());
         warden->addMeleeWeapon(&m_malignantWeaponWarden);
@@ -42,20 +37,12 @@ namespace Nighthaunt {
             model->addMeleeWeapon(&m_malignantWeapon);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *ChainraspHorde::Create(const ParameterList &parameters) {
-        auto unit = new ChainraspHorde(ComputePoints(parameters));
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new ChainraspHorde(procession, numModels, ComputePoints(parameters));
     }
 
     void ChainraspHorde::Init() {
@@ -66,6 +53,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     ChainraspHorde::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,

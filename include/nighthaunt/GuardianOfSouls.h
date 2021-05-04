@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        GuardianOfSouls(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        GuardianOfSouls(Procession procession, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         GuardianOfSouls() = delete;
 

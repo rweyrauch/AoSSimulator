@@ -21,13 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        TheBriarQueen();
+        TheBriarQueen(Procession procession, Lore lore, bool isGeneral);
 
         ~TheBriarQueen() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

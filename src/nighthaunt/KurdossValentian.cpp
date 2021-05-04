@@ -9,6 +9,7 @@
 #include <Board.h>
 #include "nighthaunt/KurdossValentian.h"
 #include "Roster.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 60;
@@ -18,8 +19,9 @@ namespace Nighthaunt {
     bool KurdossValentian::s_registered = false;
 
     Unit *KurdossValentian::Create(const ParameterList &parameters) {
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new KurdossValentian(general);
+        return new KurdossValentian(procession, general);
     }
 
     void KurdossValentian::Init() {
@@ -30,6 +32,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     KurdossValentian::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             BoolParameter("General")
                     },
                     DEATH,
@@ -39,8 +42,8 @@ namespace Nighthaunt {
         }
     }
 
-    KurdossValentian::KurdossValentian(bool isGeneral) :
-            Nighthaunt("Kurdoss Valentian", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
+    KurdossValentian::KurdossValentian(Procession procession, bool isGeneral) :
+            Nighthaunt(procession, "Kurdoss Valentian", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, KURDOSS_VALENTIAN};
         m_weapons = {&m_sceptre, &m_claws};
         m_battleFieldRole = Role::Leader;

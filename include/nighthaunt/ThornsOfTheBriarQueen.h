@@ -21,13 +21,11 @@ namespace Nighthaunt {
 
         static void Init();
 
-        ThornsOfTheBriarQueen();
+        ThornsOfTheBriarQueen(Procession procession);
 
         ~ThornsOfTheBriarQueen() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toWoundRerolls(const Weapon *weapon, const Unit *unit) const override;
 

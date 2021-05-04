@@ -19,15 +19,10 @@ namespace Nighthaunt {
     bool TheBriarQueen::s_registered = false;
 
     Unit *TheBriarQueen::Create(const ParameterList &parameters) {
-        auto unit = new TheBriarQueen();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new TheBriarQueen(procession, lore, general);
     }
 
     void TheBriarQueen::Init() {
@@ -38,6 +33,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     TheBriarQueen::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             EnumParameter("Lore", g_lore[0], g_lore),
                             BoolParameter("General")
                     },
@@ -48,8 +44,8 @@ namespace Nighthaunt {
         }
     }
 
-    TheBriarQueen::TheBriarQueen() :
-            Nighthaunt("The Briar Queen", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
+    TheBriarQueen::TheBriarQueen(Procession procession, Lore lore, bool isGeneral) :
+            Nighthaunt(procession, "The Briar Queen", 6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_scream(Weapon::Type::Missile, "Rending Scream", 10, 3, 3, 3, -3, 1),
             m_whip(Weapon::Type::Melee, "Briar Whip", 3, 1, 3, 3, 2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, HERO, WIZARD, MIRRORGHAST_BANSHEE, THE_BRIAR_QUEEN};
@@ -58,9 +54,9 @@ namespace Nighthaunt {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void TheBriarQueen::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_scream);
         model->addMeleeWeapon(&m_whip);

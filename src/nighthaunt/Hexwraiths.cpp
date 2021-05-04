@@ -8,6 +8,7 @@
 
 #include <nighthaunt/Hexwraiths.h>
 #include <UnitFactory.h>
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 60; // x35 oval
@@ -19,8 +20,8 @@ namespace Nighthaunt {
 
     bool Hexwraiths::s_registered = false;
 
-    Hexwraiths::Hexwraiths(int points) :
-            Nighthaunt("Hexwraiths", 12, g_wounds, 10, 4, true, points),
+    Hexwraiths::Hexwraiths(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Hexwraiths", 12, g_wounds, 10, 4, true, points),
             m_spectralScythe(Weapon::Type::Melee, "Spectral Scythe", 1, 2, 4, 3, -1, 1),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 5, 0, 1),
             m_spectralScytheHellwraith(Weapon::Type::Melee, "Spectral Scythe", 1, 3, 4, 3, -1, 1) {
@@ -28,12 +29,6 @@ namespace Nighthaunt {
         m_weapons = {&m_spectralScythe, &m_spectralScytheHellwraith, &m_hoovesAndTeeth};
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
-    }
-
-    bool Hexwraiths::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto boss = new Model(g_basesize, wounds());
         boss->addMeleeWeapon(&m_spectralScytheHellwraith);
@@ -46,20 +41,12 @@ namespace Nighthaunt {
             model->addMeleeWeapon(&m_hoovesAndTeeth);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Hexwraiths::Create(const ParameterList &parameters) {
-        auto unit = new Hexwraiths(ComputePoints(parameters));
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Hexwraiths(procession, numModels, ComputePoints(parameters));
     }
 
     void Hexwraiths::Init() {
@@ -70,6 +57,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     Hexwraiths::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,

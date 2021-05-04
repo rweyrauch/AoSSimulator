@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        TombBanshee();
+        TombBanshee(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~TombBanshee() override = default;
-
-        bool configure();
 
     protected:
 

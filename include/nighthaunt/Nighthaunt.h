@@ -94,7 +94,7 @@ namespace Nighthaunt {
 
     protected:
 
-        Nighthaunt(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
+        Nighthaunt(Procession procession, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

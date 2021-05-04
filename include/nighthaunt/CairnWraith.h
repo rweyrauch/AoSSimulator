@@ -21,13 +21,11 @@ namespace Nighthaunt {
 
         static void Init();
 
-        CairnWraith();
+        CairnWraith(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~CairnWraith() override = default;
 
     protected:
-
-        void configure();
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

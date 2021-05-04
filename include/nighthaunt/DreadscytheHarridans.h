@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        explicit DreadscytheHarridans(int numModels, int points);
+        explicit DreadscytheHarridans(Procession procession, int numModels, int points);
 
         DreadscytheHarridans() = delete;
 

@@ -21,13 +21,11 @@ namespace Nighthaunt {
 
         static void Init();
 
-        LordExecutioner();
+        LordExecutioner(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordExecutioner() override = default;
 
     protected:
-
-        void configure();
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        KrulghastCruciator(CommandTrait trait, Artefact artefact, bool isGeneral);
+        KrulghastCruciator(Procession procession, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         KrulghastCruciator() = delete;
 

@@ -7,6 +7,7 @@
  */
 #include <UnitFactory.h>
 #include "nighthaunt/MyrmournBanshees.h"
+#include "NighthauntPrivate.h"
 
 namespace Nighthaunt {
     static const int g_basesize = 32;
@@ -19,15 +20,9 @@ namespace Nighthaunt {
     bool MyrmournBanshees::s_registered = false;
 
     Unit *MyrmournBanshees::Create(const ParameterList &parameters) {
-        auto unit = new MyrmournBanshees(ComputePoints(parameters));
+        auto procession = (Procession) GetEnumParam("Procession", parameters, g_processions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new MyrmournBanshees(procession, numModels, ComputePoints(parameters));
     }
 
     int MyrmournBanshees::ComputePoints(const ParameterList& parameters) {
@@ -47,6 +42,7 @@ namespace Nighthaunt {
                     Nighthaunt::EnumStringToInt,
                     MyrmournBanshees::ComputePoints,
                     {
+                            EnumParameter("Procession", g_processions[0], g_processions),
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,
@@ -56,25 +52,17 @@ namespace Nighthaunt {
         }
     }
 
-    MyrmournBanshees::MyrmournBanshees(int points) :
-            Nighthaunt("Myrmourn Banshees", 8, g_wounds, 10, 4, true, points),
+    MyrmournBanshees::MyrmournBanshees(Procession procession, int numModels, int points) :
+            Nighthaunt(procession, "Myrmourn Banshees", 8, g_wounds, 10, 4, true, points),
             m_dagger(Weapon::Type::Melee, "Chill Dagger", 1, 1, 4, 3, -2, RAND_D3) {
         m_keywords = {DEATH, MALIGNANT, NIGHTHAUNT, SUMMONABLE, MYRMOURN_BANSHEES};
         m_weapons = {&m_dagger};
-    }
-
-    bool MyrmournBanshees::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_dagger);
             addModel(model);
         }
-
-        return true;
     }
 
 } // namespace Nighthaunt

@@ -21,13 +21,11 @@ namespace Nighthaunt {
 
         static void Init();
 
-        ReikenorTheGrimhailer();
+        ReikenorTheGrimhailer(Procession procession, Lore lore, bool isGeneral);
 
         ~ReikenorTheGrimhailer() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 

@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        BladegheistRevenants(int points);
+        BladegheistRevenants(Procession procession, int numModels, int points);
 
         ~BladegheistRevenants() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

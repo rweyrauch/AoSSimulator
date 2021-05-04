@@ -21,7 +21,7 @@ namespace Nighthaunt {
 
         static void Init();
 
-        Mourngul();
+        explicit Mourngul(Procession procession);
 
         ~Mourngul() override = default;
 

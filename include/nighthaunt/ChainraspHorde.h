@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        ChainraspHorde(int points);
+        ChainraspHorde(Procession procession, int numModels, int points);
 
         ~ChainraspHorde() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

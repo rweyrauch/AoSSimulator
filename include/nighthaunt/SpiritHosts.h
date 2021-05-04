@@ -21,11 +21,9 @@ namespace Nighthaunt {
 
         static void Init();
 
-        SpiritHosts(int points);
+        SpiritHosts(Procession procession, int numModels, int points);
 
         ~SpiritHosts() override = default;
-
-        bool configure(int numModels);
 
     protected:
 
