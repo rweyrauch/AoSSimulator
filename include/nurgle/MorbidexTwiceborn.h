@@ -20,13 +20,11 @@ namespace Nurgle {
 
         static void Init();
 
-        MorbidexTwiceborn();
+        MorbidexTwiceborn(PlagueLegion legion, bool isGeneral);
 
         ~MorbidexTwiceborn() override;
 
     protected:
-
-        void configure();
 
         int maliciousMitesWoundMod(const Unit *attacker, const Weapon *weapon, const Unit *target);
 

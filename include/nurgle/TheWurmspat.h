@@ -20,13 +20,11 @@ namespace Nurgle {
 
         static void Init();
 
-        TheWurmspat();
+        TheWurmspat(PlagueLegion legion);
 
         ~TheWurmspat() override = default;
 
     protected:
-
-        void configure();
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 

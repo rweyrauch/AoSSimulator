@@ -91,18 +91,6 @@ set(AOSSIM_SOURCE
         wanderers/GladeGuard.cpp
         wanderers/WildwoodRangers.cpp
 
-        dispossessed/Dispossessed.cpp
-        dispossessed/Hammerers.cpp
-        dispossessed/Thunderers.cpp
-        dispossessed/Warriors.cpp
-        dispossessed/Longbeards.cpp
-        dispossessed/Quarrellers.cpp
-        dispossessed/Ironbreakers.cpp
-        dispossessed/Irondrakes.cpp
-        dispossessed/Unforged.cpp
-        dispossessed/Runelord.cpp
-        dispossessed/WardenKing.cpp
-
         eldritchcouncil/Swordmasters.cpp
         eldritchcouncil/Loremaster.cpp
         eldritchcouncil/Archmage.cpp

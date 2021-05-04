@@ -19,22 +19,11 @@ namespace Nurgle {
     bool LordOfAfflictions::s_registered = false;
 
     Unit *LordOfAfflictions::Create(const ParameterList &parameters) {
-        auto unit = new LordOfAfflictions();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new LordOfAfflictions(legion, trait, artefact, general);
     }
 
     void LordOfAfflictions::Init() {
@@ -57,8 +46,8 @@ namespace Nurgle {
         }
     }
 
-    LordOfAfflictions::LordOfAfflictions() :
-            NurgleBase("Lord of Afflictions", 8, g_wounds, 10, 4, true, g_pointsPerUnit),
+    LordOfAfflictions::LordOfAfflictions(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion, "Lord of Afflictions", 8, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_festerspike(Weapon::Type::Melee, "Festerspike", 2, 3, 3, 3, -1, RAND_D3),
             m_mouthparts(Weapon::Type::Melee, "Foul Mouthparts", 1, 2, 3, 3, 0, 1),
             m_sting(Weapon::Type::Melee, "Venomous String", 1, 1, 4, 3, -1, RAND_D3),
@@ -70,19 +59,21 @@ namespace Nurgle {
         m_mouthparts.setMount(true);
         m_sting.setMount(true);
         s_globalToHitReroll.connect(this, &LordOfAfflictions::plagueVectorToHitRerolls, &m_plagueVectorSlot);
-    }
 
-    LordOfAfflictions::~LordOfAfflictions() {
-        m_plagueVectorSlot.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void LordOfAfflictions::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_festerspike);
         model->addMeleeWeapon(&m_mouthparts);
         model->addMeleeWeapon(&m_sting);
         model->addMeleeWeapon(&m_tocsin);
         addModel(model);
+    }
+
+    LordOfAfflictions::~LordOfAfflictions() {
+        m_plagueVectorSlot.disconnect();
     }
 
     Wounds LordOfAfflictions::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

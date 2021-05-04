@@ -18,24 +18,12 @@ namespace Nurgle {
     bool SorcererOfNurgle::s_registered = false;
 
     Unit *SorcererOfNurgle::Create(const ParameterList &parameters) {
-        auto unit = new SorcererOfNurgle();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new SorcererOfNurgle(legion, lore, trait, artefact, general);
     }
 
     void SorcererOfNurgle::Init() {
@@ -60,8 +48,8 @@ namespace Nurgle {
         }
     }
 
-    SorcererOfNurgle::SorcererOfNurgle() :
-            NurgleBase("Sorcerer of Nurgle", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
+    SorcererOfNurgle::SorcererOfNurgle(PlagueLegion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion, "Sorcerer of Nurgle", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Rotwood Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, WIZARD, SORCERER};
         m_weapons = {&m_staff};
@@ -69,9 +57,11 @@ namespace Nurgle {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    void SorcererOfNurgle::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

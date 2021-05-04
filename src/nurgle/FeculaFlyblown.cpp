@@ -19,16 +19,9 @@ namespace Nurgle {
     bool FeculaFlyblown::s_registered = false;
 
     Unit *Nurgle::FeculaFlyblown::Create(const ParameterList &parameters) {
-        auto unit = new FeculaFlyblown();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new FeculaFlyblown(legion, general);
     }
 
     void Nurgle::FeculaFlyblown::Init() {
@@ -49,8 +42,8 @@ namespace Nurgle {
         }
     }
 
-    Nurgle::FeculaFlyblown::FeculaFlyblown() :
-            NurgleBase("Fecula Flyblown", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
+    Nurgle::FeculaFlyblown::FeculaFlyblown(PlagueLegion legion, bool isGeneral) :
+            NurgleBase(legion,"Fecula Flyblown", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Rotwood Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, BLESSED_SONS, HERO, WIZARD, SORCERER, FECULA_FLYBLOWN};
         m_weapons = {&m_staff};
@@ -58,9 +51,9 @@ namespace Nurgle {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    void Nurgle::FeculaFlyblown::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

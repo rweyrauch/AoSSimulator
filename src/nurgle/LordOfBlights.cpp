@@ -18,22 +18,11 @@ namespace Nurgle {
     bool LordOfBlights::s_registered = false;
 
     Unit *LordOfBlights::Create(const ParameterList &parameters) {
-        auto unit = new LordOfBlights();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new LordOfBlights(legion, trait, artefact, general);
     }
 
     void LordOfBlights::Init() {
@@ -57,17 +46,19 @@ namespace Nurgle {
         }
     }
 
-    LordOfBlights::LordOfBlights() :
-            NurgleBase("Lord of Blights", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
+    LordOfBlights::LordOfBlights(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion,"Lord of Blights", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_ripenedDeathsHead(Weapon::Type::Missile, "Thrice-ripened Death's Head", 14, 1, 3, 3, -3, RAND_D3),
             m_bountyDeathsHead(Weapon::Type::Missile, "Munificent Bounty Death's Head", 14, 1, 4, 3, 0, 1),
             m_hammer(Weapon::Type::Melee, "Bubotic Hammer", 1, 3, 3, 3, -1, 2) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_BLIGHTS};
         m_weapons = {&m_ripenedDeathsHead, &m_bountyDeathsHead, &m_hammer};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void LordOfBlights::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_ripenedDeathsHead);
         model->addMissileWeapon(&m_bountyDeathsHead);

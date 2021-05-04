@@ -21,16 +21,10 @@ namespace Nurgle {
 
     bool BeastsOfNurgle::s_registered = false;
 
-    BeastsOfNurgle::BeastsOfNurgle(int points) :
-            NurgleBase("Beasts of Nurgle", 5, g_wounds, 10, 5, false, points) {
+    BeastsOfNurgle::BeastsOfNurgle(PlagueLegion legion, int numModels, int points) :
+            NurgleBase(legion,"Beasts of Nurgle", 5, g_wounds, 10, 5, false, points) {
         m_keywords = {CHAOS, DAEMON, NURGLE, BEASTS_OF_NURGLE};
         m_weapons = {&m_limbsAndMaw, &m_tentaclesAndTongue};
-    }
-
-    bool BeastsOfNurgle::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -42,23 +36,12 @@ namespace Nurgle {
         // Attention Seekers
         m_runAndCharge = true;
         m_retreatAndCharge = true;
-
-        return true;
     }
 
     Unit *BeastsOfNurgle::Create(const ParameterList &parameters) {
-        auto unit = new BeastsOfNurgle(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new BeastsOfNurgle(legion, numModels, ComputePoints(parameters));
     }
 
     void BeastsOfNurgle::Init() {

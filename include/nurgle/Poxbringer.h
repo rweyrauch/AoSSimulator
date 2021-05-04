@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        PoxbringerHeraldOfNurgle();
+        PoxbringerHeraldOfNurgle(PlagueLegion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~PoxbringerHeraldOfNurgle() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

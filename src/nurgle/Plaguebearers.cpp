@@ -21,19 +21,13 @@ namespace Nurgle {
 
     bool Plaguebearers::s_registered = false;
 
-    Plaguebearers::Plaguebearers(int points) :
-            NurgleBase("Plaguebearers", 4, g_wounds, 10, 5, false, points),
+    Plaguebearers::Plaguebearers(PlagueLegion legion, int numModels, bool iconBearer, bool pipers, int points) :
+            NurgleBase(legion,"Plaguebearers", 4, g_wounds, 10, 5, false, points),
             m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
             m_plagueswordPlagueRidden(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, PLAGUEBEARERS};
         m_weapons = {&m_plaguesword, &m_plagueswordPlagueRidden};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool Plaguebearers::configure(int numModels, bool iconBearer, bool pipers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         // Add the Plagueridden
         auto leader = new Model(g_basesize, wounds());
@@ -53,25 +47,14 @@ namespace Nurgle {
 
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Plaguebearers::Create(const ParameterList &parameters) {
-        auto unit = new Plaguebearers(ComputePoints(parameters));
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool pipers = GetBoolParam("Pipers", parameters, false);
-
-        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, iconBearer, pipers);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Plaguebearers(legion, numModels, iconBearer, pipers, ComputePoints(parameters));
     }
 
     void Plaguebearers::Init() {

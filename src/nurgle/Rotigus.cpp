@@ -36,8 +36,8 @@ namespace Nurgle {
 
     bool Rotigus::s_registered = false;
 
-    Rotigus::Rotigus() :
-            NurgleBase("Rotigus", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
+    Rotigus::Rotigus(PlagueLegion legion, Lore lore, bool isGeneral) :
+            NurgleBase(legion,"Rotigus", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_gnarlrod(Weapon::Type::Melee, "Gnarlrod", 3, 5, 2, 3, -1, 2),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 1, RAND_D3, 3, 2, -2, 2),
             m_nurglings(Weapon::Type::Melee, "Host of Nurglings", 1, 3, 5, 5, 0, 1) {
@@ -47,9 +47,9 @@ namespace Nurgle {
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    void Rotigus::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gnarlrod);
         model->addMeleeWeapon(&m_fangedMaw);
@@ -61,18 +61,10 @@ namespace Nurgle {
     }
 
     Unit *Rotigus::Create(const ParameterList &parameters) {
-        auto unit = new Rotigus();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new Rotigus(legion, lore, general);
     }
 
     void Rotigus::Init() {

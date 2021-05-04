@@ -18,13 +18,8 @@ namespace Nurgle {
     bool TheWurmspat::s_registered = false;
 
     Unit *TheWurmspat::Create(const ParameterList &parameters) {
-        auto unit = new TheWurmspat();
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        return new TheWurmspat(legion);
     }
 
     void TheWurmspat::Init() {
@@ -44,14 +39,12 @@ namespace Nurgle {
         }
     }
 
-    TheWurmspat::TheWurmspat() :
-            NurgleBase("The Wurmspat", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
+    TheWurmspat::TheWurmspat(PlagueLegion legion) :
+            NurgleBase(legion, "The Wurmspat", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_blightedWeapons(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, BLESSED_SONS, PUTRID_BLIGHTKINGS, THE_WURMSPAT};
         m_weapons = {&m_blightedWeapons};
-    }
 
-    void TheWurmspat::configure() {
         auto sepsimus = new Model(g_basesize, wounds());
         sepsimus->addMeleeWeapon(&m_blightedWeapons);
         addModel(sepsimus);

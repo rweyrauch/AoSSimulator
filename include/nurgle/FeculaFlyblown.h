@@ -19,13 +19,9 @@ namespace Nurgle {
 
         static void Init();
 
-        FeculaFlyblown();
+        FeculaFlyblown(PlagueLegion legion, bool isGeneral);
 
         ~FeculaFlyblown() override = default;
-
-    protected:
-
-        void configure();
 
     private:
 

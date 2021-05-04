@@ -21,13 +21,9 @@ namespace Nurgle {
 
         static void Init();
 
-        Nurglings(int points);
+        Nurglings(PlagueLegion legion, int numModels, int points);
 
         ~Nurglings() override = default;
-
-        bool configure(int numModels);
-
-    protected:
 
     private:
 

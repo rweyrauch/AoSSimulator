@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        TheGlottkin();
+        TheGlottkin(PlagueLegion legion, Lore lore, bool isGeneral);
 
         ~TheGlottkin() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onStartHero(PlayerId player) override;
 

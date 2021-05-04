@@ -18,22 +18,11 @@ namespace Nurgle {
     bool SloppityBilepiperHeraldOfNurgle::s_registered = false;
 
     Unit *SloppityBilepiperHeraldOfNurgle::Create(const ParameterList &parameters) {
-        auto unit = new SloppityBilepiperHeraldOfNurgle();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new SloppityBilepiperHeraldOfNurgle(legion, trait, artefact, general);
     }
 
     void SloppityBilepiperHeraldOfNurgle::Init() {
@@ -56,25 +45,26 @@ namespace Nurgle {
         }
     }
 
-    SloppityBilepiperHeraldOfNurgle::SloppityBilepiperHeraldOfNurgle() :
-            NurgleBase("Sloppity Bilepiper, Herald of Nurgle", 4, g_wounds, 10, 5, false, g_pointsPerUnit),
+    SloppityBilepiperHeraldOfNurgle::SloppityBilepiperHeraldOfNurgle(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion, "Sloppity Bilepiper, Herald of Nurgle", 4, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_marotter(Weapon::Type::Melee, "Marotter", 1, 4, 4, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SLOPPITY_BILEPIPER, HERALD_OF_NURGLE};
         m_weapons = {&m_marotter};
         m_battleFieldRole = Role::Leader;
 
-        s_globalBraveryMod.connect(this, &SloppityBilepiperHeraldOfNurgle::diseaseOfMirthBraveryMod,
-                                   &m_diseaseOfMirthSlot);
+        s_globalBraveryMod.connect(this, &SloppityBilepiperHeraldOfNurgle::diseaseOfMirthBraveryMod, &m_diseaseOfMirthSlot);
+
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_marotter);
+        addModel(model);
     }
 
     SloppityBilepiperHeraldOfNurgle::~SloppityBilepiperHeraldOfNurgle() {
         m_diseaseOfMirthSlot.disconnect();
-    }
-
-    void SloppityBilepiperHeraldOfNurgle::configure() {
-        auto model = new Model(g_basesize, wounds());
-        model->addMeleeWeapon(&m_marotter);
-        addModel(model);
     }
 
     Wounds SloppityBilepiperHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

@@ -14,7 +14,6 @@
 #include "dok/DaughterOfKhaine.h"
 #include "nighthaunt/Nighthaunt.h"
 #include "skaven/Skaventide.h"
-#include "dispossessed/Dispossessed.h"
 #include "ironjawz/Ironjawz.h"
 #include "khorne/KhorneBase.h"
 #include "wanderers/Wanderer.h"
@@ -67,7 +66,6 @@ void Initialize(plog::Severity level) {
     DaughtersOfKhaine::Init();
     Nighthaunt::Init();
     Skaven::Init();
-    Dispossessed::Init();
     Ironjawz::Init();
     Khorne::Init();
     Wanderers::Init();

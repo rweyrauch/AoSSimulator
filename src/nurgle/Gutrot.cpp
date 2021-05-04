@@ -18,16 +18,9 @@ namespace Nurgle {
     bool GutrotSpume::s_registered = false;
 
     Unit *GutrotSpume::Create(const ParameterList &parameters) {
-        auto unit = new GutrotSpume();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new GutrotSpume(legion, general);
     }
 
     void GutrotSpume::Init() {
@@ -48,16 +41,16 @@ namespace Nurgle {
         }
     }
 
-    GutrotSpume::GutrotSpume() :
-            NurgleBase("Gutrot Spume", 4, g_wounds, 9, 3, false, g_pointsPerUnit),
+    GutrotSpume::GutrotSpume(PlagueLegion legion, bool isGeneral) :
+            NurgleBase(legion,"Gutrot Spume", 4, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_axe(Weapon::Type::Melee, "Rot-pocked Axe", 2, 4, 3, 2, -1, 2),
             m_tentacles(Weapon::Type::Melee, "Flailing Tentacles", 1, RAND_D3, 2, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, GUTROT_SPUME};
         m_weapons = {&m_axe, &m_tentacles};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void GutrotSpume::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_axe);
         model->addMeleeWeapon(&m_tentacles);

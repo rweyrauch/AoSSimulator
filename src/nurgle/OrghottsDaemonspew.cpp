@@ -18,16 +18,9 @@ namespace Nurgle {
     bool OrghottsDaemonspew::s_registered = false;
 
     Unit *OrghottsDaemonspew::Create(const ParameterList &parameters) {
-        auto unit = new OrghottsDaemonspew();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new OrghottsDaemonspew(legion, general);
     }
 
     void OrghottsDaemonspew::Init() {
@@ -48,8 +41,8 @@ namespace Nurgle {
         }
     }
 
-    OrghottsDaemonspew::OrghottsDaemonspew() :
-            NurgleBase("Orghotts Daemonspew", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
+    OrghottsDaemonspew::OrghottsDaemonspew(PlagueLegion legion, bool isGeneral) :
+            NurgleBase(legion,"Orghotts Daemonspew", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_tongue(Weapon::Type::Missile, "Whippermaw's Grasping Tongue", 6, 1, 3, 2, -1, RAND_D6),
             m_rotaxes(Weapon::Type::Melee, "The Rotaxes", 2, 5, 3, 3, -1, 1),
             m_claws(Weapon::Type::Melee, "Whippermaw's Monstrous Claws", 3, 5, 4, 2, -1, 1) {
@@ -59,9 +52,9 @@ namespace Nurgle {
         m_hasMount = true;
         m_claws.setMount(true);
         m_tongue.setMount(true);
-    }
 
-    void OrghottsDaemonspew::configure() {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tongue);
         model->addMeleeWeapon(&m_rotaxes);

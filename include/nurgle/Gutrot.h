@@ -20,13 +20,9 @@ namespace Nurgle {
 
         static void Init();
 
-        GutrotSpume();
+        GutrotSpume(PlagueLegion legion, bool isGeneral);
 
         ~GutrotSpume() override = default;
-
-    protected:
-
-        void configure();
 
     private:
 

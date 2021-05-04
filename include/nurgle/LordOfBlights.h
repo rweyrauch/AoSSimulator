@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        LordOfBlights();
+        LordOfBlights(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordOfBlights() override = default;
 
     protected:
-
-        void configure();
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 

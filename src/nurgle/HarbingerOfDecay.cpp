@@ -18,22 +18,11 @@ namespace Nurgle {
     bool HarbingerOfDecay::s_registered = false;
 
     Unit *HarbingerOfDecay::Create(const ParameterList &parameters) {
-        auto unit = new HarbingerOfDecay();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new HarbingerOfDecay(legion, trait, artefact, general);
     }
 
     void HarbingerOfDecay::Init() {
@@ -57,8 +46,8 @@ namespace Nurgle {
         }
     }
 
-    HarbingerOfDecay::HarbingerOfDecay() :
-            NurgleBase("Harbinger of Decay", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
+    HarbingerOfDecay::HarbingerOfDecay(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion, "Harbinger of Decay", 4, g_wounds, 8, 4, false, g_pointsPerUnit),
             m_scythe(Weapon::Type::Melee, "Plague Scythe", 1, 3, 3, 3, -1, RAND_D3),
             m_bite(Weapon::Type::Melee, "Daemonic Mount's Flyblown Bite", 1, RAND_D6, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, DAEMON, NURGLE, ROTBRINGER, HERO, HARBINGER_OF_DECAY};
@@ -66,9 +55,11 @@ namespace Nurgle {
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;
         m_bite.setMount(true);
-    }
 
-    void HarbingerOfDecay::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_bite);

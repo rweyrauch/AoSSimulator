@@ -20,13 +20,11 @@ namespace Nurgle {
 
         static void Init();
 
-        BloabRotspawned();
+        BloabRotspawned(PlagueLegion legion, Lore lore, bool isGeneral);
 
         ~BloabRotspawned() override;
 
     protected:
-
-        void configure(Lore lore);
 
         int windspeakerBellsCastingMod(const Unit *caster);
 

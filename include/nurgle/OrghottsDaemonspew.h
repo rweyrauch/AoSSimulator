@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        OrghottsDaemonspew();
+        OrghottsDaemonspew(PlagueLegion legion, bool isGeneral);
 
         ~OrghottsDaemonspew() override = default;
 
     protected:
-
-        void configure();
 
         int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
 

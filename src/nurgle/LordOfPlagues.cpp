@@ -17,37 +17,28 @@ namespace Nurgle {
 
     bool LordOfPlagues::s_registered = false;
 
-    LordOfPlagues::LordOfPlagues() :
-            NurgleBase("Lord of Plagues", 4, g_wounds, 9, 4, false, g_pointsPerUnit),
+    LordOfPlagues::LordOfPlagues(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion, "Lord of Plagues", 4, g_wounds, 9, 4, false, g_pointsPerUnit),
             m_plagueriddenGreatBlade(Weapon::Type::Melee, "Plague-ridden Great Blade", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, LORD_OF_PLAGUES};
         m_weapons = {&m_plagueriddenGreatBlade};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void LordOfPlagues::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_plagueriddenGreatBlade);
         addModel(model);
     }
 
     Unit *LordOfPlagues::Create(const ParameterList &parameters) {
-        auto unit = new LordOfPlagues();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_mortalRotbringerCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_mortalRotbringerArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new LordOfPlagues(legion, trait, artefact, general);
     }
 
     void LordOfPlagues::Init() {

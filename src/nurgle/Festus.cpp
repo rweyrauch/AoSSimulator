@@ -19,18 +19,10 @@ namespace Nurgle {
     bool FestusTheLeechlord::s_registered = false;
 
     Unit *FestusTheLeechlord::Create(const ParameterList &parameters) {
-        auto unit = new FestusTheLeechlord();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new FestusTheLeechlord(legion, lore, general);
     }
 
     void FestusTheLeechlord::Init() {
@@ -53,15 +45,15 @@ namespace Nurgle {
         }
     }
 
-    FestusTheLeechlord::FestusTheLeechlord() :
-            NurgleBase("Festus the Leechlord", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
+    FestusTheLeechlord::FestusTheLeechlord(PlagueLegion legion, Lore lore, bool isGeneral) :
+            NurgleBase(legion,"Festus the Leechlord", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Plague Staff", 1, 2, 4, 3, 0, RAND_D3) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, HERO, WIZARD, FESTUS_THE_LEECHLORD};
         m_weapons = {&m_staff};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void FestusTheLeechlord::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);

@@ -21,11 +21,9 @@ namespace Nurgle {
 
         static void Init();
 
-        PutridBlightkings(int points);
+        PutridBlightkings(PlagueLegion legion, int numModels, bool iconBearer, bool sonorousTocsin, int points);
 
         ~PutridBlightkings() override = default;
-
-        bool configure(int numModels, bool iconBearer, bool sonorousTocsin);
 
     protected:
 

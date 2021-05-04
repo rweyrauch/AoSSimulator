@@ -36,8 +36,8 @@ namespace Nurgle {
 
     bool TheGlottkin::s_registered = false;
 
-    TheGlottkin::TheGlottkin() :
-            NurgleBase("The Glottkin", 8, g_wounds, 9, 4, false, g_pointsPerUnit),
+    TheGlottkin::TheGlottkin(PlagueLegion legion, Lore lore, bool isGeneral) :
+            NurgleBase(legion, "The Glottkin", 8, g_wounds, 9, 4, false, g_pointsPerUnit),
             m_pestilentTorrent(Weapon::Type::Missile, "Pestilent Torrent", 12, 1, 3, 4, -2, RAND_2D6),
             m_flailingTentacle(Weapon::Type::Melee, "Ghurk's Flailing Tentacle", 3, 6, 4, 2, -2, 2),
             m_lampreyMaw(Weapon::Type::Melee, "Ghurk's Lamprey Maw", 2, 1, 3, 2, -1, RAND_D3),
@@ -48,9 +48,9 @@ namespace Nurgle {
 
         m_totalUnbinds = 1;
         m_totalSpells = 2;
-    }
 
-    void TheGlottkin::configure(Lore lore) {
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentTorrent);
         model->addMeleeWeapon(&m_flailingTentacle);
@@ -63,18 +63,10 @@ namespace Nurgle {
     }
 
     Unit *TheGlottkin::Create(const ParameterList &parameters) {
-        auto unit = new TheGlottkin();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new TheGlottkin(legion, lore, general);
     }
 
     void TheGlottkin::Init() {

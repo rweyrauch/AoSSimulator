@@ -21,11 +21,9 @@ namespace Nurgle {
 
         static void Init();
 
-        PusgoyleBlightlords(int points);
+        PusgoyleBlightlords(PlagueLegion legion, int numModels, int numTocsins, int points);
 
         ~PusgoyleBlightlords() override = default;
-
-        bool configure(int numModels, int numTocsins);
 
     protected:
 

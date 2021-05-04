@@ -21,8 +21,8 @@ namespace Nurgle {
 
     bool PusgoyleBlightlords::s_registered = false;
 
-    PusgoyleBlightlords::PusgoyleBlightlords(int points) :
-            NurgleBase("Pusgoyle Blightlords", 8, g_wounds, 10, 4, true, points),
+    PusgoyleBlightlords::PusgoyleBlightlords(PlagueLegion legion, int numModels, int numTocsins, int points) :
+            NurgleBase(legion,"Pusgoyle Blightlords", 8, g_wounds, 10, 4, true, points),
             m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1),
             m_dolorousTocsin(Weapon::Type::Melee, "Dolorous Tocsin", 1, 1, 4, 3, -2, 2),
             m_mouthparts(Weapon::Type::Melee, "Foul Mouthparts", 1, 2, 3, 3, 0, 1),
@@ -32,16 +32,6 @@ namespace Nurgle {
         m_hasMount = true;
         m_mouthparts.setMount(true);
         m_venemousSting.setMount(true);
-    }
-
-    bool PusgoyleBlightlords::configure(int numModels, int numTocsins) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-
-        if (numTocsins > g_maxUnitSize / 2) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -53,24 +43,13 @@ namespace Nurgle {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *PusgoyleBlightlords::Create(const ParameterList &parameters) {
-        auto unit = new PusgoyleBlightlords(ComputePoints(parameters));
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numTocsins = GetIntParam("Dolorous Tocsin", parameters, 0);
-
-        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, numTocsins);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new PusgoyleBlightlords(legion, numModels, numTocsins, ComputePoints(parameters));
     }
 
     void PusgoyleBlightlords::Init() {

@@ -35,13 +35,11 @@ namespace Nurgle {
 
         static void Init();
 
-        GreatUncleanOne();
+        GreatUncleanOne(PlagueLegion legion, WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~GreatUncleanOne() override = default;
 
     protected:
-
-        void configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore);
 
         void onWounded() override;
 

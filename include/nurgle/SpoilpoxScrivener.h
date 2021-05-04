@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        SpoilpoxScrivenerHeraldOfNurgle();
+        SpoilpoxScrivenerHeraldOfNurgle(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SpoilpoxScrivenerHeraldOfNurgle() override;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

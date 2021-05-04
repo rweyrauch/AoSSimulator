@@ -21,17 +21,11 @@ namespace Nurgle {
 
     bool PutridBlightkings::s_registered = false;
 
-    PutridBlightkings::PutridBlightkings(int points) :
-            NurgleBase("Putrid Blightkings", 4, g_wounds, 8, 4, false, points),
+    PutridBlightkings::PutridBlightkings(PlagueLegion legion, int numModels, bool iconBearer, bool sonorousTocsin, int points) :
+            NurgleBase(legion,"Putrid Blightkings", 4, g_wounds, 8, 4, false, points),
             m_blightedWeapon(Weapon::Type::Melee, "Blighted Weapon", 1, 3, 3, 3, 0, 1) {
         m_keywords = {CHAOS, MORTAL, NURGLE, ROTBRINGER, PUTRID_BLIGHTKINGS};
         m_weapons = {&m_blightedWeapon};
-    }
-
-    bool PutridBlightkings::configure(int numModels, bool iconBearer, bool sonorousTocsin) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_sonorousTocsin = sonorousTocsin;
 
@@ -49,25 +43,14 @@ namespace Nurgle {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *PutridBlightkings::Create(const ParameterList &parameters) {
-        auto unit = new PutridBlightkings(ComputePoints(parameters));
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool sonorousTocsin = GetBoolParam("Sonorous Tocsin", parameters, false);
-
-        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, iconBearer, sonorousTocsin);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new PutridBlightkings(legion, numModels, iconBearer, sonorousTocsin, ComputePoints(parameters));
     }
 
     void PutridBlightkings::Init() {

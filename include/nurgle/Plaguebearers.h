@@ -21,11 +21,9 @@ namespace Nurgle {
 
         static void Init();
 
-        Plaguebearers(int points);
+        Plaguebearers(PlagueLegion legion, int numModels, bool iconBearer, bool pipers, int points);
 
         ~Plaguebearers() override = default;
-
-        bool configure(int numModels, bool iconBearer, bool pipers);
 
     protected:
 

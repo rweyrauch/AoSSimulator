@@ -20,13 +20,11 @@ namespace Nurgle {
 
         static void Init();
 
-        EpidemiusTallymanOfNurgle();
+        EpidemiusTallymanOfNurgle(PlagueLegion legion, bool isGeneral);
 
         ~EpidemiusTallymanOfNurgle() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

@@ -21,13 +21,9 @@ namespace Nurgle {
 
         static void Init();
 
-        SorcererOfNurgle();
+        SorcererOfNurgle(PlagueLegion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SorcererOfNurgle() override = default;
-
-    protected:
-
-        void configure(Lore lore);
 
     private:
 

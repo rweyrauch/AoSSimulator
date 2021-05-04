@@ -18,16 +18,9 @@ namespace Nurgle {
     bool MorbidexTwiceborn::s_registered = false;
 
     Unit *MorbidexTwiceborn::Create(const ParameterList &parameters) {
-        auto unit = new MorbidexTwiceborn();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new MorbidexTwiceborn(legion, general);
     }
 
     void MorbidexTwiceborn::Init() {
@@ -48,8 +41,8 @@ namespace Nurgle {
         }
     }
 
-    MorbidexTwiceborn::MorbidexTwiceborn() :
-            NurgleBase("Morbidex Twicebornd", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
+    MorbidexTwiceborn::MorbidexTwiceborn(PlagueLegion legion, bool isGeneral) :
+            NurgleBase(legion,"Morbidex Twicebornd", 10, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_tongues(Weapon::Type::Missile, "Slabrous Tongues", 6, 3, 3, 2, -1, 1),
             m_scythe(Weapon::Type::Melee, "Fleshreaper Scythe", 2, 5, 3, 3, -1, 2),
             m_claws(Weapon::Type::Melee, "Monstrous Claws", 3, 5, 4, 2, -1, 1) {
@@ -60,18 +53,18 @@ namespace Nurgle {
         m_tongues.setMount(true);
         m_claws.setMount(true);
         s_globalToWoundMod.connect(this, &MorbidexTwiceborn::maliciousMitesWoundMod, &m_maliciousMitesSlot);
-    }
 
-    MorbidexTwiceborn::~MorbidexTwiceborn() {
-        m_maliciousMitesSlot.disconnect();
-    }
+        setGeneral(isGeneral);
 
-    void MorbidexTwiceborn::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_tongues);
         model->addMeleeWeapon(&m_scythe);
         model->addMeleeWeapon(&m_claws);
         addModel(model);
+    }
+
+    MorbidexTwiceborn::~MorbidexTwiceborn() {
+        m_maliciousMitesSlot.disconnect();
     }
 
     int MorbidexTwiceborn::maliciousMitesWoundMod(const Unit *attacker, const Weapon * /*weapon*/,

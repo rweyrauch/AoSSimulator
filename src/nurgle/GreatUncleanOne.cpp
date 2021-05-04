@@ -37,8 +37,8 @@ namespace Nurgle {
 
     bool GreatUncleanOne::s_registered = false;
 
-    GreatUncleanOne::GreatUncleanOne() :
-            NurgleBase("Great Unclean One", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
+    GreatUncleanOne::GreatUncleanOne(PlagueLegion legion, WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion,"Great Unclean One", 5, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_bile(Weapon::Type::Missile, "Noxious Bile", 7, RAND_D6, 3, 2, -2, 1),
             m_flail(Weapon::Type::Melee, "Plague Flail", 2, 3, 3, 2, -1, 2),
             m_bilesword(Weapon::Type::Melee, "Massive Bilesword", 2, 3, 4, 3, -2, 3),
@@ -51,9 +51,11 @@ namespace Nurgle {
 
         m_totalUnbinds = 2;
         m_totalSpells = 2;
-    }
 
-    void GreatUncleanOne::configure(WeaponOptionOne optionOne, WeaponOptionTwo optionTwo, Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bile);
         if (optionOne == Plague_Flail)
@@ -72,27 +74,14 @@ namespace Nurgle {
     }
 
     Unit *GreatUncleanOne::Create(const ParameterList &parameters) {
-        auto unit = new GreatUncleanOne();
-
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         auto weaponOne = (WeaponOptionOne) GetEnumParam("Weapon One", parameters, Plague_Flail);
         auto weaponTwo = (WeaponOptionTwo) GetEnumParam("Weapon Two", parameters, Doomsday_Bell);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_daemonLore[0]);
-
-        unit->configure(weaponOne, weaponTwo, lore);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new GreatUncleanOne(legion, weaponOne, weaponTwo, lore, trait, artefact, general);
     }
 
     void GreatUncleanOne::Init() {

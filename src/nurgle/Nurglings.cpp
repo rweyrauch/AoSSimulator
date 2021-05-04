@@ -20,40 +20,23 @@ namespace Nurgle {
 
     bool Nurglings::s_registered = false;
 
-    Nurglings::Nurglings(int points) :
-            NurgleBase("Nurglings", 5, g_wounds, 10, 6, false, points),
+    Nurglings::Nurglings(PlagueLegion legion, int numModels, int points) :
+            NurgleBase(legion,"Nurglings", 5, g_wounds, 10, 6, false, points),
             m_teeth(Weapon::Type::Melee, "Tiny Razor-sharp Teeth", 1, 5, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, NURGLE, NURGLINGS};
         m_weapons = {&m_teeth};
-    }
-
-    bool Nurglings::configure(int numModels) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_teeth);
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Nurglings::Create(const ParameterList &parameters) {
-        auto unit = new Nurglings(ComputePoints(parameters));
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new Nurglings(legion, numModels, ComputePoints(parameters));
     }
 
     void Nurglings::Init() {

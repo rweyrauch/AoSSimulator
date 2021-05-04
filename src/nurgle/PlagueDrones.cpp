@@ -22,8 +22,8 @@ namespace Nurgle {
 
     bool PlagueDrones::s_registered = false;
 
-    PlagueDrones::PlagueDrones(int points) :
-            NurgleBase("Plague Drones", 8, g_wounds, 10, 5, true, points),
+    PlagueDrones::PlagueDrones(PlagueLegion legion, int numModels, WeaponOption weapon, bool iconBearer, bool bellTollers, int points) :
+            NurgleBase(legion,"Plague Drones", 8, g_wounds, 10, 5, true, points),
             m_plaguesword(Weapon::Type::Melee, "Plaguesword", 1, 1, 4, 3, 0, 1),
             m_plagueswordPlaguebringer(Weapon::Type::Melee, "Plaguesword", 1, 2, 4, 3, 0, 1),
             m_deathsHead(Weapon::Type::Missile, "Death's Head", 14, 1, 4, 3, 0, 1),
@@ -38,26 +38,16 @@ namespace Nurgle {
         m_mouthparts.setMount(true);
         m_venemousSting.setMount(true);
         s_globalBattleshockReroll.connect(this, &PlagueDrones::bellTollersBattleshockReroll, &m_bellTollerSlot);
-    }
 
-    PlagueDrones::~PlagueDrones() {
-        m_bellTollerSlot.disconnect();
-    }
-
-    bool PlagueDrones::configure(int numModels, WeaponOption weapons, bool iconBearer, bool bellTollers) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
-
-        m_weapon = weapons;
+        m_weapon = weapon;
 
         // Add the Plaguebringer
         auto leader = new Model(g_basesize, wounds());
         leader->addMissileWeapon(&m_deathsHead);
         leader->addMeleeWeapon(&m_plagueswordPlaguebringer);
-        if (weapons == Prehensile_Proboscis) {
+        if (weapon == Prehensile_Proboscis) {
             leader->addMeleeWeapon(&m_proboscis);
-        } else if (weapons == Foul_Mouthparts) {
+        } else if (weapon == Foul_Mouthparts) {
             leader->addMeleeWeapon(&m_mouthparts);
         }
         leader->addMeleeWeapon(&m_venemousSting);
@@ -67,9 +57,9 @@ namespace Nurgle {
             auto model = new Model(g_basesize, wounds());
             model->addMissileWeapon(&m_deathsHead);
             model->addMeleeWeapon(&m_plaguesword);
-            if (weapons == Prehensile_Proboscis) {
+            if (weapon == Prehensile_Proboscis) {
                 model->addMeleeWeapon(&m_proboscis);
-            } else if (weapons == Foul_Mouthparts) {
+            } else if (weapon == Foul_Mouthparts) {
                 model->addMeleeWeapon(&m_mouthparts);
             }
             model->addMeleeWeapon(&m_venemousSting);
@@ -83,26 +73,19 @@ namespace Nurgle {
 
             addModel(model);
         }
+    }
 
-        return true;
+    PlagueDrones::~PlagueDrones() {
+        m_bellTollerSlot.disconnect();
     }
 
     Unit *PlagueDrones::Create(const ParameterList &parameters) {
-        auto unit = new PlagueDrones(ComputePoints(parameters));
+        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Prehensile_Proboscis);
         bool iconBearer = GetBoolParam("Icon Bearer", parameters, false);
         bool bells = GetBoolParam("Bell Tollers", parameters, false);
-
-        auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        bool ok = unit->configure(numModels, weapons, iconBearer, bells);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new PlagueDrones(legion, numModels, weapons, iconBearer, bells, ComputePoints(parameters));
     }
 
     void PlagueDrones::Init() {

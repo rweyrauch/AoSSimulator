@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        Rotigus();
+        Rotigus(PlagueLegion legion, Lore lore, bool isGeneral);
 
         ~Rotigus() override = default;
 
     protected:
-
-        void configure(Lore lore);
 
         void onWounded() override;
 

@@ -18,16 +18,9 @@ namespace Nurgle {
     bool EpidemiusTallymanOfNurgle::s_registered = false;
 
     Unit *EpidemiusTallymanOfNurgle::Create(const ParameterList &parameters) {
-        auto unit = new EpidemiusTallymanOfNurgle();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new EpidemiusTallymanOfNurgle(legion, general);
     }
 
     void EpidemiusTallymanOfNurgle::Init() {
@@ -48,16 +41,14 @@ namespace Nurgle {
         }
     }
 
-    EpidemiusTallymanOfNurgle::EpidemiusTallymanOfNurgle() :
-            NurgleBase("Epidemius, Tallyman of Nurgle", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
+    EpidemiusTallymanOfNurgle::EpidemiusTallymanOfNurgle(PlagueLegion legion, bool isGeneral) :
+            NurgleBase(legion,"Epidemius, Tallyman of Nurgle", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_balesword(Weapon::Type::Melee, "Balesword", 1, 3, 3, 3, -1, RAND_D3),
             m_teeth(Weapon::Type::Melee, "Tiny Razor-sharp Teeth", 1, 5, 5, 5, 0, 1) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, EPIDEMIUS, TALLYMAN_OF_NURGLE};
         m_weapons = {&m_balesword, &m_teeth};
         m_battleFieldRole = Role::Leader;
-    }
 
-    void EpidemiusTallymanOfNurgle::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_balesword);
         model->addMeleeWeapon(&m_teeth);

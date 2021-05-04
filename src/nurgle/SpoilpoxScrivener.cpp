@@ -18,22 +18,11 @@ namespace Nurgle {
     bool SpoilpoxScrivenerHeraldOfNurgle::s_registered = false;
 
     Unit *SpoilpoxScrivenerHeraldOfNurgle::Create(const ParameterList &parameters) {
-        auto unit = new SpoilpoxScrivenerHeraldOfNurgle();
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_daemonCommandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_daemonArtefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new SpoilpoxScrivenerHeraldOfNurgle(legion, trait, artefact, general);
     }
 
     void SpoilpoxScrivenerHeraldOfNurgle::Init() {
@@ -56,23 +45,25 @@ namespace Nurgle {
         }
     }
 
-    SpoilpoxScrivenerHeraldOfNurgle::SpoilpoxScrivenerHeraldOfNurgle() :
-            NurgleBase("Spoilpox Scrivener, Herald of Nurgle", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
+    SpoilpoxScrivenerHeraldOfNurgle::SpoilpoxScrivenerHeraldOfNurgle(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            NurgleBase(legion,"Spoilpox Scrivener, Herald of Nurgle", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_sneeze(Weapon::Type::Missile, "Disgusting Sneeze", 6, RAND_D6, 2, 4, 0, 1),
             m_maw(Weapon::Type::Melee, "Distended Maw", 2, 2, 3, 3, -1, 2) {
         m_keywords = {CHAOS, DAEMON, PLAGUEBEARER, NURGLE, HERO, SPOILPOX_SCRIVENER, HERALD_OF_NURGLE};
         m_weapons = {&m_sneeze, &m_maw};
         m_battleFieldRole = Role::Leader;
-    }
 
-    SpoilpoxScrivenerHeraldOfNurgle::~SpoilpoxScrivenerHeraldOfNurgle() {
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    void SpoilpoxScrivenerHeraldOfNurgle::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_sneeze);
         model->addMeleeWeapon(&m_maw);
         addModel(model);
+    }
+
+    SpoilpoxScrivenerHeraldOfNurgle::~SpoilpoxScrivenerHeraldOfNurgle() {
     }
 
     Wounds SpoilpoxScrivenerHeraldOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

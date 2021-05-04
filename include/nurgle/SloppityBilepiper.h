@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        SloppityBilepiperHeraldOfNurgle();
+        SloppityBilepiperHeraldOfNurgle(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SloppityBilepiperHeraldOfNurgle() override;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

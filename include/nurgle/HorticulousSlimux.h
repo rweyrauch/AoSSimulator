@@ -20,13 +20,11 @@ namespace Nurgle {
 
         static void Init();
 
-        HorticulousSlimux();
+        HorticulousSlimux(PlagueLegion legion, bool isGeneral);
 
         ~HorticulousSlimux() override;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

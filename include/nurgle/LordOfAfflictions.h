@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        LordOfAfflictions();
+        LordOfAfflictions(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordOfAfflictions() override;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

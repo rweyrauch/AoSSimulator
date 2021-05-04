@@ -20,18 +20,10 @@ namespace Nurgle {
     bool BloabRotspawned::s_registered = false;
 
     Unit *BloabRotspawned::Create(const ParameterList &parameters) {
-        auto unit = new BloabRotspawned();
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto legion = (PlagueLegion) GetEnumParam("Plague Legion", parameters, (int) PlagueLegion::None);
-        unit->setLegion(legion);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_mortalRotbringerLore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto general = GetBoolParam("General", parameters, false);
+        return new BloabRotspawned(legion, lore, general);
     }
 
     void BloabRotspawned::Init() {
@@ -53,8 +45,8 @@ namespace Nurgle {
         }
     }
 
-    BloabRotspawned::BloabRotspawned() :
-            NurgleBase("Bloab Rotspawned", 10, g_wounds, 9, 4, false, g_pointsPerUnit),
+    BloabRotspawned::BloabRotspawned(PlagueLegion legion, Lore lore, bool isGeneral) :
+            NurgleBase(legion, "Bloab Rotspawned", 10, g_wounds, 9, 4, false, g_pointsPerUnit),
             m_bile(Weapon::Type::Missile, "Bilespurter's Vile Bile", 12, RAND_D3, 4, 2, -2, RAND_D3),
             m_scythe(Weapon::Type::Melee, "Harvestman's Scythe", 2, 3, 3, 3, -1, 2),
             m_claws(Weapon::Type::Melee, "Bilespurter's Monstrous Claws", 3, 5, 4, 2, -1, 1) {
@@ -67,14 +59,10 @@ namespace Nurgle {
         m_totalUnbinds = 1;
         m_totalSpells = 1;
 
+        setGeneral(isGeneral);
+
         s_globalCastMod.connect(this, &BloabRotspawned::windspeakerBellsCastingMod, &m_windspeakerSlot);
-    }
 
-    BloabRotspawned::~BloabRotspawned() {
-        m_windspeakerSlot.disconnect();
-    }
-
-    void BloabRotspawned::configure(Lore lore) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_bile);
         model->addMeleeWeapon(&m_scythe);
@@ -83,6 +71,10 @@ namespace Nurgle {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    BloabRotspawned::~BloabRotspawned() {
+        m_windspeakerSlot.disconnect();
     }
 
     int BloabRotspawned::windspeakerBellsCastingMod(const Unit *caster) {

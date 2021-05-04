@@ -130,16 +130,18 @@ namespace Nurgle {
 
         ~NurgleBase() override = default;
 
-        void setLegion(PlagueLegion legion);
-
         void setCommandTrait(CommandTrait trait) { m_commandTrait = trait; }
 
         void setArtefact(Artefact artefact) { m_artefact = artefact; }
 
     protected:
 
-        NurgleBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        NurgleBase(PlagueLegion legion, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setLegion(legion);
+        }
+
+        void setLegion(PlagueLegion legion);
 
         void onStartHero(PlayerId player) override;
 

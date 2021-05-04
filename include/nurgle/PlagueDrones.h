@@ -30,11 +30,9 @@ namespace Nurgle {
 
         static void Init();
 
-        PlagueDrones(int points);
+        PlagueDrones(PlagueLegion legion, int numModels, WeaponOption weapon, bool iconBearer, bool bellTollers, int points);
 
         ~PlagueDrones() override;
-
-        bool configure(int numModels, WeaponOption weapon, bool iconBearer, bool bellTollers);
 
     protected:
 

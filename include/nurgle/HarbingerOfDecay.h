@@ -20,13 +20,11 @@ namespace Nurgle {
 
         static void Init();
 
-        HarbingerOfDecay();
+        HarbingerOfDecay(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~HarbingerOfDecay() override = default;
 
     protected:
-
-        void configure();
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 

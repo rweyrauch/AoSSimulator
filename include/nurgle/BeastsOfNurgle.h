@@ -21,11 +21,9 @@ namespace Nurgle {
 
         static void Init();
 
-        BeastsOfNurgle(int points);
+        BeastsOfNurgle(PlagueLegion legion, int numModels, int points);
 
         ~BeastsOfNurgle() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

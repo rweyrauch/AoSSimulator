@@ -21,13 +21,11 @@ namespace Nurgle {
 
         static void Init();
 
-        LordOfPlagues();
+        LordOfPlagues(PlagueLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LordOfPlagues() override = default;
 
     protected:
-
-        void configure();
 
         int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
