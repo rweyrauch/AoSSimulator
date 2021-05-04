@@ -17,8 +17,8 @@ namespace CitiesOfSigmar {
 
     bool Runelord::s_registered = false;
 
-    Runelord::Runelord() :
-            CitizenOfSigmar("Runelord", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
+    Runelord::Runelord(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Runelord", 4, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_runeStaff(Weapon::Type::Melee, "Rune Staff", 1, 1, 4, 3, 0, RAND_D3),
             m_forgehammer(Weapon::Type::Melee, "Forgehammer", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, PRIEST, RUNELORD};
@@ -27,39 +27,25 @@ namespace CitiesOfSigmar {
 
         // Runes of Spellbreaking
         m_totalUnbinds = 1;
-    }
 
-    bool Runelord::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+        setNarcotic(narcotic);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_runeStaff);
         model->addMeleeWeapon(&m_forgehammer);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *Runelord::Create(const ParameterList &parameters) {
-        auto unit = new Runelord();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new Runelord(city, drug, trait, artefact, general);
     }
 
     void Runelord::Init() {

@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        CelestialHurricanum();
+        CelestialHurricanum(City city, bool battlemage, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~CelestialHurricanum() override;
-
-        bool configure(bool battlemage, Lore lore);
 
     protected:
 

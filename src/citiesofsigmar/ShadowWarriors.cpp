@@ -21,19 +21,9 @@ namespace CitiesOfSigmar {
     bool ShadowWarriors::s_registered = false;
 
     Unit *ShadowWarriors::Create(const ParameterList &parameters) {
-        auto unit = new ShadowWarriors(ComputePoints(parameters));
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new ShadowWarriors(city, numModels, ComputePoints(parameters));
     }
 
     std::string ShadowWarriors::ValueToString(const Parameter &parameter) {
@@ -62,21 +52,13 @@ namespace CitiesOfSigmar {
         }
     }
 
-    ShadowWarriors::ShadowWarriors(int points) :
-            CitizenOfSigmar("Shadow Warriors", 6, g_wounds, 6, 5, false, points),
+    ShadowWarriors::ShadowWarriors(City city, int numModels, int points) :
+            CitizenOfSigmar(city, "Shadow Warriors", 6, g_wounds, 6, 5, false, points),
             m_bow(Weapon::Type::Missile, "Ranger Bow", 18, 1, 3, 4, -1, 1),
             m_blade(Weapon::Type::Melee, "Coldsteel Blade", 1, 2, 3, 4, 0, 1),
             m_bowWalker(Weapon::Type::Missile, "Ranger Bow", 18, 1, 2, 4, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, SHADOW_WARRIORS};
         m_weapons = {&m_bow, &m_blade, &m_bowWalker};
-    }
-
-    bool ShadowWarriors::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Walker
         auto bossModel = new Model(g_basesize, wounds());
@@ -90,8 +72,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_blade);
             addModel(model);
         }
-
-        return true;
     }
 
     int ShadowWarriors::ComputePoints(const ParameterList& parameters) {

@@ -21,11 +21,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Hammerers(int points);
+        Hammerers(City city, int numModels, bool standardBearer, bool musician, int points);
 
         ~Hammerers() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool musician);
 
     protected:
 

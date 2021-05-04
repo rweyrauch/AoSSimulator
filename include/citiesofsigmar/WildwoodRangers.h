@@ -21,11 +21,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        WildwoodRangers(int points);
+        WildwoodRangers(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~WildwoodRangers() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

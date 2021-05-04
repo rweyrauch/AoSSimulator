@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        SistersOfTheThorn(int points);
+        SistersOfTheThorn(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~SistersOfTheThorn() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

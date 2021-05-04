@@ -21,14 +21,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        WardenKing();
+        WardenKing(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WardenKing() override = default;
-
-        bool configure();
-
-    protected:
-
 
     private:
 

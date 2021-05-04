@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        DarkRiders(int points);
+        DarkRiders(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~DarkRiders() override;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

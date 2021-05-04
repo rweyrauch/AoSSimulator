@@ -19,27 +19,13 @@ namespace CitiesOfSigmar {
     bool Cogsmith::s_registered = false;
 
     Unit *Cogsmith::Create(const ParameterList &parameters) {
-        auto unit = new Cogsmith();
-
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Grudge_Raker);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Grudge_Raker);
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure(weapon);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new Cogsmith(city, weapon, drug, trait, artefact, general);
     }
 
     std::string Cogsmith::ValueToString(const Parameter &parameter) {
@@ -86,8 +72,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Cogsmith::Cogsmith() :
-            CitizenOfSigmar("Cogsmith", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
+    Cogsmith::Cogsmith(City city, WeaponOption weapon, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Cogsmith", 4, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_grudgeRaker(Weapon::Type::Missile, "Grudge-raker", 16, RAND_D3, 4, 3, -1, 1),
             m_pistols(Weapon::Type::Missile, "Duardin Pistols", 8, 2, 4, 3, -1, 1),
             m_cogAxe(Weapon::Type::Melee, "Cog Axe", 1, 4, 3, 4, 0, 1),
@@ -95,9 +81,12 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, HERO, ENGINEER, COGSMITH};
         m_weapons = {&m_grudgeRaker, &m_pistols, &m_cogAxe, &m_gunButt};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool Cogsmith::configure(WeaponOption weapon) {
+        setNarcotic(narcotic);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pistols);
         if (weapon == Grudge_Raker) {
@@ -111,9 +100,6 @@ namespace CitiesOfSigmar {
         addModel(model);
 
         m_weaponOption = weapon;
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Cogsmith::toHitModifier(const Weapon *weapon, const Unit *target) const {

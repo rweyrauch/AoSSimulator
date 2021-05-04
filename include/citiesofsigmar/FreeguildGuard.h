@@ -31,11 +31,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FreeguildGuard(int points);
+        FreeguildGuard(City city, int numModels, bool standardBearer, bool drummer, WeaponOption weapons, int points);
 
         ~FreeguildGuard() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool drummer, WeaponOption weapons);
 
     protected:
 

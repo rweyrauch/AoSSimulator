@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FrostheartPhoenix();
+        FrostheartPhoenix(City city, bool anointed, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~FrostheartPhoenix() override;
-
-        bool configure(bool anointed);
 
     protected:
 

@@ -212,15 +212,17 @@ namespace CitiesOfSigmar {
 
         static int EnumStringToInt(const std::string &enumString);
 
-        void setCity(City city);
-
         void setCommandTrait(CommandTrait trait);
         void setArtefact(Artefact artefact);
         void setNarcotic(Narcotic narcotic);
 
     protected:
-        CitizenOfSigmar(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        CitizenOfSigmar(City city, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setCity(city);
+        }
+
+        void setCity(City city);
 
         int runModifier() const override;
 

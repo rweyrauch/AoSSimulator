@@ -22,21 +22,11 @@ namespace CitiesOfSigmar {
     bool PhoenixGuard::s_registered = false;
 
     Unit *PhoenixGuard::Create(const ParameterList &parameters) {
-        auto unit = new PhoenixGuard(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool drummer = GetBoolParam("Drummer", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, drummer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new PhoenixGuard(city, numModels, standard, drummer, ComputePoints(parameters));
     }
 
     std::string PhoenixGuard::ValueToString(const Parameter &parameter) {
@@ -67,20 +57,12 @@ namespace CitiesOfSigmar {
         }
     }
 
-    PhoenixGuard::PhoenixGuard(int points) :
-            CitizenOfSigmar("Phoenix Guard", 6, g_wounds, 7, 4, false, points),
+    PhoenixGuard::PhoenixGuard(City city, int numModels, bool standardBearer, bool drummer, int points) :
+            CitizenOfSigmar(city, "Phoenix Guard", 6, g_wounds, 7, 4, false, points),
             m_halberd(Weapon::Type::Melee, "Phoenix Halberd", 2, 2, 3, 3, -1, 1),
             m_halberdKeeper(Weapon::Type::Melee, "Phoenix Halberd", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, PHOENIX_GUARD};
         m_weapons = {&m_halberd, &m_halberdKeeper};
-    }
-
-    bool PhoenixGuard::configure(int numModels, bool standardBearer, bool drummer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Keeper
         auto bossModel = new Model(g_basesize, wounds());
@@ -99,8 +81,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int PhoenixGuard::runModifier() const {

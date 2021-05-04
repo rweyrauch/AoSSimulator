@@ -86,29 +86,14 @@ namespace CitiesOfSigmar {
     bool SorceressOnBlackDragon::s_registered = false;
 
     Unit *SorceressOnBlackDragon::Create(const ParameterList &parameters) {
-        auto unit = new SorceressOnBlackDragon();
-
-        WeaponOption weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Witch_Rod);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(weapon, lore);
-        return unit;
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Witch_Rod);
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new SorceressOnBlackDragon(city, lore, weapon, drug, trait, artefact, general);
     }
 
     std::string SorceressOnBlackDragon::ValueToString(const Parameter &parameter) {
@@ -143,8 +128,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    SorceressOnBlackDragon::SorceressOnBlackDragon() :
-            CitizenOfSigmar("Sorceress on Black Dragon", 14, g_wounds, 7, 5, true, g_pointsPerUnit),
+    SorceressOnBlackDragon::SorceressOnBlackDragon(City city, Lore lore, WeaponOption weaponOption, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Sorceress on Black Dragon", 14, g_wounds, 7, 5, true, g_pointsPerUnit),
             m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, -7, 0),
             m_rod(Weapon::Type::Melee, "Witch Rod", 1, 1, 4, 3, -1, RAND_D3),
             m_sword(Weapon::Type::Melee, "Darkling Sword", 1, 3, 4, 4, 0, 1),
@@ -160,15 +145,18 @@ namespace CitiesOfSigmar {
 
         m_totalSpells = 1;
         m_totalUnbinds = 1;
-    }
 
-    bool SorceressOnBlackDragon::configure(WeaponOption option, Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+        setNarcotic(narcotic);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_noxiousBreath);
 
-        if (option == Witch_Rod)
+        if (weaponOption == Witch_Rod)
             model->addMeleeWeapon(&m_rod);
-        else if (option == Darkling_Sword)
+        else if (weaponOption == Darkling_Sword)
             model->addMeleeWeapon(&m_sword);
 
         model->addMeleeWeapon(&m_jaws);
@@ -187,9 +175,6 @@ namespace CitiesOfSigmar {
                                                            Attribute::To_Wound_Melee,
                                                            Rerolls::Ones, Abilities::Target::SelfAndFriendly,
                                                            std::vector<Keyword>{DARKLING_COVENS}));
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void SorceressOnBlackDragon::onRestore() {

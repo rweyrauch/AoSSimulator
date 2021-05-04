@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        HelstormRocketBattery();
+        HelstormRocketBattery(City city);
 
         ~HelstormRocketBattery() override = default;
-
-        bool configure();
 
     protected:
 

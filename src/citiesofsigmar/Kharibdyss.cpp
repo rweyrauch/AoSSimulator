@@ -35,13 +35,8 @@ namespace CitiesOfSigmar {
     bool Kharibdyss::s_registered = false;
 
     Unit *Kharibdyss::Create(const ParameterList &parameters) {
-        auto unit = new Kharibdyss();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        unit->configure();
-        return unit;
+        return new Kharibdyss(city);
     }
 
     std::string Kharibdyss::ValueToString(const Parameter &parameter) {
@@ -69,8 +64,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Kharibdyss::Kharibdyss() :
-            CitizenOfSigmar("Kharibdyss", 7, g_wounds, 6, 4, false, g_pointsPerUnit),
+    Kharibdyss::Kharibdyss(City city) :
+            CitizenOfSigmar(city, "Kharibdyss", 7, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_tentacles(Weapon::Type::Melee, "Fanged Tentacles", 3, 6, 4, 3, -1, 2),
             m_tail(Weapon::Type::Melee, "Spiked Tail", 2, RAND_D6, 4, 2, 0, 1),
             m_limbs(Weapon::Type::Melee, "Clawed Limbs", 1, 2, 3, 3, -1, 1),
@@ -80,23 +75,17 @@ namespace CitiesOfSigmar {
         m_battleFieldRole = Role::Behemoth;
 
         s_globalBraveryMod.connect(this, &Kharibdyss::abyssalHowl, &m_connection);
-    }
 
-    Kharibdyss::~Kharibdyss() {
-        m_connection.disconnect();
-    }
-
-    bool Kharibdyss::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_tentacles);
         model->addMeleeWeapon(&m_tail);
         model->addMeleeWeapon(&m_limbs);
         model->addMeleeWeapon(&m_goadsAndWhips);
         addModel(model);
+    }
 
-        m_points = g_pointsPerUnit;
-
-        return true;
+    Kharibdyss::~Kharibdyss() {
+        m_connection.disconnect();
     }
 
     void Kharibdyss::onRestore() {

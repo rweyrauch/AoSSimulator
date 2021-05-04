@@ -32,11 +32,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Irondrakes(int points);
+        Irondrakes(City city, int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower, int points);
 
         ~Irondrakes() override = default;
-
-        bool configure(int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower);
 
     protected:
 

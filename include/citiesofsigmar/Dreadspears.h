@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Dreadspears(int points);
+        Dreadspears(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~Dreadspears() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

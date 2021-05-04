@@ -25,14 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        ShadowWarriors(int points);
+        ShadowWarriors(City city, int numModels, int points);
 
         ~ShadowWarriors() override = default;
-
-        bool configure(int numModels);
-
-    protected:
-
 
     private:
 

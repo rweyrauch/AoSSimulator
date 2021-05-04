@@ -18,25 +18,12 @@ namespace CitiesOfSigmar {
     bool Assassin::s_registered = false;
 
     Unit *Assassin::Create(const ParameterList &parameters) {
-        auto unit = new Assassin();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new Assassin(city, drug, trait, artefact, general);
     }
 
     std::string Assassin::ValueToString(const Parameter &parameter) {
@@ -68,22 +55,21 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Assassin::Assassin() :
-            CitizenOfSigmar("Assassin", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
+    Assassin::Assassin(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Assassin", 6, g_wounds, 7, 5, false, g_pointsPerUnit),
             m_blades(Weapon::Type::Melee, "Poison-coated Blades", 1, 6, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SHADOWBLADES, HERO, ASSASSIN};
         m_weapons = {&m_blades};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool Assassin::configure() {
+        setNarcotic(narcotic);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_blades);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Wounds Assassin::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

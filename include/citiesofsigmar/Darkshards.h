@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Darkshards(int points);
+        Darkshards(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~Darkshards() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

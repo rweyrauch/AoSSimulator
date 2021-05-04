@@ -36,8 +36,6 @@ namespace GloomspiteGitz {
 
     protected:
 
-        void configure(WeaponOptions weapon);
-
         void onStartHero(PlayerId player) override;
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;

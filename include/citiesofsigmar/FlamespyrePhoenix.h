@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FlamespyrePhoenix();
+        FlamespyrePhoenix(City city, bool anointed, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~FlamespyrePhoenix() override = default;
-
-        bool configure(bool anointed);
 
     protected:
 

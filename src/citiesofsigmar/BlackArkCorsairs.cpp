@@ -21,22 +21,12 @@ namespace CitiesOfSigmar {
     bool BlackArkCorsairs::s_registered = false;
 
     Unit *BlackArkCorsairs::Create(const ParameterList &parameters) {
-        auto unit = new BlackArkCorsairs(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Wicked_Cutlass);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new BlackArkCorsairs(city, numModels, standard, hornblower, weapons, ComputePoints(parameters));
     }
 
     std::string BlackArkCorsairs::ValueToString(const Parameter &parameter) {
@@ -81,8 +71,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    BlackArkCorsairs::BlackArkCorsairs(int points) :
-            CitizenOfSigmar("Black Ark Corsairs", 6, g_wounds, 6, 5, false, points),
+    BlackArkCorsairs::BlackArkCorsairs(City city, int numModels, bool standardBearer, bool hornblower, WeaponOption weapons, int points) :
+            CitizenOfSigmar(city, "Black Ark Corsairs", 6, g_wounds, 6, 5, false, points),
             m_handbow(Weapon::Type::Missile, "Repeater Handbow", 9, 2, 5, 4, 0, 1),
             m_cutlass(Weapon::Type::Melee, "Wicked Cutlass", 1, 1, 4, 4, 0, 1),
             m_blade(Weapon::Type::Melee, "Vicious Blade", 1, 1, 4, 5, 0, 1),
@@ -91,14 +81,6 @@ namespace CitiesOfSigmar {
             m_bladeReaver(Weapon::Type::Melee, "Vicious Blade", 1, 1, 3, 5, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, BLACK_ARK_CORSAIRS};
         m_weapons = {&m_handbow, &m_cutlass, &m_blade, &m_handbowReaver, &m_cutlassReaver, &m_bladeReaver};
-    }
-
-    bool BlackArkCorsairs::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Reaver
         auto bossModel = new Model(g_basesize, wounds());
@@ -127,8 +109,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int BlackArkCorsairs::runModifier() const {

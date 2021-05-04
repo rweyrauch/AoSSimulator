@@ -38,27 +38,13 @@ namespace CitiesOfSigmar {
     bool BattlemageOnGriffon::s_registered = false;
 
     Unit *BattlemageOnGriffon::Create(const ParameterList &parameters) {
-        auto unit = new BattlemageOnGriffon();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new BattlemageOnGriffon(city, lore, drug, trait, artefact, general);
     }
 
     std::string BattlemageOnGriffon::ValueToString(const Parameter &parameter) {
@@ -91,8 +77,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    BattlemageOnGriffon::BattlemageOnGriffon() :
-            CitizenOfSigmar("Battlemage on Griffon", 15, g_wounds, 6, 5, true, g_pointsPerUnit),
+    BattlemageOnGriffon::BattlemageOnGriffon(City city, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Battlemage on Griffon", 15, g_wounds, 6, 5, true, g_pointsPerUnit),
             m_beastStaff(Weapon::Type::Melee, "Beaststaff", 2, 1, 4, 3, -1, RAND_D3),
             m_twinBeaks(Weapon::Type::Melee, "Twin Beaks", 2, 4, 3, 3, -1, 3),
             m_razorClaws(Weapon::Type::Melee, "Razor Claws", 2, 6, 4, 3, -1, 2) {
@@ -104,11 +90,13 @@ namespace CitiesOfSigmar {
         m_twinBeaks.setMount(true);
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    bool BattlemageOnGriffon::configure(Lore lore) {
+        setNarcotic(narcotic);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
-
         model->addMeleeWeapon(&m_beastStaff);
         model->addMeleeWeapon(&m_twinBeaks);
         model->addMeleeWeapon(&m_razorClaws);
@@ -123,10 +111,6 @@ namespace CitiesOfSigmar {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void BattlemageOnGriffon::onRestore() {

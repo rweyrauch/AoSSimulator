@@ -22,22 +22,12 @@ namespace CitiesOfSigmar {
     bool FreeguildHandgunners::s_registered = false;
 
     Unit *FreeguildHandgunners::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildHandgunners(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
         auto marksmanWeapon = (WeaponOption) GetEnumParam("Marksman Weapon", parameters, Handgun);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower, marksmanWeapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new FreeguildHandgunners(city, numModels, standard, hornblower, marksmanWeapon, ComputePoints(parameters));
     }
 
     std::string FreeguildHandgunners::ValueToString(const Parameter &parameter) {
@@ -86,8 +76,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildHandgunners::FreeguildHandgunners(int points) :
-            CitizenOfSigmar("Freeguild Handgunners", 5, g_wounds, 5, 6, false, points),
+    FreeguildHandgunners::FreeguildHandgunners(City city, int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon, int points) :
+            CitizenOfSigmar(city, "Freeguild Handgunners", 5, g_wounds, 5, 6, false, points),
             m_freeguildHandgun(Weapon::Type::Missile, "Freeguild Handgun", 16, 1, 4, 3, -1, 1),
             m_dagger(Weapon::Type::Melee, "Dagger", 1, 1, 5, 5, 0, 1),
             m_longRifle(Weapon::Type::Missile, "Long Rifle", 30, 1, 4, 3, -1, 2),
@@ -96,14 +86,6 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_HANDGUNNERS};
         m_weapons = {&m_freeguildHandgun, &m_dagger, &m_longRifle, &m_repeaterHandgun, &m_handgunMarksman};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool FreeguildHandgunners::configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Marksman
         auto bossModel = new Model(g_basesize, wounds());
@@ -130,8 +112,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int FreeguildHandgunners::runModifier() const {

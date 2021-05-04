@@ -30,11 +30,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        DemigryphKnights(int points);
+        DemigryphKnights(City city, int numModels, bool standardBearer, bool hornblower, WeaponOption weapons, int points);
 
         ~DemigryphKnights() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons);
 
     protected:
 

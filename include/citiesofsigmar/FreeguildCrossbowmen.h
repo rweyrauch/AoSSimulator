@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FreeguildCrossbowmen(int points);
+        FreeguildCrossbowmen(City city, int numModels, bool standardBearer, bool piper, int points);
 
         ~FreeguildCrossbowmen() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool piper);
 
     protected:
 

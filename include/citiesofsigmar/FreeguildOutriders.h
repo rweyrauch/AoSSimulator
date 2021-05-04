@@ -31,11 +31,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FreeguildOutriders(int points);
+        FreeguildOutriders(City city, int numModels, bool trumpeter, WeaponOption sharpshooterWeapon, int points);
 
         ~FreeguildOutriders() override = default;
-
-        bool configure(int numModels, bool trumpeter, WeaponOption sharpshooterWeapon);
 
     protected:
 

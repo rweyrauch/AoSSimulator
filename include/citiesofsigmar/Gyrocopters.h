@@ -30,14 +30,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Gyrocopters(int points);
+        Gyrocopters(City city, int numModels, WeaponOption weapons, int points);
 
         ~Gyrocopters() override = default;
-
-        bool configure(int numModels, WeaponOption weapons);
-
-    protected:
-
 
     private:
 

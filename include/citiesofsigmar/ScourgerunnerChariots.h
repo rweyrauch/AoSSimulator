@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        ScourgerunnerChariots(int points);
+        ScourgerunnerChariots(City city, int numModels, int points);
 
         ~ScourgerunnerChariots() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

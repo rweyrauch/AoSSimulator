@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        NomadPrince();
+        NomadPrince(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~NomadPrince() override = default;
-
-        bool configure();
 
     protected:
 

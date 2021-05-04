@@ -20,8 +20,8 @@ namespace CitiesOfSigmar {
 
     bool Longbeards::s_registered = false;
 
-    Longbeards::Longbeards(int points) :
-            CitizenOfSigmar("Longbeards", 4, g_wounds, 7, 4, false, points),
+    Longbeards::Longbeards(City city, int numModels, WeaponOptions weapons, bool standardBearer, bool musician, int points) :
+            CitizenOfSigmar(city, "Longbeards", 4, g_wounds, 7, 4, false, points),
             m_ancestralAxeHammer(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 1, 3, 4, 0, 1),
             m_ancestralGreatAxe(Weapon::Type::Melee, "Ancestral Great Axe", 1, 1, 4, 3, -1, 1),
             m_ancestralAxeHammerOldGuard(Weapon::Type::Melee, "Ancestral Axe or Ancestral Hammer", 1, 2, 3, 4, 0, 1),
@@ -30,12 +30,6 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_ancestralAxeHammer, &m_ancestralGreatAxe, &m_ancestralAxeHammerOldGuard,
                      &m_ancestralGreatAxeOldGuard};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool Longbeards::configure(int numModels, WeaponOptions weapons, bool standardBearer, bool musician) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto oldguard = new Model(g_basesize, wounds());
         if (weapons == Ancestral_Weapon_And_Shield) {
@@ -63,26 +57,15 @@ namespace CitiesOfSigmar {
         }
 
         m_weaponOption = weapons;
-
-        return true;
     }
 
     Unit *Longbeards::Create(const ParameterList &parameters) {
-        auto unit = new Longbeards(ComputePoints(parameters));
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancestral_Weapon_And_Shield);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool musician = GetBoolParam("Musician", parameters, false);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, weapons, standardBearer, musician);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Longbeards(city, numModels, weapons, standardBearer, musician, ComputePoints(parameters));
     }
 
     void Longbeards::Init() {

@@ -30,11 +30,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        SorceressOnBlackDragon();
+        SorceressOnBlackDragon(City city, Lore lore, WeaponOption weaponOption, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SorceressOnBlackDragon() override = default;
-
-        bool configure(WeaponOption option, Lore lore);
 
     protected:
 

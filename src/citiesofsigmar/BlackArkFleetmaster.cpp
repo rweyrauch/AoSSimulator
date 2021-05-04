@@ -18,25 +18,12 @@ namespace CitiesOfSigmar {
     bool BlackArkFleetmaster::s_registered = false;
 
     Unit *BlackArkFleetmaster::Create(const ParameterList &parameters) {
-        auto unit = new BlackArkFleetmaster();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new BlackArkFleetmaster(city, drug, trait, artefact, general);
     }
 
     std::string BlackArkFleetmaster::ValueToString(const Parameter &parameter) {
@@ -68,24 +55,23 @@ namespace CitiesOfSigmar {
         }
     }
 
-    BlackArkFleetmaster::BlackArkFleetmaster() :
-            CitizenOfSigmar("Black Ark Fleetmaster", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
+    BlackArkFleetmaster::BlackArkFleetmaster(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Black Ark Fleetmaster", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_cutlass(Weapon::Type::Melee, "Black Ark Cutlass", 1, 3, 3, 4, 0, 1),
             m_murderHook(Weapon::Type::Melee, "Murder Hook", 1, 2, 4, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, SCOURGE_PRIVATEERS, HERO, BLACK_ARK_FLEETMASTER};
         m_weapons = {&m_cutlass, &m_murderHook};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool BlackArkFleetmaster::configure() {
+        setNarcotic(narcotic);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_cutlass);
         model->addMeleeWeapon(&m_murderHook);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int BlackArkFleetmaster::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {

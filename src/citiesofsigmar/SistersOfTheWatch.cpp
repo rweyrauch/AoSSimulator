@@ -22,19 +22,9 @@ namespace CitiesOfSigmar {
     bool SistersOfTheWatch::s_registered = false;
 
     Unit *SistersOfTheWatch::Create(const ParameterList &parameters) {
-        auto unit = new SistersOfTheWatch(ComputePoints(parameters));
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new SistersOfTheWatch(city, numModels, ComputePoints(parameters));
     }
 
     std::string SistersOfTheWatch::ValueToString(const Parameter &parameter) {
@@ -63,21 +53,13 @@ namespace CitiesOfSigmar {
         }
     }
 
-    SistersOfTheWatch::SistersOfTheWatch(int points) :
-            CitizenOfSigmar("Sisters of the Watch", 6, g_wounds, 7, 5, false, points),
+    SistersOfTheWatch::SistersOfTheWatch(City city, int numModels, int points) :
+            CitizenOfSigmar(city, "Sisters of the Watch", 6, g_wounds, 7, 5, false, points),
             m_bow(Weapon::Type::Missile, "Watch Bow", 18, 1, 3, 3, 0, 1),
             m_sword(Weapon::Type::Melee, "Ithilmar Sword", 1, 1, 4, 4, 0, 1),
             m_bowHighSister(Weapon::Type::Missile, "Watch Bow", 18, 2, 3, 3, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, SISTERS_OF_THE_WATCH};
         m_weapons = {&m_bow, &m_sword, &m_bowHighSister};
-    }
-
-    bool SistersOfTheWatch::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the High Sister
         auto bossModel = new Model(g_basesize, wounds());
@@ -91,8 +73,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_sword);
             addModel(model);
         }
-
-        return true;
     }
 
     int SistersOfTheWatch::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

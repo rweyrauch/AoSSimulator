@@ -21,19 +21,9 @@ namespace CitiesOfSigmar {
     bool Gyrobombers::s_registered = false;
 
     Unit *Gyrobombers::Create(const ParameterList &parameters) {
-        auto unit = new Gyrobombers(ComputePoints(parameters));
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new Gyrobombers(city, numModels, ComputePoints(parameters));
     }
 
     std::string Gyrobombers::ValueToString(const Parameter &parameter) {
@@ -62,20 +52,12 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Gyrobombers::Gyrobombers(int points) :
-            CitizenOfSigmar("Gyrobombers", 12, g_wounds, 6, 4, true, points),
+    Gyrobombers::Gyrobombers(City city, int numModels, int points) :
+            CitizenOfSigmar(city, "Gyrobombers", 12, g_wounds, 6, 4, true, points),
             m_clattergun(Weapon::Type::Missile, "Clattergun", 20, 4, 4, 3, -1, 1),
             m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, GYROBOMBERS};
         m_weapons = {&m_clattergun, &m_rotorBlades};
-    }
-
-    bool Gyrobombers::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -83,8 +65,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_rotorBlades);
             addModel(model);
         }
-
-        return true;
     }
 
     int Gyrobombers::ComputePoints(const ParameterList& parameters) {

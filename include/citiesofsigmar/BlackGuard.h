@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        BlackGuard(int points);
+        BlackGuard(City city, int numModels, bool standardBearer, bool drummer, int points);
 
         ~BlackGuard() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool drummer);
 
     protected:
 

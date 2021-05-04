@@ -21,21 +21,11 @@ namespace CitiesOfSigmar {
     bool DrakespawnKnights::s_registered = false;
 
     Unit *DrakespawnKnights::Create(const ParameterList &parameters) {
-        auto unit = new DrakespawnKnights(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new DrakespawnKnights(city, numModels, standard, hornblower, ComputePoints(parameters));
     }
 
     std::string DrakespawnKnights::ValueToString(const Parameter &parameter) {
@@ -66,8 +56,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DrakespawnKnights::DrakespawnKnights(int points) :
-            CitizenOfSigmar("Drakespawn Knights", 10, g_wounds, 7, 3, false, points),
+    DrakespawnKnights::DrakespawnKnights(City city, int numModels, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Drakespawn Knights", 10, g_wounds, 7, 3, false, points),
             m_lance(Weapon::Type::Melee, "Barbed Lance", 2, 1, 3, 4, -1, 1),
             m_lanceDreadKnight(Weapon::Type::Melee, "Barbed Lance", 2, 2, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 2, 3, 4, 0, 1) {
@@ -75,14 +65,6 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_lance, &m_lanceDreadKnight, &m_jaws};
         m_hasMount = true;
         m_jaws.setMount(true);
-    }
-
-    bool DrakespawnKnights::configure(int numModels, bool standardBearer, bool hornblower) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Dread Knight
         auto bossModel = new Model(g_basesize, wounds());
@@ -103,8 +85,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int DrakespawnKnights::runModifier() const {

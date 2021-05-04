@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Executioners(int points);
+        Executioners(City city, int numModels, bool standardBearer, bool drummer, int points);
 
         ~Executioners() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool drummer);
 
     protected:
 

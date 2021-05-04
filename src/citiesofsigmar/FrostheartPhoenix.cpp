@@ -36,27 +36,13 @@ namespace CitiesOfSigmar {
     bool FrostheartPhoenix::s_registered = false;
 
     Unit *FrostheartPhoenix::Create(const ParameterList &parameters) {
-        auto unit = new FrostheartPhoenix();
-
-        auto anointed = GetBoolParam("Anointed", parameters, true);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto anointed = GetBoolParam("Anointed", parameters, true);
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure(anointed);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new FrostheartPhoenix(city, anointed, drug, trait, artefact, general);
     }
 
     std::string FrostheartPhoenix::ValueToString(const Parameter &parameter) {
@@ -90,8 +76,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FrostheartPhoenix::FrostheartPhoenix() :
-            CitizenOfSigmar("Frostheart Phoenix", 16, g_wounds, 9, 4, true, g_pointsPerUnit),
+    FrostheartPhoenix::FrostheartPhoenix(City city, bool anointed, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Frostheart Phoenix", 16, g_wounds, 9, 4, true, anointed ? g_pointsPerUnitWithAnointed : g_pointsPerUnit),
             m_talons(Weapon::Type::Melee, "Ice-cold Talons", 2, 8, 3, 3, -1, 2),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FROSTHEART_PHOENIX};
@@ -100,22 +86,15 @@ namespace CitiesOfSigmar {
         m_hasMount = true;
         m_talons.setMount(true);
         s_globalToWoundMod.connect(this, &FrostheartPhoenix::blizzardAura, &m_connection);
-    }
-
-    FrostheartPhoenix::~FrostheartPhoenix() {
-        m_connection.disconnect();
-    }
-
-    bool FrostheartPhoenix::configure(bool anointed) {
-        if (anointed) {
-            addKeyword(HERO);
-            m_battleFieldRole = Role::Leader_Behemoth;
-        }
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_talons);
         if (anointed) {
             model->addMeleeWeapon(&m_halberd);
+            setCommandTrait(trait);
+            setArtefact(artefact);
+            setGeneral(isGeneral);
+            setNarcotic(narcotic);
         }
         addModel(model);
 
@@ -126,12 +105,11 @@ namespace CitiesOfSigmar {
                                                                Rerolls::Failed,
                                                                Abilities::Target::SelfAndFriendly,
                                                                std::vector<Keyword>{PHOENIX_TEMPLE}));
-            m_points = g_pointsPerUnitWithAnointed;
-        } else {
-            m_points = g_pointsPerUnit;
         }
+    }
 
-        return true;
+    FrostheartPhoenix::~FrostheartPhoenix() {
+        m_connection.disconnect();
     }
 
     void FrostheartPhoenix::onRestore() {

@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        BlackArkFleetmaster();
+        BlackArkFleetmaster(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BlackArkFleetmaster() override = default;
-
-        bool configure();
 
     protected:
 

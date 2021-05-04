@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FreeguildGeneral();
+        FreeguildGeneral(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~FreeguildGeneral() override;
-
-        bool configure();
 
     protected:
 

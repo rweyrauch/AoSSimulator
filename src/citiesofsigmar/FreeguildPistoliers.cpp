@@ -21,21 +21,11 @@ namespace CitiesOfSigmar {
     bool FreeguildPistoliers::s_registered = false;
 
     Unit *FreeguildPistoliers::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildPistoliers(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool trumpeter = GetBoolParam("Trumpeter", parameters, true);
         auto outriderWeapon = (WeaponOption) GetEnumParam("Outrider Weapon", parameters, Repeater_Handgun);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, trumpeter, outriderWeapon);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new FreeguildPistoliers(city, numModels, trumpeter, outriderWeapon, ComputePoints(parameters));
     }
 
     std::string FreeguildPistoliers::ValueToString(const Parameter &parameter) {
@@ -79,8 +69,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildPistoliers::FreeguildPistoliers(int points) :
-            CitizenOfSigmar("Freeguild Pistoliers", 12, g_wounds, 5, 5, false, points),
+    FreeguildPistoliers::FreeguildPistoliers(City city, int numModels, bool trumpeter, WeaponOption outriderWeapon, int points) :
+            CitizenOfSigmar(city, "Freeguild Pistoliers", 12, g_wounds, 5, 5, false, points),
             m_pistols(Weapon::Type::Missile, "Brace of Pistols", 9, 2, 4, 3, -1, 1),
             m_handgun(Weapon::Type::Missile, "Repeater Handgun", 16, RAND_D3, 4, 3, -1, 1),
             m_sabreAndPistolButt(Weapon::Type::Melee, "Sabre and Pistol Butt", 1, 2, 4, 4, 0, 1),
@@ -90,14 +80,6 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_pistols, &m_handgun, &m_sabreAndPistolButt, &m_hooves, &m_sabreAndPistolButtOutrider};
         m_hasMount = true;
         m_hooves.setMount(true);
-    }
-
-    bool FreeguildPistoliers::configure(int numModels, bool trumpeter, WeaponOption outriderWeapon) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Sharpshooter
         auto bossModel = new Model(g_basesize, wounds());
@@ -121,8 +103,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int FreeguildPistoliers::runModifier() const {

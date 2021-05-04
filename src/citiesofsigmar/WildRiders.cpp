@@ -21,21 +21,11 @@ namespace CitiesOfSigmar {
     bool WildRiders::s_registered = false;
 
     Unit *WildRiders::Create(const ParameterList &parameters) {
-        auto unit = new WildRiders(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new WildRiders(city, numModels, standard, hornblower, ComputePoints(parameters));
     }
 
     std::string WildRiders::ValueToString(const Parameter &parameter) {
@@ -66,8 +56,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    WildRiders::WildRiders(int points) :
-            CitizenOfSigmar("Wild Riders", 12, g_wounds, 8, 5, false, points),
+    WildRiders::WildRiders(City city, int numModels, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Wild Riders", 12, g_wounds, 8, 5, false, points),
             m_spear(Weapon::Type::Melee, "Hunting Spear", 2, 2, 3, 4, -1, 1),
             m_hooves(Weapon::Type::Melee, "Antlers and Hooves", 1, 2, 4, 4, 0, 1),
             m_spearHunter(Weapon::Type::Melee, "Hunting Spear", 2, 3, 3, 4, -1, 1) {
@@ -75,14 +65,6 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_spear, &m_hooves, &m_spearHunter};
         m_hasMount = true;
         m_hooves.setMount(true);
-    }
-
-    bool WildRiders::configure(int numModels, bool standardBearer, bool hornblower) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Hunter
         auto bossModel = new Model(g_basesize, wounds());
@@ -103,8 +85,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int WildRiders::runModifier() const {

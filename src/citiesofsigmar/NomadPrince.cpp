@@ -19,25 +19,12 @@ namespace CitiesOfSigmar {
     bool NomadPrince::s_registered = false;
 
     Unit *NomadPrince::Create(const ParameterList &parameters) {
-        auto unit = new NomadPrince();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new NomadPrince(city, drug, trait, artefact, general);
     }
 
     std::string NomadPrince::ValueToString(const Parameter &parameter) {
@@ -69,15 +56,18 @@ namespace CitiesOfSigmar {
         }
     }
 
-    NomadPrince::NomadPrince() :
-            CitizenOfSigmar("Nomad Prince", 6, g_wounds, 8, 3, false, g_pointsPerUnit),
+    NomadPrince::NomadPrince(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Nomad Prince", 6, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_spear(Weapon::Type::Melee, "Starlight Spear", 2, 4, 3, 3, -1, 2) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, HERO, NOMAD_PRINCE};
         m_weapons = {&m_spear};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool NomadPrince::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+        setNarcotic(narcotic);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_spear);
         addModel(model);
@@ -94,7 +84,6 @@ namespace CitiesOfSigmar {
                                                                                   std::vector<Keyword>{WANDERER}));
         m_points = g_pointsPerUnit;
 
-        return true;
     }
 
     int NomadPrince::ComputePoints(const ParameterList& /*parameters*/) {

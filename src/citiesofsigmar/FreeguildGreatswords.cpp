@@ -22,21 +22,11 @@ namespace CitiesOfSigmar {
     bool FreeguildGreatswords::s_registered = false;
 
     Unit *FreeguildGreatswords::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildGreatswords(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new FreeguildGreatswords(city, numModels, standard, hornblower, ComputePoints(parameters));
     }
 
     std::string FreeguildGreatswords::ValueToString(const Parameter &parameter) {
@@ -67,20 +57,12 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildGreatswords::FreeguildGreatswords(int points) :
-            CitizenOfSigmar("Freeguild Greatswords", 5, g_wounds, 6, 4, false, points),
+    FreeguildGreatswords::FreeguildGreatswords(City city, int numModels, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Freeguild Greatswords", 5, g_wounds, 6, 4, false, points),
             m_zweihander(Weapon::Type::Melee, "Zweihander", 1, 2, 3, 3, -1, 1),
             m_zweihanderChampion(Weapon::Type::Melee, "Zweihander", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_GREATSWORDS};
         m_weapons = {&m_zweihander, &m_zweihanderChampion};
-    }
-
-    bool FreeguildGreatswords::configure(int numModels, bool standardBearer, bool hornblower) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Champion
         auto bossModel = new Model(g_basesize, wounds());
@@ -99,8 +81,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int FreeguildGreatswords::runModifier() const {

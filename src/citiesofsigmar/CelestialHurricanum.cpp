@@ -94,29 +94,14 @@ namespace CitiesOfSigmar {
     bool CelestialHurricanum::s_registered = false;
 
     Unit *CelestialHurricanum::Create(const ParameterList &parameters) {
-        auto unit = new CelestialHurricanum();
-
-        auto battlemage = GetBoolParam("Battlemage", parameters, true);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
+        auto battlemage = GetBoolParam("Battlemage", parameters, true);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(battlemage, lore);
-        return unit;
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new CelestialHurricanum(city, battlemage, lore, drug, trait, artefact, general);
     }
 
     std::string CelestialHurricanum::ValueToString(const Parameter &parameter) {
@@ -151,8 +136,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    CelestialHurricanum::CelestialHurricanum() :
-            CitizenOfSigmar("Celestial Hurricanum", 10, g_wounds, 6, 4, false, g_pointsPerUnit),
+    CelestialHurricanum::CelestialHurricanum(City city, bool battlemage, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Celestial Hurricanum", 10, g_wounds, 6, 4, false, battlemage ? g_pointsPerUnitWithBattlemage : g_pointsPerUnit),
             m_stormOfShemtek(Weapon::Type::Missile, "Storm of Shemtek", 18, 1, 0, 0, 0, 0),
             m_wizardStaff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_arcaneTools(Weapon::Type::Melee, "Arcane Tools", 1, 4, 5, 5, 0, 1),
@@ -165,14 +150,12 @@ namespace CitiesOfSigmar {
 
         s_globalCastMod.connect(this, &CelestialHurricanum::locusOfAzyr, &m_locusConnection);
         s_globalToHitMod.connect(this, &CelestialHurricanum::portentsOfBattle, &m_portentsConnection);
-    }
 
-    CelestialHurricanum::~CelestialHurricanum() {
-        m_locusConnection.disconnect();
-        m_portentsConnection.disconnect();
-    }
+        setNarcotic(narcotic);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
-    bool CelestialHurricanum::configure(bool battlemage, Lore lore) {
         if (battlemage) {
             addKeyword(WIZARD);
             addKeyword(HERO);
@@ -196,12 +179,12 @@ namespace CitiesOfSigmar {
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
             m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-            m_points = g_pointsPerUnitWithBattlemage;
-        } else {
-            m_points = g_pointsPerUnit;
         }
+    }
 
-        return true;
+    CelestialHurricanum::~CelestialHurricanum() {
+        m_locusConnection.disconnect();
+        m_portentsConnection.disconnect();
     }
 
     void CelestialHurricanum::onRestore() {

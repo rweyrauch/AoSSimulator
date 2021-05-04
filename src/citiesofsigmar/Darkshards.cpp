@@ -21,21 +21,11 @@ namespace CitiesOfSigmar {
     bool Darkshards::s_registered = false;
 
     Unit *Darkshards::Create(const ParameterList &parameters) {
-        auto unit = new Darkshards(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Darkshards(city, numModels, standard, hornblower, ComputePoints(parameters));
     }
 
     std::string Darkshards::ValueToString(const Parameter &parameter) {
@@ -66,22 +56,14 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Darkshards::Darkshards(int points) :
-            CitizenOfSigmar("Darkshards", 6, g_wounds, 6, 5, false, points),
+    Darkshards::Darkshards(City city, int numModels, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Darkshards", 6, g_wounds, 6, 5, false, points),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 2, 4, 4, 0, 1),
             m_dagger(Weapon::Type::Melee, "Cruel Dagger", 1, 1, 5, 5, 0, 1),
             m_crossbowMaster(Weapon::Type::Missile, "Repeater Crossbow", 16, 2, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, DARKSHARDS};
         m_weapons = {&m_crossbow, &m_dagger, &m_crossbowMaster};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool Darkshards::configure(int numModels, bool standardBearer, bool hornblower) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Guardmaster
         auto bossModel = new Model(g_basesize, wounds());
@@ -102,8 +84,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int Darkshards::runModifier() const {

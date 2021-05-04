@@ -19,13 +19,8 @@ namespace CitiesOfSigmar {
     bool HelstormRocketBattery::s_registered = false;
 
     Unit *HelstormRocketBattery::Create(const ParameterList &parameters) {
-        auto unit = new HelstormRocketBattery();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        unit->configure();
-        return unit;
+        return new HelstormRocketBattery(city);
     }
 
     std::string HelstormRocketBattery::ValueToString(const Parameter &parameter) {
@@ -53,24 +48,18 @@ namespace CitiesOfSigmar {
         }
     }
 
-    HelstormRocketBattery::HelstormRocketBattery() :
-            CitizenOfSigmar("Helstorm Rocket Battery", 3, g_wounds, 5, 4, false, g_pointsPerUnit),
+    HelstormRocketBattery::HelstormRocketBattery(City city) :
+            CitizenOfSigmar(city, "Helstorm Rocket Battery", 3, g_wounds, 5, 4, false, g_pointsPerUnit),
             m_rocketSalvo(Weapon::Type::Missile, "Helstorm Rocket Salvo", 36, 3, 5, 3, -2, RAND_D3),
             m_crewsTools(Weapon::Type::Melee, "Crew's Tools", 1, 3, 5, 5, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, HELSTORM_ROCKET_BATTERY};
         m_weapons = {&m_rocketSalvo, &m_crewsTools};
         m_battleFieldRole = Role::Artillery;
-    }
 
-    bool HelstormRocketBattery::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_rocketSalvo);
         model->addMeleeWeapon(&m_crewsTools);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int HelstormRocketBattery::toHitModifier(const Weapon *weapon, const Unit *target) const {

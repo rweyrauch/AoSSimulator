@@ -22,21 +22,11 @@ namespace CitiesOfSigmar {
     bool SistersOfTheThorn::s_registered = false;
 
     Unit *SistersOfTheThorn::Create(const ParameterList &parameters) {
-        auto unit = new SistersOfTheThorn(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new SistersOfTheThorn(city, numModels, standard, hornblower, ComputePoints(parameters));
     }
 
     std::string SistersOfTheThorn::ValueToString(const Parameter &parameter) {
@@ -67,8 +57,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    SistersOfTheThorn::SistersOfTheThorn(int points) :
-            CitizenOfSigmar("Sisters of the Thorn", 12, g_wounds, 7, 5, false, points),
+    SistersOfTheThorn::SistersOfTheThorn(City city, int numModels, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Sisters of the Thorn", 12, g_wounds, 7, 5, false, points),
             m_javelin(Weapon::Type::Missile, "Blackbriar Javelin", 9, 2, 4, 4, -1, 1),
             m_staff(Weapon::Type::Melee, "Deepwood Coven Staff", 2, 1, 4, 4, 0, 1),
             m_antlersAndHooves(Weapon::Type::Melee, "Antlers and Horns", 1, 2, 4, 4, 0, 1),
@@ -80,14 +70,6 @@ namespace CitiesOfSigmar {
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
-
-    bool SistersOfTheThorn::configure(int numModels, bool standardBearer, bool hornblower) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Handmaiden
         auto bossModel = new Model(g_basesize, wounds());
@@ -113,8 +95,6 @@ namespace CitiesOfSigmar {
 
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        return true;
     }
 
     int SistersOfTheThorn::runModifier() const {

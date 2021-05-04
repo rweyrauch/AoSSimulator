@@ -20,18 +20,12 @@ namespace CitiesOfSigmar {
 
     bool WildwoodRangers::s_registered = false;
 
-    WildwoodRangers::WildwoodRangers(int points) :
-            CitizenOfSigmar("Wildwood Rangers", 6, g_wounds, 7, 5, false, points),
+    WildwoodRangers::WildwoodRangers(City city, int numModels, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Wildwood Rangers", 6, g_wounds, 7, 5, false, points),
             m_rangersDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 2, 3, 3, -1, 1),
             m_wardensDraich(Weapon::Type::Melee, "Ranger's Draich", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, WILDWOOD_RANGERS};
         m_weapons = {&m_rangersDraich, &m_wardensDraich};
-    }
-
-    bool WildwoodRangers::configure(int numModels, bool standardBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto warden = new Model(g_basesize, wounds());
         warden->addMeleeWeapon(&m_wardensDraich);
@@ -49,25 +43,14 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *WildwoodRangers::Create(const ParameterList &parameters) {
-        auto unit = new WildwoodRangers(ComputePoints(parameters));
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standardBearer, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new WildwoodRangers(city, numModels, standardBearer, hornblower, ComputePoints(parameters));
     }
 
     void WildwoodRangers::Init() {

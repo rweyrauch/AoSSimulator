@@ -37,18 +37,13 @@ namespace CitiesOfSigmar {
     bool SteamTank::s_registered = false;
 
     Unit *SteamTank::Create(const ParameterList &parameters) {
-        auto unit = new SteamTank();
-
-        auto commander = GetBoolParam("Commander", parameters, true);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
+        auto commander = GetBoolParam("Commander", parameters, true);
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure(commander);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new SteamTank(city, commander, drug, trait, artefact, general);
     }
 
     std::string SteamTank::ValueToString(const Parameter &parameter) {
@@ -69,6 +64,9 @@ namespace CitiesOfSigmar {
                     {
                             BoolParameter("Commander"),
                             EnumParameter("City", g_city[0], g_city),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                            BoolParameter("General")
                     },
                     ORDER,
                     {CITIES_OF_SIGMAR}
@@ -77,8 +75,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    SteamTank::SteamTank() :
-            CitizenOfSigmar("Steam Tank", RAND_2D6, g_wounds, 8, 3, false, g_pointsPerUnit),
+    SteamTank::SteamTank(City city, bool commander, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Steam Tank", RAND_2D6, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_steamCannon(Weapon::Type::Missile, "Steam Cannon", 30, 1, 4, 2, -2, RAND_D6),
             m_steamGun(Weapon::Type::Missile, "Steam Gun", 8, RAND_2D6, 4, 2, 0, 1),
             m_longRifle(Weapon::Type::Missile, "Long Rifle", 30, 1, 3, 3, -1, 2),
@@ -88,15 +86,11 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, STEAM_TANK};
         m_weapons = {&m_steamCannon, &m_steamGun, &m_longRifle, &m_handgun, &m_crushingWheels, &m_sword};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    bool SteamTank::configure(bool commander) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_steamCannon);
         model->addMissileWeapon(&m_steamGun);
         model->addMeleeWeapon(&m_crushingWheels);
-
-        m_points = g_pointsPerUnit;
 
         if (commander) {
             addKeyword(HERO);
@@ -105,11 +99,13 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_sword);
             m_battleFieldRole = Role::Leader_Behemoth;
             m_points += g_pointsForCommander;
+            setCommandTrait(trait);
+            setArtefact(artefact);
+            setGeneral(isGeneral);
+            setNarcotic(narcotic);
         }
         addModel(model);
         m_commander = commander;
-
-        return true;
     }
 
     void SteamTank::onRestore() {

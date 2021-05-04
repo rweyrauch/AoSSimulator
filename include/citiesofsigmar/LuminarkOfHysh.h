@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        LuminarkOfHysh();
+        LuminarkOfHysh(City city, bool battlemage, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LuminarkOfHysh() override;
-
-        bool configure(bool battlemage, Lore lore);
 
     protected:
 

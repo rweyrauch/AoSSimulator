@@ -30,11 +30,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Cogsmith();
+        Cogsmith(City city, WeaponOption option, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Cogsmith() override = default;
-
-        bool configure(WeaponOption weapon);
 
     protected:
 

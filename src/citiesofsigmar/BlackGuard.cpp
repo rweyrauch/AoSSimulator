@@ -22,21 +22,11 @@ namespace CitiesOfSigmar {
     bool BlackGuard::s_registered = false;
 
     Unit *BlackGuard::Create(const ParameterList &parameters) {
-        auto unit = new BlackGuard(ComputePoints(parameters));
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool drummer = GetBoolParam("Drummer", parameters, true);
-
-        bool ok = unit->configure(numModels, standard, drummer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new BlackGuard(city, numModels, standard, drummer, ComputePoints(parameters));
     }
 
     std::string BlackGuard::ValueToString(const Parameter &parameter) {
@@ -67,20 +57,12 @@ namespace CitiesOfSigmar {
         }
     }
 
-    BlackGuard::BlackGuard(int points) :
-            CitizenOfSigmar("Black Guard", 6, g_wounds, 8, 4, false, points),
+    BlackGuard::BlackGuard(City city, int numModels, bool standardBearer, bool drummer, int points) :
+            CitizenOfSigmar(city, "Black Guard", 6, g_wounds, 8, 4, false, points),
             m_halberd(Weapon::Type::Melee, "Ebon Halberd", 2, 2, 3, 3, -1, 1),
             m_halberdCaptain(Weapon::Type::Melee, "Ebon Halberd", 2, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLACK_GUARD};
         m_weapons = {&m_halberd, &m_halberdCaptain};
-    }
-
-    bool BlackGuard::configure(int numModels, bool standardBearer, bool drummer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Captain
         auto bossModel = new Model(g_basesize, wounds());
@@ -99,8 +81,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int BlackGuard::runModifier() const {

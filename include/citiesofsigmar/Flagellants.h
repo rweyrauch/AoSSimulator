@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Flagellants(int points);
+        Flagellants(City city, int numModels, int points);
 
         ~Flagellants() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

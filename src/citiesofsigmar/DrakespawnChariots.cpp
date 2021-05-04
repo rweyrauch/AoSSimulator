@@ -22,19 +22,9 @@ namespace CitiesOfSigmar {
     bool DrakespawnChariots::s_registered = false;
 
     Unit *DrakespawnChariots::Create(const ParameterList &parameters) {
-        auto unit = new DrakespawnChariots(ComputePoints(parameters));
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new DrakespawnChariots(city, numModels, ComputePoints(parameters));
     }
 
     std::string DrakespawnChariots::ValueToString(const Parameter &parameter) {
@@ -63,8 +53,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DrakespawnChariots::DrakespawnChariots(int points) :
-            CitizenOfSigmar("Drakespawn Chariots", 10, g_wounds, 7, 4, false, points),
+    DrakespawnChariots::DrakespawnChariots(City city, int numModels, int points) :
+            CitizenOfSigmar(city, "Drakespawn Chariots", 10, g_wounds, 7, 4, false, points),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 5, 4, 0, 1),
             m_spear(Weapon::Type::Melee, "Barbed Spear", 2, 2, 3, 4, -1, 1),
             m_jaws(Weapon::Type::Melee, "Ferocious Jaws", 1, 4, 3, 4, 0, 1) {
@@ -72,14 +62,6 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_crossbow, &m_spear, &m_jaws};
         m_hasMount = true;
         m_jaws.setMount(true);
-    }
-
-    bool DrakespawnChariots::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -88,8 +70,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_jaws);
             addModel(model);
         }
-
-        return true;
     }
 
     int DrakespawnChariots::ComputePoints(const ParameterList& parameters) {

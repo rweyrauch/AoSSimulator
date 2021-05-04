@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Bleakswords(int points);
+        Bleakswords(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~Bleakswords() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

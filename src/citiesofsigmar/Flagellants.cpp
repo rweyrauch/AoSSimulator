@@ -22,19 +22,9 @@ namespace CitiesOfSigmar {
     bool Flagellants::s_registered = false;
 
     Unit *Flagellants::Create(const ParameterList &parameters) {
-        auto unit = new Flagellants(ComputePoints(parameters));
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new Flagellants(city, numModels, ComputePoints(parameters));
     }
 
     std::string Flagellants::ValueToString(const Parameter &parameter) {
@@ -63,20 +53,12 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Flagellants::Flagellants(int points) :
-            CitizenOfSigmar("Flagellants", 6, g_wounds, 8, NoSave, false, points),
+    Flagellants::Flagellants(City city, int numModels, int points) :
+            CitizenOfSigmar(city, "Flagellants", 6, g_wounds, 8, NoSave, false, points),
             m_flailsAndClubs(Weapon::Type::Melee, "Castigating Flails and Clubs", 1, 2, 5, 4, 0, 1),
             m_flailsAndClubsProphet(Weapon::Type::Melee, "Castigating Flails and Clubs", 1, 3, 5, 4, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, DEVOTED_OF_SIGMAR, FLAGELLANTS};
         m_weapons = {&m_flailsAndClubs, &m_flailsAndClubsProphet};
-    }
-
-    bool Flagellants::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Prophet
         auto bossModel = new Model(g_basesize, wounds());
@@ -88,8 +70,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_flailsAndClubs);
             addModel(model);
         }
-
-        return true;
     }
 
     int Flagellants::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {

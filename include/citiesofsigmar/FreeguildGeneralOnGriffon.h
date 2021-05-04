@@ -31,11 +31,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FreeguildGeneralOnGriffon();
+        FreeguildGeneralOnGriffon(City city, WeaponOption weaponOption, bool hasShield, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~FreeguildGeneralOnGriffon() override;
-
-        bool configure(WeaponOption weapon, bool hasShield);
 
     protected:
 

@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        SteamTank();
+        SteamTank(City city, bool commander, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~SteamTank() override = default;
-
-        bool configure(bool commander);
 
     protected:
 

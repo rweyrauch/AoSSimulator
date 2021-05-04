@@ -30,11 +30,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Longbeards(int points);
+        Longbeards(City city, int numModels, WeaponOptions weapons, bool standardBearer, bool musician, int points);
 
         ~Longbeards() override = default;
-
-        bool configure(int numModels, WeaponOptions weapons, bool standardBearer, bool musician);
 
     protected:
 

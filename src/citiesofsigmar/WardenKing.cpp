@@ -17,44 +17,30 @@ namespace CitiesOfSigmar {
 
     bool WardenKing::s_registered = false;
 
-    WardenKing::WardenKing() :
-            CitizenOfSigmar("Warden King", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
+    WardenKing::WardenKing(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Warden King", 4, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_runeWeapon(Weapon::Type::Melee, "Rune Hammer", 1, 4, 3, 3, -1, RAND_D3) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HERO, WARDEN_KING};
         m_weapons = {&m_runeWeapon};
         m_battleFieldRole = Role::Leader;
-    }
 
-    bool WardenKing::configure() {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+        setNarcotic(narcotic);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_runeWeapon);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     Unit *WardenKing::Create(const ParameterList &parameters) {
-        auto unit = new WardenKing();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure();
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new WardenKing(city, drug, trait, artefact, general);
     }
 
     void WardenKing::Init() {

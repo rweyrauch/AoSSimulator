@@ -30,11 +30,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        BlackArkCorsairs(int points);
+        BlackArkCorsairs(City city, int numModels, bool standardBearer, bool hornblower, WeaponOption weapons, int points);
 
         ~BlackArkCorsairs() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons);
 
     protected:
 

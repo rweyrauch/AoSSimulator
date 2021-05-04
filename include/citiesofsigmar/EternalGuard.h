@@ -21,11 +21,9 @@ namespace CitiesOfSigmar {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        EternalGuard(int points);
+        EternalGuard(City city, int numModels, bool standardBearer, bool hornblower, bool gladeShields, int points);
 
         ~EternalGuard() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields);
 
     protected:
 

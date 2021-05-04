@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        SistersOfTheWatch(int points);
+        SistersOfTheWatch(City city, int numModels, int points);
 
         ~SistersOfTheWatch() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

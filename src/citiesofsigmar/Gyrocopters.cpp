@@ -21,20 +21,10 @@ namespace CitiesOfSigmar {
     bool Gyrocopters::s_registered = false;
 
     Unit *Gyrocopters::Create(const ParameterList &parameters) {
-        auto unit = new Gyrocopters(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Brimstone_Gun);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Gyrocopters(city, numModels, weapons, ComputePoints(parameters));
     }
 
     std::string Gyrocopters::ValueToString(const Parameter &parameter) {
@@ -77,21 +67,13 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Gyrocopters::Gyrocopters(int points) :
-            CitizenOfSigmar("Gyrocopters", 16, g_wounds, 6, 4, true, points),
+    Gyrocopters::Gyrocopters(City city, int numModels, WeaponOption weapons, int points) :
+            CitizenOfSigmar(city, "Gyrocopters", 16, g_wounds, 6, 4, true, points),
             m_brimstoneGun(Weapon::Type::Missile, "Brimstone Gun", 16, 3, 3, 3, -1, 1),
             m_steamGun(Weapon::Type::Missile, "Steam Gun", 8, 1, 3, 4, -1, 1),
             m_rotorBlades(Weapon::Type::Melee, "Rotor Blades", 1, RAND_D3, 5, 4, 0, 1) {
         m_keywords = {ORDER, DUARDIN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, GYROCOPTERS};
         m_weapons = {&m_brimstoneGun, &m_steamGun, &m_rotorBlades};
-    }
-
-    bool Gyrocopters::configure(int numModels, WeaponOption weapons) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -103,8 +85,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_rotorBlades);
             addModel(model);
         }
-
-        return true;
     }
 
     int Gyrocopters::ComputePoints(const ParameterList& parameters) {

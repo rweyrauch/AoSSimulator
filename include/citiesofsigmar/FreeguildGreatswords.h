@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FreeguildGreatswords(int points);
+        FreeguildGreatswords(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~FreeguildGreatswords() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

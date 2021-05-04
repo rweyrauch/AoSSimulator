@@ -32,8 +32,6 @@ namespace GloomspiteGitz {
 
     protected:
 
-        void configure(Lore lore);
-
         void onStartHero(PlayerId playerId) override;
 
         Wounds applyWoundSave(const Wounds &wounds, Unit* attackingUnit) override;

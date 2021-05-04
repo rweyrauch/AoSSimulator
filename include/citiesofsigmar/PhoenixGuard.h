@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        PhoenixGuard(int points);
+        PhoenixGuard(City city, int numModels, bool standardBearer, bool drummer, int points);
 
         ~PhoenixGuard() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool drummer);
 
     protected:
 

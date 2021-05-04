@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        BattlemageOnGriffon();
+        BattlemageOnGriffon(City city, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BattlemageOnGriffon() override = default;
-
-        bool configure(Lore lore);
 
     protected:
 

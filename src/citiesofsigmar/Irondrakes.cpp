@@ -21,8 +21,8 @@ namespace CitiesOfSigmar {
 
     bool Irondrakes::s_registered = false;
 
-    Irondrakes::Irondrakes(int points) :
-            CitizenOfSigmar("Irondrakes", 4, g_wounds, 7, 4, false, points),
+    Irondrakes::Irondrakes(City city, int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Irondrakes", 4, g_wounds, 7, 4, false, points),
             m_drakegun(Weapon::Type::Missile, "Drakegun", 16, 1, 3, 3, -1, 1),
             m_drakegunWarden(Weapon::Type::Missile, "Drakegun", 16, 1, 2, 3, -1, 1),
             m_grudgehammerTorpedo(Weapon::Type::Missile, "Grudgehammer Torpedo", 20, 1, 3, 3, -2, RAND_D3),
@@ -32,12 +32,6 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONDRAKES};
         m_weapons = {&m_drakegun, &m_drakegunWarden, &m_grudgehammerTorpedo, &m_drakefirePistol,
                      &m_drakefirePistolMelee, &m_mailedFist};
-    }
-
-    bool Irondrakes::configure(int numModels, WeaponOptions ironWardenWeapons, bool standardBearer, bool hornblower) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto ironwarden = new Model(g_basesize, wounds());
         if (ironWardenWeapons == Drakegun) {
@@ -72,26 +66,15 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Irondrakes::Create(const ParameterList &parameters) {
-        auto unit = new Irondrakes(ComputePoints(parameters));
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironwarden Weapon", parameters, (int) Drakegun);
+        auto weapon = (WeaponOptions) GetEnumParam("Ironwarden Weapon", parameters, (int) Drakegun);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, weapon, standardBearer, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Irondrakes(city, numModels, weapon, standardBearer, hornblower, ComputePoints(parameters));
     }
 
     void Irondrakes::Init() {

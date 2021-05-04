@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        WildRiders(int points);
+        WildRiders(City city, int numModels, bool standardBearer, bool hornblower, int points);
 
         ~WildRiders() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool hornblower);
 
     protected:
 

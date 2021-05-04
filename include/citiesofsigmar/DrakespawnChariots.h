@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        DrakespawnChariots(int points);
+        DrakespawnChariots(City city, int numModels, int points);
 
         ~DrakespawnChariots() override = default;
-
-        bool configure(int numModels);
 
     protected:
 

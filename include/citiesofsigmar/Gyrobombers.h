@@ -25,14 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Gyrobombers(int points);
+        Gyrobombers(City city, int numModels, int points);
 
         ~Gyrobombers() override = default;
-
-        bool configure(int numModels);
-
-    protected:
-
 
     private:
 

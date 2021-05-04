@@ -21,8 +21,8 @@ namespace CitiesOfSigmar {
 
     bool Ironbreakers::s_registered = false;
 
-    Ironbreakers::Ironbreakers(int points) :
-            CitizenOfSigmar("Ironbreakers", 4, g_wounds, 7, 4, false, points),
+    Ironbreakers::Ironbreakers(City city, int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer, int points) :
+            CitizenOfSigmar(city, "Ironbreakers", 4, g_wounds, 7, 4, false, points),
             m_drakefirePistol(Weapon::Type::Missile, "Drakefire Pistol", 8, 1, 4, 3, -1, 1),
             m_drakefirePistolMelee(Weapon::Type::Melee, "Drakefire Pistol", 1, 1, 4, 4, 0, 1),
             m_axeOrHammer(Weapon::Type::Melee, "Ironbreaker Axe or Hammer", 1, 2, 3, 4, 0, 1),
@@ -30,12 +30,6 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, IRONBREAKERS};
         m_weapons = {&m_drakefirePistol, &m_drakefirePistolMelee, &m_axeOrHammer, &m_axeOrHammerIronbeard};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool Ironbreakers::configure(int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto ironbeard = new Model(g_basesize, wounds());
         if (ironbeardWeapons == Ironbreaker_Axe_Or_Hammer) {
@@ -65,27 +59,15 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Ironbreakers::Create(const ParameterList &parameters) {
-        auto unit = new Ironbreakers(ComputePoints(parameters));
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        WeaponOptions weapon = (WeaponOptions) GetEnumParam("Ironbeard Weapon", parameters,
-                                                            (int) Ironbreaker_Axe_Or_Hammer);
+        auto weapon = (WeaponOptions) GetEnumParam("Ironbeard Weapon", parameters, (int) Ironbreaker_Axe_Or_Hammer);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool drummer = GetBoolParam("Drummer", parameters, false);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, weapon, standardBearer, drummer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Ironbreakers(city, numModels, weapon, standardBearer, drummer, ComputePoints(parameters));
     }
 
     void Ironbreakers::Init() {

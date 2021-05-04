@@ -31,11 +31,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        FreeguildHandgunners(int points);
+        FreeguildHandgunners(City city, int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon, int points);
 
         ~FreeguildHandgunners() override = default;
-
-        bool configure(int numModels, bool standardBearer, bool piper, WeaponOption marksmanWeapon);
 
     protected:
 

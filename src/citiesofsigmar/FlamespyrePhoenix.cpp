@@ -36,27 +36,13 @@ namespace CitiesOfSigmar {
     bool FlamespyrePhoenix::s_registered = false;
 
     Unit *FlamespyrePhoenix::Create(const ParameterList &parameters) {
-        auto unit = new FlamespyrePhoenix();
-
-        auto anointed = GetBoolParam("Anointed", parameters, true);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto anointed = GetBoolParam("Anointed", parameters, true);
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure(anointed);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new FlamespyrePhoenix(city, anointed, drug, trait, artefact, general);
     }
 
     std::string FlamespyrePhoenix::ValueToString(const Parameter &parameter) {
@@ -89,8 +75,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FlamespyrePhoenix::FlamespyrePhoenix() :
-            CitizenOfSigmar("Flamespyre Phoenix", 16, g_wounds, 8, 4, true, g_pointsPerUnit),
+    FlamespyrePhoenix::FlamespyrePhoenix(City city, bool anointed, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Flamespyre Phoenix", 16, g_wounds, 8, 4, true, anointed ? g_pointsPerUnitWithAnointed : g_pointsPerUnit),
             m_talons(Weapon::Type::Melee, "Flaming Talons", 2, 6, 4, 3, -1, 2),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, MONSTER, FLAMESPYRE_PHOENIX};
@@ -98,12 +84,15 @@ namespace CitiesOfSigmar {
         m_battleFieldRole = Role::Behemoth;
         m_hasMount = true;
         m_talons.setMount(true);
-    }
 
-    bool FlamespyrePhoenix::configure(bool anointed) {
         if (anointed) {
             addKeyword(HERO);
             m_battleFieldRole = Role::Leader_Behemoth;
+
+            setCommandTrait(trait);
+            setArtefact(artefact);
+            setGeneral(isGeneral);
+            setNarcotic(narcotic);
         }
 
         auto model = new Model(g_basesize, wounds());
@@ -120,12 +109,7 @@ namespace CitiesOfSigmar {
                                                                Rerolls::Failed,
                                                                Abilities::Target::SelfAndFriendly,
                                                                std::vector<Keyword>{PHOENIX_TEMPLE}));
-            m_points = g_pointsPerUnitWithAnointed;
-        } else {
-            m_points = g_pointsPerUnit;
         }
-
-        return true;
     }
 
     void FlamespyrePhoenix::onRestore() {

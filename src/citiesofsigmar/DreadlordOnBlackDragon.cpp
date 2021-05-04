@@ -70,27 +70,13 @@ namespace CitiesOfSigmar {
     bool DreadlordOnBlackDragon::s_registered = false;
 
     Unit *DreadlordOnBlackDragon::Create(const ParameterList &parameters) {
-        auto unit = new DreadlordOnBlackDragon();
-
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Lance_And_Shield);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Lance_And_Shield);
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure(weapon);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new DreadlordOnBlackDragon(city, weapon, drug, trait, artefact, general);
     }
 
     std::string DreadlordOnBlackDragon::ValueToString(const Parameter &parameter) {
@@ -150,8 +136,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DreadlordOnBlackDragon::DreadlordOnBlackDragon() :
-            CitizenOfSigmar("Dreadlord on Black Dragon", 12, g_wounds, 8, 4, true, g_pointsPerUnit),
+    DreadlordOnBlackDragon::DreadlordOnBlackDragon(City city, WeaponOption weapon, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Dreadlord on Black Dragon", 12, g_wounds, 8, 4, true, g_pointsPerUnit),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 4, 4, 0, 1),
             m_noxiousBreath(Weapon::Type::Missile, "Noxious Breath", 6, 1, 0, 0, 7, 0),
             m_blade(Weapon::Type::Melee, "Exile Blade", 1, 6, 3, 4, 0, 1),
@@ -165,9 +151,7 @@ namespace CitiesOfSigmar {
         m_jaws.setMount(true);
         m_claws.setMount(true);
         m_noxiousBreath.setMount(true);
-    }
 
-    bool DreadlordOnBlackDragon::configure(WeaponOption weapon) {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_noxiousBreath);
         model->addMeleeWeapon(&m_jaws);
@@ -189,9 +173,6 @@ namespace CitiesOfSigmar {
         m_commandAbilities.push_back(std::make_unique<DoNotDisappointMe>(this));
 
         m_weaponOption = weapon;
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void DreadlordOnBlackDragon::onRestore() {

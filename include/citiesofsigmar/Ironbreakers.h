@@ -31,11 +31,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Ironbreakers(int points);
+        Ironbreakers(City city, int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer, int points);
 
         ~Ironbreakers() override = default;
-
-        bool configure(int numModels, WeaponOptions ironbeardWeapons, bool standardBearer, bool drummer);
 
     protected:
 

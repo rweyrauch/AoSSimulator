@@ -71,28 +71,14 @@ namespace CitiesOfSigmar {
     bool FreeguildGeneralOnGriffon::s_registered = false;
 
     Unit *FreeguildGeneralOnGriffon::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildGeneralOnGriffon();
-
-        bool shield = GetBoolParam("Freeguild Shield", parameters, true);
-        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Lance);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
+        auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Lance);
+        bool shield = GetBoolParam("Freeguild Shield", parameters, true);
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
-        unit->configure(weapon, shield);
-        return unit;
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new FreeguildGeneralOnGriffon(city, weapon, shield, drug, trait, artefact, general);
     }
 
     std::string FreeguildGeneralOnGriffon::ValueToString(const Parameter &parameter) {
@@ -127,8 +113,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildGeneralOnGriffon::FreeguildGeneralOnGriffon() :
-            CitizenOfSigmar("Freeguild General on Griffon", 15, g_wounds, 7, 4, true, g_pointsPerUnit),
+    FreeguildGeneralOnGriffon::FreeguildGeneralOnGriffon(City city, WeaponOption weaponOption, bool hasShield, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Freeguild General on Griffon", 15, g_wounds, 7, 4, true, g_pointsPerUnit),
             m_runesword(Weapon::Type::Melee, "Sigmarite Runesword", 1, 5, 3, 4, -1, 2),
             m_greathammer(Weapon::Type::Melee, "Sigmarite Greathammer", 1, 3, 3, 3, -2, RAND_D3),
             m_lance(Weapon::Type::Melee, "Freeguild Lance", 2, 4, 3, 4, -1, 2),
@@ -141,29 +127,28 @@ namespace CitiesOfSigmar {
         m_claws.setMount(true);
         m_beak.setMount(true);
         s_globalBraveryMod.connect(this, &FreeguildGeneralOnGriffon::piercingBloodroar, &m_connection);
-    }
 
-    FreeguildGeneralOnGriffon::~FreeguildGeneralOnGriffon() {
-        m_connection.disconnect();
-    }
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+        setNarcotic(narcotic);
 
-    bool FreeguildGeneralOnGriffon::configure(WeaponOption weapon, bool hasShield) {
         auto model = new Model(g_basesize, wounds());
-        if (weapon == Rune_Sword)
+        if (weaponOption == Rune_Sword)
             model->addMeleeWeapon(&m_runesword);
-        else if (weapon == Greathammer)
+        else if (weaponOption == Greathammer)
             model->addMeleeWeapon(&m_greathammer);
-        else if (weapon == Lance)
+        else if (weaponOption == Lance)
             model->addMeleeWeapon(&m_lance);
         addModel(model);
 
         m_shield = hasShield;
 
         m_commandAbilities.push_back(std::make_unique<RousingBattleCry>(this));
+    }
 
-        m_points = g_pointsPerUnit;
-
-        return true;
+    FreeguildGeneralOnGriffon::~FreeguildGeneralOnGriffon() {
+        m_connection.disconnect();
     }
 
     int FreeguildGeneralOnGriffon::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {

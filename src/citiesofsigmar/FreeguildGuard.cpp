@@ -21,22 +21,12 @@ namespace CitiesOfSigmar {
     bool FreeguildGuard::s_registered = false;
 
     Unit *FreeguildGuard::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildGuard(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool drummer = GetBoolParam("Drummer", parameters, true);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Halberd);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, drummer, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new FreeguildGuard(city, numModels, standard, drummer, weapons, ComputePoints(parameters));
     }
 
     std::string FreeguildGuard::ValueToString(const Parameter &parameter) {
@@ -85,8 +75,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildGuard::FreeguildGuard(int points) :
-            CitizenOfSigmar("Freeguild Guard", 5, g_wounds, 5, 5, false, points),
+    FreeguildGuard::FreeguildGuard(City city, int numModels, bool standardBearer, bool drummer, WeaponOption weapons, int points) :
+            CitizenOfSigmar(city, "Freeguild Guard", 5, g_wounds, 5, 5, false, points),
             m_halberd(Weapon::Type::Melee, "Freeguild Halberd", 1, 1, 4, 3, -1, 1),
             m_spear(Weapon::Type::Melee, "Freeguild Spear", 2, 1, 4, 4, 0, 1),
             m_sword(Weapon::Type::Melee, "Freeguild Sword", 1, 1, 4, 4, 0, 1),
@@ -96,14 +86,6 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_GUARD};
         m_weapons = {&m_halberd, &m_spear, &m_sword, &m_halberdSergeant, &m_spearSergeant, &m_swordSergeant};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool FreeguildGuard::configure(int numModels, bool standardBearer, bool drummer, WeaponOption weapons) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Sergeant
         auto bossModel = new Model(g_basesize, wounds());
@@ -134,8 +116,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int FreeguildGuard::runModifier() const {

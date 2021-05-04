@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Kharibdyss();
+        Kharibdyss(City city);
 
         ~Kharibdyss() override;
-
-        bool configure();
 
     protected:
 

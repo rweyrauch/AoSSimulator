@@ -21,11 +21,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Runelord();
+        Runelord(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Runelord() override = default;
-
-        bool configure();
 
     protected:
 

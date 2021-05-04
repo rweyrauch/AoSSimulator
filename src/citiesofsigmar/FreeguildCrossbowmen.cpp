@@ -22,21 +22,11 @@ namespace CitiesOfSigmar {
     bool FreeguildCrossbowmen::s_registered = false;
 
     Unit *FreeguildCrossbowmen::Create(const ParameterList &parameters) {
-        auto unit = new FreeguildCrossbowmen(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool piper = GetBoolParam("Piper", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, piper);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new FreeguildCrossbowmen(city, numModels, standard, piper, ComputePoints(parameters));
     }
 
     std::string FreeguildCrossbowmen::ValueToString(const Parameter &parameter) {
@@ -67,22 +57,14 @@ namespace CitiesOfSigmar {
         }
     }
 
-    FreeguildCrossbowmen::FreeguildCrossbowmen(int points) :
-            CitizenOfSigmar("Freeguild Crossbowmen", 5, g_wounds, 5, 6, false, points),
+    FreeguildCrossbowmen::FreeguildCrossbowmen(City city, int numModels, bool standardBearer, bool piper, int points) :
+            CitizenOfSigmar(city, "Freeguild Crossbowmen", 5, g_wounds, 5, 6, false, points),
             m_crossbow(Weapon::Type::Missile, "Freeguild Crossbow", 24, 1, 4, 3, 0, 1),
             m_dagger(Weapon::Type::Melee, "Dagger", 1, 1, 5, 5, 0, 1),
             m_crossbowMarksman(Weapon::Type::Missile, "Freeguild Crossbow", 24, 1, 3, 3, 0, 1) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, FREEGUILD, FREEGUILD_CROSSBOWMEN};
         m_weapons = {&m_crossbow, &m_dagger, &m_crossbowMarksman};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool FreeguildCrossbowmen::configure(int numModels, bool standardBearer, bool piper) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Marksman
         auto bossModel = new Model(g_basesize, wounds());
@@ -103,8 +85,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int FreeguildCrossbowmen::runModifier() const {

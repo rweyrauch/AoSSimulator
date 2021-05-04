@@ -21,21 +21,11 @@ namespace CitiesOfSigmar {
     bool Executioners::s_registered = false;
 
     Unit *Executioners::Create(const ParameterList &parameters) {
-        auto unit = new Executioners(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool drummer = GetBoolParam("Drummer", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, drummer);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Executioners(city, numModels, standard, drummer, ComputePoints(parameters));
     }
 
     std::string Executioners::ValueToString(const Parameter &parameter) {
@@ -66,20 +56,12 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Executioners::Executioners(int points) :
-            CitizenOfSigmar("Executioners", 6, g_wounds, 7, 4, false, points),
+    Executioners::Executioners(City city, int numModels, bool standardBearer, bool drummer, int points) :
+            CitizenOfSigmar(city, "Executioners", 6, g_wounds, 7, 4, false, points),
             m_draich(Weapon::Type::Melee, "Executioner's Draich", 1, 2, 3, 3, 0, 1),
             m_draichMaster(Weapon::Type::Melee, "Executioner's Draich", 1, 3, 3, 3, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, EXECUTIONERS};
         m_weapons = {&m_draich, &m_draichMaster};
-    }
-
-    bool Executioners::configure(int numModels, bool standardBearer, bool drummer) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Master
         auto bossModel = new Model(g_basesize, wounds());
@@ -98,8 +80,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int Executioners::runModifier() const {

@@ -21,18 +21,12 @@ namespace CitiesOfSigmar {
 
     bool Hammerers::s_registered = false;
 
-    Hammerers::Hammerers(int points) :
-            CitizenOfSigmar("Hammerers", 4, g_wounds, 7, 4, false, points),
+    Hammerers::Hammerers(City city, int numModels, bool standardBearer, bool musician, int points) :
+            CitizenOfSigmar(city, "Hammerers", 4, g_wounds, 7, 4, false, points),
             m_greatHammer(Weapon::Type::Melee, "Gromril Great Hammer", 1, 2, 3, 3, -1, 1),
             m_greatHammerKeeper(Weapon::Type::Melee, "Gromril Great Hammer", 1, 3, 3, 3, -1, 1) {
         m_keywords = {ORDER, DUARDIN, DISPOSSESSED, HAMMERERS};
         m_weapons = {&m_greatHammer, &m_greatHammerKeeper};
-    }
-
-    bool Hammerers::configure(int numModels, bool standardBearer, bool musician) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         auto keeper = new Model(g_basesize, wounds());
         keeper->addMeleeWeapon(&m_greatHammerKeeper);
@@ -51,25 +45,14 @@ namespace CitiesOfSigmar {
 
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *Hammerers::Create(const ParameterList &parameters) {
-        auto unit = new Hammerers(ComputePoints(parameters));
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool musician = GetBoolParam("Musician", parameters, false);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standardBearer, musician);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Hammerers(city, numModels, standardBearer, musician, ComputePoints(parameters));
     }
 
     void Hammerers::Init() {

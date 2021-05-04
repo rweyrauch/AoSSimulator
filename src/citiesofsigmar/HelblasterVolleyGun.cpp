@@ -18,13 +18,8 @@ namespace CitiesOfSigmar {
     bool HelblasterVolleyGun::s_registered = false;
 
     Unit *HelblasterVolleyGun::Create(const ParameterList &parameters) {
-        auto unit = new HelblasterVolleyGun();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        unit->configure();
-        return unit;
+        return new HelblasterVolleyGun(city);
     }
 
     std::string HelblasterVolleyGun::ValueToString(const Parameter &parameter) {
@@ -52,8 +47,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    HelblasterVolleyGun::HelblasterVolleyGun() :
-            CitizenOfSigmar("Helblaster Volley Gun", 3, g_wounds, 5, 4, false, g_pointsPerUnit),
+    HelblasterVolleyGun::HelblasterVolleyGun(City city) :
+            CitizenOfSigmar(city, "Helblaster Volley Gun", 3, g_wounds, 5, 4, false, g_pointsPerUnit),
             m_volley1(Weapon::Type::Missile, "Volley of Shots (1 Deck)", 24, RAND_D6, 4, 3, -1, 1),
             m_volley2(Weapon::Type::Missile, "Volley of Shots (2 Decks)", 24, RAND_2D6, 4, 3, -1, 1),
             m_volley3(Weapon::Type::Missile, "Volley of Shots (3 Decks)", 24, RAND_3D6, 4, 3, -1, 1),
@@ -61,9 +56,7 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, IRONWELD_ARSENAL, WAR_MACHINE, HELBLASTER_VOLLEY_GUN};
         m_weapons = {&m_volley1, &m_volley2, &m_volley3, &m_crewsTools};
         m_battleFieldRole = Role::Artillery;
-    }
 
-    bool HelblasterVolleyGun::configure() {
         auto model = new Model(g_basesize, wounds());
 
         // TODO: allow selection of 1, 2 or 3 decks
@@ -71,10 +64,6 @@ namespace CitiesOfSigmar {
         model->addMeleeWeapon(&m_crewsTools);
 
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int HelblasterVolleyGun::toHitModifier(const Weapon *weapon, const Unit *target) const {

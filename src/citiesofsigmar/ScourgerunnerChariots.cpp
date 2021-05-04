@@ -21,19 +21,9 @@ namespace CitiesOfSigmar {
     bool ScourgerunnerChariots::s_registered = false;
 
     Unit *ScourgerunnerChariots::Create(const ParameterList &parameters) {
-        auto unit = new ScourgerunnerChariots(ComputePoints(parameters));
-
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
+        return new ScourgerunnerChariots(city, numModels, ComputePoints(parameters));
     }
 
     std::string ScourgerunnerChariots::ValueToString(const Parameter &parameter) {
@@ -62,8 +52,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    ScourgerunnerChariots::ScourgerunnerChariots(int points) :
-            CitizenOfSigmar("Scourgerunner Chariots", 12, g_wounds, 6, 5, false, points),
+    ScourgerunnerChariots::ScourgerunnerChariots(City city, int numModels, int points) :
+            CitizenOfSigmar(city, "Scourgerunner Chariots", 12, g_wounds, 6, 5, false, points),
             m_harpoon(Weapon::Type::Missile, "Ravager Harpoon", 18, 2, 3, 3, -1, RAND_D3),
             m_crossbow(Weapon::Type::Missile, "Repeater Crossbow", 16, 4, 5, 4, 0, 1),
             m_hookSpear(Weapon::Type::Melee, "Hook-spear", 2, 2, 4, 4, 0, 1),
@@ -74,14 +64,6 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_harpoon, &m_crossbow, &m_hookSpear, &m_bite, &m_harpoonMaster, &m_crossbowMaster};
         m_hasMount = true;
         m_bite.setMount(true);
-    }
-
-    bool ScourgerunnerChariots::configure(int numModels) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Master
         auto bossModel = new Model(g_basesize, wounds());
@@ -99,8 +81,6 @@ namespace CitiesOfSigmar {
             model->addMeleeWeapon(&m_bite);
             addModel(model);
         }
-
-        return true;
     }
 
     Wounds

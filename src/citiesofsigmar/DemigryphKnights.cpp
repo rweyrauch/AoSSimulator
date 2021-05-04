@@ -21,23 +21,12 @@ namespace CitiesOfSigmar {
     bool DemigryphKnights::s_registered = false;
 
     Unit *DemigryphKnights::Create(const ParameterList &parameters) {
-        auto unit = new DemigryphKnights(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
+        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Lance);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
-
-        auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Lance);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower, weapons);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new DemigryphKnights(city, numModels, standard, hornblower, weapons, ComputePoints(parameters));
     }
 
     std::string DemigryphKnights::ValueToString(const Parameter &parameter) {
@@ -82,8 +71,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    DemigryphKnights::DemigryphKnights(int points) :
-            CitizenOfSigmar("Demigryph Knights", 10, g_wounds, 6, 3, false, points),
+    DemigryphKnights::DemigryphKnights(City city, int numModels, bool standardBearer, bool hornblower, WeaponOption weapons, int points) :
+            CitizenOfSigmar(city, "Demigryph Knights", 10, g_wounds, 6, 3, false, points),
             m_halberd(Weapon::Type::Melee, "Demigryph Knight's Halberd", 2, 3, 3, 3, -1, 1),
             m_lance(Weapon::Type::Melee, "Demigryph Knight's Lance", 2, 3, 3, 4, 0, 1),
             m_halberdPreceptor(Weapon::Type::Melee, "Demigryph Knight's Halberd", 2, 4, 3, 3, -1, 1),
@@ -93,14 +82,6 @@ namespace CitiesOfSigmar {
         m_weapons = {&m_halberd, &m_lance, &m_halberdPreceptor, &m_lancePreceptor, &m_beakAndTalons};
         m_hasMount = true;
         m_beakAndTalons.setMount(true);
-    }
-
-    bool DemigryphKnights::configure(int numModels, bool standardBearer, bool hornblower, WeaponOption weapons) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Preceptor
         auto bossModel = new Model(g_basesize, wounds());
@@ -129,8 +110,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int DemigryphKnights::runModifier() const {

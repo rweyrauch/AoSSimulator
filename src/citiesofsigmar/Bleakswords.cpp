@@ -21,21 +21,11 @@ namespace CitiesOfSigmar {
     bool Bleakswords::s_registered = false;
 
     Unit *Bleakswords::Create(const ParameterList &parameters) {
-        auto unit = new Bleakswords(ComputePoints(parameters));
-
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standard = GetBoolParam("Standard Bearer", parameters, true);
         bool hornblower = GetBoolParam("Hornblower", parameters, true);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standard, hornblower);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new Bleakswords(city, numModels, standard, hornblower, ComputePoints(parameters));
     }
 
     std::string Bleakswords::ValueToString(const Parameter &parameter) {
@@ -66,21 +56,13 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Bleakswords::Bleakswords(int points) :
-            CitizenOfSigmar("Bleakswords", 6, g_wounds, 6, 4, false, points),
+    Bleakswords::Bleakswords(City city, int numModels, bool standardBearer, bool hornblower, int points) :
+            CitizenOfSigmar(city, "Bleakswords", 6, g_wounds, 6, 4, false, points),
             m_sword(Weapon::Type::Melee, "Darkling Sword", 1, 1, 4, 4, 0, 1),
             m_swordLordling(Weapon::Type::Melee, "Darkling Sword", 1, 2, 4, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, DARKLING_COVENS, BLEAKSWORDS};
         m_weapons = {&m_sword, &m_swordLordling};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool Bleakswords::configure(int numModels, bool standardBearer, bool hornblower) {
-        // validate inputs
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            // Invalid model count.
-            return false;
-        }
 
         // Add the Lordling
         auto bossModel = new Model(g_basesize, wounds());
@@ -99,8 +81,6 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     int Bleakswords::runModifier() const {

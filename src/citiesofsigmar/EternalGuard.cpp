@@ -20,19 +20,13 @@ namespace CitiesOfSigmar {
 
     bool EternalGuard::s_registered = false;
 
-    EternalGuard::EternalGuard(int points) :
-            CitizenOfSigmar("Eternal Guard", 6, g_wounds, 7, 4, false, points),
+    EternalGuard::EternalGuard(City city, int numModels, bool standardBearer, bool hornblower, bool gladeShields, int points) :
+            CitizenOfSigmar(city, "Eternal Guard", 6, g_wounds, 7, 4, false, points),
             m_spearStave(Weapon::Type::Melee, "Spear-stave", 2, 2, 3, 4, 0, 1),
             m_spearStaveWarden(Weapon::Type::Melee, "Spear-stave", 2, 3, 3, 4, 0, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, WANDERER, ETERNAL_GUARD};
         m_weapons = {&m_spearStave, &m_spearStaveWarden};
         m_battleFieldRole = Role::Battleline;
-    }
-
-    bool EternalGuard::configure(int numModels, bool standardBearer, bool hornblower, bool gladeShields) {
-        if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
-            return false;
-        }
 
         m_gladeShields = gladeShields;
 
@@ -52,26 +46,15 @@ namespace CitiesOfSigmar {
             }
             addModel(model);
         }
-
-        return true;
     }
 
     Unit *EternalGuard::Create(const ParameterList &parameters) {
-        auto unit = new EternalGuard(ComputePoints(parameters));
+        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
         bool shields = GetBoolParam("Glade Shields", parameters, false);
-
-        auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        bool ok = unit->configure(numModels, standardBearer, hornblower, shields);
-        if (!ok) {
-            delete unit;
-            unit = nullptr;
-        }
-        return unit;
+        return new EternalGuard(city, numModels, standardBearer, hornblower, shields, ComputePoints(parameters));
     }
 
     void EternalGuard::Init() {

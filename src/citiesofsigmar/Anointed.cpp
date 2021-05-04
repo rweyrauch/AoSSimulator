@@ -18,27 +18,13 @@ namespace CitiesOfSigmar {
     bool Anointed::s_registered = false;
 
     Unit *Anointed::Create(const ParameterList &parameters) {
-        auto unit = new Anointed();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(lore);
-        return unit;
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new Anointed(city, lore, drug, trait, artefact, general);
     }
 
     std::string Anointed::ValueToString(const Parameter &parameter) {
@@ -71,22 +57,23 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Anointed::Anointed() :
-            CitizenOfSigmar("Anointed", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
+    Anointed::Anointed(City city, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Anointed", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, HERO, ANOINTED};
         m_weapons = {&m_halberd};
         m_battleFieldRole = Role::Leader;
         // Blessing of the Ur-Phoenix
         m_totalUnbinds = 1;
-    }
 
-    void Anointed::configure(Lore lore) {
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+        setNarcotic(narcotic);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_halberd);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Wounds Anointed::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

@@ -69,29 +69,14 @@ namespace CitiesOfSigmar {
     bool LuminarkOfHysh::s_registered = false;
 
     Unit *LuminarkOfHysh::Create(const ParameterList &parameters) {
-        auto unit = new LuminarkOfHysh();
-
-        auto battlemage = GetBoolParam("Battlemage", parameters, true);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
+        auto battlemage = GetBoolParam("Battlemage", parameters, true);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(battlemage, lore);
-        return unit;
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new LuminarkOfHysh(city, battlemage, lore, drug, trait, artefact, general);
     }
 
     std::string LuminarkOfHysh::ValueToString(const Parameter &parameter) {
@@ -124,8 +109,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    LuminarkOfHysh::LuminarkOfHysh() :
-            CitizenOfSigmar("Luminark of Hysh", 10, g_wounds, 6, 4, false, g_pointsPerUnit),
+    LuminarkOfHysh::LuminarkOfHysh(City city, bool battlemage, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Luminark of Hysh", 10, g_wounds, 6, 4, false, battlemage ? g_pointsPerUnitWithBattlemage : g_pointsPerUnit),
             m_beamOfLight(Weapon::Type::Missile, "Searing Beam of Light", 30, 1, 0, 0, 0, 0),
             m_wizardsStaff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3),
             m_arcaneTools(Weapon::Type::Melee, "Arcane Tools", 1, 4, 5, 5, 0, 1),
@@ -137,19 +122,18 @@ namespace CitiesOfSigmar {
         m_battleFieldRole = Role::Behemoth;
 
         s_globalUnbindMod.connect(this, &LuminarkOfHysh::locusOfHysh, &m_locusSlot);
-    }
 
-    LuminarkOfHysh::~LuminarkOfHysh() {
-        m_locusSlot.disconnect();
-    }
-
-    bool LuminarkOfHysh::configure(bool battlemage, Lore lore) {
         if (battlemage) {
             addKeyword(WIZARD);
             addKeyword(HERO);
             m_battleFieldRole = Role::Leader_Behemoth;
             m_totalSpells = 1;
             m_totalUnbinds = 1;
+
+            setCommandTrait(trait);
+            setArtefact(artefact);
+            setGeneral(isGeneral);
+            setNarcotic(narcotic);
         }
 
         auto model = new Model(g_basesize, wounds());
@@ -170,12 +154,11 @@ namespace CitiesOfSigmar {
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
             m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
             m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-            m_points = g_pointsPerUnitWithBattlemage;
-        } else {
-            m_points = g_pointsPerUnit;
         }
+    }
 
-        return true;
+    LuminarkOfHysh::~LuminarkOfHysh() {
+        m_locusSlot.disconnect();
     }
 
     void LuminarkOfHysh::onRestore() {

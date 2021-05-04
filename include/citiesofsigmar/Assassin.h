@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Assassin();
+        Assassin(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Assassin() override = default;
-
-        bool configure();
 
     protected:
 

@@ -25,14 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Sorceress();
+        Sorceress(City city, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Sorceress() override = default;
-
-        bool configure(Lore lore);
-
-    protected:
-
 
     private:
 

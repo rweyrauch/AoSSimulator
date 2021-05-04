@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Battlemage();
+        Battlemage(City city, Realm realm, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Battlemage() override = default;
-
-        bool configure(Realm realm, Lore lore);
 
     protected:
 

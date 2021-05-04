@@ -33,11 +33,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        DreadlordOnBlackDragon();
+        DreadlordOnBlackDragon(City city, WeaponOption weaponOption, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~DreadlordOnBlackDragon() override = default;
-
-        bool configure(WeaponOption weapon);
 
     protected:
 

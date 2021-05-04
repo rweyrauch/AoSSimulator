@@ -125,29 +125,14 @@ namespace CitiesOfSigmar {
     bool Battlemage::s_registered = false;
 
     Unit *Battlemage::Create(const ParameterList &parameters) {
-        auto unit = new Battlemage();
-
-        auto realm = (Realm) GetEnumParam("Realm", parameters, g_realm[0]);
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
-        unit->setCommandTrait(trait);
-
-        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
-        unit->setArtefact(artefact);
-
-        auto general = GetBoolParam("General", parameters, false);
-        unit->setGeneral(general);
-
-        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
-        unit->setNarcotic(drug);
-
+        auto realm = (Realm) GetEnumParam("Realm", parameters, g_realm[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
-
-        unit->configure(realm, lore);
-        return unit;
+        auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new Battlemage(city, realm, lore, drug, trait, artefact, general);
     }
 
     std::string Battlemage::ValueToString(const Parameter &parameter) {
@@ -181,17 +166,20 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Battlemage::Battlemage() :
-            CitizenOfSigmar("Battlemage", 5, g_wounds, 6, 6, false, g_pointsPerUnit),
+    Battlemage::Battlemage(City city, Realm realm, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            CitizenOfSigmar(city, "Battlemage", 5, g_wounds, 6, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Wizard's Staff", 2, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {ORDER, HUMAN, CITIES_OF_SIGMAR, COLLEGIATE_ARCANE, HERO, WIZARD, BATTLEMAGE};
         m_weapons = {&m_staff};
         m_battleFieldRole = Role::Leader;
         m_totalUnbinds = 1;
         m_totalSpells = 1;
-    }
 
-    bool Battlemage::configure(Realm realm, Lore lore) {
+        setNarcotic(narcotic);
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_staff);
         addModel(model);
@@ -236,9 +224,6 @@ namespace CitiesOfSigmar {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 
         m_realm = realm;
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     int Battlemage::castingModifier() const {

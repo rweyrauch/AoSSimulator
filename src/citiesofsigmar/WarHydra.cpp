@@ -35,13 +35,8 @@ namespace CitiesOfSigmar {
     bool WarHydra::s_registered = false;
 
     Unit *WarHydra::Create(const ParameterList &parameters) {
-        auto unit = new WarHydra();
-
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        unit->setCity(city);
-
-        unit->configure();
-        return unit;
+        return new WarHydra(city);
     }
 
     std::string WarHydra::ValueToString(const Parameter &parameter) {
@@ -69,8 +64,8 @@ namespace CitiesOfSigmar {
         }
     }
 
-    WarHydra::WarHydra() :
-            CitizenOfSigmar("War Hydra", 8, g_wounds, 6, 4, false, g_pointsPerUnit),
+    WarHydra::WarHydra(City city) :
+            CitizenOfSigmar(city, "War Hydra", 8, g_wounds, 6, 4, false, g_pointsPerUnit),
             m_fieryBreath(Weapon::Type::Missile, "Fiery Breath", 9, 6, 3, 3, -1, 1),
             m_fangs(Weapon::Type::Melee, "Razor-sharp Fangs", 2, 6, 4, 3, -1, RAND_D3),
             m_limbs(Weapon::Type::Melee, "Clawed Limbs", 1, 2, 3, 3, -1, 1),
@@ -78,19 +73,13 @@ namespace CitiesOfSigmar {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, ORDER_SERPENTIS, MONSTER, WAR_HYDRA};
         m_weapons = {&m_fieryBreath, &m_fangs, &m_limbs, &m_goadAndWhips};
         m_battleFieldRole = Role::Behemoth;
-    }
 
-    bool WarHydra::configure() {
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_fieryBreath);
         model->addMeleeWeapon(&m_fangs);
         model->addMeleeWeapon(&m_limbs);
         model->addMeleeWeapon(&m_goadAndWhips);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
-
-        return true;
     }
 
     void WarHydra::onRestore() {

@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        HelblasterVolleyGun();
+        HelblasterVolleyGun(City city);
 
         ~HelblasterVolleyGun() override = default;
-
-        bool configure();
 
     protected:
 

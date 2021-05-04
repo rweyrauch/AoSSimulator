@@ -25,11 +25,9 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        WarHydra();
+        WarHydra(City city);
 
         ~WarHydra() override = default;
-
-        bool configure();
 
     protected:
 
