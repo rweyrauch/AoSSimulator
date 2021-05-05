@@ -38,14 +38,13 @@ namespace SlavesToDarkness {
     }
 
     KhagrasRavagers::KhagrasRavagers() :
-            SlavesToDarknessBase("Khagra's Ravagers", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(DamnedLegion::Ravagers, "Khagra's Ravagers", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, UNDIVIDED, RAVAGERS, CHAOS_WARRIORS, KHAGRAS_RAVAGERS};
         m_weapons = {&m_handWeapons, &m_staff, &m_mace};
 
         m_totalUnbinds = 1;
         m_totalSpells = 1;
 
-        setDamnedLegion(DamnedLegion::Ravagers);
         setMarkOfChaos(MarkOfChaos::Undivided);
 
         auto khagra = new Model(g_basesize, wounds());

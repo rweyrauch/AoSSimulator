@@ -53,6 +53,10 @@ namespace StormcastEternals {
         m_weaponOption = weapons;
         m_mountTrait = mountTrait;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         if (weapons == Celestine_Hammer) {
             model->addMeleeWeapon(&m_celestineHammer);

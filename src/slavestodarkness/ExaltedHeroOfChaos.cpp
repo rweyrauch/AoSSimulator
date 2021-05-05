@@ -48,12 +48,11 @@ namespace SlavesToDarkness {
     }
 
     ExaltedHeroOfChaos::ExaltedHeroOfChaos(DamnedLegion legion, MarkOfChaos mark, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Exalted Hero of Chaos", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Exalted Hero of Chaos", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, EXALTED_HERO_OF_CHAOS};
         m_weapons = {&m_blades};
         m_battleFieldRole = Role::Leader;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
         setCommandTrait(trait);
         setArtefact(artefact);

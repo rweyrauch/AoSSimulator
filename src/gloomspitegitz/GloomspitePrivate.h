@@ -14,7 +14,7 @@
 
 namespace GloomspiteGitz {
 
-    const std::array<int, 7> g_blessingsOfTheBadMoon = {
+    constexpr std::array<int, 7> g_blessingsOfTheBadMoon = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Cunning_Plans),
             ToInteger(CommandTrait::Fight_Another_Day),
@@ -24,7 +24,7 @@ namespace GloomspiteGitz {
             ToInteger(CommandTrait::The_Clammy_Hand)
     };
 
-    const std::array<int, 7> g_giftsOfTheGloomspite = {
+    constexpr std::array<int, 7> g_giftsOfTheGloomspite = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Low_Cunning),
             ToInteger(CommandTrait::Spiteful_Git),
@@ -34,7 +34,7 @@ namespace GloomspiteGitz {
             ToInteger(CommandTrait::Loon_Touched)
     };
 
-    const std::array<int, 7> g_marksOfTheSpiderGodsFavour = {
+    constexpr std::array<int, 7> g_marksOfTheSpiderGodsFavour = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Monstrous_Mount),
             ToInteger(CommandTrait::Master_Spider_Rider),
@@ -44,7 +44,7 @@ namespace GloomspiteGitz {
             ToInteger(CommandTrait::Creeping_Assault),
     };
 
-    const std::array<int, 7> g_fortuitousTroggbossTraits = {
+    constexpr std::array<int, 7> g_fortuitousTroggbossTraits = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Tough_As_Rocks),
             ToInteger(CommandTrait::Alpha_Trogg),
@@ -54,7 +54,7 @@ namespace GloomspiteGitz {
             ToInteger(CommandTrait::Realmstone_Studded_Hide)
     };
 
-    const std::array<int, 7> g_troglodyticTreasures = {
+    constexpr std::array<int, 7> g_troglodyticTreasures = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Spiteful_Prodder),
             ToInteger(Artefact::Backstabbers_Blade),
@@ -64,14 +64,14 @@ namespace GloomspiteGitz {
             ToInteger(Artefact::Leering_Gitshield)
     };
 
-    const std::array<int, 4> g_foetidFetishes = {
+    constexpr std::array<int, 4> g_foetidFetishes = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Spiteshroom_Familiar),
             ToInteger(Artefact::Moonface_Mommet),
             ToInteger(Artefact::Staff_Of_Sneaky_Stealin)
     };
 
-    const std::array<int, 7> g_venomousValuables = {
+    constexpr std::array<int, 7> g_venomousValuables = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Totem_Of_The_Spider_God),
             ToInteger(Artefact::Headdress_Of_Many_Eyes),
@@ -81,15 +81,14 @@ namespace GloomspiteGitz {
             ToInteger(Artefact::Web_Strung_Cloak)
     };
 
-    const std::array<int, 4> g_glintyGubbinzThatTroggothsFound = {
+    constexpr std::array<int, 4> g_glintyGubbinzThatTroggothsFound = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Shiny_Wotnot),
             ToInteger(Artefact::Glowy_Howzit),
             ToInteger(Artefact::Pet_Gribbly)
     };
 
-
-    const std::array<int, 7> g_loreOfTheMoonclans = {
+    constexpr std::array<int, 7> g_loreOfTheMoonclans = {
             ToInteger(Lore::None),
             ToInteger(Lore::Vindictive_Glare),
             ToInteger(Lore::Itchy_Nuisance),
@@ -99,7 +98,7 @@ namespace GloomspiteGitz {
             ToInteger(Lore::Call_Da_Moon)
     };
 
-    const std::array<int, 7> g_loreOfTheSpiderFangs = {
+    constexpr std::array<int, 7> g_loreOfTheSpiderFangs = {
             ToInteger(Lore::None),
             ToInteger(Lore::Deadly_Webbing),
             ToInteger(Lore::Venomous_Spiderlings),

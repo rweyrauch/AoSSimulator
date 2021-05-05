@@ -8,6 +8,7 @@
 
 #include <lumineth/LordRegent.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
@@ -69,5 +70,9 @@ namespace LuminethRealmLords {
         model->addMeleeWeapon(&m_sword);
         model->addMeleeWeapon(&m_hornsAndClaws);
         addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
 }

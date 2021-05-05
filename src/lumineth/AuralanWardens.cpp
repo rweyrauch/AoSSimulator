@@ -88,7 +88,7 @@ namespace LuminethRealmLords {
     }
 
     void AuralanWardens::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        LuminethBase::onStartCombat(player);
 
         // Moonfire Flask
         if (!m_usedMoonfireFlask) {
@@ -103,7 +103,7 @@ namespace LuminethRealmLords {
     }
 
     void AuralanWardens::onCastSpell(const Spell *spell, const Unit *target) {
-        Unit::onCastSpell(spell, target);
+        LuminethBase::onCastSpell(spell, target);
 
         if (spell->name() == "Power of Hysh") {
             m_powerOfHyshActive = true;
@@ -118,11 +118,11 @@ namespace LuminethRealmLords {
         if ((hitRoll >= hitRollThreshold) && (weapon->name() == m_wardensPike.name())) {
             return {0, 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AuralanWardens::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LuminethBase::onStartHero(player);
 
         m_powerOfHyshActive = false;
     }
@@ -132,11 +132,11 @@ namespace LuminethRealmLords {
         if (target && target->charged() && (weapon->name() == m_wardensPike.name())) {
             return weapon->rend() - 1;
         }
-        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int AuralanWardens::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = LuminethBase::toWoundModifier(weapon, target);
         // Wall of Blades
         if (target && target->charged() && (weapon->name() == m_wardensPike.name())) {
             mod++;

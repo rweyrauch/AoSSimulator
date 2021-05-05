@@ -10,6 +10,7 @@
 #include <spells/MysticShield.h>
 #include "bonesplitterz/WurrgogProphet.h"
 #include "BonesplitterzPrivate.h"
+#include "BonesplitterzLore.h"
 
 namespace Bonesplitterz {
 
@@ -102,6 +103,7 @@ namespace Bonesplitterz {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<FistsOfGork>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }

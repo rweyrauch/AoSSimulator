@@ -55,11 +55,9 @@ namespace SlavesToDarkness {
     }
 
     SpireTyrants::SpireTyrants(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Spire Tyrants", 6, g_wounds, 5, 5, false, points) {
+            SlavesToDarknessBase(legion, "Spire Tyrants", 6, g_wounds, 5, 5, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPIRE_TYRANTS};
         m_weapons = {&m_gladiatorialWeapons, &m_gladiatorialWeaponsChampion, &m_gladiatorialWeaponsDestroyer, &m_gladiatorialWeaponsHeadclaimer};
-
-        setDamnedLegion(legion);
 
         auto champion = new Model(g_basesize, wounds());
         champion->addMeleeWeapon(&m_gladiatorialWeaponsChampion);

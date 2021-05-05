@@ -87,7 +87,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosSorcerer::ChaosSorcerer(DamnedLegion legion, MarkOfChaos mark, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Chaos Sorcerer Lord", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Chaos Sorcerer Lord", 5, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, WIZARD,
                       CHAOS_SORCERER_LORD};
         m_weapons = {&m_staff, &m_blade};
@@ -96,7 +96,6 @@ namespace SlavesToDarkness {
         m_totalUnbinds = 1;
         m_totalSpells = 1;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
         setCommandTrait(trait);
         setArtefact(artefact);

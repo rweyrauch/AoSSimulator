@@ -55,7 +55,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosMarauderHorsemen::ChaosMarauderHorsemen(DamnedLegion legion, MarkOfChaos mark,  int numModels, WeaponOption weapons, bool iconBearer, bool hornblower, int points) :
-            SlavesToDarknessBase("Chaos Marauder Horsemen", 12, g_wounds, 5, 6, false, points) {
+            SlavesToDarknessBase(legion, "Chaos Marauder Horsemen", 12, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDER_HORSEMEN};
         m_weapons = {&m_javelinMissile, &m_axe, &m_flail, &m_javelin, &m_axeMaster, &m_flailMaster, &m_javelinMaster,
                      &m_hooves};
@@ -64,7 +64,6 @@ namespace SlavesToDarkness {
 
         s_globalBraveryMod.connect(this, &ChaosMarauderHorsemen::iconBearer, &m_connection);
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         // Feigned Flight

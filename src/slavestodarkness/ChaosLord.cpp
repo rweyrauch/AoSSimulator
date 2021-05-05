@@ -51,12 +51,11 @@ namespace SlavesToDarkness {
     }
 
     ChaosLord::ChaosLord(DamnedLegion legion, MarkOfChaos mark, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Chaos Lord", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Chaos Lord", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, HERO, CHAOS_LORD};
         m_weapons = {&m_blade, &m_steel, &m_flail};
         m_battleFieldRole = Role::Leader;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
         setCommandTrait(trait);
         setArtefact(artefact);

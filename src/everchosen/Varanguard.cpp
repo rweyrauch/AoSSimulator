@@ -76,7 +76,7 @@ namespace SlavesToDarkness {
     }
 
     Varanguard::Varanguard(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption option, int points) :
-            SlavesToDarknessBase("Varanguard", 10, g_wounds, 9, 3, false, points) {
+            SlavesToDarknessBase(legion, "Varanguard", 10, g_wounds, 9, 3, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EVERCHOSEN, MARK_OF_CHAOS, VARANGUARD};
         m_weapons = {&m_ensorcelledWeapon, &m_fellspear, &m_blade, &m_fangs};
         m_hasMount = true;

@@ -43,11 +43,9 @@ namespace SlavesToDarkness {
     }
 
     GodswornHunt::GodswornHunt(DamnedLegion legion) :
-            SlavesToDarknessBase("Godsworn Hunt", 6, g_wounds, 6, 6, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Godsworn Hunt", 6, g_wounds, 6, 6, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, GODSWORN_HUNT};
         m_weapons = {&m_huntingBow, &m_javelin, &m_knife, &m_greatWeapon, &m_bowMelee, &m_bite};
-
-        setDamnedLegion(legion);
 
         auto jagathra = new Model(g_basesize, wounds());
         jagathra->addMissileWeapon(&m_javelin);

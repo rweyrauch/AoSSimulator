@@ -59,14 +59,13 @@ namespace SlavesToDarkness {
 
     ChaosKnights::ChaosKnights(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, WeaponOption doomKnightWeapon,
                                bool standardBearer, bool hornblower, int points) :
-            SlavesToDarknessBase("Chaos Knights", 10, g_wounds, 7, 4, false, points) {
+            SlavesToDarknessBase(legion, "Chaos Knights", 10, g_wounds, 7, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_KNIGHTS};
         m_weapons = {&m_ensorcelledWeapon, &m_lance, &m_ensorcelledWeaponLeader, &m_lanceLeader, &m_flailLeader, &m_hooves};
         m_hasMount = true;
         m_hooves.setMount(true);
         s_globalBraveryMod.connect(this, &ChaosKnights::terrifyingChampions, &m_terrifyingSlot);
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         auto leader = new Model(g_basesize, wounds());

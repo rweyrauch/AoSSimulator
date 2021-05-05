@@ -21,7 +21,7 @@ namespace BeastsOfChaos {
 
     bool DragonOgors::s_registered = false;
 
-    DragonOgors::DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers, int points) :
+    DragonOgors::DragonOgors(Greatfray fray, int numModels, int numGlaives, int numCrushers, int points) :
             BeastsOfChaosBase("Dragon Ogors", 8, g_wounds, 6, 4, false, points),
             m_pairedAncientWeapons(Weapon::Type::Melee, "Paired Ancient Weapons", 1, 6, 3, 3, 0, 1),
             m_draconicWarglaive(Weapon::Type::Melee, "Draconic War-glaive", 2, 4, 3, 3, -1, 1),
@@ -30,31 +30,35 @@ namespace BeastsOfChaos {
         m_keywords = {CHAOS, GOR, BEASTS_OF_CHAOS, THUNDERSCORN, DRAGON_OGORS};
         m_weapons = {&m_pairedAncientWeapons, &m_draconicWarglaive, &m_draconicCrusher, &m_rakingForeclaws};
 
-        for (auto i = 0; i < numPairedWeapons; i++) {
-            auto model = new Model(g_basesize, wounds());
-            model->addMeleeWeapon(&m_pairedAncientWeapons);
-            addModel(model);
-        }
+        setGreatfray(fray);
+
         for (auto i = 0; i < numGlaives; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_draconicWarglaive);
+            model->addMeleeWeapon(&m_rakingForeclaws);
             addModel(model);
         }
         for (auto i = 0; i < numCrushers; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_draconicCrusher);
+            model->addMeleeWeapon(&m_rakingForeclaws);
+            addModel(model);
+        }
+        for (auto i = numCrushers + numGlaives; i < numModels; i++) {
+            auto model = new Model(g_basesize, wounds());
+            model->addMeleeWeapon(&m_pairedAncientWeapons);
+            model->addMeleeWeapon(&m_rakingForeclaws);
             addModel(model);
         }
     }
 
     Unit *DragonOgors::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        int numPairedWeapons = GetIntParam("Paired Ancient Weapons", parameters, numModels);
         int numGlaives = GetIntParam("Draconic War-glaive", parameters, 0);
         int numCrushers = GetIntParam("Draconic Crusher", parameters, 0);
         auto fray = (Greatfray) GetEnumParam("Greatfray", parameters, g_greatFray[0]);
 
-        return new DragonOgors(fray, numModels, numPairedWeapons, numGlaives, numCrushers, ComputePoints(parameters));
+        return new DragonOgors(fray, numModels, numGlaives, numCrushers, ComputePoints(parameters));
     }
 
     void DragonOgors::Init() {
@@ -66,12 +70,8 @@ namespace BeastsOfChaos {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            IntegerParameter("Paired Ancient Weapons", g_minUnitSize, g_minUnitSize, g_maxUnitSize,
-                                             g_minUnitSize),
-                            IntegerParameter("Draconic War-glaive", g_minUnitSize, g_minUnitSize, g_maxUnitSize,
-                                             g_minUnitSize),
-                            IntegerParameter("Draconic Crusher", g_minUnitSize, g_minUnitSize, g_maxUnitSize,
-                                             g_minUnitSize),
+                             IntegerParameter("Draconic War-glaive", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            IntegerParameter("Draconic Crusher", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             EnumParameter("Greatfray", g_greatFray[0], g_greatFray),
                     },
                     CHAOS,

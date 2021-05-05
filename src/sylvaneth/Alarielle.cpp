@@ -5,7 +5,6 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <algorithm>
 #include <Dice.h>
 #include <sylvaneth/Alarielle.h>
 #include <UnitFactory.h>

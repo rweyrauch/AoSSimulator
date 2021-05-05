@@ -16,6 +16,8 @@
 namespace SlavesToDarkness {
 
     enum class DamnedLegion : int {
+        None,
+
         Ravagers,
         Cabalists,
         Despoilers,
@@ -24,6 +26,8 @@ namespace SlavesToDarkness {
     };
 
     enum class MarkOfChaos : int {
+        None,
+
         Undivided,
         Nurgle,
         Khorne,
@@ -129,8 +133,6 @@ namespace SlavesToDarkness {
 
         ~SlavesToDarknessBase() override;
 
-        void setDamnedLegion(DamnedLegion legion);
-
         void setMarkOfChaos(MarkOfChaos mark);
 
         bool setCommandTrait(CommandTrait trait);
@@ -139,7 +141,9 @@ namespace SlavesToDarkness {
 
     protected:
 
-        SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
+        SlavesToDarknessBase(DamnedLegion legion, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
+
+        void setDamnedLegion(DamnedLegion legion);
 
     protected:
 

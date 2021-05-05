@@ -10,6 +10,7 @@
 #include <Board.h>
 #include "bonesplitterz/Wardokk.h"
 #include "BonesplitterzPrivate.h"
+#include "BonesplitterzLore.h"
 
 namespace Bonesplitterz {
     static const int g_basesize = 32;
@@ -67,6 +68,7 @@ namespace Bonesplitterz {
         model->addMeleeWeapon(&m_bonebeastStikk);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }

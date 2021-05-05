@@ -41,12 +41,11 @@ namespace SlavesToDarkness {
     }
 
     Slambo::Slambo(DamnedLegion legion, bool isGeneral) :
-            SlavesToDarknessBase("Slambo", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Slambo", 5, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EXALTED_HERO_OF_CHAOS, SLAMBO};
         m_weapons = {&m_hurledAxe, &m_chaosAxes};
         m_battleFieldRole = Role::Leader;
 
-        setDamnedLegion(legion);
         setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());

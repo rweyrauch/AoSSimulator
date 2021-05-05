@@ -51,13 +51,12 @@ namespace SlavesToDarkness {
     }
 
     ChaosChosen::ChaosChosen(DamnedLegion legion, MarkOfChaos mark, int numModels, bool iconBearer, bool drummer, int points) :
-            SlavesToDarknessBase("Chaos Chosen", 6, g_wounds, 7, 4, false, points) {
+            SlavesToDarknessBase(legion, "Chaos Chosen", 6, g_wounds, 7, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHOSEN};
         m_weapons = {&m_greataxe, &m_greataxeChampion};
 
         s_globalBraveryMod.connect(this, &ChaosChosen::iconBearer, &m_braverySlot);
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         auto champion = new Model(g_basesize, wounds());

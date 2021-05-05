@@ -40,11 +40,9 @@ namespace SlavesToDarkness {
     }
 
     FomoroidCrusher::FomoroidCrusher(DamnedLegion legion) :
-            SlavesToDarknessBase("Fomoroid Crusher", 6, g_wounds, 10, 5, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Fomoroid Crusher", 6, g_wounds, 10, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, FOMOROID_CRUSHER};
         m_weapons = {&m_hurledTerrain, &m_fists};
-
-        setDamnedLegion(legion);
 
         auto model = new Model(g_basesize, wounds());
 

@@ -65,8 +65,7 @@ namespace GloomspiteGitz {
         else if (target->remainingModels() >= 10)
             damage = RAND_D3;
 
-        int mortalWounds = 0;
-        mortalWounds = Dice::RollSpecial(damage);
+        auto mortalWounds = Dice::RollSpecial(damage);
         target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
         PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.\n",
                          m_caster->name().c_str(), name().c_str(), castingValue, m_castingValue, mortalWounds,

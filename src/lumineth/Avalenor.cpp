@@ -86,7 +86,7 @@ namespace LuminethRealmLords {
         m_blast.setRange(g_damageTable[damageIndex].m_blastRange);
         m_hammer.setDamage(g_damageTable[damageIndex].m_hammerDamage);
 
-        Unit::onWounded();
+        LuminethBase::onWounded();
     }
 
     void AvalenorTheStoneheartKing::onRestore() {
@@ -98,7 +98,7 @@ namespace LuminethRealmLords {
 
     int AvalenorTheStoneheartKing::extraAttacks(const Model *attackingModel, const Weapon *weapon,
                                                 const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = LuminethBase::extraAttacks(attackingModel, weapon, target);
 
         // All but Immovable
         if (!m_charged && !weapon->isMissile()) extra++;
@@ -127,7 +127,7 @@ namespace LuminethRealmLords {
         if ((hitRoll == 6) && (weapon->name() == m_hammer.name())) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace LuminethRealmLords

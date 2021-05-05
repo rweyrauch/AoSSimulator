@@ -45,14 +45,12 @@ namespace SlavesToDarkness {
     }
 
     UntamedBeasts::UntamedBeasts(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Untamed Beasts", 6, g_wounds, 5, 6, false, points) {
+            SlavesToDarknessBase(legion, "Untamed Beasts", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, UNTAMED_BEASTS};
         m_weapons = {&m_harpoonFirstFang, &m_huntingWeapons, &m_huntingWeaponsHeartEater};
 
         // Unleash the Beast
         m_runAndCharge = true;
-
-        setDamnedLegion(legion);
 
         auto hearteater = new Model(g_basesize, wounds());
         hearteater->addMeleeWeapon(&m_huntingWeaponsHeartEater);

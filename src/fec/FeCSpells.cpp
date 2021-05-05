@@ -22,9 +22,9 @@ namespace FleshEaterCourt {
         Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
 
             auto units = Board::Instance()->getUnitsWithin(m_caster, GetEnemyId(m_caster->owningPlayer()), m_range);
-            for (auto target : units) {
+            for (auto unit : units) {
                 if (Dice::RollD6() >= 2) {
-                    target->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
+                    unit->applyDamage({0, 1, Wounds::Source::Spell}, m_caster);
                 }
             }
             return Spell::Result::Success;

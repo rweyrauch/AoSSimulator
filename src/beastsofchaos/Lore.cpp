@@ -7,7 +7,6 @@
  */
 
 #include <beastsofchaos/Lore.h>
-#include "BeastsOfChaosPrivate.h"
 
 namespace BeastsOfChaos {
 

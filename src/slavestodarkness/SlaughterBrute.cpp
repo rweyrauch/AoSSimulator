@@ -62,12 +62,11 @@ namespace SlavesToDarkness {
     }
 
     Slaughterbrute::Slaughterbrute(DamnedLegion legion, MarkOfChaos mark) :
-            SlavesToDarknessBase("Slaughterbrute", 10, g_wounds, 7, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Slaughterbrute", 10, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MONSTER, SLAVES_TO_DARKNESS, SLAUGHTERBRUTE};
         m_weapons = {&m_claws, &m_jaws, &m_talons};
         m_battleFieldRole = Role::Behemoth;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         auto model = new Model(g_basesize, wounds());

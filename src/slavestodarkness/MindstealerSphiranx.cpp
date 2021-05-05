@@ -41,12 +41,10 @@ namespace SlavesToDarkness {
     }
 
     MindstealerSphiranx::MindstealerSphiranx(DamnedLegion legion) :
-            SlavesToDarknessBase("Mindstealer Sphiranx", 10, g_wounds, 10, 5, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Mindstealer Sphiranx", 10, g_wounds, 10, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, MONSTER, SLAVES_TO_DARKNESS, MINDSTEALER_SPHIRANX};
 
         s_globalBraveryMod.connect(this, &MindstealerSphiranx::telepathicDread, &m_connection);
-
-        setDamnedLegion(legion);
 
         auto model = new Model(g_basesize, wounds());
 

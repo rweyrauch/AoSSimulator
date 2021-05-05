@@ -94,7 +94,7 @@ namespace LuminethRealmLords {
     }
 
     void AuralanSentinels::onCastSpell(const Spell *spell, const Unit *target) {
-        Unit::onCastSpell(spell, target);
+        LuminethBase::onCastSpell(spell, target);
 
         if (spell->name() == "Power of Hysh") {
             m_powerOfHyshActive = true;
@@ -110,11 +110,11 @@ namespace LuminethRealmLords {
             ((weapon->name() == m_bowLofted.name()) || (weapon->name() == m_bowAimed.name()))) {
             return {0, 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AuralanSentinels::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LuminethBase::onStartHero(player);
 
         m_powerOfHyshActive = false;
     }

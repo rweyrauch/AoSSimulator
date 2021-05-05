@@ -13,7 +13,7 @@
 
 namespace Sylvaneth {
 
-    const std::array<int, 8> g_glade = {
+    constexpr std::array<int, 8> g_glade = {
             ToInteger(Glade::None),
             ToInteger(Glade::Oakenbrow),
             ToInteger(Glade::Gnarlroot),

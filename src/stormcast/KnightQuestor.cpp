@@ -18,12 +18,16 @@ namespace StormcastEternals {
 
     bool KnightQuestor::s_registered = false;
 
-    KnightQuestor::KnightQuestor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGenera) :
+    KnightQuestor::KnightQuestor(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral) :
             StormcastEternal(stormhost, "Knight-Questor", 5, g_wounds, 8, 3, false, g_pointsPerUnit),
             m_warblade(Weapon::Type::Melee, "Questor Warblade", 1, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, HERO, KNIGHT_QUESTOR};
         m_weapons = {&m_warblade};
         m_battleFieldRole = Role::Leader;
+
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_warblade);

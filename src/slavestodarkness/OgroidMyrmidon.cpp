@@ -40,12 +40,10 @@ namespace SlavesToDarkness {
     }
 
     OgroidMyrmidon::OgroidMyrmidon(DamnedLegion legion) :
-            SlavesToDarknessBase("Ogroid Myrmidon", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Ogroid Myrmidon", 6, g_wounds, 8, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, EYE_OF_THE_GODS, OGROID_MYRMIDON};
         m_weapons = {&m_spearMissile, &m_spear, &m_horns};
         m_battleFieldRole = Role::Leader;
-
-        setDamnedLegion(legion);
 
         auto model = new Model(g_basesize, wounds());
 

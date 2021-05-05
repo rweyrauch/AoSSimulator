@@ -66,7 +66,7 @@ namespace DaughtersOfKhaine {
         m_glaive.setDamage(1);
 
         // Priestess of Khaine
-        const auto roll = Dice::RollD6();
+        auto roll = Dice::RollD6();
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
         if (unit && distanceTo(unit) <= 3.0) {
             // Touch of Death
@@ -91,9 +91,8 @@ namespace DaughtersOfKhaine {
         for (auto friendly : friendlies) {
             auto dok = dynamic_cast<DaughterOfKhaine *>(friendly);
             if (dok) {
-                auto bloodRightAdj = std::min(3, getBloodRiteRound() -
-                                                 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
-                auto roll = Dice::RollD6() + bloodRightAdj;
+                auto bloodRightAdj = std::min(3, getBloodRiteRound() - 1); // Bonus for Headlong Fury, Zealot's Rage and Slaughter's Strength
+                roll = Dice::RollD6() + bloodRightAdj;
                 if (roll >= 5) {
                     const Duration duration = {GamePhase::Hero, m_battleRound + 1, owningPlayer()};
                     dok->buffReroll(Attribute::To_Wound_Melee, Rerolls::Failed, duration);

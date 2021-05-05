@@ -15,7 +15,7 @@ namespace Ironjawz {
 
     class VoiceOfGork : public CommandAbility {
     public:
-        VoiceOfGork(Unit *source) :
+        explicit VoiceOfGork(Unit *source) :
                 CommandAbility(source, "Voice of Gork", 24, 24, GamePhase::Combat) {
             m_allowedTargets = Abilities::Target::Point;
             m_targetKeywords = {DESTRUCTION};

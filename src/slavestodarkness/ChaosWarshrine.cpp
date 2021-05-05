@@ -60,7 +60,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosWarshrine::ChaosWarshrine(DamnedLegion legion, MarkOfChaos mark) :
-            SlavesToDarknessBase("Chaos Warshrine", 8, g_wounds, 7, 4, false, g_pointsPerUnit),
+            SlavesToDarknessBase(legion, "Chaos Warshrine", 8, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_blade(Weapon::Type::Melee, "Sacrificial Blade", 1, 4, 3, 3, -1, 2),
             m_fists(Weapon::Type::Melee, "Flailing Fists", 1, 6, 4, 3, 0, 2) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, TOTEM, PRIEST, MARK_OF_CHAOS, CHAOS_WARSHRINE};
@@ -69,7 +69,6 @@ namespace SlavesToDarkness {
         m_hasMount = true;
         m_fists.setMount(true);
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         s_globalWoundSave.connect(this, &ChaosWarshrine::protectionOfTheDarkGods, &m_protectionSlot);

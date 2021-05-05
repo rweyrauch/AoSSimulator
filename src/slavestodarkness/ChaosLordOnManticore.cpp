@@ -13,7 +13,7 @@ namespace SlavesToDarkness {
 
     class IronWilledOverlord : public CommandAbility {
     public:
-        IronWilledOverlord(Unit *source) :
+        explicit IronWilledOverlord(Unit *source) :
                 CommandAbility(source, "Iron-willed Overlord", 18, 18, GamePhase::Hero) {
             m_allowedTargets = Abilities::Target::Friendly;
             m_targetKeywords = {CHAOS_WARRIORS};
@@ -98,7 +98,7 @@ namespace SlavesToDarkness {
     }
 
     ChaosLordOnManticore::ChaosLordOnManticore(DamnedLegion legion, MarkOfChaos mark, WeaponOption weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Chaos Lord On Manticore", 12, g_wounds, 8, 4, true, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Chaos Lord On Manticore", 12, g_wounds, 8, 4, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, MANTICORE, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, EYE_OF_THE_GODS, MONSTER, HERO,
                       CHAOS_LORD};
         m_hasMount = true;
@@ -107,7 +107,6 @@ namespace SlavesToDarkness {
         m_weapons = {&m_blade, &m_lance, &m_flail, &m_fangsAndClaws, &m_tail};
         m_battleFieldRole = Role::Leader_Behemoth;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
         setCommandTrait(trait);
         setArtefact(artefact);

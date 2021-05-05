@@ -7,7 +7,6 @@
  */
 
 #include <lumineth/MyarisPurifiers.h>
-#include "LuminethPrivate.h"
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 

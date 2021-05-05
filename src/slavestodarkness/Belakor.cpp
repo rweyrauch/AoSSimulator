@@ -70,12 +70,11 @@ namespace SlavesToDarkness {
     }
 
     Belakor::Belakor(DamnedLegion legion, MarkOfChaos mark, Lore lore, bool isGeneral) :
-            SlavesToDarknessBase("Be'lakor", 14, g_wounds, 10, 4, true, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Be'lakor", 14, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, UNDIVIDED, HERO, WIZARD, MONSTER, DAEMON_PRINCE, BELAKOR};
         m_weapons = {&m_blade, &m_claw, &m_tail};
         m_battleFieldRole = Role::Leader;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
         setGeneral(isGeneral);
 

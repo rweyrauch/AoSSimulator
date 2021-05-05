@@ -10,6 +10,7 @@
 #include <Board.h>
 #include "ironjawz/WeirdnobShaman.h"
 #include "IronjawzPrivate.h"
+#include "IronjawzLore.h"
 
 namespace Ironjawz {
     static const int g_basesize = 40;
@@ -70,6 +71,7 @@ namespace Ironjawz {
         addModel(model);
 
         m_knownSpells.push_back(std::make_unique<LineOfEffectSpell>(this, "Green Puke", 6, RAND_2D6, RAND_D3, 0));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }

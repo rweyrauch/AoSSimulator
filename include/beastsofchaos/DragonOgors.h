@@ -25,7 +25,7 @@ namespace BeastsOfChaos {
 
         ~DragonOgors() override = default;
 
-        DragonOgors(Greatfray fray, int numModels, int numPairedWeapons, int numGlaives, int numCrushers, int points);
+        DragonOgors(Greatfray fray, int numModels, int numGlaives, int numCrushers, int points);
 
     protected:
 

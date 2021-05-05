@@ -11,7 +11,6 @@
 #include <behemat/Gatebreaker.h>
 #include <behemat/KrakenEater.h>
 #include <behemat/Warstomper.h>
-#include "../AoSSimPrivate.h"
 #include <magic_enum.hpp>
 
 namespace SonsOfBehemat {

@@ -31,6 +31,8 @@ namespace GloomspiteGitz {
         m_totalUnbinds = 2;
         m_totalSpells = 2;
 
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_daMoonOnnaStikkMissile);
         model->addMeleeWeapon(&m_daMoonOnnaStikk);

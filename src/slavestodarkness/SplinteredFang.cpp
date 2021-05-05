@@ -44,13 +44,11 @@ namespace SlavesToDarkness {
     }
 
     SplinteredFang::SplinteredFang(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Splintered Fang", 6, g_wounds, 5, 5, false, points),
+            SlavesToDarknessBase(legion, "Splintered Fang", 6, g_wounds, 5, 5, false, points),
             m_poisonedWeapons(Weapon::Type::Melee, "Poisoned Weapons", 1, 1, 4, 4, 0, 1),
             m_poisonedWeaponsLeader(Weapon::Type::Melee, "Poisoned Weapons (Trueblood)", 1, 2, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SPLINTERED_FANG};
         m_weapons = {&m_poisonedWeapons, &m_poisonedWeaponsLeader};
-
-        setDamnedLegion(legion);
 
         auto trueblood = new Model(g_basesize, wounds());
         trueblood->addMeleeWeapon(&m_poisonedWeaponsLeader);

@@ -102,6 +102,8 @@ namespace KharadronOverlords {
                      &m_boardingWeapons};
         m_battleFieldRole = Role::Behemoth;
 
+        setEndrinwork(endrinwork);
+
         auto model = new Model(g_basesize, wounds());
         if (option == Great_Sky_Cannon) {
             model->addMissileWeapon(&m_cannonShrapnel);

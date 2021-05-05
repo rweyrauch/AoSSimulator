@@ -45,11 +45,9 @@ namespace SlavesToDarkness {
     }
 
     TheUnmade::TheUnmade(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("The Unmade", 6, g_wounds, 5, 6, false, points) {
+            SlavesToDarknessBase(legion, "The Unmade", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, THE_UNMADE};
         m_weapons = {&m_maimingWeapons, &m_maimingWeaponsLeader, &m_nigthmareSickles};
-
-        setDamnedLegion(legion);
 
         s_globalBraveryMod.connect(this, &TheUnmade::frozenInFear, &m_connection);
 

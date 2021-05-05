@@ -87,7 +87,7 @@ namespace SlavesToDarkness {
     }
 
     SoulGrinder::SoulGrinder(DamnedLegion legion, MarkOfChaos mark, WeaponOption option) :
-            SlavesToDarknessBase("Soul Grinder", 12, g_wounds, 10, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Soul Grinder", 12, g_wounds, 10, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, MONSTER, MARK_OF_CHAOS, SOUL_GRINDER};
         m_weapons = {&m_cannon, &m_phlegm, &m_legs, &m_claw, &m_blade, &m_talon};
         m_battleFieldRole = Role::Behemoth;
@@ -95,7 +95,6 @@ namespace SlavesToDarkness {
         // Implacable Advance
         m_runAndShoot = true;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         auto model = new Model(g_basesize, wounds());

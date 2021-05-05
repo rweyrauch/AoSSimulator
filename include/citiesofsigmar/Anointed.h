@@ -25,7 +25,7 @@ namespace CitiesOfSigmar {
 
         static void Init();
 
-        Anointed(City city, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
+        Anointed(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Anointed() override = default;
 

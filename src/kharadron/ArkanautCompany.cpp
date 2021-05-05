@@ -155,7 +155,7 @@ namespace KharadronOverlords {
             return Rerolls::Failed;
         }
 
-        return Unit::battleshockRerolls();
+        return KharadronBase::battleshockRerolls();
     }
 
 } //KharadronOverlords

@@ -128,7 +128,7 @@ namespace Seraphon {
 
     void SaurusScarVeteranOnCarnosaur::onWounded() {
         SeraphonBase::onWounded();
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_jaws.setDamage(g_damageTable[damageIndex].m_jawsDamage);
         m_forelimbs.setToHit(g_damageTable[damageIndex].m_forelimbToHit);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

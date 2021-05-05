@@ -50,12 +50,11 @@ namespace SlavesToDarkness {
     }
 
     TheddraSkullscryer::TheddraSkullscryer(DamnedLegion legion, Lore lore, bool isGeneral) :
-            SlavesToDarknessBase("Theddra Skull-scryer", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Theddra Skull-scryer", 6, g_wounds, 7, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, HERO, WIZARD, GOD_SPEAKER, THEDDRA_SKULL_SCRYER};
         m_weapons = {&m_wand};
         m_battleFieldRole = Role::Leader;
 
-        setDamnedLegion(legion);
         setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());

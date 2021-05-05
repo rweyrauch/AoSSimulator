@@ -45,11 +45,9 @@ namespace SlavesToDarkness {
     }
 
     ScionsOfTheFlame::ScionsOfTheFlame(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Scions of the Flame", 6, g_wounds, 5, 6, false, points) {
+            SlavesToDarknessBase(legion, "Scions of the Flame", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, SCIONS_OF_THE_FLAME};
         m_weapons = {&m_pots, &m_scionWeapons, &m_scionWeaponsLeaders};
-
-        setDamnedLegion(legion);
 
         auto lord = new Model(g_basesize, wounds());
         lord->addMissileWeapon(&m_pots);

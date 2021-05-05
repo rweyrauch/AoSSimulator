@@ -54,14 +54,13 @@ namespace SlavesToDarkness {
     }
 
     ChaosMarauders::ChaosMarauders(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool iconBearer, bool drummer, int points) :
-            SlavesToDarknessBase("Chaos Marauders", 6, g_wounds, 5, 6, false, points) {
+            SlavesToDarknessBase(legion, "Chaos Marauders", 6, g_wounds, 5, 6, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_MARAUDERS};
         m_weapons = {&m_axe, &m_flail, &m_axeChieftain, &m_flailChieftain};
         m_battleFieldRole = Role::Battleline;
 
         s_globalBraveryMod.connect(this, &ChaosMarauders::iconBearer, &m_connection);
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         m_weaponOption = weapons;

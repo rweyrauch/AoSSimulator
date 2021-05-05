@@ -49,6 +49,8 @@ namespace Nurgle {
         m_weapons = {&m_balesword, &m_teeth};
         m_battleFieldRole = Role::Leader;
 
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_balesword);
         model->addMeleeWeapon(&m_teeth);

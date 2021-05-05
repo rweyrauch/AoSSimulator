@@ -48,7 +48,7 @@ namespace EldritchCouncil {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearer = GetBoolParam("Standard Bearer", parameters, false);
         bool hornblower = GetBoolParam("Hornblower", parameters, false);
-        return new Swordmasters(numModels, standardBearer, hornblower, ComputePoints(parameters));
+        return new Swordmasters(numModels, hornblower, standardBearer, ComputePoints(parameters));
     }
 
     void Swordmasters::Init() {

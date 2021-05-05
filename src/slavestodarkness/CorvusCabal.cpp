@@ -44,11 +44,9 @@ namespace SlavesToDarkness {
     }
 
     CorvusCabal::CorvusCabal(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Corvus Cabal", 8, g_wounds, 5, 6, true, points) {
+            SlavesToDarknessBase(legion, "Corvus Cabal", 8, g_wounds, 5, 6, true, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CORVUS_CABAL};
         m_weapons = {&m_ravenDarts, &m_corvusWeapons, &m_corvusWeaponsLeader};
-
-        setDamnedLegion(legion);
 
         auto piercer = new Model(g_basesize, wounds());
         piercer->addMissileWeapon(&m_ravenDarts);

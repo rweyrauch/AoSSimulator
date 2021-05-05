@@ -60,14 +60,13 @@ namespace SlavesToDarkness {
 
     ChaosChariots::ChaosChariots(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool idolatorLord,
                                  CommandTrait trait, Prayer prayer, bool isGeneral, int points) :
-            SlavesToDarknessBase("Chaos Chariots", 12, g_wounds, 6, 4, false, points) {
+            SlavesToDarknessBase(legion, "Chaos Chariots", 12, g_wounds, 6, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_CHARIOTS};
         m_weapons = {&m_greatBlade, &m_flail, &m_whip, &m_greatBladeExalted, &m_flailExalted, &m_whipExalted,
                      &m_hooves};
         m_hasMount = true;
         m_hooves.setMount(true);
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
         setGeneral(isGeneral);
         setCommandTrait(trait);

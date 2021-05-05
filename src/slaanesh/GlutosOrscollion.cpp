@@ -74,6 +74,8 @@ namespace Slaanesh {
         s_globalToHitMod.connect(this, &GlutosOrscollion::fogOfTemptation, &m_fogConnection);
         s_globalBraveryMod.connect(this, &GlutosOrscollion::aperitif, &m_aperitifConnection);
 
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
 
         model->addMeleeWeapon(&m_greatblade);

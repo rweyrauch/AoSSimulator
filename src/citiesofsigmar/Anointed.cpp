@@ -19,12 +19,11 @@ namespace CitiesOfSigmar {
 
     Unit *Anointed::Create(const ParameterList &parameters) {
         auto city = (City) GetEnumParam("City", parameters, g_city[0]);
-        auto lore = (Lore) GetEnumParam("Lore", parameters, g_lore[0]);
         auto drug = (Narcotic) GetEnumParam("Narcotic", parameters, g_narcotic[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new Anointed(city, lore, drug, trait, artefact, general);
+        return new Anointed(city, drug, trait, artefact, general);
     }
 
     std::string Anointed::ValueToString(const Parameter &parameter) {
@@ -46,7 +45,6 @@ namespace CitiesOfSigmar {
                             EnumParameter("City", g_city[0], g_city),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
-                            EnumParameter("Lore", g_lore[0], g_lore),
                             EnumParameter("Narcotic", g_narcotic[0], g_narcotic),
                             BoolParameter("General")
                     },
@@ -57,7 +55,7 @@ namespace CitiesOfSigmar {
         }
     }
 
-    Anointed::Anointed(City city, Lore lore, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    Anointed::Anointed(City city, Narcotic narcotic, CommandTrait trait, Artefact artefact, bool isGeneral) :
             CitizenOfSigmar(city, "Anointed", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_halberd(Weapon::Type::Melee, "Great Phoenix Halberd", 2, 4, 3, 3, -1, 1) {
         m_keywords = {ORDER, AELF, CITIES_OF_SIGMAR, PHOENIX_TEMPLE, HERO, ANOINTED};

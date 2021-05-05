@@ -45,13 +45,11 @@ namespace SlavesToDarkness {
     }
 
     CypherLords::CypherLords(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Cypher Lords", 6, g_wounds, 5, 6, false, points),
+            SlavesToDarknessBase(legion, "Cypher Lords", 6, g_wounds, 5, 6, false, points),
             m_throwingStars(Weapon::Type::Missile, "Throwing Stars and Chakrams", 8, 1, 4, 5, 0, 1),
             m_exoticBlades(Weapon::Type::Melee, "Exotic Blades", 1, 1, 4, 4, 0, 1) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, CYPHER_LORDS};
         m_weapons = {&m_throwingStars, &m_exoticBlades};
-
-        setDamnedLegion(legion);
 
         auto thrallmaster = new Model(g_basesize, wounds());
         thrallmaster->addMissileWeapon(&m_throwingStars);

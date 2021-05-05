@@ -9,7 +9,6 @@
 #include <nurgle/BeastsOfNurgle.h>
 #include "NurglePrivate.h"
 #include <UnitFactory.h>
-#include <Board.h>
 
 namespace Nurgle {
     static const int g_basesize = 60;

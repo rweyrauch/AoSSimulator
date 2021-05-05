@@ -13,7 +13,7 @@ namespace Bonesplitterz {
 
     class SquigglyCurse : public Spell {
     public:
-        SquigglyCurse(Unit *caster) :
+        explicit SquigglyCurse(Unit *caster) :
                 Spell(caster, "Squiggly Curse", 6, 3) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -43,7 +43,7 @@ namespace Bonesplitterz {
 
     class BreathOfGorkamorka : public Spell {
     public:
-        BreathOfGorkamorka(Unit *caster) :
+        explicit BreathOfGorkamorka(Unit *caster) :
                 Spell(caster, "Breath of Gorkamorka", 6, 24) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
@@ -71,7 +71,7 @@ namespace Bonesplitterz {
 
     class BrutalBeastSpirits : public Spell {
     public:
-        BrutalBeastSpirits(Unit *caster) :
+        explicit BrutalBeastSpirits(Unit *caster) :
                 Spell(caster, "BrutalBeastSpirits", 6, 24) {
             m_allowedTargets = Abilities::Target::SelfAndFriendly;
             m_effect = Abilities::EffectType::Buff;
@@ -109,7 +109,7 @@ namespace Bonesplitterz {
 
     class BoneKrusha : public Spell {
     public:
-        BoneKrusha(Unit *caster) :
+        explicit BoneKrusha(Unit *caster) :
                 Spell(caster, "Bone Krusha", 6, 24) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;
@@ -137,7 +137,7 @@ namespace Bonesplitterz {
 
     class GorkamorkasWarCry : public Spell {
     public:
-        GorkamorkasWarCry(Unit *caster) :
+        explicit GorkamorkasWarCry(Unit *caster) :
                 Spell(caster, "Gorkamorka's War Cry", 7, 18) {
             m_allowedTargets = Abilities::Target::Enemy;
             m_effect = Abilities::EffectType::Damage;

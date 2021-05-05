@@ -56,13 +56,12 @@ namespace SlavesToDarkness {
     }
 
     ChaosWarriors::ChaosWarriors(DamnedLegion legion, MarkOfChaos mark, int numModels, WeaponOption weapons, bool standardBearer, bool hornblower, int points) :
-            SlavesToDarknessBase("Chaos Warriors", 5, g_wounds, 7, 4, false, points) {
+            SlavesToDarknessBase(legion, "Chaos Warriors", 5, g_wounds, 7, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, MARK_OF_CHAOS, CHAOS_WARRIORS};
         m_weapons = {&m_handWeapons, &m_halberd, &m_greatBlade, &m_handWeaponsChampion, &m_halberdChampion,
                      &m_greatBladeChampion};
         m_battleFieldRole = Role::Battleline;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         m_hasShields = false;

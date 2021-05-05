@@ -44,11 +44,9 @@ namespace SlavesToDarkness {
     }
 
     Raptoryx::Raptoryx(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Raptoryx", 10, g_wounds, 6, NoSave, true, points) {
+            SlavesToDarknessBase(legion, "Raptoryx", 10, g_wounds, 6, NoSave, true, points) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, RAPTORYX};
         m_weapons = {&m_beakAndTalons};
-
-        setDamnedLegion(legion);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());

@@ -100,6 +100,10 @@ namespace Tzeentch {
         m_totalSpells = 2;
         m_totalUnbinds = 2;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_staff);
         model->addMeleeWeapon(&m_blade);

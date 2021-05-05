@@ -10,7 +10,6 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <iostream>
-#include "FleshEaterCourtsPrivate.h"
 
 namespace FleshEaterCourt {
     static const int g_basesize = 40;

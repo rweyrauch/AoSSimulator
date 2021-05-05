@@ -46,12 +46,11 @@ namespace SlavesToDarkness {
     }
 
     DarkoathWarqueen::DarkoathWarqueen(DamnedLegion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Darkoath Warqueen", 6, g_wounds, 8, 5, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Darkoath Warqueen", 6, g_wounds, 8, 5, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, EYE_OF_THE_GODS, HERO, DARKOATH_WARQUEEN};
         m_weapons = {&m_axe};
         m_battleFieldRole = Role::Leader;
 
-        setDamnedLegion(legion);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

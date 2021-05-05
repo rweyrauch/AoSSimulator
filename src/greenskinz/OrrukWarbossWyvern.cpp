@@ -94,7 +94,7 @@ namespace Greenskinz {
     }
 
     void OrrukWarbossOnWyvern::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_hornsClawsAndTeeth.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
         m_barbedTail.setToWound(g_damageTable[damageIndex].m_tailToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

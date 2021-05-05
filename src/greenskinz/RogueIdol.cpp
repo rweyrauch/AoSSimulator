@@ -84,7 +84,7 @@ namespace Greenskinz {
     }
 
     void RogueIdol::onWounded() {
-        const int damageIndex = getDamageTableIndex();
+        const auto damageIndex = getDamageTableIndex();
         m_boulderFists.setToWound(g_damageTable[damageIndex].m_fistToWound);
         m_stompinFeet.setAttacks(g_damageTable[damageIndex].m_feetAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;

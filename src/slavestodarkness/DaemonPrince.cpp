@@ -76,12 +76,11 @@ namespace SlavesToDarkness {
     }
 
     DaemonPrince::DaemonPrince(DamnedLegion legion, MarkOfChaos mark, WeaponOption option, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SlavesToDarknessBase("Daemon Prince", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Daemon Prince", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, HERO, MARK_OF_CHAOS, DAEMON_PRINCE};
         m_weapons = {&m_axe, &m_sword, &m_talons};
         m_battleFieldRole = Role::Leader;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
         setCommandTrait(trait);
         setArtefact(artefact);

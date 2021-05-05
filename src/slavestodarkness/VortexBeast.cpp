@@ -65,12 +65,11 @@ namespace SlavesToDarkness {
     }
 
     MutalithVortexBeast::MutalithVortexBeast(DamnedLegion legion, MarkOfChaos mark) :
-            SlavesToDarknessBase("Mutalith Vortex Beast", 10, g_wounds, 7, 4, false, g_pointsPerUnit) {
+            SlavesToDarknessBase(legion, "Mutalith Vortex Beast", 10, g_wounds, 7, 4, false, g_pointsPerUnit) {
         m_keywords = {CHAOS, SLAVES_TO_DARKNESS, MONSTER, MUTALITH_VORTEX_BEAST};
         m_weapons = {&m_claws, &m_maw};
         m_battleFieldRole = Role::Behemoth;
 
-        setDamnedLegion(legion);
         setMarkOfChaos(mark);
 
         auto model = new Model(g_basesize, wounds());

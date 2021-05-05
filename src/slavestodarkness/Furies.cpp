@@ -44,11 +44,9 @@ namespace SlavesToDarkness {
     }
 
     Furies::Furies(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Furies", 12, g_wounds, 10, NoSave, true, points) {
+            SlavesToDarknessBase(legion, "Furies", 12, g_wounds, 10, NoSave, true, points) {
         m_keywords = {CHAOS, DAEMON, SLAVES_TO_DARKNESS, FURIES};
         m_weapons = {&m_daggerAndClaws};
-
-        setDamnedLegion(legion);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());

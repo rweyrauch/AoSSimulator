@@ -100,8 +100,9 @@ namespace SlavesToDarkness {
         return 0;
     }
 
-    SlavesToDarknessBase::SlavesToDarknessBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+    SlavesToDarknessBase::SlavesToDarknessBase(DamnedLegion legion, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
             Unit(name, move, wounds, bravery, save, fly, points) {
+        setDamnedLegion(legion);
         s_globalBraveryMod.connect(this, &SlavesToDarknessBase::lordOfTerror, &m_lordOfTerrorSlot);
     }
 
@@ -162,6 +163,8 @@ namespace SlavesToDarkness {
                 break;
             case MarkOfChaos::Tzeentch:
                 addKeyword(TZEENTCH);
+                break;
+            default:
                 break;
         }
     }
@@ -394,6 +397,8 @@ namespace SlavesToDarkness {
                         case MarkOfChaos::Undivided:
                             unitName = "Furies";
                             numModels = 6;
+                            break;
+                        default:
                             break;
                     }
 

@@ -64,7 +64,7 @@ namespace Death {
         }
     }
 
-    MannfredMortarchOfNight::MannfredMortarchOfNight(Legion legion, bool isGenera) :
+    MannfredMortarchOfNight::MannfredMortarchOfNight(Legion legion, bool isGeneral) :
             LegionOfNagashBase(legion, "Mannfred, Mortarch of Night", 16, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_gheistvor(Weapon::Type::Melee, "Gheistvor", 1, 4, 3, 3, -1, RAND_D3),
             m_glaive(Weapon::Type::Melee, "Sickle-glaive", 2, 2, 3, 3, -1, 2),
@@ -77,6 +77,8 @@ namespace Death {
         m_ebonClaws.setMount(true);
         m_totalSpells = 2;
         m_totalUnbinds = 2;
+
+        setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_gheistvor);

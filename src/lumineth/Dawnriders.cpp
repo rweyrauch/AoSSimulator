@@ -97,7 +97,7 @@ namespace LuminethRealmLords {
     }
 
     void Dawnriders::onCastSpell(const Spell *spell, const Unit *target) {
-        Unit::onCastSpell(spell, target);
+        LuminethBase::onCastSpell(spell, target);
 
         if (spell->name() == "Power of Hysh") {
             m_powerOfHyshActive = true;
@@ -112,11 +112,11 @@ namespace LuminethRealmLords {
         if ((hitRoll >= hitRollThreshold) && (weapon->name() == m_lance.name())) {
             return {0, 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Dawnriders::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LuminethBase::onStartHero(player);
 
         m_powerOfHyshActive = false;
     }
@@ -126,11 +126,11 @@ namespace LuminethRealmLords {
         if (charged() && (weapon->name() == m_lance.name())) {
             return weapon->rend() - 1;
         }
-        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Dawnriders::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = LuminethBase::toWoundModifier(weapon, target);
         // Lances of Dawn
         if (charged() && (weapon->name() == m_lance.name())) {
             mod++;

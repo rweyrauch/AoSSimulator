@@ -26,6 +26,10 @@ namespace GloomspiteGitz {
         m_weapons = {&m_moonStaff};
         m_battleFieldRole = Role::Leader;
 
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
         m_totalUnbinds = 1;
         m_totalSpells = 1;
 

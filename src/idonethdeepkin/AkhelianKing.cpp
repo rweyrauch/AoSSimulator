@@ -32,7 +32,11 @@ namespace IdonethDeepkin {
         m_deepmareJawsTalons.setMount(true);
         m_deepmareTails.setMount(true);
 
-       auto model = new Model(g_basesize, wounds());
+        setCommandTrait(trait);
+        setArtefact(artefact);
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
         if (weapon == Bladed_Polearm) {
             model->addMeleeWeapon(&m_bladedPolearm);
         } else {

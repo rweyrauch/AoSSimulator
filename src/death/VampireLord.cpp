@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
 #include "LegionOfNagashPrivate.h"
+#include "DeathLore.h"
 
 namespace Death {
     static const int g_basesize = 32;
@@ -89,6 +90,7 @@ namespace Death {
         model->addMeleeWeapon(&m_blades);
         addModel(model);
 
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
 

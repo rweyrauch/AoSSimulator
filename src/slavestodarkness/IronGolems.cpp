@@ -44,11 +44,9 @@ namespace SlavesToDarkness {
     }
 
     IronGolems::IronGolems(DamnedLegion legion, int numModels, int points) :
-            SlavesToDarknessBase("Iron Golems", 5, g_wounds, 6, 4, false, points) {
+            SlavesToDarknessBase(legion, "Iron Golems", 5, g_wounds, 6, 4, false, points) {
         m_keywords = {CHAOS, MORTAL, SLAVES_TO_DARKNESS, CULTISTS, IRON_GOLEMS};
         m_weapons = {&m_bolas, &m_legionWeapons, &m_legionWeaponsDominar};
-
-        setDamnedLegion(legion);
 
         auto dominar = new Model(g_basesize, wounds());
         dominar->addMissileWeapon(&m_bolas);
