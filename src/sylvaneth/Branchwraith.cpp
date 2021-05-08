@@ -77,7 +77,7 @@ namespace Sylvaneth {
     }
 
     int Branchwraith::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::targetHitModifier(weapon, attacker);
+        int modifier = SylvanethBase::targetHitModifier(weapon, attacker);
 
         // Blessing of the Forest
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 6.0);

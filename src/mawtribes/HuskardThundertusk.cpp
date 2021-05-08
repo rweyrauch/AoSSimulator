@@ -131,6 +131,7 @@ namespace OgorMawtribes {
     }
 
     void HuskardOnThundertusk::onRestore() {
+        MawtribesBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
@@ -157,7 +158,7 @@ namespace OgorMawtribes {
     }
 
     int HuskardOnThundertusk::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = MawtribesBase::targetHitModifier(weapon, attacker);
         // Numbing Chill
         if (!weapon->isMissile()) mod--;
 
@@ -165,7 +166,7 @@ namespace OgorMawtribes {
     }
 
     void HuskardOnThundertusk::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        MawtribesBase::onStartShooting(player);
 
         if (player == owningPlayer()) {
             if (m_meleeTarget) {

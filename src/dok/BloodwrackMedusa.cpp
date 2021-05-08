@@ -89,7 +89,7 @@ namespace DaughtersOfKhaine {
             Dice::RollD6(target->remainingModels(), result);
             return {0, result.rollsGE(5)};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return DaughterOfKhaine::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int BloodwrackMedusa::ComputePoints(const ParameterList& /*parameters*/) {

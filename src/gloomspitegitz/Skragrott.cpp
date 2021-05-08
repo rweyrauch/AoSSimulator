@@ -92,7 +92,7 @@ namespace GloomspiteGitz {
 
     int Skragrott::unbindingModifier() const {
         // Loonking's Crown
-        return Unit::unbindingModifier() + 1;
+        return GloomspiteGitzBase::unbindingModifier() + 1;
     }
 
     Wounds Skragrott::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {

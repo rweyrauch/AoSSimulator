@@ -73,7 +73,7 @@ namespace Slaanesh {
     }
 
     int Fiends::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::targetHitModifier(weapon, attacker);
+        int modifier = SlaaneshBase::targetHitModifier(weapon, attacker);
 
         // Soporific Musk
         if (!weapon->isMissile()) {
@@ -83,7 +83,7 @@ namespace Slaanesh {
     }
 
     int Fiends::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::targetWoundModifier(weapon, attacker);
+        int modifier = SlaaneshBase::targetWoundModifier(weapon, attacker);
 
         // Soporific Musk
         if (!weapon->isMissile() && remainingModels() >= 4) {

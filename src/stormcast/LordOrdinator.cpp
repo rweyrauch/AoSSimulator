@@ -28,7 +28,6 @@ namespace StormcastEternals {
 
         m_weaponOption = weaponOption;
 
-        setStormhost(stormhost);
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);

@@ -66,17 +66,17 @@ namespace Skaven {
             return RAND_2D6;
         }
 
-        return Unit::extraAttacks(attackingModel, weapon, target);
+        return Skaventide::extraAttacks(attackingModel, weapon, target);
     }
 
     void RatlingGun::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         m_moreMoreFailed = false;
     }
 
     void RatlingGun::onEndShooting(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         if (m_moreMoreFailed) {
             slay(1);

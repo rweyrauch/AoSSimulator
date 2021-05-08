@@ -111,7 +111,7 @@ namespace LuminethRealmLords {
 
     Rerolls AlarithStoneguard::battleshockRerolls() const {
         if (isNamedModelAlive(Model::StandardBearer)) return Rerolls::Failed;
-        return Unit::battleshockRerolls();
+        return LuminethBase::battleshockRerolls();
     }
 
     Wounds AlarithStoneguard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -122,12 +122,12 @@ namespace LuminethRealmLords {
                 return {0, 1};
             }
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls AlarithStoneguard::toHitRerolls(const Weapon *weapon, const Unit *target) const {
         if (weapon->name() == m_pairedStratumHammers.name()) return Rerolls::Failed;
-        return Unit::toHitRerolls(weapon, target);
+        return LuminethBase::toHitRerolls(weapon, target);
     }
 
 } // namespace LuminethRealmLords

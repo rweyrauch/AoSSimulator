@@ -67,11 +67,11 @@ namespace Nighthaunt {
         if ((woundRoll == 6) && (weapon->name() == m_greataxe.name())) {
             return {weapon->damage() + 2, 0};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void LordExecutioner::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        Nighthaunt::onStartCombat(player);
 
         // Staring Death in the Face
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);

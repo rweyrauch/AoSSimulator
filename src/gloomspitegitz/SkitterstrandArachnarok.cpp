@@ -48,11 +48,13 @@ namespace GloomspiteGitz {
     }
 
     void SkitterstrandArachnarok::onRestore() {
+        GloomspiteGitzBase::onRestore();
         // Reset table-driven attributes
         onWounded();
     }
 
     void SkitterstrandArachnarok::onWounded() {
+        GloomspiteGitzBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_monstrousFangs.setToHit(g_damageTable[damageIndex].m_fangsToHit);
         m_chitinousLegs.setAttacks(g_damageTable[damageIndex].m_legsAttacks);
@@ -96,7 +98,8 @@ namespace GloomspiteGitz {
         if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return         GloomspiteGitzBase
+        ::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SkitterstrandArachnarok::ComputePoints(const ParameterList& /*parameters*/) {

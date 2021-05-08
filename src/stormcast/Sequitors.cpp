@@ -186,7 +186,7 @@ namespace StormcastEternals {
     }
 
     void Sequitors::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        StormcastEternal::onStartShooting(player);
 
         if ((player == owningPlayer()) && m_haveRedemptionCache) {
             // Redemption Cache

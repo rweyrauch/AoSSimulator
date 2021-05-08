@@ -144,7 +144,7 @@ namespace Slaanesh {
         m_greatblade.setAttacks(g_damageTable[damageIndex].m_greatbladeAttacks);
         m_impalingClaws.setDamage(g_damageTable[damageIndex].m_clawDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
-        Unit::onWounded();
+        SlaaneshBase::onWounded();
     }
 
     size_t KeeperOfSecrets::getDamageTableIndex() const {
@@ -199,7 +199,7 @@ namespace Slaanesh {
             // Shining Aegis
             return ignoreWounds(wounds, 6);
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return SlaaneshBase::applyWoundSave(wounds, attackingUnit);
     }
 
     void KeeperOfSecrets::onStartCombat(PlayerId player) {

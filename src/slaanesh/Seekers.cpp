@@ -94,7 +94,7 @@ namespace Slaanesh {
     }
 
     void Seekers::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
-        Unit::computeBattleshockEffect(roll, numFled, numAdded);
+        SlaaneshBase::computeBattleshockEffect(roll, numFled, numAdded);
         if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             if (roll == 1) {
@@ -104,6 +104,7 @@ namespace Slaanesh {
     }
 
     void Seekers::restoreModels(int numModels) {
+        SlaaneshBase::restoreModels(numModels);
         // Icon Bearer
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
@@ -117,7 +118,7 @@ namespace Slaanesh {
         if (isNamedModelAlive("Banner Bearer")) {
             return Rerolls::Failed;
         }
-        return Unit::chargeRerolls();
+        return SlaaneshBase::chargeRerolls();
     }
 
     int Seekers::runModifier() const {

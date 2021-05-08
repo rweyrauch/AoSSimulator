@@ -85,16 +85,16 @@ namespace IdonethDeepkin {
 
     Rerolls AkhelianIshlaenGuard::battleshockRerolls() const {
         if (isNamedModelAlive(Model::StandardBearer)) { return Rerolls::Failed; }
-        return Unit::battleshockRerolls();
+        return IdonethDeepkinBase::battleshockRerolls();
     }
 
     Rerolls AkhelianIshlaenGuard::chargeRerolls() const {
         if (isNamedModelAlive(Model::Musician)) { return Rerolls::Failed; }
-        return Unit::chargeRerolls();
+        return IdonethDeepkinBase::chargeRerolls();
     }
 
     int AkhelianIshlaenGuard::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = IdonethDeepkinBase::toSaveModifier(weapon, attacker);
 
         // Biovoltaic Barrier
         if (m_charged) {

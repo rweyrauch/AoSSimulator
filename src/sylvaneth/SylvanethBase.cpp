@@ -9,6 +9,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include <magic_enum.hpp>
+#include <sylvaneth/SylvanethSpells.h>
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -186,6 +187,13 @@ namespace Sylvaneth {
 
         if (m_commandTrait == CommandTrait::Voice_Of_Warding) {
             m_totalUnbinds++;
+        }
+
+        if (m_commandTrait == CommandTrait::Arcane_Bounty) {
+            constexpr std::array<Lore, 6> loreOfTheDeepwood = { Lore::Throne_Of_Vines, Lore::Regrowth, Lore::The_Dwellers_Below,
+                                                                Lore::Deadly_Harvest, Lore::Verdurous_Harmony, Lore::Treesong};
+            // TODO: make sure added spells are unique
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfTheDeepwood[Dice::RollD6()], this)));
         }
     }
 

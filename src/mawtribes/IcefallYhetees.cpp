@@ -76,7 +76,7 @@ namespace OgorMawtribes {
     }
 
     int IcefallYhetees::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = MawtribesBase::targetHitModifier(weapon, attacker);
 
         // Aura of Frost
         if (!weapon->isMissile()) mod--;

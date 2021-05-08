@@ -138,7 +138,7 @@ namespace KharadronOverlords {
     }
 
     int ArkanautCompany::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = KharadronBase::toHitModifier(weapon, target);
 
         // Glory-seekers
         auto obj = Board::Instance()->getNearestObjective(this);

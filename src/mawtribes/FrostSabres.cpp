@@ -74,7 +74,7 @@ namespace OgorMawtribes {
     }
 
     int FrostSabres::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = MawtribesBase::chargeModifier();
 
         // Their Master's Voice
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), ICEBROW_HUNTER, 16.0);

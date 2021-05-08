@@ -71,7 +71,7 @@ namespace Death {
     }
 
     void WightKingWithBlackAxe::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }

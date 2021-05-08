@@ -149,7 +149,7 @@ namespace GloomspiteGitz {
         if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return GloomspiteGitzBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int WebspinnerShamanOnArachnarokSpider::catchwebSpidershrine(const Unit *caster) {

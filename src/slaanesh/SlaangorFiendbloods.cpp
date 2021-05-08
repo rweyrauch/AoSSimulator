@@ -75,7 +75,7 @@ namespace Slaanesh {
     }
 
     int SlaangorFiendbloods::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        auto attacks = SlaaneshBase::extraAttacks(attackingModel, weapon, target);
 
         // Slaughter At Any Cost
         if (m_charged && !weapon->isMissile()) {

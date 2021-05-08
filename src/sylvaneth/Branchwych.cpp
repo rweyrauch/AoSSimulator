@@ -81,7 +81,7 @@ namespace Sylvaneth {
     }
 
     int Branchwych::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = SylvanethBase::extraAttacks(attackingModel, weapon, target);
         // Quick-tempered
         if ((weapon->name() == m_greenwoodScythe.name()) && (attackingModel->woundsRemaining() < wounds())) {
             extra += 2;
@@ -90,7 +90,7 @@ namespace Sylvaneth {
     }
 
     int Branchwych::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = Unit::toHitModifier(weapon, target);
+        int modifier = SylvanethBase::toHitModifier(weapon, target);
 
         // Fury of the Forest
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 6.0);

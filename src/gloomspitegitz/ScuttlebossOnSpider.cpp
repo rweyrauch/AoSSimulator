@@ -119,7 +119,7 @@ namespace GloomspiteGitz {
             }
             return {0, 1, Wounds::Source::Weapon_Melee};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return GloomspiteGitzBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ScuttlebossOnGiganticSpider::ComputePoints(const ParameterList& /*parameters*/) {

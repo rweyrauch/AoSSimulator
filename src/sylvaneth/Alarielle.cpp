@@ -105,10 +105,11 @@ namespace Sylvaneth {
         if (weapon->name() == m_beetleGreatAntlers.name() && unit->remainingModels() >= 5) {
             return 1;
         }
-        return Unit::toHitModifier(weapon, unit);
+        return SylvanethBase::toHitModifier(weapon, unit);
     }
 
     void Alarielle::onStartHero(PlayerId player) {
+        SylvanethBase::onStartHero(player);
         if (player == owningPlayer()) {
             if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Lifebloom - heal herself D3
@@ -128,6 +129,7 @@ namespace Sylvaneth {
     }
 
     void Alarielle::onWounded() {
+        SylvanethBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_spearOfKurnoth.setRange(g_damageTable[damageIndex].m_spearKurnothRange);
         m_beetleGreatAntlers.setDamage(g_damageTable[damageIndex].m_greatAntlerDamage);
@@ -181,7 +183,7 @@ namespace Sylvaneth {
                 ip->applyDamage(wounds, this);
             }
         }
-        Unit::onCharged();
+        SylvanethBase::onCharged();
     }
 
     Wounds Alarielle::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -189,11 +191,11 @@ namespace Sylvaneth {
         if (weapon->name() == m_talonOfDwindling.name() && hitRoll == 6) {
             return {weapon->damage(), Dice::RollD3()};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return SylvanethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Alarielle::onEndMovement(PlayerId player) {
-        Unit::onEndMovement(player);
+        SylvanethBase::onEndMovement(player);
 
         if (owningPlayer() == player && !m_usedSoulAmphorae) {
             // Summon a unit and add to roster.
@@ -210,6 +212,7 @@ namespace Sylvaneth {
     }
 
     void Alarielle::onRestore() {
+        SylvanethBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }

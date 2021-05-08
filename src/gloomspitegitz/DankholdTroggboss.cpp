@@ -101,6 +101,7 @@ namespace GloomspiteGitz {
     }
 
     void DankholdTroggboss::onStartHero(PlayerId player) {
+        GloomspiteGitzBase::onStartHero(player);
         if (player == owningPlayer()) {
             if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Regeneration - heal D3
@@ -171,7 +172,7 @@ namespace GloomspiteGitz {
                 }
             }
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return GloomspiteGitzBase::applyWoundSave(wounds, attackingUnit);
     }
 
 } // namespace GloomspiteGitz

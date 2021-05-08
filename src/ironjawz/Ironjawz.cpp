@@ -21,6 +21,7 @@
 #include "ironjawz/IronskullsBoyz.h"
 #include "ironjawz/WeirdnobShaman.h"
 #include "ironjawz/MorgoksKrushas.h"
+#include "IronjawzLore.h"
 
 namespace Ironjawz {
 
@@ -132,6 +133,14 @@ namespace Ironjawz {
 
     void Ironjawz::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (m_commandTrait == CommandTrait::Bursting_With_Power) {
+            constexpr std::array<Lore, 6> loreOfTheWeird = { Lore::Brain_Bursta, Lore::Mighty_Eadbutt,
+                                                             Lore::Da_Blazin_Eyes,Lore::Da_Great_Big_Green_Hand_Of_Gork,
+                                                             Lore::Bash_Em_Ladz, Lore::Wrath_Of_Gork};
+            // TODO: make sure added spells are unique
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfTheWeird[Dice::RollD6()], this)));
+        }
     }
 
     void Ironjawz::setArtefact(Artefact artefact) {

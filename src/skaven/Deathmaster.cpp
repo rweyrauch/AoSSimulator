@@ -85,7 +85,7 @@ namespace Skaven {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_stars.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int Deathmaster::ComputePoints(const ParameterList& /*parameters*/) {

@@ -70,6 +70,7 @@ namespace GloomspiteGitz {
     }
 
     void TroggothHag::onRestore() {
+        GloomspiteGitzBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
@@ -92,6 +93,7 @@ namespace GloomspiteGitz {
     }
 
     void TroggothHag::onStartHero(PlayerId player) {
+        GloomspiteGitzBase::onStartHero(player);
         if (player == owningPlayer()) {
             // Hag Regeneration
             if (remainingWounds() < g_wounds && remainingWounds() > 0) {
@@ -135,7 +137,7 @@ namespace GloomspiteGitz {
     }
 
     void TroggothHag::onUnboundSpell(Unit *caster, int castRoll) {
-        Unit::onUnboundSpell(caster, castRoll);
+        GloomspiteGitzBase::onUnboundSpell(caster, castRoll);
 
         // Spell Eater
         if (Dice::RollD6() >= 4) {

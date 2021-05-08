@@ -73,7 +73,7 @@ namespace IdonethDeepkin {
             return Rerolls::Ones;
         }
 
-        return Unit::toHitRerolls(weapon, target);
+        return IdonethDeepkinBase::toHitRerolls(weapon, target);
     }
 
     Wounds EidolonOfMathlannAspectOfTheStorm::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
@@ -83,11 +83,11 @@ namespace IdonethDeepkin {
             return {weapon->damage() + 1, 0};
         }
 
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return IdonethDeepkinBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void EidolonOfMathlannAspectOfTheStorm::onCharged() {
-        Unit::onCharged();
+        IdonethDeepkinBase::onCharged();
 
         // Crashing Upon the Foe
         if (m_charged) {

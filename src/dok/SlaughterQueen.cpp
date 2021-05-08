@@ -76,7 +76,7 @@ namespace DaughtersOfKhaine {
     }
 
     void SlaughterQueen::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        DaughterOfKhaine::onStartHero(player);
 
         m_bladeOfKhaine.setDamage(1);
 

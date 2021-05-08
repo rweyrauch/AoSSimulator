@@ -173,7 +173,7 @@ namespace Skaven {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_shockGauntlets.name())) {
             return Dice::RollD6();
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
 } // namespace Skaven

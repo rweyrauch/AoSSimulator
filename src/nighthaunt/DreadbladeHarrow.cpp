@@ -67,7 +67,7 @@ namespace Nighthaunt {
 
     int DreadbladeHarrow::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Dreadblade
-        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        auto attacks = Nighthaunt::extraAttacks(attackingModel, weapon, target);
         if (!m_charged && (weapon->name() == m_dreadblade.name())) attacks++;
 
         return attacks;
@@ -75,7 +75,7 @@ namespace Nighthaunt {
 
     Wounds DreadbladeHarrow::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Dreadblade
-        auto wounds = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        auto wounds = Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
         if (m_charged && (weapon->name() == m_dreadblade.name())) wounds.normal++;
 
         return wounds;
@@ -86,7 +86,7 @@ namespace Nighthaunt {
         if (unit && (weapon->name() == m_dreadblade.name())) {
             return Rerolls::Ones;
         }
-        return Unit::toWoundRerolls(weapon, target);
+        return Nighthaunt::toWoundRerolls(weapon, target);
     }
 
     int DreadbladeHarrow::ComputePoints(const ParameterList& /*parameters*/) {

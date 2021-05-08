@@ -94,7 +94,7 @@ namespace StormcastEternals {
             m_usedVoidstormScroll = true;
             return Automatically_Unbound;
         }
-        return Unit::unbindingModifier();
+        return StormcastEternal::unbindingModifier();
     }
 
 } // namespace StormcastEternals

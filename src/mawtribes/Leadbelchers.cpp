@@ -77,7 +77,7 @@ namespace OgorMawtribes {
     }
 
     void Leadbelchers::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        MawtribesBase::onStartShooting(player);
 
         if (m_moved) {
             m_gun.setAttacks(RAND_D3);

@@ -116,7 +116,7 @@ namespace Nurgle {
     }
 
     void PlagueDrones::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
-        Unit::computeBattleshockEffect(roll, numFled, numAdded);
+        NurgleBase::computeBattleshockEffect(roll, numFled, numAdded);
         if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             if (roll == 1) {

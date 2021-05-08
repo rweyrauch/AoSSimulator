@@ -52,7 +52,7 @@ namespace SlavesToDarkness {
     }
 
     void FomoroidCrusher::onCharged() {
-        Unit::onCharged();
+        SlavesToDarknessBase::onCharged();
 
         // Rampage
         if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
@@ -65,7 +65,7 @@ namespace SlavesToDarkness {
     }
 
     void FomoroidCrusher::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SlavesToDarknessBase::onStartHero(player);
     }
 
     int FomoroidCrusher::rollChargeDistance() {

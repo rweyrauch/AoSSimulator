@@ -89,7 +89,7 @@ namespace CitiesOfSigmar {
         if ((hitRoll == 6) && (weapon->name() == m_harpoon.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int ScourgerunnerChariots::ComputePoints(const ParameterList& parameters) {

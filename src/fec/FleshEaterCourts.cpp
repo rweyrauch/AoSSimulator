@@ -10,6 +10,7 @@
 #include <fec/FleshEaterCourts.h>
 #include <Board.h>
 #include <Roster.h>
+#include <spells/MysticShield.h>
 
 #include "fec/CryptHorrors.h"
 #include "fec/CryptGhouls.h"
@@ -26,6 +27,7 @@
 #include "fec/RoyalTerrorgheist.h"
 #include "fec/DukeCrakmarrow.h"
 #include "fec/TheGrymwatch.h"
+#include "FeCSpells.h"
 
 namespace FleshEaterCourt {
 
@@ -263,6 +265,24 @@ namespace FleshEaterCourt {
             mod++;
         }
         return mod;
+    }
+
+    void FleshEaterCourts::setCommandTrait(CommandTrait trait) {
+        m_commandTrait = trait;
+
+        if (m_commandTrait == CommandTrait::Dark_Acolyte) {
+            constexpr std::array<Lore, 6> lore = { Lore::Bonestorm, Lore::Spectral_Host, Lore::Monstrous_Vigour,
+                                                   Lore::Miasmal_Shroud, Lore::Deranged_Transformation, Lore::Blood_Feast };
+
+            if (!hasKeyword(WIZARD)) {
+                addKeyword(WIZARD);
+                m_totalUnbinds = 1;
+                m_totalSpells = 1;
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore[Dice::RollD6()], this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+                m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+            }
+        }
     }
 
     void Init() {

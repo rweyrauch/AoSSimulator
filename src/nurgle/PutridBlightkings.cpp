@@ -80,7 +80,7 @@ namespace Nurgle {
             return Dice::RollD6();
         }
 
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return NurgleBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int PutridBlightkings::runModifier() const {

@@ -96,7 +96,7 @@ namespace StormcastEternals {
     }
 
     void Retributors::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        StormcastEternal::onStartCombat(player);
 
         if (m_meleeTarget) {
             for (const auto &ip : m_models) {

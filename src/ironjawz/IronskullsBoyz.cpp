@@ -75,7 +75,7 @@ namespace Ironjawz {
         if (weapon->name() == m_pairedChoppas.name()) {
             return 1;
         }
-        return Unit::toHitModifier(weapon, target);
+        return Ironjawz::toHitModifier(weapon, target);
     }
 
     int IronskullsBoyz::ComputePoints(const ParameterList& /*parameters*/) {

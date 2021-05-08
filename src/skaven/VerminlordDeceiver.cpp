@@ -118,11 +118,11 @@ namespace Skaven {
         if ((weapon->name() == m_doomstar.name()) && (target->remainingModels() >= 10)) {
             return {Dice::RollD6(), 0};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int VerminlordDeceiver::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = Skaventide::targetHitModifier(weapon, attacker);
 
         // Shrouded in Darkness
         if (weapon->isMissile()) mod -= 2;
@@ -131,7 +131,7 @@ namespace Skaven {
     }
 
     void VerminlordDeceiver::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -140,7 +140,7 @@ namespace Skaven {
     }
 
     void VerminlordDeceiver::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         // Restore table-driven attributes
         onWounded();

@@ -122,11 +122,11 @@ namespace OgorMawtribes {
                 return {weapon->damage(), 1};
             }
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Tyrant::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = MawtribesBase::toWoundModifier(weapon, target);
 
         if (m_charged && ((m_bigName == BigName::Brawlerguts) || (m_bigNameExtra == BigName::Brawlerguts))) mod++;
 
@@ -152,7 +152,7 @@ namespace OgorMawtribes {
     }
 
     int Tyrant::woundModifier() const {
-        auto mod = UnitModifierInterface::woundModifier();
+        auto mod = MawtribesBase::woundModifier();
         if (m_commandTrait == CommandTrait::Prodigious_Girth) {
             mod += 2;
         }
@@ -171,7 +171,7 @@ namespace OgorMawtribes {
             (m_commandTrait == CommandTrait::An_Eye_For_Loot)) {
             return Rerolls::Failed;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return MawtribesBase::toHitRerolls(weapon, target);
     }
 
     Rerolls Tyrant::toWoundRerolls(const Weapon *weapon, const Unit *target) const {

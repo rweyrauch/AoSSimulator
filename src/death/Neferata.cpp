@@ -95,7 +95,7 @@ namespace Death {
     }
 
     void NeferataMortarchOfBlood::onWounded() {
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_skeletalClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
@@ -103,7 +103,7 @@ namespace Death {
     }
 
     void NeferataMortarchOfBlood::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

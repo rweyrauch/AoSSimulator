@@ -67,7 +67,7 @@ namespace OssiarchBonereapers {
         if ((unmodifiedHitRoll == 6) &&
             ((weapon->name() == m_nadiriteDagger.name()) || (weapon->name() == m_blades.name())))
             return 2;
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return OssiarchBonereaperBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     void Katakros::onWounded() {

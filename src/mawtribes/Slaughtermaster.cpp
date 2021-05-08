@@ -116,7 +116,7 @@ namespace OgorMawtribes {
     }
 
     void Slaughtermaster::onCastSpell(const Spell *spell, const Unit *target) {
-        Unit::onCastSpell(spell, target);
+        MawtribesBase::onCastSpell(spell, target);
 
         // Bloodgruel
         const auto roll = Dice::RollD6();
@@ -125,7 +125,7 @@ namespace OgorMawtribes {
     }
 
     void Slaughtermaster::onUnboundSpell(Unit *caster, int castRoll) {
-        Unit::onUnboundSpell(caster, castRoll);
+        MawtribesBase::onUnboundSpell(caster, castRoll);
 
         // Bloodgruel
         const auto roll = Dice::RollD6();

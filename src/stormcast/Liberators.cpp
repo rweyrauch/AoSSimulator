@@ -21,7 +21,7 @@ namespace StormcastEternals {
 
     bool Liberators::s_registered = false;
 
-    Liberators::Liberators(Stormhost stormhost, int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades, int points) :
+    Liberators::Liberators(Stormhost stormhost, bool stormkeep, int numModels, WeaponOption weapons, bool pairedWeapons, int numGrandhammers, int numGrandblades, int points) :
             StormcastEternal(stormhost, "Liberators", 5, g_wounds, 7, 4, false, points),
             m_warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1),
             m_warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1),
@@ -32,6 +32,8 @@ namespace StormcastEternals {
         m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, REDEEMER, LIBERATORS};
         m_weapons = {&m_warhammer, &m_warhammerPrime, &m_warblade, &m_warbladePrime, &m_grandhammer, &m_grandblade};
         m_battleFieldRole = Role::Battleline;
+
+        setStormkeep(stormkeep);
 
         m_weaponOption = weapons;
         m_pairedWeapons = pairedWeapons;
@@ -104,6 +106,7 @@ namespace StormcastEternals {
         int numGrandhammers = GetIntParam("Grandhammers", parameters, 0);
         int numGrandblades = GetIntParam("Grandblades", parameters, 0);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
+        bool stormkeep = GetBoolParam("Stormkeep", parameters, false);
 
         // validate inputs
         if (numModels < g_minUnitSize || numModels > g_maxUnitSize) {
@@ -116,7 +119,7 @@ namespace StormcastEternals {
             return nullptr;
         }
 
-        return new Liberators(stormhost, numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades, ComputePoints(parameters));
+        return new Liberators(stormhost, stormkeep, numModels, weapons, pairedWeapons, numGrandhammers, numGrandblades, ComputePoints(parameters));
     }
 
     void Liberators::Init() {
@@ -133,7 +136,8 @@ namespace StormcastEternals {
                             BoolParameter("Paired Weapons"),
                             IntegerParameter("Grandhammers", 0, 0, g_maxUnitSize / 5, 1),
                             IntegerParameter("Grandblades", 0, 0, g_maxUnitSize / 5, 1),
-                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
+                            BoolParameter("Stormkeep")
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}
@@ -178,7 +182,7 @@ namespace StormcastEternals {
 
         if (owningPlayer() == player) {
             // Shield of Civilisation
-            if (!m_moved) {
+            if (m_isStormKeep && !m_moved) {
                 // Stand fast
                 buffModifier(Attribute::To_Hit_Melee, 1, {GamePhase::Movement, m_battleRound + 1, owningPlayer()});
                 buffModifier(Attribute::To_Save_Melee, 1, {GamePhase::Movement, m_battleRound + 1, owningPlayer()});

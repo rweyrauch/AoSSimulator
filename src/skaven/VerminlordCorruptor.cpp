@@ -139,11 +139,11 @@ namespace Skaven {
         if ((weapon->name() == m_plaguereapers.name()) && (hitRoll == 6)) {
             return {0, 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void VerminlordCorruptor::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         // Plaguemaster
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
@@ -156,7 +156,7 @@ namespace Skaven {
     }
 
     void VerminlordCorruptor::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -165,7 +165,7 @@ namespace Skaven {
     }
 
     void VerminlordCorruptor::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         // Restore table-driven attributes
         onWounded();

@@ -67,7 +67,7 @@ namespace Slaanesh {
     }
 
     Wounds LordOfPain::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        auto unsavedWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto unsavedWounds = SlaaneshBase::applyWoundSave(wounds, attackingUnit);
 
         // Share the Pain
         Dice::RollResult woundSaves, mortalSaves;

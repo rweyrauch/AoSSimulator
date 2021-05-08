@@ -141,6 +141,7 @@ namespace StormcastEternals {
         removeKeyword(ASTRAL_TEMPLARS);
 
         m_stormHost = host;
+
         switch (m_stormHost) {
             case Stormhost::Hammers_Of_Sigmar:
                 addKeyword(HAMMERS_OF_SIGMAR);

@@ -206,7 +206,7 @@ namespace FleshEaterCourt {
     }
 
     void AbhorrantGhoulKingOnTerrorgheist::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        FleshEaterCourts::onStartShooting(player);
 
         // Death Shriek
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

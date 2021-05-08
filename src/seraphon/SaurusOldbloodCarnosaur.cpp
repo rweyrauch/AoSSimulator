@@ -156,7 +156,7 @@ namespace Seraphon {
     }
 
     int SaurusOldbloodOnCarnosaur::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = SeraphonBase::toWoundModifier(weapon, target);
         // Blazing Sunbolts
         if ((weapon->name() == m_gauntlet.name()) && target->hasKeyword(CHAOS) && target->hasKeyword(DAEMON)) {
             mod++;

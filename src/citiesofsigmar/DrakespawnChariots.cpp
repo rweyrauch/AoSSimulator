@@ -82,7 +82,7 @@ namespace CitiesOfSigmar {
     }
 
     void DrakespawnChariots::onCharged() {
-        Unit::onCharged();
+        CitizenOfSigmar::onCharged();
 
         // Scythed Runners
         for (int i = 0; i < remainingModels(); i++) {

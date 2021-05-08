@@ -64,7 +64,7 @@ namespace Skaven {
     }
 
     void PlaguePriest::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         // Poisonous Fumes
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);

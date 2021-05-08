@@ -104,7 +104,7 @@ namespace SonsOfBehemat {
     }
 
     void Gatebreaker::onWounded() {
-        Unit::onWounded();
+        SonsOfBehematBase::onWounded();
 
         m_move = g_damageTable[getDamageTableIndex()].m_move;
         m_boulder.setRange(g_damageTable[getDamageTableIndex()].m_boulderRange);
@@ -112,7 +112,7 @@ namespace SonsOfBehemat {
     }
 
     void Gatebreaker::onRestore() {
-        Unit::onRestore();
+        SonsOfBehematBase::onRestore();
 
         // Reset table-driven attributes
         onWounded();
@@ -127,7 +127,7 @@ namespace SonsOfBehemat {
         if ((weapon->name() == m_grip.name()) && (target - hasKeyword(MONSTER)))
             return Rerolls::Ones;
 
-        return Unit::toHitRerolls(weapon, target);
+        return SonsOfBehematBase::toHitRerolls(weapon, target);
     }
 
     void Gatebreaker::onCharged() {
@@ -142,7 +142,7 @@ namespace SonsOfBehemat {
                 unit->applyDamage({0, mortal}, this);
             }
         }
-        Unit::onCharged();
+        SonsOfBehematBase::onCharged();
     }
 
     int Gatebreaker::terror(const Unit *unit) {
@@ -163,7 +163,7 @@ namespace SonsOfBehemat {
     }
 
     Wounds Gatebreaker::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto totalWounds = SonsOfBehematBase::applyWoundSave(wounds, attackingUnit);
         if (m_artefact == Artefact::Enchanted_Portcullis) {
             totalWounds = ignoreWounds(totalWounds, 6);
         }
@@ -175,7 +175,7 @@ namespace SonsOfBehemat {
             if (target->isGeneral()) return Rerolls::Failed;
             else if (target->hasKeyword(HERO)) return Rerolls::Ones;
         }
-        return Unit::toWoundRerolls(weapon, target);
+        return SonsOfBehematBase::toWoundRerolls(weapon, target);
     }
 
     Wounds Gatebreaker::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {

@@ -80,7 +80,7 @@ namespace OgorMawtribes {
 
     int Gnoblars::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         // Screeching Horde
-        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        auto attacks = MawtribesBase::extraAttacks(attackingModel, weapon, target);
         if (remainingModels() >= 10) attacks++;
         return attacks;
     }

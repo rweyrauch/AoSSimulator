@@ -76,7 +76,7 @@ namespace SlavesToDarkness {
     }
 
     int ExaltedHeroOfChaos::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = SlavesToDarknessBase::toHitModifier(weapon, target);
 
         // Glory-hungry Bladesman
         if (target->hasKeyword(HERO) || target->hasKeyword(MONSTER)) mod++;

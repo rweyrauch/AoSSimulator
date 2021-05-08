@@ -51,6 +51,7 @@ namespace GloomspiteGitz {
     }
 
     void AleguzzlerGargant::onWounded() {
+        GloomspiteGitzBase::onWounded();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
         m_eadbutt.setDamage(g_damageTable[getDamageTableIndex()].m_eadbuttDamage);
         m_massiveClub.setAttacks(g_damageTable[getDamageTableIndex()].m_clubAttacks);
@@ -87,7 +88,7 @@ namespace GloomspiteGitz {
     }
 
     void AleguzzlerGargant::onRestore() {
-        Unit::onRestore();
+        GloomspiteGitzBase::onRestore();
 
         // Reset table-driven attributes
         onWounded();
@@ -98,7 +99,7 @@ namespace GloomspiteGitz {
     }
 
     void AleguzzlerGargant::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        GloomspiteGitzBase::onStartCombat(player);
 
         // Stuff'Em In Me Bag
         auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

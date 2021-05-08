@@ -125,7 +125,7 @@ namespace DaughtersOfKhaine {
     }
 
     int DoomfireWarlocks::unbindingModifier() const {
-        auto mod = Unit::unbindingModifier();
+        auto mod = DaughterOfKhaine::unbindingModifier();
 
         // Doomfire Coven
         if (remainingModels() >= 10) mod++;
@@ -134,7 +134,7 @@ namespace DaughtersOfKhaine {
     }
 
     int DoomfireWarlocks::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = DaughterOfKhaine::castingModifier();
 
         // Doomfire Coven
         if (remainingModels() >= 10) mod++;

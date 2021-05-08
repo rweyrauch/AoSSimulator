@@ -114,6 +114,8 @@ namespace CitiesOfSigmar {
     }
 
     void BattlemageOnGriffon::onRestore() {
+        CitizenOfSigmar::onRestore();
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -124,7 +126,7 @@ namespace CitiesOfSigmar {
         m_razorClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     size_t BattlemageOnGriffon::getDamageTableIndex() const {
@@ -142,11 +144,11 @@ namespace CitiesOfSigmar {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_twinBeaks.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return CitizenOfSigmar::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int BattlemageOnGriffon::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = CitizenOfSigmar::castingModifier();
 
         // Amber Battlemage
         if (Board::Instance()->getRealm() == Realm::Ghur) mod++;

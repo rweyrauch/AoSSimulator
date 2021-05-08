@@ -90,7 +90,7 @@ namespace Slaanesh {
         if (!weapon->isMissile()) {
             return Rerolls::Failed;
         }
-        return Unit::toSaveRerolls(weapon, attacker);
+        return SlaaneshBase::toSaveRerolls(weapon, attacker);
     }
 
 } // namespace Slaanesh

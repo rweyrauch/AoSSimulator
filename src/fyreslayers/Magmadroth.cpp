@@ -154,7 +154,7 @@ namespace Fyreslayers {
                 return Rerolls::Ones;
             }
         }
-        return Unit::toSaveRerolls(weapon, attacker);
+        return Fyreslayer::toSaveRerolls(weapon, attacker);
     }
 
 } // namespace Fyreslayers

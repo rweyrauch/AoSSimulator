@@ -81,7 +81,7 @@ namespace IdonethDeepkin {
             }
         }
 
-        Unit::onCharged();
+        IdonethDeepkinBase::onCharged();
     }
 
     int Volturnos::crestOfTheHighKings(const Unit *target) {
@@ -99,7 +99,7 @@ namespace IdonethDeepkin {
         if ((hitRoll >= 6) && (weapon->name() == m_theAstraSolus.name())) {
             return -5;
         }
-        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
+        return IdonethDeepkinBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Volturnos::ComputePoints(const ParameterList& /*parameters*/) {

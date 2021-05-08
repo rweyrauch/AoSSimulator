@@ -35,6 +35,7 @@
 #include "tzeentch/Changecaster.h"
 #include "tzeentch/Fluxmaster.h"
 #include "tzeentch/TheEyesOfNine.h"
+#include "TzeentchSpells.h"
 
 namespace Tzeentch {
 
@@ -173,6 +174,25 @@ namespace Tzeentch {
 
     void TzeentchBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (trait == CommandTrait::Arch_Sorcerer) {
+            if (hasKeyword(ARCANITE)) {
+                constexpr std::array<Lore, 6> loreOfFate = {Lore::Bolt_Of_Tzeentch,Lore::Arcane_Suggestion,
+                                                            Lore::Glimpse_The_Future,Lore::Shield_Of_Faith,
+                                                            Lore::Infusion_Arcanum,Lore::Treacherous_Bond};
+                // TODO: make sure added spells are unique
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfFate[Dice::RollD6()], this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfFate[Dice::RollD6()], this)));
+            }
+            else if (hasKeyword(DAEMON)) {
+                constexpr std::array<Lore, 6> loreOfChange = {Lore::Bolt_Of_Tzeentch,Lore::Treason_Of_Tzeentch,
+                                                              Lore::Arcane_Transformation,Lore::Unchecked_Mutation,
+                                                              Lore::Fold_Reality,Lore::Tzeentchs_Firestorm};
+                // TODO: make sure added spells are unique
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfChange[Dice::RollD6()], this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfChange[Dice::RollD6()], this)));
+            }
+        }
     }
 
     void TzeentchBase::setArtefact(Artefact artefact) {

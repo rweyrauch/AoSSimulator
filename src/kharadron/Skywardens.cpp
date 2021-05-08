@@ -134,11 +134,11 @@ namespace KharadronOverlords {
         if ((hitRoll == 6) && (weapon->name() == m_drillLauncher.name())) {
             return {0, 3};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return KharadronBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Skywardens::chargeModifier() const {
-        auto mod = Unit::chargeModifier();
+        auto mod = KharadronBase::chargeModifier();
 
         // Skyhook
         for (const auto &m : m_models) {

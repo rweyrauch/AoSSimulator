@@ -162,7 +162,7 @@ namespace OgorMawtribes {
     }
 
     void Butcher::onCastSpell(const Spell *spell, const Unit *target) {
-        Unit::onCastSpell(spell, target);
+        MawtribesBase::onCastSpell(spell, target);
 
         // Bloodgruel
         const auto roll = Dice::RollD6();
@@ -171,7 +171,7 @@ namespace OgorMawtribes {
     }
 
     void Butcher::onUnboundSpell(Unit *caster, int castRoll) {
-        Unit::onUnboundSpell(caster, castRoll);
+        MawtribesBase::onUnboundSpell(caster, castRoll);
 
         // Bloodgruel
         const auto roll = Dice::RollD6();
@@ -184,7 +184,7 @@ namespace OgorMawtribes {
     }
 
     int Butcher::woundModifier() const {
-        auto mod = UnitModifierInterface::woundModifier();
+        auto mod = MawtribesBase::woundModifier();
         if (m_commandTrait == CommandTrait::Rolls_Of_Fat) {
             mod += 2;
         }

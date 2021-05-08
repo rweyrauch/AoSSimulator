@@ -111,7 +111,7 @@ namespace StormcastEternals {
     }
 
     void VanguardPalladors::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        StormcastEternal::onEndCombat(player);
 
         if (isNamedModelAlive("Prime")) {
             // Lunar Blade

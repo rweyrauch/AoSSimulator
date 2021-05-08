@@ -79,7 +79,7 @@ namespace CitiesOfSigmar {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_cutlass.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return CitizenOfSigmar::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     int BlackArkFleetmaster::ComputePoints(const ParameterList& /*parameters*/) {

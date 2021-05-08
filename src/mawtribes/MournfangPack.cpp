@@ -125,7 +125,7 @@ namespace OgorMawtribes {
         if (m_charged && (weapon->name() == m_tusks.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Wounds MournfangPack::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
@@ -133,11 +133,11 @@ namespace OgorMawtribes {
         if ((saveRoll == 6) && (m_option == Culling_Club_Or_Prey_Hacker_And_Ironfist)) {
             return {0, 1};
         }
-        return Unit::computeReturnedDamage(weapon, saveRoll);
+        return MawtribesBase::computeReturnedDamage(weapon, saveRoll);
     }
 
     int MournfangPack::chargeModifier() const {
-        auto modifier = Unit::chargeModifier();
+        auto modifier = MawtribesBase::chargeModifier();
         if (isNamedModelAlive(Model::Hornblower)) modifier += 1;
         return modifier;
     }

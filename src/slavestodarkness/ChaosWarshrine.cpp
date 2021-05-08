@@ -91,7 +91,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosWarshrine::onWounded() {
-        Unit::onWounded();
+        SlavesToDarknessBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_fists.setAttacks(g_damageTable[damageIndex].m_fistAttacks);
@@ -113,7 +113,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosWarshrine::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SlavesToDarknessBase::onStartHero(player);
 
         // Favour of the Ruinous Powers
         if (owningPlayer() == player) {

@@ -108,7 +108,7 @@ namespace Death {
     }
 
     int SkeletonWarriors::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = LegionOfNagashBase::toSaveModifier(weapon, attacker);
 
         // Crypt Shields
         if (weapon->rend() == 0) {

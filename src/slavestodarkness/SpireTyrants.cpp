@@ -82,7 +82,7 @@ namespace SlavesToDarkness {
     }
 
     int SpireTyrants::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = SlavesToDarknessBase::toHitModifier(weapon, target);
         // Pit Fighters
         if (m_charged) mod++;
 

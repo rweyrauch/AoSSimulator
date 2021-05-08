@@ -34,6 +34,7 @@
 #include "lumineth/StarshardBallista.h"
 #include "lumineth/Windmage.h"
 #include "lumineth/HurakanWindchargers.h"
+#include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
 
@@ -111,6 +112,22 @@ namespace LuminethRealmLords {
 
     void LuminethBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (m_commandTrait == CommandTrait::Loremaster) {
+            if (hasKeyword(SCINARI)) {
+                constexpr std::array<Lore, 6> loreOfHysh = {Lore::Speed_Of_Hysh, Lore::Solar_Flare, Lore::Lambent_Light,
+                                                            Lore::Etheral_Blessing, Lore::Total_Eclipse, Lore::Protection_Of_Hysh,};
+                // TODO: make sure added spells are unique
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfHysh[Dice::RollD6()], this)));
+            }
+            else if (hasKeyword(HURAKAN)) {
+                constexpr std::array<Lore, 6> loreOfWinds = { Lore::Freezing_Squall, Lore::Howling_Gale,
+                                                              Lore::Guiding_Flurries, Lore::Calming_Zephyr,
+                                                              Lore::Burning_Simoom, Lore::Transporting_Vortex };
+                // TODO: make sure added spells are unique
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfWinds[Dice::RollD6()], this)));
+            }
+        }
     }
 
     void LuminethBase::setArtefact(Artefact artefact) {

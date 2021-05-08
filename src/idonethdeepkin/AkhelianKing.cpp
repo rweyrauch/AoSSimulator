@@ -108,7 +108,7 @@ namespace IdonethDeepkin {
         if (m_charged && (weapon->name() == m_bladedPolearm.name())) {
             return {3, 0};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return IdonethDeepkinBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AkhelianKing::onCharged() {
@@ -121,7 +121,7 @@ namespace IdonethDeepkin {
             }
         }
 
-        Unit::onCharged();
+        IdonethDeepkinBase::onCharged();
     }
 
     int AkhelianKing::ComputePoints(const ParameterList& /*parameters*/) {

@@ -66,11 +66,11 @@ namespace Nighthaunt {
         if ((hitRoll == 6) && (weapon->name() == m_dagger.name())) {
             return {0, Dice::RollD3()};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void TombBanshee::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        Nighthaunt::onStartShooting(player);
 
         // Ghostly Howl
         if (player == owningPlayer()) {

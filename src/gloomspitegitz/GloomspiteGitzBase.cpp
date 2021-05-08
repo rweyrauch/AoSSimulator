@@ -236,6 +236,14 @@ namespace GloomspiteGitz {
 
     void GloomspiteGitzBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (m_commandTrait == CommandTrait::Great_Shaman) {
+            constexpr std::array<Lore, 6> lore = {Lore::Vindictive_Glare, Lore::Itchy_Nuisance,
+                                                  Lore::The_Great_Green_Spite, Lore::The_Hand_Of_Gork,
+                                                  Lore::Squig_Lure, Lore::Call_Da_Moon};
+            // TODO: make sure added spells are unique
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore[Dice::RollD6()], this)));
+        }
     }
 
     void GloomspiteGitzBase::setArtefact(Artefact artefact) {

@@ -79,7 +79,7 @@ namespace SlavesToDarkness {
     }
 
     void Slaughterbrute::onWounded() {
-        Unit::onWounded();
+        SlavesToDarknessBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_claws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);

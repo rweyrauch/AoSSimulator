@@ -132,7 +132,7 @@ namespace Slaanesh {
         m_soulpiercer.setToWound(g_damageTable[damageIndex].m_soulpiercerWound);
         m_impalingClaws.setDamage(g_damageTable[damageIndex].m_clawDamage);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
-        Unit::onWounded();
+        SlaaneshBase::onWounded();
     }
 
     size_t ShalaxiHelbane::getDamageTableIndex() const {
@@ -157,7 +157,7 @@ namespace Slaanesh {
             // Shining Aegis
             return ignoreWounds(wounds, 6);
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return SlaaneshBase::applyWoundSave(wounds, attackingUnit);
     }
 
     Wounds ShalaxiHelbane::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
@@ -207,11 +207,11 @@ namespace Slaanesh {
         if (m_refinedSensesActive && attacker->hasKeyword(HERO)) {
             return Rerolls::Failed;
         }
-        return Unit::toSaveRerolls(weapon, attacker);
+        return SlaaneshBase::toSaveRerolls(weapon, attacker);
     }
 
     int ShalaxiHelbane::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto modifier = Unit::toSaveModifier(weapon, attacker);
+        auto modifier = SlaaneshBase::toSaveModifier(weapon, attacker);
 
         // Cloak of Constriction
         if (!weapon->isMissile() && attacker->hasKeyword(HERO)) {

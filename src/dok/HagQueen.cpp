@@ -72,7 +72,7 @@ namespace DaughtersOfKhaine {
     }
 
     void HagQueen::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        DaughterOfKhaine::onStartHero(player);
 
         m_bladeOfKhaine.setDamage(1);
 

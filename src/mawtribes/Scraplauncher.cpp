@@ -61,7 +61,7 @@ namespace OgorMawtribes {
     }
 
     int GnoblarScraplauncher::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = MawtribesBase::toHitModifier(weapon, target);
 
         // Deadly Rain of Scrap
         if ((weapon->name() == m_scrap.name()) && (target->remainingModels() >= 10)) {
@@ -81,7 +81,7 @@ namespace OgorMawtribes {
         else if ((weapon->name() == m_horns.name()) && m_charged) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return MawtribesBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int GnoblarScraplauncher::ComputePoints(const ParameterList& /*parameters*/) {

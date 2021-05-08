@@ -86,7 +86,7 @@ namespace Death {
     }
 
     int BlackKnights::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = Unit::toWoundModifier(weapon, target);
+        int modifier = LegionOfNagashBase::toWoundModifier(weapon, target);
 
         // Deathly Charge
         if (m_charged && weapon->name() == m_barrowLance.name()) {

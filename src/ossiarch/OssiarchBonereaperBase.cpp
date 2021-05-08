@@ -26,6 +26,7 @@
 #include "ossiarch/MorghastArchai.h"
 #include "ossiarch/MorghastHarbingers.h"
 #include "ossiarch/ArkhanTheBlack.h"
+#include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
 
@@ -130,6 +131,19 @@ namespace OssiarchBonereapers {
         m_direUltimatumSlot.disconnect();
         if (m_commandTrait == CommandTrait::Dire_Ultimatum) {
             s_globalBraveryMod.connect(this, &OssiarchBonereaperBase::direUltimatum, &m_direUltimatumSlot);
+        }
+        constexpr std::array<Lore, 6> lore = {Lore::Arcane_Command,Lore::Empower_Nadirite_Weapons,
+                                              Lore::Protection_Of_Nagash,Lore::Reinforce_Battle_Shields,
+                                              Lore::Drain_Vitality,Lore::Mortal_Contract};
+        if (m_commandTrait == CommandTrait::Dark_Acolyte) {
+            addKeyword(WIZARD);
+            m_totalSpells = 1;
+            m_totalUnbinds = 1;
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore[Dice::RollD6()], this)));
+        }
+        if (m_commandTrait == CommandTrait::Grave_Sand_Bones) {
+            // TODO: make sure added spells are unique
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore[Dice::RollD6()], this)));
         }
     }
 

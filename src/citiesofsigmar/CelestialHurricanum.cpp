@@ -188,12 +188,14 @@ namespace CitiesOfSigmar {
     }
 
     void CelestialHurricanum::onRestore() {
+        CitizenOfSigmar::onRestore();
+
         // Restore table-driven attributes
         onWounded();
     }
 
     void CelestialHurricanum::onWounded() {
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
 
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
@@ -209,7 +211,7 @@ namespace CitiesOfSigmar {
     }
 
     void CelestialHurricanum::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        CitizenOfSigmar::onStartShooting(player);
 
         if (m_shootingTarget) {
             // Storm of Shemtek
@@ -227,7 +229,7 @@ namespace CitiesOfSigmar {
     }
 
     int CelestialHurricanum::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = CitizenOfSigmar::castingModifier();
 
         // Celestial Battlemage
         if (Board::Instance()->getRealm() == Realm::Azyr) mod++;

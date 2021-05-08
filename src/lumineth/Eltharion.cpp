@@ -65,7 +65,7 @@ namespace LuminethRealmLords {
     }
 
     int TheLightOfEltharion::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = LuminethBase::toWoundModifier(weapon, target);
 
         // Fangsword
         if (charged() && (weapon->name() == m_fangsword.name())) mod++;
@@ -75,7 +75,7 @@ namespace LuminethRealmLords {
 
     Wounds
     TheLightOfEltharion::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        auto damage = LuminethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         // Fangsword
         if (charged() && (weapon->name() == m_fangsword.name())) {
@@ -92,6 +92,7 @@ namespace LuminethRealmLords {
     }
 
     void TheLightOfEltharion::onStartShooting(PlayerId player) {
+        LuminethBase::onStartShooting(player);
         if (player == owningPlayer()) {
             // Searing Darts of Light
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
@@ -122,10 +123,11 @@ namespace LuminethRealmLords {
         if (unmodifiedHitRoll == 6) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return LuminethBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     void TheLightOfEltharion::onStartCombat(PlayerId player) {
+        LuminethBase::onStartCombat(player);
         if (meleeTarget() && meleeTarget()->hasKeyword(HERO) && distanceTo(meleeTarget()) <= 3.0f) {
             m_celennariBladeTarget = meleeTarget();
         } else {

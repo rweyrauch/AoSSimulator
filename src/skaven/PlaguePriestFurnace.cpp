@@ -93,7 +93,7 @@ namespace Skaven {
     }
 
     void PlaguePriestOnPlagueFurnace::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_spikes.setToHit(g_damageTable[damageIndex].m_spikesToHit);
@@ -101,7 +101,7 @@ namespace Skaven {
     }
 
     void PlaguePriestOnPlagueFurnace::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         // Restore table-driven attributes
         onWounded();
@@ -123,11 +123,11 @@ namespace Skaven {
         if ((weapon->name() == m_censer.name()) && (hitRoll >= 2)) {
             return {0, Dice::RollD3() + g_damageTable[getDamageTableIndex()].m_censerDamage};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void PlaguePriestOnPlagueFurnace::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         // Poisonous Fumes
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
@@ -155,7 +155,7 @@ namespace Skaven {
 
     int PlaguePriestOnPlagueFurnace::extraAttacks(const Model *attackingModel, const Weapon *weapon,
                                                   const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = Skaventide::extraAttacks(attackingModel, weapon, target);
 
         // Pushed into Battle
         if ((weapon->name() == m_spikes.name()) && m_charged) {

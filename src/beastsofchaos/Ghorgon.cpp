@@ -87,7 +87,7 @@ namespace BeastsOfChaos {
         m_hugeSlaveringMaw.setDamage(g_damageTable[damageIndex].m_greatMawToWound);
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        BeastsOfChaosBase::onWounded();
     }
 
     size_t Ghorgon::getDamageTableIndex() const {
@@ -106,11 +106,11 @@ namespace BeastsOfChaos {
             return {weapon->damage(), Dice::RollD3()};
         }
 
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return BeastsOfChaosBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void Ghorgon::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        BeastsOfChaosBase::onStartCombat(player);
 
         if (player != owningPlayer()) { return; }
 

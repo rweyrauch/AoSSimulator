@@ -111,7 +111,7 @@ namespace Skaven {
     }
 
     void LordSkreechVerminking::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -120,7 +120,7 @@ namespace Skaven {
     }
 
     void LordSkreechVerminking::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         // Restore table-driven attributes
         onWounded();

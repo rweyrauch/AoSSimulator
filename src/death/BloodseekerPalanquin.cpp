@@ -102,7 +102,7 @@ namespace Death {
     }
 
     void BloodseekerPalanquin::onWounded() {
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_etherealWeapons.setAttacks(g_damageTable[damageIndex].m_hostAttacks);
@@ -110,7 +110,7 @@ namespace Death {
     }
 
     void BloodseekerPalanquin::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

@@ -35,6 +35,7 @@
 #include "mawtribes/MournfangPack.h"
 #include "mawtribes/Hrothgorn.h"
 #include "mawtribes/HrothgornsMantrappers.h"
+#include "MawtribesLore.h"
 
 namespace OgorMawtribes {
 
@@ -200,6 +201,13 @@ namespace OgorMawtribes {
 
     void MawtribesBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (m_commandTrait == CommandTrait::Gastromancer) {
+            constexpr std::array<Lore, 6> butcherLore = { Lore::Fleshcrave_Curse, Lore::Blood_Feast, Lore::Ribcracker,
+                                                          Lore::Blubbergrub_Stench, Lore::Molten_Entrails, Lore::Greasy_Deluge};
+            // TODO: make sure added spells are unique
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(butcherLore[Dice::RollD6()], this)));
+        }
     }
 
     void MawtribesBase::setArtefact(Artefact artefact) {

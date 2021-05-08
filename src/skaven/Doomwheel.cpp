@@ -69,17 +69,17 @@ namespace Skaven {
             return RAND_D6;
         }
 
-        return Unit::extraAttacks(attackingModel, weapon, target);
+        return Skaventide::extraAttacks(attackingModel, weapon, target);
     }
 
     void Doomwheel::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         m_moreMoreFailed = false;
     }
 
     void Doomwheel::onEndShooting(PlayerId player) {
-        Unit::onEndShooting(player);
+        Skaventide::onEndShooting(player);
 
         if (m_moreMoreFailed) {
             Wounds overchargeWounds = {0, Dice::Roll2D6()};

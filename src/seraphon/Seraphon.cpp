@@ -42,6 +42,7 @@
 #include "seraphon/KlaqTrok.h"
 #include "../AoSSimPrivate.h"
 #include "Board.h"
+#include "SeraphonLore.h"
 
 namespace Seraphon {
 
@@ -184,6 +185,14 @@ namespace Seraphon {
 
     void SeraphonBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (m_commandTrait == CommandTrait::Vast_Intellect) {
+            constexpr std::array<Lore, 6> loreOfDomination = {Lore::Celestial_Apotheosis,Lore::Walk_Between_Realms,
+                                                              Lore::Mystical_Unforging,Lore::Celestial_Equilibrium,
+                                                              Lore::Stellar_Tempest, Lore::Drain_Magic};
+            // TODO: make sure added spells are unique
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(loreOfDomination[Dice::RollD6()], this)));
+        }
     }
 
     void SeraphonBase::setArtefact(Artefact artefact) {

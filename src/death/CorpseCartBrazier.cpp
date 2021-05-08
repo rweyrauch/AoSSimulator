@@ -70,7 +70,7 @@ namespace Death {
     }
 
     void CorpseCartWithBalefireBrazier::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Malefic Fumes

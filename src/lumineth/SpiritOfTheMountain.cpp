@@ -121,7 +121,7 @@ namespace LuminethRealmLords {
 
     int AlarithSpiritOfTheMountain::extraAttacks(const Model *attackingModel, const Weapon *weapon,
                                                  const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = LuminethBase::extraAttacks(attackingModel, weapon, target);
 
         // All but Immovable
         if (!m_charged && !weapon->isMissile()) extra++;
@@ -130,7 +130,7 @@ namespace LuminethRealmLords {
     }
 
     void AlarithSpiritOfTheMountain::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        LuminethBase::onStartShooting(player);
 
         // Stoneheart Shockwave
         if (player != owningPlayer()) {
@@ -147,7 +147,7 @@ namespace LuminethRealmLords {
     }
 
     void AlarithSpiritOfTheMountain::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        LuminethBase::onStartCombat(player);
 
         // Stoneheart Shockwave
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),

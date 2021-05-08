@@ -79,7 +79,7 @@ namespace BeastsOfChaos {
         if (hitRoll == 6) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return BeastsOfChaosBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int Doombull::ComputePoints(const ParameterList& /*parameters*/) {

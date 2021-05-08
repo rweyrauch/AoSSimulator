@@ -105,7 +105,7 @@ namespace Skaven {
     }
 
     void ThanquolOnBoneripper::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[getDamageTableIndex()].m_move;
@@ -113,7 +113,7 @@ namespace Skaven {
     }
 
     void ThanquolOnBoneripper::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         // Restore table-driven attributes
         onWounded();

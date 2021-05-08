@@ -256,12 +256,12 @@ namespace Slaanesh {
 
     Rerolls GlutosOrscollion::castingRerolls() const {
         // Digestif
-        return (m_battleRound >= 5) ? Rerolls::Failed : Unit::castingRerolls();
+        return (m_battleRound >= 5) ? Rerolls::Failed : SlaaneshBase::castingRerolls();
     }
 
     Rerolls GlutosOrscollion::unbindingRerolls() const {
         // Digestif
-        return (m_battleRound >= 5) ? Rerolls::Failed : Unit::unbindingRerolls();
+        return (m_battleRound >= 5) ? Rerolls::Failed : SlaaneshBase::unbindingRerolls();
     }
 
 } // Slannesh

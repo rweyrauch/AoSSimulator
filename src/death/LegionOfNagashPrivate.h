@@ -108,7 +108,7 @@ namespace Death {
             ToInteger(Artefact::Curseblade),
     };
 
-    constexpr std::array<int, 13> g_deathmageLore = {
+    constexpr std::array<int, 7> g_deathmageLore = {
             ToInteger(Lore::None),
             ToInteger(Lore::Overwhelming_Dread),
             ToInteger(Lore::Fading_Vigour),
@@ -118,7 +118,7 @@ namespace Death {
             ToInteger(Lore::Soul_Harvest),
     };
 
-    constexpr std::array<int, 13> g_vampireLore = {
+    constexpr std::array<int, 7> g_vampireLore = {
             ToInteger(Lore::None),
             ToInteger(Lore::Blades_Of_Shyish),
             ToInteger(Lore::Spirit_Gale),

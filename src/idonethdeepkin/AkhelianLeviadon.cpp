@@ -92,11 +92,11 @@ namespace IdonethDeepkin {
         if ((hitRoll >= 6) && (weapon->name() == m_crushingJaws.name())) {
             return {0, 6};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return IdonethDeepkinBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void AkhelianLeviadon::onWounded() {
-        Unit::onWounded();
+        IdonethDeepkinBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_scythedFins.setDamage(g_damageTable[damageIndex].m_finDamage);
@@ -105,7 +105,7 @@ namespace IdonethDeepkin {
     }
 
     void AkhelianLeviadon::onRestore() {
-        Unit::onRestore();
+        IdonethDeepkinBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

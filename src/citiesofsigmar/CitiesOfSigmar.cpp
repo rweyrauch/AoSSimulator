@@ -9,6 +9,7 @@
 #include <magic_enum.hpp>
 #include <Board.h>
 #include <Roster.h>
+#include <spells/MysticShield.h>
 #include "citiesofsigmar/CitiesOfSigmar.h"
 
 #include "citiesofsigmar/Anointed.h"
@@ -65,6 +66,7 @@
 #include "citiesofsigmar/WarHydra.h"
 #include "citiesofsigmar/WildRiders.h"
 #include "citiesofsigmar/WildwoodRangers.h"
+#include "CoSLore.h"
 
 
 namespace CitiesOfSigmar {
@@ -158,11 +160,69 @@ namespace CitiesOfSigmar {
     }
 
     void CitizenOfSigmar::setCommandTrait(CommandTrait trait) {
+        // TODO: clear/restore previously set buff if any...
+
         m_commandTrait = trait;
 
+        const Duration entireGame{GamePhase::Hero, DurationRestOfGame,  owningPlayer()};
+
         if (trait == CommandTrait::Personal_Levitation) {
-            m_fly = true;
+            buffMovement(MovementRule::Can_Fly, true, entireGame);
         }
+        if (trait == CommandTrait::Swift_As_The_Wind) {
+            buffMovement(MovementRule::Run_And_Charge, true, entireGame);
+            buffAbility(Ability::Fights_First, 1, entireGame);
+        }
+        if (trait == CommandTrait::Forest_Strider) {
+            buffMovement(MovementRule::Run_And_Charge, true, entireGame);
+        }
+        if (trait == CommandTrait::Druid_Of_The_Everspring) {
+            if (hasKeyword(WIZARD)) {
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Lifesurge, this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Cage_Of_Thorns, this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Ironoak_Skin, this)));
+            }
+            else {
+                constexpr std::array<Lore, 3> g_loreOfLeaves = { Lore::Lifesurge, Lore::Cage_Of_Thorns, Lore::Ironoak_Skin };
+                m_totalSpells = 1;
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(g_loreOfLeaves[Dice::RollD3()], this)));
+            }
+        }
+        if (trait == CommandTrait::One_With_Fire_And_Ice) {
+            if (hasKeyword(WIZARD)) {
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Amber_Tide, this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Phoenix_Cry, this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Golden_Mist, this)));
+            }
+            else {
+                constexpr std::array<Lore, 3> g_loreOfThePhoenix = { Lore::Amber_Tide, Lore::Phoenix_Cry, Lore::Golden_Mist };
+                m_totalSpells = 1;
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(g_loreOfThePhoenix[Dice::RollD3()], this)));
+            }
+        }
+        if (trait == CommandTrait::Secretive_Warlock) {
+            if (hasKeyword(WIZARD)) {
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Sap_Strength, this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Shadow_Daggers, this)));
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(Lore::Vitriolic_Spray, this)));
+            }
+            else {
+                constexpr std::array<Lore, 3> g_loreOfDarkSorcery = { Lore::Sap_Strength, Lore::Shadow_Daggers, Lore::Vitriolic_Spray };
+                m_totalSpells = 1;
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(g_loreOfDarkSorcery[Dice::RollD3()], this)));
+            }
+        }
+        if ((trait == CommandTrait::Shade_Warlock) || (trait == CommandTrait::Dark_Adept)) {
+            if (hasKeyword(WIZARD)) {
+                m_totalSpells++;
+            }
+            else {
+                m_totalSpells = 1;
+                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+                m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+            }
+        }
+
     }
 
     void CitizenOfSigmar::setArtefact(Artefact artefact) {
@@ -393,6 +453,14 @@ namespace CitiesOfSigmar {
             mod++;
         }
         return mod;
+    }
+
+    void CitizenOfSigmar::onRestore() {
+        Unit::onRestore();
+
+        if (m_narcotic != Narcotic::None) {
+            m_usedNarcotic = false;
+        }
     }
 
     void Init() {

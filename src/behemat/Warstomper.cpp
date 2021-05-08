@@ -103,20 +103,20 @@ namespace SonsOfBehemat {
     }
 
     void Warstomper::onWounded() {
-        Unit::onWounded();
+        SonsOfBehematBase::onWounded();
 
         m_move = g_damageTable[getDamageTableIndex()].m_move;
     }
 
     void Warstomper::onRestore() {
-        Unit::onRestore();
+        SonsOfBehematBase::onRestore();
 
         // Reset table-driven attributes
         onWounded();
     }
 
     int Warstomper::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        auto attacks = SonsOfBehematBase::extraAttacks(attackingModel, weapon, target);
 
         attacks += target->remainingModels() + g_damageTable[getDamageTableIndex()].m_clubExtraAttacks;
 
@@ -136,7 +136,7 @@ namespace SonsOfBehemat {
         if ((weapon->name() == m_grip.name()) && (target - hasKeyword(MONSTER)))
             return Rerolls::Ones;
 
-        return Unit::toHitRerolls(weapon, target);
+        return SonsOfBehematBase::toHitRerolls(weapon, target);
     }
 
     void Warstomper::onCharged() {
@@ -151,7 +151,7 @@ namespace SonsOfBehemat {
                 unit->applyDamage({0, mortal}, this);
             }
         }
-        Unit::onCharged();
+        SonsOfBehematBase::onCharged();
     }
 
     int Warstomper::terror(const Unit *unit) {

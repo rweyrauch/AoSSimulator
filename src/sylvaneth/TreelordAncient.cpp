@@ -101,6 +101,7 @@ namespace Sylvaneth {
     }
 
     void TreelordAncient::onWounded() {
+        SylvanethBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_doomTendrilStaff.setToHit(g_damageTable[damageIndex].m_staffToHit);
         m_sweepingBlows.setAttacks(g_damageTable[damageIndex].m_sweepingBlowsAttacks);
@@ -157,7 +158,7 @@ namespace Sylvaneth {
         if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name())) {
             return {0, Dice::RollD6()};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return SylvanethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int TreelordAncient::ComputePoints(const ParameterList& /*parameters*/) {
@@ -165,7 +166,7 @@ namespace Sylvaneth {
     }
 
     void TreelordAncient::onStartCombat(PlayerId id) {
-        Unit::onStartCombat(id);
+        SylvanethBase::onStartCombat(id);
 
         // Groundshaking Stomp
         if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0) {

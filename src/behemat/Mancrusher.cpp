@@ -72,7 +72,7 @@ namespace SonsOfBehemat {
     }
 
     void Mancrusher::onRestore() {
-        Unit::onRestore();
+        SonsOfBehematBase::onRestore();
 
         // Reset table-driven attributes
         onWounded();
@@ -115,7 +115,7 @@ namespace SonsOfBehemat {
     }
 
     void Mancrusher::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        SonsOfBehematBase::onStartShooting(player);
 
         m_rocks.activate(false);
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 18.0f);
@@ -128,7 +128,7 @@ namespace SonsOfBehemat {
     }
 
     Wounds Mancrusher::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        auto wounds = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        auto wounds = SonsOfBehematBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
 
         // Getting Stuck In
         if (m_tribe == Tribe::Stomper) {

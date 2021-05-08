@@ -79,7 +79,7 @@ namespace Skaven {
         if ((unmodifiedHitRoll == 6) && (weapon->name() == m_clawsBladesAndFangs.name())) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return Skaventide::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
 } //namespace Skaven

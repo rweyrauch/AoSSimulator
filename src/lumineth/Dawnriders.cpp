@@ -140,11 +140,11 @@ namespace LuminethRealmLords {
 
     Rerolls Dawnriders::battleshockRerolls() const {
         if (isNamedModelAlive(Model::StandardBearer)) return Rerolls::Failed;
-        return Unit::battleshockRerolls();
+        return LuminethBase::battleshockRerolls();
     }
 
     int Dawnriders::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        auto attacks = LuminethBase::extraAttacks(attackingModel, weapon, target);
 
         // Deathly Furrows
         if (!target->hasMount()) {

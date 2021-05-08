@@ -132,7 +132,7 @@ namespace GloomspiteGitz {
                 return {0, 0, Wounds::Source::Spell};
             }
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return GloomspiteGitzBase::applyWoundSave(wounds, attackingUnit);
     }
 
 } // namespace GloomspiteGitz

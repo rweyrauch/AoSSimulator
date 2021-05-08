@@ -65,6 +65,7 @@ namespace Sylvaneth {
     }
 
     void SpiritOfDurthu::onWounded() {
+        SylvanethBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_verdantBlast.setAttacks(g_damageTable[damageIndex].m_verdantBlastAttacks);
         m_guardianSword.setDamage(g_damageTable[damageIndex].m_guardianSwordDamage);
@@ -119,11 +120,11 @@ namespace Sylvaneth {
         if ((hitRoll == 6) && (weapon->name() == m_massiveImpalingTalons.name())) {
             return {0, Dice::RollD6()};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return SylvanethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void SpiritOfDurthu::onStartCombat(PlayerId id) {
-        Unit::onStartCombat(id);
+        SylvanethBase::onStartCombat(id);
 
         // Groundshaking Stomp
         if (m_meleeTarget && distanceTo(m_meleeTarget) <= 3.0) {
@@ -134,7 +135,7 @@ namespace Sylvaneth {
     }
 
     int SpiritOfDurthu::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
+        auto attacks = SylvanethBase::extraAttacks(attackingModel, weapon, target);
 
         // Wrathful Guardian
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 8.0);

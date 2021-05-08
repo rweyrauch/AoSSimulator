@@ -156,7 +156,7 @@ namespace LuminethRealmLords {
     }
 
     void ArchmageTeclis::onWounded() {
-        Unit::onWounded();
+        LuminethBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_move = g_damageTable[damageIndex].m_move;

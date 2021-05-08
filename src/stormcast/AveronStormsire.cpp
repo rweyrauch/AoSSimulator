@@ -80,7 +80,8 @@ namespace StormcastEternals {
         return StormcastEternal::EnumStringToInt(enumString);
     }
 
-    void AveronStormsire::onStartCombat(PlayerId /*player*/) {
+    void AveronStormsire::onStartCombat(PlayerId player) {
+        StormcastEternal::onStartCombat(player);
         // Spirit Flask
         if (!m_shatteredFlasks) {
             m_shatteredFlasks = DoSpiritFlasks(this);
@@ -96,7 +97,7 @@ namespace StormcastEternals {
             m_usedVoidstormScroll = true;
             return Automatically_Unbound;
         }
-        return Unit::unbindingModifier();
+        return StormcastEternal::unbindingModifier();
     }
 
 } // namespace StormcastEternals

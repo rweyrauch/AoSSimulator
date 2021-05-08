@@ -86,11 +86,11 @@ namespace Slaanesh {
             // Fiendish Reflexes
             return ignoreWounds(wounds, 5);
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return SlaaneshBase::applyWoundSave(wounds, attackingUnit);
     }
 
     void SymbareshTwinsouls::onStartHero(PlayerId player) {
-        EventInterface::onStartHero(player);
+        SlaaneshBase::onStartHero(player);
 
         // Fractured Souls
         m_fiendishReflexesActive = !m_fiendishReflexesActive;

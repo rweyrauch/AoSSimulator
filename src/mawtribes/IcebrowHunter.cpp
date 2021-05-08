@@ -94,7 +94,7 @@ namespace OgorMawtribes {
     }
 
     int IcebrowHunter::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = MawtribesBase::targetHitModifier(weapon, attacker);
         if (m_commandTrait == CommandTrait::Eye_Of_The_Blizzard) {
             mod--;
         }
@@ -102,7 +102,7 @@ namespace OgorMawtribes {
     }
 
     int IcebrowHunter::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toWoundModifier(weapon, target);
+        auto mod = MawtribesBase::toWoundModifier(weapon, target);
         if (weapon->isMissile() && (m_commandTrait == CommandTrait::Blood_Vultures_Gaze)) {
             mod++;
         }
@@ -110,7 +110,7 @@ namespace OgorMawtribes {
     }
 
     int IcebrowHunter::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = MawtribesBase::toHitModifier(weapon, target);
         if (weapon->isMissile() && (m_commandTrait == CommandTrait::Blood_Vultures_Gaze)) {
             mod++;
         }

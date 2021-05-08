@@ -90,7 +90,7 @@ namespace BeastsOfChaos {
         m_avianHead.setRend(g_damageTable[damageIndex].m_avianHeadRend);
         m_leonineHead.setDamage(g_damageTable[damageIndex].m_leonineHeadDamage);
 
-        Unit::onWounded();
+        BeastsOfChaosBase::onWounded();
     }
 
     size_t Chimera::getDamageTableIndex() const {
@@ -104,7 +104,7 @@ namespace BeastsOfChaos {
     }
 
     int Chimera::chargeModifier() const {
-        int modifier = Unit::chargeModifier();
+        int modifier = BeastsOfChaosBase::chargeModifier();
 
         // Vicious Charge
         modifier += 2;
@@ -113,7 +113,7 @@ namespace BeastsOfChaos {
     }
 
     void Chimera::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        BeastsOfChaosBase::onStartShooting(player);
 
         if (player == owningPlayer()) {
             // Fiery Breath

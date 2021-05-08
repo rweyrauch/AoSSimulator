@@ -62,7 +62,7 @@ namespace BeastsOfChaos {
     }
 
     int Cockatrice::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = BeastsOfChaosBase::extraAttacks(attackingModel, weapon, target);
 
         // Maddened Ferocity
         if (m_charged && (weapon->name() == m_swordlikeTalons.name())) {
@@ -72,7 +72,7 @@ namespace BeastsOfChaos {
     }
 
     void Cockatrice::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        BeastsOfChaosBase::onStartShooting(player);
 
         if (player == owningPlayer()) {
             // Petrifying Gaze

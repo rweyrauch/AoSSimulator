@@ -69,7 +69,7 @@ namespace Sylvaneth {
     }
 
     int Dryads::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = SylvanethBase::toSaveModifier(weapon, attacker);
 
         // Impenetrable Thicket
         if (remainingModels() >= 10) modifier += 1;
@@ -78,7 +78,7 @@ namespace Sylvaneth {
     }
 
     int Dryads::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::targetHitModifier(weapon, attacker);
+        int modifier = SylvanethBase::targetHitModifier(weapon, attacker);
 
         // Blessing of the Forest
         auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), AWAKENED_WYLDWOOD, 6.0);
@@ -99,7 +99,7 @@ namespace Sylvaneth {
     }
 
     void Dryads::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        SylvanethBase::onStartCombat(player);
 
         // Enrapturing Song
         // For now always select the unit the Dryads are targeting in combat.
@@ -107,7 +107,7 @@ namespace Sylvaneth {
     }
 
     int Dryads::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = SylvanethBase::toHitModifier(weapon, target);
 
         // Enrapturing Song
         if (m_enrapturedUnit && (target == m_enrapturedUnit)) {

@@ -173,7 +173,7 @@ namespace Seraphon {
         if (m_charged && (weapon->name() == m_warspear.name())) {
             return {weapon->damage() + 1, 0};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return SeraphonBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int SaurusScarVeteranOnCarnosaur::terror(const Unit *target) {

@@ -162,6 +162,8 @@ namespace CitiesOfSigmar {
     }
 
     void LuminarkOfHysh::onRestore() {
+        CitizenOfSigmar::onRestore();
+
         // Restore table-driven attributes
         onWounded();
     }
@@ -169,7 +171,7 @@ namespace CitiesOfSigmar {
     void LuminarkOfHysh::onWounded() {
         m_move = g_damageTable[getDamageTableIndex()].m_move;
 
-        Unit::onWounded();
+        CitizenOfSigmar::onWounded();
     }
 
     size_t LuminarkOfHysh::getDamageTableIndex() const {
@@ -183,7 +185,7 @@ namespace CitiesOfSigmar {
     }
 
     int LuminarkOfHysh::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = CitizenOfSigmar::castingModifier();
 
         // White Battlemage
         if (Board::Instance()->getRealm() == Realm::Hysh) mod++;

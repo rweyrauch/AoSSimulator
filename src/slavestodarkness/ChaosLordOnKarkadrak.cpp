@@ -73,7 +73,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosLordOnKarkadrak::onCharged() {
-        Unit::onCharged();
+        SlavesToDarknessBase::onCharged();
 
         // Brutish Rampage
         if (m_charged) {

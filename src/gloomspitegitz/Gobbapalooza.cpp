@@ -81,7 +81,7 @@ namespace GloomspiteGitz {
     }
 
     int Gobbapalooza::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = GloomspiteGitzBase::targetHitModifier(weapon, attacker);
 
         // Slippery Git
         if (weapon->isMissile()) {
@@ -97,7 +97,7 @@ namespace GloomspiteGitz {
     }
 
     int Gobbapalooza::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = GloomspiteGitzBase::toSaveModifier(weapon, attacker);
 
         // Hallucinogenic Fungus Brews
         if (m_battleRound == 1) mod += 2;

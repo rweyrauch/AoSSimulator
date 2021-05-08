@@ -85,16 +85,16 @@ namespace IdonethDeepkin {
 
     Rerolls AkhelianMorrsarrGuard::battleshockRerolls() const {
         if (isNamedModelAlive(Model::StandardBearer)) { return Rerolls::Failed; }
-        return Unit::battleshockRerolls();
+        return IdonethDeepkinBase::battleshockRerolls();
     }
 
     Rerolls AkhelianMorrsarrGuard::chargeRerolls() const {
         if (isNamedModelAlive(Model::Musician)) { return Rerolls::Failed; }
-        return Unit::chargeRerolls();
+        return IdonethDeepkinBase::chargeRerolls();
     }
 
     void AkhelianMorrsarrGuard::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        IdonethDeepkinBase::onStartCombat(player);
 
         if (player != owningPlayer()) { return; }
 
@@ -129,12 +129,12 @@ namespace IdonethDeepkin {
     Wounds
     AkhelianMorrsarrGuard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (m_charged && (weapon->name() == m_voltspear.name())) return {weapon->damage() + 1, 0};
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return IdonethDeepkinBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int AkhelianMorrsarrGuard::weaponRend(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         if (m_charged && (weapon->name() == m_voltspear.name())) return -2;
-        return Unit::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
+        return IdonethDeepkinBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace IdonethDeepkin

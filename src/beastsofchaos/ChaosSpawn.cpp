@@ -71,7 +71,7 @@ namespace BeastsOfChaos {
     }
 
     void ChaosSpawn::onFriendlyUnitSlain(const Unit *attacker) {
-        Unit::onFriendlyUnitSlain(nullptr);
+        BeastsOfChaosBase::onFriendlyUnitSlain(nullptr);
 
         if (hasKeyword(KHORNE)) {
             // Add a Blood Tithe point
@@ -80,7 +80,7 @@ namespace BeastsOfChaos {
     }
 
     void ChaosSpawn::onEnemyUnitSlain(const Unit *unit) {
-        Unit::onEnemyUnitSlain(unit);
+        BeastsOfChaosBase::onEnemyUnitSlain(unit);
 
         if (hasKeyword(KHORNE)) {
             // Add a Blood Tithe point

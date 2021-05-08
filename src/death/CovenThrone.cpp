@@ -101,7 +101,7 @@ namespace Death {
     }
 
     void CovenThrone::onWounded() {
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_poniards.setAttacks(g_damageTable[damageIndex].m_handmaidenAttacks);
@@ -110,7 +110,7 @@ namespace Death {
     }
 
     void CovenThrone::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

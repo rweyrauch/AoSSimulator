@@ -109,6 +109,7 @@ namespace OgorMawtribes {
     }
 
     void FrostlordOnThundertusk::onRestore() {
+        MawtribesBase::onRestore();
         // Restore table-driven attributes
         onWounded();
     }
@@ -135,7 +136,7 @@ namespace OgorMawtribes {
     }
 
     int FrostlordOnThundertusk::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = MawtribesBase::targetHitModifier(weapon, attacker);
         // Numbing Chill
         if (!weapon->isMissile()) mod--;
 
@@ -143,7 +144,7 @@ namespace OgorMawtribes {
     }
 
     void FrostlordOnThundertusk::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        MawtribesBase::onStartShooting(player);
 
         if (player == owningPlayer()) {
             if (m_meleeTarget) {
@@ -175,7 +176,7 @@ namespace OgorMawtribes {
     }
 
     int FrostlordOnThundertusk::woundModifier() const {
-        auto mod = UnitModifierInterface::woundModifier();
+        auto mod = MawtribesBase::woundModifier();
         if (m_mountTrait == MountTrait::Gvarnak) {
             mod++;
         }

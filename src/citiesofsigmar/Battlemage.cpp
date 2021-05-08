@@ -227,7 +227,7 @@ namespace CitiesOfSigmar {
     }
 
     int Battlemage::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = CitizenOfSigmar::castingModifier();
 
         // Magic of the Realms
         if (m_realm == Board::Instance()->getRealm()) mod++;

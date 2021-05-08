@@ -65,7 +65,7 @@ namespace Death {
     }
 
     int DireWolves::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = Unit::toWoundModifier(weapon, target);
+        int modifier = LegionOfNagashBase::toWoundModifier(weapon, target);
 
         // Slavering Charge
         if (m_charged) { modifier += 1; }
@@ -74,7 +74,7 @@ namespace Death {
     }
 
     int DireWolves::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = Unit::toSaveModifier(weapon, attacker);
+        int modifier = LegionOfNagashBase::toSaveModifier(weapon, attacker);
 
         // Vigour Necris
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);

@@ -72,6 +72,7 @@ namespace Sylvaneth {
     }
 
     void DrychaHamadreth::onWounded() {
+        SylvanethBase::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_colonyOfFlitterfuries.setRange(g_damageTable[damageIndex].m_flitterfuriesRange);
         m_swarmOfSquirmlings.setToHit(g_damageTable[damageIndex].m_squirmlingsHit);
@@ -121,17 +122,17 @@ namespace Sylvaneth {
             (woundRoll == 6)) {
             return {0, 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return SylvanethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void DrychaHamadreth::onBeginRound(int battleRound) {
         // Mercurial Aspect
         m_enraged = (m_meleeTarget == nullptr);
-        Unit::onBeginRound(battleRound);
+        SylvanethBase::onBeginRound(battleRound);
     }
 
     int DrychaHamadreth::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = SylvanethBase::extraAttacks(attackingModel, weapon, target);
         // Mecurial Aspect
         if (weapon->name() == m_colonyOfFlitterfuries.name() && m_enraged) {
             extra += 10;

@@ -92,7 +92,7 @@ namespace Death {
     }
 
     void MannfredMortarchOfNight::onWounded() {
-        Unit::onWounded();
+        LegionOfNagashBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_ebonClaws.setAttacks(g_damageTable[damageIndex].m_clawAttacks);
@@ -100,7 +100,7 @@ namespace Death {
     }
 
     void MannfredMortarchOfNight::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         // Restore table-driven attributes
         onWounded();

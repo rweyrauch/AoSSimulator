@@ -105,7 +105,7 @@ namespace Fyreslayers {
     }
 
     void AuricRunefather::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Fyreslayer::onEndCombat(player);
 
         // Weapon-breaker
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);

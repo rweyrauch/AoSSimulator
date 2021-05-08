@@ -98,7 +98,7 @@ namespace Death {
     }
 
     void VampireLord::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             deathlyInvocations(3, 12.0);
@@ -112,7 +112,7 @@ namespace Death {
     }
 
     void VampireLord::onRestore() {
-        Unit::onRestore();
+        LegionOfNagashBase::onRestore();
 
         m_usedChaliceOfBlood = false;
     }
@@ -121,7 +121,7 @@ namespace Death {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
-        Unit::onEndCombat(player);
+        LegionOfNagashBase::onEndCombat(player);
     }
 
 } // namespace Death

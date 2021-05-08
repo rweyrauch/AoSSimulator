@@ -72,7 +72,7 @@ namespace SlavesToDarkness {
     }
 
     int CypherLords::chargeModifier() const {
-        int modifier = Unit::chargeModifier();
+        int modifier = SlavesToDarknessBase::chargeModifier();
         if (isNamedModelAlive("Luminate")) {
             modifier += 1;
         }

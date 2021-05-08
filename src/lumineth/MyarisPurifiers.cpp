@@ -77,7 +77,7 @@ namespace LuminethRealmLords {
             return {weapon->damage() + 1, 0};
         }
 
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return LuminethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace LuminethRealmLords

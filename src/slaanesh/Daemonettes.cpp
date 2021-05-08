@@ -92,7 +92,7 @@ namespace Slaanesh {
     }
 
     void Daemonettes::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {
-        Unit::computeBattleshockEffect(roll, numFled, numAdded);
+        SlaaneshBase::computeBattleshockEffect(roll, numFled, numAdded);
         if (isNamedModelAlive(Model::IconBearer)) {
             // Icon Bearer
             if (roll == 1) {
@@ -114,7 +114,7 @@ namespace Slaanesh {
         if (isNamedModelAlive("Banner Bearer")) {
             return Rerolls::Failed;
         }
-        return Unit::chargeRerolls();
+        return SlaaneshBase::chargeRerolls();
     }
 
     int Daemonettes::ComputePoints(const ParameterList& parameters) {

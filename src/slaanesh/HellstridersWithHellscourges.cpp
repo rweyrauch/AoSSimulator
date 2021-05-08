@@ -94,11 +94,11 @@ namespace Slaanesh {
         if (isNamedModelAlive("Banner Bearer")) {
             return Rerolls::Failed;
         }
-        return Unit::chargeRerolls();
+        return SlaaneshBase::chargeRerolls();
     }
 
     int HellstridersWithHellscourges::braveryModifier() const {
-        int modifier = Unit::braveryModifier();
+        int modifier = SlaaneshBase::braveryModifier();
         if (isNamedModelAlive(Model::IconBearer)) {
             modifier += 2;
         }
@@ -122,7 +122,7 @@ namespace Slaanesh {
     }
 
     int HellstridersWithHellscourges::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::targetHitModifier(weapon, attacker);
+        auto mod = SlaaneshBase::targetHitModifier(weapon, attacker);
 
         // Hooked Tendrils
         if (m_charged && (!weapon->isMissile()) && (distanceTo(attacker) <= 3.0)) {

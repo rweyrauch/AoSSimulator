@@ -61,7 +61,7 @@ namespace DaughtersOfKhaine {
     }
 
     void MorgwaethTheBloodied::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        DaughterOfKhaine::onStartHero(player);
 
         m_glaive.setDamage(1);
 

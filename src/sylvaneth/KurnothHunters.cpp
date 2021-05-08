@@ -120,11 +120,11 @@ namespace Sylvaneth {
         if ((weapon->name() == m_greatsword.name()) && (woundRoll == 6)) {
             return {weapon->damage(), 1};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return SylvanethBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     void KurnothHunters::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        SylvanethBase::onEndCombat(player);
 
         // Trample Underfoot
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);

@@ -77,17 +77,17 @@ namespace Skaven {
             return RAND_D6;
         }
 
-        return Unit::extraAttacks(attackingModel, weapon, target);
+        return Skaventide::extraAttacks(attackingModel, weapon, target);
     }
 
     void Doomflayer::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         m_moreMoreFailed = false;
     }
 
     void Doomflayer::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         if (m_moreMoreFailed) {
             slay(1);

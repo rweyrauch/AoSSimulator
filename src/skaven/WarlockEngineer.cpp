@@ -75,13 +75,13 @@ namespace Skaven {
     }
 
     void WarlockEngineer::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         m_moreMoreFailed = false;
     }
 
     void WarlockEngineer::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         if (m_moreMoreFailed) {
             Wounds overloadWounds = {0, Dice::RollD6()};
@@ -104,7 +104,7 @@ namespace Skaven {
                 return {RAND_D6, 0};
             }
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int WarlockEngineer::ComputePoints(const ParameterList& /*parameters*/) {

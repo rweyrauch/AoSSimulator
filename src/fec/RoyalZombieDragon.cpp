@@ -91,6 +91,7 @@ namespace FleshEaterCourt {
     }
 
     void RoyalZombieDragon::onWounded() {
+        FleshEaterCourts::onWounded();
         const auto damageIndex = getDamageTableIndex();
         m_pestilentialBreath.setToWound(g_damageTable[damageIndex].m_breathToWound);
         m_swordlikeClaws.setAttacks(g_damageTable[damageIndex].m_clawsAttacks);
@@ -98,6 +99,7 @@ namespace FleshEaterCourt {
     }
 
     void RoyalZombieDragon::onRestore() {
+        FleshEaterCourts::onRestore();
         // Reset table-drive attributes
         onWounded();
     }
@@ -107,7 +109,7 @@ namespace FleshEaterCourt {
     }
 
     int RoyalZombieDragon::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+        auto mod = FleshEaterCourts::toHitModifier(weapon, target);
 
         // Pestilential Breath
         if ((weapon->name() == m_pestilentialBreath.name())) {

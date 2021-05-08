@@ -92,6 +92,6 @@ namespace LuminethRealmLords {
         if (wounds.source == Wounds::Source::Spell) {
             return ignoreWounds(wounds, 4);
         }
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return LuminethBase::applyWoundSave(wounds, attackingUnit);
     }
 }

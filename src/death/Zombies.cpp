@@ -77,7 +77,7 @@ namespace Death {
     }
 
     int Zombies::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = Unit::toHitModifier(weapon, target);
+        int modifier = LegionOfNagashBase::toHitModifier(weapon, target);
 
         // Vigour Mortis
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);
@@ -99,7 +99,7 @@ namespace Death {
     }
 
     int Zombies::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = Unit::toWoundModifier(weapon, target);
+        int modifier = LegionOfNagashBase::toWoundModifier(weapon, target);
 
         // Dragged Down and Torn Apart
         if (remainingModels() >= 40) {
@@ -127,7 +127,7 @@ namespace Death {
 
     int Zombies::rollChargeDistance() {
         // Noise Maker
-        auto dist = Unit::rollChargeDistance();
+        auto dist = LegionOfNagashBase::rollChargeDistance();
         if (isNamedModelAlive("Noisemaker")) {
             return std::max(6, dist);
         }

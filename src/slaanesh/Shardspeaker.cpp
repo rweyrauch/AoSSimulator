@@ -87,14 +87,14 @@ namespace Slaanesh {
     }
 
     void ShardspeakerOfSlaanesh::onCastSpell(const Spell *spell, const Unit *target) {
-        EventInterface::onCastSpell(spell, target);
+        SlaaneshBase::onCastSpell(spell, target);
 
         // Turn on Mist Lurkers
         m_claws.activate(true);
     }
 
     int ShardspeakerOfSlaanesh::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = SlaaneshBase::toSaveModifier(weapon, attacker);
 
         // Mist Lurkers
         if (m_claws.isActive()) {
@@ -104,7 +104,7 @@ namespace Slaanesh {
     }
 
     void ShardspeakerOfSlaanesh::onStartHero(PlayerId player) {
-        EventInterface::onStartHero(player);
+        SlaaneshBase::onStartHero(player);
 
         // Turn off Mist Lurkers
         if (player == owningPlayer())

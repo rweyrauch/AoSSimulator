@@ -100,7 +100,7 @@ namespace Nighthaunt {
             return {0, 2};
         }
 
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Nighthaunt::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls ReikenorTheGrimhailer::toHitRerolls(const Weapon *weapon, const Unit *target) const {

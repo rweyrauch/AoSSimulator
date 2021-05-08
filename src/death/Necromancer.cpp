@@ -72,7 +72,7 @@ namespace Death {
     }
 
     Wounds Necromancer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        return Unit::applyWoundSave(wounds, attackingUnit);
+        return LegionOfNagashBase::applyWoundSave(wounds, attackingUnit);
     }
 
     int Necromancer::ComputePoints(const ParameterList& /*parameters*/) {
@@ -80,7 +80,7 @@ namespace Death {
     }
 
     void Necromancer::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        LegionOfNagashBase::onStartHero(player);
 
         if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }

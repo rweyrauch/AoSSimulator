@@ -72,7 +72,7 @@ namespace Skaven {
         if ((hitRoll == 6) && (weapon->name() == m_jezzail.name())) {
             return {0, 2};
         }
-        return Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        return Skaventide::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     Rerolls WarplockJezzails::toHitRerolls(const Weapon *weapon, const Unit *target) const {
@@ -80,11 +80,11 @@ namespace Skaven {
         if (!m_moved && (weapon->name() == m_jezzail.name())) {
             return Rerolls::Failed;
         }
-        return Unit::toHitRerolls(weapon, target);
+        return Skaventide::toHitRerolls(weapon, target);
     }
 
     int WarplockJezzails::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = Skaventide::toSaveModifier(weapon, attacker);
 
         // Pavise
         if (weapon->isMissile()) {

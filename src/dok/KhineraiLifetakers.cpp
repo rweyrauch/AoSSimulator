@@ -99,7 +99,7 @@ namespace DaughtersOfKhaine {
     }
 
     int KhineraiLifetakers::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        auto mod = Unit::toSaveModifier(weapon, attacker);
+        auto mod = DaughterOfKhaine::toSaveModifier(weapon, attacker);
 
         // Heartpiercer Shield
         if (!weapon->isMissile()) mod++;

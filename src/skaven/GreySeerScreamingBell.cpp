@@ -136,7 +136,7 @@ namespace Skaven {
     }
 
     void GreySeerOnScreamingBell::onWounded() {
-        Unit::onWounded();
+        Skaventide::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_spikes.setToHit(g_damageTable[damageIndex].m_spikesToHit);
@@ -144,7 +144,7 @@ namespace Skaven {
     }
 
     void GreySeerOnScreamingBell::onRestore() {
-        Unit::onRestore();
+        Skaventide::onRestore();
 
         m_unholySoundActive = false;
 
@@ -164,7 +164,7 @@ namespace Skaven {
 
     int
     GreySeerOnScreamingBell::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
-        auto extra = Unit::extraAttacks(attackingModel, weapon, target);
+        auto extra = Skaventide::extraAttacks(attackingModel, weapon, target);
 
         // Pushed into Battle
         if ((weapon->name() == m_spikes.name()) && m_charged) {

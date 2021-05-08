@@ -71,7 +71,7 @@ namespace Fyreslayers {
     }
 
     void FjulGrimnir::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Fyreslayer::onEndCombat(player);
 
         // Weapon-breaker
         auto unit = Board::Instance()->getUnitWithKeyword(this, GetEnemyId(owningPlayer()), HERO, 3.0);
@@ -91,7 +91,7 @@ namespace Fyreslayers {
         if (chosen != nullptr) {
             totalWounds = ignoreWounds(totalWounds, 5);
         }
-        return Unit::applyWoundSave(totalWounds, attackingUnit);
+        return Fyreslayer::applyWoundSave(totalWounds, attackingUnit);
     }
 
 } // namespace Fyreslayers

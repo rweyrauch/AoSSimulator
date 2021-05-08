@@ -21,6 +21,7 @@
 #include "bonesplitterz/SavageOrruks.h"
 #include "bonesplitterz/Wardokk.h"
 #include "bonesplitterz/WurrgogProphet.h"
+#include "BonesplitterzLore.h"
 
 namespace Bonesplitterz {
 
@@ -153,6 +154,13 @@ namespace Bonesplitterz {
 
     void Bonesplitterz::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
+
+        if (m_commandTrait == CommandTrait::Fuelled_By_The_Spirits) {
+            constexpr std::array<Lore, 6> lore = {Lore::Squiggly_Curse, Lore::Breath_Of_Gorkamorka, Lore::Brutal_Beast_Spirits,
+                                                  Lore::Bone_Krusha, Lore::Kunnin_Beast_Spirits, Lore::Gorkamorkas_War_Cry};
+            // TODO: make sure added spells are unique
+            m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore[Dice::RollD6()], this)));
+        }
     }
 
     void Bonesplitterz::setArtefact(Artefact artefact) {

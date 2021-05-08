@@ -139,7 +139,7 @@ namespace SlavesToDarkness {
     }
 
     void ChaosChariots::onCharged() {
-        Unit::onCharged();
+        SlavesToDarknessBase::onCharged();
 
         // Don't Spare the Lash
         if (m_ran && m_charged) {

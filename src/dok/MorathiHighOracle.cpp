@@ -80,14 +80,14 @@ namespace DaughtersOfKhaine {
     }
 
     int MorathiHighOracleOfKhaine::castingModifier() const {
-        auto mod = Unit::castingModifier();
+        auto mod = DaughterOfKhaine::castingModifier();
         // Sorceress Supreme
         mod++;
         return mod;
     }
 
     int MorathiHighOracleOfKhaine::unbindingModifier() const {
-        auto mod = Unit::unbindingModifier();
+        auto mod = DaughterOfKhaine::unbindingModifier();
         // Sorceress Supreme
         mod++;
         return mod;

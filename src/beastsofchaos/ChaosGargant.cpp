@@ -92,7 +92,7 @@ namespace BeastsOfChaos {
     }
 
     void ChaosGargant::onRestore() {
-        Unit::onRestore();
+        BeastsOfChaosBase::onRestore();
 
         // Reset table-driven attributes
         onWounded();
@@ -103,7 +103,7 @@ namespace BeastsOfChaos {
     }
 
     void ChaosGargant::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        BeastsOfChaosBase::onStartCombat(player);
 
         // Whipped into a Frenzy
         if (remainingWounds() > wounds() / 2) {

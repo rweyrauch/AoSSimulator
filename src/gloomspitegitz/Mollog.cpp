@@ -66,6 +66,7 @@ namespace GloomspiteGitz {
     }
 
     void Mollog::onStartHero(PlayerId player) {
+        GloomspiteGitzBase::onStartHero(player);
         if (player == owningPlayer()) {
             if (remainingWounds() < g_wounds && remainingWounds() > 0) {
                 // Regeneration - heal D3
@@ -100,7 +101,7 @@ namespace GloomspiteGitz {
             }
         }
 
-        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto totalWounds = GloomspiteGitzBase::applyWoundSave(wounds, attackingUnit);
 
         // Loyal to the End
         if (m_batSquig) {
@@ -138,7 +139,7 @@ namespace GloomspiteGitz {
     }
 
     void Mollog::onRestore() {
-        Unit::onRestore();
+        GloomspiteGitzBase::onRestore();
 
         m_batSquig = true;
         m_spiteshroom = true;
@@ -146,7 +147,7 @@ namespace GloomspiteGitz {
     }
 
     void Mollog::onStartShooting(PlayerId player) {
-        Unit::onStartShooting(player);
+        GloomspiteGitzBase::onStartShooting(player);
 
         if (owningPlayer() == player) {
             if (m_batSquig) {
@@ -161,7 +162,7 @@ namespace GloomspiteGitz {
     }
 
     void Mollog::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
+        GloomspiteGitzBase::onStartCombat(player);
 
         if (m_spiteshroom) {
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));

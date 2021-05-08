@@ -79,7 +79,7 @@ namespace Skaven {
         auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
         if (monks) return Rerolls::Failed;
 
-        return Unit::toHitRerolls(weapon, target);
+        return Skaventide::toHitRerolls(weapon, target);
     }
 
     Rerolls PlagueCenserBearers::battleshockRerolls() const {
@@ -87,11 +87,11 @@ namespace Skaven {
         auto monks = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), PLAGUE_MONKS, 18.0);
         if (monks) return Rerolls::Failed;
 
-        return Unit::battleshockRerolls();
+        return Skaventide::battleshockRerolls();
     }
 
     void PlagueCenserBearers::onEndCombat(PlayerId player) {
-        Unit::onEndCombat(player);
+        Skaventide::onEndCombat(player);
 
         // Poisonous Fumes
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);

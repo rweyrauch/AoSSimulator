@@ -79,7 +79,7 @@ namespace SlavesToDarkness {
     }
 
     void MutalithVortexBeast::onStartHero(PlayerId player) {
-        Unit::onStartHero(player);
+        SlavesToDarknessBase::onStartHero(player);
 
         if (owningPlayer() == player) {
             // Mutant Regeneration
@@ -142,7 +142,7 @@ namespace SlavesToDarkness {
     }
 
     void MutalithVortexBeast::onWounded() {
-        Unit::onWounded();
+        SlavesToDarknessBase::onWounded();
 
         const auto damageIndex = getDamageTableIndex();
         m_claws.setToWound(g_damageTable[damageIndex].m_clawToWound);

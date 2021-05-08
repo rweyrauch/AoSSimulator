@@ -131,7 +131,7 @@ namespace OgorMawtribes {
         if (isNamedModelAlive("Skull Bearer")) {
             return Rerolls::Failed;
         }
-        return Unit::chargeRerolls();
+        return MawtribesBase::chargeRerolls();
     }
 
     int OgorGluttons::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
@@ -140,7 +140,7 @@ namespace OgorMawtribes {
             (m_weaponOption == Paired_Club_Or_Blade)) {
             return 2;
         }
-        return Unit::generateHits(unmodifiedHitRoll, weapon, unit);
+        return MawtribesBase::generateHits(unmodifiedHitRoll, weapon, unit);
     }
 
     Wounds OgorGluttons::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
@@ -148,7 +148,7 @@ namespace OgorMawtribes {
         if ((saveRoll == 6) && (m_weaponOption == Club_Or_Blade_And_Ironfist)) {
             return {0, 1};
         }
-        return Unit::computeReturnedDamage(weapon, saveRoll);
+        return MawtribesBase::computeReturnedDamage(weapon, saveRoll);
     }
 
     int OgorGluttons::ComputePoints(const ParameterList& parameters) {
@@ -170,7 +170,7 @@ namespace OgorMawtribes {
     }
 
     Wounds OgorGluttons::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
+        auto totalWounds = MawtribesBase::applyWoundSave(wounds, attackingUnit);
 
         // Lookout Gnoblar
         if (m_lookoutGnoblar && (wounds.source == Wounds::Source::Weapon_Missile)) {
