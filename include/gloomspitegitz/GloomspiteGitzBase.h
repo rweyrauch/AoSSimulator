@@ -33,7 +33,7 @@ namespace GloomspiteGitz {
         // Gifts Of The Gloomspite
         Low_Cunning,
         Spiteful_Git,               // TODO
-        Great_Shaman,               // TODO
+        Great_Shaman,
         Dodgy_Character,            // TODO
         Boss_Shaman,
         Loon_Touched,

@@ -37,7 +37,7 @@ namespace Sylvaneth {
         Wisdom_Of_The_Ancients,
 
         // Aspects of Renewal
-        Arcane_Bounty,          // TODO
+        Arcane_Bounty,
         Mystic_Regrowth,
         Voice_Of_Warding,
         Glade_Lore,

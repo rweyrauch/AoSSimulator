@@ -36,8 +36,8 @@ namespace CitiesOfSigmar {
 
         // Living City
         Ironoak_Artisan,
-        Forest_Strider,             // TODO
-        Druid_Of_The_Everspring,    // TODO
+        Forest_Strider,             // TODO/Partial
+        Druid_Of_The_Everspring,
 
         // Greywater Fastness
         Seat_On_The_Council,
@@ -46,13 +46,13 @@ namespace CitiesOfSigmar {
 
         // Phoenicium
         Seeder_Of_Vengeance,        // TODO
-        One_With_Fire_And_Ice,      // TODO
+        One_With_Fire_And_Ice,
         Aura_Of_Serenity,
 
         // Anvilgard
         Blackfang_Crimelord,        // TODO
         Slayer_Of_Monsters,
-        Secretive_Warlock,          // TODO
+        Secretive_Warlock,
 
         // Hallowheart
         Veteran_Of_The_Blazing_Crusade,
@@ -62,17 +62,17 @@ namespace CitiesOfSigmar {
         // Tempests Eye
         Aetherguard_Captain,
         Hawk_Eyed,
-        Swift_As_The_Wind,          // TODO
+        Swift_As_The_Wind,
 
         // Misthåvn
         Shadowlord,                 // TODO
         Wily_Foe,
-        Shade_Warlock,              // TODO
+        Shade_Warlock,
 
         // Har_Kuron
         Bathed_In_Blood,
         Murderous_Zeal,             // TODO
-        Dark_Adept,                 // TODO
+        Dark_Adept,
 
         // Settler's Gain
         Personal_Levitation,
@@ -254,12 +254,15 @@ namespace CitiesOfSigmar {
 
         int woundModifier() const override;
 
+        void onRestore() override;
+
     protected:
 
         City m_city = City::Hammerhal;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
         Narcotic m_narcotic = Narcotic::None;
+        bool m_usedNarcotic = false;
 
         int m_bannersHeldHigh = 0;
     };

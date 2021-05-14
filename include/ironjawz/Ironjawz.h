@@ -26,17 +26,17 @@ namespace Ironjawz {
         None,
 
         // Megaboss
-        Hulking_Muscle_Bound_Brute,     // Yes
-        Live_To_Fight,                  // Yes
+        Hulking_Muscle_Bound_Brute,
+        Live_To_Fight,
         Brutish_Cunning,                // TODO
-        Ironclad,                       // Yes
+        Ironclad,
         Bestial_Charisma,               // TODO
         Mighty_Waaagh,                  // TODO
 
         // Shaman
-        Dead_Kunnin,                    // Yes
-        Master_Of_The_Weird,            // Yes
-        Bursting_With_Power,            // TODO
+        Dead_Kunnin,
+        Master_Of_The_Weird,
+        Bursting_With_Power,
 
         // Clan specific
         Right_Fist_Of_Dakkbad, // Ironsunz

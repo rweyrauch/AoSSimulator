@@ -31,7 +31,7 @@ namespace LuminethRealmLords {
 
         // Scinari
         Spellmaster,            // TODO
-        Loremaster,             // TODO
+        Loremaster,
         Warmaster,
 
         // Alarith

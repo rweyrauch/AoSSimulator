@@ -36,7 +36,7 @@ namespace Seraphon {
 
         // Slann
         Arcane_Might,
-        Vast_Intellect,         // TODO
+        Vast_Intellect,
         Great_Rememberer,
 
         // Saurus

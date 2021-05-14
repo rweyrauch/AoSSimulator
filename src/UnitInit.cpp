@@ -34,6 +34,7 @@
 #include "tzeentch/TzeentchBase.h"
 #include "lumineth/LuminethRealmLords.h"
 #include "behemat/SonsOfBehemat.h"
+#include "soulblight/SoulblightGravelords.h"
 
 #include "eldritchcouncil/Swordmasters.h"
 #include "eldritchcouncil/Loremaster.h"
@@ -86,6 +87,7 @@ void Initialize(plog::Severity level) {
     Death::Init();
     LuminethRealmLords::Init();
     SonsOfBehemat::Init();
+    Soulblight::Init();
 
     EldritchCouncil::Swordmasters::Init();
     EldritchCouncil::Loremaster::Init();

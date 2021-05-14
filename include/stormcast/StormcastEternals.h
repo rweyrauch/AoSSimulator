@@ -173,14 +173,16 @@ namespace StormcastEternals {
 
         ~StormcastEternal() override;
 
-        void setStormhost(Stormhost host);
-
         void setArtefact(Artefact artefact);
 
         void setCommandTrait(CommandTrait commandTrait);
 
     protected:
         StormcastEternal(Stormhost host, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
+
+        void setStormkeep(bool isKeep) {
+            m_isStormKeep = isKeep;
+        }
 
         int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
 
@@ -218,9 +220,14 @@ namespace StormcastEternals {
 
         Rerolls toSaveRerolls(const Weapon *weapon, const Unit *attacker) const override;
 
+    private:
+
+        void setStormhost(Stormhost host);
+
     protected:
 
         Stormhost m_stormHost = Stormhost::None;
+        bool m_isStormKeep = false;
         Artefact m_artefact = Artefact::None;
         CommandTrait m_commandTrait = CommandTrait::None;
 

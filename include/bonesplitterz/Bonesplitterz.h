@@ -25,17 +25,17 @@ namespace Bonesplitterz {
         None,
 
         // Prophet and Big Boss
-        Killa_Instinkt,         // Yes
-        Waaagh_Monger,          // Yes
+        Killa_Instinkt,
+        Waaagh_Monger,
         Great_Hunter,           // TODO
-        Power_Of_The_Beast,     // Yes
-        Voice_Of_Da_Gods,       // Yes
+        Power_Of_The_Beast,
+        Voice_Of_Da_Gods,
         Monsta_Killa,           // TODO
 
         // Wizard
-        Dead_Kunnin,            // Yes
-        Master_Of_The_Weird,    // Yes
-        Fuelled_By_The_Spirits, // TODO
+        Dead_Kunnin,
+        Master_Of_The_Weird,
+        Fuelled_By_The_Spirits,
 
         // Clan specific
         A_Right_Monster,        // Bonegrinz TODO

@@ -37,14 +37,14 @@ namespace Death {
         // Legion of Sacrament
         Emissary_Of_The_Master,
         Mark_Of_The_Favoured,       // TODO
-        Dark_Acolyte,               // TODO
+        Dark_Acolyte,
         Mastery_Of_Death,           // TODO
         Peerless_Commander,         // TODO
         Bound_To_The_Master,        // TODO
 
         // Legion of Blood
         Swift_Strikes,
-        Soul_Crushing_Contempt,     // TODO
+        Soul_Crushing_Contempt,
         Aristocracy_Of_Blood,
         Aura_Of_Dark_Majesty,
         Walking_Death,              // TODO
@@ -55,8 +55,8 @@ namespace Death {
         Swift_Form,
         Unbending_Will,
         Merciless_Hunter,
-        Unholy_Impetus,             // TODO
-        Terrifying_Visage,          // TODO
+        Unholy_Impetus,
+        Terrifying_Visage,
 
         // Soulblight
         Curse_Of_The_Revenant,
@@ -68,9 +68,9 @@ namespace Death {
 
         // Death
         Ruler_Of_The_Night,         // TODO
-        Predator_Of_The_Shadows,    // TODO
+        Predator_Of_The_Shadows,
         Death_Incarnate,            // TODO
-        Master_Of_The_Black_Arts,   // TODO/Partial
+        Master_Of_The_Black_Arts,
         Red_Fury,                   // TODO
         Supernatural_Horror,        // TODO
     };
@@ -116,20 +116,20 @@ namespace Death {
         None,
 
         // Deathmages
-        Overwhelming_Dread,     // TODO
+        Overwhelming_Dread,
         Fading_Vigour,          // TODO
         Spectral_Grasp,         // TODO
         Prison_Of_Grief,        // TODO
-        Decrepify,              // TODO
+        Decrepify,
         Soul_Harvest,           // TODO
 
         // Vampire
-        Blades_Of_Shyish,       // TODO
-        Spirit_Gale,            // TODO
+        Blades_Of_Shyish,
+        Spirit_Gale,
         Vile_Transference,      // TODO
-        Amethystine_Pinions,    // TODO
+        Amethystine_Pinions,
         Soulpike,               // TODO
-        Amaranthine_Orb,        // TODO
+        Amaranthine_Orb,
     };
 
     class LegionOfNagashBase : public Unit {
@@ -141,7 +141,7 @@ namespace Death {
 
         LegionOfNagashBase() = delete;
 
-        ~LegionOfNagashBase() override = default;
+        ~LegionOfNagashBase() override;
 
         void setCommandTrait(CommandTrait trait);
 
@@ -186,7 +186,17 @@ namespace Death {
 
         Rerolls battleshockRerolls() const override;
 
+        void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
+
+        int terrifyingVisage(const Unit *unit);
+
+        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
     protected:
+
+        lsignal::slot m_terrifyVisageSlot;
 
         Legion m_legion = Legion::Grand_Host_Of_Nagash;
         CommandTrait m_commandTrait = CommandTrait::None;

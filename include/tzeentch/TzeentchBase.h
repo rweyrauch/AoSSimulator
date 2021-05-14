@@ -34,7 +34,7 @@ namespace Tzeentch {
         None,
 
         // Arcanites
-        Arch_Sorcerer, // TODO
+        Arch_Sorcerer,
         Nexus_Of_Fate,
         Magical_Supremancy,
         Boundless_Mutation,

@@ -26,6 +26,7 @@ file(GLOB fyreslayers_src "fyreslayers/*.cpp" "fyreslayers/*.h")
 file(GLOB ossiarch_src "ossiarch/*.cpp" "ossiarch/*.h")
 file(GLOB kharadron_src "kharadron/*.cpp" "kharadron/*.h")
 file(GLOB lumineth_src "lumineth/*.cpp" "lumineth/*.h")
+file(GLOB soulblight_src "soulblight/*.cpp" "soulblight/*.h")
 
 set(AOSSIM_SOURCE
         Dice.cpp
@@ -85,6 +86,7 @@ set(AOSSIM_SOURCE
         ${ossiarch_src}
         ${kharadron_src}
         ${lumineth_src}
+        ${soulblight_src}
 
         wanderers/Wanderer.cpp
         wanderers/EternalGuard.cpp

@@ -49,7 +49,7 @@ namespace FleshEaterCourt {
         //Savage_Beyond_Reason,
         Hulking_Brute,
         Cruel_Taskmaster,       // TODO
-        Dark_Acolyte,           // TODO
+        Dark_Acolyte,
 
         // Grand Court specific
         Savage_Chivalry,  // Morgaunt
@@ -127,9 +127,7 @@ namespace FleshEaterCourt {
 
         ~FleshEaterCourts() override = default;
 
-        void setCommandTrait(CommandTrait trait) {
-            m_commandTrait = trait;
-        }
+        void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact) {
             m_artefact = artefact;

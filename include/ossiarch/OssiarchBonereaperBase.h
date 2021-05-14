@@ -30,7 +30,7 @@ namespace OssiarchBonereapers {
         // Kavalos
         Ancient_Knowledge,          // TODO
         Immortal_Ruler,             // TODO
-        Dark_Acolyte,               // TODO
+        Dark_Acolyte,
         Peerless_Warrior,
         Hatred_Of_The_Living,
         Life_Stealer,               // TODO
