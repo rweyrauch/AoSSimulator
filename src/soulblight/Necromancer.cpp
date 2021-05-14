@@ -19,7 +19,7 @@ namespace Soulblight {
 
     bool Necromancer::s_registered = false;
 
-    Necromancer::Necromancer(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    Necromancer::Necromancer(CursedBloodline legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SoulblightBase(legion, "Necromancer", 5, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Mortis Staff", 1, 2, 3, 3, -1, RAND_D3) {
         m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
@@ -42,7 +42,7 @@ namespace Soulblight {
     }
 
     Unit *Necromancer::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_deathmageLore[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
@@ -65,7 +65,7 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {DEATHMAGES}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Necromancer", factoryMethod);
         }

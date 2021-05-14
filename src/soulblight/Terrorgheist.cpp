@@ -35,7 +35,7 @@ namespace Soulblight {
 
     bool Terrorgheist::s_registered = false;
 
-    Terrorgheist::Terrorgheist(Legion legion) :
+    Terrorgheist::Terrorgheist(CursedBloodline legion) :
             SoulblightBase(legion, "Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 1, 0, 0, 0, 0),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
@@ -65,7 +65,7 @@ namespace Soulblight {
                     {
                     },
                     DEATH,
-                    {FLESH_EATER_COURTS}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Terrorgheist", factoryMethod);
         }

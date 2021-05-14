@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    GorslavTheGravekeeper::GorslavTheGravekeeper(Legion legion, bool isGeneral) :
+    GorslavTheGravekeeper::GorslavTheGravekeeper(CursedBloodline legion, bool isGeneral) :
         SoulblightBase(legion, "Gorslav the Gravekeeper", 4, g_wounds, 10, 6, false, g_pointsPerUnit) {
 
     }

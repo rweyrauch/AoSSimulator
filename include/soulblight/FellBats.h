@@ -20,7 +20,7 @@ namespace Soulblight {
 
         static void Init();
 
-        FellBats(Legion legion, int numModels, int points);
+        FellBats(CursedBloodline bloodline, int numModels, int points);
 
         ~FellBats() override = default;
 
@@ -34,7 +34,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Scent of Gore                    TODO
+// Single-minded Ferocity           TODO
 //
 
 } //namespace Soulblight

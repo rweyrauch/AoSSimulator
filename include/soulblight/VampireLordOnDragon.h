@@ -26,7 +26,7 @@ namespace Soulblight {
 
         static void Init();
 
-        VampireLordOnZombieDragon(Legion legion, WeaponOption option, bool shield, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        VampireLordOnZombieDragon(CursedBloodline bloodline, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VampireLordOnZombieDragon() override = default;
 
@@ -36,11 +36,7 @@ namespace Soulblight {
 
         void onRestore() override;
 
-        void onStartHero(PlayerId player) override;
-
         void onEndCombat(PlayerId player) override;
-
-        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         int toHitModifier(const Weapon *weapon, const Unit *target) const override;
 
@@ -54,9 +50,6 @@ namespace Soulblight {
                 m_maw,
                 m_claws;
 
-        bool m_haveChaliceOfBlood = false;
-        bool m_usedChaliceOfBlood = false;
-
         static bool s_registered;
 
     };
@@ -66,12 +59,8 @@ namespace Soulblight {
 // -------------------------------------------
 // Pestilential Breath              Yes
 // The Hunger                       Yes
-// Deathlance Charge                Yes
-// Anciet Shield                    Yes
-// Chalice of Blood                 Yes
-// Deathly Invocation               Yes
-// Blood Boil                       TODO
-// Dread Knights                    TODO
+// Deathlance Charge                TODO
+// Curse of Exsanguination          TODO
 //
 
 } // namespace Soulblight

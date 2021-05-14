@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        BelladammaVolga(Legion legion, Lore lore, bool isGeneral);
+        BelladammaVolga(CursedBloodline bloodline, Lore lore, bool isGeneral);
 
         ~BelladammaVolga() override = default;
 
@@ -37,6 +37,11 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// The Hunger                       TODO
+// First of the Vyrkos              TODO
+// Lycancurse                       TODO
+// Under a Killing Moon             TODO
+// Pack Alpha                       TODO
 //
 
 } // namespace Soulblight

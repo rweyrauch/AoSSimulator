@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        MannfredMortarchOfNight(Legion legion, bool isGeneral);
+        MannfredMortarchOfNight(bool isGeneral);
 
         ~MannfredMortarchOfNight() override = default;
 

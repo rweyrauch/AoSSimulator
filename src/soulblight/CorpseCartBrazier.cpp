@@ -19,7 +19,7 @@ namespace Soulblight {
     bool CorpseCartWithBalefireBrazier::s_registered = false;
 
     Unit *CorpseCartWithBalefireBrazier::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         return new CorpseCartWithBalefireBrazier(legion);
     }
 
@@ -38,13 +38,13 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {DEADWALKERS}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Corpse Cart with Balefire Brazier", factoryMethod);
         }
     }
 
-    CorpseCartWithBalefireBrazier::CorpseCartWithBalefireBrazier(Legion legion) :
+    CorpseCartWithBalefireBrazier::CorpseCartWithBalefireBrazier(CursedBloodline legion) :
             SoulblightBase(legion, "Corpse Cart with Balefire Brazier", 4, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_goad(Weapon::Type::Melee, "Corpse Goad", 2, 2, 4, 4, 0, 1),
             m_lash(Weapon::Type::Melee, "Corpse Lash", 1, 3, 4, 4, 0, 1),

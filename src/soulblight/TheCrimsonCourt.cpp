@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    TheCrimsonCourt::TheCrimsonCourt(Legion legion):
+    TheCrimsonCourt::TheCrimsonCourt(CursedBloodline legion):
         SoulblightBase(legion, "The Crimson Court", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
     }

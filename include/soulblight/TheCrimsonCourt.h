@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        TheCrimsonCourt(Legion legion);
+        TheCrimsonCourt(CursedBloodline bloodline);
 
         ~TheCrimsonCourt() override = default;
 

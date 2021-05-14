@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    WatchCaptainHalgrim::WatchCaptainHalgrim(Legion legion, bool isGeneral) :
+    WatchCaptainHalgrim::WatchCaptainHalgrim(CursedBloodline legion, bool isGeneral) :
         SoulblightBase(legion, "Watch Captain Halgrim", 4, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
     }

@@ -20,7 +20,7 @@ namespace Soulblight {
 
         static void Init();
 
-        Vargheists(Legion legion, int numModels, int points);
+        Vargheists(CursedBloodline bloodline, int numModels, int points);
 
         ~Vargheists() override = default;
 
@@ -37,6 +37,7 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // Blood-maddened Frenzy            TODO
+// Death's Descent                  TODO
 //
 
 } //namespace Soulblight

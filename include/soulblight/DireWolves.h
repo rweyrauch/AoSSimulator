@@ -20,7 +20,7 @@ namespace Soulblight {
 
         static void Init();
 
-        DireWolves(Legion legion, int numModels, int points);
+        DireWolves(CursedBloodline bloodline, int numModels, int points);
 
         ~DireWolves() override = default;
 
@@ -43,7 +43,6 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // Slavering Charge                 Yes
-// Vigour Necris                    Yes
 //
 
 } //namespace Soulblight

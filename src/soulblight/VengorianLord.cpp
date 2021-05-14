@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    VengorianLord::VengorianLord(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    VengorianLord::VengorianLord(CursedBloodline legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
         SoulblightBase(legion, "Vengorian Lord", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
 
     }

@@ -37,7 +37,7 @@ namespace Soulblight {
     bool NeferataMortarchOfBlood::s_registered = false;
 
     Unit *NeferataMortarchOfBlood::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto general = GetBoolParam("General", parameters, false);
         return new NeferataMortarchOfBlood(legion, lore, general);
@@ -60,13 +60,13 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {SOULBLIGHT, DEATHLORDS}
+                    {SOULBLIGHT_GRAVELORDS, DEATHLORDS}
             };
             s_registered = UnitFactory::Register("Neferata, Mortarch of Blood", factoryMethod);
         }
     }
 
-    NeferataMortarchOfBlood::NeferataMortarchOfBlood(Legion legion, Lore lore, bool isGeneral) :
+    NeferataMortarchOfBlood::NeferataMortarchOfBlood(CursedBloodline legion, Lore lore, bool isGeneral) :
             SoulblightBase(legion, "Neferata, Mortarch of Blood", 16, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_akmetHar(Weapon::Type::Melee, "Akmet-har", 1, 5, 2, 3, -1, 1),
             m_akenSeth(Weapon::Type::Melee, "Aken-seth", 1, 2, 2, 3, -2, 2),

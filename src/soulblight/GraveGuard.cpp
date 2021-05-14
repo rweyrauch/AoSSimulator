@@ -20,7 +20,7 @@ namespace Soulblight {
 
     bool GraveGuard::s_registered = false;
 
-    GraveGuard::GraveGuard(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
+    GraveGuard::GraveGuard(CursedBloodline legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
             SoulblightBase(legion, "Grave Guard", 4, g_wounds, 10, 5, false, points),
             m_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 3, -1, 1),
             m_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade", 1, 3, 3, 3, -1, 1),
@@ -62,7 +62,7 @@ namespace Soulblight {
     }
 
     Unit *GraveGuard::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Wight_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
@@ -86,7 +86,7 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {DEATHRATTLE}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Grave Guard", factoryMethod);
         }

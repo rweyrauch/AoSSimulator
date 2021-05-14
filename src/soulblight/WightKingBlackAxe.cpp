@@ -17,7 +17,7 @@ namespace Soulblight {
 
     bool WightKingWithBlackAxe::s_registered = false;
 
-    WightKingWithBlackAxe::WightKingWithBlackAxe(Legion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    WightKingWithBlackAxe::WightKingWithBlackAxe(CursedBloodline legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SoulblightBase(legion, "Wight King with Black Axe", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
             m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1) {
         m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
@@ -34,7 +34,7 @@ namespace Soulblight {
     }
 
     Unit *WightKingWithBlackAxe::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
@@ -55,7 +55,7 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {DEATHRATTLE}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Wight King with Black Axe", factoryMethod);
         }

@@ -18,7 +18,7 @@ namespace Soulblight {
 
     bool WightKingWithBalefulTombBlade::s_registered = false;
 
-    WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade(Legion legion, bool hasSteed, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    WightKingWithBalefulTombBlade::WightKingWithBalefulTombBlade(CursedBloodline legion, bool hasSteed, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SoulblightBase(legion, "Wight King with Baleful Tomb Blade", 4, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_balefulTombBlade(Weapon::Type::Melee, "Baleful Tomb Blade", 1, 4, 3, 3, -1, 1),
             m_steedsHoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
@@ -45,7 +45,7 @@ namespace Soulblight {
     }
 
     Unit *WightKingWithBalefulTombBlade::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         bool steed = GetBoolParam("Steed", parameters, false);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
@@ -68,7 +68,7 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {DEATHRATTLE}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Wight King with Baleful Tomb Blade", factoryMethod);
         }

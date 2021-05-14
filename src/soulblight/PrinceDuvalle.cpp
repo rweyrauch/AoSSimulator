@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    PrinceDuvalle::PrinceDuvalle(Legion legion, Lore lore, bool isGeneral) :
+    PrinceDuvalle::PrinceDuvalle(CursedBloodline legion, Lore lore, bool isGeneral) :
         SoulblightBase(legion, "Prince Duvalle", 6, g_wounds, 10, 3, false, g_pointsPerUnit) {
 
     }

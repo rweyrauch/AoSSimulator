@@ -20,7 +20,7 @@ namespace Soulblight {
 
         static void Init();
 
-        BatSwarms(Legion legion, int numModels, int points);
+        BatSwarms(CursedBloodline bloodline, int numModels, int points);
 
         ~BatSwarms() override;
 

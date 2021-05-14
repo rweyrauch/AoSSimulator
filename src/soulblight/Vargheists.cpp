@@ -20,7 +20,7 @@ namespace Soulblight {
 
     bool Vargheists::s_registered = false;
 
-    Vargheists::Vargheists(Legion legion, int numModels, int points) :
+    Vargheists::Vargheists(CursedBloodline legion, int numModels, int points) :
             SoulblightBase(legion, "Vargheists", 12, g_wounds, 10, 5, true, points),
             m_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2),
             m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 4, 3, 3, -1, 2) {
@@ -39,7 +39,7 @@ namespace Soulblight {
     }
 
     Unit *Vargheists::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         return new Vargheists(legion, numModels, ComputePoints(parameters));
     }
@@ -56,7 +56,7 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Vargheists", factoryMethod);
         }

@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        TorgilliusTheChamberlain(Legion legion, Lore lore, bool isGeneral);
+        TorgilliusTheChamberlain(CursedBloodline bloodline, Lore lore, bool isGeneral);
 
         ~TorgilliusTheChamberlain() override = default;
 
@@ -36,6 +36,9 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Mastery of Grave-sand            TODO
+// Trusted Lieutenant               TODO
+// Necrotising Bolt                 TODO
 //
 
 } // namespace Soulblight

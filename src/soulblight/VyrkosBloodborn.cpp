@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    VyrkosBloodborn::VyrkosBloodborn(Legion legion, int numModels) :
+    VyrkosBloodborn::VyrkosBloodborn(CursedBloodline legion, int numModels) :
         SoulblightBase(legion, "Vyrkos Bloodborn", 10, g_wounds, 10, 6, false, g_pointsPerUnit) {
 
     }

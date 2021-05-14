@@ -35,9 +35,8 @@ namespace Soulblight {
     bool MannfredMortarchOfNight::s_registered = false;
 
     Unit *MannfredMortarchOfNight::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new MannfredMortarchOfNight(legion, general);
+        return new MannfredMortarchOfNight(general);
     }
 
     int MannfredMortarchOfNight::ComputePoints(const ParameterList& /*parameters*/) {
@@ -52,24 +51,23 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions),
                             EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
                             BoolParameter("General")
                     },
                     DEATH,
-                    {SOULBLIGHT, DEATHLORDS}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Mannfred, Mortarch of Night", factoryMethod);
         }
     }
 
-    MannfredMortarchOfNight::MannfredMortarchOfNight(Legion legion, bool isGeneral) :
-            SoulblightBase(legion, "Mannfred, Mortarch of Night", 16, g_wounds, 10, 3, true, g_pointsPerUnit),
+    MannfredMortarchOfNight::MannfredMortarchOfNight(bool isGeneral) :
+            SoulblightBase(CursedBloodline::Legion_Of_Night, "Mannfred, Mortarch of Night", 16, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_gheistvor(Weapon::Type::Melee, "Gheistvor", 1, 4, 3, 3, -1, RAND_D3),
             m_glaive(Weapon::Type::Melee, "Sickle-glaive", 2, 2, 3, 3, -1, 2),
             m_ebonClaws(Weapon::Type::Melee, "Ebon Claws", 1, 6, 4, 3, -2, 2),
             m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, MANNFRED};
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, DEATHLORDS, LEGION_OF_NIGHT, MONSTER, HERO, WIZARD, MORTARCH, MANNFRED};
         m_weapons = {&m_gheistvor, &m_glaive, &m_ebonClaws, &m_clawsAndDaggers};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;

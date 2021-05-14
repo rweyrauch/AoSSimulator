@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        WatchCaptainHalgrim(Legion legion, bool isGeneral);
+        WatchCaptainHalgrim(CursedBloodline bloodline, bool isGeneral);
 
         ~WatchCaptainHalgrim() override = default;
 
@@ -36,6 +36,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Cursed Halberd                   TODO
+// Disciplined Advance              TODO
 //
 
 } // namespace Soulblight

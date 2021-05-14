@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        KosargiNightguard(Legion legion, int numModels);
+        KosargiNightguard(CursedBloodline bloodline, int numModels);
 
         ~KosargiNightguard() override = default;
 
@@ -36,6 +36,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Deathly Vigour                   TODO
+// Servants Even in Death           TODO
 //
 
 } // namespace Soulblight

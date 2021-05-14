@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        RadukarTheBeast(Legion legion, bool isGeneral);
+        RadukarTheBeast(CursedBloodline bloodline, bool isGeneral);
 
         ~RadukarTheBeast() override = default;
 
@@ -37,6 +37,12 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Bounding Charge                  TODO
+// The Hunger                       TODO
+// Supernatural Reflexes            TODO
+// Unleashed Ferocity               TODO
+// Call to the Hunt                 TODO
+// Mustering Howl                   TODO
 //
 
 } // namespace Soulblight

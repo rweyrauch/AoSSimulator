@@ -14,13 +14,14 @@
 
 namespace Soulblight {
 
-    enum class Legion : int {
+    enum class CursedBloodline : int {
         None,
 
-        Grand_Host_Of_Nagash,
-        Legion_Of_Sacrament,
         Legion_Of_Blood,
-        Legion_Of_Night
+        Legion_Of_Night,
+        Vyrkos_Dynasty,
+        Kastelai_Dynasty,
+        Avengorii_Dynasty
     };
 
     enum class CommandTrait : int {
@@ -149,12 +150,12 @@ namespace Soulblight {
 
     protected:
 
-        SoulblightBase(Legion legion, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+        SoulblightBase(CursedBloodline bloodline, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
                 Unit(name, move, wounds, bravery, save, fly, points) {
-            setLegion(legion);
+            setBloodline(bloodline);
         }
 
-        void setLegion(Legion legion);
+        void setBloodline(CursedBloodline bloodline);
 
         void deathlyInvocations(int numUnits, double range);
 
@@ -198,7 +199,7 @@ namespace Soulblight {
 
         lsignal::slot m_terrifyVisageSlot;
 
-        Legion m_legion = Legion::Grand_Host_Of_Nagash;
+        CursedBloodline m_bloodline = CursedBloodline::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
     };
@@ -207,27 +208,20 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // The Unquiet Dead                 TODO
-// Deathless Minons                 TODO
+// Locus of Shyish                  TODO
+// Deathless Minions                TODO
 // Endless Legions                  TODO
-// Grand Host of Nagash
-//    Chosen Guardians              TODO
-//    Legions Innumerable           TODO
-// Legion of Sacrament
-//    The Master's Teachings        TODO
-//    The Black Disciples           TODO
+// Reanimated Horrors               TODO
+// Deathly Invocations              TODO
 // Legion of Blood
 //    Immortal Majesty              TODO
 //    Favoured Retainers            TODO
 // Legion of Night
 //    The Bait                      TODO
 //    Ageless Cunning               TODO
-// Soulblight
-//    Deathless Thralls             TODO
-//    The Bloodlines                TODO
-//      Dragon Warriors             TODO
-//      Lords of Night              TODO
-//      Necromantic                 TODO
-//      Swift Death                 TODO
+// Vyrkos Dynasty
+//    Strength of the Pack...       TODO
+//    Strength of the Wolf...       TODO
 //
 
     void Init();

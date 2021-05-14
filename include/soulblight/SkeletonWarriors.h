@@ -30,7 +30,7 @@ namespace Soulblight {
 
         static void Init();
 
-        SkeletonWarriors(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points);
+        SkeletonWarriors(CursedBloodline bloodline, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points);
 
         ~SkeletonWarriors() override;
 

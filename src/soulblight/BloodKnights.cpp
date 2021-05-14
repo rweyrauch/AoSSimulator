@@ -20,14 +20,12 @@ namespace Soulblight {
 
     bool BloodKnights::s_registered = false;
 
-    BloodKnights::BloodKnights(Legion legion, int numModels, bool standardBearers, bool hornblowers, int points) :
+    BloodKnights::BloodKnights(CursedBloodline legion, int numModels, bool standardBearers, bool hornblowers, int points) :
             SoulblightBase(legion, "Blood Knights", 10, g_wounds, 10, 3, false, points) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, BLOOD_KNIGHTS};
         m_weapons = {&m_templarLanceOrBlade, &m_templarLanceOrBladeKastellan, &m_hoovesAndTeeth};
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
-
-        s_globalBraveryMod.connect(this, &BloodKnights::standardBearerBraveryMod, &m_standardSlot);
 
         auto kastellan = new Model(g_basesize, wounds());
         kastellan->addMeleeWeapon(&m_templarLanceOrBladeKastellan);
@@ -54,7 +52,7 @@ namespace Soulblight {
     }
 
     Unit *BloodKnights::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -75,7 +73,7 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Blood Knights", factoryMethod);
         }
@@ -96,17 +94,6 @@ namespace Soulblight {
             points = g_pointsMaxUnitSize;
         }
         return points;
-    }
-
-    int BloodKnights::rollChargeDistance() {
-        // Hornblower
-        auto dist = SoulblightBase::rollChargeDistance();
-        return std::max(6, dist);
-    }
-
-    int BloodKnights::standardBearerBraveryMod(const Unit *unit) {
-        if (isNamedModelAlive(Model::StandardBearer) && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
-        return 0;
     }
 
     void BloodKnights::onEndCombat(PlayerId player) {

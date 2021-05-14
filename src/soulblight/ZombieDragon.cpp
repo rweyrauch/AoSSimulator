@@ -34,12 +34,12 @@ namespace Soulblight {
 
     bool ZombieDragon::s_registered = false;
 
-    ZombieDragon::ZombieDragon(Legion legion) :
+    ZombieDragon::ZombieDragon(CursedBloodline legion) :
             SoulblightBase(legion, "Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_pestilentialBreath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_snappingMaw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_swordlikeClaws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2) {
-        m_keywords = {DEATH, FLESH_EATER_COURTS, MENAGERIE, MONSTER, ROYAL_ZOMBIE_DRAGON};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, MENAGERIE, MONSTER, ROYAL_ZOMBIE_DRAGON};
         m_weapons = {&m_pestilentialBreath, &m_snappingMaw, &m_swordlikeClaws};
         m_battleFieldRole = Role::Behemoth;
 
@@ -70,7 +70,7 @@ namespace Soulblight {
                     {
                     },
                     DEATH,
-                    {FLESH_EATER_COURTS}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Zombie Dragon", factoryMethod);
         }

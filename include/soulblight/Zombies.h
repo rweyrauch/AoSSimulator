@@ -20,7 +20,7 @@ namespace Soulblight {
 
         static void Init();
 
-        Zombies(Legion legion, int numModels, bool standardBearer, bool noiseMaker, int points);
+        Zombies(CursedBloodline bloodline, int numModels, bool standardBearer, bool noiseMaker, int points);
 
         ~Zombies() override;
 

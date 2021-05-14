@@ -37,15 +37,13 @@ namespace Soulblight {
     bool VampireLordOnZombieDragon::s_registered = false;
 
     Unit *VampireLordOnZombieDragon::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Deathlance);
-        bool shield = GetBoolParam("Ancient Shield", parameters, true);
-        bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new VampireLordOnZombieDragon(legion, weapon, shield, chalice, lore, trait, artefact, general);
+        return new VampireLordOnZombieDragon(legion, weapon, lore, trait, artefact, general);
     }
 
     int VampireLordOnZombieDragon::ComputePoints(const ParameterList& /*parameters*/) {
@@ -62,8 +60,6 @@ namespace Soulblight {
                     ComputePoints,
                     {
                             EnumParameter("Weapon", Deathlance, weapons),
-                            BoolParameter("Ancient Shield"),
-                            BoolParameter("Chalice of Blood"),
                             EnumParameter("Legion", g_legions[0], g_legions),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
@@ -71,13 +67,13 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Vampire Lord on Zombie Dragon", factoryMethod);
         }
     }
 
-    VampireLordOnZombieDragon::VampireLordOnZombieDragon(Legion legion, WeaponOption option, bool shield, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    VampireLordOnZombieDragon::VampireLordOnZombieDragon(CursedBloodline legion, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SoulblightBase(legion, "Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_breath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_deathlance(Weapon::Type::Melee, "Deathlance", 1, 3, 3, 3, -1, 2),
@@ -109,16 +105,9 @@ namespace Soulblight {
         model->addMeleeWeapon(&m_claws);
         addModel(model);
 
-        // Ancient Shield
-        if (shield) {
-            m_save = 3;
-        }
-
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-
-        m_haveChaliceOfBlood = chalice;
     }
 
     void VampireLordOnZombieDragon::onWounded() {
@@ -132,8 +121,6 @@ namespace Soulblight {
 
     void VampireLordOnZombieDragon::onRestore() {
         SoulblightBase::onRestore();
-
-        m_usedChaliceOfBlood = false;
 
         // Restore table-driven attributes
         onWounded();
@@ -149,33 +136,11 @@ namespace Soulblight {
         return 0;
     }
 
-    void VampireLordOnZombieDragon::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-
-        if (owningPlayer() == player) {
-
-            deathlyInvocations(3, 12.0);
-
-            // Chalice of Blood
-            if (m_haveChaliceOfBlood && !m_usedChaliceOfBlood && remainingWounds() < wounds()) {
-                heal(Dice::RollD6());
-                m_usedChaliceOfBlood = true;
-            }
-        }
-    }
-
     void VampireLordOnZombieDragon::onEndCombat(PlayerId player) {
         // The Hunger
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
 
         SoulblightBase::onEndCombat(player);
-    }
-
-    Wounds VampireLordOnZombieDragon::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
-                                                   int woundRoll) const {
-        // Deathlance Charge
-        if (m_charged && (weapon->name() == m_deathlance.name())) return {3, 0};
-        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
     int VampireLordOnZombieDragon::toHitModifier(const Weapon *weapon, const Unit *target) const {

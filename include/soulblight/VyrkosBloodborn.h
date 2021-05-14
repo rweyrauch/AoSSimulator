@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        VyrkosBloodborn(Legion legion, int numModels);
+        VyrkosBloodborn(CursedBloodline bloodline, int numModels);
 
         ~VyrkosBloodborn() override = default;
 
@@ -36,6 +36,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Shadowfast                       TODO
 //
 
 } // namespace Soulblight

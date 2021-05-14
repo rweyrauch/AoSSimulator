@@ -37,7 +37,7 @@ namespace Soulblight {
     bool CovenThrone::s_registered = false;
 
     Unit *CovenThrone::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
@@ -64,13 +64,13 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Coven Throne", factoryMethod);
         }
     }
 
-    CovenThrone::CovenThrone(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    CovenThrone::CovenThrone(CursedBloodline legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SoulblightBase(legion, "Coven Throne", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_bite(Weapon::Type::Melee, "Predatory Bite", 1, 1, 3, 3, 0, RAND_D3),
             m_stiletto(Weapon::Type::Melee, "Stiletto", 1, 4, 3, 3, -1, 1),

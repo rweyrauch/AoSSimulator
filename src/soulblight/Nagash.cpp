@@ -36,7 +36,7 @@ namespace Soulblight {
 
     bool Nagash::s_registered = false;
 
-    Nagash::Nagash(Legion legion, bool isGeneral) :
+    Nagash::Nagash(CursedBloodline legion, bool isGeneral) :
             SoulblightBase(legion, "Nagash", 9, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_gaze(Weapon::Type::Missile, "Gaze of Nagash", 12, 1, 3, 2, -1, RAND_D6),
             m_alakanash(Weapon::Type::Melee, "Alakanash", 3, 1, 3, 2, -3, RAND_D6),
@@ -65,7 +65,7 @@ namespace Soulblight {
     }
 
     Unit *Nagash::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         auto general = GetBoolParam("General", parameters, false);
         return new Nagash(legion, general);
     }
@@ -82,7 +82,7 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {DEATHLORDS, OSSIARCH_BONEREAPERS}
+                    {SOULBLIGHT_GRAVELORDS, OSSIARCH_BONEREAPERS}
             };
             s_registered = UnitFactory::Register("Nagash", factoryMethod);
         }

@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        LaukaVai(Legion legion, Lore lore, bool isGeneral);
+        LaukaVai(CursedBloodline bloodline, Lore lore, bool isGeneral);
 
         ~LaukaVai() override = default;
 

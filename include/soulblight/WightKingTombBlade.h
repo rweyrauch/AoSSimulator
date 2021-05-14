@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        WightKingWithBalefulTombBlade(Legion legion, bool hasSteed, CommandTrait trait, Artefact artefact, bool isGeneral);
+        WightKingWithBalefulTombBlade(CursedBloodline bloodline, bool hasSteed, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WightKingWithBalefulTombBlade() override = default;
 

@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        Nagash(Legion legion, bool isGeneral);
+        Nagash(CursedBloodline bloodline, bool isGeneral);
 
         ~Nagash() override = default;
 

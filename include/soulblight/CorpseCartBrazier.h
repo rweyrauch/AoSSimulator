@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        explicit CorpseCartWithBalefireBrazier(Legion legion);
+        explicit CorpseCartWithBalefireBrazier(CursedBloodline bloodline);
 
         ~CorpseCartWithBalefireBrazier() override;
 

@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        PrinceDuvalle(Legion legion, Lore lore, bool isGeneral);
+        PrinceDuvalle(CursedBloodline bloodline, Lore lore, bool isGeneral);
 
         ~PrinceDuvalle() override = default;
 

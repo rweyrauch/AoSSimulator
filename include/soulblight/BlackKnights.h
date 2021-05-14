@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        BlackKnights(Legion legion, int numModels, bool standardBearers, bool hornblowers, int points);
+        BlackKnights(CursedBloodline bloodline, int numModels, bool standardBearers, bool hornblowers, int points);
 
         ~BlackKnights() override;
 

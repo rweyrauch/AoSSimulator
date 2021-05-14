@@ -36,7 +36,7 @@ namespace Soulblight {
     bool MortisEngine::s_registered = false;
 
     Unit *MortisEngine::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         return new MortisEngine(legion);
     }
 
@@ -55,13 +55,13 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {DEATHMAGES}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Mortis Engine", factoryMethod);
         }
     }
 
-    MortisEngine::MortisEngine(Legion legion) :
+    MortisEngine::MortisEngine(CursedBloodline legion) :
             SoulblightBase(legion, "Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 12, 1, 0, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Mortis Staff", 1, 2, 4, 3, -1, RAND_D3),

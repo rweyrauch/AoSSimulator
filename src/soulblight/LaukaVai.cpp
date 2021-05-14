@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    LaukaVai::LaukaVai(Legion legion, Lore lore, bool isGeneral) :
+    LaukaVai::LaukaVai(CursedBloodline legion, Lore lore, bool isGeneral) :
         SoulblightBase(legion, "Lauka Vai Mother of Nightmares", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
 
     }

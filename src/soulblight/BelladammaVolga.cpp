@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    BelladammaVolga::BelladammaVolga(Legion legion, Lore lore, bool isGeneral) :
+    BelladammaVolga::BelladammaVolga(CursedBloodline legion, Lore lore, bool isGeneral) :
             SoulblightBase(legion, "Belladamma Volga", 10, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
     }

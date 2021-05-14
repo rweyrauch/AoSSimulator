@@ -21,7 +21,7 @@ namespace Soulblight {
 
     bool DireWolves::s_registered = false;
 
-    DireWolves::DireWolves(Legion legion, int numModels, int points) :
+    DireWolves::DireWolves(CursedBloodline legion, int numModels, int points) :
             SoulblightBase(legion, "Dire Wolves", 10, g_wounds, 10, 5, false, points),
             m_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1),
             m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1) {
@@ -41,7 +41,7 @@ namespace Soulblight {
     }
 
     Unit *DireWolves::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         return new DireWolves(legion, numModels, ComputePoints(parameters));
     }
@@ -58,7 +58,7 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {DEADWALKERS}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Dire Wolves", factoryMethod);
         }

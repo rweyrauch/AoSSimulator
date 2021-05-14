@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        explicit CorpseCartWithUnholyLodestone(Legion legion);
+        explicit CorpseCartWithUnholyLodestone(CursedBloodline bloodline);
 
         ~CorpseCartWithUnholyLodestone() override;
 

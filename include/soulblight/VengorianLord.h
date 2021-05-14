@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        VengorianLord(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        VengorianLord(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VengorianLord() override = default;
 

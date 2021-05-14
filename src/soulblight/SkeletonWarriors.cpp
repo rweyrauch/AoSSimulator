@@ -21,7 +21,7 @@ namespace Soulblight {
 
     bool SkeletonWarriors::s_registered = false;
 
-    SkeletonWarriors::SkeletonWarriors(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
+    SkeletonWarriors::SkeletonWarriors(CursedBloodline legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
             SoulblightBase(legion, "Deathrattle Skeleton", 4, g_wounds, 10, 6, false, points),
             m_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1),
             m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade", 1, 2, 4, 4, 0, 1),
@@ -63,7 +63,7 @@ namespace Soulblight {
     }
 
     Unit *SkeletonWarriors::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancient_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
@@ -87,7 +87,7 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {DEATHRATTLE}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Skeleton Warriors", factoryMethod);
         }

@@ -21,7 +21,7 @@ namespace Soulblight {
 
     bool Zombies::s_registered = false;
 
-    Zombies::Zombies(Legion legion, int numModels, bool standardBearer, bool noiseMaker, int points) :
+    Zombies::Zombies(CursedBloodline legion, int numModels, bool standardBearer, bool noiseMaker, int points) :
             SoulblightBase(legion, "Zombies", 4, g_wounds, 10, NoSave, false, points),
             m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
         m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
@@ -49,7 +49,7 @@ namespace Soulblight {
     }
 
     Unit *Zombies::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
@@ -70,7 +70,7 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {DEADWALKERS}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Zombies", factoryMethod);
         }

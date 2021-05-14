@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    KosargiNightguard::KosargiNightguard(Legion legion, int numModels) :
+    KosargiNightguard::KosargiNightguard(CursedBloodline legion, int numModels) :
         SoulblightBase(legion, "Kosargi Nightguard", 5, g_wounds, 10, 5, false, g_pointsPerUnit) {
 
     }

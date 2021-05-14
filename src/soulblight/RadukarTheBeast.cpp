@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    RadukarTheBeast::RadukarTheBeast(Legion legion, bool isGeneral) :
+    RadukarTheBeast::RadukarTheBeast(CursedBloodline legion, bool isGeneral) :
         SoulblightBase(legion, "Radukar The Beast", 8, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
     }

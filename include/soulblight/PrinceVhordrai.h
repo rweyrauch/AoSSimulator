@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        PrinceVhordrai(Legion legion, Lore lore, bool isGeneral);
+        PrinceVhordrai(Lore lore, bool isGeneral);
 
         ~PrinceVhordrai() override = default;
 

@@ -20,7 +20,7 @@ namespace Soulblight {
 
     bool BlackKnights::s_registered = false;
 
-    BlackKnights::BlackKnights(Legion legion, int numModels, bool standardBearers, bool hornblowers, int points) :
+    BlackKnights::BlackKnights(CursedBloodline legion, int numModels, bool standardBearers, bool hornblowers, int points) :
             SoulblightBase(legion, "Black Knights", 12, g_wounds, 10, 5, false, points),
             m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1),
             m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 1, 3, 3, 4, 0, 1),
@@ -58,7 +58,7 @@ namespace Soulblight {
     }
 
     Unit *BlackKnights::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
@@ -79,7 +79,7 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {DEATHRATTLE}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Black Knights", factoryMethod);
         }

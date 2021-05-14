@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    KritzaTheRatPrince::KritzaTheRatPrince(Legion legion, Lore lore, bool isGeneral) :
+    KritzaTheRatPrince::KritzaTheRatPrince(CursedBloodline legion, Lore lore, bool isGeneral) :
             SoulblightBase(legion, "Kritza The Rat Prince", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
     }

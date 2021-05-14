@@ -21,7 +21,7 @@ namespace Soulblight {
     bool VampireLord::s_registered = false;
 
     Unit *VampireLord::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         bool withSteed = GetBoolParam("Steed", parameters, false);
         bool withWings = GetBoolParam("Wings", parameters, false);
         bool chalice = GetBoolParam("Chalice of Blood", parameters, true);
@@ -54,13 +54,13 @@ namespace Soulblight {
                             BoolParameter("General")
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Vampire Lord", factoryMethod);
         }
     }
 
-    VampireLord::VampireLord(Legion legion, bool withSteed, bool withWings, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    VampireLord::VampireLord(CursedBloodline legion, bool withSteed, bool withWings, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             SoulblightBase(legion, "Vampire Lord", 6, g_wounds, 10, 3, false, g_pointsPerUnit),
             m_blades(Weapon::Type::Melee, "Soulbound Blades", 1, 4, 3, 3, -1, RAND_D3),
             m_hoovesAndTeeth(Weapon::Type::Melee, "Nightmare's Hooves and Teeth", 1, 2, 4, 4, 0, 1) {

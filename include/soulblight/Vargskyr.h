@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        Vargskyr(Legion legion);
+        Vargskyr(CursedBloodline bloodline);
 
         ~Vargskyr() override = default;
 
@@ -37,6 +37,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Bounding Leaps                   TODO
+// Gnarled Hide                     TODO
 //
 
 } // namespace Soulblight

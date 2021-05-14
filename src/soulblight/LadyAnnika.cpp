@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    LadyAnnika::LadyAnnika(Legion legion, bool isGeneral) :
+    LadyAnnika::LadyAnnika(CursedBloodline legion, bool isGeneral) :
             SoulblightBase(legion, "Lady Annika The Thirsting Blade", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
     }

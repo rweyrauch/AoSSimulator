@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        GorslavTheGravekeeper(Legion legion, bool isGeneral);
+        GorslavTheGravekeeper(CursedBloodline bloodline, bool isGeneral);
 
         ~GorslavTheGravekeeper() override = default;
 
@@ -36,6 +36,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Keeper of the Corpse-garden      TODO
+// Arise! Arise!                    TODO
 //
 
 } // namespace Soulblight

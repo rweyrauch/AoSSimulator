@@ -87,6 +87,7 @@ static const std::map<std::string, Keyword> g_factionNameLookup = {
         {"Legion of Blood",      LEGION_OF_BLOOD},
         {"Legion of Night",      LEGION_OF_NIGHT},
         {"Legion of Sacrament",  LEGION_OF_SACRAMENT},
+        {"Soulblight Gravelords",SOULBLIGHT_GRAVELORDS},
         {"Soulblight",           SOULBLIGHT},
         {"Beastclaw Raiders",    BEASTCLAW_RAIDERS},
         {"Bonesplitterz",        BONESPLITTERZ},

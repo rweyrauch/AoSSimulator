@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        BloodseekerPalanquin(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        BloodseekerPalanquin(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~BloodseekerPalanquin() override = default;
 

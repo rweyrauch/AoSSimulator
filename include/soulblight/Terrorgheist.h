@@ -22,7 +22,7 @@ namespace Soulblight {
 
         static void Init();
 
-        Terrorgheist(Legion legon);
+        Terrorgheist(CursedBloodline bloodline);
 
         ~Terrorgheist() override = default;
 

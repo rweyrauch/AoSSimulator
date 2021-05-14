@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        CovenThrone(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        CovenThrone(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~CovenThrone() override = default;
 

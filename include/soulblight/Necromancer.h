@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        Necromancer(Legion legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        Necromancer(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~Necromancer() override = default;
 

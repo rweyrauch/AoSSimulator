@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        KritzaTheRatPrince(Legion legion, Lore lore, bool isGeneral);
+        KritzaTheRatPrince(CursedBloodline bloodline, Lore lore, bool isGeneral);
 
         ~KritzaTheRatPrince() override = default;
 
@@ -36,6 +36,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Scurrying Retreat                TODO
+// Nauseating Aroma                 TODO
 //
 
 } // namespace Soulblight

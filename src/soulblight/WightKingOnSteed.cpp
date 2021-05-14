@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    WightKingOnSteed::WightKingOnSteed(Legion legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    WightKingOnSteed::WightKingOnSteed(CursedBloodline legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
         SoulblightBase(legion, "Wight King on Skeletal Steed", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
 
     }

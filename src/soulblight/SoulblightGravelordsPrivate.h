@@ -13,11 +13,14 @@
 
 namespace Soulblight {
 
-    constexpr std::array<int, 4> g_legions = {
-            ToInteger(Legion::Grand_Host_Of_Nagash),
-            ToInteger(Legion::Legion_Of_Sacrament),
-            ToInteger(Legion::Legion_Of_Blood),
-            ToInteger(Legion::Legion_Of_Night)
+    constexpr std::array<int, 6> g_legions = {
+            ToInteger(CursedBloodline::None),
+
+            ToInteger(CursedBloodline::Legion_Of_Blood),
+            ToInteger(CursedBloodline::Legion_Of_Night),
+            ToInteger(CursedBloodline::Vyrkos_Dynasty),
+            ToInteger(CursedBloodline::Kastelai_Dynasty),
+            ToInteger(CursedBloodline::Avengorii_Dynasty)
     };
 
     constexpr std::array<int, 37> g_commandTraits = {

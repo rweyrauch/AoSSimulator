@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        RadukarTheWolf(Legion legion, Lore lore, bool isGeneral);
+        RadukarTheWolf(CursedBloodline bloodline, Lore lore, bool isGeneral);
 
         ~RadukarTheWolf() override = default;
 
@@ -36,6 +36,10 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// The Hunger                       TODO
+// Supernatural Strength            TODO
+// Loyal to the Last                TODO
+// Call to the Hunt                 TODO
 //
 
 } // namespace Soulblight

@@ -38,10 +38,9 @@ namespace Soulblight {
     bool PrinceVhordrai::s_registered = false;
 
     Unit *PrinceVhordrai::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new PrinceVhordrai(legion, lore, general);
+        return new PrinceVhordrai(lore, general);
     }
 
     int PrinceVhordrai::ComputePoints(const ParameterList& /*parameters*/) {
@@ -56,23 +55,22 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions),
                             EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
                             BoolParameter("General")
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Prince Vhordrai", factoryMethod);
         }
     }
 
-    PrinceVhordrai::PrinceVhordrai(Legion legion, Lore lore, bool isGeneral) :
-            SoulblightBase(legion, "Prince Vhordrai", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
+    PrinceVhordrai::PrinceVhordrai(Lore lore, bool isGeneral) :
+            SoulblightBase(CursedBloodline::Kastelai_Dynasty, "Prince Vhordrai", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_bloodlance(Weapon::Type::Melee, "Bloodlance", 2, 4, 3, 3, -2, 2),
             m_maw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_claws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2) {
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, PRINCE_VHORDRAI};
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, KASTELAI_DYNASTY, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, PRINCE_VHORDRAI};
         m_weapons = {&m_bloodlance, &m_maw, &m_claws};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;

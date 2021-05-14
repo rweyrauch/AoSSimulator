@@ -21,7 +21,7 @@ namespace Soulblight {
     bool FellBats::s_registered = false;
 
     Unit *FellBats::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         return new FellBats(legion, numModels, ComputePoints(parameters));
     }
@@ -47,13 +47,13 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Fell Bats", factoryMethod);
         }
     }
 
-    FellBats::FellBats(Legion legion, int numModels, int points) :
+    FellBats::FellBats(CursedBloodline legion, int numModels, int points) :
             SoulblightBase(legion, "Fell Bats", 14, g_wounds, 10, 6, true, points),
             m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 4, 0, 1) {
         m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, FELL_BATS};

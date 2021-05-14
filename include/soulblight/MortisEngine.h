@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        MortisEngine(Legion legion);
+        MortisEngine(CursedBloodline bloodline);
 
         ~MortisEngine() override = default;
 

@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        NeferataMortarchOfBlood(Legion legion, Lore lore, bool isGeneral);
+        NeferataMortarchOfBlood(CursedBloodline bloodline, Lore lore, bool isGeneral);
 
         ~NeferataMortarchOfBlood() override = default;
 

@@ -21,7 +21,7 @@ namespace Soulblight {
     bool BatSwarms::s_registered = false;
 
     Unit *BatSwarms::Create(const ParameterList &parameters) {
-        auto legion = (Legion) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         return new BatSwarms(legion, numModels, ComputePoints(parameters));
     }
@@ -47,16 +47,16 @@ namespace Soulblight {
                             EnumParameter("Legion", g_legions[0], g_legions)
                     },
                     DEATH,
-                    {SOULBLIGHT}
+                    {SOULBLIGHT_GRAVELORDS}
             };
             s_registered = UnitFactory::Register("Bat Swarms", factoryMethod);
         }
     }
 
-    BatSwarms::BatSwarms(Legion legion, int numModels, int points) :
+    BatSwarms::BatSwarms(CursedBloodline legion, int numModels, int points) :
             SoulblightBase(legion, "Bat Swarms", 12, g_wounds, 10, NoSave, true, points),
             m_teeth(Weapon::Type::Melee, "Razor-sharp Teeth", 3, 5, 5, 5, 0, 1) {
-        m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, BAT_SWARMS};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, SUMMONABLE, BAT_SWARMS};
         m_weapons = {&m_teeth};
 
         s_globalToHitMod.connect(this, &BatSwarms::cloudOfHorrors, &m_cloudSlot);

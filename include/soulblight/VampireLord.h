@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        VampireLord(Legion legion, bool withSteed, bool withWings, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        VampireLord(CursedBloodline bloodline, bool withSteed, bool withWings, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VampireLord() override = default;
 

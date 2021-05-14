@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        WightKingWithBlackAxe(Legion legion, CommandTrait trait, Artefact artefact, bool isGeneral);
+        WightKingWithBlackAxe(CursedBloodline bloodline, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~WightKingWithBlackAxe() override = default;
 

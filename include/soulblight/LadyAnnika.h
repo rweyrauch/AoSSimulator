@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        LadyAnnika(Legion legion, bool isGeneral);
+        LadyAnnika(CursedBloodline bloodline, bool isGeneral);
 
         ~LadyAnnika() override = default;
 
@@ -36,6 +36,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Supernatural Speed               TODO
+// Kiss of the Blade Proboscian     TODO
 //
 
 } // namespace Soulblight

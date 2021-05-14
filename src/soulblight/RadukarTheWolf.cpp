@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    RadukarTheWolf::RadukarTheWolf(Legion legion, Lore lore, bool isGeneral) :
+    RadukarTheWolf::RadukarTheWolf(CursedBloodline legion, Lore lore, bool isGeneral) :
         SoulblightBase(legion, "Radukar The Wolf", 5, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
     }

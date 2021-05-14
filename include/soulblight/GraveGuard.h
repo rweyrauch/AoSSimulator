@@ -30,7 +30,7 @@ namespace Soulblight {
 
         static void Init();
 
-        GraveGuard(Legion legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points);
+        GraveGuard(CursedBloodline bloodline, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points);
 
         ~GraveGuard() override;
 

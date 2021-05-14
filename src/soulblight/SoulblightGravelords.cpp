@@ -11,6 +11,24 @@
 #include <Roster.h>
 #include <magic_enum.hpp>
 #include <spells/MysticShield.h>
+#include <soulblight/BelladammaVolga.h>
+#include <soulblight/Gorslav.h>
+#include <soulblight/KosargiNightguard.h>
+#include <soulblight/Kritza.h>
+#include <soulblight/LaukaVai.h>
+#include <soulblight/LadyAnnika.h>
+#include <soulblight/PrinceDuvalle.h>
+#include <soulblight/RadukarTheBeast.h>
+#include <soulblight/RadukarTheWolf.h>
+#include <soulblight/Terrorgheist.h>
+#include <soulblight/TheCrimsonCourt.h>
+#include <soulblight/Torgillius.h>
+#include <soulblight/Vargskyr.h>
+#include <soulblight/VengorianLord.h>
+#include <soulblight/VyrkosBloodborn.h>
+#include <soulblight/WatchCaptainHalgrim.h>
+#include <soulblight/WightKingOnSteed.h>
+#include <soulblight/ZombieDragon.h>
 
 #include "soulblight/Nagash.h"
 #include "soulblight/BlackKnights.h"
@@ -20,10 +38,8 @@
 #include "soulblight/SkeletonWarriors.h"
 #include "soulblight/Vargheists.h"
 #include "soulblight/Zombies.h"
-#include "soulblight/WightKingTombBlade.h"
 #include "soulblight/WightKingBlackAxe.h"
 #include "soulblight/Necromancer.h"
-#include "soulblight/BatSwarms.h"
 #include "soulblight/BloodseekerPalangquin.h"
 #include "soulblight/CorpseCartBrazier.h"
 #include "soulblight/CorpseCartLodestone.h"
@@ -41,7 +57,7 @@ namespace Soulblight {
 
     std::string SoulblightBase::ValueToString(const Parameter &parameter) {
         if (std::string(parameter.name) == "Legion") {
-            auto legionName = magic_enum::enum_name((Legion) parameter.intValue);
+            auto legionName = magic_enum::enum_name((CursedBloodline) parameter.intValue);
             return std::string(legionName);
         }
         if (std::string(parameter.name) == "Command Trait") {
@@ -60,7 +76,7 @@ namespace Soulblight {
     }
 
     int SoulblightBase::EnumStringToInt(const std::string &enumString) {
-        auto legion = magic_enum::enum_cast<Legion>(enumString);
+        auto legion = magic_enum::enum_cast<CursedBloodline>(enumString);
         if (legion.has_value()) return (int) legion.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
@@ -79,26 +95,19 @@ namespace Soulblight {
         m_terrifyVisageSlot.disconnect();
     }
 
-    void SoulblightBase::setLegion(Legion legion) {
-        removeKeyword(GRAND_HOST_OF_NAGASH);
-        removeKeyword(LEGION_OF_SACRAMENT);
+    void SoulblightBase::setBloodline(CursedBloodline legion) {
         removeKeyword(LEGION_OF_NIGHT);
         removeKeyword(LEGION_OF_BLOOD);
 
-        m_legion = legion;
+        m_bloodline = legion;
         switch (legion) {
-            case Legion::Grand_Host_Of_Nagash:
-                addKeyword(GRAND_HOST_OF_NAGASH);
-                break;
-            case Legion::Legion_Of_Sacrament:
-                addKeyword(LEGION_OF_SACRAMENT);
-                break;
-            case Legion::Legion_Of_Night:
+            case CursedBloodline::Legion_Of_Night:
                 addKeyword(LEGION_OF_NIGHT);
                 break;
-            case Legion::Legion_Of_Blood:
+            case CursedBloodline::Legion_Of_Blood:
                 addKeyword(LEGION_OF_BLOOD);
                 break;
+
             default:
                 break;
         }
@@ -361,29 +370,45 @@ namespace Soulblight {
     }
 
     void Init() {
-        Nagash::Init();
+        BelladammaVolga::Init();
         BlackKnights::Init();
         BloodKnights::Init();
-        DireWolves::Init();
-        GraveGuard::Init();
-        SkeletonWarriors::Init();
-        Vargheists::Init();
-        Zombies::Init();
-        WightKingWithBlackAxe::Init();
-        WightKingWithBalefulTombBlade::Init();
-        Necromancer::Init();
-        BatSwarms::Init();
         BloodseekerPalanquin::Init();
         CorpseCartWithBalefireBrazier::Init();
         CorpseCartWithUnholyLodestone::Init();
         CovenThrone::Init();
+        DireWolves::Init();
         FellBats::Init();
+        GorslavTheGravekeeper::Init();
+        GraveGuard::Init();
+        KosargiNightguard::Init();
+        KritzaTheRatPrince::Init();
+        LadyAnnika::Init();
+        LaukaVai::Init();
         MannfredMortarchOfNight::Init();
         MortisEngine::Init();
+        Nagash::Init();
+        Necromancer::Init();
         NeferataMortarchOfBlood::Init();
+        PrinceDuvalle::Init();
         PrinceVhordrai::Init();
+        RadukarTheBeast::Init();
+        RadukarTheWolf::Init();
+        SkeletonWarriors::Init();
+        Terrorgheist::Init();
+        TheCrimsonCourt::Init();
+        TorgilliusTheChamberlain::Init();
         VampireLord::Init();
         VampireLordOnZombieDragon::Init();
+        Vargheists::Init();
+        Vargskyr::Init();
+        VengorianLord::Init();
+        VyrkosBloodborn::Init();
+        WatchCaptainHalgrim::Init();
+        WightKingWithBlackAxe::Init();
+        WightKingOnSteed::Init();
+        ZombieDragon::Init();
+        Zombies::Init();
     }
 
 } //namespace Seraphon

@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    TorgilliusTheChamberlain::TorgilliusTheChamberlain(Legion legion, Lore lore, bool isGeneral) :
+    TorgilliusTheChamberlain::TorgilliusTheChamberlain(CursedBloodline legion, Lore lore, bool isGeneral) :
         SoulblightBase(legion, "Torgillius The Chamberlain", 5, g_wounds, 10, 6, false, g_pointsPerUnit) {
 
     }

@@ -29,7 +29,7 @@ namespace Soulblight {
 
     }
 
-    Vargskyr::Vargskyr(Legion legion) :
+    Vargskyr::Vargskyr(CursedBloodline legion) :
         SoulblightBase(legion, "Vargskyr", 8, g_wounds, 10, 5, false, g_pointsPerUnit) {
 
     }

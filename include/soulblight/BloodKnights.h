@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        BloodKnights(Legion legion, int numModels, bool standardBearers, bool hornblowers, int points);
+        BloodKnights(CursedBloodline bloodline, int numModels, bool standardBearers, bool hornblowers, int points);
 
         ~BloodKnights() override;
 
@@ -29,11 +29,7 @@ namespace Soulblight {
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        int rollChargeDistance() override;
-
         void onEndCombat(PlayerId player) override;
-
-        int standardBearerBraveryMod(const Unit *unit);
 
     private:
 
@@ -50,8 +46,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  Yes
-// Hornblower                       Yes
+// Standard Bearer                  TODO
 // The Hunger                       Yes
 // Martial Fury                     Yes
 // Riders of Ruin                   TODO
