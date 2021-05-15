@@ -19,10 +19,10 @@ namespace Soulblight {
 
     bool Necromancer::s_registered = false;
 
-    Necromancer::Necromancer(CursedBloodline legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SoulblightBase(legion, "Necromancer", 5, g_wounds, 10, 6, false, g_pointsPerUnit),
+    Necromancer::Necromancer(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SoulblightBase(bloodline, "Necromancer", 5, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_staff(Weapon::Type::Melee, "Mortis Staff", 1, 2, 3, 3, -1, RAND_D3) {
-        m_keywords = {DEATH, NECROMANCER, DEATHMAGES, HERO, WIZARD};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, NECROMANCER, DEATHMAGES, HERO, WIZARD};
         m_weapons = {&m_staff};
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;
@@ -42,12 +42,12 @@ namespace Soulblight {
     }
 
     Unit *Necromancer::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_deathmageLore[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new Necromancer(legion, lore, trait, artefact, general);
+        return new Necromancer(bloodline, lore, trait, artefact, general);
     }
 
     void Necromancer::Init() {
@@ -58,7 +58,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             EnumParameter("Lore", g_deathmageLore[0], g_deathmageLore),
@@ -77,12 +77,6 @@ namespace Soulblight {
 
     int Necromancer::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
-    }
-
-    void Necromancer::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-
-        if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }
 
 } // namespace Soulblight

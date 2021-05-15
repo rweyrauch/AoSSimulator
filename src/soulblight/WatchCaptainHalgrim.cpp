@@ -13,24 +13,49 @@
 namespace Soulblight {
     static const int g_basesize = 40;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 100;
 
     bool WatchCaptainHalgrim::s_registered = false;
 
     Unit *WatchCaptainHalgrim::Create(const ParameterList &parameters) {
-        return nullptr;
+        auto general = GetBoolParam("General", parameters, false);
+        return new WatchCaptainHalgrim(general);
     }
 
     int WatchCaptainHalgrim::ComputePoints(const ParameterList &parameters) {
-        return 0;
+        return g_pointsPerUnit;
     }
 
     void WatchCaptainHalgrim::Init() {
-
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    SoulblightBase::ValueToString,
+                    SoulblightBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            BoolParameter("General")
+                    },
+                    DEATH,
+                    {SOULBLIGHT_GRAVELORDS}
+            };
+            s_registered = UnitFactory::Register("Watch Captain Halgrim", factoryMethod);
+        }
     }
 
-    WatchCaptainHalgrim::WatchCaptainHalgrim(CursedBloodline legion, bool isGeneral) :
-        SoulblightBase(legion, "Watch Captain Halgrim", 4, g_wounds, 10, 4, false, g_pointsPerUnit) {
+    WatchCaptainHalgrim::WatchCaptainHalgrim(bool isGeneral) :
+        SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Watch Captain Halgrim", 4, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, HERO, DEATHRATTLE, WATCH_CAPTAIN_HALGRIM};
+        m_weapons = {&m_halberd};
+        m_battleFieldRole = Role::Leader;
+
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_halberd);
+        model->setName("Watch Captain Halgrim");
+        addModel(model);
     }
+
 } // namespace Soulblight

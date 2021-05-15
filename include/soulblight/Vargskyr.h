@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        Vargskyr(CursedBloodline bloodline);
+        Vargskyr();
 
         ~Vargskyr() override = default;
 

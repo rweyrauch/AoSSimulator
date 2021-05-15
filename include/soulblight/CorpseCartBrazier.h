@@ -27,8 +27,6 @@ namespace Soulblight {
 
     protected:
 
-        void onStartHero(PlayerId player) override;
-
         int brazierCastingMod(const Unit *caster);
 
     private:
@@ -47,8 +45,7 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // Balefire Brazier                 Yes
-// Malefic Fumes                    Yes
-// Cryptsword                       TODO
+// Malefic Fumes                    TODO
 //
 
 } // namespace Soulblight

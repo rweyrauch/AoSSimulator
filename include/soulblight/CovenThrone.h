@@ -35,8 +35,6 @@ namespace Soulblight {
 
         void onEndCombat(PlayerId player) override;
 
-        void onStartHero(PlayerId player) override;
-
         size_t getDamageTableIndex() const;
 
     private:
@@ -56,8 +54,7 @@ namespace Soulblight {
 // Frightful Touch                  Yes
 // Scrying Pool                     TODO
 // The Hunger                       Yes
-// Deathly Invocation               Yes
-// Beguile                          TODO
+// Shudder                          TODO
 // Tactful Insight                  TODO
 //
 

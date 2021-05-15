@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        KritzaTheRatPrince(CursedBloodline bloodline, Lore lore, bool isGeneral);
+        KritzaTheRatPrince(bool isGeneral);
 
         ~KritzaTheRatPrince() override = default;
 

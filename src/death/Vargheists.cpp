@@ -58,7 +58,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT}
             };
-            s_registered = UnitFactory::Register("Vargheists", factoryMethod);
+            s_registered = UnitFactory::Register("Vargheists(d)", factoryMethod);
         }
     }
 

@@ -18,20 +18,44 @@ namespace Soulblight {
     bool LadyAnnika::s_registered = false;
 
     Unit *LadyAnnika::Create(const ParameterList &parameters) {
-        return nullptr;
+        auto general = GetBoolParam("General", parameters, false);
+        return new LadyAnnika(general);
     }
 
     int LadyAnnika::ComputePoints(const ParameterList &parameters) {
-        return 0;
+        return g_pointsPerUnit;
     }
 
     void LadyAnnika::Init() {
-
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    SoulblightBase::ValueToString,
+                    SoulblightBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            BoolParameter("General")
+                    },
+                    DEATH,
+                    {SOULBLIGHT_GRAVELORDS}
+            };
+            s_registered = UnitFactory::Register("Lady Annika", factoryMethod);
+        }
     }
 
-    LadyAnnika::LadyAnnika(CursedBloodline legion, bool isGeneral) :
-            SoulblightBase(legion, "Lady Annika The Thirsting Blade", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
+    LadyAnnika::LadyAnnika(bool isGeneral) :
+            SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Lady Annika The Thirsting Blade", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, HERO, BELLADAMMA_VOLGA};
+        m_weapons = {&m_blade};
+        m_battleFieldRole = Role::Leader;
+
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_blade);
+        model->setName("Lady Annika");
+        addModel(model);
     }
 
 } // namespace Soulblight

@@ -8,7 +8,9 @@
 
 #include <soulblight/LaukaVai.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "SoulblightGravelordsPrivate.h"
+#include "Lore.h"
 
 namespace Soulblight {
     static const int g_basesize = 60;
@@ -18,19 +20,54 @@ namespace Soulblight {
     bool LaukaVai::s_registered = false;
 
     Unit *LaukaVai::Create(const ParameterList &parameters) {
-        return nullptr;
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new LaukaVai(lore, general);
     }
 
     int LaukaVai::ComputePoints(const ParameterList &parameters) {
-        return 0;
+        return g_pointsPerUnit;
     }
 
     void LaukaVai::Init() {
-
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    SoulblightBase::ValueToString,
+                    SoulblightBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
+                            BoolParameter("General")
+                    },
+                    DEATH,
+                    {SOULBLIGHT_GRAVELORDS}
+            };
+            s_registered = UnitFactory::Register("Lauka Vai", factoryMethod);
+        }
     }
 
-    LaukaVai::LaukaVai(CursedBloodline legion, Lore lore, bool isGeneral) :
-        SoulblightBase(legion, "Lauka Vai Mother of Nightmares", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
+    LaukaVai::LaukaVai(Lore lore, bool isGeneral) :
+        SoulblightBase(CursedBloodline::Avengorii_Dynasty, "Lauka Vai Mother of Nightmares", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
 
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, AVENGORII_DYNASTY, MONSTER, HERO, WIZARD, LAUKA_VAI};
+        m_weapons = {&m_rapier, &m_talons, &m_tail};
+        m_battleFieldRole = Role::Leader;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
+
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_rapier);
+        model->addMeleeWeapon(&m_talons);
+        model->addMeleeWeapon(&m_tail);
+        model->setName("Lauka Vai");
+        addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
+
 } // namespace Soulblight

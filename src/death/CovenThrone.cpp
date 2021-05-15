@@ -66,7 +66,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT}
             };
-            s_registered = UnitFactory::Register("Coven Throne", factoryMethod);
+            s_registered = UnitFactory::Register("Coven Throne(d)", factoryMethod);
         }
     }
 

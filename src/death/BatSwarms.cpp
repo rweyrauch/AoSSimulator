@@ -49,7 +49,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT}
             };
-            s_registered = UnitFactory::Register("Bat Swarms", factoryMethod);
+            s_registered = UnitFactory::Register("Bat Swarms(d)", factoryMethod);
         }
     }
 

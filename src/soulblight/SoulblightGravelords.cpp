@@ -38,7 +38,7 @@
 #include "soulblight/SkeletonWarriors.h"
 #include "soulblight/Vargheists.h"
 #include "soulblight/Zombies.h"
-#include "soulblight/WightKingBlackAxe.h"
+#include "soulblight/WightKing.h"
 #include "soulblight/Necromancer.h"
 #include "soulblight/BloodseekerPalangquin.h"
 #include "soulblight/CorpseCartBrazier.h"
@@ -56,9 +56,9 @@
 namespace Soulblight {
 
     std::string SoulblightBase::ValueToString(const Parameter &parameter) {
-        if (std::string(parameter.name) == "Legion") {
-            auto legionName = magic_enum::enum_name((CursedBloodline) parameter.intValue);
-            return std::string(legionName);
+        if (std::string(parameter.name) == "Bloodline") {
+            auto bloodlineName = magic_enum::enum_name((CursedBloodline) parameter.intValue);
+            return std::string(bloodlineName);
         }
         if (std::string(parameter.name) == "Command Trait") {
             auto traitName = magic_enum::enum_name((CommandTrait) parameter.intValue);
@@ -76,8 +76,8 @@ namespace Soulblight {
     }
 
     int SoulblightBase::EnumStringToInt(const std::string &enumString) {
-        auto legion = magic_enum::enum_cast<CursedBloodline>(enumString);
-        if (legion.has_value()) return (int) legion.value();
+        auto bloodline = magic_enum::enum_cast<CursedBloodline>(enumString);
+        if (bloodline.has_value()) return (int) bloodline.value();
 
         auto trait = magic_enum::enum_cast<CommandTrait>(enumString);
         if (trait.has_value()) return (int) trait.value();
@@ -95,12 +95,12 @@ namespace Soulblight {
         m_terrifyVisageSlot.disconnect();
     }
 
-    void SoulblightBase::setBloodline(CursedBloodline legion) {
+    void SoulblightBase::setBloodline(CursedBloodline bloodline) {
         removeKeyword(LEGION_OF_NIGHT);
         removeKeyword(LEGION_OF_BLOOD);
 
-        m_bloodline = legion;
-        switch (legion) {
+        m_bloodline = bloodline;
+        switch (bloodline) {
             case CursedBloodline::Legion_Of_Night:
                 addKeyword(LEGION_OF_NIGHT);
                 break;
@@ -405,7 +405,7 @@ namespace Soulblight {
         VengorianLord::Init();
         VyrkosBloodborn::Init();
         WatchCaptainHalgrim::Init();
-        WightKingWithBlackAxe::Init();
+        WightKing::Init();
         WightKingOnSteed::Init();
         ZombieDragon::Init();
         Zombies::Init();

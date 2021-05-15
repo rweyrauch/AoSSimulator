@@ -40,7 +40,7 @@ namespace Death {
                     DEATH,
                     {DEADWALKERS}
             };
-            s_registered = UnitFactory::Register("Corpse Cart with Balefire Brazier", factoryMethod);
+            s_registered = UnitFactory::Register("Corpse Cart with Balefire Brazier(d)", factoryMethod);
         }
     }
 

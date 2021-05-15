@@ -34,26 +34,20 @@ namespace Soulblight {
 
     bool ZombieDragon::s_registered = false;
 
-    ZombieDragon::ZombieDragon(CursedBloodline legion) :
-            SoulblightBase(legion, "Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    ZombieDragon::ZombieDragon(CursedBloodline bloodline) :
+            SoulblightBase(bloodline, "Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_pestilentialBreath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_snappingMaw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_swordlikeClaws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2) {
-        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, MENAGERIE, MONSTER, ROYAL_ZOMBIE_DRAGON};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, MONSTER, ZOMBIE_DRAGON};
         m_weapons = {&m_pestilentialBreath, &m_snappingMaw, &m_swordlikeClaws};
-        m_battleFieldRole = Role::Behemoth;
-
-        m_totalUnbinds = 1;
-        m_totalSpells = 1;
+        m_battleFieldRole = (bloodline == CursedBloodline::Avengorii_Dynasty) ? Role::Battleline_Behemoth : Role::Behemoth;
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentialBreath);
         model->addMeleeWeapon(&m_snappingMaw);
         model->addMeleeWeapon(&m_swordlikeClaws);
         addModel(model);
-
-        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
 
     Unit *ZombieDragon::Create(const ParameterList &parameters) {

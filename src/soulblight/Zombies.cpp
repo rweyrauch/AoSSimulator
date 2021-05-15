@@ -21,39 +21,27 @@ namespace Soulblight {
 
     bool Zombies::s_registered = false;
 
-    Zombies::Zombies(CursedBloodline legion, int numModels, bool standardBearer, bool noiseMaker, int points) :
-            SoulblightBase(legion, "Zombies", 4, g_wounds, 10, NoSave, false, points),
-            m_zombieBite(Weapon::Type::Melee, "Zombie Bite", 1, 1, 5, 5, 0, 1) {
-        m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE};
+    Zombies::Zombies(CursedBloodline bloodline, int numModels, int points) :
+            SoulblightBase(bloodline, "Deadwalker Zombies", 4, g_wounds, 10, NoSave, false, points),
+            m_zombieBite(Weapon::Type::Melee, "Crude Weapons and Infectious Bites", 1, 1, 5, 5, 0, 1) {
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEADWALKERS, SUMMONABLE, DEADWALKER_ZOMBIES};
         m_weapons = {&m_zombieBite};
         m_battleFieldRole = Role::Battleline;
-
-        s_globalBraveryMod.connect(this, &Zombies::standardBearerBraveryMod, &m_standardSlot);
 
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_zombieBite);
-            if (standardBearer) {
-                model->setName(Model::StandardBearer);
-                standardBearer = false;
-            } else if (noiseMaker) {
-                model->setName("Noisemaker");
-                noiseMaker = false;
-            }
             addModel(model);
         }
     }
 
     Zombies::~Zombies() {
-        m_standardSlot.disconnect();
     }
 
     Unit *Zombies::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
-        bool noisemaker = GetBoolParam("Noisemaker", parameters, false);
-        return new Zombies(legion, numModels, standardBearers, noisemaker, ComputePoints(parameters));
+        return new Zombies(bloodline, numModels, ComputePoints(parameters));
     }
 
     void Zombies::Init() {
@@ -65,50 +53,13 @@ namespace Soulblight {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            BoolParameter("Standard Bearers"),
-                            BoolParameter("Noisemaker"),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
             };
-            s_registered = UnitFactory::Register("Zombies", factoryMethod);
+            s_registered = UnitFactory::Register("Deadwalker Zombies", factoryMethod);
         }
-    }
-
-    int Zombies::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = SoulblightBase::toHitModifier(weapon, target);
-
-        // Vigour Mortis
-        auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 9.0);
-        for (auto ip : units) {
-            if (ip->hasKeyword(CORPSE_CARTS)) {
-                modifier += 1;
-                break;
-            }
-        }
-
-        // Dragged Down and Torn Apart
-        if (remainingModels() >= 40) {
-            modifier += 2;
-        } else if (remainingModels() >= 20) {
-            modifier += 1;
-        }
-
-        return modifier;
-    }
-
-    int Zombies::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = SoulblightBase::toWoundModifier(weapon, target);
-
-        // Dragged Down and Torn Apart
-        if (remainingModels() >= 40) {
-            modifier += 2;
-        } else if (remainingModels() >= 20) {
-            modifier += 1;
-        }
-
-        return modifier;
     }
 
     int Zombies::ComputePoints(const ParameterList& parameters) {
@@ -118,20 +69,6 @@ namespace Soulblight {
             points = g_pointsMaxUnitSize;
         }
         return points;
-    }
-
-    int Zombies::standardBearerBraveryMod(const Unit *unit) {
-        if (isNamedModelAlive(Model::StandardBearer) && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
-        return 0;
-    }
-
-    int Zombies::rollChargeDistance() {
-        // Noise Maker
-        auto dist = SoulblightBase::rollChargeDistance();
-        if (isNamedModelAlive("Noisemaker")) {
-            return std::max(6, dist);
-        }
-        return dist;
     }
 
 } //namespace Soulblight

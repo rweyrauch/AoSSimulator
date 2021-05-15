@@ -84,7 +84,7 @@ namespace Death {
                     DEATH,
                     {DEATHLORDS, OSSIARCH_BONEREAPERS}
             };
-            s_registered = UnitFactory::Register("Nagash", factoryMethod);
+            s_registered = UnitFactory::Register("Nagash(d)", factoryMethod);
         }
     }
 

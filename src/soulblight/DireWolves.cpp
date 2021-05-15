@@ -21,11 +21,11 @@ namespace Soulblight {
 
     bool DireWolves::s_registered = false;
 
-    DireWolves::DireWolves(CursedBloodline legion, int numModels, int points) :
-            SoulblightBase(legion, "Dire Wolves", 10, g_wounds, 10, 5, false, points),
+    DireWolves::DireWolves(CursedBloodline bloodline, int numModels, int points) :
+            SoulblightBase(bloodline, "Dire Wolves", 10, g_wounds, 10, 5, false, points),
             m_fangsAndClaws(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 2, 4, 4, 0, 1),
             m_fangsAndClawsDoom(Weapon::Type::Melee, "Rotting Fangs and Claws", 1, 3, 4, 4, 0, 1) {
-        m_keywords = {DEATH, ZOMBIE, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEADWALKERS, SUMMONABLE, DIRE_WOLVES};
         m_weapons = {&m_fangsAndClaws, &m_fangsAndClawsDoom};
         m_battleFieldRole = Role::Battleline;
 
@@ -41,9 +41,9 @@ namespace Soulblight {
     }
 
     Unit *DireWolves::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new DireWolves(legion, numModels, ComputePoints(parameters));
+        return new DireWolves(bloodline, numModels, ComputePoints(parameters));
     }
 
     void DireWolves::Init() {
@@ -55,7 +55,7 @@ namespace Soulblight {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

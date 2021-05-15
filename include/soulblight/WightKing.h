@@ -12,7 +12,7 @@
 
 namespace Soulblight {
 
-    class WightKingWithBalefulTombBlade : public SoulblightBase {
+    class WightKing : public SoulblightBase {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -21,22 +21,15 @@ namespace Soulblight {
 
         static void Init();
 
-        WightKingWithBalefulTombBlade(CursedBloodline bloodline, bool hasSteed, CommandTrait trait, Artefact artefact, bool isGeneral);
+        WightKing(CursedBloodline bloodline, CommandTrait trait, Artefact artefact, bool isGeneral);
 
-        ~WightKingWithBalefulTombBlade() override = default;
+        ~WightKing() override = default;
 
     protected:
 
-        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
-        void onStartHero(PlayerId player) override;
-
     private:
 
-        bool m_hasSteed = false;
-
-        Weapon m_balefulTombBlade,
-                m_steedsHoovesAndTeeth;
+        Weapon m_balefulTombBlade;
 
         static bool s_registered;
 
@@ -45,8 +38,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Beheading Strike                 Yes
-// Deathly Invocation               Yes
+// Beheading Strike                 TODO
 // Lord of Bones                    TODO
 //
 

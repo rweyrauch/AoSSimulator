@@ -6,22 +6,22 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <soulblight/WightKingBlackAxe.h>
+#include <soulblight/WightKing.h>
 #include <UnitFactory.h>
 #include "SoulblightGravelordsPrivate.h"
 
 namespace Soulblight {
     static const int g_basesize = 32;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 115;
+    static const int g_pointsPerUnit = 120;
 
-    bool WightKingWithBlackAxe::s_registered = false;
+    bool WightKing::s_registered = false;
 
-    WightKingWithBlackAxe::WightKingWithBlackAxe(CursedBloodline legion, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SoulblightBase(legion, "Wight King with Black Axe", 4, g_wounds, 10, 4, false, g_pointsPerUnit),
-            m_blackAxe(Weapon::Type::Melee, "Black Axe", 1, 4, 3, 3, -1, 1) {
-        m_keywords = {DEATH, SKELETON, DEATHRATTLE, HERO, WIGHT_KING};
-        m_weapons = {&m_blackAxe};
+    WightKing::WightKing(CursedBloodline bloodline, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SoulblightBase(bloodline, "Wight King", 4, g_wounds, 10, 3, false, g_pointsPerUnit),
+            m_balefulTombBlade(Weapon::Type::Melee, "Baleful Tomb Blade", 1, 4, 3, 3, -1, RAND_D3) {
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEATHRATTLE, HERO, WIGHT_KING};
+        m_weapons = {&m_balefulTombBlade};
         m_battleFieldRole = Role::Leader;
 
         setCommandTrait(trait);
@@ -29,19 +29,20 @@ namespace Soulblight {
         setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());
-        model->addMeleeWeapon(&m_blackAxe);
+
+        model->addMeleeWeapon(&m_balefulTombBlade);
         addModel(model);
     }
 
-    Unit *WightKingWithBlackAxe::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+    Unit *WightKing::Create(const ParameterList &parameters) {
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new WightKingWithBlackAxe(legion, trait, artefact, general);
+        return new WightKing(bloodline, trait, artefact, general);
     }
 
-    void WightKingWithBlackAxe::Init() {
+    void WightKing::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
@@ -49,7 +50,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             BoolParameter("General")
@@ -57,23 +58,12 @@ namespace Soulblight {
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
             };
-            s_registered = UnitFactory::Register("Wight King with Black Axe", factoryMethod);
+            s_registered = UnitFactory::Register("Wight King", factoryMethod);
         }
     }
 
-    Wounds WightKingWithBlackAxe::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        // Barrow Armour
-        return {(wounds.normal + 1) / 2, wounds.mortal};
-    }
-
-    int WightKingWithBlackAxe::ComputePoints(const ParameterList& /*parameters*/) {
+    int WightKing::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
-    }
-
-    void WightKingWithBlackAxe::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-
-        if (owningPlayer() == player) deathlyInvocations(2, 6.0);
     }
 
 } // namespace Soulblight

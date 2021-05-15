@@ -20,12 +20,13 @@ namespace Soulblight {
 
     bool Vargheists::s_registered = false;
 
-    Vargheists::Vargheists(CursedBloodline legion, int numModels, int points) :
-            SoulblightBase(legion, "Vargheists", 12, g_wounds, 10, 5, true, points),
+    Vargheists::Vargheists(CursedBloodline bloodline, int numModels, int points) :
+            SoulblightBase(bloodline, "Vargheists", 12, g_wounds, 10, 5, true, points),
             m_fangsAndTalons(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 3, 3, 3, -1, 2),
             m_fangsAndTalonsVargoyle(Weapon::Type::Melee, "Murderous Fangs and Talons", 1, 4, 3, 3, -1, 2) {
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, VARGHEISTS};
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, VARGHEISTS};
         m_weapons = {&m_fangsAndTalons, &m_fangsAndTalonsVargoyle};
+        m_battleFieldRole = (bloodline == CursedBloodline::Legion_Of_Night) ? Role::Battleline : Role::Other;
 
         auto vargoyle = new Model(g_basesize, wounds());
         vargoyle->addMeleeWeapon(&m_fangsAndTalonsVargoyle);
@@ -39,9 +40,9 @@ namespace Soulblight {
     }
 
     Unit *Vargheists::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new Vargheists(legion, numModels, ComputePoints(parameters));
+        return new Vargheists(bloodline, numModels, ComputePoints(parameters));
     }
 
     void Vargheists::Init() {
@@ -53,7 +54,7 @@ namespace Soulblight {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

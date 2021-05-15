@@ -37,12 +37,12 @@ namespace Soulblight {
     bool CovenThrone::s_registered = false;
 
     Unit *CovenThrone::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new CovenThrone(legion, lore, trait, artefact, general);
+        return new CovenThrone(bloodline, lore, trait, artefact, general);
     }
 
     int CovenThrone::ComputePoints(const ParameterList& /*parameters*/) {
@@ -57,7 +57,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
@@ -70,13 +70,13 @@ namespace Soulblight {
         }
     }
 
-    CovenThrone::CovenThrone(CursedBloodline legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SoulblightBase(legion, "Coven Throne", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    CovenThrone::CovenThrone(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SoulblightBase(bloodline, "Coven Throne", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_bite(Weapon::Type::Melee, "Predatory Bite", 1, 1, 3, 3, 0, RAND_D3),
             m_stiletto(Weapon::Type::Melee, "Stiletto", 1, 4, 3, 3, -1, 1),
             m_poniards(Weapon::Type::Melee, "Needle-sharp Poniards", 1, 8, 3, 3, 0, 1),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Claws and Blades", 1, 12, 5, 4, 0, 1) {
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, MALIGNANT, HERO, WIZARD, COVEN_THRONE};
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, MALIGNANT, HERO, WIZARD, COVEN_THRONE};
         m_weapons = {&m_bite, &m_stiletto, &m_poniards, &m_etherealWeapons};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
@@ -134,15 +134,9 @@ namespace Soulblight {
 
     void CovenThrone::onEndCombat(PlayerId player) {
         // The Hunger
-        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(RAND_D3);
 
         SoulblightBase::onEndCombat(player);
-    }
-
-    void CovenThrone::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-
-        if (owningPlayer() == player) deathlyInvocations(3, 12.0);
     }
 
 } // namespace Soulblight

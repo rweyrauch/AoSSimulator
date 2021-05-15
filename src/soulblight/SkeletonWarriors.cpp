@@ -21,8 +21,8 @@ namespace Soulblight {
 
     bool SkeletonWarriors::s_registered = false;
 
-    SkeletonWarriors::SkeletonWarriors(CursedBloodline legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
-            SoulblightBase(legion, "Deathrattle Skeleton", 4, g_wounds, 10, 6, false, points),
+    SkeletonWarriors::SkeletonWarriors(CursedBloodline bloodline, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
+            SoulblightBase(bloodline, "Deathrattle Skeleton", 4, g_wounds, 10, 6, false, points),
             m_ancientBlade(Weapon::Type::Melee, "Ancient Blade", 1, 1, 4, 4, 0, 1),
             m_ancientBladeChampion(Weapon::Type::Melee, "Ancient Blade", 1, 2, 4, 4, 0, 1),
             m_ancientSpear(Weapon::Type::Melee, "Ancient Spear", 2, 1, 5, 4, 0, 1),
@@ -63,12 +63,12 @@ namespace Soulblight {
     }
 
     Unit *SkeletonWarriors::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Ancient_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-        return new SkeletonWarriors(legion, numModels, weapons, standardBearers, hornblowers, ComputePoints(parameters));
+        return new SkeletonWarriors(bloodline, numModels, weapons, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void SkeletonWarriors::Init() {
@@ -84,7 +84,7 @@ namespace Soulblight {
                             EnumParameter("Weapons", Ancient_Blade, weapons),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Hornblowers"),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

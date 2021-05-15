@@ -8,7 +8,9 @@
 
 #include <soulblight/VengorianLord.h>
 #include <UnitFactory.h>
+#include <spells/MysticShield.h>
 #include "SoulblightGravelordsPrivate.h"
+#include "Lore.h"
 
 namespace Soulblight {
     static const int g_basesize = 60;
@@ -18,19 +20,59 @@ namespace Soulblight {
     bool VengorianLord::s_registered = false;
 
     Unit *VengorianLord::Create(const ParameterList &parameters) {
-        return nullptr;
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
+        auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
+        auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
+        auto general = GetBoolParam("General", parameters, false);
+        return new VengorianLord(bloodline, lore, trait, artefact, general);
     }
 
     int VengorianLord::ComputePoints(const ParameterList &parameters) {
-        return 0;
+        return g_pointsPerUnit;
     }
 
     void VengorianLord::Init() {
-
+        if (!s_registered) {
+            static FactoryMethod factoryMethod = {
+                    Create,
+                    SoulblightBase::ValueToString,
+                    SoulblightBase::EnumStringToInt,
+                    ComputePoints,
+                    {
+                            EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
+                            BoolParameter("General"),
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
+                            EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
+                            EnumParameter("Artefact", g_artefacts[0], g_artefacts),
+                    },
+                    DEATH,
+                    {SOULBLIGHT_GRAVELORDS}
+            };
+            s_registered = UnitFactory::Register("Vengorian Lord", factoryMethod);
+        }
     }
 
-    VengorianLord::VengorianLord(CursedBloodline legion, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-        SoulblightBase(legion, "Vengorian Lord", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
+    VengorianLord::VengorianLord(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+        SoulblightBase(bloodline, "Vengorian Lord", 12, g_wounds, 10, 3, true, g_pointsPerUnit) {
 
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, MONSTER, HERO, WIZARD, VENGORIAN_LORD};
+        m_weapons = {&m_sabre, &m_talons, &m_tail};
+        m_battleFieldRole = Role::Leader;
+        m_totalSpells = 1;
+        m_totalUnbinds = 1;
+
+        setGeneral(isGeneral);
+
+        auto model = new Model(g_basesize, wounds());
+        model->addMeleeWeapon(&m_sabre);
+        model->addMeleeWeapon(&m_talons);
+        model->addMeleeWeapon(&m_tail);
+        addModel(model);
+
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
+        m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
+
 } // namespace Soulblight

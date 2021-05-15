@@ -81,7 +81,7 @@ namespace Death {
                     DEATH,
                     {DEATHRATTLE}
             };
-            s_registered = UnitFactory::Register("Black Knights", factoryMethod);
+            s_registered = UnitFactory::Register("Black Knights(d)", factoryMethod);
         }
     }
 

@@ -33,8 +33,6 @@ namespace Soulblight {
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        void onStartHero(PlayerId player) override;
-
         void onStartShooting(PlayerId player) override;
 
         size_t getDamageTableIndex() const;
@@ -55,7 +53,6 @@ namespace Soulblight {
 // Frightful Touch                  Yes
 // A Fine Vintage                   TODO
 // Wail of the Damned               Yes
-// Deathly Invocation               Yes
 // Blood Siphon                     TODO
 //
 

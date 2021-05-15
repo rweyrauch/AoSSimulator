@@ -46,7 +46,6 @@ namespace Soulblight {
 // -------------------------------------------
 // Unholy Lodestone                 Yes
 // Locus of Undeath                 TODO
-// Cryptsword                       TODO
 //
 
 } // namespace Soulblight

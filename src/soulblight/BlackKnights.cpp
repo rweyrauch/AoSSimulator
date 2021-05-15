@@ -20,15 +20,16 @@ namespace Soulblight {
 
     bool BlackKnights::s_registered = false;
 
-    BlackKnights::BlackKnights(CursedBloodline legion, int numModels, bool standardBearers, bool hornblowers, int points) :
-            SoulblightBase(legion, "Black Knights", 12, g_wounds, 10, 5, false, points),
-            m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 1, 2, 3, 4, 0, 1),
-            m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 1, 3, 3, 4, 0, 1),
-            m_hoovesAndTeeth(Weapon::Type::Melee, "Skeletal Steed's Hooves and Teeth", 1, 2, 4, 5, 0, 1) {
-        m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
+    BlackKnights::BlackKnights(CursedBloodline bloodline, int numModels, bool standardBearers, bool hornblowers, int points) :
+            SoulblightBase(bloodline, "Black Knights", 12, g_wounds, 10, 5, false, points),
+            m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 2, 2, 4, 3, 0, 1),
+            m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 2, 3, 4, 3, 0, 1),
+            m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
         m_weapons = {&m_barrowLance, &m_barrowLanceKnight, &m_hoovesAndTeeth};
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
+        m_battleFieldRole = (bloodline == CursedBloodline::Legion_Of_Blood) ? Role::Battleline : Role::Other;
 
         s_globalBraveryMod.connect(this, &BlackKnights::standardBearerBraveryMod, &m_standardSlot);
 
@@ -58,11 +59,11 @@ namespace Soulblight {
     }
 
     Unit *BlackKnights::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-        return new BlackKnights(legion, numModels, standardBearers, hornblowers, ComputePoints(parameters));
+        return new BlackKnights(bloodline, numModels, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void BlackKnights::Init() {
@@ -76,7 +77,7 @@ namespace Soulblight {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Hornblowers"),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

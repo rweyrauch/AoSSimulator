@@ -60,7 +60,7 @@ namespace Death {
                     DEATH,
                     {DEADWALKERS}
             };
-            s_registered = UnitFactory::Register("Dire Wolves", factoryMethod);
+            s_registered = UnitFactory::Register("Dire Wolves(d)", factoryMethod);
         }
     }
 

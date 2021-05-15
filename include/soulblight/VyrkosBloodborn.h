@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        VyrkosBloodborn(CursedBloodline bloodline, int numModels);
+        VyrkosBloodborn(int numModels, int points);
 
         ~VyrkosBloodborn() override = default;
 

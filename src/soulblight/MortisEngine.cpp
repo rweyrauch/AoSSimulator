@@ -36,8 +36,8 @@ namespace Soulblight {
     bool MortisEngine::s_registered = false;
 
     Unit *MortisEngine::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
-        return new MortisEngine(legion);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
+        return new MortisEngine(bloodline);
     }
 
     int MortisEngine::ComputePoints(const ParameterList& /*parameters*/) {
@@ -52,7 +52,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -61,12 +61,12 @@ namespace Soulblight {
         }
     }
 
-    MortisEngine::MortisEngine(CursedBloodline legion) :
-            SoulblightBase(legion, "Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    MortisEngine::MortisEngine(CursedBloodline bloodline) :
+            SoulblightBase(bloodline, "Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_wail(Weapon::Type::Missile, "Wail of the Damned", 12, 1, 0, 0, 0, 0),
             m_staff(Weapon::Type::Melee, "Mortis Staff", 1, 2, 4, 3, -1, RAND_D3),
             m_etherealWeapons(Weapon::Type::Melee, "Spectral Claws and Blades", 1, 12, 5, 4, 0, 1) {
-        m_keywords = {DEATH, MALIGNANT, DEATHMAGES, MORTIS_ENGINE};
+        m_keywords = {DEATH, MALIGNANT, SOULBLIGHT_GRAVELORDS, DEATHMAGES, MORTIS_ENGINE};
         m_weapons = {&m_wail, &m_staff, &m_etherealWeapons};
         m_battleFieldRole = Role::Behemoth;
 
@@ -115,7 +115,7 @@ namespace Soulblight {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()),
                                                        g_damageTable[getDamageTableIndex()].m_wailRange);
         for (auto unit : units) {
-            if (Dice::Roll2D6() > unit->bravery()) {
+            if (Dice::RollD6() >= 4) {
                 unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }

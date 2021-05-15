@@ -39,7 +39,7 @@ namespace Death {
                     DEATH,
                     {DEADWALKERS}
             };
-            s_registered = UnitFactory::Register("Corpse Cart with Unholy Lodestone", factoryMethod);
+            s_registered = UnitFactory::Register("Corpse Cart with Unholy Lodestone(d)", factoryMethod);
         }
     }
 

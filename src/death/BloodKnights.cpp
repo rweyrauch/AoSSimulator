@@ -80,7 +80,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT}
             };
-            s_registered = UnitFactory::Register("Blood Knights", factoryMethod);
+            s_registered = UnitFactory::Register("Blood Knights(d)", factoryMethod);
         }
     }
 

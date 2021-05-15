@@ -20,25 +20,15 @@ namespace Soulblight {
 
         static void Init();
 
-        Zombies(CursedBloodline bloodline, int numModels, bool standardBearer, bool noiseMaker, int points);
+        Zombies(CursedBloodline bloodline, int numModels, int points);
 
         ~Zombies() override;
 
     protected:
 
-        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-
-        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-
-        int rollChargeDistance() override;
-
-        int standardBearerBraveryMod(const Unit *unit);
-
     private:
 
         Weapon m_zombieBite;
-
-        lsignal::slot m_standardSlot;
 
         static bool s_registered;
 
@@ -47,11 +37,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  Yes
-// Noise Maker                      Yes
-// Dragged Down and Torn Apart      Yes
+// Dragged Down and Torn Apart      TODO
 // The Newly Dead                   TODO
-// Vigour Mortis                    Yes
 //
 
 } //namespace Soulblight

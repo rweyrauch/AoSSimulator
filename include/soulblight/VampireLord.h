@@ -21,25 +21,17 @@ namespace Soulblight {
 
         static void Init();
 
-        VampireLord(CursedBloodline bloodline, bool withSteed, bool withWings, bool chalice, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        VampireLord(CursedBloodline bloodline, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~VampireLord() override = default;
 
     protected:
 
-        void onStartHero(PlayerId player) override;
-
-        void onRestore() override;
-
         void onEndCombat(PlayerId player) override;
 
     private:
 
-        Weapon m_blades,
-                m_hoovesAndTeeth;
-
-        bool m_haveChaliceOfBlood = false;
-        bool m_usedChaliceOfBlood = false;
+        Weapon m_blades;
 
         static bool s_registered;
 
@@ -49,9 +41,7 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // The Hunger                       Yes
-// Chalice of Blood                 Yes
-// Deathly Invocation               Yes
-// Blood Feast                      TODO
+// Crimson Feast                    TODO
 //
 
 } // namespace Soulblight

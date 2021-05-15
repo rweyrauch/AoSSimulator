@@ -88,7 +88,7 @@ namespace Death {
                     DEATH,
                     {DEATHRATTLE}
             };
-            s_registered = UnitFactory::Register("Grave Guard", factoryMethod);
+            s_registered = UnitFactory::Register("Grave Guard(d)", factoryMethod);
         }
     }
 

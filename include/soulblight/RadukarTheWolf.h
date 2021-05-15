@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        RadukarTheWolf(CursedBloodline bloodline, Lore lore, bool isGeneral);
+        RadukarTheWolf(Lore lore, bool isGeneral);
 
         ~RadukarTheWolf() override = default;
 

@@ -60,7 +60,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT, DEATHLORDS}
             };
-            s_registered = UnitFactory::Register("Mannfred, Mortarch of Night", factoryMethod);
+            s_registered = UnitFactory::Register("Mannfred, Mortarch of Night(d)", factoryMethod);
         }
     }
 

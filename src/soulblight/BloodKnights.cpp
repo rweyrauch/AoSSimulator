@@ -20,12 +20,13 @@ namespace Soulblight {
 
     bool BloodKnights::s_registered = false;
 
-    BloodKnights::BloodKnights(CursedBloodline legion, int numModels, bool standardBearers, bool hornblowers, int points) :
-            SoulblightBase(legion, "Blood Knights", 10, g_wounds, 10, 3, false, points) {
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT, BLOOD_KNIGHTS};
+    BloodKnights::BloodKnights(CursedBloodline bloodline, int numModels, bool standardBearers, bool hornblowers, int points) :
+            SoulblightBase(bloodline, "Blood Knights", 10, g_wounds, 10, 3, false, points) {
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, BLOOD_KNIGHTS};
         m_weapons = {&m_templarLanceOrBlade, &m_templarLanceOrBladeKastellan, &m_hoovesAndTeeth};
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
+        m_battleFieldRole = (bloodline == CursedBloodline::Kastelai_Dynasty) ? Role::Battleline : Role::Other;
 
         auto kastellan = new Model(g_basesize, wounds());
         kastellan->addMeleeWeapon(&m_templarLanceOrBladeKastellan);
@@ -52,11 +53,11 @@ namespace Soulblight {
     }
 
     Unit *BloodKnights::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-        return new BloodKnights(legion, numModels, standardBearers, hornblowers, ComputePoints(parameters));
+        return new BloodKnights(bloodline, numModels, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void BloodKnights::Init() {
@@ -70,7 +71,7 @@ namespace Soulblight {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Hornblowers"),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

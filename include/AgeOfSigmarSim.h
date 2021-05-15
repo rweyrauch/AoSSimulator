@@ -54,6 +54,7 @@ const int NoSave = 7;
 
 enum class Role : int {
     Battleline = 0,
+    Battleline_Behemoth,
     Leader,
     Other,
     Behemoth,

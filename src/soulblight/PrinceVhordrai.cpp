@@ -121,7 +121,7 @@ namespace Soulblight {
 
     Wounds PrinceVhordrai::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Bloodlance Charge
-        if (m_charged && (weapon->name() == m_bloodlance.name())) return {3, 0};
+        if (m_charged && (weapon->name() == m_bloodlance.name())) return {weapon->damage()+2, 0};
         return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
@@ -143,17 +143,26 @@ namespace Soulblight {
         if (owningPlayer() == player) {
             // Breath of Shyish
             auto unit = Board::Instance()->getNearestUnit(this, GetEnemyId(owningPlayer()));
-            if (unit && distanceTo(unit) < 8.0) {
-                unit->applyDamage({0, Dice::RollSpecial(g_damageTable[getDamageTableIndex()].m_breath)}, this);
+            if (unit && distanceTo(unit) < 9.0) {
+                if (Dice::RollD6() >= 3) {
+                    unit->applyDamage({0, Dice::RollSpecial(g_damageTable[getDamageTableIndex()].m_breath)}, this);
+                }
             }
         }
     }
 
     void PrinceVhordrai::onEndCombat(PlayerId player) {
         // The Hunger
-        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(RAND_D3);
 
         SoulblightBase::onEndCombat(player);
+    }
+
+    int PrinceVhordrai::weaponRend(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
+                                   int woundRoll) const {
+        // Bloodlance Charge
+        if (m_charged && (weapon->name() == m_bloodlance.name())) return (weapon->rend()-1);
+        return SoulblightBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace Soulblight

@@ -37,13 +37,13 @@ namespace Soulblight {
     bool VampireLordOnZombieDragon::s_registered = false;
 
     Unit *VampireLordOnZombieDragon::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         auto weapon = (WeaponOption) GetEnumParam("Weapon", parameters, Deathlance);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new VampireLordOnZombieDragon(legion, weapon, lore, trait, artefact, general);
+        return new VampireLordOnZombieDragon(bloodline, weapon, lore, trait, artefact, general);
     }
 
     int VampireLordOnZombieDragon::ComputePoints(const ParameterList& /*parameters*/) {
@@ -60,7 +60,7 @@ namespace Soulblight {
                     ComputePoints,
                     {
                             EnumParameter("Weapon", Deathlance, weapons),
-                            EnumParameter("Legion", g_legions[0], g_legions),
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
@@ -73,14 +73,14 @@ namespace Soulblight {
         }
     }
 
-    VampireLordOnZombieDragon::VampireLordOnZombieDragon(CursedBloodline legion, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            SoulblightBase(legion, "Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
+    VampireLordOnZombieDragon::VampireLordOnZombieDragon(CursedBloodline bloodline, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            SoulblightBase(bloodline, "Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_breath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_deathlance(Weapon::Type::Melee, "Deathlance", 1, 3, 3, 3, -1, 2),
             m_sword(Weapon::Type::Melee, "Vampiric Sword", 1, 4, 3, 3, -1, RAND_D3),
             m_maw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
             m_claws(Weapon::Type::Melee, "Sword-like Claws", 2, 7, 4, 3, -1, 2) {
-        m_keywords = {DEATH, SOULBLIGHT, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, VAMPIRE_LORD, VAMPIRE};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, ZOMBIE_DRAGON, MONSTER, HERO, WIZARD, VAMPIRE_LORD, VAMPIRE};
         m_weapons = {&m_breath, &m_deathlance, &m_maw, &m_claws};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;

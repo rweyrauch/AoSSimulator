@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        LadyAnnika(CursedBloodline bloodline, bool isGeneral);
+        LadyAnnika(bool isGeneral);
 
         ~LadyAnnika() override = default;
 

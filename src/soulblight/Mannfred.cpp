@@ -128,7 +128,7 @@ namespace Soulblight {
 
     void MannfredMortarchOfNight::onEndCombat(PlayerId player) {
         // Feaster of Souls
-        if (m_currentRecord.m_enemyModelsSlain > 0) heal(2);
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(RAND_D3);
 
         SoulblightBase::onEndCombat(player);
     }

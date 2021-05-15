@@ -21,9 +21,9 @@ namespace Soulblight {
     bool FellBats::s_registered = false;
 
     Unit *FellBats::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new FellBats(legion, numModels, ComputePoints(parameters));
+        return new FellBats(bloodline, numModels, ComputePoints(parameters));
     }
 
     int FellBats::ComputePoints(const ParameterList& parameters) {
@@ -44,7 +44,7 @@ namespace Soulblight {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -53,10 +53,10 @@ namespace Soulblight {
         }
     }
 
-    FellBats::FellBats(CursedBloodline legion, int numModels, int points) :
-            SoulblightBase(legion, "Fell Bats", 14, g_wounds, 10, 6, true, points),
+    FellBats::FellBats(CursedBloodline bloodline, int numModels, int points) :
+            SoulblightBase(bloodline, "Fell Bats", 14, g_wounds, 10, 6, true, points),
             m_fangs(Weapon::Type::Melee, "Elongated Fangs", 1, 3, 4, 4, 0, 1) {
-        m_keywords = {DEATH, SOULBLIGHT, SUMMONABLE, FELL_BATS};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, SUMMONABLE, FELL_BATS};
         m_weapons = {&m_fangs};
 
         for (auto i = 0; i < numModels; i++) {

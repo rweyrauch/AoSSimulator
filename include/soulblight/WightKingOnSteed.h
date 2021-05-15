@@ -43,9 +43,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Black Axe                        TODO
-// Barrow Armour                    Yes
-// Deathly Invocation               Yes
+// Deathly Charge                   TODO
 // Lord of Bones                    TODO
 //
 

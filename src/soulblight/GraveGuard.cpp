@@ -20,13 +20,13 @@ namespace Soulblight {
 
     bool GraveGuard::s_registered = false;
 
-    GraveGuard::GraveGuard(CursedBloodline legion, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
-            SoulblightBase(legion, "Grave Guard", 4, g_wounds, 10, 5, false, points),
+    GraveGuard::GraveGuard(CursedBloodline bloodline, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
+            SoulblightBase(bloodline, "Grave Guard", 4, g_wounds, 10, 5, false, points),
             m_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 3, -1, 1),
             m_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade", 1, 3, 3, 3, -1, 1),
-            m_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 3, -1, 1),
-            m_greatWightBladeSeneschal(Weapon::Type::Melee, "Great Wight Blade", 1, 3, 3, 3, -1, 1) {
-        m_keywords = {DEATH, SKELETON, DEATHRATTLE, SUMMONABLE, GRAVE_GUARD};
+            m_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 4, -1, 2),
+            m_greatWightBladeSeneschal(Weapon::Type::Melee, "Great Wight Blade", 1, 3, 3, 4, -1, 2) {
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEATHRATTLE, SUMMONABLE, GRAVE_GUARD};
         m_weapons = {&m_wightBlade, &m_wightBladeSeneschal, &m_greatWightBlade, &m_greatWightBladeSeneschal};
         s_globalBraveryMod.connect(this, &GraveGuard::standardBearerBraveryMod, &m_standardSlot);
         m_weaponOption = weapons;
@@ -62,12 +62,12 @@ namespace Soulblight {
     }
 
     Unit *GraveGuard::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOptions) GetEnumParam("Weapons", parameters, Wight_Blade);
         bool standardBearers = GetBoolParam("Standard Bearers", parameters, false);
         bool hornblowers = GetBoolParam("Hornblowers", parameters, false);
-        return new GraveGuard(legion, numModels, weapons, standardBearers, hornblowers, ComputePoints(parameters));
+        return new GraveGuard(bloodline, numModels, weapons, standardBearers, hornblowers, ComputePoints(parameters));
     }
 
     void GraveGuard::Init() {
@@ -83,7 +83,7 @@ namespace Soulblight {
                             EnumParameter("Weapons", Wight_Blade, weapons),
                             BoolParameter("Standard Bearers"),
                             BoolParameter("Hornblowers"),
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

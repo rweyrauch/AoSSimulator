@@ -73,7 +73,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT}
             };
-            s_registered = UnitFactory::Register("Vampire Lord on Zombie Dragon", factoryMethod);
+            s_registered = UnitFactory::Register("Vampire Lord on Zombie Dragon(d)", factoryMethod);
         }
     }
 

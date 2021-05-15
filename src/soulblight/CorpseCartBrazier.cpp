@@ -19,8 +19,8 @@ namespace Soulblight {
     bool CorpseCartWithBalefireBrazier::s_registered = false;
 
     Unit *CorpseCartWithBalefireBrazier::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
-        return new CorpseCartWithBalefireBrazier(legion);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
+        return new CorpseCartWithBalefireBrazier(bloodline);
     }
 
     int CorpseCartWithBalefireBrazier::ComputePoints(const ParameterList& /*parameters*/) {
@@ -35,7 +35,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -44,12 +44,12 @@ namespace Soulblight {
         }
     }
 
-    CorpseCartWithBalefireBrazier::CorpseCartWithBalefireBrazier(CursedBloodline legion) :
-            SoulblightBase(legion, "Corpse Cart with Balefire Brazier", 4, g_wounds, 10, 6, false, g_pointsPerUnit),
+    CorpseCartWithBalefireBrazier::CorpseCartWithBalefireBrazier(CursedBloodline bloodline) :
+            SoulblightBase(bloodline, "Corpse Cart with Balefire Brazier", 4, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_goad(Weapon::Type::Melee, "Corpse Goad", 2, 2, 4, 4, 0, 1),
             m_lash(Weapon::Type::Melee, "Corpse Lash", 1, 3, 4, 4, 0, 1),
             m_blades(Weapon::Type::Melee, "Rusty Blades", 1, RAND_2D6, 5, 5, 0, 1) {
-        m_keywords = {DEATH, ZOMBIE, DEADWALKERS, CORPSE_CART};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEADWALKERS, CORPSE_CART, CORPSE_CART_WITH_BALEFILE_BRAZIER};
         m_weapons = {&m_goad, &m_lash, &m_blades};
         s_globalCastMod.connect(this, &CorpseCartWithBalefireBrazier::brazierCastingMod, &m_brazierSlot);
 
@@ -67,22 +67,6 @@ namespace Soulblight {
     int CorpseCartWithBalefireBrazier::brazierCastingMod(const Unit *caster) {
         if (!isFriendly(caster) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0)) return -1;
         return 0;
-    }
-
-    void CorpseCartWithBalefireBrazier::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-
-        if (owningPlayer() == player) {
-            // Malefic Fumes
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
-            for (auto unit : units) {
-                if (unit->hasKeyword(WIZARD)) {
-                    if (Dice::RollD6() >= 4) {
-                        unit->applyDamage({0, 1}, this);
-                    }
-                }
-            }
-        }
     }
 
 } // namespace Soulblight

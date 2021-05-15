@@ -35,14 +35,14 @@ namespace Soulblight {
 
     bool Terrorgheist::s_registered = false;
 
-    Terrorgheist::Terrorgheist(CursedBloodline legion) :
-            SoulblightBase(legion, "Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
+    Terrorgheist::Terrorgheist(CursedBloodline bloodline) :
+            SoulblightBase(bloodline, "Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 1, 0, 0, 0, 0),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
             m_fangedMaw(Weapon::Type::Melee, "Fanged Maw", 3, 3, 4, 3, -2, RAND_D6) {
-        m_keywords = {DEATH, FLESH_EATER_COURTS, MENAGERIE, MONSTER, ROYAL_TERRORGHEIST};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, MONSTER, TERRORGHEIST};
         m_weapons = {&m_deathShriek, &m_skeletalClaws, &m_fangedMaw};
-        m_battleFieldRole = Role::Behemoth;
+        m_battleFieldRole = (bloodline == CursedBloodline::Avengorii_Dynasty) ? Role::Battleline_Behemoth : Role::Behemoth;
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_deathShriek);

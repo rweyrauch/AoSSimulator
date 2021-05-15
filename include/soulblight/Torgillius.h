@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        TorgilliusTheChamberlain(CursedBloodline bloodline, Lore lore, bool isGeneral);
+        TorgilliusTheChamberlain(Lore lore, bool isGeneral);
 
         ~TorgilliusTheChamberlain() override = default;
 

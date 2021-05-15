@@ -63,7 +63,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT}
             };
-            s_registered = UnitFactory::Register("Prince Vhordrai", factoryMethod);
+            s_registered = UnitFactory::Register("Prince Vhordrai(d)", factoryMethod);
         }
     }
 

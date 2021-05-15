@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        BelladammaVolga(CursedBloodline bloodline, Lore lore, bool isGeneral);
+        BelladammaVolga(Lore lore, bool isGeneral);
 
         ~BelladammaVolga() override = default;
 

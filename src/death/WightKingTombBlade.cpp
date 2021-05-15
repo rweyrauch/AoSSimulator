@@ -70,7 +70,7 @@ namespace Death {
                     DEATH,
                     {DEATHRATTLE}
             };
-            s_registered = UnitFactory::Register("Wight King with Baleful Tomb Blade", factoryMethod);
+            s_registered = UnitFactory::Register("Wight King with Baleful Tomb Blade(d)", factoryMethod);
         }
     }
 

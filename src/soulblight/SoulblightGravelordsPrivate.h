@@ -13,7 +13,7 @@
 
 namespace Soulblight {
 
-    constexpr std::array<int, 6> g_legions = {
+    constexpr std::array<int, 6> g_bloodlines = {
             ToInteger(CursedBloodline::None),
 
             ToInteger(CursedBloodline::Legion_Of_Blood),

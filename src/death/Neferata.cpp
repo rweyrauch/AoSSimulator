@@ -62,7 +62,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT, DEATHLORDS}
             };
-            s_registered = UnitFactory::Register("Neferata, Mortarch of Blood", factoryMethod);
+            s_registered = UnitFactory::Register("Neferata, Mortarch of Blood(d)", factoryMethod);
         }
     }
 

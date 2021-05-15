@@ -89,7 +89,7 @@ namespace Death {
                     DEATH,
                     {DEATHRATTLE}
             };
-            s_registered = UnitFactory::Register("Skeleton Warriors", factoryMethod);
+            s_registered = UnitFactory::Register("Skeleton Warriors(d)", factoryMethod);
         }
     }
 

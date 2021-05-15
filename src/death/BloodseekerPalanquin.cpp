@@ -67,7 +67,7 @@ namespace Death {
                     DEATH,
                     {SOULBLIGHT}
             };
-            s_registered = UnitFactory::Register("Bloodseeker Palanquin", factoryMethod);
+            s_registered = UnitFactory::Register("Bloodseeker Palanquin(d)", factoryMethod);
         }
     }
 

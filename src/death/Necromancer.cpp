@@ -67,7 +67,7 @@ namespace Death {
                     DEATH,
                     {DEATHMAGES}
             };
-            s_registered = UnitFactory::Register("Necromancer", factoryMethod);
+            s_registered = UnitFactory::Register("Necromancer(d)", factoryMethod);
         }
     }
 

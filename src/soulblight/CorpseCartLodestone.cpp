@@ -18,8 +18,8 @@ namespace Soulblight {
     bool CorpseCartWithUnholyLodestone::s_registered = false;
 
     Unit *CorpseCartWithUnholyLodestone::Create(const ParameterList &parameters) {
-        auto legion = (CursedBloodline) GetEnumParam("Legion", parameters, g_legions[0]);
-        return new CorpseCartWithUnholyLodestone(legion);
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
+        return new CorpseCartWithUnholyLodestone(bloodline);
     }
 
     int CorpseCartWithUnholyLodestone::ComputePoints(const ParameterList& /*parameters*/) {
@@ -34,7 +34,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Legion", g_legions[0], g_legions)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -43,12 +43,12 @@ namespace Soulblight {
         }
     }
 
-    CorpseCartWithUnholyLodestone::CorpseCartWithUnholyLodestone(CursedBloodline legion) :
-            SoulblightBase(legion, "Corpse Cart with Unholy Lodestone", 4, g_wounds, 10, 6, false, g_pointsPerUnit),
+    CorpseCartWithUnholyLodestone::CorpseCartWithUnholyLodestone(CursedBloodline bloodline) :
+            SoulblightBase(bloodline, "Corpse Cart with Unholy Lodestone", 4, g_wounds, 10, 6, false, g_pointsPerUnit),
             m_goad(Weapon::Type::Melee, "Corpse Goad", 2, 2, 4, 4, 0, 1),
             m_lash(Weapon::Type::Melee, "Corpse Lash", 1, 3, 4, 4, 0, 1),
             m_blades(Weapon::Type::Melee, "Rusty Blades", 1, RAND_2D6, 5, 5, 0, 1) {
-        m_keywords = {DEATH, ZOMBIE, DEADWALKERS, CORPSE_CART};
+        m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEADWALKERS, CORPSE_CART, CORPSE_CART_WITH_UNHOLY_LODESTONE};
         m_weapons = {&m_goad, &m_lash, &m_blades};
         s_globalCastMod.connect(this, &CorpseCartWithUnholyLodestone::unholyLodestoneCastingMod, &m_lodestoneSlot);
 
@@ -64,7 +64,7 @@ namespace Soulblight {
     }
 
     int CorpseCartWithUnholyLodestone::unholyLodestoneCastingMod(const Unit *caster) {
-        if (isFriendly(caster) && hasKeyword(DEATH) && hasKeyword(WIZARD) && (distanceTo(caster) <= 18.0)) return 1;
+        if (isFriendly(caster) && hasKeyword(DEATH) && hasKeyword(WIZARD) && (distanceTo(caster) <= 12.0)) return 1;
         return 0;
     }
 

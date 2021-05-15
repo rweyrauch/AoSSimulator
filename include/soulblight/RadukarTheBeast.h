@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        RadukarTheBeast(CursedBloodline bloodline, bool isGeneral);
+        RadukarTheBeast(bool isGeneral);
 
         ~RadukarTheBeast() override = default;
 
