@@ -23,27 +23,11 @@ namespace Soulblight {
             ToInteger(CursedBloodline::Avengorii_Dynasty)
     };
 
-    constexpr std::array<int, 37> g_commandTraits = {
+    constexpr std::array<int, 34> g_commandTraits = {
             ToInteger(CommandTrait::None),
 
-            // Grand Host
-            ToInteger(CommandTrait::Master_Of_Death),
-            ToInteger(CommandTrait::Chosen_Champion),
-            ToInteger(CommandTrait::Bane_Of_The_Living),
-            ToInteger(CommandTrait::Aura_Of_Ages),
-            ToInteger(CommandTrait::Ancient_Strategist),
-            ToInteger(CommandTrait::Lord_Of_Nagashizzar),
-
-            // Legion of Sacrament
-            ToInteger(CommandTrait::Emissary_Of_The_Master),
-            ToInteger(CommandTrait::Mark_Of_The_Favoured),
-            ToInteger(CommandTrait::Dark_Acolyte),
-            ToInteger(CommandTrait::Mastery_Of_Death),
-            ToInteger(CommandTrait::Peerless_Commander),
-            ToInteger(CommandTrait::Bound_To_The_Master),
-
             // Legion of Blood
-            ToInteger(CommandTrait::Swift_Strikes),
+            ToInteger(CommandTrait::Premeditated_Violence),
             ToInteger(CommandTrait::Soul_Crushing_Contempt),
             ToInteger(CommandTrait::Aristocracy_Of_Blood),
             ToInteger(CommandTrait::Aura_Of_Dark_Majesty),
@@ -66,33 +50,30 @@ namespace Soulblight {
             ToInteger(CommandTrait::Killing_Blow),
             ToInteger(CommandTrait::Blood_Fury),
 
-            // Death
-            ToInteger(CommandTrait::Ruler_Of_The_Night),
-            ToInteger(CommandTrait::Predator_Of_The_Shadows),
-            ToInteger(CommandTrait::Death_Incarnate),
-            ToInteger(CommandTrait::Master_Of_The_Black_Arts),
-            ToInteger(CommandTrait::Red_Fury),
-            ToInteger(CommandTrait::Supernatural_Horror),
+            // Vyrkos Dynasty
+            ToInteger(CommandTrait::Pack_Alpha),
+            ToInteger(CommandTrait::Driven_By_Deathstench),
+            ToInteger(CommandTrait::Kin_Of_The_Wolf),
+            ToInteger(CommandTrait::Hunters_Snare),
+            ToInteger(CommandTrait::Spoor_Trackers),
+            ToInteger(CommandTrait::United_By_Blood),
+
+            // Kastelai Dynasty
+            ToInteger(CommandTrait::Beacon_Of_Bloodshed),
+            ToInteger(CommandTrait::Master_Of_Retaliation),
+            ToInteger(CommandTrait::Power_In_The_Blood),
+            ToInteger(CommandTrait::Rousing_Commander),
+            ToInteger(CommandTrait::Swift_And_Deadly),
+            ToInteger(CommandTrait::A_Craving_For_Massacre),
+
+            // Avengorii Dynasty
+            ToInteger(CommandTrait::An_Eye_For_An_Eye),
+            ToInteger(CommandTrait::Torment_Driven_Throes),
+            ToInteger(CommandTrait::Unhinged_Rampager),
     };
 
-    constexpr std::array<int, 25> g_artefacts = {
+    constexpr std::array<int, 19> g_artefacts = {
             ToInteger(Artefact::None),
-
-            // Grand Host
-            ToInteger(Artefact::Deathforged_Chain),
-            ToInteger(Artefact::Balefire_Lantern),
-            ToInteger(Artefact::Grave_Sand_Timeglass),
-            ToInteger(Artefact::Ossific_Diadem),
-            ToInteger(Artefact::Amethyst_Shard),
-            ToInteger(Artefact::Terrorgheist_Mantle),
-
-            // Legion of Sacrament
-            ToInteger(Artefact::Spiritcage),
-            ToInteger(Artefact::Shroud_Of_Darkness),
-            ToInteger(Artefact::Asylumaticae),
-            ToInteger(Artefact::Wristbands_Of_Black_Gold),
-            ToInteger(Artefact::Azyrbane_Standard),
-            ToInteger(Artefact::Black_Gem),
 
             // Legion of Blood
             ToInteger(Artefact::Ring_Of_Domination),
@@ -109,6 +90,15 @@ namespace Soulblight {
             ToInteger(Artefact::Chiropteric_Cloak),
             ToInteger(Artefact::Morbhegs_Claw),
             ToInteger(Artefact::Curseblade),
+
+            // Kastelai Dynasty
+            ToInteger(Artefact::Sword_Of_The_Red_Seneschals),
+            ToInteger(Artefact::Bloodsaints_Shield),
+            ToInteger(Artefact::Stardard_Of_The_Crimson_Keep),
+            ToInteger(Artefact::Grave_Sand_Shard),
+            ToInteger(Artefact::Fragment_Of_The_Keep),
+            ToInteger(Artefact::The_Red_Casket),
+
     };
 
     constexpr std::array<int, 7> g_deathmageLore = {

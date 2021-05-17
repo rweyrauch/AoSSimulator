@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        NeferataMortarchOfBlood(CursedBloodline bloodline, Lore lore, bool isGeneral);
+        NeferataMortarchOfBlood(Lore lore, bool isGeneral);
 
         ~NeferataMortarchOfBlood() override = default;
 
@@ -32,8 +32,6 @@ namespace Soulblight {
         void onRestore() override;
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
-        void onStartHero(PlayerId player) override;
 
         void onEndCombat(PlayerId player) override;
 
@@ -56,7 +54,6 @@ namespace Soulblight {
 // Dagger of Jet                    TODO
 // Mortarch of Blood                Partial/TODO
 // Frightful Touch                  Yes
-// Deathly Invocations              Yes
 // Dark Mist                        TODO
 // Twilight's Allure                TODO
 

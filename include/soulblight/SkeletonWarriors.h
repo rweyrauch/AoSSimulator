@@ -1,7 +1,7 @@
 /*
  * Warhammer Age of Sigmar battle simulator.
  *
- * Copyright (C) 2019 by Rick Weyrauch - rpweyrauch@gmail.com
+ * Copyright (C) 2021 by Rick Weyrauch - rpweyrauch@gmail.com
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
@@ -12,12 +12,12 @@
 
 namespace Soulblight {
 
-    class SkeletonWarriors : public SoulblightBase {
+    class DeathrattleSkeletons : public SoulblightBase {
     public:
 
-        enum WeaponOptions {
-            Ancient_Blade,
-            Ancient_Spear,
+        enum ChampionWeaponOption {
+            Ancient_Blade_Or_Spear,
+            Champions_Mace_Or_Halberd,
         };
 
         static Unit *Create(const ParameterList &parameters);
@@ -30,30 +30,14 @@ namespace Soulblight {
 
         static void Init();
 
-        SkeletonWarriors(CursedBloodline bloodline, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points);
+        DeathrattleSkeletons(CursedBloodline bloodline, int numModels, ChampionWeaponOption weapon, bool standardBearer, int points);
 
-        ~SkeletonWarriors() override;
-
-    protected:
-
-        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
-
-        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
-
-        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
-
-        int rollChargeDistance() override;
-
-        int standardBearerBraveryMod(const Unit *unit);
+        ~DeathrattleSkeletons() override;
 
     private:
 
-        Weapon m_ancientBlade,
-                m_ancientBladeChampion,
-                m_ancientSpear,
-                m_ancientSpearChampion;
-
-        lsignal::slot m_standardSlot;
+        Weapon  m_ancientBladeOrSpear{Weapon::Type::Melee, "Ancient Blade or Spear", 1, 1, 3, 4, 0, 1},
+                m_championsMaceOrHalberd{Weapon::Type::Melee, "Champion's Mace or Halberd", 1, 2, 3, 3, 0, 1};
 
         static bool s_registered;
 
@@ -62,10 +46,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  Yes
-// Hornblower                       Yes
-// Skeleton Legion                  Yes
-// Crypt Shields                    Yes
+// Standard Bearer                  TODO
+// Skeleton Legion                  TODO
 //
 
 } //namespace Soulblight

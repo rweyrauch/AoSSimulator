@@ -51,7 +51,6 @@
 #include "soulblight/PrinceVhordrai.h"
 #include "soulblight/VampireLord.h"
 #include "soulblight/VampireLordOnDragon.h"
-#include "Lore.h"
 
 namespace Soulblight {
 
@@ -144,39 +143,6 @@ namespace Soulblight {
             m_terrifyVisageSlot.disconnect();
         }
 
-        if (m_commandTrait == CommandTrait::Master_Of_The_Black_Arts) {
-            if (!hasKeyword(WIZARD)) {
-                addKeyword(WIZARD);
-                m_totalUnbinds = 1;
-                m_totalSpells = 1;
-                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-                m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-            }
-        }
-        if (m_commandTrait == CommandTrait::Dark_Acolyte) {
-            constexpr std::array<Lore, 6> deathmageLore = {Lore::Overwhelming_Dread,Lore::Fading_Vigour,
-                                                           Lore::Spectral_Grasp,Lore::Prison_Of_Grief,
-                                                           Lore::Decrepify,Lore::Soul_Harvest};
-            constexpr std::array<Lore, 6> vampireLore = {Lore::Blades_Of_Shyish,Lore::Spirit_Gale,
-                                                         Lore::Vile_Transference,Lore::Amethystine_Pinions,
-                                                         Lore::Soulpike,Lore::Amaranthine_Orb};
-
-            if (!hasKeyword(WIZARD)) {
-                addKeyword(WIZARD);
-                m_totalUnbinds = 1;
-                m_totalSpells = 1;
-                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
-                m_knownSpells.push_back(std::make_unique<MysticShield>(this));
-            }
-            if (hasKeyword(DEATHMAGES)) {
-                // TODO: make sure added spells are unique
-                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(deathmageLore[Dice::RollD6()], this)));
-            }
-            else if (hasKeyword(VAMPIRE)) {
-                // TODO: make sure added spells are unique
-                m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(vampireLore[Dice::RollD6()], this)));
-            }
-        }
     }
 
     void SoulblightBase::setArtefact(Artefact artefact) {
@@ -186,10 +152,6 @@ namespace Soulblight {
     Wounds
     SoulblightBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
-        if (isGeneral() && (m_commandTrait == CommandTrait::Chosen_Champion) && weapon->isMelee() &&
-            target->hasKeyword(HERO)) {
-            damage.normal++;
-        }
         if (isGeneral() && (m_commandTrait == CommandTrait::Killing_Blow) && weapon->isMelee() && (woundRoll == 6)) {
             damage.mortal++;
         }
@@ -198,9 +160,6 @@ namespace Soulblight {
     }
 
     Rerolls SoulblightBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
-        if (isGeneral() && (m_commandTrait == CommandTrait::Bane_Of_The_Living) && !target->hasKeyword(DEATH)) {
-            return Rerolls::Ones;
-        }
         if (isGeneral() && (m_commandTrait == CommandTrait::Merciless_Hunter)) {
             return Rerolls::Ones;
         }
@@ -209,12 +168,6 @@ namespace Soulblight {
 
     int SoulblightBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
-        auto general = dynamic_cast<SoulblightBase *>(getRoster()->getGeneral());
-        if (general && (general->remainingModels() > 0) &&
-            (general->m_commandTrait == CommandTrait::Lord_Of_Nagashizzar) && hasKeyword(DEATHRATTLE) &&
-            (distanceTo(general) < 6.0)) {
-            attacks++;
-        }
         if (isGeneral() && (m_commandTrait == CommandTrait::Blood_Fury) && weapon->isMelee()) {
             attacks++;
         }
@@ -223,16 +176,6 @@ namespace Soulblight {
 
     Rerolls SoulblightBase::chargeRerolls() const {
         auto general = dynamic_cast<SoulblightBase *>(getRoster()->getGeneral());
-        if (general && (general->remainingModels() > 0) &&
-            (general->m_commandTrait == CommandTrait::Ancient_Strategist) && hasKeyword(DEATHRATTLE) &&
-            (distanceTo(general) < 9.0)) {
-            return Rerolls::Failed;
-        }
-        if (general && (general->remainingModels() > 0) &&
-            (general->m_commandTrait == CommandTrait::Emissary_Of_The_Master) && hasKeyword(DEATH) &&
-            (distanceTo(general) < 6.0)) {
-            return Rerolls::Failed;
-        }
         if (general && (general->remainingModels() > 0) &&
             (general->m_commandTrait == CommandTrait::Aristocracy_Of_Blood) && hasKeyword(SOULBLIGHT) &&
             (distanceTo(general) < 9.0)) {
@@ -246,15 +189,6 @@ namespace Soulblight {
 
     void SoulblightBase::onStartCombat(PlayerId player) {
         Unit::onStartCombat(player);
-
-        if (isGeneral() && (m_commandTrait == CommandTrait::Aura_Of_Ages)) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
-            for (auto unit : units) {
-                if (Dice::RollD6() >= 4) {
-                    unit->buffModifier(Attribute::To_Hit_Melee, -1, {GamePhase::Combat, m_battleRound, owningPlayer()});
-                }
-            }
-        }
     }
 
     int SoulblightBase::runModifier() const {
@@ -282,26 +216,16 @@ namespace Soulblight {
 
     int SoulblightBase::castingModifier() const {
         auto mod = Unit::castingModifier();
-        if (isGeneral() && hasKeyword(WIZARD) && (m_commandTrait == CommandTrait::Master_Of_The_Black_Arts)) {
-            mod++;
-        }
         return mod;
     }
 
     int SoulblightBase::unbindingModifier() const {
         auto mod = Unit::unbindingModifier();
-        if (isGeneral() && hasKeyword(WIZARD) && (m_commandTrait == CommandTrait::Master_Of_The_Black_Arts)) {
-            mod++;
-        }
         return mod;
     }
 
     int SoulblightBase::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
         auto hits = Unit::generateHits(unmodifiedHitRoll, weapon, unit);
-        if ((unmodifiedHitRoll == 6) && isGeneral() && weapon->isMelee() &&
-            (m_commandTrait == CommandTrait::Swift_Strikes)) {
-            hits++;
-        }
         return hits;
     }
 
@@ -355,17 +279,11 @@ namespace Soulblight {
 
     int SoulblightBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
         auto mod = Unit::toHitModifier(weapon, target);
-        if (isGeneral() && (m_commandTrait == CommandTrait::Predator_Of_The_Shadows) && Board::Instance()->isInCover(this)) {
-            mod++;
-        }
         return mod;
     }
 
     int SoulblightBase::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         auto mod = Unit::toWoundModifier(weapon, target);
-        if (isGeneral() && (m_commandTrait == CommandTrait::Predator_Of_The_Shadows) && Board::Instance()->isInCover(this)) {
-            mod++;
-        }
         return mod;
     }
 
@@ -377,6 +295,7 @@ namespace Soulblight {
         CorpseCartWithBalefireBrazier::Init();
         CorpseCartWithUnholyLodestone::Init();
         CovenThrone::Init();
+        DeathrattleSkeletons::Init();
         DireWolves::Init();
         FellBats::Init();
         GorslavTheGravekeeper::Init();
@@ -394,7 +313,6 @@ namespace Soulblight {
         PrinceVhordrai::Init();
         RadukarTheBeast::Init();
         RadukarTheWolf::Init();
-        SkeletonWarriors::Init();
         Terrorgheist::Init();
         TheCrimsonCourt::Init();
         TorgilliusTheChamberlain::Init();

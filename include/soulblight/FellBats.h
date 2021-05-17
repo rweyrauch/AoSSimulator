@@ -34,7 +34,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Single-minded Ferocity           TODO
+// Single-minded Ferocity           Yes
 //
 
 } //namespace Soulblight

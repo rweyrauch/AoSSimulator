@@ -27,24 +27,8 @@ namespace Soulblight {
     enum class CommandTrait : int {
         None,
 
-        // Grand Host
-        Master_Of_Death,            // TODO
-        Chosen_Champion,
-        Bane_Of_The_Living,
-        Aura_Of_Ages,
-        Ancient_Strategist,
-        Lord_Of_Nagashizzar,
-
-        // Legion of Sacrament
-        Emissary_Of_The_Master,
-        Mark_Of_The_Favoured,       // TODO
-        Dark_Acolyte,
-        Mastery_Of_Death,           // TODO
-        Peerless_Commander,         // TODO
-        Bound_To_The_Master,        // TODO
-
         // Legion of Blood
-        Swift_Strikes,
+        Premeditated_Violence,      // TODO Swift_Strikes
         Soul_Crushing_Contempt,
         Aristocracy_Of_Blood,
         Aura_Of_Dark_Majesty,
@@ -67,33 +51,30 @@ namespace Soulblight {
         Killing_Blow,
         Blood_Fury,
 
-        // Death
-        Ruler_Of_The_Night,         // TODO
-        Predator_Of_The_Shadows,
-        Death_Incarnate,            // TODO
-        Master_Of_The_Black_Arts,
-        Red_Fury,                   // TODO
-        Supernatural_Horror,        // TODO
+        // Vyrkos Dynasty
+        Pack_Alpha,                 // TODO
+        Driven_By_Deathstench,      // TODO
+        Kin_Of_The_Wolf,            // TODO
+        Hunters_Snare,              // TODO
+        Spoor_Trackers,             // TODO
+        United_By_Blood,            // TODO
+
+        // Kastelai Dynasty
+        Beacon_Of_Bloodshed,        // TODO
+        Master_Of_Retaliation,      // TODO
+        Power_In_The_Blood,         // TODO
+        Rousing_Commander,          // TODO
+        Swift_And_Deadly,           // TODO
+        A_Craving_For_Massacre,     // TODO
+
+        // Avengorii Dynasty
+        An_Eye_For_An_Eye,          // TODO
+        Torment_Driven_Throes,      // TODO
+        Unhinged_Rampager,          // TODO
     };
 
     enum class Artefact : int {
         None,
-
-        // Grand Host
-        Deathforged_Chain,
-        Balefire_Lantern,
-        Grave_Sand_Timeglass,
-        Ossific_Diadem,
-        Amethyst_Shard,
-        Terrorgheist_Mantle,
-
-        // Legion of Sacrament
-        Spiritcage,
-        Shroud_Of_Darkness,
-        Asylumaticae,
-        Wristbands_Of_Black_Gold,
-        Azyrbane_Standard,
-        Black_Gem,
 
         // Legion of Blood
         Ring_Of_Domination,
@@ -111,10 +92,38 @@ namespace Soulblight {
         Morbhegs_Claw,
         Curseblade,
 
+        // Kastelai Dynasty
+        Sword_Of_The_Red_Seneschals,
+        Bloodsaints_Shield,
+        Stardard_Of_The_Crimson_Keep,
+        Grave_Sand_Shard,
+        Fragment_Of_The_Keep,
+        The_Red_Casket,
+
+        // Vyrkos Dynasty
+        Ulfenkarnian_Phylactery,
+        Cloak_Of_The_Night_Prowler,
+        Sangsyron_SP,
+        Vilnas_Fang,
+        Terminus_Cloak,
+        Standard_Of_The_Ulfenwatch,
+
+        // Avengorii Dynasty
+        Breath_Of_The_Void_Maw,
+        Ghorvars_Collar,
+        The_Furious_Crown,
+    };
+
+    enum class Mutation : int {
+        Maddening_Hunger,
+        Urges_Of_Atrocity,
+        Nullblood_Construct,
     };
 
     enum class Lore : int {
         None,
+
+        Invigorating_Aura,      // TODO
 
         // Deathmages
         Overwhelming_Dread,
@@ -127,9 +136,9 @@ namespace Soulblight {
         // Vampire
         Blades_Of_Shyish,
         Spirit_Gale,
-        Vile_Transference,      // TODO
-        Amethystine_Pinions,
         Soulpike,               // TODO
+        Amethystine_Pinions,
+        Vile_Transference,      // TODO
         Amaranthine_Orb,
     };
 

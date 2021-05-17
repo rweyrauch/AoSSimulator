@@ -59,6 +59,9 @@ namespace Soulblight {
         m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, SUMMONABLE, FELL_BATS};
         m_weapons = {&m_fangs};
 
+        // Single-minded Ferocity
+        m_retreatAndCharge = true;
+
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_fangs);

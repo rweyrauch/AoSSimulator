@@ -100,17 +100,13 @@ namespace Soulblight {
 
     int Nagash::castingModifier() const {
         auto mod = SoulblightBase::castingModifier();
-
         mod += g_damageTable[getDamageTableIndex()].m_castBonus;
-
         return mod;
     }
 
     int Nagash::unbindingModifier() const {
         auto mod = SoulblightBase::unbindingModifier();
-
         mod += g_damageTable[getDamageTableIndex()].m_unbindBonus;
-
         return mod;
     }
 
@@ -131,6 +127,9 @@ namespace Soulblight {
     void Nagash::onWounded() {
         const auto damageIndex = getDamageTableIndex();
         m_zefetNebtar.setAttacks(g_damageTable[damageIndex].m_zefetAttacks);
+
+        m_totalSpells = 3 + g_damageTable[damageIndex].m_spells;
+        m_totalUnbinds = m_totalSpells;
 
         SoulblightBase::onWounded();
     }

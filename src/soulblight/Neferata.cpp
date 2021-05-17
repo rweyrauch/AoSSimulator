@@ -14,33 +14,31 @@
 
 namespace Soulblight {
     static const int g_basesize = 120; // x92 oval
-    static const int g_wounds = 11;
+    static const int g_wounds = 12;
     static const int g_pointsPerUnit = 365;
 
     struct TableEntry {
         int m_move;
         int m_clawAttacks;
-        double m_allureRange;
     };
 
     const size_t g_numTableEntries = 5;
     const int g_woundThresholds[g_numTableEntries] = {2, 4, 6, 8, g_wounds};
     const TableEntry g_damageTable[g_numTableEntries] =
             {
-                    {16, 6, 15},
-                    {13, 5, 12},
-                    {10, 4, 9},
-                    {7,  3, 6},
-                    {4,  2, 3}
+                    {16, 6},
+                    {13, 5},
+                    {10, 4},
+                    {7,  3},
+                    {4,  2}
             };
 
     bool NeferataMortarchOfBlood::s_registered = false;
 
     Unit *NeferataMortarchOfBlood::Create(const ParameterList &parameters) {
-        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new NeferataMortarchOfBlood(bloodline, lore, general);
+        return new NeferataMortarchOfBlood(lore, general);
     }
 
     int NeferataMortarchOfBlood::ComputePoints(const ParameterList& /*parameters*/) {
@@ -55,7 +53,6 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
                             EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
                             BoolParameter("General")
                     },
@@ -66,13 +63,13 @@ namespace Soulblight {
         }
     }
 
-    NeferataMortarchOfBlood::NeferataMortarchOfBlood(CursedBloodline bloodline, Lore lore, bool isGeneral) :
-            SoulblightBase(bloodline, "Neferata, Mortarch of Blood", 16, g_wounds, 10, 4, true, g_pointsPerUnit),
+    NeferataMortarchOfBlood::NeferataMortarchOfBlood(Lore lore, bool isGeneral) :
+            SoulblightBase(CursedBloodline::Legion_Of_Blood, "Neferata, Mortarch of Blood", 16, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_akmetHar(Weapon::Type::Melee, "Akmet-har", 1, 5, 2, 3, -1, 1),
             m_akenSeth(Weapon::Type::Melee, "Aken-seth", 1, 2, 2, 3, -2, 2),
-            m_skeletalClaws(Weapon::Type::Melee, "Nagadron's Skeletal Claws", 1, 6, 4, 3, -2, 2),
-            m_clawsAndDaggers(Weapon::Type::Melee, "Spirits' Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, DEATHLORDS, MONSTER, HERO, WIZARD, MORTARCH, NEFERATA};
+            m_skeletalClaws(Weapon::Type::Melee, "Abyssal Talons", 1, 6, 4, 3, -2, 2),
+            m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, DEATHLORDS, LEGION_OF_BLOOD, MONSTER, HERO, WIZARD, MORTARCH, NEFERATA};
         m_weapons = {&m_akmetHar, &m_akenSeth, &m_skeletalClaws, &m_clawsAndDaggers};
         m_battleFieldRole = Role::Leader_Behemoth;
         m_hasMount = true;
@@ -126,18 +123,11 @@ namespace Soulblight {
         return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
-    void NeferataMortarchOfBlood::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-
-        if (owningPlayer() == player) deathlyInvocations(4, 18.0);
-    }
-
     void NeferataMortarchOfBlood::onEndCombat(PlayerId player) {
-
         // Mortarch of Blood
-        if (m_currentRecord.m_enemyModelsSlain > 0) heal(2);
-        // TODO: if any HEROs slain heal an additional wound.
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(RAND_D6);
 
         SoulblightBase::onEndCombat(player);
     }
+
 } // namespace Soulblight
