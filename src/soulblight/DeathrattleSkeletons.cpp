@@ -6,7 +6,7 @@
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
 
-#include <soulblight/SkeletonWarriors.h>
+#include <soulblight/DeathrattleSkeletons.h>
 #include <Board.h>
 #include <UnitFactory.h>
 #include "SoulblightGravelordsPrivate.h"

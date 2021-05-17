@@ -35,7 +35,7 @@
 #include "soulblight/BloodKnights.h"
 #include "soulblight/DireWolves.h"
 #include "soulblight/GraveGuard.h"
-#include "soulblight/SkeletonWarriors.h"
+#include "soulblight/DeathrattleSkeletons.h"
 #include "soulblight/Vargheists.h"
 #include "soulblight/Zombies.h"
 #include "soulblight/WightKing.h"

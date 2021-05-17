@@ -47,22 +47,33 @@ namespace Soulblight {
         SoulblightBase(bloodline, "The Sepulchral Guard", 4, g_wounds, 10, 6, false, g_pointsPerUnit) {
 
         m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEATHRATTLE, DEATHRATTLE_SKELETONS, THE_SEPULCHRAL_GUARD};
-        m_weapons = {&m_mace, &m_blades, &m_bludgeon};
+        m_weapons = {&m_spear, &m_mace, &m_greatblade, &m_blade, &m_scythe};
 
-        auto gorath = new Model(g_basesize, wounds()+2);
-        gorath->addMeleeWeapon(&m_mace);
-        gorath->setName("Gorath the Enforcer");
-        addModel(gorath);
+        auto warden = new Model(g_basesize, wounds()+1);
+        warden->addMeleeWeapon(&m_spear);
+        warden->setName("Sepulchral Warden");
+        addModel(warden);
 
-        auto vellas = new Model(g_basesize, wounds());
-        vellas->addMeleeWeapon(&m_blades);
-        vellas->setName("Vellas von Faine");
-        addModel(vellas);
+        auto prince = new Model(g_basesize, wounds());
+        prince->addMeleeWeapon(&m_mace);
+        prince->setName("Prince of Dust");
+        addModel(prince);
 
-        auto ennias = new Model(g_basesize, wounds());
-        ennias->addMeleeWeapon(&m_bludgeon);
-        ennias->setName("Ennias Curse-born");
-        addModel(ennias);
+        auto champion = new Model(g_basesize, wounds());
+        champion->addMeleeWeapon(&m_greatblade);
+        champion->setName("Champion");
+        addModel(champion);
+
+        auto harvester = new Model(g_basesize, wounds());
+        harvester->addMeleeWeapon(&m_scythe);
+        harvester->setName("Harvester");
+        addModel(harvester);
+
+        for (auto i = 0; i < 3; i++) {
+            auto model = new Model(g_basesize, wounds());
+            model->addMeleeWeapon(&m_blade);
+            addModel(model);
+        }
     }
 
 } // namespace Soulblight

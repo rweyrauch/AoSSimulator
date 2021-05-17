@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        TheSepulchralGuard(CursedBloodline bloodline);
+        explicit TheSepulchralGuard(CursedBloodline bloodline);
 
         ~TheSepulchralGuard() override = default;
 
@@ -40,6 +40,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Sepulchral Warden                TODO
 // Frightening Speed                TODO
 // Serve In Death                   TODO
 //
