@@ -55,6 +55,7 @@
 #include <plog/Initializers/RollingFileInitializer.h>
 #include <plog/Appenders/ColorConsoleAppender.h>
 #include <plog/Formatters/MessageOnlyFormatter.h>
+#include <freeagents/Kragnos.h>
 
 void Initialize(plog::Severity level) {
 
@@ -103,4 +104,5 @@ void Initialize(plog::Severity level) {
     Greenskinz::RogueIdol::Init();
 
     FreeAgent::GotrekGurnisson::Init();
+    Destruction::Kragnos::Init();
 }

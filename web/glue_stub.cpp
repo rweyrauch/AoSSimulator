@@ -73,7 +73,7 @@ public:
     static void GetUnitInfoByName(const char* name, JSUnitInfo& info);
     static const char* UnitParameterValueToString(const char* unitName, const char* paramName, int value);
     static int UnitEnumStringToInt(const char* name, const char* enumString);
-    static int GetUnitPoints(const char* name, int numModels);
+    static int GetUnitPoints(PlayerId which, const char* name, int numModels);
 };
 
 
@@ -259,10 +259,11 @@ int JSInterface::UnitEnumStringToInt(const char* name, const char* enumString) {
     return 0;
 }
 
-int JSInterface::GetUnitPoints(const char* name, int numModels) {
+int JSInterface::GetUnitPoints(PlayerId which, const char* name, int numModels) {
     auto factory = UnitFactory::LookupUnit(std::string(name));
     if (factory) {
-        auto points = factory->m_computePoints(numModels);
+        auto player = (which == PlayerId::Red) ? 0 : 1;
+        auto points = factory->m_computePoints(g_paramList[player]);
         return points;
     }
     return 0;

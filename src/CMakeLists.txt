@@ -110,6 +110,7 @@ set(AOSSIM_SOURCE
         everchosen/Varanguard.cpp
 
         freeagents/GotrekGurnisson.cpp
+        freeagents/Kragnos.cpp
 
         behemat/SonsOfBehemat.cpp
         behemat/Mancrusher.cpp

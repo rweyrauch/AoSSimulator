@@ -101,6 +101,7 @@ enum Keyword {
     DRAGON,
     MONSTERS_OF_CHAOS,
     SORCERER,
+    DRAKE,
 
     // Stormcast
     SACROSANCT,
@@ -869,6 +870,7 @@ enum Keyword {
 
     // Free Agents (no faction)
     GOTREK_GURNISSON,
+    KRAGNOS,
 
     // Cities of Sigmar
     HAMMERHAL,

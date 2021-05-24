@@ -355,7 +355,7 @@ AoSSimulator().then(AoSSimulator => {
             const unitName = unitSelect.selectedOptions[0].text;
             let pointsDisp = document.getElementById(team+'-points-disp');
             if (pointsDisp) {
-                pointsDisp.value = sim.GetUnitPoints(unitName, numModels);
+                pointsDisp.value = sim.GetUnitPoints(team, unitName, numModels);
             }
         }
     }
