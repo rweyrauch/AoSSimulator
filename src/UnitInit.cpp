@@ -30,7 +30,6 @@
 #include "bonesplitterz/Bonesplitterz.h"
 #include "seraphon/Seraphon.h"
 #include "nurgle/Nurgle.h"
-#include "death/LegionOfNagash.h"
 #include "tzeentch/TzeentchBase.h"
 #include "lumineth/LuminethRealmLords.h"
 #include "behemat/SonsOfBehemat.h"
@@ -85,7 +84,6 @@ void Initialize(plog::Severity level) {
     Bonesplitterz::Init();
     Seraphon::Init();
     Nurgle::Init();
-    Death::Init();
     LuminethRealmLords::Init();
     SonsOfBehemat::Init();
     Soulblight::Init();
