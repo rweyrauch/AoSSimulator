@@ -17,7 +17,6 @@ file(GLOB dok_src "dok/*.cpp" "dok/*.h")
 file(GLOB idonethdeepkin_src "idonethdeepkin/*.cpp" "idonethdeepkin/*.h")
 file(GLOB nighthaunt_src "nighthaunt/*.cpp" "nighthaunt/*.h")
 file(GLOB slaanesh_src "slaanesh/*.cpp" "slaanesh/*.h")
-file(GLOB death_src "death/*.cpp" "death/*.h")
 file(GLOB fec_src "fec/*.cpp" "fec/*.h")
 file(GLOB tzeentch_src "tzeentch/*.cpp" "tzeentch/*.h")
 file(GLOB ironjawz_src "ironjawz/*.cpp" "ironjawz/*.h")
@@ -77,7 +76,6 @@ set(AOSSIM_SOURCE
         ${idonethdeepkin_src}
         ${nighthaunt_src}
         ${slaanesh_src}
-        ${death_src}
         ${fec_src}
         ${tzeentch_src}
         ${ironjawz_src}

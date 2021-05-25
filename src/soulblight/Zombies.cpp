@@ -28,6 +28,9 @@ namespace Soulblight {
         m_weapons = {&m_zombieBite};
         m_battleFieldRole = Role::Battleline;
 
+        // Dragged Down and Torn Apart
+        m_pileInMove = 6.0;
+
         for (auto i = 0; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_zombieBite);
@@ -69,6 +72,26 @@ namespace Soulblight {
             points = g_pointsMaxUnitSize;
         }
         return points;
+    }
+
+    void Zombies::onEndCombat(PlayerId player) {
+        SoulblightBase::onEndCombat(player);
+
+        // The Newly Dead
+        if (m_currentRecord.m_enemyModelsSlain > 0) {
+            Dice::RollResult rolls;
+            Dice::RollD6(m_currentRecord.m_enemyModelsSlain, rolls);
+            restoreModels(rolls.rollsGE(2));
+        }
+    }
+
+    Wounds
+    Zombies::weaponDamage(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
+        // The Newly Dead
+        if (hitRoll == 6) {
+            return {0, 1, Wounds::Source::Weapon_Melee, weapon};
+        }
+        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } //namespace Soulblight

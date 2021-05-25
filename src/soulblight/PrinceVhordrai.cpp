@@ -87,6 +87,9 @@ namespace Soulblight {
         model->addMeleeWeapon(&m_claws);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Quickblood", 7, 0,
+                std::vector<std::pair<Attribute, int>>{{Attribute::To_Hit_Melee, 1}, {Attribute::To_Wound_Melee, 1}},
+                Abilities::Target::Self));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

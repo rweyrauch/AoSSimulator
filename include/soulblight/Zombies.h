@@ -26,6 +26,10 @@ namespace Soulblight {
 
     protected:
 
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        void onEndCombat(PlayerId player) override;
+
     private:
 
         Weapon m_zombieBite;
@@ -37,8 +41,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Dragged Down and Torn Apart      TODO
-// The Newly Dead                   TODO
+// Dragged Down and Torn Apart      Yes
+// The Newly Dead                   Yes
 //
 
 } //namespace Soulblight

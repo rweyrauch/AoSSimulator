@@ -175,4 +175,24 @@ namespace Soulblight {
         }
         return SoulblightBase::EnumStringToInt(enumString);
     }
+
+    Wounds
+    VampireLordOnZombieDragon::weaponDamage(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
+                                            int woundRoll) const {
+        // Deathlance Charge
+        if (charged() && (weapon->name() == m_deathlance.name())) {
+            return {weapon->damage()+2, 0, Wounds::Source::Weapon_Melee, weapon};
+        }
+        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+    }
+
+    int VampireLordOnZombieDragon::weaponRend(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
+                                              int woundRoll) const {
+        // Deathlance Charge
+        if (charged() && (weapon->name() == m_deathlance.name())) {
+            return weapon->rend() - 1;
+        }
+        return SoulblightBase::weaponRend(attackingModel, weapon, target, hitRoll, woundRoll);
+    }
+
 } // namespace Soulblight

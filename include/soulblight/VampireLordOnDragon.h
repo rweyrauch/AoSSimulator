@@ -46,6 +46,10 @@ namespace Soulblight {
 
         size_t getDamageTableIndex() const;
 
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
+        int weaponRend(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_breath,
@@ -63,7 +67,7 @@ namespace Soulblight {
 // -------------------------------------------
 // Pestilential Breath              Yes
 // The Hunger                       Yes
-// Deathlance Charge                TODO
+// Deathlance Charge                Yes
 // Curse of Exsanguination          TODO
 //
 

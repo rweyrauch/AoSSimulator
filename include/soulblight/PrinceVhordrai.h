@@ -63,7 +63,7 @@ namespace Soulblight {
 // Bloodlance Charge                Yes
 // Breath of Shyish                 Yes
 // Deathly Invocation               Yes
-// Quickblood                       TODO
+// Quickblood                       Yes
 // Fist of Nagash                   TODO
 //
 
