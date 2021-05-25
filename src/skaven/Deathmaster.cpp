@@ -73,10 +73,20 @@ namespace Skaven {
     }
 
     std::string Deathmaster::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapon") {
+            if (parameter.intValue == Weeping_Blades) { return "Weeping Blades"; }
+            else if (parameter.intValue == Fighting_Claws) { return "Fighting Claws"; }
+        }
         return Skaventide::ValueToString(parameter);
     }
 
     int Deathmaster::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Weeping Blades") {
+            return Weeping_Blades;
+        }
+        else if (enumString == "Fighting Claws") {
+            return Fighting_Claws;
+        }
         return Skaventide::EnumStringToInt(enumString);
     }
 

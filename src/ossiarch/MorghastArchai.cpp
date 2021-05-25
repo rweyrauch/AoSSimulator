@@ -52,13 +52,13 @@ namespace OssiarchBonereapers {
             if (parameter.intValue == Spirit_Halberd) { return "Spirit Halberd"; }
             else if (parameter.intValue == Spirit_Swords) { return "Spirit Swords"; }
         }
-        return ParameterValueToString(parameter);
+        return OssiarchBonereaperBase::ValueToString(parameter);
     }
 
     int MorghastArchai::EnumStringToInt(const std::string &enumString) {
         if (enumString == "Spirit Halberd") { return Spirit_Halberd; }
         else if (enumString == "Spirit Swords") { return Spirit_Swords; }
-        return 0;
+        return OssiarchBonereaperBase::EnumStringToInt(enumString);
     }
 
     void MorghastArchai::Init() {

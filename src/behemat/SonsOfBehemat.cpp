@@ -28,6 +28,10 @@ namespace SonsOfBehemat {
             auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
+        if (std::string(parameter.name) == "Fierce Loathing") {
+            auto loathingName = magic_enum::enum_name((FierceLoathing) parameter.intValue);
+            return std::string(loathingName);
+        }
         return ParameterValueToString(parameter);
     }
 
@@ -41,6 +45,9 @@ namespace SonsOfBehemat {
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
         if (artefact.has_value()) return (int) artefact.value();
+
+        auto loathing = magic_enum::enum_cast<FierceLoathing>(enumString);
+        if (loathing.has_value()) return (int) loathing.value();
 
         return 0;
     }

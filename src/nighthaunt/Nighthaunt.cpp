@@ -86,6 +86,10 @@ namespace Nighthaunt {
             auto loreName = magic_enum::enum_name((Lore) parameter.intValue);
             return std::string(loreName);
         }
+        if (std::string(parameter.name) == "Procession") {
+            auto processionName = magic_enum::enum_name((Procession) parameter.intValue);
+            return std::string(processionName);
+        }
         return ParameterValueToString(parameter);
     }
 
@@ -98,6 +102,9 @@ namespace Nighthaunt {
 
         auto lore = magic_enum::enum_cast<Lore>(enumString);
         if (lore.has_value()) return (int) lore.value();
+
+        auto procession = magic_enum::enum_cast<Procession>(enumString);
+        if (procession.has_value()) return (int) procession.value();
 
         return 0;
     }

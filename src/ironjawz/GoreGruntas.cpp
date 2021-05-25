@@ -63,7 +63,7 @@ namespace Ironjawz {
     }
 
     std::string OrrukGoreGruntas::ValueToString(const Parameter &parameter) {
-        if (std::string(parameter.name) == "weapons") {
+        if (std::string(parameter.name) == "Weapons") {
             if (parameter.intValue == Pig_Iron_Choppa) {
                 return "Pig-iron Choppa";
             } else if (parameter.intValue == Jagged_Gorehacka) {

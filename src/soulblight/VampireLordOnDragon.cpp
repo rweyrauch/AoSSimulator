@@ -155,4 +155,24 @@ namespace Soulblight {
         }
         return mod;
     }
+
+    std::string VampireLordOnZombieDragon::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapon") {
+            if (parameter.intValue == Deathlance) {
+                return "Deathlance";
+            } else if (parameter.intValue == Vampiric_Sword) {
+                return "Vampiric Sword";
+            }
+        }
+        return SoulblightBase::ValueToString(parameter);
+    }
+
+    int VampireLordOnZombieDragon::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Deathlance") {
+            return Deathlance;
+        } else if (enumString == "Vampiric Sword") {
+            return Vampiric_Sword;
+        }
+        return SoulblightBase::EnumStringToInt(enumString);
+    }
 } // namespace Soulblight

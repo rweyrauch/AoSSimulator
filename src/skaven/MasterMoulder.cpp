@@ -26,13 +26,31 @@ namespace Skaven {
         return new MasterMoulder(option, trait, artefact, general);
     }
 
+    std::string MasterMoulder::ValueToString(const Parameter &parameter) {
+        if (std::string(parameter.name) == "Weapon") {
+            if (parameter.intValue == Lash) { return "Lash"; }
+            else if (parameter.intValue == Things_Catcher) { return "Things Catcher"; }
+        }
+        return Skaventide::ValueToString(parameter);
+    }
+
+    int MasterMoulder::EnumStringToInt(const std::string &enumString) {
+        if (enumString == "Lash") {
+            return Lash;
+        }
+        else if (enumString == "Things Catcher") {
+            return Things_Catcher;
+        }
+        return Skaventide::EnumStringToInt(enumString);
+    }
+
     void MasterMoulder::Init() {
         if (!s_registered) {
             static const std::array<int, 2> weapons = {Lash, Things_Catcher};
             static FactoryMethod factoryMethod = {
                     Create,
-                    Skaventide::ValueToString,
-                    Skaventide::EnumStringToInt,
+                    ValueToString,
+                    EnumStringToInt,
                     ComputePoints,
                     {
                             EnumParameter("Weapon", Lash, weapons),

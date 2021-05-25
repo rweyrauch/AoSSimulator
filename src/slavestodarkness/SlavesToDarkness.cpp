@@ -78,6 +78,10 @@ namespace SlavesToDarkness {
             auto artefactName = magic_enum::enum_name((Artefact) parameter.intValue);
             return std::string(artefactName);
         }
+        if (std::string(parameter.name) == "Idolator Prayer") {
+            auto prayerName = magic_enum::enum_name((Prayer) parameter.intValue);
+            return std::string(prayerName);
+        }
         return ParameterValueToString(parameter);
     }
 
@@ -96,6 +100,9 @@ namespace SlavesToDarkness {
 
         auto artefact = magic_enum::enum_cast<Artefact>(enumString);
         if (artefact.has_value()) return (int) artefact.value();
+
+        auto prayer = magic_enum::enum_cast<Prayer>(enumString);
+        if (prayer.has_value()) return (int) prayer.value();
 
         return 0;
     }
