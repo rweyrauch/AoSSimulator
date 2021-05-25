@@ -120,7 +120,7 @@ namespace Khorne {
         for (auto ip : enemyUnits) {
             int roll = Dice::RollD6();
             if (roll == 6) {
-                ip->applyDamage({0, 1}, this);
+                ip->applyDamage({0, 1, Wounds::Source::Ability, nullptr}, this);
                 // TODO: also movement of affected unit is halved until your next hero phase
             }
         }

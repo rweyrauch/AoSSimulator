@@ -13,25 +13,17 @@
 namespace Soulblight {
     static const int g_basesize = 40;
     static const int g_wounds = 3;
-    static const int g_minUnitSize = 3;
-    static const int g_maxUnitSize = 3;
-    static const int g_pointsPerBlock = 100;
-    static const int g_pointsMaxUnitSize = 1 * g_pointsPerBlock;
+    static const int g_unitSize = 3;
+    static const int g_pointsPerUnit = 100;
 
     bool VyrkosBloodborn::s_registered = false;
 
     Unit *VyrkosBloodborn::Create(const ParameterList &parameters) {
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new VyrkosBloodborn(numModels, ComputePoints(parameters));
+        return new VyrkosBloodborn();
     }
 
     int VyrkosBloodborn::ComputePoints(const ParameterList &parameters) {
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
-        if (numModels == g_maxUnitSize) {
-            points = g_pointsMaxUnitSize;
-        }
-        return points;
+        return g_pointsPerUnit;
     }
 
     void VyrkosBloodborn::Init() {
@@ -42,7 +34,6 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -51,13 +42,13 @@ namespace Soulblight {
         }
     }
 
-    VyrkosBloodborn::VyrkosBloodborn(int numModels, int points) :
-        SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Vyrkos Bloodborn", 10, g_wounds, 10, 6, false, points) {
+    VyrkosBloodborn::VyrkosBloodborn() :
+        SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Vyrkos Bloodborn", 10, g_wounds, 10, 6, false, g_pointsPerUnit) {
 
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, VYRKOS_BLOOD_BORN};
         m_weapons = {&m_blade};
 
-        for (auto i = 0; i < numModels; i++) {
+        for (auto i = 0; i < g_unitSize; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_blade);
             addModel(model);

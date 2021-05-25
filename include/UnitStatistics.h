@@ -29,12 +29,12 @@ struct TurnRecord {
     int m_savesFailed = 0;
 
     int m_enemyModelsSlain = 0;
-    Wounds m_woundsInflicted = {0, 0};
+    Wounds m_woundsInflicted = {0, 0, Wounds::Source::Unknown, nullptr};
 
     int m_enemyUnitsSlain = 0;
 
     int m_modelsSlain = 0;
-    Wounds m_woundsTaken = {0, 0};
+    Wounds m_woundsTaken = {0, 0, Wounds::Source::Unknown, nullptr};
 
     int m_herosSlain = 0;
     int m_monstersSlain = 0;

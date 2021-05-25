@@ -32,11 +32,11 @@ namespace Khorne {
 
         Bloodreavers() = delete;
 
+        Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers, int points);
+
         ~Bloodreavers() override = default;
 
     protected:
-
-        Bloodreavers(SlaughterHost host, int numModels, WeaponOption weapons, bool iconBearer, bool hornblowers, int points);
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *unit) const override;
 

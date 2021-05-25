@@ -137,7 +137,7 @@ namespace GloomspiteGitz {
         for (auto ip : units) {
             int roll = Dice::RollD6();
             if (roll >= ip->remainingModels()) {
-                ip->applyDamage({0, 1}, this);
+                ip->applyDamage({0, 1, Wounds::Source::Ability, nullptr}, this);
             }
         }
 
@@ -165,10 +165,10 @@ namespace GloomspiteGitz {
         // Magical Resistance
         if (wounds.source == Wounds::Source::Spell) {
             if (Dice::RollD6() >= 4) {
-                return {0, 0, Wounds::Source::Spell};
+                return {0, 0, wounds.source, wounds.sourceObject};
             } else if (m_commandTrait == CommandTrait::Realmstone_Studded_Hide) {
                 if (Dice::RollD6() >= 4) {
-                    return {0, 0, Wounds::Source::Spell};
+                    return {0, 0, wounds.source, wounds.sourceObject};
                 }
             }
         }

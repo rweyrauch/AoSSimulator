@@ -70,7 +70,7 @@ namespace Khorne {
     Wounds Skulltaker::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Strike
         if (hitRoll == 6) {
-            return {weapon->damage(), 3};
+            return {weapon->damage(), 3, Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

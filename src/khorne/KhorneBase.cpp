@@ -345,12 +345,12 @@ namespace Khorne {
         }
         if (bestTarget) {
             if (Dice::RollD6() >= 3) {
-                bestTarget->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                bestTarget->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability, nullptr}, this);
             }
             auto enemies = Board::Instance()->getUnitsWithin(bestTarget, bestTarget->owningPlayer(), 8.0);
             for (auto enemy : enemies) {
                 if (Dice::RollD6() == 6) {
-                    enemy->applyDamage({0, 1, Wounds::Source::Ability}, this);
+                    enemy->applyDamage({0, 1, Wounds::Source::Ability, nullptr}, this);
                 }
             }
         }

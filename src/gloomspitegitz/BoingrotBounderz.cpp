@@ -77,7 +77,7 @@ namespace GloomspiteGitz {
                 Dice::RollD6(numEnemyModels, rolls);
                 int numMortalWounds = rolls.rollsGE(4);
 
-                m_meleeTarget->applyDamage({0, numMortalWounds}, this);
+                m_meleeTarget->applyDamage({0, numMortalWounds, Wounds::Source::Ability, nullptr}, this);
             }
         }
         GloomspiteGitzBase::onCharged();

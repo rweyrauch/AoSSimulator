@@ -87,7 +87,7 @@ namespace Khorne {
     Wounds Skullreapers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Daemonforged Weapons
         if ((weapon->name() == m_blades.name()) && (hitRoll == 6)) {
-            Wounds wounds = {weapon->damage(), 1};
+            Wounds wounds = {weapon->damage(), 1, Wounds::Source::Weapon_Melee, weapon};
             return wounds;
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);

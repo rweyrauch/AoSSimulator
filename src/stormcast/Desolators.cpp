@@ -72,7 +72,7 @@ namespace StormcastEternals {
 
         // Storm Blast
         if (weapon->name() == m_stormBlast.name()) {
-            return {0, Dice::RollD3()};
+            return {0, Dice::RollD3(), Wounds::Source::Weapon_Melee, weapon};
         }
 
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);

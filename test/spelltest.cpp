@@ -24,8 +24,7 @@ TEST(Spells, ArcaneBolt)
                                                                       StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
     caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
-    auto target = std::make_unique<StormcastEternals::Liberators>();
-    target->configure(5, StormcastEternals::Liberators::Warhammer, false, 0, 0);
+    auto target = std::make_unique<StormcastEternals::Liberators>(StormcastEternals::Stormhost::None, false, 5, StormcastEternals::Liberators::Warhammer, false, 0, 0, 0);
     target->deploy(Math::Point3(10,0,0), Math::Vector3(-1,0,0));
 
     auto spell = std::unique_ptr<Spell>(CreateArcaneBolt(caster.get()));
@@ -53,8 +52,7 @@ TEST(Spells, PrimeElectrids)
                                                                       StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
     caster->deploy(Math::Point3(0,0,0), Math::Vector3(1,0,0));
 
-    auto target = std::make_unique<StormcastEternals::Liberators>();
-    target->configure(5, StormcastEternals::Liberators::Warhammer, false, 0, 0);
+    auto target = std::make_unique<StormcastEternals::Liberators>(StormcastEternals::Stormhost::None, false, 5, StormcastEternals::Liberators::Warhammer, false, 0, 0, 0);
     target->deploy(Math::Point3(12,0,0), Math::Vector3(-1,0,0));
 
     auto spell = std::unique_ptr<Spell>(CreatePrimeElectrids(caster.get()));

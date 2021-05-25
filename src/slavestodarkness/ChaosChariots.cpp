@@ -152,7 +152,7 @@ namespace SlavesToDarkness {
         if (unit && (distanceTo(unit) <= 1.0)) {
             Dice::RollResult result;
             Dice::RollD6(m_unmodifiedChargeRoll, result);
-            unit->applyDamage({0, result.rollsGE(5)}, this);
+            unit->applyDamage({0, result.rollsGE(5), Wounds::Source::Ability, nullptr}, this);
         }
     }
 

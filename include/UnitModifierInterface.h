@@ -110,7 +110,7 @@ public:
      * @return Weapon damage
      */
     virtual Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        return {weapon->damage(), 0};
+        return {weapon->damage(), 0, weapon->isMelee() ? Wounds::Source::Weapon_Melee : Wounds::Source::Weapon_Missile, weapon};
     }
 
     /*!

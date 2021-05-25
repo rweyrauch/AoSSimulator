@@ -22,14 +22,8 @@ TEST(ManoAMano, LiberatorsVsBloodreavers)
 
     auto board = Board::Instance();
 
-    auto libs = std::make_shared<StormcastEternals::Liberators>();
-    auto reavers = std::make_shared<Khorne::Bloodreavers>();
-
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
-    ASSERT_TRUE(ok);
-
-    ok = reavers->configure(30, Khorne::Bloodreavers::Reaver_Blades, true, true);
-    ASSERT_TRUE(ok);
+    auto libs = std::make_shared<StormcastEternals::Liberators>(StormcastEternals::Stormhost::None, false, 10, StormcastEternals::Liberators::Warhammer, false, 2, 0, 0);
+    auto reavers = std::make_shared<Khorne::Bloodreavers>(Khorne::SlaughterHost::None, 30, Khorne::Bloodreavers::Reaver_Blades, true, true, 0);
     reavers->formation(2);
 
     battle.combatants(libs, reavers);
@@ -65,14 +59,8 @@ TEST(ManoAMano, StatsLiberatorsVsReavers)
 
     auto board = Board::Instance();
 
-    auto libs = std::make_shared<StormcastEternals::Liberators>();
-    auto reavers = std::make_shared<Khorne::Bloodreavers>();
-
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 2, 0);
-    ASSERT_TRUE(ok);
-
-    ok = reavers->configure(20, Khorne::Bloodreavers::Reaver_Blades, true, true);
-    ASSERT_TRUE(ok);
+    auto libs = std::make_shared<StormcastEternals::Liberators>(StormcastEternals::Stormhost::None, false, 10, StormcastEternals::Liberators::Warhammer, false, 2, 0, 0);
+    auto reavers = std::make_shared<Khorne::Bloodreavers>(Khorne::SlaughterHost::None, 20, Khorne::Bloodreavers::Reaver_Blades, true, true, 0);
 
     battle.combatants(libs, reavers);
 
@@ -114,14 +102,8 @@ TEST(ManoAMano, StatsSequitersVsReavers)
 
     ManoAMano battle(5);
 
-    auto seqs = std::make_shared<StormcastEternals::Sequitors>();
-    auto reavers = std::make_shared<Khorne::Bloodreavers>();
-
-    bool ok = seqs->configure(10, StormcastEternals::Sequitors::Tempest_Blade, 2, true, false);
-    ASSERT_TRUE(ok);
-
-    ok = reavers->configure(20, Khorne::Bloodreavers::Reaver_Blades, true, true);
-    ASSERT_TRUE(ok);
+    auto seqs = std::make_shared<StormcastEternals::Sequitors>(StormcastEternals::Stormhost::None, 10, StormcastEternals::Sequitors::Tempest_Blade, 2, true, false, 0);
+    auto reavers = std::make_shared<Khorne::Bloodreavers>(Khorne::SlaughterHost::None, 20, Khorne::Bloodreavers::Reaver_Blades, true, true, 0);
 
     battle.combatants(seqs, reavers);
 
@@ -162,14 +144,8 @@ TEST(ManoAMano, StatsLiberatorsVsStabbas)
 
     ManoAMano battle(5);
 
-    auto libs = std::make_shared<StormcastEternals::Liberators>();
-    auto grots = std::make_shared<GloomspiteGitz::Stabbas>();
-
-    bool ok = libs->configure(10, StormcastEternals::Liberators::Warhammer, false, 0, 0);
-    ASSERT_TRUE(ok);
-
-    ok = grots->configure(60, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);
-    ASSERT_TRUE(ok);
+    auto libs = std::make_shared<StormcastEternals::Liberators>(StormcastEternals::Stormhost::None, false, 10, StormcastEternals::Liberators::Warhammer, false, 0, 0, 0);
+    auto grots = std::make_shared<GloomspiteGitz::Stabbas>(60, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0, 0);
 
     battle.combatants(libs, grots);
 
@@ -210,14 +186,8 @@ TEST(ManoAMano, StatsSequitorVsStabbas)
 
     ManoAMano battle(5);
 
-    auto seqs = std::make_shared<StormcastEternals::Sequitors>();
-    auto grots = std::make_shared<GloomspiteGitz::Stabbas>();
-
-    bool ok = seqs->configure(15, StormcastEternals::Sequitors::Tempest_Blade, 6, true, false);
-    ASSERT_TRUE(ok);
-
-    ok = grots->configure(60, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0);
-    ASSERT_TRUE(ok);
+    auto seqs = std::make_shared<StormcastEternals::Sequitors>(StormcastEternals::Stormhost::None, 15, StormcastEternals::Sequitors::Tempest_Blade, 6, true, false, 0);
+    auto grots = std::make_shared<GloomspiteGitz::Stabbas>(60, GloomspiteGitz::Stabbas::Stabba, GloomspiteGitz::Stabbas::Stabba, 0, 1, 1, 0, 0);
 
     battle.combatants(seqs, grots);
 

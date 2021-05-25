@@ -58,7 +58,7 @@ int UnitStatistics::totalEnemyModelsSlain() const {
 }
 
 void UnitStatistics::totalWoundsInflicted(Wounds &wounds) const {
-    wounds = {0, 0};
+    wounds = {0, 0, Wounds::Source::Unknown, nullptr};
     for (auto ip : m_actions) {
         wounds.normal += ip.m_woundsInflicted.normal;
         wounds.mortal += ip.m_woundsInflicted.mortal;
@@ -74,7 +74,7 @@ int UnitStatistics::totalModelsSlain() const {
 }
 
 void UnitStatistics::totalWoundsTaken(Wounds &wounds) const {
-    wounds = {0, 0};
+    wounds = {0, 0, Wounds::Source::Unknown, nullptr};
     for (auto ip : m_actions) {
         wounds.normal += ip.m_woundsTaken.normal;
         wounds.mortal += ip.m_woundsTaken.mortal;
@@ -150,12 +150,12 @@ void TurnRecord::clear() {
     m_savesFailed = 0;
 
     m_enemyModelsSlain = 0;
-    m_woundsInflicted = {0, 0};
+    m_woundsInflicted = {0, 0, Wounds::Source::Unknown, nullptr};
 
     m_enemyUnitsSlain = 0;
 
     m_modelsSlain = 0;
-    m_woundsTaken = {0, 0};
+    m_woundsTaken = {0, 0, Wounds::Source::Unknown, nullptr};
 
     m_herosSlain = 0;
     m_monstersSlain = 0;

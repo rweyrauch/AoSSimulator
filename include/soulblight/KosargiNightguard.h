@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        KosargiNightguard(int numModels, int points);
+        explicit KosargiNightguard();
 
         ~KosargiNightguard() override = default;
 

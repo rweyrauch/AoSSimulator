@@ -187,6 +187,7 @@ struct AbilityBuff {
 struct Wounds {
 
     enum class Source {
+        Unknown,
         Weapon_Melee,
         Weapon_Missile,
         Ability,
@@ -196,7 +197,8 @@ struct Wounds {
 
     int normal = 0;
     int mortal = 0;
-    Source source = Source::Weapon_Melee;
+    Source source = Source::Unknown;
+    const void* sourceObject = nullptr;
 
     Wounds &operator+=(const Wounds &w) {
         normal += w.normal;

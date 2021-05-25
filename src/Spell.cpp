@@ -106,7 +106,7 @@ int DamageSpell::getDamage(int castingRoll) const {
 
 Spell::Result DamageSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) {
     auto mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
-    target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
+    target->applyDamage({0, mortalWounds, Wounds::Source::Spell, this}, m_caster);
     PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.",
                      m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,
                      target->name().c_str());
@@ -154,7 +154,7 @@ AreaOfEffectSpell::apply(int castingRoll, const UnmodifiedCastingRoll &unmodifie
 
         if (unitAffected) {
             auto mortalWounds = Dice::RollSpecial(getDamage(castingRoll));
-            target->applyDamage({0, mortalWounds, Wounds::Source::Spell}, m_caster);
+            target->applyDamage({0, mortalWounds, Wounds::Source::Spell, this}, m_caster);
             secondaryEffect(target, m_round);
             PLOG_INFO.printf("%s spell %s with casting roll of %d (%d) inflicts %d mortal wounds into %s.",
                              m_caster->name().c_str(), name().c_str(), castingRoll, m_castingValue, mortalWounds,

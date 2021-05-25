@@ -69,10 +69,10 @@ Unit::Unit() {
 
 Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     if ((targetUnit == nullptr) || (remainingModels() == 0)) {
-        return {0, 0, Wounds::Source::Weapon_Missile};
+        return {0, 0, Wounds::Source::Unknown, nullptr};
     }
     if (m_ran && !canRunAndShoot()) {
-        return {0, 0, Wounds::Source::Weapon_Missile};
+        return {0, 0, Wounds::Source::Unknown, nullptr};
     }
 
     if ((numAttackingModels == -1) || (numAttackingModels > (int) m_models.size())) {
@@ -81,8 +81,8 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     PLOG_INFO << name() << " shooting at " << targetUnit->name() << " with " << numAttackingModels << " model(s).";
 
-    Wounds totalDamage = {0, 0, Wounds::Source::Weapon_Missile};
-    Wounds totalDamageReflected = {0, 0, Wounds::Source::Weapon_Missile};
+    Wounds totalDamage = {0, 0, Wounds::Source::Weapon_Missile, nullptr};
+    Wounds totalDamageReflected = {0, 0, Wounds::Source::Weapon_Missile, nullptr};
 
     for (auto i = 0; i < numAttackingModels; i++) {
         auto model = m_models.at(i).get();
@@ -152,11 +152,11 @@ Wounds Unit::shoot(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     if (targetUnit == nullptr) {
         numSlain = 0;
-        return {0, 0, Wounds::Source::Weapon_Melee};
+        return {0, 0, Wounds::Source::Unknown, nullptr};
     }
     if (remainingModels() == 0) {
         numSlain = 0;
-        return {0, 0, Wounds::Source::Weapon_Melee};
+        return {0, 0, Wounds::Source::Unknown, nullptr};
     }
     if ((numAttackingModels == -1) || (numAttackingModels > (int) m_models.size())) {
         numAttackingModels = (int) m_models.size();
@@ -164,8 +164,8 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
 
     doPileIn();
 
-    Wounds totalDamage = {0, 0, Wounds::Source::Weapon_Melee};
-    Wounds totalDamageReflected = {0, 0, Wounds::Source::Weapon_Melee};
+    Wounds totalDamage = {0, 0, Wounds::Source::Weapon_Melee, nullptr};
+    Wounds totalDamageReflected = {0, 0, Wounds::Source::Weapon_Melee, nullptr};
 
     PLOG_INFO << name() << " attacking " << targetUnit->name() << " with " << numAttackingModels << " model(s).";
 
@@ -202,7 +202,7 @@ Wounds Unit::fight(int numAttackingModels, Unit *targetUnit, int &numSlain) {
     // Some units do mortal wounds for just existing!  See Evocators for example.
     auto generatedMortals = generateMortalWounds(targetUnit);
     if (generatedMortals > 0) {
-        auto slainWithMortal = targetUnit->applyDamage({0, generatedMortals, Wounds::Source::Ability}, this);
+        auto slainWithMortal = targetUnit->applyDamage({0, generatedMortals, Wounds::Source::Ability, nullptr}, this);
         if (slainWithMortal) {
             // TODO: invoke event method here?
         }
@@ -735,7 +735,7 @@ int Unit::rollBattleshock() const {
 Wounds Unit::shoot(PlayerId player, int &numSlain) {
     if (m_shootingTarget == nullptr) {
         numSlain = 0;
-        return {0, 0};
+        return {0, 0, Wounds::Source::Unknown, nullptr};
     }
     auto wounds = shoot(-1, m_shootingTarget, numSlain);
 
@@ -747,7 +747,7 @@ Wounds Unit::shoot(PlayerId player, int &numSlain) {
 Wounds Unit::fight(PlayerId player, int &numSlain) {
     if (hasFought() || (m_meleeTarget == nullptr) || m_meleeTarget->remainingModels() == 0) {
         numSlain = 0;
-        return {0, 0};
+        return {0, 0, Wounds::Source::Unknown, nullptr};
     }
     auto wounds = fight(-1, m_meleeTarget, numSlain);
 

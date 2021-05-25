@@ -129,7 +129,7 @@ namespace Khorne {
         // Hellfire Breath
         if (weapon->name() == m_breath.name()) {
             if (Dice::RollD6() >= 2) {
-                return {0, Dice::RollD3()};
+                return {0, Dice::RollD3(), Wounds::Source::Ability, nullptr};
             }
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);

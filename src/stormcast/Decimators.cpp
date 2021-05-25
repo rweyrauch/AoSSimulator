@@ -65,7 +65,7 @@ namespace StormcastEternals {
             } else if (roll >= 2) {
                 mortalWounds = Dice::RollD3();
             }
-            return {0, mortalWounds};
+            return {0, mortalWounds, Wounds::Source::Weapon_Melee, weapon};
         }
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

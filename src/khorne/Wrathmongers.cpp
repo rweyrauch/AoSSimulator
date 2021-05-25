@@ -109,9 +109,9 @@ namespace Khorne {
         for (auto unit : units) {
             int roll = Dice::RollD6() + mod;
             if (roll >= 2 && roll <= 5) {
-                unit->applyDamage({0, 1}, this);
+                unit->applyDamage({0, 1, Wounds::Source::Ability, nullptr}, this);
             } else if (roll >= 6) {
-                unit->applyDamage({0, Dice::RollD3()}, this);
+                unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability, nullptr}, this);
             }
         }
     }

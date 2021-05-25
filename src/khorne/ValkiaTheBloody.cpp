@@ -69,7 +69,7 @@ namespace Khorne {
     Wounds ValkiaTheBloody::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // The Spear Slaupnir
         if (m_charged && (weapon->name() == m_slaupnir.name())) {
-            return {RAND_D3, 1};
+            return {RAND_D3, 1, Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

@@ -17,7 +17,7 @@
 
 TEST(Unit, Combat)
 {
-    CustomUnit liberators("Liberators", 5, 2, 7, 4, false);
+    CustomUnit liberators("Liberators", 5, 2, 7, 4, false, 0);
     Weapon warhammer(Weapon::Type::Melee, "Warhammer", 1, 2, 4, 3, 0, 1);
     Weapon warhammerPrime(Weapon::Type::Melee, "Warhammer", 1, 3, 4, 3, 0, 1);
 
@@ -33,7 +33,7 @@ TEST(Unit, Combat)
     }
     int initialNumLibs = liberators.remainingModels();
 
-    CustomUnit bloodreavers("Bloodreavers", 6, 1, 5, 6, false);
+    CustomUnit bloodreavers("Bloodreavers", 6, 1, 5, 6, false, 0);
     Weapon reaverBlades(Weapon::Type::Melee, "Reaver Blades", 1, 1, 4, 4, 0, 1);
     Weapon chieftanBlades(Weapon::Type::Melee, "Reaver Blades", 1, 2, 4, 4, 0, 1);
     auto reaver = new Model(32, bloodreavers.wounds());
@@ -92,17 +92,11 @@ TEST(Unit, Shoot)
 
 TEST(Unit, LiberatorsVsBloodreavers)
 {
-    StormcastEternals::Liberators liberators;
-    Khorne::Bloodreavers bloodreavers;
-
-    bool ok = liberators.configure(5, StormcastEternals::Liberators::Warhammer, false, 0, 0);
-    ASSERT_TRUE(ok);
+    StormcastEternals::Liberators liberators(StormcastEternals::Stormhost::None, false, 5, StormcastEternals::Liberators::Warhammer, 5, false, 0, 0);
+    Khorne::Bloodreavers bloodreavers(Khorne::SlaughterHost::None, 10, Khorne::Bloodreavers::Reaver_Blades, false, false, 0);
 
     int initialNumLibs = liberators.remainingModels();
     ASSERT_EQ(initialNumLibs, 5);
-
-    ok = bloodreavers.configure(10, Khorne::Bloodreavers::Reaver_Blades, false, false);
-    ASSERT_TRUE(ok);
 
     int initialNumBloodreavers = bloodreavers.remainingModels();
     ASSERT_EQ(initialNumBloodreavers, 10);

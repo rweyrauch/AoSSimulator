@@ -66,8 +66,8 @@ namespace Khorne {
 
     Wounds SkullCannons::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Blow
-        if (hitRoll == 6) {
-            return {weapon->damage(), 1};
+        if ((hitRoll == 6) && (weapon->name() == m_hellblades.name())) {
+            return {weapon->damage(), 1, Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

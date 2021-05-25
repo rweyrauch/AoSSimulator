@@ -105,7 +105,7 @@ namespace Khorne {
         if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             int roll = Dice::RollD6();
             if (roll >= 2) {
-                Wounds wounds = {0, Dice::RollD3()};
+                Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Ability, nullptr};
 
                 PLOG_INFO.printf("%s Murderous Charge inflicted %d mortal wounds on %s\n",
                                  name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
@@ -120,7 +120,7 @@ namespace Khorne {
     LordOfKhorneOnJuggernaut::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Daemonic Axe
         if ((hitRoll == 6) && (weapon->name() == m_wrathforgedAxe.name())) {
-            return {RAND_D3, 0};
+            return {RAND_D3, 0, Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

@@ -90,7 +90,7 @@ namespace StormcastEternals {
     Wounds AstreiaSolbright::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Thunderous Pounce
         if (m_charged && weapon->name() == m_monstrousClaws.name()) {
-            return {Dice::RollD3(), 0};
+            return {Dice::RollD3(), 0, Wounds::Source::Weapon_Melee, weapon};
         }
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

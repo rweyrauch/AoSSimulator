@@ -13,25 +13,17 @@
 namespace Soulblight {
     static const int g_basesize = 40;
     static const int g_wounds = 4;
-    static const int g_minUnitSize = 2;
-    static const int g_maxUnitSize = 2;
-    static const int g_pointsPerBlock = 100;
-    static const int g_pointsMaxUnitSize = 1 * g_pointsPerBlock;
+    static const int g_unitSize = 2;
+    static const int g_pointsPerUnit = 100;
 
     bool KosargiNightguard::s_registered = false;
 
     Unit *KosargiNightguard::Create(const ParameterList &parameters) {
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new KosargiNightguard(numModels, ComputePoints(parameters));
+        return new KosargiNightguard();
     }
 
     int KosargiNightguard::ComputePoints(const ParameterList &parameters) {
-        int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        auto points = numModels / g_minUnitSize * g_pointsPerBlock;
-        if (numModels == g_maxUnitSize) {
-            points = g_pointsMaxUnitSize;
-        }
-        return points;
+        return g_pointsPerUnit;
     }
 
     void KosargiNightguard::Init() {
@@ -42,7 +34,6 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -51,13 +42,13 @@ namespace Soulblight {
         }
     }
 
-    KosargiNightguard::KosargiNightguard(int numModels, int points) :
-        SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Kosargi Nightguard", 5, g_wounds, 10, 5, false, points) {
+    KosargiNightguard::KosargiNightguard() :
+        SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Kosargi Nightguard", 5, g_wounds, 10, 5, false, g_pointsPerUnit) {
 
         m_keywords = {DEATH, OGOR, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, DEADWALKERS, KOSARGI_NIGHTGUARD};
         m_weapons = {&m_bardiche};
 
-        for (auto i = 0; i < numModels; i++) {
+        for (auto i = 0; i < g_unitSize; i++) {
             auto model = new Model(g_basesize, wounds());
             model->addMeleeWeapon(&m_bardiche);
             addModel(model);

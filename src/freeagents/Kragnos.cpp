@@ -159,4 +159,49 @@ namespace Destruction {
         return 0;
     }
 
+    Wounds Kragnos::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // The Shield Inviolate
+        if ((wounds.source == Wounds::Source::Spell) && (wounds.sourceObject != nullptr)) {
+            auto spell = reinterpret_cast<const Spell*>(wounds.sourceObject);
+            auto roll = Dice::Roll3D6();
+            if (roll > spell->castingValue()) {
+                return {0, 0, Wounds::Source::Unknown, nullptr};
+            }
+        }
+        return Unit::applyWoundSave(wounds, attackingUnit);
+    }
+
+    void Kragnos::onEndHero(PlayerId player) {
+        Unit::onEndHero(player);
+        bellowOfRage();
+    }
+
+    void Kragnos::onEndMovement(PlayerId player) {
+        Unit::onEndMovement(player);
+        bellowOfRage();
+    }
+
+    void Kragnos::onEndShooting(PlayerId player) {
+        Unit::onEndShooting(player);
+        bellowOfRage();
+    }
+
+    void Kragnos::onEndCombat(PlayerId player) {
+        EventInterface::onEndCombat(player);
+        bellowOfRage();
+    }
+
+    void Kragnos::bellowOfRage() {
+        // Bellow of Rage
+        if (remainingWounds() < m_woundsAtStartOfPhase) {
+            auto units = Board::Instance()->getUnitsWithin(this, PlayerId::None, 6.0);
+            for (auto unit : units) {
+                const auto damageIndex = getDamageTableIndex();
+                if (Dice::RollD6() >= g_damageTable[damageIndex].m_bellowOfRage) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability, nullptr}, this);
+                }
+            }
+        }
+    }
+
 } // namespace Destruction

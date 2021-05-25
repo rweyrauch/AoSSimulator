@@ -156,11 +156,11 @@ namespace Khorne {
             auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 8.0);
             for (auto ip : units) {
                 if (ip != target) {
-                    Wounds wounds = {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
+                    Wounds wounds = {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage), Wounds::Source::Weapon_Melee, weapon};
                     ip->applyDamage(wounds, nullptr); // TODO: allow non-const attacker
                 }
             }
-            return {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage)};
+            return {0, Dice::RollSpecial(g_damageTable[damageIndex].m_outrageousCarnage), Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

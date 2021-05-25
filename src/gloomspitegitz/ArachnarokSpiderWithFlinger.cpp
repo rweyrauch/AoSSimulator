@@ -106,7 +106,7 @@ namespace GloomspiteGitz {
         // Spider Venom
         int threshold = inLightOfTheBadMoon() ? 5 : 6;
         if ((hitRoll >= threshold) && (weapon->name() == m_monstrousFangs.name())) {
-            return {0, Dice::RollD3()};
+            return {0, Dice::RollD3(), Wounds::Source::Weapon_Melee, weapon};
         }
         return GloomspiteGitzBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

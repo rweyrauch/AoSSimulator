@@ -43,9 +43,39 @@ namespace Destruction {
 
         int iconOfDestruction(const Unit *target);
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        void onStartHero(PlayerId player) override {
+            m_woundsAtStartOfPhase = remainingWounds();
+        }
+
+        void onEndHero(PlayerId player) override;
+
+        void onStartMovement(PlayerId player) override {
+            m_woundsAtStartOfPhase = remainingWounds();
+        }
+
+        void onEndMovement(PlayerId player) override;
+
+        void onStartShooting(PlayerId player) override {
+            m_woundsAtStartOfPhase = remainingWounds();
+        }
+
+        void onEndShooting(PlayerId player) override;
+
+        void onStartCombat(PlayerId player) override {
+            m_woundsAtStartOfPhase = remainingWounds();
+        }
+
+        void onEndCombat(PlayerId player) override;
+
     private:
 
+        void bellowOfRage();
+
         lsignal::slot m_iconOfDestruction;
+
+        int m_woundsAtStartOfPhase = 0;
 
         Weapon  m_mace{Weapon::Type::Melee, "The Dread Mace", 3, 6, 3, 2, -3, 4},
                 m_tuskbreaker{Weapon::Type::Melee, "Tuskbreaker", 1, 3, 3, 2, -2, RAND_D3},
@@ -57,11 +87,11 @@ namespace Destruction {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bellow of Rage                   TODO
+// Bellow of Rage                   Partial/TODO
 // Destroyer of the Draconith Empire Yes
 // Rampaging Destruction            Yes
 // Icon of Destruction              Yes
-// The Shield Inviolate             TODO
+// The Shield Inviolate             Partial/TODO
 //
 
 } // namespace Destruction

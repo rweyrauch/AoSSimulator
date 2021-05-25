@@ -76,7 +76,7 @@ namespace CitiesOfSigmar {
     Wounds WildwoodRangers::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Guardians of the Kindred
         if (target->hasKeyword(MONSTER)) {
-            return {2, 0};
+            return {2, 0, Wounds::Source::Weapon_Melee, weapon};
         }
         return CitizenOfSigmar::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }

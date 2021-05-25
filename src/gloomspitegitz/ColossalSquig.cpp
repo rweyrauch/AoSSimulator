@@ -71,7 +71,7 @@ namespace GloomspiteGitz {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 3.0);
         for (auto unit : units) {
             if (Dice::RollD6() >= 2) {
-                unit->applyDamage({0, Dice::RollD3()}, this);
+                unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability, nullptr}, this);
             }
         }
         // TODO: Setup 5 cave squigs w/in 9" of this model and outside of 3" from enemy models.
@@ -80,7 +80,7 @@ namespace GloomspiteGitz {
     Wounds ColossalSquig::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Swallowed Whole
         if ((hitRoll == 6) && (weapon->name() == m_enormousJaws.name())) {
-            Wounds wounds = {0, Dice::RollD3()};
+            Wounds wounds = {0, Dice::RollD3(), Wounds::Source::Weapon_Melee, weapon};
             return wounds;
         }
         return GloomspiteGitzBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
@@ -132,7 +132,7 @@ namespace GloomspiteGitz {
         auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1);
         for (auto ip : units) {
             if (Dice::RollD6() == 6) {
-                ip->applyDamage({0, 1}, this);
+                ip->applyDamage({0, 1, Wounds::Source::Ability, nullptr}, this);
             }
         }
     }

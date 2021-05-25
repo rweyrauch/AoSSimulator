@@ -363,7 +363,7 @@ protected:
 
     virtual int rollChargeDistance();
 
-    virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0}; }
+    virtual Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const { return {0, 0, Wounds::Source::Unknown, nullptr}; }
 
     virtual Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) { return wounds; }
 

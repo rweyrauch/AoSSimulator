@@ -69,17 +69,17 @@ namespace StormcastEternals {
     Wounds Concussors::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Blast to Ashes
         if ((hitRoll == 6) && (weapon->name() == m_lightningHammer.name())) {
-            return {0, 2};
+            return {0, 2, Wounds::Source::Weapon_Melee, weapon};
         }
 
         // Intolerable Damage
         if ((hitRoll == 6) && (weapon->name() == m_clawsAndFangs.name())) {
-            return {Dice::RollD6(), 0};
+            return {Dice::RollD6(), 0, Wounds::Source::Weapon_Melee, weapon};
         }
 
         // Storm Blast
         if (weapon->name() == m_stormBlast.name()) {
-            return {0, Dice::RollD3()};
+            return {0, Dice::RollD3(), Wounds::Source::Weapon_Melee, weapon};
         }
 
         return StormcastEternal::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);

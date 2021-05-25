@@ -68,7 +68,7 @@ namespace Khorne {
     Wounds Skullmaster::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Decapitating Blow
         if (hitRoll == 6) {
-            return {weapon->damage(), 1};
+            return {weapon->damage(), 1, Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
@@ -78,7 +78,7 @@ namespace Khorne {
         if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
             Dice::RollResult rolls;
             Dice::RollD6(remainingModels(), rolls);
-            Wounds wounds = {0, 0};
+            Wounds wounds = {0, 0, Wounds::Source::Ability, nullptr};
             if (remainingModels() >= 6) {
                 for (int i = 0; i < rolls.rollsGE(2); i++) {
                     wounds.mortal += Dice::RollD3();

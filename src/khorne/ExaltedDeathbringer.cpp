@@ -141,7 +141,7 @@ namespace Khorne {
     ExaltedDeathbringer::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Brutal Impalement
         if ((woundRoll == 6) && (weapon->name() == m_impalingSpear.name())) {
-            return {weapon->damage(), Dice::RollD3()};
+            return {weapon->damage(), Dice::RollD3(), Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
@@ -149,7 +149,7 @@ namespace Khorne {
     Wounds ExaltedDeathbringer::computeReturnedDamage(const Weapon *weapon, int saveRoll) const {
         // Skullgouger
         if ((saveRoll == 6) && (m_weaponOption == Ruinous_Axe_And_Skullgouger)) {
-            return {0, Dice::RollD3()};
+            return {0, Dice::RollD3(), Wounds::Source::Weapon_Melee, weapon};
         }
         return KhorneBase::computeReturnedDamage(weapon, saveRoll);
     }

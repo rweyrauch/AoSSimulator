@@ -74,7 +74,7 @@ namespace Khorne {
         auto wounds = KhorneBase::computeReturnedDamage(weapon, saveRoll);
         // Gorefists
         if (saveRoll == 6) {
-            wounds += {0, 1};
+            wounds += {0, 1, Wounds::Source::Ability, nullptr};
         }
         return wounds;
     }

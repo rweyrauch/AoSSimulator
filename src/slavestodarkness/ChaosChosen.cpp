@@ -104,7 +104,7 @@ namespace SlavesToDarkness {
     Wounds ChaosChosen::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         // Soul splitter
         if ((hitRoll >= 6) && (weapon->name() == m_greataxe.name())) {
-            return {weapon->damage(), 1};
+            return {weapon->damage(), 1, Wounds::Source::Weapon_Melee, weapon};
         }
         return SlavesToDarknessBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
