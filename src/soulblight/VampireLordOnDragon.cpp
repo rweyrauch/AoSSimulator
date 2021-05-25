@@ -55,8 +55,8 @@ namespace Soulblight {
             static const std::array<int, 2> weapons = {Deathlance, Vampiric_Sword};
             static FactoryMethod factoryMethod = {
                     Create,
-                    SoulblightBase::ValueToString,
-                    SoulblightBase::EnumStringToInt,
+                    ValueToString,
+                    EnumStringToInt,
                     ComputePoints,
                     {
                             EnumParameter("Weapon", Deathlance, weapons),
