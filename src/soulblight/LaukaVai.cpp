@@ -65,9 +65,23 @@ namespace Soulblight {
         model->setName("Lauka Vai");
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffMovementSpell>(this, "Death's Downpour", 8,
+                                                                    12, MovementRule::Halve_Charge_Roll,
+                                                                    true, Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    void LaukaVai::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
+
+        SoulblightBase::onEndCombat(player);
+    }
+
+    void LaukaVai::onCharged() {
+        EventInterface::onCharged();
     }
 
 } // namespace Soulblight

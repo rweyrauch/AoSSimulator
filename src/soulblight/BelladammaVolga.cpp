@@ -9,6 +9,7 @@
 #include <soulblight/BelladammaVolga.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "SoulblightGravelordsPrivate.h"
 #include "Lore.h"
 
@@ -67,6 +68,47 @@ namespace Soulblight {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    void BelladammaVolga::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
+
+        SoulblightBase::onEndCombat(player);
+    }
+
+    int BelladammaVolga::castingModifier() const {
+        auto mod = SoulblightBase::castingModifier();
+        // First of the Vyrkos
+        return mod+1;
+    }
+
+    int BelladammaVolga::unbindingModifier() const {
+        auto mod = SoulblightBase::unbindingModifier();
+        // First of the Vyrkos
+        return mod+1;
+
+    }
+
+    Wounds BelladammaVolga::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        Wounds remainingWounds = wounds;
+        auto wolves = Board::Instance()->getUnitsWithKeyword(owningPlayer(), DIRE_WOLVES);
+        for (auto unit : wolves) {
+            if (distanceTo(unit) <= 3.0) {
+                while ((remainingWounds.normal > 0) && (unit->remainingModels() > 0)) {
+                    // Pass wounds to dire wolves units
+                    unit->applyDamage({1, 0, Wounds::Source::Ability, nullptr}, this);
+                    remainingWounds.normal--;
+                }
+                while ((remainingWounds.mortal > 0) && (unit->remainingModels() > 0)) {
+                    // Pass mortal wounds to dire wolves units
+                    unit->applyDamage({0, 1, Wounds::Source::Ability, nullptr}, this);
+                    remainingWounds.mortal--;
+                }
+            }
+            if (remainingWounds.zero()) break;
+        }
+        return SoulblightBase::applyWoundSave(remainingWounds, attackingUnit);
     }
 
 } // namespace Soulblight

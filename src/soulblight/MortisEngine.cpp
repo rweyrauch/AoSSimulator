@@ -62,19 +62,22 @@ namespace Soulblight {
     }
 
     MortisEngine::MortisEngine(CursedBloodline bloodline) :
-            SoulblightBase(bloodline, "Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
-            m_wail(Weapon::Type::Missile, "Wail of the Damned", 12, 1, 0, 0, 0, 0),
-            m_staff(Weapon::Type::Melee, "Mortis Staff", 1, 2, 4, 3, -1, RAND_D3),
-            m_etherealWeapons(Weapon::Type::Melee, "Spectral Claws and Blades", 1, 12, 5, 4, 0, 1) {
+            SoulblightBase(bloodline, "Mortis Engine", 14, g_wounds, 10, 4, true, g_pointsPerUnit) {
         m_keywords = {DEATH, MALIGNANT, SOULBLIGHT_GRAVELORDS, DEATHMAGES, MORTIS_ENGINE};
         m_weapons = {&m_wail, &m_staff, &m_etherealWeapons};
         m_battleFieldRole = Role::Behemoth;
+
+        s_globalCastMod.connect(this, &MortisEngine::boundNecromancer, &m_boundNecromancer);
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_wail);
         model->addMeleeWeapon(&m_staff);
         model->addMeleeWeapon(&m_etherealWeapons);
         addModel(model);
+    }
+
+    MortisEngine::~MortisEngine() {
+        m_boundNecromancer.disconnect();
     }
 
     void MortisEngine::onWounded() {
@@ -87,6 +90,8 @@ namespace Soulblight {
 
     void MortisEngine::onRestore() {
         SoulblightBase::onRestore();
+
+        m_usedReliquary = false;
 
         // Restore table-driven attributes
         onWounded();
@@ -119,6 +124,34 @@ namespace Soulblight {
                 unit->applyDamage({0, Dice::RollD3()}, this);
             }
         }
+    }
+
+    void MortisEngine::onStartHero(PlayerId player) {
+        SoulblightBase::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            // The Reliquary
+            if (!m_usedReliquary) {
+                auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 12.0);
+                if (!units.empty()) {
+                    for (auto unit : units) {
+                        if (unit->hasKeyword(DEATH)) continue;
+
+                        m_usedReliquary = true;
+                        if (Dice::RollD6() >= 2) {
+                            unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability, nullptr}, this);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    int MortisEngine::boundNecromancer(const Unit *caster) {
+        if (isFriendly(caster) && caster->hasKeyword(SOULBLIGHT_GRAVELORDS) && (distanceTo(caster) < 12.0)) {
+            return 1;
+        }
+        return 0;
     }
 
 } // namespace Soulblight

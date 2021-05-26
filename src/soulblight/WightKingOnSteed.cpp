@@ -8,6 +8,7 @@
 
 #include <soulblight/WightKingOnSteed.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "SoulblightGravelordsPrivate.h"
 
 namespace Soulblight {
@@ -65,13 +66,23 @@ namespace Soulblight {
         model->addMeleeWeapon(&m_lance);
         model->addMeleeWeapon(&m_hoovesAndTeeth);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of Bones", 12, 12, GamePhase::Hero,
+                                                                                Attribute::To_Hit_Melee, Rerolls::Ones,
+                                                                                Abilities::Target::SelfAndFriendly, std::vector<Keyword>{DEATHRATTLE}));
     }
 
-    Wounds WightKingOnSteed::applyWoundSave(const Wounds &wounds, Unit *attackingUnitk) {
-        return SoulblightBase::applyWoundSave(wounds, attackingUnitk);
+    void WightKingOnSteed::onCharged() {
+        SoulblightBase::onCharged();
+
+        // Deathly Charge
+        auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
+        for (auto unit : units) {
+            if ((unit->remainingModels() > 0) && (Dice::RollD6() >= 2)) {
+                unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                break;
+            }
+        }
     }
 
-    void WightKingOnSteed::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-    }
 } // namespace Soulblight

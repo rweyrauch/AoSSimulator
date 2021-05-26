@@ -25,6 +25,10 @@ namespace Soulblight {
 
         ~VengorianLord() override = default;
 
+    protected:
+
+        void onEndCombat(PlayerId player) override;
+
     private:
 
         Weapon  m_sabre{Weapon::Type::Melee, "Nightmare Sabre", 1, 4, 3, 3, -1, 2},
@@ -38,6 +42,11 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Nightmare's Miasma               TODO
+// Undeniable Impulse               TODO
+// The Hunger                       Yes
+// Clotted Deluge                   Yes
+// Festering Feast                  TODO
 //
 
 } // namespace Soulblight

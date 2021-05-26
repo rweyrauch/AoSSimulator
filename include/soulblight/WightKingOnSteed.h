@@ -27,9 +27,7 @@ namespace Soulblight {
 
     protected:
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnitk) override;
-
-        void onStartHero(PlayerId player) override;
+        void onCharged() override;
 
     private:
 
@@ -43,8 +41,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Deathly Charge                   TODO
-// Lord of Bones                    TODO
+// Deathly Charge                   Yes
+// Lord of Bones                    Yes
 //
 
 } // namespace Soulblight

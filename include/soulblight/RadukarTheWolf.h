@@ -27,6 +27,8 @@ namespace Soulblight {
 
     private:
 
+        void onEndCombat(PlayerId player) override;
+
         Weapon  m_blade{Weapon::Type::Melee, "Vyrkos Barrow-blade", 1, 4, 3, 3, -1, RAND_D3};
 
         static bool s_registered;
@@ -36,7 +38,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Hunger                       TODO
+// The Hunger                       Yes
 // Supernatural Strength            TODO
 // Loyal to the Last                TODO
 // Call to the Hunt                 TODO

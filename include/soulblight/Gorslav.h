@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        GorslavTheGravekeeper(bool isGeneral);
+        explicit GorslavTheGravekeeper(bool isGeneral);
 
         ~GorslavTheGravekeeper() override = default;
 

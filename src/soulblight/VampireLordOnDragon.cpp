@@ -138,7 +138,7 @@ namespace Soulblight {
 
     void VampireLordOnZombieDragon::onEndCombat(PlayerId player) {
         // The Hunger
-        if (m_currentRecord.m_enemyModelsSlain > 0) heal(1);
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(RAND_D3);
 
         SoulblightBase::onEndCombat(player);
     }

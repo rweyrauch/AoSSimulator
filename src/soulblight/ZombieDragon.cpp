@@ -51,7 +51,8 @@ namespace Soulblight {
     }
 
     Unit *ZombieDragon::Create(const ParameterList &parameters) {
-        return nullptr;
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
+        return new ZombieDragon(bloodline);
     }
 
     void ZombieDragon::Init() {
@@ -62,6 +63,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ZombieDragon::ComputePoints,
                     {
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

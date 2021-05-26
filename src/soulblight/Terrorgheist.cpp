@@ -52,7 +52,8 @@ namespace Soulblight {
     }
 
     Unit *Terrorgheist::Create(const ParameterList &parameters) {
-        return nullptr;
+        auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
+        return new Terrorgheist(bloodline);
     }
 
     void Terrorgheist::Init() {
@@ -63,6 +64,7 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     Terrorgheist::ComputePoints,
                     {
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

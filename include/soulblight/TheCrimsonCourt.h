@@ -21,9 +21,13 @@ namespace Soulblight {
 
         static void Init();
 
-        TheCrimsonCourt(CursedBloodline bloodline);
+        explicit TheCrimsonCourt(CursedBloodline bloodline);
 
         ~TheCrimsonCourt() override = default;
+
+    protected:
+
+        void onEndCombat(PlayerId player) override;
 
     private:
 
@@ -38,6 +42,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// The Hunger                       Yes
+// Vampiric Agility                 Yes
 //
 
 } // namespace Soulblight

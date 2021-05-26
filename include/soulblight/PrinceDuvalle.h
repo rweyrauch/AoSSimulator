@@ -25,6 +25,10 @@ namespace Soulblight {
 
         ~PrinceDuvalle() override = default;
 
+    protected:
+
+        void onEndCombat(PlayerId player) override;
+
     private:
 
         Weapon  m_blade{Weapon::Type::Melee, "Possessed Blade", 1, 4, 3, 3, -1, 2};
@@ -36,6 +40,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// The Hunger                       Yes
+// Fiendish Lure                    TODO
 //
 
 } // namespace Soulblight

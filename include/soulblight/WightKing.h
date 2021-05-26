@@ -27,6 +27,8 @@ namespace Soulblight {
 
     protected:
 
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon m_balefulTombBlade;
@@ -38,8 +40,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Beheading Strike                 TODO
-// Lord of Bones                    TODO
+// Beheading Strike                 Yes
+// Lord of Bones                    Yes
 //
 
 } // namespace Soulblight

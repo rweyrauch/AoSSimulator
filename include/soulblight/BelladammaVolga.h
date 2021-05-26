@@ -25,20 +25,29 @@ namespace Soulblight {
 
         ~BelladammaVolga() override = default;
 
+    protected:
+
+        void onEndCombat(PlayerId player) override;
+
+        int castingModifier() const override;
+
+        int unbindingModifier() const override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
     private:
 
         Weapon  m_scimatar{Weapon::Type::Melee, "Timeworn Scimitar", 1, 3, 3, 3, -1, RAND_D3},
                 m_fangsAndClaws{Weapon::Type::Melee, "Lupine Fangs and Claws", 1, 6, 4, 4, 0, 1};
 
         static bool s_registered;
-
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// The Hunger                       TODO
-// First of the Vyrkos              TODO
+// The Hunger                       Yes
+// First of the Vyrkos              Yes
 // Lycancurse                       TODO
 // Under a Killing Moon             TODO
 // Pack Alpha                       TODO

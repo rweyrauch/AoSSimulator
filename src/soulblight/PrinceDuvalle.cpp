@@ -70,4 +70,11 @@ namespace Soulblight {
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
 
+    void PrinceDuvalle::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
+
+        SoulblightBase::onEndCombat(player);
+    }
+
 } // namespace Soulblight

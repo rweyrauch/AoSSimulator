@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        WatchCaptainHalgrim(bool isGeneral);
+        explicit WatchCaptainHalgrim(bool isGeneral);
 
         ~WatchCaptainHalgrim() override = default;
 

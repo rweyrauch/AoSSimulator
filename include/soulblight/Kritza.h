@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        KritzaTheRatPrince(bool isGeneral);
+        explicit KritzaTheRatPrince(bool isGeneral);
 
         ~KritzaTheRatPrince() override = default;
 

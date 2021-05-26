@@ -59,4 +59,11 @@ namespace Soulblight {
         addModel(model);
     }
 
+    void RadukarTheBeast::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
+
+        SoulblightBase::onEndCombat(player);
+    }
+
 } // namespace Soulblight

@@ -70,9 +70,19 @@ namespace Soulblight {
         model->addMeleeWeapon(&m_tail);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Clotted Deluge", 6, 12,
+                                                                   Attribute::Target_To_Wound_Melee, 1,
+                                                                   Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    void VengorianLord::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
+
+        SoulblightBase::onEndCombat(player);
     }
 
 } // namespace Soulblight

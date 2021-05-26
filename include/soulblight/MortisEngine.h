@@ -21,9 +21,9 @@ namespace Soulblight {
 
         static void Init();
 
-        MortisEngine(CursedBloodline bloodline);
+        explicit MortisEngine(CursedBloodline bloodline);
 
-        ~MortisEngine() override = default;
+        ~MortisEngine() override;
 
     protected:
 
@@ -37,11 +37,21 @@ namespace Soulblight {
 
         size_t getDamageTableIndex() const;
 
+        void onStartHero(PlayerId player) override;
+
+        int boundNecromancer(const Unit *caster);
+
     private:
 
-        Weapon m_wail,
-                m_staff,
-                m_etherealWeapons;
+        bool m_usedReliquary = false;
+
+        lsignal::slot m_boundNecromancer;
+
+    private:
+
+        Weapon  m_wail{Weapon::Type::Missile, "Wail of the Damned", 12, 1, 0, 0, 0, 0},
+                m_staff{Weapon::Type::Melee, "Mortis Staff", 1, 2, 4, 3, -1, RAND_D3},
+                m_etherealWeapons{Weapon::Type::Melee, "Spectral Claws and Blades", 1, 12, 5, 4, 0, 1};
 
         static bool s_registered;
 
@@ -52,8 +62,8 @@ namespace Soulblight {
 // -------------------------------------------
 // Wail of the Damned               Yes
 // Frightful Touch                  Yes
-// The Reliquery                    TODO
-// Bound Necromancer                TODO
+// The Reliquary                    Yes
+// Bound Necromancer                Yes
 //
 
 } // namespace Soulblight

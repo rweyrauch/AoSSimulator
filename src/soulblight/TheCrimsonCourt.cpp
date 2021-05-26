@@ -44,7 +44,7 @@ namespace Soulblight {
     }
 
     TheCrimsonCourt::TheCrimsonCourt(CursedBloodline bloodline):
-        SoulblightBase(bloodline, "The Crimson Court", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
+        SoulblightBase(bloodline, "The Crimson Court", 6, g_wounds, 10, 4, true, g_pointsPerUnit) {
 
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, THE_CRIMSON_COURT};
         m_weapons = {&m_mace, &m_blades, &m_bludgeon};
@@ -63,6 +63,13 @@ namespace Soulblight {
         ennias->addMeleeWeapon(&m_bludgeon);
         ennias->setName("Ennias Curse-born");
         addModel(ennias);
+    }
+
+    void TheCrimsonCourt::onEndCombat(PlayerId player) {
+        // The Hunger
+        if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
+
+        SoulblightBase::onEndCombat(player);
     }
 
 } // namespace Soulblight

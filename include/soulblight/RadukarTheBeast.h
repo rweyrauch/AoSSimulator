@@ -21,11 +21,13 @@ namespace Soulblight {
 
         static void Init();
 
-        RadukarTheBeast(bool isGeneral);
+        explicit RadukarTheBeast(bool isGeneral);
 
         ~RadukarTheBeast() override = default;
 
     private:
+
+        void onEndCombat(PlayerId player) override;
 
         Weapon  m_claws{Weapon::Type::Melee, "Blood-slick Claws", 2, 6, 3, 3, -1, 2},
                 m_blade{Weapon::Type::Melee, "Piercing Blade", 1, 6, 3, 3, -1, RAND_D3};
@@ -38,7 +40,7 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // Bounding Charge                  TODO
-// The Hunger                       TODO
+// The Hunger                       Yes
 // Supernatural Reflexes            TODO
 // Unleashed Ferocity               TODO
 // Call to the Hunt                 TODO

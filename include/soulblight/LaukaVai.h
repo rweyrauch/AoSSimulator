@@ -25,6 +25,12 @@ namespace Soulblight {
 
         ~LaukaVai() override = default;
 
+    protected:
+
+        void onEndCombat(PlayerId player) override;
+
+        void onCharged() override;
+
     private:
 
         Weapon  m_rapier{Weapon::Type::Melee, "Askurga Rapier", 1, 4, 3, 3, -1, 2},
@@ -38,6 +44,12 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
+// Champion of the Avengorii        TODO
+// Nightmare's Miasma               TODO
+// Undeniable Impulse               TODO
+// The Hunger                       Yes
+// Death's Downpour                 Yes
+// A Queen Amongst Monsters         TODO
 //
 
 } // namespace Soulblight

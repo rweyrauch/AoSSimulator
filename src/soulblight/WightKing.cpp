@@ -32,6 +32,10 @@ namespace Soulblight {
 
         model->addMeleeWeapon(&m_balefulTombBlade);
         addModel(model);
+
+        m_commandAbilities.push_back(std::make_unique<BuffRerollCommandAbility>(this, "Lord of Bones", 12, 12, GamePhase::Hero,
+                                                                                Attribute::To_Hit_Melee, Rerolls::Ones,
+                                                                                Abilities::Target::SelfAndFriendly, std::vector<Keyword>{DEATHRATTLE}));
     }
 
     Unit *WightKing::Create(const ParameterList &parameters) {
@@ -64,6 +68,15 @@ namespace Soulblight {
 
     int WightKing::ComputePoints(const ParameterList& /*parameters*/) {
         return g_pointsPerUnit;
+    }
+
+    Wounds WightKing::weaponDamage(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
+                                   int woundRoll) const {
+        // Beheading Strike
+        if (hitRoll == 6) {
+            return {weapon->damage(), 1, Wounds::Source::Weapon_Melee, weapon};
+        }
+        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
 
 } // namespace Soulblight
