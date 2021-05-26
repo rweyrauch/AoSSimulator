@@ -34,7 +34,7 @@ namespace Soulblight {
 
     bool ZombieDragon::s_registered = false;
 
-    ZombieDragon::ZombieDragon(CursedBloodline bloodline) :
+    ZombieDragon::ZombieDragon(CursedBloodline bloodline, Mutation mutation) :
             SoulblightBase(bloodline, "Zombie Dragon", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_pestilentialBreath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_snappingMaw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),
@@ -52,7 +52,8 @@ namespace Soulblight {
 
     Unit *ZombieDragon::Create(const ParameterList &parameters) {
         auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
-        return new ZombieDragon(bloodline);
+        auto mutation = (Mutation) GetEnumParam("Cursed Mutation", parameters, g_mutations[0]);
+        return new ZombieDragon(bloodline, mutation);
     }
 
     void ZombieDragon::Init() {
@@ -63,7 +64,8 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     ZombieDragon::ComputePoints,
                     {
-                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
+                            EnumParameter("Cursed Mutation", g_mutations[0], g_mutations)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

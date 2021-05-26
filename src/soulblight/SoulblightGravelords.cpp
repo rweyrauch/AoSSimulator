@@ -152,10 +152,11 @@ namespace Soulblight {
     Wounds
     SoulblightBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
-        if (isGeneral() && (m_commandTrait == CommandTrait::Killing_Blow) && weapon->isMelee() && (woundRoll == 6)) {
-            damage.mortal++;
+        if (m_hasBloodiedStrength) {
+            if (!weapon->isMount() && weapon->isMelee()) {
+                damage.normal++;
+            }
         }
-
         return damage;
     }
 
@@ -168,9 +169,6 @@ namespace Soulblight {
 
     int SoulblightBase::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
         auto attacks = Unit::extraAttacks(attackingModel, weapon, target);
-        if (isGeneral() && (m_commandTrait == CommandTrait::Blood_Fury) && weapon->isMelee()) {
-            attacks++;
-        }
         return attacks;
     }
 
@@ -187,13 +185,12 @@ namespace Soulblight {
         return Unit::chargeRerolls();
     }
 
-    void SoulblightBase::onStartCombat(PlayerId player) {
-        Unit::onStartCombat(player);
-    }
-
     int SoulblightBase::runModifier() const {
         auto mod = Unit::runModifier();
         if (isGeneral() && (m_commandTrait == CommandTrait::Swift_Form)) {
+            mod += 2;
+        }
+        if (m_hasAbsorbedSpeed) {
             mod += 2;
         }
         return mod;
@@ -201,32 +198,14 @@ namespace Soulblight {
 
     int SoulblightBase::woundModifier() const {
         auto mod = Unit::woundModifier();
-        if (isGeneral() && (m_commandTrait == CommandTrait::Curse_Of_The_Revenant)) {
+        if (m_hasStolenVitality) {
             mod++;
         }
         return mod;
     }
 
     Rerolls SoulblightBase::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        if (isGeneral() && (m_commandTrait == CommandTrait::Deathless_Duellist) && target->hasKeyword(HERO)) {
-            return Rerolls::Ones;
-        }
         return Unit::toHitRerolls(weapon, target);
-    }
-
-    int SoulblightBase::castingModifier() const {
-        auto mod = Unit::castingModifier();
-        return mod;
-    }
-
-    int SoulblightBase::unbindingModifier() const {
-        auto mod = Unit::unbindingModifier();
-        return mod;
-    }
-
-    int SoulblightBase::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
-        auto hits = Unit::generateHits(unmodifiedHitRoll, weapon, unit);
-        return hits;
     }
 
     int SoulblightBase::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
@@ -277,13 +256,101 @@ namespace Soulblight {
         return 0;
     }
 
-    int SoulblightBase::toHitModifier(const Weapon *weapon, const Unit *target) const {
-        auto mod = Unit::toHitModifier(weapon, target);
+    Wounds SoulblightBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Deathless Minions
+        if (hasKeyword(SOULBLIGHT_GRAVELORDS)) {
+            auto heroes = Board::Instance()->getUnitsWithKeyword(owningPlayer(), HERO);
+            for (auto hero : heroes) {
+                if ((hero->remainingModels() > 0) && hero->hasKeyword(SOULBLIGHT_GRAVELORDS) && (distanceTo(hero) < 12)) {
+                    return ignoreWounds(wounds, m_deathlessMinionsThreshold);
+                }
+            }
+
+            // TODO: also check for gravesites
+        }
+        return Unit::applyWoundSave(wounds, attackingUnit);
+    }
+
+    void SoulblightBase::onEnemyUnitSlain(const Unit *enemyUnit) {
+        EventInterface::onEnemyUnitSlain(enemyUnit);
+
+        // Might of the Crimson Keep
+        if (hasKeyword(KASTELAI_DYNASTY) && hasKeyword(VAMPIRE)) {
+            if (enemyUnit->hasKeyword(HERO) || enemyUnit->hasKeyword(MONSTER)) {
+                // Bloodied Strength
+                m_hasBloodiedStrength = true;
+            }
+            else if (enemyUnit->wounds() >= 3) {
+                // Stolen Vitality
+                m_hasStolenVitality = true;
+            }
+            else { // (enemyUnit->wounds() <= 2)
+                // Absorbed Speed
+                m_hasAbsorbedSpeed = true;
+            }
+        }
+    }
+
+    void SoulblightBase::onRestore() {
+        EventInterface::onRestore();
+
+        m_hasBloodiedStrength = false;
+        m_hasStolenVitality = false;
+        m_hasAbsorbedSpeed = false;
+    }
+
+    int SoulblightBase::chargeModifier() const {
+        auto mod = Unit::chargeModifier();
+        if (m_hasAbsorbedSpeed) {
+            mod += 2;
+        }
         return mod;
+    }
+
+    int SoulblightBase::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::toSaveModifier(weapon, attacker);
+        // The Bait
+        if ((m_battleRound == 1) && hasKeyword(LEGION_OF_NIGHT) && (hasKeyword(DEATHRATTLE) || hasKeyword(DEADWALKERS))) {
+            mod++;
+        }
+        return mod;
+    }
+
+    Rerolls SoulblightBase::castingRerolls() const {
+        // The Stength of the Wolf is the Pack
+        if (hasKeyword(VYRKOS_DYNASTY) && hasKeyword(VAMPIRE)) {
+            return Rerolls::Failed;
+        }
+        return UnitModifierInterface::castingRerolls();
     }
 
     int SoulblightBase::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         auto mod = Unit::toWoundModifier(weapon, target);
+        // The Strength of the Pack is the Wolf
+        if (weapon->isMelee() && hasKeyword(VYRKOS_DYNASTY) && (hasKeyword(DEATHRATTLE) || hasKeyword(DEADWALKERS))) {
+            auto heroes = Board::Instance()->getUnitsWithKeyword(owningPlayer(), HERO);
+            for (auto hero : heroes) {
+                if ((hero->remainingModels() > 0) && hero->hasKeyword(VYRKOS_DYNASTY) && hero->hasKeyword(VAMPIRE) && (distanceTo(hero) < 9.0)) {
+                    mod++;
+                }
+            }
+        }
+        return mod;
+    }
+
+    int SoulblightBase::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = Unit::targetWoundModifier(weapon, attacker);
+        // Monstrous Might
+        if (weapon->isMelee()) {
+            if (hasKeyword(AVENGORII_DYNASTY) &&
+                (hasKeyword(TERRORGHEIST) ||
+                 hasKeyword(ZOMBIE_DRAGON) ||
+                 (hasKeyword(VAMPIRE) && hasKeyword(MONSTER)))) {
+                if (!attacker->hasKeyword(MONSTER)) {
+                    mod--;
+                }
+            }
+        }
         return mod;
     }
 

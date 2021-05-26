@@ -22,7 +22,7 @@ namespace Soulblight {
 
         static void Init();
 
-        explicit ZombieDragon(CursedBloodline bloodline);
+        explicit ZombieDragon(CursedBloodline bloodline, Mutation mutation);
 
         ~ZombieDragon() override = default;
 

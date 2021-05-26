@@ -30,7 +30,7 @@ namespace Soulblight {
 
         static void Init();
 
-        VampireLordOnZombieDragon(CursedBloodline bloodline, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        VampireLordOnZombieDragon(CursedBloodline bloodline, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral, Mutation mutation);
 
         ~VampireLordOnZombieDragon() override = default;
 

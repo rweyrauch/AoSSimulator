@@ -43,7 +43,8 @@ namespace Soulblight {
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_commandTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_artefacts[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new VampireLordOnZombieDragon(bloodline, weapon, lore, trait, artefact, general);
+        auto mutation = (Mutation) GetEnumParam("Cursed Mutation", parameters, g_mutations[0]);
+        return new VampireLordOnZombieDragon(bloodline, weapon, lore, trait, artefact, general, mutation);
     }
 
     int VampireLordOnZombieDragon::ComputePoints(const ParameterList& /*parameters*/) {
@@ -64,7 +65,8 @@ namespace Soulblight {
                             EnumParameter("Command Trait", g_commandTraits[0], g_commandTraits),
                             EnumParameter("Artefact", g_artefacts[0], g_artefacts),
                             EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Cursed Mutation", g_mutations[0], g_mutations)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -73,7 +75,7 @@ namespace Soulblight {
         }
     }
 
-    VampireLordOnZombieDragon::VampireLordOnZombieDragon(CursedBloodline bloodline, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+    VampireLordOnZombieDragon::VampireLordOnZombieDragon(CursedBloodline bloodline, WeaponOption option, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral, Mutation mutation) :
             SoulblightBase(bloodline, "Vampire Lord on Zombie Dragon", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_breath(Weapon::Type::Missile, "Pestilential Breath", 9, 1, 3, 2, -3, RAND_D6),
             m_deathlance(Weapon::Type::Melee, "Deathlance", 1, 3, 3, 3, -1, 2),

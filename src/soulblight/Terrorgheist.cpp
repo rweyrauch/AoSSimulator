@@ -35,7 +35,7 @@ namespace Soulblight {
 
     bool Terrorgheist::s_registered = false;
 
-    Terrorgheist::Terrorgheist(CursedBloodline bloodline) :
+    Terrorgheist::Terrorgheist(CursedBloodline bloodline, Mutation mutation) :
             SoulblightBase(bloodline, "Terrorgheist", 14, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_deathShriek(Weapon::Type::Missile, "Death Shriek", 10, 1, 0, 0, 0, 0),
             m_skeletalClaws(Weapon::Type::Melee, "Skeletal Claws", 2, 4, 4, 3, -1, RAND_D3),
@@ -53,7 +53,8 @@ namespace Soulblight {
 
     Unit *Terrorgheist::Create(const ParameterList &parameters) {
         auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
-        return new Terrorgheist(bloodline);
+        auto mutation = (Mutation) GetEnumParam("Cursed Mutation", parameters, g_mutations[0]);
+        return new Terrorgheist(bloodline, mutation);
     }
 
     void Terrorgheist::Init() {
@@ -64,7 +65,8 @@ namespace Soulblight {
                     SoulblightBase::EnumStringToInt,
                     Terrorgheist::ComputePoints,
                     {
-                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines)
+                            EnumParameter("Bloodline", g_bloodlines[0], g_bloodlines),
+                            EnumParameter("Cursed Mutation", g_mutations[0], g_mutations)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}

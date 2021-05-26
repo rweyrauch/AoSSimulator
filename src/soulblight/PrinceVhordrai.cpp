@@ -40,7 +40,8 @@ namespace Soulblight {
     Unit *PrinceVhordrai::Create(const ParameterList &parameters) {
         auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new PrinceVhordrai(lore, general);
+        auto mutation = (Mutation) GetEnumParam("Cursed Mutation", parameters, g_mutations[0]);
+        return new PrinceVhordrai(lore, general, mutation);
     }
 
     int PrinceVhordrai::ComputePoints(const ParameterList& /*parameters*/) {
@@ -56,7 +57,8 @@ namespace Soulblight {
                     ComputePoints,
                     {
                             EnumParameter("Lore", g_vampireLore[0], g_vampireLore),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Cursed Mutation", g_mutations[0], g_mutations)
                     },
                     DEATH,
                     {SOULBLIGHT_GRAVELORDS}
@@ -65,7 +67,7 @@ namespace Soulblight {
         }
     }
 
-    PrinceVhordrai::PrinceVhordrai(Lore lore, bool isGeneral) :
+    PrinceVhordrai::PrinceVhordrai(Lore lore, bool isGeneral, Mutation mutation) :
             SoulblightBase(CursedBloodline::Kastelai_Dynasty, "Prince Vhordrai", 14, g_wounds, 10, 3, true, g_pointsPerUnit),
             m_bloodlance(Weapon::Type::Melee, "Bloodlance", 2, 4, 3, 3, -2, 2),
             m_maw(Weapon::Type::Melee, "Snapping Maw", 3, 3, 4, 3, -2, RAND_D6),

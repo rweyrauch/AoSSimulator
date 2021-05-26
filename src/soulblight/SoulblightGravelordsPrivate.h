@@ -23,7 +23,7 @@ namespace Soulblight {
             ToInteger(CursedBloodline::Avengorii_Dynasty)
     };
 
-    constexpr std::array<int, 34> g_commandTraits = {
+    constexpr std::array<int, 28> g_commandTraits = {
             ToInteger(CommandTrait::None),
 
             // Legion of Blood
@@ -41,14 +41,6 @@ namespace Soulblight {
             ToInteger(CommandTrait::Merciless_Hunter),
             ToInteger(CommandTrait::Unholy_Impetus),
             ToInteger(CommandTrait::Terrifying_Visage),
-
-            // Soulblight
-            ToInteger(CommandTrait::Curse_Of_The_Revenant),
-            ToInteger(CommandTrait::Deathless_Duellist),
-            ToInteger(CommandTrait::Transfix),
-            ToInteger(CommandTrait::Mist_Form),
-            ToInteger(CommandTrait::Killing_Blow),
-            ToInteger(CommandTrait::Blood_Fury),
 
             // Vyrkos Dynasty
             ToInteger(CommandTrait::Pack_Alpha),
@@ -72,7 +64,7 @@ namespace Soulblight {
             ToInteger(CommandTrait::Unhinged_Rampager),
     };
 
-    constexpr std::array<int, 19> g_artefacts = {
+    constexpr std::array<int, 28> g_artefacts = {
             ToInteger(Artefact::None),
 
             // Legion of Blood
@@ -99,6 +91,18 @@ namespace Soulblight {
             ToInteger(Artefact::Fragment_Of_The_Keep),
             ToInteger(Artefact::The_Red_Casket),
 
+            // Vyrkos Dynaster
+            ToInteger(Artefact::Ulfenkarnian_Phylactery),
+            ToInteger(Artefact::Cloak_Of_The_Night_Prowler),
+            ToInteger(Artefact::Sangsyron),
+            ToInteger(Artefact::Vilnas_Fang),
+            ToInteger(Artefact::Terminus_Clock),
+            ToInteger(Artefact::Standard_Of_The_Ulfenwatch),
+
+            // Avengorii Dynasty
+            ToInteger(Artefact::Breath_Of_The_Void_Maw),
+            ToInteger(Artefact::Ghorvars_Collar),
+            ToInteger(Artefact::The_Furious_Crown)
     };
 
     constexpr std::array<int, 7> g_deathmageLore = {
@@ -119,6 +123,13 @@ namespace Soulblight {
             ToInteger(Lore::Amethystine_Pinions),
             ToInteger(Lore::Soulpike),
             ToInteger(Lore::Amaranthine_Orb),
+    };
+
+    constexpr std::array<int, 4> g_mutations = {
+            ToInteger(Mutation::None),
+            ToInteger(Mutation::Maddening_Hunger),
+            ToInteger(Mutation::Urges_Of_Atrocity),
+            ToInteger(Mutation::Nullblood_Construct)
     };
 
 } // namespace Soulblight

@@ -43,14 +43,6 @@ namespace Soulblight {
         Unholy_Impetus,
         Terrifying_Visage,
 
-        // Soulblight
-        Curse_Of_The_Revenant,
-        Deathless_Duellist,
-        Transfix,                   // TODO
-        Mist_Form,                  // TODO
-        Killing_Blow,
-        Blood_Fury,
-
         // Vyrkos Dynasty
         Pack_Alpha,                 // TODO
         Driven_By_Deathstench,      // TODO
@@ -103,9 +95,9 @@ namespace Soulblight {
         // Vyrkos Dynasty
         Ulfenkarnian_Phylactery,
         Cloak_Of_The_Night_Prowler,
-        Sangsyron_SP,
+        Sangsyron,
         Vilnas_Fang,
-        Terminus_Cloak,
+        Terminus_Clock,
         Standard_Of_The_Ulfenwatch,
 
         // Avengorii Dynasty
@@ -115,9 +107,10 @@ namespace Soulblight {
     };
 
     enum class Mutation : int {
-        Maddening_Hunger,
-        Urges_Of_Atrocity,
-        Nullblood_Construct,
+        None = 0,
+        Maddening_Hunger,       // TODO
+        Urges_Of_Atrocity,      // TODO
+        Nullblood_Construct,    // TODO
     };
 
     enum class Lore : int {
@@ -176,19 +169,11 @@ namespace Soulblight {
 
         Rerolls chargeRerolls() const override;
 
-        void onStartCombat(PlayerId player) override;
-
         int runModifier() const override;
 
         int woundModifier() const override;
 
         Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-
-        int castingModifier() const override;
-
-        int unbindingModifier() const override;
-
-        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
 
         int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
 
@@ -200,9 +185,21 @@ namespace Soulblight {
 
         int terrifyingVisage(const Unit *unit);
 
-        int toHitModifier(const Weapon *weapon, const Unit *target) const override;
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        void onEnemyUnitSlain(const Unit* enemyUnit) override;
+
+        void onRestore() override;
+
+        int chargeModifier() const override;
+
+        int toSaveModifier(const Weapon *weapon, const Unit* attacker) const override;
+
+        Rerolls castingRerolls() const override;
 
         int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
+
+        int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
 
     protected:
 
@@ -211,6 +208,13 @@ namespace Soulblight {
         CursedBloodline m_bloodline = CursedBloodline::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+
+        int m_deathlessMinionsThreshold = 6;
+
+        // Might of the Crimson Keep
+        bool m_hasBloodiedStrength = false;
+        bool m_hasStolenVitality = false;
+        bool m_hasAbsorbedSpeed = false;
     };
 
 //
@@ -218,7 +222,7 @@ namespace Soulblight {
 // -------------------------------------------
 // The Unquiet Dead                 TODO
 // Locus of Shyish                  TODO
-// Deathless Minions                TODO
+// Deathless Minions                Yes
 // Endless Legions                  TODO
 // Reanimated Horrors               TODO
 // Deathly Invocations              TODO
@@ -226,11 +230,21 @@ namespace Soulblight {
 //    Immortal Majesty              TODO
 //    Favoured Retainers            TODO
 // Legion of Night
-//    The Bait                      TODO
+//    The Bait                      Yes
 //    Ageless Cunning               TODO
 // Vyrkos Dynasty
-//    Strength of the Pack...       TODO
-//    Strength of the Wolf...       TODO
+//    Strength of the Pack...       Yes
+//    Strength of the Wolf...       Yes
+// Kastelai Dynasty
+//    The Shifting Keep             TODO
+//    Might of the Crimson Keep
+//      - Bloodied Strength         Yes
+//      - Stolen Vitality           Yes
+//      - Absorbed Speed            Yes
+// Avengorii Dynasty
+//    Cursed Abominations           Yes
+//    Monstrous Might               Yes
+//    Unstoppable Nightmares        TODO
 //
 
     void Init();
