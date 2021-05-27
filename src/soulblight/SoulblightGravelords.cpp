@@ -91,7 +91,7 @@ namespace Soulblight {
     }
 
     SoulblightBase::~SoulblightBase() {
-        m_terrifyVisageSlot.disconnect();
+        m_soulcrushingContemptSlot.disconnect();
     }
 
     void SoulblightBase::setBloodline(CursedBloodline bloodline) {
@@ -136,13 +136,20 @@ namespace Soulblight {
     void SoulblightBase::setCommandTrait(CommandTrait trait) {
         m_commandTrait = trait;
 
-        if (m_commandTrait == CommandTrait::Terrifying_Visage) {
-            s_globalBraveryMod.connect(this, &SoulblightBase::terrifyingVisage, &m_terrifyVisageSlot);
+        if (m_commandTrait == CommandTrait::Soul_Crushing_Contempt) {
+            s_globalBraveryMod.connect(this, &SoulblightBase::soulcrushingContempt, &m_soulcrushingContemptSlot);
         }
         else {
-            m_terrifyVisageSlot.disconnect();
+            m_soulcrushingContemptSlot.disconnect();
         }
 
+        if (m_commandTrait == CommandTrait::A_Craving_For_Massacre) {
+            m_runAndCharge = true;
+        }
+
+        if (m_commandTrait == CommandTrait::United_By_Blood) {
+            m_totalUnbinds++;
+        }
     }
 
     void SoulblightBase::setArtefact(Artefact artefact) {
@@ -152,6 +159,12 @@ namespace Soulblight {
     Wounds
     SoulblightBase::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
         auto damage = Unit::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+        if (m_commandTrait == CommandTrait::Walking_Death) {
+            if (hitRoll == 6) {
+                damage.mortal = damage.normal;
+                damage.normal = 0;
+            }
+        }
         if (m_hasBloodiedStrength) {
             if (!weapon->isMount() && weapon->isMelee()) {
                 damage.normal++;
@@ -161,9 +174,6 @@ namespace Soulblight {
     }
 
     Rerolls SoulblightBase::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
-        if (isGeneral() && (m_commandTrait == CommandTrait::Merciless_Hunter)) {
-            return Rerolls::Ones;
-        }
         return Unit::toWoundRerolls(weapon, target);
     }
 
@@ -175,11 +185,21 @@ namespace Soulblight {
     Rerolls SoulblightBase::chargeRerolls() const {
         auto general = dynamic_cast<SoulblightBase *>(getRoster()->getGeneral());
         if (general && (general->remainingModels() > 0) &&
-            (general->m_commandTrait == CommandTrait::Aristocracy_Of_Blood) && hasKeyword(SOULBLIGHT) &&
+            (general->m_commandTrait == CommandTrait::Aristocracy_Of_Blood) && hasKeyword(LEGION_OF_BLOOD) &&
+            (distanceTo(general) < 12.0)) {
+            return Rerolls::Failed;
+        }
+        if (general && (general->remainingModels() > 0) &&
+            (general->m_commandTrait == CommandTrait::Driven_By_Deathstench) && hasKeyword(VYRKOS_DYNASTY) &&
             (distanceTo(general) < 9.0)) {
             return Rerolls::Failed;
         }
-        if (isGeneral() && (m_commandTrait == CommandTrait::Sanguine_Blur)) {
+        if (general && (general->remainingModels() > 0) &&
+            (general->m_commandTrait == CommandTrait::Swift_And_Deadly) && hasKeyword(KASTELAI_DYNASTY) &&
+            (distanceTo(general) < 12.0)) {
+            return Rerolls::Failed;
+        }
+        if (isGeneral() && (m_commandTrait == CommandTrait::Unhinged_Rampager)) {
             return Rerolls::Failed;
         }
         return Unit::chargeRerolls();
@@ -239,18 +259,11 @@ namespace Soulblight {
         if (isGeneral() && (m_commandTrait == CommandTrait::Soul_Crushing_Contempt)) {
             enemyUnit->buffModifier(Attribute::Bravery, -1, {GamePhase::Battleshock, m_battleRound, owningPlayer()});
         }
-
-        if (isGeneral() && (m_commandTrait == CommandTrait::Unholy_Impetus)) {
-            auto unit = Board::Instance()->getNearestUnit(this, owningPlayer());
-            if (unit && (distanceTo(unit) < 3.0)) {
-                unit->buffModifier(Attribute::Attacks_Melee, 1, {GamePhase::Combat, m_battleRound, owningPlayer()});
-            }
-        }
     }
 
-    int SoulblightBase::terrifyingVisage(const Unit *unit) {
+    int SoulblightBase::soulcrushingContempt(const Unit *unit) {
         // Slot only connected when trait selected
-        if (distanceTo(unit) < 6.0) {
+        if (distanceTo(unit) < 3.0) {
             return -1;
         }
         return 0;
@@ -301,6 +314,9 @@ namespace Soulblight {
 
     int SoulblightBase::chargeModifier() const {
         auto mod = Unit::chargeModifier();
+        if (isGeneral() && (m_commandTrait == CommandTrait::Swift_Form)) {
+            mod += 2;
+        }
         if (m_hasAbsorbedSpeed) {
             mod += 2;
         }
@@ -326,6 +342,11 @@ namespace Soulblight {
 
     int SoulblightBase::toWoundModifier(const Weapon *weapon, const Unit *target) const {
         auto mod = Unit::toWoundModifier(weapon, target);
+        if (m_commandTrait == CommandTrait::Merciless_Hunter) {
+            if (weapon->isMelee()) {
+                mod++;
+            }
+        }
         // The Strength of the Pack is the Wolf
         if (weapon->isMelee() && hasKeyword(VYRKOS_DYNASTY) && (hasKeyword(DEATHRATTLE) || hasKeyword(DEADWALKERS))) {
             auto heroes = Board::Instance()->getUnitsWithKeyword(owningPlayer(), HERO);
@@ -340,6 +361,11 @@ namespace Soulblight {
 
     int SoulblightBase::targetWoundModifier(const Weapon *weapon, const Unit *attacker) const {
         auto mod = Unit::targetWoundModifier(weapon, attacker);
+        if (m_commandTrait == CommandTrait::Terrifying_Visage) {
+            if (weapon->isMelee()) {
+                mod--;
+            }
+        }
         // Monstrous Might
         if (weapon->isMelee()) {
             if (hasKeyword(AVENGORII_DYNASTY) &&
@@ -352,6 +378,26 @@ namespace Soulblight {
             }
         }
         return mod;
+    }
+
+    int SoulblightBase::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        auto hit = UnitModifierInterface::generateHits(unmodifiedHitRoll, weapon, unit);
+        if ((m_commandTrait == CommandTrait::Premeditated_Violence) && (unmodifiedHitRoll == 6)) {
+            hit = 2;
+        }
+        return hit;
+    }
+
+    void SoulblightBase::onCharged() {
+        if (m_commandTrait == CommandTrait::Beacon_Of_Bloodshed) {
+            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 1.0);
+            for (auto unit : units) {
+                if ((unit->remainingModels() > 0) && (Dice::RollD6() >= 3)) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability}, this);
+                    break;
+                }
+            }
+        }
     }
 
     void Init() {

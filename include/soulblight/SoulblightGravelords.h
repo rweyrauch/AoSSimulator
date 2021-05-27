@@ -28,41 +28,41 @@ namespace Soulblight {
         None,
 
         // Legion of Blood
-        Premeditated_Violence,      // TODO Swift_Strikes
+        Premeditated_Violence,
         Soul_Crushing_Contempt,
         Aristocracy_Of_Blood,
         Aura_Of_Dark_Majesty,
-        Walking_Death,              // TODO
-        Sanguine_Blur,
+        Walking_Death,
+        Sanguine_Blur,              // TODO
 
         // Legion of Night
         Above_Suspicion,            // TODO
         Swift_Form,
         Unbending_Will,
         Merciless_Hunter,
-        Unholy_Impetus,
+        Unholy_Impetus,             // TODO
         Terrifying_Visage,
 
         // Vyrkos Dynasty
         Pack_Alpha,                 // TODO
-        Driven_By_Deathstench,      // TODO
+        Driven_By_Deathstench,
         Kin_Of_The_Wolf,            // TODO
         Hunters_Snare,              // TODO
         Spoor_Trackers,             // TODO
-        United_By_Blood,            // TODO
+        United_By_Blood,
 
         // Kastelai Dynasty
-        Beacon_Of_Bloodshed,        // TODO
+        Beacon_Of_Bloodshed,
         Master_Of_Retaliation,      // TODO
         Power_In_The_Blood,         // TODO
         Rousing_Commander,          // TODO
-        Swift_And_Deadly,           // TODO
-        A_Craving_For_Massacre,     // TODO
+        Swift_And_Deadly,
+        A_Craving_For_Massacre,
 
         // Avengorii Dynasty
         An_Eye_For_An_Eye,          // TODO
         Torment_Driven_Throes,      // TODO
-        Unhinged_Rampager,          // TODO
+        Unhinged_Rampager,
     };
 
     enum class Artefact : int {
@@ -120,18 +120,18 @@ namespace Soulblight {
 
         // Deathmages
         Overwhelming_Dread,
-        Fading_Vigour,          // TODO
+        Fading_Vigour,
         Spectral_Grasp,         // TODO
         Prison_Of_Grief,        // TODO
         Decrepify,
-        Soul_Harvest,           // TODO
+        Soul_Harvest,
 
         // Vampire
         Blades_Of_Shyish,
         Spirit_Gale,
         Soulpike,               // TODO
         Amethystine_Pinions,
-        Vile_Transference,      // TODO
+        Vile_Transference,
         Amaranthine_Orb,
     };
 
@@ -183,7 +183,7 @@ namespace Soulblight {
 
         void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
 
-        int terrifyingVisage(const Unit *unit);
+        int soulcrushingContempt(const Unit *unit);
 
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
@@ -201,9 +201,13 @@ namespace Soulblight {
 
         int targetWoundModifier(const Weapon *weapon, const Unit *attacker) const override;
 
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        void onCharged() override;
+
     protected:
 
-        lsignal::slot m_terrifyVisageSlot;
+        lsignal::slot m_soulcrushingContemptSlot;
 
         CursedBloodline m_bloodline = CursedBloodline::None;
         CommandTrait m_commandTrait = CommandTrait::None;
