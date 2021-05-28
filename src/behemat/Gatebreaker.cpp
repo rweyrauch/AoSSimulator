@@ -165,7 +165,8 @@ namespace SonsOfBehemat {
     Wounds Gatebreaker::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = SonsOfBehematBase::applyWoundSave(wounds, attackingUnit);
         if (m_artefact == Artefact::Enchanted_Portcullis) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return totalWounds;
     }

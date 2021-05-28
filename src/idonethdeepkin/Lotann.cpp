@@ -69,7 +69,8 @@ namespace IdonethDeepkin {
     }
 
     Wounds Lotann::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     int Lotann::catalogueOfSouls(const Unit *target) {

@@ -73,6 +73,7 @@ namespace LuminethRealmLords {
 
     Wounds Sevireth::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Into the Gale
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 }

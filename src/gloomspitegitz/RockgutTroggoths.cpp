@@ -83,7 +83,8 @@ namespace GloomspiteGitz {
 
     Wounds RockgutTroggoths::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Stony Skin
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     void RockgutTroggoths::onStartShooting(PlayerId player) {

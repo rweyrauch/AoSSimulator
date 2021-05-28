@@ -132,7 +132,8 @@ namespace Tzeentch {
         auto totalWounds = TzeentchBase::applyWoundSave(wounds, attackingUnit);
 
         if (m_weaponOption == Savage_Blade_And_Shield) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return totalWounds;
     }

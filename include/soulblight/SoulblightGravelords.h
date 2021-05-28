@@ -146,16 +146,15 @@ namespace Soulblight {
 
         ~SoulblightBase() override;
 
+    protected:
+
+        SoulblightBase(CursedBloodline bloodline, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points);
+
         void setCommandTrait(CommandTrait trait);
 
         void setArtefact(Artefact artefact);
 
-    protected:
-
-        SoulblightBase(CursedBloodline bloodline, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {
-            setBloodline(bloodline);
-        }
+        void setMutation(Mutation mutation);
 
         void setBloodline(CursedBloodline bloodline);
 
@@ -183,8 +182,6 @@ namespace Soulblight {
 
         void onEnemyModelSlain(int numSlain, Unit *enemyUnit, Wounds::Source source) override;
 
-        int soulcrushingContempt(const Unit *unit);
-
         Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
 
         void onEnemyUnitSlain(const Unit* enemyUnit) override;
@@ -205,13 +202,21 @@ namespace Soulblight {
 
         void onCharged() override;
 
+        void onStartHero(PlayerId player) override;
+
+        int soulcrushingContempt(const Unit *unit);
+
+        int reanimatedHorrors(const Unit* unit);
+
     protected:
 
         lsignal::slot m_soulcrushingContemptSlot;
+        lsignal::slot m_reanimatedHorrorsSlot;
 
         CursedBloodline m_bloodline = CursedBloodline::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
+        Mutation m_mutations = Mutation::None;
 
         int m_deathlessMinionsThreshold = 6;
 
@@ -228,8 +233,8 @@ namespace Soulblight {
 // Locus of Shyish                  TODO
 // Deathless Minions                Yes
 // Endless Legions                  TODO
-// Reanimated Horrors               TODO
-// Deathly Invocations              TODO
+// Reanimated Horrors               Yes
+// Deathly Invocations              Yes
 // Legion of Blood
 //    Immortal Majesty              TODO
 //    Favoured Retainers            TODO

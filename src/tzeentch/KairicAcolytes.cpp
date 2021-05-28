@@ -98,7 +98,8 @@ namespace Tzeentch {
 
         // Arcanite Shield
         if (m_weaponOption == Cursed_Blade_And_Shield) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return totalWounds;
     }

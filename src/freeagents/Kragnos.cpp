@@ -198,7 +198,7 @@ namespace Destruction {
             for (auto unit : units) {
                 const auto damageIndex = getDamageTableIndex();
                 if (Dice::RollD6() >= g_damageTable[damageIndex].m_bellowOfRage) {
-                    auto numSlain = unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability, nullptr}, this);
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Ability, nullptr}, this);
 
                 }
             }

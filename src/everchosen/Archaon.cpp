@@ -135,7 +135,8 @@ namespace SlavesToDarkness {
         auto modifiedWounds = wounds;
         // The Everchosen
         if (wounds.source == Wounds::Source::Spell) {
-            modifiedWounds = ignoreWounds(wounds, 4);
+            int numSixes = 0;
+            modifiedWounds = ignoreWounds(wounds, 4, numSixes);
         }
         return SlavesToDarknessBase::applyWoundSave(modifiedWounds, attackingUnit);
     }

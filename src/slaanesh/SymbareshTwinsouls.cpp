@@ -84,7 +84,8 @@ namespace Slaanesh {
     Wounds SymbareshTwinsouls::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (m_fiendishReflexesActive) {
             // Fiendish Reflexes
-            return ignoreWounds(wounds, 5);
+            int numSixes = 0;
+            return ignoreWounds(wounds, 5, numSixes);
         }
         return SlaaneshBase::applyWoundSave(wounds, attackingUnit);
     }

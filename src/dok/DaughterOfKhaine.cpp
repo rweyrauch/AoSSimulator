@@ -109,7 +109,8 @@ namespace DaughtersOfKhaine {
             }
         }
         // Fanatical Faith
-        return ignoreWounds(totalWounds, ignoreOnRoll);
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, ignoreOnRoll, numSixes);
     }
 
     std::string DaughterOfKhaine::ValueToString(const Parameter &parameter) {

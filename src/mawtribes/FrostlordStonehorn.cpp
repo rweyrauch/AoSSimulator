@@ -147,7 +147,8 @@ namespace OgorMawtribes {
 
     Wounds FrostlordOnStonehorn::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Stone Skeleton
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     int FrostlordOnStonehorn::ComputePoints(const ParameterList& /*parameters*/) {

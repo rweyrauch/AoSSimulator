@@ -141,7 +141,8 @@ namespace OgorMawtribes {
 
     Wounds StonehornBeastriders::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Stone Skeleton
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     void StonehornBeastriders::onStartShooting(PlayerId player) {

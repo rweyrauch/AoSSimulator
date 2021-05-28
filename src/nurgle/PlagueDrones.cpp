@@ -112,7 +112,8 @@ namespace Nurgle {
 
     Wounds PlagueDrones::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     void PlagueDrones::computeBattleshockEffect(int roll, int &numFled, int &numAdded) const {

@@ -275,7 +275,8 @@ namespace Sylvaneth {
 
     Wounds SylvanethBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (isGeneral() && (m_commandTrait == CommandTrait::Radiant_Spirit) && (wounds.source == Wounds::Source::Spell)) {
-            return ignoreWounds(wounds, 4);
+            int numSixes = 0;
+            return ignoreWounds(wounds, 4, numSixes);
         }
         return Unit::applyWoundSave(wounds, attackingUnit);
     }

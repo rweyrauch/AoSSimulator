@@ -97,7 +97,8 @@ namespace GloomspiteGitz {
 
     Wounds Skragrott::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Loonking's Crown
-        return ignoreWounds(wounds, 4);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 4, numSixes);
     }
 
     void Skragrott::onStartHero(PlayerId playerId) {

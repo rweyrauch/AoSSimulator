@@ -156,7 +156,8 @@ namespace SlavesToDarkness {
         if (isFriendly(target) && target->hasKeyword(SLAVES_TO_DARKNESS) && target->hasKeyword(MORTAL)) {
             auto range = g_damageTable[getDamageTableIndex()].m_protection;
             if (distanceTo(target) < range) {
-                return ignoreWounds(wounds, 6);
+                int numSixes = 0;
+                return ignoreWounds(wounds, 6, numSixes);
             }
         }
         return wounds;

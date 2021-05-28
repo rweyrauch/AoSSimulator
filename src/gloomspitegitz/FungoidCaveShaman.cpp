@@ -105,7 +105,8 @@ namespace GloomspiteGitz {
 
     Wounds FungoidCaveShaman::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Spore Squig
-        return ignoreWounds(wounds, 4);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 4, numSixes);
     }
 
 } // namespace GloomspiteGitz

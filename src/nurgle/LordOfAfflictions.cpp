@@ -78,7 +78,8 @@ namespace Nurgle {
 
     Wounds LordOfAfflictions::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     void LordOfAfflictions::onStartHero(PlayerId player) {

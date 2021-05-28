@@ -80,7 +80,8 @@ namespace Tzeentch {
 
         // Arcanite Shield
         if (isNamedModelAlive("Narvia") || isNamedModelAlive("Turosh")) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return totalWounds;
     }

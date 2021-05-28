@@ -1862,13 +1862,18 @@ bool Unit::isNamedModelAlive(const std::string &name) const {
     return false;
 }
 
-Wounds Unit::ignoreWounds(const Wounds &wounds, int ignoreOnRoll) const {
+Wounds Unit::ignoreWounds(const Wounds &wounds, int ignoreOnRoll, int& numSixes) const {
     auto totalWounds = wounds;
+
+    numSixes = 0;
 
     Dice::RollResult result;
     Dice::RollD6(totalWounds.normal, result);
+    numSixes += result.rollsGE( 6);
     totalWounds.normal -= result.rollsGE(ignoreOnRoll);
+
     Dice::RollD6(totalWounds.mortal, result);
+    numSixes += result.rollsGE( 6);
     totalWounds.mortal -= result.rollsGE(ignoreOnRoll);
 
     return totalWounds.clamp();

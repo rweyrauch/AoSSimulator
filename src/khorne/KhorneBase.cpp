@@ -391,7 +391,8 @@ namespace Khorne {
     Wounds KhorneBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = wounds;
         if (isGeneral() && (m_commandTrait == CommandTrait::Berserker_Lord)) {
-            totalWounds = ignoreWounds(totalWounds, 5);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 5, numSixes);
         }
         return Unit::applyWoundSave(totalWounds, attackingUnit);
     }

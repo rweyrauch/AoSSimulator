@@ -73,7 +73,8 @@ namespace Nurgle {
 
     Wounds PusgoyleBlightlords::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     int PusgoyleBlightlords::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {

@@ -251,7 +251,8 @@ namespace SlavesToDarkness {
         if (hasKeyword(UNDIVIDED)) {
             auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
             if (hero && hero->hasKeyword(UNDIVIDED)) {
-                totalWounds = ignoreWounds(totalWounds, 6);
+                int numSixes = 0;
+                totalWounds = ignoreWounds(totalWounds, 6, numSixes);
             }
         }
 
@@ -262,12 +263,14 @@ namespace SlavesToDarkness {
         }
 
         if (m_haveUnholyResilience) {
-            totalWounds = ignoreWounds(totalWounds, 5);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 5, numSixes);
         }
 
         // Sacrilegious Might
         if ((m_legion == DamnedLegion::Despoilers) && hasKeyword(DAEMON_PRINCE)) {
-            totalWounds = ignoreWounds(totalWounds, 5);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 5, numSixes);
         }
         return totalWounds;
     }

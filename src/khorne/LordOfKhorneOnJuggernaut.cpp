@@ -134,7 +134,8 @@ namespace Khorne {
 
         // Brass-clad Shield
         if (totalWounds.source == Wounds::Source::Spell) {
-            totalWounds = ignoreWounds(totalWounds, 5);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 5, numSixes);
         }
         return totalWounds;
     }

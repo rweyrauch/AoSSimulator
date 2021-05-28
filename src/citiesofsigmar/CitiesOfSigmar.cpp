@@ -442,7 +442,8 @@ namespace CitiesOfSigmar {
     Wounds CitizenOfSigmar::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = wounds;
         if (isGeneral() && (m_commandTrait == CommandTrait::Wily_Foe)) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return Unit::applyWoundSave(totalWounds, attackingUnit);
     }

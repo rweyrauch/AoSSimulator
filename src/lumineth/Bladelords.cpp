@@ -90,7 +90,8 @@ namespace LuminethRealmLords {
     Wounds VanariBladelords::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Vanashimor Banner
         if (wounds.source == Wounds::Source::Spell) {
-            return ignoreWounds(wounds, 4);
+            int numSixes = 0;
+            return ignoreWounds(wounds, 4, numSixes);
         }
         return LuminethBase::applyWoundSave(wounds, attackingUnit);
     }

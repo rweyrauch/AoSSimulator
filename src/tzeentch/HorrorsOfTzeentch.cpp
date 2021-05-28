@@ -166,7 +166,8 @@ namespace Tzeentch {
 
         // Ectoplasmic Elasticity
         if (isNamedModelAlive("Pink")) {
-            return ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            return ignoreWounds(totalWounds, 6, numSixes);
         }
         return totalWounds;
     }

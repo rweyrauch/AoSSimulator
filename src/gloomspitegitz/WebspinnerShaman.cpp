@@ -133,7 +133,8 @@ namespace GloomspiteGitz {
 
     Wounds WebspinnerShaman::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Touched by the Spider God
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
 } // namespace GloomspiteGitz

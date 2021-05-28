@@ -44,6 +44,8 @@ namespace Soulblight {
         m_weapons = {&m_deathShriek, &m_skeletalClaws, &m_fangedMaw};
         m_battleFieldRole = (bloodline == CursedBloodline::Avengorii_Dynasty) ? Role::Battleline_Behemoth : Role::Behemoth;
 
+        setMutation(mutation);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_deathShriek);
         model->addMeleeWeapon(&m_skeletalClaws);

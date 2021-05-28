@@ -88,7 +88,8 @@ namespace Bonesplitterz {
         auto totalWounds = Unit::applyWoundSave(wounds, attackingUnit);
 
         // Warpaint
-        return ignoreWounds(totalWounds, 6);
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, 6, numSixes);
     }
 
     void Bonesplitterz::onStartCombat(PlayerId player) {

@@ -30,8 +30,9 @@ namespace Soulblight {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
-                     double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+            return Result::Failed;
+        }
     };
 
     class SpiritGale : public Spell {
@@ -65,8 +66,9 @@ namespace Soulblight {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
-                     double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+            return Result::Failed;
+        }
     };
 
     class SoulHarvest : public Spell {
@@ -120,8 +122,9 @@ namespace Soulblight {
             return Spell::Result::Success;
         }
 
-        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x,
-                     double y) override { return Result::Failed; }
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+            return Result::Failed;
+        }
     };
 
     Spell *CreateLore(Lore which, Unit *caster) {

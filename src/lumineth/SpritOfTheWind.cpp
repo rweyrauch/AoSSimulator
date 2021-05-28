@@ -61,7 +61,8 @@ namespace LuminethRealmLords {
 
     Wounds HurakanSpiritOfTheWind::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Into the Gale
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     void HurakanSpiritOfTheWind::onStartHero(PlayerId player) {

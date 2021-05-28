@@ -121,7 +121,8 @@ namespace OssiarchBonereapers {
         Wounds totalWounds = wounds;
 
         if (hasKeyword(HEKATOS) || hekatos || hero) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return totalWounds;
     }

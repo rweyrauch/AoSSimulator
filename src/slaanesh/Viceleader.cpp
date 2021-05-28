@@ -78,7 +78,8 @@ namespace Slaanesh {
 
     Wounds ViceleaderHeraldOfSlaanesh::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Lightning Reflexes
-        Wounds totalWounds = ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        Wounds totalWounds = ignoreWounds(wounds, 5, numSixes);
         return SlaaneshBase::applyWoundSave(totalWounds, attackingUnit);
     }
 

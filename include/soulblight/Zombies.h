@@ -22,7 +22,7 @@ namespace Soulblight {
 
         Zombies(CursedBloodline bloodline, int numModels, int points);
 
-        ~Zombies() override;
+        ~Zombies() override = default;
 
     protected:
 

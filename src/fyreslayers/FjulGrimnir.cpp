@@ -89,7 +89,8 @@ namespace Fyreslayers {
         // Grimnir's Blessing
         auto chosen = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), CHOSEN_AXES, 3.0);
         if (chosen != nullptr) {
-            totalWounds = ignoreWounds(totalWounds, 5);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 5, numSixes);
         }
         return Fyreslayer::applyWoundSave(totalWounds, attackingUnit);
     }

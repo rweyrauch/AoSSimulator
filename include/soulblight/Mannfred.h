@@ -33,18 +33,16 @@ namespace Soulblight {
 
         Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
-        void onStartHero(PlayerId player) override;
-
         void onEndCombat(PlayerId player) override;
 
         size_t getDamageTableIndex() const;
 
     private:
 
-        Weapon m_gheistvor,
-                m_glaive,
-                m_ebonClaws,
-                m_clawsAndDaggers;
+        Weapon  m_gheistvor{Weapon::Type::Melee, "Gheistvor", 1, 4, 3, 3, -1, RAND_D3},
+                m_glaive{Weapon::Type::Melee, "Sickle-glaive", 2, 2, 3, 3, -1, 2},
+                m_ebonClaws{Weapon::Type::Melee, "Ebon Claws", 1, 6, 4, 3, -2, 2},
+                m_clawsAndDaggers{Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1};
 
         static bool s_registered;
 

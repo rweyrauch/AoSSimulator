@@ -94,6 +94,7 @@ namespace Soulblight {
         setCommandTrait(trait);
         setArtefact(artefact);
         setGeneral(isGeneral);
+        setMutation(mutation);
 
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_breath);

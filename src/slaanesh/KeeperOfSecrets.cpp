@@ -197,7 +197,8 @@ namespace Slaanesh {
     Wounds KeeperOfSecrets::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         if (m_weapon == Shining_Aegis) {
             // Shining Aegis
-            return ignoreWounds(wounds, 6);
+            int numSixes = 0;
+            return ignoreWounds(wounds, 6, numSixes);
         }
         return SlaaneshBase::applyWoundSave(wounds, attackingUnit);
     }

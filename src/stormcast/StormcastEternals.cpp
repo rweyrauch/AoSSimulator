@@ -287,7 +287,8 @@ namespace StormcastEternals {
                 auto sceGeneral = dynamic_cast<StormcastEternal *>(general);
                 if (sceGeneral && (sceGeneral->remainingModels() > 0) &&
                     (sceGeneral->m_commandTrait == CommandTrait::We_Cannot_Fail) && distanceTo(general) < 9.0) {
-                    totalWounds = ignoreWounds(totalWounds, 6);
+                    int numSixes = 0;
+                    totalWounds = ignoreWounds(totalWounds, 6, numSixes);
                 }
             }
         }

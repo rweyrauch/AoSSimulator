@@ -79,7 +79,8 @@ namespace Nurgle {
 
     Wounds Plaguebearers::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     int Plaguebearers::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {

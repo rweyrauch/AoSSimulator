@@ -169,7 +169,8 @@ namespace Skaven {
         if (isGeneral() && (m_commandTrait == CommandTrait::Verminous_Valour)) {
             auto unit = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), SKAVENTIDE, 3.0);
             if (unit) {
-                totalWounds = ignoreWounds(wounds, 4);
+                int numSixes = 0;
+                totalWounds = ignoreWounds(wounds, 4, numSixes);
                 auto unitWounds = wounds;
                 unitWounds -= totalWounds;
                 unitWounds.source = Wounds::Source::Ability;

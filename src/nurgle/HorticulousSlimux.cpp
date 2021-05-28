@@ -68,7 +68,8 @@ namespace Nurgle {
 
     Wounds HorticulousSlimux::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     Rerolls HorticulousSlimux::beastHandlerChargeReroll(const Unit *unit) {

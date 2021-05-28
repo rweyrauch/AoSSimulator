@@ -38,9 +38,6 @@ namespace Soulblight {
         }
     }
 
-    Zombies::~Zombies() {
-    }
-
     Unit *Zombies::Create(const ParameterList &parameters) {
         auto bloodline = (CursedBloodline) GetEnumParam("Bloodline", parameters, g_bloodlines[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);

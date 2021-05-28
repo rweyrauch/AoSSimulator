@@ -90,8 +90,18 @@ namespace Soulblight {
         return 0;
     }
 
-    SoulblightBase::~SoulblightBase() {
+    SoulblightBase::SoulblightBase(CursedBloodline bloodline, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+            Unit(name, move, wounds, bravery, save, fly, points) {
+        setBloodline(bloodline);
+
+        if (hasKeyword(DEADWALKERS) || hasKeyword(DEATHRATTLE)) {
+            s_globalBraveryMod.connect(this, &SoulblightBase::reanimatedHorrors, &m_reanimatedHorrorsSlot);
+        }
+    }
+
+SoulblightBase::~SoulblightBase() {
         m_soulcrushingContemptSlot.disconnect();
+        m_reanimatedHorrorsSlot.disconnect();
     }
 
     void SoulblightBase::setBloodline(CursedBloodline bloodline) {
@@ -118,6 +128,7 @@ namespace Soulblight {
         int unitsHealed = 0;
         for (auto unit : units) {
             if (unit->hasKeyword(SUMMONABLE) && (unit->remainingWounds() < unit->initialWounds())) {
+                // TODO: each unit can only be affected once per turn
                 const auto woundsRestored = Dice::RollD3();
                 if (unit->numOfWoundedModels() > 0) {
                     unit->heal(woundsRestored);
@@ -275,7 +286,8 @@ namespace Soulblight {
             auto heroes = Board::Instance()->getUnitsWithKeyword(owningPlayer(), HERO);
             for (auto hero : heroes) {
                 if ((hero->remainingModels() > 0) && hero->hasKeyword(SOULBLIGHT_GRAVELORDS) && (distanceTo(hero) < 12)) {
-                    return ignoreWounds(wounds, m_deathlessMinionsThreshold);
+                    int numSixes = 0;
+                    return ignoreWounds(wounds, m_deathlessMinionsThreshold, numSixes);
                 }
             }
 
@@ -398,6 +410,29 @@ namespace Soulblight {
                 }
             }
         }
+    }
+
+    void SoulblightBase::setMutation(Mutation mutation) {
+        m_mutations = mutation;
+    }
+
+    void SoulblightBase::onStartHero(PlayerId player) {
+        EventInterface::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if ((remainingModels() > 0) && hasKeyword(HERO)) {
+                auto numUnits = 2;
+                if (hasKeyword(VAMPIRE)) numUnits = 3;
+                else if (hasKeyword(MORTARCH)) numUnits = 4;
+                deathlyInvocations(numUnits, 12.0);
+            }
+        }
+    }
+
+    int SoulblightBase::reanimatedHorrors(const Unit *unit) {
+        // TODO: Limit debuff to -2 when >=2 units closer than 6
+        if (distanceTo(unit) < 6) return -1;
+        return 0;
     }
 
     void Init() {

@@ -93,7 +93,8 @@ namespace Slaanesh {
 
     Wounds TheMasque::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Inhuman Reflexes
-        Wounds totalWounds = ignoreWounds(wounds, 4);
+        int numSixes = 0;
+        Wounds totalWounds = ignoreWounds(wounds, 4, numSixes);
         return SlaaneshBase::applyWoundSave(totalWounds, attackingUnit);
     }
 

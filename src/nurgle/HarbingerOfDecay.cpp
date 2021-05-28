@@ -68,7 +68,8 @@ namespace Nurgle {
 
     Wounds HarbingerOfDecay::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Soulbound Shield
-        return ignoreWounds(wounds, 4);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 4, numSixes);
     }
 
     int HarbingerOfDecay::ComputePoints(const ParameterList& /*parameters*/) {

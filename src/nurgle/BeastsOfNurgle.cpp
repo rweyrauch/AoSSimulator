@@ -63,7 +63,8 @@ namespace Nurgle {
 
     Wounds BeastsOfNurgle::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         // Disgustingly Resilient
-        return ignoreWounds(wounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(wounds, 5, numSixes);
     }
 
     int BeastsOfNurgle::ComputePoints(const ParameterList& parameters) {

@@ -81,7 +81,7 @@ namespace Soulblight {
     }
 
     void LaukaVai::onCharged() {
-        EventInterface::onCharged();
+        SoulblightBase::onCharged();
     }
 
 } // namespace Soulblight

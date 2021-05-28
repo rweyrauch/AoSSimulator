@@ -12,6 +12,65 @@
 #include "SoulblightGravelordsPrivate.h"
 
 namespace Soulblight {
+
+    class HandOfDust : public Spell {
+    public:
+        explicit HandOfDust(Unit *caster) :
+                Spell(caster, "Hand of Dust", 8, 3) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) {
+                return Spell::Result::Failed;
+            }
+            if (Dice::RollD6() >= 4) {
+                target->slay(1);
+            }
+
+            return Spell::Result::Success;
+        }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+
+            return Result::Failed;
+        }
+    };
+
+    class SoulStealer : public Spell {
+    public:
+        explicit SoulStealer(Unit *caster) :
+                Spell(caster, "Soul Stealer", 6, 24) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) {
+                return Spell::Result::Failed;
+            }
+
+            auto roll = Dice::Roll2D6();
+            if (roll >= target->bravery()) {
+                auto damage = Dice::RollD3();
+                if (roll >= target->bravery() * 2) {
+                    damage = Dice::RollD6();
+                }
+                target->applyDamage({0, damage, Wounds::Source::Spell, this}, m_caster);
+                m_caster->heal(damage);
+            }
+            return Spell::Result::Success;
+        }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+
+            return Result::Failed;
+        }
+    };
+
     static const int g_basesize = 100;
     static const int g_wounds = 16;
     static const int g_pointsPerUnit = 975;
@@ -37,11 +96,7 @@ namespace Soulblight {
     bool Nagash::s_registered = false;
 
     Nagash::Nagash(CursedBloodline bloodline, bool isGeneral) :
-            SoulblightBase(bloodline, "Nagash", 9, g_wounds, 10, 3, true, g_pointsPerUnit),
-            m_gaze(Weapon::Type::Missile, "Gaze of Nagash", 12, 1, 3, 2, -1, RAND_D6),
-            m_alakanash(Weapon::Type::Melee, "Alakanash", 3, 1, 3, 2, -3, RAND_D6),
-            m_zefetNebtar(Weapon::Type::Melee, "Zefet-nebtar", 2, 6, 3, 3, -2, 3),
-            m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
+            SoulblightBase(bloodline, "Nagash", 9, g_wounds, 10, 3, true, g_pointsPerUnit) {
         m_keywords = {DEATH, DEATHLORDS, MONSTER, HERO, PRIEST, WIZARD, NAGASH};
         m_weapons = {&m_gaze, &m_alakanash, &m_zefetNebtar, &m_clawsAndDaggers};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -60,6 +115,8 @@ namespace Soulblight {
         model->addMeleeWeapon(&m_clawsAndDaggers);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<SoulStealer>(this));
+        m_knownSpells.push_back(std::make_unique<HandOfDust>(this));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
     }
@@ -139,6 +196,18 @@ namespace Soulblight {
 
         // Restore table-driven attributes
         onWounded();
+    }
+
+    Wounds Nagash::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Morikhane
+        auto totalWounds = SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        int numSixes = 0;
+        totalWounds = ignoreWounds(totalWounds, 4, numSixes);
+        if (numSixes > 0) {
+            // Return wounds to attacking unit on 6.
+            attackingUnit->applyDamage({0, numSixes, Wounds::Source::Ability, nullptr}, this);
+        }
+        return totalWounds;
     }
 
 } // namespace Soulblight

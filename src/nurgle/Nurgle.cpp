@@ -168,7 +168,8 @@ namespace Nurgle {
     Wounds NurgleBase::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = wounds;
         if (isGeneral() && (m_commandTrait == CommandTrait::Resilient)) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return Unit::applyWoundSave(wounds, attackingUnit);
     }

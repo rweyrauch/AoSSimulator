@@ -149,7 +149,8 @@ namespace CitiesOfSigmar {
         auto totalWounds = CitizenOfSigmar::applyWoundSave(wounds, attackingUnit);
         if (hasKeyword(HERO)) {
             // Witness to Destiny
-            totalWounds = ignoreWounds(totalWounds, 4);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 4, numSixes);
         }
         return totalWounds;
     }

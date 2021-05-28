@@ -130,7 +130,8 @@ namespace Khorne {
         if (m_weaponOption == Bloodbite_Axe_And_Runemarked_Shield) {
             auto totalWounds = KhorneBase::applyWoundSave(wounds, attackingUnit);
             if (totalWounds.source == Wounds::Source::Spell) {
-                totalWounds = ignoreWounds(totalWounds, 2);
+                int numSixes = 0;
+                totalWounds = ignoreWounds(totalWounds, 2, numSixes);
             }
             return totalWounds;
         }

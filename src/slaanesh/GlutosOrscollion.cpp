@@ -208,7 +208,8 @@ namespace Slaanesh {
     Wounds GlutosOrscollion::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
         auto totalWounds = wounds;
         if (m_protectedByDolece) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
         }
         return SlaaneshBase::applyWoundSave(totalWounds, attackingUnit);
     }

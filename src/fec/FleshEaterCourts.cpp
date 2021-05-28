@@ -135,7 +135,8 @@ namespace FleshEaterCourt {
         auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
         for (auto ip : units) {
             if (ip->hasKeyword(FLESH_EATER_COURTS) && ip->hasKeyword(HERO)) {
-                return ignoreWounds(wounds, 6);
+                int numSixes = 0;
+                return ignoreWounds(wounds, 6, numSixes);
             }
         }
 

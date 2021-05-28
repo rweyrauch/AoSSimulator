@@ -82,6 +82,7 @@ namespace Soulblight {
         m_totalUnbinds = 1;
 
         setGeneral(isGeneral);
+        setMutation(mutation);
 
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_bloodlance);

@@ -78,7 +78,8 @@ namespace CitiesOfSigmar {
         auto totalWounds = CitizenOfSigmar::applyWoundSave(wounds, attackingUnit);
 
         // Witness to Destiny
-        return ignoreWounds(totalWounds, 4);
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, 4, numSixes);
     }
 
     int Anointed::ComputePoints(const ParameterList& /*parameters*/) {

@@ -102,7 +102,8 @@ namespace Skaven {
         auto totalWounds = Skaventide::applyWoundSave(wounds, attackingUnit);
 
         // Protection of the Horned Rat
-        return ignoreWounds(totalWounds, 5);
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, 5, numSixes);
     }
 
     int VerminlordWarbringer::terrifying(const Unit *target) {

@@ -62,11 +62,7 @@ namespace Soulblight {
     }
 
     MannfredMortarchOfNight::MannfredMortarchOfNight(bool isGeneral) :
-            SoulblightBase(CursedBloodline::Legion_Of_Night, "Mannfred, Mortarch of Night", 16, g_wounds, 10, 3, true, g_pointsPerUnit),
-            m_gheistvor(Weapon::Type::Melee, "Gheistvor", 1, 4, 3, 3, -1, RAND_D3),
-            m_glaive(Weapon::Type::Melee, "Sickle-glaive", 2, 2, 3, 3, -1, 2),
-            m_ebonClaws(Weapon::Type::Melee, "Ebon Claws", 1, 6, 4, 3, -2, 2),
-            m_clawsAndDaggers(Weapon::Type::Melee, "Spectral Claws and Daggers", 1, 6, 5, 4, 0, 1) {
+            SoulblightBase(CursedBloodline::Legion_Of_Night, "Mannfred, Mortarch of Night", 16, g_wounds, 10, 3, true, g_pointsPerUnit) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, DEATHLORDS, LEGION_OF_NIGHT, MONSTER, HERO, WIZARD, MORTARCH, MANNFRED};
         m_weapons = {&m_gheistvor, &m_glaive, &m_ebonClaws, &m_clawsAndDaggers};
         m_battleFieldRole = Role::Leader_Behemoth;
@@ -118,12 +114,6 @@ namespace Soulblight {
         // Frightful Touch
         if ((hitRoll >= 6) && (weapon->name() == m_clawsAndDaggers.name())) return {0, 1};
         return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
-    }
-
-    void MannfredMortarchOfNight::onStartHero(PlayerId player) {
-        SoulblightBase::onStartHero(player);
-
-        if (owningPlayer() == player) deathlyInvocations(4, 18.0);
     }
 
     void MannfredMortarchOfNight::onEndCombat(PlayerId player) {

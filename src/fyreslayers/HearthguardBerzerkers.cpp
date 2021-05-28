@@ -112,7 +112,8 @@ namespace Fyreslayers {
                 saveValue -= 2;
             }
         }
-        return ignoreWounds(wounds, saveValue);
+        int numSixes = 0;
+        return ignoreWounds(wounds, saveValue, numSixes);
     }
 
     int HearthguardBerzerkers::ComputePoints(const ParameterList& parameters) {

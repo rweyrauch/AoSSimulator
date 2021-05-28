@@ -72,7 +72,8 @@ namespace LuminethRealmLords {
         auto totalWounds = LuminethBase::applyWoundSave(wounds, attackingUnit);
         // Warding Lanterns
         if (!m_moved) {
-            totalWounds = ignoreWounds(totalWounds, 6);
+            int numSixes = 0;
+            totalWounds = ignoreWounds(totalWounds, 6, numSixes);
             PLOG_INFO << name() << " using Warding Lanterns to ignore wounds." << wounds;
         }
         return totalWounds;

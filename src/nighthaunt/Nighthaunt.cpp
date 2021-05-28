@@ -51,7 +51,8 @@ namespace Nighthaunt {
         // Deathless Spirits
         auto hero = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), HERO, 12.0);
         if (hero && hero->hasKeyword(NIGHTHAUNT)) {
-            return ignoreWounds(wounds, 5);
+            int numSixes = 0;
+            return ignoreWounds(wounds, 5, numSixes);
         }
         return Unit::applyWoundSave(wounds, attackingUnit);
     }

@@ -43,6 +43,8 @@ namespace Soulblight {
         m_weapons = {&m_pestilentialBreath, &m_snappingMaw, &m_swordlikeClaws};
         m_battleFieldRole = (bloodline == CursedBloodline::Avengorii_Dynasty) ? Role::Battleline_Behemoth : Role::Behemoth;
 
+        setMutation(mutation);
+
         auto model = new Model(g_basesize, wounds());
         model->addMissileWeapon(&m_pestilentialBreath);
         model->addMeleeWeapon(&m_snappingMaw);
