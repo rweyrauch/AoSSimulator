@@ -7,12 +7,12 @@
  */
 #pragma once
 
-#include <soulblight/SoulblightGravelords.h>
+#include <sylvaneth/SylvanethBase.h>
 #include <Weapon.h>
 
-namespace Soulblight {
+namespace Sylvaneth {
 
-    class LadyAnnika : public SoulblightBase {
+    class AwakenedWyldwood : public SylvanethBase {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -21,29 +21,25 @@ namespace Soulblight {
 
         static void Init();
 
-        explicit LadyAnnika(bool isGeneral);
+        AwakenedWyldwood();
 
-        ~LadyAnnika() override = default;
+        ~AwakenedWyldwood() override = default;
 
     protected:
 
-        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
-
-        void onEndCombat(PlayerId player) override;
-
     private:
 
-        Weapon m_blade{Weapon::Type::Melee, "Blade Proboscian", 1, 4, 3, 3, -1, RAND_D3};
+        Weapon m_placeholder{Weapon::Type::Melee, "Placeholder", 1, 0, 1, 1, 0, 0};
 
         static bool s_registered;
-
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Supernatural Speed               Yes
-// Kiss of the Blade Proboscian     Yes
+// Overgrown Wilderness             TODO
+// Roused by Magic                  TODO
+// Wyldwood                         TODO
 //
 
-} // namespace Soulblight
+} // namespace Sylvaneth

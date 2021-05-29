@@ -21,7 +21,7 @@ namespace Sylvaneth {
 
         static void Init();
 
-        Alarielle(Glade glade, Lore lore, bool isGeneral);
+        Alarielle(Glade glade, bool isGeneral);
 
         Alarielle() = delete;
 
@@ -33,8 +33,6 @@ namespace Sylvaneth {
 
         void onEndMovement(PlayerId player) override;
 
-        int toHitModifier(const Weapon *weapon, const Unit *unit) const override;
-
         void onWounded() override;
 
         void onRestore() override;
@@ -43,13 +41,11 @@ namespace Sylvaneth {
 
         void onCharged() override;
 
-        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
     private:
 
-        Weapon m_spearOfKurnoth,
-                m_talonOfDwindling,
-                m_beetleGreatAntlers;
+        Weapon  m_spearOfKurnoth{Weapon::Type::Missile, "Spear of Kurnoth", 24, 1, 2, 2, -2, 6},
+                m_talonOfDwindling{Weapon::Type::Melee, "Talon of Dwindling", 1, 4, 3, 4, 0, 1},
+                m_beetleGreatAntlers{Weapon::Type::Melee, "Great Antlers", 1, 4, 3, 2, -2, 5};
 
         bool m_usedSoulAmphorae = false;
 
@@ -59,10 +55,10 @@ namespace Sylvaneth {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Talon of the Dwindling           Yes
+// Talon of the Dwindling           TODO
 // Lifebloom                        Yes
-// Sweeping Blows                   Yes
 // Living Battering Ram             Yes
+// Swirling Glowspites              Yes
 // Soul Amphorae                    Yes
 // Metamorphosis                    Partial/TODO
 // Ghyran's Wrath                   Yes

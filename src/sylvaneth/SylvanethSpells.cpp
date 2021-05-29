@@ -27,7 +27,7 @@ namespace Sylvaneth {
     int Metamorphosis::getDamage(int castingRoll) const {
         Dice::RollResult result;
         Dice::RollD6(castingRoll, result);
-        return result.rollsGE(4);
+        return result.rollsGE(3);
     }
 
     Spell *CreateMetamorphosis(Unit *caster) {

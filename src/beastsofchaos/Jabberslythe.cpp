@@ -14,15 +14,15 @@
 namespace BeastsOfChaos {
     static const int g_basesize = 120; // x92 oval
     static const int g_wounds = 10;
-    static const int g_pointsPerUnit = 160;
+    static const int g_pointsPerUnit = 165;
 
     bool Jabberslythe::s_registered = false;
 
     Jabberslythe::Jabberslythe(Greatfray fray) :
-            BeastsOfChaosBase("Jabberslythe", 12, g_wounds, 6, 5, true, g_pointsPerUnit),
-            m_slytheyTongue(Weapon::Type::Missile, "Slythey Tongue", 9, 1, 3, 3, -1, RAND_D3),
+            BeastsOfChaosBase("Jabberslythe", 12, g_wounds, 6, 4, true, g_pointsPerUnit),
+            m_slytheyTongue(Weapon::Type::Missile, "Slythey Tongue", 9, 3, 3, 3, -1, 1),
             m_vorpalClaws(Weapon::Type::Melee, "Vorpal Claws", 1, 6, 3, 3, -2, 1),
-            m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 3, -1, RAND_D3) {
+            m_spikedTail(Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 2, -2, RAND_D3) {
         m_keywords = {CHAOS, BEASTS_OF_CHAOS, MONSTERS_OF_CHAOS, MONSTER, JABBERSLYTHE};
         m_weapons = {&m_slytheyTongue, &m_vorpalClaws, &m_spikedTail};
         m_battleFieldRole = Role::Behemoth;
@@ -34,8 +34,6 @@ namespace BeastsOfChaos {
         model->addMeleeWeapon(&m_vorpalClaws);
         model->addMeleeWeapon(&m_spikedTail);
         addModel(model);
-
-        m_points = g_pointsPerUnit;
     }
 
     Unit *Jabberslythe::Create(const ParameterList &parameters) {
@@ -74,29 +72,6 @@ namespace BeastsOfChaos {
         }
 
         return totalWounds;
-    }
-
-    void Jabberslythe::onStartHero(PlayerId player) {
-        BeastsOfChaosBase::onStartHero(player);
-
-        // Aura of Madness
-        if (owningPlayer() == player) {
-            auto units = Board::Instance()->getUnitsWithin(this, GetEnemyId(owningPlayer()), 6.0);
-            for (auto unit : units) {
-                if (unit->remainingModels() > 0) {
-                    if (Dice::RollD6() == 6) {
-                        const Duration duration = {GamePhase::Hero, m_battleRound + 1, owningPlayer()};
-                        unit->buffMovement(MovementRule::Can_Move, false, duration);
-                        unit->buffMovement(MovementRule::Can_PileIn, false, duration);
-                        unit->buffMovement(MovementRule::Can_Charge, false, duration);
-                        unit->buffMovement(MovementRule::Can_Retreat, false, duration);
-                        unit->buffAbility(Ability::Can_Attack, 0, duration);
-                        unit->buffAbility(Ability::Cast_Spells, 0, duration);
-                        unit->buffAbility(Ability::Unbind_Spells, 0, duration);
-                    }
-                }
-            }
-        }
     }
 
 } // namespace BeastsOfChaos

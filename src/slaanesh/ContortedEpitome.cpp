@@ -53,7 +53,7 @@ namespace Slaanesh {
         return Result::Success;
     }
 
-    static const int g_basesize = 25;
+    static const int g_basesize = 75; // x42 oval
     static const int g_wounds = 7;
     static const int g_pointsPerUnit = 210;
 

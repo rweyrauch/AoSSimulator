@@ -7,12 +7,12 @@
  */
 #pragma once
 
-#include <soulblight/SoulblightGravelords.h>
+#include <slaanesh/SlaaneshBase.h>
 #include <Weapon.h>
 
-namespace Soulblight {
+namespace Slaanesh {
 
-    class LadyAnnika : public SoulblightBase {
+    class Synessa : public SlaaneshBase {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -21,29 +21,25 @@ namespace Soulblight {
 
         static void Init();
 
-        explicit LadyAnnika(bool isGeneral);
+        Synessa(Host host, Lore lore, bool isGeneral);
 
-        ~LadyAnnika() override = default;
-
-    protected:
-
-        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
-
-        void onEndCombat(PlayerId player) override;
+        ~Synessa() override = default;
 
     private:
 
-        Weapon m_blade{Weapon::Type::Melee, "Blade Proboscian", 1, 4, 3, 3, -1, RAND_D3};
+        Weapon  m_staff{Weapon::Type::Missile, "Staff of Slaanesh", 18, 1, 0, 0, 0, 0},
+                m_talons{Weapon::Type::Melee, "Impaling Talons", 1, 3, 3, 3, -2, 2};
 
         static bool s_registered;
-
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Supernatural Speed               Yes
-// Kiss of the Blade Proboscian     Yes
+// Mesmerising Lepidoptera          TODO
+// Staff of Slaanesh                TODO
+// The Voice of Slaanesh            TODO
+// Whispers of Doubt                TODO
 //
 
-} // namespace Soulblight
+} // Slannesh

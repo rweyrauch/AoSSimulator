@@ -250,6 +250,7 @@ enum Keyword {
     YLTHARIS_GUARDIANS,
     THORNWYCH,
     OUTCASTS,
+    WARSONG_REVENANT,
 
     // Sylvaneth Glades
     OAKENBROW,
@@ -463,6 +464,8 @@ enum Keyword {
     SLICKBLADE_SEEKERS,
     GLUTOS_ORSCOLLION,
     SIGVALD,
+    SYNESSA,
+    DEXCESSA,
 
     // Hosts of Slaanesh
     PRETENDERS,

@@ -58,4 +58,19 @@ namespace Soulblight {
         addModel(model);
     }
 
+    Wounds LadyAnnika::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        // Supernatural Speed
+        int numSixes = 0;
+        return ignoreWounds(wounds, 4, numSixes);
+    }
+
+    void LadyAnnika::onEndCombat(PlayerId player) {
+        SoulblightBase::onEndCombat(player);
+
+        // Kiss of the Blade Proboscian
+        if (m_currentRecord.m_enemyModelsSlain > 0) {
+            heal(wounds());
+        }
+    }
+
 } // namespace Soulblight

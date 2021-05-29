@@ -13,7 +13,7 @@
 namespace BeastsOfChaos {
     static const int g_basesize = 32;
     static const int g_wounds = 5;
-    static const int g_pointsPerUnit = 90;
+    static const int g_pointsPerUnit = 95;
 
     bool Beastlord::s_registered = false;
 
@@ -69,22 +69,6 @@ namespace BeastsOfChaos {
 
             s_registered = UnitFactory::Register("Beastlord", factoryMethod);
         }
-    }
-
-    Rerolls Beastlord::toHitRerolls(const Weapon *weapon, const Unit *target) const {
-        // Dual Axes
-        if (weapon->name() == m_pairedAxes.name()) {
-            return Rerolls::Ones;
-        }
-        return BeastsOfChaosBase::toHitRerolls(weapon, target);
-    }
-
-    Rerolls Beastlord::toWoundRerolls(const Weapon *weapon, const Unit *target) const {
-        // Hatred of Heroes
-        if (target->hasKeyword(HERO)) {
-            return Rerolls::Failed;
-        }
-        return BeastsOfChaosBase::toWoundRerolls(weapon, target);
     }
 
     int Beastlord::ComputePoints(const ParameterList& /*parameters*/) {

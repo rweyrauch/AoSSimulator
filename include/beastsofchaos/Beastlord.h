@@ -31,10 +31,6 @@ namespace BeastsOfChaos {
 
     protected:
 
-        Rerolls toHitRerolls(const Weapon *weapon, const Unit *target) const override;
-
-        Rerolls toWoundRerolls(const Weapon *weapon, const Unit *target) const override;
-
     private:
 
         Weapon m_pairedAxes{Weapon::Type::Melee, "Paired Man-ripper Axes", 1, 6, 3, 3, -1, 1};
@@ -45,8 +41,8 @@ namespace BeastsOfChaos {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Dual Axes                        Yes
-// Hatred of Heroes                 Yes
+// Call of Battle                   TODO
+// Hatred of Heroes                 TODO
 // Grisly Trophy                    TODO
 //
 

@@ -11,7 +11,7 @@
 namespace Destruction {
     static const int g_basesize = 130;
     static const int g_wounds = 18;
-    static const int g_pointsPerUnit = 800;
+    static const int g_pointsPerUnit = 760;
 
     struct TableEntry {
         int m_move;

@@ -40,6 +40,8 @@
 #include "slaanesh/SlickbladeSeekers.h"
 #include "slaanesh/SymbareshTwinsouls.h"
 #include "slaanesh/GlutosOrscollion.h"
+#include "slaanesh/Synessa.h"
+#include "slaanesh/Dexcessa.h"
 
 namespace Slaanesh {
 
@@ -401,6 +403,8 @@ namespace Slaanesh {
         SlickbladeSeekers::Init();
         SymbareshTwinsouls::Init();
         GlutosOrscollion::Init();
+        Synessa::Init();
+        Dexcessa::Init();
     }
 
 } // namespace Slaanesh

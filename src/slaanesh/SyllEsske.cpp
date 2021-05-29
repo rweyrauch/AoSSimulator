@@ -13,7 +13,7 @@
 #include "SlaaneshPrivate.h"
 
 namespace Slaanesh {
-    static const int g_basesize = 25;
+    static const int g_basesize = 50;
     static const int g_wounds = 9;
     static const int g_pointsPerUnit = 200;
 

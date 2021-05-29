@@ -10,6 +10,7 @@
 #include <Roster.h>
 #include <magic_enum.hpp>
 #include <sylvaneth/SylvanethSpells.h>
+#include <sylvaneth/AwakenedWyldwood.h>
 
 #include "sylvaneth/Alarielle.h"
 #include "sylvaneth/KurnothHunters.h"
@@ -26,6 +27,7 @@
 #include "sylvaneth/SkaethsWildHunt.h"
 #include "sylvaneth/Ylthari.h"
 #include "sylvaneth/YlthariGardians.h"
+#include "sylvaneth/WarsongRevenant.h"
 
 
 namespace Sylvaneth {
@@ -297,6 +299,8 @@ namespace Sylvaneth {
         SkaethsWildHunt::Init();
         Ylthari::Init();
         YltharisGuardians::Init();
+        WarsongRevenant::Init();
+        AwakenedWyldwood::Init();
     }
 
 } //namespace Sylvaneth

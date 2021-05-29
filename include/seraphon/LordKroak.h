@@ -21,7 +21,7 @@ namespace Seraphon {
 
         static void Init();
 
-        LordKroak(WayOfTheSeraphon way, Constellation constellation, Lore lore, bool isGeneral);
+        LordKroak(WayOfTheSeraphon way, Constellation constellation, bool isGeneral);
 
         ~LordKroak() override = default;
 
@@ -35,6 +35,8 @@ namespace Seraphon {
 
         int castingModifier() const override;
 
+        int unbindingModifier() const override;
+
     private:
 
         Weapon m_barrier{Weapon::Type::Melee, "Azyrite Force Barrier", 3, 0, 3, 3, -1, 1};
@@ -47,12 +49,12 @@ namespace Seraphon {
 // -------------------------------------------
 // Arcane Vassal                    TODO
 // Azyrite Force Barrier            Yes
-// Dead for Innumerable Ages        Yes
+// Dead for Innumerable Ages        TODO
 // Impeccable Foresight             Yes
-// Masters of Order                 Yes
+// Supreme Master of Order          Yes
 // Celestial Deliverance            Yes
 // Comet's Call                     Yes
-// Gift from the Heavens            Yes
+// Supreme Gift from the Heavens    TODO
 //
 
 } // namespace Seraphon

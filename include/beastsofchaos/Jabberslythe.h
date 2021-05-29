@@ -31,13 +31,11 @@ namespace BeastsOfChaos {
 
         Wounds computeReturnedDamage(const Weapon *weapon, int saveRoll) const override;
 
-        void onStartHero(PlayerId player) override;
-
     private:
 
-        Weapon m_slytheyTongue,
-                m_vorpalClaws,
-                m_spikedTail;
+        Weapon  m_slytheyTongue{Weapon::Type::Missile, "Slythey Tongue", 9, 3, 3, 3, -1, 1},
+                m_vorpalClaws{Weapon::Type::Melee, "Vorpal Claws", 1, 6, 3, 3, -2, 1},
+                m_spikedTail{Weapon::Type::Melee, "Spiked Tail", 3, 1, 4, 2, -2, RAND_D3};
 
         static bool s_registered;
     };
@@ -45,7 +43,7 @@ namespace BeastsOfChaos {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Aura of Madness                  Yes
+// Aura of Madness                  TODO
 // Spurting Bile Blood              Yes
 //
 
