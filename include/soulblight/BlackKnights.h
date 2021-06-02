@@ -23,27 +23,19 @@ namespace Soulblight {
 
         BlackKnights(CursedBloodline bloodline, int numModels, bool standardBearers, bool hornblowers, int points);
 
-        ~BlackKnights() override;
+        ~BlackKnights() override = default;
 
     protected:
 
-        int toWoundModifier(const Weapon *weapon, const Unit *target) const override;
-
-        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
-
-        int toSaveModifier(const Weapon *weapon, const Unit *attacker) const override;
+        void onCharged() override;
 
         int rollChargeDistance() override;
 
-        int standardBearerBraveryMod(const Unit *unit);
-
     private:
 
-        Weapon m_barrowLance,
-                m_barrowLanceKnight,
-                m_hoovesAndTeeth;
-
-        lsignal::slot m_standardSlot;
+        Weapon  m_barrowLance{Weapon::Type::Melee, "Barrow Lance", 2, 2, 4, 3, 0, 1},
+                m_barrowLanceKnight{Weapon::Type::Melee, "Barrow Lance", 2, 3, 4, 3, 0, 1},
+                m_hoovesAndTeeth{Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 4, 0, 1};
 
         static bool s_registered;
 
@@ -55,7 +47,6 @@ namespace Soulblight {
 // Standard Bearer                  Yes
 // Hornblower                       Yes
 // Deathly Charge                   Yes
-// Crypt Shields                    Yes
 //
 
 

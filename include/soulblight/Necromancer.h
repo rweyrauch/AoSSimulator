@@ -39,7 +39,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Undead Minions                   TODO
+// Undead Minions                   Yes
 // Vanhel's Danse Macabre           TODO
 //
 

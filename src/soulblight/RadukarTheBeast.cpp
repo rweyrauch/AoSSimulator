@@ -9,6 +9,7 @@
 #include <soulblight/RadukarTheBeast.h>
 #include <UnitFactory.h>
 #include "SoulblightGravelordsPrivate.h"
+#include "Roster.h"
 
 namespace Soulblight {
     static const int g_basesize = 60;
@@ -50,6 +51,9 @@ namespace Soulblight {
         m_weapons = {&m_claws, &m_blade};
         m_battleFieldRole = Role::Leader;
 
+        // Bounding Charge
+        m_runAndCharge = true;
+
         setGeneral(isGeneral);
 
         auto model = new Model(g_basesize, wounds());
@@ -64,6 +68,46 @@ namespace Soulblight {
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
 
         SoulblightBase::onEndCombat(player);
+    }
+
+    Wounds RadukarTheBeast::weaponDamage(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
+                                         int woundRoll) const {
+        // Unleashed Ferocity
+        if ((weapon->name() == m_claws.name()) && (hitRoll == 6)) {
+            return {0, 2, Wounds::Source::Weapon_Melee, weapon};
+        }
+        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+    }
+
+    int RadukarTheBeast::targetHitModifier(const Weapon *weapon, const Unit *attacker) const {
+        auto mod = SoulblightBase::targetHitModifier(weapon, attacker);
+        // Supernatural Reflexes
+        mod--;
+        return mod;
+    }
+
+    void RadukarTheBeast::onRestore() {
+        SoulblightBase::onRestore();
+
+        m_usedMusteringHowl = false;
+    }
+
+    void RadukarTheBeast::onEndMovement(PlayerId player) {
+        SoulblightBase::onEndMovement(player);
+
+        if (!m_usedMusteringHowl && (m_roster->getCommandPoints() > 0)) {
+            auto factory = UnitFactory::LookupUnit("Dire Wolves");
+            if (factory) {
+                if (m_roster) {
+                    // Create default sized unit of 10 Dire Wolves
+                    auto unit = std::shared_ptr<Unit>(UnitFactory::Create("Dire Wolves", factory->m_parameters));
+                    unit->deploy(position(), orientation());
+                    m_roster->addUnit(unit);
+                }
+                m_roster->useCommandPoint();
+                m_usedMusteringHowl = true;
+            }
+        }
     }
 
 } // namespace Soulblight

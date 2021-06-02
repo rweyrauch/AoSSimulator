@@ -25,6 +25,12 @@ namespace Soulblight {
 
         ~Vargskyr() override = default;
 
+    protected:
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        int rollChargeDistance() override;
+
     private:
 
         Weapon  m_talons{Weapon::Type::Melee, "Talons", 2, 4, 3, 3, -1, 2},
@@ -37,8 +43,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bounding Leaps                   TODO
-// Gnarled Hide                     TODO
+// Bounding Leaps                   Yes
+// Gnarled Hide                     Yes
 //
 
 } // namespace Soulblight

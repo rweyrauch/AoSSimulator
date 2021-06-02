@@ -9,6 +9,7 @@
 #include <soulblight/Necromancer.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "SoulblightGravelordsPrivate.h"
 #include "Lore.h"
 
@@ -72,7 +73,27 @@ namespace Soulblight {
     }
 
     Wounds Necromancer::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
-        return SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        auto totalWounds = SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        auto summonables = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
+        const Wounds OneMortalWound{0, 1, wounds.source, wounds.sourceObject};
+        const Wounds OneNormalWound{1, 0, wounds.source, wounds.sourceObject};
+        for (auto unit : summonables) {
+            if (unit->hasKeyword(SOULBLIGHT_GRAVELORDS) || unit->hasKeyword(SUMMONABLE)) {
+                while ((unit->remainingModels() > 0) && (totalWounds.mortal > 0)) {
+                    if (Dice::RollD6() >= 3) {
+                        unit->applyDamage(OneMortalWound, this);
+                        totalWounds.mortal--;
+                    }
+                }
+                while ((unit->remainingModels() > 0) && (totalWounds.normal > 0)) {
+                    if (Dice::RollD6() >= 3) {
+                        unit->applyDamage(OneNormalWound, this);
+                        totalWounds.normal--;
+                    }
+                }
+            }
+        }
+        return totalWounds;
     }
 
     int Necromancer::ComputePoints(const ParameterList& /*parameters*/) {

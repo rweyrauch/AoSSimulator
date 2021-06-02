@@ -65,6 +65,9 @@ namespace Soulblight {
         model->setName("Prince Duvalle");
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Fiendish Lure", 5, 6,
+                                                                    std::vector<std::pair<Attribute, int>>{{Attribute::Target_To_Hit_Melee, 1}, {Attribute::Target_To_Hit_Missile, 1}},
+                                                                    Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));

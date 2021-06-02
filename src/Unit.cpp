@@ -1862,19 +1862,39 @@ bool Unit::isNamedModelAlive(const std::string &name) const {
     return false;
 }
 
-Wounds Unit::ignoreWounds(const Wounds &wounds, int ignoreOnRoll, int& numSixes) const {
+Wounds Unit::ignoreWounds(const Wounds &wounds, int ignoreOnRoll, Rerolls rerolls, int& numSixes) const {
     auto totalWounds = wounds;
 
     numSixes = 0;
-
     Dice::RollResult result;
-    Dice::RollD6(totalWounds.normal, result);
-    numSixes += result.rollsGE( 6);
-    totalWounds.normal -= result.rollsGE(ignoreOnRoll);
+    if (rerolls == Rerolls::None) {
+        Dice::RollD6(totalWounds.normal, result);
+        numSixes += result.rollsGE(6);
+        totalWounds.normal -= result.rollsGE(ignoreOnRoll);
 
-    Dice::RollD6(totalWounds.mortal, result);
-    numSixes += result.rollsGE( 6);
-    totalWounds.mortal -= result.rollsGE(ignoreOnRoll);
+        Dice::RollD6(totalWounds.mortal, result);
+        numSixes += result.rollsGE(6);
+        totalWounds.mortal -= result.rollsGE(ignoreOnRoll);
+    }
+    else {
+        int rerolling = 1;
+        if (rerolls == Rerolls::Ones_And_Twos) {
+            rerolling = 2;
+        }
+        else if (rerolls == Rerolls::Failed) {
+            rerolling = ignoreOnRoll;
+        }
+        else if (rerolls == Rerolls::Sixes) {
+            rerolling = 6;
+        }
+        Dice::RollD6(totalWounds.normal, rerolling, result);
+        numSixes += result.rollsGE(6);
+        totalWounds.normal -= result.rollsGE(ignoreOnRoll);
+
+        Dice::RollD6(totalWounds.mortal, rerolling, result);
+        numSixes += result.rollsGE(6);
+        totalWounds.mortal -= result.rollsGE(ignoreOnRoll);
+    }
 
     return totalWounds.clamp();
 }

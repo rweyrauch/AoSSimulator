@@ -294,7 +294,11 @@ protected:
 
     int computeFormation() const;
 
-    Wounds ignoreWounds(const Wounds &wounds, int ignoreOnRoll, int& numSixes) const;
+    Wounds ignoreWounds(const Wounds &wounds, int ignoreOnRoll, int& numSixes) const {
+        return ignoreWounds(wounds, ignoreOnRoll, Rerolls::None, numSixes);
+    }
+
+    Wounds ignoreWounds(const Wounds &wounds, int ignoreOnRoll, Rerolls rerolls, int& numSixes) const;
 
 protected:
 

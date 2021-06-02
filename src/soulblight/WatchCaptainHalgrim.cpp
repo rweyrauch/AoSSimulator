@@ -58,4 +58,13 @@ namespace Soulblight {
         addModel(model);
     }
 
+    Wounds WatchCaptainHalgrim::weaponDamage(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
+                                             int woundRoll) const {
+        // Cursed Halberd
+        if (hitRoll == 6) {
+            return {weapon->damage(), 1, Wounds::Source::Weapon_Melee, weapon};
+        }
+        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+    }
+
 } // namespace Soulblight

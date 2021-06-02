@@ -25,6 +25,12 @@ namespace Soulblight {
 
         ~KosargiNightguard() override = default;
 
+    protected:
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        int extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const override;
+
     private:
 
         Weapon  m_bardiche{Weapon::Type::Melee, "Bardiche", 2, 2, 3, 3, -1, 2};
@@ -36,8 +42,8 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Deathly Vigour                   TODO
-// Servants Even in Death           TODO
+// Deathly Vigour                   Yes
+// Servants Even in Death           Yes
 //
 
 } // namespace Soulblight

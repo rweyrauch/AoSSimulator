@@ -27,6 +27,10 @@ namespace Soulblight {
         m_weapons = {&m_ancientBladeOrSpear, &m_championsMaceOrHalberd};
         m_battleFieldRole = Role::Battleline;
 
+        if (standardBearers) {
+            m_deathlessMinionsRerolls = Rerolls::Ones;
+        }
+
         auto champion = new Model(g_basesize, wounds());
         if (weapons == Ancient_Blade_Or_Spear) {
             champion->addMeleeWeapon(&m_ancientBladeOrSpear);

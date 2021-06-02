@@ -46,7 +46,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  TODO
+// Standard Bearer                  Yes
 // Skeleton Legion                  TODO
 //
 

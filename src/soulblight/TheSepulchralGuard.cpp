@@ -76,4 +76,23 @@ namespace Soulblight {
         }
     }
 
+    int TheSepulchralGuard::generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const {
+        auto hit = SoulblightBase::generateHits(unmodifiedHitRoll, weapon, unit);
+        // Serve in Death
+        if (unmodifiedHitRoll == 6) {
+            hit++;
+        }
+        return hit;
+    }
+
+    void TheSepulchralGuard::onStartHero(PlayerId player) {
+        SoulblightBase::onStartHero(player);
+
+        if (owningPlayer() == player) {
+            if (isNamedModelAlive("Sepulchral Warden")) {
+                restoreModels(Dice::RollD3());
+            }
+        }
+    }
+
 } // namespace Soulblight

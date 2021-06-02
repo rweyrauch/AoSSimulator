@@ -28,6 +28,10 @@ namespace Soulblight {
         m_hoovesAndTeeth.setMount(true);
         m_battleFieldRole = (bloodline == CursedBloodline::Kastelai_Dynasty) ? Role::Battleline : Role::Other;
 
+        if (standardBearers) {
+            m_deathlessMinionsRerolls = Rerolls::Ones;
+        }
+
         auto kastellan = new Model(g_basesize, wounds());
         kastellan->addMeleeWeapon(&m_templarLanceOrBladeKastellan);
         kastellan->addMeleeWeapon(&m_hoovesAndTeeth);
@@ -49,7 +53,6 @@ namespace Soulblight {
     }
 
     BloodKnights::~BloodKnights() {
-        m_standardSlot.disconnect();
     }
 
     Unit *BloodKnights::Create(const ParameterList &parameters) {

@@ -39,15 +39,24 @@ BuffModifierCommandAbility::BuffModifierCommandAbility(Unit *general,
                                                        Abilities::Target allowedTargets,
                                                        const std::vector<Keyword> &targetKeyword) :
         CommandAbility(general, name, rangeGeneral, rangeHero, phase),
-        m_attribute(which),
-        m_modifier(modifier) {
+        m_modifiers({{which, modifier}}) {
     m_allowedTargets = allowedTargets;
     m_targetKeywords = targetKeyword;
-    m_effect = (m_modifier > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
+    m_effect = (modifier > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
 }
 
-int BuffModifierCommandAbility::getModifier() const {
-    return m_modifier;
+
+BuffModifierCommandAbility::BuffModifierCommandAbility(Unit *general, const std::string &name, int rangeGeneral, int rangeHero,
+                                                       GamePhase phase, std::vector<std::pair<Attribute, int>> modifiers,
+                                                       Abilities::Target allowedTargets,
+                                                       const std::vector<Keyword> &targetKeywords) :
+        CommandAbility(general, name, rangeGeneral, rangeHero, phase),
+        m_modifiers(std::move(modifiers)) {
+    m_allowedTargets = allowedTargets;
+    m_targetKeywords = targetKeywords;
+    if (!m_modifiers.empty()) {
+        m_effect = (m_modifiers.front().second > 0) ? Abilities::EffectType::Buff : Abilities::EffectType::Debuff;
+    }
 }
 
 bool BuffModifierCommandAbility::apply(Unit *target) {
@@ -55,9 +64,11 @@ bool BuffModifierCommandAbility::apply(Unit *target) {
         return false;
 
     PLOG_INFO << m_source->name() << " uses command ability " << name() << " on to " << target->name();
-    PLOG_INFO << "\tBuffing Modifier: " << magic_enum::enum_name(m_attribute) << ": " << getModifier();
 
-    target->buffModifier(m_attribute, getModifier(), defaultDuration());
+    for (auto mod : m_modifiers) {
+        PLOG_INFO << "\tBuffing Modifier: " << magic_enum::enum_name(mod.first) << ": " << mod.second;
+        target->buffModifier(mod.first, mod.second, defaultDuration());
+    }
 
     return true;
 }

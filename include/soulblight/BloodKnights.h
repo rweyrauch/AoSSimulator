@@ -37,8 +37,6 @@ namespace Soulblight {
                 m_templarLanceOrBladeKastellan{Weapon::Type::Melee, "Template Lance or Blade", 1, 4, 3, 3, -1, 1},
                 m_hoovesAndTeeth{Weapon::Type::Melee, "Hooves and Teeth", 1, 3, 4, 4, 0, 1};
 
-        lsignal::slot m_standardSlot;
-
         static bool s_registered;
 
     };
@@ -46,7 +44,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Standard Bearer                  TODO
+// Standard Bearer                  Yes
 // The Hunger                       Yes
 // Martial Fury                     Yes
 // Riders of Ruin                   TODO

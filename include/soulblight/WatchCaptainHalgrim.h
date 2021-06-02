@@ -25,6 +25,10 @@ namespace Soulblight {
 
         ~WatchCaptainHalgrim() override = default;
 
+    protected:
+
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
+
     private:
 
         Weapon  m_halberd{Weapon::Type::Melee, "Cursed Halberd", 2, 3, 4, 3, -1, RAND_D3};
@@ -36,7 +40,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Cursed Halberd                   TODO
+// Cursed Halberd                   Yes
 // Disciplined Advance              TODO
 //
 

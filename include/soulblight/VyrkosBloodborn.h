@@ -27,6 +27,10 @@ namespace Soulblight {
 
     private:
 
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+    private:
+
         Weapon  m_blade{Weapon::Type::Melee, "Piercing Blade", 1, 3, 3, 3, -1, RAND_D3};
 
         static bool s_registered;
@@ -36,7 +40,7 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Shadowfast                       TODO
+// Shadowfast                       Yes
 //
 
 } // namespace Soulblight

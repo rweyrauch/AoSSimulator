@@ -9,9 +9,42 @@
 #include <soulblight/Mannfred.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "SoulblightGravelordsPrivate.h"
+#include "Lore.h"
 
 namespace Soulblight {
+
+    class WindOfDeath : public Spell {
+    public:
+        explicit WindOfDeath(Unit *caster) :
+                Spell(caster, "Wind of Death", 7, 18) {
+            m_allowedTargets = Abilities::Target::Enemy;
+            m_effect = Abilities::EffectType::Damage;
+        }
+
+    protected:
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingRoll, Unit *target) override {
+            if (target == nullptr) {
+                return Spell::Result::Failed;
+            }
+            if (Dice::RollD6() >= 3) {
+                target->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell, this}, m_caster);
+            }
+            auto units = Board::Instance()->getUnitsWithin(target, target->owningPlayer(), 6.0);
+            for (auto unit : units) {
+                if (Dice::RollD6() >= 3) {
+                    unit->applyDamage({0, Dice::RollD3(), Wounds::Source::Spell, this}, m_caster);
+                }
+            }
+            return Spell::Result::Success;
+        }
+
+        Result apply(int castingRoll, const UnmodifiedCastingRoll &unmodifiedCastingValue, double x, double y) override {
+            return Result::Failed;
+        }
+    };
+
     static const int g_basesize = 120; // x92 oval
     static const int g_wounds = 12;
     static const int g_pointsPerUnit = 380;
@@ -35,8 +68,9 @@ namespace Soulblight {
     bool MannfredMortarchOfNight::s_registered = false;
 
     Unit *MannfredMortarchOfNight::Create(const ParameterList &parameters) {
+        auto lore = (Lore) GetEnumParam("Lore", parameters, g_vampireLore[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new MannfredMortarchOfNight(general);
+        return new MannfredMortarchOfNight(lore, general);
     }
 
     int MannfredMortarchOfNight::ComputePoints(const ParameterList& /*parameters*/) {
@@ -61,7 +95,7 @@ namespace Soulblight {
         }
     }
 
-    MannfredMortarchOfNight::MannfredMortarchOfNight(bool isGeneral) :
+    MannfredMortarchOfNight::MannfredMortarchOfNight(Lore lore, bool isGeneral) :
             SoulblightBase(CursedBloodline::Legion_Of_Night, "Mannfred, Mortarch of Night", 16, g_wounds, 10, 3, true, g_pointsPerUnit) {
         m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, DEATHLORDS, LEGION_OF_NIGHT, MONSTER, HERO, WIZARD, MORTARCH, MANNFRED};
         m_weapons = {&m_gheistvor, &m_glaive, &m_ebonClaws, &m_clawsAndDaggers};
@@ -80,8 +114,17 @@ namespace Soulblight {
         model->addMeleeWeapon(&m_clawsAndDaggers);
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<WindOfDeath>(this));
+        m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Vigour of Undeath", 12, 12, GamePhase::Hero,
+                                                                                  std::vector<std::pair<Attribute, int>>{{Attribute::To_Hit_Melee, 1},
+                                                                                                                         {Attribute::To_Wound_Melee, 1},
+                                                                                                                         {Attribute::To_Hit_Missile, 1},
+                                                                                                                         {Attribute::To_Wound_Missile, 1}},
+                                                                                  Abilities::Target::SelfAndFriendly, std::vector<Keyword>{SOULBLIGHT_GRAVELORDS}));
     }
 
     void MannfredMortarchOfNight::onWounded() {
@@ -121,6 +164,21 @@ namespace Soulblight {
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(RAND_D3);
 
         SoulblightBase::onEndCombat(player);
+    }
+
+    void MannfredMortarchOfNight::onEnemyModelSlainWithWeapon(int numSlain, Unit *enemyUnit, const Weapon *weapon,
+                                                              const Wounds &weaponDamage) {
+        SoulblightBase::onEnemyModelSlainWithWeapon(numSlain, enemyUnit, weapon, weaponDamage);
+
+        // Sword of Unholy Power
+        if (weapon->name() == m_gheistvor.name()) {
+            auto units = Board::Instance()->getUnitsWithin(this, owningPlayer(), 12.0);
+            for (auto unit : units) {
+                if (unit->hasKeyword(SUMMONABLE) && unit->hasKeyword(SOULBLIGHT_GRAVELORDS)) {
+                    unit->buffModifier(Attribute::Attacks_Melee, 1, {GamePhase::Combat, m_battleRound, owningPlayer()});
+                }
+            }
+        }
     }
 
 } // namespace Soulblight

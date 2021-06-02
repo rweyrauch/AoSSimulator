@@ -42,18 +42,14 @@ namespace Soulblight {
 
         int rollChargeDistance() override;
 
-        int standardBearerBraveryMod(const Unit *unit);
-
     private:
 
         WeaponOptions m_weaponOption = Wight_Blade;
 
-        Weapon m_wightBlade,
-                m_wightBladeSeneschal,
-                m_greatWightBlade,
-                m_greatWightBladeSeneschal;
-
-        lsignal::slot m_standardSlot;
+        Weapon  m_wightBlade{Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 3, -1, 1},
+                m_wightBladeSeneschal{Weapon::Type::Melee, "Wight Blade", 1, 3, 3, 3, -1, 1},
+                m_greatWightBlade{Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 4, -1, 2},
+                m_greatWightBladeSeneschal{Weapon::Type::Melee, "Great Wight Blade", 1, 3, 3, 4, -1, 2};
 
         static bool s_registered;
 

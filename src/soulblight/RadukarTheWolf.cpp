@@ -8,6 +8,7 @@
 
 #include <soulblight/RadukarTheWolf.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "SoulblightGravelordsPrivate.h"
 
 namespace Soulblight {
@@ -65,6 +66,39 @@ namespace Soulblight {
         if (m_currentRecord.m_enemyModelsSlain > 0) heal(Dice::RollD3());
 
         SoulblightBase::onEndCombat(player);
+    }
+
+    Wounds RadukarTheWolf::weaponDamage(const Model *attackingModel, const Weapon *weapon, const Unit *target, int hitRoll,
+                                        int woundRoll) const {
+        // Supernatural Strength
+        if (weapon->isMelee() && (woundRoll == 6)) {
+            return {weapon->damage(), 1, Wounds::Source::Weapon_Melee, weapon};
+        }
+        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
+    }
+
+    Wounds RadukarTheWolf::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        auto summonables = Board::Instance()->getUnitsWithin(this, owningPlayer(), 3.0);
+        const Wounds OneMortalWound{0, 1, wounds.source, wounds.sourceObject};
+        const Wounds OneNormalWound{1, 0, wounds.source, wounds.sourceObject};
+        for (auto unit : summonables) {
+            if (unit->hasKeyword(KOSARGI_NIGHTGUARD)) {
+                while ((unit->remainingModels() > 0) && (totalWounds.mortal > 0)) {
+                    if (Dice::RollD6() >= 2) {
+                        unit->applyDamage(OneMortalWound, this);
+                        totalWounds.mortal--;
+                    }
+                }
+                while ((unit->remainingModels() > 0) && (totalWounds.normal > 0)) {
+                    if (Dice::RollD6() >= 2) {
+                        unit->applyDamage(OneNormalWound, this);
+                        totalWounds.normal--;
+                    }
+                }
+            }
+        }
+        return totalWounds;
     }
 
 } // namespace Soulblight

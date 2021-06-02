@@ -8,6 +8,7 @@
 
 #include <soulblight/KosargiNightguard.h>
 #include <UnitFactory.h>
+#include <Board.h>
 #include "SoulblightGravelordsPrivate.h"
 
 namespace Soulblight {
@@ -53,6 +54,23 @@ namespace Soulblight {
             model->addMeleeWeapon(&m_bardiche);
             addModel(model);
         }
+    }
+
+    Wounds KosargiNightguard::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        // Deathly Vigour
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, 5, numSixes);
+    }
+
+    int KosargiNightguard::extraAttacks(const Model *attackingModel, const Weapon *weapon, const Unit *target) const {
+        auto extra = SoulblightBase::extraAttacks(attackingModel, weapon, target);
+        // Servant Even in Death
+        auto radukar = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), RADUKAR_THE_WOLF, 12.0);
+        if (radukar != nullptr) {
+            extra++;
+        }
+        return extra;
     }
 
 } // namespace Soulblight

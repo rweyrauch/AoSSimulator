@@ -47,10 +47,31 @@ namespace Soulblight {
         m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, VAMPIRE, VARGSKYR};
         m_weapons = {&m_talons, &m_maw};
 
+        // Bounding Leaps
+        m_maxChargeDistance = 18;
+
         auto model = new Model(g_basesize, wounds());
         model->addMeleeWeapon(&m_talons);
         model->addMeleeWeapon(&m_maw);
         addModel(model);
+    }
+
+    Wounds Vargskyr::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        // Gnarled Hide
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, 5, numSixes);
+    }
+
+    int Vargskyr::rollChargeDistance() {
+        // Bounding Leaps
+        m_unmodifiedChargeRoll = Dice::Roll3D6();
+        if (!m_movementRules[MovementRule::Halve_Charge_Roll].empty()) {
+            if (m_movementRules[MovementRule::Halve_Charge_Roll].front().allowed) {
+                m_unmodifiedChargeRoll = (m_unmodifiedChargeRoll + 1) / 2; // Round up
+            }
+        }
+        return m_unmodifiedChargeRoll + chargeModifier();
     }
 
 } // namespace Soulblight

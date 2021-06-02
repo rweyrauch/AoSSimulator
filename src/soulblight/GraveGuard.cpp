@@ -21,15 +21,14 @@ namespace Soulblight {
     bool GraveGuard::s_registered = false;
 
     GraveGuard::GraveGuard(CursedBloodline bloodline, int numModels, WeaponOptions weapons, bool standardBearers, bool hornblowers, int points) :
-            SoulblightBase(bloodline, "Grave Guard", 4, g_wounds, 10, 5, false, points),
-            m_wightBlade(Weapon::Type::Melee, "Wight Blade", 1, 2, 3, 3, -1, 1),
-            m_wightBladeSeneschal(Weapon::Type::Melee, "Wight Blade", 1, 3, 3, 3, -1, 1),
-            m_greatWightBlade(Weapon::Type::Melee, "Great Wight Blade", 1, 2, 3, 4, -1, 2),
-            m_greatWightBladeSeneschal(Weapon::Type::Melee, "Great Wight Blade", 1, 3, 3, 4, -1, 2) {
+            SoulblightBase(bloodline, "Grave Guard", 4, g_wounds, 10, 5, false, points) {
         m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEATHRATTLE, SUMMONABLE, GRAVE_GUARD};
         m_weapons = {&m_wightBlade, &m_wightBladeSeneschal, &m_greatWightBlade, &m_greatWightBladeSeneschal};
-        s_globalBraveryMod.connect(this, &GraveGuard::standardBearerBraveryMod, &m_standardSlot);
         m_weaponOption = weapons;
+
+        if (standardBearers) {
+            m_deathlessMinionsRerolls = Rerolls::Ones;
+        }
 
         auto seneschal = new Model(g_basesize, wounds());
         if (weapons == Wight_Blade) {
@@ -58,7 +57,6 @@ namespace Soulblight {
     }
 
     GraveGuard::~GraveGuard() {
-        m_standardSlot.disconnect();
     }
 
     Unit *GraveGuard::Create(const ParameterList &parameters) {
@@ -110,17 +108,16 @@ namespace Soulblight {
         int modifier = SoulblightBase::toSaveModifier(weapon, attacker);
 
         // Crypt Shields
-        if (weapon->rend() == 0) {
+        if (m_weaponOption == WeaponOptions::Wight_Blade) {
             modifier += 1;
         }
-
         return modifier;
     }
 
     Wounds GraveGuard::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        if (m_charged && (woundRoll >= 6)) {
-            // Cursed Weapons 2x damage on 6+
-            return {weapon->damage() + weapon->damage(), 0};
+        // Cursed Weapons
+        if (woundRoll >= 6) {
+            return {weapon->damage(), 1};
         }
         return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
     }
@@ -140,11 +137,6 @@ namespace Soulblight {
         if (isNamedModelAlive(Model::Hornblower))
             return std::max(6, dist);
         return dist;
-    }
-
-    int GraveGuard::standardBearerBraveryMod(const Unit *unit) {
-        if (isNamedModelAlive(Model::StandardBearer) && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
-        return 0;
     }
 
 } //namespace Soulblight

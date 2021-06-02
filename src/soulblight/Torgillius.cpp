@@ -9,8 +9,10 @@
 #include <soulblight/Torgillius.h>
 #include <UnitFactory.h>
 #include <spells/MysticShield.h>
+#include <Board.h>
 #include "SoulblightGravelordsPrivate.h"
 #include "Lore.h"
+#include "Roster.h"
 
 namespace Soulblight {
     static const int g_basesize = 40;
@@ -63,9 +65,33 @@ namespace Soulblight {
         model->setName("Torgillius The Chamberlain");
         addModel(model);
 
+        m_knownSpells.push_back(std::make_unique<BuffModifierSpell>(this, "Necrotising Bolt", 6, 18,
+                                                                    std::vector<std::pair<Attribute, int>>{{Attribute::To_Hit_Melee, -1}, {Attribute::To_Hit_Missile, -1}},
+                                                                    Abilities::Target::Enemy));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+    }
+
+    Wounds TorgilliusTheChamberlain::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        // Mastery of Grave-sand
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, 4, numSixes);
+    }
+
+    void TorgilliusTheChamberlain::onStartHero(PlayerId player) {
+        SoulblightBase::onStartHero(player);
+
+        // Trusted Lieutenant
+        if (owningPlayer() == player) {
+            auto radukar = Board::Instance()->getUnitWithKeyword(this, owningPlayer(), RADUKAR_THE_WOLF, 3.0);
+            if (radukar != nullptr) {
+                if (Dice::RollD6() >= 4) {
+                    m_roster->addCommandPoints(1);
+                }
+            }
+        }
     }
 
 } // namespace Soulblight

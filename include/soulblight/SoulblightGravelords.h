@@ -219,6 +219,7 @@ namespace Soulblight {
         Mutation m_mutations = Mutation::None;
 
         int m_deathlessMinionsThreshold = 6;
+        Rerolls m_deathlessMinionsRerolls = Rerolls::None;
 
         // Might of the Crimson Keep
         bool m_hasBloodiedStrength = false;

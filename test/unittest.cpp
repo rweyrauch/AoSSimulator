@@ -140,7 +140,7 @@ TEST(Unit, BallistaVsAlarielle)
     auto lordOrdinator = std::make_shared<StormcastEternals::LordOrdinator>(StormcastEternals::Stormhost::Astral_Templars, StormcastEternals::LordOrdinator::Astral_Hammers,
                                                                             StormcastEternals::CommandTrait::None, StormcastEternals::Artefact::None, false);
 
-    auto alarielle = std::make_shared<Sylvaneth::Alarielle>(Sylvaneth::Glade::None, Sylvaneth::Lore::Verdurous_Harmony, false);
+    auto alarielle = std::make_shared<Sylvaneth::Alarielle>(Sylvaneth::Glade::None, false);
 
     for (auto i = 0; i < 5; i++)
     {
@@ -200,7 +200,7 @@ TEST(Unit, BallistaVsAlarielle)
 
 TEST(Unit, DamageTable)
 {
-    auto alarielle = std::make_shared<Sylvaneth::Alarielle>(Sylvaneth::Glade::None, Sylvaneth::Lore::Verdurous_Harmony, false);
+    auto alarielle = std::make_shared<Sylvaneth::Alarielle>(Sylvaneth::Glade::None, false);
 
     Wounds wounds;
     wounds.normal = 1;

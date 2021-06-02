@@ -25,9 +25,21 @@ namespace Soulblight {
 
         ~RadukarTheBeast() override = default;
 
-    private:
+    protected:
+
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onEndCombat(PlayerId player) override;
+
+        int targetHitModifier(const Weapon *weapon, const Unit *attacker) const override;
+
+        void onEndMovement(PlayerId player) override;
+
+        void onRestore() override;
+
+    private:
+
+        bool m_usedMusteringHowl = false;
 
         Weapon  m_claws{Weapon::Type::Melee, "Blood-slick Claws", 2, 6, 3, 3, -1, 2},
                 m_blade{Weapon::Type::Melee, "Piercing Blade", 1, 6, 3, 3, -1, RAND_D3};
@@ -39,12 +51,12 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Bounding Charge                  TODO
+// Bounding Charge                  Yes
 // The Hunger                       Yes
-// Supernatural Reflexes            TODO
-// Unleashed Ferocity               TODO
+// Supernatural Reflexes            Yes
+// Unleashed Ferocity               Yes
 // Call to the Hunt                 TODO
-// Mustering Howl                   TODO
+// Mustering Howl                   Yes
 //
 
 } // namespace Soulblight

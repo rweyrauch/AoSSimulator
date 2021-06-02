@@ -25,6 +25,12 @@ namespace Soulblight {
 
         ~TorgilliusTheChamberlain() override = default;
 
+    protected:
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon  m_clawsAndFangs{Weapon::Type::Melee, "Claws and Fangs", 1, 4, 5, 4, 0, 1};
@@ -36,9 +42,9 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Mastery of Grave-sand            TODO
-// Trusted Lieutenant               TODO
-// Necrotising Bolt                 TODO
+// Mastery of Grave-sand            Yes
+// Trusted Lieutenant               Yes
+// Necrotising Bolt                 Yes
 //
 
 } // namespace Soulblight

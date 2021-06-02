@@ -73,6 +73,9 @@ namespace Soulblight {
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateLore(lore, this)));
         m_knownSpells.push_back(std::unique_ptr<Spell>(CreateArcaneBolt(this)));
         m_knownSpells.push_back(std::make_unique<MysticShield>(this));
+
+        m_commandAbilities.push_back(std::make_unique<BuffModifierCommandAbility>(this, "Crimson Feast", 12, 12, GamePhase::Combat, Attribute::Attacks_Melee, 1,
+                                                                                  Abilities::Target::Friendly, std::vector<Keyword>{SOULBLIGHT_GRAVELORDS, SUMMONABLE}));
     }
 
     void VampireLord::onEndCombat(PlayerId player) {

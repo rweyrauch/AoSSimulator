@@ -80,6 +80,14 @@ public:
                                Abilities::Target allowedTargets,
                                const std::vector<Keyword> &targetKeywords = {});
 
+    BuffModifierCommandAbility(Unit *source,
+                               const std::string &name,
+                               int rangeGeneral,
+                               int rangeHero,
+                               GamePhase phase,
+                               std::vector<std::pair<Attribute, int>> modifiers,
+                               Abilities::Target allowedTargets,
+                               const std::vector<Keyword> &targetKeywords = {});
 
 protected:
 
@@ -87,10 +95,7 @@ protected:
 
     bool apply(double x, double y) override { return false; }
 
-    virtual int getModifier() const;
-
-    Attribute m_attribute = Attribute::To_Hit_Melee;
-    int m_modifier = 0;
+    std::vector<std::pair<Attribute, int>> m_modifiers;
 };
 
 class BuffRerollCommandAbility : public CommandAbility {

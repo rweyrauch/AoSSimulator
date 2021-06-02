@@ -21,7 +21,7 @@ namespace Soulblight {
 
         static void Init();
 
-        explicit MannfredMortarchOfNight(bool isGeneral);
+        explicit MannfredMortarchOfNight(Lore lore, bool isGeneral);
 
         ~MannfredMortarchOfNight() override = default;
 
@@ -36,6 +36,8 @@ namespace Soulblight {
         void onEndCombat(PlayerId player) override;
 
         size_t getDamageTableIndex() const;
+
+        void onEnemyModelSlainWithWeapon(int numSlain, Unit* enemyUnit, const Weapon* weapon, const Wounds& weaponDamage) override;
 
     private:
 
@@ -53,12 +55,12 @@ namespace Soulblight {
 // -------------------------------------------
 // Feaster of Souls                 Yes
 // Armour of Templehof              TODO
-// Sword of Unholy Power            TODO
+// Sword of Unholy Power            Yes
 // Mortarch of Night                TODO
 // Frightful Touch                  Yes
 // Deathly Invocation               Yes
-// Wind of Death                    TODO
-// Vigour of Undeath                TODO
+// Wind of Death                    Yes
+// Vigour of Undeath                Yes
 //
 
 } // namespace Soulblight

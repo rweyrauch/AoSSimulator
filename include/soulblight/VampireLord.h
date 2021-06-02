@@ -41,7 +41,7 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // The Hunger                       Yes
-// Crimson Feast                    TODO
+// Crimson Feast                    Yes
 //
 
 } // namespace Soulblight

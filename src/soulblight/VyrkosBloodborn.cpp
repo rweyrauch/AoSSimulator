@@ -55,4 +55,11 @@ namespace Soulblight {
         }
     }
 
+    Wounds VyrkosBloodborn::applyWoundSave(const Wounds &wounds, Unit *attackingUnit) {
+        auto totalWounds = SoulblightBase::applyWoundSave(wounds, attackingUnit);
+        // Shadowfast
+        int numSixes = 0;
+        return ignoreWounds(totalWounds, 5, numSixes);
+    }
+
 } // namespace Soulblight

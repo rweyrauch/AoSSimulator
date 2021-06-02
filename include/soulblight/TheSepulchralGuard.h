@@ -25,6 +25,17 @@ namespace Soulblight {
 
         ~TheSepulchralGuard() override = default;
 
+    protected:
+
+        int generateHits(int unmodifiedHitRoll, const Weapon *weapon, const Unit *unit) const override;
+
+        Rerolls chargeRerolls() const override {
+            // Frightening Speed
+            return Rerolls::Failed;
+        }
+
+        void onStartHero(PlayerId player) override;
+
     private:
 
         Weapon  m_spear{Weapon::Type::Melee, "Ancient Spear", 2, 3, 4, 4, 0, 1},
@@ -40,9 +51,9 @@ namespace Soulblight {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Sepulchral Warden                TODO
-// Frightening Speed                TODO
-// Serve In Death                   TODO
+// Sepulchral Warden                Yes
+// Frightening Speed                Yes
+// Serve In Death                   Yes
 //
 
 } // namespace Soulblight

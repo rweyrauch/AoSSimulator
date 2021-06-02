@@ -41,7 +41,7 @@ namespace Soulblight {
 // Abilities                    Implemented
 // -------------------------------------------
 // The Hunger                       Yes
-// Fiendish Lure                    TODO
+// Fiendish Lure                    Yes
 //
 
 } // namespace Soulblight

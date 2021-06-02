@@ -25,22 +25,27 @@ namespace Soulblight {
 
         ~RadukarTheWolf() override = default;
 
-    private:
+    protected:
+
+        Wounds weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const override;
 
         void onEndCombat(PlayerId player) override;
+
+        Wounds applyWoundSave(const Wounds &wounds, Unit *attackingUnit) override;
+
+    private:
 
         Weapon  m_blade{Weapon::Type::Melee, "Vyrkos Barrow-blade", 1, 4, 3, 3, -1, RAND_D3};
 
         static bool s_registered;
-
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
 // The Hunger                       Yes
-// Supernatural Strength            TODO
-// Loyal to the Last                TODO
+// Supernatural Strength            Yes
+// Loyal to the Last                Yes
 // Call to the Hunt                 TODO
 //
 

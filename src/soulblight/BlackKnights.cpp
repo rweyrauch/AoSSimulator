@@ -21,17 +21,16 @@ namespace Soulblight {
     bool BlackKnights::s_registered = false;
 
     BlackKnights::BlackKnights(CursedBloodline bloodline, int numModels, bool standardBearers, bool hornblowers, int points) :
-            SoulblightBase(bloodline, "Black Knights", 12, g_wounds, 10, 5, false, points),
-            m_barrowLance(Weapon::Type::Melee, "Barrow Lance", 2, 2, 4, 3, 0, 1),
-            m_barrowLanceKnight(Weapon::Type::Melee, "Barrow Lance", 2, 3, 4, 3, 0, 1),
-            m_hoovesAndTeeth(Weapon::Type::Melee, "Hooves and Teeth", 1, 2, 4, 4, 0, 1) {
+            SoulblightBase(bloodline, "Black Knights", 12, g_wounds, 10, 5, false, points) {
         m_keywords = {DEATH, SOULBLIGHT_GRAVELORDS, DEATHRATTLE, SUMMONABLE, BLACK_KNIGHTS};
         m_weapons = {&m_barrowLance, &m_barrowLanceKnight, &m_hoovesAndTeeth};
         m_hasMount = true;
         m_hoovesAndTeeth.setMount(true);
         m_battleFieldRole = (bloodline == CursedBloodline::Legion_Of_Blood) ? Role::Battleline : Role::Other;
 
-        s_globalBraveryMod.connect(this, &BlackKnights::standardBearerBraveryMod, &m_standardSlot);
+        if (standardBearers) {
+            m_deathlessMinionsRerolls = Rerolls::Ones;
+        }
 
         auto hellKnight = new Model(g_basesize, wounds());
         hellKnight->addMeleeWeapon(&m_barrowLanceKnight);
@@ -52,10 +51,6 @@ namespace Soulblight {
 
             addModel(model);
         }
-    }
-
-    BlackKnights::~BlackKnights() {
-        m_standardSlot.disconnect();
     }
 
     Unit *BlackKnights::Create(const ParameterList &parameters) {
@@ -86,35 +81,6 @@ namespace Soulblight {
         }
     }
 
-    int BlackKnights::toWoundModifier(const Weapon *weapon, const Unit *target) const {
-        int modifier = SoulblightBase::toWoundModifier(weapon, target);
-
-        // Deathly Charge
-        if (m_charged && weapon->name() == m_barrowLance.name()) {
-            modifier += 1;
-        }
-        return modifier;
-    }
-
-    Wounds BlackKnights::weaponDamage(const Model* attackingModel, const Weapon *weapon, const Unit *target, int hitRoll, int woundRoll) const {
-        // Deathly Charge
-        if (m_charged && weapon->name() == m_barrowLance.name()) {
-            return {weapon->damage() + 1, 0};
-        }
-        return SoulblightBase::weaponDamage(attackingModel, weapon, target, hitRoll, woundRoll);
-    }
-
-    int BlackKnights::toSaveModifier(const Weapon *weapon, const Unit *attacker) const {
-        int modifier = SoulblightBase::toSaveModifier(weapon, attacker);
-
-        // Crypt Shields
-        if (weapon->rend() == 0) {
-            modifier += 1;
-        }
-
-        return modifier;
-    }
-
     int BlackKnights::ComputePoints(const ParameterList& parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
@@ -124,11 +90,6 @@ namespace Soulblight {
         return points;
     }
 
-    int BlackKnights::standardBearerBraveryMod(const Unit *unit) {
-        if (isNamedModelAlive(Model::StandardBearer) && !isFriendly(unit) && (distanceTo(unit) <= 6.0)) return -1;
-        return 0;
-    }
-
     int BlackKnights::rollChargeDistance() {
         // Hornblower
         auto dist = SoulblightBase::rollChargeDistance();
@@ -136,6 +97,20 @@ namespace Soulblight {
             return std::max(6, dist);
         }
         return dist;
+    }
+
+    void BlackKnights::onCharged() {
+        SoulblightBase::onCharged();
+
+        if (m_meleeTarget && (distanceTo(m_meleeTarget) <= 1.0)) {
+            if (Dice::RollD6() >= 2) {
+                Wounds wounds = {0, Dice::RollD3()};
+                m_meleeTarget->applyDamage(wounds, this);
+
+                PLOG_INFO.printf("%s Deathly Charge inflicted %d mortal wounds on %s\n",
+                                 name().c_str(), wounds.mortal, m_meleeTarget->name().c_str());
+           }
+        }
     }
 
 } //namespace Soulblight
