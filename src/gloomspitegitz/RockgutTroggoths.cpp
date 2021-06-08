@@ -10,6 +10,7 @@
 #include <Board.h>
 #include <Roster.h>
 #include <UnitFactory.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 50;
@@ -21,8 +22,8 @@ namespace GloomspiteGitz {
 
     bool RockgutTroggoths::s_registered = false;
 
-    RockgutTroggoths::RockgutTroggoths(int numModels, int points) :
-            GloomspiteGitzBase("Rockgut Troggoths", 6, g_wounds, 5, 5, false, points),
+    RockgutTroggoths::RockgutTroggoths(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Rockgut Troggoths", 6, g_wounds, 5, 5, false, points),
             m_massiveStoneMaul(Weapon::Type::Melee, "Massive Stone Maul", 2, 2, 3, 3, -2, 3) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, ROCKGUT};
         m_weapons = {&m_massiveStoneMaul};
@@ -35,8 +36,9 @@ namespace GloomspiteGitz {
     }
 
     Unit *RockgutTroggoths::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new RockgutTroggoths(numModels, ComputePoints(parameters));
+        return new RockgutTroggoths(allegiance, numModels, ComputePoints(parameters));
     }
 
     void RockgutTroggoths::Init() {
@@ -48,6 +50,7 @@ namespace GloomspiteGitz {
                     RockgutTroggoths::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

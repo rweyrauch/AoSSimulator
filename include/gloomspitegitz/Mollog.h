@@ -22,7 +22,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        explicit Mollog(bool isGeneral);
+        Mollog(Allegiance allegiance, bool isGeneral);
 
         ~Mollog() override;
 

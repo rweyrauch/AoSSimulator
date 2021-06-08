@@ -22,7 +22,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Gobbapalooza();
+        explicit Gobbapalooza(Allegiance allegiance);
 
         ~Gobbapalooza() override = default;
 

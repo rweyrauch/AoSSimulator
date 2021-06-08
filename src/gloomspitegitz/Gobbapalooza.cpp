@@ -8,6 +8,7 @@
 #include <gloomspitegitz/Gobbapalooza.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 32;
@@ -19,7 +20,8 @@ namespace GloomspiteGitz {
     bool Gobbapalooza::s_registered = false;
 
     Unit *Gobbapalooza::Create(const ParameterList &parameters) {
-        return new Gobbapalooza();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new Gobbapalooza(allegiance);
     }
 
     void Gobbapalooza::Init() {
@@ -30,6 +32,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -43,8 +46,8 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Gobbapalooza::Gobbapalooza() :
-            GloomspiteGitzBase("Gobbapalooza", 5, g_wounds, 5, 6, false, g_pointsPerUnit),
+    Gobbapalooza::Gobbapalooza(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Gobbapalooza", 5, g_wounds, 5, 6, false, g_pointsPerUnit),
             m_tusksAndFangs(Weapon::Type::Melee, "Boingob's Tusks and Fangs", 1, 4, 4, 3, -1, RAND_D3),
             m_stikka(Weapon::Type::Melee, "Concealed Stikka", 1, 2, 4, 4, -1, 1),
             m_scorpisquigStikka(Weapon::Type::Melee, "Scorpisquig Stikka", 2, 1, 4, 4, 0, RAND_D3),

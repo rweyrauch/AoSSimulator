@@ -8,6 +8,7 @@
 #include <gloomspitegitz/BoingrotBounderz.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 32;
@@ -19,8 +20,8 @@ namespace GloomspiteGitz {
 
     bool BoingrotBounderz::s_registered = false;
 
-    BoingrotBounderz::BoingrotBounderz(int numModels, int points) :
-            GloomspiteGitzBase("Boingrot Bounderz", RAND_2D6, g_wounds, 5, 4, true, points),
+    BoingrotBounderz::BoingrotBounderz(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Boingrot Bounderz", RAND_2D6, g_wounds, 5, 4, true, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_pokinLance(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 4, 4, -1, 1),
             m_pokinLanceBoss(Weapon::Type::Melee, "Pokin' Lance", 2, 2, 3, 4, -1, 1) {
@@ -45,8 +46,9 @@ namespace GloomspiteGitz {
     }
 
     Unit *BoingrotBounderz::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new BoingrotBounderz(numModels, ComputePoints(parameters));
+        return new BoingrotBounderz(allegiance, numModels, ComputePoints(parameters));
     }
 
     void BoingrotBounderz::Init() {
@@ -57,7 +59,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     BoingrotBounderz::ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

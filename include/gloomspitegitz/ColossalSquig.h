@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        ColossalSquig();
+        explicit ColossalSquig(Allegiance allegiance);
 
         ~ColossalSquig() override = default;
 

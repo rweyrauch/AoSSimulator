@@ -9,6 +9,7 @@
 #include <gloomspitegitz/ManglerSquigs.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 80;
@@ -34,8 +35,8 @@ namespace GloomspiteGitz {
                     {RAND_3D6, 3, 7}
             };
 
-    ManglerSquigs::ManglerSquigs() :
-            GloomspiteGitzBase("Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true, g_pointsPerUnit),
+    ManglerSquigs::ManglerSquigs(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6),
             m_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3),
             m_grotsBashinStikk(Weapon::Type::Melee, "Grots' Bashin' Stikks", 1, 4, 4, 4, 0, 1) {
@@ -86,7 +87,8 @@ namespace GloomspiteGitz {
 
 
     Unit *ManglerSquigs::Create(const ParameterList &parameters) {
-        return new ManglerSquigs();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new ManglerSquigs(allegiance);
     }
 
     void ManglerSquigs::Init() {
@@ -97,6 +99,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ManglerSquigs::ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

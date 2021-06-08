@@ -62,6 +62,8 @@
 #include "stormcast/AveronStormsire.h"
 #include "stormcast/LynusGhalmorian.h"
 #include "stormcast/GardusSteelSoul.h"
+#include "stormcast/Annihilator.h"
+#include "stormcast/LordImperatant.h"
 #include "StormcastEternalsPrivate.h"
 
 
@@ -483,6 +485,8 @@ namespace StormcastEternals {
         EvocatorsOnCelestialDracolines::Init();
         LynusGhalmorianOnGryphcharger::Init();
         GardusSteelSoul::Init();
+        Annihilators::Init();
+        LordImperatant::Init();
     }
 
     bool DoSpiritFlasks(Unit *owner) {

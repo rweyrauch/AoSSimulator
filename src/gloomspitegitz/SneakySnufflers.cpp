@@ -9,6 +9,7 @@
 #include <gloomspitegitz/SneakySnufflers.h>
 #include <UnitFactory.h>
 #include <Roster.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 32;
@@ -20,8 +21,8 @@ namespace GloomspiteGitz {
 
     bool SneakySnufflers::s_registered = false;
 
-    SneakySnufflers::SneakySnufflers(int numModels, int points) :
-            GloomspiteGitzBase("Sneaky Snufflers", 5, g_wounds, 4, 6, false, points),
+    SneakySnufflers::SneakySnufflers(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Sneaky Snufflers", 5, g_wounds, 4, 6, false, points),
             m_sickle(Weapon::Type::Melee, "Loonfungus Sickle", 1, 1, 4, 4, 0, 1),
             m_gnashers(Weapon::Type::Melee, "Gnashers", 1, 1, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, SNEAKY_SNUFFERS};
@@ -36,8 +37,9 @@ namespace GloomspiteGitz {
     }
 
     Unit *SneakySnufflers::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new SneakySnufflers(numModels, ComputePoints(parameters));
+        return new SneakySnufflers(allegiance, numModels, ComputePoints(parameters));
     }
 
     void SneakySnufflers::Init() {
@@ -48,7 +50,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SneakySnufflers::ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

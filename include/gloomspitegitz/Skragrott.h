@@ -26,7 +26,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Skragrott(Lore lore, bool isGeneral);
+        Skragrott(Allegiance allegiance, Lore lore, bool isGeneral);
 
         ~Skragrott() override = default;
 

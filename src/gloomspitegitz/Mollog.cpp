@@ -8,6 +8,7 @@
 #include <gloomspitegitz/Mollog.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 50;
@@ -17,8 +18,9 @@ namespace GloomspiteGitz {
     bool Mollog::s_registered = false;
 
     Unit *Mollog::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new Mollog(general);
+        return new Mollog(allegiance, general);
     }
 
     void Mollog::Init() {
@@ -29,7 +31,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ComputePoints,
                     {
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -43,8 +46,8 @@ namespace GloomspiteGitz {
         return g_pointsPerUnit;
     }
 
-    Mollog::Mollog(bool isGeneral) :
-            GloomspiteGitzBase("Mollog", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
+    Mollog::Mollog(Allegiance allegiance, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Mollog", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_jabbertoad(Weapon::Type::Missile, "Jabbertoad", 12, 1, 4, 4, 0, 1),
             m_club(Weapon::Type::Melee, "Puff-fungus Club", 1, 2, 0, 0, 0, 0) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, MOLLOG};

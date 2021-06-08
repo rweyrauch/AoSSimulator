@@ -8,6 +8,7 @@
 
 #include <gloomspitegitz/SquigGobba.h>
 #include <UnitFactory.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 120; // x92 oval
@@ -16,8 +17,8 @@ namespace GloomspiteGitz {
 
     bool SquigGobba::s_registered = false;
 
-    SquigGobba::SquigGobba() :
-            GloomspiteGitzBase("Squig Gobba", 4, g_wounds, 4, 5, false, g_pointsPerUnit),
+    SquigGobba::SquigGobba(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Squig Gobba", 4, g_wounds, 4, 5, false, g_pointsPerUnit),
             m_spitSquigs(Weapon::Type::Missile, "Spit-squigs", 30, 6, 4, 3, 0, RAND_D3),
             m_bashinSticks(Weapon::Type::Melee, "Bashin' Sticks", 1, 3, 5, 5, 0, 1),
             m_cavernousMaw(Weapon::Type::Melee, "Cavernous Maw", 2, 3, 3, 3, -2, RAND_D3) {
@@ -34,7 +35,8 @@ namespace GloomspiteGitz {
     }
 
     Unit *SquigGobba::Create(const ParameterList &parameters) {
-        return new SquigGobba();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new SquigGobba(allegiance);
     }
 
     void SquigGobba::Init() {
@@ -45,6 +47,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SquigGobba::ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

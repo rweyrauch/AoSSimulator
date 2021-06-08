@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        SkitterstrandArachnarok();
+        explicit SkitterstrandArachnarok(Allegiance allegiance);
 
         ~SkitterstrandArachnarok() override = default;
 

@@ -23,7 +23,8 @@ namespace CitiesOfSigmar {
         Tempests_Eye,
         Misthåvn,
         Har_Kuron,
-        Settlers_Gain
+        Settlers_Gain,
+        Excelsis,
     };
 
     enum class CommandTrait : int {
@@ -78,6 +79,11 @@ namespace CitiesOfSigmar {
         Personal_Levitation,
         Strategic_Mastermind,
         Raging_Outburst,
+
+        // Excelsis
+        Cunning_Foe,                // TODO
+        In_the_Right_Place,         // TODO
+        Darkest_Secrets,            // TODO
     };
 
     enum class Artefact : int {
@@ -135,6 +141,11 @@ namespace CitiesOfSigmar {
         Blade_Of_Leaping_Bronze,
         Amulet_Of_Haste,
         Stone_Spirit_Armour,
+
+        // Excelsis
+        Glimmering,
+        Rockjaws,
+        Gryph_Feather_Charm,
     };
 
     enum class Lore : int {
@@ -190,6 +201,11 @@ namespace CitiesOfSigmar {
         Drain_Magic,
         Shield_Of_Light,
         Illuminate,
+
+        // Excelsis
+        The_Amber_Spear,
+        Flock_of_Doom,
+        Cower,
     };
 
     enum class Narcotic : int {

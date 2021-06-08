@@ -8,6 +8,7 @@
 
 #include <gloomspitegitz/SpiderRiders.h>
 #include <UnitFactory.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 60; // x35 oval
@@ -19,8 +20,8 @@ namespace GloomspiteGitz {
 
     bool SpiderRiders::s_registered = false;
 
-    SpiderRiders::SpiderRiders(int numModels, bool drummers, bool totemBearers, int points) :
-            GloomspiteGitzBase("Spider Riders", 10, g_wounds, 4, 5, true, points), // Wall Crawler treated as fly
+    SpiderRiders::SpiderRiders(Allegiance allegiance, int numModels, bool drummers, bool totemBearers, int points) :
+            GloomspiteGitzBase(allegiance, "Spider Riders", 10, g_wounds, 4, 5, true, points), // Wall Crawler treated as fly
             m_spiderBow(Weapon::Type::Missile, "Spider-bow", 16, 2, 5, 5, 0, 1),
             m_crookedSpear(Weapon::Type::Melee, "Crooked Spear", 2, 1, 5, 4, 0, 1),
             m_crookedSpearBoss(Weapon::Type::Melee, "Crooked Spear", 2, 1, 4, 4, 0, 1),
@@ -55,10 +56,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *SpiderRiders::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         bool drummers = GetBoolParam("Drummers", parameters, false);
         bool totemBearers = GetBoolParam("Totem Bearers", parameters, false);
-        return new SpiderRiders(numModels, drummers, totemBearers, ComputePoints(parameters));
+        return new SpiderRiders(allegiance, numModels, drummers, totemBearers, ComputePoints(parameters));
     }
 
     void SpiderRiders::Init() {
@@ -71,7 +73,8 @@ namespace GloomspiteGitz {
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
                             BoolParameter("Drummers"),
-                            BoolParameter("Totem Bearers")
+                            BoolParameter("Totem Bearers"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        RippasSnarlfangs();
+        explicit RippasSnarlfangs(Allegiance allegiance);
 
         ~RippasSnarlfangs() override = default;
 

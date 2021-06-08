@@ -8,6 +8,7 @@
 #include <gloomspitegitz/ArachnarokSpiderWithFlinger.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 160;
@@ -33,8 +34,8 @@ namespace GloomspiteGitz {
                     {4, 4, 4}
             };
 
-    ArachnarokSpiderWithFlinger::ArachnarokSpiderWithFlinger() :
-            GloomspiteGitzBase("Arachnarok Spider with Flinger", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
+    ArachnarokSpiderWithFlinger::ArachnarokSpiderWithFlinger(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Arachnarok Spider with Flinger", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spiderBows(Weapon::Type::Missile, "Spider-bows", 16, 8, 5, 5, 0, 1),
             m_flinger(Weapon::Type::Missile, "Flinger", 36, 1, 0, 0, 0, 0),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
@@ -82,7 +83,8 @@ namespace GloomspiteGitz {
     }
 
     Unit *ArachnarokSpiderWithFlinger::Create(const ParameterList &parameters) {
-        return new ArachnarokSpiderWithFlinger();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new ArachnarokSpiderWithFlinger(allegiance);
     }
 
     void ArachnarokSpiderWithFlinger::Init() {
@@ -93,6 +95,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ArachnarokSpiderWithFlinger::ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

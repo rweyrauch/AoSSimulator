@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        RockgutTroggoths(int numModels, int points);
+        RockgutTroggoths(Allegiance allegiance, int numModels, int points);
 
         ~RockgutTroggoths() override = default;
 

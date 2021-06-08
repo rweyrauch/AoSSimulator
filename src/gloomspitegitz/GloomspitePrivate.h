@@ -14,6 +14,13 @@
 
 namespace GloomspiteGitz {
 
+    constexpr std::array<int, 4> g_allegiance = {
+            ToInteger(Allegiance::None),
+            ToInteger(Allegiance::Jaws_of_Mork),
+            ToInteger(Allegiance::Gloggs_Megamob),
+            ToInteger(Allegiance::Grimscuttle_Tribes)
+    };
+
     constexpr std::array<int, 7> g_blessingsOfTheBadMoon = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Cunning_Plans),

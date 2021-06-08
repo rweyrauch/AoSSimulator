@@ -9,6 +9,7 @@
 #include <gloomspitegitz/AleguzzlerGargant.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 90; // x52 oval
@@ -34,8 +35,8 @@ namespace GloomspiteGitz {
 
     bool AleguzzlerGargant::s_registered = false;
 
-    AleguzzlerGargant::AleguzzlerGargant() :
-            GloomspiteGitzBase("Aleguzzler Gargant", 8, g_wounds, 6, 5, false, g_pointsPerUnit),
+    AleguzzlerGargant::AleguzzlerGargant(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Aleguzzler Gargant", 8, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_eadbutt(Weapon::Type::Melee, "'eadbutt", 1, 1, 4, 3, -3, RAND_D6),
             m_massiveClub(Weapon::Type::Melee, "Massive Club", 3, RAND_3D6, 3, 3, -1, 1),
             m_mightyKick(Weapon::Type::Melee, "Mighty Kick", 3, 1, 3, 3, -2, RAND_D3) {
@@ -58,7 +59,8 @@ namespace GloomspiteGitz {
     }
 
     Unit *AleguzzlerGargant::Create(const ParameterList &parameters) {
-        return new AleguzzlerGargant();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new AleguzzlerGargant(allegiance);
     }
 
     void AleguzzlerGargant::Init() {
@@ -69,6 +71,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     AleguzzlerGargant::ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

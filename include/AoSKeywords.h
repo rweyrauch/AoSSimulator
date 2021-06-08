@@ -165,6 +165,9 @@ enum Keyword {
     LYNUS_GHALMORIAN,
     STEEL_SOULS,
     GARDUS_STEEL_SOUL,
+    ANNIHILATORS,
+    LORD_IMPERATANT,
+    THUNDERSTRIKE,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,
@@ -303,6 +306,11 @@ enum Keyword {
     MOLLOG,
     TROGGOTH_HAG,
     BONEGRINDER_GARANT,
+
+    // Gloomspite Gitz Allegiances
+    JAWS_OF_MORK,
+    GLOGGS_MEGAMOB,
+    GRIMSCUTTLE,
 
     // Daughters of Khaine
     MELUSAI,
@@ -929,6 +937,9 @@ enum Keyword {
     WILD_RIDERS,
     SORCERESS,
     IDOLATOR_LORD,
+    WITCH_HUNTER,
+    DORALIA_VEN_DENST,
+    GALEN_VEN_DENST,
 
     // Ogor Mawtribes
     OGOR,

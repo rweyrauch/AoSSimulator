@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        ScuttlebossOnGiganticSpider(CommandTrait trait, Artefact artefact, bool isGeneral);
+        ScuttlebossOnGiganticSpider(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~ScuttlebossOnGiganticSpider() override;
 

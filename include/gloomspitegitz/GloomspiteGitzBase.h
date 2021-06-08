@@ -16,6 +16,14 @@ class CommandAbility;
 
 namespace GloomspiteGitz {
 
+    enum class Allegiance : int {
+        None,
+
+        Jaws_of_Mork,
+        Gloggs_Megamob,
+        Grimscuttle_Tribes
+    };
+
     //
     // Command Traits
     //
@@ -52,7 +60,12 @@ namespace GloomspiteGitz {
         Loonskin,
         Pulverising_Grip,
         Mighty_Blow,                // TODO
-        Realmstone_Studded_Hide
+        Realmstone_Studded_Hide,
+
+        // Allegiance
+        Envoy_of_the_Overbounder,   // TODO
+        Shepherd_of_Idiotic_Destruction, // TODO
+        Prophet_of_da_Spider_God,   // TODO
     };
 
     //
@@ -85,7 +98,12 @@ namespace GloomspiteGitz {
         // Glinty Gubbinz That Troggoths Found
         Shiny_Wotnot,
         Glowy_Howzit,
-        Pet_Gribbly
+        Pet_Gribbly,
+
+        // Allegiance
+        Syari_Screamersquig,
+        Aetherquartz_Studded_Hide,
+        Shyishan_Spider_Sigils
     };
 
     class GloomspiteGitzBase : public Unit {
@@ -103,8 +121,12 @@ namespace GloomspiteGitz {
 
     protected:
 
-        GloomspiteGitzBase(const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
-                Unit(name, move, wounds, bravery, save, fly, points) {}
+        GloomspiteGitzBase(Allegiance allegiance, const std::string &name, int move, int wounds, int bravery, int save, bool fly, int points) :
+                Unit(name, move, wounds, bravery, save, fly, points) {
+            setAllegiance(allegiance);
+        }
+
+        void setAllegiance(Allegiance allegiance);
 
         void onBeginRound(int battleRound) override;
 
@@ -130,6 +152,7 @@ namespace GloomspiteGitz {
 
         bool m_movedMoon = false;
 
+        Allegiance m_allegiance = Allegiance::None;
         CommandTrait m_commandTrait = CommandTrait::None;
         Artefact m_artefact = Artefact::None;
     };
@@ -144,6 +167,13 @@ namespace GloomspiteGitz {
 // Moonclan Fungus Brew             Yes
 // Spiderfang Venom                 Yes
 // Troggoth Renawal                 Yes
+// Running Riot                     TODO
+// Get Some Loonshine Down Em!      TODO
+// Monstrous Regeneration           TODO
+// Oblivious to Sorcery             TODO
+// Deff Grotz of Shyish             TODO
+// Drawn to the Afterglow           TODO
+// Masters of Feigned Flight        TODO
 //
 
     void Init();

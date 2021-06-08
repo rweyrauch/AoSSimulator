@@ -17,8 +17,8 @@ namespace GloomspiteGitz {
 
     bool Zarbag::s_registered = false;
 
-    Zarbag::Zarbag(Lore lore, bool isGeneral) :
-            GloomspiteGitzBase("Zarbag", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
+    Zarbag::Zarbag(Allegiance allegiance, Lore lore, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Zarbag", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_sickle(Weapon::Type::Melee, "Cursed Sickle", 2, 3, 3, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN, ZARBAG};
         m_weapons = {&m_sickle};
@@ -41,9 +41,10 @@ namespace GloomspiteGitz {
     }
 
     Unit *Zarbag::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new Zarbag(lore, general);
+        return new Zarbag(allegiance, lore, general);
     }
 
     void Zarbag::Init() {
@@ -55,7 +56,8 @@ namespace GloomspiteGitz {
                     Zarbag::ComputePoints,
                     {
                             EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

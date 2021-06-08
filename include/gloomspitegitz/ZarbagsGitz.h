@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        ZarbagsGitz();
+        explicit ZarbagsGitz(Allegiance allegiance);
 
         ~ZarbagsGitz() override = default;
 

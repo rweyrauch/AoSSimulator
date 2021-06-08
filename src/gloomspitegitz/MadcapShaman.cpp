@@ -19,8 +19,8 @@ namespace GloomspiteGitz {
 
     bool MadcapShaman::s_registered = false;
 
-    MadcapShaman::MadcapShaman(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Madcap Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
+    MadcapShaman::MadcapShaman(Allegiance allegiance, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Madcap Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_moonStaff(Weapon::Type::Melee, "Moon Staff", 2, 1, 4, 4, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, MADCAP_SHAMAN};
         m_weapons = {&m_moonStaff};
@@ -51,11 +51,12 @@ namespace GloomspiteGitz {
     }
 
     Unit *MadcapShaman::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_foetidFetishes[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new MadcapShaman(lore, trait, artefact, general);
+        return new MadcapShaman(allegiance, lore, trait, artefact, general);
     }
 
     void MadcapShaman::Init() {
@@ -69,7 +70,8 @@ namespace GloomspiteGitz {
                             EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
                             EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
                             EnumParameter("Artefact", g_foetidFetishes[0], g_foetidFetishes),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

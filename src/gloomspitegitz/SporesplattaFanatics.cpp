@@ -8,6 +8,7 @@
 
 #include <gloomspitegitz/SporesplattaFanatics.h>
 #include <UnitFactory.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 32;
@@ -20,8 +21,9 @@ namespace GloomspiteGitz {
     bool SporesmashaFanatics::s_registered = false;
 
     Unit *SporesmashaFanatics::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new SporesmashaFanatics(numModels, ComputePoints(parameters));
+        return new SporesmashaFanatics(allegiance, numModels, ComputePoints(parameters));
     }
 
     int SporesmashaFanatics::ComputePoints(const ParameterList& parameters) {
@@ -41,7 +43,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SporesmashaFanatics::ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -50,8 +53,8 @@ namespace GloomspiteGitz {
         }
     }
 
-    SporesmashaFanatics::SporesmashaFanatics(int numModels, int points) :
-            GloomspiteGitzBase("Sporesplatta Fanatics", RAND_2D6, g_wounds, 10, 6, false, points),
+    SporesmashaFanatics::SporesmashaFanatics(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Sporesplatta Fanatics", RAND_2D6, g_wounds, 10, 6, false, points),
             m_ballAndChain(Weapon::Type::Melee, "Spore-ball and Chain", 1, RAND_D3, 2, 4, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, MOONCLAN, FANATIC, SPORESPLATTA};
         m_weapons = {&m_ballAndChain};

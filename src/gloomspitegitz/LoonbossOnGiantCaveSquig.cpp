@@ -46,8 +46,8 @@ namespace GloomspiteGitz {
 
     bool LoonbossOnGiantCaveSquig::s_registered = false;
 
-    LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig(WeaponOptions weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Loonboss on Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true, g_pointsPerUnit),
+    LoonbossOnGiantCaveSquig::LoonbossOnGiantCaveSquig(Allegiance allegiance, WeaponOptions weapon, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Loonboss on Giant Cave Squig", RAND_2D6, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_massiveFangFilledGob(Weapon::Type::Melee, "Massive Fang-filled Gob", 1, 4, 4, 3, -1, RAND_D3),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
             m_moonclanStabba(Weapon::Type::Melee, "Moonclan Stabba", 2, 5, 4, 3, 0, 1) {
@@ -75,11 +75,12 @@ namespace GloomspiteGitz {
     }
 
     Unit *LoonbossOnGiantCaveSquig::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto weapon = (WeaponOptions) GetEnumParam("weapons", parameters, Mooncutta);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new LoonbossOnGiantCaveSquig(weapon, trait, artefact, general);
+        return new LoonbossOnGiantCaveSquig(allegiance, weapon, trait, artefact, general);
     }
 
     std::string LoonbossOnGiantCaveSquig::ValueToString(const Parameter &parameter) {
@@ -109,7 +110,8 @@ namespace GloomspiteGitz {
                     {
                             EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
                             EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

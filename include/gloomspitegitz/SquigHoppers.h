@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SquiqHoppers(int numModels, int points);
+        SquiqHoppers(Allegiance allegiance, int numModels, int points);
 
         ~SquiqHoppers() override = default;
 

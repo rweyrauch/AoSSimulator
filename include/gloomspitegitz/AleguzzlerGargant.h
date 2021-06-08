@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        AleguzzlerGargant();
+        explicit AleguzzlerGargant(Allegiance allegiance);
 
         ~AleguzzlerGargant() override = default;
 

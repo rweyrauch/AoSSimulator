@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SquigGobba();
+        explicit SquigGobba(Allegiance allegiance);
 
         ~SquigGobba() override = default;
 

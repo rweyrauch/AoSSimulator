@@ -9,6 +9,7 @@
 #include <UnitFactory.h>
 #include <iostream>
 #include <Board.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 120; // oval
@@ -34,8 +35,8 @@ namespace GloomspiteGitz {
                     {RAND_D6,  6, 2}
             };
 
-    ColossalSquig::ColossalSquig() :
-            GloomspiteGitzBase("Colossal Squig", RAND_4D6, g_wounds, 10, 5, false, g_pointsPerUnit),
+    ColossalSquig::ColossalSquig(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Colossal Squig", RAND_4D6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_puffSpores(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
             m_enormousJaws(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3),
             m_tramplingFeet(Weapon::Type::Melee, "Trampling Feet", 1, 10, 5, 3, -1, 1) {
@@ -98,7 +99,8 @@ namespace GloomspiteGitz {
 
 
     Unit *ColossalSquig::Create(const ParameterList &parameters) {
-        return new ColossalSquig();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new ColossalSquig(allegiance);
     }
 
     void ColossalSquig::Init() {
@@ -109,6 +111,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     ColossalSquig::ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

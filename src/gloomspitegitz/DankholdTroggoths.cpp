@@ -9,6 +9,7 @@
 #include <gloomspitegitz/DankholdTroggoths.h>
 #include <UnitFactory.h>
 #include <Board.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 60;
@@ -20,8 +21,8 @@ namespace GloomspiteGitz {
 
     bool DankholdTroggoths::s_registered = false;
 
-    DankholdTroggoths::DankholdTroggoths(int numModels, int points) :
-            GloomspiteGitzBase("Dankhold Troggoths", 6, g_wounds, 6, 4, false, points),
+    DankholdTroggoths::DankholdTroggoths(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Dankhold Troggoths", 6, g_wounds, 6, 4, false, points),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 3, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD};
         m_weapons = {&m_boulderClub};
@@ -40,8 +41,9 @@ namespace GloomspiteGitz {
     }
 
     Unit *DankholdTroggoths::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new DankholdTroggoths(numModels, ComputePoints(parameters));
+        return new DankholdTroggoths(allegiance, numModels, ComputePoints(parameters));
     }
 
     void DankholdTroggoths::Init() {
@@ -53,6 +55,7 @@ namespace GloomspiteGitz {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

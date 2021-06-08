@@ -10,6 +10,7 @@
 #include <UnitFactory.h>
 #include <Board.h>
 #include <Roster.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 25;
@@ -21,8 +22,8 @@ namespace GloomspiteGitz {
 
     bool SquiqHerd::s_registered = false;
 
-    SquiqHerd::SquiqHerd(int numModels, int points) :
-            GloomspiteGitzBase("Squig Herd", 5, g_wounds, 3, 6, false, points),
+    SquiqHerd::SquiqHerd(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Squig Herd", 5, g_wounds, 3, 6, false, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_squigProdder(Weapon::Type::Melee, "Squig Prodder", 1, 2, 5, 5, 0, 1) {
         m_keywords = {DESTRUCTION, SQUIG, GLOOMSPITE_GITZ, MOONCLAN, SQUIG_HERD};
@@ -47,8 +48,9 @@ namespace GloomspiteGitz {
     }
 
     Unit *SquiqHerd::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new SquiqHerd(numModels, ComputePoints(parameters));
+        return new SquiqHerd(allegiance, numModels, ComputePoints(parameters));
     }
 
     void SquiqHerd::Init() {
@@ -59,7 +61,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SquiqHerd::ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

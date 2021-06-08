@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        ManglerSquigs();
+        explicit ManglerSquigs(Allegiance allegiance);
 
         ~ManglerSquigs() override = default;
 

@@ -37,8 +37,8 @@ namespace GloomspiteGitz {
                     {4, 2, 5}
             };
 
-    TroggothHag::TroggothHag(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Troggoth Hag", RAND_4D6, g_wounds, 10, 5, false, g_pointsPerUnit),
+    TroggothHag::TroggothHag(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Troggoth Hag", RAND_4D6, g_wounds, 10, 5, false, g_pointsPerUnit),
             m_vomit(Weapon::Type::Missile, "Copious Vomit", 10, 6, 3, 3, -2, RAND_D3),
             m_staff(Weapon::Type::Melee, "Deadwood Staff", 2, 4, 4, 2, -1, 3),
             m_bulk(Weapon::Type::Melee, "Crushing Bulk", 1, RAND_D3, 4, 3, 0, RAND_D6) {
@@ -106,10 +106,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *TroggothHag::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fortuitousTroggbossTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_glintyGubbinzThatTroggothsFound[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new TroggothHag(trait, artefact, general);
+        return new TroggothHag(allegiance, trait, artefact, general);
     }
 
     void TroggothHag::Init() {
@@ -123,7 +124,8 @@ namespace GloomspiteGitz {
                             EnumParameter("Command Trait", g_fortuitousTroggbossTraits[0], g_fortuitousTroggbossTraits),
                             EnumParameter("Artefact", g_glintyGubbinzThatTroggothsFound[0],
                                           g_glintyGubbinzThatTroggothsFound),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

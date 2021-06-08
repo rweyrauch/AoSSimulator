@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SquiqHerd(int numModels, int points);
+        SquiqHerd(Allegiance allegiance, int numModels, int points);
 
         ~SquiqHerd() override = default;
 

@@ -25,7 +25,7 @@ namespace CitiesOfSigmar {
             ToInteger(Realm::Ulgu)
     };
 
-    constexpr std::array<int, 9> g_city = {
+    constexpr std::array<int, 11> g_city = {
             ToInteger(City::Hammerhal),
             ToInteger(City::Living_City),
             ToInteger(City::Greywater_Fastness),
@@ -34,10 +34,12 @@ namespace CitiesOfSigmar {
             ToInteger(City::Hallowheart),
             ToInteger(City::Tempests_Eye),
             ToInteger(City::Misthåvn),
-            ToInteger(City::Har_Kuron)
+            ToInteger(City::Har_Kuron),
+            ToInteger(City::Settlers_Gain),
+            ToInteger(City::Excelsis)
     };
 
-    constexpr std::array<int, 28> g_commandTraits = {
+    constexpr std::array<int, 34> g_commandTraits = {
             ToInteger(CommandTrait::None),
             ToInteger(CommandTrait::Acadamae_Prodigy),
             ToInteger(CommandTrait::Blood_Of_The_Twelve),
@@ -65,10 +67,16 @@ namespace CitiesOfSigmar {
             ToInteger(CommandTrait::Shade_Warlock),
             ToInteger(CommandTrait::Bathed_In_Blood),
             ToInteger(CommandTrait::Murderous_Zeal),
-            ToInteger(CommandTrait::Dark_Adept)
+            ToInteger(CommandTrait::Dark_Adept),
+            ToInteger(CommandTrait::Personal_Levitation),
+            ToInteger(CommandTrait::Strategic_Mastermind),
+            ToInteger(CommandTrait::Raging_Outburst),
+            ToInteger(CommandTrait::Cunning_Foe),
+            ToInteger(CommandTrait::In_the_Right_Place),
+            ToInteger(CommandTrait::Darkest_Secrets),
     };
 
-    constexpr std::array<int, 28> g_artefacts = {
+    constexpr std::array<int, 37> g_artefacts = {
             ToInteger(Artefact::None),
             ToInteger(Artefact::Armour_Of_Mallus),
             ToInteger(Artefact::Saints_Blade),
@@ -96,10 +104,19 @@ namespace CitiesOfSigmar {
             ToInteger(Artefact::Shadowsilk_Armour),
             ToInteger(Artefact::Lifetaker),
             ToInteger(Artefact::Traitors_Banner),
-            ToInteger(Artefact::Nullstone_Vizard)
+            ToInteger(Artefact::Nullstone_Vizard),
+            ToInteger(Artefact::Heart_Stone),
+            ToInteger(Artefact::Talisman_Of_Dispellation),
+            ToInteger(Artefact::Silver_Plated_Wand),
+            ToInteger(Artefact::Blade_Of_Leaping_Bronze),
+            ToInteger(Artefact::Amulet_Of_Haste),
+            ToInteger(Artefact::Stone_Spirit_Armour),
+            ToInteger(Artefact::Glimmering),
+            ToInteger(Artefact::Rockjaws),
+            ToInteger(Artefact::Gryph_Feather_Charm)
     };
 
-    constexpr std::array<int, 28> g_lore = {
+    constexpr std::array<int, 34> g_lore = {
             ToInteger(Lore::None),
             ToInteger(Lore::Wings_Of_Fire),
             ToInteger(Lore::Cindercloud),
@@ -128,6 +145,12 @@ namespace CitiesOfSigmar {
             ToInteger(Lore::The_Withering),
             ToInteger(Lore::Steed_Of_Shadows),
             ToInteger(Lore::Pit_Of_Shades),
+            ToInteger(Lore::Drain_Magic),
+            ToInteger(Lore::Shield_Of_Light),
+            ToInteger(Lore::Illuminate),
+            ToInteger(Lore::The_Amber_Spear),
+            ToInteger(Lore::Flock_of_Doom),
+            ToInteger(Lore::Cower)
     };
 
     constexpr std::array<int, 7> g_narcotic = {

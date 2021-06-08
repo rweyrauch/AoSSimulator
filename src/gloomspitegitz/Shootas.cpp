@@ -8,6 +8,7 @@
 #include <gloomspitegitz/Shootas.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 25;
@@ -19,8 +20,8 @@ namespace GloomspiteGitz {
 
     bool Shootas::s_registered = false;
 
-    Shootas::Shootas(int numModels, int numBarbedNets, int numGongbashers, int numFlagbearers, int numIconbearers, int points) :
-            GloomspiteGitzBase("Shootas", 5, g_wounds, 4, 6, false, points),
+    Shootas::Shootas(Allegiance allegiance, int numModels, int numBarbedNets, int numGongbashers, int numFlagbearers, int numIconbearers, int points) :
+            GloomspiteGitzBase(allegiance, "Shootas", 5, g_wounds, 4, 6, false, points),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1),
             m_moonclanBow(Weapon::Type::Missile, "Moonclan Bow", 16, 1, 5, 5, 0, 1),
@@ -68,12 +69,13 @@ namespace GloomspiteGitz {
 
 
     Unit *Shootas::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         int numBarbedNets = GetIntParam("Barbed Nets", parameters, 0);
         int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
         int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
         int numIconbearers = GetIntParam("Icon Bearers", parameters, 0);
-        return new Shootas(numModels, numBarbedNets, numGongbashers, numFlagbearers, numIconbearers, ComputePoints(parameters));
+        return new Shootas(allegiance, numModels, numBarbedNets, numGongbashers, numFlagbearers, numIconbearers, ComputePoints(parameters));
     }
 
     void Shootas::Init() {
@@ -89,6 +91,7 @@ namespace GloomspiteGitz {
                             IntegerParameter("Gong Bashers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
                             IntegerParameter("Flag Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
                             IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

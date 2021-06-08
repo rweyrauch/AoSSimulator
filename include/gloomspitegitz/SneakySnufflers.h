@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        SneakySnufflers(int numModels, int points);
+        SneakySnufflers(Allegiance allegiance, int numModels, int points);
 
         ~SneakySnufflers() override = default;
 

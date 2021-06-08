@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        FellwaterTroggoths(int numModels, int points);
+        FellwaterTroggoths(Allegiance allegiance, int numModels, int points);
 
         ~FellwaterTroggoths() override = default;
 

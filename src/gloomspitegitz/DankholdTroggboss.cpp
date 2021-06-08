@@ -48,8 +48,8 @@ namespace GloomspiteGitz {
 
     bool DankholdTroggboss::s_registered = false;
 
-    DankholdTroggboss::DankholdTroggboss(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Dankhold Troggboss", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
+    DankholdTroggboss::DankholdTroggboss(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Dankhold Troggboss", 6, g_wounds, 7, 4, false, g_pointsPerUnit),
             m_boulderClub(Weapon::Type::Melee, "Boulder Club", 2, 4, 3, 3, -2, RAND_D6) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, DANKHOLD, HERO, TROGGBOSS};
         m_weapons = {&m_boulderClub};
@@ -73,10 +73,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *DankholdTroggboss::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_fortuitousTroggbossTraits[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_glintyGubbinzThatTroggothsFound[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new DankholdTroggboss(trait, artefact, general);
+        return new DankholdTroggboss(allegiance, trait, artefact, general);
     }
 
     void DankholdTroggboss::Init() {
@@ -90,7 +91,8 @@ namespace GloomspiteGitz {
                             EnumParameter("Command Trait", g_fortuitousTroggbossTraits[0], g_fortuitousTroggbossTraits),
                             EnumParameter("Artefact", g_glintyGubbinzThatTroggothsFound[0],
                                           g_glintyGubbinzThatTroggothsFound),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

@@ -20,8 +20,8 @@ namespace GloomspiteGitz {
 
     bool Skragrott::s_registered = false;
 
-    Skragrott::Skragrott(Lore lore, bool isGeneral) :
-            GloomspiteGitzBase("Skragrott", 4, g_wounds, 6, 5, false, g_pointsPerUnit),
+    Skragrott::Skragrott(Allegiance allegiance, Lore lore, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Skragrott", 4, g_wounds, 6, 5, false, g_pointsPerUnit),
             m_daMoonOnnaStikkMissile(Weapon::Type::Missile, "Puff Spores", 8, 1, 5, 5, 0, RAND_D3),
             m_daMoonOnnaStikk(Weapon::Type::Melee, "Enormous Jaws", 3, 8, 2, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, LOONBOSS, SKRAGROTT};
@@ -46,9 +46,10 @@ namespace GloomspiteGitz {
     }
 
     Unit *Skragrott::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new Skragrott(lore, general);
+        return new Skragrott(allegiance, lore, general);
     }
 
     void Skragrott::Init() {
@@ -60,7 +61,8 @@ namespace GloomspiteGitz {
                     ComputePoints,
                     {
                             EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

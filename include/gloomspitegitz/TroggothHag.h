@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        TroggothHag(CommandTrait trait, Artefact artefact, bool isGeneral);
+        TroggothHag(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~TroggothHag() override = default;
 

@@ -8,6 +8,7 @@
 #include <gloomspitegitz/SkitterstrandArachnarok.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 160;
@@ -33,8 +34,8 @@ namespace GloomspiteGitz {
                     {4, 4, 4}
             };
 
-    SkitterstrandArachnarok::SkitterstrandArachnarok() :
-            GloomspiteGitzBase("Skitterstrand Arachnarok", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
+    SkitterstrandArachnarok::SkitterstrandArachnarok(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Skitterstrand Arachnarok", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
             m_monstrousFangs(Weapon::Type::Melee, "Monstrous Fangs", 1, 4, 2, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, ARACHNAROK_SPIDER, GLOOMSPITE_GITZ, SPIDERFANG, SKITTERSTRAND, MONSTER};
@@ -72,7 +73,8 @@ namespace GloomspiteGitz {
     }
 
     Unit *SkitterstrandArachnarok::Create(const ParameterList &parameters) {
-        return new SkitterstrandArachnarok();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new SkitterstrandArachnarok(allegiance);
     }
 
     void SkitterstrandArachnarok::Init() {
@@ -83,6 +85,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SkitterstrandArachnarok::ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

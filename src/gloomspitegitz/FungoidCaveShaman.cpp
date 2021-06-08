@@ -21,8 +21,8 @@ namespace GloomspiteGitz {
 
     bool FungoidCaveShaman::s_registered = false;
 
-    FungoidCaveShaman::FungoidCaveShaman(Lore lore, CommandTrait trait, bool isGeneral) :
-            GloomspiteGitzBase("Fungoid Cave-shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
+    FungoidCaveShaman::FungoidCaveShaman(Allegiance allegiance, Lore lore, CommandTrait trait, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Fungoid Cave-shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_moonSickle(Weapon::Type::Melee, "Moon-sickle", 1, 3, 4, 4, -1, 1),
             m_squigsTeeth(Weapon::Type::Melee, "Spore Squig's Vicious Teeth", 1, 2, 4, 4, 0, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, WIZARD, FUNGOID_CAVE_SHAMAN};
@@ -52,10 +52,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *FungoidCaveShaman::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheMoonclans[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new FungoidCaveShaman(lore, trait, general);
+        return new FungoidCaveShaman(allegiance, lore, trait, general);
     }
 
     void FungoidCaveShaman::Init() {
@@ -68,7 +69,8 @@ namespace GloomspiteGitz {
                     {
                             EnumParameter("Lore of the Moonclans", g_loreOfTheMoonclans[0], g_loreOfTheMoonclans),
                             EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

@@ -64,8 +64,8 @@ namespace GloomspiteGitz {
                     {RAND_3D6, 3, 7}
             };
 
-    LoonbossOnManglerSquigs::LoonbossOnManglerSquigs(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Loonboss on Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true, g_pointsPerUnit),
+    LoonbossOnManglerSquigs::LoonbossOnManglerSquigs(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Loonboss on Mangler Squigs", RAND_3D6, g_wounds, 10, 4, true, g_pointsPerUnit),
             m_hugeFangFilledGob(Weapon::Type::Melee, "Huge Fang-filled Gobs", 2, 4, 3, 3, -1, RAND_D6),
             m_moonCutta(Weapon::Type::Melee, "Moon-cutta", 1, 5, 3, 4, 0, 1),
             m_ballsAndChains(Weapon::Type::Melee, "Balls and Chains", 2, 7, 3, 3, -2, RAND_D3),
@@ -128,10 +128,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *LoonbossOnManglerSquigs::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new LoonbossOnManglerSquigs(trait, artefact, general);
+        return new LoonbossOnManglerSquigs(allegiance, trait, artefact, general);
     }
 
     void LoonbossOnManglerSquigs::Init() {
@@ -144,7 +145,8 @@ namespace GloomspiteGitz {
                     {
                             EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
                             EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

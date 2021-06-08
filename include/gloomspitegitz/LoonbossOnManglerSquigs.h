@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        LoonbossOnManglerSquigs(CommandTrait trait, Artefact artefact, bool isGeneral);
+        LoonbossOnManglerSquigs(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~LoonbossOnManglerSquigs() override = default;
 

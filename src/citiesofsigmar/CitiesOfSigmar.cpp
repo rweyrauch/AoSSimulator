@@ -66,6 +66,8 @@
 #include "citiesofsigmar/WarHydra.h"
 #include "citiesofsigmar/WildRiders.h"
 #include "citiesofsigmar/WildwoodRangers.h"
+#include "citiesofsigmar/DoraliaVenDenst.h"
+#include "citiesofsigmar/GalenVenDenst.h"
 #include "CoSLore.h"
 
 
@@ -478,6 +480,7 @@ namespace CitiesOfSigmar {
         DarkRiders::Init();
         Darkshards::Init();
         DemigryphKnights::Init();
+        DoraliaVenDenst::Init();
         DrakespawnChariots::Init();
         DrakespawnKnights::Init();
         DreadlordOnBlackDragon::Init();
@@ -495,6 +498,7 @@ namespace CitiesOfSigmar {
         FreeguildOutriders::Init();
         FreeguildPistoliers::Init();
         FrostheartPhoenix::Init();
+        GalenVenDenst::Init();
         Gyrobombers::Init();
         Gyrocopters::Init();
         Hammerers::Init();

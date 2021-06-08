@@ -8,6 +8,7 @@
 
 #include <gloomspitegitz/LoonsmashaFanatics.h>
 #include <UnitFactory.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 32;
@@ -20,8 +21,9 @@ namespace GloomspiteGitz {
     bool LoonsmashaFanatics::s_registered = false;
 
     Unit *LoonsmashaFanatics::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new LoonsmashaFanatics(numModels, ComputePoints(parameters));
+        return new LoonsmashaFanatics(allegiance, numModels, ComputePoints(parameters));
     }
 
     int LoonsmashaFanatics::ComputePoints(const ParameterList& parameters) {
@@ -41,7 +43,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     LoonsmashaFanatics::ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -50,8 +53,8 @@ namespace GloomspiteGitz {
         }
     }
 
-    LoonsmashaFanatics::LoonsmashaFanatics(int numModels, int points) :
-            GloomspiteGitzBase("Loonsplatta Fanatics", RAND_2D6, g_wounds, 10, 6, false, points),
+    LoonsmashaFanatics::LoonsmashaFanatics(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Loonsplatta Fanatics", RAND_2D6, g_wounds, 10, 6, false, points),
             m_ballAndChain(Weapon::Type::Melee, "Ball and Chain", 1, RAND_D6, 4, 3, -2, RAND_D3) {
         m_keywords = {DESTRUCTION, GLOOMSPITE_GITZ, MOONCLAN, FANATIC, LOONSMASHA};
         m_weapons = {&m_ballAndChain};

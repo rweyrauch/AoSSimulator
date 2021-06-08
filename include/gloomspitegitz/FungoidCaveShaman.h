@@ -26,7 +26,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        FungoidCaveShaman(Lore lore, CommandTrait trait, bool isGeneral);
+        FungoidCaveShaman(Allegiance allegiance, Lore lore, CommandTrait trait, bool isGeneral);
 
         ~FungoidCaveShaman() override = default;
 

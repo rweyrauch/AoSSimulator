@@ -35,8 +35,8 @@ namespace GloomspiteGitz {
 
     bool WebspinnerShamanOnArachnarokSpider::s_registered = false;
 
-    WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Webspinner Shaman on Arachnarok Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
+    WebspinnerShamanOnArachnarokSpider::WebspinnerShamanOnArachnarokSpider(Allegiance allegiance, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Webspinner Shaman on Arachnarok Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spiderBows(Weapon::Type::Missile, "Spider-bows", 16, 8, 5, 5, 0, 1),
             m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3),
             m_chitinousLegs(Weapon::Type::Melee, "Chitinous Legs", 3, 8, 4, 3, -1, 1),
@@ -103,11 +103,12 @@ namespace GloomspiteGitz {
     }
 
     Unit *WebspinnerShamanOnArachnarokSpider::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheSpiderFangs[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new WebspinnerShamanOnArachnarokSpider(lore, trait, artefact, general);
+        return new WebspinnerShamanOnArachnarokSpider(allegiance, lore, trait, artefact, general);
     }
 
     void WebspinnerShamanOnArachnarokSpider::Init() {
@@ -121,7 +122,8 @@ namespace GloomspiteGitz {
                             EnumParameter("Lore of the Spiderfangs", g_loreOfTheSpiderFangs[0], g_loreOfTheSpiderFangs),
                             EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
                             EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

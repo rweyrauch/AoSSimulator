@@ -54,8 +54,8 @@ namespace GloomspiteGitz {
 
     bool ScuttlebossOnGiganticSpider::s_registered = false;
 
-    ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Scuttleboss on Gigantic Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
+    ScuttlebossOnGiganticSpider::ScuttlebossOnGiganticSpider(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Scuttleboss on Gigantic Spider", 8, g_wounds, 6, 4, true, g_pointsPerUnit),
             m_spear(Weapon::Type::Melee, "Envenomed Spear", 2, 4, 4, 4, -1, 1),
             m_fangs(Weapon::Type::Melee, "Gigantic Fangs", 1, 4, 4, 3, -1, 1) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, SCUTTLEBOSS};
@@ -83,10 +83,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *ScuttlebossOnGiganticSpider::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_marksOfTheSpiderGodsFavour[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new ScuttlebossOnGiganticSpider(trait, artefact, general);
+        return new ScuttlebossOnGiganticSpider(allegiance, trait, artefact, general);
     }
 
     void ScuttlebossOnGiganticSpider::Init() {
@@ -100,7 +101,8 @@ namespace GloomspiteGitz {
                             EnumParameter("Command Trait", g_marksOfTheSpiderGodsFavour[0],
                                           g_marksOfTheSpiderGodsFavour),
                             EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

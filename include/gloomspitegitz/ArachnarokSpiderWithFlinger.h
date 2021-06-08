@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        ArachnarokSpiderWithFlinger();
+        explicit ArachnarokSpiderWithFlinger(Allegiance allegiance);
 
         ~ArachnarokSpiderWithFlinger() override = default;
 

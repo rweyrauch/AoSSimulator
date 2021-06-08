@@ -274,6 +274,27 @@ namespace GloomspiteGitz {
         return mod;
     }
 
+    void GloomspiteGitzBase::setAllegiance(Allegiance allegiance) {
+        removeKeyword(JAWS_OF_MORK);
+        removeKeyword(GLOGGS_MEGAMOB);
+        removeKeyword(GRIMSCUTTLE);
+
+        m_allegiance = allegiance;
+        switch (m_allegiance) {
+            case Allegiance::Jaws_of_Mork:
+                addKeyword(JAWS_OF_MORK);
+                break;
+            case Allegiance::Gloggs_Megamob:
+                addKeyword(GLOGGS_MEGAMOB);
+                break;
+            case Allegiance::Grimscuttle_Tribes:
+                addKeyword(GRIMSCUTTLE);
+                break;
+            default:
+                break;
+        }
+    }
+
     void Init() {
         BoingrotBounderz::Init();
         ColossalSquig::Init();

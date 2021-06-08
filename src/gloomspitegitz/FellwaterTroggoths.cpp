@@ -9,6 +9,7 @@
 #include <gloomspitegitz/FellwaterTroggoths.h>
 #include <Roster.h>
 #include <UnitFactory.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 50;
@@ -20,8 +21,8 @@ namespace GloomspiteGitz {
 
     bool FellwaterTroggoths::s_registered = false;
 
-    FellwaterTroggoths::FellwaterTroggoths(int numModels, int points) :
-            GloomspiteGitzBase("Fellwater Troggoths", 6, g_wounds, 5, 5, false, points),
+    FellwaterTroggoths::FellwaterTroggoths(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Fellwater Troggoths", 6, g_wounds, 5, 5, false, points),
             m_noxiousVomit(Weapon::Type::Missile, "Noxious Vomit", 6, 1, 2, 3, -2, RAND_D3),
             m_spikedClub(Weapon::Type::Melee, "Spiked Club", 2, 4, 3, 3, -1, 2) {
         m_keywords = {DESTRUCTION, TROGGOTH, GLOOMSPITE_GITZ, FELLWATER};
@@ -36,8 +37,9 @@ namespace GloomspiteGitz {
     }
 
     Unit *FellwaterTroggoths::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new FellwaterTroggoths(numModels, ComputePoints(parameters));
+        return new FellwaterTroggoths(allegiance, numModels, ComputePoints(parameters));
     }
 
     void FellwaterTroggoths::Init() {
@@ -49,6 +51,7 @@ namespace GloomspiteGitz {
                     FellwaterTroggoths::ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

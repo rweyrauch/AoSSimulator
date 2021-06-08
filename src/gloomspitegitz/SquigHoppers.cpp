@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <gloomspitegitz/SquigHoppers.h>
 #include <UnitFactory.h>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 32;
@@ -19,8 +20,8 @@ namespace GloomspiteGitz {
 
     bool SquiqHoppers::s_registered = false;
 
-    SquiqHoppers::SquiqHoppers(int numModels, int points) :
-            GloomspiteGitzBase("Squig Hoppers", RAND_3D6, g_wounds, 4, 6, true, points),
+    SquiqHoppers::SquiqHoppers(Allegiance allegiance, int numModels, int points) :
+            GloomspiteGitzBase(allegiance, "Squig Hoppers", RAND_3D6, g_wounds, 4, 6, true, points),
             m_fangFilledGob(Weapon::Type::Melee, "Fang-filled Gob", 1, 2, 4, 3, -1, 1),
             m_slitta(Weapon::Type::Melee, "Slitta", 1, 1, 5, 5, 0, 1),
             m_slittaBoss(Weapon::Type::Melee, "Slitta", 1, 1, 4, 5, 0, 1) {
@@ -45,8 +46,9 @@ namespace GloomspiteGitz {
     }
 
     Unit *SquiqHoppers::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
-        return new SquiqHoppers(numModels, ComputePoints(parameters));
+        return new SquiqHoppers(allegiance, numModels, ComputePoints(parameters));
     }
 
     void SquiqHoppers::Init() {
@@ -57,7 +59,8 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     SquiqHoppers::ComputePoints,
                     {
-                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize)
+                            IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

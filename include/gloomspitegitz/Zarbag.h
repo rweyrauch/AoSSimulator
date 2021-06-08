@@ -26,7 +26,7 @@ namespace GloomspiteGitz {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        Zarbag(Lore lore, bool isGeneral);
+        Zarbag(Allegiance allegiance, Lore lore, bool isGeneral);
 
         ~Zarbag() override = default;
 

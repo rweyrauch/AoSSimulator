@@ -9,6 +9,7 @@
 #include <gloomspitegitz/Stabbas.h>
 #include <UnitFactory.h>
 #include <iostream>
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 25;
@@ -20,9 +21,9 @@ namespace GloomspiteGitz {
 
     bool Stabbas::s_registered = false;
 
-    Stabbas::Stabbas(int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
+    Stabbas::Stabbas(Allegiance allegiance, int numModels, WeaponOption weapons, WeaponOption bossWeapon, int numBarbedNets,
                      int numGongbashers, int numFlagbearers, int numIconbearers, int points) :
-            GloomspiteGitzBase("Stabbas", 5, g_wounds, 4, 6, false, points),
+            GloomspiteGitzBase(allegiance, "Stabbas", 5, g_wounds, 4, 6, false, points),
             m_stabba(Weapon::Type::Melee, "Stabba", 1, 1, 4, 4, 0, 1),
             m_stabbaBoss(Weapon::Type::Melee, "Stabba", 1, 1, 3, 4, 0, 1),
             m_pokinSpear(Weapon::Type::Melee, "Pokin' Spear", 2, 1, 5, 4, 0, 1),
@@ -75,6 +76,7 @@ namespace GloomspiteGitz {
     }
 
     Unit *Stabbas::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto weapons = (WeaponOption) GetEnumParam("Weapons", parameters, Stabba);
         auto bossWeapon = (WeaponOption) GetEnumParam("Boss Weapon", parameters, Stabba);
@@ -82,7 +84,7 @@ namespace GloomspiteGitz {
         int numGongbashers = GetIntParam("Gong Bashers", parameters, 0);
         int numFlagbearers = GetIntParam("Flag Bearers", parameters, 0);
         int numIconbearers = GetIntParam("Icon Bearers", parameters, 0);
-        return new Stabbas(numModels, weapons, bossWeapon, numBarbedNets, numGongbashers, numFlagbearers,
+        return new Stabbas(allegiance, numModels, weapons, bossWeapon, numBarbedNets, numGongbashers, numFlagbearers,
                            numIconbearers, ComputePoints(parameters));
     }
 
@@ -102,6 +104,7 @@ namespace GloomspiteGitz {
                             IntegerParameter("Gong Bashers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
                             IntegerParameter("Flag Bearers", 1, 0, g_maxUnitSize / g_minUnitSize, 1),
                             IntegerParameter("Icon Bearers", 0, 0, g_maxUnitSize / g_minUnitSize, 1),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

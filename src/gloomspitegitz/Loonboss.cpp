@@ -19,8 +19,8 @@ namespace GloomspiteGitz {
 
     bool Loonboss::s_registered = false;
 
-    Loonboss::Loonboss(CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Loonboss", 5, g_wounds, 5, 5, false, g_pointsPerUnit),
+    Loonboss::Loonboss(Allegiance allegiance,CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Loonboss", 5, g_wounds, 5, 5, false, g_pointsPerUnit),
             m_moonslicer(Weapon::Type::Melee, "Moon-slicer", 1, 3, 3, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, MOONCLAN, HERO, LOONBOSS};
         m_weapons = {&m_moonslicer};
@@ -40,10 +40,11 @@ namespace GloomspiteGitz {
     }
 
     Unit *Loonboss::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_blessingsOfTheBadMoon[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_troglodyticTreasures[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new Loonboss(trait, artefact, general);
+        return new Loonboss(allegiance, trait, artefact, general);
     }
 
     void Loonboss::Init() {
@@ -56,7 +57,8 @@ namespace GloomspiteGitz {
                     {
                             EnumParameter("Command Trait", g_blessingsOfTheBadMoon[0], g_blessingsOfTheBadMoon),
                             EnumParameter("Artefact", g_troglodyticTreasures[0], g_troglodyticTreasures),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}

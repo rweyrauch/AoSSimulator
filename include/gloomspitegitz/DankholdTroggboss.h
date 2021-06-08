@@ -21,7 +21,7 @@ namespace GloomspiteGitz {
 
         static void Init();
 
-        DankholdTroggboss(CommandTrait trait, Artefact artefact, bool isGeneral);
+        DankholdTroggboss(Allegiance allegiance, CommandTrait trait, Artefact artefact, bool isGeneral);
 
         ~DankholdTroggboss() override;
 

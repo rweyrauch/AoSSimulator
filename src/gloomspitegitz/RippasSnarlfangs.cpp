@@ -8,6 +8,7 @@
 
 #include <UnitFactory.h>
 #include "gloomspitegitz/RippasSnarlfangs.h"
+#include "GloomspitePrivate.h"
 
 namespace GloomspiteGitz {
     static const int g_basesize = 60; // x35 oval
@@ -17,7 +18,8 @@ namespace GloomspiteGitz {
     bool RippasSnarlfangs::s_registered = false;
 
     Unit *RippasSnarlfangs::Create(const ParameterList &parameters) {
-        return new RippasSnarlfangs();
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
+        return new RippasSnarlfangs(allegiance);
     }
 
     void RippasSnarlfangs::Init() {
@@ -28,6 +30,7 @@ namespace GloomspiteGitz {
                     GloomspiteGitzBase::EnumStringToInt,
                     RippasSnarlfangs::ComputePoints,
                     {
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
@@ -36,8 +39,8 @@ namespace GloomspiteGitz {
         }
     }
 
-    RippasSnarlfangs::RippasSnarlfangs() :
-            GloomspiteGitzBase("Rippa's Snarlfangs", 12, g_wounds, 4, 5, false, g_pointsPerUnit),
+    RippasSnarlfangs::RippasSnarlfangs(Allegiance allegiance) :
+            GloomspiteGitzBase(allegiance, "Rippa's Snarlfangs", 12, g_wounds, 4, 5, false, g_pointsPerUnit),
             m_grotBow(Weapon::Type::Missile, "Grot Bow", 18, 1, 4, 4, 0, 1),
             m_bossLoppa(Weapon::Type::Melee, "Boss Loppa", 1, 2, 3, 4, -1, 1),
             m_stikka(Weapon::Type::Melee, "Stabbin' Stikka", 2, 1, 4, 4, 0, 1),

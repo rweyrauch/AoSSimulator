@@ -63,8 +63,8 @@ namespace GloomspiteGitz {
 
     bool WebspinnerShaman::s_registered = false;
 
-    WebspinnerShaman::WebspinnerShaman(Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
-            GloomspiteGitzBase("Webspinner Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
+    WebspinnerShaman::WebspinnerShaman(Allegiance allegiance, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
+            GloomspiteGitzBase(allegiance, "Webspinner Shaman", 5, g_wounds, 4, 6, false, g_pointsPerUnit),
             m_spiderGodStaff(Weapon::Type::Melee, "Spider God Staff", 1, 1, 4, 3, -1, RAND_D3) {
         m_keywords = {DESTRUCTION, GROT, GLOOMSPITE_GITZ, SPIDERFANG, HERO, WIZARD, WEBSPINNER_SHAMAN};
         m_weapons = {&m_spiderGodStaff};
@@ -89,11 +89,12 @@ namespace GloomspiteGitz {
     }
 
     Unit *WebspinnerShaman::Create(const ParameterList &parameters) {
+        auto allegiance = (Allegiance) GetEnumParam("Allegiance", parameters, g_allegiance[0]);
         auto lore = (Lore) GetEnumParam("Lore of the Moonclans", parameters, g_loreOfTheSpiderFangs[0]);
         auto trait = (CommandTrait) GetEnumParam("Command Trait", parameters, g_giftsOfTheGloomspite[0]);
         auto artefact = (Artefact) GetEnumParam("Artefact", parameters, g_venomousValuables[0]);
         auto general = GetBoolParam("General", parameters, false);
-        return new WebspinnerShaman(lore, trait, artefact, general);
+        return new WebspinnerShaman(allegiance, lore, trait, artefact, general);
     }
 
     void WebspinnerShaman::Init() {
@@ -107,7 +108,8 @@ namespace GloomspiteGitz {
                             EnumParameter("Lore of the Spiderfangs", g_loreOfTheSpiderFangs[0], g_loreOfTheSpiderFangs),
                             EnumParameter("Command Trait", g_giftsOfTheGloomspite[0], g_giftsOfTheGloomspite),
                             EnumParameter("Artefact", g_venomousValuables[0], g_venomousValuables),
-                            BoolParameter("General")
+                            BoolParameter("General"),
+                            EnumParameter("Allegiance", g_allegiance[0], g_allegiance),
                     },
                     DESTRUCTION,
                     {GLOOMSPITE_GITZ}
