@@ -12,21 +12,21 @@
 #include <Roster.h>
 #include <spells/MysticShield.h>
 
-#include "fec/CryptHorrors.h"
-#include "fec/CryptGhouls.h"
-#include "fec/CryptFlayers.h"
-#include "fec/CryptInfernalCourtier.h"
 #include "fec/AbhorrantArchregent.h"
 #include "fec/AbhorrantGhoulKing.h"
+#include "fec/CryptFlayers.h"
+#include "fec/CryptGhastCourtier.h"
+#include "fec/CryptGhouls.h"
+#include "fec/CryptHaunterCourtier.h"
+#include "fec/CryptHorrors.h"
+#include "fec/CryptInfernalCourtier.h"
+#include "fec/DukeCrakmarrow.h"
 #include "fec/GhoulKingOnTerrorgheist.h"
 #include "fec/GhoulKingOnZombieDragon.h"
-#include "fec/VarghulfCourtier.h"
-#include "fec/CryptGhastCourtier.h"
-#include "fec/CryptHaunterCourtier.h"
-#include "fec/RoyalZombieDragon.h"
 #include "fec/RoyalTerrorgheist.h"
-#include "fec/DukeCrakmarrow.h"
+#include "fec/RoyalZombieDragon.h"
 #include "fec/TheGrymwatch.h"
+#include "fec/VarghulfCourtier.h"
 #include "FeCSpells.h"
 
 namespace FleshEaterCourt {
@@ -287,21 +287,21 @@ namespace FleshEaterCourt {
     }
 
     void Init() {
-        CryptGhouls::Init();
-        CryptHorrors::Init();
-        CryptFlayers::Init();
-        CryptInfernalCourtier::Init();
         AbhorrantArchregent::Init();
         AbhorrantGhoulKing::Init();
         AbhorrantGhoulKingOnTerrorgheist::Init();
         AbhorrantGhoulKingOnZombieDragon::Init();
-        VarghulfCourtier::Init();
+        CryptFlayers::Init();
+        CryptGhastCourtier::Init();
+        CryptGhouls::Init();
+        CryptHaunterCourtier::Init();
+        CryptHorrors::Init();
+        CryptInfernalCourtier::Init();
+        DukeCrakmarrow::Init();
         RoyalTerrorgheist::Init();
         RoyalZombieDragon::Init();
-        CryptGhastCourtier::Init();
-        CryptHaunterCourtier::Init();
-        DukeCrakmarrow::Init();
         TheGrymwatch::Init();
+        VarghulfCourtier::Init();
     }
 
 } // namespace FleshEaterCourt

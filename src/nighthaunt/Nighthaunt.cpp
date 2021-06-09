@@ -9,31 +9,31 @@
 #include <Board.h>
 #include <magic_enum.hpp>
 
-#include "nighthaunt/ChainraspHorde.h"
-#include "nighthaunt/GrimghastReapers.h"
+#include "nighthaunt/BlackCoach.h"
 #include "nighthaunt/BladegheistRevenants.h"
-#include "nighthaunt/GlaivewraithStalkers.h"
-#include "nighthaunt/DreadscytheHarridans.h"
-#include "nighthaunt/SpiritHosts.h"
-#include "nighthaunt/Hexwraiths.h"
+#include "nighthaunt/CairnWraith.h"
 #include "nighthaunt/Chainghasts.h"
+#include "nighthaunt/ChainraspHorde.h"
+#include "nighthaunt/DreadbladeHarrow.h"
+#include "nighthaunt/DreadscytheHarridans.h"
+#include "nighthaunt/GlaivewraithStalkers.h"
+#include "nighthaunt/GrimghastReapers.h"
 #include "nighthaunt/GuardianOfSouls.h"
+#include "nighthaunt/Hexwraiths.h"
 #include "nighthaunt/KnightOfShrouds.h"
 #include "nighthaunt/KnightOfShroudsOnSteed.h"
+#include "nighthaunt/KrulghastCruciator.h"
 #include "nighthaunt/KurdossValentian.h"
-#include "nighthaunt/ReikenorGrimhailer.h"
-#include "nighthaunt/SpiritTorment.h"
-#include "nighthaunt/DreadbladeHarrow.h"
 #include "nighthaunt/LadyOlynder.h"
 #include "nighthaunt/LordExecutioner.h"
-#include "nighthaunt/TombBanshee.h"
-#include "nighthaunt/BlackCoach.h"
-#include "nighthaunt/CairnWraith.h"
-#include "nighthaunt/MyrmournBanshees.h"
 #include "nighthaunt/Mourngul.h"
+#include "nighthaunt/MyrmournBanshees.h"
+#include "nighthaunt/ReikenorGrimhailer.h"
+#include "nighthaunt/SpiritHosts.h"
+#include "nighthaunt/SpiritTorment.h"
 #include "nighthaunt/TheBriarQueen.h"
 #include "nighthaunt/ThornsOfTheBriarQueen.h"
-#include "nighthaunt/KrulghastCruciator.h"
+#include "nighthaunt/TombBanshee.h"
 
 namespace Nighthaunt {
 
@@ -161,31 +161,31 @@ namespace Nighthaunt {
     }
 
     void Init() {
-        ChainraspHorde::Init();
-        GrimghastReapers::Init();
+        BlackCoach::Init();
         BladegheistRevenants::Init();
-        GlaivewraithStalkers::Init();
-        DreadscytheHarridans::Init();
-        Hexwraiths::Init();
-        SpiritHosts::Init();
+        CairnWraith::Init();
         Chainghasts::Init();
+        ChainraspHorde::Init();
+        DreadbladeHarrow::Init();
+        DreadscytheHarridans::Init();
+        GlaivewraithStalkers::Init();
+        GrimghastReapers::Init();
         GuardianOfSouls::Init();
+        Hexwraiths::Init();
         KnightOfShrouds::Init();
         KnightOfShroudsOnEtherealSteed::Init();
+        KrulghastCruciator::Init();
         KurdossValentian::Init();
-        ReikenorTheGrimhailer::Init();
-        SpiritTorment::Init();
-        DreadbladeHarrow::Init();
         LadyOlynder::Init();
         LordExecutioner::Init();
-        TombBanshee::Init();
-        BlackCoach::Init();
-        CairnWraith::Init();
-        MyrmournBanshees::Init();
         Mourngul::Init();
+        MyrmournBanshees::Init();
+        ReikenorTheGrimhailer::Init();
+        SpiritHosts::Init();
+        SpiritTorment::Init();
         TheBriarQueen::Init();
         ThornsOfTheBriarQueen::Init();
-        KrulghastCruciator::Init();
+        TombBanshee::Init();
     }
 
 } // namespace Nighthaunt

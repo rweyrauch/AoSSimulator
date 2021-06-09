@@ -10,31 +10,31 @@
 #include <Board.h>
 #include <Roster.h>
 #include <magic_enum.hpp>
-#include "tzeentch/KairicAcolytes.h"
-#include "tzeentch/HorrorsOfTzeentch.h"
-#include "tzeentch/TzaangorEnlightened.h"
-#include "tzeentch/TzaangorEnlightenedOnDisks.h"
-#include "tzeentch/Tzaangors.h"
-#include "tzeentch/FlamersOfTzeentch.h"
-#include "tzeentch/ExaltedFlamersOfTzeentch.h"
-#include "tzeentch/TzaangorSkyfires.h"
-#include "tzeentch/TzaangorShaman.h"
-#include "tzeentch/ScreamersOfTzeentch.h"
-#include "tzeentch/LordOfChange.h"
-#include "tzeentch/KairosFateweaver.h"
-#include "tzeentch/MagisterOnDisc.h"
-#include "tzeentch/Magister.h"
-#include "tzeentch/GauntSummoner.h"
-#include "tzeentch/OgroidThaumaturge.h"
-#include "tzeentch/TheChangeling.h"
-#include "tzeentch/Curseling.h"
-#include "tzeentch/Fateskimmer.h"
-#include "tzeentch/Vortemis.h"
-#include "tzeentch/Fatemaster.h"
 #include "tzeentch/BlueScribes.h"
 #include "tzeentch/Changecaster.h"
+#include "tzeentch/Curseling.h"
+#include "tzeentch/ExaltedFlamersOfTzeentch.h"
+#include "tzeentch/Fatemaster.h"
+#include "tzeentch/Fateskimmer.h"
+#include "tzeentch/FlamersOfTzeentch.h"
 #include "tzeentch/Fluxmaster.h"
+#include "tzeentch/GauntSummoner.h"
+#include "tzeentch/HorrorsOfTzeentch.h"
+#include "tzeentch/KairicAcolytes.h"
+#include "tzeentch/KairosFateweaver.h"
+#include "tzeentch/LordOfChange.h"
+#include "tzeentch/Magister.h"
+#include "tzeentch/MagisterOnDisc.h"
+#include "tzeentch/OgroidThaumaturge.h"
+#include "tzeentch/ScreamersOfTzeentch.h"
+#include "tzeentch/TheChangeling.h"
 #include "tzeentch/TheEyesOfNine.h"
+#include "tzeentch/TzaangorEnlightened.h"
+#include "tzeentch/TzaangorEnlightenedOnDisks.h"
+#include "tzeentch/TzaangorShaman.h"
+#include "tzeentch/TzaangorSkyfires.h"
+#include "tzeentch/Tzaangors.h"
+#include "tzeentch/Vortemis.h"
 #include "TzeentchSpells.h"
 
 namespace Tzeentch {
@@ -331,11 +331,13 @@ namespace Tzeentch {
     }
 
     void Init() {
+        ChangecasterHeraldOfTzeentch::Init();
         CurselingEyeOfTzeentch::Init();
         ExaltedFlamersOfTzeentch::Init();
         Fatemaster::Init();
         Fateskimmer::Init();
         FlamersOfTzeentch::Init();
+        FluxmasterHeraldOfTzeentchOnDisc::Init();
         GauntSummonerOfTzeentch::Init();
         HorrorsOfTzeentch::Init();
         KairicAcolytes::Init();
@@ -345,17 +347,15 @@ namespace Tzeentch {
         MagisterOnDiscOfTzeentch::Init();
         OgroidThaumaturge::Init();
         ScreamersOfTzeentch::Init();
+        TheBlueScribes::Init();
         TheChangeling::Init();
+        TheEyesOfTheNine::Init();
         TzaangorEnlightened::Init();
         TzaangorEnlightenedOnDisks::Init();
         TzaangorShaman::Init();
         TzaangorSkyfires::Init();
         Tzaangors::Init();
         VortemisTheAllSeeing::Init();
-        TheBlueScribes::Init();
-        ChangecasterHeraldOfTzeentch::Init();
-        FluxmasterHeraldOfTzeentchOnDisc::Init();
-        TheEyesOfTheNine::Init();
     }
 
 } //namespace Tzeentch

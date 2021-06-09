@@ -11,30 +11,30 @@
 #include <Roster.h>
 #include "mawtribes/MawtribesBase.h"
 
-#include "mawtribes/Tyrant.h"
-#include "mawtribes/Ironblaster.h"
-#include "mawtribes/Leadbelchers.h"
-#include "mawtribes/OgorGluttons.h"
 #include "mawtribes/Butcher.h"
-#include "mawtribes/Slaughtermaster.h"
-#include "mawtribes/Gorgers.h"
-#include "mawtribes/Ironguts.h"
-#include "mawtribes/Scraplauncher.h"
-#include "mawtribes/Gnoblars.h"
 #include "mawtribes/Firebelly.h"
-#include "mawtribes/Maneaters.h"
+#include "mawtribes/FrostSabres.h"
 #include "mawtribes/FrostlordStonehorn.h"
 #include "mawtribes/FrostlordThundertusk.h"
-#include "mawtribes/HuskardStonehorn.h"
-#include "mawtribes/HuskardThundertusk.h"
-#include "mawtribes/StonehornBeastriders.h"
-#include "mawtribes/ThundertuskBeastriders.h"
-#include "mawtribes/FrostSabres.h"
-#include "mawtribes/IcebrowHunter.h"
-#include "mawtribes/IcefallYhetees.h"
-#include "mawtribes/MournfangPack.h"
+#include "mawtribes/Gnoblars.h"
+#include "mawtribes/Gorgers.h"
 #include "mawtribes/Hrothgorn.h"
 #include "mawtribes/HrothgornsMantrappers.h"
+#include "mawtribes/HuskardStonehorn.h"
+#include "mawtribes/HuskardThundertusk.h"
+#include "mawtribes/IcebrowHunter.h"
+#include "mawtribes/IcefallYhetees.h"
+#include "mawtribes/Ironblaster.h"
+#include "mawtribes/Ironguts.h"
+#include "mawtribes/Leadbelchers.h"
+#include "mawtribes/Maneaters.h"
+#include "mawtribes/MournfangPack.h"
+#include "mawtribes/OgorGluttons.h"
+#include "mawtribes/Scraplauncher.h"
+#include "mawtribes/Slaughtermaster.h"
+#include "mawtribes/StonehornBeastriders.h"
+#include "mawtribes/ThundertuskBeastriders.h"
+#include "mawtribes/Tyrant.h"
 #include "MawtribesLore.h"
 
 namespace OgorMawtribes {
@@ -266,10 +266,15 @@ namespace OgorMawtribes {
         Butcher::Init();
         Firebelly::Init();
         FrostSabres::Init();
+        FrostlordOnStonehorn::Init();
+        FrostlordOnThundertusk::Init();
+        GnoblarScraplauncher::Init();
         Gnoblars::Init();
         Gorgers::Init();
         Hrothgorn::Init();
         HrothgornsMantrappers::Init();
+        HuskardOnStonehorn::Init();
+        HuskardOnThundertusk::Init();
         IcebrowHunter::Init();
         IcefallYhetees::Init();
         Ironblaster::Init();
@@ -278,15 +283,10 @@ namespace OgorMawtribes {
         Maneaters::Init();
         MournfangPack::Init();
         OgorGluttons::Init();
-        GnoblarScraplauncher::Init();
         Slaughtermaster::Init();
-        Tyrant::Init();
-        FrostlordOnStonehorn::Init();
-        FrostlordOnThundertusk::Init();
-        HuskardOnStonehorn::Init();
-        HuskardOnThundertusk::Init();
         StonehornBeastriders::Init();
         ThundertuskBeastriders::Init();
+        Tyrant::Init();
     }
 
 } // namespace OgorMawtribes

@@ -28,14 +28,16 @@
 #include "skaven/NightRunners.h"
 #include "skaven/Packmasters.h"
 #include "skaven/PlagueCenserBearers.h"
-#include "skaven/Plagueclaw.h"
 #include "skaven/PlagueMonks.h"
-#include "skaven/PlaguePriestFurnace.h"
 #include "skaven/PlaguePriest.h"
-#include "skaven/RatlingGun.h"
+#include "skaven/PlaguePriestFurnace.h"
+#include "skaven/Plagueclaw.h"
 #include "skaven/RatOgors.h"
 #include "skaven/RatSwarms.h"
+#include "skaven/RatlingGun.h"
+#include "skaven/SkritchSpiteclaw.h"
 #include "skaven/SkryeAcolytes.h"
+#include "skaven/SpiteclawsSwarm.h"
 #include "skaven/Stormfiends.h"
 #include "skaven/Stormvermin.h"
 #include "skaven/ThanquolBoneripper.h"
@@ -45,12 +47,10 @@
 #include "skaven/VerminlordWarpseer.h"
 #include "skaven/WarlockBombardier.h"
 #include "skaven/WarlockEngineer.h"
-#include "skaven/WarpfireThrower.h"
 #include "skaven/WarpGrinder.h"
 #include "skaven/WarpLightningCannon.h"
+#include "skaven/WarpfireThrower.h"
 #include "skaven/WarplockJezzails.h"
-#include "skaven/SkritchSpiteclaw.h"
-#include "skaven/SpiteclawsSwarm.h"
 
 namespace Skaven {
 
@@ -258,13 +258,13 @@ namespace Skaven {
         NightRunners::Init();
         Packmasters::Init();
         PlagueCenserBearers::Init();
-        Plagueclaw::Init();
         PlagueMonks::Init();
-        PlaguePriestOnPlagueFurnace::Init();
         PlaguePriest::Init();
-        RatlingGun::Init();
+        PlaguePriestOnPlagueFurnace::Init();
+        Plagueclaw::Init();
         RatOgors::Init();
         RatSwarms::Init();
+        RatlingGun::Init();
         SkritchSpiteclaw::Init();
         SkryeAcolytes::Init();
         SpiteclawsSwarm::Init();
@@ -277,9 +277,9 @@ namespace Skaven {
         VerminlordWarpseer::Init();
         WarlockBombardier::Init();
         WarlockEngineer::Init();
-        WarpfireThrower::Init();
         WarpGrinder::Init();
         WarpLightningCannon::Init();
+        WarpfireThrower::Init();
         WarplockJezzails::Init();
     }
 

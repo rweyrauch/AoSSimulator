@@ -8,45 +8,45 @@
 
 #include <Board.h>
 #include "Roster.h"
+#include <magic_enum.hpp>
 #include <gloomspitegitz/GloomspiteGitzBase.h>
 #include <gloomspitegitz/BadMoon.h>
-#include <magic_enum.hpp>
+#include "gloomspitegitz/AleguzzlerGargant.h"
+#include "gloomspitegitz/ArachnarokSpiderWithFlinger.h"
+#include "gloomspitegitz/ArachnarokSpiderWithWarparty.h"
 #include "gloomspitegitz/BoingrotBounderz.h"
 #include "gloomspitegitz/ColossalSquig.h"
+#include "gloomspitegitz/DankholdTroggboss.h"
+#include "gloomspitegitz/DankholdTroggoths.h"
+#include "gloomspitegitz/FellwaterTroggoths.h"
+#include "gloomspitegitz/FungoidCaveShaman.h"
+#include "gloomspitegitz/Gobbapalooza.h"
+#include "gloomspitegitz/Loonboss.h"
+#include "gloomspitegitz/LoonbossOnGiantCaveSquig.h"
 #include "gloomspitegitz/LoonbossOnManglerSquigs.h"
+#include "gloomspitegitz/LoonbossWithGiantCaveSquig.h"
+#include "gloomspitegitz/LoonsmashaFanatics.h"
+#include "gloomspitegitz/MadcapShaman.h"
 #include "gloomspitegitz/ManglerSquigs.h"
+#include "gloomspitegitz/Mollog.h"
+#include "gloomspitegitz/RippasSnarlfangs.h"
+#include "gloomspitegitz/RockgutTroggoths.h"
+#include "gloomspitegitz/ScuttlebossOnSpider.h"
+#include "gloomspitegitz/Shootas.h"
+#include "gloomspitegitz/SkitterstrandArachnarok.h"
+#include "gloomspitegitz/Skragrott.h"
+#include "gloomspitegitz/SneakySnufflers.h"
+#include "gloomspitegitz/SpiderRiders.h"
+#include "gloomspitegitz/SporesplattaFanatics.h"
+#include "gloomspitegitz/SquigGobba.h"
 #include "gloomspitegitz/SquigHerd.h"
 #include "gloomspitegitz/SquigHoppers.h"
 #include "gloomspitegitz/Stabbas.h"
-#include "gloomspitegitz/Shootas.h"
-#include "gloomspitegitz/RockgutTroggoths.h"
-#include "gloomspitegitz/DankholdTroggoths.h"
-#include "gloomspitegitz/DankholdTroggboss.h"
-#include "gloomspitegitz/Skragrott.h"
-#include "gloomspitegitz/Loonboss.h"
-#include "gloomspitegitz/LoonbossOnGiantCaveSquig.h"
-#include "gloomspitegitz/LoonbossWithGiantCaveSquig.h"
-#include "gloomspitegitz/AleguzzlerGargant.h"
-#include "gloomspitegitz/SquigGobba.h"
-#include "gloomspitegitz/SpiderRiders.h"
-#include "gloomspitegitz/FellwaterTroggoths.h"
-#include "gloomspitegitz/FungoidCaveShaman.h"
-#include "gloomspitegitz/MadcapShaman.h"
+#include "gloomspitegitz/TroggothHag.h"
 #include "gloomspitegitz/WebspinnerShaman.h"
 #include "gloomspitegitz/WebspinnerShamanOnSpider.h"
-#include "gloomspitegitz/ArachnarokSpiderWithFlinger.h"
-#include "gloomspitegitz/ArachnarokSpiderWithWarparty.h"
-#include "gloomspitegitz/SkitterstrandArachnarok.h"
-#include "gloomspitegitz/SneakySnufflers.h"
-#include "gloomspitegitz/ScuttlebossOnSpider.h"
-#include "gloomspitegitz/RippasSnarlfangs.h"
 #include "gloomspitegitz/Zarbag.h"
 #include "gloomspitegitz/ZarbagsGitz.h"
-#include "gloomspitegitz/LoonsmashaFanatics.h"
-#include "gloomspitegitz/SporesplattaFanatics.h"
-#include "gloomspitegitz/Mollog.h"
-#include "gloomspitegitz/Gobbapalooza.h"
-#include "gloomspitegitz/TroggothHag.h"
 #include "../AoSSimPrivate.h"
 
 namespace GloomspiteGitz {
@@ -296,42 +296,42 @@ namespace GloomspiteGitz {
     }
 
     void Init() {
+        AleguzzlerGargant::Init();
+        ArachnarokSpiderWithFlinger::Init();
+        ArachnarokSpiderWithSpiderfangWarparty::Init();
         BoingrotBounderz::Init();
         ColossalSquig::Init();
+        DankholdTroggboss::Init();
+        DankholdTroggoths::Init();
+        FellwaterTroggoths::Init();
+        FungoidCaveShaman::Init();
+        Gobbapalooza::Init();
+        Loonboss::Init();
+        LoonbossOnGiantCaveSquig::Init();
         LoonbossOnManglerSquigs::Init();
+        LoonbossWithGiantCaveSquig::Init();
+        LoonsmashaFanatics::Init();
+        MadcapShaman::Init();
         ManglerSquigs::Init();
+        Mollog::Init();
+        RippasSnarlfangs::Init();
+        RockgutTroggoths::Init();
+        ScuttlebossOnGiganticSpider::Init();
+        Shootas::Init();
+        SkitterstrandArachnarok::Init();
+        Skragrott::Init();
+        SneakySnufflers::Init();
+        SpiderRiders::Init();
+        SporesmashaFanatics::Init();
+        SquigGobba::Init();
         SquiqHerd::Init();
         SquiqHoppers::Init();
         Stabbas::Init();
-        Shootas::Init();
-        RockgutTroggoths::Init();
-        DankholdTroggboss::Init();
-        DankholdTroggoths::Init();
-        Skragrott::Init();
-        Loonboss::Init();
-        LoonbossOnGiantCaveSquig::Init();
-        LoonbossWithGiantCaveSquig::Init();
-        AleguzzlerGargant::Init();
-        SquigGobba::Init();
-        SpiderRiders::Init();
-        FellwaterTroggoths::Init();
-        FungoidCaveShaman::Init();
-        MadcapShaman::Init();
+        TroggothHag::Init();
         WebspinnerShaman::Init();
         WebspinnerShamanOnArachnarokSpider::Init();
-        ArachnarokSpiderWithFlinger::Init();
-        ArachnarokSpiderWithSpiderfangWarparty::Init();
-        SkitterstrandArachnarok::Init();
-        ScuttlebossOnGiganticSpider::Init();
-        SneakySnufflers::Init();
-        RippasSnarlfangs::Init();
         Zarbag::Init();
         ZarbagsGitz::Init();
-        LoonsmashaFanatics::Init();
-        SporesmashaFanatics::Init();
-        Mollog::Init();
-        Gobbapalooza::Init();
-        TroggothHag::Init();
     }
 
 } //namespace GloomspiteGitz

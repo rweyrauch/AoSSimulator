@@ -10,44 +10,44 @@
 #include <Roster.h>
 #include <magic_enum.hpp>
 
-#include "khorne/Bloodreavers.h"
+#include "khorne/AspiringDeathbringer.h"
+#include "khorne/BloodThrone.h"
 #include "khorne/BloodWarriors.h"
-#include "khorne/Bloodletters.h"
-#include "khorne/Skullreapers.h"
-#include "khorne/Wrathmongers.h"
-#include "khorne/Khorgoraths.h"
-#include "khorne/BloodthirsterOfUnfetteredFury.h"
-#include "khorne/BloodthirsterOfInsensateRage.h"
-#include "khorne/WrathOfKhorneBloodthirster.h"
-#include "khorne/Skarbrand.h"
-#include "khorne/Karanak.h"
-#include "khorne/FleshHounds.h"
-#include "khorne/Skulltaker.h"
-#include "khorne/Bloodmaster.h"
 #include "khorne/Bloodcrushers.h"
-#include "khorne/MightySkullcrushers.h"
-#include "khorne/Skullmaster.h"
-#include "khorne/VorgarothAndSkalok.h"
-#include "khorne/MightyLordOfKhorne.h"
-#include "khorne/Slaughterpriest.h"
-#include "khorne/KorghosKhul.h"
-#include "khorne/ExaltedDeathbringer.h"
+#include "khorne/Bloodletters.h"
+#include "khorne/Bloodmaster.h"
+#include "khorne/Bloodreavers.h"
 #include "khorne/Bloodsecrator.h"
 #include "khorne/Bloodstoker.h"
-#include "khorne/BloodThrone.h"
-#include "khorne/SkullCannons.h"
-#include "khorne/ValkiaTheBloody.h"
-#include "khorne/AspiringDeathbringer.h"
-#include "khorne/Skullgrinder.h"
-#include "khorne/ScylaAnfingrimm.h"
-#include "khorne/LordOfKhorneOnJuggernaut.h"
-#include "khorne/SkarrBloodwrath.h"
-#include "khorne/Riptooth.h"
-#include "khorne/MagoresFiends.h"
+#include "khorne/BloodthirsterOfInsensateRage.h"
+#include "khorne/BloodthirsterOfUnfetteredFury.h"
+#include "khorne/ExaltedDeathbringer.h"
 #include "khorne/ExaltedGreaterDaemon.h"
-#include "khorne/MazarallTheButcher.h"
-#include "khorne/SkaaracTheBloodborn.h"
+#include "khorne/FleshHounds.h"
 #include "khorne/GarreksReavers.h"
+#include "khorne/Karanak.h"
+#include "khorne/Khorgoraths.h"
+#include "khorne/KorghosKhul.h"
+#include "khorne/LordOfKhorneOnJuggernaut.h"
+#include "khorne/MagoresFiends.h"
+#include "khorne/MazarallTheButcher.h"
+#include "khorne/MightyLordOfKhorne.h"
+#include "khorne/MightySkullcrushers.h"
+#include "khorne/Riptooth.h"
+#include "khorne/ScylaAnfingrimm.h"
+#include "khorne/SkaaracTheBloodborn.h"
+#include "khorne/Skarbrand.h"
+#include "khorne/SkarrBloodwrath.h"
+#include "khorne/SkullCannons.h"
+#include "khorne/Skullgrinder.h"
+#include "khorne/Skullmaster.h"
+#include "khorne/Skullreapers.h"
+#include "khorne/Skulltaker.h"
+#include "khorne/Slaughterpriest.h"
+#include "khorne/ValkiaTheBloody.h"
+#include "khorne/VorgarothAndSkalok.h"
+#include "khorne/WrathOfKhorneBloodthirster.h"
+#include "khorne/Wrathmongers.h"
 
 namespace Khorne {
 
@@ -500,6 +500,7 @@ namespace Khorne {
 
     void Init() {
         AspiringDeathbringer::Init();
+        BloodWarriors::Init();
         Bloodcrushers::Init();
         Bloodletters::Init();
         Bloodmaster::Init();
@@ -508,7 +509,6 @@ namespace Khorne {
         Bloodstoker::Init();
         BloodthirsterOfInsensateRage::Init();
         BloodthirsterOfUnfetteredFury::Init();
-        BloodWarriors::Init();
         ExaltedDeathbringer::Init();
         ExaltedGreaterDaemonOfKhorne::Init();
         FleshHounds::Init();
@@ -535,8 +535,8 @@ namespace Khorne {
         Slaughterpriest::Init();
         ValkiaTheBloody::Init();
         VorgarothAndSkalok::Init();
-        Wrathmongers::Init();
         WrathOfKhorneBloodthirster::Init();
+        Wrathmongers::Init();
     }
 
 } //namespace Khorne

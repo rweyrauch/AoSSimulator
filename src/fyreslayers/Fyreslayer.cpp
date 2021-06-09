@@ -11,39 +11,39 @@
 #include <Roster.h>
 
 #include "fyreslayers/AuricHearthguard.h"
+#include "fyreslayers/AuricRunefather.h"
+#include "fyreslayers/AuricRunefatherOnMagmadroth.h"
+#include "fyreslayers/AuricRunemaster.h"
+#include "fyreslayers/AuricRunesmiter.h"
+#include "fyreslayers/AuricRunesmiterOnMagmadroth.h"
+#include "fyreslayers/AuricRuneson.h"
+#include "fyreslayers/AuricRunesonOnMagmadroth.h"
 #include "fyreslayers/Battlesmith.h"
 #include "fyreslayers/Doomseeker.h"
-#include "fyreslayers/HearthguardBerzerkers.h"
-#include "fyreslayers/GrimwrathBerzerker.h"
-#include "fyreslayers/VulkiteBerzerkers.h"
-#include "fyreslayers/AuricRunefather.h"
-#include "fyreslayers/AuricRunemaster.h"
-#include "fyreslayers/AuricRuneson.h"
-#include "fyreslayers/AuricRunesmiterOnMagmadroth.h"
-#include "fyreslayers/AuricRunesonOnMagmadroth.h"
-#include "fyreslayers/AuricRunefatherOnMagmadroth.h"
-#include "fyreslayers/AuricRunesmiter.h"
 #include "fyreslayers/FjulGrimnir.h"
+#include "fyreslayers/GrimwrathBerzerker.h"
+#include "fyreslayers/HearthguardBerzerkers.h"
 #include "fyreslayers/TheChosenAxes.h"
+#include "fyreslayers/VulkiteBerzerkers.h"
 
 namespace Fyreslayers {
 
     void Init() {
         AuricHearthguard::Init();
-        Battlesmith::Init();
-        GrimwrathBerzerker::Init();
-        HearthguardBerzerkers::Init();
-        Doomseeker::Init();
-        VulkiteBerzerkers::Init();
         AuricRunefather::Init();
+        AuricRunefatherOnMagmadroth::Init();
         AuricRunemaster::Init();
-        AuricRuneson::Init();
         AuricRunesmiter::Init();
         AuricRunesmiterOnMagmadroth::Init();
-        AuricRunefatherOnMagmadroth::Init();
+        AuricRuneson::Init();
         AuricRunesonOnMagmadroth::Init();
+        Battlesmith::Init();
+        Doomseeker::Init();
         FjulGrimnir::Init();
+        GrimwrathBerzerker::Init();
+        HearthguardBerzerkers::Init();
         TheChosenAxes::Init();
+        VulkiteBerzerkers::Init();
     }
 
     // Sorted in the order the runes are used.

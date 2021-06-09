@@ -11,37 +11,37 @@
 #include <Board.h>
 #include <Roster.h>
 
-#include "slaanesh/Fiends.h"
-#include "slaanesh/Seekers.h"
-#include "slaanesh/Daemonettes.h"
-#include "slaanesh/KeeperOfSecrets.h"
-#include "slaanesh/HellstridersWithClawspears.h"
-#include "slaanesh/HellstridersWithHellscourges.h"
-#include "slaanesh/ShalaxiHelbane.h"
 #include "slaanesh/BladebringerExaltedChariot.h"
 #include "slaanesh/BladebringerHellflayer.h"
 #include "slaanesh/BladebringerSeekerChariot.h"
-#include "slaanesh/ExaltedChariot.h"
-#include "slaanesh/Hellflayer.h"
-#include "slaanesh/SeekerChariots.h"
-#include "slaanesh/TheMasque.h"
-#include "slaanesh/Viceleader.h"
-#include "slaanesh/InfernalEnrapturess.h"
-#include "slaanesh/SyllEsske.h"
-#include "slaanesh/ContortedEpitome.h"
-#include "slaanesh/LordOfPain.h"
-#include "slaanesh/TheDreadPageant.h"
 #include "slaanesh/BlissbarbArchers.h"
 #include "slaanesh/BlissbarbSeekers.h"
+#include "slaanesh/ContortedEpitome.h"
+#include "slaanesh/Daemonettes.h"
+#include "slaanesh/Dexcessa.h"
+#include "slaanesh/ExaltedChariot.h"
+#include "slaanesh/Fiends.h"
+#include "slaanesh/GlutosOrscollion.h"
+#include "slaanesh/Hellflayer.h"
+#include "slaanesh/HellstridersWithClawspears.h"
+#include "slaanesh/HellstridersWithHellscourges.h"
+#include "slaanesh/InfernalEnrapturess.h"
+#include "slaanesh/KeeperOfSecrets.h"
+#include "slaanesh/LordOfPain.h"
 #include "slaanesh/MymideshPainbringers.h"
+#include "slaanesh/SeekerChariots.h"
+#include "slaanesh/Seekers.h"
+#include "slaanesh/ShalaxiHelbane.h"
 #include "slaanesh/Shardspeaker.h"
 #include "slaanesh/Sigvald.h"
 #include "slaanesh/SlaangorFiendbloods.h"
 #include "slaanesh/SlickbladeSeekers.h"
+#include "slaanesh/SyllEsske.h"
 #include "slaanesh/SymbareshTwinsouls.h"
-#include "slaanesh/GlutosOrscollion.h"
 #include "slaanesh/Synessa.h"
-#include "slaanesh/Dexcessa.h"
+#include "slaanesh/TheDreadPageant.h"
+#include "slaanesh/TheMasque.h"
+#include "slaanesh/Viceleader.h"
 
 namespace Slaanesh {
 
@@ -374,37 +374,37 @@ namespace Slaanesh {
     }
 
     void Init() {
-        Daemonettes::Init();
-        Fiends::Init();
-        Seekers::Init();
-        KeeperOfSecrets::Init();
-        HellstridersWithClawspears::Init();
-        HellstridersWithHellscourges::Init();
-        ShalaxiHelbane::Init();
         BladebringerOnExaltedChariot::Init();
         BladebringerOnHellflayer::Init();
         BladebringerOnSeekerChariot::Init();
-        ExaltedChariot::Init();
-        Hellflayer::Init();
-        SeekerChariots::Init();
-        TheMasque::Init();
-        ViceleaderHeraldOfSlaanesh::Init();
-        InfernalEnrapturess::Init();
-        SyllEsske::Init();
-        TheContortedEpitome::Init();
-        LordOfPain::Init();
-        TheDreadPageant::Init();
         BlissbarbArchers::Init();
         BlissbarbSeekers::Init();
+        Daemonettes::Init();
+        Dexcessa::Init();
+        ExaltedChariot::Init();
+        Fiends::Init();
+        GlutosOrscollion::Init();
+        Hellflayer::Init();
+        HellstridersWithClawspears::Init();
+        HellstridersWithHellscourges::Init();
+        InfernalEnrapturess::Init();
+        KeeperOfSecrets::Init();
+        LordOfPain::Init();
         MyrmideshPainbringers::Init();
+        SeekerChariots::Init();
+        Seekers::Init();
+        ShalaxiHelbane::Init();
         ShardspeakerOfSlaanesh::Init();
         SigvaldPrinceOfSlaanesh::Init();
         SlaangorFiendbloods::Init();
         SlickbladeSeekers::Init();
+        SyllEsske::Init();
         SymbareshTwinsouls::Init();
-        GlutosOrscollion::Init();
         Synessa::Init();
-        Dexcessa::Init();
+        TheContortedEpitome::Init();
+        TheDreadPageant::Init();
+        TheMasque::Init();
+        ViceleaderHeraldOfSlaanesh::Init();
     }
 
 } // namespace Slaanesh

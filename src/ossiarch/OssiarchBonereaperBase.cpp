@@ -10,22 +10,22 @@
 #include <magic_enum.hpp>
 #include "ossiarch/OssiarchBonereaperBase.h"
 
-#include "ossiarch/MortekGuard.h"
-#include "ossiarch/NecropolisStalkers.h"
-#include "ossiarch/Vokmortian.h"
-#include "ossiarch/ImmortisGuard.h"
-#include "ossiarch/KavalosDeathriders.h"
-#include "ossiarch/GothizzarHarvester.h"
-#include "ossiarch/MortekCrawler.h"
-#include "ossiarch/Katakros.h"
-#include "ossiarch/LiegeKavalos.h"
-#include "ossiarch/KavalosZandtos.h"
+#include "ossiarch/ArkhanTheBlack.h"
 #include "ossiarch/Boneshaper.h"
-#include "ossiarch/Soulmason.h"
-#include "ossiarch/Soulreaper.h"
+#include "ossiarch/GothizzarHarvester.h"
+#include "ossiarch/ImmortisGuard.h"
+#include "ossiarch/Katakros.h"
+#include "ossiarch/KavalosDeathriders.h"
+#include "ossiarch/KavalosZandtos.h"
+#include "ossiarch/LiegeKavalos.h"
 #include "ossiarch/MorghastArchai.h"
 #include "ossiarch/MorghastHarbingers.h"
-#include "ossiarch/ArkhanTheBlack.h"
+#include "ossiarch/MortekCrawler.h"
+#include "ossiarch/MortekGuard.h"
+#include "ossiarch/NecropolisStalkers.h"
+#include "ossiarch/Soulmason.h"
+#include "ossiarch/Soulreaper.h"
+#include "ossiarch/Vokmortian.h"
 #include "OssiarchBonereaperPrivate.h"
 
 namespace OssiarchBonereapers {
@@ -224,6 +224,7 @@ namespace OssiarchBonereapers {
         ArkhanTheBlack::Init();
         GothizzarHarvester::Init();
         ImmortisGuard::Init();
+        Katakros::Init();
         KavalosDeathriders::Init();
         LiegeKavalos::Init();
         MorghastArchai::Init();
@@ -234,7 +235,6 @@ namespace OssiarchBonereapers {
         MortisanSoulmason::Init();
         MortisanSoulreaper::Init();
         NecropolisStalkers::Init();
-        Katakros::Init();
         Vokmortian::Init();
     }
 

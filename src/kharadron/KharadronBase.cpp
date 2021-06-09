@@ -7,9 +7,11 @@
  */
 #include <magic_enum.hpp>
 #include "Roster.h"
-#include <kharadron/KharadronBase.h>
-#include <kharadron/AethericNavigator.h>
+#include <Board.h>
+#include "kharadron/BjorgenThundrik.h"
+#include "kharadron/ThundriksProfiteers.h"
 #include <kharadron/AetherKhemist.h>
+#include <kharadron/AethericNavigator.h>
 #include <kharadron/ArkanautAdmiral.h>
 #include <kharadron/ArkanautCompany.h>
 #include <kharadron/ArkanautFrigate.h>
@@ -20,10 +22,8 @@
 #include <kharadron/Endrinriggers.h>
 #include <kharadron/GrundstokGunhauler.h>
 #include <kharadron/GrundstokThunderers.h>
+#include <kharadron/KharadronBase.h>
 #include <kharadron/Skywardens.h>
-#include <Board.h>
-#include "kharadron/BjorgenThundrik.h"
-#include "kharadron/ThundriksProfiteers.h"
 
 namespace KharadronOverlords {
 
@@ -315,12 +315,13 @@ namespace KharadronOverlords {
     }
 
     void Init() {
-        AethericNavigator::Init();
         AetherKhemist::Init();
+        AethericNavigator::Init();
         ArkanautAdmiral::Init();
         ArkanautCompany::Init();
         ArkanautFrigate::Init();
         ArkanautIronclad::Init();
+        BjorgenThundrik::Init();
         BrokkGrungsson::Init();
         EndrinmasterWithDirigibleSuit::Init();
         EndrinmasterWithEndrinharness::Init();
@@ -328,7 +329,6 @@ namespace KharadronOverlords {
         GrundstokGunhauler::Init();
         GrundstokThunderers::Init();
         Skywardens::Init();
-        BjorgenThundrik::Init();
         ThundriksProfiteers::Init();
     }
 

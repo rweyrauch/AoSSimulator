@@ -8,38 +8,38 @@
 
 #include <seraphon/Seraphon.h>
 #include <Roster.h>
-#include "seraphon/DreadSaurian.h"
-#include "seraphon/SaurusGuard.h"
-#include "seraphon/SaurusKnights.h"
-#include "seraphon/SaurusWarriors.h"
-#include "seraphon/Skinks.h"
-#include "seraphon/SaurusOldblood.h"
-#include "seraphon/SaurusSunblood.h"
-#include "seraphon/SaurusOldbloodCarnosaur.h"
-#include "seraphon/SaurusVeteranCarnosaur.h"
-#include "seraphon/Troglodon.h"
 #include "seraphon/Bastiladon.h"
-#include "seraphon/Salamanders.h"
-#include "seraphon/Razordons.h"
-#include "seraphon/Kroxigor.h"
-#include "seraphon/RipperdactylRiders.h"
-#include "seraphon/TerradonRiders.h"
-#include "seraphon/Stegadon.h"
-#include "seraphon/EngineOfTheGods.h"
-#include "seraphon/SaurusVeteranColdOne.h"
 #include "seraphon/ChameleonSkinks.h"
-#include "seraphon/RipperdactylChief.h"
-#include "seraphon/TerradonChief.h"
-#include "seraphon/SaurusEternityWarden.h"
-#include "seraphon/SaurusAstrolithBearer.h"
-#include "seraphon/LordKroak.h"
-#include "seraphon/SkinkStarseer.h"
-#include "seraphon/SkinkStarpriest.h"
-#include "seraphon/SkinkPriest.h"
-#include "seraphon/SlannStarmaster.h"
-#include "seraphon/StarbloodStalkers.h"
+#include "seraphon/DreadSaurian.h"
+#include "seraphon/EngineOfTheGods.h"
 #include "seraphon/KixiTaka.h"
 #include "seraphon/KlaqTrok.h"
+#include "seraphon/Kroxigor.h"
+#include "seraphon/LordKroak.h"
+#include "seraphon/Razordons.h"
+#include "seraphon/RipperdactylChief.h"
+#include "seraphon/RipperdactylRiders.h"
+#include "seraphon/Salamanders.h"
+#include "seraphon/SaurusAstrolithBearer.h"
+#include "seraphon/SaurusEternityWarden.h"
+#include "seraphon/SaurusGuard.h"
+#include "seraphon/SaurusKnights.h"
+#include "seraphon/SaurusOldblood.h"
+#include "seraphon/SaurusOldbloodCarnosaur.h"
+#include "seraphon/SaurusSunblood.h"
+#include "seraphon/SaurusVeteranCarnosaur.h"
+#include "seraphon/SaurusVeteranColdOne.h"
+#include "seraphon/SaurusWarriors.h"
+#include "seraphon/SkinkPriest.h"
+#include "seraphon/SkinkStarpriest.h"
+#include "seraphon/SkinkStarseer.h"
+#include "seraphon/Skinks.h"
+#include "seraphon/SlannStarmaster.h"
+#include "seraphon/StarbloodStalkers.h"
+#include "seraphon/Stegadon.h"
+#include "seraphon/TerradonChief.h"
+#include "seraphon/TerradonRiders.h"
+#include "seraphon/Troglodon.h"
 #include "../AoSSimPrivate.h"
 #include "Board.h"
 #include "SeraphonLore.h"
@@ -279,38 +279,38 @@ namespace Seraphon {
     }
 
     void Init() {
-        DreadSaurian::Init();
-        SaurusGuard::Init();
-        SaurusKnights::Init();
-        SaurusWarriors::Init();
-        Skinks::Init();
-        SaurusOldblood::Init();
-        SaurusSunblood::Init();
-        SaurusOldbloodOnCarnosaur::Init();
-        SaurusScarVeteranOnCarnosaur::Init();
-        Salamanders::Init();
-        Razordons::Init();
-        Troglodon::Init();
         Bastiladon::Init();
-        Kroxigor::Init();
-        RipperdactylRiders::Init();
-        TerradonRiders::Init();
-        Stegadon::Init();
-        EngineOfTheGods::Init();
-        SaurusScarVeteranOnColdOne::Init();
         ChameleonSkinks::Init();
-        TerradonChief::Init();
-        RipperdactylChief::Init();
-        SaurusAstrolithBearer::Init();
-        SaurusEternityWarden::Init();
-        LordKroak::Init();
-        SkinkStarseer::Init();
-        SkinkPriest::Init();
-        SkinkStarpriest::Init();
-        SlannStarmaster::Init();
-        StarbloodStalkers::Init();
+        DreadSaurian::Init();
+        EngineOfTheGods::Init();
         KixiTakaTheDiviner::Init();
         KlaqTrok::Init();
+        Kroxigor::Init();
+        LordKroak::Init();
+        Razordons::Init();
+        RipperdactylChief::Init();
+        RipperdactylRiders::Init();
+        Salamanders::Init();
+        SaurusAstrolithBearer::Init();
+        SaurusEternityWarden::Init();
+        SaurusGuard::Init();
+        SaurusKnights::Init();
+        SaurusOldblood::Init();
+        SaurusOldbloodOnCarnosaur::Init();
+        SaurusScarVeteranOnCarnosaur::Init();
+        SaurusScarVeteranOnColdOne::Init();
+        SaurusSunblood::Init();
+        SaurusWarriors::Init();
+        SkinkPriest::Init();
+        SkinkStarpriest::Init();
+        SkinkStarseer::Init();
+        Skinks::Init();
+        SlannStarmaster::Init();
+        StarbloodStalkers::Init();
+        Stegadon::Init();
+        TerradonChief::Init();
+        TerradonRiders::Init();
+        Troglodon::Init();
     }
 
     class GiftFromTheHeavens : public CommandAbility {

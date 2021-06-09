@@ -72,6 +72,8 @@ enum Keyword {
     LUMINETH_REALM_LORDS,
     SONS_OF_BEHEMAT,
     CHAOS_ASCENDANT,
+    ORRUK_WARCLANS,
+    KRULEBOYZ,
 
     // Common
     MORTAL,
@@ -152,6 +154,7 @@ enum Keyword {
     KNIGHT_HERALDOR,
     KNIGHT_VENATOR,
     KNIGHT_VEXILLOR,
+    KNIGHT_ARCANUM,
     AVENTIS_FIRESTRIKE,
     ASTREIA_SOLBRIGHT,
     CELESTANT_PRIME,
@@ -729,6 +732,9 @@ enum Keyword {
     SAVAGE_BIG_BOSS,
     WURRGOG_PROPHET,
     BOARBOYS,
+
+    // Kruleboyz
+    KILLABOSS,
 
     // Ironjawz Warclans
     IRONSUNZ,

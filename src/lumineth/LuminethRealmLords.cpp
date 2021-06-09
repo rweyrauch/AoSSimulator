@@ -10,30 +10,30 @@
 #include <magic_enum.hpp>
 #include <Board.h>
 #include "Roster.h"
-#include "lumineth/AuralanWardens.h"
 #include "lumineth/AuralanSentinels.h"
-#include "lumineth/Dawnriders.h"
-#include "lumineth/Eltharion.h"
-#include "lumineth/Stoneguard.h"
-#include "lumineth/Stonemage.h"
-#include "lumineth/Cathallar.h"
-#include "lumineth/SpiritOfTheMountain.h"
-#include "lumineth/Teclis.h"
+#include "lumineth/AuralanWardens.h"
 #include "lumineth/Avalenor.h"
-#include "lumineth/MyariLightcaller.h"
-#include "lumineth/MyarisPurifiers.h"
 #include "lumineth/Bannerblade.h"
 #include "lumineth/Bladelords.h"
 #include "lumineth/Calligrave.h"
+#include "lumineth/Cathallar.h"
+#include "lumineth/Dawnriders.h"
 #include "lumineth/EllaniaAndEllathor.h"
+#include "lumineth/Eltharion.h"
+#include "lumineth/HurakanWindchargers.h"
 #include "lumineth/LordRegent.h"
 #include "lumineth/Loreseeker.h"
 #include "lumineth/LyriorUthralle.h"
+#include "lumineth/MyariLightcaller.h"
+#include "lumineth/MyarisPurifiers.h"
 #include "lumineth/Sevireth.h"
+#include "lumineth/SpiritOfTheMountain.h"
 #include "lumineth/SpiritOfTheWind.h"
 #include "lumineth/StarshardBallista.h"
+#include "lumineth/Stoneguard.h"
+#include "lumineth/Stonemage.h"
+#include "lumineth/Teclis.h"
 #include "lumineth/Windmage.h"
-#include "lumineth/HurakanWindchargers.h"
 #include "LuminethPrivate.h"
 
 namespace LuminethRealmLords {
@@ -283,22 +283,22 @@ namespace LuminethRealmLords {
         AlarithStoneguard::Init();
         AlarithStonemage::Init();
         ArchmageTeclis::Init();
-        AuralanWardens::Init();
         AuralanSentinels::Init();
+        AuralanWardens::Init();
         AvalenorTheStoneheartKing::Init();
         Dawnriders::Init();
         EllaniaAndEllathor::Init();
-        LyriorUthralle::Init();
-        TheLightOfEltharion::Init();
-        ScinariCathallar::Init();
-        ScinariCalligrave::Init();
-        ScinariLoreseeker::Init();
-        Sevireth::Init();
         HurakanSpiritOfTheWind::Init();
-        HurakanWindmage::Init();
         HurakanWindchargers::Init();
+        HurakanWindmage::Init();
+        LyriorUthralle::Init();
         MyariLigthcaller::Init();
         MyarisPurifiers::Init();
+        ScinariCalligrave::Init();
+        ScinariCathallar::Init();
+        ScinariLoreseeker::Init();
+        Sevireth::Init();
+        TheLightOfEltharion::Init();
         VanariBannerblade::Init();
         VanariBladelords::Init();
         VanariLordRegent::Init();

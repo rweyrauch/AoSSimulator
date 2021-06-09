@@ -11,12 +11,34 @@
 #include <Roster.h>
 #include <magic_enum.hpp>
 #include <spells/MysticShield.h>
+
+#include "soulblight/BlackKnights.h"
+#include "soulblight/BloodKnights.h"
+#include "soulblight/BloodseekerPalangquin.h"
+#include "soulblight/CorpseCartBrazier.h"
+#include "soulblight/CorpseCartLodestone.h"
+#include "soulblight/CovenThrone.h"
+#include "soulblight/DeathrattleSkeletons.h"
+#include "soulblight/DireWolves.h"
+#include "soulblight/FellBats.h"
+#include "soulblight/GraveGuard.h"
+#include "soulblight/Mannfred.h"
+#include "soulblight/MortisEngine.h"
+#include "soulblight/Nagash.h"
+#include "soulblight/Necromancer.h"
+#include "soulblight/Neferata.h"
+#include "soulblight/PrinceVhordrai.h"
+#include "soulblight/VampireLord.h"
+#include "soulblight/VampireLordOnDragon.h"
+#include "soulblight/Vargheists.h"
+#include "soulblight/WightKing.h"
+#include "soulblight/Zombies.h"
 #include <soulblight/BelladammaVolga.h>
 #include <soulblight/Gorslav.h>
 #include <soulblight/KosargiNightguard.h>
 #include <soulblight/Kritza.h>
-#include <soulblight/LaukaVai.h>
 #include <soulblight/LadyAnnika.h>
+#include <soulblight/LaukaVai.h>
 #include <soulblight/PrinceDuvalle.h>
 #include <soulblight/RadukarTheBeast.h>
 #include <soulblight/RadukarTheWolf.h>
@@ -29,28 +51,6 @@
 #include <soulblight/WatchCaptainHalgrim.h>
 #include <soulblight/WightKingOnSteed.h>
 #include <soulblight/ZombieDragon.h>
-
-#include "soulblight/Nagash.h"
-#include "soulblight/BlackKnights.h"
-#include "soulblight/BloodKnights.h"
-#include "soulblight/DireWolves.h"
-#include "soulblight/GraveGuard.h"
-#include "soulblight/DeathrattleSkeletons.h"
-#include "soulblight/Vargheists.h"
-#include "soulblight/Zombies.h"
-#include "soulblight/WightKing.h"
-#include "soulblight/Necromancer.h"
-#include "soulblight/BloodseekerPalangquin.h"
-#include "soulblight/CorpseCartBrazier.h"
-#include "soulblight/CorpseCartLodestone.h"
-#include "soulblight/CovenThrone.h"
-#include "soulblight/FellBats.h"
-#include "soulblight/Mannfred.h"
-#include "soulblight/MortisEngine.h"
-#include "soulblight/Neferata.h"
-#include "soulblight/PrinceVhordrai.h"
-#include "soulblight/VampireLord.h"
-#include "soulblight/VampireLordOnDragon.h"
 
 namespace Soulblight {
 

@@ -13,21 +13,21 @@
 #include <sylvaneth/AwakenedWyldwood.h>
 
 #include "sylvaneth/Alarielle.h"
-#include "sylvaneth/KurnothHunters.h"
-#include "sylvaneth/SpiritOfDurthu.h"
-#include "sylvaneth/Dryads.h"
-#include "sylvaneth/TreeRevenants.h"
-#include "sylvaneth/SpiteRevenants.h"
-#include "sylvaneth/DrychaHamadreth.h"
-#include "sylvaneth/Treelord.h"
-#include "sylvaneth/TreelordAncient.h"
+#include "sylvaneth/ArchRevenant.h"
 #include "sylvaneth/Branchwraith.h"
 #include "sylvaneth/Branchwych.h"
-#include "sylvaneth/ArchRevenant.h"
+#include "sylvaneth/Dryads.h"
+#include "sylvaneth/DrychaHamadreth.h"
+#include "sylvaneth/KurnothHunters.h"
 #include "sylvaneth/SkaethsWildHunt.h"
+#include "sylvaneth/SpiritOfDurthu.h"
+#include "sylvaneth/SpiteRevenants.h"
+#include "sylvaneth/TreeRevenants.h"
+#include "sylvaneth/Treelord.h"
+#include "sylvaneth/TreelordAncient.h"
+#include "sylvaneth/WarsongRevenant.h"
 #include "sylvaneth/Ylthari.h"
 #include "sylvaneth/YlthariGardians.h"
-#include "sylvaneth/WarsongRevenant.h"
 
 
 namespace Sylvaneth {
@@ -285,22 +285,22 @@ namespace Sylvaneth {
 
     void Init() {
         Alarielle::Init();
-        KurnothHunters::Init();
-        SpiritOfDurthu::Init();
-        Dryads::Init();
-        TreeRevenants::Init();
-        SpiteRevenants::Init();
-        DrychaHamadreth::Init();
-        Treelord::Init();
-        TreelordAncient::Init();
+        ArchRevenant::Init();
+        AwakenedWyldwood::Init();
         Branchwraith::Init();
         Branchwych::Init();
-        ArchRevenant::Init();
+        Dryads::Init();
+        DrychaHamadreth::Init();
+        KurnothHunters::Init();
         SkaethsWildHunt::Init();
+        SpiritOfDurthu::Init();
+        SpiteRevenants::Init();
+        TreeRevenants::Init();
+        Treelord::Init();
+        TreelordAncient::Init();
+        WarsongRevenant::Init();
         Ylthari::Init();
         YltharisGuardians::Init();
-        WarsongRevenant::Init();
-        AwakenedWyldwood::Init();
     }
 
 } //namespace Sylvaneth

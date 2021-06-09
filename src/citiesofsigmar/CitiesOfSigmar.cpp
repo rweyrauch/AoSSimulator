@@ -25,6 +25,7 @@
 #include "citiesofsigmar/DarkRiders.h"
 #include "citiesofsigmar/Darkshards.h"
 #include "citiesofsigmar/DemigryphKnights.h"
+#include "citiesofsigmar/DoraliaVenDenst.h"
 #include "citiesofsigmar/DrakespawnChariots.h"
 #include "citiesofsigmar/DrakespawnKnights.h"
 #include "citiesofsigmar/DreadlordOnBlackDragon.h"
@@ -42,6 +43,7 @@
 #include "citiesofsigmar/FreeguildOutriders.h"
 #include "citiesofsigmar/FreeguildPistoliers.h"
 #include "citiesofsigmar/FrostheartPhoenix.h"
+#include "citiesofsigmar/GalenVenDenst.h"
 #include "citiesofsigmar/Gyrobombers.h"
 #include "citiesofsigmar/Gyrocopters.h"
 #include "citiesofsigmar/Hammerers.h"
@@ -62,12 +64,10 @@
 #include "citiesofsigmar/Sorceress.h"
 #include "citiesofsigmar/SorceressOnBlackDragon.h"
 #include "citiesofsigmar/SteamTank.h"
-#include "citiesofsigmar/WardenKing.h"
 #include "citiesofsigmar/WarHydra.h"
+#include "citiesofsigmar/WardenKing.h"
 #include "citiesofsigmar/WildRiders.h"
 #include "citiesofsigmar/WildwoodRangers.h"
-#include "citiesofsigmar/DoraliaVenDenst.h"
-#include "citiesofsigmar/GalenVenDenst.h"
 #include "CoSLore.h"
 
 
@@ -519,8 +519,8 @@ namespace CitiesOfSigmar {
         Sorceress::Init();
         SorceressOnBlackDragon::Init();
         SteamTank::Init();
-        WardenKing::Init();
         WarHydra::Init();
+        WardenKing::Init();
         WildRiders::Init();
         WildwoodRangers::Init();
     }

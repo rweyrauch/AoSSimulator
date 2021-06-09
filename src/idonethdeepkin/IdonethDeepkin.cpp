@@ -8,20 +8,20 @@
 
 #include <idonethdeepkin/IdonethDeepkin.h>
 #include <magic_enum.hpp>
-#include "idonethdeepkin/NamartiThralls.h"
-#include "idonethdeepkin/NamartiReavers.h"
-#include "idonethdeepkin/IshlaenGuard.h"
-#include "idonethdeepkin/MorrsarrGuard.h"
-#include "idonethdeepkin/AkhelianLeviadon.h"
-#include "idonethdeepkin/AkhelianKing.h"
 #include "idonethdeepkin/AkhelianAllopexes.h"
+#include "idonethdeepkin/AkhelianKing.h"
+#include "idonethdeepkin/AkhelianLeviadon.h"
 #include "idonethdeepkin/EidolonSea.h"
 #include "idonethdeepkin/EidolonStorm.h"
-#include "idonethdeepkin/Volturnos.h"
-#include "idonethdeepkin/Lotann.h"
-#include "idonethdeepkin/IsharannSoulscryer.h"
 #include "idonethdeepkin/IsharannSoulrender.h"
+#include "idonethdeepkin/IsharannSoulscryer.h"
 #include "idonethdeepkin/IsharannTidecaster.h"
+#include "idonethdeepkin/IshlaenGuard.h"
+#include "idonethdeepkin/Lotann.h"
+#include "idonethdeepkin/MorrsarrGuard.h"
+#include "idonethdeepkin/NamartiReavers.h"
+#include "idonethdeepkin/NamartiThralls.h"
+#include "idonethdeepkin/Volturnos.h"
 
 namespace IdonethDeepkin {
 
@@ -110,20 +110,20 @@ namespace IdonethDeepkin {
     }
 
     void Init() {
-        NamartiThralls::Init();
-        NamartiReavers::Init();
-        AkhelianMorrsarrGuard::Init();
-        AkhelianIshlaenGuard::Init();
-        AkhelianLeviadon::Init();
-        AkhelianKing::Init();
         AkhelianAllopexes::Init();
-        Volturnos::Init();
+        AkhelianIshlaenGuard::Init();
+        AkhelianKing::Init();
+        AkhelianLeviadon::Init();
+        AkhelianMorrsarrGuard::Init();
         EidolonOfMathlannAspectOfTheSea::Init();
         EidolonOfMathlannAspectOfTheStorm::Init();
-        Lotann::Init();
-        IsharannSoulscryer::Init();
         IsharannSoulrender::Init();
+        IsharannSoulscryer::Init();
         IsharannTidecaster::Init();
+        Lotann::Init();
+        NamartiReavers::Init();
+        NamartiThralls::Init();
+        Volturnos::Init();
     }
 
 } //namespace IdonethDeepkin
