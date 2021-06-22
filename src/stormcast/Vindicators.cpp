@@ -5,39 +5,43 @@
  *
  * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
  */
-#include <stormcast/Annihilator.h>
+#include <algorithm>
 #include <UnitFactory.h>
+#include <stormcast/Vindicators.h>
 #include <iostream>
 #include "StormcastEternalsPrivate.h"
 
 namespace StormcastEternals {
     static const int g_basesize = 40;
-    static const int g_wounds = 3;
+    static const int g_wounds = 2;
     static const int g_minUnitSize = 5;
     static const int g_maxUnitSize = 20;
-    static const int g_pointsPerBlock = 190;
-    static const int g_pointsMaxUnitSize = g_pointsPerBlock * 4;
+    static const int g_pointsPerBlock = 140;
+    static const int g_pointsMaxUnitSize = 4 * g_pointsPerBlock;
 
-    bool Annihilators::s_registered = false;
+    bool Vindicators::s_registered = false;
 
-    Annihilators::Annihilators(Stormhost stormhost, int numModels, int points) :
-            StormcastEternal(stormhost, "Annihilators", 4, g_wounds, 7, 2, false, points) {
-        m_keywords = {ORDER, CELESTIAL, HUMAN, STORMCAST_ETERNAL, PALADIN, ANNIHILATORS};
-        m_weapons = {&m_hammer, &m_hammerChampion};
+    Vindicators::Vindicators(Stormhost stormhost, int numModels, int points) :
+            StormcastEternal(stormhost, "Vindicators", 5, g_wounds, 7, 3, false, points),
+            m_spear(Weapon::Type::Melee, "Stormspear", 2, 2, 3, 3, -1, 1),
+            m_spearPrime(Weapon::Type::Melee, "Stormspear", 2, 3, 3, 3, -1, 1) {
+        m_keywords = {ORDER, STORMCAST_ETERNAL, THUNDERSTRIKE, REDEEMER, VINDICTORS};
+        m_weapons = {&m_spear, &m_spearPrime};
+        m_battleFieldRole = Role::Battleline;
 
-        // Add the Champion
+        // Add the Prime
         auto primeModel = new Model(g_basesize, wounds());
-        primeModel->addMeleeWeapon(&m_hammerChampion);
+        primeModel->addMeleeWeapon(&m_spearPrime);
         addModel(primeModel);
 
         for (auto i = 1; i < numModels; i++) {
             auto model = new Model(g_basesize, wounds());
-            model->addMeleeWeapon(&m_hammer);
+            model->addMeleeWeapon(&m_spear);
             addModel(model);
         }
     }
 
-    Unit *Annihilators::Create(const ParameterList &parameters) {
+    Unit *Vindicators::Create(const ParameterList &parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto stormhost = (Stormhost) GetEnumParam("Stormhost", parameters, g_stormhost[0]);
 
@@ -46,10 +50,11 @@ namespace StormcastEternals {
             // Invalid model count.
             return nullptr;
         }
-        return new Annihilators(stormhost, numModels, ComputePoints(parameters));
+
+        return new Vindicators(stormhost, numModels, ComputePoints(parameters));
     }
 
-    void Annihilators::Init() {
+    void Vindicators::Init() {
         if (!s_registered) {
             static FactoryMethod factoryMethod = {
                     Create,
@@ -58,17 +63,17 @@ namespace StormcastEternals {
                     ComputePoints,
                     {
                             IntegerParameter("Models", g_minUnitSize, g_minUnitSize, g_maxUnitSize, g_minUnitSize),
-                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost)
+                            EnumParameter("Stormhost", g_stormhost[0], g_stormhost),
                     },
                     ORDER,
                     {STORMCAST_ETERNAL}
             };
 
-            s_registered = UnitFactory::Register("Annihilators", factoryMethod);
+            s_registered = UnitFactory::Register("Vindicators", factoryMethod);
         }
     }
 
-    int Annihilators::ComputePoints(const ParameterList& parameters) {
+    int Vindicators::ComputePoints(const ParameterList& parameters) {
         int numModels = GetIntParam("Models", parameters, g_minUnitSize);
         auto points = numModels / g_minUnitSize * g_pointsPerBlock;
         if (numModels == g_maxUnitSize) {

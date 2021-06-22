@@ -8,38 +8,40 @@
 #pragma once
 
 #include <stormcast/StormcastEternals.h>
-#include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
+#include <UnitFactory.h>
 
 namespace StormcastEternals {
 
-    class KnightArcanum : public StormcastEternal {
+    class Vindicators : public StormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
 
-        static void Init();
-
         static int ComputePoints(const ParameterList& parameters);
 
-        KnightArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        static void Init();
 
-        ~KnightArcanum() override = default;
+        Vindicators(Stormhost stormhost, int numModels, int points);
+
+        ~Vindicators() override = default;
 
     protected:
 
     private:
 
-        Weapon m_stave;
+        Weapon m_spear,
+                m_spearPrime;
 
         static bool s_registered;
+
     };
 
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Indomitable Loreseekers          TODO
-// Blaze of the Heavens             TODO
+// Standard Bearer                  TODO
+// Stormsoul Arsenal                TODO
 //
 
 } // namespace StormcastEternals

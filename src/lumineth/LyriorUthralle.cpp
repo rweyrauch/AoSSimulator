@@ -48,7 +48,7 @@ namespace LuminethRealmLords {
 
     LyriorUthralle::LyriorUthralle(Lore lore, bool isGeneral) :
             LuminethBase(GreatNation::Ymetrica, "Lyrior Uthralle", 16, g_wounds, 9, 3, false, g_pointsPerUnit) {
-        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, WIZARD, LORD_REGENT, Sunmetal_Weapons};
+        m_keywords = {ORDER, AELF, LUMINETH_REALM_LORDS, VANARI, HERO, WIZARD, LORD_REGENT, LYRIOR_UTHRALLE, Sunmetal_Weapons};
         m_weapons = {&m_daemonbane, &m_daemonbaneMelee, &m_sword, &m_hornsAndClaws};
         m_battleFieldRole = Role::Leader;
         m_hasMount = true;

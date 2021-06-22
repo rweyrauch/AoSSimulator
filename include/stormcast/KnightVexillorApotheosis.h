@@ -8,12 +8,11 @@
 #pragma once
 
 #include <stormcast/StormcastEternals.h>
-#include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class KnightArcanum : public StormcastEternal {
+    class KnightVexillorApotheosis : public StormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -22,15 +21,15 @@ namespace StormcastEternals {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        KnightArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        KnightVexillorApotheosis(Stormhost stormhost, CommandTrait trait, Artefact artefact, bool isGeneral);
 
-        ~KnightArcanum() override = default;
+        ~KnightVexillorApotheosis() = default;
 
     protected:
 
     private:
 
-        Weapon m_stave;
+        Weapon m_warblade;
 
         static bool s_registered;
     };
@@ -38,8 +37,8 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Indomitable Loreseekers          TODO
-// Blaze of the Heavens             TODO
+// The Banner of the Reforged       TODO
+// Soul-charged Icon                TODO
 //
 
 } // namespace StormcastEternals

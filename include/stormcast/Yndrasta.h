@@ -8,12 +8,11 @@
 #pragma once
 
 #include <stormcast/StormcastEternals.h>
-#include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class KnightArcanum : public StormcastEternal {
+    class Yndrasta : public StormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
@@ -22,15 +21,16 @@ namespace StormcastEternals {
 
         static int ComputePoints(const ParameterList& parameters);
 
-        KnightArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        Yndrasta(Stormhost stormhost, bool isGeneral);
 
-        ~KnightArcanum() override = default;
+        ~Yndrasta() override = default;
 
     protected:
 
     private:
 
-        Weapon m_stave;
+        Weapon  m_thengavar{Weapon::Type::Missile, "Thengavar", 18, 1, 2, 2, -2, RAND_D6},
+                m_blade{Weapon::Type::Melee, "Blade of the High Heavens", 1, 4, 3, 2, -2, 3};
 
         static bool s_registered;
     };
@@ -38,8 +38,10 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Indomitable Loreseekers          TODO
-// Blaze of the Heavens             TODO
+// The Prime Huntress               TODO
+// Champion of Sigmar               TODO
+// Dazzling Radiance                TODO
+// Hawk of the Celestial Skies      TODO
 //
 
 } // namespace StormcastEternals

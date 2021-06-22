@@ -12,6 +12,7 @@
 #include <Board.h>
 
 #include "kruleboyz/Killaboss.h"
+#include "kruleboyz/KillabossOnGnashtoof.h"
 
 namespace Kruleboyz {
 
@@ -26,6 +27,7 @@ namespace Kruleboyz {
 
     void Init() {
         Killaboss::Init();
+        KillabossOnGnashtoof::Init();
     }
 
 } // namespace Ironjawz

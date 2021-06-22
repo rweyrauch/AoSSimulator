@@ -46,7 +46,7 @@ namespace Soulblight {
     LadyAnnika::LadyAnnika(bool isGeneral) :
             SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Lady Annika The Thirsting Blade", 6, g_wounds, 10, 4, false, g_pointsPerUnit) {
 
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, HERO, BELLADAMMA_VOLGA};
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, HERO, LADY_ANNIKA};
         m_weapons = {&m_blade};
         m_battleFieldRole = Role::Leader;
 

@@ -7,30 +7,29 @@
  */
 #pragma once
 
-#include <stormcast/StormcastEternals.h>
-#include <stormcast/LoreOfTheStorm.h>
-#include <Weapon.h>
+#include <kruleboyz/KruleBoyz.h>
 
-namespace StormcastEternals {
+namespace Kruleboyz {
 
-    class KnightArcanum : public StormcastEternal {
+    class KillabossOnGnashtoof : public Kruleboyz {
     public:
 
         static Unit *Create(const ParameterList &parameters);
 
-        static void Init();
-
         static int ComputePoints(const ParameterList& parameters);
 
-        KnightArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        static void Init();
 
-        ~KnightArcanum() override = default;
+        KillabossOnGnashtoof(Warclan warclan, CommandTrait trait, Artefact artefact, bool isGeneral);
+
+        ~KillabossOnGnashtoof() override = default;
 
     protected:
 
     private:
 
-        Weapon m_stave;
+        Weapon  m_stikka{Weapon::Type::Melee, "Jagged Boss-Stikka", 1, 4, 3, 3, -1, 2},
+                m_fangs{Weapon::Type::Melee, "Bone-Crushing Fangs", 1, 4, 3, 3, -2, 2};
 
         static bool s_registered;
     };
@@ -38,8 +37,6 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Indomitable Loreseekers          TODO
-// Blaze of the Heavens             TODO
 //
 
-} // namespace StormcastEternals
+} // namespace Kruleboyz

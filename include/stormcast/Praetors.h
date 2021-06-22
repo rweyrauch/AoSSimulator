@@ -8,29 +8,29 @@
 #pragma once
 
 #include <stormcast/StormcastEternals.h>
-#include <stormcast/LoreOfTheStorm.h>
 #include <Weapon.h>
 
 namespace StormcastEternals {
 
-    class KnightArcanum : public StormcastEternal {
+    class Praetors : public StormcastEternal {
     public:
 
         static Unit *Create(const ParameterList &parameters);
 
-        static void Init();
-
         static int ComputePoints(const ParameterList& parameters);
 
-        KnightArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral);
+        static void Init();
 
-        ~KnightArcanum() override = default;
+        Praetors(Stormhost stormhost, int numModels, int points);
+
+        ~Praetors() override = default;
 
     protected:
 
     private:
 
-        Weapon m_stave;
+        Weapon  m_halberd{Weapon::Type::Melee, "Soulguard's Halberd", 1, 3, 3, 3, -1, 2},
+                m_halberdChampion{Weapon::Type::Melee, "Soulguard's Halberd", 1, 4, 3, 3, -1, 2};
 
         static bool s_registered;
     };
@@ -38,8 +38,7 @@ namespace StormcastEternals {
 //
 // Abilities                    Implemented
 // -------------------------------------------
-// Indomitable Loreseekers          TODO
-// Blaze of the Heavens             TODO
+// Soul-forged Guardians            TODO
 //
 
 } // namespace StormcastEternals

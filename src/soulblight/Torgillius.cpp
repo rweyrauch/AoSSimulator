@@ -52,7 +52,7 @@ namespace Soulblight {
     TorgilliusTheChamberlain::TorgilliusTheChamberlain(Lore lore, bool isGeneral) :
         SoulblightBase(CursedBloodline::Vyrkos_Dynasty, "Torgillius The Chamberlain", 5, g_wounds, 10, 6, false, g_pointsPerUnit) {
 
-        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, HERO, WIZARD, BELLADAMMA_VOLGA};
+        m_keywords = {DEATH, VAMPIRE, SOULBLIGHT_GRAVELORDS, VYRKOS_DYNASTY, HERO, WIZARD, TORGILLIUS_THE_CHAMBERLAIN};
         m_weapons = {&m_clawsAndFangs};
         m_battleFieldRole = Role::Leader;
         m_totalSpells = 1;

@@ -154,6 +154,7 @@ enum Keyword {
     KNIGHT_HERALDOR,
     KNIGHT_VENATOR,
     KNIGHT_VEXILLOR,
+    KNIGHT_VEXILLOR_WITH_BANNER_OF_APOTHEOSIS,
     KNIGHT_ARCANUM,
     AVENTIS_FIRESTRIKE,
     ASTREIA_SOLBRIGHT,
@@ -171,6 +172,9 @@ enum Keyword {
     ANNIHILATORS,
     LORD_IMPERATANT,
     THUNDERSTRIKE,
+    YNDRASTRA,
+    VINDICTORS,
+    PRAETORS,
 
     // Stormcast Stormhosts
     HAMMERS_OF_SIGMAR,
@@ -246,7 +250,6 @@ enum Keyword {
     TREELORD,
     BRANCHWYCH,
     BRANCHWRAITH,
-    SYLVANETH_WILDWOOD,
     FREE_SPIRITS,
     FOREST_FOLK,
     NOBLE_SPIRITS,
@@ -519,11 +522,9 @@ enum Keyword {
     BLACK_KNIGHTS,
     SKELETON,
     GRAVE_GUARD,
-    SKELETON_WARRIORS,
     BLOOD_KNIGHTS,
     VAMPIRE,
     VARGHEISTS,
-    ZOMBIE,
     DIRE_WOLVES,
     CORPSE_CARTS,
     WIGHT_KING,
@@ -533,7 +534,6 @@ enum Keyword {
     MORGHAST_HARBINGERS,
     ARKHAN,
     NAGASH,
-    BAT_SWARMS,
     FELL_BATS,
     MANNFRED,
     NEFERATA,
@@ -607,18 +607,6 @@ enum Keyword {
     SISTERS_OF_THE_THORN,
     SISTERS_OF_THE_WATCH,
     WILDWOOD_RANGERS,
-
-    // Dispossessed
-    WARRIORS,
-    HAMMERERS,
-    QUARRELLERS,
-    LONGBEARDS,
-    THUNDERERS,
-    IRONBREAKERS,
-    IRONDRAKES,
-    UNFORGED,
-    WARDEN_KING,
-    RUNELORD,
 
     // Skaven
     SKAVENTIDE,
@@ -735,6 +723,7 @@ enum Keyword {
 
     // Kruleboyz
     KILLABOSS,
+    GNASHTOOF,
 
     // Ironjawz Warclans
     IRONSUNZ,
@@ -946,6 +935,12 @@ enum Keyword {
     WITCH_HUNTER,
     DORALIA_VEN_DENST,
     GALEN_VEN_DENST,
+    HAMMERERS,
+    LONGBEARDS,
+    IRONBREAKERS,
+    IRONDRAKES,
+    WARDEN_KING,
+    RUNELORD,
 
     // Ogor Mawtribes
     OGOR,

@@ -34,6 +34,7 @@
 #include "stormcast/KnightQuestor.h"
 #include "stormcast/KnightVenator.h"
 #include "stormcast/KnightVexillor.h"
+#include "stormcast/KnightVexillorApotheosis.h"
 #include "stormcast/KnightZephyros.h"
 #include "stormcast/Liberators.h"
 #include "stormcast/LordAquilor.h"
@@ -52,6 +53,7 @@
 #include "stormcast/LordVeritant.h"
 #include "stormcast/LynusGhalmorian.h"
 #include "stormcast/NeaveBlacktalon.h"
+#include "stormcast/Praetors.h"
 #include "stormcast/Prosecutors.h"
 #include "stormcast/Protectors.h"
 #include "stormcast/Retributors.h"
@@ -65,6 +67,8 @@
 #include "stormcast/VanguardPalladors.h"
 #include "stormcast/VanguardRaptorsHurricane.h"
 #include "stormcast/VanguardRaptorsLongstrike.h"
+#include "stormcast/Vindicators.h"
+#include "stormcast/Yndrasta.h"
 #include "StormcastEternalsPrivate.h"
 
 
@@ -458,6 +462,7 @@ namespace StormcastEternals {
         KnightQuestor::Init();
         KnightVenator::Init();
         KnightVexillor::Init();
+        KnightVexillorApotheosis::Init();
         KnightZephyros::Init();
         Liberators::Init();
         LordAquilor::Init();
@@ -476,6 +481,7 @@ namespace StormcastEternals {
         LordVeritant::Init();
         LynusGhalmorianOnGryphcharger::Init();
         NeaveBlacktalon::Init();
+        Praetors::Init();
         Prosecutors::Init();
         Protectors::Init();
         Retributors::Init();
@@ -489,6 +495,8 @@ namespace StormcastEternals {
         VanguardPalladors::Init();
         VanguardRaptorsHurricane::Init();
         VanguardRaptorsLongstrike::Init();
+        Vindicators::Init();
+        Yndrasta::Init();
     }
 
     bool DoSpiritFlasks(Unit *owner) {

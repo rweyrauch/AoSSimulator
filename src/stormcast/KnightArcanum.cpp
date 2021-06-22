@@ -16,14 +16,14 @@
 namespace StormcastEternals {
     static const int g_basesize = 40;
     static const int g_wounds = 6;
-    static const int g_pointsPerUnit = 0;
+    static const int g_pointsPerUnit = 150;
 
     bool KnightArcanum::s_registered = false;
 
     KnightArcanum::KnightArcanum(Stormhost stormhost, Lore lore, CommandTrait trait, Artefact artefact, bool isGeneral) :
             StormcastEternal(stormhost, "Knight-Arcanum", 5, g_wounds, 9, 3, false, g_pointsPerUnit),
             m_stave(Weapon::Type::Melee, "Stave", 2, 4, 3, 3, -1, RAND_D3) {
-        m_keywords = {ORDER, CELESTIAL, THUNDERSTRIKE, STORMCAST_ETERNAL, HERO, WIZARD, LORD_ARCANUM};
+        m_keywords = {ORDER, CELESTIAL, THUNDERSTRIKE, STORMCAST_ETERNAL, HERO, WIZARD, KNIGHT_ARCANUM};
         m_weapons = {&m_stave};
         m_battleFieldRole = Role::Leader;
 
